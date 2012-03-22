@@ -36,6 +36,7 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionContentException;
 import com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionTitleException;
 import com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException;
@@ -43,6 +44,7 @@ import com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition;
 import com.liferay.portal.workflow.kaleo.designer.service.KaleoDraftDefinitionLocalServiceUtil;
 import com.liferay.portal.workflow.kaleo.designer.util.KaleoDesignerUtil;
 import com.liferay.portal.workflow.kaleo.designer.util.WebKeys;
+import com.liferay.portlet.dynamicdatamapping.model.DDMStructure;
 import com.liferay.portlet.dynamicdatamapping.model.DDMTemplate;
 import com.liferay.portlet.dynamicdatamapping.model.DDMTemplateConstants;
 import com.liferay.portlet.dynamicdatamapping.service.DDMTemplateLocalServiceUtil;
@@ -337,14 +339,17 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
+		long classNameId = PortalUtil.getClassNameId(DDMStructure.class);
+
 		long ddmStructureId = ParamUtil.getLong(
 			resourceRequest, "ddmStructureId");
 		String keywords = ParamUtil.getString(resourceRequest, "keywords");
 
 		List<DDMTemplate> ddmTemplates = DDMTemplateLocalServiceUtil.search(
 			themeDisplay.getCompanyId(), themeDisplay.getScopeGroupId(),
-			ddmStructureId, keywords, DDMTemplateConstants.TEMPLATE_TYPE_DETAIL,
-			null, 0, SearchContainer.DEFAULT_DELTA, (OrderByComparator)null);
+			classNameId, ddmStructureId, keywords,
+			DDMTemplateConstants.TEMPLATE_TYPE_DETAIL, null, 0,
+			SearchContainer.DEFAULT_DELTA, (OrderByComparator)null);
 
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
