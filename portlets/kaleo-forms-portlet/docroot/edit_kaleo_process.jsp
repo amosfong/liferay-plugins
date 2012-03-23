@@ -196,6 +196,8 @@ if (kaleoProcess != null) {
 	function <portlet:namespace />openDDMPortlet(strutsAction, ddmStructureId, ddmTemplateId, chooseCallback, saveCallback) {
 		Liferay.Util.openDDMPortlet(
 			{
+				classNameId: <%= PortalUtil.getClassNameId(DDMStructure.class) %>,
+				classPK: ddmStructureId,
 				chooseCallback: chooseCallback,
 				ddmResource: '<%= portletConfig.getInitParameter("ddm-resource") %>',
 				dialog: {
@@ -204,7 +206,6 @@ if (kaleoProcess != null) {
 				saveCallback: saveCallback,
 				showManageTemplates: 'false',
 				storageType: 'xml',
-				structureId: ddmStructureId,
 				structureName: 'entry-definition',
 				structureType: 'com.liferay.portlet.dynamicdatalists.model.DDLRecordSet',
 				struts_action: strutsAction,
