@@ -339,16 +339,14 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 		ThemeDisplay themeDisplay = (ThemeDisplay)resourceRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		long classNameId = PortalUtil.getClassNameId(DDMStructure.class);
-
 		long ddmStructureId = ParamUtil.getLong(
 			resourceRequest, "ddmStructureId");
 		String keywords = ParamUtil.getString(resourceRequest, "keywords");
 
 		List<DDMTemplate> ddmTemplates = DDMTemplateLocalServiceUtil.search(
 			themeDisplay.getCompanyId(), themeDisplay.getScopeGroupId(),
-			classNameId, ddmStructureId, keywords,
-			DDMTemplateConstants.TEMPLATE_TYPE_DETAIL, null, 0,
+			PortalUtil.getClassNameId(DDMStructure.class), ddmStructureId,
+			keywords, DDMTemplateConstants.TEMPLATE_TYPE_DETAIL, null, 0,
 			SearchContainer.DEFAULT_DELTA, (OrderByComparator)null);
 
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
