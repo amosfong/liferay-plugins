@@ -23,87 +23,87 @@ import java.util.Arrays;
  */
 public class SalesforceLeadLocalServiceClpInvoker {
 	public SalesforceLeadLocalServiceClpInvoker() {
-		_methodName30 = "getBeanIdentifier";
+		_methodName26 = "getBeanIdentifier";
 
-		_methodParameterTypes30 = new String[] {  };
+		_methodParameterTypes26 = new String[] {  };
 
-		_methodName31 = "setBeanIdentifier";
+		_methodName27 = "setBeanIdentifier";
 
-		_methodParameterTypes31 = new String[] { "java.lang.String" };
+		_methodParameterTypes27 = new String[] { "java.lang.String" };
 
-		_methodName34 = "getLeadsByCountry";
+		_methodName30 = "getLeadsByCountry";
+
+		_methodParameterTypes30 = new String[] {
+				"long", "java.lang.String", "java.util.List"
+			};
+
+		_methodName31 = "getLeadsBySource";
+
+		_methodParameterTypes31 = new String[] {
+				"long", "java.lang.String", "java.util.List"
+			};
+
+		_methodName32 = "getLeadsByStatus";
+
+		_methodParameterTypes32 = new String[] {
+				"long", "java.lang.String", "java.util.List"
+			};
+
+		_methodName33 = "getLeadsByUserId";
+
+		_methodParameterTypes33 = new String[] {
+				"long", "java.lang.String", "java.util.List"
+			};
+
+		_methodName34 = "getLeadsByUserName";
 
 		_methodParameterTypes34 = new String[] {
-				"long", "java.lang.String", "java.util.List"
-			};
-
-		_methodName35 = "getLeadsBySource";
-
-		_methodParameterTypes35 = new String[] {
-				"long", "java.lang.String", "java.util.List"
-			};
-
-		_methodName36 = "getLeadsByStatus";
-
-		_methodParameterTypes36 = new String[] {
-				"long", "java.lang.String", "java.util.List"
-			};
-
-		_methodName37 = "getLeadsByUserId";
-
-		_methodParameterTypes37 = new String[] {
-				"long", "java.lang.String", "java.util.List"
-			};
-
-		_methodName38 = "getLeadsByUserName";
-
-		_methodParameterTypes38 = new String[] {
 				"long", "java.lang.String", "java.util.List"
 			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
 		Object[] arguments) throws Throwable {
-		if (_methodName30.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes30, parameterTypes)) {
+		if (_methodName26.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes26, parameterTypes)) {
 			return SalesforceLeadLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName31.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes31, parameterTypes)) {
+		if (_methodName27.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes27, parameterTypes)) {
 			SalesforceLeadLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName34.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes34, parameterTypes)) {
+		if (_methodName30.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes30, parameterTypes)) {
 			return SalesforceLeadLocalServiceUtil.getLeadsByCountry(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1],
 				(java.util.List<java.lang.String>)arguments[2]);
 		}
 
-		if (_methodName35.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes35, parameterTypes)) {
+		if (_methodName31.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes31, parameterTypes)) {
 			return SalesforceLeadLocalServiceUtil.getLeadsBySource(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1],
 				(java.util.List<java.lang.String>)arguments[2]);
 		}
 
-		if (_methodName36.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes36, parameterTypes)) {
+		if (_methodName32.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes32, parameterTypes)) {
 			return SalesforceLeadLocalServiceUtil.getLeadsByStatus(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1],
 				(java.util.List<java.lang.String>)arguments[2]);
 		}
 
-		if (_methodName37.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes37, parameterTypes)) {
+		if (_methodName33.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes33, parameterTypes)) {
 			return SalesforceLeadLocalServiceUtil.getLeadsByUserId(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1],
 				(java.util.List<java.lang.String>)arguments[2]);
 		}
 
-		if (_methodName38.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes38, parameterTypes)) {
+		if (_methodName34.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes34, parameterTypes)) {
 			return SalesforceLeadLocalServiceUtil.getLeadsByUserName(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1],
 				(java.util.List<java.lang.String>)arguments[2]);
@@ -112,18 +112,18 @@ public class SalesforceLeadLocalServiceClpInvoker {
 		throw new UnsupportedOperationException();
 	}
 
+	private String _methodName26;
+	private String[] _methodParameterTypes26;
+	private String _methodName27;
+	private String[] _methodParameterTypes27;
 	private String _methodName30;
 	private String[] _methodParameterTypes30;
 	private String _methodName31;
 	private String[] _methodParameterTypes31;
+	private String _methodName32;
+	private String[] _methodParameterTypes32;
+	private String _methodName33;
+	private String[] _methodParameterTypes33;
 	private String _methodName34;
 	private String[] _methodParameterTypes34;
-	private String _methodName35;
-	private String[] _methodParameterTypes35;
-	private String _methodName36;
-	private String[] _methodParameterTypes36;
-	private String _methodName37;
-	private String[] _methodParameterTypes37;
-	private String _methodName38;
-	private String[] _methodParameterTypes38;
 }

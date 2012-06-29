@@ -23,61 +23,61 @@ import java.util.Arrays;
  */
 public class SalesforceOpportunityLocalServiceClpInvoker {
 	public SalesforceOpportunityLocalServiceClpInvoker() {
-		_methodName30 = "getBeanIdentifier";
+		_methodName26 = "getBeanIdentifier";
 
-		_methodParameterTypes30 = new String[] {  };
+		_methodParameterTypes26 = new String[] {  };
 
-		_methodName31 = "setBeanIdentifier";
+		_methodName27 = "setBeanIdentifier";
 
-		_methodParameterTypes31 = new String[] { "java.lang.String" };
+		_methodParameterTypes27 = new String[] { "java.lang.String" };
 
-		_methodName34 = "getOpportunitiesByAccountId";
+		_methodName30 = "getOpportunitiesByAccountId";
 
-		_methodParameterTypes34 = new String[] {
+		_methodParameterTypes30 = new String[] {
 				"long", "java.lang.String", "java.util.List"
 			};
 
-		_methodName35 = "getOpportunitiesByUserId";
+		_methodName31 = "getOpportunitiesByUserId";
 
-		_methodParameterTypes35 = new String[] {
+		_methodParameterTypes31 = new String[] {
 				"long", "java.lang.String", "java.util.List"
 			};
 
-		_methodName36 = "getOpportunitiesByUserName";
+		_methodName32 = "getOpportunitiesByUserName";
 
-		_methodParameterTypes36 = new String[] {
+		_methodParameterTypes32 = new String[] {
 				"long", "java.lang.String", "java.util.List"
 			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
 		Object[] arguments) throws Throwable {
-		if (_methodName30.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes30, parameterTypes)) {
+		if (_methodName26.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes26, parameterTypes)) {
 			return SalesforceOpportunityLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName31.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes31, parameterTypes)) {
+		if (_methodName27.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes27, parameterTypes)) {
 			SalesforceOpportunityLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName34.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes34, parameterTypes)) {
+		if (_methodName30.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes30, parameterTypes)) {
 			return SalesforceOpportunityLocalServiceUtil.getOpportunitiesByAccountId(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1],
 				(java.util.List<java.lang.String>)arguments[2]);
 		}
 
-		if (_methodName35.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes35, parameterTypes)) {
+		if (_methodName31.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes31, parameterTypes)) {
 			return SalesforceOpportunityLocalServiceUtil.getOpportunitiesByUserId(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1],
 				(java.util.List<java.lang.String>)arguments[2]);
 		}
 
-		if (_methodName36.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes36, parameterTypes)) {
+		if (_methodName32.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes32, parameterTypes)) {
 			return SalesforceOpportunityLocalServiceUtil.getOpportunitiesByUserName(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1],
 				(java.util.List<java.lang.String>)arguments[2]);
@@ -86,14 +86,14 @@ public class SalesforceOpportunityLocalServiceClpInvoker {
 		throw new UnsupportedOperationException();
 	}
 
+	private String _methodName26;
+	private String[] _methodParameterTypes26;
+	private String _methodName27;
+	private String[] _methodParameterTypes27;
 	private String _methodName30;
 	private String[] _methodParameterTypes30;
 	private String _methodName31;
 	private String[] _methodParameterTypes31;
-	private String _methodName34;
-	private String[] _methodParameterTypes34;
-	private String _methodName35;
-	private String[] _methodParameterTypes35;
-	private String _methodName36;
-	private String[] _methodParameterTypes36;
+	private String _methodName32;
+	private String[] _methodParameterTypes32;
 }

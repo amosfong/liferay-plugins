@@ -16,7 +16,6 @@ package com.liferay.reports.model;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
@@ -327,13 +326,8 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 				currentThread.setContextClassLoader(portalClassLoader);
 			}
 
-			Locale[] locales = LanguageUtil.getAvailableLocales();
-
-			for (Locale locale : locales) {
-				String name = nameMap.get(locale);
-
-				setName(name, locale, defaultLocale);
-			}
+			setName(LocalizationUtil.updateLocalization(nameMap, getName(),
+					"Name", LocaleUtil.toLanguageId(defaultLocale)));
 		}
 		finally {
 			if (contextClassLoader != portalClassLoader) {

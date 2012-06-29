@@ -23,58 +23,58 @@ import java.util.Arrays;
  */
 public class KaleoProcessLinkServiceClpInvoker {
 	public KaleoProcessLinkServiceClpInvoker() {
-		_methodName28 = "getBeanIdentifier";
+		_methodName24 = "getBeanIdentifier";
 
-		_methodParameterTypes28 = new String[] {  };
+		_methodParameterTypes24 = new String[] {  };
 
-		_methodName29 = "setBeanIdentifier";
+		_methodName25 = "setBeanIdentifier";
 
-		_methodParameterTypes29 = new String[] { "java.lang.String" };
+		_methodParameterTypes25 = new String[] { "java.lang.String" };
 
-		_methodName34 = "fetchKaleoProcessLink";
+		_methodName30 = "fetchKaleoProcessLink";
 
-		_methodParameterTypes34 = new String[] { "long", "java.lang.String" };
+		_methodParameterTypes30 = new String[] { "long", "java.lang.String" };
 
-		_methodName35 = "updateKaleoProcessLink";
+		_methodName31 = "updateKaleoProcessLink";
 
-		_methodParameterTypes35 = new String[] {
+		_methodParameterTypes31 = new String[] {
 				"long", "long", "java.lang.String", "long"
 			};
 
-		_methodName36 = "updateKaleoProcessLink";
+		_methodName32 = "updateKaleoProcessLink";
 
-		_methodParameterTypes36 = new String[] {
+		_methodParameterTypes32 = new String[] {
 				"long", "java.lang.String", "long"
 			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
 		Object[] arguments) throws Throwable {
-		if (_methodName28.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes28, parameterTypes)) {
+		if (_methodName24.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes24, parameterTypes)) {
 			return KaleoProcessLinkServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName29.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes29, parameterTypes)) {
+		if (_methodName25.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes25, parameterTypes)) {
 			KaleoProcessLinkServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 		}
 
-		if (_methodName34.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes34, parameterTypes)) {
+		if (_methodName30.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes30, parameterTypes)) {
 			return KaleoProcessLinkServiceUtil.fetchKaleoProcessLink(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1]);
 		}
 
-		if (_methodName35.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes35, parameterTypes)) {
+		if (_methodName31.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes31, parameterTypes)) {
 			return KaleoProcessLinkServiceUtil.updateKaleoProcessLink(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], ((Long)arguments[3]).longValue());
 		}
 
-		if (_methodName36.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes36, parameterTypes)) {
+		if (_methodName32.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes32, parameterTypes)) {
 			return KaleoProcessLinkServiceUtil.updateKaleoProcessLink(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], ((Long)arguments[2]).longValue());
 		}
@@ -82,14 +82,14 @@ public class KaleoProcessLinkServiceClpInvoker {
 		throw new UnsupportedOperationException();
 	}
 
-	private String _methodName28;
-	private String[] _methodParameterTypes28;
-	private String _methodName29;
-	private String[] _methodParameterTypes29;
-	private String _methodName34;
-	private String[] _methodParameterTypes34;
-	private String _methodName35;
-	private String[] _methodParameterTypes35;
-	private String _methodName36;
-	private String[] _methodParameterTypes36;
+	private String _methodName24;
+	private String[] _methodParameterTypes24;
+	private String _methodName25;
+	private String[] _methodParameterTypes25;
+	private String _methodName30;
+	private String[] _methodParameterTypes30;
+	private String _methodName31;
+	private String[] _methodParameterTypes31;
+	private String _methodName32;
+	private String[] _methodParameterTypes32;
 }
