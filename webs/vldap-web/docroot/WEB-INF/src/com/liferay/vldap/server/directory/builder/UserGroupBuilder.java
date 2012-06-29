@@ -73,7 +73,7 @@ public class UserGroupBuilder extends DirectoryBuilder {
 			List<UserGroup> userGroups = getUserGroups(
 				company, filterConstraints, (int)searchBase.getSizeLimit());
 
-			for (UserGroup userGroup: userGroups) {
+			for (UserGroup userGroup : userGroups) {
 				Directory directory = new UserGroupDirectory(
 					searchBase.getTop(), company, userGroup);
 

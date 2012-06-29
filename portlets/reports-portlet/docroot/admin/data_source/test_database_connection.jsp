@@ -27,7 +27,6 @@ if (Validator.isNull(driverPassword) && (sourceId > 0)) {
 	Source source = SourceLocalServiceUtil.getSource(sourceId);
 	driverPassword = source.getDriverPassword();
 }
-
 %>
 
 <c:choose>

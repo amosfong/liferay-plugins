@@ -23,22 +23,22 @@ long entryId = ParamUtil.getLong(request, "entryId");
 Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 %>
 
-<portlet:renderURL windowState="<%= WindowState.MAXIMIZED.toString() %>" var="searchDefinitionURL">
+<portlet:renderURL var="searchDefinitionURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 	<portlet:param name="mvcPath" value="/admin/view.jsp" />
 	<portlet:param name="tabs1" value="definitions" />
 </portlet:renderURL>
 
-<portlet:renderURL windowState="<%= WindowState.MAXIMIZED.toString() %>" var="searchRequestsURL">
+<portlet:renderURL var="searchRequestsURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 	<portlet:param name="mvcPath" value="/admin/view.jsp" />
 	<portlet:param name="tabs1" value="reports" />
 </portlet:renderURL>
 
-<portlet:actionURL name="addScheduler" windowState="<%= WindowState.MAXIMIZED.toString() %>" var="addSchedulerURL">
+<portlet:actionURL name="addScheduler" var="addSchedulerURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 	<portlet:param name="mvcPath" value="/admin/report/edit_schedule.jsp" />
 	<portlet:param name="redirect" value="<%= searchRequestsURL %>" />
 </portlet:actionURL>
 
-<portlet:renderURL windowState="<%= WindowState.MAXIMIZED.toString() %>" var="generatedReportsURL">
+<portlet:renderURL var="generatedReportsURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 	<portlet:param name="mvcPath" value="/admin/report/requested_report_detail.jsp" />
 </portlet:renderURL>
 
@@ -75,7 +75,7 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 
 	</aui:select>
 
-	<aui:field-wrapper label="report-parameters" helpMessage="entry-report-parameters-help">
+	<aui:field-wrapper helpMessage="entry-report-parameters-help" label="report-parameters">
 		<table class="lfr-table">
 		<tr>
 
@@ -117,9 +117,9 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 								monthParam='<%= key + "Month" %>'
 								monthValue="<%= today.get(Calendar.MONTH) %>"
 								yearParam='<%= key +"Year" %>'
-								yearValue="<%= today.get(Calendar.YEAR) %>"
-								yearRangeStart="<%= today.get(Calendar.YEAR) - 100 %>"
 								yearRangeEnd="<%= today.get(Calendar.YEAR) + 100 %>"
+								yearRangeStart="<%= today.get(Calendar.YEAR) - 100 %>"
+								yearValue="<%= today.get(Calendar.YEAR) %>"
 							/>
 						</td>
 						<td>
@@ -143,7 +143,7 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 									var month = A.one('#<%= renderResponse.getNamespace()+ key + "Month" %>');
 									var year = A.one('#<%= renderResponse.getNamespace()+ key + "Year" %>');
 
-									if (type == 'startDate' || type =='endDate') {
+									if ((type == 'startDate') || (type =='endDate')) {
 										day.attr('disabled', 'disabled');
 										month.attr('disabled', 'disabled');
 										year.attr('disabled', 'disabled');

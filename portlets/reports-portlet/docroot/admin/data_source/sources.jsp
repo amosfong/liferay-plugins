@@ -40,9 +40,9 @@ String driverUrl = ParamUtil.getString(request, "driverUrl");
 
 	<liferay-ui:search-container
 		displayTerms="<%= new DisplayTerms(renderRequest) %>"
-		iteratorURL="<%= iteratorURL %>"
 		emptyResultsMessage="there-are-no-sources"
 		headerNames="source-name,create-date"
+		iteratorURL="<%= iteratorURL %>"
 	>
 		<liferay-ui:search-form
 			page="/admin/data_source/source_search.jsp"

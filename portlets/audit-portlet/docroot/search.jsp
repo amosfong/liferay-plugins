@@ -48,9 +48,9 @@
 
 <liferay-ui:search-container
 	displayTerms="<%= new DisplayTerms(renderRequest) %>"
-	iteratorURL="<%= iteratorURL %>"
 	emptyResultsMessage="there-are-no-events"
 	headerNames="user-id,user-name,resource-id,resource-name,resource-action,client-ip,create-date"
+	iteratorURL="<%= iteratorURL %>"
 >
 	<liferay-ui:search-form
 		page="/event_search.jsp"

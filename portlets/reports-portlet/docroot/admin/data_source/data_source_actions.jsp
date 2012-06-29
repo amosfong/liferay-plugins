@@ -26,7 +26,7 @@ String sourceId = String.valueOf(source.getSourceId());
 
 <liferay-ui:icon-menu cssClass="">
 	<c:if test="<%= SourcePermission.contains(permissionChecker, source, ActionKeys.VIEW) %>">
-		<portlet:actionURL windowState="<%= WindowState.MAXIMIZED.toString() %>" name="testDataSource" var="testConnectionURL">
+		<portlet:actionURL name="testDataSource" var="testConnectionURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 			<portlet:param name="sourceId" value="<%= sourceId %>" />
 			<portlet:param name="tabs1" value="sources" />
 		</portlet:actionURL>
@@ -39,7 +39,7 @@ String sourceId = String.valueOf(source.getSourceId());
 	</c:if>
 
 	<c:if test="<%= SourcePermission.contains(permissionChecker, source, ActionKeys.UPDATE) %>">
-		<portlet:renderURL windowState="<%= WindowState.MAXIMIZED.toString() %>" var="editURL">
+		<portlet:renderURL var="editURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 			<portlet:param name="mvcPath" value="/admin/data_source/edit_data_source.jsp" />
 			<portlet:param name="sourceId" value="<%= sourceId %>" />
 		</portlet:renderURL>
@@ -65,7 +65,7 @@ String sourceId = String.valueOf(source.getSourceId());
 	</c:if>
 
 	<c:if test="<%= SourcePermission.contains(permissionChecker, source, ActionKeys.DELETE) %>">
-		<portlet:actionURL windowState="<%= WindowState.MAXIMIZED.toString() %>" name="deleteDataSource" var="deleteURL">
+		<portlet:actionURL name="deleteDataSource" var="deleteURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 			<portlet:param name="sourceId" value="<%= sourceId %>" />
 			<portlet:param name="tabs1" value="sources" />
 		</portlet:actionURL>

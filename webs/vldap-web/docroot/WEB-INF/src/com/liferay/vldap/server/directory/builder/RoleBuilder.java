@@ -75,7 +75,7 @@ public class RoleBuilder extends DirectoryBuilder {
 			List<Role> roles = getRoles(
 				company, filterConstraints, (int)searchBase.getSizeLimit());
 
-			for (Role role: roles) {
+			for (Role role : roles) {
 				Directory directory = new RoleDirectory(
 					searchBase.getTop(), company, role);
 

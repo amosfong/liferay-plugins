@@ -135,7 +135,7 @@ if (kaleoProcess != null) {
 		<aui:input name="description" />
 
 		<aui:field-wrapper cssClass="kaleo-forms-portlet-selection" label="entry-definition" required="<%= true %>">
-			<aui:a href="javascript:;" label="<%= ddmStructureName %>" id="selectDDMStructureDisplay" />
+			<aui:a href="javascript:;" id="selectDDMStructureDisplay" label="<%= ddmStructureName %>" />
 
 			<liferay-ui:icon
 				id="selectDDMStructure"
@@ -147,7 +147,7 @@ if (kaleoProcess != null) {
 		</aui:field-wrapper>
 
 		<aui:field-wrapper cssClass="kaleo-forms-portlet-selection" helpMessage="select-the-template-used-to-render-the-initial-form" label="initial-form" name="ddmTemplateId" required="<%= true %>">
-			<aui:a href="javascript:;" label="<%= ddmTemplateName %>" id="selectDDMTemplateDisplay" />
+			<aui:a href="javascript:;" id="selectDDMTemplateDisplay" label="<%= ddmTemplateName %>" />
 
 			<liferay-ui:icon
 				id="selectDDMTemplate"
@@ -460,7 +460,7 @@ if (kaleoProcess != null) {
 		},
 
 		'<portlet:namespace />selectWorkflowDefinition': function(event) {
-			<portlet:renderURL windowState="<%= LiferayWindowState.POP_UP.toString() %>" var="workflowDefinitionURL">
+			<portlet:renderURL var="workflowDefinitionURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
 				<portlet:param name="mvcPath" value='<%= "/select_workflow_definition.jsp" %>' />
 				<portlet:param name="kaleoProcessId" value="<%= String.valueOf(kaleoProcessId) %>" />
 			</portlet:renderURL>

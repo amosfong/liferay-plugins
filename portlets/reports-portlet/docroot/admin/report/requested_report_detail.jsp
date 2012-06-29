@@ -31,7 +31,7 @@ Entry entry = EntryLocalServiceUtil.getEntry(entryId);
 Definition definition = DefinitionLocalServiceUtil.getDefinition(entry.getDefinitionId());
 %>
 
-<portlet:renderURL windowState="<%= WindowState.MAXIMIZED.toString() %>" var="searchRequestURL">
+<portlet:renderURL var="searchRequestURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 	<portlet:param name="mvcPath" value="/admin/view.jsp" />
 	<portlet:param name="tabs1" value="reports" />
 </portlet:renderURL>
@@ -102,6 +102,7 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(entry.getDefini
 
 	<c:if test="<%= entry.isScheduleRequest() %>">
 		<aui:field-wrapper label="is-schedule-request">
+
 				<%
 				StringBuffer repeatingInof = new StringBuffer();
 				repeatingInof.append("<br />");
@@ -155,11 +156,11 @@ request.setAttribute("entry",entry);
 
 <liferay-ui:search-container delta="2" iteratorURL="<%= portletURL %>">
 	<liferay-ui:search-container-results
-		total="<%= attachmentsFiles.length %>"
 		results="<%= fileNames %>"
+		total="<%= attachmentsFiles.length %>"
 	/>
 
-	<liferay-ui:search-container-row modelVar="fileName" className="java.lang.String">
+	<liferay-ui:search-container-row className="java.lang.String" modelVar="fileName">
 		<liferay-ui:search-container-column-text
 			name="file"
 			value="<%= StringUtil.extractLast(fileName, StringPool.SLASH) %>"

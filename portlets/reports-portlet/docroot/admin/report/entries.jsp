@@ -36,9 +36,9 @@
 
 	<liferay-ui:search-container
 		displayTerms="<%= new DisplayTerms(renderRequest) %>"
-		iteratorURL="<%= iteratorURL %>"
 		emptyResultsMessage="there-are-no-entries"
 		headerNames="definition-name,requested-by,create-date"
+		iteratorURL="<%= iteratorURL %>"
 	>
 		<liferay-ui:search-form
 			page="/admin/report/entry_search.jsp"

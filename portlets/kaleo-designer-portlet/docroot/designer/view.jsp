@@ -686,7 +686,7 @@
 						}
 					}
 					else {
-						if (inputName == 'roleName' || inputName == 'roleNameAC') {
+						if ((inputName == 'roleName') || (inputName == 'roleNameAC')) {
 							createRoleAutocomplete(
 								inputNode,
 								null,

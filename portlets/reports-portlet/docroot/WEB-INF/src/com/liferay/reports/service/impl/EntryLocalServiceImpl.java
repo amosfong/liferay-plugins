@@ -370,7 +370,7 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 		String fileName =
 			entry.getAttachmentsDir() + StringPool.SLASH + reportName;
 
-		try{
+		try {
 			DLStoreUtil.addDirectory(
 				entry.getCompanyId(), CompanyConstants.SYSTEM,
 				entry.getAttachmentsDir());

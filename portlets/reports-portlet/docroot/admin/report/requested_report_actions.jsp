@@ -41,12 +41,12 @@ String entryId = String.valueOf(entry.getEntryId());
 
 	<c:if test='<%= entry.isRepeating() && (entry.getEndDate() == null || DateUtil.newDate().before(entry.getEndDate())) %>' >
 		<c:if test='<%= EntryPermission.contains(permissionChecker, entry.getEntryId(), ActionKeys.DELETE) %>'>
-			<portlet:renderURL windowState="<%= WindowState.MAXIMIZED.toString() %>" var="searchRequestURL">
+			<portlet:renderURL var="searchRequestURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 				<portlet:param name="mvcPath" value="/admin/view.jsp" />
 				<portlet:param name="tabs1" value="reports" />
 			</portlet:renderURL>
 
-			<portlet:actionURL windowState="<%= WindowState.MAXIMIZED.toString() %>" name="unscheduleReportRequest" var="unscheduleURL">
+			<portlet:actionURL name="unscheduleReportRequest" var="unscheduleURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 				<portlet:param name="entryId" value="<%= entryId %>" />
 				<portlet:param name="redirect" value="<%= searchRequestURL %>" />
 			</portlet:actionURL>
@@ -60,12 +60,12 @@ String entryId = String.valueOf(entry.getEntryId());
 	</c:if>
 
 	<c:if test='<%= EntryPermission.contains(permissionChecker, entry.getEntryId(), ActionKeys.DELETE) %>'>
-		<portlet:renderURL windowState="<%= WindowState.MAXIMIZED.toString() %>" var="searchRequestURL">
+		<portlet:renderURL var="searchRequestURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 			<portlet:param name="mvcPath" value="/admin/view.jsp" />
 			<portlet:param name="tabs1" value="reports" />
 		</portlet:renderURL>
 
-		<portlet:actionURL windowState="<%= WindowState.MAXIMIZED.toString() %>" name="archiveRequest" var="deleteURL">
+		<portlet:actionURL name="archiveRequest" var="deleteURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 			<portlet:param name="entryId" value="<%= entryId %>" />
 			<portlet:param name="redirect" value="<%= searchRequestURL %>" />
 		</portlet:actionURL>

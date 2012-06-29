@@ -751,7 +751,7 @@ public class SharepointRepository extends CMISRepositoryHandler {
 			typeSettingsProperties, typeSettingsKey);
 	}
 
-	protected URL getVersionsServiceURL() throws Exception{
+	protected URL getVersionsServiceURL() throws Exception {
 		if (_versionsServiceURL != null) {
 			return _versionsServiceURL;
 		}

@@ -30,7 +30,7 @@ import org.opensaml.saml2.core.NameIDType;
 /**
  * @author Mika Koivisto
  */
-public class DefaultNameIdResolver implements NameIdResolver{
+public class DefaultNameIdResolver implements NameIdResolver {
 
 	public NameID resolve(
 		User user, String entityId, NameIDPolicy nameIdPolicy) {

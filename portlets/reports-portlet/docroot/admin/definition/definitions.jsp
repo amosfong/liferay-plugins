@@ -40,9 +40,9 @@ String reportName = ParamUtil.getString(request, "reportName");
 
 	<liferay-ui:search-container
 		displayTerms="<%= new DisplayTerms(renderRequest) %>"
-		iteratorURL="<%= iteratorURL %>"
 		emptyResultsMessage="there-are-no-definitions"
 		headerNames="definition-name,source-name,create-date"
+		iteratorURL="<%= iteratorURL %>"
 	>
 		<liferay-ui:search-form
 			page="/admin/definition/definition_search.jsp"

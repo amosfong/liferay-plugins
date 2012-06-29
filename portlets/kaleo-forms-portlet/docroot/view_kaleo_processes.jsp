@@ -48,8 +48,8 @@ String tabs1 = ParamUtil.getString(request, "tabs1");
 		</portlet:renderURL>
 
 		<liferay-ui:search-container-column-text
-			href="<%= rowURL %>"
 			buffer="buffer"
+			href="<%= rowURL %>"
 			name="name"
 		>
 

@@ -91,7 +91,7 @@ public class UserBuilder extends DirectoryBuilder {
 		for (Company company : searchBase.getCompanies()) {
 			List<User> users = getUsers(company, searchBase, filterConstraints);
 
-			for (User user: users) {
+			for (User user : users) {
 				Directory directory = new UserDirectory(
 					searchBase.getTop(), company, user);
 

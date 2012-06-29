@@ -64,21 +64,21 @@ PortletURL portletURL = renderResponse.createRenderURL();
 		</portlet:renderURL>
 
 		<liferay-ui:search-container-column-text
-			name="task"
 			href="<%= rowURL %>"
+			name="task"
 			value="<%= workflowTask.getName() %>"
 		/>
 
 		<liferay-ui:search-container-column-text
-			name="name"
 			href="<%= rowURL %>"
+			name="name"
 			value="<%= kaleoProcess.getName(locale) %>"
 		/>
 
 		<liferay-ui:search-container-column-text
 			buffer="buffer"
-			name="submission-date"
 			href="<%= rowURL %>"
+			name="submission-date"
 		>
 
 			<%

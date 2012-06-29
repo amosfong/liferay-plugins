@@ -72,7 +72,7 @@ public class OrganizationBuilder extends DirectoryBuilder {
 			List<Organization> organizations = getOrganizations(
 				company, filterConstraints, (int)searchBase.getSizeLimit());
 
-			for (Organization organization: organizations) {
+			for (Organization organization : organizations) {
 				Directory directory = new OrganizationDirectory(
 					searchBase.getTop(), company, organization);
 

@@ -16,7 +16,7 @@
 
 <%@ include file="/init.jsp" %>
 
-<portlet:renderURL windowState="<%= WindowState.MAXIMIZED.toString() %>" var="searchSourcesURL">
+<portlet:renderURL var="searchSourcesURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 	<portlet:param name="tabs1" value="sources" />
 	<portlet:param name="mvcPath" value="/admin/view.jsp" />
 </portlet:renderURL>
@@ -83,7 +83,7 @@ else {
 	title='<%= (source == null) ? "new-data-source" : source.getName(locale) %>'
 />
 
-<portlet:actionURL name="editDataSource" windowState="<%= WindowState.MAXIMIZED.toString() %>" var="actionURL">
+<portlet:actionURL name="editDataSource" var="actionURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 	<portlet:param name="mvcPath" value="/admin/data_source/edit_data_source.jsp" />
 	<portlet:param name="redirect" value="<%= searchSourcesURL %>" />
 </portlet:actionURL>

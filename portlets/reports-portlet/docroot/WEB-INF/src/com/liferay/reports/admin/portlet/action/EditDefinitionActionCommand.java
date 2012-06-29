@@ -153,6 +153,7 @@ public class EditDefinitionActionCommand implements ActionCommand {
 				portletRequest.setAttribute(
 					PortletConstants.DEFINITION, definition);
 			}
+
 			portletRequest.setAttribute(WebKeys.REDIRECT, viewDefinitionsURL);
 		}
 		catch (PortalException pe) {

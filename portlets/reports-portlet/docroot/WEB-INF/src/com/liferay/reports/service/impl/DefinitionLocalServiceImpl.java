@@ -196,6 +196,7 @@ public class DefinitionLocalServiceImpl extends DefinitionLocalServiceBaseImpl {
 			definition.setReportName(
 				StringUtil.extractFirst(fileName, StringPool.PERIOD));
 		}
+
 		definition.setReportParameters(reportParameters);
 
 		definitionPersistence.update(definition, false);
@@ -307,7 +308,7 @@ public class DefinitionLocalServiceImpl extends DefinitionLocalServiceBaseImpl {
 
 		String directoryName = definition.getAttachmentsDir();
 
-		try{
+		try {
 			DLStoreUtil.addDirectory(
 				companyId, CompanyConstants.SYSTEM, directoryName);
 		}

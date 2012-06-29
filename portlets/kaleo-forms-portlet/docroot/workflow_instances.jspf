@@ -47,8 +47,8 @@ PortletURL portletURL = renderResponse.createRenderURL();
 		%>
 
 		<liferay-ui:search-container-column-text
-			name="name"
 			href="<%= rowURL %>"
+			name="name"
 			value="<%= kaleoProcess.getName(locale) %>"
 		/>
 
@@ -66,8 +66,8 @@ PortletURL portletURL = renderResponse.createRenderURL();
 
 		<liferay-ui:search-container-column-text
 			buffer="buffer"
-			name="last-activity-date"
 			href="<%= rowURL %>"
+			name="last-activity-date"
 		>
 
 			<%
@@ -87,8 +87,8 @@ PortletURL portletURL = renderResponse.createRenderURL();
 
 		<liferay-ui:search-container-column-text
 			buffer="buffer"
-			name="end-date"
 			href="<%= rowURL %>"
+			name="end-date"
 		>
 
 			<%

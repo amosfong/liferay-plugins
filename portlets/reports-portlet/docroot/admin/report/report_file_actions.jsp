@@ -25,7 +25,7 @@ String fileName = (String)row.getObject();
 %>
 
 <liferay-ui:icon-menu cssClass="">
-	<portlet:renderURL windowState="<%= WindowState.MAXIMIZED.toString() %>" var="deliverReportURL">
+	<portlet:renderURL var="deliverReportURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 		<portlet:param name="mvcPath" value="/admin/report/deliver_report.jsp" />
 		<portlet:param name="entryId" value="<%= String.valueOf(entry.getEntryId()) %>" />
 		<portlet:param name="fileName" value="<%= fileName %>" />
@@ -49,7 +49,7 @@ String fileName = (String)row.getObject();
 	/>
 
 	<c:if test="<%= EntryPermission.contains(permissionChecker, entry.getEntryId(), ActionKeys.DELETE) %>">
-		<portlet:actionURL windowState="<%= WindowState.MAXIMIZED.toString() %>" name="deleteReport" var="deleteReportURL">
+		<portlet:actionURL name="deleteReport" var="deleteReportURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 			<portlet:param name="entryId" value="<%= String.valueOf(entry.getEntryId()) %>" />
 			<portlet:param name="fileName" value="<%= fileName %>" />
 		</portlet:actionURL>

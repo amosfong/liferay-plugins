@@ -17,8 +17,7 @@ package com.liferay.portal.workflow.kaleo.designer.util;
 /**
  * @author Eduardo Lundgren
  */
-public class WebKeys
-	implements com.liferay.portal.kernel.util.WebKeys {
+public class WebKeys implements com.liferay.portal.kernel.util.WebKeys {
 
 	public static final String KALEO_DRAFT_DEFINITION =
 		"KALEO_DRAFT_DEFINITION";

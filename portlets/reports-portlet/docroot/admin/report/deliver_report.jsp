@@ -21,18 +21,18 @@ long entryId = ParamUtil.getLong(request, "entryId", -1);
 String fileName = ParamUtil.getString(request, "fileName");
 %>
 
-<portlet:renderURL windowState="<%= WindowState.MAXIMIZED.toString() %>" var="backURL">
+<portlet:renderURL var="backURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 	<portlet:param name="mvcPath" value="/admin/report/requested_report_detail.jsp" />
 	<portlet:param name="entryId" value="<%= String.valueOf(entryId) %>" />
 </portlet:renderURL>
 
-<portlet:actionURL name="deliverReport" windowState="<%= WindowState.MAXIMIZED.toString() %>" var="actionURL">
+<portlet:actionURL name="deliverReport" var="actionURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 	<portlet:param name="redirect" value="<%= backURL %>" />
 	<portlet:param name="entryId" value="<%= String.valueOf(entryId) %>" />
 	<portlet:param name="fileName" value="<%= fileName %>" />
 </portlet:actionURL>
 
-<portlet:actionURL name="editDataSource" windowState="<%= WindowState.MAXIMIZED.toString() %>" var="editDataSourceURL">
+<portlet:actionURL name="editDataSource" var="editDataSourceURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 	<portlet:param name="mvcPath" value="/admin/data_source/edit_data_source.jsp" />
 </portlet:actionURL>
 

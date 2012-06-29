@@ -83,8 +83,8 @@ public class ConditionImpl implements Condition {
 		sb.append(_comparisonOperator);
 
 		if ((_value.getClass() == String.class) &&
-			(!_comparisonOperator.equals(ComparisonOperator.JOIN)) &&
-			(!_comparisonOperator.equals(ComparisonOperator.IN))) {
+			!_comparisonOperator.equals(ComparisonOperator.JOIN) &&
+			!_comparisonOperator.equals(ComparisonOperator.IN)) {
 
 			sb.append("'");
 		}
@@ -95,8 +95,8 @@ public class ConditionImpl implements Condition {
 		sb.append(_value);
 
 		if ((_value.getClass() == String.class) &&
-			(!_comparisonOperator.equals(ComparisonOperator.JOIN)) &&
-			(!_comparisonOperator.equals(ComparisonOperator.IN))) {
+			!_comparisonOperator.equals(ComparisonOperator.JOIN) &&
+			!_comparisonOperator.equals(ComparisonOperator.IN)) {
 
 			sb.append("'");
 		}

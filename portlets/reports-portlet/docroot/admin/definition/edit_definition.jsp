@@ -16,7 +16,7 @@
 
 <%@ include file="/init.jsp" %>
 
-<portlet:renderURL windowState="<%= WindowState.MAXIMIZED.toString() %>" var="viewDefinitionsURL">
+<portlet:renderURL var="viewDefinitionsURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 	<portlet:param name="tabs1" value="definitions" />
 </portlet:renderURL>
 
@@ -103,7 +103,7 @@ Calendar today = CalendarFactoryUtil.getCalendar(timeZone, locale);
 
 <div class="report-message"></div>
 
-<portlet:actionURL windowState="<%= WindowState.MAXIMIZED.toString() %>" var="actionURL">
+<portlet:actionURL var="actionURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 	<portlet:param name="mvcPath" value="/admin/definition/edit_definition.jsp" />
 </portlet:actionURL>
 
@@ -122,11 +122,12 @@ Calendar today = CalendarFactoryUtil.getCalendar(timeZone, locale);
 		</aui:field-wrapper>
 
 		<aui:field-wrapper label="description">
-			<liferay-ui:input-localized type="textarea" name="definitionDescription" xml='<%= BeanPropertiesUtil.getString(definition, "description") %>' />
+			<liferay-ui:input-localized name="definitionDescription" type="textarea" xml='<%= BeanPropertiesUtil.getString(definition, "description") %>' />
 		</aui:field-wrapper>
 
 		<aui:select label="data-source-name" name="sourceId">
 			<aui:option label="<%= ReportDataSourceType.PORTAL.getValue() %>" selected="<%= (definition != null) && (definition.getSourceId() == PortletConstants.PORTAL_DATA_SOURCE_ID) %>" value="<%= PortletConstants.PORTAL_DATA_SOURCE_ID %>" />
+
 			<%
 			List<Source> list = SourceServiceUtil.getSources(themeDisplay.getParentGroupId(), null, null, false, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 
@@ -134,6 +135,7 @@ Calendar today = CalendarFactoryUtil.getCalendar(timeZone, locale);
 				Source element = (Source)itr.next();
 				if (SourcePermission.contains(permissionChecker, element, ActionKeys.VIEW)){
 			%>
+
 				<aui:option label="<%= element.getName(locale) %>" selected="<%= !isNew && (definition.getSourceId() == element.getSourceId()) %>" value="<%= element.getSourceId() %>" />
 		 	<% }} %>
 
@@ -153,13 +155,13 @@ Calendar today = CalendarFactoryUtil.getCalendar(timeZone, locale);
 
 		</aui:field-wrapper>
 
-		<aui:field-wrapper label="report-parameters" helpMessage="definition-report-parameters-help">
+		<aui:field-wrapper helpMessage="definition-report-parameters-help" label="report-parameters">
 			<aui:input inputCssClass="reportParameters" name="reportParameters" type="hidden" />
 			<aui:column>
-				<aui:input inputCssClass="parameters-key" inlineLabel="key" name="key" type="text" size="20" />
+				<aui:input inlineLabel="key" inputCssClass="parameters-key" name="key" size="20" type="text" />
 			</aui:column>
 			<aui:column>
-				<aui:input cssClass="parameters-value-field-set" inlineLabel="default-value" inputCssClass="parameters-value" name="value" type="text" size="20" />
+				<aui:input cssClass="parameters-value-field-set" inlineLabel="default-value" inputCssClass="parameters-value" name="value" size="20" type="text" />
 
 				<aui:field-wrapper cssClass="parameters-input-date">
 					<liferay-ui:input-date
@@ -170,14 +172,14 @@ Calendar today = CalendarFactoryUtil.getCalendar(timeZone, locale);
 						monthParam="parameterDateMonth"
 						monthValue="<%= today.get(Calendar.MONTH) %>"
 						yearParam="parameterDateYear"
-						yearValue="<%= today.get(Calendar.YEAR) %>"
-						yearRangeStart="<%= today.get(Calendar.YEAR) - 100 %>"
 						yearRangeEnd="<%= today.get(Calendar.YEAR) + 100 %>"
+						yearRangeStart="<%= today.get(Calendar.YEAR) - 100 %>"
+						yearValue="<%= today.get(Calendar.YEAR) %>"
 					/>
 				</aui:field-wrapper>
 			</aui:column>
 			<aui:column>
-				<aui:select inputCssClass="parameters-input-type" inlineLabel="type" name="">
+				<aui:select inlineLabel="type" inputCssClass="parameters-input-type" name="">
 					<aui:option label="text" value="text" />
 					<aui:option label="date" value="date" />
 				</aui:select>
@@ -200,39 +202,47 @@ Calendar today = CalendarFactoryUtil.getCalendar(timeZone, locale);
 	</c:if>
 
 	<aui:button-row>
-		<portlet:renderURL windowState="<%= WindowState.MAXIMIZED.toString() %>" var="viewURL">
+		<portlet:renderURL var="viewURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 			<portlet:param name="tabs1" value="definitions" />
 			<portlet:param name="mvcPath" value="/admin/view.jsp" />
 		</portlet:renderURL>
 
 		<c:if test="<%= isNew %>">
+
 			<%
 				String addDefinition = renderResponse.getNamespace() + "addDefinition();";
 			%>
+
 			<aui:button onClick="<%= addDefinition %>" value="save" />
 		</c:if>
 
 		<c:if test="<%= !isNew %>">
+
 			<%
 				String updateDefinition = renderResponse.getNamespace() + "updateDefinition();";
 			%>
+
 			<aui:button onClick="<%= updateDefinition %>" value="update" />
 
 			<c:if test="<%= !isNew && DefinitionPermission.contains(permissionChecker, definition, ActionKeys.ADD_REPORT) %>">
+
 				<%
 					String generateImmdiately = renderResponse.getNamespace() + "generateImmdiately();";
 				%>
+
 				<aui:button onClick="<%= generateImmdiately %>" value="add-report" />
 
 				<%
 					String addScheduler = renderResponse.getNamespace() + "addScheduler();";
 				%>
+
 				<aui:button onClick="<%= addScheduler %>" value="add-schedule" />
 			</c:if>
 
 			<%
 				String deleteDefinition = renderResponse.getNamespace() + "deleteDefinition();";
 			%>
+
 			<aui:button onClick="<%= deleteDefinition %>" value="delete" />
 		</c:if>
 

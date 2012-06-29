@@ -38,6 +38,7 @@ String reportName = ParamUtil.getString(request, "reportName");
 		<aui:select label="data-source-name" name="sourceId">
 			<aui:option label="all" value="" />
 			<aui:option label="<%= ReportDataSourceType.PORTAL %>" value="<%= PortletConstants.PORTAL_DATA_SOURCE_ID %>" />
+
 			<%
 			List<Source> list = SourceServiceUtil.getSources(themeDisplay.getParentGroupId(), null, null, false, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 
@@ -45,6 +46,7 @@ String reportName = ParamUtil.getString(request, "reportName");
 				Source element = (Source)itr.next();
 				if (SourcePermission.contains(permissionChecker, element, ActionKeys.VIEW)){
 			%>
+
 				<aui:option label="<%= element.getName(locale) %>" value="<%= element.getSourceId() %>" />
 			<% }} %>
 

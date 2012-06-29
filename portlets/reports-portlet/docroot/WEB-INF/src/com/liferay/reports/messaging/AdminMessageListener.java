@@ -39,7 +39,7 @@ public class AdminMessageListener extends BaseMessageListener {
 			EntryLocalServiceUtil.updateEntryStatus(
 				entryId, ReportStatus.ERROR,
 				reportGenerationException.getMessage());
-		}else{
+		}else {
 			EntryLocalServiceUtil.updateEntry(
 				entryId, reportResultContainer.getReportName(),
 				reportResultContainer.getResults());
