@@ -1,0 +1,14 @@
+/hooks/audit-hook
+/hooks/documentum-hook
+/hooks/sharepoint-hook
+/portlets/audit-portlet
+/portlets/kaleo-designer-portlet
+/portlets/kaleo-forms-portlet
+/portlets/reports-portlet
+/portlets/salesforce-portlet
+/portlets/saml-portlet
+/portlets/sample-drools-portlet
+/webs/drools-web
+/webs/ehcache-cluster-web
+/webs/jasperreports-web
+/webs/vldap-web

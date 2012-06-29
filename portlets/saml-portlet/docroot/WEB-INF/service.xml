@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.1.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_1_0.dtd">
+
+<service-builder package-path="com.liferay.saml" auto-namespace-tables="false">
+	<author>Mika Koivisto</author>
+	<namespace>Saml</namespace>
+	<entity name="SamlIdpSpSession" local-service="true" remote-service="false">
+
+		<!-- PK fields -->
+
+		<column name="samlIdpSpSessionId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="samlIdpSsoSessionId" type="long" />
+		<column name="samlSpEntityId" type="String" />
+		<column name="nameIdFormat" type="String" />
+		<column name="nameIdValue" type="String" />
+
+		<!-- Finder methods -->
+
+		<finder name="SamlIdpSsoSessionId" return-type="Collection">
+			<finder-column name="samlIdpSsoSessionId" />
+		</finder>
+		<finder name="SISSI_SSEI" return-type="SamlIdpSpSession">
+			<finder-column name="samlIdpSsoSessionId" />
+			<finder-column name="samlSpEntityId" />
+		</finder>
+	</entity>
+	<entity name="SamlIdpSsoSession" local-service="true" remote-service="false">
+
+		<!-- PK fields -->
+
+		<column name="samlIdpSsoSessionId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="samlIdpSsoSessionKey" type="String" />
+
+		<!-- Finder methods -->
+
+		<finder name="SamlIdpSsoSessionKey" return-type="SamlIdpSsoSession">
+			<finder-column name="samlIdpSsoSessionKey" />
+		</finder>
+	</entity>
+	<entity name="SamlSpAuthRequest" local-service="true" remote-service="false">
+
+		<!-- PK fields -->
+
+		<column name="samlSpAuthnRequestId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="createDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="samlIdpEntityId" type="String" />
+		<column name="samlSpAuthRequestKey" type="String" />
+
+		<!-- Finder methods -->
+
+		<finder name="SIEI_SSARK" return-type="SamlSpAuthRequest">
+			<finder-column name="samlIdpEntityId" />
+			<finder-column name="samlSpAuthRequestKey" />
+		</finder>
+	</entity>
+	<entity name="SamlSpMessage" local-service="true" remote-service="false">
+		<column name="samlSpMessageId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="createDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="samlIdpEntityId" type="String" />
+		<column name="samlIdpResponseKey" type="String" />
+		<column name="expirationDate" type="Date" />
+
+		<!-- Finder methods -->
+
+		<finder name="SIEI_SIRK" return-type="SamlSpMessage">
+			<finder-column name="samlIdpEntityId" />
+			<finder-column name="samlIdpResponseKey" />
+		</finder>
+	</entity>
+	<entity name="SamlSpSession" local-service="true" remote-service="false">
+
+		<!-- PK fields -->
+
+		<column name="samlSpSessionId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="jSessionId" type="String" />
+		<column name="nameIdFormat" type="String" />
+		<column name="nameIdValue" type="String" />
+		<column name="terminated" type="boolean" />
+
+		<!-- Finder methods -->
+
+		<finder name="NameIdValue" return-type="Collection">
+			<finder-column name="nameIdValue" />
+		</finder>
+		<finder name="JSessionId" return-type="SamlSpSession">
+			<finder-column name="jSessionId" />
+		</finder>
+	</entity>
+	<exceptions>
+		<exception>DuplicateSamlIdpSpSession</exception>
+		<exception>DuplicateSamlIdpSsoSession</exception>
+	</exceptions>
+</service-builder>

@@ -1,0 +1,10 @@
+package com.liferay.portal.bi.rules.drools;
+
+dialect "mvel"
+
+rule "Update Age"
+when
+	userProfile : UserProfile(age < 21)
+then
+	modify(userProfile) {age = 30};
+end

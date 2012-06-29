@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="com.liferay.reports.service.DefinitionLocalService" class="com.liferay.reports.service.impl.DefinitionLocalServiceImpl" />
+	<bean id="com.liferay.reports.service.DefinitionService" class="com.liferay.reports.service.impl.DefinitionServiceImpl" />
+	<bean id="com.liferay.reports.service.persistence.DefinitionPersistence" class="com.liferay.reports.service.persistence.DefinitionPersistenceImpl" parent="basePersistence" />
+	<bean id="com.liferay.reports.service.EntryLocalService" class="com.liferay.reports.service.impl.EntryLocalServiceImpl" />
+	<bean id="com.liferay.reports.service.EntryService" class="com.liferay.reports.service.impl.EntryServiceImpl" />
+	<bean id="com.liferay.reports.service.persistence.EntryPersistence" class="com.liferay.reports.service.persistence.EntryPersistenceImpl" parent="basePersistence" />
+	<bean id="com.liferay.reports.service.SourceLocalService" class="com.liferay.reports.service.impl.SourceLocalServiceImpl" />
+	<bean id="com.liferay.reports.service.SourceService" class="com.liferay.reports.service.impl.SourceServiceImpl" />
+	<bean id="com.liferay.reports.service.persistence.SourcePersistence" class="com.liferay.reports.service.persistence.SourcePersistenceImpl" parent="basePersistence" />
+</beans>

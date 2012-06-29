@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+	<persistence-unit-metadata>
+		<xml-mapping-metadata-complete/>
+		<persistence-unit-defaults>
+			<access>PROPERTY</access>
+		</persistence-unit-defaults>
+	</persistence-unit-metadata>
+	<mapped-superclass class="com.liferay.saml.model.impl.SamlIdpSpSessionModelImpl">
+		<attributes>
+			<id name="samlIdpSpSessionId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="samlIdpSsoSessionId" />
+			<basic name="samlSpEntityId" />
+			<basic name="nameIdFormat" />
+			<basic name="nameIdValue" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.liferay.saml.model.impl.SamlIdpSsoSessionModelImpl">
+		<attributes>
+			<id name="samlIdpSsoSessionId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="samlIdpSsoSessionKey" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.liferay.saml.model.impl.SamlSpAuthRequestModelImpl">
+		<attributes>
+			<id name="samlSpAuthnRequestId" />
+			<basic name="companyId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="samlIdpEntityId" />
+			<basic name="samlSpAuthRequestKey" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.liferay.saml.model.impl.SamlSpMessageModelImpl">
+		<attributes>
+			<id name="samlSpMessageId" />
+			<basic name="companyId" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="samlIdpEntityId" />
+			<basic name="samlIdpResponseKey" />
+			<basic name="expirationDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.liferay.saml.model.impl.SamlSpSessionModelImpl">
+		<attributes>
+			<id name="samlSpSessionId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="jSessionId" />
+			<basic name="nameIdFormat" />
+			<basic name="nameIdValue" />
+			<basic name="terminated">
+				<column name="TERMINATED_" />
+			</basic>
+			<transient name="JSessionId" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<entity class="com.liferay.saml.model.impl.SamlIdpSpSessionImpl" name="SamlIdpSpSession">
+		<table name="SamlIdpSpSession" />
+		<attributes />
+	</entity>
+	<entity class="com.liferay.saml.model.impl.SamlIdpSsoSessionImpl" name="SamlIdpSsoSession">
+		<table name="SamlIdpSsoSession" />
+		<attributes />
+	</entity>
+	<entity class="com.liferay.saml.model.impl.SamlSpAuthRequestImpl" name="SamlSpAuthRequest">
+		<table name="SamlSpAuthRequest" />
+		<attributes />
+	</entity>
+	<entity class="com.liferay.saml.model.impl.SamlSpMessageImpl" name="SamlSpMessage">
+		<table name="SamlSpMessage" />
+		<attributes />
+	</entity>
+	<entity class="com.liferay.saml.model.impl.SamlSpSessionImpl" name="SamlSpSession">
+		<table name="SamlSpSession" />
+		<attributes />
+	</entity>
+</entity-mappings>

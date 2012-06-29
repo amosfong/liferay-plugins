@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+	<service name="Plugin_KaleoForms_KaleoProcessLinkService" provider="java:RPC" style="rpc" use="encoded">
+		<typeMapping xmlns:ns="http://model.forms.kaleo.workflow.portal.liferay.com" qname="ns:KaleoProcessLinkSoap" type="java:com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLinkSoap" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
+		<operation xmlns:operNS="urn:http.service.forms.kaleo.workflow.portal.liferay.com" xmlns:rtns="http://model.forms.kaleo.workflow.portal.liferay.com" name="fetchKaleoProcessLink" qname="operNS:fetchKaleoProcessLink" returnQName="fetchKaleoProcessLinkReturn" returnType="rtns:KaleoProcessLinkSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="kaleoProcessId" type="tns:long"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="workflowTaskName" type="tns:string"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.forms.kaleo.workflow.portal.liferay.com" xmlns:rtns="http://model.forms.kaleo.workflow.portal.liferay.com" name="updateKaleoProcessLink" qname="operNS:updateKaleoProcessLink" returnQName="updateKaleoProcessLinkReturn" returnType="rtns:KaleoProcessLinkSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="kaleoProcessLinkId" type="tns:long"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="kaleoProcessId" type="tns:long"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="workflowTaskName" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="ddmTemplateId" type="tns:long"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.forms.kaleo.workflow.portal.liferay.com" xmlns:rtns="http://model.forms.kaleo.workflow.portal.liferay.com" name="updateKaleoProcessLink" qname="operNS:updateKaleoProcessLink" returnQName="updateKaleoProcessLinkReturn" returnType="rtns:KaleoProcessLinkSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="kaleoProcessId" type="tns:long"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="workflowTaskName" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="ddmTemplateId" type="tns:long"></parameter>
+		</operation>
+		<parameter name="allowedMethods" value="fetchKaleoProcessLink updateKaleoProcessLink" />
+		<parameter name="className" value="com.liferay.portal.workflow.kaleo.forms.service.http.KaleoProcessLinkServiceSoap" />
+		<parameter name="schemaUnqualified" value="http://model.forms.kaleo.workflow.portal.liferay.com" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="KaleoProcessLinkServiceSoap" />
+		<parameter name="wsdlServiceElement" value="KaleoProcessLinkServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_KaleoForms_KaleoProcessLinkService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.forms.kaleo.workflow.portal.liferay.com" />
+	</service>
+</deployment>

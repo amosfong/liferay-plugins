@@ -1,0 +1,152 @@
+##
+## Rules
+##
+## This sample program will return personalized content based on the user's
+## addresses set in the My Account section of the Control Panel.
+##
+## For example, suppose the current user has an address in the United States and
+## is a member of the Liferay community. All assets within the Liferay community
+## that are tagged with "West Coast Symposium" will be returned.
+##
+
+package com.liferay.sampledrools.dependencies;
+
+import com.liferay.portal.kernel.search.Document;
+import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.Hits;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistryUtil;
+import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.KeyValuePair;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.model.Address;
+import com.liferay.portal.model.Contact;
+import com.liferay.portal.model.User;
+import com.liferay.portal.service.AddressLocalServiceUtil;
+import com.liferay.portal.util.PortalUtil;
+import com.liferay.portlet.asset.model.AssetEntry;
+import com.liferay.portlet.asset.service.AssetEntryLocalServiceUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+
+dialect "java"
+
+function List getAssetEntries(User user, long[] classNameIds, String[] names) {
+	SearchContext searchContext = new SearchContext();
+
+	searchContext.setAssetTagNames(names);
+	searchContext.setAttribute("paginationType", "regular");
+	searchContext.setCompanyId(user.getCompanyId());
+	searchContext.setGroupIds(user.getGroupIds());
+	searchContext.setScopeStrict(false);
+	searchContext.setUserId(user.getUserId());
+
+	List<AssetEntry> assetEntries = new ArrayList<AssetEntry>();
+
+	for (long classNameId : classNameIds) {
+		String className = PortalUtil.getClassName(classNameId);
+
+		Indexer indexer = IndexerRegistryUtil.getIndexer(className);
+
+		if (indexer == null) {
+			continue;
+		}
+
+		Hits hits = indexer.search(searchContext);
+
+		for (int i = 0; i < hits.getDocs().length; i++) {
+			Document document = hits.doc(i);
+
+			long classPK = GetterUtil.getLong(
+				document.get(Field.ENTRY_CLASS_PK));
+			long resourcePrimKey = GetterUtil.getLong(
+				document.get(Field.ROOT_ENTRY_CLASS_PK));
+
+			if (resourcePrimKey > 0) {
+				classPK = resourcePrimKey;
+			}
+
+			assetEntries.add(
+				AssetEntryLocalServiceUtil.getEntry(className, classPK));
+		}
+	}
+
+	return assetEntries;
+}
+
+rule "Initialize Rules"
+	salience 1000
+	when
+		user : User();
+	then
+		List<Address> userAddresses = AddressLocalServiceUtil.getAddresses(
+			user.getCompanyId(), Contact.class.getName(), user.getContactId());
+
+		for (Address userAddress : userAddresses) {
+			insertLogical(userAddress);
+		}
+end
+
+rule "Get European Symposium Content"
+	when
+		classNameIds : KeyValuePair(key == "classNameIds");
+		results : List();
+		user : User();
+		userAddress : Address(country.name  in ("France", "Germany", "Spain"));
+	then
+		List<AssetEntry> assetEntries = getAssetEntries(
+			user, StringUtil.split(classNameIds.getValue(), 0L),
+			new String[] {"European Symposium"});
+
+		assetEntries.removeAll(results);
+
+		modify(results) {
+			addAll(assetEntries);
+		};
+
+		retract(userAddress);
+end
+
+rule "Get Indian Symposium Content"
+	when
+		classNameIds : KeyValuePair(key == "classNameIds");
+		results : List();
+		user : User();
+		userAddress : Address(
+			country.name  in ("India", "Malaysia", "Singapore"));
+	then
+		List<AssetEntry> assetEntries = getAssetEntries(
+			user, StringUtil.split(classNameIds.getValue(), 0L),
+			new String[] {"Indian Symposium"});
+
+		assetEntries.removeAll(results);
+
+		modify(results) {
+			addAll(assetEntries);
+		};
+
+		retract(userAddress);
+end
+
+rule "Get West Coast Symposium Content"
+	when
+		classNameIds : KeyValuePair(key == "classNameIds");
+		results : List();
+		user : User();
+		userAddress : Address(
+			country.name in ("Brazil", "Canada", "Mexico", "United States"));
+	then
+		List<AssetEntry> assetEntries = getAssetEntries(
+			user, StringUtil.split(classNameIds.getValue(), 0L),
+			new String[] {"West Coast Symposium"});
+
+		assetEntries.removeAll(results);
+
+		modify(results) {
+			addAll(assetEntries);
+		};
+
+		retract(userAddress);
+end

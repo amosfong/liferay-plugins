@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+	<globalConfiguration>
+		<parameter name="adminPassword" value="admin" />
+		<parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl" />
+		<parameter name="sendXsiTypes" value="true" />
+		<parameter name="sendMultiRefs" value="true" />
+		<parameter name="sendXMLDeclaration" value="true" />
+		<parameter name="axis.sendMinimizedElements" value="true" />
+		<requestFlow>
+			<handler type="java:org.apache.axis.handlers.JWSHandler">
+				<parameter name="scope" value="session" />
+			</handler>
+			<handler type="java:org.apache.axis.handlers.JWSHandler">
+				<parameter name="scope" value="request" />
+				<parameter name="extension" value=".jwr" />
+			</handler>
+		</requestFlow>
+	</globalConfiguration>
+	<handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder" />
+	<handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper" />
+	<handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler" />
+	<transport name="http">
+		<requestFlow>
+			<handler type="URLMapper" />
+			<handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler" />
+		</requestFlow>
+	</transport>
+	<transport name="local">
+		<responseFlow>
+			<handler type="LocalResponder" />
+		</responseFlow>
+	</transport>
+	<service name="Plugin_KaleoDesigner_KaleoDraftDefinitionService" provider="java:RPC" style="rpc" use="encoded">
+		<arrayMapping xmlns:ns="urn:http.service.designer.kaleo.workflow.portal.liferay.com" xmlns:cmp-ns="http://model.designer.kaleo.workflow.portal.liferay.com" qname="ns:ArrayOf_tns6_KaleoDraftDefinitionSoap" type="java:com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinitionSoap[]" innerType="cmp-ns:KaleoDraftDefinitionSoap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
+		<arrayMapping xmlns:ns="urn:http.service.designer.kaleo.workflow.portal.liferay.com" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_long" type="java:long[]" innerType="cmp-ns:long" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
+		<arrayMapping xmlns:ns="urn:http.service.designer.kaleo.workflow.portal.liferay.com" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_string" type="java:java.lang.String[]" innerType="cmp-ns:string" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
+		<typeMapping xmlns:ns="http://model.designer.kaleo.workflow.portal.liferay.com" qname="ns:KaleoDraftDefinitionSoap" type="java:com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinitionSoap" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
+		<typeMapping xmlns:ns="http://model.portal.liferay.com" qname="ns:PortletPreferencesIds" type="java:com.liferay.portal.model.PortletPreferencesIds" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
+		<typeMapping xmlns:ns="http://service.portal.liferay.com" qname="ns:ServiceContext" type="java:com.liferay.portal.service.ServiceContext" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
+		<typeMapping xmlns:ns="http://xml.apache.org/xml-soap" qname="ns:mapItem" type="java:org.apache.xml.xml_soap.MapItem" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></typeMapping>
+		<operation xmlns:operNS="urn:http.service.designer.kaleo.workflow.portal.liferay.com" xmlns:rtns="http://model.designer.kaleo.workflow.portal.liferay.com" name="addKaleoDraftDefinition" qname="operNS:addKaleoDraftDefinition" returnQName="addKaleoDraftDefinitionReturn" returnType="rtns:KaleoDraftDefinitionSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="userId" type="tns:long"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="name" type="tns:string"></parameter>
+			<parameter xmlns:tns="urn:http.service.designer.kaleo.workflow.portal.liferay.com" qname="titleMapLanguageIds" type="tns:ArrayOf_xsd_string"></parameter>
+			<parameter xmlns:tns="urn:http.service.designer.kaleo.workflow.portal.liferay.com" qname="titleMapValues" type="tns:ArrayOf_xsd_string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="content" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="version" type="tns:int"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="draftVersion" type="tns:int"></parameter>
+			<parameter xmlns:tns="http://service.portal.liferay.com" qname="serviceContext" type="tns:ServiceContext"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.designer.kaleo.workflow.portal.liferay.com" xmlns:rtns="http://model.designer.kaleo.workflow.portal.liferay.com" name="addWorkflowDefinitionKaleoDraftDefinition" qname="operNS:addWorkflowDefinitionKaleoDraftDefinition" returnQName="addWorkflowDefinitionKaleoDraftDefinitionReturn" returnType="rtns:KaleoDraftDefinitionSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="userId" type="tns:long"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="name" type="tns:string"></parameter>
+			<parameter xmlns:tns="urn:http.service.designer.kaleo.workflow.portal.liferay.com" qname="titleMapLanguageIds" type="tns:ArrayOf_xsd_string"></parameter>
+			<parameter xmlns:tns="urn:http.service.designer.kaleo.workflow.portal.liferay.com" qname="titleMapValues" type="tns:ArrayOf_xsd_string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="content" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="version" type="tns:int"></parameter>
+			<parameter xmlns:tns="http://service.portal.liferay.com" qname="serviceContext" type="tns:ServiceContext"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.designer.kaleo.workflow.portal.liferay.com" xmlns:rtns="http://model.designer.kaleo.workflow.portal.liferay.com" name="getKaleoDraftDefinition" qname="operNS:getKaleoDraftDefinition" returnQName="getKaleoDraftDefinitionReturn" returnType="rtns:KaleoDraftDefinitionSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="name" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="version" type="tns:int"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="draftVersion" type="tns:int"></parameter>
+			<parameter xmlns:tns="http://service.portal.liferay.com" qname="serviceContext" type="tns:ServiceContext"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.designer.kaleo.workflow.portal.liferay.com" xmlns:rtns="urn:http.service.designer.kaleo.workflow.portal.liferay.com" xmlns:tns2="http://model.designer.kaleo.workflow.portal.liferay.com" name="getKaleoDraftDefinitions" qname="operNS:getKaleoDraftDefinitions" returnQName="getKaleoDraftDefinitionsReturn" returnType="rtns:ArrayOf_tns6_KaleoDraftDefinitionSoap" returnItemType="tns2:KaleoDraftDefinitionSoap" soapAction=""> </operation>
+		<operation xmlns:operNS="urn:http.service.designer.kaleo.workflow.portal.liferay.com" xmlns:rtns="http://model.designer.kaleo.workflow.portal.liferay.com" name="getLatestKaleoDraftDefinition" qname="operNS:getLatestKaleoDraftDefinition" returnQName="getLatestKaleoDraftDefinitionReturn" returnType="rtns:KaleoDraftDefinitionSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="name" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="version" type="tns:int"></parameter>
+			<parameter xmlns:tns="http://service.portal.liferay.com" qname="serviceContext" type="tns:ServiceContext"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.designer.kaleo.workflow.portal.liferay.com" xmlns:rtns="http://model.designer.kaleo.workflow.portal.liferay.com" name="publishKaleoDraftDefinition" qname="operNS:publishKaleoDraftDefinition" returnQName="publishKaleoDraftDefinitionReturn" returnType="rtns:KaleoDraftDefinitionSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="userId" type="tns:long"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="name" type="tns:string"></parameter>
+			<parameter xmlns:tns="urn:http.service.designer.kaleo.workflow.portal.liferay.com" qname="titleMapLanguageIds" type="tns:ArrayOf_xsd_string"></parameter>
+			<parameter xmlns:tns="urn:http.service.designer.kaleo.workflow.portal.liferay.com" qname="titleMapValues" type="tns:ArrayOf_xsd_string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="content" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://service.portal.liferay.com" qname="serviceContext" type="tns:ServiceContext"></parameter>
+		</operation>
+		<operation xmlns:operNS="urn:http.service.designer.kaleo.workflow.portal.liferay.com" xmlns:rtns="http://model.designer.kaleo.workflow.portal.liferay.com" name="updateKaleoDraftDefinition" qname="operNS:updateKaleoDraftDefinition" returnQName="updateKaleoDraftDefinitionReturn" returnType="rtns:KaleoDraftDefinitionSoap" soapAction="">
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="userId" type="tns:long"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="name" type="tns:string"></parameter>
+			<parameter xmlns:tns="urn:http.service.designer.kaleo.workflow.portal.liferay.com" qname="titleMapLanguageIds" type="tns:ArrayOf_xsd_string"></parameter>
+			<parameter xmlns:tns="urn:http.service.designer.kaleo.workflow.portal.liferay.com" qname="titleMapValues" type="tns:ArrayOf_xsd_string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="content" type="tns:string"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="version" type="tns:int"></parameter>
+			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="draftVersion" type="tns:int"></parameter>
+			<parameter xmlns:tns="http://service.portal.liferay.com" qname="serviceContext" type="tns:ServiceContext"></parameter>
+		</operation>
+		<parameter name="allowedMethods" value="addKaleoDraftDefinition addWorkflowDefinitionKaleoDraftDefinition getKaleoDraftDefinition getKaleoDraftDefinitions getLatestKaleoDraftDefinition publishKaleoDraftDefinition updateKaleoDraftDefinition" />
+		<parameter name="className" value="com.liferay.portal.workflow.kaleo.designer.service.http.KaleoDraftDefinitionServiceSoap" />
+		<parameter name="schemaUnqualified" value="http://model.designer.kaleo.workflow.portal.liferay.com,http://model.portal.liferay.com,http://service.portal.liferay.com,http://xml.apache.org/xml-soap,urn:http.service.designer.kaleo.workflow.portal.liferay.com" />
+		<parameter name="typeMappingVersion" value="1.2" />
+		<parameter name="wsdlPortType" value="KaleoDraftDefinitionServiceSoap" />
+		<parameter name="wsdlServiceElement" value="KaleoDraftDefinitionServiceSoapService" />
+		<parameter name="wsdlServicePort" value="Plugin_KaleoDesigner_KaleoDraftDefinitionService" />
+		<parameter name="wsdlTargetNamespace" value="urn:http.service.designer.kaleo.workflow.portal.liferay.com" />
+	</service>
+</deployment>

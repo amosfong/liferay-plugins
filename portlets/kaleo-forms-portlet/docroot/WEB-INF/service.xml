@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.1.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_1_0.dtd">
+
+<service-builder package-path="com.liferay.portal.workflow.kaleo.forms" auto-namespace-tables="false">
+	<author>Marcellus Tavares</author>
+	<namespace>KaleoForms</namespace>
+	<entity name="KaleoProcess" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="kaleoProcessId" type="long" primary="true" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="DDLRecordSetId" type="long" />
+		<column name="DDMTemplateId" type="long" />
+
+		<!-- Finder methods -->
+
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+
+		<!-- References -->
+
+		<reference package-path="com.liferay.portal" entity="WorkflowInstanceLink" />
+		<reference package-path="com.liferay.portlet.dynamicdatalists" entity="DDLRecord" />
+		<reference package-path="com.liferay.portlet.dynamicdatalists" entity="DDLRecordSet" />
+	</entity>
+	<entity name="KaleoProcessLink" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="kaleoProcessLinkId" type="long" primary="true" />
+
+		<!-- Other fields -->
+
+		<column name="kaleoProcessId" type="long" />
+		<column name="workflowTaskName" type="String" />
+		<column name="DDMTemplateId" type="long" />
+
+		<!-- Finder methods -->
+
+		<finder name="KaleoProcessId" return-type="Collection">
+			<finder-column name="kaleoProcessId" />
+		</finder>
+		<finder name="KPI_WTN" return-type="KaleoProcessLink" unique="true">
+			<finder-column name="kaleoProcessId" />
+			<finder-column name="workflowTaskName" />
+		</finder>
+	</entity>
+	<exceptions>
+		<exception>KaleoProcessDDMTemplateId</exception>
+	</exceptions>
+</service-builder>

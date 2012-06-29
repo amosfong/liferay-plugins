@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+	<persistence-unit-metadata>
+		<xml-mapping-metadata-complete/>
+		<persistence-unit-defaults>
+			<access>PROPERTY</access>
+		</persistence-unit-defaults>
+	</persistence-unit-metadata>
+	<mapped-superclass class="com.liferay.portal.audit.model.impl.AuditEventModelImpl">
+		<attributes>
+			<id name="auditEventId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="eventType" />
+			<basic name="className" />
+			<basic name="classPK" />
+			<basic name="message" />
+			<basic name="clientHost" />
+			<basic name="clientIP" />
+			<basic name="serverName" />
+			<basic name="serverPort" />
+			<basic name="sessionID" />
+			<basic name="additionalInfo" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<entity class="com.liferay.portal.audit.model.impl.AuditEventImpl" name="AuditEvent">
+		<table name="Audit_AuditEvent" />
+		<attributes />
+	</entity>
+</entity-mappings>

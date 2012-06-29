@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<classpath>
+	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="docroot/WEB-INF/src" />
+	<classpathentry kind="src" path="/portal-trunk" />
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER" />
+	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="test/integration" />
+	<classpathentry kind="lib" path="/portal-trunk/lib/development/junit.jar" />
+	<classpathentry kind="lib" path="/portal-trunk/lib/portal/commons-io.jar" />
+	<classpathentry kind="lib" path="/portal-trunk/lib/development/activation.jar" />
+	<classpathentry kind="lib" path="/portal-trunk/lib/development/annotations.jar" />
+	<classpathentry kind="lib" path="/portal-trunk/lib/development/jsp-api.jar" />
+	<classpathentry kind="lib" path="/portal-trunk/lib/development/mail.jar" />
+	<classpathentry kind="lib" path="/portal-trunk/lib/development/servlet-api.jar" />
+	<classpathentry kind="lib" path="/portal-trunk/lib/global/portlet.jar" />
+	<classpathentry kind="lib" path="/portal-trunk/lib/portal/commons-logging.jar" />
+	<classpathentry kind="lib" path="/portal-trunk/lib/portal/log4j.jar" />
+	<classpathentry kind="lib" path="/portal-trunk/portal-service/portal-service.jar" />
+	<classpathentry kind="lib" path="/portal-trunk/util-bridges/util-bridges.jar" />
+	<classpathentry kind="lib" path="/portal-trunk/util-java/util-java.jar" />
+	<classpathentry kind="lib" path="/portal-trunk/util-taglib/util-taglib.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/antlr-runtime-3.1.3.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/drools-ant-5.1.1.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/drools-api-5.1.1.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/drools-bam-5.1.1.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/drools-bpmn2-5.1.1.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/drools-camel-5.1.1.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/drools-clips-5.1.1.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/drools-compiler-5.1.1.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/drools-core-5.1.1.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/drools-decisiontables-5.1.1.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/drools-doc-5.1.1.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/drools-grid-core-5.1.1.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/drools-jsr94-5.1.1.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/drools-persistence-jpa-5.1.1.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/drools-process-task-5.1.1.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/drools-simulator-5.1.1.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/drools-spring-5.1.1.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/drools-templates-5.1.1.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/drools-verifier-5.1.1.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/drools-workitems-5.1.1.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/ecj-3.5.1.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/mvel2-2.0.16.jar" />
+	<classpathentry kind="output" path="bin" />
+</classpath>

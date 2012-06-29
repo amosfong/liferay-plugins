@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<hint-collection name="ENTITY-ID">
+		<hint name="max-length">1024</hint>
+	</hint-collection>
+	<model name="com.liferay.saml.model.SamlIdpSpSession">
+		<field name="samlIdpSpSessionId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="samlIdpSsoSessionId" type="long" />
+		<field name="samlSpEntityId" type="String">
+			<hint-collection name="ENTITY-ID" />
+		</field>
+		<field name="nameIdFormat" type="String">
+			<hint-collection name="ENTITY-ID" />
+		</field>
+		<field name="nameIdValue" type="String">
+			<hint-collection name="ENTITY-ID" />
+		</field>
+	</model>
+	<model name="com.liferay.saml.model.SamlIdpSsoSession">
+		<field name="samlIdpSsoSessionId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="samlIdpSsoSessionKey" type="String" />
+	</model>
+	<model name="com.liferay.saml.model.SamlSpAuthRequest">
+		<field name="samlSpAuthnRequestId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="samlIdpEntityId" type="String">
+			<hint-collection name="ENTITY-ID" />
+		</field>
+		<field name="samlSpAuthRequestKey" type="String" />
+	</model>
+	<model name="com.liferay.saml.model.SamlSpMessage">
+		<field name="samlSpMessageId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="createDate" type="Date" />
+		<field name="samlIdpEntityId" type="String">
+			<hint-collection name="ENTITY-ID" />
+		</field>
+		<field name="samlIdpResponseKey" type="String" />
+		<field name="expirationDate" type="Date" />
+	</model>
+	<model name="com.liferay.saml.model.SamlSpSession">
+		<field name="samlSpSessionId" type="long" />
+		<field name="companyId" type="long" />
+		<field name="userId" type="long" />
+		<field name="userName" type="String" />
+		<field name="createDate" type="Date" />
+		<field name="modifiedDate" type="Date" />
+		<field name="jSessionId" type="String" />
+		<field name="nameIdFormat" type="String">
+			<hint-collection name="ENTITY-ID" />
+		</field>
+		<field name="nameIdValue" type="String">
+			<hint-collection name="ENTITY-ID" />
+		</field>
+		<field name="terminated" type="boolean" />
+	</model>
+</model-hints>

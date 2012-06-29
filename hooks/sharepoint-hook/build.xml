@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<!DOCTYPE project>
+
+<project name="sharepoint-hook" basedir="." default="deploy">
+	<import file="../build-common-hook.xml" />
+
+	<target name="build-sharepoint-ws">
+		<taskdef classpathref="portal.classpath" resource="axis-tasks.properties" />
+
+		<tstamp>
+			<format property="tstamp.value" pattern="yyyyMMddkkmmssSSS" />
+		</tstamp>
+
+		<mkdir dir="${tstamp.value}" />
+
+		<axis-wsdl2java output="${tstamp.value}" url="docroot/WEB-INF/wsdl/Lists.wsdl" />
+		<axis-wsdl2java output="${tstamp.value}" url="docroot/WEB-INF/wsdl/Versions.wsdl" />
+
+		<path id="plugin-lib.classpath">
+			<fileset dir="docroot/WEB-INF/lib" includes="*.jar" />
+			<pathelement location="docroot/WEB-INF/classes" />
+		</path>
+
+		<antcall target="compile-java">
+			<param name="javac.classpathref" value="plugin.classpath" />
+			<param name="javac.destdir" value="${tstamp.value}" />
+			<param name="javac.srcdir" value="${tstamp.value}" />
+			<reference refid="plugin-lib.classpath" torefid="plugin-lib.classpath" />
+		</antcall>
+
+		<jar
+			basedir="${tstamp.value}"
+			jarfile="docroot/WEB-INF/lib/sharepoint-ws.jar"
+		/>
+
+		<delete dir="${tstamp.value}" />
+	</target>
+
+	<target name="format-xml">
+		<for param="xml.file">
+			<path>
+				<fileset
+					dir="."
+					includes="docroot/WEB-INF/wsdl/*"
+				/>
+			</path>
+			<sequential>
+				<java
+					classname="com.liferay.portal.tools.XMLFormatter"
+					classpathref="portal.classpath"
+					fork="true"
+					newenvironment="true"
+				>
+					<jvmarg value="-Dexternal-properties=com/liferay/portal/tools/dependencies/portal-tools.properties" />
+					<jvmarg value="-Dxml.formatter.file=@{xml.file}" />
+					<jvmarg value="-Dxml.formatter.strip.comments=true" />
+				</java>
+			</sequential>
+		</for>
+	</target>
+</project>

@@ -1,0 +1,200 @@
+<%--
+/**
+ * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+--%>
+
+<%@ include file="/init.jsp" %>
+
+<%
+long definitionId = ParamUtil.getLong(request, "definitionId");
+long entryId = ParamUtil.getLong(request, "entryId");
+
+Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
+%>
+
+<portlet:renderURL windowState="<%= WindowState.MAXIMIZED.toString() %>" var="searchDefinitionURL">
+	<portlet:param name="mvcPath" value="/admin/view.jsp" />
+	<portlet:param name="tabs1" value="definitions" />
+</portlet:renderURL>
+
+<portlet:renderURL windowState="<%= WindowState.MAXIMIZED.toString() %>" var="searchRequestsURL">
+	<portlet:param name="mvcPath" value="/admin/view.jsp" />
+	<portlet:param name="tabs1" value="reports" />
+</portlet:renderURL>
+
+<portlet:actionURL name="addScheduler" windowState="<%= WindowState.MAXIMIZED.toString() %>" var="addSchedulerURL">
+	<portlet:param name="mvcPath" value="/admin/report/edit_schedule.jsp" />
+	<portlet:param name="redirect" value="<%= searchRequestsURL %>" />
+</portlet:actionURL>
+
+<portlet:renderURL windowState="<%= WindowState.MAXIMIZED.toString() %>" var="generatedReportsURL">
+	<portlet:param name="mvcPath" value="/admin/report/requested_report_detail.jsp" />
+</portlet:renderURL>
+
+<liferay-ui:header
+	backURL="<%= searchDefinitionURL %>"
+	title='<%= "new-report-entry" %>'
+/>
+
+<aui:form action="<%= addSchedulerURL %>" method="post" name="fm">
+	<aui:input name="entryId" type="hidden" value="<%= entryId %>" />
+	<aui:input name="generatedReportsURL" type="hidden" value="<%= generatedReportsURL %>" />
+	<aui:input name="definitionId" type="hidden" value="<%= definitionId %>" />
+
+	<liferay-ui:error exception="<%= DefinitionNameException.class %>" message="please-enter-a-valid-name" />
+	<liferay-ui:error exception="<%= EntryEmailDeliveryException.class %>" message="please-enter-a-valid-email-address" />
+	<liferay-ui:error exception="<%= EntryEmailNotificationsException.class %>" message="please-enter-a-valid-email-address" />
+	<liferay-ui:error exception="<%= EventDurationException.class %>" message="please-enter-a-longer-duration" />
+	<liferay-ui:error exception="<%= EventStartDateException.class %>" message="please-enter-a-valid-start-date" />
+	<liferay-ui:error exception="<%= EventTitleException.class %>" message="please-enter-a-valid-title" />
+
+	<liferay-ui:input-scheduler />
+
+	<aui:select label="report-format" name="format">
+
+		<%
+		for (ReportFormat reportFormat : ReportFormat.values()) {
+		%>
+
+			<aui:option label="<%= reportFormat.getValue() %>" value="<%= reportFormat.getValue() %>" />
+
+		<%
+		}
+		%>
+
+	</aui:select>
+
+	<aui:field-wrapper label="report-parameters" helpMessage="entry-report-parameters-help">
+		<table class="lfr-table">
+		<tr>
+
+			<%
+			for (String reportParameter : StringUtil.split(definition.getReportParameters())) {
+				if (Validator.isNull(reportParameter)) {
+					continue;
+				}
+
+				String[] array = StringUtil.split(reportParameter, StringPool.EQUAL);
+
+				String key = array[0];
+				String value = array[1];
+				String type = array[2];
+			%>
+
+				<c:choose>
+					<c:when test='<%= type.equals("date") %>'>
+						<td>
+							<%= key %>
+						</td>
+						<td>
+
+							<%
+							String[] date = value.split("-");
+
+							Calendar today = CalendarFactoryUtil.getCalendar(timeZone, locale);
+
+							today.set(Calendar.YEAR, GetterUtil.getInteger(date[0]));
+							today.set(Calendar.MONTH, GetterUtil.getInteger(date[1]) - 1);
+							today.set(Calendar.DATE, GetterUtil.getInteger(date[2]));
+							%>
+
+							<liferay-ui:input-date
+								dayParam='<%= key + "Day" %>'
+								dayValue="<%= today.get(Calendar.DATE) %>"
+								disabled="<%= false %>"
+								firstDayOfWeek="<%= today.getFirstDayOfWeek() - 1 %>"
+								monthParam='<%= key + "Month" %>'
+								monthValue="<%= today.get(Calendar.MONTH) %>"
+								yearParam='<%= key +"Year" %>'
+								yearValue="<%= today.get(Calendar.YEAR) %>"
+								yearRangeStart="<%= today.get(Calendar.YEAR) - 100 %>"
+								yearRangeEnd="<%= today.get(Calendar.YEAR) + 100 %>"
+							/>
+						</td>
+						<td>
+
+							<%
+							String name = "useVariable" + key;
+							String useVariableScript = "useVariable" + key + "();";
+							%>
+
+							<aui:select label="" name="<%= name %>" onChange="<%= useVariableScript %>">
+								<aui:option />
+								<aui:option label="start-date" value="startDate" />
+								<aui:option label="end-date" value="endDate" />
+							</aui:select>
+
+							<script type="text/javascript">
+								function useVariable<%= key %>() {
+									var A = AUI();
+									var type = A.one('#<%= renderResponse.getNamespace() + "useVariable" + key %>').get('value');
+									var day = A.one('#<%= renderResponse.getNamespace()+ key + "Day" %>');
+									var month = A.one('#<%= renderResponse.getNamespace()+ key + "Month" %>');
+									var year = A.one('#<%= renderResponse.getNamespace()+ key + "Year" %>');
+
+									if (type == 'startDate' || type =='endDate') {
+										day.attr('disabled', 'disabled');
+										month.attr('disabled', 'disabled');
+										year.attr('disabled', 'disabled');
+
+										if (type =='endDate') {
+											document.<portlet:namespace />fm.<portlet:namespace />endDateType[1].checked = 'true';
+										}
+									}
+									else {
+										day.attr('disabled', '');
+										month.attr('disabled', '');
+										year.attr('disabled', '');
+									}
+								}
+							</script>
+						</td>
+						<td>
+							<liferay-ui:icon-help message="entry-report-date-parameters-help" />
+						</td>
+					</c:when>
+					<c:otherwise>
+						<td>
+							<%= array[0] %>
+						</td>
+						<td colspan="3">
+							<span class="aui-field aui-field-text" id="aui_3_2_0_1428">
+								<input name="<portlet:namespace /><%= "parameterValue" + key %>" type="text" value="<%= value %>" /> <br />
+							</span>
+						</td>
+					</c:otherwise>
+				</c:choose>
+
+			<%
+			}
+			%>
+
+		</tr>
+		</table>
+	</aui:field-wrapper>
+
+	<aui:input label="email-notifications" name="emailNotifications" type="text" />
+
+	<aui:input label="email-recipient" name="emailDelivery" type="text" />
+
+	<aui:field-wrapper label="permissions">
+		<liferay-ui:input-permissions modelName="<%= Entry.class.getName() %>" />
+	</aui:field-wrapper>
+
+	<aui:button-row>
+		<aui:button type="submit" value="schedule" />
+
+		<aui:button href="<%= searchDefinitionURL %>" type="cancel" />
+	</aui:button-row>
+</aui:form>

@@ -1,0 +1,10 @@
+.kaleo-forms-portlet {
+	ul.lfr-navigation {
+		list-style: none;
+	}
+
+	.lfr-navigation-submit > span {
+		display: inline-block;
+		margin-bottom: 10px;
+	}
+}

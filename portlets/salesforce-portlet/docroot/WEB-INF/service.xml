@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.1.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_1_0.dtd">
+
+<service-builder package-path="com.liferay.salesforce">
+	<author>Michael C. Han</author>
+	<namespace>Salesforce</namespace>
+	<entity name="Salesforce" local-service="true" remote-service="false" />
+	<entity name="SalesforceAccount" local-service="true" remote-service="false" />
+	<entity name="SalesforceContact" local-service="true" remote-service="false" />
+	<entity name="SalesforceEvent" local-service="true" remote-service="false" />
+	<entity name="SalesforceLead" local-service="true" remote-service="false" />
+	<entity name="SalesforceOpportunity" local-service="true" remote-service="false" />
+	<entity name="SalesforceTask" local-service="true" remote-service="false" />
+</service-builder>

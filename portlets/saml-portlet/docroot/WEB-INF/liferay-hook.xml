@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE hook PUBLIC "-//Liferay//DTD Hook 6.1.0//EN" "http://www.liferay.com/dtd/liferay-hook_6_1_0.dtd">
+
+<hook>
+	<portal-properties>portal.properties</portal-properties>
+	<custom-jsp-dir>/META-INF/custom_jsps</custom-jsp-dir>
+	<servlet-filter>
+		<servlet-filter-name>SSO SAML SP Filter</servlet-filter-name>
+		<servlet-filter-impl>com.liferay.saml.hook.filter.SamlSpSsoFilter</servlet-filter-impl>
+		<init-param>
+			<param-name>url-regex-ignore-pattern</param-name>
+			<param-value>^/html/.+\.(css|gif|html|ico|jpg|js|png)(\?.*)?$</param-value>
+		</init-param>
+	</servlet-filter>
+	<servlet-filter-mapping>
+		<servlet-filter-name>SSO SAML SP Filter</servlet-filter-name>
+		<before-filter>SSO CAS Filter</before-filter>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</servlet-filter-mapping>
+	<struts-action>
+		<struts-action-path>/portal/saml/acs</struts-action-path>
+		<struts-action-impl>com.liferay.saml.hook.action.AssertionConsumerServiceAction</struts-action-impl>
+	</struts-action>
+	<struts-action>
+		<struts-action-path>/portal/saml/keep_alive</struts-action-path>
+		<struts-action-impl>com.liferay.saml.hook.action.SessionKeepAliveAction</struts-action-impl>
+	</struts-action>
+	<struts-action>
+		<struts-action-path>/portal/saml/metadata</struts-action-path>
+		<struts-action-impl>com.liferay.saml.hook.action.MetadataAction</struts-action-impl>
+	</struts-action>
+	<struts-action>
+		<struts-action-path>/portal/saml/slo_redirect</struts-action-path>
+		<struts-action-impl>com.liferay.saml.hook.action.SingleLogoutAction</struts-action-impl>
+	</struts-action>
+	<struts-action>
+		<struts-action-path>/portal/saml/slo_soap</struts-action-path>
+		<struts-action-impl>com.liferay.saml.hook.action.SingleLogoutAction</struts-action-impl>
+	</struts-action>
+	<struts-action>
+		<struts-action-path>/portal/saml/sso</struts-action-path>
+		<struts-action-impl>com.liferay.saml.hook.action.WebSsoAction</struts-action-impl>
+	</struts-action>
+</hook>

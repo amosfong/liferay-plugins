@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.1.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_1_0.dtd">
+
+<service-builder package-path="com.liferay.portal.workflow.kaleo.designer" auto-namespace-tables="false">
+	<author>Eduardo Lundgren</author>
+	<namespace>KaleoDesigner</namespace>
+	<entity name="KaleoDraftDefinition" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="kaleoDraftDefinitionId" type="long" primary="true" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="name" type="String" />
+		<column name="title" type="String" localized="true" />
+		<column name="content" type="String" />
+		<column name="version" type="int" />
+		<column name="draftVersion" type="int" />
+
+		<!-- Order -->
+
+		<order by="desc">
+			<order-column name="draftVersion" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="CompanyId" return-type="Collection">
+			<finder-column name="companyId" />
+		</finder>
+		<finder name="C_N_V" return-type="Collection">
+			<finder-column name="companyId" />
+			<finder-column name="name" />
+			<finder-column name="version" />
+		</finder>
+		<finder name="C_N_V_D" unique="true" return-type="WDDraft">
+			<finder-column name="companyId" />
+			<finder-column name="name" />
+			<finder-column name="version" />
+			<finder-column name="draftVersion" />
+		</finder>
+	</entity>
+	<exceptions>
+		<exception>KaleoDraftDefinitionContent</exception>
+		<exception>KaleoDraftDefinitionTitle</exception>
+	</exceptions>
+</service-builder>

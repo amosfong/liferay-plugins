@@ -1,0 +1,74 @@
+<%--
+/**
+ * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+--%>
+
+<ul class="lfr-navigation">
+	<li class="lfr-navigation-submit">
+		<liferay-ui:icon-menu
+			align="auto"
+			direction="right"
+			message='submit-new'
+			showWhenSingleIcon="<%= true %>"
+		>
+
+			<%
+			List<KaleoProcess> kaleoProcesses = KaleoProcessLocalServiceUtil.getKaleoProcesses(scopeGroupId);
+
+			for (KaleoProcess kaleoProcess : kaleoProcesses) {
+			%>
+
+				<c:if test="<%= KaleoProcessPermission.contains(permissionChecker, kaleoProcess, ActionKeys.SUBMIT) %>">
+					<portlet:renderURL var="submitURL">
+						<portlet:param name="redirect" value="<%= currentURL %>" />
+						<portlet:param name="backURL" value="<%= currentURL %>" />
+						<portlet:param name="tabs2" value="edit-request" />
+						<portlet:param name="kaleoProcessId" value="<%= String.valueOf(kaleoProcess.getKaleoProcessId()) %>" />
+					</portlet:renderURL>
+
+					<liferay-ui:icon
+						image="add"
+						message="<%= kaleoProcess.getName(locale) %>"
+						url="<%= submitURL %>"
+					/>
+				</c:if>
+
+			<%
+			}
+			%>
+
+		</liferay-ui:icon-menu>
+	</li>
+	<li>
+		<portlet:renderURL var="inboxURL">
+			<portlet:param name="tabs2" value="inbox" />
+		</portlet:renderURL>
+
+		<aui:a href="<%= inboxURL %>" label="inbox" />
+	</li>
+	<li>
+		<portlet:renderURL var="myPendingRequestsURL">
+			<portlet:param name="tabs2" value="my-pending-requests" />
+		</portlet:renderURL>
+
+		<aui:a href="<%= myPendingRequestsURL %>" label="my-pending-requests" />
+	</li>
+	<li>
+		<portlet:renderURL var="myCompletedRequestsURL">
+			<portlet:param name="tabs2" value="my-completed-requests" />
+		</portlet:renderURL>
+
+		<aui:a href="<%= myCompletedRequestsURL %>" label="my-completed-requests" />
+	</li>
+</ul>

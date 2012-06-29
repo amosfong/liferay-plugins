@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+
+<beans
+	default-destroy-method="destroy"
+	default-init-method="afterPropertiesSet"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- Binding -->
+
+	<bean id="com.liferay.saml.binding.impl.HttpPostBinding" class="com.liferay.saml.binding.impl.HttpPostBinding">
+		<constructor-arg ref="org.opensaml.xml.parse.ParserPool" />
+		<constructor-arg ref="org.apache.velocity.app.VelocityEngine" />
+	</bean>
+	<bean id="com.liferay.saml.binding.impl.HttpRedirectBinding" class="com.liferay.saml.binding.impl.HttpRedirectBinding">
+		<constructor-arg ref="org.opensaml.xml.parse.ParserPool" />
+	</bean>
+	<bean id="com.liferay.saml.binding.impl.HttpSoap11Binding" class="com.liferay.saml.binding.impl.HttpSoap11Binding">
+		<constructor-arg ref="org.opensaml.xml.parse.ParserPool" />
+		<constructor-arg ref="org.apache.commons.httpclient.HttpClient" />
+	</bean>
+
+	<!-- Credential -->
+
+	<bean id="com.liferay.saml.credential.KeyStoreManager" class="com.liferay.saml.credential.KeyStoreManagerImpl" />
+	<bean id="org.opensaml.xml.security.credential.CredentialResolver" class="com.liferay.saml.credential.KeyStoreCredentialResolver">
+		<property name="keyStoreManager" ref="com.liferay.saml.credential.KeyStoreManager" />
+	</bean>
+
+	<!-- Metadata -->
+
+	<bean id="com.liferay.saml.metadata.MetadataManager" class="com.liferay.saml.metadata.MetadataManagerImpl">
+		<property name="credentialResolver" ref="org.opensaml.xml.security.credential.CredentialResolver" />
+		<property name="httpClient" ref="org.apache.commons.httpclient.HttpClient" />
+		<property name="parserPool" ref="org.opensaml.xml.parse.ParserPool" />
+	</bean>
+	<bean id="com.liferay.saml.metadata.MetadataManagerUtil" class="com.liferay.saml.metadata.MetadataManagerUtil">
+		<property name="metadataManager" ref="com.liferay.saml.metadata.MetadataManager" />
+	</bean>
+
+	<!-- Profile -->
+
+	<bean id="com.liferay.saml.profile.SingleLogoutProfile" class="com.liferay.saml.profile.SingleLogoutProfileImpl">
+		<property name="identifierGenerator" ref="org.opensaml.common.IdentifierGenerator" />
+		<property name="samlBindings">
+			<list>
+				<ref bean="com.liferay.saml.binding.impl.HttpPostBinding" />
+				<ref bean="com.liferay.saml.binding.impl.HttpRedirectBinding" />
+				<ref bean="com.liferay.saml.binding.impl.HttpSoap11Binding" />
+			</list>
+		</property>
+	</bean>
+	<bean id="com.liferay.saml.profile.SingleLogoutProfileUtil" class="com.liferay.saml.profile.SingleLogoutProfileUtil">
+		<property name="singleLogoutProfile" ref="com.liferay.saml.profile.SingleLogoutProfile" />
+	</bean>
+	<bean id="com.liferay.saml.profile.WebSsoProfile" class="com.liferay.saml.profile.WebSsoProfileImpl">
+		<property name="identifierGenerator" ref="org.opensaml.common.IdentifierGenerator" />
+		<property name="samlBindings">
+			<list>
+				<ref bean="com.liferay.saml.binding.impl.HttpPostBinding" />
+				<ref bean="com.liferay.saml.binding.impl.HttpRedirectBinding" />
+				<ref bean="com.liferay.saml.binding.impl.HttpSoap11Binding" />
+			</list>
+		</property>
+	</bean>
+	<bean id="com.liferay.saml.profile.WebSsoProfileUtil" class="com.liferay.saml.profile.WebSsoProfileUtil">
+		<property name="webSsoProfile" ref="com.liferay.saml.profile.WebSsoProfile" />
+	</bean>
+
+	<!-- Util -->
+
+	<bean id="org.apache.commons.httpclient.HttpClient" class="org.apache.commons.httpclient.HttpClient">
+		<constructor-arg ref="org.apache.commons.httpclient.params.HttpClientParams" />
+	</bean>
+	<bean id="org.apache.commons.httpclient.params.HttpClientParams" class="org.apache.commons.httpclient.params.HttpClientParams">
+		<property name="connectionManagerTimeout" value="60000" />
+		<property name="soTimeout" value="60000" />
+	</bean>
+	<bean id="org.apache.velocity.app.VelocityEngine" class="com.liferay.saml.util.VelocityEngineFactory" factory-method="getVelocityEngine" />
+	<bean id="org.opensaml.common.IdentifierGenerator" class="com.liferay.saml.util.SamlIdentifierGenerator" />
+	<bean id="org.opensaml.xml.parse.ParserPool" class="org.opensaml.xml.parse.BasicParserPool" />
+</beans>

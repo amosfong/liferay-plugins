@@ -1,0 +1,125 @@
+.aui-diagram-node {
+	z-index: 10 !important;
+}
+
+.aui-basecelleditor {
+	outline: none;
+	z-index: 1000 !important;
+}
+
+.aui-diagram-builder-connector-wrapper {
+	z-index: 1;
+}
+
+.aui-actions-cell-editor-hidden, .aui-assignments-cell-editor-hidden, .aui-forms-cell-editor-hidden, .aui-notifications-cell-editor-hidden {
+	display: none;
+}
+
+.aui-celleditor-actions-view, .aui-celleditor-notifications-view, .aui-celleditor-assignment-view {
+	background: #EEE;
+	border: 1px solid #DBDCDC;
+	margin: 10px 0;
+	padding: 5px;
+}
+
+.aui-celleditor-label {
+	display: block;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.aui-celleditor-label-checkbox {
+	font-weight: bold;
+	padding-left: 3px;
+}
+
+.aui-diagram-builder {
+	padding-bottom: 500px;
+
+	.aui-diagram-builder-field {
+		position: relative;
+		width: 76px;
+	}
+}
+
+.aui-celleditor-textarea, .aui-celleditor-textarea-small {
+	height: 100px;
+	width: 300px;
+}
+
+.aui-celleditor-textarea-small {
+	height: 100px;
+}
+
+.aui-diagram-builder-tabs-container-content {
+	padding-right: 10px;
+}
+
+.aui-diagram-builder-content-tabs-container .aui-tabview-list {
+	margin-bottom: 5px;
+}
+
+.aui-script-cell-editor-content .aui-ace-editor {
+	height: 300px;
+	position: relative;
+	width: 550px;
+}
+
+.aui-script-cell-editor-hidden {
+	display: none;
+}
+
+.lfr-template-editor-wrapper {
+	height: 500px;
+	position: relative;
+	width: 500px;
+}
+
+.lfr-portlet-workflowdesigner-panel .lfr-panel-content {
+	padding: 0 15px;
+}
+
+.lfr-portlet-workflowdesigner-field-wrapper-first .aui-field-wrapper-content {
+	margin-top: 0;
+}
+
+.lfr-portlet-workflowdesigner-toolbar {
+	height: 30px;
+}
+
+.lfr-portlet-workflowdesigner-details-view {
+	background: url(../images/details.png) no-repeat 0 0;
+	padding-left: 60px;
+}
+
+.aui-diagram-builder-tabs-content {
+	padding-right: 1px;
+
+	.portlet-msg-info {
+		margin: 5px;
+	}
+}
+
+.aui-diagram-node-label {
+	text-align: center;
+	text-transform: capitalize;
+	white-space: nowrap;
+}
+
+.aui-celleditor-view-menu {
+	text-align: right;
+}
+
+.aui-celleditor-view-type-formTemplateId .yui3-aclist-item {
+	height: 15px;
+}
+
+.aui-diagram-builder-disabled {
+	.aui-diagram-builder-controls {
+		display: none;
+	}	
+
+	.aui-diagram-builder-field-draggable, .aui-diagram-builder-anchor-node {
+		cursor: auto;
+	}
+}

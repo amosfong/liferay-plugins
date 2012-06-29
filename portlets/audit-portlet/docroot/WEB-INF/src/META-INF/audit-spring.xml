@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans
+	default-destroy-method="destroy"
+	default-init-method="afterPropertiesSet"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+>
+
+	<!-- Router -->
+
+	<bean id="com.liferay.portal.kernel.audit.AuditRouter" class="com.liferay.portal.audit.DefaultAuditRouter">
+		<!--<property name="auditMessageProcessors">
+			<map key-type="java.lang.String" value-type="java.util.List">
+				<entry key="VIEW">
+					<list value-type="com.liferay.portal.kernel.audit.AuditMessageProcessor">
+						<ref bean="com.liferay.portal.audit.DatabaseAuditRouterProcessor" />
+						<ref bean="com.liferay.portal.audit.LogAuditRouterProcessor" />
+					</list>
+				</entry>
+			</map>
+		</property>-->
+		<property name="globalAuditMessageProcessors">
+			<list value-type="com.liferay.portal.kernel.audit.AuditMessageProcessor">
+				<ref bean="com.liferay.portal.audit.DatabaseAuditRouterProcessor" />
+				<ref bean="com.liferay.portal.audit.LogAuditRouterProcessor" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Processors -->
+
+	<bean id="com.liferay.portal.audit.DatabaseAuditRouterProcessor" class="com.liferay.portal.audit.DatabaseAuditRouterProcessor" />
+	<bean id="com.liferay.portal.audit.LogAuditRouterProcessor" class="com.liferay.portal.audit.LogAuditRouterProcessor">
+		<property name="logMessageFormatter" ref="com.liferay.portal.audit.CSVLogMessageFormatter" />
+		<property name="outputToConsole" value="false" />
+	</bean>
+
+	<!-- Message formatters -->
+
+	<bean id="com.liferay.portal.audit.CSVLogMessageFormatter" class="com.liferay.portal.audit.CSVLogMessageFormatter">
+		<property name="columns" value="additionalInfo,className,classPK,clientHost,clientIP,companyId,eventType,message,serverName,serverPort,sessionID,timestamp,userId,userName" />
+	</bean>
+	<bean id="com.liferay.portal.audit.JSONLogMessageFormatter" class="com.liferay.portal.audit.JSONLogMessageFormatter" />
+</beans>

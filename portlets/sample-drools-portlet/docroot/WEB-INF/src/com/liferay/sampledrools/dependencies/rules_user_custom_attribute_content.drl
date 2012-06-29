@@ -1,0 +1,189 @@
+##
+## Rules
+##
+## This sample program will return personalized content based on the user's
+## networth set in the My Account - Custom Fields section of the Control Panel.
+##
+## For example, suppose the current user has a net worth of 150,000 and is a
+## member of the Liferay community. All assets within the Liferay community
+## that are tagged with "High Net Worth" will be returned.
+##
+
+package com.liferay.sampledrools.dependencies;
+
+import com.liferay.portal.kernel.search.Document;
+import com.liferay.portal.kernel.search.Field;
+import com.liferay.portal.kernel.search.Hits;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistryUtil;
+import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.KeyValuePair;
+import com.liferay.portal.kernel.util.ObjectValuePair;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.model.User;
+import com.liferay.portal.security.auth.PrincipalThreadLocal;
+import com.liferay.portal.security.permission.PermissionChecker;
+import com.liferay.portal.security.permission.PermissionCheckerFactoryUtil;
+import com.liferay.portal.security.permission.PermissionThreadLocal;
+import com.liferay.portal.util.PortalUtil;
+import com.liferay.portlet.asset.model.AssetEntry;
+import com.liferay.portlet.asset.service.AssetEntryLocalServiceUtil;
+import com.liferay.portlet.expando.model.ExpandoBridge;
+
+import java.io.Serializable;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+dialect "java"
+
+function List getAssetEntries(User user, long[] classNameIds, String[] names) {
+	SearchContext searchContext = new SearchContext();
+
+	searchContext.setAssetTagNames(names);
+	searchContext.setAttribute("paginationType", "regular");
+	searchContext.setCompanyId(user.getCompanyId());
+	searchContext.setGroupIds(user.getGroupIds());
+	searchContext.setScopeStrict(false);
+	searchContext.setUserId(user.getUserId());
+
+	List<AssetEntry> assetEntries = new ArrayList<AssetEntry>();
+
+	for (long classNameId : classNameIds) {
+		String className = PortalUtil.getClassName(classNameId);
+
+		Indexer indexer = IndexerRegistryUtil.getIndexer(className);
+
+		if (indexer == null) {
+			continue;
+		}
+
+		Hits hits = indexer.search(searchContext);
+
+		for (int i = 0; i < hits.getDocs().length; i++) {
+			Document document = hits.doc(i);
+
+			long classPK = GetterUtil.getLong(
+				document.get(Field.ENTRY_CLASS_PK));
+			long resourcePrimKey = GetterUtil.getLong(
+				document.get(Field.ROOT_ENTRY_CLASS_PK));
+
+			if (resourcePrimKey > 0) {
+				classPK = resourcePrimKey;
+			}
+
+			assetEntries.add(
+				AssetEntryLocalServiceUtil.getEntry(className, classPK));
+		}
+	}
+
+	return assetEntries;
+}
+
+function Map getUserCustomAttributes(
+	User user, String[] userCustomAttributeNames) {
+
+	String contextName = PrincipalThreadLocal.getName();
+
+	PermissionChecker contextPermissionChecker =
+		PermissionThreadLocal.getPermissionChecker();
+
+	PrincipalThreadLocal.setName(user.getUserId());
+
+	PermissionChecker permissionChecker =
+		PermissionCheckerFactoryUtil.create(user, true);
+
+	PermissionThreadLocal.setPermissionChecker(permissionChecker);
+
+	try {
+		ExpandoBridge expandoBridge = user.getExpandoBridge();
+
+		Map<String, Serializable> userCustomAttributes =
+			new HashMap<String, Serializable> ();
+
+		for (String userCustomAttributeName : userCustomAttributeNames) {
+			Serializable userCustomAttributeValue = expandoBridge.getAttribute(
+				userCustomAttributeName);
+
+			userCustomAttributes.put(
+				userCustomAttributeName, userCustomAttributeValue);
+		}
+
+		return userCustomAttributes;
+	}
+	finally {
+		PrincipalThreadLocal.setName(contextName);
+
+		PermissionThreadLocal.setPermissionChecker(contextPermissionChecker);
+	}
+}
+
+rule "Initialize Rules"
+	salience 1000
+	when
+		user : User();
+		userCustomAttributeNames :
+			KeyValuePair(key == "userCustomAttributeNames");
+	then
+		Map<String, Serializable> userCustomAttributes =
+			getUserCustomAttributes(
+				user, StringUtil.split(userCustomAttributeNames.getValue()));
+
+		Iterator<Map.Entry<String, Serializable>> itr =
+			userCustomAttributes.entrySet().iterator();
+
+		while (itr.hasNext()) {
+			Map.Entry<String, Serializable> entry = itr.next();
+
+			String key = entry.getKey();
+			Serializable value = entry.getValue();
+
+			insertLogical(new ObjectValuePair(key, value));
+		}
+end
+
+rule "Get High Net Worth Content"
+	when
+		classNameIds : KeyValuePair(key == "classNameIds");
+		results : List();
+		user : User();
+		userCustomAttribute : ObjectValuePair(
+			(key == "networth") && (value >= 100000));
+	then
+		List<AssetEntry> assetEntries = getAssetEntries(
+			user, StringUtil.split(classNameIds.getValue(), 0L),
+			new String[] {"High Net Worth"});
+
+		assetEntries.removeAll(results);
+
+		modify(results) {
+			addAll(assetEntries);
+		};
+
+		retract(userCustomAttribute);
+end
+
+rule "Get Regular Customer Content"
+	when
+		classNameIds : KeyValuePair(key == "classNameIds");
+		results : List();
+		user : User();
+		userCustomAttribute : ObjectValuePair(
+			(key == "networth") && (value < 100000));
+	then
+		List<AssetEntry> assetEntries = getAssetEntries(
+			user, StringUtil.split(classNameIds.getValue(), 0L),
+			new String[] {"Regular Customer"});
+
+		assetEntries.removeAll(results);
+
+		modify(results) {
+			addAll(assetEntries);
+		};
+
+		retract(userCustomAttribute);
+end

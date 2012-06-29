@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-lazy="false" auto-import="false">
+	<import class="com.liferay.salesforce.model.Salesforce" />
+	<import class="com.liferay.salesforce.model.SalesforceAccount" />
+	<import class="com.liferay.salesforce.model.SalesforceContact" />
+	<import class="com.liferay.salesforce.model.SalesforceEvent" />
+	<import class="com.liferay.salesforce.model.SalesforceLead" />
+	<import class="com.liferay.salesforce.model.SalesforceOpportunity" />
+	<import class="com.liferay.salesforce.model.SalesforceTask" />
+</hibernate-mapping>

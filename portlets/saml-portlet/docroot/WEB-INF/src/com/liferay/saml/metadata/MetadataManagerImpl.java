@@ -1,0 +1,404 @@
+/**
+ * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
+package com.liferay.saml.metadata;
+
+import com.liferay.portal.kernel.concurrent.ReadWriteLockKey;
+import com.liferay.portal.kernel.concurrent.ReadWriteLockRegistry;
+import com.liferay.portal.kernel.configuration.Filter;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.security.auth.CompanyThreadLocal;
+import com.liferay.saml.provider.CachingChainingMetadataProvider;
+import com.liferay.saml.provider.ReinitializingFilesystemMetadataProvider;
+import com.liferay.saml.provider.ReinitializingHttpMetadataProvider;
+import com.liferay.saml.util.PortletPropsKeys;
+import com.liferay.saml.util.PortletPropsValues;
+import com.liferay.saml.util.SamlUtil;
+
+import java.io.File;
+
+import java.util.List;
+import java.util.Timer;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.locks.Lock;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.httpclient.HttpClient;
+
+import org.opensaml.Configuration;
+import org.opensaml.common.binding.security.SAMLProtocolMessageXMLSignatureSecurityPolicyRule;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.binding.security.SAML2HTTPPostSimpleSignRule;
+import org.opensaml.saml2.binding.security.SAML2HTTPRedirectDeflateSignatureRule;
+import org.opensaml.saml2.core.NameIDType;
+import org.opensaml.saml2.metadata.EntityDescriptor;
+import org.opensaml.saml2.metadata.provider.FilesystemMetadataProvider;
+import org.opensaml.saml2.metadata.provider.HTTPMetadataProvider;
+import org.opensaml.saml2.metadata.provider.MetadataProvider;
+import org.opensaml.saml2.metadata.provider.MetadataProviderException;
+import org.opensaml.security.MetadataCredentialResolver;
+import org.opensaml.ws.security.SecurityPolicy;
+import org.opensaml.ws.security.SecurityPolicyResolver;
+import org.opensaml.ws.security.SecurityPolicyRule;
+import org.opensaml.ws.security.provider.BasicSecurityPolicy;
+import org.opensaml.ws.security.provider.HTTPRule;
+import org.opensaml.ws.security.provider.MandatoryAuthenticatedMessageRule;
+import org.opensaml.ws.security.provider.MandatoryIssuerRule;
+import org.opensaml.ws.security.provider.StaticSecurityPolicyResolver;
+import org.opensaml.xml.parse.ParserPool;
+import org.opensaml.xml.security.CriteriaSet;
+import org.opensaml.xml.security.SecurityConfiguration;
+import org.opensaml.xml.security.SecurityException;
+import org.opensaml.xml.security.credential.Credential;
+import org.opensaml.xml.security.credential.CredentialResolver;
+import org.opensaml.xml.security.criteria.EntityIDCriteria;
+import org.opensaml.xml.security.keyinfo.KeyInfoCredentialResolver;
+import org.opensaml.xml.signature.SignatureTrustEngine;
+import org.opensaml.xml.signature.impl.ChainingSignatureTrustEngine;
+import org.opensaml.xml.signature.impl.ExplicitKeySignatureTrustEngine;
+
+/**
+ * @author Mika Koivisto
+ */
+public class MetadataManagerImpl implements MetadataManager {
+
+	public int getAssertionLifetime(String entityId) {
+		String samlIdpAssertionLifetime = PropsUtil.get(
+			PortletPropsKeys.SAML_IDP_ASSERTION_LIFETIME, new Filter(entityId));
+
+		if (Validator.isNull(samlIdpAssertionLifetime)) {
+			samlIdpAssertionLifetime = PropsUtil.get(
+				PortletPropsKeys.SAML_IDP_ASSERTION_LIFETIME);
+		}
+
+		return GetterUtil.getInteger(samlIdpAssertionLifetime, 1800);
+	}
+
+	public long getClockSkew() {
+		return GetterUtil.getInteger(
+			PropsUtil.get(PortletPropsKeys.SAML_SP_CLOCK_SKEW), 3000);
+	}
+
+	public String getDefaultIdpEntityId() {
+		return PropsUtil.get(PortletPropsKeys.SAML_SP_DEFAULT_IDP_ENTITY_ID);
+	}
+
+	public EntityDescriptor getEntityDescriptor(HttpServletRequest request)
+		throws MetadataProviderException {
+
+		try {
+			if (SamlUtil.isRoleIdp()) {
+				return MetadataGeneratorUtil.buildIdpEntityDescriptor(
+					request, getLocalEntityId(), isWantAuthnRequestSigned(),
+					isSignMetadata(), isSSLRequired(), getSigningCredential());
+			}
+			else if (SamlUtil.isRoleSp()) {
+				return MetadataGeneratorUtil.buildSpEntityDescriptor(
+					request, getLocalEntityId(), isSignAuthnRequests(),
+					isSignMetadata(), isSSLRequired(), isWantAssertionsSigned(),
+					getSigningCredential());
+			}
+
+			return null;
+		}
+		catch (Exception e) {
+			throw new MetadataProviderException(e);
+		}
+	}
+
+	public String getLocalEntityId() {
+		return PropsUtil.get(PortletPropsKeys.SAML_ENTITY_ID);
+	}
+
+	public MetadataProvider getMetadataProvider()
+		throws MetadataProviderException {
+
+		long companyId = CompanyThreadLocal.getCompanyId();
+
+		ReadWriteLockKey<Long> readWriteLockKey = new ReadWriteLockKey<Long>(
+			companyId, true);
+
+		Lock lock = _readWriteLockRegistry.acquireLock(readWriteLockKey);
+
+		lock.lock();
+
+		try {
+			MetadataProvider metadataProvider = _metadataProviders.get(
+				companyId);
+
+			if (metadataProvider != null) {
+				return metadataProvider;
+			}
+
+			String[] paths = PropsUtil.getArray(
+				PortletPropsKeys.SAML_METADATA_PATHS);
+
+			CachingChainingMetadataProvider cachingChainingMetadataProvider =
+				new CachingChainingMetadataProvider();
+
+			metadataProvider = cachingChainingMetadataProvider;
+
+			for (String path : paths) {
+				if (path.startsWith("http://") || path.startsWith("https://")) {
+					HTTPMetadataProvider httpMetadataProvider =
+						new ReinitializingHttpMetadataProvider(
+							_timer, _httpClient, path);
+
+					httpMetadataProvider.setFailFastInitialization(false);
+					httpMetadataProvider.setMaxRefreshDelay(
+						PortletPropsValues.SAML_METADATA_MAX_REFRESH_DELAY);
+					httpMetadataProvider.setMinRefreshDelay(
+						PortletPropsValues.SAML_METADATA_MIN_REFRESH_DELAY);
+					httpMetadataProvider.setParserPool(_parserPool);
+
+					try {
+						httpMetadataProvider.initialize();
+					}
+					catch (MetadataProviderException mpe) {
+						_log.warn("Unable to initialize provider " + path);
+					}
+
+					cachingChainingMetadataProvider.addMetadataProvider(
+						httpMetadataProvider);
+				}
+				else {
+					FilesystemMetadataProvider filesystemMetadataProvider =
+						new ReinitializingFilesystemMetadataProvider(
+							_timer, new File(path));
+
+					filesystemMetadataProvider.setFailFastInitialization(false);
+					filesystemMetadataProvider.setMaxRefreshDelay(
+						PortletPropsValues.SAML_METADATA_MAX_REFRESH_DELAY);
+					filesystemMetadataProvider.setMinRefreshDelay(
+						PortletPropsValues.SAML_METADATA_MIN_REFRESH_DELAY);
+					filesystemMetadataProvider.setParserPool(_parserPool);
+
+					try {
+						filesystemMetadataProvider.initialize();
+					}
+					catch (MetadataProviderException mpe) {
+						_log.warn("Unable to initialize provider " + path);
+					}
+
+					cachingChainingMetadataProvider.addMetadataProvider(
+						filesystemMetadataProvider);
+				}
+			}
+
+			_metadataProviders.put(companyId, metadataProvider);
+
+			return metadataProvider;
+		}
+		finally {
+			lock.unlock();
+
+			if (readWriteLockKey != null) {
+				_readWriteLockRegistry.releaseLock(readWriteLockKey);
+			}
+		}
+	}
+
+	public String getNameIdFormat() {
+		return GetterUtil.getString(
+			PropsUtil.get(PortletPropsKeys.SAML_SP_NAME_ID_FORMAT),
+			NameIDType.EMAIL);
+	}
+
+	public SecurityPolicyResolver getSecurityPolicyResolver(
+			String communicationProfileId, boolean requireSignature)
+		throws MetadataProviderException {
+
+		SecurityPolicy securityPolicy = new BasicSecurityPolicy();
+
+		List<SecurityPolicyRule> securityPolicyRules =
+			securityPolicy.getPolicyRules();
+
+		if (requireSignature) {
+			SignatureTrustEngine signatureTrustEngine =
+				getSignatureTrustEngine();
+
+			if (communicationProfileId.equals(
+					SAMLConstants.SAML2_REDIRECT_BINDING_URI)) {
+
+				SecurityPolicyRule securityPolicyRule =
+					new SAML2HTTPRedirectDeflateSignatureRule(
+						signatureTrustEngine);
+
+				securityPolicyRules.add(securityPolicyRule);
+			}
+			else if (communicationProfileId.equals(
+						SAMLConstants.SAML2_POST_SIMPLE_SIGN_BINDING_URI)) {
+
+				SecurityConfiguration securityConfiguration =
+					Configuration.getGlobalSecurityConfiguration();
+
+				KeyInfoCredentialResolver keyInfoCredentialResolver =
+					securityConfiguration.getDefaultKeyInfoCredentialResolver();
+
+				SecurityPolicyRule securityPolicyRule =
+					new SAML2HTTPPostSimpleSignRule(
+						signatureTrustEngine, _parserPool,
+						keyInfoCredentialResolver);
+
+				securityPolicyRules.add(securityPolicyRule);
+			}
+			else {
+				SecurityPolicyRule securityPolicyRule =
+					new SAMLProtocolMessageXMLSignatureSecurityPolicyRule(
+						signatureTrustEngine);
+
+				securityPolicyRules.add(securityPolicyRule);
+			}
+
+			MandatoryAuthenticatedMessageRule
+				mandatoryAuthenticatedMessageRule =
+					new MandatoryAuthenticatedMessageRule();
+
+			securityPolicyRules.add(mandatoryAuthenticatedMessageRule);
+		}
+
+		HTTPRule httpRule = new HTTPRule(
+			null, null, MetadataManagerUtil.isSSLRequired());
+
+		securityPolicyRules.add(httpRule);
+
+		MandatoryIssuerRule mandatoryIssuerRule = new MandatoryIssuerRule();
+
+		securityPolicyRules.add(mandatoryIssuerRule);
+
+		StaticSecurityPolicyResolver securityPolicyResolver =
+			new StaticSecurityPolicyResolver(securityPolicy);
+
+		return securityPolicyResolver;
+	}
+
+	public String getSessionKeepAliveURL(String entityId) {
+		return PropsUtil.get(
+			PortletPropsKeys.SAML_IDP_METADATA_SESSION_KEEP_ALIVE_URL,
+			new Filter(entityId));
+	}
+
+	public SignatureTrustEngine getSignatureTrustEngine()
+		throws MetadataProviderException {
+
+		ChainingSignatureTrustEngine chainingSignatureTrustEngine =
+			new ChainingSignatureTrustEngine();
+
+		List<SignatureTrustEngine> signatureTrustEngines =
+			chainingSignatureTrustEngine.getChain();
+
+		MetadataCredentialResolver metadataCredentialResolver =
+			new MetadataCredentialResolver(getMetadataProvider());
+
+		SecurityConfiguration securityConfiguration =
+			Configuration.getGlobalSecurityConfiguration();
+
+		KeyInfoCredentialResolver keyInfoCredentialResolver =
+			securityConfiguration.getDefaultKeyInfoCredentialResolver();
+
+		SignatureTrustEngine signatureTrustEngine =
+			new ExplicitKeySignatureTrustEngine(
+				metadataCredentialResolver, keyInfoCredentialResolver);
+
+		signatureTrustEngines.add(signatureTrustEngine);
+
+		signatureTrustEngine = new ExplicitKeySignatureTrustEngine(
+			_credentialResolver, keyInfoCredentialResolver);
+
+		signatureTrustEngines.add(signatureTrustEngine);
+
+		return chainingSignatureTrustEngine;
+	}
+
+	public Credential getSigningCredential() throws SecurityException {
+		CriteriaSet criteriaSet = new CriteriaSet();
+
+		String entityId = getLocalEntityId();
+
+		EntityIDCriteria entityIdCriteria = new EntityIDCriteria(entityId);
+
+		criteriaSet.add(entityIdCriteria);
+
+		return _credentialResolver.resolveSingle(criteriaSet);
+	}
+
+	public boolean isAttributesEnabled(String entityId) {
+		String attributesEnabled = PropsUtil.get(
+			PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_ENABLED,
+			new Filter(entityId));
+
+		if (Validator.isNull(attributesEnabled)) {
+			attributesEnabled = PropsUtil.get(
+				PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_ENABLED);
+		}
+
+		return GetterUtil.getBoolean(attributesEnabled);
+	}
+
+	public boolean isSignAuthnRequests() {
+		return GetterUtil.getBoolean(
+			PropsUtil.get(PortletPropsKeys.SAML_SP_SIGN_AUTHN_REQUEST));
+	}
+
+	public boolean isSignMetadata() {
+		return GetterUtil.getBoolean(
+			PropsUtil.get(PortletPropsKeys.SAML_SIGN_METADATA));
+	}
+
+	public boolean isSSLRequired() {
+		return GetterUtil.getBoolean(
+			PropsUtil.get(PortletPropsKeys.SAML_SSL_REQUIRED));
+	}
+
+	public boolean isWantAssertionsSigned() {
+		return GetterUtil.getBoolean(
+			PropsUtil.get(
+				PortletPropsKeys.SAML_SP_ASSERTION_SIGNATURE_REQUIRED));
+	}
+
+	public boolean isWantAuthnRequestSigned() {
+		return GetterUtil.getBoolean(
+			PropsUtil.get(
+				PortletPropsKeys.SAML_IDP_AUTHN_REQUEST_SIGNATURE_REQUIRED));
+	}
+
+	public void setCredentialResolver(CredentialResolver credentialResolver) {
+		_credentialResolver = credentialResolver;
+	}
+
+	public void setHttpClient(HttpClient httpClient) {
+		_httpClient = httpClient;
+	}
+
+	public void setParserPool(ParserPool parserPool) {
+		_parserPool = parserPool;
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(MetadataManagerImpl.class);
+
+	private CredentialResolver _credentialResolver;
+	private HttpClient _httpClient;
+	private ConcurrentHashMap<Long, MetadataProvider> _metadataProviders =
+		new ConcurrentHashMap<Long, MetadataProvider>();
+	private ParserPool _parserPool;
+	private ReadWriteLockRegistry _readWriteLockRegistry =
+		new ReadWriteLockRegistry();
+	private Timer _timer = new Timer(true);
+
+}
