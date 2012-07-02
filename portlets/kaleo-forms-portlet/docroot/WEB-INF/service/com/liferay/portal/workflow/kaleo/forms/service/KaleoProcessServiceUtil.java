@@ -93,6 +93,19 @@ public class KaleoProcessServiceUtil {
 		return getService().getKaleoProcess(kaleoProcessId);
 	}
 
+	public static java.util.List<com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess> getKaleoProcesses(
+		long groupId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getKaleoProcesses(groupId, start, end, orderByComparator);
+	}
+
+	public static int getKaleoProcessesCount(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getKaleoProcessesCount(groupId);
+	}
+
 	public static com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess updateKaleoProcess(
 		long kaleoProcessId, long ddmTemplateId, long[] kaleoProcessLinkIds,
 		com.liferay.portal.service.ServiceContext serviceContext)

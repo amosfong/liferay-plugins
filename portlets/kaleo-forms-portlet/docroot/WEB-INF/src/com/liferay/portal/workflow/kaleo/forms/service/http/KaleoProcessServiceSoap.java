@@ -126,6 +126,38 @@ public class KaleoProcessServiceSoap {
 		}
 	}
 
+	public static com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessSoap[] getKaleoProcesses(
+		long groupId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws RemoteException {
+		try {
+			java.util.List<com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess> returnValue =
+				KaleoProcessServiceUtil.getKaleoProcesses(groupId, start, end,
+					orderByComparator);
+
+			return com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getKaleoProcessesCount(long groupId)
+		throws RemoteException {
+		try {
+			int returnValue = KaleoProcessServiceUtil.getKaleoProcessesCount(groupId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessSoap updateKaleoProcess(
 		long kaleoProcessId, long ddmTemplateId, long[] kaleoProcessLinkIds,
 		com.liferay.portal.service.ServiceContext serviceContext)

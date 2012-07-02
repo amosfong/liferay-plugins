@@ -50,9 +50,20 @@ public class KaleoProcessServiceClpInvoker {
 
 		_methodParameterTypes49 = new String[] { "long" };
 
-		_methodName50 = "updateKaleoProcess";
+		_methodName50 = "getKaleoProcesses";
 
 		_methodParameterTypes50 = new String[] {
+				"long", "int", "int",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			};
+
+		_methodName51 = "getKaleoProcessesCount";
+
+		_methodParameterTypes51 = new String[] { "long" };
+
+		_methodName52 = "updateKaleoProcess";
+
+		_methodParameterTypes52 = new String[] {
 				"long", "long", "long[][]",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -95,6 +106,19 @@ public class KaleoProcessServiceClpInvoker {
 
 		if (_methodName50.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
+			return KaleoProcessServiceUtil.getKaleoProcesses(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue(),
+				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
+		}
+
+		if (_methodName51.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
+			return KaleoProcessServiceUtil.getKaleoProcessesCount(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName52.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
 			return KaleoProcessServiceUtil.updateKaleoProcess(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(), (long[])arguments[2],
 				(com.liferay.portal.service.ServiceContext)arguments[3]);
@@ -117,4 +141,8 @@ public class KaleoProcessServiceClpInvoker {
 	private String[] _methodParameterTypes49;
 	private String _methodName50;
 	private String[] _methodParameterTypes50;
+	private String _methodName51;
+	private String[] _methodParameterTypes51;
+	private String _methodName52;
+	private String[] _methodParameterTypes52;
 }
