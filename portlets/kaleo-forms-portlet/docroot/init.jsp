@@ -72,6 +72,7 @@ page import="com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink" %><
 page import="com.liferay.portal.workflow.kaleo.forms.search.KaleoProcessSearch" %><%@
 page import="com.liferay.portal.workflow.kaleo.forms.service.KaleoProcessLinkLocalServiceUtil" %><%@
 page import="com.liferay.portal.workflow.kaleo.forms.service.KaleoProcessLocalServiceUtil" %><%@
+page import="com.liferay.portal.workflow.kaleo.forms.service.KaleoProcessServiceUtil" %><%@
 page import="com.liferay.portal.workflow.kaleo.forms.service.permission.KaleoFormsPermission" %><%@
 page import="com.liferay.portal.workflow.kaleo.forms.service.permission.KaleoProcessPermission" %><%@
 page import="com.liferay.portal.workflow.kaleo.forms.util.ActionKeys" %><%@

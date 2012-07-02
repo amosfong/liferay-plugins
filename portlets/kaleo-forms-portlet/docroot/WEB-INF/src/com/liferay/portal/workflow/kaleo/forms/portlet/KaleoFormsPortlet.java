@@ -42,6 +42,7 @@ import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.workflow.kaleo.forms.KaleoProcessDDMTemplateIdException;
 import com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException;
 import com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess;
+import com.liferay.portal.workflow.kaleo.forms.service.KaleoProcessLocalServiceUtil;
 import com.liferay.portal.workflow.kaleo.forms.service.KaleoProcessServiceUtil;
 import com.liferay.portal.workflow.kaleo.forms.service.permission.KaleoProcessPermission;
 import com.liferay.portal.workflow.kaleo.forms.util.WebKeys;
@@ -224,8 +225,8 @@ public class KaleoFormsPortlet extends MVCPortlet {
 		long kaleoProcessId = ParamUtil.getLong(
 			serviceContext, "kaleoProcessId");
 
-		KaleoProcess kaleoProcess = KaleoProcessServiceUtil.getKaleoProcess(
-			kaleoProcessId);
+		KaleoProcess kaleoProcess =
+			KaleoProcessLocalServiceUtil.getKaleoProcess(kaleoProcessId);
 
 		DDLRecord ddlRecord = updateDDLRecord(serviceContext);
 
@@ -378,8 +379,8 @@ public class KaleoFormsPortlet extends MVCPortlet {
 			renderRequest, "kaleoProcessId");
 
 		if (kaleoProcessId > 0) {
-			KaleoProcess kaleoProcess = KaleoProcessServiceUtil.getKaleoProcess(
-				kaleoProcessId);
+			KaleoProcess kaleoProcess =
+				KaleoProcessLocalServiceUtil.getKaleoProcess(kaleoProcessId);
 
 			renderRequest.setAttribute(WebKeys.KALEO_PROCESS, kaleoProcess);
 		}
