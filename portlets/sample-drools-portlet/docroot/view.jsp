@@ -50,6 +50,10 @@
 				for (AssetEntry assetEntry : assetEntries) {
 					AssetRendererFactory assetRendererFactory = AssetRendererFactoryRegistryUtil.getAssetRendererFactoryByClassName(assetEntry.getClassName());
 
+					if (assetRendererFactory == null) {
+						continue;
+					}
+
 					AssetRenderer assetRenderer = assetRendererFactory.getAssetRenderer(assetEntry.getClassPK());
 
 					request.setAttribute(WebKeys.ASSET_RENDERER_FACTORY, assetRendererFactory);

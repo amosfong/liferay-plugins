@@ -6,22 +6,33 @@
 ##
 ## For example, suppose the current user has an address in the United States and
 ## is a member of the Liferay community. All assets within the Liferay community
-## that are tagged with "West Coast Symposium" will be returned.
+## that are tagged with "americas" will be returned.
 ##
 
 package com.liferay.sampledrools.dependencies;
 
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.search.Document;
+import com.liferay.portal.kernel.search.FacetedSearcher;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Indexer;
-import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.kernel.search.facet.AssetEntriesFacet;
+import com.liferay.portal.kernel.search.facet.Facet;
+import com.liferay.portal.kernel.search.facet.MultiValueFacet;
+import com.liferay.portal.kernel.search.facet.ScopeFacet;
+import com.liferay.portal.kernel.search.facet.config.FacetConfiguration;
+import com.liferay.portal.kernel.search.facet.config.FacetConfigurationUtil;
+import com.liferay.portal.kernel.search.facet.util.FacetFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.KeyValuePair;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.Address;
 import com.liferay.portal.model.Contact;
+import com.liferay.portal.model.Group;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.AddressLocalServiceUtil;
 import com.liferay.portal.util.PortalUtil;
@@ -29,51 +40,150 @@ import com.liferay.portlet.asset.model.AssetEntry;
 import com.liferay.portlet.asset.service.AssetEntryLocalServiceUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 dialect "java"
 
-function List getAssetEntries(User user, long[] classNameIds, String[] names) {
+function List getAssetEntries(
+	User user, long[] classNameIds, String assetTagName) {
+
+	List<Group> groups = user.getMySites();
+
+	long[] groupIds = new long[groups.size()];
+
+	for (int i = 0; i < groups.size(); i++) {
+		groupIds[i] = groups.get(i).getGroupId();
+	}
+
+	String[] keywords = assetTagName.split("\\s+");
+
+	for (int i = 0; i < keywords.length; i++) {
+		keywords[i] = keywords[i].toLowerCase();
+	}
+
+	if ((classNameIds == null) || (classNameIds.length == 0) ||
+		(groupIds.length == 0) || (keywords.length ==0)) {
+
+		return Collections.emptyList();
+	}
+
 	SearchContext searchContext = new SearchContext();
 
-	searchContext.setAssetTagNames(names);
+	searchContext.setAttribute(
+		Field.ASSET_TAG_NAMES, StringUtil.merge(keywords));
 	searchContext.setAttribute("paginationType", "regular");
 	searchContext.setCompanyId(user.getCompanyId());
-	searchContext.setGroupIds(user.getGroupIds());
+	searchContext.setIncludeStagingGroups(false);
 	searchContext.setScopeStrict(false);
 	searchContext.setUserId(user.getUserId());
 
+	JSONObject searchConfigurationJSONObject =
+		JSONFactoryUtil.createJSONObject();
+
+	JSONArray facetsJSONArray = JSONFactoryUtil.createJSONArray();
+
+	facetsJSONArray.put(getAssetEntriesFacetJSONObject(classNameIds));
+	facetsJSONArray.put(getMultiValueFacetJSONObject());
+	facetsJSONArray.put(getScopeFacetJSONObject(groupIds));
+
+	searchConfigurationJSONObject.put("facets", facetsJSONArray);
+
+	List<FacetConfiguration> facetConfigurations =
+		FacetConfigurationUtil.load(searchConfigurationJSONObject.toString());
+
+	for (FacetConfiguration facetConfiguration : facetConfigurations) {
+		Facet facet = FacetFactoryUtil.create(
+			searchContext, facetConfiguration);
+
+		searchContext.addFacet(facet);
+	}
+
+	Indexer indexer = FacetedSearcher.getInstance();
+
+	Hits hits = indexer.search(searchContext);
+
 	List<AssetEntry> assetEntries = new ArrayList<AssetEntry>();
 
-	for (long classNameId : classNameIds) {
-		String className = PortalUtil.getClassName(classNameId);
+	for (int i = 0; i < hits.getDocs().length; i++) {
+		Document document = hits.doc(i);
 
-		Indexer indexer = IndexerRegistryUtil.getIndexer(className);
+		String entryClassName = document.get(Field.ENTRY_CLASS_NAME);
 
-		if (indexer == null) {
-			continue;
+		long entryClassPK = GetterUtil.getLong(
+			document.get(Field.ENTRY_CLASS_PK));
+		long rootEntryClassPK = GetterUtil.getLong(
+			document.get(Field.ROOT_ENTRY_CLASS_PK));
+
+		if (rootEntryClassPK > 0) {
+			entryClassPK = rootEntryClassPK;
 		}
 
-		Hits hits = indexer.search(searchContext);
+		AssetEntry assetEntry = AssetEntryLocalServiceUtil.fetchEntry(
+			entryClassName, entryClassPK);
 
-		for (int i = 0; i < hits.getDocs().length; i++) {
-			Document document = hits.doc(i);
-
-			long classPK = GetterUtil.getLong(
-				document.get(Field.ENTRY_CLASS_PK));
-			long resourcePrimKey = GetterUtil.getLong(
-				document.get(Field.ROOT_ENTRY_CLASS_PK));
-
-			if (resourcePrimKey > 0) {
-				classPK = resourcePrimKey;
-			}
-
-			assetEntries.add(
-				AssetEntryLocalServiceUtil.getEntry(className, classPK));
+		if (assetEntry != null) {
+			assetEntries.add(assetEntry);
 		}
 	}
 
 	return assetEntries;
+}
+
+function JSONObject getAssetEntriesFacetJSONObject(long[] classNameIds) {
+	JSONObject assetEntriesFacetJSONObject = JSONFactoryUtil.createJSONObject();
+
+	assetEntriesFacetJSONObject.put(
+		"className", AssetEntriesFacet.class.getName());
+
+	JSONObject dataJSONObject = JSONFactoryUtil.createJSONObject();
+
+	JSONArray valuesJSONArray = JSONFactoryUtil.createJSONArray();
+
+	for (long classNameId : classNameIds) {
+		valuesJSONArray.put(PortalUtil.getClassName(classNameId));
+	}
+
+	dataJSONObject.put("values", valuesJSONArray);
+
+	assetEntriesFacetJSONObject.put("data", dataJSONObject);
+	assetEntriesFacetJSONObject.put("order", "OrderHitsDesc");
+	assetEntriesFacetJSONObject.put("static", false);
+
+	return assetEntriesFacetJSONObject;
+}
+
+function JSONObject getMultiValueFacetJSONObject() {
+	JSONObject multiValueFacetJSONObject = JSONFactoryUtil.createJSONObject();
+
+	multiValueFacetJSONObject.put("className", MultiValueFacet.class.getName());
+	multiValueFacetJSONObject.put("fieldName", Field.ASSET_TAG_NAMES);
+	multiValueFacetJSONObject.put("order", "OrderHitsDesc");
+	multiValueFacetJSONObject.put("static", false);
+
+	return multiValueFacetJSONObject;
+}
+
+function JSONObject getScopeFacetJSONObject(long[] groupIds) {
+	JSONObject scopeFacetJSONObject = JSONFactoryUtil.createJSONObject();
+
+	scopeFacetJSONObject.put("className", ScopeFacet.class.getName());
+
+	JSONObject dataJSONObject = JSONFactoryUtil.createJSONObject();
+
+	JSONArray valuesJSONArray = JSONFactoryUtil.createJSONArray();
+
+	for (long groupId : groupIds) {
+		valuesJSONArray.put(groupId);
+	}
+
+	dataJSONObject.put("values", valuesJSONArray);
+
+	scopeFacetJSONObject.put("data", dataJSONObject);
+	scopeFacetJSONObject.put("order", "OrderHitsDesc");
+	scopeFacetJSONObject.put("static", false);
+
+	return scopeFacetJSONObject;
 }
 
 rule "Initialize Rules"
@@ -89,48 +199,7 @@ rule "Initialize Rules"
 		}
 end
 
-rule "Get European Symposium Content"
-	when
-		classNameIds : KeyValuePair(key == "classNameIds");
-		results : List();
-		user : User();
-		userAddress : Address(country.name  in ("France", "Germany", "Spain"));
-	then
-		List<AssetEntry> assetEntries = getAssetEntries(
-			user, StringUtil.split(classNameIds.getValue(), 0L),
-			new String[] {"European Symposium"});
-
-		assetEntries.removeAll(results);
-
-		modify(results) {
-			addAll(assetEntries);
-		};
-
-		retract(userAddress);
-end
-
-rule "Get Indian Symposium Content"
-	when
-		classNameIds : KeyValuePair(key == "classNameIds");
-		results : List();
-		user : User();
-		userAddress : Address(
-			country.name  in ("India", "Malaysia", "Singapore"));
-	then
-		List<AssetEntry> assetEntries = getAssetEntries(
-			user, StringUtil.split(classNameIds.getValue(), 0L),
-			new String[] {"Indian Symposium"});
-
-		assetEntries.removeAll(results);
-
-		modify(results) {
-			addAll(assetEntries);
-		};
-
-		retract(userAddress);
-end
-
-rule "Get West Coast Symposium Content"
+rule "Get Americas Content"
 	when
 		classNameIds : KeyValuePair(key == "classNameIds");
 		results : List();
@@ -139,8 +208,46 @@ rule "Get West Coast Symposium Content"
 			country.name in ("Brazil", "Canada", "Mexico", "United States"));
 	then
 		List<AssetEntry> assetEntries = getAssetEntries(
-			user, StringUtil.split(classNameIds.getValue(), 0L),
-			new String[] {"West Coast Symposium"});
+			user, StringUtil.split(classNameIds.getValue(), 0L), "americas");
+
+		assetEntries.removeAll(results);
+
+		modify(results) {
+			addAll(assetEntries);
+		};
+
+		retract(userAddress);
+end
+
+rule "Get European Content"
+	when
+		classNameIds : KeyValuePair(key == "classNameIds");
+		results : List();
+		user : User();
+		userAddress : Address(country.name in ("France", "Germany", "Spain"));
+	then
+		List<AssetEntry> assetEntries = getAssetEntries(
+			user, StringUtil.split(classNameIds.getValue(), 0L), "european");
+
+		assetEntries.removeAll(results);
+
+		modify(results) {
+			addAll(assetEntries);
+		};
+
+		retract(userAddress);
+end
+
+rule "Get Indian Content"
+	when
+		classNameIds : KeyValuePair(key == "classNameIds");
+		results : List();
+		user : User();
+		userAddress : Address(
+			country.name in ("India", "Malaysia", "Singapore"));
+	then
+		List<AssetEntry> assetEntries = getAssetEntries(
+			user, StringUtil.split(classNameIds.getValue(), 0L), "indian");
 
 		assetEntries.removeAll(results);
 
