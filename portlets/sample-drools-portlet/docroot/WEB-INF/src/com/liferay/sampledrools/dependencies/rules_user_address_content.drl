@@ -53,7 +53,9 @@ function List getAssetEntries(
 	long[] groupIds = new long[groups.size()];
 
 	for (int i = 0; i < groups.size(); i++) {
-		groupIds[i] = groups.get(i).getGroupId();
+		Group group = groups.get(i);
+
+		groupIds[i] = group.getGroupId();
 	}
 
 	String[] keywords = assetTagName.split("\\s+");
