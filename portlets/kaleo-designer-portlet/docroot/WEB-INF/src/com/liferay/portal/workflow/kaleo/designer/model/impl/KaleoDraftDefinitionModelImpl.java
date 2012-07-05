@@ -111,6 +111,10 @@ public class KaleoDraftDefinitionModelImpl extends BaseModelImpl<KaleoDraftDefin
 	 */
 	public static KaleoDraftDefinition toModel(
 		KaleoDraftDefinitionSoap soapModel) {
+		if (soapModel == null) {
+			return null;
+		}
+
 		KaleoDraftDefinition model = new KaleoDraftDefinitionImpl();
 
 		model.setKaleoDraftDefinitionId(soapModel.getKaleoDraftDefinitionId());
@@ -137,6 +141,10 @@ public class KaleoDraftDefinitionModelImpl extends BaseModelImpl<KaleoDraftDefin
 	 */
 	public static List<KaleoDraftDefinition> toModels(
 		KaleoDraftDefinitionSoap[] soapModels) {
+		if (soapModels == null) {
+			return null;
+		}
+
 		List<KaleoDraftDefinition> models = new ArrayList<KaleoDraftDefinition>(soapModels.length);
 
 		for (KaleoDraftDefinitionSoap soapModel : soapModels) {

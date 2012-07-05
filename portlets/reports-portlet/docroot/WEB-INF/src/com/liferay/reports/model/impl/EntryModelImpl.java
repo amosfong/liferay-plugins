@@ -110,6 +110,10 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 	 * @return the normal model instance
 	 */
 	public static Entry toModel(EntrySoap soapModel) {
+		if (soapModel == null) {
+			return null;
+		}
+
 		Entry model = new EntryImpl();
 
 		model.setEntryId(soapModel.getEntryId());
@@ -144,6 +148,10 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 	 * @return the normal model instances
 	 */
 	public static List<Entry> toModels(EntrySoap[] soapModels) {
+		if (soapModels == null) {
+			return null;
+		}
+
 		List<Entry> models = new ArrayList<Entry>(soapModels.length);
 
 		for (EntrySoap soapModel : soapModels) {

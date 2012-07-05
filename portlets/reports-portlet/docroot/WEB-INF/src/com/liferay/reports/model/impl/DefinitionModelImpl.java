@@ -112,6 +112,10 @@ public class DefinitionModelImpl extends BaseModelImpl<Definition>
 	 * @return the normal model instance
 	 */
 	public static Definition toModel(DefinitionSoap soapModel) {
+		if (soapModel == null) {
+			return null;
+		}
+
 		Definition model = new DefinitionImpl();
 
 		model.setUuid(soapModel.getUuid());
@@ -138,6 +142,10 @@ public class DefinitionModelImpl extends BaseModelImpl<Definition>
 	 * @return the normal model instances
 	 */
 	public static List<Definition> toModels(DefinitionSoap[] soapModels) {
+		if (soapModels == null) {
+			return null;
+		}
+
 		List<Definition> models = new ArrayList<Definition>(soapModels.length);
 
 		for (DefinitionSoap soapModel : soapModels) {

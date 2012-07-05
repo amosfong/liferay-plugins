@@ -98,6 +98,10 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 	 * @return the normal model instance
 	 */
 	public static KaleoProcess toModel(KaleoProcessSoap soapModel) {
+		if (soapModel == null) {
+			return null;
+		}
+
 		KaleoProcess model = new KaleoProcessImpl();
 
 		model.setKaleoProcessId(soapModel.getKaleoProcessId());
@@ -120,6 +124,10 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 	 * @return the normal model instances
 	 */
 	public static List<KaleoProcess> toModels(KaleoProcessSoap[] soapModels) {
+		if (soapModels == null) {
+			return null;
+		}
+
 		List<KaleoProcess> models = new ArrayList<KaleoProcess>(soapModels.length);
 
 		for (KaleoProcessSoap soapModel : soapModels) {

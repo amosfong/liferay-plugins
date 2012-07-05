@@ -109,6 +109,10 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 	 * @return the normal model instance
 	 */
 	public static Source toModel(SourceSoap soapModel) {
+		if (soapModel == null) {
+			return null;
+		}
+
 		Source model = new SourceImpl();
 
 		model.setUuid(soapModel.getUuid());
@@ -135,6 +139,10 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 	 * @return the normal model instances
 	 */
 	public static List<Source> toModels(SourceSoap[] soapModels) {
+		if (soapModels == null) {
+			return null;
+		}
+
 		List<Source> models = new ArrayList<Source>(soapModels.length);
 
 		for (SourceSoap soapModel : soapModels) {

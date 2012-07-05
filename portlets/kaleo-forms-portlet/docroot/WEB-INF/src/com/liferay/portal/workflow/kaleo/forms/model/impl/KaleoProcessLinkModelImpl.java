@@ -91,6 +91,10 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 	 * @return the normal model instance
 	 */
 	public static KaleoProcessLink toModel(KaleoProcessLinkSoap soapModel) {
+		if (soapModel == null) {
+			return null;
+		}
+
 		KaleoProcessLink model = new KaleoProcessLinkImpl();
 
 		model.setKaleoProcessLinkId(soapModel.getKaleoProcessLinkId());
@@ -109,6 +113,10 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 	 */
 	public static List<KaleoProcessLink> toModels(
 		KaleoProcessLinkSoap[] soapModels) {
+		if (soapModels == null) {
+			return null;
+		}
+
 		List<KaleoProcessLink> models = new ArrayList<KaleoProcessLink>(soapModels.length);
 
 		for (KaleoProcessLinkSoap soapModel : soapModels) {
