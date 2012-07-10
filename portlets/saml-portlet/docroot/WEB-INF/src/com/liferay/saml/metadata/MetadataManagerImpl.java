@@ -351,6 +351,20 @@ public class MetadataManagerImpl implements MetadataManager {
 		return GetterUtil.getBoolean(attributesEnabled);
 	}
 
+	public boolean isAttributesNamespaceEnabled(String entityId) {
+		String attributesNamespaceEnabled = PropsUtil.get(
+			PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_NAMESPACE_ENABLED,
+			new Filter(entityId));
+
+		if (Validator.isNull(attributesNamespaceEnabled)) {
+			attributesNamespaceEnabled = PropsUtil.get(
+				PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_NAMESPACE_ENABLED
+				);
+		}
+
+		return GetterUtil.getBoolean(attributesNamespaceEnabled, true);
+	}
+
 	public boolean isSignAuthnRequests() {
 		return GetterUtil.getBoolean(
 			PropsUtil.get(PortletPropsKeys.SAML_SP_SIGN_AUTHN_REQUEST));

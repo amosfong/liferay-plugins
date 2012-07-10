@@ -125,10 +125,16 @@ public class OpenSamlUtil {
 	}
 
 	public static Attribute buildAttribute(String name, String value) {
+		return buildAttribute(name, Attribute.UNSPECIFIED, value);
+	}
+
+	public static Attribute buildAttribute(
+		String name, String nameFormat, String value) {
+
 		Attribute attribute = OpenSamlUtil.buildAttribute();
 
 		attribute.setName(name);
-		attribute.setNameFormat(Attribute.UNSPECIFIED);
+		attribute.setNameFormat(nameFormat);
 
 		XMLObject xmlObject = OpenSamlUtil.buildAttributeValue(value);
 

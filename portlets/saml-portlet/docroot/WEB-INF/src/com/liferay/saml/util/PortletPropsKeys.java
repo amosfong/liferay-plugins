@@ -38,6 +38,9 @@ public interface PortletPropsKeys {
 	public static final String SAML_IDP_METADATA_ATTRIBUTES_ENABLED =
 		"saml.idp.metadata.attributes.enabled";
 
+	public static final String SAML_IDP_METADATA_ATTRIBUTES_NAMESPACE_ENABLED =
+		"saml.idp.metadata.attributes.namespace.enabled";
+
 	public static final String SAML_IDP_METADATA_NAME_ID_ATTRIBUTE =
 		"saml.idp.metadata.name.id.attribute";
 

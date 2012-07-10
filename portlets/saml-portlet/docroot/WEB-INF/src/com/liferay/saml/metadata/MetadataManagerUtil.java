@@ -92,6 +92,10 @@ public class MetadataManagerUtil {
 		return getMetadataManager().isAttributesEnabled(entityId);
 	}
 
+	public static boolean isAttributesNamespaceEnabled(String entityId) {
+		return getMetadataManager().isAttributesNamespaceEnabled(entityId);
+	}
+
 	public static boolean isSignAuthnRequests() {
 		return getMetadataManager().isSignAuthnRequests();
 	}

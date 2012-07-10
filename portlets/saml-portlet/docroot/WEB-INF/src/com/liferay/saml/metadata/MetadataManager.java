@@ -58,6 +58,8 @@ public interface MetadataManager {
 
 	public boolean isAttributesEnabled(String entityId);
 
+	public boolean isAttributesNamespaceEnabled(String entityId);
+
 	public boolean isSignAuthnRequests();
 
 	public boolean isSignMetadata();
