@@ -4,7 +4,7 @@
 <project name="drools-web" basedir="." default="deploy">
 	<import file="../build-common-web.xml" />
 
-	<property name="original.war.file" value="drools-5.1.1-bin.zip" />
+	<property name="original.war.file" value="drools-distribution-5.4.0.Final.zip" />
 
 	<target name="merge-unzip">
 		<unzip
@@ -18,7 +18,7 @@
 
 		<get
 			dest="tmp/WEB-INF/src/org/drools/base/ClassFieldAccessorCache.java"
-			src="http://anonsvn.jboss.org/repos/labs/labs/jbossrules/tags/5.1.1.34858.FINAL/drools-core/src/main/java/org/drools/base/ClassFieldAccessorCache.java"
+			src="https://raw.github.com/droolsjbpm/drools/5.4.0.Final/drools-core/src/main/java/org/drools/base/ClassFieldAccessorCache.java"
 		/>
 
 		<replace file="tmp/WEB-INF/src/org/drools/base/ClassFieldAccessorCache.java">
@@ -46,8 +46,9 @@
 
 	<target name="shrink-zip">
 		<antcall target="shrink-zip-cmd">
+			<param name="zip.excludes" value="drools-distribution-5.4.0.Final/binaries/log4j*.jar" />
 			<param name="zip.file.name" value="${original.war.file}" />
-			<param name="zip.includes" value="drools-*,lib/antlr-runtime-*,lib/ecj-*,lib/mvel2-*" />
+			<param name="zip.includes" value="drools-distribution-5.4.0.Final/binaries/*.jar" />
 		</antcall>
 	</target>
 </project>
