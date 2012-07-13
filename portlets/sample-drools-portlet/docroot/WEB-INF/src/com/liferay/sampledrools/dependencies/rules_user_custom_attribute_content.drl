@@ -11,26 +11,22 @@
 
 package com.liferay.sampledrools.dependencies;
 
-import com.liferay.portal.kernel.json.JSONArray;
-import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
+import com.liferay.portal.kernel.search.BooleanClause;
+import com.liferay.portal.kernel.search.BooleanClauseOccur;
+import com.liferay.portal.kernel.search.BooleanClauseFactoryUtil;
+import com.liferay.portal.kernel.search.BooleanQuery;
+import com.liferay.portal.kernel.search.BooleanQueryFactoryUtil;
 import com.liferay.portal.kernel.search.Document;
-import com.liferay.portal.kernel.search.FacetedSearcher;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Hits;
 import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.search.IndexerRegistryUtil;
 import com.liferay.portal.kernel.search.SearchContext;
-import com.liferay.portal.kernel.search.facet.AssetEntriesFacet;
-import com.liferay.portal.kernel.search.facet.Facet;
-import com.liferay.portal.kernel.search.facet.MultiValueFacet;
-import com.liferay.portal.kernel.search.facet.ScopeFacet;
-import com.liferay.portal.kernel.search.facet.config.FacetConfiguration;
-import com.liferay.portal.kernel.search.facet.config.FacetConfigurationUtil;
-import com.liferay.portal.kernel.search.facet.util.FacetFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.KeyValuePair;
 import com.liferay.portal.kernel.util.ObjectValuePair;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.auth.PrincipalThreadLocal;
@@ -66,134 +62,67 @@ function List getAssetEntries(
 		groupIds[i] = group.getGroupId();
 	}
 
-	String[] keywords = assetTagName.split("\\s+");
-
-	for (int i = 0; i < keywords.length; i++) {
-		keywords[i] = keywords[i].toLowerCase();
-	}
-
 	if ((classNameIds == null) || (classNameIds.length == 0) ||
-		(groupIds.length == 0) || (keywords.length ==0)) {
+		(groupIds.length == 0) || Validator.isNull(assetTagName)) {
 
 		return Collections.emptyList();
 	}
 
 	SearchContext searchContext = new SearchContext();
 
-	searchContext.setAttribute(
-		Field.ASSET_TAG_NAMES, StringUtil.merge(keywords));
 	searchContext.setAttribute("paginationType", "regular");
 	searchContext.setCompanyId(user.getCompanyId());
+	searchContext.setGroupIds(groupIds);
 	searchContext.setIncludeStagingGroups(false);
 	searchContext.setScopeStrict(false);
 	searchContext.setUserId(user.getUserId());
 
-	JSONObject searchConfigurationJSONObject =
-		JSONFactoryUtil.createJSONObject();
+	BooleanQuery booleanQuery = BooleanQueryFactoryUtil.create(searchContext);
 
-	JSONArray facetsJSONArray = JSONFactoryUtil.createJSONArray();
+	booleanQuery.addExactTerm(Field.ASSET_TAG_NAMES, assetTagName);
 
-	facetsJSONArray.put(getAssetEntriesFacetJSONObject(classNameIds));
-	facetsJSONArray.put(getMultiValueFacetJSONObject());
-	facetsJSONArray.put(getScopeFacetJSONObject(groupIds));
+	BooleanClause booleanClause = BooleanClauseFactoryUtil.create(
+		booleanQuery, BooleanClauseOccur.MUST.getName());
 
-	searchConfigurationJSONObject.put("facets", facetsJSONArray);
-
-	List<FacetConfiguration> facetConfigurations =
-		FacetConfigurationUtil.load(searchConfigurationJSONObject.toString());
-
-	for (FacetConfiguration facetConfiguration : facetConfigurations) {
-		Facet facet = FacetFactoryUtil.create(
-			searchContext, facetConfiguration);
-
-		searchContext.addFacet(facet);
-	}
-
-	Indexer indexer = FacetedSearcher.getInstance();
-
-	Hits hits = indexer.search(searchContext);
+	searchContext.setBooleanClauses(new BooleanClause[] {booleanClause});
 
 	List<AssetEntry> assetEntries = new ArrayList<AssetEntry>();
 
-	for (int i = 0; i < hits.getDocs().length; i++) {
-		Document document = hits.doc(i);
+	for (long classNameId : classNameIds) {
+		String className = PortalUtil.getClassName(classNameId);
 
-		String entryClassName = document.get(Field.ENTRY_CLASS_NAME);
+		Indexer indexer = IndexerRegistryUtil.getIndexer(className);
 
-		long entryClassPK = GetterUtil.getLong(
-			document.get(Field.ENTRY_CLASS_PK));
-		long rootEntryClassPK = GetterUtil.getLong(
-			document.get(Field.ROOT_ENTRY_CLASS_PK));
-
-		if (rootEntryClassPK > 0) {
-			entryClassPK = rootEntryClassPK;
+		if (indexer == null) {
+			continue;
 		}
 
-		AssetEntry assetEntry = AssetEntryLocalServiceUtil.fetchEntry(
-			entryClassName, entryClassPK);
+		Hits hits = indexer.search(searchContext);
 
-		if (assetEntry != null) {
-			assetEntries.add(assetEntry);
+		for (int i = 0; i < hits.getDocs().length; i++) {
+			Document document = hits.doc(i);
+
+			String entryClassName = document.get(Field.ENTRY_CLASS_NAME);
+
+			long entryClassPK = GetterUtil.getLong(
+				document.get(Field.ENTRY_CLASS_PK));
+			long rootEntryClassPK = GetterUtil.getLong(
+				document.get(Field.ROOT_ENTRY_CLASS_PK));
+
+			if (rootEntryClassPK > 0) {
+				entryClassPK = rootEntryClassPK;
+			}
+
+			AssetEntry assetEntry = AssetEntryLocalServiceUtil.fetchEntry(
+				entryClassName, entryClassPK);
+
+			if (assetEntry != null) {
+				assetEntries.add(assetEntry);
+			}
 		}
 	}
 
 	return assetEntries;
-}
-
-function JSONObject getAssetEntriesFacetJSONObject(long[] classNameIds) {
-	JSONObject assetEntriesFacetJSONObject = JSONFactoryUtil.createJSONObject();
-
-	assetEntriesFacetJSONObject.put(
-		"className", AssetEntriesFacet.class.getName());
-
-	JSONObject dataJSONObject = JSONFactoryUtil.createJSONObject();
-
-	JSONArray valuesJSONArray = JSONFactoryUtil.createJSONArray();
-
-	for (long classNameId : classNameIds) {
-		valuesJSONArray.put(PortalUtil.getClassName(classNameId));
-	}
-
-	dataJSONObject.put("values", valuesJSONArray);
-
-	assetEntriesFacetJSONObject.put("data", dataJSONObject);
-	assetEntriesFacetJSONObject.put("order", "OrderHitsDesc");
-	assetEntriesFacetJSONObject.put("static", false);
-
-	return assetEntriesFacetJSONObject;
-}
-
-function JSONObject getMultiValueFacetJSONObject() {
-	JSONObject multiValueFacetJSONObject = JSONFactoryUtil.createJSONObject();
-
-	multiValueFacetJSONObject.put("className", MultiValueFacet.class.getName());
-	multiValueFacetJSONObject.put("fieldName", Field.ASSET_TAG_NAMES);
-	multiValueFacetJSONObject.put("order", "OrderHitsDesc");
-	multiValueFacetJSONObject.put("static", false);
-
-	return multiValueFacetJSONObject;
-}
-
-function JSONObject getScopeFacetJSONObject(long[] groupIds) {
-	JSONObject scopeFacetJSONObject = JSONFactoryUtil.createJSONObject();
-
-	scopeFacetJSONObject.put("className", ScopeFacet.class.getName());
-
-	JSONObject dataJSONObject = JSONFactoryUtil.createJSONObject();
-
-	JSONArray valuesJSONArray = JSONFactoryUtil.createJSONArray();
-
-	for (long groupId : groupIds) {
-		valuesJSONArray.put(groupId);
-	}
-
-	dataJSONObject.put("values", valuesJSONArray);
-
-	scopeFacetJSONObject.put("data", dataJSONObject);
-	scopeFacetJSONObject.put("order", "OrderHitsDesc");
-	scopeFacetJSONObject.put("static", false);
-
-	return scopeFacetJSONObject;
 }
 
 function Map getUserCustomAttributes(
