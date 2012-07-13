@@ -247,10 +247,6 @@ public class SamlSpSessionUtil {
 	/**
 	* Returns the first saml sp session in the ordered set where nameIdValue = &#63;.
 	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
 	* @param nameIdValue the name ID value
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching saml sp session
@@ -267,11 +263,23 @@ public class SamlSpSessionUtil {
 	}
 
 	/**
-	* Returns the last saml sp session in the ordered set where nameIdValue = &#63;.
+	* Returns the first saml sp session in the ordered set where nameIdValue = &#63;.
 	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
+	* @param nameIdValue the name ID value
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching saml sp session, or <code>null</code> if a matching saml sp session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.saml.model.SamlSpSession fetchByNameIdValue_First(
+		java.lang.String nameIdValue,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .fetchByNameIdValue_First(nameIdValue, orderByComparator);
+	}
+
+	/**
+	* Returns the last saml sp session in the ordered set where nameIdValue = &#63;.
 	*
 	* @param nameIdValue the name ID value
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -289,11 +297,23 @@ public class SamlSpSessionUtil {
 	}
 
 	/**
-	* Returns the saml sp sessions before and after the current saml sp session in the ordered set where nameIdValue = &#63;.
+	* Returns the last saml sp session in the ordered set where nameIdValue = &#63;.
 	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
+	* @param nameIdValue the name ID value
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching saml sp session, or <code>null</code> if a matching saml sp session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.saml.model.SamlSpSession fetchByNameIdValue_Last(
+		java.lang.String nameIdValue,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .fetchByNameIdValue_Last(nameIdValue, orderByComparator);
+	}
+
+	/**
+	* Returns the saml sp sessions before and after the current saml sp session in the ordered set where nameIdValue = &#63;.
 	*
 	* @param samlSpSessionId the primary key of the current saml sp session
 	* @param nameIdValue the name ID value

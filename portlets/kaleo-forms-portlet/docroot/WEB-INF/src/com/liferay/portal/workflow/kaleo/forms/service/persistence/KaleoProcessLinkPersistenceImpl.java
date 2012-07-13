@@ -662,10 +662,6 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 	/**
 	 * Returns the first kaleo process link in the ordered set where kaleoProcessId = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param kaleoProcessId the kaleo process ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching kaleo process link
@@ -675,32 +671,47 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 	public KaleoProcessLink findByKaleoProcessId_First(long kaleoProcessId,
 		OrderByComparator orderByComparator)
 		throws NoSuchKaleoProcessLinkException, SystemException {
+		KaleoProcessLink kaleoProcessLink = fetchByKaleoProcessId_First(kaleoProcessId,
+				orderByComparator);
+
+		if (kaleoProcessLink != null) {
+			return kaleoProcessLink;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("kaleoProcessId=");
+		msg.append(kaleoProcessId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchKaleoProcessLinkException(msg.toString());
+	}
+
+	/**
+	 * Returns the first kaleo process link in the ordered set where kaleoProcessId = &#63;.
+	 *
+	 * @param kaleoProcessId the kaleo process ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching kaleo process link, or <code>null</code> if a matching kaleo process link could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public KaleoProcessLink fetchByKaleoProcessId_First(long kaleoProcessId,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<KaleoProcessLink> list = findByKaleoProcessId(kaleoProcessId, 0,
 				1, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("kaleoProcessId=");
-			msg.append(kaleoProcessId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchKaleoProcessLinkException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last kaleo process link in the ordered set where kaleoProcessId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param kaleoProcessId the kaleo process ID
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -711,34 +722,49 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 	public KaleoProcessLink findByKaleoProcessId_Last(long kaleoProcessId,
 		OrderByComparator orderByComparator)
 		throws NoSuchKaleoProcessLinkException, SystemException {
+		KaleoProcessLink kaleoProcessLink = fetchByKaleoProcessId_Last(kaleoProcessId,
+				orderByComparator);
+
+		if (kaleoProcessLink != null) {
+			return kaleoProcessLink;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("kaleoProcessId=");
+		msg.append(kaleoProcessId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchKaleoProcessLinkException(msg.toString());
+	}
+
+	/**
+	 * Returns the last kaleo process link in the ordered set where kaleoProcessId = &#63;.
+	 *
+	 * @param kaleoProcessId the kaleo process ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching kaleo process link, or <code>null</code> if a matching kaleo process link could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public KaleoProcessLink fetchByKaleoProcessId_Last(long kaleoProcessId,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByKaleoProcessId(kaleoProcessId);
 
 		List<KaleoProcessLink> list = findByKaleoProcessId(kaleoProcessId,
 				count - 1, count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("kaleoProcessId=");
-			msg.append(kaleoProcessId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchKaleoProcessLinkException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the kaleo process links before and after the current kaleo process link in the ordered set where kaleoProcessId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param kaleoProcessLinkId the primary key of the current kaleo process link
 	 * @param kaleoProcessId the kaleo process ID

@@ -654,10 +654,6 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	/**
 	 * Returns the first saml sp session in the ordered set where nameIdValue = &#63;.
 	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
 	 * @param nameIdValue the name ID value
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	 * @return the first matching saml sp session
@@ -667,32 +663,47 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	public SamlSpSession findByNameIdValue_First(String nameIdValue,
 		OrderByComparator orderByComparator)
 		throws NoSuchSpSessionException, SystemException {
+		SamlSpSession samlSpSession = fetchByNameIdValue_First(nameIdValue,
+				orderByComparator);
+
+		if (samlSpSession != null) {
+			return samlSpSession;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("nameIdValue=");
+		msg.append(nameIdValue);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchSpSessionException(msg.toString());
+	}
+
+	/**
+	 * Returns the first saml sp session in the ordered set where nameIdValue = &#63;.
+	 *
+	 * @param nameIdValue the name ID value
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching saml sp session, or <code>null</code> if a matching saml sp session could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpSession fetchByNameIdValue_First(String nameIdValue,
+		OrderByComparator orderByComparator) throws SystemException {
 		List<SamlSpSession> list = findByNameIdValue(nameIdValue, 0, 1,
 				orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("nameIdValue=");
-			msg.append(nameIdValue);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchSpSessionException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the last saml sp session in the ordered set where nameIdValue = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param nameIdValue the name ID value
 	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -703,34 +714,49 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	public SamlSpSession findByNameIdValue_Last(String nameIdValue,
 		OrderByComparator orderByComparator)
 		throws NoSuchSpSessionException, SystemException {
+		SamlSpSession samlSpSession = fetchByNameIdValue_Last(nameIdValue,
+				orderByComparator);
+
+		if (samlSpSession != null) {
+			return samlSpSession;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("nameIdValue=");
+		msg.append(nameIdValue);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchSpSessionException(msg.toString());
+	}
+
+	/**
+	 * Returns the last saml sp session in the ordered set where nameIdValue = &#63;.
+	 *
+	 * @param nameIdValue the name ID value
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching saml sp session, or <code>null</code> if a matching saml sp session could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpSession fetchByNameIdValue_Last(String nameIdValue,
+		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByNameIdValue(nameIdValue);
 
 		List<SamlSpSession> list = findByNameIdValue(nameIdValue, count - 1,
 				count, orderByComparator);
 
-		if (list.isEmpty()) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("nameIdValue=");
-			msg.append(nameIdValue);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			throw new NoSuchSpSessionException(msg.toString());
-		}
-		else {
+		if (!list.isEmpty()) {
 			return list.get(0);
 		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the saml sp sessions before and after the current saml sp session in the ordered set where nameIdValue = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
 	 *
 	 * @param samlSpSessionId the primary key of the current saml sp session
 	 * @param nameIdValue the name ID value

@@ -249,10 +249,6 @@ public class SamlIdpSpSessionUtil {
 	/**
 	* Returns the first saml idp sp session in the ordered set where samlIdpSsoSessionId = &#63;.
 	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
 	* @param samlIdpSsoSessionId the saml idp sso session ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
 	* @return the first matching saml idp sp session
@@ -270,11 +266,24 @@ public class SamlIdpSpSessionUtil {
 	}
 
 	/**
-	* Returns the last saml idp sp session in the ordered set where samlIdpSsoSessionId = &#63;.
+	* Returns the first saml idp sp session in the ordered set where samlIdpSsoSessionId = &#63;.
 	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
+	* @param samlIdpSsoSessionId the saml idp sso session ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching saml idp sp session, or <code>null</code> if a matching saml idp sp session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.saml.model.SamlIdpSpSession fetchBySamlIdpSsoSessionId_First(
+		long samlIdpSsoSessionId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .fetchBySamlIdpSsoSessionId_First(samlIdpSsoSessionId,
+			orderByComparator);
+	}
+
+	/**
+	* Returns the last saml idp sp session in the ordered set where samlIdpSsoSessionId = &#63;.
 	*
 	* @param samlIdpSsoSessionId the saml idp sso session ID
 	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
@@ -293,11 +302,24 @@ public class SamlIdpSpSessionUtil {
 	}
 
 	/**
-	* Returns the saml idp sp sessions before and after the current saml idp sp session in the ordered set where samlIdpSsoSessionId = &#63;.
+	* Returns the last saml idp sp session in the ordered set where samlIdpSsoSessionId = &#63;.
 	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
+	* @param samlIdpSsoSessionId the saml idp sso session ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching saml idp sp session, or <code>null</code> if a matching saml idp sp session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.saml.model.SamlIdpSpSession fetchBySamlIdpSsoSessionId_Last(
+		long samlIdpSsoSessionId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .fetchBySamlIdpSsoSessionId_Last(samlIdpSsoSessionId,
+			orderByComparator);
+	}
+
+	/**
+	* Returns the saml idp sp sessions before and after the current saml idp sp session in the ordered set where samlIdpSsoSessionId = &#63;.
 	*
 	* @param samlIdpSpSessionId the primary key of the current saml idp sp session
 	* @param samlIdpSsoSessionId the saml idp sso session ID
