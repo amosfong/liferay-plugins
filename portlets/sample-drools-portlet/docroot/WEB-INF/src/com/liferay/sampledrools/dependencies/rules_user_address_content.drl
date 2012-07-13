@@ -74,7 +74,7 @@ function List getAssetEntries(
 	booleanQuery.addExactTerm(Field.ASSET_TAG_NAMES, assetTagName);
 
 	BooleanClause booleanClause = BooleanClauseFactoryUtil.create(
-		booleanQuery, BooleanClauseOccur.MUST.getName());
+		searchContext, booleanQuery, BooleanClauseOccur.MUST.getName());
 
 	searchContext.setBooleanClauses(new BooleanClause[] {booleanClause});
 
