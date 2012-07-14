@@ -2942,7 +2942,7 @@ AUI.add(
 
 					script: {
 						validator: isString,
-						value: 'returnValue "Transition Name";'
+						value: 'returnValue = "Transition Name";'
 					},
 
 					scriptLanguage: {
