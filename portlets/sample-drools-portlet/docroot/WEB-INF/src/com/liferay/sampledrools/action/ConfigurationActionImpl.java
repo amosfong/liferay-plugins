@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.bi.rules.RulesResourceRetriever;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;
+import com.liferay.portal.kernel.portlet.LiferayPortletConfig;
 import com.liferay.portal.kernel.resource.StringResourceRetriever;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.servlet.SessionMessages;
@@ -66,9 +67,12 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction {
 		if (SessionErrors.isEmpty(actionRequest)) {
 			preferences.store();
 
+			LiferayPortletConfig liferayPortletConfig =
+				(LiferayPortletConfig)portletConfig;
+
 			SessionMessages.add(
 				actionRequest,
-				portletConfig.getPortletName() +
+				liferayPortletConfig.getPortletId() +
 					SessionMessages.KEY_SUFFIX_UPDATED_CONFIGURATION);
 		}
 	}
