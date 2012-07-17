@@ -80,7 +80,7 @@ for (int i = 0; i < results.size(); i++) {
 		if (fieldsModel.contains(name)) {
 			com.liferay.portlet.dynamicdatamapping.storage.Field field = fieldsModel.get(name);
 
-			value = field.getRenderedValue(themeDisplay);
+			value = field.getRenderedValue(themeDisplay.getLocale());
 		}
 		else {
 			value = StringPool.BLANK;
