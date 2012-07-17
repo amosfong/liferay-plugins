@@ -138,7 +138,7 @@ rule "Get Americas Content"
 		userAddress : Address(
 			country.name in ("Brazil", "Canada", "Mexico", "United States"));
 	then
-		List<AssetEntry> assetEntries = getAssetEntries(
+		List assetEntries = getAssetEntries(
 			user, StringUtil.split(classNameIds.getValue(), 0L), "americas");
 
 		assetEntries.removeAll(results);
@@ -157,7 +157,7 @@ rule "Get European Content"
 		user : User();
 		userAddress : Address(country.name in ("France", "Germany", "Spain"));
 	then
-		List<AssetEntry> assetEntries = getAssetEntries(
+		List assetEntries = getAssetEntries(
 			user, StringUtil.split(classNameIds.getValue(), 0L), "european");
 
 		assetEntries.removeAll(results);
@@ -177,7 +177,7 @@ rule "Get Indian Content"
 		userAddress : Address(
 			country.name in ("India", "Malaysia", "Singapore"));
 	then
-		List<AssetEntry> assetEntries = getAssetEntries(
+		List assetEntries = getAssetEntries(
 			user, StringUtil.split(classNameIds.getValue(), 0L), "indian");
 
 		assetEntries.removeAll(results);

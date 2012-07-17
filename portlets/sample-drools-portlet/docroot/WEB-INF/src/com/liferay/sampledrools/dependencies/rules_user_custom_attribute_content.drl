@@ -195,7 +195,7 @@ rule "Get Affluent Content"
 		userCustomAttribute : ObjectValuePair(
 			(key == "networth") && (value >= 100000));
 	then
-		List<AssetEntry> assetEntries = getAssetEntries(
+		List assetEntries = getAssetEntries(
 			user, StringUtil.split(classNameIds.getValue(), 0L), "affluent");
 
 		assetEntries.removeAll(results);
@@ -215,7 +215,7 @@ rule "Get Regular Content"
 		userCustomAttribute : ObjectValuePair(
 			(key == "networth") && (value < 100000));
 	then
-		List<AssetEntry> assetEntries = getAssetEntries(
+		List assetEntries = getAssetEntries(
 			user, StringUtil.split(classNameIds.getValue(), 0L), "regular");
 
 		assetEntries.removeAll(results);
