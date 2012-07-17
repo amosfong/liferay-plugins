@@ -2227,7 +2227,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 
 			try {
 				AssetEntry assetEntry = AssetEntryLocalServiceUtil.fetchEntry(
-				 	 DLFileEntryConstants.getClassName(), fileEntryId);
+					DLFileEntryConstants.getClassName(), fileEntryId);
 
 				if (assetEntry != null) {
 					return documentumFileEntry;

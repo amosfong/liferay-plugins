@@ -19,7 +19,7 @@ package com.liferay.reports;
  */
 public enum ReportStatus {
 
-	 COMPLETE("complete"), ERROR("error"), PENDING("pending");
+	COMPLETE("complete"), ERROR("error"), PENDING("pending");
 
 	public static ReportStatus parse(String value) {
 		if (PENDING.getValue().equals(value)) {

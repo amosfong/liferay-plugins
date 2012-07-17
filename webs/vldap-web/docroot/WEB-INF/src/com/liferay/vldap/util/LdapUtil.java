@@ -100,7 +100,7 @@ public class LdapUtil {
 	 * http://www.rlmueller.net/CharactersEscaped.htm
 	 */
 	private static final char[] _ESCAPE_CHARS = {
-		 ',', '\\', '#', '+', '<', '>', ';', '"', '='
+		',', '\\', '#', '+', '<', '>', ';', '"', '='
 	};
 
 }

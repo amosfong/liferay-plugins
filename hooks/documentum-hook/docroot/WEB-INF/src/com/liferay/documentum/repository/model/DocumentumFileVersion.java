@@ -40,7 +40,7 @@ public class DocumentumFileVersion
 	extends DocumentumModel implements FileVersion {
 
 	public DocumentumFileVersion(
-		 DocumentumRepository documentumRepository, FileEntry fileEntry) {
+		DocumentumRepository documentumRepository, FileEntry fileEntry) {
 
 		_documentumRepository = documentumRepository;
 		_fileEntry = fileEntry;
