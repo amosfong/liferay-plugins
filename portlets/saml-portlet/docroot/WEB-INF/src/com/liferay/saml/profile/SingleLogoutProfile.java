@@ -28,18 +28,14 @@ public interface SingleLogoutProfile {
 	public boolean isSingleLogoutSupported(HttpServletRequest request);
 
 	public void processIdpLogout(
-		HttpServletRequest request, HttpServletResponse response)
-	throws PortalException, SystemException;
-
-	public void processLogoutRequest(
 			HttpServletRequest request, HttpServletResponse response)
 		throws PortalException, SystemException;
 
-	public void processLogoutResponse(
+	public void processSingleLogout(
 			HttpServletRequest request, HttpServletResponse response)
 		throws PortalException, SystemException;
 
-	public void sendLogoutRequest(
+	public void processSpLogout(
 			HttpServletRequest request, HttpServletResponse response)
 		throws PortalException, SystemException;
 

@@ -146,7 +146,7 @@ public class SamlSpSsoFilter extends BaseFilter {
 					session.getId());
 
 			if (samlSpSession != null) {
-				SingleLogoutProfileUtil.sendLogoutRequest(request, response);
+				SingleLogoutProfileUtil.processSpLogout(request, response);
 			}
 			else {
 				filterChain.doFilter(request, response);

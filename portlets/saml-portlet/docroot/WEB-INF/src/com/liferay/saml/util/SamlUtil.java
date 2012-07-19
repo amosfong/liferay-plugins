@@ -242,6 +242,25 @@ public class SamlUtil {
 		return null;
 	}
 
+	public static SingleLogoutService resolveSingleLogoutService(
+		SSODescriptor ssoDescriptor, String preferredBinding) {
+
+		List<SingleLogoutService> singleLogoutServices =
+						ssoDescriptor.getSingleLogoutServices();
+
+		for (SingleLogoutService singleLogoutService : singleLogoutServices) {
+			if (preferredBinding.equals(singleLogoutService.getBinding())) {
+				return singleLogoutService;
+			}
+		}
+
+		if (singleLogoutServices.size() > 0) {
+			return singleLogoutServices.get(0);
+		}
+
+		return null;
+	}
+
 	private static String _getAttributeValue(
 		List<Attribute> attributes, String name) {
 

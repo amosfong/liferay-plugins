@@ -24,6 +24,10 @@ public interface PortletWebKeys {
 	public static final String SAML_SESSION_KEEP_ALIVE_URLS =
 		"SAML_SESSION_KEEP_ALIVE_URLS";
 
+	public static final String SAML_SLO_CONTEXT = "SAML_SLO_CONTEXT";
+
+	public static final String SAML_SLO_REQUEST_INFO = "SAML_SLO_REQUEST_INFO";
+
 	public static final String SAML_SP_ATTRIBUTES = "SAML_SP_ATTRIBUTES";
 
 	public static final String SAML_SP_NAME_ID = "SAML_SP_NAME_ID";

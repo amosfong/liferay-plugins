@@ -40,25 +40,18 @@ public class SingleLogoutProfileUtil {
 		getSingleLogoutProfile().processIdpLogout(request, response);
 	}
 
-	public static void processLogoutRequest(
+	public static void processSingleLogout(
 			HttpServletRequest request, HttpServletResponse response)
 		throws PortalException, SystemException {
 
-		getSingleLogoutProfile().processLogoutRequest(request, response);
+		getSingleLogoutProfile().processSingleLogout(request, response);
 	}
 
-	public static void processLogoutResponse(
+	public static void processSpLogout(
 			HttpServletRequest request, HttpServletResponse response)
 		throws PortalException, SystemException {
 
-		getSingleLogoutProfile().processLogoutResponse(request, response);
-	}
-
-	public static void sendLogoutRequest(
-			HttpServletRequest request, HttpServletResponse response)
-		throws PortalException, SystemException {
-
-		getSingleLogoutProfile().sendLogoutRequest(request, response);
+		getSingleLogoutProfile().processSpLogout(request, response);
 	}
 
 	public void setSingleLogoutProfile(

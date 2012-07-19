@@ -3,7 +3,12 @@
 
 <hook>
 	<portal-properties>portal.properties</portal-properties>
+	<language-properties>content/Language_en.properties</language-properties>
 	<custom-jsp-dir>/META-INF/custom_jsps</custom-jsp-dir>
+	<servlet-filter>
+		<servlet-filter-name>SSO SAML IdP Filter</servlet-filter-name>
+		<servlet-filter-impl>com.liferay.saml.hook.filter.SamlIdpSsoFilter</servlet-filter-impl>
+	</servlet-filter>
 	<servlet-filter>
 		<servlet-filter-name>SSO SAML SP Filter</servlet-filter-name>
 		<servlet-filter-impl>com.liferay.saml.hook.filter.SamlSpSsoFilter</servlet-filter-impl>
@@ -15,6 +20,13 @@
 	<servlet-filter-mapping>
 		<servlet-filter-name>Auto Login Filter</servlet-filter-name>
 		<url-pattern>/c/portal/saml/auth_redirect</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</servlet-filter-mapping>
+	<servlet-filter-mapping>
+		<servlet-filter-name>SSO SAML IdP Filter</servlet-filter-name>
+		<before-filter>SSO CAS Filter</before-filter>
+		<url-pattern>/c/portal/logout</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</servlet-filter-mapping>
@@ -40,6 +52,10 @@
 	<struts-action>
 		<struts-action-path>/portal/saml/metadata</struts-action-path>
 		<struts-action-impl>com.liferay.saml.hook.action.MetadataAction</struts-action-impl>
+	</struts-action>
+	<struts-action>
+		<struts-action-path>/portal/saml/slo_logout</struts-action-path>
+		<struts-action-impl>com.liferay.saml.hook.action.SingleLogoutAction</struts-action-impl>
 	</struts-action>
 	<struts-action>
 		<struts-action-path>/portal/saml/slo_redirect</struts-action-path>

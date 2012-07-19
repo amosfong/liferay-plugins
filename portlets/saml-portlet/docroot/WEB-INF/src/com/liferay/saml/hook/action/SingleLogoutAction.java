@@ -14,7 +14,6 @@
 
 package com.liferay.saml.hook.action;
 
-import com.liferay.portal.kernel.servlet.HttpMethods;
 import com.liferay.portal.kernel.struts.BaseStrutsAction;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.saml.profile.SingleLogoutProfileUtil;
@@ -40,24 +39,11 @@ public class SingleLogoutAction extends BaseStrutsAction {
 		try {
 			String requestURI = request.getRequestURI();
 
-			if (SamlUtil.isRoleIdp() && requestURI.endsWith("/slo_redirect")) {
-				SingleLogoutProfileUtil.processLogoutRequest(request, response);
+			if (SamlUtil.isRoleIdp() && requestURI.endsWith("/slo_logout")) {
+				SingleLogoutProfileUtil.processIdpLogout(request, response);
 			}
-			else if (SamlUtil.isRoleSp()) {
-				String method = request.getMethod();
-
-				if (requestURI.endsWith("/slo_soap") &&
-					method.equalsIgnoreCase(HttpMethods.POST)) {
-
-					SingleLogoutProfileUtil.processLogoutRequest(
-						request, response);
-				}
-				else if (method.equalsIgnoreCase(HttpMethods.GET) &&
-						 requestURI.endsWith("/slo_redirect")) {
-
-					SingleLogoutProfileUtil.processLogoutResponse(
-						request, response);
-				}
+			else {
+				SingleLogoutProfileUtil.processSingleLogout(request, response);
 			}
 		}
 		catch (Exception e) {
