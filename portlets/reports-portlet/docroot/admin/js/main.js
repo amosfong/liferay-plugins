@@ -6,22 +6,23 @@ Liferay.Report = {
 		instance._portletMessageContainer.setStyle('display', 'none');
 
 		if (confirm(Liferay.Language.get('are-you-sure-you-want-to-delete-this-entry'))) {
-			var temp = "";
-			var keyArray = new Array();
+			var reportParameters = AUI().one('.reportParameters').get('value');
 
-			var parametersInput = AUI().one('.reportParameters');
+			var jsonReportParameters = JSON.parse(reportParameters);
 
-			var reportParameters = parametersInput.get('value');
+			for (i = 0; i < jsonReportParameters.length; i++) {
+				var elementParam = jsonReportParameters[i];
 
-			keyArray = reportParameters.split(',');
+				if (elementParam.key == parameterKey) {
+					jsonReportParameters.splice(i, 1);
 
-			for (i = 0; i < keyArray.length; i++) {
-				if (keyArray[i] && (keyArray[i] != (parameterKey + "=" + parameterValue + "=" + parameterType))) {
-					temp += keyArray[i] + ",";
+					break;
 				}
 			}
-			
-			parametersInput.set('value', temp);
+
+			reportParameters = JSON.stringify(jsonReportParameters);
+
+			AUI().one('.reportParameters').set('value', reportParameters);
 
 			var key = ('.report-tag-' + parameterKey).replace(/ /g,"BLANK");
 
@@ -108,8 +109,8 @@ Liferay.Report = {
 
 		var parameterKey = AUI().one('.parameters-key').get('value');
 		var parameterValue = AUI().one('.parameters-value').get('value');
-		var reportParameters = AUI().one('.reportParameters').get('value');
 		var parametersType = AUI().one('.parameters-input-type').get('value');
+		var reportParameters = AUI().one('.reportParameters').get('value');
 
 		// Validate
 
@@ -129,26 +130,26 @@ Liferay.Report = {
 			return;
 		}
 
-		if ((parameterKey.indexOf(',') > 0) || (parameterKey.indexOf('=') > 0) || (parameterValue.indexOf(',') > 0) || (parameterValue.indexOf('=') > 0)) {
+		if ((parameterKey.indexOf(',') > 0) || (parameterKey.indexOf('=') > 0) ||(parameterValue.indexOf('=') > 0)) {
 			instance._sendMessage('one-of-your-fields-contains-invalid-characters');
 
 			return;
 		}
 
 		if (reportParameters.length > 0) {
-			var keyArray = new Array();
+			var jsonReportParameters = JSON.parse(reportParameters);
 
-			keyArray = reportParameters.split(',');
+			for (i = 0; i < jsonReportParameters.length; i++) {
+				var elementParam = jsonReportParameters[i];
 
-			for (i = 0; i < keyArray.length; i++) {
-				if (keyArray[i].split('=')[0] == parameterKey) {
+				if (elementParam.key == parameterKey) {
 					instance._sendMessage('that-vocabulary-already-exists');
 
 					return;
 				}
 			}
 		}
-		
+
 		if (parametersType == 'date') {
 			var parameterDateDay = AUI().one('#'+namespace+'parameterDateDay');
 			var parameterDateMonth = AUI().one('#'+namespace+'parameterDateMonth');
@@ -165,13 +166,27 @@ Liferay.Report = {
 
 		instance._addTag(parameterKey, parameterValue, parametersType);
 
-		AUI().one('.reportParameters').set('value', reportParameters + ',' + parameterKey + '=' + parameterValue + '=' + parametersType);
+		instance._addReportParameter(parameterKey, parameterValue, parametersType);
+
 		AUI().one('.parameters-key').set('value', '');
 		AUI().one('.parameters-value').set('value', '');
 	},
 
-	_addTag: function(parameterKey, parameterValue, parameterType) {
+	_addReportParameter: function(parameterKey, parameterValue, parameterType) {
+		var reportParameters = AUI().one('.reportParameters').get('value');
 
+		var jsonReportParameters = eval(reportParameters);
+
+		var jsonObject = {key: parameterKey, value: parameterValue, type: parameterType};
+
+		jsonReportParameters.push(jsonObject);
+
+		reportParameters = JSON.stringify(jsonReportParameters);
+
+		AUI().one('.reportParameters').set('value', reportParameters);
+	},
+
+	_addTag: function(parameterKey, parameterValue, parameterType) {
 		var tagsContainer = AUI().one(".report-tags");
 
 		var oldTags = tagsContainer.get('innerHTML');
@@ -189,22 +204,24 @@ Liferay.Report = {
 		tagsContainer.set('innerHTML', oldTags + innerHTML);
 	},
 
-	_displayParameters: function(param) {
+	_displayParameters: function(parameters) {
 		var instance = this;
 
 		instance._portletMessageContainer.setStyle('display', 'none');
 
-		AUI().one('.reportParameters').set('value', param);
+		if (!parameters) {
+			parameters = '[]';
+		}
 
-		var keyArray = new Array();
-		
-		keyArray = param.split(',');
+		AUI().one('.reportParameters').set('value', parameters);
 
-		for (i = 0; i < keyArray.length; i++) {
-			var keyvalue = keyArray[i].split('=');
+		var jsonReportParameters = JSON.parse(parameters);
 
-			if (keyvalue[0] && keyvalue[1]) {
-				instance._addTag(keyvalue[0], keyvalue[1], keyvalue[2]);
+		for (i = 0; i < jsonReportParameters.length; i++) {
+			var elementParam = jsonReportParameters[i];
+
+			if (elementParam.key && elementParam.value) {
+				instance._addTag(elementParam.key, elementParam.value, elementParam.type);
 			}
 		}
 	},

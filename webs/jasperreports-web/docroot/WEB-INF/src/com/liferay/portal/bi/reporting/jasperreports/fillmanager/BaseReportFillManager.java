@@ -34,8 +34,10 @@ import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.ParseException;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import net.sf.jasperreports.engine.JRDataSource;
@@ -168,7 +170,29 @@ public abstract class BaseReportFillManager implements ReportFillManager {
 
 			String stringValue = stringReportParameters.get(name);
 
+			if (stringValue == null || stringValue.isEmpty()) {
+				continue;
+			}
+
 			Serializable serializableValue = stringValue;
+
+			if (clazz.equals(List.class)) {
+				List<String> parameterList = new ArrayList<String>();
+
+				String[] parameters = stringValue.split(",");
+
+				for (String parameter : parameters) {
+					parameter = parameter.trim();
+
+					if (parameter.isEmpty()) {
+						continue;
+					}
+
+					parameterList.add(parameter);
+				}
+
+				serializableValue = new ArrayList(parameterList);
+			}
 
 			if (clazz.equals(Date.class)) {
 				DateFormat dateFormat =

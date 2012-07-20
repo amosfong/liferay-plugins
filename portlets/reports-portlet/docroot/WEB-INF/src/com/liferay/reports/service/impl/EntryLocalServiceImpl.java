@@ -28,6 +28,9 @@ import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.messaging.MessageBusUtil;
@@ -232,16 +235,16 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 
 		Map<String, String> reportParameters = new HashMap<String, String>();
 
-		String[] keyValuePairs = StringUtil.split(entry.getReportParameters());
+		JSONArray reportParamsJSONArray = JSONFactoryUtil.createJSONArray(
+			entry.getReportParameters());
 
-		for (String keyValuePair : keyValuePairs) {
-			if (Validator.isNotNull(keyValuePair) &&
-				keyValuePair.contains(StringPool.EQUAL)) {
+		for (int i = 0; i < reportParamsJSONArray.length(); i++) {
+			JSONObject reportParamJSONObject =
+				reportParamsJSONArray.getJSONObject(i);
 
-				reportParameters.put(
-					keyValuePair.split(StringPool.EQUAL)[0],
-					keyValuePair.split(StringPool.EQUAL)[1]);
-			}
+			reportParameters.put(
+				reportParamJSONObject.getString("key"),
+				reportParamJSONObject.getString("value"));
 		}
 
 		ReportRequestContext reportRequestContext = null;

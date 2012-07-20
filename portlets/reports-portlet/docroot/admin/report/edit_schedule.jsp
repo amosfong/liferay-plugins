@@ -80,16 +80,14 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 		<tr>
 
 			<%
-			for (String reportParameter : StringUtil.split(definition.getReportParameters())) {
-				if (Validator.isNull(reportParameter)) {
-					continue;
-				}
+			JSONArray reportParamsJSONArray = JSONFactoryUtil.createJSONArray(definition.getReportParameters());
 
-				String[] array = StringUtil.split(reportParameter, StringPool.EQUAL);
+			for (int i = 0; i < reportParamsJSONArray.length(); i++) {
+				JSONObject reportParamJSONObject = reportParamsJSONArray.getJSONObject(i);
 
-				String key = array[0];
-				String value = array[1];
-				String type = array[2];
+				String key = reportParamJSONObject.getString("key");
+				String type = reportParamJSONObject.getString("type");
+				String value = reportParamJSONObject.getString("value");
 			%>
 
 				<c:choose>
@@ -166,7 +164,7 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 					</c:when>
 					<c:otherwise>
 						<td>
-							<%= array[0] %>
+							<%= key %>
 						</td>
 						<td colspan="3">
 							<span class="aui-field aui-field-text" id="aui_3_2_0_1428">

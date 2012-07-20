@@ -15,12 +15,11 @@
 package com.liferay.reports.admin.portlet.action;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
@@ -72,24 +71,30 @@ public class GenerateReportActionCommand implements ActionCommand {
 			Definition definition = DefinitionLocalServiceUtil.getDefinition(
 				definitionId);
 
-			String[] reportParameters = StringUtil.split(
-				definition.getReportParameters());
+			JSONArray entryReportParamsJSONArray =
+				JSONFactoryUtil.createJSONArray();
 
-			StringBundler sb = new StringBundler(4);
+			JSONArray reportParamsJSONArray =
+				JSONFactoryUtil.createJSONArray(
+					definition.getReportParameters());
 
-			for (String reportParameter : reportParameters) {
-				if (Validator.isNull(reportParameter)) {
-					continue;
-				}
+			for (int i = 0; i < reportParamsJSONArray.length(); i++) {
+				JSONObject reportParamJSONObject =
+					reportParamsJSONArray.getJSONObject(i);
 
-				String[] array = StringUtil.split(
-					reportParameter, StringPool.EQUAL);
+				String key = reportParamJSONObject.getString("key");
 
-				String key = array[0];
+				JSONObject entryReportParamJSONObject =
+					JSONFactoryUtil.createJSONObject();
+
+				entryReportParamJSONObject.put("key", key);
+
 				String value = ParamUtil.getString(
 					portletRequest, "parameterValue" + key);
 
-				if (Validator.isNull(value)) {
+				String type = reportParamJSONObject.getString("type");
+
+				if (type.equals("date")) {
 					Calendar calendar = ReportsUtil.getDate(
 						portletRequest, key, true);
 
@@ -98,10 +103,9 @@ public class GenerateReportActionCommand implements ActionCommand {
 					value = df.format(calendar.getTime());
 				}
 
-				sb.append(StringPool.COMMA);
-				sb.append(key);
-				sb.append(StringPool.EQUAL);
-				sb.append(value);
+				entryReportParamJSONObject.put("value", value);
+
+				entryReportParamsJSONArray.put(entryReportParamJSONObject);
 			}
 
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(
@@ -110,7 +114,7 @@ public class GenerateReportActionCommand implements ActionCommand {
 			EntryServiceUtil.addEntry(
 				definitionId, format, false, null, null, false, null,
 				emailNotifications, emailDelivery, null, generatedReportsURL,
-				sb.toString(), serviceContext);
+				entryReportParamsJSONArray.toString(), serviceContext);
 
 			portletRequest.setAttribute(
 				WebKeys.REDIRECT,

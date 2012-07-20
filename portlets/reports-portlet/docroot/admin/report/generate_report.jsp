@@ -70,25 +70,23 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 	</aui:select>
 
 	<%
-	String[] reportParameters = StringUtil.split(definition.getReportParameters());
+	String reportParameters = definition.getReportParameters();
 	%>
 
-	<c:if test="<%= reportParameters.length > 0 %>">
+	<c:if test="<%= reportParameters.length() > 0 %>">
 		<aui:field-wrapper helpMessage="entry-report-parameters-help" label="report-parameters">
 			<table class="lfr-table">
 			<tr>
 
 			<%
-			for (String reportParameter : reportParameters) {
-				if (Validator.isNull(reportParameter)) {
-					continue;
-				}
+			JSONArray reportParamsJSONArray = JSONFactoryUtil.createJSONArray(reportParameters);
 
-				String[] array = StringUtil.split(reportParameter, StringPool.EQUAL);
+			for (int i = 0; i < reportParamsJSONArray.length(); i++) {
+				JSONObject reportParamJSONObject = reportParamsJSONArray.getJSONObject(i);
 
-				String key = array[0];
-				String value = array[1];
-				String type = array[2];
+				String key = reportParamJSONObject.getString("key");
+				String type = reportParamJSONObject.getString("type");
+				String value = reportParamJSONObject.getString("value");
 			%>
 
 				<c:choose>
@@ -124,7 +122,7 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 					</c:when>
 					<c:otherwise>
 						<td>
-							<%= array[0] %>
+							<%= key %>
 						</td>
 						<td>
 							<span class="aui-field aui-field-text">
