@@ -37,6 +37,7 @@ import java.util.List;
  */
 public class UserGroupListener extends BaseModelListener<UserGroup> {
 
+	@Override
 	public void onBeforeAddAssociation(
 			Object classPK, String associationClassName,
 			Object associationClassPK)
@@ -59,6 +60,7 @@ public class UserGroupListener extends BaseModelListener<UserGroup> {
 		auditOnCreateOrRemove(EventTypes.DELETE, userGroup);
 	}
 
+	@Override
 	public void onBeforeRemoveAssociation(
 			Object classPK, String associationClassName,
 			Object associationClassPK)

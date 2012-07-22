@@ -34,8 +34,8 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
-@author Marcellus Tavares
-*/
+ * @author Marcellus Tavares
+ */
 public class KaleoProcessWorkflowHandler extends BaseWorkflowHandler {
 
 	public static final String CLASS_NAME = KaleoProcess.class.getName();

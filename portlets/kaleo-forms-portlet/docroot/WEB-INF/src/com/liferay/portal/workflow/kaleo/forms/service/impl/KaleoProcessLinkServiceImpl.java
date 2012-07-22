@@ -36,7 +36,7 @@ public class KaleoProcessLinkServiceImpl
 	public KaleoProcessLink updateKaleoProcessLink(
 			long kaleoProcessLinkId, long kaleoProcessId,
 			String workflowTaskName, long ddmTemplateId)
-		throws SystemException, PortalException {
+		throws PortalException, SystemException {
 
 		return kaleoProcessLinkLocalService.updateKaleoProcessLink(
 			kaleoProcessLinkId, kaleoProcessId, workflowTaskName,

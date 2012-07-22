@@ -38,6 +38,7 @@ import java.util.List;
  */
 public class RoleListener extends BaseModelListener<Role> {
 
+	@Override
 	public void onBeforeAddAssociation(
 			Object classPK, String associationClassName,
 			Object associationClassPK)
@@ -56,6 +57,7 @@ public class RoleListener extends BaseModelListener<Role> {
 		auditOnCreateOrRemove(EventTypes.DELETE, role);
 	}
 
+	@Override
 	public void onBeforeRemoveAssociation(
 			Object classPK, String associationClassName,
 			Object associationClassPK)

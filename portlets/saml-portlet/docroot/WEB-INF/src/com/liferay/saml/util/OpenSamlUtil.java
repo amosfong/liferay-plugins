@@ -477,7 +477,7 @@ public class OpenSamlUtil {
 
 	public static void signObject(
 			SignableSAMLObject signableObject, Credential credential)
-		throws MarshallingException, SignatureException, SecurityException {
+		throws MarshallingException, SecurityException, SignatureException {
 
 		Signature signature = buildSignature(credential);
 
