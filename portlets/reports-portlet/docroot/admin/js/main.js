@@ -133,15 +133,19 @@ Liferay.Report = {
 			return;
 		}
 
-		var reportParameters = JSON.parse(AUI().one('.reportParameters').get('value'));
+		var reportParameters = AUI().one('.reportParameters').get('value');
 
-		for (var i in reportParameters) {
-			var reportParameter = reportParameters[i];
+		if (reportParameters) {
+			var reportParametersJSON = JSON.parse(reportParameters);
 
-			if (reportParameter.key == parameterKey) {
-				instance._sendMessage('that-vocabulary-already-exists');
+			for (var i in reportParametersJSON) {
+				var reportParameter = reportParametersJSON[i];
 
-				return;
+				if (reportParameter.key == parameterKey) {
+					instance._sendMessage('that-vocabulary-already-exists');
+
+					return;
+				}
 			}
 		}
 
