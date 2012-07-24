@@ -128,7 +128,7 @@ else {
 			String taglibOnClick = renderResponse.getNamespace() + "testDatabaseConnection();";
 			%>
 
-			<aui:button name="testDatabaseConnectionButton" onClick='<%= taglibOnClick %>' value="test-database-connection" />
+			<aui:button name="testDatabaseConnectionButton" onClick="<%= taglibOnClick %>" value="test-database-connection" />
 		</aui:button-row>
 	</aui:fieldset>
 </aui:form>

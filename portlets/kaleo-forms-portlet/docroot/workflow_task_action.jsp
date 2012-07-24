@@ -196,9 +196,9 @@ long[] pooledActorsIds = WorkflowTaskManagerUtil.getPooledActorsIds(company.getC
 <c:if test="<%= showCompleteFormButton %>">
 	<div class="aui-helper-hidden" id="<%= randomId %>completeForm">
 		<liferay-util:include page="/edit_form.jsp" servletContext="<%= application %>">
-			<portlet:param name="workflowTaskId" value='<%= String.valueOf(workflowTask.getWorkflowTaskId()) %>' />
-			<portlet:param name="kaleoProcessLinkId" value='<%= String.valueOf(kaleoProcessLink.getKaleoProcessLinkId()) %>' />
-			<portlet:param name="ddlRecordId" value='<%= String.valueOf(ddlRecordId) %>' />
+			<portlet:param name="workflowTaskId" value="<%= String.valueOf(workflowTask.getWorkflowTaskId()) %>" />
+			<portlet:param name="kaleoProcessLinkId" value="<%= String.valueOf(kaleoProcessLink.getKaleoProcessLinkId()) %>" />
+			<portlet:param name="ddlRecordId" value="<%= String.valueOf(ddlRecordId) %>" />
 			<portlet:param name="formName" value='<%= randomId + "fm" %>' />
 		</liferay-util:include>
 	</div>

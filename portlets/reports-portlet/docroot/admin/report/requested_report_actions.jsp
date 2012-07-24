@@ -39,8 +39,8 @@ String entryId = String.valueOf(entry.getEntryId());
 		/>
 	</c:if>
 
-	<c:if test='<%= entry.isRepeating() && (entry.getEndDate() == null || DateUtil.newDate().before(entry.getEndDate())) %>' >
-		<c:if test='<%= EntryPermission.contains(permissionChecker, entry.getEntryId(), ActionKeys.DELETE) %>'>
+	<c:if test="<%= entry.isRepeating() && (entry.getEndDate() == null || DateUtil.newDate().before(entry.getEndDate())) %>">
+		<c:if test="<%= EntryPermission.contains(permissionChecker, entry.getEntryId(), ActionKeys.DELETE) %>">
 			<portlet:renderURL var="searchRequestURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 				<portlet:param name="mvcPath" value="/admin/view.jsp" />
 				<portlet:param name="tabs1" value="reports" />
@@ -59,7 +59,7 @@ String entryId = String.valueOf(entry.getEntryId());
 		</c:if>
 	</c:if>
 
-	<c:if test='<%= EntryPermission.contains(permissionChecker, entry.getEntryId(), ActionKeys.DELETE) %>'>
+	<c:if test="<%= EntryPermission.contains(permissionChecker, entry.getEntryId(), ActionKeys.DELETE) %>">
 		<portlet:renderURL var="searchRequestURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 			<portlet:param name="mvcPath" value="/admin/view.jsp" />
 			<portlet:param name="tabs1" value="reports" />
