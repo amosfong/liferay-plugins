@@ -68,31 +68,33 @@ public class GenerateReportActionCommand implements ActionCommand {
 			portletRequest, "generatedReportsURL");
 
 		try {
+			JSONArray entryReportParametersJSONArray =
+				JSONFactoryUtil.createJSONArray();
+
 			Definition definition = DefinitionLocalServiceUtil.getDefinition(
 				definitionId);
 
-			JSONArray entryReportParamsJSONArray =
-				JSONFactoryUtil.createJSONArray();
-
-			JSONArray reportParamsJSONArray =
+			JSONArray reportParametersJSONArray =
 				JSONFactoryUtil.createJSONArray(
 					definition.getReportParameters());
 
-			for (int i = 0; i < reportParamsJSONArray.length(); i++) {
-				JSONObject reportParamJSONObject =
-					reportParamsJSONArray.getJSONObject(i);
+			for (int i = 0; i < reportParametersJSONArray.length(); i++) {
+				JSONObject definitionReportParameterJSONObject =
+					reportParametersJSONArray.getJSONObject(i);
 
-				String key = reportParamJSONObject.getString("key");
+				String key = definitionReportParameterJSONObject.getString(
+					"key");
 
-				JSONObject entryReportParamJSONObject =
+				JSONObject entryReportParameterJSONObject =
 					JSONFactoryUtil.createJSONObject();
 
-				entryReportParamJSONObject.put("key", key);
+				entryReportParameterJSONObject.put("key", key);
 
 				String value = ParamUtil.getString(
 					portletRequest, "parameterValue" + key);
 
-				String type = reportParamJSONObject.getString("type");
+				String type = definitionReportParameterJSONObject.getString(
+					"type");
 
 				if (type.equals("date")) {
 					Calendar calendar = ReportsUtil.getDate(
@@ -103,9 +105,10 @@ public class GenerateReportActionCommand implements ActionCommand {
 					value = df.format(calendar.getTime());
 				}
 
-				entryReportParamJSONObject.put("value", value);
+				entryReportParameterJSONObject.put("value", value);
 
-				entryReportParamsJSONArray.put(entryReportParamJSONObject);
+				entryReportParametersJSONArray.put(
+					entryReportParameterJSONObject);
 			}
 
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(
@@ -114,7 +117,7 @@ public class GenerateReportActionCommand implements ActionCommand {
 			EntryServiceUtil.addEntry(
 				definitionId, format, false, null, null, false, null,
 				emailNotifications, emailDelivery, null, generatedReportsURL,
-				entryReportParamsJSONArray.toString(), serviceContext);
+				entryReportParametersJSONArray.toString(), serviceContext);
 
 			portletRequest.setAttribute(
 				WebKeys.REDIRECT,

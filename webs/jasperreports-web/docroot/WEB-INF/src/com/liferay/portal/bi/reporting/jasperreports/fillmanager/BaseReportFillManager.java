@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
@@ -170,29 +171,7 @@ public abstract class BaseReportFillManager implements ReportFillManager {
 
 			String stringValue = stringReportParameters.get(name);
 
-			if (stringValue == null || stringValue.isEmpty()) {
-				continue;
-			}
-
 			Serializable serializableValue = stringValue;
-
-			if (clazz.equals(List.class)) {
-				List<String> parameterList = new ArrayList<String>();
-
-				String[] parameters = stringValue.split(",");
-
-				for (String parameter : parameters) {
-					parameter = parameter.trim();
-
-					if (parameter.isEmpty()) {
-						continue;
-					}
-
-					parameterList.add(parameter);
-				}
-
-				serializableValue = new ArrayList(parameterList);
-			}
 
 			if (clazz.equals(Date.class)) {
 				DateFormat dateFormat =
@@ -204,6 +183,12 @@ public abstract class BaseReportFillManager implements ReportFillManager {
 				catch (ParseException pe) {
 					_log.error(stringValue + " is not yyyy-MM-dd");
 				}
+			}
+			else if (clazz.equals(List.class)) {
+				List<String> parameterList = ListUtil.fromArray(
+					StringUtil.split(stringValue));
+
+				serializableValue = new ArrayList<String>(parameterList);
 			}
 
 			if (serializableValue != null) {

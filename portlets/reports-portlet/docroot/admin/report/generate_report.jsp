@@ -79,14 +79,14 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 			<tr>
 
 			<%
-			JSONArray reportParamsJSONArray = JSONFactoryUtil.createJSONArray(reportParameters);
+			JSONArray reportParametersJSONArray = JSONFactoryUtil.createJSONArray(reportParameters);
 
-			for (int i = 0; i < reportParamsJSONArray.length(); i++) {
-				JSONObject reportParamJSONObject = reportParamsJSONArray.getJSONObject(i);
+			for (int i = 0; i < reportParametersJSONArray.length(); i++) {
+				JSONObject reportParameterJSONObject = reportParametersJSONArray.getJSONObject(i);
 
-				String key = reportParamJSONObject.getString("key");
-				String type = reportParamJSONObject.getString("type");
-				String value = reportParamJSONObject.getString("value");
+				String key = reportParameterJSONObject.getString("key");
+				String type = reportParameterJSONObject.getString("type");
+				String value = reportParameterJSONObject.getString("value");
 			%>
 
 				<c:choose>

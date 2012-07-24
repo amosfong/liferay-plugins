@@ -235,16 +235,16 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 
 		Map<String, String> reportParameters = new HashMap<String, String>();
 
-		JSONArray reportParamsJSONArray = JSONFactoryUtil.createJSONArray(
+		JSONArray reportParametersJSONArray = JSONFactoryUtil.createJSONArray(
 			entry.getReportParameters());
 
-		for (int i = 0; i < reportParamsJSONArray.length(); i++) {
-			JSONObject reportParamJSONObject =
-				reportParamsJSONArray.getJSONObject(i);
+		for (int i = 0; i < reportParametersJSONArray.length(); i++) {
+			JSONObject reportParameterJSONObject =
+				reportParametersJSONArray.getJSONObject(i);
 
 			reportParameters.put(
-				reportParamJSONObject.getString("key"),
-				reportParamJSONObject.getString("value"));
+				reportParameterJSONObject.getString("key"),
+				reportParameterJSONObject.getString("value"));
 		}
 
 		ReportRequestContext reportRequestContext = null;
