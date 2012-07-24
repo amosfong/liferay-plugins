@@ -20,12 +20,13 @@ import com.liferay.portal.kernel.cal.Recurrence;
 import com.liferay.portal.kernel.cal.RecurrenceSerializer;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.json.JSONArray;
+import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.service.ServiceContext;
@@ -94,29 +95,34 @@ public class AddSchedulerActionCommand implements ActionCommand {
 			String cronText = getCronText(
 				portletRequest, startCalendar, true, recurrenceType);
 
+			JSONArray entryReportParametersJSONArray =
+				JSONFactoryUtil.createJSONArray();
+
 			Definition definition = DefinitionLocalServiceUtil.getDefinition(
 				definitionId);
 
-			String[] reportParameters = StringUtil.split(
-				definition.getReportParameters());
+			JSONArray reportParametersJSONArray =
+				JSONFactoryUtil.createJSONArray(
+					definition.getReportParameters());
 
-			StringBundler sb = new StringBundler(4);
+			for (int i = 0; i < reportParametersJSONArray.length(); i++) {
+				JSONObject definitionReportParameterJSONObject =
+					reportParametersJSONArray.getJSONObject(i);
 
-			for (String reportParameter : reportParameters) {
-				if (Validator.isNull(reportParameter)) {
-					continue;
-				}
+				JSONObject entryReportParameterJSONObject =
+					JSONFactoryUtil.createJSONObject();
 
-				String[] array = StringUtil.split(
-					reportParameter, StringPool.EQUAL);
+				String key = definitionReportParameterJSONObject.getString(
+					"key");
 
-				String key = array[0];
-				String value = StringPool.BLANK;
-
-				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+				entryReportParameterJSONObject.put("key", key);
 
 				String type = ParamUtil.getString(
 					portletRequest, "useVariable" + key);
+
+				String value = StringPool.BLANK;
+
+				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
 				if (type.equals("startDate")) {
 					value = df.format(startCalendar.getTime());
@@ -141,17 +147,19 @@ public class AddSchedulerActionCommand implements ActionCommand {
 					}
 				}
 
-				sb.append(StringPool.COMMA);
-				sb.append(key);
-				sb.append(StringPool.EQUAL);
-				sb.append(value);
+				entryReportParameterJSONObject.put("value", value);
+
+				entryReportParametersJSONArray.put(
+					entryReportParameterJSONObject);
 			}
 
 			EntryServiceUtil.addEntry(
 				definitionId, format, true, startCalendar.getTime(),
 				schedulerEndDate, recurrenceType != Recurrence.NO_RECURRENCE,
 				cronText, emailNotifications, emailDelivery, portletId,
-				generatedReportsURL, sb.toString(), serviceContext);
+				generatedReportsURL, entryReportParametersJSONArray.toString(),
+				serviceContext);
+
 		}
 		catch (PortalException pe) {
 			SessionErrors.add(portletRequest, pe.getClass());
