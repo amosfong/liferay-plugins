@@ -669,6 +669,12 @@ public class DefinitionWrapper implements Definition, ModelWrapper<Definition> {
 		_definition.setExpandoBridgeAttributes(serviceContext);
 	}
 
+	public void prepareLocalizedFieldsForImport(
+		java.util.Locale defaultImportLocale)
+		throws com.liferay.portal.LocaleException {
+		_definition.prepareLocalizedFieldsForImport(defaultImportLocale);
+	}
+
 	@Override
 	public java.lang.Object clone() {
 		return new DefinitionWrapper((Definition)_definition.clone());

@@ -233,17 +233,6 @@ public class SamlSpAuthRequestModelImpl extends BaseModelImpl<SamlSpAuthRequest>
 	}
 
 	@Override
-	public SamlSpAuthRequest toEscapedModel() {
-		if (_escapedModelProxy == null) {
-			_escapedModelProxy = (SamlSpAuthRequest)ProxyUtil.newProxyInstance(_classLoader,
-					_escapedModelProxyInterfaces,
-					new AutoEscapeBeanHandler(this));
-		}
-
-		return _escapedModelProxy;
-	}
-
-	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(getCompanyId(),
 			SamlSpAuthRequest.class.getName(), getPrimaryKey());
@@ -254,6 +243,17 @@ public class SamlSpAuthRequestModelImpl extends BaseModelImpl<SamlSpAuthRequest>
 		ExpandoBridge expandoBridge = getExpandoBridge();
 
 		expandoBridge.setAttributes(serviceContext);
+	}
+
+	@Override
+	public SamlSpAuthRequest toEscapedModel() {
+		if (_escapedModelProxy == null) {
+			_escapedModelProxy = (SamlSpAuthRequest)ProxyUtil.newProxyInstance(_classLoader,
+					_escapedModelProxyInterfaces,
+					new AutoEscapeBeanHandler(this));
+		}
+
+		return _escapedModelProxy;
 	}
 
 	@Override

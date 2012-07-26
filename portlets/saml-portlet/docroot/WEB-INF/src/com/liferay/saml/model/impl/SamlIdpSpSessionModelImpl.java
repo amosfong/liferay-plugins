@@ -334,17 +334,6 @@ public class SamlIdpSpSessionModelImpl extends BaseModelImpl<SamlIdpSpSession>
 	}
 
 	@Override
-	public SamlIdpSpSession toEscapedModel() {
-		if (_escapedModelProxy == null) {
-			_escapedModelProxy = (SamlIdpSpSession)ProxyUtil.newProxyInstance(_classLoader,
-					_escapedModelProxyInterfaces,
-					new AutoEscapeBeanHandler(this));
-		}
-
-		return _escapedModelProxy;
-	}
-
-	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(getCompanyId(),
 			SamlIdpSpSession.class.getName(), getPrimaryKey());
@@ -355,6 +344,17 @@ public class SamlIdpSpSessionModelImpl extends BaseModelImpl<SamlIdpSpSession>
 		ExpandoBridge expandoBridge = getExpandoBridge();
 
 		expandoBridge.setAttributes(serviceContext);
+	}
+
+	@Override
+	public SamlIdpSpSession toEscapedModel() {
+		if (_escapedModelProxy == null) {
+			_escapedModelProxy = (SamlIdpSpSession)ProxyUtil.newProxyInstance(_classLoader,
+					_escapedModelProxyInterfaces,
+					new AutoEscapeBeanHandler(this));
+		}
+
+		return _escapedModelProxy;
 	}
 
 	@Override

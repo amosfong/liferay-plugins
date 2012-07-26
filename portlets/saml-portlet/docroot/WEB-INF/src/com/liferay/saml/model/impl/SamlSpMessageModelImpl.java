@@ -248,17 +248,6 @@ public class SamlSpMessageModelImpl extends BaseModelImpl<SamlSpMessage>
 	}
 
 	@Override
-	public SamlSpMessage toEscapedModel() {
-		if (_escapedModelProxy == null) {
-			_escapedModelProxy = (SamlSpMessage)ProxyUtil.newProxyInstance(_classLoader,
-					_escapedModelProxyInterfaces,
-					new AutoEscapeBeanHandler(this));
-		}
-
-		return _escapedModelProxy;
-	}
-
-	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(getCompanyId(),
 			SamlSpMessage.class.getName(), getPrimaryKey());
@@ -269,6 +258,17 @@ public class SamlSpMessageModelImpl extends BaseModelImpl<SamlSpMessage>
 		ExpandoBridge expandoBridge = getExpandoBridge();
 
 		expandoBridge.setAttributes(serviceContext);
+	}
+
+	@Override
+	public SamlSpMessage toEscapedModel() {
+		if (_escapedModelProxy == null) {
+			_escapedModelProxy = (SamlSpMessage)ProxyUtil.newProxyInstance(_classLoader,
+					_escapedModelProxyInterfaces,
+					new AutoEscapeBeanHandler(this));
+		}
+
+		return _escapedModelProxy;
 	}
 
 	@Override

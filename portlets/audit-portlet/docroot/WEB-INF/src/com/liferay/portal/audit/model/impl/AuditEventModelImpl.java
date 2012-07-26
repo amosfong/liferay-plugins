@@ -437,17 +437,6 @@ public class AuditEventModelImpl extends BaseModelImpl<AuditEvent>
 	}
 
 	@Override
-	public AuditEvent toEscapedModel() {
-		if (_escapedModelProxy == null) {
-			_escapedModelProxy = (AuditEvent)ProxyUtil.newProxyInstance(_classLoader,
-					_escapedModelProxyInterfaces,
-					new AutoEscapeBeanHandler(this));
-		}
-
-		return _escapedModelProxy;
-	}
-
-	@Override
 	public ExpandoBridge getExpandoBridge() {
 		return ExpandoBridgeFactoryUtil.getExpandoBridge(getCompanyId(),
 			AuditEvent.class.getName(), getPrimaryKey());
@@ -458,6 +447,17 @@ public class AuditEventModelImpl extends BaseModelImpl<AuditEvent>
 		ExpandoBridge expandoBridge = getExpandoBridge();
 
 		expandoBridge.setAttributes(serviceContext);
+	}
+
+	@Override
+	public AuditEvent toEscapedModel() {
+		if (_escapedModelProxy == null) {
+			_escapedModelProxy = (AuditEvent)ProxyUtil.newProxyInstance(_classLoader,
+					_escapedModelProxyInterfaces,
+					new AutoEscapeBeanHandler(this));
+		}
+
+		return _escapedModelProxy;
 	}
 
 	@Override

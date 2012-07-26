@@ -559,6 +559,12 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 		_source.setExpandoBridgeAttributes(serviceContext);
 	}
 
+	public void prepareLocalizedFieldsForImport(
+		java.util.Locale defaultImportLocale)
+		throws com.liferay.portal.LocaleException {
+		_source.prepareLocalizedFieldsForImport(defaultImportLocale);
+	}
+
 	@Override
 	public java.lang.Object clone() {
 		return new SourceWrapper((Source)_source.clone());

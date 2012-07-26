@@ -14,6 +14,7 @@
 
 package com.liferay.reports.model;
 
+import com.liferay.portal.LocaleException;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.LocaleUtil;
@@ -391,6 +392,13 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		else {
 			SourceLocalServiceUtil.updateSource(this);
 		}
+	}
+
+	@SuppressWarnings("unused")
+	public void prepareLocalizedFieldsForImport(Locale defaultImportLocale)
+		throws LocaleException {
+		setName(getName(defaultImportLocale), defaultImportLocale,
+			defaultImportLocale);
 	}
 
 	@Override
