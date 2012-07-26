@@ -2747,7 +2747,7 @@ AUI.add(
 
 						setTimeout(
 							function() {
-								editor.render(instance.bodyNode);
+								//editor.render(instance.bodyNode);
 							},
 							0
 						);
@@ -3439,6 +3439,6 @@ AUI.add(
 	},
 	'',
 	{
-		requires: ['aui-ace-editor-base', 'aui-ace-editor-mode-xml', 'aui-diagram-builder', 'aui-tpl-snippets', 'autocomplete', 'autocomplete-highlighters', 'datasource', 'datatype-xml', 'dataschema-xml', 'event-valuechange', 'io-form']
+		requires: ['aui-ace-editor', 'aui-ace-editor-mode-xml', 'aui-diagram-builder', 'aui-tpl-snippets', 'autocomplete', 'autocomplete-highlighters', 'datasource', 'datatype-xml', 'dataschema-xml', 'event-valuechange', 'io-form']
 	}
 );
