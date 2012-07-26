@@ -2747,7 +2747,7 @@ AUI.add(
 
 						setTimeout(
 							function() {
-								//editor.render(instance.bodyNode);
+								editor.render(instance.bodyNode);
 							},
 							0
 						);
