@@ -1,19 +1,19 @@
 <plugins-summary>
 	<plugin>
 		<artifact-id>antisamy-hook</artifact-id>
-		<name>AntiSamy</name>
+		<name>AntiSamy EE</name>
 		<type>hook</type>
-		<tags></tags>
+		<tags>antisamy, html, sanitize, sanitizer</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>Sanitizers act as a filtering element that "sanitize" web content (usually HTML or Javascript code) so that it does not contain inappropriate content like malicious Javascript code or inappropriate words. This app utilizes the OWASP AntiSamy functionality to provide default sanitization of user-supplied input (such as blog posts, forum posts, and other user-generated content). The OWASP AntiSamy project is an API for ensuring user-supplied HTML/CSS is in compliance within an application's rules. It is an API that helps you make sure that clients don't supply malicious cargo code in the HTML that they supply for their profile, comments, etc., that get persisted on the server. The term "malicious code" in regards to web applications usually mean "JavaScript." Cascading Stylesheets are only considered malicious when they invoke the JavaScript engine. However, there are many situations where "normal" HTML and CSS can be used in a malicious manner.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
-		<liferay-versions></liferay-versions>
+		<licenses>EE</licenses>
+		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Security</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>hooks/antisamy-hook/docroot/WEB-INF/releng/icons/90x90.png</icon>
@@ -34,7 +34,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -60,7 +60,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -70,7 +70,7 @@
 			<icon>hooks/default-web-content-hook/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>true</supported>
 		</releng>
 	</plugin>
@@ -78,17 +78,17 @@
 		<artifact-id>documentum-hook</artifact-id>
 		<name>Documentum</name>
 		<type>hook</type>
-		<tags></tags>
+		<tags>documents, integrate, media</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>You can use this hook to integrate Liferay and its Documents and Media functionality with Documentum. Before configuring Documentum, you must install this app. To use this hook, set dl.hook.impl=liferay.documentum.hook.DocumentumHook. If you are using Documentum, there are additional settings that must be configured in the ${liferay_home}/documentum-hook/docroot/WEB-INF/src/dfc.properties and documentum-hook/docroot/WEB-INF/src/portlet.properties files. Consult the "Documents and Media" section of the Liferay User Guide for details on administering this service. The Liferay User Guide can be found at http://liferay.com/documentation.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Productivity</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>hooks/documentum-hook/docroot/WEB-INF/releng/icons/90x90.png</icon>
@@ -110,7 +110,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -120,7 +120,7 @@
 			<icon>hooks/mongodb-hook/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>hooks/mongodb-hook/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>hooks/mongodb-hook/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<screenshot>hooks/mongodb-hook/docroot/WEB-INF/releng/screenshots/3.jpg</screenshot>
@@ -137,7 +137,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -146,7 +146,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -160,7 +160,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -169,7 +169,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -183,7 +183,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -192,7 +192,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -206,7 +206,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -215,7 +215,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -229,7 +229,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -238,7 +238,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -246,17 +246,17 @@
 		<artifact-id>sharepoint-hook</artifact-id>
 		<name>Sharepoint</name>
 		<type>hook</type>
-		<tags></tags>
+		<tags>cms, cmis, dms, document management, sharepoint</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>You can use this hook to integrate Liferay and its Documents and Media functionality with SharePoint. Once installed and properly configured, you can mount SharePoint's Document Library using the following mount settings: Name: Sharepoint; Description: Sharepoint Description; Repository Type: Sharepoint (AtomPub); AtomPub URL: http://[Sharepoint Computer Name]/_vti_bin/cmis/rest/[Repository ID]; Repository ID: [Repository ID]; Site Path: [http://[Sharepoint Computer Name]/[Repository Name]; Consult the "Documents and Media" section of the Liferay User Guide for details on administering this service. The Liferay User Guide can be found at http://liferay.com/documentation.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Utility</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>hooks/sharepoint-hook/docroot/WEB-INF/releng/icons/90x90.png</icon>
@@ -288,7 +288,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>false</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>true</supported>
 		</releng>
 	</plugin>
@@ -302,7 +302,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -312,7 +312,7 @@
 			<icon>hooks/social-bookmarks-hook/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>hooks/social-bookmarks-hook/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>hooks/social-bookmarks-hook/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<screenshot>hooks/social-bookmarks-hook/docroot/WEB-INF/releng/screenshots/3.jpg</screenshot>
@@ -321,25 +321,25 @@
 	</plugin>
 	<plugin>
 		<artifact-id>1-2-1-columns-layouttpl</artifact-id>
-		<name>1-2-1 Columns Template</name>
+		<name>1-2-1 Columns Layout EE</name>
 		<type>layouttpl</type>
 		<tags>layout, template, ui</tags>
-		<short-description>This plugin is a 1-2-1 columns layout template.</short-description>
-		<long-description></long-description>
+		<short-description></short-description>
+		<long-description>Layout Templates allow you to choose how portlets will be arranged on a page. They are simple table or CSS-based containers into which portlets can be dropped and sit within the body of the page. Liferay Portal comes with several built-in layout templates, but if you require a more complex page layout you may wish to use this custom layout template. A thumbnail is displayed when the end user clicks Layout Template from the Dock menu. Consult the "Page Creation and Management" section of the Liferay User Guide for details on administering this service.  The Liferay User Guide can be found at http://liferay.com/documentation. This layout will appear in your Page Layouts once installed.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category>Utility</category>
+			<category>Themes and Templates</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>layouttpl/1-2-1-columns-layouttpl/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>layouttpl/1-2-1-columns-layouttpl/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>layouttpl/1-2-1-columns-layouttpl/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<supported>true</supported>
@@ -347,25 +347,25 @@
 	</plugin>
 	<plugin>
 		<artifact-id>1-3-1-columns-layouttpl</artifact-id>
-		<name>1-3-1 Columns Template</name>
+		<name>1-3-1 Columns Layout EE</name>
 		<type>layouttpl</type>
 		<tags>layout, template, ui</tags>
-		<short-description>This plugin is a 1-3-1 columns layout template.</short-description>
-		<long-description></long-description>
+		<short-description></short-description>
+		<long-description>Layout Templates allow you to choose how portlets will be arranged on a page. They are simple table or CSS-based containers into which portlets can be dropped and sit within the body of the page. Liferay Portal comes with several built-in layout templates, but if you require a more complex page layout you may wish to use this custom layout template. A thumbnail is displayed when the end user clicks Layout Template from the Dock menu. Consult the "Page Creation and Management" section of the Liferay User Guide for details on administering this service.  The Liferay User Guide can be found at http://liferay.com/documentation. This layout will appear in your Page Layouts once installed.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category>Utility</category>
+			<category>Themes and Templates</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>layouttpl/1-3-1-columns-layouttpl/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>layouttpl/1-3-1-columns-layouttpl/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>layouttpl/1-3-1-columns-layouttpl/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<supported>true</supported>
@@ -373,25 +373,25 @@
 	</plugin>
 	<plugin>
 		<artifact-id>1-3-2-columns-layouttpl</artifact-id>
-		<name>1-3-2 Columns Template</name>
+		<name>1-3-2 Columns Layout EE</name>
 		<type>layouttpl</type>
 		<tags>layout, template, ui</tags>
-		<short-description>This plugin is a 1-3-2 columns layout template.</short-description>
-		<long-description></long-description>
+		<short-description></short-description>
+		<long-description>Layout Templates allow you to choose how portlets will be arranged on a page. They are simple table or CSS-based containers into which portlets can be dropped and sit within the body of the page. Liferay Portal comes with several built-in layout templates, but if you require a more complex page layout you may wish to use this custom layout template. A thumbnail is displayed when the end user clicks Layout Template from the Dock menu. Consult the "Page Creation and Management" section of the Liferay User Guide for details on administering this service. The Liferay User Guide can be found at http://liferay.com/documentation. This layout will appear in your Page Layouts once installed.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category>Utility</category>
+			<category>Themes and Templates</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>layouttpl/1-3-2-columns-layouttpl/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>layouttpl/1-3-2-columns-layouttpl/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>layouttpl/1-3-2-columns-layouttpl/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<supported>true</supported>
@@ -399,25 +399,25 @@
 	</plugin>
 	<plugin>
 		<artifact-id>2-1-2-columns-layouttpl</artifact-id>
-		<name>2-1-2 Columns Template</name>
+		<name>2-1-2 Columns Layout EE</name>
 		<type>layouttpl</type>
 		<tags>layout, template, ui</tags>
-		<short-description>This plugin is a 2-1-2 columns layout template.</short-description>
+		<short-description></short-description>
 		<long-description></long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category>Utility</category>
+			<category>Themes and Templates</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>layouttpl/2-1-2-columns-layouttpl/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>true</labs>
+			<labs>false</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>layouttpl/2-1-2-columns-layouttpl/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>layouttpl/2-1-2-columns-layouttpl/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<supported>true</supported>
@@ -425,25 +425,25 @@
 	</plugin>
 	<plugin>
 		<artifact-id>3-2-3-columns-layouttpl</artifact-id>
-		<name>3-2-3 Columns Template</name>
+		<name>3-2-3 Columns Layout EE</name>
 		<type>layouttpl</type>
 		<tags>layout, template, ui</tags>
-		<short-description>This plugin is a 3-2-3 columns layout template.</short-description>
-		<long-description></long-description>
+		<short-description></short-description>
+		<long-description>Layout Templates allow you to choose how portlets will be arranged on a page. They are simple table or CSS-based containers into which portlets can be dropped and sit within the body of the page. Liferay Portal comes with several built-in layout templates, but if you require a more complex page layout you may wish to use this custom layout template. A thumbnail is displayed when the end user clicks Layout Template from the Dock menu. Consult the "Page Creation and Management" section of the Liferay User Guide for details on administering this service.  The Liferay User Guide can be found at http://liferay.com/documentation. This layout will appear in your Page Layouts once installed.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category>Utility</category>
+			<category>Themes and Templates</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>layouttpl/3-2-3-columns-layouttpl/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>layouttpl/3-2-3-columns-layouttpl/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>layouttpl/3-2-3-columns-layouttpl/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<supported>true</supported>
@@ -459,7 +459,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -468,7 +468,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -482,7 +482,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -491,25 +491,25 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
 	<plugin>
 		<artifact-id>audit-portlet</artifact-id>
-		<name>Audit</name>
+		<name>Audit EE</name>
 		<type>portlet</type>
-		<tags></tags>
+		<tags>audit, audit trail, message bus</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>This hook adds an Audit Service to Liferay. Many organizations have the need to produce an audit trail of user actions. In many countries this is mandated by law and the data might need to be stored for a long period time. Liferay's Audit Service provides a pluggable way of storing the audit trail from Liferay Portal and apps. The information is then processed by Audit Service app that can store the information into log files or database or both. The Audit Service leverages Liferay's Lightweight Message Bus and App architecture. The service itself is an app that handles the processing and logging of the audit messages sent through the message bus. Any app can then produce audit messages to the audit message bus destination. A set of audit message producers is implanted as a hook app to provide information on login, logout, user information changes, user role changes etc. This hook specifically registers a new destination (liferay/audit) and listener to the message bus. The listener dispatches the messages to the audit service for processing. Different processors can be registered with the audit service. By default the app comes with a Database Processor and Log4J Processor. Processors can be either be global or for a specific event type. For instance database processor would be global but Log processor would be only for login events. You can augment this service with a GUI reporting app. It allows you to search and browse the audit events stored into database. The Audit Portlet app implements this functionality. Consult the "Using Audit Trails" section of the Liferay User Guide for details on administering this service. The Liferay User Guide can be found at http://liferay.com/documentation.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Security</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/audit-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
@@ -531,7 +531,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -540,13 +540,13 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
 	<plugin>
 		<artifact-id>calendar-portlet</artifact-id>
-		<name>Enterprise Calendar</name>
+		<name>Enterprise Calendar EE</name>
 		<type>portlet</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -554,7 +554,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -569,25 +569,25 @@
 	</plugin>
 	<plugin>
 		<artifact-id>chat-portlet</artifact-id>
-		<name>Chat</name>
+		<name>Chat EE</name>
 		<type>portlet</type>
 		<tags>chat, friends, im, social</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>Liferay's Chat portlet provides a convenient way of allowing users to send each other instant messages when they are logged into a Liferay site. It appears at the bottom of every page, and displays who is logged on, their statuses, and any chats the logged-in user has open. Users can also set audio alerts and engage in multiple chats. Consult the "Chat" section of the Liferay User Guide for details on administering this service. The Liferay User Guide can be found at http://liferay.com/documentation.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Communication</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/chat-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>false</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/chat-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>portlets/chat-portlet/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<supported>true</supported>
@@ -612,31 +612,31 @@
 			<dependent-apps></dependent-apps>
 			<labs>false</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>true</supported>
 		</releng>
 	</plugin>
 	<plugin>
 		<artifact-id>ddl-form-portlet</artifact-id>
-		<name>Dynamic Data List Forms</name>
+		<name>Dynamic Data List Form EE</name>
 		<type>portlet</type>
 		<tags>ddl, dynamic data list, form, user form</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>A Dynamic Data List (ddl) is a user-defined collection of records, similar to a spreadsheet. The records in a Dynamic Data List are composed of various field types such as text, date, integer, check box, etc. These can be published as workflow-enabled forms that capture user information in different ways such as an RSVP, for tasks tracking, or for managing issues. This Dynamic Data List Form app allows you to display dynamic forms to users, allowing them to enter information in predefined lists. This app can also be configured to use a template to display the list in different ways depending on whether the user is viewing the entire list or the details of a specific list record. Consult the "Dynamic Data Lists in Liferay" section of the Liferay User Guide for details on administering this service. The Liferay User Guide can be found at http://liferay.com/documentation.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Productivity</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/ddl-form-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>false</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/ddl-form-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>portlets/ddl-form-portlet/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<screenshot>portlets/ddl-form-portlet/docroot/WEB-INF/releng/screenshots/3.jpg</screenshot>
@@ -653,7 +653,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -663,7 +663,7 @@
 			<icon>portlets/digg-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/digg-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<supported>true</supported>
 		</releng>
@@ -678,7 +678,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -687,7 +687,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>false</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>true</supported>
 		</releng>
 	</plugin>
@@ -697,21 +697,21 @@
 		<type>portlet</type>
 		<tags>documents and media, flash, social, video</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>This Flash app allows easy publishing of Adobe Flash content into Liferay. The Flash source file can be specified through a URL so it's possible to publish videos, presentations, games, from a remote website, or directly from Liferay's Documents and Media Gallery.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Utility</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/flash-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>true</labs>
+			<labs>false</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/flash-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>portlets/flash-portlet/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<supported>true</supported>
@@ -722,48 +722,48 @@
 		<name>Google AdSense</name>
 		<type>portlet</type>
 		<tags>adsense, advertising, banners, google</tags>
-		<short-description>This plugin allows easy integration with Google AdSense.</short-description>
-		<long-description></long-description>
+		<short-description></short-description>
+		<long-description>Google AdSense is a free, simple way for website publishers of all sizes to earn money by displaying targeted Google ads on their websites. AdSense also lets you provide Google search to your site users, while earning money by displaying Google ads on the search results pages. This app automatically displays Google Ads based on your AdSense account information and configuration. Options allow you to select your publisher and channel from which ads are served.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Utility</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/google-adsense-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>true</labs>
+			<labs>false</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/google-adsense-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>portlets/google-adsense-portlet/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
-			<supported>false</supported>
+			<supported>true</supported>
 		</releng>
 	</plugin>
 	<plugin>
 		<artifact-id>google-maps-portlet</artifact-id>
-		<name>Google Maps</name>
+		<name>Google Maps EE</name>
 		<type>portlet</type>
 		<tags>google, google maps, maps, social</tags>
-		<short-description>This plugin allows easy integration with Google Maps.</short-description>
-		<long-description></long-description>
+		<short-description></short-description>
+		<long-description>This app allows you to place a customized Google Map on a Liferay page, with configuration options to change how the map is displayed.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Productivity</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/google-maps-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>true</labs>
+			<labs>false</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/google-maps-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>portlets/google-maps-portlet/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<supported>true</supported>
@@ -779,7 +779,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -788,31 +788,31 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
 	<plugin>
 		<artifact-id>ip-geocoder-portlet</artifact-id>
-		<name>IP Geocoder</name>
+		<name>IP Geocoder EE</name>
 		<type>portlet</type>
 		<tags>geocoding, geoip, ip, ip geocoder, social, whois</tags>
-		<short-description>This plugin shows geocode IPs.</short-description>
-		<long-description></long-description>
+		<short-description></short-description>
+		<long-description>This IP Geocoder app locates your geological position, often in conjunction with other apps, such as the Google Maps app. This app utilizes Max Mind's GeoIP City Database. IP geolocation can be performed by associating a geographic location with the Internet Protocol (IP) address of the user with a physical address. Geolocation usually works by automatically looking up an IP address on a WHOIS service and retrieving the registrant's physical address.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Utility</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/ip-geocoder-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>true</labs>
+			<labs>false</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/ip-geocoder-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>portlets/ip-geocoder-portlet/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<supported>true</supported>
@@ -828,7 +828,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -837,7 +837,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -851,7 +851,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -874,7 +874,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -893,25 +893,25 @@
 	</plugin>
 	<plugin>
 		<artifact-id>knowledge-base-portlet</artifact-id>
-		<name>Knowledge Base</name>
+		<name>Knowledge Base EE</name>
 		<type>portlet</type>
 		<tags>faq, knowledge, knowledge base</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>Liferay's Knowledge Base app provides a means for creating and organizing articles within a site. The knowledge base is perfect for creating and organizing information more formally than in a wiki. For example, it can be used to organize and display professional product documentation. It's easy to set up the knowledge base with a workflow that requires articles to be approved before they are published. Additionally, it allows administrators to create article templates. Templates can be used to insure that certain kinds of articles possess a common structure and include certain kinds of information. Knowledge base articles can be categorized to make them easy to find. They can also be organized hierarchically to form complete books or guides. There are multiple portlets included in this App. For details about how to use the Knowledge Base, Consult the "Knowledge Base" section of the Liferay User Guide. The Liferay User Guide can be found at http://liferay.com/documentation.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Productivity</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/knowledge-base-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>false</labs>
+			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/knowledge-base-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>portlets/knowledge-base-portlet/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<screenshot>portlets/knowledge-base-portlet/docroot/WEB-INF/releng/screenshots/3.jpg</screenshot>
@@ -929,7 +929,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -938,31 +938,31 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
 	<plugin>
 		<artifact-id>mail-portlet</artifact-id>
-		<name>Mail</name>
+		<name>Mail EE</name>
 		<type>portlet</type>
 		<tags>collaboration, email, imap, mail, pop, social</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>This app enables your users to interact with their email using an easy to use, ubiquitous web interface. If your mail system supports the IMAP protocol, you can use this app to integrate your users' mail with the rest of your web site. You can also connect this app to a mail account provided by Google. The Mail app is a great way to integrate a familiar service with other the collaboration features that Liferay provides.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Productivity</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/mail-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>true</labs>
+			<labs>false</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/mail-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>portlets/mail-portlet/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<supported>true</supported>
@@ -978,7 +978,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>true</bundle>
@@ -987,7 +987,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>false</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>true</supported>
 		</releng>
 	</plugin>
@@ -1010,7 +1010,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>false</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>true</supported>
 		</releng>
 	</plugin>
@@ -1024,7 +1024,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1034,7 +1034,7 @@
 			<icon>portlets/my-subscriptions-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/my-subscriptions-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<supported>true</supported>
 		</releng>
@@ -1045,11 +1045,11 @@
 		<type>portlet</type>
 		<tags>gadget, netvibes, social, widget</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>Netvibes is a personalized dashboard publishing platform for the Web that includes digital life management, widget distribution services and brand observation rooms. This app acts as a "container" for Netvibes widgets, such that they can be "hosted" on Liferay and placed on individual pages within a Liferay site. This app allows you to select from the thousands of existing NetVibes widgets to display on your Liferay sites.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1057,9 +1057,9 @@
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/netvibes-widget-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>true</labs>
+			<labs>false</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/netvibes-widget-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>portlets/netvibes-widget-portlet/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<supported>true</supported>
@@ -1067,25 +1067,25 @@
 	</plugin>
 	<plugin>
 		<artifact-id>opensocial-portlet</artifact-id>
-		<name>OpenSocial</name>
+		<name>OpenSocial Gadget EE</name>
 		<type>portlet</type>
 		<tags>gadget, opensocial, social, widget</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>OpenSocial is a framework designed for creating applications, called gadgets that function on any social networking site that supports them. There are many existing gadgets available, and anyone can create their own gadgets. With this app, you can integrate any OpenSocial gadget directly into a Liferay page, and you can easily manage which gadgets are currently in use or available. You can also create your own OpenSocial Gadget using the Liferay's OpenSocial development environment. Gadgets can be integrated into your portal like a portlet to be added or removed by users as desired. The OpenSocial Gadget portlet also allows you to change the permissions for who can view or edit the portlet, as well as options to share the contents of the portlet, just like you can with any other Liferay portlet. For more details about OpenSocial and Liferay, consult the "OpenSocial Integration" section of the Liferay User Guide. The Liferay User Guide can be found at http://liferay.com/documentation.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Communication</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/opensocial-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>false</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/opensocial-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>portlets/opensocial-portlet/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<screenshot>portlets/opensocial-portlet/docroot/WEB-INF/releng/screenshots/3.jpg</screenshot>
@@ -1112,7 +1112,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>false</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>true</supported>
 		</releng>
 	</plugin>
@@ -1126,7 +1126,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1135,7 +1135,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1149,7 +1149,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1158,25 +1158,25 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
 	<plugin>
 		<artifact-id>reports-portlet</artifact-id>
-		<name>Reports</name>
+		<name>Reports EE</name>
 		<type>portlet</type>
-		<tags></tags>
+		<tags>bi, monitoring, reporting, reports engine</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>This app provides an easy to use and intuitive UI for creating and scheduling report generation runs. When combined with an appropriate implementation (such as the Jasper Reports app) in the Control Panel, you can upload report definitions (designed in a report designer) into Reports Admin, and run them from the Definitions tab. They can be scheduled to be run as well, and exported to many formats, including HTML, CSV, XLS, PDF, and more. Reports can also be delivered via email address. The reports will be displayed within the portal.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Productivity</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/reports-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
@@ -1198,7 +1198,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1207,7 +1207,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>true</supported>
 		</releng>
 	</plugin>
@@ -1221,7 +1221,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1236,19 +1236,19 @@
 	</plugin>
 	<plugin>
 		<artifact-id>saml-portlet</artifact-id>
-		<name>SAML 2.0 Provider</name>
+		<name>SAML 2.0 Provider EE</name>
 		<type>portlet</type>
-		<tags></tags>
+		<tags>opensaml, saml, security, single signon, sso</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>Security Assertion Markup Language 2.0 (SAML 2.0) is a version of the SAML OASIS standard for exchanging authentication and authorization data between security domains. SAML 2.0 is an XML-based protocol that uses security tokens containing assertions to pass information about a principal (usually an end-user) between an identity provider and a web service. SAML 2.0 enables web-based authentication and authorization scenarios including single sign-on (SSO). This app enables Liferay to act as a SAML 2.0 Identity Provider (IdP) or Service Provider (SP). It is built on top of OpenSAML and uses the Java Keystore for providing certificates/credentials for security. Once this app is installed, additional configuration is required to adapt the app with your local SAML environment and configuration. Refer to the following resources to get started with this app: http://www.liferay.com/web/mika.koivisto/blog/-/blogs/12725251. http://www.slideshare.net/koivimik/introduction-to-saml-20. Liferay�s "Identity Management Overview and Best Practices" whitepaper, located at http://www.liferay.com/documentation/additional-resources/whitepapers</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Security</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/saml-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
@@ -1271,7 +1271,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1280,7 +1280,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1294,7 +1294,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1317,7 +1317,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1326,7 +1326,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1340,7 +1340,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1349,7 +1349,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1363,7 +1363,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1372,7 +1372,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1386,7 +1386,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1395,7 +1395,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1409,7 +1409,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1418,7 +1418,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1432,7 +1432,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1441,7 +1441,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1455,7 +1455,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1464,7 +1464,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1478,7 +1478,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1487,7 +1487,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1501,7 +1501,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1510,7 +1510,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1524,7 +1524,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1533,7 +1533,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1547,7 +1547,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1556,7 +1556,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1570,7 +1570,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1579,7 +1579,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1593,7 +1593,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1602,7 +1602,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1616,7 +1616,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1625,7 +1625,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1639,7 +1639,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1648,7 +1648,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1671,7 +1671,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1685,7 +1685,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1694,7 +1694,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1708,7 +1708,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1717,7 +1717,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1731,7 +1731,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1740,7 +1740,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1754,7 +1754,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1763,7 +1763,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1777,7 +1777,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1786,7 +1786,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1800,7 +1800,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1809,7 +1809,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1833,7 +1833,7 @@
 			<icon>portlets/so-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>false</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/so-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>portlets/so-portlet/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<screenshot>portlets/so-portlet/docroot/WEB-INF/releng/screenshots/3.jpg</screenshot>
@@ -1851,7 +1851,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1861,7 +1861,7 @@
 			<icon>portlets/social-coding-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/social-coding-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>portlets/social-coding-portlet/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<supported>true</supported>
@@ -1869,25 +1869,25 @@
 	</plugin>
 	<plugin>
 		<artifact-id>social-networking-portlet</artifact-id>
-		<name>Social Networking</name>
+		<name>Social Networking EE</name>
 		<type>portlet</type>
 		<tags>activites, meetups, social, social bookmarks, social networking, summary</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>This app provides numerous portlets that provide enhanced social networking capabilities for users of Liferay sites, including: The Summary portlet functions differently depending on which kind of page it is added to, but in general it displays an overview of the community that it is placed in. The Wall portlet allows users to post messages on another user's page, similar to Facebook's wall. You must be friends with a user to post on their wall. Wall posts are visible to all users who are a friend of the respected user. The Wall portlet can only be added to a user's personal page. The activities portlet displays portal wide user activity, such as posting on message boards, creating wikis, and adding documents to the document library. The Requests portlet displays pending friends requests, in which you can accept or ignore them. This portlet can only be placed on a user's personal page. The Friends portlet is a social networking portlet for creating friend relationships in Liferay. The Members portlet displays all users who are members of the Community or Organization to which the Members portlet has been added. This is a good way to allow easy access to all members' personal pages. The Meetups portlet allows you to post events for which users can register.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Communication</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/social-networking-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/social-networking-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>portlets/social-networking-portlet/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<screenshot>portlets/social-networking-portlet/docroot/WEB-INF/releng/screenshots/3.jpg</screenshot>
@@ -1900,25 +1900,25 @@
 	</plugin>
 	<plugin>
 		<artifact-id>stocks-portlet</artifact-id>
-		<name>Stocks</name>
+		<name>Stocks EE</name>
 		<type>portlet</type>
 		<tags>finance, stocks, ticker</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>This app provides a way to visualize the real-time stock price for a given set of stock ticker symbols. Users can enter custom lists to be displayed, or the portlet can be configured to be the same list for all users. Clicking on a stock ticker symbol or entering one in will display a detailed graph of historical values for the stock price of the given symbol.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Utility</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/stocks-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>true</labs>
+			<labs>false</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/stocks-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>portlets/stocks-portlet/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<supported>true</supported>
@@ -1943,7 +1943,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -1966,7 +1966,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>false</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>true</supported>
 		</releng>
 	</plugin>
@@ -1980,7 +1980,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1989,7 +1989,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2003,7 +2003,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2012,7 +2012,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2026,7 +2026,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2035,7 +2035,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2049,7 +2049,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2058,7 +2058,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2072,7 +2072,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2081,7 +2081,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2095,7 +2095,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2104,7 +2104,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2118,7 +2118,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2127,7 +2127,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2141,7 +2141,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2150,7 +2150,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2164,7 +2164,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2173,7 +2173,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2187,7 +2187,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2196,7 +2196,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2210,7 +2210,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2219,7 +2219,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2233,7 +2233,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2242,7 +2242,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2256,7 +2256,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2265,7 +2265,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2279,7 +2279,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2288,7 +2288,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2302,7 +2302,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2311,7 +2311,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2325,7 +2325,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2334,7 +2334,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2348,7 +2348,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2357,7 +2357,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2371,7 +2371,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2380,56 +2380,56 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
 	<plugin>
 		<artifact-id>twitter-portlet</artifact-id>
-		<name>Twitter Integration</name>
+		<name>Twitter EE</name>
 		<type>portlet</type>
 		<tags>activity, activity stream, social, tweet, twitter</tags>
-		<short-description>This plugin provides integration with Twitter. Every tweet is logged as an activity.</short-description>
-		<long-description></long-description>
+		<short-description></short-description>
+		<long-description>This app integrates your Twitter timeline into Liferay's Activities framework so that your Tweets show up in your Liferay Activity Stream. Once installed, the app can be added to your private page and configured with your Twitter username. The app will periodically access your tweets through the Twitter API, and import them as Activities. You can view your tweets by adding the Activities portlet onto your personal public or private pages.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Communication</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/twitter-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/twitter-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<supported>true</supported>
 		</releng>
 	</plugin>
 	<plugin>
 		<artifact-id>vimeo-portlet</artifact-id>
-		<name>Vimeo</name>
+		<name>Vimeo EE</name>
 		<type>portlet</type>
 		<tags>social, video, vimeo</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>This app makes it easy to embed Vimeo videos into Liferay pages. The size, placement, and user options can be configured to optimize the visual appearance of the video and allow for things like full screen playback, and other options.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Communication</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/vimeo-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>true</labs>
+			<labs>false</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/vimeo-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>portlets/vimeo-portlet/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<screenshot>portlets/vimeo-portlet/docroot/WEB-INF/releng/screenshots/3.jpg</screenshot>
@@ -2438,49 +2438,49 @@
 	</plugin>
 	<plugin>
 		<artifact-id>weather-portlet</artifact-id>
-		<name>Weather</name>
+		<name>Weather EE</name>
 		<type>portlet</type>
 		<tags>utility, weather</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>This app provides a quick visual indication of weather across a configurable set of locations. Locations can be specified using a textual city name (such as "Los Angeles, CA" or "China"), or a postal code (such as 32701 in the U.S.). Links to a summary screen at weather.com are provided for each location. Temperature readings can be configured for Celsius or Fahrenheit.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Utility</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/weather-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>true</supported>
 		</releng>
 	</plugin>
 	<plugin>
 		<artifact-id>web-form-portlet</artifact-id>
-		<name>Web Form</name>
+		<name>Web Form EE</name>
 		<type>portlet</type>
 		<tags>csv, database, email, forms, web form</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>The web forms portlet is a tool that allows a web administrator to define a form to be published in the website. Users visiting the website can then fill the form which is then sent to a configured email address or saved (to file or to database). The title, introductory description of the form, email address, and many other options shown to the users are configurable through the portlet's configuration screen. It is possible to have multiple forms on the same page or spread across multiple pages. Saving options also include the ability to save as an external CSV (Comma-Separated Values) file, or save the values to a custom Database table for further processing.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Productivity</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/web-form-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>false</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/web-form-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>portlets/web-form-portlet/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<screenshot>portlets/web-form-portlet/docroot/WEB-INF/releng/screenshots/3.jpg</screenshot>
@@ -2497,7 +2497,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2506,31 +2506,31 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
 	<plugin>
 		<artifact-id>wiki-navigation-portlet</artifact-id>
-		<name>Wiki Navigation</name>
+		<name>Wiki Navigation EE</name>
 		<type>portlet</type>
 		<tags>navigation, wiki, wiki display</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>This app provides additional ways to visualize the structure of wiki contents. It provides two different views into a wiki, including a "Page" view and a "Tree" view. The Page View visually lays out the structure of a single wiki page, allowing users to quickly access different sections of a specific wiki page based on the header levels and other authoring capabilities of a wiki page. Each section is individual collapsible. The Tree View presents a hierarchical, expandable and collapsible view of the entire set of Wiki pages. Pages are shown below their "Parent" pages, and the depth of this view can be controlled through the configuration screen of the portlet.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Utility</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/wiki-navigation-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/wiki-navigation-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>portlets/wiki-navigation-portlet/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<supported>true</supported>
@@ -2538,25 +2538,25 @@
 	</plugin>
 	<plugin>
 		<artifact-id>wsrp-portlet</artifact-id>
-		<name>WSRP</name>
+		<name>WSRP EE</name>
 		<type>portlet</type>
 		<tags>portlet, wsrp</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>The Web Services for Remote Portlets (WSRP) specification defines a web service interface for accessing and interacting with interactive presentation-oriented web services in the form of portlets. Using this app, Liferay acts as a WSRP Producer, hosting portlets that will be consumed by other portal servers acting as WSRP Consumers. Liferay can also act as a WSRP Consumer, and host remote instances of portlets that exist on other portal servers that can act as a WSRP Producer. For details on how to use this app, visit http://www.liferay.com/community/wiki/-/wiki/Main/WSRP</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Utility</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/wsrp-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>false</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/wsrp-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>portlets/wsrp-portlet/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<screenshot>portlets/wsrp-portlet/docroot/WEB-INF/releng/screenshots/3.jpg</screenshot>
@@ -2574,7 +2574,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2583,32 +2583,32 @@
 			<dependent-apps></dependent-apps>
 			<labs>false</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/wysiwyg-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<supported>true</supported>
 		</releng>
 	</plugin>
 	<plugin>
 		<artifact-id>youtube-portlet</artifact-id>
-		<name>YouTube</name>
+		<name>YouTube EE</name>
 		<type>portlet</type>
 		<tags>social, video, youtube</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>This app makes it easy to embed Youtube videos into Liferay pages. The size, placement, and user options can be configured to optimize the visual appearance of the video and allow for things like full screen playback, and other options.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Communication</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/youtube-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>portlets/youtube-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>portlets/youtube-portlet/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<supported>true</supported>
@@ -2624,7 +2624,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2633,7 +2633,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>true</supported>
 		</releng>
 	</plugin>
@@ -2647,7 +2647,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2656,7 +2656,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>true</supported>
 		</releng>
 	</plugin>
@@ -2670,7 +2670,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2679,7 +2679,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>true</supported>
 		</releng>
 	</plugin>
@@ -2693,7 +2693,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2702,7 +2702,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>true</supported>
 		</releng>
 	</plugin>
@@ -2716,7 +2716,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2725,7 +2725,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2739,7 +2739,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2748,7 +2748,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2762,7 +2762,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2771,7 +2771,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2785,7 +2785,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2794,7 +2794,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2808,7 +2808,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2817,7 +2817,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2840,7 +2840,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>false</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>true</supported>
 		</releng>
 	</plugin>
@@ -2863,7 +2863,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>false</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>true</supported>
 		</releng>
 	</plugin>
@@ -2877,7 +2877,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2886,7 +2886,7 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
@@ -2900,7 +2900,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2909,31 +2909,31 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>false</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>true</supported>
 		</releng>
 	</plugin>
 	<plugin>
 		<artifact-id>cas-web</artifact-id>
-		<name>Central Authentication Service</name>
+		<name>Central Authentication Service EE</name>
 		<type>web</type>
 		<tags>authentication, cas, login, sso</tags>
-		<short-description>This is the Central Authentication Service plugin.</short-description>
-		<long-description></long-description>
+		<short-description></short-description>
+		<long-description>The Central Authentication Service (CAS) is a single sign-on protocol for the web that permits a user to access multiple applications while providing their credentials (such as user id and password) only once. It also allows web applications to authenticate users without gaining access to a user's security credentials, such as a password. This app provides integration between Liferay and a CAS implementation, such that users can achieve Single Sign-On when visiting a Liferay site. Consult the "Managing Portal Settings" section of the Liferay User Guide for details on administering this service. The Liferay User Guide can be found at http://liferay.com/documentation.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>BSD</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Security</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>webs/cas-web/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>webs/cas-web/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>webs/cas-web/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<supported>true</supported>
@@ -2949,7 +2949,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -2959,7 +2959,7 @@
 			<icon>webs/deployment-helper-web/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>webs/deployment-helper-web/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>webs/deployment-helper-web/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<supported>true</supported>
@@ -2967,19 +2967,19 @@
 	</plugin>
 	<plugin>
 		<artifact-id>drools-web</artifact-id>
-		<name>Drools</name>
+		<name>Drools EE</name>
 		<type>web</type>
-		<tags></tags>
-		<short-description>This is the Drools plugin.</short-description>
-		<long-description></long-description>
+		<tags>content, drools, rules, rules engine</tags>
+		<short-description></short-description>
+		<long-description>Liferay Portal Enterprise Edition provides an implementation of a JSR-94 compliant rules engine as a web app, based on the popular open source Drools project. A rules engine provides a means to separate the rules or logic of an application from the remaining code. This allows for a more declarative style of programming where the rules define what is happening, without describing how it is happening. This makes it much easier to read than nested 'if-else' blocks of code. It's also easier to make changes without introducing bugs in your code. The rules are also written in a language that is easier for non-developers to understand. This makes it easier for business users to validate and even modify the rules without having to involve developers. Consult the "Drools" section of the Liferay User Guide for details on administering this service. The Liferay User Guide can be found at http://liferay.com/documentation.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Utility</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>webs/drools-web/docroot/WEB-INF/releng/icons/90x90.png</icon>
@@ -2994,17 +2994,17 @@
 		<artifact-id>ehcache-cluster-web</artifact-id>
 		<name>Ehcache Cluster</name>
 		<type>web</type>
-		<tags></tags>
-		<short-description>This is the Ehcache Cluster plugin.</short-description>
-		<long-description></long-description>
+		<tags>cluster, ehcache, enterprise, ha, high availability, replication</tags>
+		<short-description></short-description>
+		<long-description>Liferay portal relies upon both content and object caching to minimize database interaction and excessive object creation. Out of the box, the portal leverages ehCache for its caching needs. You may configure additional caches including Terracotta, osCache, Oracle Coherence Cache, and others. Liferay Portal has hundreds of object caches that require event cached object replication or cache event replication. By default, the out-of-the-box ehCache configuration uses a thread-per-cache replication algorithm that may introduce additional overhead. This app provides Enterprise Edition customers an enhanced algorithm that uses more efficient thread pooling for cached object and event replication. To configure the portal to use this algorithm, download and install this app, and refer to the "Liferay Deployment Checklist" whitepaper for details on how to configure this app for optimal cache performance.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Utility</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>webs/ehcache-cluster-web/docroot/WEB-INF/releng/icons/90x90.png</icon>
@@ -3018,26 +3018,25 @@
 	</plugin>
 	<plugin>
 		<artifact-id>jasperreports-web</artifact-id>
-		<name>JasperReports</name>
+		<name>JasperReports EE</name>
 		<type>web</type>
-		<tags></tags>
-		<short-description>This plugin uses JasperReports as the reporting engine.</short-description>
-		<long-description></long-description>
+		<tags>bi, jasper, jasper reports, jaspersoft, monitoring, reporting, reports engine</tags>
+		<short-description></short-description>
+		<long-description>JasperReports is the world's most popular open source reporting engine. It is entirely written in Java and it is able to use data coming from any kind of data source and produce pixel-perfect documents that can be viewed, printed or exported in a variety of document formats including HTML, PDF, Excel, OpenOffice and Word. This app enables Liferay to use Jasper Reports as its reporting engine implementation. When combined with the Liferay Reporting app, in the Control Panel, you can upload report definitions (designed in a report designer) into Reports Admin, and run them from the Definitions tab. They can be scheduled to be run as well, and exported to many formats, including HTML, CSV, XLS, PDF, and more. Reports can also be delivered via email address. The reports will be displayed within the portal. This app requires that you install the Reports app.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Productivity</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>webs/jasperreports-web/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>false</labs>
 			<marketplace>true</marketplace>
 			<public>false</public>
-			<screenshot>webs/jasperreports-web/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<supported>true</supported>
 		</releng>
 	</plugin>
@@ -3051,7 +3050,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -3061,7 +3060,7 @@
 			<icon>webs/kaleo-web/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>false</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>webs/kaleo-web/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>webs/kaleo-web/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<screenshot>webs/kaleo-web/docroot/WEB-INF/releng/screenshots/3.jpg</screenshot>
@@ -3078,7 +3077,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>true</bundle>
@@ -3087,31 +3086,31 @@
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<supported>false</supported>
 		</releng>
 	</plugin>
 	<plugin>
 		<artifact-id>server-manager-web</artifact-id>
-		<name>Server Manager</name>
+		<name>Remote IDE Connector EE</name>
 		<type>web</type>
 		<tags>debug, developer, eclipse, ide, liferay developer studio, remote, server</tags>
-		<short-description>This plugin allows remote management of Liferay plugins.</short-description>
-		<long-description></long-description>
+		<short-description></short-description>
+		<long-description>This app provides remote development and deployment support from Liferay IDE. With this app, you can build Liferay projects in Liferay IDE or Liferay Developer Studio, and deploy the projects to a remote host that has this app installed. Liferay IDE is an extension for the Eclipse platform that supports development of app projects for the Liferay Portal platform. It is available as a set of Eclipse apps installable from an update-site. The latest version supports developing 5 Liferay app types: portlets, hooks, layout templates, themes, and EXT-style plug-ins. Liferay IDE requires the Eclipse Java EE developer package using either Galileo or Helios versions. For details on using Liferay IDE or Developer Sudio, visit the "Liferay IDE" chapter of the Liferay User Guide, located at http://liferay.com/documentation</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Utility</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>webs/server-manager-web/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>false</labs>
+			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>webs/server-manager-web/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>webs/server-manager-web/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<screenshot>webs/server-manager-web/docroot/WEB-INF/releng/screenshots/3.jpg</screenshot>
@@ -3121,25 +3120,25 @@
 	</plugin>
 	<plugin>
 		<artifact-id>solr-web</artifact-id>
-		<name>Solr Search Engine</name>
+		<name>Solr Search Engine EE</name>
 		<type>web</type>
 		<tags>apache, lucene, search, seo, solr</tags>
-		<short-description>This plugin uses Solr as the search engine.</short-description>
-		<long-description></long-description>
+		<short-description></short-description>
+		<long-description>This app provides integration with Apache Solr, the popularopen source enterprise search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document (e.g., Word, PDF) handling, and geospatial search. Solr is highly scalable, providing distributed search and index replication, and it powers the search and navigation features of many of the world's largest internet sites. With this integration, your Liferay Portal will use Solr for indexing and searching.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Utility</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>webs/solr-web/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>false</labs>
+			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>webs/solr-web/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>webs/solr-web/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<screenshot>webs/solr-web/docroot/WEB-INF/releng/screenshots/3.jpg</screenshot>
@@ -3156,7 +3155,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -3166,7 +3165,7 @@
 			<icon>webs/theme-loader-web/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>true</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>webs/theme-loader-web/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>webs/theme-loader-web/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<screenshot>webs/theme-loader-web/docroot/WEB-INF/releng/screenshots/3.jpg</screenshot>
@@ -3176,21 +3175,22 @@
 	</plugin>
 	<plugin>
 		<artifact-id>vldap-web</artifact-id>
-		<name>Virtual LDAP Server</name>
+		<name>Virtual LDAP Server EE</name>
 		<type>web</type>
-		<tags></tags>
+		<tags>directory, ldap</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>Lightweight Directory Access Protocol (LDAP) is an application protocol for accessing and maintaining distributed directory information services over an Internet Protocol (IP) network. This app exposes Liferay's user data store via the LDAP protocols. This allows third party tools to access Liferay user information (profile, roles, groups, etc) as if accessing an LDAP server.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>LGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Security</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
+			<icon>webs/vldap-web/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>false</labs>
 			<marketplace>true</marketplace>
 			<public>false</public>
@@ -3204,22 +3204,22 @@
 		<name>WURFL Device Recognition Provider</name>
 		<type>web</type>
 		<tags>android, device, ios, mobile, tablet, rules</tags>
-		<short-description>This plugin uses WURFL for device detection. See http://wurfl.sourceforge.net.</short-description>
-		<long-description></long-description>
+		<short-description></short-description>
+		<long-description>This app enables Liferay to detect which mobile device or operating system is being used for any given request and alters the layout/rendering of pages based on the detected device. Once installed, you can define new mobile device rules and apply them to sites and individual pages. The proportion of mobile devices users browsing the web has been steadily increasing so it's important to be able to handle different kinds of devices appropriately. For instance, you can configure the look and feel of Liferay pages accessed by smart phone or tablet users differently than those accessed by PC users. Both sites and individual pages can be configured with any number of rule groups designed to describe a group of devices. It can contain one or more rules that describe a category of devices, such as all android devices or all iOS tablets. Rule groups can be prioritized to determine which one will be applied to a given page request. You can define as many rules as you need to classify all the devices you want to take actions on.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
-		<licenses>AGPL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Utility</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>webs/wurfl-web/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>true</labs>
+			<labs>false</labs>
 			<marketplace>true</marketplace>
-			<public>true</public>
+			<public>false</public>
 			<screenshot>webs/wurfl-web/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<screenshot>webs/wurfl-web/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<screenshot>webs/wurfl-web/docroot/WEB-INF/releng/screenshots/3.jpg</screenshot>
@@ -3231,7 +3231,6 @@
 	<author>Sun Microsystems, Inc.</author>
 	<license>AGPL</license>
 	<license>Apache</license>
-	<license>BSD</license>
 	<license>CDDL</license>
-	<license>LGPL</license>
+	<license>EE</license>
 </plugins-summary>
