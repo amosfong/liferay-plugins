@@ -17,7 +17,7 @@
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>hooks/antisamy-hook/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>false</labs>
+			<labs>true</labs>
 			<marketplace>true</marketplace>
 			<public>false</public>
 			<screenshot>hooks/antisamy-hook/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
@@ -26,7 +26,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>audit-hook</artifact-id>
-		<name>Audit</name>
+		<name>Audit EE</name>
 		<type>hook</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -52,7 +52,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>default-web-content-hook</artifact-id>
-		<name>Default Web Content</name>
+		<name>Default Web Content EE</name>
 		<type>hook</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -102,11 +102,11 @@
 	</plugin>
 	<plugin>
 		<artifact-id>mongodb-hook</artifact-id>
-		<name>MongoDB</name>
+		<name>MongoDB Expando Adapter EE</name>
 		<type>hook</type>
 		<tags>db, expando, ha, json, nosql, redundancy, sql</tags>
-		<short-description>This hook uses MongoDB to persist custom attributes.</short-description>
-		<long-description></long-description>
+		<short-description></short-description>
+		<long-description>This app replaces the backend storage system used for Liferay's "Expando" service framework to use MongoDB instead of the default SQL database used by the rest of Liferay. Many features in Liferay make use of Expandos (such as Document Data Lists and Custom User Attributes). If you need high performance in these areas, consider using MongoDB. MongoDB is an open source, document-oriented NoSQL database. MongoDB focuses on four main things: flexibility, power, speed, and ease of use. MongoDB stores data in JSON documents and contains built-in redundancy and high availability features. For more detail on MongoDB, visit http://mongodb.org. There are multiple portlets included in this app. For details about how to use the Knowledge Base, Consult the �Knowledge Base� section of the Liferay User Guide. The Liferay User Guide can be found at http://liferay.com/documentation.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
@@ -129,7 +129,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-application-adapter-hook</artifact-id>
-		<name>Sample Application Adapter</name>
+		<name>Sample Application Adapter EE</name>
 		<type>hook</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -152,7 +152,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-expando-hook</artifact-id>
-		<name>Sample Expando</name>
+		<name>Sample Expando EE</name>
 		<type>hook</type>
 		<tags></tags>
 		<short-description>This hook shows how to use Liferay's Expando to automatically create custom fields.</short-description>
@@ -175,7 +175,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-servlet-filter-hook</artifact-id>
-		<name>Sample Servlet Filter Hook</name>
+		<name>Sample Servlet Filter Hook EE</name>
 		<type>hook</type>
 		<tags></tags>
 		<short-description>This hook shows how to add a new Servlet Filter to Liferay's core.</short-description>
@@ -198,7 +198,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-struts-action-hook</artifact-id>
-		<name>Sample Struts Action</name>
+		<name>Sample Struts Action EE</name>
 		<type>hook</type>
 		<tags></tags>
 		<short-description>This hook shows how to extend Liferay's core Struts actions.</short-description>
@@ -221,7 +221,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-wrapper-hook</artifact-id>
-		<name>Sample Wrapper</name>
+		<name>Sample Wrapper EE</name>
 		<type>hook</type>
 		<tags></tags>
 		<short-description>This hook shows how to wrap Liferay's core services and models.</short-description>
@@ -271,7 +271,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>so-hook</artifact-id>
-		<name>Social Office</name>
+		<name>Social Office EE</name>
 		<type>hook</type>
 		<tags>collaboration, communication, office, so, social, social office, team</tags>
 		<short-description></short-description>
@@ -283,7 +283,7 @@
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category>Productivity</category>
+			<category></category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<labs>false</labs>
@@ -294,11 +294,11 @@
 	</plugin>
 	<plugin>
 		<artifact-id>social-bookmarks-hook</artifact-id>
-		<name>Social Bookmarks</name>
+		<name>Social Bookmarks EE</name>
 		<type>hook</type>
 		<tags>bookmarks, social, social bookmarks</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>This app adds additional social bookmarks to Liferay's built-in set of Social Bookmarks. These bookmarks can be used by custom apps, and are also used by Liferay's built-in apps such as its Blogs portlet. Social Bookmarks allow users to easily post a reference to Liferay content on their favorite social networking website. In addition, some websites offer counters that can immediately show users how many people have bookmarked a particular piece of user-generated content.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
@@ -415,7 +415,7 @@
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>layouttpl/2-1-2-columns-layouttpl/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>false</labs>
+			<labs>true</labs>
 			<marketplace>true</marketplace>
 			<public>false</public>
 			<screenshot>layouttpl/2-1-2-columns-layouttpl/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
@@ -451,7 +451,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>ams-portlet</artifact-id>
-		<name>Asset Management System</name>
+		<name>Asset Management System EE</name>
 		<type>portlet</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -474,7 +474,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>analog-clock-portlet</artifact-id>
-		<name>Analog Clock</name>
+		<name>Analog Clock EE</name>
 		<type>portlet</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -523,7 +523,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>bible-gateway-portlet</artifact-id>
-		<name>Bible Gateway</name>
+		<name>Bible Gateway EE</name>
 		<type>portlet</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -595,7 +595,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>contacts-portlet</artifact-id>
-		<name>Contacts</name>
+		<name>Contacts EE</name>
 		<type>portlet</type>
 		<tags>communication, contacts, office, social office, team</tags>
 		<short-description></short-description>
@@ -607,7 +607,7 @@
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category>Productivity</category>
+			<category></category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<labs>false</labs>
@@ -622,7 +622,7 @@
 		<type>portlet</type>
 		<tags>ddl, dynamic data list, form, user form</tags>
 		<short-description></short-description>
-		<long-description>A Dynamic Data List (ddl) is a user-defined collection of records, similar to a spreadsheet. The records in a Dynamic Data List are composed of various field types such as text, date, integer, check box, etc. These can be published as workflow-enabled forms that capture user information in different ways such as an RSVP, for tasks tracking, or for managing issues. This Dynamic Data List Form app allows you to display dynamic forms to users, allowing them to enter information in predefined lists. This app can also be configured to use a template to display the list in different ways depending on whether the user is viewing the entire list or the details of a specific list record. Consult the "Dynamic Data Lists in Liferay" section of the Liferay User Guide for details on administering this service. The Liferay User Guide can be found at http://liferay.com/documentation.</long-description>
+		<long-description>A Dynamic Data List (DDL) is a user-defined collection of records, similar to a spreadsheet. The records in a Dynamic Data List are composed of various field types such as text, date, integer, check box, etc. These can be published as workflow-enabled forms that capture user information in different ways such as an RSVP, for tasks tracking, or for managing issues. This Dynamic Data List Form app allows you to display dynamic forms to users, allowing them to enter information in predefined lists. This app can also be configured to use a template to display the list in different ways depending on whether the user is viewing the entire list or the details of a specific list record. Consult the "Dynamic Data Lists in Liferay" section of the Liferay User Guide for details on administering this service. The Liferay User Guide can be found at http://liferay.com/documentation.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
@@ -645,11 +645,11 @@
 	</plugin>
 	<plugin>
 		<artifact-id>digg-portlet</artifact-id>
-		<name>Digg</name>
+		<name>Digg EE</name>
 		<type>portlet</type>
 		<tags>bookmarks, digg, news, social</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>This app integrates with Digg, a social news website (http://digg.com).  The app provides additional configuration, allowing users to select the types of news streams they wish to view, and configure various parameters (result limits, polling frequency, and others) to optimally retrieve and show news and social links from Digg.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
@@ -670,7 +670,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>events-display-portlet</artifact-id>
-		<name>Events Display</name>
+		<name>Events Display EE</name>
 		<type>portlet</type>
 		<tags>calendar, communication, events, office, social office, team</tags>
 		<short-description></short-description>
@@ -682,7 +682,7 @@
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category>Productivity</category>
+			<category></category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<labs>false</labs>
@@ -709,7 +709,7 @@
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/flash-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>false</labs>
+			<labs>true</labs>
 			<marketplace>true</marketplace>
 			<public>false</public>
 			<screenshot>portlets/flash-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
@@ -735,7 +735,7 @@
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/google-adsense-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>false</labs>
+			<labs>true</labs>
 			<marketplace>true</marketplace>
 			<public>false</public>
 			<screenshot>portlets/google-adsense-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
@@ -761,7 +761,7 @@
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/google-maps-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>false</labs>
+			<labs>true</labs>
 			<marketplace>true</marketplace>
 			<public>false</public>
 			<screenshot>portlets/google-maps-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
@@ -771,7 +771,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>gospel-for-asia-portlet</artifact-id>
-		<name>Gospel for Asia</name>
+		<name>Gospel for Asia EE</name>
 		<type>portlet</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -810,7 +810,7 @@
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/ip-geocoder-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>false</labs>
+			<labs>true</labs>
 			<marketplace>true</marketplace>
 			<public>false</public>
 			<screenshot>portlets/ip-geocoder-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
@@ -820,7 +820,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>journal-police-portlet</artifact-id>
-		<name>Journal Police</name>
+		<name>Journal Police EE</name>
 		<type>portlet</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -843,7 +843,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>kaleo-designer-portlet</artifact-id>
-		<name>Kaleo Designer</name>
+		<name>Kaleo Designer EE</name>
 		<type>portlet</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -866,7 +866,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>kaleo-forms-portlet</artifact-id>
-		<name>Kaleo Forms</name>
+		<name>Kaleo Forms EE</name>
 		<type>portlet</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -881,6 +881,7 @@
 			<category></category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
+			<icon>portlets/kaleo-forms-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>false</labs>
 			<marketplace>true</marketplace>
 			<public>false</public>
@@ -921,7 +922,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>logos-reftagger-portlet</artifact-id>
-		<name>Logos RefTagger</name>
+		<name>Logos RefTagger EE</name>
 		<type>portlet</type>
 		<tags></tags>
 		<short-description>This plugin transforms Bible references via RefTagger.</short-description>
@@ -960,7 +961,7 @@
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/mail-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>false</labs>
+			<labs>true</labs>
 			<marketplace>true</marketplace>
 			<public>false</public>
 			<screenshot>portlets/mail-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
@@ -970,7 +971,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>marketplace-portlet</artifact-id>
-		<name>Marketplace</name>
+		<name>Marketplace EE</name>
 		<type>portlet</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -993,7 +994,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>microblogs-portlet</artifact-id>
-		<name>Microblogs</name>
+		<name>Microblogs EE</name>
 		<type>portlet</type>
 		<tags>blogs, communication, microblogs, office, social office, team</tags>
 		<short-description></short-description>
@@ -1005,7 +1006,7 @@
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category>Productivity</category>
+			<category></category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<labs>false</labs>
@@ -1016,11 +1017,11 @@
 	</plugin>
 	<plugin>
 		<artifact-id>my-subscriptions-portlet</artifact-id>
-		<name>My Subscriptions</name>
+		<name>My Subscriptions EE</name>
 		<type>portlet</type>
 		<tags>blog, feed, forum, message board, social, subscriptions, wiki</tags>
 		<short-description></short-description>
-		<long-description></long-description>
+		<long-description>This app allows users to manage their subscriptions. Users can subscribe to various assets in Liferay, such as subscribing to a blog post, the comments of a wiki page, a message board category (or specific thread), and a host of other items. The purpose of subscriptions is to be notified when something happens related to the item you've subscribed to. For example, if you are subscribed to a message board category, you are notified when a new post or reply occurs within that category. The method of notification is configurable, but is usually in the form of an email sent to all users who have subscribed. There are multiple items that one can subscribe to in Liferay. For details about subscriptions, Consult the �Liferay Collaboration Suite� section of the Liferay User Guide. The Liferay User Guide can be found at http://liferay.com/documentation.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
@@ -1057,7 +1058,7 @@
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/netvibes-widget-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>false</labs>
+			<labs>true</labs>
 			<marketplace>true</marketplace>
 			<public>false</public>
 			<screenshot>portlets/netvibes-widget-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
@@ -1095,7 +1096,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>private-messaging-portlet</artifact-id>
-		<name>Private Messaging</name>
+		<name>Private Messaging EE</name>
 		<type>portlet</type>
 		<tags>communication, messaging, office, private, social office, team</tags>
 		<short-description></short-description>
@@ -1107,7 +1108,7 @@
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category>Productivity</category>
+			<category></category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<labs>false</labs>
@@ -1118,7 +1119,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>random-bible-verse-portlet</artifact-id>
-		<name>Random Bible Verse</name>
+		<name>Random Bible Verse EE</name>
 		<type>portlet</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -1141,7 +1142,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>release-tools-portlet</artifact-id>
-		<name>Release Tools</name>
+		<name>Release Tools EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin is used by Liferay release managers to track packages among the Liferay public site, the SourceForge downloads page, and the SourceForge SVN repository.</short-description>
@@ -1190,7 +1191,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>ruby-console-portlet</artifact-id>
-		<name>Ruby Console</name>
+		<name>Ruby Console EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin provides a console for executing arbitrary Ruby code. Use this portlet should only be used for development.</short-description>
@@ -1213,7 +1214,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>salesforce-portlet</artifact-id>
-		<name>Salesforce.com</name>
+		<name>Salesforce.com EE</name>
 		<type>portlet</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -1228,7 +1229,7 @@
 			<category></category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
-			<labs>false</labs>
+			<labs>true</labs>
 			<marketplace>true</marketplace>
 			<public>false</public>
 			<supported>true</supported>
@@ -1263,7 +1264,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-dao-portlet</artifact-id>
-		<name>Sample DAO</name>
+		<name>Sample DAO EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to use DAO in Liferay.</short-description>
@@ -1286,7 +1287,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-drools-portlet</artifact-id>
-		<name>Sample Drools</name>
+		<name>Sample Drools EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to use Drools in Liferay.</short-description>
@@ -1301,7 +1302,7 @@
 			<category></category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
-			<labs>false</labs>
+			<labs>true</labs>
 			<marketplace>true</marketplace>
 			<public>false</public>
 			<supported>false</supported>
@@ -1309,7 +1310,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-form-navigator-portlet</artifact-id>
-		<name>Sample Form Navigator</name>
+		<name>Sample Form Navigator EE</name>
 		<type>portlet</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -1332,7 +1333,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-groovy-portlet</artifact-id>
-		<name>Sample Groovy</name>
+		<name>Sample Groovy EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to create Groovy portlets in Liferay.</short-description>
@@ -1355,7 +1356,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-hibernate-portlet</artifact-id>
-		<name>Sample Hibernate</name>
+		<name>Sample Hibernate EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to use Hibernate in Liferay.</short-description>
@@ -1378,7 +1379,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-json-portlet</artifact-id>
-		<name>Sample JSON</name>
+		<name>Sample JSON EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to use JSON in Liferay.</short-description>
@@ -1401,7 +1402,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-jsp-portlet</artifact-id>
-		<name>Sample JSP</name>
+		<name>Sample JSP EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to create JSP portlets in Liferay.</short-description>
@@ -1424,7 +1425,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-lar-portlet</artifact-id>
-		<name>Sample LAR</name>
+		<name>Sample LAR EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to use the LAR (Liferay Archive) service from a portlet.</short-description>
@@ -1447,7 +1448,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-laszlo-portlet</artifact-id>
-		<name>Sample Laszlo</name>
+		<name>Sample Laszlo EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to create Laszlo portlets in Liferay.</short-description>
@@ -1470,7 +1471,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-permissions-portlet</artifact-id>
-		<name>Sample Permissions</name>
+		<name>Sample Permissions EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to use the permission service from a portlet.</short-description>
@@ -1493,7 +1494,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-php-portlet</artifact-id>
-		<name>Sample PHP</name>
+		<name>Sample PHP EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to create PHP portlets in Liferay.</short-description>
@@ -1516,7 +1517,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-portal-client-portlet</artifact-id>
-		<name>Sample Portal Client</name>
+		<name>Sample Portal Client EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to use the portal-client.jar to access Liferay's services using SOAP.</short-description>
@@ -1539,7 +1540,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-portal-service-portlet</artifact-id>
-		<name>Sample Portal Service</name>
+		<name>Sample Portal Service EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to use Liferay's services throught regular Java calls.</short-description>
@@ -1562,7 +1563,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-python-portlet</artifact-id>
-		<name>Sample Python</name>
+		<name>Sample Python EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to create Python portlets in Liferay.</short-description>
@@ -1585,7 +1586,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-ruby-portlet</artifact-id>
-		<name>Sample Ruby</name>
+		<name>Sample Ruby EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin portlet shows how to create Ruby portlets in Liferay.</short-description>
@@ -1608,7 +1609,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-service-builder-portlet</artifact-id>
-		<name>Sample Service Builder</name>
+		<name>Sample Service Builder EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to use Liferay's Service Builder in a hot deployable portlet.</short-description>
@@ -1631,7 +1632,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-sign-in-portlet</artifact-id>
-		<name>Sample Sign In</name>
+		<name>Sample Sign In EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to create a sign in portlet in Liferay.</short-description>
@@ -1654,7 +1655,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-spring-portlet</artifact-id>
-		<name>Sample Spring</name>
+		<name>Sample Spring EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to use Spring in Liferay.</short-description>
@@ -1662,7 +1663,7 @@
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>SpringSource, Inc.</author>
-		<licenses>Apache</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1677,7 +1678,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-struts-liferay-portlet</artifact-id>
-		<name>Sample Struts Liferay</name>
+		<name>Sample Struts Liferay EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to use Liferay's Struts Bridge.</short-description>
@@ -1700,7 +1701,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-struts-portlet</artifact-id>
-		<name>Sample Struts</name>
+		<name>Sample Struts EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to use the Apache Struts Bridge with Liferay.</short-description>
@@ -1723,7 +1724,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-tapestry-portlet</artifact-id>
-		<name>Sample Tapestry</name>
+		<name>Sample Tapestry EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to use Tapestry in Liferay.</short-description>
@@ -1746,7 +1747,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-ui-search-container-taglib-portlet</artifact-id>
-		<name>Sample UI Search Container Taglib</name>
+		<name>Sample UI Search Container Taglib EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to use Liferay's UI search container taglib in a portlet.</short-description>
@@ -1769,7 +1770,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-ui-taglibs-portlet</artifact-id>
-		<name>Sample UI Taglibs</name>
+		<name>Sample UI Taglibs EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin shows how to use Liferay's UI taglibs in a portlet.</short-description>
@@ -1792,7 +1793,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-wap-portlet</artifact-id>
-		<name>Sample WAP</name>
+		<name>Sample WAP EE</name>
 		<type>portlet</type>
 		<tags>sample</tags>
 		<short-description>This plugin contains several portlets for WAP clients.</short-description>
@@ -1815,7 +1816,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>so-portlet</artifact-id>
-		<name>Social Office</name>
+		<name>Social Office EE</name>
 		<type>portlet</type>
 		<tags>collaboration, communication, office, so, social, social office, team</tags>
 		<short-description></short-description>
@@ -1829,7 +1830,7 @@
 			<bundle>false</bundle>
 			<category>Productivity</category>
 			<demo-url></demo-url>
-			<dependent-apps>chat-portlet, contacts-portlet, events-display-portlet, microblogs-portlet, private-messaging-portlet, resources-importer-web, so-hook, so-portlet, so-theme, so-welcome-theme, tasks-portlet, weather-portlet, wysiwyg-portlet</dependent-apps>
+			<dependent-apps>chat-portlet, contacts-portlet, events-display-portlet, microblogs-portlet, private-messaging-portlet, resources-importer-web, so-hook, so-portlet, so-theme, so-welcome-theme, tasks-portlet, wysiwyg-portlet</dependent-apps>
 			<icon>portlets/so-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
 			<labs>false</labs>
 			<marketplace>true</marketplace>
@@ -1843,7 +1844,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>social-coding-portlet</artifact-id>
-		<name>Social Coding</name>
+		<name>Social Coding EE</name>
 		<type>portlet</type>
 		<tags>coding, issues, jira, open source, social, subversion, svn</tags>
 		<short-description></short-description>
@@ -1916,7 +1917,7 @@
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/stocks-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>false</labs>
+			<labs>true</labs>
 			<marketplace>true</marketplace>
 			<public>false</public>
 			<screenshot>portlets/stocks-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
@@ -1926,7 +1927,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sun-tour-ipc-portlet</artifact-id>
-		<name>Tour IPC Portlet</name>
+		<name>Tour IPC Portlet EE</name>
 		<type>portlet</type>
 		<tags>sun</tags>
 		<short-description>This is the Sun Tour IPC plugin. Released April 22, 2008</short-description>
@@ -1934,7 +1935,7 @@
 		<change-log></change-log>
 		<page-url>https://portlet-repository.dev.java.net/public/Download.html</page-url>
 		<author>Sun Microsystems, Inc.</author>
-		<licenses>CDDL</licenses>
+		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
@@ -1949,7 +1950,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>tasks-portlet</artifact-id>
-		<name>Task Management System</name>
+		<name>Task Management System EE</name>
 		<type>portlet</type>
 		<tags>management system, office, organization, so, social office, task, team</tags>
 		<short-description></short-description>
@@ -1961,7 +1962,7 @@
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category>Productivity</category>
+			<category></category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<labs>false</labs>
@@ -1972,7 +1973,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>test-cache-configuration-portlet</artifact-id>
-		<name>Test Cache Configuration</name>
+		<name>Test Cache Configuration EE</name>
 		<type>portlet</type>
 		<tags>test</tags>
 		<short-description></short-description>
@@ -1995,7 +1996,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>test-clp-portlet</artifact-id>
-		<name>Test Class Loader Proxy</name>
+		<name>Test Class Loader Proxy EE</name>
 		<type>portlet</type>
 		<tags>test</tags>
 		<short-description></short-description>
@@ -2018,7 +2019,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>test-dependency-able-portlet</artifact-id>
-		<name>Test Dependency Able</name>
+		<name>Test Dependency Able EE</name>
 		<type>portlet</type>
 		<tags>test</tags>
 		<short-description>Able requires Baker and Charlie.</short-description>
@@ -2041,7 +2042,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>test-dependency-baker-portlet</artifact-id>
-		<name>Test Dependency Baker</name>
+		<name>Test Dependency Baker EE</name>
 		<type>portlet</type>
 		<tags>test</tags>
 		<short-description>Baker is required by Able.</short-description>
@@ -2064,7 +2065,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>test-dependency-charlie-portlet</artifact-id>
-		<name>Test Dependency Charlie</name>
+		<name>Test Dependency Charlie EE</name>
 		<type>portlet</type>
 		<tags>test</tags>
 		<short-description>Charlie is required by Able.</short-description>
@@ -2087,7 +2088,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>test-dependency-dog-portlet</artifact-id>
-		<name>Test Dependency Dog</name>
+		<name>Test Dependency Dog EE</name>
 		<type>portlet</type>
 		<tags>test</tags>
 		<short-description>Dog requires Able.</short-description>
@@ -2110,7 +2111,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>test-dependency-easy-portlet</artifact-id>
-		<name>Test Dependency Easy</name>
+		<name>Test Dependency Easy EE</name>
 		<type>portlet</type>
 		<tags>test</tags>
 		<short-description>Easy requires Fox.</short-description>
@@ -2133,7 +2134,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>test-dependency-fox-portlet</artifact-id>
-		<name>Test Dependency Fox</name>
+		<name>Test Dependency Fox EE</name>
 		<type>portlet</type>
 		<tags>test</tags>
 		<short-description>Fox requires Easy.</short-description>
@@ -2156,7 +2157,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>test-event-portlet</artifact-id>
-		<name>Test Event Portlet</name>
+		<name>Test Event Portlet EE</name>
 		<type>portlet</type>
 		<tags>test</tags>
 		<short-description></short-description>
@@ -2179,7 +2180,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>test-hook-portlet</artifact-id>
-		<name>Test Hook</name>
+		<name>Test Hook EE</name>
 		<type>portlet</type>
 		<tags>test</tags>
 		<short-description></short-description>
@@ -2202,7 +2203,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>test-http-client-portlet</artifact-id>
-		<name>Test HTTP Client</name>
+		<name>Test HTTP Client EE</name>
 		<type>portlet</type>
 		<tags>test</tags>
 		<short-description></short-description>
@@ -2225,7 +2226,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>test-localized-portlet</artifact-id>
-		<name>Test Localized</name>
+		<name>Test Localized EE</name>
 		<type>portlet</type>
 		<tags>test</tags>
 		<short-description>This plugin shows how to localize a portlet.</short-description>
@@ -2248,7 +2249,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>test-misc-portlet</artifact-id>
-		<name>Test Misc</name>
+		<name>Test Misc EE</name>
 		<type>portlet</type>
 		<tags>test</tags>
 		<short-description></short-description>
@@ -2271,7 +2272,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>test-opensocial-pubsub-portlet</artifact-id>
-		<name>Test OpenSocial Pubsub</name>
+		<name>Test OpenSocial Pubsub EE</name>
 		<type>portlet</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -2294,7 +2295,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>test-pacl-portlet</artifact-id>
-		<name>Test Portal Access Control List</name>
+		<name>Test Portal Access Control List EE</name>
 		<type>portlet</type>
 		<tags>test</tags>
 		<short-description></short-description>
@@ -2317,7 +2318,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>test-transaction-portlet</artifact-id>
-		<name>Test Transaction</name>
+		<name>Test Transaction EE</name>
 		<type>portlet</type>
 		<tags>test</tags>
 		<short-description></short-description>
@@ -2340,7 +2341,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>test-user-attributes-portlet</artifact-id>
-		<name>Test User Attributes</name>
+		<name>Test User Attributes EE</name>
 		<type>portlet</type>
 		<tags>test</tags>
 		<short-description></short-description>
@@ -2363,7 +2364,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>tich-portlet</artifact-id>
-		<name>Today in Christian History</name>
+		<name>Today in Christian History EE</name>
 		<type>portlet</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -2427,7 +2428,7 @@
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>portlets/vimeo-portlet/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>false</labs>
+			<labs>true</labs>
 			<marketplace>true</marketplace>
 			<public>false</public>
 			<screenshot>portlets/vimeo-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
@@ -2457,6 +2458,7 @@
 			<labs>true</labs>
 			<marketplace>true</marketplace>
 			<public>false</public>
+			<screenshot>portlets/weather-portlet/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
 			<supported>true</supported>
 		</releng>
 	</plugin>
@@ -2489,7 +2491,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>westminster-catechism-portlet</artifact-id>
-		<name>Westminster Catechism</name>
+		<name>Westminster Catechism EE</name>
 		<type>portlet</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -2566,7 +2568,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>wysiwyg-portlet</artifact-id>
-		<name>WYSIWYG</name>
+		<name>WYSIWYG EE</name>
 		<type>portlet</type>
 		<tags>ckeditor, cms, editor, wcm, wysiwyg</tags>
 		<short-description></short-description>
@@ -2616,7 +2618,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>7cogs-brochure-theme</artifact-id>
-		<name>7Cogs Brochure</name>
+		<name>7Cogs Brochure EE</name>
 		<type>theme</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -2639,7 +2641,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>7cogs-healthcare-theme</artifact-id>
-		<name>7Cogs Healthcare</name>
+		<name>7Cogs Healthcare EE</name>
 		<type>theme</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -2662,7 +2664,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>7cogs-resort-theme</artifact-id>
-		<name>7Cogs Paradise</name>
+		<name>7Cogs Resort EE</name>
 		<type>theme</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -2685,7 +2687,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>7cogs-tech-theme</artifact-id>
-		<name>7Cogs Tech</name>
+		<name>7Cogs Tech EE</name>
 		<type>theme</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -2708,7 +2710,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-html4-theme</artifact-id>
-		<name>Sample HTML4</name>
+		<name>Sample HTML4 EE</name>
 		<type>theme</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -2731,7 +2733,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-styled-advanced-theme</artifact-id>
-		<name>Sample Styled Advanced</name>
+		<name>Sample Styled Advanced EE</name>
 		<type>theme</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -2754,7 +2756,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-styled-minimal-theme</artifact-id>
-		<name>Sample Styled Minimal</name>
+		<name>Sample Styled Minimal EE</name>
 		<type>theme</type>
 		<tags></tags>
 		<short-description>This is a sample styled theme with minimal configuration set in liferay-plugin-package.properties.</short-description>
@@ -2777,7 +2779,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>sample-unstyled-theme</artifact-id>
-		<name>Sample Unstyled</name>
+		<name>Sample Unstyled EE</name>
 		<type>theme</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -2800,7 +2802,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>section-508-theme</artifact-id>
-		<name>Section 508</name>
+		<name>Section 508 EE</name>
 		<type>theme</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -2823,7 +2825,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>so-theme</artifact-id>
-		<name>Social Office</name>
+		<name>Social Office EE</name>
 		<type>theme</type>
 		<tags>collaboration, communication, office, so, social, social office, team</tags>
 		<short-description></short-description>
@@ -2835,7 +2837,7 @@
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category>Productivity</category>
+			<category></category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<labs>false</labs>
@@ -2846,7 +2848,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>so-welcome-theme</artifact-id>
-		<name>Social Office Welcome</name>
+		<name>Social Office Welcome EE</name>
 		<type>theme</type>
 		<tags>collaboration, communication, office, so, social, social office, team</tags>
 		<short-description></short-description>
@@ -2858,7 +2860,7 @@
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category>Productivity</category>
+			<category></category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<labs>false</labs>
@@ -2869,7 +2871,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>test-servlet-context-include-filter-theme</artifact-id>
-		<name>Test Servlet Context Include Filter</name>
+		<name>Test Servlet Context Include Filter EE</name>
 		<type>theme</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -2892,7 +2894,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>welcome-theme</artifact-id>
-		<name>Welcome</name>
+		<name>Welcome EE</name>
 		<type>theme</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -2941,11 +2943,11 @@
 	</plugin>
 	<plugin>
 		<artifact-id>deployment-helper-web</artifact-id>
-		<name>Deployment Helper</name>
+		<name>Cluster Deployment Helper EE</name>
 		<type>web</type>
 		<tags>cluster, deployment, enterprise, ha, high availability, replication</tags>
-		<short-description>This plugin helps deploy other plugins within a cluster using the native application server deployment mechanisms.</short-description>
-		<long-description></long-description>
+		<short-description></short-description>
+		<long-description>Liferay Portal is designed to power the simplest to most complex web sites, easily scaling to the size you need. Liferay works well in clusters of multiple machines (horizontal cluster) or in clusters of multiple VMs on a single machine (vertical cluster), or any mixture of the two. Once you have Liferay installed in more than one application server node, there are several optimizations that need to be made. When deploying apps to a Liferay cluster, each cluster must receive a copy of the app before the app�s functionality will work across the cluster. This app helps deploy other apps within a cluster using the native application server deployment mechanisms.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
@@ -3037,16 +3039,18 @@
 			<labs>false</labs>
 			<marketplace>true</marketplace>
 			<public>false</public>
+			<screenshot>webs/jasperreports-web/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
+			<screenshot>webs/jasperreports-web/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
 			<supported>true</supported>
 		</releng>
 	</plugin>
 	<plugin>
 		<artifact-id>kaleo-web</artifact-id>
-		<name>Kaleo Workflow</name>
+		<name>Kaleo Workflow EE</name>
 		<type>web</type>
 		<tags>bi, business intelligence, designer, kaleo, workflow</tags>
-		<short-description>This plugin uses Kaleo as the workflow engine.</short-description>
-		<long-description></long-description>
+		<short-description></short-description>
+		<long-description>This app provides the Kaleo Workflow engine, for use with Liferay Portal. In Greek, Kaleo means "called ones," which is appropriate for a workflow engine that calls users to participate in a process that has been designed for them. Kaleo workflow allows a user to define any number of simple to complex business processes/ workflows, deploy them, and manage them through a portal interface. Those processes have knowledge of users, groups, and roles. You don't have to write a single line of code to accomplish this: all you have to do is create a single XML document. And if you're a Liferay EE customer, you get a graphical workflow designer, which gives you a point and click interface to create workflows. Simple workflows can be managed using the default configuration and GUI tools, while more complex workflows can be created to meet the workflow management needs of almost any portal. Consult the �Workflow� section of the Liferay User Guide for details on administering this service. The Liferay User Guide can be found at http://liferay.com/documentation. This App installs as a Liferay service.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
@@ -3054,7 +3058,7 @@
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Productivity</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>webs/kaleo-web/docroot/WEB-INF/releng/icons/90x90.png</icon>
@@ -3069,7 +3073,7 @@
 	</plugin>
 	<plugin>
 		<artifact-id>resources-importer-web</artifact-id>
-		<name>Resources Importer</name>
+		<name>Resources Importer EE</name>
 		<type>web</type>
 		<tags></tags>
 		<short-description></short-description>
@@ -3080,7 +3084,7 @@
 		<licenses>EE</licenses>
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
-			<bundle>true</bundle>
+			<bundle>false</bundle>
 			<category></category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
@@ -3147,11 +3151,11 @@
 	</plugin>
 	<plugin>
 		<artifact-id>theme-loader-web</artifact-id>
-		<name>Theme Loader</name>
+		<name>Theme Loader EE</name>
 		<type>web</type>
 		<tags>theme, utility</tags>
 		<short-description>This is the Theme Loader plugin.</short-description>
-		<long-description></long-description>
+		<long-description>A theme loader is required to allow the LAR export and import mechanism to hot deploy themes at runtime even if the underlying application server does not support hot deploy.</long-description>
 		<change-log></change-log>
 		<page-url>http://www.liferay.com</page-url>
 		<author>Liferay, Inc.</author>
@@ -3217,7 +3221,7 @@
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<icon>webs/wurfl-web/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>false</labs>
+			<labs>true</labs>
 			<marketplace>true</marketplace>
 			<public>false</public>
 			<screenshot>webs/wurfl-web/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
@@ -3230,7 +3234,5 @@
 	<author>SpringSource, Inc.</author>
 	<author>Sun Microsystems, Inc.</author>
 	<license>AGPL</license>
-	<license>Apache</license>
-	<license>CDDL</license>
 	<license>EE</license>
 </plugins-summary>
