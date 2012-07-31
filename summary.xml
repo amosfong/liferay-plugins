@@ -101,33 +101,6 @@
 		</releng>
 	</plugin>
 	<plugin>
-		<artifact-id>mongodb-hook</artifact-id>
-		<name>MongoDB Expando Adapter EE</name>
-		<type>hook</type>
-		<tags>db, expando, ha, json, nosql, redundancy, sql</tags>
-		<short-description></short-description>
-		<long-description>This app replaces the backend storage system used for Liferay's "Expando" service framework to use MongoDB instead of the default SQL database used by the rest of Liferay. Many features in Liferay make use of Expandos (such as Document Data Lists and Custom User Attributes). If you need high performance in these areas, consider using MongoDB. MongoDB is an open source, document-oriented NoSQL database. MongoDB focuses on four main things: flexibility, power, speed, and ease of use. MongoDB stores data in JSON documents and contains built-in redundancy and high availability features. For more detail on MongoDB, visit http://mongodb.org. There are multiple portlets included in this app. For details about how to use the Knowledge Base, Consult the "Knowledge Base" section of the Liferay User Guide. The Liferay User Guide can be found at http://liferay.com/documentation. This app installs as a Liferay service.</long-description>
-		<change-log></change-log>
-		<page-url>http://www.liferay.com</page-url>
-		<author>Liferay, Inc.</author>
-		<licenses>EE</licenses>
-		<liferay-versions>6.2.0</liferay-versions>
-		<releng>
-			<bundle>false</bundle>
-			<category>Utility</category>
-			<demo-url></demo-url>
-			<dependent-apps></dependent-apps>
-			<icon>hooks/mongodb-hook/docroot/WEB-INF/releng/icons/90x90.png</icon>
-			<labs>true</labs>
-			<marketplace>true</marketplace>
-			<public>false</public>
-			<screenshot>hooks/mongodb-hook/docroot/WEB-INF/releng/screenshots/1.jpg</screenshot>
-			<screenshot>hooks/mongodb-hook/docroot/WEB-INF/releng/screenshots/2.jpg</screenshot>
-			<screenshot>hooks/mongodb-hook/docroot/WEB-INF/releng/screenshots/3.jpg</screenshot>
-			<supported>false</supported>
-		</releng>
-	</plugin>
-	<plugin>
 		<artifact-id>sample-application-adapter-hook</artifact-id>
 		<name>Sample Application Adapter EE</name>
 		<type>hook</type>
