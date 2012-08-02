@@ -114,13 +114,13 @@
 		<liferay-versions>6.2.0</liferay-versions>
 		<releng>
 			<bundle>false</bundle>
-			<category></category>
+			<category>Utility</category>
 			<demo-url></demo-url>
 			<dependent-apps></dependent-apps>
 			<labs>true</labs>
-			<marketplace>false</marketplace>
-			<public>true</public>
-			<supported>false</supported>
+			<marketplace>true</marketplace>
+			<public>false</public>
+			<supported>true</supported>
 		</releng>
 	</plugin>
 	<plugin>
