@@ -15,26 +15,24 @@
 package com.liferay.reports.hook.upgrade;
 
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
-import com.liferay.reports.hook.upgrade.v1_1_0.UpgradeReportDefinitions;
-import com.liferay.reports.hook.upgrade.v1_1_0.UpgradeReportEntries;
-import com.liferay.reports.hook.upgrade.v1_1_0.UpgradeReports;
+import com.liferay.reports.hook.upgrade.v1_0_0.UpgradeReportDefinition;
+import com.liferay.reports.hook.upgrade.v1_0_0.UpgradeReportEntry;
 
 /**
  * @author Wesley Gong
  * @author Calvin Keum
  */
-public class UpgradeProcess_1_1_0 extends UpgradeProcess {
+public class UpgradeProcess_1_0_0 extends UpgradeProcess {
 
 	@Override
 	public int getThreshold() {
-		return 110;
+		return 100;
 	}
 
 	@Override
 	protected void doUpgrade() throws Exception {
-		upgrade(UpgradeReports.class);
-		upgrade(UpgradeReportDefinitions.class);
-		upgrade(UpgradeReportEntries.class);
+		upgrade(UpgradeReportDefinition.class);
+		upgrade(UpgradeReportEntry.class);
 	}
 
 }

@@ -109,20 +109,20 @@ public class AddSchedulerActionCommand implements ActionCommand {
 				JSONObject definitionReportParameterJSONObject =
 					reportParametersJSONArray.getJSONObject(i);
 
-				JSONObject entryReportParameterJSONObject =
-					JSONFactoryUtil.createJSONObject();
-
 				String key = definitionReportParameterJSONObject.getString(
 					"key");
 
-				entryReportParameterJSONObject.put("key", key);
+				JSONObject entryReportParameterJSONObject =
+					JSONFactoryUtil.createJSONObject();
 
-				String type = ParamUtil.getString(
-					portletRequest, "useVariable" + key);
+				entryReportParameterJSONObject.put("key", key);
 
 				String value = StringPool.BLANK;
 
 				DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+				String type = ParamUtil.getString(
+					portletRequest, "useVariable" + key);
 
 				if (type.equals("startDate")) {
 					value = df.format(startCalendar.getTime());
@@ -159,7 +159,6 @@ public class AddSchedulerActionCommand implements ActionCommand {
 				cronText, emailNotifications, emailDelivery, portletId,
 				generatedReportsURL, entryReportParametersJSONArray.toString(),
 				serviceContext);
-
 		}
 		catch (PortalException pe) {
 			SessionErrors.add(portletRequest, pe.getClass());
