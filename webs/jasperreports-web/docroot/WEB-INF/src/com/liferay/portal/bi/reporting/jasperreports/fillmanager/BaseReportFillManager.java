@@ -185,10 +185,10 @@ public abstract class BaseReportFillManager implements ReportFillManager {
 				}
 			}
 			else if (clazz.equals(List.class)) {
-				List<String> parameterList = ListUtil.fromArray(
+				List<String> listValue = ListUtil.fromArray(
 					StringUtil.split(stringValue));
 
-				serializableValue = new ArrayList<String>(parameterList);
+				serializableValue = new ArrayList<String>(listValue);
 			}
 
 			if (serializableValue != null) {

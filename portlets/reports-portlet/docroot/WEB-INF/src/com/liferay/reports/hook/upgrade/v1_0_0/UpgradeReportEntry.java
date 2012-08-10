@@ -49,8 +49,7 @@ public class UpgradeReportEntry extends UpgradeProcess {
 		for (Entry entry : entries) {
 			String reportParameters = entry.getReportParameters();
 
-			Matcher matcher = _ENTRY_REPORT_PARAMETER_PATTERN.matcher(
-					reportParameters);
+			Matcher matcher = _pattern.matcher(reportParameters);
 
 			if (!matcher.find()) {
 				continue;
@@ -71,10 +70,10 @@ public class UpgradeReportEntry extends UpgradeProcess {
 				JSONObject reportParameterJSONObject =
 					JSONFactoryUtil.createJSONObject();
 
-				reportParameterJSONObject.put("key", keyValuePair.split(
-					StringPool.EQUAL)[0]);
-				reportParameterJSONObject.put("value", keyValuePair.split(
-					StringPool.EQUAL)[1]);
+				reportParameterJSONObject.put(
+					"key", keyValuePair.split(StringPool.EQUAL)[0]);
+				reportParameterJSONObject.put(
+					"value", keyValuePair.split(StringPool.EQUAL)[1]);
 
 				reportParametersJSONArray.put(reportParameterJSONObject);
 			}
@@ -85,7 +84,6 @@ public class UpgradeReportEntry extends UpgradeProcess {
 		}
 	}
 
-	private static final Pattern _ENTRY_REPORT_PARAMETER_PATTERN =
-		Pattern.compile("[.*=.*]+");
+	private static Pattern _pattern = Pattern.compile("[.*=.*]+");
 
 }
