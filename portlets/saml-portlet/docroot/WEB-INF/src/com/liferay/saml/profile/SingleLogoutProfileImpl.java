@@ -335,7 +335,8 @@ public class SingleLogoutProfileImpl
 				SamlSloRequestInfo.REQUEST_STATUS_SUCCESS) {
 
 			request.setAttribute(
-				"samlSloRequestInfo", samlSloRequestInfo.toJSONObject());
+				PortletWebKeys.SAML_SLO_REQUEST_INFO,
+				samlSloRequestInfo.toJSONObject());
 
 			dispatch(request, response, _PATH_PORTAL_SAML_SLO_SP_STATUS, true);
 
@@ -780,6 +781,10 @@ public class SingleLogoutProfileImpl
 			String statusCode = sendSyncLogoutRequest(samlMessageContext);
 
 			samlSloRequestInfo.setStatusCode(statusCode);
+
+			request.setAttribute(
+				PortletWebKeys.SAML_SLO_REQUEST_INFO,
+				samlSloRequestInfo.toJSONObject());
 
 			dispatch(request, response, _PATH_PORTAL_SAML_SLO_SP_STATUS, true);
 		}
