@@ -16,8 +16,6 @@ package com.liferay.saml.resolver;
 
 import com.liferay.portal.kernel.bean.BeanPropertiesUtil;
 import com.liferay.portal.kernel.configuration.Filter;
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -38,8 +36,8 @@ import com.liferay.saml.util.SamlUtil;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Map;
 
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.common.xml.SAMLConstants;
@@ -65,43 +63,43 @@ public class DefaultAttributeResolver implements AttributeResolver {
 			MetadataManagerUtil.isAttributesNamespaceEnabled(
 				samlMessageContext.getPeerEntityId());
 
-		for (String name : getAttributeNames(entityId)) {
-			if (name.startsWith("expando:")) {
-				name = name.substring(8);
+		for (String attributeName : getAttributeNames(entityId)) {
+			if (attributeName.startsWith("expando:")) {
+				attributeName = attributeName.substring(8);
 
 				addExpandoAttribute(
-					name, namespaceEnabled, user, samlMessageContext,
-					attributes);
+					user, samlMessageContext, attributes, attributeName,
+					namespaceEnabled);
 			}
-			else if (name.equals("groups")) {
+			else if (attributeName.equals("groups")) {
 				addGroupsAttribute(
-					name, namespaceEnabled, user, samlMessageContext,
-					attributes);
+					user, samlMessageContext, attributes, attributeName,
+					namespaceEnabled);
 			}
-			else if (name.equals("organizations")) {
+			else if (attributeName.equals("organizations")) {
 				addOrganizationsAttribute(
-					name, namespaceEnabled, user, samlMessageContext,
-					attributes);
+					user, samlMessageContext, attributes, attributeName,
+					namespaceEnabled);
 			}
-			else if (name.equals("roles")) {
+			else if (attributeName.equals("roles")) {
 				addRolesAttribute(
-					name, namespaceEnabled, user, samlMessageContext,
-					attributes);
+					user, samlMessageContext, attributes, attributeName,
+					namespaceEnabled);
 			}
-			else if (name.equals("userGroups")) {
-				addUserGroupsAttribute(
-					name, namespaceEnabled, user, samlMessageContext,
-					attributes);
-			}
-			else if (name.equals("userGroupRoles")) {
+			else if (attributeName.equals("userGroupRoles")) {
 				addUserGroupRolesAttribute(
-					name, namespaceEnabled, user, samlMessageContext,
-					attributes);
+					user, samlMessageContext, attributes, attributeName,
+					namespaceEnabled);
+			}
+			else if (attributeName.equals("userGroups")) {
+				addUserGroupsAttribute(
+					user, samlMessageContext, attributes, attributeName,
+					namespaceEnabled);
 			}
 			else {
 				addUserAttribute(
-					name, namespaceEnabled, user, samlMessageContext,
-					attributes);
+					user, samlMessageContext, attributes, attributeName,
+					namespaceEnabled);
 			}
 		}
 
@@ -118,9 +116,9 @@ public class DefaultAttributeResolver implements AttributeResolver {
 	}
 
 	protected void addExpandoAttribute(
-		String attributeName, boolean namespaceEnabled, User user,
-		SAMLMessageContext<?, ?, ?> samlMessageContext,
-		List<Attribute> attributes) {
+		User user, SAMLMessageContext<?, ?, ?> samlMessageContext,
+		List<Attribute> attributes, String attributeName,
+		boolean namespaceEnabled) {
 
 		Attribute attribute = null;
 
@@ -133,20 +131,18 @@ public class DefaultAttributeResolver implements AttributeResolver {
 			attribute = OpenSamlUtil.buildAttribute(attributeName, value);
 		}
 		else {
-			String name = "urn:liferay:user:expando:".concat(attributeName);
-
 			attribute = OpenSamlUtil.buildAttribute(
-				name, Attribute.URI_REFERENCE, value);
+				"urn:liferay:user:expando:" + attributeName,
+				Attribute.URI_REFERENCE, value);
 		}
-
 
 		attributes.add(attribute);
 	}
 
 	protected void addGroupsAttribute(
-		String attributeName, boolean namespaceEnabled, User user,
-		SAMLMessageContext<?, ?, ?> samlMessageContext,
-		List<Attribute> attributes) {
+		User user, SAMLMessageContext<?, ?, ?> samlMessageContext,
+		List<Attribute> attributes, String attributeName,
+		boolean namespaceEnabled) {
 
 		try {
 			List<Group> groups = user.getGroups();
@@ -166,31 +162,26 @@ public class DefaultAttributeResolver implements AttributeResolver {
 				attribute.setNameFormat(Attribute.UNSPECIFIED);
 			}
 
-			List<XMLObject> attributeValues = attribute.getAttributeValues();
+			List<XMLObject> xmlObjects = attribute.getAttributeValues();
 
 			for (Group group : groups) {
-				XMLObject value = OpenSamlUtil.buildAttributeValue(
+				XMLObject xmlObject = OpenSamlUtil.buildAttributeValue(
 					group.getName());
 
-				attributeValues.add(value);
+				xmlObjects.add(xmlObject);
 			}
 
 			attributes.add(attribute);
 		}
-		catch (PortalException pe) {
-			_log.error(
-				"Unable to get groups for userId " + user.getUserId(), pe);
-		}
-		catch (SystemException se) {
-			_log.error(
-				"Unable to get groups for userId " + user.getUserId(), se);
+		catch (Exception e) {
+			_log.error("Unable to get groups for user " + user.getUserId(), e);
 		}
 	}
 
 	protected void addOrganizationsAttribute(
-		String attributeName, boolean namespaceEnabled, User user,
-		SAMLMessageContext<?, ?, ?> samlMessageContext,
-		List<Attribute> attributes) {
+		User user, SAMLMessageContext<?, ?, ?> samlMessageContext,
+		List<Attribute> attributes, String attributeName,
+		boolean namespaceEnabled) {
 
 		try {
 			List<Organization> organizations = user.getOrganizations();
@@ -210,31 +201,27 @@ public class DefaultAttributeResolver implements AttributeResolver {
 				attribute.setNameFormat(Attribute.UNSPECIFIED);
 			}
 
-			List<XMLObject> attributeValues = attribute.getAttributeValues();
+			List<XMLObject> xmlObjects = attribute.getAttributeValues();
 
 			for (Organization organization : organizations) {
-				XMLObject value = OpenSamlUtil.buildAttributeValue(
+				XMLObject xmlObject = OpenSamlUtil.buildAttributeValue(
 					organization.getName());
 
-				attributeValues.add(value);
+				xmlObjects.add(xmlObject);
 			}
 
 			attributes.add(attribute);
 		}
-		catch (PortalException pe) {
+		catch (Exception e) {
 			_log.error(
-				"Unable to get groups for userId " + user.getUserId(), pe);
-		}
-		catch (SystemException se) {
-			_log.error(
-				"Unable to get groups for userId " + user.getUserId(), se);
+				"Unable to get organizations for user " + user.getUserId(), e);
 		}
 	}
 
 	protected void addRolesAttribute(
-		String attributeName, boolean namespaceEnabled, User user,
-		SAMLMessageContext<?, ?, ?> samlMessageContext,
-		List<Attribute> attributes) {
+		User user, SAMLMessageContext<?, ?, ?> samlMessageContext,
+		List<Attribute> attributes, String attributeName,
+		boolean namespaceEnabled) {
 
 		try {
 			List<Role> roles = user.getRoles();
@@ -254,27 +241,26 @@ public class DefaultAttributeResolver implements AttributeResolver {
 				attribute.setNameFormat(Attribute.UNSPECIFIED);
 			}
 
-			List<XMLObject> attributeValues = attribute.getAttributeValues();
+			List<XMLObject> xmlObjects = attribute.getAttributeValues();
 
 			for (Role role : roles) {
-				XMLObject value = OpenSamlUtil.buildAttributeValue(
+				XMLObject xmlObject = OpenSamlUtil.buildAttributeValue(
 					role.getName());
 
-				attributeValues.add(value);
+				xmlObjects.add(xmlObject);
 			}
 
 			attributes.add(attribute);
 		}
-		catch (SystemException se) {
-			_log.error(
-				"Unable to get roles for userId " + user.getUserId(), se);
+		catch (Exception e) {
+			_log.error("Unable to get roles for user " + user.getUserId(), e);
 		}
 	}
 
 	protected void addUserAttribute(
-		String attributeName, boolean namespaceEnabled, User user,
-		SAMLMessageContext<?, ?, ?> samlMessageContext,
-		List<Attribute> attributes) {
+		User user, SAMLMessageContext<?, ?, ?> samlMessageContext,
+		List<Attribute> attributes, String attributeName,
+		boolean namespaceEnabled) {
 
 		Attribute attribute = null;
 
@@ -285,59 +271,18 @@ public class DefaultAttributeResolver implements AttributeResolver {
 			attribute = OpenSamlUtil.buildAttribute(attributeName, value);
 		}
 		else {
-			String name = "urn:liferay:user:".concat(attributeName);
-
 			attribute = OpenSamlUtil.buildAttribute(
-				name, Attribute.URI_REFERENCE, value);
+				"urn:liferay:user:" + attributeName, Attribute.URI_REFERENCE,
+				value);
 		}
 
 		attributes.add(attribute);
 	}
 
-	protected void addUserGroupsAttribute(
-		String attributeName, boolean namespaceEnabled, User user,
-		SAMLMessageContext<?, ?, ?> samlMessageContext,
-		List<Attribute> attributes) {
-
-		try {
-			List<UserGroup> userGroups = user.getUserGroups();
-
-			if (userGroups.isEmpty()) {
-				return;
-			}
-
-			Attribute attribute = OpenSamlUtil.buildAttribute();
-
-			if (namespaceEnabled) {
-				attribute.setName("urn:liferay:userGroup");
-				attribute.setNameFormat(Attribute.URI_REFERENCE);
-			}
-			else {
-				attribute.setName("userGroup");
-				attribute.setNameFormat(Attribute.UNSPECIFIED);
-			}
-
-			List<XMLObject> attributeValues = attribute.getAttributeValues();
-
-			for (UserGroup userGroup : userGroups) {
-				XMLObject value = OpenSamlUtil.buildAttributeValue(
-					userGroup.getName());
-
-				attributeValues.add(value);
-			}
-
-			attributes.add(attribute);
-		}
-		catch (SystemException se) {
-			_log.error(
-				"Unable to get user roles for userId " + user.getUserId(), se);
-		}
-	}
-
 	protected void addUserGroupRolesAttribute(
-		String attributeName, boolean namespaceEnabled, User user,
-		SAMLMessageContext<?, ?, ?> samlMessageContext,
-		List<Attribute> attributes) {
+		User user, SAMLMessageContext<?, ?, ?> samlMessageContext,
+		List<Attribute> attributes, String attributeName,
+		boolean namespaceEnabled) {
 
 		try {
 			List<UserGroupRole> userGroupRoles =
@@ -372,41 +317,70 @@ public class DefaultAttributeResolver implements AttributeResolver {
 				Attribute attribute = OpenSamlUtil.buildAttribute();
 
 				if (namespaceEnabled) {
-					String name = "urn:liferay:userGroupRole:".concat(
-						groupName);
-
-					attribute.setName(name);
+					attribute.setName("urn:liferay:userGroupRole:" + groupName);
 					attribute.setNameFormat(Attribute.URI_REFERENCE);
 				}
 				else {
-					String name = "userGroupRole:".concat(groupName);
-
-					attribute.setName(name);
+					attribute.setName("userGroupRole:" + groupName);
 					attribute.setNameFormat(Attribute.UNSPECIFIED);
 				}
 
-				List<XMLObject> attributeValues =
-					attribute.getAttributeValues();
+				List<XMLObject> xmlObjects = attribute.getAttributeValues();
 
 				for (Role role : roles) {
-					XMLObject value = OpenSamlUtil.buildAttributeValue(
+					XMLObject xmlObject = OpenSamlUtil.buildAttributeValue(
 						role.getName());
 
-					attributeValues.add(value);
+					xmlObjects.add(xmlObject);
 				}
 
 				attributes.add(attribute);
 			}
 		}
-		catch (PortalException pe) {
+		catch (Exception e) {
 			_log.error(
-				"Unable to get user group roles for userId " + user.getUserId(),
-				pe);
+				"Unable to get user group roles for user " + user.getUserId(),
+				e);
 		}
-		catch (SystemException se) {
+	}
+
+	protected void addUserGroupsAttribute(
+		User user, SAMLMessageContext<?, ?, ?> samlMessageContext,
+		List<Attribute> attributes, String attributeName,
+		boolean namespaceEnabled) {
+
+		try {
+			List<UserGroup> userGroups = user.getUserGroups();
+
+			if (userGroups.isEmpty()) {
+				return;
+			}
+
+			Attribute attribute = OpenSamlUtil.buildAttribute();
+
+			if (namespaceEnabled) {
+				attribute.setName("urn:liferay:userGroup");
+				attribute.setNameFormat(Attribute.URI_REFERENCE);
+			}
+			else {
+				attribute.setName("userGroup");
+				attribute.setNameFormat(Attribute.UNSPECIFIED);
+			}
+
+			List<XMLObject> xmlObjects = attribute.getAttributeValues();
+
+			for (UserGroup userGroup : userGroups) {
+				XMLObject xmlObject = OpenSamlUtil.buildAttributeValue(
+					userGroup.getName());
+
+				xmlObjects.add(xmlObject);
+			}
+
+			attributes.add(attribute);
+		}
+		catch (Exception e) {
 			_log.error(
-				"Unable to get user group roles for userId " + user.getUserId(),
-				se);
+				"Unable to get user groups for user " + user.getUserId(), e);
 		}
 	}
 
@@ -476,10 +450,10 @@ public class DefaultAttributeResolver implements AttributeResolver {
 				new Filter(entityId)), false);
 	}
 
-	private static Log _log = LogFactoryUtil.getLog(
-		DefaultAttributeResolver.class);
-
 	private static final String _SALESFORCE_ENTITY_ID =
 		"https://saml.salesforce.com";
+
+	private static Log _log = LogFactoryUtil.getLog(
+		DefaultAttributeResolver.class);
 
 }

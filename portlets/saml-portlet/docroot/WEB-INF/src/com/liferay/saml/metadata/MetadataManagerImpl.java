@@ -358,8 +358,8 @@ public class MetadataManagerImpl implements MetadataManager {
 
 		if (Validator.isNull(attributesNamespaceEnabled)) {
 			attributesNamespaceEnabled = PropsUtil.get(
-				PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_NAMESPACE_ENABLED
-				);
+				PortletPropsKeys.
+					SAML_IDP_METADATA_ATTRIBUTES_NAMESPACE_ENABLED);
 		}
 
 		return GetterUtil.getBoolean(attributesNamespaceEnabled, true);
