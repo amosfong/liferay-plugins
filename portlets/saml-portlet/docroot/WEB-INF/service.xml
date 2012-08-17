@@ -4,6 +4,46 @@
 <service-builder package-path="com.liferay.saml" auto-namespace-tables="false">
 	<author>Mika Koivisto</author>
 	<namespace>Saml</namespace>
+	<entity name="SamlIdpSpConnection" local-service="true" remote-service="false">
+
+		<!-- PK fields -->
+
+		<column name="samlIdpSpConnectionId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="samlMetadataId" type="long" />
+		<column name="samlSpEntityId" type="String" />
+		<column name="enabled" type="boolean" />
+		<column name="attributeNames" type="String" />
+		<column name="attributesEnabled" type="boolean" />
+		<column name="attributesNamespaceEnabled" type="boolean" />
+		<column name="assertionLifetime" type="long" />
+		<column name="metadataUrl" type="String" />
+		<column name="metadataXml" type="String" />
+		<column name="metadataUpdatedDate" type="Date" />
+		<column name="name" type="String" />
+		<column name="nameIdAttribute" type="String" />
+		<column name="nameIdFormat" type="String" />
+
+		<!-- Finder methods -->
+
+		<finder name="CompanyId" return-type="Collection">
+			<finder-column name="companyId" />
+		</finder>
+		<finder name="C_SSE" return-type="SamlIdpSpConnection">
+			<finder-column name="companyId" />
+			<finder-column name="samlSpEntityId" />
+		</finder>
+	</entity>
 	<entity name="SamlIdpSpSession" local-service="true" remote-service="false">
 
 		<!-- PK fields -->
@@ -82,6 +122,45 @@
 			<finder-column name="samlSpAuthRequestKey" />
 		</finder>
 	</entity>
+	<entity name="SamlSpIdpConnection" local-service="true" remote-service="false">
+
+		<!-- PK fields -->
+
+		<column name="samlSpIdpConnectionId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="samlIdpEntityId" type="String" />
+		<column name="enabled" type="boolean" />
+		<column name="assertionSignatureRequired" type="boolean" />
+		<column name="clockSkew" type="long" />
+		<column name="ldapImportEnabled" type="boolean" />
+		<column name="metadataUrl" type="String" />
+		<column name="metadataXml" type="String" />
+		<column name="metadataUpdatedDate" type="Date" />
+		<column name="name" type="String" />
+		<column name="nameIdFormat" type="String" />
+		<column name="signAuthnRequest" type="boolean" />
+		<column name="userAttributeMappings" type="String" />
+
+		<!-- Finder methods -->
+
+		<finder name="CompanyId" return-type="Collection">
+			<finder-column name="companyId" />
+		</finder>
+		<finder name="C_SIE" return-type="SamlSpIdpConnection">
+			<finder-column name="companyId" />
+			<finder-column name="samlIdpEntityId" />
+		</finder>
+	</entity>
 	<entity name="SamlSpMessage" local-service="true" remote-service="false">
 		<column name="samlSpMessageId" type="long" primary="true" />
 
@@ -136,5 +215,9 @@
 	<exceptions>
 		<exception>DuplicateSamlIdpSpSession</exception>
 		<exception>DuplicateSamlIdpSsoSession</exception>
+		<exception>DuplicateSamlMetadata</exception>
+		<exception>EntityId</exception>
+		<exception>MetadataUrl</exception>
+		<exception>MetadataXml</exception>
 	</exceptions>
 </service-builder>
