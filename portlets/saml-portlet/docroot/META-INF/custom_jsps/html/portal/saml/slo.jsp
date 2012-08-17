@@ -14,10 +14,12 @@
  */
 --%>
 <%@ include file="/html/portal/init.jsp" %>
+
 <%
 	JSONObject samlSloContext = (JSONObject)request.getAttribute("SAML_SLO_CONTEXT");
 	JSONArray samlSloRequestInfos = samlSloContext.getJSONArray("samlSloRequestInfos");
 %>
+
 <h3><liferay-ui:message key="signing-out-from-services" /></h3>
 <div id="output"></div>
 <div id="continue"></div>
@@ -25,17 +27,21 @@
 <div class="portlet-msg-info">
 	<liferay-ui:message key="your-browser-does-not-support-javascript-so-you-need-to-sign-out-manually-from-each-service-provider" />
 </div>
-<% 
+
+<%
 	for (int i = 0; i < samlSloRequestInfos.length(); i++ ) {
 		JSONObject samlSloRequestInfo = samlSloRequestInfos.getJSONObject(i);
 %>
-	<div id="samlSp<%= i %>" class="saml-sp">
+
+	<div class="saml-sp" id="samlSp<%= i %>">
 		<span class="saml-sp-label"><liferay-ui:message key="sign-out-from-x" /></span>
 		<a href="?cmd=logout&entityId=<%=samlSloRequestInfo.getString("entityId") %>" target="_blank"><%= samlSloRequestInfo.getString("name") %></a>
 	</div>
+
 <%
 	}
 %>
+
 <div><a href="?cmd=finish"><liferay-ui:message key="complete-sign-out" /></a></div>
 </noscript>
 <aui:script use="aui-io-request">
@@ -59,7 +65,7 @@
 								'<span class="saml-sp-label">' + samlSloRequestInfos[i].name + '</span>' +
 								'<img src="' + themeDisplay.getPathThemeImages() + '/application/loading_indicator.gif" style="width: 16px; height: 16px; padding: 0 5px;" />' +
 								' <a id="samlSpRetry' + i + '" href="javascript:Liferay.SAML.SLO.retryLogout(\'' + samlSloRequestInfos[i].entityId + '\')" class="aui-helper-hidden">'+ Liferay.Language.get('retry') + '</a>' +
-								'<iframe id="samlSpIframe' + i + '" src="?cmd=logout&entityId=' + samlSloRequestInfos[i].entityId + '" style="width: 0; height: 0; position: absolute; left: -9999px;"/>' +
+								'<iframe id="samlSpIframe' + i + '" src="?cmd=logout&entityId=' + samlSloRequestInfos[i].entityId + '" style="width: 0; height: 0; position: absolute; left: -9999px;" />' +
 							'</div>';
 
 				instance.div.append(html);

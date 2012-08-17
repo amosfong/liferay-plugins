@@ -27,7 +27,7 @@ import com.liferay.saml.model.SamlIdpSsoSession;
 import com.liferay.saml.service.SamlIdpSpSessionLocalServiceUtil;
 
 import java.io.Serializable;
-import java.util.Collection;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -70,8 +70,9 @@ public class SamlSloContext implements Serializable {
 
 				String samlSpEntityId = samlIdpSpSession.getSamlSpEntityId();
 
-				if ((samlMessageContext != null) && samlSpEntityId.equals(
-						samlMessageContext.getPeerEntityId())) {
+				if ((samlMessageContext != null) &&
+						samlSpEntityId.equals(
+							samlMessageContext.getPeerEntityId())) {
 
 					continue;
 				}
@@ -135,7 +136,9 @@ public class SamlSloContext implements Serializable {
 
 		JSONArray jsonSamlSloRequestInfos = JSONFactoryUtil.createJSONArray();
 
-		for (SamlSloRequestInfo samlSloRequestInfo : _samlRequestInfoMap.values()) {
+		for (SamlSloRequestInfo samlSloRequestInfo :
+				_samlRequestInfoMap.values()) {
+
 			jsonSamlSloRequestInfos.put(samlSloRequestInfo.toJSONObject());
 		}
 
@@ -148,9 +151,9 @@ public class SamlSloContext implements Serializable {
 
 	private SAMLMessageContext<LogoutRequest, LogoutResponse, NameID>
 		_logoutRequestSamlMessageContext;
+	private Map<String, SamlSloRequestInfo> _samlRequestInfoMap =
+					new ConcurrentHashMap<String, SamlSloRequestInfo>();
 	private String _samlSsoSessionId;
 	private long _userId;
-	private Map<String, SamlSloRequestInfo> _samlRequestInfoMap =
-		new ConcurrentHashMap<String, SamlSloRequestInfo>();
 
 }

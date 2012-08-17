@@ -20,6 +20,7 @@
 
 	int status = samlSloRequestInfo.getInt("status");
 %>
+
 <noscript>
 <div class="portlet-msg-info"><liferay-ui:message key="your-browser-does-not-support-javascript-once-you-have-completed-sign-out-close-this-window-and-continue-with-the-next-service-provider" /></div>
 <c:choose>

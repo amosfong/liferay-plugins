@@ -21,18 +21,19 @@ import com.liferay.saml.model.SamlIdpSpSession;
 import java.io.Serializable;
 
 import org.joda.time.DateTime;
+
 import org.opensaml.saml2.core.StatusCode;
 
 /**
  * @author Mika Koivisto
  */
 public class SamlSloRequestInfo implements Serializable {
-	public static int REQUEST_STATUS_PENDING = 0;
-	public static int REQUEST_STATUS_INITIATED = 1;
-	public static int REQUEST_STATUS_SUCCESS = 2;
-	public static int REQUEST_STATUS_FAILED = 3;
-	public static int REQUEST_STATUS_UNSUPPORTED = 4;
-	public static int REQUEST_STATUS_TIMED_OUT = 5;
+	public static final int REQUEST_STATUS_FAILED = 3;
+	public static final int REQUEST_STATUS_INITIATED = 1;
+	public static final int REQUEST_STATUS_PENDING = 0;
+	public static final int REQUEST_STATUS_SUCCESS = 2;
+	public static final int REQUEST_STATUS_TIMED_OUT = 5;
+	public static final int REQUEST_STATUS_UNSUPPORTED = 4;
 
 	public SamlSloRequestInfo(SamlIdpSpSession spSession) {
 		_spSession = spSession;
@@ -96,4 +97,5 @@ public class SamlSloRequestInfo implements Serializable {
 	private SamlIdpSpSession _spSession;
 	private int _status;
 	private String _statusCode;
+
 }

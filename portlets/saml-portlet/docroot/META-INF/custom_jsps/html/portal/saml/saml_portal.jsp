@@ -14,11 +14,13 @@
  */
 --%>
 <%@ include file="/html/portal/init.jsp" %>
-<% 
+
+<%
 	String tilesTitle = (String)request.getAttribute("tilesTitle");
 	String tilesContent = (String)request.getAttribute("tilesContent");
 	String tilesPopUp = (String)request.getAttribute("tilesPopUp");
 %>
+
 <tiles:insert flush="false" template="/html/common/themes/portal.jsp">
 		<tiles:put name="title" value="<%= tilesTitle %>" />
 		<tiles:put name="content" value="<%= tilesContent %>" />

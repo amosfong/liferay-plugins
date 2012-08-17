@@ -77,7 +77,6 @@ public class SamlIdpSsoFilter extends BaseFilter {
 		return _log;
 	}
 
-
 	@Override
 	protected void processFilter(
 			HttpServletRequest request, HttpServletResponse response,
