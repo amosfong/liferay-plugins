@@ -36,14 +36,18 @@ import com.liferay.portal.service.UserService;
 import com.liferay.portal.service.persistence.UserPersistence;
 
 import com.liferay.saml.model.SamlSpSession;
+import com.liferay.saml.service.SamlIdpSpConnectionLocalService;
 import com.liferay.saml.service.SamlIdpSpSessionLocalService;
 import com.liferay.saml.service.SamlIdpSsoSessionLocalService;
 import com.liferay.saml.service.SamlSpAuthRequestLocalService;
+import com.liferay.saml.service.SamlSpIdpConnectionLocalService;
 import com.liferay.saml.service.SamlSpMessageLocalService;
 import com.liferay.saml.service.SamlSpSessionLocalService;
+import com.liferay.saml.service.persistence.SamlIdpSpConnectionPersistence;
 import com.liferay.saml.service.persistence.SamlIdpSpSessionPersistence;
 import com.liferay.saml.service.persistence.SamlIdpSsoSessionPersistence;
 import com.liferay.saml.service.persistence.SamlSpAuthRequestPersistence;
+import com.liferay.saml.service.persistence.SamlSpIdpConnectionPersistence;
 import com.liferay.saml.service.persistence.SamlSpMessagePersistence;
 import com.liferay.saml.service.persistence.SamlSpSessionPersistence;
 
@@ -279,6 +283,44 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the saml idp sp connection local service.
+	 *
+	 * @return the saml idp sp connection local service
+	 */
+	public SamlIdpSpConnectionLocalService getSamlIdpSpConnectionLocalService() {
+		return samlIdpSpConnectionLocalService;
+	}
+
+	/**
+	 * Sets the saml idp sp connection local service.
+	 *
+	 * @param samlIdpSpConnectionLocalService the saml idp sp connection local service
+	 */
+	public void setSamlIdpSpConnectionLocalService(
+		SamlIdpSpConnectionLocalService samlIdpSpConnectionLocalService) {
+		this.samlIdpSpConnectionLocalService = samlIdpSpConnectionLocalService;
+	}
+
+	/**
+	 * Returns the saml idp sp connection persistence.
+	 *
+	 * @return the saml idp sp connection persistence
+	 */
+	public SamlIdpSpConnectionPersistence getSamlIdpSpConnectionPersistence() {
+		return samlIdpSpConnectionPersistence;
+	}
+
+	/**
+	 * Sets the saml idp sp connection persistence.
+	 *
+	 * @param samlIdpSpConnectionPersistence the saml idp sp connection persistence
+	 */
+	public void setSamlIdpSpConnectionPersistence(
+		SamlIdpSpConnectionPersistence samlIdpSpConnectionPersistence) {
+		this.samlIdpSpConnectionPersistence = samlIdpSpConnectionPersistence;
+	}
+
+	/**
 	 * Returns the saml idp sp session local service.
 	 *
 	 * @return the saml idp sp session local service
@@ -390,6 +432,44 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 	public void setSamlSpAuthRequestPersistence(
 		SamlSpAuthRequestPersistence samlSpAuthRequestPersistence) {
 		this.samlSpAuthRequestPersistence = samlSpAuthRequestPersistence;
+	}
+
+	/**
+	 * Returns the saml sp idp connection local service.
+	 *
+	 * @return the saml sp idp connection local service
+	 */
+	public SamlSpIdpConnectionLocalService getSamlSpIdpConnectionLocalService() {
+		return samlSpIdpConnectionLocalService;
+	}
+
+	/**
+	 * Sets the saml sp idp connection local service.
+	 *
+	 * @param samlSpIdpConnectionLocalService the saml sp idp connection local service
+	 */
+	public void setSamlSpIdpConnectionLocalService(
+		SamlSpIdpConnectionLocalService samlSpIdpConnectionLocalService) {
+		this.samlSpIdpConnectionLocalService = samlSpIdpConnectionLocalService;
+	}
+
+	/**
+	 * Returns the saml sp idp connection persistence.
+	 *
+	 * @return the saml sp idp connection persistence
+	 */
+	public SamlSpIdpConnectionPersistence getSamlSpIdpConnectionPersistence() {
+		return samlSpIdpConnectionPersistence;
+	}
+
+	/**
+	 * Sets the saml sp idp connection persistence.
+	 *
+	 * @param samlSpIdpConnectionPersistence the saml sp idp connection persistence
+	 */
+	public void setSamlSpIdpConnectionPersistence(
+		SamlSpIdpConnectionPersistence samlSpIdpConnectionPersistence) {
+		this.samlSpIdpConnectionPersistence = samlSpIdpConnectionPersistence;
 	}
 
 	/**
@@ -638,6 +718,10 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 		}
 	}
 
+	@BeanReference(type = SamlIdpSpConnectionLocalService.class)
+	protected SamlIdpSpConnectionLocalService samlIdpSpConnectionLocalService;
+	@BeanReference(type = SamlIdpSpConnectionPersistence.class)
+	protected SamlIdpSpConnectionPersistence samlIdpSpConnectionPersistence;
 	@BeanReference(type = SamlIdpSpSessionLocalService.class)
 	protected SamlIdpSpSessionLocalService samlIdpSpSessionLocalService;
 	@BeanReference(type = SamlIdpSpSessionPersistence.class)
@@ -650,6 +734,10 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 	protected SamlSpAuthRequestLocalService samlSpAuthRequestLocalService;
 	@BeanReference(type = SamlSpAuthRequestPersistence.class)
 	protected SamlSpAuthRequestPersistence samlSpAuthRequestPersistence;
+	@BeanReference(type = SamlSpIdpConnectionLocalService.class)
+	protected SamlSpIdpConnectionLocalService samlSpIdpConnectionLocalService;
+	@BeanReference(type = SamlSpIdpConnectionPersistence.class)
+	protected SamlSpIdpConnectionPersistence samlSpIdpConnectionPersistence;
 	@BeanReference(type = SamlSpMessageLocalService.class)
 	protected SamlSpMessageLocalService samlSpMessageLocalService;
 	@BeanReference(type = SamlSpMessagePersistence.class)

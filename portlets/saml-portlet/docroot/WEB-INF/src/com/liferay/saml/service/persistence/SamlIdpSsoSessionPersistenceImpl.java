@@ -900,12 +900,16 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
+	@BeanReference(type = SamlIdpSpConnectionPersistence.class)
+	protected SamlIdpSpConnectionPersistence samlIdpSpConnectionPersistence;
 	@BeanReference(type = SamlIdpSpSessionPersistence.class)
 	protected SamlIdpSpSessionPersistence samlIdpSpSessionPersistence;
 	@BeanReference(type = SamlIdpSsoSessionPersistence.class)
 	protected SamlIdpSsoSessionPersistence samlIdpSsoSessionPersistence;
 	@BeanReference(type = SamlSpAuthRequestPersistence.class)
 	protected SamlSpAuthRequestPersistence samlSpAuthRequestPersistence;
+	@BeanReference(type = SamlSpIdpConnectionPersistence.class)
+	protected SamlSpIdpConnectionPersistence samlSpIdpConnectionPersistence;
 	@BeanReference(type = SamlSpMessagePersistence.class)
 	protected SamlSpMessagePersistence samlSpMessagePersistence;
 	@BeanReference(type = SamlSpSessionPersistence.class)

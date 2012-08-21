@@ -25,9 +25,11 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.BaseModel;
 
+import com.liferay.saml.model.SamlIdpSpConnectionClp;
 import com.liferay.saml.model.SamlIdpSpSessionClp;
 import com.liferay.saml.model.SamlIdpSsoSessionClp;
 import com.liferay.saml.model.SamlSpAuthRequestClp;
+import com.liferay.saml.model.SamlSpIdpConnectionClp;
 import com.liferay.saml.model.SamlSpMessageClp;
 import com.liferay.saml.model.SamlSpSessionClp;
 
@@ -106,6 +108,10 @@ public class ClpSerializer {
 
 		String oldModelClassName = oldModelClass.getName();
 
+		if (oldModelClassName.equals(SamlIdpSpConnectionClp.class.getName())) {
+			return translateInputSamlIdpSpConnection(oldModel);
+		}
+
 		if (oldModelClassName.equals(SamlIdpSpSessionClp.class.getName())) {
 			return translateInputSamlIdpSpSession(oldModel);
 		}
@@ -116,6 +122,10 @@ public class ClpSerializer {
 
 		if (oldModelClassName.equals(SamlSpAuthRequestClp.class.getName())) {
 			return translateInputSamlSpAuthRequest(oldModel);
+		}
+
+		if (oldModelClassName.equals(SamlSpIdpConnectionClp.class.getName())) {
+			return translateInputSamlSpIdpConnection(oldModel);
 		}
 
 		if (oldModelClassName.equals(SamlSpMessageClp.class.getName())) {
@@ -139,6 +149,17 @@ public class ClpSerializer {
 		}
 
 		return newList;
+	}
+
+	public static Object translateInputSamlIdpSpConnection(
+		BaseModel<?> oldModel) {
+		SamlIdpSpConnectionClp oldClpModel = (SamlIdpSpConnectionClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getSamlIdpSpConnectionRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
 	}
 
 	public static Object translateInputSamlIdpSpSession(BaseModel<?> oldModel) {
@@ -165,6 +186,17 @@ public class ClpSerializer {
 		SamlSpAuthRequestClp oldClpModel = (SamlSpAuthRequestClp)oldModel;
 
 		BaseModel<?> newModel = oldClpModel.getSamlSpAuthRequestRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputSamlSpIdpConnection(
+		BaseModel<?> oldModel) {
+		SamlSpIdpConnectionClp oldClpModel = (SamlSpIdpConnectionClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getSamlSpIdpConnectionRemoteModel();
 
 		newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -209,6 +241,11 @@ public class ClpSerializer {
 		String oldModelClassName = oldModelClass.getName();
 
 		if (oldModelClassName.equals(
+					"com.liferay.saml.model.impl.SamlIdpSpConnectionImpl")) {
+			return translateOutputSamlIdpSpConnection(oldModel);
+		}
+
+		if (oldModelClassName.equals(
 					"com.liferay.saml.model.impl.SamlIdpSpSessionImpl")) {
 			return translateOutputSamlIdpSpSession(oldModel);
 		}
@@ -221,6 +258,11 @@ public class ClpSerializer {
 		if (oldModelClassName.equals(
 					"com.liferay.saml.model.impl.SamlSpAuthRequestImpl")) {
 			return translateOutputSamlSpAuthRequest(oldModel);
+		}
+
+		if (oldModelClassName.equals(
+					"com.liferay.saml.model.impl.SamlSpIdpConnectionImpl")) {
+			return translateOutputSamlSpIdpConnection(oldModel);
 		}
 
 		if (oldModelClassName.equals(
@@ -323,6 +365,40 @@ public class ClpSerializer {
 			return new com.liferay.saml.DuplicateSamlIdpSsoSessionException();
 		}
 
+		if (className.equals(
+					"com.liferay.saml.SamlIdpSpConnectionMetadataUrlException")) {
+			return new com.liferay.saml.SamlIdpSpConnectionMetadataUrlException();
+		}
+
+		if (className.equals(
+					"com.liferay.saml.SamlIdpSpConnectionMetadataXmlException")) {
+			return new com.liferay.saml.SamlIdpSpConnectionMetadataXmlException();
+		}
+
+		if (className.equals(
+					"com.liferay.saml.SamlIdpSpConnectionSamlSpEntityIdException")) {
+			return new com.liferay.saml.SamlIdpSpConnectionSamlSpEntityIdException();
+		}
+
+		if (className.equals(
+					"com.liferay.saml.SamlSpIdpConnectionMetadataUrlException")) {
+			return new com.liferay.saml.SamlSpIdpConnectionMetadataUrlException();
+		}
+
+		if (className.equals(
+					"com.liferay.saml.SamlSpIdpConnectionMetadataXmlException")) {
+			return new com.liferay.saml.SamlSpIdpConnectionMetadataXmlException();
+		}
+
+		if (className.equals(
+					"com.liferay.saml.SamlSpIdpConnectionSamlSpEntityIdException")) {
+			return new com.liferay.saml.SamlSpIdpConnectionSamlSpEntityIdException();
+		}
+
+		if (className.equals("com.liferay.saml.NoSuchIdpSpConnectionException")) {
+			return new com.liferay.saml.NoSuchIdpSpConnectionException();
+		}
+
 		if (className.equals("com.liferay.saml.NoSuchIdpSpSessionException")) {
 			return new com.liferay.saml.NoSuchIdpSpSessionException();
 		}
@@ -335,6 +411,10 @@ public class ClpSerializer {
 			return new com.liferay.saml.NoSuchSpAuthRequestException();
 		}
 
+		if (className.equals("com.liferay.saml.NoSuchSpIdpConnectionException")) {
+			return new com.liferay.saml.NoSuchSpIdpConnectionException();
+		}
+
 		if (className.equals("com.liferay.saml.NoSuchSpMessageException")) {
 			return new com.liferay.saml.NoSuchSpMessageException();
 		}
@@ -344,6 +424,17 @@ public class ClpSerializer {
 		}
 
 		return throwable;
+	}
+
+	public static Object translateOutputSamlIdpSpConnection(
+		BaseModel<?> oldModel) {
+		SamlIdpSpConnectionClp newModel = new SamlIdpSpConnectionClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setSamlIdpSpConnectionRemoteModel(oldModel);
+
+		return newModel;
 	}
 
 	public static Object translateOutputSamlIdpSpSession(BaseModel<?> oldModel) {
@@ -372,6 +463,17 @@ public class ClpSerializer {
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
 		newModel.setSamlSpAuthRequestRemoteModel(oldModel);
+
+		return newModel;
+	}
+
+	public static Object translateOutputSamlSpIdpConnection(
+		BaseModel<?> oldModel) {
+		SamlSpIdpConnectionClp newModel = new SamlSpIdpConnectionClp();
+
+		newModel.setModelAttributes(oldModel.getModelAttributes());
+
+		newModel.setSamlSpIdpConnectionRemoteModel(oldModel);
 
 		return newModel;
 	}

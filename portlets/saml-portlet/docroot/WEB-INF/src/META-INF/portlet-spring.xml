@@ -1,12 +1,16 @@
 <?xml version="1.0"?>
 
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="com.liferay.saml.service.SamlIdpSpConnectionLocalService" class="com.liferay.saml.service.impl.SamlIdpSpConnectionLocalServiceImpl" />
+	<bean id="com.liferay.saml.service.persistence.SamlIdpSpConnectionPersistence" class="com.liferay.saml.service.persistence.SamlIdpSpConnectionPersistenceImpl" parent="basePersistence" />
 	<bean id="com.liferay.saml.service.SamlIdpSpSessionLocalService" class="com.liferay.saml.service.impl.SamlIdpSpSessionLocalServiceImpl" />
 	<bean id="com.liferay.saml.service.persistence.SamlIdpSpSessionPersistence" class="com.liferay.saml.service.persistence.SamlIdpSpSessionPersistenceImpl" parent="basePersistence" />
 	<bean id="com.liferay.saml.service.SamlIdpSsoSessionLocalService" class="com.liferay.saml.service.impl.SamlIdpSsoSessionLocalServiceImpl" />
 	<bean id="com.liferay.saml.service.persistence.SamlIdpSsoSessionPersistence" class="com.liferay.saml.service.persistence.SamlIdpSsoSessionPersistenceImpl" parent="basePersistence" />
 	<bean id="com.liferay.saml.service.SamlSpAuthRequestLocalService" class="com.liferay.saml.service.impl.SamlSpAuthRequestLocalServiceImpl" />
 	<bean id="com.liferay.saml.service.persistence.SamlSpAuthRequestPersistence" class="com.liferay.saml.service.persistence.SamlSpAuthRequestPersistenceImpl" parent="basePersistence" />
+	<bean id="com.liferay.saml.service.SamlSpIdpConnectionLocalService" class="com.liferay.saml.service.impl.SamlSpIdpConnectionLocalServiceImpl" />
+	<bean id="com.liferay.saml.service.persistence.SamlSpIdpConnectionPersistence" class="com.liferay.saml.service.persistence.SamlSpIdpConnectionPersistenceImpl" parent="basePersistence" />
 	<bean id="com.liferay.saml.service.SamlSpMessageLocalService" class="com.liferay.saml.service.impl.SamlSpMessageLocalServiceImpl" />
 	<bean id="com.liferay.saml.service.persistence.SamlSpMessagePersistence" class="com.liferay.saml.service.persistence.SamlSpMessagePersistenceImpl" parent="basePersistence" />
 	<bean id="com.liferay.saml.service.SamlSpSessionLocalService" class="com.liferay.saml.service.impl.SamlSpSessionLocalServiceImpl" />

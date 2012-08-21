@@ -2,11 +2,36 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping default-lazy="false" auto-import="false">
+	<import class="com.liferay.saml.model.SamlIdpSpConnection" />
 	<import class="com.liferay.saml.model.SamlIdpSpSession" />
 	<import class="com.liferay.saml.model.SamlIdpSsoSession" />
 	<import class="com.liferay.saml.model.SamlSpAuthRequest" />
+	<import class="com.liferay.saml.model.SamlSpIdpConnection" />
 	<import class="com.liferay.saml.model.SamlSpMessage" />
 	<import class="com.liferay.saml.model.SamlSpSession" />
+	<class name="com.liferay.saml.model.impl.SamlIdpSpConnectionImpl" table="SamlIdpSpConnection">
+		<cache usage="read-write" />
+		<id name="samlIdpSpConnectionId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="samlSpEntityId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="attributeNames" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="attributesEnabled" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="attributesNamespaceEnabled" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="assertionLifetime" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="enabled" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="metadataUrl" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="metadataXml" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="metadataUpdatedDate" type="org.hibernate.type.TimestampType" />
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="nameIdAttribute" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="nameIdFormat" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
 	<class name="com.liferay.saml.model.impl.SamlIdpSpSessionImpl" table="SamlIdpSpSession">
 		<cache usage="read-write" />
 		<id name="samlIdpSpSessionId" type="long">
@@ -43,6 +68,29 @@
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="samlIdpEntityId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="samlSpAuthRequestKey" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+	</class>
+	<class name="com.liferay.saml.model.impl.SamlSpIdpConnectionImpl" table="SamlSpIdpConnection">
+		<cache usage="read-write" />
+		<id name="samlSpIdpConnectionId" type="long">
+			<generator class="assigned" />
+		</id>
+		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="createDate" type="org.hibernate.type.TimestampType" />
+		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="samlIdpEntityId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="assertionSignatureRequired" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="clockSkew" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="enabled" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="ldapImportEnabled" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="metadataUrl" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="metadataXml" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="metadataUpdatedDate" type="org.hibernate.type.TimestampType" />
+		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="nameIdFormat" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="signAuthnRequest" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="userAttributeMappings" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 	<class name="com.liferay.saml.model.impl.SamlSpMessageImpl" table="SamlSpMessage">
 		<cache usage="read-write" />

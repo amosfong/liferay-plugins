@@ -18,9 +18,11 @@ import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.Message;
 
 import com.liferay.saml.service.ClpSerializer;
+import com.liferay.saml.service.SamlIdpSpConnectionLocalServiceUtil;
 import com.liferay.saml.service.SamlIdpSpSessionLocalServiceUtil;
 import com.liferay.saml.service.SamlIdpSsoSessionLocalServiceUtil;
 import com.liferay.saml.service.SamlSpAuthRequestLocalServiceUtil;
+import com.liferay.saml.service.SamlSpIdpConnectionLocalServiceUtil;
 import com.liferay.saml.service.SamlSpMessageLocalServiceUtil;
 import com.liferay.saml.service.SamlSpSessionLocalServiceUtil;
 
@@ -39,11 +41,15 @@ public class ClpMessageListener extends BaseMessageListener {
 
 		if (command.equals("undeploy") &&
 				servletContextName.equals(getServletContextName())) {
+			SamlIdpSpConnectionLocalServiceUtil.clearService();
+
 			SamlIdpSpSessionLocalServiceUtil.clearService();
 
 			SamlIdpSsoSessionLocalServiceUtil.clearService();
 
 			SamlSpAuthRequestLocalServiceUtil.clearService();
+
+			SamlSpIdpConnectionLocalServiceUtil.clearService();
 
 			SamlSpMessageLocalServiceUtil.clearService();
 

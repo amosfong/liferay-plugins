@@ -7,6 +7,38 @@
 			<access>PROPERTY</access>
 		</persistence-unit-defaults>
 	</persistence-unit-metadata>
+	<mapped-superclass class="com.liferay.saml.model.impl.SamlIdpSpConnectionModelImpl">
+		<attributes>
+			<id name="samlIdpSpConnectionId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="samlSpEntityId" />
+			<basic name="attributeNames" />
+			<basic name="attributesEnabled" />
+			<basic name="attributesNamespaceEnabled" />
+			<basic name="assertionLifetime" />
+			<basic name="enabled" />
+			<basic name="metadataUrl" />
+			<basic name="metadataXml" />
+			<basic name="metadataUpdatedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="name" />
+			<basic name="nameIdAttribute" />
+			<basic name="nameIdFormat" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
 	<mapped-superclass class="com.liferay.saml.model.impl.SamlIdpSpSessionModelImpl">
 		<attributes>
 			<id name="samlIdpSpSessionId" />
@@ -62,6 +94,38 @@
 			<transient name="primaryKeyObj" />
 		</attributes>
 	</mapped-superclass>
+	<mapped-superclass class="com.liferay.saml.model.impl.SamlSpIdpConnectionModelImpl">
+		<attributes>
+			<id name="samlSpIdpConnectionId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="samlIdpEntityId" />
+			<basic name="assertionSignatureRequired" />
+			<basic name="clockSkew" />
+			<basic name="enabled" />
+			<basic name="ldapImportEnabled" />
+			<basic name="metadataUrl" />
+			<basic name="metadataXml" />
+			<basic name="metadataUpdatedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="name" />
+			<basic name="nameIdFormat" />
+			<basic name="signAuthnRequest" />
+			<basic name="userAttributeMappings" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
 	<mapped-superclass class="com.liferay.saml.model.impl.SamlSpMessageModelImpl">
 		<attributes>
 			<id name="samlSpMessageId" />
@@ -104,6 +168,10 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
+	<entity class="com.liferay.saml.model.impl.SamlIdpSpConnectionImpl" name="SamlIdpSpConnection">
+		<table name="SamlIdpSpConnection" />
+		<attributes />
+	</entity>
 	<entity class="com.liferay.saml.model.impl.SamlIdpSpSessionImpl" name="SamlIdpSpSession">
 		<table name="SamlIdpSpSession" />
 		<attributes />
@@ -114,6 +182,10 @@
 	</entity>
 	<entity class="com.liferay.saml.model.impl.SamlSpAuthRequestImpl" name="SamlSpAuthRequest">
 		<table name="SamlSpAuthRequest" />
+		<attributes />
+	</entity>
+	<entity class="com.liferay.saml.model.impl.SamlSpIdpConnectionImpl" name="SamlSpIdpConnection">
+		<table name="SamlSpIdpConnection" />
 		<attributes />
 	</entity>
 	<entity class="com.liferay.saml.model.impl.SamlSpMessageImpl" name="SamlSpMessage">
