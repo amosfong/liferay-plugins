@@ -20,13 +20,12 @@
 
 		<!-- Other fields -->
 
-		<column name="samlMetadataId" type="long" />
 		<column name="samlSpEntityId" type="String" />
-		<column name="enabled" type="boolean" />
 		<column name="attributeNames" type="String" />
 		<column name="attributesEnabled" type="boolean" />
 		<column name="attributesNamespaceEnabled" type="boolean" />
 		<column name="assertionLifetime" type="long" />
+		<column name="enabled" type="boolean" />
 		<column name="metadataUrl" type="String" />
 		<column name="metadataXml" type="String" />
 		<column name="metadataUpdatedDate" type="Date" />
@@ -39,7 +38,7 @@
 		<finder name="CompanyId" return-type="Collection">
 			<finder-column name="companyId" />
 		</finder>
-		<finder name="C_SSE" return-type="SamlIdpSpConnection">
+		<finder name="C_SSEI" return-type="SamlIdpSpConnection">
 			<finder-column name="companyId" />
 			<finder-column name="samlSpEntityId" />
 		</finder>
@@ -139,9 +138,9 @@
 		<!-- Other fields -->
 
 		<column name="samlIdpEntityId" type="String" />
-		<column name="enabled" type="boolean" />
 		<column name="assertionSignatureRequired" type="boolean" />
 		<column name="clockSkew" type="long" />
+		<column name="enabled" type="boolean" />
 		<column name="ldapImportEnabled" type="boolean" />
 		<column name="metadataUrl" type="String" />
 		<column name="metadataXml" type="String" />
@@ -156,7 +155,7 @@
 		<finder name="CompanyId" return-type="Collection">
 			<finder-column name="companyId" />
 		</finder>
-		<finder name="C_SIE" return-type="SamlSpIdpConnection">
+		<finder name="C_SIEI" return-type="SamlSpIdpConnection">
 			<finder-column name="companyId" />
 			<finder-column name="samlIdpEntityId" />
 		</finder>
@@ -215,9 +214,11 @@
 	<exceptions>
 		<exception>DuplicateSamlIdpSpSession</exception>
 		<exception>DuplicateSamlIdpSsoSession</exception>
-		<exception>DuplicateSamlMetadata</exception>
-		<exception>EntityId</exception>
-		<exception>MetadataUrl</exception>
-		<exception>MetadataXml</exception>
+		<exception>SamlIdpSpConnectionMetadataUrl</exception>
+		<exception>SamlIdpSpConnectionMetadataXml</exception>
+		<exception>SamlIdpSpConnectionSamlSpEntityId</exception>
+		<exception>SamlSpIdpConnectionMetadataUrl</exception>
+		<exception>SamlSpIdpConnectionMetadataXml</exception>
+		<exception>SamlSpIdpConnectionSamlSpEntityId</exception>
 	</exceptions>
 </service-builder>
