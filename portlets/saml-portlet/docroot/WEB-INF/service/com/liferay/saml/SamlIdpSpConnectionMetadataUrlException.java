@@ -29,7 +29,9 @@ public class SamlIdpSpConnectionMetadataUrlException extends PortalException {
 		super(msg);
 	}
 
-	public SamlIdpSpConnectionMetadataUrlException(String msg, Throwable cause) {
+	public SamlIdpSpConnectionMetadataUrlException(
+		String msg, Throwable cause) {
+
 		super(msg, cause);
 	}
 
