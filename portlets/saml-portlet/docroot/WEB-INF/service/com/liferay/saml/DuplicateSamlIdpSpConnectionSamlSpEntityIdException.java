@@ -19,24 +19,21 @@ import com.liferay.portal.kernel.exception.PortalException;
 /**
  * @author Mika Koivisto
  */
-public class SamlSpIdpConnectionSamlSpEntityIdException
-	extends PortalException {
+public class DuplicateSamlIdpSpConnectionSamlSpEntityIdException extends PortalException {
 
-	public SamlSpIdpConnectionSamlSpEntityIdException() {
+	public DuplicateSamlIdpSpConnectionSamlSpEntityIdException() {
 		super();
 	}
 
-	public SamlSpIdpConnectionSamlSpEntityIdException(String msg) {
+	public DuplicateSamlIdpSpConnectionSamlSpEntityIdException(String msg) {
 		super(msg);
 	}
 
-	public SamlSpIdpConnectionSamlSpEntityIdException(
-		String msg, Throwable cause) {
-
+	public DuplicateSamlIdpSpConnectionSamlSpEntityIdException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public SamlSpIdpConnectionSamlSpEntityIdException(Throwable cause) {
+	public DuplicateSamlIdpSpConnectionSamlSpEntityIdException(Throwable cause) {
 		super(cause);
 	}
 

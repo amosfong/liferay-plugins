@@ -70,6 +70,10 @@
 
 	<!-- Util -->
 
+	<bean id="com.liferay.saml.util.MetadataUtil" class="com.liferay.saml.util.MetadataUtil">
+		<property name="httpClient" ref="org.apache.commons.httpclient.HttpClient" />
+		<property name="parserPool" ref="org.opensaml.xml.parse.ParserPool" />
+	</bean>
 	<bean id="org.apache.commons.httpclient.HttpClient" class="org.apache.commons.httpclient.HttpClient">
 		<constructor-arg ref="org.apache.commons.httpclient.params.HttpClientParams" />
 	</bean>

@@ -63,6 +63,9 @@ import org.opensaml.xml.XMLObjectBuilderFactory;
 import org.opensaml.xml.io.Marshaller;
 import org.opensaml.xml.io.MarshallerFactory;
 import org.opensaml.xml.io.MarshallingException;
+import org.opensaml.xml.io.Unmarshaller;
+import org.opensaml.xml.io.UnmarshallerFactory;
+import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.schema.XSString;
 import org.opensaml.xml.security.SecurityConfiguration;
 import org.opensaml.xml.security.SecurityException;
@@ -464,6 +467,15 @@ public class OpenSamlUtil {
 		return subjectConfirmationData;
 	}
 
+	public static String marshallElement(Element element) {
+
+		StringWriter stringWriter = new StringWriter();
+
+		XMLHelper.writeNode(element, stringWriter);
+
+		return stringWriter.toString();
+	}
+
 	public static String marshallSamlObject(SAMLObject samlObject)
 		throws MarshallingException {
 
@@ -500,6 +512,27 @@ public class OpenSamlUtil {
 		marshaller.marshall(signableObject);
 
 		Signer.signObject(signature);
+	}
+
+	public static XMLObject unmarshallXmlObject(Element element)
+		throws UnmarshallingException {
+
+		UnmarshallerFactory unmarshallerFactory =
+			Configuration.getUnmarshallerFactory();
+
+		Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(
+			element);
+
+		if (unmarshaller == null) {
+			QName qname = XMLHelper.getNodeQName(element);
+
+			throw new UnmarshallingException(
+				"No unmarshaller registered for " + qname.toString());
+		}
+
+		XMLObject xmlObject = unmarshaller.unmarshall(element);
+
+		return xmlObject;
 	}
 
 	@SuppressWarnings("rawtypes")

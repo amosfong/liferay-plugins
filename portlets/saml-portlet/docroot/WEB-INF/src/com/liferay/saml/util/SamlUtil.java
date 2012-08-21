@@ -27,12 +27,16 @@ import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AuthnRequest;
 import org.opensaml.saml2.metadata.AssertionConsumerService;
+import org.opensaml.saml2.metadata.EntitiesDescriptor;
+import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.IDPSSODescriptor;
 import org.opensaml.saml2.metadata.SPSSODescriptor;
 import org.opensaml.saml2.metadata.SSODescriptor;
 import org.opensaml.saml2.metadata.SingleLogoutService;
 import org.opensaml.saml2.metadata.SingleSignOnService;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.util.DatatypeHelper;
 
 import org.w3c.dom.Element;
 
@@ -84,6 +88,48 @@ public class SamlUtil {
 		}
 
 		return attributesMap;
+	}
+
+	public static EntityDescriptor getEntityDescriptorById(
+		String entityId, EntitiesDescriptor descriptor) {
+
+		List<EntityDescriptor> entityDescriptors =
+			descriptor.getEntityDescriptors();
+
+		if ((entityDescriptors != null) && !entityDescriptors.isEmpty()) {
+			for (EntitiesDescriptor entitiesDescriptor :
+					descriptor.getEntitiesDescriptors()) {
+
+				EntityDescriptor entityDescriptor = getEntityDescriptorById(
+					entityId, entitiesDescriptor);
+
+				if (entityDescriptor != null) {
+					return entityDescriptor;
+				}
+			}
+		}
+
+		return null;
+	}
+
+	public static EntityDescriptor getEntityDescriptorById(
+		String entityId, XMLObject metadata) {
+
+		if (metadata instanceof EntityDescriptor) {
+			EntityDescriptor entityDescriptor = (EntityDescriptor)metadata;
+
+			if (DatatypeHelper.safeEquals(
+					entityDescriptor.getEntityID(), entityId)) {
+
+				return entityDescriptor;
+			}
+		}
+		else if (metadata instanceof EntitiesDescriptor) {
+			return getEntityDescriptorById(
+				entityId, (EntitiesDescriptor)metadata);
+		}
+
+		return null;
 	}
 
 	public static SingleLogoutService getSingleLogoutServiceForBinding(
