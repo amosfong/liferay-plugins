@@ -356,6 +356,11 @@ public class ClpSerializer {
 		}
 
 		if (className.equals(
+					"com.liferay.saml.DuplicateSamlIdpSpConnectionSamlSpEntityIdException")) {
+			return new com.liferay.saml.DuplicateSamlIdpSpConnectionSamlSpEntityIdException();
+		}
+
+		if (className.equals(
 					"com.liferay.saml.DuplicateSamlIdpSpSessionException")) {
 			return new com.liferay.saml.DuplicateSamlIdpSpSessionException();
 		}
@@ -363,6 +368,11 @@ public class ClpSerializer {
 		if (className.equals(
 					"com.liferay.saml.DuplicateSamlIdpSsoSessionException")) {
 			return new com.liferay.saml.DuplicateSamlIdpSsoSessionException();
+		}
+
+		if (className.equals(
+					"com.liferay.saml.DuplicateSamlSpIdpConnectionSamlIdpEntityIdException")) {
+			return new com.liferay.saml.DuplicateSamlSpIdpConnectionSamlIdpEntityIdException();
 		}
 
 		if (className.equals(
@@ -391,8 +401,8 @@ public class ClpSerializer {
 		}
 
 		if (className.equals(
-					"com.liferay.saml.SamlSpIdpConnectionSamlSpEntityIdException")) {
-			return new com.liferay.saml.SamlSpIdpConnectionSamlSpEntityIdException();
+					"com.liferay.saml.SamlSpIdpConnectionSamlIdpEntityIdException")) {
+			return new com.liferay.saml.SamlSpIdpConnectionSamlIdpEntityIdException();
 		}
 
 		if (className.equals("com.liferay.saml.NoSuchIdpSpConnectionException")) {

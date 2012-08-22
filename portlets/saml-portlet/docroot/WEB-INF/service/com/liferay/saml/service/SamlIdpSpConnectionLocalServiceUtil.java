@@ -274,6 +274,81 @@ public class SamlIdpSpConnectionLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static com.liferay.saml.model.SamlIdpSpConnection addSamlIdpSpConnection(
+		java.lang.String samlSpEntityId, int assertionLifetime,
+		java.lang.String attributeNames, boolean attributesEnabled,
+		boolean attributesNamespaceEnabled, boolean enabled,
+		java.io.InputStream metadataXmlInputStream,
+		java.lang.String metadataUrl, java.lang.String name,
+		java.lang.String nameIdAttribute, java.lang.String nameIdFormat,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addSamlIdpSpConnection(samlSpEntityId, assertionLifetime,
+			attributeNames, attributesEnabled, attributesNamespaceEnabled,
+			enabled, metadataXmlInputStream, metadataUrl, name,
+			nameIdAttribute, nameIdFormat, serviceContext);
+	}
+
+	public static com.liferay.saml.model.SamlIdpSpConnection getSamlIdpSpConnection(
+		long companyId, java.lang.String samlSpEntityId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getSamlIdpSpConnection(companyId, samlSpEntityId);
+	}
+
+	public static java.util.List<com.liferay.saml.model.SamlIdpSpConnection> getSamlIdpSpConnections(
+		long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getSamlIdpSpConnections(companyId);
+	}
+
+	public static java.util.List<com.liferay.saml.model.SamlIdpSpConnection> getSamlIdpSpConnections(
+		long companyId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getSamlIdpSpConnections(companyId, start, end);
+	}
+
+	public static java.util.List<com.liferay.saml.model.SamlIdpSpConnection> getSamlIdpSpConnections(
+		long companyId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getSamlIdpSpConnections(companyId, start, end,
+			orderByComparator);
+	}
+
+	public static int getSamlIdpSpConnectionsCount(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getSamlIdpSpConnectionsCount(companyId);
+	}
+
+	public static void updateMetadata(long samlIdpSpConnectionId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().updateMetadata(samlIdpSpConnectionId);
+	}
+
+	public static com.liferay.saml.model.SamlIdpSpConnection updateSamlIdpSpConnection(
+		long samlIdpSpConnectionId, java.lang.String samlSpEntityId,
+		int assertionLifetime, java.lang.String attributeNames,
+		boolean attributesEnabled, boolean attributesNamespaceEnabled,
+		boolean enabled, java.lang.String name,
+		java.lang.String nameIdAttribute, java.lang.String nameIdFormat,
+		java.io.InputStream metadataXmlInputStream,
+		java.lang.String metadataUrl,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateSamlIdpSpConnection(samlIdpSpConnectionId,
+			samlSpEntityId, assertionLifetime, attributeNames,
+			attributesEnabled, attributesNamespaceEnabled, enabled, name,
+			nameIdAttribute, nameIdFormat, metadataXmlInputStream, metadataUrl,
+			serviceContext);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

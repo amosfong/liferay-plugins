@@ -613,8 +613,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 		return new SamlIdpSpConnectionWrapper((SamlIdpSpConnection)_samlIdpSpConnection.clone());
 	}
 
-	public int compareTo(
-		com.liferay.saml.model.SamlIdpSpConnection samlIdpSpConnection) {
+	public int compareTo(SamlIdpSpConnection samlIdpSpConnection) {
 		return _samlIdpSpConnection.compareTo(samlIdpSpConnection);
 	}
 
@@ -623,11 +622,11 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 		return _samlIdpSpConnection.hashCode();
 	}
 
-	public com.liferay.portal.model.CacheModel<com.liferay.saml.model.SamlIdpSpConnection> toCacheModel() {
+	public com.liferay.portal.model.CacheModel<SamlIdpSpConnection> toCacheModel() {
 		return _samlIdpSpConnection.toCacheModel();
 	}
 
-	public com.liferay.saml.model.SamlIdpSpConnection toEscapedModel() {
+	public SamlIdpSpConnection toEscapedModel() {
 		return new SamlIdpSpConnectionWrapper(_samlIdpSpConnection.toEscapedModel());
 	}
 
