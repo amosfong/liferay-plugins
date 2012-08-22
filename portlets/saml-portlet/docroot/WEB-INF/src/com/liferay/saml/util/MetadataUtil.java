@@ -16,6 +16,7 @@ package com.liferay.saml.util;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.servlet.HttpHeaders;
 import com.liferay.portal.kernel.util.StreamUtil;
 
 import java.io.InputStream;
@@ -39,65 +40,63 @@ import org.w3c.dom.Document;
  */
 public class MetadataUtil {
 
-	public static InputStream fetchMetadata(String url) {
-		GetMethod getMethod = new GetMethod(url);
-
+	public static InputStream getMetadata(String url) {
 		try {
+			GetMethod getMethod = new GetMethod(url);
+
 			_httpClient.executeMethod(getMethod);
 
 			if (getMethod.getStatusCode() != HttpStatus.SC_OK) {
 				return null;
 			}
 
-			InputStream ins = getMethod.getResponseBodyAsStream();
+			InputStream inputStream = getMethod.getResponseBodyAsStream();
 
-			Header httpHeader = getMethod.getResponseHeader("Content-Encoding");
+			Header header = getMethod.getResponseHeader(
+				HttpHeaders.CONTENT_ENCODING);
 
-			if (httpHeader != null) {
-				String contentEncoding = httpHeader.getValue();
+			if (header != null) {
+				String contentEncoding = header.getValue();
 
 				if (contentEncoding.equalsIgnoreCase("deflate")) {
-					ins = new InflaterInputStream(ins);
+					inputStream = new InflaterInputStream(inputStream);
 				}
-
-				if (contentEncoding.equalsIgnoreCase("gzip")) {
-					ins = new GZIPInputStream(ins);
+				else if (contentEncoding.equalsIgnoreCase("gzip")) {
+					inputStream = new GZIPInputStream(inputStream);
 				}
 			}
 
-			return ins;
+			return inputStream;
 		}
 		catch (Exception e) {
-			_log.warn("Unable to fetch metadata from " + url, e);
+			_log.warn("Unable to get metadata from " + url, e);
 		}
 
 		return null;
 	}
 
-	public static String parseMetadataXml(InputStream is, String entityId)
-			throws Exception {
+	public static String parseMetadataXml(
+			InputStream inputStream, String entityId)
+		throws Exception {
 
 		try {
-			Document document = _parserPool.parse(is);
+			Document document = _parserPool.parse(inputStream);
 
-			XMLObject metadataXmlObject = OpenSamlUtil.unmarshallXmlObject(
+			XMLObject xmlObject = OpenSamlUtil.unmarshallXMLObject(
 				document.getDocumentElement());
 
 			EntityDescriptor entityDescriptor =
-				SamlUtil.getEntityDescriptorById(entityId, metadataXmlObject);
+				SamlUtil.getEntityDescriptorById(entityId, xmlObject);
 
 			if (entityDescriptor == null) {
 				return null;
 			}
 
-			String metadataXml = OpenSamlUtil.marshallElement(
-				entityDescriptor.getDOM());
-
-			return metadataXml;
+			return OpenSamlUtil.marshallElement(entityDescriptor.getDOM());
 		}
 		finally {
-			if (is != null) {
-				StreamUtil.cleanUp(is);
+			if (inputStream != null) {
+				StreamUtil.cleanUp(inputStream);
 			}
 		}
 	}
@@ -110,7 +109,7 @@ public class MetadataUtil {
 		_parserPool = parserPool;
 	}
 
-	private static final Log _log = LogFactoryUtil.getLog(MetadataUtil.class);
+	private static Log _log = LogFactoryUtil.getLog(MetadataUtil.class);
 
 	private static HttpClient _httpClient;
 	private static ParserPool _parserPool;

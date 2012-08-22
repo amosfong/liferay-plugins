@@ -42,83 +42,67 @@ public class SamlIdpSpConnectionLocalServiceImpl
 	extends SamlIdpSpConnectionLocalServiceBaseImpl {
 
 	public SamlIdpSpConnection addSamlIdpSpConnection(
-		String samlSpEntityId, String name, boolean enabled,
-		int assertionLifetime, String attributeNames, boolean attributesEnabled,
-		boolean attributesNamespaceEnabled, String nameIdAttribute,
-		String nameIdFormat, String metadataUrl, InputStream is,
-		ServiceContext serviceContext)
-						throws PortalException, SystemException {
+			String samlSpEntityId, int assertionLifetime, String attributeNames,
+			boolean attributesEnabled, boolean attributesNamespaceEnabled,
+			boolean enabled, InputStream metadataXmlInputStream,
+			String metadataUrl, String name, String nameIdAttribute,
+			String nameIdFormat, ServiceContext serviceContext)
+		throws PortalException, SystemException {
 
-		long companyId = serviceContext.getCompanyId();
-		long samlIdpSpConnectionId = counterLocalService.increment(
-			SamlIdpSpConnection.class.getName());
+		Date now = new Date();
 
 		if (Validator.isNull(samlSpEntityId)) {
 			throw new SamlIdpSpConnectionSamlSpEntityIdException();
 		}
 
 		if (samlIdpSpConnectionPersistence.fetchByC_SSEI(
-				companyId, samlSpEntityId) != null) {
+				serviceContext.getCompanyId(), samlSpEntityId) != null) {
 
 			throw new DuplicateSamlIdpSpConnectionSamlSpEntityIdException();
 		}
 
-		Date now = new Date();
+		long samlIdpSpConnectionId = counterLocalService.increment(
+			SamlIdpSpConnection.class.getName());
 
 		SamlIdpSpConnection samlIdpSpConnection =
 			samlIdpSpConnectionPersistence.create(samlIdpSpConnectionId);
 
-		samlIdpSpConnection.setCompanyId(companyId);
+		samlIdpSpConnection.setCompanyId(serviceContext.getCompanyId());
 		samlIdpSpConnection.setCreateDate(now);
 		samlIdpSpConnection.setModifiedDate(now);
-
+		samlIdpSpConnection.setSamlSpEntityId(samlSpEntityId);
 		samlIdpSpConnection.setAssertionLifetime(assertionLifetime);
 		samlIdpSpConnection.setAttributeNames(attributeNames);
 		samlIdpSpConnection.setAttributesEnabled(attributesEnabled);
 		samlIdpSpConnection.setAttributesNamespaceEnabled(
 			attributesNamespaceEnabled);
 		samlIdpSpConnection.setEnabled(enabled);
-		samlIdpSpConnection.setName(name);
-		samlIdpSpConnection.setNameIdAttribute(nameIdAttribute);
-		samlIdpSpConnection.setNameIdFormat(nameIdFormat);
-		samlIdpSpConnection.setSamlSpEntityId(samlSpEntityId);
+		samlIdpSpConnection.setMetadataUpdatedDate(now);
 
-		if ((is == null) && Validator.isNotNull(metadataUrl)) {
+		if ((metadataXmlInputStream == null) &&
+			Validator.isNotNull(metadataUrl)) {
+
 			samlIdpSpConnection.setMetadataUrl(metadataUrl);
 
-			is = MetadataUtil.fetchMetadata(metadataUrl);
+			metadataXmlInputStream = MetadataUtil.getMetadata(metadataUrl);
 		}
 
-		if (is == null) {
+		if (metadataXmlInputStream == null) {
 			throw new SamlIdpSpConnectionMetadataUrlException();
 		}
 
-		String metadataXml = StringPool.BLANK;
-
-		try {
-			metadataXml = MetadataUtil.parseMetadataXml(is, samlSpEntityId);
-		}
-		catch (Exception e) {
-			throw new SamlIdpSpConnectionMetadataXmlException(e);
-		}
-
-		if (Validator.isNull(metadataXml)) {
-			throw new SamlIdpSpConnectionSamlSpEntityIdException();
-		}
-
-		samlIdpSpConnection.setMetadataXml(metadataXml);
-		samlIdpSpConnection.setMetadataUpdatedDate(now);
+		samlIdpSpConnection.setMetadataXml(
+			getMetadataXml(metadataXmlInputStream, samlSpEntityId));
+		samlIdpSpConnection.setName(name);
+		samlIdpSpConnection.setNameIdAttribute(nameIdAttribute);
+		samlIdpSpConnection.setNameIdFormat(nameIdFormat);
 
 		samlIdpSpConnectionPersistence.update(samlIdpSpConnection, false);
 
 		return samlIdpSpConnection;
 	}
 
-	public int countByCompanyId(long companyId) throws SystemException {
-		return samlIdpSpConnectionPersistence.countByCompanyId(companyId);
-	}
-
-	public SamlIdpSpConnection findByC_SSEI(
+	public SamlIdpSpConnection getSamlIdpSpConnection(
 			long companyId, String samlSpEntityId)
 		throws PortalException, SystemException {
 
@@ -126,13 +110,13 @@ public class SamlIdpSpConnectionLocalServiceImpl
 			companyId, samlSpEntityId);
 	}
 
-	public List<SamlIdpSpConnection> findByCompanyId(long companyId)
+	public List<SamlIdpSpConnection> getSamlIdpSpConnections(long companyId)
 		throws SystemException {
 
 		return samlIdpSpConnectionPersistence.findByCompanyId(companyId);
 	}
 
-	public List<SamlIdpSpConnection> findByCompanyId(
+	public List<SamlIdpSpConnection> getSamlIdpSpConnections(
 			long companyId, int start, int end)
 		throws SystemException {
 
@@ -140,7 +124,7 @@ public class SamlIdpSpConnectionLocalServiceImpl
 			companyId, start, end);
 	}
 
-	public List<SamlIdpSpConnection> findByCompanyId(
+	public List<SamlIdpSpConnection> getSamlIdpSpConnections(
 			long companyId, int start, int end,
 			OrderByComparator orderByComparator)
 		throws SystemException {
@@ -149,7 +133,13 @@ public class SamlIdpSpConnectionLocalServiceImpl
 			companyId, start, end, orderByComparator);
 	}
 
-	public void refreshMetadata(long samlIdpSpConnectionId)
+	public int getSamlIdpSpConnectionsCount(long companyId)
+		throws SystemException {
+
+		return samlIdpSpConnectionPersistence.countByCompanyId(companyId);
+	}
+
+	public void updateMetadata(long samlIdpSpConnectionId)
 		throws PortalException, SystemException {
 
 		SamlIdpSpConnection samlIdpSpConnection =
@@ -162,10 +152,13 @@ public class SamlIdpSpConnectionLocalServiceImpl
 			return;
 		}
 
-		InputStream is = MetadataUtil.fetchMetadata(metadataUrl);
+		InputStream metadataXmlInputStream = MetadataUtil.getMetadata(
+			metadataUrl);
 
-		if (is == null) {
-			_log.warn("Unable to fetch metadata from " + metadataUrl);
+		if (metadataXmlInputStream == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn("Unable to get metadata from " + metadataUrl);
+			}
 
 			return;
 		}
@@ -174,50 +167,49 @@ public class SamlIdpSpConnectionLocalServiceImpl
 
 		try {
 			metadataXml = MetadataUtil.parseMetadataXml(
-				is, samlIdpSpConnection.getSamlSpEntityId());
+				metadataXmlInputStream,
+				samlIdpSpConnection.getSamlSpEntityId());
 		}
 		catch (Exception e) {
 			_log.warn("Unable to parse metadata", e);
 		}
 
 		if (Validator.isNotNull(metadataXml)) {
-			samlIdpSpConnection.setMetadataXml(metadataXml);
 			samlIdpSpConnection.setMetadataUpdatedDate(new Date());
+			samlIdpSpConnection.setMetadataXml(metadataXml);
 
 			samlIdpSpConnectionPersistence.update(samlIdpSpConnection, false);
 		}
 	}
 
 	public SamlIdpSpConnection updateSamlIdpSpConnection(
-			long samlIdpSpConnectionId, String samlSpEntityId, String name,
+			long samlIdpSpConnectionId, String samlSpEntityId,
 			int assertionLifetime, String attributeNames,
 			boolean attributesEnabled, boolean attributesNamespaceEnabled,
-			boolean enabled, String nameIdAttribute, String nameIdFormat,
-			String metadataUrl, InputStream is, ServiceContext serviceContext)
+			boolean enabled, String name, String nameIdAttribute,
+			String nameIdFormat, InputStream metadataXmlInputStream,
+			String metadataUrl, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		SamlIdpSpConnection samlIdpSpConnection =
-			samlIdpSpConnectionPersistence.fetchByPrimaryKey(
-				samlIdpSpConnectionId);
-
-		long companyId = serviceContext.getCompanyId();
+		Date now = new Date();
 
 		if (Validator.isNull(samlSpEntityId)) {
 			throw new SamlIdpSpConnectionSamlSpEntityIdException();
 		}
 
+		SamlIdpSpConnection samlIdpSpConnection =
+			samlIdpSpConnectionPersistence.fetchByPrimaryKey(
+				samlIdpSpConnectionId);
+
 		if (!samlSpEntityId.equals(samlIdpSpConnection.getSamlSpEntityId())) {
 			if (samlIdpSpConnectionPersistence.fetchByC_SSEI(
-				companyId, samlSpEntityId) != null) {
+					serviceContext.getCompanyId(), samlSpEntityId) != null) {
 
 				throw new DuplicateSamlIdpSpConnectionSamlSpEntityIdException();
 			}
 		}
 
-		Date now = new Date();
-
 		samlIdpSpConnection.setModifiedDate(now);
-
 		samlIdpSpConnection.setAssertionLifetime(assertionLifetime);
 		samlIdpSpConnection.setAttributeNames(attributeNames);
 		samlIdpSpConnection.setAttributesEnabled(attributesEnabled);
@@ -227,40 +219,56 @@ public class SamlIdpSpConnectionLocalServiceImpl
 		samlIdpSpConnection.setName(name);
 		samlIdpSpConnection.setNameIdAttribute(nameIdAttribute);
 		samlIdpSpConnection.setNameIdFormat(nameIdFormat);
-		samlIdpSpConnection.setSamlSpEntityId(samlSpEntityId);
 
-		if ((is == null) && Validator.isNotNull(metadataUrl)) {
+		if ((metadataXmlInputStream == null) &&
+			Validator.isNotNull(metadataUrl)) {
+
 			samlIdpSpConnection.setMetadataUrl(metadataUrl);
 
-			is = MetadataUtil.fetchMetadata(metadataUrl);
+			metadataXmlInputStream = MetadataUtil.getMetadata(metadataUrl);
 		}
 
 		String metadataXml = StringPool.BLANK;
 
-		if (is != null) {
-			try {
-				metadataXml = MetadataUtil.parseMetadataXml(is, samlSpEntityId);
-			}
-			catch (Exception e) {
-				throw new SamlIdpSpConnectionMetadataXmlException(e);
-			}
-
-			if (Validator.isNull(metadataXml)) {
-				throw new SamlIdpSpConnectionSamlSpEntityIdException();
-			}
+		if (metadataXmlInputStream != null) {
+			metadataXml = getMetadataXml(
+				metadataXmlInputStream, samlSpEntityId);
 		}
 
 		if (Validator.isNotNull(metadataXml)) {
-			samlIdpSpConnection.setMetadataXml(metadataXml);
 			samlIdpSpConnection.setMetadataUpdatedDate(now);
+			samlIdpSpConnection.setMetadataXml(metadataXml);
 		}
+
+		samlIdpSpConnection.setSamlSpEntityId(samlSpEntityId);
 
 		samlIdpSpConnectionPersistence.update(samlIdpSpConnection, false);
 
 		return samlIdpSpConnection;
 	}
 
-	private static final Log _log = LogFactoryUtil.getLog(
+	protected String getMetadataXml(
+			InputStream metadataXmlInputStream, String samlSpEntityId)
+		throws PortalException {
+
+		String metadataXml = StringPool.BLANK;
+
+		try {
+			metadataXml = MetadataUtil.parseMetadataXml(
+				metadataXmlInputStream, samlSpEntityId);
+		}
+		catch (Exception e) {
+			throw new SamlIdpSpConnectionMetadataXmlException(e);
+		}
+
+		if (Validator.isNull(metadataXml)) {
+			throw new SamlIdpSpConnectionSamlSpEntityIdException();
+		}
+
+		return metadataXml;
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(
 		SamlIdpSpConnectionLocalServiceImpl.class);
 
 }

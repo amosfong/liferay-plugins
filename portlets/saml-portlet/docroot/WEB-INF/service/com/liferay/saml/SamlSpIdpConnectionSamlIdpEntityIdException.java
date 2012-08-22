@@ -19,7 +19,8 @@ import com.liferay.portal.kernel.exception.PortalException;
 /**
  * @author Mika Koivisto
  */
-public class SamlSpIdpConnectionSamlIdpEntityIdException extends PortalException {
+public class SamlSpIdpConnectionSamlIdpEntityIdException
+	extends PortalException {
 
 	public SamlSpIdpConnectionSamlIdpEntityIdException() {
 		super();
@@ -29,7 +30,9 @@ public class SamlSpIdpConnectionSamlIdpEntityIdException extends PortalException
 		super(msg);
 	}
 
-	public SamlSpIdpConnectionSamlIdpEntityIdException(String msg, Throwable cause) {
+	public SamlSpIdpConnectionSamlIdpEntityIdException(
+		String msg, Throwable cause) {
+
 		super(msg, cause);
 	}
 

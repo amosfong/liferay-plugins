@@ -468,7 +468,6 @@ public class OpenSamlUtil {
 	}
 
 	public static String marshallElement(Element element) {
-
 		StringWriter stringWriter = new StringWriter();
 
 		XMLHelper.writeNode(element, stringWriter);
@@ -514,7 +513,7 @@ public class OpenSamlUtil {
 		Signer.signObject(signature);
 	}
 
-	public static XMLObject unmarshallXmlObject(Element element)
+	public static XMLObject unmarshallXMLObject(Element element)
 		throws UnmarshallingException {
 
 		UnmarshallerFactory unmarshallerFactory =

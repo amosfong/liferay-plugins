@@ -657,7 +657,7 @@ public class SingleLogoutProfileImpl
 		return StatusCode.PARTIAL_LOGOUT_URI;
 	}
 
-	private static final Log _log = LogFactoryUtil.getLog(
+	private static Log _log = LogFactoryUtil.getLog(
 		SingleLogoutProfileImpl.class);
 
 }
