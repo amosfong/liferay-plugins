@@ -19,10 +19,23 @@ import java.security.KeyStore;
 /**
  * @author Mika Koivisto
  */
-public interface KeyStoreManager {
+public class KeyStoreManagerUtil {
 
-	public KeyStore getKeyStore();
+	public static KeyStore getKeyStore() {
+		return getKeyStoreManager().getKeyStore();
+	}
 
-	public void saveKeyStore(KeyStore keyStore) throws Exception;
+	public static KeyStoreManager getKeyStoreManager() {
+		return _keyStoreManager;
+	}
 
+	public void setKeyStoreManager(KeyStoreManager keyStoreManager) {
+		_keyStoreManager = keyStoreManager;
+	}
+
+	public static void saveKeyStore(KeyStore keyStore) throws Exception {
+		getKeyStoreManager().saveKeyStore(keyStore);
+	}
+
+	private static KeyStoreManager _keyStoreManager;
 }

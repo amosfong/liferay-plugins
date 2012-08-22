@@ -15,7 +15,7 @@
 package com.liferay.saml.credential;
 
 import com.liferay.portal.kernel.configuration.Filter;
-import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.saml.util.PortletPrefsUtil;
 import com.liferay.saml.util.PortletPropsKeys;
 
 import java.security.KeyStore.Entry;
@@ -45,10 +45,6 @@ import org.opensaml.xml.security.x509.BasicX509Credential;
  */
 public class KeyStoreCredentialResolver
 	extends AbstractCriteriaFilteringCredentialResolver {
-
-	public void setKeyStoreManager(KeyStoreManager keyStoreManager) {
-		_keyStoreManager = keyStoreManager;
-	}
 
 	protected Credential buildCredential(
 		Entry entry, String entityId, UsageType usage) {
@@ -146,7 +142,7 @@ public class KeyStoreCredentialResolver
 
 			KeyStore.PasswordProtection keyStorePasswordProtection = null;
 
-			String samlKeystoreCredentialPassword = PropsUtil.get(
+			String samlKeystoreCredentialPassword = PortletPrefsUtil.getString(
 				PortletPropsKeys.SAML_KEYSTORE_CREDENTIAL_PASSWORD,
 				new Filter(entityId));
 
@@ -155,7 +151,7 @@ public class KeyStoreCredentialResolver
 					samlKeystoreCredentialPassword.toCharArray());
 			}
 
-			KeyStore keyStore = _keyStoreManager.getKeyStore();
+			KeyStore keyStore = KeyStoreManagerUtil.getKeyStore();
 
 			Entry entry = keyStore.getEntry(
 				entityId, keyStorePasswordProtection);
@@ -180,7 +176,5 @@ public class KeyStoreCredentialResolver
 			throw new SecurityException(e);
 		}
 	}
-
-	private KeyStoreManager _keyStoreManager;
 
 }
