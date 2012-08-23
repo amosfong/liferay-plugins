@@ -192,11 +192,11 @@ public class SamlIdpSpConnectionSoap implements Serializable {
 		_attributesNamespaceEnabled = attributesNamespaceEnabled;
 	}
 
-	public long getAssertionLifetime() {
+	public int getAssertionLifetime() {
 		return _assertionLifetime;
 	}
 
-	public void setAssertionLifetime(long assertionLifetime) {
+	public void setAssertionLifetime(int assertionLifetime) {
 		_assertionLifetime = assertionLifetime;
 	}
 
@@ -270,7 +270,7 @@ public class SamlIdpSpConnectionSoap implements Serializable {
 	private String _attributeNames;
 	private boolean _attributesEnabled;
 	private boolean _attributesNamespaceEnabled;
-	private long _assertionLifetime;
+	private int _assertionLifetime;
 	private boolean _enabled;
 	private String _metadataUrl;
 	private String _metadataXml;

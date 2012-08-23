@@ -132,7 +132,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 			setAttributesNamespaceEnabled(attributesNamespaceEnabled);
 		}
 
-		Long assertionLifetime = (Long)attributes.get("assertionLifetime");
+		Integer assertionLifetime = (Integer)attributes.get("assertionLifetime");
 
 		if (assertionLifetime != null) {
 			setAssertionLifetime(assertionLifetime);
@@ -423,7 +423,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return the assertion lifetime of this saml idp sp connection
 	*/
-	public long getAssertionLifetime() {
+	public int getAssertionLifetime() {
 		return _samlIdpSpConnection.getAssertionLifetime();
 	}
 
@@ -432,7 +432,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param assertionLifetime the assertion lifetime of this saml idp sp connection
 	*/
-	public void setAssertionLifetime(long assertionLifetime) {
+	public void setAssertionLifetime(int assertionLifetime) {
 		_samlIdpSpConnection.setAssertionLifetime(assertionLifetime);
 	}
 
@@ -613,7 +613,8 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 		return new SamlIdpSpConnectionWrapper((SamlIdpSpConnection)_samlIdpSpConnection.clone());
 	}
 
-	public int compareTo(SamlIdpSpConnection samlIdpSpConnection) {
+	public int compareTo(
+		com.liferay.saml.model.SamlIdpSpConnection samlIdpSpConnection) {
 		return _samlIdpSpConnection.compareTo(samlIdpSpConnection);
 	}
 
@@ -622,11 +623,11 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 		return _samlIdpSpConnection.hashCode();
 	}
 
-	public com.liferay.portal.model.CacheModel<SamlIdpSpConnection> toCacheModel() {
+	public com.liferay.portal.model.CacheModel<com.liferay.saml.model.SamlIdpSpConnection> toCacheModel() {
 		return _samlIdpSpConnection.toCacheModel();
 	}
 
-	public SamlIdpSpConnection toEscapedModel() {
+	public com.liferay.saml.model.SamlIdpSpConnection toEscapedModel() {
 		return new SamlIdpSpConnectionWrapper(_samlIdpSpConnection.toEscapedModel());
 	}
 

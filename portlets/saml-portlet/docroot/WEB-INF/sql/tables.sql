@@ -9,7 +9,7 @@ create table SamlIdpSpConnection (
 	attributeNames VARCHAR(75) null,
 	attributesEnabled BOOLEAN,
 	attributesNamespaceEnabled BOOLEAN,
-	assertionLifetime LONG,
+	assertionLifetime INTEGER,
 	enabled BOOLEAN,
 	metadataUrl VARCHAR(75) null,
 	metadataXml VARCHAR(75) null,

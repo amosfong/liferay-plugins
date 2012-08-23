@@ -154,7 +154,7 @@ public class SamlIdpSpConnectionClp extends BaseModelImpl<SamlIdpSpConnection>
 			setAttributesNamespaceEnabled(attributesNamespaceEnabled);
 		}
 
-		Long assertionLifetime = (Long)attributes.get("assertionLifetime");
+		Integer assertionLifetime = (Integer)attributes.get("assertionLifetime");
 
 		if (assertionLifetime != null) {
 			setAssertionLifetime(assertionLifetime);
@@ -300,11 +300,11 @@ public class SamlIdpSpConnectionClp extends BaseModelImpl<SamlIdpSpConnection>
 		_attributesNamespaceEnabled = attributesNamespaceEnabled;
 	}
 
-	public long getAssertionLifetime() {
+	public int getAssertionLifetime() {
 		return _assertionLifetime;
 	}
 
-	public void setAssertionLifetime(long assertionLifetime) {
+	public void setAssertionLifetime(int assertionLifetime) {
 		_assertionLifetime = assertionLifetime;
 	}
 
@@ -604,7 +604,7 @@ public class SamlIdpSpConnectionClp extends BaseModelImpl<SamlIdpSpConnection>
 	private String _attributeNames;
 	private boolean _attributesEnabled;
 	private boolean _attributesNamespaceEnabled;
-	private long _assertionLifetime;
+	private int _assertionLifetime;
 	private boolean _enabled;
 	private String _metadataUrl;
 	private String _metadataXml;

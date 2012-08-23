@@ -183,7 +183,7 @@ public class SamlIdpSpConnectionCacheModel implements CacheModel<SamlIdpSpConnec
 	public String attributeNames;
 	public boolean attributesEnabled;
 	public boolean attributesNamespaceEnabled;
-	public long assertionLifetime;
+	public int assertionLifetime;
 	public boolean enabled;
 	public String metadataUrl;
 	public String metadataXml;

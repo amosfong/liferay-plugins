@@ -15,7 +15,7 @@
 		<field name="attributeNames" type="String" />
 		<field name="attributesEnabled" type="boolean" />
 		<field name="attributesNamespaceEnabled" type="boolean" />
-		<field name="assertionLifetime" type="long" />
+		<field name="assertionLifetime" type="int" />
 		<field name="enabled" type="boolean" />
 		<field name="metadataUrl" type="String" />
 		<field name="metadataXml" type="String" />

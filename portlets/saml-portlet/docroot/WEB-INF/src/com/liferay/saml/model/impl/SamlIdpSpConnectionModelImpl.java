@@ -71,7 +71,7 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 			{ "attributeNames", Types.VARCHAR },
 			{ "attributesEnabled", Types.BOOLEAN },
 			{ "attributesNamespaceEnabled", Types.BOOLEAN },
-			{ "assertionLifetime", Types.BIGINT },
+			{ "assertionLifetime", Types.INTEGER },
 			{ "enabled", Types.BOOLEAN },
 			{ "metadataUrl", Types.VARCHAR },
 			{ "metadataXml", Types.VARCHAR },
@@ -80,7 +80,7 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 			{ "nameIdAttribute", Types.VARCHAR },
 			{ "nameIdFormat", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table SamlIdpSpConnection (samlIdpSpConnectionId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,samlSpEntityId VARCHAR(75) null,attributeNames VARCHAR(75) null,attributesEnabled BOOLEAN,attributesNamespaceEnabled BOOLEAN,assertionLifetime LONG,enabled BOOLEAN,metadataUrl VARCHAR(75) null,metadataXml VARCHAR(75) null,metadataUpdatedDate DATE null,name VARCHAR(75) null,nameIdAttribute VARCHAR(75) null,nameIdFormat VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table SamlIdpSpConnection (samlIdpSpConnectionId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,samlSpEntityId VARCHAR(75) null,attributeNames VARCHAR(75) null,attributesEnabled BOOLEAN,attributesNamespaceEnabled BOOLEAN,assertionLifetime INTEGER,enabled BOOLEAN,metadataUrl VARCHAR(75) null,metadataXml VARCHAR(75) null,metadataUpdatedDate DATE null,name VARCHAR(75) null,nameIdAttribute VARCHAR(75) null,nameIdFormat VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table SamlIdpSpConnection";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -217,7 +217,7 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 			setAttributesNamespaceEnabled(attributesNamespaceEnabled);
 		}
 
-		Long assertionLifetime = (Long)attributes.get("assertionLifetime");
+		Integer assertionLifetime = (Integer)attributes.get("assertionLifetime");
 
 		if (assertionLifetime != null) {
 			setAssertionLifetime(assertionLifetime);
@@ -400,11 +400,11 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 		_attributesNamespaceEnabled = attributesNamespaceEnabled;
 	}
 
-	public long getAssertionLifetime() {
+	public int getAssertionLifetime() {
 		return _assertionLifetime;
 	}
 
-	public void setAssertionLifetime(long assertionLifetime) {
+	public void setAssertionLifetime(int assertionLifetime) {
 		_assertionLifetime = assertionLifetime;
 	}
 
@@ -866,7 +866,7 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 	private String _attributeNames;
 	private boolean _attributesEnabled;
 	private boolean _attributesNamespaceEnabled;
-	private long _assertionLifetime;
+	private int _assertionLifetime;
 	private boolean _enabled;
 	private String _metadataUrl;
 	private String _metadataXml;

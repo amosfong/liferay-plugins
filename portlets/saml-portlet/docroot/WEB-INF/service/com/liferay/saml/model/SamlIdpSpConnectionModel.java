@@ -240,14 +240,14 @@ public interface SamlIdpSpConnectionModel extends AuditedModel,
 	 *
 	 * @return the assertion lifetime of this saml idp sp connection
 	 */
-	public long getAssertionLifetime();
+	public int getAssertionLifetime();
 
 	/**
 	 * Sets the assertion lifetime of this saml idp sp connection.
 	 *
 	 * @param assertionLifetime the assertion lifetime of this saml idp sp connection
 	 */
-	public void setAssertionLifetime(long assertionLifetime);
+	public void setAssertionLifetime(int assertionLifetime);
 
 	/**
 	 * Returns the enabled of this saml idp sp connection.
