@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.auth.CompanyThreadLocal;
 import com.liferay.saml.provider.CachingChainingMetadataProvider;
+import com.liferay.saml.provider.DBMetadataProvider;
 import com.liferay.saml.provider.ReinitializingFilesystemMetadataProvider;
 import com.liferay.saml.provider.ReinitializingHttpMetadataProvider;
 import com.liferay.saml.util.PortletPropsKeys;
@@ -146,13 +147,20 @@ public class MetadataManagerImpl implements MetadataManager {
 				return metadataProvider;
 			}
 
-			String[] paths = PropsUtil.getArray(
-				PortletPropsKeys.SAML_METADATA_PATHS);
-
 			CachingChainingMetadataProvider cachingChainingMetadataProvider =
 				new CachingChainingMetadataProvider();
 
 			metadataProvider = cachingChainingMetadataProvider;
+
+			DBMetadataProvider dbMetadataProvider = new DBMetadataProvider();
+
+			dbMetadataProvider.setParserPool(_parserPool);
+
+			cachingChainingMetadataProvider.addMetadataProvider(
+				dbMetadataProvider);
+
+			String[] paths = PropsUtil.getArray(
+				PortletPropsKeys.SAML_METADATA_PATHS);
 
 			for (String path : paths) {
 				if (path.startsWith("http://") || path.startsWith("https://")) {
