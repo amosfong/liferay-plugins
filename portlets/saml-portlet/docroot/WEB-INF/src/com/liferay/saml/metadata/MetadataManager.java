@@ -43,13 +43,21 @@ public interface MetadataManager {
 	public MetadataProvider getMetadataProvider()
 		throws MetadataProviderException;
 
+	public String getNameIdAttribute(String entityId);
+
 	public String getNameIdFormat();
+
+	public String getNameIdFormat(String entityId);
 
 	public SecurityPolicyResolver getSecurityPolicyResolver(
 			String communicationProfileId, boolean requireSignature)
 		throws MetadataProviderException;
 
 	public String getSessionKeepAliveURL(String entityId);
+
+	public long getSessionMaximumAge();
+
+	public long getSessionTimeout();
 
 	public SignatureTrustEngine getSignatureTrustEngine()
 		throws MetadataProviderException;

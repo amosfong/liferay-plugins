@@ -15,17 +15,14 @@
 package com.liferay.saml.resolver;
 
 import com.liferay.portal.kernel.bean.BeanPropertiesUtil;
-import com.liferay.portal.kernel.configuration.Filter;
-import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.User;
 import com.liferay.portlet.expando.model.ExpandoBridge;
+import com.liferay.saml.metadata.MetadataManagerUtil;
 import com.liferay.saml.util.OpenSamlUtil;
-import com.liferay.saml.util.PortletPropsKeys;
 
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.NameIDPolicy;
-import org.opensaml.saml2.core.NameIDType;
 
 /**
  * @author Mika Koivisto
@@ -42,20 +39,7 @@ public class DefaultNameIdResolver implements NameIdResolver {
 	}
 
 	protected String getNameIdAttributeName(String entityId) {
-		String nameIdAttributeName = PropsUtil.get(
-			PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_ATTRIBUTE,
-			new Filter(entityId));
-
-		if (Validator.isNull(nameIdAttributeName)) {
-			nameIdAttributeName = PropsUtil.get(
-				PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_ATTRIBUTE);
-		}
-
-		if (Validator.isNull(nameIdAttributeName)) {
-			nameIdAttributeName = "emailAddress";
-		}
-
-		return nameIdAttributeName;
+		return MetadataManagerUtil.getNameIdAttribute(entityId);
 	}
 
 	protected String getNameIdFormat(
@@ -67,20 +51,7 @@ public class DefaultNameIdResolver implements NameIdResolver {
 			return nameIdPolicy.getFormat();
 		}
 
-		String nameIdFormat = PropsUtil.get(
-			PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_FORMAT,
-			new Filter(entityId));
-
-		if (Validator.isNull(nameIdFormat)) {
-			nameIdFormat = PropsUtil.get(
-				PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_FORMAT);
-		}
-
-		if (Validator.isNull(nameIdFormat)) {
-			nameIdFormat = NameIDType.EMAIL;
-		}
-
-		return nameIdFormat;
+		return MetadataManagerUtil.getNameIdFormat(entityId);
 	}
 
 	protected String getNameIdValue(User user, String entityId) {

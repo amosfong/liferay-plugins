@@ -62,8 +62,16 @@ public class MetadataManagerUtil {
 		return getMetadataManager().getMetadataProvider();
 	}
 
+	public static String getNameIdAttribute(String entityId) {
+		return getMetadataManager().getNameIdAttribute(entityId);
+	}
+
 	public static String getNameIdFormat() {
 		return getMetadataManager().getNameIdFormat();
+	}
+
+	public static String getNameIdFormat(String entityId) {
+		return getMetadataManager().getNameIdFormat(entityId);
 	}
 
 	public static SecurityPolicyResolver getSecurityPolicyResolver(
@@ -76,6 +84,14 @@ public class MetadataManagerUtil {
 
 	public static String getSessionKeepAliveURL(String entityId) {
 		return getMetadataManager().getSessionKeepAliveURL(entityId);
+	}
+
+	public static long getSessionMaximumAge() {
+		return getMetadataManager().getSessionMaximumAge();
+	}
+
+	public static long getSessionTimeout() {
+		return getMetadataManager().getSessionTimeout();
 	}
 
 	public static SignatureTrustEngine getSignatureTrustEngine()

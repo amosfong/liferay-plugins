@@ -21,12 +21,16 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.auth.CompanyThreadLocal;
+import com.liferay.saml.model.SamlIdpSpConnection;
 import com.liferay.saml.provider.CachingChainingMetadataProvider;
 import com.liferay.saml.provider.DBMetadataProvider;
 import com.liferay.saml.provider.ReinitializingFilesystemMetadataProvider;
 import com.liferay.saml.provider.ReinitializingHttpMetadataProvider;
+import com.liferay.saml.service.SamlIdpSpConnectionLocalServiceUtil;
+import com.liferay.saml.util.PortletPrefsPropsUtil;
 import com.liferay.saml.util.PortletPropsKeys;
 import com.liferay.saml.util.PortletPropsValues;
 import com.liferay.saml.util.SamlUtil;
@@ -80,13 +84,20 @@ import org.opensaml.xml.signature.impl.ExplicitKeySignatureTrustEngine;
 public class MetadataManagerImpl implements MetadataManager {
 
 	public int getAssertionLifetime(String entityId) {
-		String samlIdpAssertionLifetime = PropsUtil.get(
-			PortletPropsKeys.SAML_IDP_ASSERTION_LIFETIME, new Filter(entityId));
+		long companyId = CompanyThreadLocal.getCompanyId();
 
-		if (Validator.isNull(samlIdpAssertionLifetime)) {
-			samlIdpAssertionLifetime = PropsUtil.get(
-				PortletPropsKeys.SAML_IDP_ASSERTION_LIFETIME);
+		try {
+			SamlIdpSpConnection samlIdpSpConnection =
+				SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnection(
+					companyId, entityId);
+
+			return samlIdpSpConnection.getAssertionLifetime();
 		}
+		catch (Exception e) {
+		}
+
+		String samlIdpAssertionLifetime = PortletPrefsPropsUtil.getString(
+			PortletPropsKeys.SAML_IDP_ASSERTION_LIFETIME, new Filter(entityId));
 
 		return GetterUtil.getInteger(samlIdpAssertionLifetime, 1800);
 	}
@@ -124,7 +135,7 @@ public class MetadataManagerImpl implements MetadataManager {
 	}
 
 	public String getLocalEntityId() {
-		return PropsUtil.get(PortletPropsKeys.SAML_ENTITY_ID);
+		return PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_ENTITY_ID);
 	}
 
 	public MetadataProvider getMetadataProvider()
@@ -222,10 +233,68 @@ public class MetadataManagerImpl implements MetadataManager {
 		}
 	}
 
+	public String getNameIdAttribute(String entityId) {
+		long companyId = CompanyThreadLocal.getCompanyId();
+		String nameIdAttributeName = StringPool.BLANK;
+
+		try {
+			SamlIdpSpConnection samlIdpSpConnection =
+				SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnection(
+					companyId, entityId);
+
+			nameIdAttributeName = samlIdpSpConnection.getNameIdAttribute();
+		}
+		catch (Exception e) {
+		}
+
+		if (Validator.isNotNull(nameIdAttributeName)) {
+			return nameIdAttributeName;
+		}
+
+		nameIdAttributeName = PortletPrefsPropsUtil.getString(
+			PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_ATTRIBUTE,
+			new Filter(entityId));
+
+		if (Validator.isNull(nameIdAttributeName)) {
+			nameIdAttributeName = "emailAddress";
+		}
+
+		return nameIdAttributeName;
+	}
+
 	public String getNameIdFormat() {
 		return GetterUtil.getString(
 			PropsUtil.get(PortletPropsKeys.SAML_SP_NAME_ID_FORMAT),
 			NameIDType.EMAIL);
+	}
+
+	public String getNameIdFormat(String entityId) {
+		long companyId = CompanyThreadLocal.getCompanyId();
+		String nameIdFormat = StringPool.BLANK;
+
+		try {
+			SamlIdpSpConnection samlIdpSpConnection =
+				SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnection(
+					companyId, entityId);
+
+			nameIdFormat = samlIdpSpConnection.getNameIdFormat();
+		}
+		catch (Exception e) {
+		}
+
+		if (Validator.isNotNull(nameIdFormat)) {
+			return nameIdFormat;
+		}
+
+		nameIdFormat = PortletPrefsPropsUtil.getString(
+			PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_FORMAT,
+			new Filter(entityId));
+
+		if (Validator.isNull(nameIdFormat)) {
+			nameIdFormat = NameIDType.EMAIL;
+		}
+
+		return nameIdFormat;
 	}
 
 	public SecurityPolicyResolver getSecurityPolicyResolver(
@@ -302,6 +371,16 @@ public class MetadataManagerImpl implements MetadataManager {
 			new Filter(entityId));
 	}
 
+	public long getSessionMaximumAge() {
+		return PortletPrefsPropsUtil.getLong(
+			PortletPropsKeys.SAML_IDP_SESSION_MAXIMUM_AGE);
+	}
+
+	public long getSessionTimeout() {
+		return PortletPrefsPropsUtil.getLong(
+			PortletPropsKeys.SAML_IDP_SESSION_TIMEOUT);
+	}
+
 	public SignatureTrustEngine getSignatureTrustEngine()
 		throws MetadataProviderException {
 
@@ -339,6 +418,10 @@ public class MetadataManagerImpl implements MetadataManager {
 
 		String entityId = getLocalEntityId();
 
+		if (Validator.isNull(entityId)) {
+			return null;
+		}
+
 		EntityIDCriteria entityIdCriteria = new EntityIDCriteria(entityId);
 
 		criteriaSet.add(entityIdCriteria);
@@ -347,30 +430,43 @@ public class MetadataManagerImpl implements MetadataManager {
 	}
 
 	public boolean isAttributesEnabled(String entityId) {
-		String attributesEnabled = PropsUtil.get(
+		long companyId = CompanyThreadLocal.getCompanyId();
+
+		try {
+			SamlIdpSpConnection samlIdpSpConnection =
+				SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnection(
+					companyId, entityId);
+
+			return samlIdpSpConnection.isAttributesEnabled();
+		}
+		catch (Exception e) {
+		}
+
+		String attributesEnabled = PortletPrefsPropsUtil.getString(
 			PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_ENABLED,
 			new Filter(entityId));
-
-		if (Validator.isNull(attributesEnabled)) {
-			attributesEnabled = PropsUtil.get(
-				PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_ENABLED);
-		}
 
 		return GetterUtil.getBoolean(attributesEnabled);
 	}
 
 	public boolean isAttributesNamespaceEnabled(String entityId) {
-		String attributesNamespaceEnabled = PropsUtil.get(
+		long companyId = CompanyThreadLocal.getCompanyId();
+
+		try {
+			SamlIdpSpConnection samlIdpSpConnection =
+				SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnection(
+					companyId, entityId);
+
+			return samlIdpSpConnection.isAttributesNamespaceEnabled();
+		}
+		catch (Exception e) {
+		}
+
+		String attributesNamespaceEnabled = PortletPrefsPropsUtil.getString(
 			PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_NAMESPACE_ENABLED,
 			new Filter(entityId));
 
-		if (Validator.isNull(attributesNamespaceEnabled)) {
-			attributesNamespaceEnabled = PropsUtil.get(
-				PortletPropsKeys.
-					SAML_IDP_METADATA_ATTRIBUTES_NAMESPACE_ENABLED);
-		}
-
-		return GetterUtil.getBoolean(attributesNamespaceEnabled, true);
+		return GetterUtil.getBoolean(attributesNamespaceEnabled);
 	}
 
 	public boolean isSignAuthnRequests() {
@@ -379,13 +475,11 @@ public class MetadataManagerImpl implements MetadataManager {
 	}
 
 	public boolean isSignMetadata() {
-		return GetterUtil.getBoolean(
-			PropsUtil.get(PortletPropsKeys.SAML_SIGN_METADATA));
+		return PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SAML_SIGN_METADATA);
 	}
 
 	public boolean isSSLRequired() {
-		return GetterUtil.getBoolean(
-			PropsUtil.get(PortletPropsKeys.SAML_SSL_REQUIRED));
+		return PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SAML_SSL_REQUIRED);
 	}
 
 	public boolean isWantAssertionsSigned() {
@@ -395,9 +489,8 @@ public class MetadataManagerImpl implements MetadataManager {
 	}
 
 	public boolean isWantAuthnRequestSigned() {
-		return GetterUtil.getBoolean(
-			PropsUtil.get(
-				PortletPropsKeys.SAML_IDP_AUTHN_REQUEST_SIGNATURE_REQUIRED));
+		return PortletPrefsPropsUtil.getBoolean(
+				PortletPropsKeys.SAML_IDP_AUTHN_REQUEST_SIGNATURE_REQUIRED);
 	}
 
 	public void setCredentialResolver(CredentialResolver credentialResolver) {
