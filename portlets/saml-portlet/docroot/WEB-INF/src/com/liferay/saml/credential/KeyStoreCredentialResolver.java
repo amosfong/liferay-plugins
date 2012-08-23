@@ -15,7 +15,7 @@
 package com.liferay.saml.credential;
 
 import com.liferay.portal.kernel.configuration.Filter;
-import com.liferay.saml.util.PortletPrefsUtil;
+import com.liferay.saml.util.PortletPrefsPropsUtil;
 import com.liferay.saml.util.PortletPropsKeys;
 
 import java.security.KeyStore.Entry;
@@ -142,9 +142,10 @@ public class KeyStoreCredentialResolver
 
 			KeyStore.PasswordProtection keyStorePasswordProtection = null;
 
-			String samlKeystoreCredentialPassword = PortletPrefsUtil.getString(
-				PortletPropsKeys.SAML_KEYSTORE_CREDENTIAL_PASSWORD,
-				new Filter(entityId));
+			String samlKeystoreCredentialPassword =
+				PortletPrefsPropsUtil.getString(
+					PortletPropsKeys.SAML_KEYSTORE_CREDENTIAL_PASSWORD,
+					new Filter(entityId));
 
 			if (samlKeystoreCredentialPassword != null) {
 				keyStorePasswordProtection = new KeyStore.PasswordProtection(

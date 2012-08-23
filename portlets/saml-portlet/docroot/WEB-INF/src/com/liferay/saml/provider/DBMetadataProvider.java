@@ -14,8 +14,6 @@
 
 package com.liferay.saml.provider;
 
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.auth.CompanyThreadLocal;
 import com.liferay.saml.NoSuchIdpSpConnectionException;
@@ -25,6 +23,7 @@ import com.liferay.saml.util.OpenSamlUtil;
 import com.liferay.saml.util.SamlUtil;
 
 import java.io.StringReader;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -32,6 +31,7 @@ import java.util.Set;
 import javax.xml.namespace.QName;
 
 import org.joda.time.DateTime;
+
 import org.opensaml.saml2.common.Extensions;
 import org.opensaml.saml2.metadata.EntitiesDescriptor;
 import org.opensaml.saml2.metadata.EntityDescriptor;
@@ -46,6 +46,7 @@ import org.opensaml.xml.schema.XSBooleanValue;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.util.IDIndex;
 import org.opensaml.xml.util.LazySet;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -137,6 +138,8 @@ public class DBMetadataProvider extends BaseMetadataProvider {
 		_parserPool = parserPool;
 	}
 
+	private ParserPool _parserPool;
+
 	private class DBEntitiesDescriptor implements EntitiesDescriptor {
 
 		public DBEntitiesDescriptor() {
@@ -146,7 +149,8 @@ public class DBMetadataProvider extends BaseMetadataProvider {
 		}
 
 		@SuppressWarnings("rawtypes")
-		public void deregisterValidator(org.opensaml.xml.validation.Validator validator) {
+		public void deregisterValidator(
+			org.opensaml.xml.validation.Validator validator) {
 		}
 
 		public void detach() {
@@ -286,7 +290,8 @@ public class DBMetadataProvider extends BaseMetadataProvider {
 		}
 
 		@SuppressWarnings("rawtypes")
-		public void registerValidator(org.opensaml.xml.validation.Validator validator) {
+		public void registerValidator(
+			org.opensaml.xml.validation.Validator validator) {
 		}
 
 		public void releaseChildrenDOM(boolean propagateRelease) {
@@ -350,9 +355,5 @@ public class DBMetadataProvider extends BaseMetadataProvider {
 
 		private List<XMLObject> _xmlObjects;
 	}
-
-	private static Log _log = LogFactoryUtil.getLog(DBMetadataProvider.class);
-
-	private ParserPool _parserPool;
 
 }

@@ -14,8 +14,6 @@
 
 package com.liferay.saml.credential;
 
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.FileUtil;
@@ -30,12 +28,10 @@ import com.liferay.saml.util.PortletPropsKeys;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
+
 import java.security.KeyStore;
 import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
 
 /**
  * @author Mika Koivisto
@@ -99,7 +95,7 @@ public class DLKeyStoreManagerImpl implements KeyStoreManager {
 			long companyId = CompanyThreadLocal.getCompanyId();
 
 			if (!DLStoreUtil.hasDirectory(
-					companyId,CompanyConstants.SYSTEM, _SAML_KEYSTORE_DIR)) {
+					companyId, CompanyConstants.SYSTEM, _SAML_KEYSTORE_DIR)) {
 
 				DLStoreUtil.addDirectory(
 					companyId, CompanyConstants.SYSTEM, _SAML_KEYSTORE_DIR);
@@ -121,10 +117,10 @@ public class DLKeyStoreManagerImpl implements KeyStoreManager {
 		}
 	}
 
-	private static Log _log = LogFactoryUtil.getLog(
-		DLKeyStoreManagerImpl.class);
-
 	private static final String _SAML_KEYSTORE_DIR = "/saml";
 	private static final String _SAML_KEYSTORE_PATH = "/saml/keystore.jks";
+
+	private static Log _log = LogFactoryUtil.getLog(
+		DLKeyStoreManagerImpl.class);
 
 }

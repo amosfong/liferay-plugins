@@ -29,13 +29,14 @@ public class KeyStoreManagerUtil {
 		return _keyStoreManager;
 	}
 
-	public void setKeyStoreManager(KeyStoreManager keyStoreManager) {
-		_keyStoreManager = keyStoreManager;
-	}
-
 	public static void saveKeyStore(KeyStore keyStore) throws Exception {
 		getKeyStoreManager().saveKeyStore(keyStore);
 	}
 
+	public void setKeyStoreManager(KeyStoreManager keyStoreManager) {
+		_keyStoreManager = keyStoreManager;
+	}
+
 	private static KeyStoreManager _keyStoreManager;
+
 }

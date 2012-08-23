@@ -47,6 +47,23 @@ public class FileSystemKeyStoreManagerImpl implements KeyStoreManager {
 		return _keyStore;
 	}
 
+	public void saveKeyStore(KeyStore keyStore) throws Exception {
+		String samlKeyStorePassword = GetterUtil.getString(
+			PropsUtil.get(PortletPropsKeys.SAML_KEYSTORE_PASSWORD), "liferay");
+		String liferayHome = PropsUtil.get(PropsKeys.LIFERAY_HOME);
+
+		String defaultSamlKeyStorePath = liferayHome.concat(
+			"/data/keystore.jks");
+
+		String samlKeyStorePath = GetterUtil.getString(
+			PropsUtil.get(PortletPropsKeys.SAML_KEYSTORE_PATH),
+			defaultSamlKeyStorePath);
+
+		keyStore.store(
+			new FileOutputStream(samlKeyStorePath),
+			samlKeyStorePassword.toCharArray());
+	}
+
 	protected void init() {
 		InputStream inputStream = null;
 
@@ -77,7 +94,7 @@ public class FileSystemKeyStoreManagerImpl implements KeyStoreManager {
 			PropsUtil.get(PortletPropsKeys.SAML_KEYSTORE_PASSWORD), "liferay");
 
 		if (samlKeyStorePath.startsWith("classpath:")) {
-			inputStream = FileSystemKeyStoreManagerImpl.class.getResourceAsStream(
+			inputStream = this.getClass().getResourceAsStream(
 				samlKeyStorePath.substring(10));
 		}
 		else {
@@ -123,24 +140,8 @@ public class FileSystemKeyStoreManagerImpl implements KeyStoreManager {
 		}
 	}
 
-	public void saveKeyStore(KeyStore keyStore) throws Exception {
-		String samlKeyStorePassword = GetterUtil.getString(
-			PropsUtil.get(PortletPropsKeys.SAML_KEYSTORE_PASSWORD), "liferay");
-		String liferayHome = PropsUtil.get(PropsKeys.LIFERAY_HOME);
-
-		String defaultSamlKeyStorePath = liferayHome.concat(
-			"/data/keystore.jks");
-
-		String samlKeyStorePath = GetterUtil.getString(
-			PropsUtil.get(PortletPropsKeys.SAML_KEYSTORE_PATH),
-			defaultSamlKeyStorePath);
-
-		keyStore.store(
-			new FileOutputStream(samlKeyStorePath),
-			samlKeyStorePassword.toCharArray());
-	}
-
-	private static Log _log = LogFactoryUtil.getLog(FileSystemKeyStoreManagerImpl.class);
+	private static Log _log = LogFactoryUtil.getLog(
+		FileSystemKeyStoreManagerImpl.class);
 
 	private KeyStore _keyStore;
 

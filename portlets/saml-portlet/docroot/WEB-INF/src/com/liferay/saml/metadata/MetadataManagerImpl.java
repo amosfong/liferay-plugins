@@ -475,11 +475,13 @@ public class MetadataManagerImpl implements MetadataManager {
 	}
 
 	public boolean isSignMetadata() {
-		return PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SAML_SIGN_METADATA);
+		return PortletPrefsPropsUtil.getBoolean(
+			PortletPropsKeys.SAML_SIGN_METADATA);
 	}
 
 	public boolean isSSLRequired() {
-		return PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SAML_SSL_REQUIRED);
+		return PortletPrefsPropsUtil.getBoolean(
+			PortletPropsKeys.SAML_SSL_REQUIRED);
 	}
 
 	public boolean isWantAssertionsSigned() {
