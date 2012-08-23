@@ -33,13 +33,15 @@ public class AdminMessageListener extends BaseMessageListener {
 			(ReportResultContainer)message.getPayload();
 
 		long entryId = GetterUtil.getLong(message.getResponseId());
+
 		if (reportResultContainer.hasError()) {
 			ReportGenerationException reportGenerationException =
 				reportResultContainer.getReportGenerationException();
 			EntryLocalServiceUtil.updateEntryStatus(
 				entryId, ReportStatus.ERROR,
 				reportGenerationException.getMessage());
-		}else {
+		}
+		else {
 			EntryLocalServiceUtil.updateEntry(
 				entryId, reportResultContainer.getReportName(),
 				reportResultContainer.getResults());
