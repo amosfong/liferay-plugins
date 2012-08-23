@@ -17,13 +17,10 @@ package com.liferay.saml.credential;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.FileUtil;
-import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.StreamUtil;
 import com.liferay.portal.model.CompanyConstants;
-import com.liferay.portal.security.auth.CompanyThreadLocal;
 import com.liferay.portlet.documentlibrary.NoSuchFileException;
 import com.liferay.portlet.documentlibrary.store.DLStoreUtil;
-import com.liferay.saml.util.PortletPropsKeys;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -36,15 +33,12 @@ import java.security.KeyStoreException;
 /**
  * @author Mika Koivisto
  */
-public class DLKeyStoreManagerImpl implements KeyStoreManager {
+public class DLKeyStoreManagerImpl extends BaseKeyStoreManagerImpl {
 
 	public KeyStore getKeyStore() {
-		long companyId = CompanyThreadLocal.getCompanyId();
-
-		String samlKeyStoreType = GetterUtil.getString(
-			PropsUtil.get(PortletPropsKeys.SAML_KEYSTORE_TYPE), "jks");
-
 		KeyStore keyStore = null;
+
+		String samlKeyStoreType = getSamlKeyStoreType();
 
 		try {
 			keyStore = KeyStore.getInstance(samlKeyStoreType);
@@ -57,12 +51,13 @@ public class DLKeyStoreManagerImpl implements KeyStoreManager {
 			return null;
 		}
 
-		String samlKeyStorePassword = GetterUtil.getString(
-			PropsUtil.get(PortletPropsKeys.SAML_KEYSTORE_PASSWORD), "liferay");
+		InputStream inputStream = null;
 
 		try {
-			InputStream inputStream = DLStoreUtil.getFileAsStream(
-				companyId, CompanyConstants.SYSTEM, _SAML_KEYSTORE_PATH);
+			inputStream = DLStoreUtil.getFileAsStream(
+				getCompanyId(), CompanyConstants.SYSTEM, _SAML_KEYSTORE_PATH);
+
+			String samlKeyStorePassword = getSamlKeyStorePassword();
 
 			keyStore.load(inputStream, samlKeyStorePassword.toCharArray());
 		}
@@ -77,39 +72,43 @@ public class DLKeyStoreManagerImpl implements KeyStoreManager {
 		catch (Exception e) {
 			_log.error("Unable to load keystore ", e);
 		}
+		finally {
+			StreamUtil.cleanUp(inputStream);
+		}
 
 		return keyStore;
 	}
 
 	public void saveKeyStore(KeyStore keyStore) throws Exception {
-		String samlKeyStorePassword = GetterUtil.getString(
-			PropsUtil.get(PortletPropsKeys.SAML_KEYSTORE_PASSWORD), "liferay");
-
 		File tempFile = FileUtil.createTempFile("jks");
 
 		try {
+			String samlKeyStorePassword = getSamlKeyStorePassword();
+
 			keyStore.store(
 				new FileOutputStream(tempFile),
 				samlKeyStorePassword.toCharArray());
 
-			long companyId = CompanyThreadLocal.getCompanyId();
-
 			if (!DLStoreUtil.hasDirectory(
-					companyId, CompanyConstants.SYSTEM, _SAML_KEYSTORE_DIR)) {
+					getCompanyId(), CompanyConstants.SYSTEM,
+					_SAML_KEYSTORE_DIR_NAME)) {
 
 				DLStoreUtil.addDirectory(
-					companyId, CompanyConstants.SYSTEM, _SAML_KEYSTORE_DIR);
+					getCompanyId(), CompanyConstants.SYSTEM,
+					_SAML_KEYSTORE_DIR_NAME);
 			}
 
 			if (DLStoreUtil.hasFile(
-					companyId, CompanyConstants.SYSTEM, _SAML_KEYSTORE_PATH)) {
+					getCompanyId(), CompanyConstants.SYSTEM,
+					_SAML_KEYSTORE_PATH)) {
 
 				DLStoreUtil.deleteFile(
-					companyId, CompanyConstants.SYSTEM, _SAML_KEYSTORE_PATH);
+					getCompanyId(), CompanyConstants.SYSTEM,
+					_SAML_KEYSTORE_PATH);
 			}
 
 			DLStoreUtil.addFile(
-				companyId, CompanyConstants.SYSTEM, _SAML_KEYSTORE_PATH,
+				getCompanyId(), CompanyConstants.SYSTEM, _SAML_KEYSTORE_PATH,
 				new FileInputStream(tempFile));
 		}
 		finally {
@@ -117,7 +116,8 @@ public class DLKeyStoreManagerImpl implements KeyStoreManager {
 		}
 	}
 
-	private static final String _SAML_KEYSTORE_DIR = "/saml";
+	private static final String _SAML_KEYSTORE_DIR_NAME = "/saml";
+
 	private static final String _SAML_KEYSTORE_PATH = "/saml/keystore.jks";
 
 	private static Log _log = LogFactoryUtil.getLog(

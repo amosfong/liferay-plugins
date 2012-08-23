@@ -167,7 +167,7 @@ public class CachingChainingMetadataProvider extends BaseMetadataProvider {
 		return Collections.unmodifiableList(_metadataProviders);
 	}
 
-	public List<RoleDescriptor> getRole(String entityId, QName roleName) {
+	public List<RoleDescriptor> getRole(String entityId, QName qName) {
 		Lock lock = _readWriteLock.readLock();
 
 		lock.lock();
@@ -179,7 +179,7 @@ public class CachingChainingMetadataProvider extends BaseMetadataProvider {
 			if (metadataProvider != null) {
 				try {
 					List<RoleDescriptor> roleDescriptors =
-						metadataProvider.getRole(entityId, roleName);
+						metadataProvider.getRole(entityId, qName);
 
 					if (roleDescriptors != null) {
 						return roleDescriptors;
@@ -196,7 +196,7 @@ public class CachingChainingMetadataProvider extends BaseMetadataProvider {
 
 				try {
 					List<RoleDescriptor>roleDescriptors =
-						metadataProvider.getRole(entityId, roleName);
+						metadataProvider.getRole(entityId, qName);
 
 					if ((roleDescriptors != null) &&
 						!roleDescriptors.isEmpty()) {
@@ -224,9 +224,9 @@ public class CachingChainingMetadataProvider extends BaseMetadataProvider {
 	}
 
 	public RoleDescriptor getRole(
-		String entityId, QName roleName, String supportedProtocol) {
+		String entityId, QName qName, String supportedProtocol) {
 
-Lock lock = _readWriteLock.readLock();
+		Lock lock = _readWriteLock.readLock();
 
 		lock.lock();
 
@@ -237,7 +237,7 @@ Lock lock = _readWriteLock.readLock();
 			if (metadataProvider != null) {
 				try {
 					RoleDescriptor roleDescriptor = metadataProvider.getRole(
-						entityId, roleName, supportedProtocol);
+						entityId, qName, supportedProtocol);
 
 					if (roleDescriptor != null) {
 						return roleDescriptor;
@@ -254,7 +254,7 @@ Lock lock = _readWriteLock.readLock();
 
 				try {
 					RoleDescriptor roleDescriptor = metadataProvider.getRole(
-						entityId, roleName, supportedProtocol);
+						entityId, qName, supportedProtocol);
 
 					if (roleDescriptor != null) {
 						_metadataProvidersMap.put(entityId, metadataProvider);

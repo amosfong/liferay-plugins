@@ -235,6 +235,7 @@ public class MetadataManagerImpl implements MetadataManager {
 
 	public String getNameIdAttribute(String entityId) {
 		long companyId = CompanyThreadLocal.getCompanyId();
+
 		String nameIdAttributeName = StringPool.BLANK;
 
 		try {
@@ -270,6 +271,7 @@ public class MetadataManagerImpl implements MetadataManager {
 
 	public String getNameIdFormat(String entityId) {
 		long companyId = CompanyThreadLocal.getCompanyId();
+
 		String nameIdFormat = StringPool.BLANK;
 
 		try {

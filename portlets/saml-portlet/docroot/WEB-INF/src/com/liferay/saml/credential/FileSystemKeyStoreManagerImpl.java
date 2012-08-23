@@ -16,11 +16,7 @@ package com.liferay.saml.credential;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.PropsKeys;
-import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.saml.util.PortletPropsKeys;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -33,7 +29,7 @@ import java.security.KeyStoreException;
 /**
  * @author Mika Koivisto
  */
-public class FileSystemKeyStoreManagerImpl implements KeyStoreManager {
+public class FileSystemKeyStoreManagerImpl extends BaseKeyStoreManagerImpl {
 
 	public FileSystemKeyStoreManagerImpl() {
 		init();
@@ -48,16 +44,8 @@ public class FileSystemKeyStoreManagerImpl implements KeyStoreManager {
 	}
 
 	public void saveKeyStore(KeyStore keyStore) throws Exception {
-		String samlKeyStorePassword = GetterUtil.getString(
-			PropsUtil.get(PortletPropsKeys.SAML_KEYSTORE_PASSWORD), "liferay");
-		String liferayHome = PropsUtil.get(PropsKeys.LIFERAY_HOME);
-
-		String defaultSamlKeyStorePath = liferayHome.concat(
-			"/data/keystore.jks");
-
-		String samlKeyStorePath = GetterUtil.getString(
-			PropsUtil.get(PortletPropsKeys.SAML_KEYSTORE_PATH),
-			defaultSamlKeyStorePath);
+		String samlKeyStorePath = getSamlKeyStorePath();
+		String samlKeyStorePassword = getSamlKeyStorePassword();
 
 		keyStore.store(
 			new FileOutputStream(samlKeyStorePath),
@@ -67,17 +55,7 @@ public class FileSystemKeyStoreManagerImpl implements KeyStoreManager {
 	protected void init() {
 		InputStream inputStream = null;
 
-		String liferayHome = PropsUtil.get(PropsKeys.LIFERAY_HOME);
-
-		String defaultSamlKeyStorePath = liferayHome.concat(
-			"/data/keystore.jks");
-
-		String samlKeyStorePath = GetterUtil.getString(
-			PropsUtil.get(PortletPropsKeys.SAML_KEYSTORE_PATH),
-			defaultSamlKeyStorePath);
-
-		String samlKeyStoreType = GetterUtil.getString(
-			PropsUtil.get(PortletPropsKeys.SAML_KEYSTORE_TYPE), "jks");
+		String samlKeyStoreType = getSamlKeyStoreType();
 
 		try {
 			_keyStore = KeyStore.getInstance(samlKeyStoreType);
@@ -90,11 +68,12 @@ public class FileSystemKeyStoreManagerImpl implements KeyStoreManager {
 			return;
 		}
 
-		String samlKeyStorePassword = GetterUtil.getString(
-			PropsUtil.get(PortletPropsKeys.SAML_KEYSTORE_PASSWORD), "liferay");
+		String samlKeyStorePath = getSamlKeyStorePath();
 
 		if (samlKeyStorePath.startsWith("classpath:")) {
-			inputStream = this.getClass().getResourceAsStream(
+			Class<?> clazz = getClass();
+
+			inputStream = clazz.getResourceAsStream(
 				samlKeyStorePath.substring(10));
 		}
 		else {
@@ -103,6 +82,8 @@ public class FileSystemKeyStoreManagerImpl implements KeyStoreManager {
 			}
 			catch (FileNotFoundException fnfe) {
 				try {
+					String samlKeyStorePassword = getSamlKeyStorePassword();
+
 					if (_log.isWarnEnabled()) {
 						StringBundler sb = new StringBundler(5);
 
@@ -133,6 +114,8 @@ public class FileSystemKeyStoreManagerImpl implements KeyStoreManager {
 		}
 
 		try {
+			String samlKeyStorePassword = getSamlKeyStorePassword();
+
 			_keyStore.load(inputStream, samlKeyStorePassword.toCharArray());
 		}
 		catch (Exception e) {

@@ -55,18 +55,16 @@ import org.w3c.dom.Element;
  */
 public class DBMetadataProvider extends BaseMetadataProvider {
 
-	public EntitiesDescriptor getEntitiesDescriptor(String name)
-		throws MetadataProviderException {
-
+	public EntitiesDescriptor getEntitiesDescriptor(String name) {
 		return null;
 	}
 
 	public EntityDescriptor getEntityDescriptor(String entityId)
 		throws MetadataProviderException {
 
-		long companyId = CompanyThreadLocal.getCompanyId();
-
 		try {
+			long companyId = CompanyThreadLocal.getCompanyId();
+
 			SamlIdpSpConnection samlIdpSpConnection =
 				SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnection(
 					companyId, entityId);
@@ -99,33 +97,33 @@ public class DBMetadataProvider extends BaseMetadataProvider {
 		return null;
 	}
 
-	public XMLObject getMetadata() throws MetadataProviderException {
+	public XMLObject getMetadata() {
 		return new DBEntitiesDescriptor();
 	}
 
-	public List<RoleDescriptor> getRole(String entityId, QName roleName)
+	public List<RoleDescriptor> getRole(String entityId, QName qName)
 		throws MetadataProviderException {
 
 		EntityDescriptor entityDescriptor = getEntityDescriptor(entityId);
 
 		if (entityDescriptor != null) {
-			return entityDescriptor.getRoleDescriptors(roleName);
+			return entityDescriptor.getRoleDescriptors(qName);
 		}
 
 		return null;
 	}
 
 	public RoleDescriptor getRole(
-		String entityId, QName roleName, String supportedProtocol)
+			String entityId, QName qName, String supportedProtocol)
 		throws MetadataProviderException {
 
-		List<RoleDescriptor> roles = getRole(entityId, roleName);
+		List<RoleDescriptor> roleDescriptors = getRole(entityId, qName);
 
-		if ((roles == null) || roles.isEmpty()) {
+		if ((roleDescriptors == null) || roleDescriptors.isEmpty()) {
 			return null;
 		}
 
-		for (RoleDescriptor roleDescriptor : roles) {
+		for (RoleDescriptor roleDescriptor : roleDescriptors) {
 			if (roleDescriptor.isSupportedProtocol(supportedProtocol)) {
 				return roleDescriptor;
 			}
@@ -229,9 +227,7 @@ public class DBMetadataProvider extends BaseMetadataProvider {
 		}
 
 		public List<XMLObject> getOrderedChildren() {
-			List<XMLObject> xmlObjects = new ArrayList<XMLObject>();
-
-			return xmlObjects;
+			return new ArrayList<XMLObject>();
 		}
 
 		public XMLObject getParent() {

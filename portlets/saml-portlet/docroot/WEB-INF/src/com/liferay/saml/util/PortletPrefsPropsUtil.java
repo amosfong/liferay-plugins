@@ -15,7 +15,6 @@
 package com.liferay.saml.util;
 
 import com.liferay.portal.kernel.configuration.Filter;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PrefsPropsUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
@@ -57,7 +56,7 @@ public class PortletPrefsPropsUtil {
 		try {
 			return PrefsPropsUtil.getString(companyId, key, PropsUtil.get(key));
 		}
-		catch (SystemException e) {
+		catch (Exception e) {
 		}
 
 		return PropsUtil.get(key);
