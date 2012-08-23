@@ -71,6 +71,9 @@ public class DefaultNameIdResolver implements NameIdResolver {
 			nameIdValue = String.valueOf(
 				expandoBridge.getAttribute(attributeName));
 		}
+		else if (nameIdAttributeName.startsWith("static:")) {
+			nameIdValue = nameIdAttributeName.substring(7);
+		}
 		else {
 			nameIdValue = String.valueOf(
 				BeanPropertiesUtil.getObject(user, nameIdAttributeName));
