@@ -581,14 +581,14 @@
 		<liferay-versions><![CDATA[6.2.0]]></liferay-versions>
 		<releng>
 			<bundle><![CDATA[false]]></bundle>
-			<category><![CDATA[]]></category>
+			<category><![CDATA[Communication]]></category>
 			<demo-url><![CDATA[]]></demo-url>
 			<dependent-apps><![CDATA[]]></dependent-apps>
 			<labs><![CDATA[true]]></labs>
-			<marketplace><![CDATA[false]]></marketplace>
-			<public><![CDATA[true]]></public>
+			<marketplace><![CDATA[true]]></marketplace>
+			<public><![CDATA[false]]></public>
 			<support-url><![CDATA[]]></support-url>
-			<supported><![CDATA[false]]></supported>
+			<supported><![CDATA[true]]></supported>
 		</releng>
 	</plugin>
 	<plugin>
@@ -1936,12 +1936,9 @@
 			<category><![CDATA[]]></category>
 			<demo-url><![CDATA[]]></demo-url>
 			<dependent-apps><![CDATA[]]></dependent-apps>
-			<icon><![CDATA[portlets/social-coding-portlet/docroot/WEB-INF/releng/icons/90x90.png]]></icon>
 			<labs><![CDATA[true]]></labs>
 			<marketplace><![CDATA[false]]></marketplace>
 			<public><![CDATA[false]]></public>
-			<screenshot><![CDATA[portlets/social-coding-portlet/docroot/WEB-INF/releng/screenshots/1.jpg]]></screenshot>
-			<screenshot><![CDATA[portlets/social-coding-portlet/docroot/WEB-INF/releng/screenshots/2.jpg]]></screenshot>
 			<support-url><![CDATA[]]></support-url>
 			<supported><![CDATA[true]]></supported>
 		</releng>
@@ -2946,9 +2943,9 @@
 		<artifact-id><![CDATA[zoe-brochure-theme]]></artifact-id>
 		<name><![CDATA[Zoe Brochure EE]]></name>
 		<type><![CDATA[theme]]></type>
-		<tags><![CDATA[]]></tags>
+		<tags><![CDATA[corporate, custom layout, featured item, image carousel, site template, theme]]></tags>
 		<short-description><![CDATA[]]></short-description>
-		<long-description><![CDATA[]]></long-description>
+		<long-description><![CDATA[Zoe Brochure offers a modern corporate feel to your site and is versatile enough to be used by a wide variety of industries. The theme comes standard with structures and templates that can be customized to present your products and services with visual appeal. This theme also features a 2-1-2 Columns layout, an image carousel, featured content, and featured download button.<br /><br />This layout will appear in your Page Settings, under Available Themes once installed.]]></long-description>
 		<change-log><![CDATA[]]></change-log>
 		<page-url><![CDATA[http://www.liferay.com]]></page-url>
 		<author><![CDATA[Liferay, Inc.]]></author>
@@ -2956,12 +2953,17 @@
 		<liferay-versions><![CDATA[6.2.0]]></liferay-versions>
 		<releng>
 			<bundle><![CDATA[false]]></bundle>
-			<category><![CDATA[]]></category>
+			<category><![CDATA[Themes]]></category>
 			<demo-url><![CDATA[]]></demo-url>
-			<dependent-apps><![CDATA[]]></dependent-apps>
+			<dependent-apps><![CDATA[1-3-1-columns-layoutppl, resources-importer-web]]></dependent-apps>
+			<icon><![CDATA[themes/zoe-brochure-theme/docroot/WEB-INF/releng/icons/90x90.png]]></icon>
 			<labs><![CDATA[true]]></labs>
 			<marketplace><![CDATA[true]]></marketplace>
 			<public><![CDATA[false]]></public>
+			<screenshot><![CDATA[themes/zoe-brochure-theme/docroot/WEB-INF/releng/screenshots/1.jpg]]></screenshot>
+			<screenshot><![CDATA[themes/zoe-brochure-theme/docroot/WEB-INF/releng/screenshots/2.jpg]]></screenshot>
+			<screenshot><![CDATA[themes/zoe-brochure-theme/docroot/WEB-INF/releng/screenshots/3.jpg]]></screenshot>
+			<screenshot><![CDATA[themes/zoe-brochure-theme/docroot/WEB-INF/releng/screenshots/4.jpg]]></screenshot>
 			<support-url><![CDATA[]]></support-url>
 			<supported><![CDATA[true]]></supported>
 		</releng>
@@ -2970,9 +2972,9 @@
 		<artifact-id><![CDATA[zoe-healthcare-theme]]></artifact-id>
 		<name><![CDATA[Zoe Healthcare EE]]></name>
 		<type><![CDATA[theme]]></type>
-		<tags><![CDATA[]]></tags>
+		<tags><![CDATA[contact form, corporate, featured item, footer contact blurb, footer navigation, healthcare, medical, search, theme, webform portlet]]></tags>
 		<short-description><![CDATA[]]></short-description>
-		<long-description><![CDATA[]]></long-description>
+		<long-description><![CDATA[Zoe Healthcare is a preset theme catering to the medical industry. Our theme includes features and templates that can produce custom layouts to outline medical services, chart out available health care plans, and schedule appointments using our form portlet. We utilize a customizable �advanced footer� that includes: a text blurb, footer navigation, footer links, and social networking links. In the advanced footer you are able to replace any section with web content using a uniquely generated article ID.<br /><br />This layout will appear in your Page Settings, under Available Themes once installed.]]></long-description>
 		<change-log><![CDATA[]]></change-log>
 		<page-url><![CDATA[http://www.liferay.com]]></page-url>
 		<author><![CDATA[Liferay, Inc.]]></author>
@@ -2980,12 +2982,19 @@
 		<liferay-versions><![CDATA[6.2.0]]></liferay-versions>
 		<releng>
 			<bundle><![CDATA[false]]></bundle>
-			<category><![CDATA[]]></category>
+			<category><![CDATA[Themes]]></category>
 			<demo-url><![CDATA[]]></demo-url>
-			<dependent-apps><![CDATA[]]></dependent-apps>
+			<dependent-apps><![CDATA[resources-importer-web, web-form-portlet]]></dependent-apps>
+			<icon><![CDATA[themes/zoe-healthcare-theme/docroot/WEB-INF/releng/icons/90x90.png]]></icon>
 			<labs><![CDATA[true]]></labs>
 			<marketplace><![CDATA[true]]></marketplace>
 			<public><![CDATA[false]]></public>
+			<screenshot><![CDATA[themes/zoe-healthcare-theme/docroot/WEB-INF/releng/screenshots/1.jpg]]></screenshot>
+			<screenshot><![CDATA[themes/zoe-healthcare-theme/docroot/WEB-INF/releng/screenshots/2.jpg]]></screenshot>
+			<screenshot><![CDATA[themes/zoe-healthcare-theme/docroot/WEB-INF/releng/screenshots/3.jpg]]></screenshot>
+			<screenshot><![CDATA[themes/zoe-healthcare-theme/docroot/WEB-INF/releng/screenshots/4.jpg]]></screenshot>
+			<screenshot><![CDATA[themes/zoe-healthcare-theme/docroot/WEB-INF/releng/screenshots/5.jpg]]></screenshot>
+			<screenshot><![CDATA[themes/zoe-healthcare-theme/docroot/WEB-INF/releng/screenshots/6.jpg]]></screenshot>
 			<support-url><![CDATA[]]></support-url>
 			<supported><![CDATA[true]]></supported>
 		</releng>
@@ -2994,9 +3003,9 @@
 		<artifact-id><![CDATA[zoe-resort-theme]]></artifact-id>
 		<name><![CDATA[Zoe Resort EE]]></name>
 		<type><![CDATA[theme]]></type>
-		<tags><![CDATA[]]></tags>
+		<tags><![CDATA[featured item, footer navigation, footer social links, hotel, image carousel, resort, site template, theme]]></tags>
 		<short-description><![CDATA[]]></short-description>
-		<long-description><![CDATA[]]></long-description>
+		<long-description><![CDATA[Zoe Resort utilizes a clean layout structure and large dedicated image spaces catering to the needs of the hotel and resort industry, with prominent banners throughout. The theme features a 3-3-3 columns layout, an image carousel, breadcrumbs, featured content, and footer social network links. We utilize a customizable �advanced footer� that includes a text blurb, footer navigation, footer links and social networking links. In the advanced footer you are able to replace any section with web content using a uniquely generated article ID.<br /><br />This layout will appear in your Page Settings, under Available Themes once installed.]]></long-description>
 		<change-log><![CDATA[]]></change-log>
 		<page-url><![CDATA[http://www.liferay.com]]></page-url>
 		<author><![CDATA[Liferay, Inc.]]></author>
@@ -3004,12 +3013,16 @@
 		<liferay-versions><![CDATA[6.2.0]]></liferay-versions>
 		<releng>
 			<bundle><![CDATA[false]]></bundle>
-			<category><![CDATA[]]></category>
+			<category><![CDATA[Themes]]></category>
 			<demo-url><![CDATA[]]></demo-url>
-			<dependent-apps><![CDATA[]]></dependent-apps>
+			<dependent-apps><![CDATA[resources-importer-web]]></dependent-apps>
+			<icon><![CDATA[themes/zoe-resort-theme/docroot/WEB-INF/releng/icons/90x90.png]]></icon>
 			<labs><![CDATA[true]]></labs>
 			<marketplace><![CDATA[true]]></marketplace>
 			<public><![CDATA[false]]></public>
+			<screenshot><![CDATA[themes/zoe-resort-theme/docroot/WEB-INF/releng/screenshots/1.jpg]]></screenshot>
+			<screenshot><![CDATA[themes/zoe-resort-theme/docroot/WEB-INF/releng/screenshots/2.jpg]]></screenshot>
+			<screenshot><![CDATA[themes/zoe-resort-theme/docroot/WEB-INF/releng/screenshots/3.jpg]]></screenshot>
 			<support-url><![CDATA[]]></support-url>
 			<supported><![CDATA[true]]></supported>
 		</releng>
@@ -3018,9 +3031,9 @@
 		<artifact-id><![CDATA[zoe-tech-theme]]></artifact-id>
 		<name><![CDATA[Zoe Tech EE]]></name>
 		<type><![CDATA[theme]]></type>
-		<tags><![CDATA[]]></tags>
+		<tags><![CDATA[advanced footer, corporate, custom layout, featured item, footer blurb, search, site template, theme]]></tags>
 		<short-description><![CDATA[]]></short-description>
-		<long-description><![CDATA[]]></long-description>
+		<long-description><![CDATA[This theme provides a clean and professional feel. It allows you to showcase your clients, services, and products using �featured content� on the homepage as well as a special image carousel built for this theme. It features a 1-3-1 Column layout only available for the Zoe Tech theme. We utilize a customizable �advanced footer� that includes: a text blurb, footer navigation, footer links, and social networking links. In the advanced footer you are able to replace any section with web content using a uniquely generated article ID.<br /><br />This layout will appear in your Page Settings, under Available Themes once installed.]]></long-description>
 		<change-log><![CDATA[]]></change-log>
 		<page-url><![CDATA[http://www.liferay.com]]></page-url>
 		<author><![CDATA[Liferay, Inc.]]></author>
@@ -3028,12 +3041,20 @@
 		<liferay-versions><![CDATA[6.2.0]]></liferay-versions>
 		<releng>
 			<bundle><![CDATA[false]]></bundle>
-			<category><![CDATA[]]></category>
+			<category><![CDATA[Themes]]></category>
 			<demo-url><![CDATA[]]></demo-url>
-			<dependent-apps><![CDATA[]]></dependent-apps>
+			<dependent-apps><![CDATA[1-3-1-columns-layouttpl, resources-importer-web]]></dependent-apps>
+			<icon><![CDATA[themes/zoe-tech-theme/docroot/WEB-INF/releng/icons/90x90.png]]></icon>
 			<labs><![CDATA[true]]></labs>
 			<marketplace><![CDATA[true]]></marketplace>
 			<public><![CDATA[false]]></public>
+			<screenshot><![CDATA[themes/zoe-tech-theme/docroot/WEB-INF/releng/screenshots/1.jpg]]></screenshot>
+			<screenshot><![CDATA[themes/zoe-tech-theme/docroot/WEB-INF/releng/screenshots/2.jpg]]></screenshot>
+			<screenshot><![CDATA[themes/zoe-tech-theme/docroot/WEB-INF/releng/screenshots/3.jpg]]></screenshot>
+			<screenshot><![CDATA[themes/zoe-tech-theme/docroot/WEB-INF/releng/screenshots/4.jpg]]></screenshot>
+			<screenshot><![CDATA[themes/zoe-tech-theme/docroot/WEB-INF/releng/screenshots/5.jpg]]></screenshot>
+			<screenshot><![CDATA[themes/zoe-tech-theme/docroot/WEB-INF/releng/screenshots/6.jpg]]></screenshot>
+			<screenshot><![CDATA[themes/zoe-tech-theme/docroot/WEB-INF/releng/screenshots/7.jpg]]></screenshot>
 			<support-url><![CDATA[]]></support-url>
 			<supported><![CDATA[true]]></supported>
 		</releng>
