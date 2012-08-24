@@ -474,7 +474,8 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 		session.setAttribute(PortletWebKeys.SAML_SP_ATTRIBUTES, attributes);
 		session.setAttribute(PortletWebKeys.SAML_SP_NAME_ID, nameId);
 
-		String relayState = samlMessageContext.getRelayState();
+		String relayState = PortalUtil.escapeRedirect(
+			samlMessageContext.getRelayState());
 
 		if (Validator.isNull(relayState)) {
 			relayState = PortalUtil.getHomeURL(request);
