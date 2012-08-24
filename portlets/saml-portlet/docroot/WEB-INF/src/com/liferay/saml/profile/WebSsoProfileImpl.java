@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.HttpHeaders;
+import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
@@ -481,7 +482,17 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 			relayState = PortalUtil.getHomeURL(request);
 		}
 
-		response.sendRedirect(relayState);
+		ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		StringBundler sb = new StringBundler();
+		sb.append(themeDisplay.getPathMain());
+		sb.append("/portal/saml/auth_redirect?redirect=");
+		sb.append(HttpUtil.encodeURL(relayState));
+
+		String redirect = sb.toString();
+
+		response.sendRedirect(redirect);
 	}
 
 	protected void doSendAuthnRequest(
