@@ -26,9 +26,7 @@ List<String> sessionKeepAliveURLs = (List<String>)request.getAttribute("SAML_SES
 if (sessionKeepAliveURLs != null) {
 	for (String sessionKeepAliveURL : sessionKeepAliveURLs) {
 %>
-
 		document.write('<img alt="" src="<%= sessionKeepAliveURL %>?r=<%= PwdGenerator.getPassword() %>" />');
-
 <%
 	}
 }

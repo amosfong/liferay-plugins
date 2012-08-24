@@ -15,6 +15,6 @@
 --%>
 <%@ include file="/html/portal/init.jsp" %>
 
-		<h3 class="portlet-msg-error">
-			<liferay-ui:message key="internal-server-error" />
-		</h3>
+<h3 class="portlet-msg-error">
+	<liferay-ui:message key="internal-server-error" />
+</h3>

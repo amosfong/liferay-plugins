@@ -1,0 +1,38 @@
+@import "compass";
+
+img {
+	.sso-complete {
+		background-image: url(/saml-portlet/images/success.gif)
+	}
+
+	.sso-failed {
+		background-image: url(/saml-portlet/images/error.gif)
+	}
+
+	.sso-no-support {
+		background-image: url(/saml-portlet/images/not_supported.gif)
+	}
+
+	.sso-progress {
+		background-image: url(/saml-portlet/images/loading_indicator.gif)
+	}
+
+	.sso-timed-out {
+		background-image: url(/saml-portlet/images/timeout.gif)
+	}
+}
+
+.saml-sp {
+	img {
+		height: 16px;
+		padding: 0 5px;
+		width: 16px;
+	}
+
+	iframe {
+		height: 0;
+		left: -9999px;
+		position: absolute;
+		width: 0;
+	}
+}
