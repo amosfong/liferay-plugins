@@ -96,6 +96,10 @@ public class SamlSpSsoFilter extends BaseFilter {
 
 		String relayState = ParamUtil.getString(request, "redirect");
 
+		if (Validator.isNotNull(relayState)) {
+			relayState = PortalUtil.escapeRedirect(relayState);
+		}
+
 		HttpSession session = request.getSession();
 
 		LastPath lastPath = (LastPath)session.getAttribute(WebKeys.LAST_PATH);
