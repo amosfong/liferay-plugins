@@ -13,15 +13,15 @@
 		</init-param>
 	</servlet-filter>
 	<servlet-filter-mapping>
-		<servlet-filter-name>SSO SAML SP Filter</servlet-filter-name>
-		<before-filter>SSO CAS Filter</before-filter>
-		<url-pattern>/*</url-pattern>
+		<servlet-filter-name>Auto Login Filter</servlet-filter-name>
+		<url-pattern>/c/portal/saml/auth_redirect</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</servlet-filter-mapping>
 	<servlet-filter-mapping>
-		<servlet-filter-name>Auto Login Filter</servlet-filter-name>
-		<url-pattern>/c/portal/saml/auth_redirect</url-pattern>
+		<servlet-filter-name>SSO SAML SP Filter</servlet-filter-name>
+		<before-filter>SSO CAS Filter</before-filter>
+		<url-pattern>/*</url-pattern>
 		<dispatcher>REQUEST</dispatcher>
 		<dispatcher>FORWARD</dispatcher>
 	</servlet-filter-mapping>
@@ -30,16 +30,16 @@
 		<struts-action-impl>com.liferay.saml.hook.action.AssertionConsumerServiceAction</struts-action-impl>
 	</struts-action>
 	<struts-action>
+		<struts-action-path>/portal/saml/auth_redirect</struts-action-path>
+		<struts-action-impl>com.liferay.saml.hook.action.AuthRedirectAction</struts-action-impl>
+	</struts-action>
+	<struts-action>
 		<struts-action-path>/portal/saml/keep_alive</struts-action-path>
 		<struts-action-impl>com.liferay.saml.hook.action.SessionKeepAliveAction</struts-action-impl>
 	</struts-action>
 	<struts-action>
 		<struts-action-path>/portal/saml/metadata</struts-action-path>
 		<struts-action-impl>com.liferay.saml.hook.action.MetadataAction</struts-action-impl>
-	</struts-action>
-	<struts-action>
-		<struts-action-path>/portal/saml/auth_redirect</struts-action-path>
-		<struts-action-impl>com.liferay.saml.hook.action.AuthRedirectAction</struts-action-impl>
 	</struts-action>
 	<struts-action>
 		<struts-action-path>/portal/saml/slo_redirect</struts-action-path>
