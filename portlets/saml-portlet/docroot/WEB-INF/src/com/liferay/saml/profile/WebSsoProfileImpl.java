@@ -475,6 +475,14 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 		session.setAttribute(PortletWebKeys.SAML_SP_ATTRIBUTES, attributes);
 		session.setAttribute(PortletWebKeys.SAML_SP_NAME_ID, nameId);
 
+		StringBundler sb = new StringBundler(3);
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		sb.append(themeDisplay.getPathMain());
+		sb.append("/portal/saml/auth_redirect?redirect=");
+
 		String relayState = PortalUtil.escapeRedirect(
 			samlMessageContext.getRelayState());
 
@@ -482,17 +490,9 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 			relayState = PortalUtil.getHomeURL(request);
 		}
 
-		ThemeDisplay themeDisplay = (ThemeDisplay) request.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
-		StringBundler sb = new StringBundler();
-		sb.append(themeDisplay.getPathMain());
-		sb.append("/portal/saml/auth_redirect?redirect=");
 		sb.append(HttpUtil.encodeURL(relayState));
 
-		String redirect = sb.toString();
-
-		response.sendRedirect(redirect);
+		response.sendRedirect(sb.toString());
 	}
 
 	protected void doSendAuthnRequest(
