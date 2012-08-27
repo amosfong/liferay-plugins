@@ -33,7 +33,7 @@ public class WebSsoAction extends BaseStrutsAction {
 		throws Exception {
 
 		if (!SamlUtil.isEnabled() || !SamlUtil.isRoleIdp()) {
-			return "/portal/common_referer_js.jsp";
+			return "/common/referer_js.jsp";
 		}
 
 		try {

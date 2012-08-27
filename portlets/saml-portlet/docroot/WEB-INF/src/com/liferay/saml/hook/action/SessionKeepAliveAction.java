@@ -48,7 +48,7 @@ public class SessionKeepAliveAction extends BaseStrutsAction {
 		throws Exception {
 
 		if (!SamlUtil.isEnabled()) {
-			return "/portal/common_referer_js.jsp";
+			return "/common/referer_js.jsp";
 		}
 
 		try {
