@@ -21,6 +21,41 @@ JSONObject samlSloContext = (JSONObject)request.getAttribute("SAML_SLO_CONTEXT")
 JSONArray samlSloRequestInfos = samlSloContext.getJSONArray("samlSloRequestInfos");
 %>
 
+<style type="text/css">
+	.saml-sp .sso-complete {
+		background-image: url(<%= themeDisplay.getPathThemeImages() %>/messages/success.png)
+	}
+
+	.saml-sp .sso-failed {
+		background-image: url(<%= themeDisplay.getPathThemeImages() %>/messages/error.png)
+	}
+
+	.saml-sp .sso-no-support {
+		background-image: url(<%= themeDisplay.getPathThemeImages() %>/arrows/02_x.png)
+	}
+
+	.saml-sp .sso-progress {
+		background-image: url(<%= themeDisplay.getPathThemeImages() %>/aui/loading_indicator.gif)
+	}
+
+	.saml-sp .sso-timed-out {
+		background-image: url(<%= themeDisplay.getPathThemeImages() %>/common/time.png)
+	}
+
+	.saml-sp img {
+		height: 16px;
+		margin: 0 5px;
+		width: 16px;
+	}
+
+	.saml-sp iframe {
+		height: 0;
+		left: -9999px;
+		position: absolute;
+		width: 0;
+	}
+</style>
+
 <h3>
 	<liferay-ui:message key="signing-out-from-services" />
 </h3>
@@ -43,14 +78,14 @@ JSONArray samlSloRequestInfos = samlSloContext.getJSONArray("samlSloRequestInfos
 
 		StringBundler entityURL = new StringBundler(3);
 
-		entityURL.append("cmd=logout");
+		entityURL.append("?cmd=logout");
 		entityURL.append("entityId=");
 		entityURL.append(entityId);
 	%>
 
-		<div class="saml-sp" id="<%= samlSp + i %>">
+		<div class="saml-sp" id="<%= "samlSp" + i %>">
 			<a class="saml-sp-label" href="<%= entityURL %>" target="_blank">
-				<liferay-ui:message arguments="name" key="sign-out-from-x" />
+				<liferay-ui:message arguments="<%= name %>" key="sign-out-from-x" />
 			</a>
 		</div>
 
@@ -87,13 +122,13 @@ JSONArray samlSloRequestInfos = samlSloContext.getJSONArray("samlSloRequestInfos
 				'<tpl for="items">',
 					'<div id="{samlSpId}" class="saml-sp">' +
 						'<span class="saml-sp-label">{name}</span>' +
-						'<img src="' + themeDisplay.getPathThemeImages() + '/application/loading_indicator.gif" />' +
+						'<img src="' + themeDisplay.getPathThemeImages() + '/spacer.png" class="sso-progress" />' +
 						'<a id="{retryId}" href="javascript:Liferay.SAML.SLO._retryLogout({entityId})" class="aui-helper-hidden">' +
 							retry +
 						'</a>' +
 						'<iframe id="{iframeId}" src="?cmd=logout&entityId={entityId}" />' +
 					'</div>' +
-				</tpl>''
+				'</tpl>'
 			);
 
 			var continueNode = A.one('#samlSloContinue');
@@ -277,7 +312,7 @@ JSONArray samlSloRequestInfos = samlSloContext.getJSONArray("samlSloRequestInfos
 				else if (infoStatus === 5) {
 					className = 'sso-timed-out';
 
-					title = Language.get('single-sign-out-request-timed-out'));
+					title = Language.get('single-sign-out-request-timed-out');
 
 					retry.show();
 				}
