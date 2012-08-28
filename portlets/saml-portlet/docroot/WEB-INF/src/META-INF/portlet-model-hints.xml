@@ -11,18 +11,30 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
-		<field name="samlSpEntityId" type="String" />
-		<field name="attributeNames" type="String" />
+		<field name="samlSpEntityId" type="String">
+			<hint-collection name="ENTITY-ID" />
+		</field>
+		<field name="attributeNames" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 		<field name="attributesEnabled" type="boolean" />
 		<field name="attributesNamespaceEnabled" type="boolean" />
 		<field name="assertionLifetime" type="int" />
 		<field name="enabled" type="boolean" />
-		<field name="metadataUrl" type="String" />
-		<field name="metadataXml" type="String" />
+		<field name="metadataUrl" type="String">
+			<hint-collection name="ENTITY-ID" />
+		</field>
+		<field name="metadataXml" type="String">
+			<hint-collection name="CLOB" />
+		</field>
 		<field name="metadataUpdatedDate" type="Date" />
 		<field name="name" type="String" />
-		<field name="nameIdAttribute" type="String" />
-		<field name="nameIdFormat" type="String" />
+		<field name="nameIdAttribute" type="String">
+			<hint-collection name="ENTITY-ID" />
+		</field>
+		<field name="nameIdFormat" type="String">
+			<hint-collection name="ENTITY-ID" />
+		</field>
 	</model>
 	<model name="com.liferay.saml.model.SamlIdpSpSession">
 		<field name="samlIdpSpSessionId" type="long" />
@@ -67,18 +79,28 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
-		<field name="samlIdpEntityId" type="String" />
+		<field name="samlIdpEntityId" type="String">
+			<hint-collection name="ENTITY-ID" />
+		</field>
 		<field name="assertionSignatureRequired" type="boolean" />
 		<field name="clockSkew" type="long" />
 		<field name="enabled" type="boolean" />
 		<field name="ldapImportEnabled" type="boolean" />
-		<field name="metadataUrl" type="String" />
-		<field name="metadataXml" type="String" />
+		<field name="metadataUrl" type="String">
+			<hint-collection name="ENTITY-ID" />
+		</field>
+		<field name="metadataXml" type="String">
+			<hint-collection name="CLOB" />
+		</field>
 		<field name="metadataUpdatedDate" type="Date" />
 		<field name="name" type="String" />
-		<field name="nameIdFormat" type="String" />
+		<field name="nameIdFormat" type="String">
+			<hint-collection name="ENTITY-ID" />
+		</field>
 		<field name="signAuthnRequest" type="boolean" />
-		<field name="userAttributeMappings" type="String" />
+		<field name="userAttributeMappings" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
 	</model>
 	<model name="com.liferay.saml.model.SamlSpMessage">
 		<field name="samlSpMessageId" type="long" />
