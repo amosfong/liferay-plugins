@@ -20,6 +20,8 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.Role;
@@ -83,6 +85,13 @@ public class DefaultAttributeResolver implements AttributeResolver {
 			}
 			else if (attributeName.equals("roles")) {
 				addRolesAttribute(
+					user, samlMessageContext, attributes, attributeName,
+					namespaceEnabled);
+			}
+			else if (attributeName.startsWith("static:")) {
+				attributeName = attributeName.substring(7);
+
+				addStaticAttribute(
 					user, samlMessageContext, attributes, attributeName,
 					namespaceEnabled);
 			}
@@ -255,6 +264,33 @@ public class DefaultAttributeResolver implements AttributeResolver {
 		catch (Exception e) {
 			_log.error("Unable to get roles for user " + user.getUserId(), e);
 		}
+	}
+
+	protected void addStaticAttribute(
+		User user, SAMLMessageContext<?, ?, ?> samlMessageContext,
+		List<Attribute> attributes, String attributeName,
+		boolean namespaceEnabled) {
+
+		String attributeValue = StringPool.BLANK;
+
+		if (attributeName.indexOf('=') > 0) {
+			String[] values = StringUtil.split(attributeName, "=");
+
+			attributeValue = attributeName.substring(values[0].length() + 1);
+			attributeName = values[0];
+		}
+
+		Attribute attribute = OpenSamlUtil.buildAttribute(
+			attributeName, attributeValue);
+
+		if (namespaceEnabled) {
+			attribute.setNameFormat(Attribute.URI_REFERENCE);
+		}
+		else {
+			attribute.setNameFormat(Attribute.UNSPECIFIED);
+		}
+
+		attributes.add(attribute);
 	}
 
 	protected void addUserAttribute(
