@@ -276,8 +276,8 @@ public class DefaultAttributeResolver implements AttributeResolver {
 		if (attributeName.indexOf('=') > 0) {
 			String[] values = StringUtil.split(attributeName, "=");
 
-			attributeValue = attributeName.substring(values[0].length() + 1);
 			attributeName = values[0];
+			attributeValue = attributeName.substring(values[0].length() + 1);
 		}
 
 		Attribute attribute = OpenSamlUtil.buildAttribute(
