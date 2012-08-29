@@ -5,18 +5,18 @@ create table SamlIdpSpConnection (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	samlSpEntityId VARCHAR(75) null,
-	attributeNames VARCHAR(75) null,
+	samlSpEntityId VARCHAR(1024) null,
+	attributeNames STRING null,
 	attributesEnabled BOOLEAN,
 	attributesNamespaceEnabled BOOLEAN,
 	assertionLifetime INTEGER,
 	enabled BOOLEAN,
-	metadataUrl VARCHAR(75) null,
-	metadataXml VARCHAR(75) null,
+	metadataUrl VARCHAR(1024) null,
+	metadataXml TEXT null,
 	metadataUpdatedDate DATE null,
 	name VARCHAR(75) null,
-	nameIdAttribute VARCHAR(75) null,
-	nameIdFormat VARCHAR(75) null
+	nameIdAttribute VARCHAR(1024) null,
+	nameIdFormat VARCHAR(1024) null
 );
 
 create table SamlIdpSpSession (
@@ -57,18 +57,18 @@ create table SamlSpIdpConnection (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	samlIdpEntityId VARCHAR(75) null,
+	samlIdpEntityId VARCHAR(1024) null,
 	assertionSignatureRequired BOOLEAN,
 	clockSkew LONG,
 	enabled BOOLEAN,
 	ldapImportEnabled BOOLEAN,
-	metadataUrl VARCHAR(75) null,
-	metadataXml VARCHAR(75) null,
+	metadataUrl VARCHAR(1024) null,
+	metadataXml TEXT null,
 	metadataUpdatedDate DATE null,
 	name VARCHAR(75) null,
-	nameIdFormat VARCHAR(75) null,
+	nameIdFormat VARCHAR(1024) null,
 	signAuthnRequest BOOLEAN,
-	userAttributeMappings VARCHAR(75) null
+	userAttributeMappings STRING null
 );
 
 create table SamlSpMessage (
