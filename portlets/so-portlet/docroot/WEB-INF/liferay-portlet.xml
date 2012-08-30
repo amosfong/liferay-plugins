@@ -48,8 +48,10 @@
 	</portlet>
 	<portlet>
 		<portlet-name>8</portlet-name>
+		<control-panel-entry-category>portal</control-panel-entry-category>
 		<header-portlet-css>/configurations/css/main.css</header-portlet-css>
 		<css-class-wrapper>so-portlet-configurations</css-class-wrapper>
+		<system>true</system>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
