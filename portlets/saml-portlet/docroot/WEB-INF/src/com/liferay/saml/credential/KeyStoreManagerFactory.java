@@ -38,11 +38,10 @@ public class KeyStoreManagerFactory {
 				classLoader, PortletPropsValues.SAML_KEYSTORE_MANAGER_IMPL);
 		}
 		catch (Exception e) {
-			if (_log.isErrorEnabled()) {
-				_log.error(
-					"Unable to load keystore manager class " +
-						PortletPropsValues.SAML_KEYSTORE_MANAGER_IMPL, e);
-			}
+			_log.error(
+				"Unable to load keystore manager class " +
+					PortletPropsValues.SAML_KEYSTORE_MANAGER_IMPL,
+				e);
 		}
 
 		return _keyStoreManager;
@@ -50,6 +49,7 @@ public class KeyStoreManagerFactory {
 
 	private static Log _log = LogFactoryUtil.getLog(
 		KeyStoreManagerFactory.class);
+
 	private static KeyStoreManager _keyStoreManager;
 
 }
