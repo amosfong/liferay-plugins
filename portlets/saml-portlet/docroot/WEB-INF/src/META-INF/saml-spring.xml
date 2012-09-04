@@ -23,10 +23,6 @@
 
 	<!-- Credential -->
 
-	<bean id="com.liferay.saml.credential.KeyStoreManager" class="com.liferay.saml.credential.DLKeyStoreManagerImpl" />
-	<bean id="com.liferay.saml.credential.KeyStoreManagerUtil" class="com.liferay.saml.credential.KeyStoreManagerUtil">
-		<property name="keyStoreManager" ref="com.liferay.saml.credential.KeyStoreManager" />
-	</bean>
 	<bean id="org.opensaml.xml.security.credential.CredentialResolver" class="com.liferay.saml.credential.KeyStoreCredentialResolver" />
 
 	<!-- Metadata -->

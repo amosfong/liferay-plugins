@@ -22,21 +22,15 @@ import java.security.KeyStore;
 public class KeyStoreManagerUtil {
 
 	public static KeyStore getKeyStore() {
-		return getKeyStoreManager().getKeyStore();
-	}
+		KeyStoreManager keyStoreManager = KeyStoreManagerFactory.getInstance();
 
-	public static KeyStoreManager getKeyStoreManager() {
-		return _keyStoreManager;
+		return keyStoreManager.getKeyStore();
 	}
 
 	public static void saveKeyStore(KeyStore keyStore) throws Exception {
-		getKeyStoreManager().saveKeyStore(keyStore);
-	}
+		KeyStoreManager keyStoreManager = KeyStoreManagerFactory.getInstance();
 
-	public void setKeyStoreManager(KeyStoreManager keyStoreManager) {
-		_keyStoreManager = keyStoreManager;
+		keyStoreManager.saveKeyStore(keyStore);
 	}
-
-	private static KeyStoreManager _keyStoreManager;
 
 }

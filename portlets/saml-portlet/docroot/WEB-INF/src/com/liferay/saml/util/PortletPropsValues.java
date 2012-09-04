@@ -22,6 +22,9 @@ import com.liferay.util.portlet.PortletProps;
  */
 public class PortletPropsValues {
 
+	public static final String SAML_KEYSTORE_MANAGER_IMPL = PortletProps.get(
+		PortletPropsKeys.SAML_KEYSTORE_MANAGER_IMPL);
+
 	public static final long SAML_METADATA_MAX_REFRESH_DELAY =
 		GetterUtil.getLong(
 			PortletProps.get(
