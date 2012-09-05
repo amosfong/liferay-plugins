@@ -1205,8 +1205,8 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 
 					IDfId idfId = idfCollection.getId(Constants.R_OBJECT_ID);
 
-					IDfDocument idfDocument =
-						(IDfDocument)idfSession.getObject(idfId);
+					IDfDocument idfDocument = (IDfDocument)idfSession.getObject(
+						idfId);
 
 					if (_log.isTraceEnabled()) {
 						_log.trace(idfDocument.dump());
@@ -1587,8 +1587,8 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 			IDfId idfId = toObjectId(
 				idfSession, idfTypedObject.getString(Constants.R_OBJECT_ID));
 
-			IDfSysObject idfSysObject =
-				(IDfSysObject)idfSession.getObject(idfId);
+			IDfSysObject idfSysObject = (IDfSysObject)idfSession.getObject(
+				idfId);
 
 			deleteMappedEntry(idfSession, idfSysObject);
 

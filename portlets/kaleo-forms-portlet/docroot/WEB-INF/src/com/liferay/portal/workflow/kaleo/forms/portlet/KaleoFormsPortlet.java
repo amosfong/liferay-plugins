@@ -372,8 +372,8 @@ public class KaleoFormsPortlet extends MVCPortlet {
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws Exception {
 
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay)renderRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		ThemeDisplay themeDisplay = (ThemeDisplay)renderRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
 
 		long kaleoProcessId = ParamUtil.getLong(
 			renderRequest, "kaleoProcessId");
