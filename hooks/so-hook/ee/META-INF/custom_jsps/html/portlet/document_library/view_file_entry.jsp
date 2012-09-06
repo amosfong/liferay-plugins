@@ -97,6 +97,26 @@ request.setAttribute(WebKeys.LAYOUT_ASSET_ENTRY, layoutAssetEntry);
 request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 %>
 
+<c:if test="<%= layout != null %>">
+
+	<%
+	Group group = layout.getGroup();
+	%>
+
+	<c:if test="<%= !group.isControlPanel() %>">
+
+		<%
+		FileEntry fileEntryBreadcrumb = (FileEntry)request.getAttribute(WebKeys.DOCUMENT_LIBRARY_FILE_ENTRY);
+
+		DLUtil.addPortletBreadcrumbEntries(fileEntryBreadcrumb, request, renderResponse);
+		%>
+
+		<div class="so-breadcrumbs">
+			<liferay-ui:breadcrumb showCurrentGroup="<%= false %>" showCurrentPortlet="<%= false %>" showGuestGroup="<%= false %>" showLayout="<%= true %>" showParentGroups="<%= false %>" />
+		</div>
+	</c:if>
+</c:if>
+
 <portlet:actionURL var="editFileEntry">
 	<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
 	<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
