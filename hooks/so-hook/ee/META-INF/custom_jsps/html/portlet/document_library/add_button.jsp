@@ -35,38 +35,65 @@ if ((folder == null) || folder.isSupportsMetadata()) {
 
 <liferay-ui:icon-menu align="left" direction="down" icon="" message="add" showExpanded="<%= false %>" showWhenSingleIcon="<%= true %>">
 	<c:if test="<%= DLFolderPermission.contains(permissionChecker, scopeGroupId, folderId, ActionKeys.ADD_FOLDER) %>">
-		<portlet:renderURL var="addFolderURL">
+		<portlet:renderURL var="addFolderURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
 			<portlet:param name="struts_action" value="/document_library/edit_folder" />
 			<portlet:param name="redirect" value="<%= currentURL %>" />
 			<portlet:param name="repositoryId" value="<%= String.valueOf(repositoryId) %>" />
 			<portlet:param name="parentFolderId" value="<%= String.valueOf(folderId) %>" />
 		</portlet:renderURL>
 
-		<liferay-ui:icon image="folder" message='<%= (folder != null) ? "subfolder" : "folder" %>' url="<%= addFolderURL %>" />
+		<%
+		String taglibOnClickAddFolder = liferayPortletResponse.getNamespace() + "openDialog('" + addFolderURL.toString() + "', '" + UnicodeLanguageUtil.get(pageContext, "folder") +"');";
+		%>
+
+		<liferay-ui:icon
+			image="folder"
+			message='<%= (folder != null) ? "subfolder" : "folder" %>'
+			onClick="<%= taglibOnClickAddFolder %>"
+			url="javascript:;"
+		/>
 	</c:if>
 
 	<c:if test="<%= ((folder == null) || folder.isSupportsShortcuts()) && DLFolderPermission.contains(permissionChecker, scopeGroupId, folderId, ActionKeys.ADD_SHORTCUT) %>">
-		<portlet:renderURL var="editFileShortcutURL">
+		<portlet:renderURL var="editFileShortcutURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
 			<portlet:param name="struts_action" value="/document_library/edit_file_shortcut" />
 			<portlet:param name="redirect" value="<%= currentURL %>" />
 			<portlet:param name="repositoryId" value="<%= String.valueOf(repositoryId) %>" />
 			<portlet:param name="folderId" value="<%= String.valueOf(folderId) %>" />
 		</portlet:renderURL>
 
-		<liferay-ui:icon image="add_instance" message="shortcut" url="<%= editFileShortcutURL %>" />
+		<%
+		String taglibOnClickAddShortcut = liferayPortletResponse.getNamespace() + "openDialog('" + editFileShortcutURL.toString() + "', '" + UnicodeLanguageUtil.get(pageContext, "shortcut") +"');";
+		%>
+
+		<liferay-ui:icon
+			image="add_instance"
+			message="shortcut"
+			onClick="<%= taglibOnClickAddShortcut %>"
+			url="javascript:;"
+		/>
 	</c:if>
 
 	<c:if test="<%= (folderId == DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) && (DLFolderPermission.contains(permissionChecker, scopeGroupId, folderId, ActionKeys.ADD_REPOSITORY)) %>">
-		<portlet:renderURL var="addRepositoryURL">
+		<portlet:renderURL var="addRepositoryURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
 			<portlet:param name="struts_action" value="/document_library/edit_repository" />
 			<portlet:param name="redirect" value="<%= currentURL %>" />
 		</portlet:renderURL>
 
-		<liferay-ui:icon image="add_drive" message="repository" url="<%= addRepositoryURL %>" />
+		<%
+		String taglibOnClickAddRepository = liferayPortletResponse.getNamespace() + "openDialog('" + addRepositoryURL.toString() + "', '" + UnicodeLanguageUtil.get(pageContext, "repository") +"');";
+		%>
+
+		<liferay-ui:icon
+			image="add_drive"
+			message="repository"
+			onClick="<%= taglibOnClickAddRepository %>"
+			url="javascript:;"
+		/>
 	</c:if>
 
 	<c:if test="<%= ((folder == null) || folder.isSupportsMultipleUpload()) && DLFolderPermission.contains(permissionChecker, scopeGroupId, folderId, ActionKeys.ADD_DOCUMENT) %>">
-		<portlet:renderURL var="editFileEntryURL">
+		<portlet:renderURL var="editFileEntryURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
 			<portlet:param name="struts_action" value="/document_library/upload_multiple_file_entries" />
 			<portlet:param name="redirect" value="<%= currentURL %>" />
 			<portlet:param name="backURL" value="<%= currentURL %>" />
@@ -74,12 +101,22 @@ if ((folder == null) || folder.isSupportsMetadata()) {
 			<portlet:param name="folderId" value="<%= String.valueOf(folderId) %>" />
 		</portlet:renderURL>
 
-		<liferay-ui:icon cssClass="aui-helper-hidden upload-multiple-documents" image="../document_library/add_multiple_documents" message="multiple-documents" url="<%= editFileEntryURL %>" />
+		<%
+		String taglibOnClickAddFiles = liferayPortletResponse.getNamespace() + "openDialog('" + editFileEntryURL.toString() + "', '" + UnicodeLanguageUtil.get(pageContext, "multiple-documents") +"');";
+		%>
+
+		<liferay-ui:icon
+			cssClass="aui-helper-hidden upload-multiple-documents"
+			image="../document_library/add_multiple_documents"
+			message="multiple-documents"
+			onClick="<%= taglibOnClickAddFiles %>"
+			url="javascript:;"
+		/>
 	</c:if>
 
 	<c:if test="<%= DLFolderPermission.contains(permissionChecker, scopeGroupId, folderId, ActionKeys.ADD_DOCUMENT) %>">
 		<c:if test="<%= fileEntryTypes.isEmpty() %>">
-			<portlet:renderURL var="editFileEntryURL">
+			<portlet:renderURL var="editFileEntryURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
 				<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
 				<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.ADD %>" />
 				<portlet:param name="redirect" value="<%= currentURL %>" />
@@ -88,7 +125,16 @@ if ((folder == null) || folder.isSupportsMetadata()) {
 				<portlet:param name="folderId" value="<%= String.valueOf(folderId) %>" />
 			</portlet:renderURL>
 
-			<liferay-ui:icon image="copy" message="basic-document" url="<%= editFileEntryURL %>" />
+			<%
+			String taglibOnClickAddFile = liferayPortletResponse.getNamespace() + "openDialog('" + editFileEntryURL.toString() + "', '" + UnicodeLanguageUtil.get(pageContext, "basic-document") +"');";
+			%>
+
+			<liferay-ui:icon
+				image="copy"
+				message="basic-document"
+				onClick="<%= taglibOnClickAddFile %>"
+				url="javascript:;"
+			/>
 		</c:if>
 
 		<c:if test="<%= (folder == null) || folder.isSupportsMetadata() %>">
@@ -97,7 +143,7 @@ if ((folder == null) || folder.isSupportsMetadata()) {
 			for (DLFileEntryType fileEntryType : fileEntryTypes) {
 			%>
 
-				<portlet:renderURL var="addFileEntryTypeURL">
+				<portlet:renderURL var="addFileEntryTypeURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
 					<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
 					<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.ADD %>" />
 					<portlet:param name="redirect" value="<%= currentURL %>" />
@@ -106,7 +152,16 @@ if ((folder == null) || folder.isSupportsMetadata()) {
 					<portlet:param name="fileEntryTypeId" value="<%= String.valueOf(fileEntryType.getFileEntryTypeId()) %>" />
 				</portlet:renderURL>
 
-				<liferay-ui:icon image="copy" message="<%= HtmlUtil.escape(fileEntryType.getName()) %>" url="<%= addFileEntryTypeURL %>" />
+				<%
+				String taglibOnClickAddFileType = liferayPortletResponse.getNamespace() + "openDialog('" + addFileEntryTypeURL.toString() + "', '" + UnicodeLanguageUtil.get(pageContext, HtmlUtil.escape(fileEntryType.getName())) +"');";
+				%>
+
+				<liferay-ui:icon
+					image="copy"
+					message="<%= HtmlUtil.escape(fileEntryType.getName()) %>"
+					onClick="<%= taglibOnClickAddFileType %>"
+					url="javascript:;"
+				/>
 
 			<%
 			}
