@@ -17,9 +17,20 @@
 
 package com.liferay.so.configurations.portlet;
 
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.model.Role;
+import com.liferay.portal.model.User;
+import com.liferay.portal.service.GroupLocalServiceUtil;
+import com.liferay.portal.service.RoleLocalServiceUtil;
+import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.so.util.RoleConstants;
 import com.liferay.so.util.WebKeys;
 import com.liferay.util.bridges.mvc.MVCPortlet;
+
+import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -29,16 +40,47 @@ import javax.portlet.ActionResponse;
  */
 public class ConfigurationsPortlet extends MVCPortlet {
 
-	public void updateOrganizationsRole(
+	public void addRoleAllUsers(
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		System.out.println("update organizations role");
+		Role role = RoleLocalServiceUtil.getRole(
+			themeDisplay.getCompanyId(), RoleConstants.SOCIAL_OFFICE_USER);
 
-		// Update Users Role
+		List<User> users = UserLocalServiceUtil.getUsers(
+			QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+		long[] userIds = new long[users.size()];
+
+		for (int i = 0; i < users.size(); i++) {
+			User curUser = users.get(i);
+
+			userIds[i] = curUser.getUserId();
+		}
+
+		UserLocalServiceUtil.addRoleUsers(role.getRoleId(), userIds);
+		}
+
+	public void updateGroupsRole(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		long[] addGroupIds = StringUtil.split(
+			ParamUtil.getString(actionRequest, "addIds"), 0L);
+		long[] removeGroupIds = StringUtil.split(
+			ParamUtil.getString(actionRequest, "removeIds"), 0L);
+
+		Role role = RoleLocalServiceUtil.getRole(
+			themeDisplay.getCompanyId(), RoleConstants.SOCIAL_OFFICE_USER);
+
+		GroupLocalServiceUtil.addRoleGroups(role.getRoleId(), addGroupIds);
+		GroupLocalServiceUtil.unsetRoleGroups(role.getRoleId(), removeGroupIds);
 	}
 
 	public void updateUsersRole(
@@ -46,23 +88,18 @@ public class ConfigurationsPortlet extends MVCPortlet {
 		throws Exception {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
+		WebKeys.THEME_DISPLAY);
 
-		System.out.println("update users role");
+		long[] addUserIds = StringUtil.split(
+			ParamUtil.getString(actionRequest, "addIds"), 0L);
+		long[] removeUserIds = StringUtil.split(
+			ParamUtil.getString(actionRequest, "removeIds"), 0L);
 
-		// Update Users Role
-	}
+		Role role = RoleLocalServiceUtil.getRole(
+			themeDisplay.getCompanyId(), RoleConstants.SOCIAL_OFFICE_USER);
 
-	public void updateUserGroupsRole(
-			ActionRequest actionRequest, ActionResponse actionResponse)
-		throws Exception {
-
-		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
-		System.out.println("update usergroups role");
-
-		// Update Users Role
+		UserLocalServiceUtil.addRoleUsers(role.getRoleId(), addUserIds);
+		UserLocalServiceUtil.unsetRoleUsers(role.getRoleId(), removeUserIds);
 	}
 
 }

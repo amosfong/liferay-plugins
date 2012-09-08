@@ -1,0 +1,95 @@
+@import "compass";
+
+$gray: #CECECE;
+
+/* ---------- Assign SO Users ---------- */
+
+#loginPage .so-portlet-configurations {
+	.portlet {
+		background: transparent;
+		width: 600px;
+	}
+
+	.configuration-message {
+		color: #E37F3B;
+		display: block;
+		font-size: 1.5em;
+		line-height: 1.3em;
+		padding: 10px 0;
+	}
+
+	.taglib-header .header-title {
+		margin: .2em .1em;
+	}
+
+	.aui-tabview-list {
+		padding: 0;
+	}
+
+	.aui-tab {
+		border-width: 0;
+	}
+
+	.aui-tab-content {
+		border-color: $gray;
+		border-width: 0 1px 0 0;
+	}
+
+	.aui-tab-active {
+		.aui-tab-content {
+			background: #FFF;
+			border-bottom: 1px solid white;
+			margin-bottom: -1px;
+		}
+
+		.aui-tab-label {
+			color: #000;
+			text-shadow: none;
+		}
+	}
+
+	#addAllUsers {
+		margin: 0 auto;
+		overflow: hidden;
+		width: 275px;
+
+		.aui-field-content {
+			margin: 15px 10px;
+		}
+
+		.aui-field-input-choice {
+			margin-top: 1px;
+			vertical-align: top;
+		}
+
+		.aui-choice-label {
+			display: inline-block;
+		}
+	}
+
+	.so-welcome-setup {
+		.aui-button {
+			margin: 0 2px;
+		}
+
+		.aui-button-holder {
+			text-align: center;
+		}
+	}
+}
+
+/* ---------- Extras ---------- */
+
+.ie #loginPage .login-holder .so-portlet-configurations .portlet {
+	border: 0 solid transparent;
+}
+
+#loginPage .so-portlet-configurations {
+	.portlet {
+		@include box-shadow(0 0 0 0 transparent);
+	}
+
+	.portlet, .aui-tab, .aui-tabview-list .last .aui-tab-content {
+		@include border-radius(0);
+	}
+}

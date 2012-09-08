@@ -1,5 +1,7 @@
 @import "compass";
 
+$gray: #CECECE;
+
 #sign-in {
 	padding: 2px 4px;
 	position: absolute;

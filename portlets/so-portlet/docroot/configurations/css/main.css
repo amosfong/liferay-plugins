@@ -1,0 +1,33 @@
+.so-portlet-configurations {
+	.aui-field-content, .aui-button-submit {
+		float: left;
+		margin: 0px 5px 15px 0;
+	}
+
+	.lfr-search-container, .portlet-msg-info {
+		clear: both;
+	}
+
+	.configuration-message {
+		display: block;
+		padding-bottom: 15px;
+	}
+
+	#filterRadioButtons {
+		float: left;
+		margin-right: 5px;
+
+		.filter-title {
+			float: left;
+		}
+
+		.filter-title, .aui-field.aui-field-choice .aui-field-content {
+			margin: 1px 0 15px;
+			padding: 5px;
+		}
+
+		.aui-field-input-choice {
+			margin: 0 0 2px 0;
+		}
+	}
+}
