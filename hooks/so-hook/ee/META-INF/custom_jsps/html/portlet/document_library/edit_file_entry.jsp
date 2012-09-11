@@ -24,6 +24,8 @@ String strutsAction = ParamUtil.getString(request, "struts_action");
 
 String cmd = ParamUtil.getString(request, Constants.CMD, Constants.EDIT);
 
+String displaySection = ParamUtil.getString(request, "displaySection", StringPool.BLANK);
+
 String tabs2 = ParamUtil.getString(request, "tabs2", "version-history");
 
 String redirect = ParamUtil.getString(request, "redirect");
@@ -185,7 +187,7 @@ else if (dlFileEntryType != null) {
 	<portlet:param name="uploader" value="classic" />
 </portlet:actionURL>
 
-<aui:form action="<%= editFileEntryURL %>" cssClass="lfr-dynamic-form" enctype="multipart/form-data" method="post" name="fm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "saveFileEntry(" + saveAsDraft + ");" %>'>
+<aui:form action="<%= editFileEntryURL %>" cssClass="lfr-dynamic-form" enctype="multipart/form-data" method="post" name="editEntryFm" onSubmit='<%= "event.preventDefault(); " + renderResponse.getNamespace() + "saveFileEntry(" + saveAsDraft + ");" %>'>
 	<aui:input name="<%= Constants.CMD %>" type="hidden" />
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 	<aui:input name="backURL" type="hidden" value="<%= backURL %>" />
@@ -239,7 +241,7 @@ else if (dlFileEntryType != null) {
 	</c:if>
 
 	<aui:fieldset>
-		<aui:field-wrapper>
+		<aui:field-wrapper cssClass='<%= !displaySection.equals("checkin") ? StringPool.BLANK : "aui-helper-hidden" %>'>
 			<c:if test="<%= fileMaxSize != 0 %>">
 				<div class="portlet-msg-info">
 					<%= LanguageUtil.format(pageContext, "upload-documents-no-larger-than-x-k", String.valueOf(fileMaxSize), false) %>
@@ -247,48 +249,13 @@ else if (dlFileEntryType != null) {
 			</c:if>
 		</aui:field-wrapper>
 
-		<%
-		String folderName = StringPool.BLANK;
-
-		if (folderId > 0) {
-			folder = DLAppLocalServiceUtil.getFolder(folderId);
-
-			folder = folder.toEscapedModel();
-
-			folderId = folder.getFolderId();
-			folderName = folder.getName();
-		}
-		else {
-			folderName = LanguageUtil.get(pageContext, "home");
-		}
-		%>
-
-		<portlet:renderURL var="viewFolderURL">
-			<portlet:param name="struts_action" value="/document_library/view" />
-			<portlet:param name="folderId" value="<%= String.valueOf(folderId) %>" />
-		</portlet:renderURL>
-
-		<aui:field-wrapper label="folder">
-			<aui:a href="<%= viewFolderURL %>" id="folderName"><%= folderName %></aui:a>
-
-			<c:if test="<%= referringPortletResourceRootPortletId.equals(PortletKeys.ASSET_PUBLISHER) && (fileEntryId == 0) %>">
-				<aui:button name="openFolderSelectorButton" onClick='<%= renderResponse.getNamespace() + "openFolderSelector();" %>' value="select" />
-
-				<%
-				String taglibRemoveFolder = "Liferay.Util.removeFolderSelection('folderId', 'folderName', '" + renderResponse.getNamespace() + "');";
-				%>
-
-				<aui:button disabled="<%= folderId <= 0 %>" name="removeFolderButton" onClick="<%= taglibRemoveFolder %>" value="remove" />
-			</c:if>
-		</aui:field-wrapper>
-
-		<aui:input name="file" style="width: auto;" type="file">
+		<aui:input cssClass='<%= !displaySection.equals("checkin") ? StringPool.BLANK : "aui-helper-hidden" %>' name="file" type="file" style="width: auto;">
 			<aui:validator name="acceptFiles">
 				'<%= StringUtil.merge(PrefsPropsUtil.getStringArray(PropsKeys.DL_FILE_EXTENSIONS, StringPool.COMMA)) %>'
 			</aui:validator>
 		</aui:input>
 
-		<aui:input name="title">
+		<aui:input cssClass='<%= !displaySection.equals("checkin") ? StringPool.BLANK : "aui-helper-hidden" %>' name="title">
 			<aui:validator errorMessage="you-must-specify-a-file-or-a-title" name="custom">
 				function(val, fieldNode, ruleValue) {
 					return ((val != '') || A.one('#<portlet:namespace />file').val() != '');
@@ -296,7 +263,7 @@ else if (dlFileEntryType != null) {
 			</aui:validator>
 		</aui:input>
 
-		<c:if test="<%= ((folder == null) || folder.isSupportsMetadata()) %>">
+		<c:if test='<%= ((folder == null) || folder.isSupportsMetadata()) && !displaySection.equals("checkin") %>'>
 			<aui:input name="description" />
 
 			<c:if test="<%= (folder == null) || (folder.getModel() instanceof DLFolder) %>">
@@ -374,7 +341,16 @@ else if (dlFileEntryType != null) {
 			</liferay-ui:custom-attributes-available>
 		</c:if>
 
-		<c:if test="<%= ((folder == null) || folder.isSupportsSocial()) %>">
+		<c:if test="<%= fileEntry != null %>">
+			<aui:field-wrapper cssClass="revision" label="revision">
+				<aui:input label="major-revision" name="majorVersion" type="radio" value="true" />
+				<aui:input label="minor-revision" checked="true" name="majorVersion" type="radio" value="false" />
+
+				<aui:input name="changeLog" />
+			</aui:field-wrapper>
+		</c:if>
+
+		<c:if test='<%= ((folder == null) || folder.isSupportsSocial()) && !displaySection.equals("checkin") %>'>
 			<liferay-ui:panel defaultState="closed" extended="<%= false %>" id="dlFileEntryCategorizationPanel" persistState="<%= true %>" title="categorization">
 				<aui:fieldset>
 					<aui:input classPK="<%= assetClassPK %>" model="<%= DLFileEntry.class %>" name="categories" type="assetCategories" />
@@ -424,7 +400,7 @@ else if (dlFileEntryType != null) {
 			%>
 
 			<c:if test="<%= PropsValues.DL_FILE_ENTRY_DRAFTS_ENABLED %>">
-				<aui:button disabled="<%= checkedOut && !hasLock %>" name="saveButton" onClick='<%= renderResponse.getNamespace() + "saveFileEntry(true);" %>' value="<%= saveButtonLabel %>" />
+				<aui:button cssClass='<%= !displaySection.equals("checkin") ? StringPool.BLANK : "aui-helper-hidden" %>' disabled="<%= checkedOut && !hasLock %>" name="saveButton" onClick='<%= renderResponse.getNamespace() + "saveFileEntry(true);" %>' value="<%= saveButtonLabel %>" />
 			</c:if>
 
 			<%
@@ -439,7 +415,7 @@ else if (dlFileEntryType != null) {
 			}
 			%>
 
-			<aui:button disabled="<%= checkedOut && !hasLock || (pending && PropsValues.DL_FILE_ENTRY_DRAFTS_ENABLED) %>" name="publishButton" type="submit" value="<%= publishButtonLabel %>" />
+			<aui:button cssClass='<%= !displaySection.equals("checkin") ? StringPool.BLANK : "aui-helper-hidden" %>' disabled="<%= checkedOut && !hasLock || (pending && PropsValues.DL_FILE_ENTRY_DRAFTS_ENABLED) %>" name="publishButton" type="submit" value="<%= publishButtonLabel %>" />
 
 			<c:if test="<%= (fileEntry != null) && ((checkedOut && hasLock) || !checkedOut) %>">
 				<c:choose>
@@ -467,8 +443,8 @@ else if (dlFileEntryType != null) {
 
 <aui:script>
 	function <portlet:namespace />changeFileEntryType() {
-		document.<portlet:namespace />fm.<portlet:namespace /><%= Constants.CMD %>.value = "<%= Constants.PREVIEW %>";
-		submitForm(document.<portlet:namespace />fm);
+		document.<portlet:namespace />editEntryFm.<portlet:namespace /><%= Constants.CMD %>.value = "<%= Constants.PREVIEW %>";
+		submitForm(document.<portlet:namespace />editEntryFm);
 	}
 
 	function <portlet:namespace />cancelCheckOut() {
@@ -476,8 +452,8 @@ else if (dlFileEntryType != null) {
 	}
 
 	function <portlet:namespace />checkIn() {
-		document.<portlet:namespace />fm.<portlet:namespace /><%= Constants.CMD %>.value = "<%= Constants.UPDATE_AND_CHECKIN %>"
-		submitForm(document.<portlet:namespace />fm);
+		document.<portlet:namespace />editEntryFm.<portlet:namespace /><%= Constants.CMD %>.value = "<%= Constants.UPDATE_AND_CHECKIN %>"
+		submitForm(document.<portlet:namespace />editEntryFm);
 	}
 
 	function <portlet:namespace />checkOut() {
@@ -494,11 +470,11 @@ else if (dlFileEntryType != null) {
 		<%= HtmlUtil.escape(uploadProgressId) %>.startProgress();
 
 		if (draft) {
-			document.<portlet:namespace />fm.<portlet:namespace />workflowAction.value = "<%= WorkflowConstants.ACTION_SAVE_DRAFT %>";
+			document.<portlet:namespace />editEntryFm.<portlet:namespace />workflowAction.value = "<%= WorkflowConstants.ACTION_SAVE_DRAFT %>";
 		}
 
-		document.<portlet:namespace />fm.<portlet:namespace /><%= Constants.CMD %>.value = "<%= (fileEntry == null) ? Constants.ADD : Constants.UPDATE %>";
-		submitForm(document.<portlet:namespace />fm);
+		document.<portlet:namespace />editEntryFm.<portlet:namespace /><%= Constants.CMD %>.value = "<%= (fileEntry == null) ? Constants.ADD : Constants.UPDATE %>";
+		submitForm(document.<portlet:namespace />editEntryFm);
 	}
 
 	function <portlet:namespace />selectFolder(folderId, folderName) {
@@ -513,7 +489,7 @@ else if (dlFileEntryType != null) {
 	}
 
 	<c:if test="<%= windowState.equals(WindowState.MAXIMIZED) %>">
-		Liferay.Util.focusFormField(document.<portlet:namespace />fm.<portlet:namespace />file);
+		Liferay.Util.focusFormField(document.<portlet:namespace />editEntryFm.<portlet:namespace />file);
 	</c:if>
 </aui:script>
 

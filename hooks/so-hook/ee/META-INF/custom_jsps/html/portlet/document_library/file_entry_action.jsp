@@ -106,45 +106,134 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 					/>
 				</c:if>
 
-				<%@ include file="/html/portlet/document_library/file_entry_action_open_document.jspf" %>
+				<portlet:actionURL var="checkOutURL">
+					<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
+					<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.CHECKOUT %>" />
+					<portlet:param name="redirect" value="<%= currentURL %>" />
+					<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
+				</portlet:actionURL>
 
 				<c:if test="<%= showActions && DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.UPDATE) %>">
-					<portlet:renderURL var="editURL">
+
+					<%
+					if (portletDisplay.isWebDAVEnabled() && BrowserSnifferUtil.isIe(request)) {
+						String webDavUrl = DLUtil.getWebDavURL(themeDisplay, fileEntry.getFolder(), fileEntry);
+
+						String curExtension = fileEntry.getExtension();
+
+						if (curExtension.equalsIgnoreCase("doc") ||
+							curExtension.equalsIgnoreCase("docx") ||
+							curExtension.equalsIgnoreCase("dot") ||
+							curExtension.equalsIgnoreCase("ppt") ||
+							curExtension.equalsIgnoreCase("pptx") ||
+							curExtension.equalsIgnoreCase("xls") ||
+							curExtension.equalsIgnoreCase("xlsx")) {
+
+							String taglibOnClick = liferayPortletResponse.getNamespace() + "editAndCheckout('" + checkOutURL.toString() + "'); Liferay.fire('" + liferayPortletResponse.getNamespace() + "openDocument', {webDavUrl: '" + webDavUrl + "'});";
+					%>
+
+							<liferay-ui:icon
+								image="../document_library/msoffice"
+								message="open-in-ms-office"
+								onClick="<%= taglibOnClick %>"
+								url="javascript:;"
+							/>
+
+					<%
+						}
+					}
+					%>
+
+					<portlet:renderURL windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>" var="editURL">
 						<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
 						<portlet:param name="redirect" value="<%= currentURL %>" />
 						<portlet:param name="backURL" value="<%= currentURL %>" />
 						<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
 					</portlet:renderURL>
 
+					<%
+					String taglibOnClickEdit = liferayPortletResponse.getNamespace() + "editAndCheckout('" + checkOutURL.toString() + "');" + liferayPortletResponse.getNamespace() + "openDialog('" + editURL.toString() + "', '" + UnicodeLanguageUtil.get(pageContext, "edit") +"');";
+					%>
+
 					<liferay-ui:icon
 						image="edit"
-						url="<%= editURL %>"
+						onClick="<%= taglibOnClickEdit %>"
+						url="javascript:;"
 					/>
 				</c:if>
 
 				<c:if test="<%= showActions && DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.UPDATE) %>">
-					<portlet:renderURL var="moveURL">
+					<portlet:renderURL windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>" var="moveURL">
 						<portlet:param name="struts_action" value="/document_library/move_file_entry" />
 						<portlet:param name="redirect" value="<%= viewFolderURL.toString() %>" />
 						<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
 					</portlet:renderURL>
 
+					<%
+					String taglibOnClickMove = liferayPortletResponse.getNamespace() + "openDialog('" + moveURL.toString() + "', '" + UnicodeLanguageUtil.get(pageContext, "move") +"');";
+					%>
+
 					<liferay-ui:icon
 						image="submit"
 						message="move"
-						url="<%= moveURL %>"
+						onClick="<%= taglibOnClickMove %>"
+						url="javascript:;"
 					/>
 				</c:if>
 
 				<c:if test="<%= showActions %>">
-					<%@ include file="/html/portlet/document_library/file_entry_action_lock.jspf" %>
+					<c:if test="<%= DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.UPDATE) && fileEntry.isSupportsLocking() %>">
+						<c:choose>
+							<c:when test="<%= !fileEntry.isCheckedOut() %>">
+								<liferay-ui:icon
+									image="lock"
+									message="checkout[document]"
+									url="<%= checkOutURL %>"
+								/>
+							</c:when>
+							<c:otherwise>
+								<c:if test="<%= fileEntry.hasLock() || (permissionChecker.isGroupAdmin(fileEntry.getRepositoryId()) && fileEntry.isCheckedOut()) %>">
+									<portlet:renderURL windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>" var="checkInURL">
+										<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
+										<portlet:param name="redirect" value="<%= currentURL %>" />
+										<portlet:param name="backURL" value="<%= currentURL %>" />
+										<portlet:param name="displaySection" value="checkin" />
+										<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
+									</portlet:renderURL>
+
+									<%
+									String taglibOnClickCheckin = liferayPortletResponse.getNamespace() + "openDialog('" + checkInURL.toString() + "', '" + UnicodeLanguageUtil.get(pageContext, "move") +"');";
+									%>
+
+									<liferay-ui:icon
+										image="unlock"
+										message="checkin"
+										onClick="<%= taglibOnClickCheckin %>"
+										url="javascript:;"
+									/>
+
+									<portlet:actionURL var="cancelCheckOutURL">
+										<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
+										<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.CANCEL_CHECKOUT %>" />
+										<portlet:param name="redirect" value="<%= currentURL %>" />
+										<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
+									</portlet:actionURL>
+
+									<liferay-ui:icon
+										image="undo"
+										message="cancel-checkout[document]"
+										url="<%= cancelCheckOutURL %>"
+									/>
+								</c:if>
+							</c:otherwise>
+						</c:choose>
+					</c:if>
 				</c:if>
 
 				<c:if test="<%= showActions && DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.PERMISSIONS) %>">
 					<liferay-security:permissionsURL
 						modelResource="<%= DLFileEntryConstants.getClassName() %>"
 						modelResourceDescription="<%= HtmlUtil.unescape(fileEntry.getTitle()) %>"
-						redirect="<%= currentURL %>"
 						resourcePrimKey="<%= String.valueOf(fileEntry.getFileEntryId()) %>"
 						var="permissionsURL"
 					/>
@@ -159,7 +248,7 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 					<portlet:actionURL var="deleteURL">
 						<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
 						<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
-						<portlet:param name="redirect" value="<%= currentURL %>" />
+						<portlet:param name="redirect" value="<%= viewFolderURL.toString() %>" />
 						<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
 					</portlet:actionURL>
 
@@ -182,8 +271,6 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 					/>
 				</c:if>
 
-				<%@ include file="/html/portlet/document_library/file_entry_action_open_document.jspf" %>
-
 				<c:if test="<%= DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.UPDATE) %>">
 					<portlet:renderURL var="viewOriginalFileURL">
 						<portlet:param name="struts_action" value="/document_library/view_file_entry" />
@@ -198,20 +285,21 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 					/>
 				</c:if>
 
-				<c:if test="<%= showActions %>">
-					<%@ include file="/html/portlet/document_library/file_entry_action_lock.jspf" %>
-				</c:if>
-
 				<c:if test="<%= showActions && DLFileShortcutPermission.contains(permissionChecker, fileShortcut, ActionKeys.UPDATE) %>">
-					<portlet:renderURL var="editShortcutURL">
+					<portlet:renderURL windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>" var="editShortcutURL">
 						<portlet:param name="struts_action" value="/document_library/edit_file_shortcut" />
 						<portlet:param name="redirect" value="<%= currentURL %>" />
 						<portlet:param name="fileShortcutId" value="<%= String.valueOf(fileShortcut.getFileShortcutId()) %>" />
 					</portlet:renderURL>
 
+					<%
+					String taglibOnClickEdit = liferayPortletResponse.getNamespace() + "openDialog('" + editShortcutURL.toString() + "', '" + UnicodeLanguageUtil.get(pageContext, "permissions") +"');";
+					%>
+
 					<liferay-ui:icon
 						image="edit"
-						url="<%= editShortcutURL %>"
+						onClick="<%= taglibOnClickEdit %>"
+						url="javascript:;"
 					/>
 				</c:if>
 
@@ -219,7 +307,6 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 					<liferay-security:permissionsURL
 						modelResource="<%= DLFileShortcut.class.getName() %>"
 						modelResourceDescription="<%= fileEntry.getTitle() %>"
-						redirect="<%= currentURL %>"
 						resourcePrimKey="<%= String.valueOf(fileShortcut.getFileShortcutId()) %>"
 						var="shortcutPermissionsURL"
 					/>
@@ -234,7 +321,7 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 					<portlet:actionURL var="deleteShortcutURL">
 						<portlet:param name="struts_action" value="/document_library/edit_file_shortcut" />
 						<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
-						<portlet:param name="redirect" value="<%= currentURL %>" />
+						<portlet:param name="redirect" value="<%= viewFolderURL.toString() %>" />
 						<portlet:param name="fileShortcutId" value="<%= String.valueOf(fileShortcut.getFileShortcutId()) %>" />
 					</portlet:actionURL>
 

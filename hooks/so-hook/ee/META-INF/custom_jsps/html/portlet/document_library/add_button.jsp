@@ -93,7 +93,7 @@ if ((folder == null) || folder.isSupportsMetadata()) {
 	</c:if>
 
 	<c:if test="<%= ((folder == null) || folder.isSupportsMultipleUpload()) && DLFolderPermission.contains(permissionChecker, scopeGroupId, folderId, ActionKeys.ADD_DOCUMENT) %>">
-		<portlet:renderURL var="editFileEntryURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
+		<portlet:renderURL var="editFileEntryURL">
 			<portlet:param name="struts_action" value="/document_library/upload_multiple_file_entries" />
 			<portlet:param name="redirect" value="<%= currentURL %>" />
 			<portlet:param name="backURL" value="<%= currentURL %>" />
@@ -101,16 +101,11 @@ if ((folder == null) || folder.isSupportsMetadata()) {
 			<portlet:param name="folderId" value="<%= String.valueOf(folderId) %>" />
 		</portlet:renderURL>
 
-		<%
-		String taglibOnClickAddFiles = liferayPortletResponse.getNamespace() + "openDialog('" + editFileEntryURL.toString() + "', '" + UnicodeLanguageUtil.get(pageContext, "multiple-documents") +"');";
-		%>
-
 		<liferay-ui:icon
 			cssClass="aui-helper-hidden upload-multiple-documents"
 			image="../document_library/add_multiple_documents"
 			message="multiple-documents"
-			onClick="<%= taglibOnClickAddFiles %>"
-			url="javascript:;"
+			url="<%= editFileEntryURL %>"
 		/>
 	</c:if>
 
