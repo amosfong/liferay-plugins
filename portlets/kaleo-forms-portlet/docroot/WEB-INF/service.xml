@@ -35,6 +35,7 @@
 
 		<!-- References -->
 
+		<reference package-path="com.liferay.portal" entity="WorkflowDefinitionLink" />
 		<reference package-path="com.liferay.portal" entity="WorkflowInstanceLink" />
 		<reference package-path="com.liferay.portlet.dynamicdatalists" entity="DDLRecord" />
 		<reference package-path="com.liferay.portlet.dynamicdatalists" entity="DDLRecordSet" />
