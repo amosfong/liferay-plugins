@@ -90,6 +90,10 @@ public class KaleoProcessLocalServiceImpl
 
 		// Workflow
 
+		workflowDefinitionLinkLocalService.deleteWorkflowDefinitionLink(
+			kaleoProcess.getCompanyId(), kaleoProcess.getGroupId(),
+			KaleoProcess.class.getName(), kaleoProcess.getPrimaryKey(), 0);
+
 		workflowInstanceLinkLocalService.deleteWorkflowInstanceLinks(
 			kaleoProcess.getCompanyId(), kaleoProcess.getGroupId(),
 			KaleoProcess.class.getName(), kaleoProcess.getPrimaryKey());
@@ -119,6 +123,10 @@ public class KaleoProcessLocalServiceImpl
 			kaleoProcessId);
 
 		ddlRecordLocalService.deleteRecords(kaleoProcess.getDDLRecordSetId());
+
+		workflowDefinitionLinkLocalService.deleteWorkflowDefinitionLink(
+			kaleoProcess.getCompanyId(), kaleoProcess.getGroupId(),
+			KaleoProcess.class.getName(), kaleoProcess.getPrimaryKey(), 0);
 
 		workflowInstanceLinkLocalService.deleteWorkflowInstanceLinks(
 			kaleoProcess.getCompanyId(), kaleoProcess.getGroupId(),
