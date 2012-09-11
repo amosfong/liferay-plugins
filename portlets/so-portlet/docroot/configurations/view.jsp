@@ -23,28 +23,26 @@
 Group group = layout.getGroup();
 Group userGroup = user.getGroup();
 
-String keywords = ParamUtil.getString(request, "keywords");
-
 String tabs1 = ParamUtil.getString(request, "tabs1", "users");
+
+String keywords = ParamUtil.getString(request, "keywords");
 String searchFilter = ParamUtil.getString(request, "searchFilter", "available");
-
-PortletURL portletURL = renderResponse.createRenderURL();
-
-portletURL.setParameter("tabs1", tabs1);
 %>
 
-<c:choose>
-	<c:when test="<%= group.isControlPanel() %>">
-		<span class="configuration-message">
+<liferay-portlet:renderURL var="portletURL">
+	<portlet:param name="tabs1" value="<%= tabs1 %>" />
+</liferay-portlet:renderURL>
+
+<span class="configuration-message">
+	<c:choose>
+		<c:when test="<%= group.isControlPanel() %>">
 			<%= LanguageUtil.get(pageContext, "give-users-social-office-access") %>
-		</span>
-	</c:when>
-	<c:otherwise>
-		<span class="configuration-message">
+		</c:when>
+		<c:otherwise>
 			<%= LanguageUtil.get(pageContext, "almost-done-now-its-time-to-figure-out-who-to-give-social-office-to") %>
-		</span>
-	</c:otherwise>
-</c:choose>
+		</c:otherwise>
+	</c:choose>
+</span>
 
 <liferay-ui:tabs
 	names="users,organizations,user-groups"
@@ -61,6 +59,7 @@ portletURL.setParameter("tabs1", tabs1);
 
 	<div id="filterRadioButtons">
 		<span class="filter-title"><%= LanguageUtil.get(pageContext, "view") %>&#58;</span>
+
 		<aui:input checked='<%= searchFilter.equals("available") %>' label="available" name="searchFilter" type="radio" value="available" />
 		<aui:input checked='<%= searchFilter.equals("current") %>' label="current" name="searchFilter" type="radio" value="current" />
 	</div>

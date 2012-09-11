@@ -203,7 +203,7 @@
 		<resource-bundle>content.Language</resource-bundle>
 		<portlet-info>
 			<title>Social Office Configurations</title>
-			<short-title>DSocial Office Configurations</short-title>
+			<short-title>Social Office Configurations</short-title>
 			<keywords>Social Office Configurations</keywords>
 		</portlet-info>
 		<security-role-ref>

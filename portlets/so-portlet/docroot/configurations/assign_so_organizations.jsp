@@ -21,8 +21,8 @@
 
 <%
 String tabs1 = ParamUtil.getString(request, "tabs1", "users");
-String searchFilter = ParamUtil.getString(request, "searchFilter");
 
+String searchFilter = ParamUtil.getString(request, "searchFilter");
 String searchKeywords = DAOParamUtil.getLike(request, "keywords");
 
 Role role = RoleLocalServiceUtil.getRole(user.getCompanyId(), RoleConstants.SOCIAL_OFFICE_USER);

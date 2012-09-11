@@ -37,6 +37,7 @@ import javax.portlet.ActionResponse;
 
 /**
  * @author Jonathan Lee
+ * @author Evan Thibodeau
  */
 public class ConfigurationsPortlet extends MVCPortlet {
 
@@ -62,7 +63,7 @@ public class ConfigurationsPortlet extends MVCPortlet {
 		}
 
 		UserLocalServiceUtil.addRoleUsers(role.getRoleId(), userIds);
-		}
+	}
 
 	public void updateGroupsRole(
 			ActionRequest actionRequest, ActionResponse actionResponse)
@@ -88,7 +89,7 @@ public class ConfigurationsPortlet extends MVCPortlet {
 		throws Exception {
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
-		WebKeys.THEME_DISPLAY);
+			WebKeys.THEME_DISPLAY);
 
 		long[] addUserIds = StringUtil.split(
 			ParamUtil.getString(actionRequest, "addIds"), 0L);
