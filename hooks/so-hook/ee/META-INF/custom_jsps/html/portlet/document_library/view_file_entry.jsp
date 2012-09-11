@@ -85,8 +85,6 @@ if (portletDisplay.isWebDAVEnabled()) {
 	webDavUrl = DLUtil.getWebDavURL(themeDisplay, folder, fileEntry);
 }
 
-List fileVersions = fileEntry.getFileVersions(WorkflowConstants.STATUS_APPROVED);
-
 boolean hasAudio = AudioProcessorUtil.hasAudio(fileVersion);
 boolean hasImages = ImageProcessorUtil.hasImages(fileVersion);
 boolean hasPDFImages = PDFProcessorUtil.hasImages(fileVersion);
@@ -451,6 +449,8 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 							<c:when test="<%= fileVersionId == fileEntry.getFileVersion().getFileVersionId() %>">
 
 								<%
+								List<FileVersion> fileVersions = fileEntry.getFileVersions(WorkflowConstants.STATUS_APPROVED);
+
 								for (int i = 0; i < fileVersions.size(); i++) {
 									FileVersion curFileVersion = (FileVersion)fileVersions.get(i);
 								%>
@@ -532,11 +532,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 											</div>
 										</div>
 
-										<%
-										String commentsPanelId = "commentsPanel" + curFileVersion.getFileVersionId();
-										%>
-
-										<liferay-ui:panel collapsible="<%= true %>" cssClass="lfr-document-library-comments" extended="<%= true %>" id="<%= commentsPanelId %>" persistState="<%= false %>" title="comments">
+										<liferay-ui:panel collapsible="<%= true %>" cssClass="lfr-document-library-comments" extended="<%= true %>" id='<%= "documentLibraryCommentsPanel" + curFileVersion.getFileVersionId() %>' persistState="<%= false %>" title="comments">
 											<liferay-ui:discussion
 												className="<%= DLFileVersion.class.getName() %>"
 												classPK="<%= curFileVersion.getFileVersionId() %>"
@@ -960,7 +956,6 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 
 		fileEntryToolbarChildren.push(
 			{
-
 				<portlet:renderURL var="editURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
 					<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
 					<portlet:param name="redirect" value="<%= currentURL %>" />
@@ -1017,7 +1012,6 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 		<c:if test="<%= fileEntry.hasLock() || (permissionChecker.isGroupAdmin(fileEntry.getRepositoryId()) && fileEntry.isCheckedOut()) %>">
 			fileEntryToolbarChildren.push(
 				{
-
 					<portlet:renderURL var="checkinURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
 						<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
 						<portlet:param name="redirect" value="<%= currentURL %>" />

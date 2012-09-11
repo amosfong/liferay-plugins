@@ -24,8 +24,6 @@ String strutsAction = ParamUtil.getString(request, "struts_action");
 
 String cmd = ParamUtil.getString(request, Constants.CMD, Constants.EDIT);
 
-String displaySection = ParamUtil.getString(request, "displaySection", StringPool.BLANK);
-
 String tabs2 = ParamUtil.getString(request, "tabs2", "version-history");
 
 String redirect = ParamUtil.getString(request, "redirect");
@@ -34,6 +32,8 @@ String backURL = ParamUtil.getString(request, "backURL");
 String referringPortletResource = ParamUtil.getString(request, "referringPortletResource");
 
 String referringPortletResourceRootPortletId = PortletConstants.getRootPortletId(referringPortletResource);
+
+String displaySection = ParamUtil.getString(request, "displaySection");
 
 String uploadProgressId = "dlFileEntryUploadProgress";
 
