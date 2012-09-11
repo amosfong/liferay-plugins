@@ -249,7 +249,7 @@ else if (dlFileEntryType != null) {
 			</c:if>
 		</aui:field-wrapper>
 
-		<aui:input cssClass='<%= !displaySection.equals("checkin") ? StringPool.BLANK : "aui-helper-hidden" %>' name="file" type="file" style="width: auto;">
+		<aui:input cssClass='<%= !displaySection.equals("checkin") ? StringPool.BLANK : "aui-helper-hidden" %>' name="file" style="width: auto;" type="file">
 			<aui:validator name="acceptFiles">
 				'<%= StringUtil.merge(PrefsPropsUtil.getStringArray(PropsKeys.DL_FILE_EXTENSIONS, StringPool.COMMA)) %>'
 			</aui:validator>
@@ -344,7 +344,7 @@ else if (dlFileEntryType != null) {
 		<c:if test="<%= fileEntry != null %>">
 			<aui:field-wrapper cssClass="revision" label="revision">
 				<aui:input label="major-revision" name="majorVersion" type="radio" value="true" />
-				<aui:input label="minor-revision" checked="true" name="majorVersion" type="radio" value="false" />
+				<aui:input checked="true" label="minor-revision" name="majorVersion" type="radio" value="false" />
 
 				<aui:input name="changeLog" />
 			</aui:field-wrapper>

@@ -203,7 +203,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 						}
 						%>
 
-						<img alt="" border="no" class="thumbnail" src="<%= thumbnailSrc %>"/>
+						<img alt="" border="no" class="thumbnail" src="<%= thumbnailSrc %>" />
 					</span>
 
 					<div class="document-header">
@@ -961,7 +961,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 		fileEntryToolbarChildren.push(
 			{
 
-				<portlet:renderURL windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>" var="editURL">
+				<portlet:renderURL var="editURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
 					<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
 					<portlet:param name="redirect" value="<%= currentURL %>" />
 					<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
@@ -982,7 +982,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 		String curExtension = fileEntry.getExtension();
 		%>
 
-		<c:if test='<%= portletDisplay.isWebDAVEnabled() && BrowserSnifferUtil.isIe(request) && (curExtension.equalsIgnoreCase("doc") || curExtension.equalsIgnoreCase("docx") || curExtension.equalsIgnoreCase("dot") || curExtension.equalsIgnoreCase("ppt") || curExtension.equalsIgnoreCase("pptx") || curExtension.equalsIgnoreCase("xls") || curExtension.equalsIgnoreCase("xlsx"))%>'>
+		<c:if test='<%= portletDisplay.isWebDAVEnabled() && BrowserSnifferUtil.isIe(request) && (curExtension.equalsIgnoreCase("doc") || curExtension.equalsIgnoreCase("docx") || curExtension.equalsIgnoreCase("dot") || curExtension.equalsIgnoreCase("ppt") || curExtension.equalsIgnoreCase("pptx") || curExtension.equalsIgnoreCase("xls") || curExtension.equalsIgnoreCase("xlsx")) %>'>
 			fileEntryToolbarChildren.push(
 				{
 					handler: function(event) {
@@ -1018,7 +1018,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 			fileEntryToolbarChildren.push(
 				{
 
-					<portlet:renderURL windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>" var="checkinURL">
+					<portlet:renderURL var="checkinURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
 						<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
 						<portlet:param name="redirect" value="<%= currentURL %>" />
 						<portlet:param name="displaySection" value="checkin" />
@@ -1046,7 +1046,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 		fileEntryToolbarChildren.push(
 			{
 
-				<portlet:renderURL windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>" var="moveURL">
+				<portlet:renderURL var="moveURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
 					<portlet:param name="struts_action" value="/document_library/move_file_entry" />
 					<portlet:param name="redirect" value="<%= currentURL %>" />
 					<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />

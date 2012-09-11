@@ -144,7 +144,7 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 					}
 					%>
 
-					<portlet:renderURL windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>" var="editURL">
+					<portlet:renderURL var="editURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
 						<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
 						<portlet:param name="redirect" value="<%= currentURL %>" />
 						<portlet:param name="backURL" value="<%= currentURL %>" />
@@ -163,7 +163,7 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 				</c:if>
 
 				<c:if test="<%= showActions && DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.UPDATE) %>">
-					<portlet:renderURL windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>" var="moveURL">
+					<portlet:renderURL var="moveURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
 						<portlet:param name="struts_action" value="/document_library/move_file_entry" />
 						<portlet:param name="redirect" value="<%= viewFolderURL.toString() %>" />
 						<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
@@ -193,7 +193,7 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 							</c:when>
 							<c:otherwise>
 								<c:if test="<%= fileEntry.hasLock() || (permissionChecker.isGroupAdmin(fileEntry.getRepositoryId()) && fileEntry.isCheckedOut()) %>">
-									<portlet:renderURL windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>" var="checkInURL">
+									<portlet:renderURL var="checkInURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
 										<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
 										<portlet:param name="redirect" value="<%= currentURL %>" />
 										<portlet:param name="backURL" value="<%= currentURL %>" />
@@ -286,7 +286,7 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 				</c:if>
 
 				<c:if test="<%= showActions && DLFileShortcutPermission.contains(permissionChecker, fileShortcut, ActionKeys.UPDATE) %>">
-					<portlet:renderURL windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>" var="editShortcutURL">
+					<portlet:renderURL var="editShortcutURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
 						<portlet:param name="struts_action" value="/document_library/edit_file_shortcut" />
 						<portlet:param name="redirect" value="<%= currentURL %>" />
 						<portlet:param name="fileShortcutId" value="<%= String.valueOf(fileShortcut.getFileShortcutId()) %>" />
