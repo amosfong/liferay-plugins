@@ -60,6 +60,8 @@ public class SalesforceOpportunityLocalServiceClpInvoker {
 		if (_methodName27.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes27, parameterTypes)) {
 			SalesforceOpportunityLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
+
+			return null;
 		}
 
 		if (_methodName30.equals(name) &&

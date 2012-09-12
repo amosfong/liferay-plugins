@@ -77,6 +77,8 @@ public class DefinitionServiceClpInvoker {
 		if (_methodName31.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes31, parameterTypes)) {
 			DefinitionServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
+
+			return null;
 		}
 
 		if (_methodName36.equals(name) &&

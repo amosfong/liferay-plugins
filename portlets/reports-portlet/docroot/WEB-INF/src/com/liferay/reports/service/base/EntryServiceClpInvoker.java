@@ -81,6 +81,8 @@ public class EntryServiceClpInvoker {
 		if (_methodName37.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes37, parameterTypes)) {
 			EntryServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
+
+			return null;
 		}
 
 		if (_methodName42.equals(name) &&
@@ -101,6 +103,8 @@ public class EntryServiceClpInvoker {
 				Arrays.deepEquals(_methodParameterTypes43, parameterTypes)) {
 			EntryServiceUtil.deleteAttachment(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(), (java.lang.String)arguments[2]);
+
+			return null;
 		}
 
 		if (_methodName44.equals(name) &&
@@ -130,6 +134,8 @@ public class EntryServiceClpInvoker {
 		if (_methodName47.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
 			EntryServiceUtil.unscheduleEntry(((Long)arguments[0]).longValue());
+
+			return null;
 		}
 
 		throw new UnsupportedOperationException();

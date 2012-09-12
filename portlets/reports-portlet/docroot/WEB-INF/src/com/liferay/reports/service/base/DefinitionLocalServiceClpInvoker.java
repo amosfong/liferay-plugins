@@ -272,6 +272,8 @@ public class DefinitionLocalServiceClpInvoker {
 		if (_methodName48.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
 			DefinitionLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
+
+			return null;
 		}
 
 		if (_methodName53.equals(name) &&
@@ -299,6 +301,8 @@ public class DefinitionLocalServiceClpInvoker {
 				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
 			DefinitionLocalServiceUtil.deleteDefinitionTemplates(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1]);
+
+			return null;
 		}
 
 		if (_methodName57.equals(name) &&
@@ -336,6 +340,8 @@ public class DefinitionLocalServiceClpInvoker {
 			DefinitionLocalServiceUtil.updateDefinitionResources((com.liferay.reports.model.Definition)arguments[0],
 				(java.lang.String[])arguments[1],
 				(java.lang.String[])arguments[2]);
+
+			return null;
 		}
 
 		throw new UnsupportedOperationException();

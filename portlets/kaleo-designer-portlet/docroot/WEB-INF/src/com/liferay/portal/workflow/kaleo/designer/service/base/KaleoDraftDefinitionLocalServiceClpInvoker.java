@@ -295,6 +295,8 @@ public class KaleoDraftDefinitionLocalServiceClpInvoker {
 		if (_methodName35.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes35, parameterTypes)) {
 			KaleoDraftDefinitionLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
+
+			return null;
 		}
 
 		if (_methodName40.equals(name) &&
@@ -397,6 +399,8 @@ public class KaleoDraftDefinitionLocalServiceClpInvoker {
 				Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
 			KaleoDraftDefinitionLocalServiceUtil.validate((java.util.Map<java.util.Locale, java.lang.String>)arguments[0],
 				(java.lang.String)arguments[1]);
+
+			return null;
 		}
 
 		throw new UnsupportedOperationException();

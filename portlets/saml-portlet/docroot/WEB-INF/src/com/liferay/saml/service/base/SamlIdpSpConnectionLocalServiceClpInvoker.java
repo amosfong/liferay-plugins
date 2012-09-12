@@ -255,6 +255,8 @@ public class SamlIdpSpConnectionLocalServiceClpInvoker {
 		if (_methodName57.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
 			SamlIdpSpConnectionLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
+
+			return null;
 		}
 
 		if (_methodName62.equals(name) &&
@@ -306,6 +308,8 @@ public class SamlIdpSpConnectionLocalServiceClpInvoker {
 		if (_methodName68.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
 			SamlIdpSpConnectionLocalServiceUtil.updateMetadata(((Long)arguments[0]).longValue());
+
+			return null;
 		}
 
 		if (_methodName69.equals(name) &&

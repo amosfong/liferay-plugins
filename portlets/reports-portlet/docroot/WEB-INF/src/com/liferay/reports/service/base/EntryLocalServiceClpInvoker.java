@@ -280,6 +280,8 @@ public class EntryLocalServiceClpInvoker {
 		if (_methodName53.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
 			EntryLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
+
+			return null;
 		}
 
 		if (_methodName58.equals(name) &&
@@ -303,6 +305,8 @@ public class EntryLocalServiceClpInvoker {
 			EntryLocalServiceUtil.addEntryResources((com.liferay.reports.model.Entry)arguments[0],
 				((Boolean)arguments[1]).booleanValue(),
 				((Boolean)arguments[2]).booleanValue());
+
+			return null;
 		}
 
 		if (_methodName60.equals(name) &&
@@ -310,12 +314,16 @@ public class EntryLocalServiceClpInvoker {
 			EntryLocalServiceUtil.addEntryResources((com.liferay.reports.model.Entry)arguments[0],
 				(java.lang.String[])arguments[1],
 				(java.lang.String[])arguments[2]);
+
+			return null;
 		}
 
 		if (_methodName61.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
 			EntryLocalServiceUtil.deleteAttachment(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1]);
+
+			return null;
 		}
 
 		if (_methodName62.equals(name) &&
@@ -331,6 +339,8 @@ public class EntryLocalServiceClpInvoker {
 		if (_methodName64.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
 			EntryLocalServiceUtil.generateReport(((Long)arguments[0]).longValue());
+
+			return null;
 		}
 
 		if (_methodName65.equals(name) &&
@@ -358,17 +368,23 @@ public class EntryLocalServiceClpInvoker {
 				(java.lang.String)arguments[1],
 				(java.lang.String[])arguments[2],
 				((Boolean)arguments[3]).booleanValue());
+
+			return null;
 		}
 
 		if (_methodName68.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
 			EntryLocalServiceUtil.unscheduleEntry(((Long)arguments[0]).longValue());
+
+			return null;
 		}
 
 		if (_methodName69.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
 			EntryLocalServiceUtil.updateEntry(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (byte[])arguments[2]);
+
+			return null;
 		}
 
 		if (_methodName70.equals(name) &&
@@ -376,6 +392,8 @@ public class EntryLocalServiceClpInvoker {
 			EntryLocalServiceUtil.updateEntryStatus(((Long)arguments[0]).longValue(),
 				(com.liferay.reports.ReportStatus)arguments[1],
 				(java.lang.String)arguments[2]);
+
+			return null;
 		}
 
 		throw new UnsupportedOperationException();

@@ -246,6 +246,8 @@ public class AuditEventLocalServiceClpInvoker {
 		if (_methodName33.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes33, parameterTypes)) {
 			AuditEventLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
+
+			return null;
 		}
 
 		if (_methodName38.equals(name) &&

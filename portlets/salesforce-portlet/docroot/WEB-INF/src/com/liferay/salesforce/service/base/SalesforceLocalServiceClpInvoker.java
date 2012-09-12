@@ -101,12 +101,16 @@ public class SalesforceLocalServiceClpInvoker {
 		if (_methodName27.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes27, parameterTypes)) {
 			SalesforceLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
+
+			return null;
 		}
 
 		if (_methodName30.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes30, parameterTypes)) {
 			SalesforceLocalServiceUtil.executeAdd(((Long)arguments[0]).longValue(),
 				(java.util.List<com.liferay.portal.kernel.messaging.Message>)arguments[1]);
+
+			return null;
 		}
 
 		if (_methodName31.equals(name) &&
@@ -120,6 +124,8 @@ public class SalesforceLocalServiceClpInvoker {
 			SalesforceLocalServiceUtil.executeAddOrUpdate(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1],
 				(java.util.List<com.liferay.portal.kernel.messaging.Message>)arguments[2]);
+
+			return null;
 		}
 
 		if (_methodName33.equals(name) &&
@@ -127,12 +133,16 @@ public class SalesforceLocalServiceClpInvoker {
 			SalesforceLocalServiceUtil.executeAddOrUpdate(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1],
 				(com.liferay.portal.kernel.messaging.Message)arguments[2]);
+
+			return null;
 		}
 
 		if (_methodName34.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes34, parameterTypes)) {
 			SalesforceLocalServiceUtil.executeDelete(((Long)arguments[0]).longValue(),
 				(java.util.List<java.lang.String>)arguments[1]);
+
+			return null;
 		}
 
 		if (_methodName35.equals(name) &&
@@ -170,12 +180,16 @@ public class SalesforceLocalServiceClpInvoker {
 				Arrays.deepEquals(_methodParameterTypes40, parameterTypes)) {
 			SalesforceLocalServiceUtil.executeUpdate(((Long)arguments[0]).longValue(),
 				(java.util.List<com.liferay.portal.kernel.messaging.Message>)arguments[1]);
+
+			return null;
 		}
 
 		if (_methodName41.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
 			SalesforceLocalServiceUtil.executeUpdate(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.kernel.messaging.Message)arguments[1]);
+
+			return null;
 		}
 
 		throw new UnsupportedOperationException();
