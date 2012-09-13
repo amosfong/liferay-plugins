@@ -56,7 +56,7 @@ public class SamlSpIdpConnectionLocalServiceImpl
 		}
 
 		if (samlSpIdpConnectionPersistence.fetchByC_SIEI(
-			serviceContext.getCompanyId(), samlIdpEntityId) != null) {
+				serviceContext.getCompanyId(), samlIdpEntityId) != null) {
 
 			throw new DuplicateSamlSpIdpConnectionSamlIdpEntityIdException();
 		}
@@ -110,7 +110,6 @@ public class SamlSpIdpConnectionLocalServiceImpl
 		return samlSpIdpConnectionPersistence.findByC_SIEI(
 			companyId, samlIdpEntityId);
 	}
-
 
 	public List<SamlSpIdpConnection> getSamlSpIdpConnections(long companyId)
 		throws SystemException {
@@ -200,7 +199,8 @@ public class SamlSpIdpConnectionLocalServiceImpl
 		}
 
 		SamlSpIdpConnection samlSpIdpConnection =
-			samlSpIdpConnectionPersistence.findByPrimaryKey(samlSpIdpConnectionId);
+			samlSpIdpConnectionPersistence.findByPrimaryKey(
+				samlSpIdpConnectionId);
 
 		if (!samlIdpEntityId.equals(samlSpIdpConnection.getSamlIdpEntityId())) {
 			if (samlSpIdpConnectionPersistence.fetchByC_SIEI(
@@ -276,4 +276,5 @@ public class SamlSpIdpConnectionLocalServiceImpl
 
 	private static Log _log = LogFactoryUtil.getLog(
 		SamlIdpSpConnectionLocalServiceImpl.class);
+
 }
