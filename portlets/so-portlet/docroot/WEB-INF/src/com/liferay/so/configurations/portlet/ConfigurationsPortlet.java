@@ -17,7 +17,8 @@
 
 package com.liferay.so.configurations.portlet;
 
-import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.search.Indexer;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.Role;
@@ -51,18 +52,23 @@ public class ConfigurationsPortlet extends MVCPortlet {
 		Role role = RoleLocalServiceUtil.getRole(
 			themeDisplay.getCompanyId(), RoleConstants.SOCIAL_OFFICE_USER);
 
-		List<User> users = UserLocalServiceUtil.getUsers(
-			QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+		int count = UserLocalServiceUtil.getCompanyUsersCount(
+			themeDisplay.getCompanyId());
 
-		long[] userIds = new long[users.size()];
+		int pages = count / Indexer.DEFAULT_INTERVAL;
 
-		for (int i = 0; i < users.size(); i++) {
-			User curUser = users.get(i);
+		for (int i = 0; i <= pages; i++) {
+			int start = (i * Indexer.DEFAULT_INTERVAL);
+			int end = start + Indexer.DEFAULT_INTERVAL;
 
-			userIds[i] = curUser.getUserId();
+			List<User> users = UserLocalServiceUtil.getCompanyUsers(
+				themeDisplay.getCompanyId(), start, end);
+
+			long[] userIds = StringUtil.split(
+				ListUtil.toString(users, "userId"), 0L);
+
+			UserLocalServiceUtil.addRoleUsers(role.getRoleId(), userIds);
 		}
-
-		UserLocalServiceUtil.addRoleUsers(role.getRoleId(), userIds);
 	}
 
 	public void updateGroupsRole(
