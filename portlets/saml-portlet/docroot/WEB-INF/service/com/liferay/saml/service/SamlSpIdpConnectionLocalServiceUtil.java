@@ -274,6 +274,80 @@ public class SamlSpIdpConnectionLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static com.liferay.saml.model.SamlSpIdpConnection addSamlSpIdpConnection(
+		java.lang.String samlIdpEntityId, boolean assertionSignatureRequired,
+		long clockSkew, boolean enabled, boolean ldapImportEnabled,
+		java.io.InputStream metadataXmlInputStream,
+		java.lang.String metadataUrl, java.lang.String name,
+		java.lang.String nameIdFormat, boolean signAuthnRequest,
+		java.lang.String userAttributeMappings,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addSamlSpIdpConnection(samlIdpEntityId,
+			assertionSignatureRequired, clockSkew, enabled, ldapImportEnabled,
+			metadataXmlInputStream, metadataUrl, name, nameIdFormat,
+			signAuthnRequest, userAttributeMappings, serviceContext);
+	}
+
+	public static com.liferay.saml.model.SamlSpIdpConnection getSamlSpIdpConnection(
+		long companyId, java.lang.String samlIdpEntityId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getSamlSpIdpConnection(companyId, samlIdpEntityId);
+	}
+
+	public static java.util.List<com.liferay.saml.model.SamlSpIdpConnection> getSamlSpIdpConnections(
+		long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getSamlSpIdpConnections(companyId);
+	}
+
+	public static java.util.List<com.liferay.saml.model.SamlSpIdpConnection> getSamlSpIdpConnections(
+		long companyId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getSamlSpIdpConnections(companyId, start, end);
+	}
+
+	public static java.util.List<com.liferay.saml.model.SamlSpIdpConnection> getSamlSpIdpConnections(
+		long companyId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getSamlSpIdpConnections(companyId, start, end,
+			orderByComparator);
+	}
+
+	public static int getSamlSpIdpConnectionsCount(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getSamlSpIdpConnectionsCount(companyId);
+	}
+
+	public static void updateMetadata(long samlSpIdpConnectionId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().updateMetadata(samlSpIdpConnectionId);
+	}
+
+	public static com.liferay.saml.model.SamlSpIdpConnection updateSamlSpIdpConnection(
+		long samlSpIdpConnectionId, java.lang.String samlIdpEntityId,
+		boolean assertionSignatureRequired, long clockSkew, boolean enabled,
+		boolean ldapImportEnabled, java.io.InputStream metadataXmlInputStream,
+		java.lang.String metadataUrl, java.lang.String name,
+		java.lang.String nameIdFormat, boolean signAuthnRequest,
+		java.lang.String userAttributeMappings,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateSamlSpIdpConnection(samlSpIdpConnectionId,
+			samlIdpEntityId, assertionSignatureRequired, clockSkew, enabled,
+			ldapImportEnabled, metadataXmlInputStream, metadataUrl, name,
+			nameIdFormat, signAuthnRequest, userAttributeMappings,
+			serviceContext);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}
