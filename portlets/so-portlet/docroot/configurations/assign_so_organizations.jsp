@@ -20,7 +20,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String tabs1 = ParamUtil.getString(request, "tabs1", "users");
+String tabs1 = ParamUtil.getString(request, "tabs1", "organizations");
 
 String searchFilter = ParamUtil.getString(request, "searchFilter");
 String searchKeywords = DAOParamUtil.getLike(request, "keywords");
@@ -49,7 +49,7 @@ RowChecker organizationRoleChecker = InstanceFactory.newInstance(PortalClassLoad
 
 	if (searchFilter.equals("current")) {
 		if (Validator.isNotNull(role)) {
-			params.put("organizationsRoles", new Long(role.getRoleId()));
+			params.put("organizationsRoles", role.getRoleId());
 		}
 
 		organizations = OrganizationLocalServiceUtil.search(user.getCompanyId(), OrganizationConstants.ANY_PARENT_ORGANIZATION_ID, searchKeywords, null, null, null, params, searchContainer.getStart(), searchContainer.getEnd());

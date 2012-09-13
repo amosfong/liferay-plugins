@@ -49,7 +49,7 @@ RowChecker userGroupRoleChecker = InstanceFactory.newInstance(PortalClassLoaderU
 
 	if (searchFilter.equals("current")) {
 		if (Validator.isNotNull(role)) {
-			params.put("userGroupsRoles", new Long(role.getRoleId()));
+			params.put("userGroupsRoles", role.getRoleId());
 		}
 
 		userGroups = UserGroupLocalServiceUtil.search(user.getCompanyId(), searchKeywords, params, searchContainer.getStart(), searchContainer.getEnd(), (OrderByComparator)null);

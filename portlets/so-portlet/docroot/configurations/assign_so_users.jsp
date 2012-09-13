@@ -49,7 +49,7 @@ RowChecker userRoleChecker = InstanceFactory.newInstance(PortalClassLoaderUtil.g
 
 	if (searchFilter.equals("current")) {
 		if (Validator.isNotNull(role)) {
-			params.put("usersRoles", new Long(role.getRoleId()));
+			params.put("usersRoles", role.getRoleId());
 		}
 
 		users = UserLocalServiceUtil.search(user.getCompanyId(), searchKeywords, WorkflowConstants.STATUS_APPROVED, params, searchContainer.getStart(), searchContainer.getEnd(), (OrderByComparator)null);

@@ -20,22 +20,18 @@
 <%@ include file="/init.jsp" %>
 
 <%
-Group group = layout.getGroup();
-Group userGroup = user.getGroup();
-
 String tabs1 = ParamUtil.getString(request, "tabs1", "users");
 
 String keywords = ParamUtil.getString(request, "keywords");
 String searchFilter = ParamUtil.getString(request, "searchFilter", "available");
-%>
 
-<liferay-portlet:renderURL var="portletURL">
-	<portlet:param name="tabs1" value="<%= tabs1 %>" />
-</liferay-portlet:renderURL>
+Group layoutGroup = layout.getGroup();
+Group userGroup = user.getGroup();
+%>
 
 <span class="configuration-message">
 	<c:choose>
-		<c:when test="<%= group.isControlPanel() %>">
+		<c:when test="<%= layoutGroup.isControlPanel() %>">
 			<%= LanguageUtil.get(pageContext, "give-users-social-office-access") %>
 		</c:when>
 		<c:otherwise>
@@ -43,6 +39,10 @@ String searchFilter = ParamUtil.getString(request, "searchFilter", "available");
 		</c:otherwise>
 	</c:choose>
 </span>
+
+<liferay-portlet:renderURL var="portletURL">
+	<portlet:param name="tabs1" value="<%= tabs1 %>" />
+</liferay-portlet:renderURL>
 
 <liferay-ui:tabs
 	names="users,organizations,user-groups"
@@ -55,55 +55,53 @@ String searchFilter = ParamUtil.getString(request, "searchFilter", "available");
 	<aui:input name="removeIds" type="hidden" />
 
 	<aui:input label="" name="keywords" size="30" value="<%= HtmlUtil.escape(keywords) %>" />
+
 	<aui:button type="submit" value="search" />
 
 	<div id="filterRadioButtons">
-		<span class="filter-title"><%= LanguageUtil.get(pageContext, "view") %>&#58;</span>
+		<span class="filter-title"><liferay-ui:message key="view" />&#58;</span>
 
 		<aui:input checked='<%= searchFilter.equals("available") %>' label="available" name="searchFilter" type="radio" value="available" />
+
 		<aui:input checked='<%= searchFilter.equals("current") %>' label="current" name="searchFilter" type="radio" value="current" />
 	</div>
 
 	<c:choose>
-		<c:when test='<%= tabs1.equals("users") %>'>
-			<liferay-util:include page="/configurations/assign_so_users.jsp" servletContext="<%= application %>" />
-		</c:when>
 		<c:when test='<%= tabs1.equals("organizations") %>'>
 			<liferay-util:include page="/configurations/assign_so_organizations.jsp" servletContext="<%= application %>" />
 		</c:when>
 		<c:when test='<%= tabs1.equals("user-groups") %>'>
 			<liferay-util:include page="/configurations/assign_so_user_groups.jsp" servletContext="<%= application %>" />
 		</c:when>
+		<c:when test='<%= tabs1.equals("users") %>'>
+			<liferay-util:include page="/configurations/assign_so_users.jsp" servletContext="<%= application %>" />
+		</c:when>
 	</c:choose>
 </aui:form>
 
 <div class="so-welcome-setup">
-	<c:if test='<%= !group.isControlPanel() && tabs1.equals("users") %>'>
+	<c:if test='<%= !layoutGroup.isControlPanel() && tabs1.equals("users") %>'>
 		<div id="addAllUsers">
 			<aui:input label="give-every-new-liferay-portal-user-access-to-social-office-can-be-configured-later" name="" type="checkbox" value="" />
 		</div>
 	</c:if>
 
-	<%
-	String taglibOnClickFinished = renderResponse.getNamespace() + "updateRole(true)";
-	String taglibOnClickSave = renderResponse.getNamespace() + "updateRole(false)";
-	%>
-
 	<aui:button-row>
-		<aui:button onClick="<%= taglibOnClickSave %>" value="save" />
-		<c:if test="<%= !group.isControlPanel() %>">
-			<aui:button onClick="<%= taglibOnClickFinished %>" value="finish" />
+		<aui:button onClick='<%= renderResponse.getNamespace() + "updateRole(false)" %>' value="save" />
+
+		<c:if test="<%= !layoutGroup.isControlPanel() %>">
+			<aui:button onClick='<%= renderResponse.getNamespace() + "updateRole(true)" %>' value="finish" />
 		</c:if>
 	</aui:button-row>
 </div>
 
-<liferay-portlet:actionURL portletName="<%= PortletKeys.SITE_REDIRECTOR %>" var="dashboardURL" windowState="<%= LiferayWindowState.NORMAL.toString() %>">
-	<portlet:param name="struts_action" value="/my_sites/view" />
-	<portlet:param name="groupId" value="<%= String.valueOf(userGroup.getGroupId()) %>" />
-	<portlet:param name="privateLayout" value="<%= Boolean.TRUE.toString() %>" />
-</liferay-portlet:actionURL>
+<aui:script>
+	<liferay-portlet:actionURL portletName="<%= PortletKeys.SITE_REDIRECTOR %>" var="dashboardURL" windowState="<%= LiferayWindowState.NORMAL.toString() %>">
+		<portlet:param name="struts_action" value="/my_sites/view" />
+		<portlet:param name="groupId" value="<%= String.valueOf(userGroup.getGroupId()) %>" />
+		<portlet:param name="privateLayout" value="<%= Boolean.TRUE.toString() %>" />
+	</liferay-portlet:actionURL>
 
-<script>
 	Liferay.provide(
 		window,
 		'<portlet:namespace />updateRole',
@@ -146,7 +144,7 @@ String searchFilter = ParamUtil.getString(request, "searchFilter", "available");
 		},
 		['liferay-util-list-fields']
 	);
-</script>
+</aui:script>
 
 <aui:script use="aui-base">
 	var radioButtons = A.all('#filterRadioButtons input[type=radio]');
