@@ -27,7 +27,7 @@ String searchKeywords = DAOParamUtil.getLike(request, "keywords");
 
 Role role = RoleLocalServiceUtil.getRole(user.getCompanyId(), RoleConstants.SOCIAL_OFFICE_USER);
 
-RowChecker organizationRoleChecker = InstanceFactory.newInstance(PortalClassLoaderUtil.getClassLoader(), "com.liferay.portlet.rolesadmin.search.OrganizationRoleChecker", new Object[] {RenderResponse.class, Role.class}, new Object[] {renderResponse, role});
+RowChecker organizationRoleChecker = (RowChecker)InstanceFactory.newInstance(PortalClassLoaderUtil.getClassLoader(), "com.liferay.portlet.rolesadmin.search.OrganizationRoleChecker", new Class<?>[] {RenderResponse.class, Role.class}, new Object[] {renderResponse, role});
 %>
 
 <liferay-portlet:renderURL varImpl="portletURL">
