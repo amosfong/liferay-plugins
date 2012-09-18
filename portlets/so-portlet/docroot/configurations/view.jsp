@@ -32,10 +32,10 @@ Group userGroup = user.getGroup();
 <span class="configuration-message">
 	<c:choose>
 		<c:when test="<%= layoutGroup.isControlPanel() %>">
-			<%= LanguageUtil.get(pageContext, "give-users-social-office-access") %>
+			<liferay-ui:message key="give-users-social-office-access" />
 		</c:when>
 		<c:otherwise>
-			<%= LanguageUtil.get(pageContext, "almost-done-now-its-time-to-figure-out-who-to-give-social-office-to") %>
+			<liferay-ui:message key="almost-done-now-its-time-to-figure-out-who-to-give-social-office-to" />
 		</c:otherwise>
 	</c:choose>
 </span>
@@ -82,7 +82,7 @@ Group userGroup = user.getGroup();
 <div class="so-welcome-setup">
 	<c:if test='<%= !layoutGroup.isControlPanel() && tabs1.equals("users") %>'>
 		<div id="addAllUsers">
-			<aui:input label="give-every-new-liferay-portal-user-access-to-social-office-can-be-configured-later" name="" type="checkbox" value="" />
+			<aui:input label="give-every-liferay-portal-user-access-to-social-office-can-be-configured-later" name="" type="checkbox" value="" />
 		</div>
 	</c:if>
 
