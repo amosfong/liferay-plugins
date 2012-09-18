@@ -22,37 +22,28 @@ JSONArray samlSloRequestInfos = samlSloContext.getJSONArray("samlSloRequestInfos
 %>
 
 <style type="text/css">
-	.saml-sp .sso-complete {
-		background-image: url(<%= themeDisplay.getPathThemeImages() %>/messages/success.png)
+	.saml-sp {
+		margin-bottom: 0.5em;
 	}
 
-	.saml-sp .sso-failed {
-		background-image: url(<%= themeDisplay.getPathThemeImages() %>/messages/error.png)
+	.saml-sp-label {
+		background-position: 0 50%;
+		background-repeat: no-repeat;
+		padding: 3px 3px 3px 20px;
+		font-weight: bold;
 	}
 
-	.saml-sp .sso-no-support {
-		background-image: url(<%= themeDisplay.getPathThemeImages() %>/arrows/02_x.png)
+	.portlet-msg-no-support-label {
+		background-image: url(<%= themeDisplay.getPathThemeImages() %>/arrows/02_x.png);
 	}
 
-	.saml-sp .sso-progress {
-		background-image: url(<%= themeDisplay.getPathThemeImages() %>/aui/loading_indicator.gif)
+	.portlet-msg-timed-out-label {
+		background-image: url(<%= themeDisplay.getPathThemeImages() %>/common/time.png);
 	}
 
-	.saml-sp .sso-timed-out {
-		background-image: url(<%= themeDisplay.getPathThemeImages() %>/common/time.png)
-	}
-
-	.saml-sp img {
-		height: 16px;
-		margin: 0 5px;
-		width: 16px;
-	}
-
-	.saml-sp iframe {
-		height: 0;
-		left: -9999px;
-		position: absolute;
-		width: 0;
+	.saml-sp-retry {
+		display: inline-block;
+		margin-left: 10px;
 	}
 </style>
 
@@ -60,9 +51,15 @@ JSONArray samlSloRequestInfos = samlSloContext.getJSONArray("samlSloRequestInfos
 	<liferay-ui:message key="signing-out-from-services" />
 </h3>
 
-<div id="samlSloOutput"></div>
+<div id="<portlet:namespace />samlSloResults"></div>
 
-<div id="samlSloContinue"></div>
+<div class="aui-helper-hidden" id="<portlet:namespace />samlSloCompleteSignOut">
+	<div class="portlet-msg-info">
+		<liferay-ui:message arguments='<%= 5 %>' key="all-service-providers-are-processed-continuing-sign-out-automatically-in-x-seconds" />
+	</div>
+
+	<a href="?cmd=finish"><liferay-ui:message key="complete-sign-out" /></a>
+</div>
 
 <noscript>
 	<div class="portlet-msg-info">
@@ -83,7 +80,7 @@ JSONArray samlSloRequestInfos = samlSloContext.getJSONArray("samlSloRequestInfos
 		entityURL.append(entityId);
 	%>
 
-		<div class="saml-sp" id="<%= "samlSp" + i %>">
+		<div class="saml-sp" id="<portlet:namespace /><%= "samlSp" + i %>">
 			<a class="saml-sp-label" href="<%= entityURL %>" target="_blank">
 				<liferay-ui:message arguments="<%= name %>" key="sign-out-from-x" />
 			</a>
@@ -101,73 +98,88 @@ JSONArray samlSloRequestInfos = samlSloContext.getJSONArray("samlSloRequestInfos
 </noscript>
 
 <aui:script use="aui-io-request,aui-template">
-	var Language = Liferay.Language;
+	var AArray = A.Array;
 
-	Liferay.namespace('SAML');
+	var MAP_ENTITY_STATUS = {
+		2: {
+			cssClass: 'portlet-msg-success-label',
+			retry: false,
+			title: '<%= UnicodeLanguageUtil.get(pageContext, "single-sign-out-completed-successfully") %>'
+		},
+		3: {
+			cssClass: 'portlet-msg-error-label',
+			retry: true,
+			title: '<%= UnicodeLanguageUtil.get(pageContext, "single-sign-out-request-failed") %>'
+		},
+		4: {
+			cssClass: 'portlet-msg-no-support-label',
+			retry: false,
+			title: '<%= UnicodeLanguageUtil.get(pageContext, "this-service-provider-does-not-support-single-sign-out") %>'
+		},
+		5: {
+			cssClass: 'portlet-msg-timed-out-label',
+			retry: true,
+			title: '<%= UnicodeLanguageUtil.get(pageContext, "single-sign-out-request-timed-out") %>'
+		},
+		defaultStatus: {
+			cssClass: 'portlet-msg-progress-label',
+			retry: false,
+			title: '<%= UnicodeLanguageUtil.get(pageContext, "single-sign-out-in-progress") %>'
+		}
+	};
 
-	Liferay.SAML.SLO = {
-		continueNode: null,
-		map: {},
-		status: {},
-		timer: null,
+	var TPL_SAML_ENTITY = new A.Template(
+		'<tpl for="items">',
+			'<div id="<portlet:namespace />samlSp{$i}" class="saml-sp">' +
+				'<span class="saml-sp-label portlet-msg-progress-label">{name}</span>' +
+				'<a class="aui-helper-hidden saml-sp-retry" data-entityId="{entityId}" href="javascript:;"><%= UnicodeLanguageUtil.get(pageContext, "retry") %></a>' +
+				'<iframe class="aui-helper-hidden-accessible" src="?cmd=logout&entityId={entityId}" />' +
+			'</div>' +
+		'</tpl>'
+	);
 
-		init: function(data) {
+	var SAML = Liferay.namespace('SAML');
+
+	SAML.SLO = {
+		init: function(items) {
 			var instance = this;
 
-			var items = [];
+			var entities = instance._entities;
+			var entityStatus = instance._entityStatus;
 
-			var retry = Language.get('retry');
-
-			var samlSpTemplate = new A.Template(
-				'<tpl for="items">',
-					'<div id="{samlSpId}" class="saml-sp">' +
-						'<span class="saml-sp-label">{name}</span>' +
-						'<img src="' + themeDisplay.getPathThemeImages() + '/spacer.png" class="sso-progress" />' +
-						'<a id="{retryId}" href="javascript:Liferay.SAML.SLO._retryLogout({entityId})" class="aui-helper-hidden">' +
-							retry +
-						'</a>' +
-						'<iframe id="{iframeId}" src="?cmd=logout&entityId={entityId}" />' +
-					'</div>' +
-				'</tpl>'
-			);
-
-			var continueNode = A.one('#samlSloContinue');
-			var outputNode = A.one('#samlSloOutput');
-
-			A.Array.each(
-				data,
+			AArray.each(
+				items,
 				function(item, index, collection) {
 					var entityId = item.entityId;
-					var samlSpId = 'samlSp' + index;
 
-					instance.map[entityId] = samlSpId;
-					instance.status[entityId] = 0;
-
-					items.push(
-						{
-							entityId: entityId,
-							iframeId: 'samlSpIframe' + index,
-							name: item.name,
-							retryId: 'samlSpRetry' + index,
-							samlSpId: samlSpId
-						}
-					);
+					entities[entityId] = '<portlet:namespace />samlSp' + index;
+					entityStatus[entityId] = 0;
 				}
 			);
 
-			samlSpTemplate.render(
+			var outputNode = A.one('#<portlet:namespace />samlSloResults');
+
+			TPL_SAML_ENTITY.render(
 				{
 					items: items
 				},
 				outputNode
 			);
 
-			instance.continueNode = continueNode;
+			outputNode.delegate(
+				'click',
+				function(event) {
+					instance.retryLogout(event.currentTarget.attr('data-entityId'));
+				},
+				'.saml-sp-retry'
+			);
 
-			instance.timer = A.later(1000, instance, instance._checkStatus, null, true);
+			instance._completeSignOut = A.one('#<portlet:namespace />samlSloCompleteSignOut');
+
+			instance.checkStatus();
 		},
 
-		_checkStatus: function() {
+		checkStatus: function() {
 			var instance = this;
 
 			var request = A.io.request(
@@ -175,53 +187,25 @@ JSONArray samlSloRequestInfos = samlSloContext.getJSONArray("samlSloRequestInfos
 				{
 					dataType: 'json',
 					on: {
-						failure: function(event) {
-							var timer = instance.timer;
-
-							if (timer) {
-								timer.cancel();
-							}
-						},
 						success: function(event) {
 							var logoutPending = false;
 
-							var response = this.get('responseData');
-
-							var samlSloRequestInfos = response.samlSloRequestInfos;
-
-							A.Array.each(
-								samlSloRequestInfos,
+							AArray.each(
+								this.get('responseData.samlSloRequestInfos'),
 								function(item, index, collection) {
-									var status = item.status;
+									logoutPending = (item.status < 2);
 
-									if (status < 2) {
-										logoutPending = true;
-									}
-
-									instance._updateStatus(item);
+									instance.updateStatus(item);
 								}
 							);
 
-							if (!logoutPending) {
-								var continueNode = instance.continueNode;
-								var timer = instance.timer;
+							if (logoutPending) {
+								instance.checkStatus();
+							}
+							else {
+								instance._completeSignOut.show();
 
-								var portletMessageInfo = A.Node.create(
-									'<p>' +
-										'<div class="portlet-msg-info">' +
-											Language.get('all-service-providers-are-processed-continuing-sign-out-automatically-in-x-seconds', '5') +
-										'</div>' +
-										'<a href="?cmd=finish">' + Language.get('complete-sign-out') + '</a>' +
-									'</p>'
-								);
-
-								if (timer) {
-									timer.cancel();
-								}
-
-								continueNode.setContent(portletMessageInfo);
-
-								A.later(5000, instance, instance._finishLogout, null, false);
+								setTimeout(A.bind('finishLogout', instance), 5000);
 							}
 						}
 					}
@@ -229,102 +213,64 @@ JSONArray samlSloRequestInfos = samlSloContext.getJSONArray("samlSloRequestInfos
 			);
 		},
 
-		_finishLogout: function() {
+		finishLogout: function() {
 			location.href = '?cmd=finish';
 		},
 
-		_retryLogout: function(entityId) {
+		retryLogout: function(entityId) {
 			var instance = this;
 
-			var timer = instance.timer;
+			var entityNode = A.one('#' + instance._entities[entityId]);
 
-			var entityNode = A.one('#' + instance.map[entityId]);
+			if (entityNode) {
+				var defaultStatus = MAP_ENTITY_STATUS.defaultStatus;
 
-			var iframe = entityNode.one('iframe');
-			var img = entityNode.one('img');
-			var retry = entityNode.one('a');
+				entityNode.one('.saml-sp-label').attr(
+					{
+						className: 'saml-sp-label ' + defaultStatus.cssClass,
+						title: defaultStatus.title
+					}
+				);
 
-			img.attr(
-				{
-					className: 'sso-progress',
-					title: 'Single logout request in progress'
-				}
-			);
+				entityNode.one('.saml-sp-retry').hide();
 
-			retry.hide();
+				entityNode.one('iframe').set('src', '?cmd=logout&entityId=' + entityId);
 
-			iframe.set('src', '?cmd=logout&entityId=' + entityId);
-
-			if (timer) {
-				timer.cancel();
+				instance.checkStatus();
 			}
-
-			timer = A.later(1000, instance, instance._checkStatus, null, true);
 		},
 
-		_updateStatus: function(samlSloRequestInfo) {
+		updateStatus: function(samlSloRequestInfo) {
 			var instance = this;
-
-			var className;
-			var title;
 
 			var infoStatus = samlSloRequestInfo.status;
 
-			var status = instance.status[samlSloRequestInfo.entityId];
+			var entityStatus = instance._entityStatus;
 
-			var entityId = A.one('#' + instance.map[samlSloRequestInfo.entityId]);
+			var entityId = samlSloRequestInfo.entityId;
 
-			var img = entityId.one('img');
-
-			var retry = entityId.one('a');
+			var status = entityStatus[entityId];
 
 			if (status != infoStatus) {
-				status = infoStatus;
+				entityStatus[entityId] = infoStatus;
 
-				if (infoStatus < 2) {
-					className = 'sso-progress';
+				var entityNode = A.one('#' + instance._entities[entityId]);
 
-					title = Language.get('single-sign-out-in-progress');
+				var statusDetails = MAP_ENTITY_STATUS[infoStatus] || MAP_ENTITY_STATUS.defaultStatus;
 
-					retry.hide();
-				}
-				else if (infoStatus === 2) {
-					className = 'sso-complete';
-
-					title = Language.get('single-sign-out-completed-successfully');
-
-					retry.hide();
-				}
-				else if (infoStatus === 3) {
-					className = 'sso-failed';
-
-					title = Language.get('single-sign-out-request-failed');
-
-					retry.show();
-				}
-				else if (infoStatus === 4) {
-					className = 'sso-no-support';
-
-					title = Language.get('this-service-provider-does-not-support-single-sign-out');
-
-					retry.hide();
-				}
-				else if (infoStatus === 5) {
-					className = 'sso-timed-out';
-
-					title = Language.get('single-sign-out-request-timed-out');
-
-					retry.show();
-				}
-
-				img.attr(
+				entityNode.one('.saml-sp-label').attr(
 					{
-						className: className,
-						title: title
+						className: 'saml-sp-label ' + statusDetails.cssClass,
+						title: statusDetails.title
 					}
 				);
+
+				entityNode.one('.saml-sp-retry').toggle(statusDetails.retry);
 			}
-		}
+		},
+
+		_entities: {},
+		_entityStatus: {}
 	};
 
 	Liferay.SAML.SLO.init(<%= samlSloRequestInfos %>);
