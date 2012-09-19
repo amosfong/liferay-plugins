@@ -68,13 +68,13 @@ Group userGroup = user.getGroup();
 
 	<c:choose>
 		<c:when test='<%= tabs1.equals("organizations") %>'>
-			<liferay-util:include page="/configurations/assign_so_organizations.jsp" servletContext="<%= application %>" />
+			<liferay-util:include page="/assign_so_organizations.jsp" servletContext="<%= application %>" />
 		</c:when>
 		<c:when test='<%= tabs1.equals("user-groups") %>'>
-			<liferay-util:include page="/configurations/assign_so_user_groups.jsp" servletContext="<%= application %>" />
+			<liferay-util:include page="/assign_so_user_groups.jsp" servletContext="<%= application %>" />
 		</c:when>
 		<c:when test='<%= tabs1.equals("users") %>'>
-			<liferay-util:include page="/configurations/assign_so_users.jsp" servletContext="<%= application %>" />
+			<liferay-util:include page="/assign_so_users.jsp" servletContext="<%= application %>" />
 		</c:when>
 	</c:choose>
 </aui:form>
