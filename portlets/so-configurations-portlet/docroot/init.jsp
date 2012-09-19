@@ -49,7 +49,7 @@ page import="com.liferay.portal.service.RoleLocalServiceUtil" %><%@
 page import="com.liferay.portal.service.UserGroupLocalServiceUtil" %><%@
 page import="com.liferay.portal.service.UserLocalServiceUtil" %><%@
 page import="com.liferay.portal.util.PortalUtil" %><%@
-page import="com.liferay.so.util.PortletKeys" %><%@
+page import="com.liferay.portal.util.PortletKeys" %><%@
 page import="com.liferay.so.util.RoleConstants" %>
 
 <%@ page import="java.util.LinkedHashMap" %><%@
