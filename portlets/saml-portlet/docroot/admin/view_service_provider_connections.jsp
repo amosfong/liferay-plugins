@@ -77,6 +77,5 @@ String url = PortalUtil.getCurrentURL(request);
 		<aui:button href="<%= addServiceProviderURL %>" id="saml-menu" value="add-service-provider" />
 	</aui:button-row>
 
-	<br />
-		<liferay-ui:search-iterator />
+	<liferay-ui:search-iterator />
 </liferay-ui:search-container>

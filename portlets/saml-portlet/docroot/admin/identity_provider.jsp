@@ -69,7 +69,6 @@ String nameIdentifierAttribute = PortletPrefsPropsUtil.getString(PortletPropsKey
 
 				<aui:input label="attributes" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTE_NAMES + "--" %>' type="textarea" value="<%= attributeNames %>" />
 			</aui:fieldset>
-
 		</liferay-ui:panel>
 
 	<aui:button-row>

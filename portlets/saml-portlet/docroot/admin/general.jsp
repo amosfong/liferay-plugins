@@ -50,8 +50,7 @@ if (credential != null) {
 	<aui:fieldset>
 		<aui:input label="enabled" name='<%= "settings--" + PortletPropsKeys.SAML_ENABLED + "--" %>' type="checkbox" value="<%= SamlUtil.isEnabled() %>" />
 
-		<aui:select label="saml-role" name='<%= "settings--" + PortletPropsKeys.SAML_ROLE + "--" %>'>
-			<aui:option label="" value="" />
+		<aui:select label="saml-role" name='<%= "settings--" + PortletPropsKeys.SAML_ROLE + "--" %>' showEmptyOption="<%= true %>">
 			<aui:option label="identity-provider" selected="<%= SamlUtil.isRoleIdp() %>" value="idp" />
 			<aui:option label="service-provider" selected="<%= SamlUtil.isRoleSp() %>" value="sp" />
 		</aui:select>
@@ -69,17 +68,51 @@ if (credential != null) {
 </portlet:actionURL>
 
 <aui:fieldset label="certificate-and-private-key">
-
-	<br />
 	<c:choose>
 		<c:when test="<%= certificate != null %>">
-			<liferay-ui:message key="subject-dn" />: <%= CertificateUtil.getSubjectName(certificate) %><br />
-			<liferay-ui:message key="serial-number" />: <%= CertificateUtil.getSerial(certificate) %><br />
-			<liferay-ui:message arguments="<%= new Object[] { certificate.getNotBefore(), certificate.getNotAfter() } %>" key="valid-from-x-until-x" /><br />
-			<liferay-ui:message key="certificate-fingerprints" /><br />
-			&nbsp; &nbsp; MD5: <%= CertificateUtil.getFingerprint("MD5", certificate) %><br />
-			&nbsp; &nbsp; SHA1: <%= CertificateUtil.getFingerprint("SHA1", certificate) %><br />
-			<liferay-ui:message key="signature-algorithm" />: <%= certificate.getSigAlgName() %><br />
+			<dl class="property-list">
+				<dt>
+					<liferay-ui:message key="subject-dn" />
+				</dt>
+				<dd>
+					<%= CertificateUtil.getSubjectName(certificate) %>
+				</dd>
+				<dt>
+					<liferay-ui:message key="serial-number" />
+				</dt>
+				<dd>
+					<%= CertificateUtil.getSerial(certificate) %>
+
+					<div class="portlet-msg-info-label">
+						<liferay-ui:message arguments="<%= new Object[] { certificate.getNotBefore(), certificate.getNotAfter() } %>" key="valid-from-x-until-x" />
+					</div>
+				</dd>
+				<dt>
+					<liferay-ui:message key="certificate-fingerprints" />
+				</dt>
+				<dd class="property-list">
+					<dl>
+						<dt>
+							MD5
+						</dt>
+						<dd>
+							<%= CertificateUtil.getFingerprint("MD5", certificate) %>
+						</dd>
+						<dt>
+							SHA1
+						</dt>
+						<dd>
+							<%= CertificateUtil.getFingerprint("SHA1", certificate) %>
+						</dd>
+					</dl>
+				</dd>
+				<dt>
+					<liferay-ui:message key="signature-algorithm" />
+				</dt>
+				<dd>
+					<%= certificate.getSigAlgName() %>
+				</dd>
+			</dl>
 
 			<portlet:resourceURL var="downloadCertificateURL" />
 
@@ -137,21 +170,32 @@ if (credential != null) {
 				<aui:button-row>
 					<aui:button id='<%= renderResponse.getNamespace() + "_manualSave" %>' type="submit" value="save" />
 
-						<aui:button onClick='<%= renderResponse.getNamespace() + "cancelUpdateCertificate();" %>' value="cancel" />
+					<aui:button onClick='<%= renderResponse.getNamespace() + "cancelUpdateCertificate();" %>' value="cancel" />
 				</aui:button-row>
 			</div>
 	</aui:form>
 </aui:fieldset>
 
 <aui:script>
-	var A = AUI();
-	var certificateForm = A.one("#<portlet:namespace />certificateForm");
-
 	function <portlet:namespace />updateCertificate() {
-		certificateForm.show();
+		<portlet:namespace />toggleCertificateForm(true);
 	}
 
 	function <portlet:namespace />cancelUpdateCertificate() {
-		certificateForm.hide();
+		<portlet:namespace />toggleCertificateForm(false);
 	}
+
+	Liferay.provide(
+		window,
+		'<portlet:namespace />toggleCertificateForm',
+		function(visible) {
+			var A = AUI();
+
+			var certificateForm = A.one('#<portlet:namespace />certificateForm');
+
+			if (certificateForm) {
+				certificateForm.toggle(visible);
+			}
+		}
+	);
 </aui:script>

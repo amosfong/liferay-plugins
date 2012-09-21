@@ -50,6 +50,7 @@ String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsP
 
 <aui:form action="<%= updateServiceProviderConnectionURL %>" enctype="multipart/form-data">
 	<aui:model-context bean="<%= samlIdpSpConnection %>" model="<%= SamlIdpSpConnection.class %>" />
+
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 	<aui:input name="samlIdpSpConnectionId" type="hidden" />
 
@@ -76,11 +77,9 @@ String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsP
 		</aui:button-row>
 
 
-		<div class="aui-helper-hidden" id="<portlet:namespace />uploadMetadataXmlForm">
-			<aui:fieldset label="upload-metadata">
-				<aui:input label="metadata-xml" name="metadataXml" type="file" />
-			</aui:fieldset>
-		</div>
+		<aui:fieldset cssClass="aui-helper-hidden" id="uploadMetadataXmlForm" label="upload-metadata">
+			<aui:input label="metadata-xml" name="metadataXml" type="file" />
+		</aui:fieldset>
 	</aui:fieldset>
 
 	<aui:fieldset label="name-identifier">
@@ -113,9 +112,18 @@ String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsP
 </aui:form>
 
 <aui:script>
-var uploadMetadataXmlForm = AUI().one("#<portlet:namespace />uploadMetadataXmlForm");
+	Liferay.provide(
+		window,
+		'<portlet:namespace />uploadMetadataXml',
+		function() {
+			var A = AUI();
 
-	function <portlet:namespace />uploadMetadataXml() {
-		uploadMetadataXmlForm.show();
-	}
+			var uploadMetadataXmlForm = A.one('#<portlet:namespace />uploadMetadataXmlForm');
+
+			if (uploadMetadataXmlForm) {
+				uploadMetadataXmlForm.show();
+			}
+		},
+		['aui-base']
+	);
 </aui:script>
