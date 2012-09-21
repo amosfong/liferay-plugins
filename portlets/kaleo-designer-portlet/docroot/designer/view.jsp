@@ -615,6 +615,8 @@
 						}
 					]
 				);
+
+				<portlet:namespace />kaleoDesigner.connect('StartNode', 'EndNode');
 			}
 
 			<%
