@@ -55,7 +55,7 @@ JSONArray samlSloRequestInfos = samlSloContext.getJSONArray("samlSloRequestInfos
 
 <div class="aui-helper-hidden" id="<portlet:namespace />samlSloCompleteSignOut">
 	<div class="portlet-msg-info">
-		<liferay-ui:message arguments='<%= 5 %>' key="all-service-providers-are-processed-continuing-sign-out-automatically-in-x-seconds" />
+		<liferay-ui:message arguments="<%= 5 %>" key="all-service-providers-are-processed-continuing-sign-out-automatically-in-x-seconds" />
 	</div>
 
 	<a href="?cmd=finish"><liferay-ui:message key="complete-sign-out" /></a>

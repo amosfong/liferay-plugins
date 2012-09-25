@@ -13,6 +13,7 @@
  * details.
  */
 --%>
+
 <%@ include file="/html/portal/init.jsp" %>
 
 <h3 class="portlet-msg-error">

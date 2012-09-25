@@ -53,7 +53,7 @@ public class SamlSloContext implements Serializable {
 		SAMLMessageContext<LogoutRequest, LogoutResponse, NameID>
 			samlMessageContext) {
 
-		_logoutRequestSamlMessageContext = samlMessageContext;
+		_samlMessageContext = samlMessageContext;
 
 		if (samlIdpSsoSession == null) {
 			return;
@@ -77,35 +77,35 @@ public class SamlSloContext implements Serializable {
 					continue;
 				}
 
-				_samlRequestInfoMap.put(
+				_samlRequestInfos.put(
 					samlSpEntityId, new SamlSloRequestInfo(samlIdpSpSession));
 			}
 		}
 		catch (SystemException se) {
-			_log.warn(se);
+			_log.warn(se, se);
 		}
 	}
 
 	public SAMLMessageContext<LogoutRequest, LogoutResponse, NameID>
-		getLogoutRequestSamlMessageContext() {
+		getSamlMessageContext() {
 
-		return _logoutRequestSamlMessageContext;
+		return _samlMessageContext;
 	}
 
 	public SamlSloRequestInfo getSamlSloRequestInfo(String entityId) {
-		return _samlRequestInfoMap.get(entityId);
+		return _samlRequestInfos.get(entityId);
 	}
 
 	public Set<SamlSloRequestInfo> getSamlSloRequestInfos() {
-		return new HashSet(_samlRequestInfoMap.values());
+		return new HashSet<SamlSloRequestInfo>(_samlRequestInfos.values());
+	}
+
+	public Set<String> getSamlSpEntityIds() {
+		return _samlRequestInfos.keySet();
 	}
 
 	public String getSamlSsoSessionId() {
 		return _samlSsoSessionId;
-	}
-
-	public Set<String> getSpEntityIds() {
-		return _samlRequestInfoMap.keySet();
 	}
 
 	public User getUser() {
@@ -132,27 +132,27 @@ public class SamlSloContext implements Serializable {
 	public JSONObject toJSONObject() {
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
-		jsonObject.put("userId", getUserId());
-
-		JSONArray jsonSamlSloRequestInfos = JSONFactoryUtil.createJSONArray();
+		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
 		for (SamlSloRequestInfo samlSloRequestInfo :
-				_samlRequestInfoMap.values()) {
+				_samlRequestInfos.values()) {
 
-			jsonSamlSloRequestInfos.put(samlSloRequestInfo.toJSONObject());
+			jsonArray.put(samlSloRequestInfo.toJSONObject());
 		}
 
-		jsonObject.put("samlSloRequestInfos", jsonSamlSloRequestInfos);
+		jsonObject.put("samlSloRequestInfos", jsonArray);
+
+		jsonObject.put("userId", getUserId());
 
 		return jsonObject;
 	}
 
-	private static final Log _log = LogFactoryUtil.getLog(SamlSloContext.class);
+	private static Log _log = LogFactoryUtil.getLog(SamlSloContext.class);
 
 	private SAMLMessageContext<LogoutRequest, LogoutResponse, NameID>
-		_logoutRequestSamlMessageContext;
-	private Map<String, SamlSloRequestInfo> _samlRequestInfoMap =
-					new ConcurrentHashMap<String, SamlSloRequestInfo>();
+		_samlMessageContext;
+	private Map<String, SamlSloRequestInfo> _samlRequestInfos =
+		new ConcurrentHashMap<String, SamlSloRequestInfo>();
 	private String _samlSsoSessionId;
 	private long _userId;
 

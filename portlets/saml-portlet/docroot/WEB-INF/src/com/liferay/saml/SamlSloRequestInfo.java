@@ -28,19 +28,25 @@ import org.opensaml.saml2.core.StatusCode;
  * @author Mika Koivisto
  */
 public class SamlSloRequestInfo implements Serializable {
+
 	public static final int REQUEST_STATUS_FAILED = 3;
+
 	public static final int REQUEST_STATUS_INITIATED = 1;
+
 	public static final int REQUEST_STATUS_PENDING = 0;
+
 	public static final int REQUEST_STATUS_SUCCESS = 2;
+
 	public static final int REQUEST_STATUS_TIMED_OUT = 5;
+
 	public static final int REQUEST_STATUS_UNSUPPORTED = 4;
 
-	public SamlSloRequestInfo(SamlIdpSpSession spSession) {
-		_spSession = spSession;
+	public SamlSloRequestInfo(SamlIdpSpSession samlIdpSpSession) {
+		_samlIdpSpSession = samlIdpSpSession;
 	}
 
 	public String getEntityId() {
-		return _spSession.getSamlSpEntityId();
+		return _samlIdpSpSession.getSamlSpEntityId();
 	}
 
 	public DateTime getInitiateTime() {
@@ -48,7 +54,7 @@ public class SamlSloRequestInfo implements Serializable {
 	}
 
 	public SamlIdpSpSession getSamlIdpSpSession() {
-		return _spSession;
+		return _samlIdpSpSession;
 	}
 
 	public int getStatus() {
@@ -82,19 +88,20 @@ public class SamlSloRequestInfo implements Serializable {
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
 		jsonObject.put("entityId", getEntityId());
+
+		if (_initiateTime != null) {
+			jsonObject.put("initiateTime", _initiateTime.toDate());
+		}
+
 		jsonObject.put("name", getEntityId());
 		jsonObject.put("status", getStatus());
 		jsonObject.put("statusCode", getStatusCode());
-
-		if (getInitiateTime() != null) {
-			jsonObject.put("initiateTime", getInitiateTime().toDate());
-		}
 
 		return jsonObject;
 	}
 
 	private DateTime _initiateTime;
-	private SamlIdpSpSession _spSession;
+	private SamlIdpSpSession _samlIdpSpSession;
 	private int _status;
 	private String _statusCode;
 

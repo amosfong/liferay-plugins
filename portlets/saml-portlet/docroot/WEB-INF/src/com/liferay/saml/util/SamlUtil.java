@@ -246,7 +246,7 @@ public class SamlUtil {
 		SSODescriptor ssoDescriptor, String preferredBinding) {
 
 		List<SingleLogoutService> singleLogoutServices =
-						ssoDescriptor.getSingleLogoutServices();
+			ssoDescriptor.getSingleLogoutServices();
 
 		for (SingleLogoutService singleLogoutService : singleLogoutServices) {
 			if (preferredBinding.equals(singleLogoutService.getBinding())) {
@@ -254,7 +254,7 @@ public class SamlUtil {
 			}
 		}
 
-		if (singleLogoutServices.size() > 0) {
+		if (!singleLogoutServices.isEmpty()) {
 			return singleLogoutServices.get(0);
 		}
 

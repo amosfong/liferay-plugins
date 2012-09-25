@@ -13,19 +13,20 @@
  * details.
  */
 --%>
+
 <%@ include file="/html/portal/init.jsp" %>
 
 <%
-JSONObject samlSloRequestInfo = (JSONObject)request.getAttribute("SAML_SLO_REQUEST_INFO");
+JSONObject samlSloRequestInfoJSONObject = (JSONObject)request.getAttribute("SAML_SLO_REQUEST_INFO");
 
-String entityId = samlSloRequestInfo.getString("entityId");
-String name = samlSloRequestInfo.getString("name");
-int status = samlSloRequestInfo.getInt("status");
+String entityId = samlSloRequestInfoJSONObject.getString("entityId");
+String name = samlSloRequestInfoJSONObject.getString("name");
+int status = samlSloRequestInfoJSONObject.getInt("status");
 %>
 
 <noscript>
 	<div class="portlet-msg-info">
-		<liferay-ui:message key="your-browser-does-not-support-javascript-once-you-have-completed-sign-out-close-this-window-and-continue-with-the-next-service-provider" />
+		<liferay-ui:message key="your-browser-does-not-support-javascript.-once-you-have-completed-signing-out,-close-this-window-and-continue-with-the-next-service-provider" />
 	</div>
 
 	<c:choose>
@@ -58,6 +59,6 @@ int status = samlSloRequestInfo.getInt("status");
 
 <aui:script>
 	if (window.parent.Liferay.SAML.SLO) {
-		window.parent.Liferay.SAML.SLO.updateStatus(<%= samlSloRequestInfo %>);
+		window.parent.Liferay.SAML.SLO.updateStatus(<%= samlSloRequestInfoJSONObject %>);
 	}
 </aui:script>

@@ -212,9 +212,9 @@
 		</finder>
 	</entity>
 	<exceptions>
+		<exception>DuplicateSamlIdpSpConnectionSamlSpEntityId</exception>
 		<exception>DuplicateSamlIdpSpSession</exception>
 		<exception>DuplicateSamlIdpSsoSession</exception>
-		<exception>DuplicateSamlIdpSpConnectionSamlSpEntityId</exception>
 		<exception>DuplicateSamlSpIdpConnectionSamlIdpEntityId</exception>
 		<exception>SamlIdpSpConnectionMetadataUrl</exception>
 		<exception>SamlIdpSpConnectionMetadataXml</exception>

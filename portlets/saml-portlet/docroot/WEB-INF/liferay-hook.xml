@@ -3,7 +3,7 @@
 
 <hook>
 	<portal-properties>portal.properties</portal-properties>
-	<language-properties>content/Language_en.properties</language-properties>
+	<language-properties>content/Language.properties</language-properties>
 	<custom-jsp-dir>/META-INF/custom_jsps</custom-jsp-dir>
 	<servlet-filter>
 		<servlet-filter-name>SSO SAML IdP Filter</servlet-filter-name>

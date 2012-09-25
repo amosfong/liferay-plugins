@@ -60,12 +60,14 @@ public class SamlIdpSsoFilter extends BaseFilter {
 			}
 		}
 		catch (Exception e) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(e, e);
+			}
 		}
 
 		String requestURI = request.getRequestURI();
 
 		if (requestURI.equals("/c/portal/logout")) {
-
 			return true;
 		}
 
@@ -86,7 +88,6 @@ public class SamlIdpSsoFilter extends BaseFilter {
 		String requestURI = request.getRequestURI();
 
 		if (requestURI.equals("/c/portal/logout")) {
-
 			String samlSsoSessionId = CookieUtil.get(
 				request, PortletWebKeys.SAML_SSO_SESSION_ID);
 

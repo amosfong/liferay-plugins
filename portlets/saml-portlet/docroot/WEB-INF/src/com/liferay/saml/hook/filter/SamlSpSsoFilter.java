@@ -72,6 +72,9 @@ public class SamlSpSsoFilter extends BaseFilter {
 			}
 		}
 		catch (Exception e) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(e, e);
+			}
 		}
 
 		String requestURI = request.getRequestURI();
