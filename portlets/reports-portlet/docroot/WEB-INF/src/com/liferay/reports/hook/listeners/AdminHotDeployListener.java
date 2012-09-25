@@ -21,7 +21,7 @@ import com.liferay.portal.kernel.deploy.hot.HotDeployListener;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.DestinationNames;
-import com.liferay.portal.kernel.scheduler.SchedulerEngineUtil;
+import com.liferay.portal.kernel.scheduler.SchedulerEngineHelperUtil;
 import com.liferay.portal.kernel.scheduler.StorageType;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.reports.service.permission.ActionKeys;
@@ -85,11 +85,11 @@ public class AdminHotDeployListener implements HotDeployListener {
 					StringPool.SLASH).concat(String.valueOf(entryId));
 
 				if (command.equals("pause")) {
-					SchedulerEngineUtil.pause(
+					SchedulerEngineHelperUtil.pause(
 						jobName, groupName, StorageType.PERSISTED);
 				}
 				else if (command.equals("resume")) {
-					SchedulerEngineUtil.resume(
+					SchedulerEngineHelperUtil.resume(
 						jobName, groupName, StorageType.PERSISTED);
 				}
 			}

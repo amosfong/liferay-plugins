@@ -34,7 +34,7 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.messaging.MessageBusUtil;
-import com.liferay.portal.kernel.scheduler.SchedulerEngineUtil;
+import com.liferay.portal.kernel.scheduler.SchedulerEngineHelperUtil;
 import com.liferay.portal.kernel.scheduler.StorageType;
 import com.liferay.portal.kernel.scheduler.Trigger;
 import com.liferay.portal.kernel.scheduler.TriggerFactoryUtil;
@@ -185,7 +185,7 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 
 		// Scheduler
 		if (entry.isRepeating()) {
-			SchedulerEngineUtil.unschedule(
+			SchedulerEngineHelperUtil.unschedule(
 				entry.getJobName(), entry.getSchedulerRequestName(),
 				StorageType.PERSISTED);
 		}
@@ -344,7 +344,7 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 
 		entryPersistence.update(entry, false);
 
-		SchedulerEngineUtil.unschedule(
+		SchedulerEngineHelperUtil.unschedule(
 			entry.getJobName(), entry.getSchedulerRequestName(),
 			StorageType.PERSISTED);
 	}
@@ -575,7 +575,7 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 
 		message.put("entryId", entry.getEntryId());
 
-		SchedulerEngineUtil.schedule(
+		SchedulerEngineHelperUtil.schedule(
 			trigger, StorageType.PERSISTED, null,
 			"liferay/reports_scheduler_event", message, 0);
 	}
