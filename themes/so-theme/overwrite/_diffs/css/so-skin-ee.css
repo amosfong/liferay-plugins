@@ -4,196 +4,236 @@ $gray-dark: #C7D0DA;
 
 /* Documents and Images Library */
 
-.portlet-document-library, .portlet-document-library-display .document-display-style.display-icon {
-	height: auto;
-}
-
-.view {
-	.document-thumbnail img {
-		max-height: 80px;
-		max-width: 80px;
+.portlet-document-library {
+	.document-display-style.display-icon {
+		height: auto;
 	}
 
-	.document-header {
-		overflow: hidden;
+	.lfr-header-row {
+		min-height: 30px;
 	}
 
-	.document-title {
-		display: block;
-		font-size: 1.4em;
-		font-weight: bold;
-		word-wrap: break-word;
+	.lfr-header-row-content {
+		padding: 3px 4px;
 	}
 
-	.document-info, .lfr-preview-file, .portlet-msg-success {
+	.aui-column-content-first {
 		border-right: 1px solid $gray-dark;
-	}
-}
-
-.lfr-document-library-versions {
-	.lfr-panel.lfr-extended {
-		border-width: 1px 1px 0 0;
-	}
-
-	.version {
-		background: #EEE;
-		border: 1px solid $gray-dark;
-		border-width: 1px 1px 1px 0;
-		overflow: hidden;
 		position: relative;
+	}
 
-		span {
-			display: inline-block;
+	.aui-column-last {
+		overflow: visible;
+	}
+
+	.lfr-panel-container {
+		background: transparent;
+	}
+
+	.view {
+		.aui-column-content-last {
+			margin-left: -1px;
 		}
 
-		.actions, .changelog, .modified-date, .size, .user-name, .version-number {
-			padding: 3px 5px;
+		.document-thumbnail img {
+			max-height: 80px;
+			max-width: 80px;
 		}
 
-		.version-number {
-			color: #8F0920;
+		.document-header {
+			overflow: hidden;
+		}
+
+		.document-title {
+			display: block;
+			font-size: 1.4em;
 			font-weight: bold;
-		}
-
-		.changelog, .user-name {
-			color: #222;
-		}
-
-		.extra {
-			float: right;
-		}
-
-		.actions {
-			border-top: 1px solid $gray-dark;
-			line-height: 24px;
-
-			a {
-				color: #34404F;
-				display: block;
-				font-weight: bold;
-				padding: 1px 3px;
-
-				img {
-					margin-bottom: 3px;
-				}
-
-				&:hover {
-					border: 1px solid #AAA;
-					padding: 0 2px;
-					text-decoration: none;
-				}
-			}
+			word-wrap: break-word;
 		}
 	}
 
-	.lfr-document-library-comments {
-		.lfr-panel-titlebar {
-			background: transparent;
-			border-bottom-width: 0;
-			margin-bottom: 0;
+	.lfr-preview-file {
+		border-bottom: 1px solid $gray-dark;
+	}
 
-			.lfr-panel-title {
-				font-size: 1em;
-				margin-left: 5px;
+	.lfr-document-library-versions {
+		.lfr-panel.lfr-extended {
+			border-width: 0;
+		}
+
+		.version {
+			background: #EEE;
+			border: 1px solid $gray-dark;
+			border-width: 1px 0 1px 0;
+			position: relative;
+
+			span {
+				display: inline-block;
 			}
 
-			.lfr-panel-button {
-				background: url(../images/portlet/minimize.png) no-repeat 0 0;
-				height: 16px;
+			.actions, .changelog, .modified-date, .size, .user-name, .version-number {
+				padding: 3px 5px;
+			}
+
+			.version-number {
+				color: #8F0920;
+				font-weight: bold;
+			}
+
+			.changelog, .user-name {
+				color: #222;
+			}
+
+			.extra {
+				float: right;
+			}
+
+			.actions {
+				border-top: 1px solid $gray-dark;
+				line-height: 24px;
+
+				a {
+					color: #34404F;
+					display: block;
+					font-weight: bold;
+					padding: 1px 3px;
+
+					img {
+						margin-bottom: 3px;
+					}
+
+					&:hover {
+						border: 1px solid #AAA;
+						padding: 0 2px;
+						text-decoration: none;
+					}
+				}
+			}
+		}
+
+		.lfr-document-library-comments {
+			.lfr-panel-titlebar {
+				background: transparent;
+				border-bottom-width: 0;
+				margin-bottom: 0;
+
+				.lfr-panel-title {
+					font-size: 1em;
+					margin-left: 5px;
+				}
+
+				.lfr-panel-button {
+					background: url(../images/portlet/minimize.png) no-repeat 0 0;
+					height: 16px;
+					margin: 1px 0;
+				}
+			}
+
+			&.lfr-collapsed .lfr-panel-titlebar .lfr-panel-button {
+				background: url(../images/portlet/maximize.png) no-repeat 0 0;
 				margin: 1px 0;
 			}
-		}
 
-		&.lfr-collapsed .lfr-panel-titlebar .lfr-panel-button {
-			background: url(../images/portlet/maximize.png) no-repeat 0 0;
-			margin: 1px 0;
-		}
+			.lfr-panel-content {
+				margin-bottom: -1px;
+				padding: 0 10px;
 
-		.lfr-panel-content {
-			padding: 0 10px;
+					.taglib-discussion {
+						width: auto;
+					}
+			}
 
-				.taglib-discussion {
-					width: auto;
+			.taglib-discussion {
+				.lfr-discussion {
+					margin: 0;
+					padding: 10px 0 0;
 				}
-		}
 
-		.taglib-discussion {
-			.lfr-discussion {
-				margin: 0;
-				padding: 10px 0 0;
-			}
+				.lfr-discussion-details {
+					position: absolute;
+					width: 100%;
 
-			.lfr-discussion-details {
-				width: 80px;
+					.taglib-user-display {
+						overflow: hidden;
 
-				.taglib-user-display .user-profile-image img {
-					width: 65px;
+						.user-profile-image {
+							display: inline-block;
+							height: 65px;
+							overflow: hidden;
+
+							img {
+								float: left;
+								width: 65px;
+							}
+						}
+					}
+				}
+
+				.lfr-discussion-message {
+					padding-bottom: 8px;
+				}
+
+				.lfr-discussion-posted-on {
+					position: absolute;
+					right: 0;
+					top: 0;
 				}
 			}
 
-			.lfr-discussion-message {
-				padding-bottom: 8px;
+			.add-comment {
+				margin-bottom: 0;
 			}
 
-			.lfr-discussion-posted-on {
+			.lfr-discussion.first {
+				border-top: 1px solid #DDD;
+			}
+
+			.lfr-discussion-body {
+				padding: 20px 0 10px 80px;
+				width: auto;
+			}
+
+			.lfr-discussion-actions {
 				position: absolute;
 				right: 0;
+
+				li {
+					display: inline;
+				}
+			}
+
+			.lfr-discussion-form .aui-field-input-text {
+				width: 450px !important;
+			}
+
+			.user-name {
+				left: 86px;
+				position: absolute;
 				top: 0;
 			}
-		}
 
-		.add-comment {
-			margin-bottom: 0;
-		}
-
-		.lfr-discussion.first {
-			border-top: 1px solid #DDD;
-		}
-
-		.lfr-discussion-body {
-			padding: 20px 0 0;
-			width: auto;
-		}
-
-		.lfr-discussion-actions {
-			position: absolute;
-			right: 0;
-
-			li {
-				display: inline;
+			ul li a .icon {
+				margin: 0 0 0 5px;
 			}
 		}
-
-		.lfr-discussion-form .aui-field-input-text {
-			width: 450px !important;
-		}
-
-		.user-name {
-			left: 86px;
-			position: absolute;
-			top: 7px;
-		}
-
-		ul li a .icon {
-			margin: 0 0 0 5px;
-		}
 	}
-}
 
-.editting-dialog-content {
-	.header-back-to {
-		display:none;
-	}
-	.header-title {
-		font-size: 18px;
-		line-height: 18px;
-		word-break: break-all;
+	.editting-dialog-content {
+		.header-back-to {
+			display:none;
+		}
+
+		.header-title {
+			font-size: 18px;
+			line-height: 18px;
+			word-break: break-all;
+		}
 	}
 }
 
 /* ---------- Extras ---------- */
 
-.lfr-document-library-versions .version .actions {
+.portlet-document-library .lfr-document-library-versions .version .actions {
 	a:hover {
 		@include border-radius(3px);
 		@include box-shadow(0 1px 0 #F4F3F3 inset, 0 -1px 0 #D9D8D8 inset);
