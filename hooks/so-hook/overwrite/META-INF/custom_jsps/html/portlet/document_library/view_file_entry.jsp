@@ -556,16 +556,16 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 									<span class="version-number"><liferay-ui:message key="version" /> <%= fileVersion.getVersion() %></span>
 									<span class="user-name"><liferay-ui:message key="by" />: <%= fileVersion.getUserName() %></span>
 
-									<div class="changelog">
-										<span><%= fileVersion.getChangeLog() %></span>
-									</div>
-
 									<div class="extra">
 										<span class="modified-date"><liferay-ui:message key="on" />: <%= dateFormatDateTime.format(fileVersion.getCreateDate()) %></span>
 										<span class="size"><liferay-ui:message key="size" />: <%= TextFormatter.formatKB(fileVersion.getSize(), locale) + "k" %></span>
 									</div>
 
-									<div class="actions">
+									<div class="changelog">
+										<span><%= fileVersion.getChangeLog() %></span>
+									</div>
+
+									<liferay-util:buffer var="html">
 										<portlet:renderURL var="viewFileEntryURL">
 											<portlet:param name="struts_action" value="/document_library/view_file_entry" />
 											<portlet:param name="redirect" value="<%= redirect %>" />
@@ -604,7 +604,13 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 												url="<%= deleteURL %>"
 											/>
 										</c:if>
-									</div>
+									</liferay-util:buffer>
+
+									<c:if test="<%= Validator.isNotNull(html.trim()) %>">
+										<div class="actions">
+											<%= html %>
+										</div>
+									</c:if>
 								</div>
 
 								<liferay-ui:discussion
