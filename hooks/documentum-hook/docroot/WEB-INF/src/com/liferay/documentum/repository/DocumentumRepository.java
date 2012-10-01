@@ -288,6 +288,8 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		IDfSession idfSession = null;
 
 		try {
+			clearManualCheckInRequired(fileEntryId, serviceContext);
+
 			idfSession = getIdfSession();
 
 			IDfId idfId = toFileEntryObjectId(idfSession, fileEntryId);
@@ -306,7 +308,10 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		}
 	}
 
-	public void checkInFileEntry(long fileEntryId, String lockUuid) {
+	public void checkInFileEntry(
+			long fileEntryId, String lockUuid, ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -317,6 +322,8 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		IDfSession idfSession = null;
 
 		try {
+			setManualCheckInRequired(fileEntryId, serviceContext);
+
 			idfSession = getIdfSession();
 
 			IDfId idfId = toFileEntryObjectId(idfSession, fileEntryId);

@@ -33,9 +33,11 @@ import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Lock;
+import com.liferay.portal.model.RepositoryEntry;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.security.permission.PermissionChecker;
+import com.liferay.portal.service.RepositoryEntryLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portlet.documentlibrary.NoSuchFileVersionException;
 import com.liferay.portlet.documentlibrary.model.DLFileEntry;
@@ -432,6 +434,23 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 
 	public boolean isEscapedModel() {
 		return false;
+	}
+
+	public boolean isManualCheckInRequired() {
+		try {
+			RepositoryEntry repositoryEntry =
+				RepositoryEntryLocalServiceUtil.getRepositoryEntry(
+					_fileEntryId);
+
+			return repositoryEntry.isManualCheckInRequired();
+		}
+		catch (Exception e) {
+			if (_log.isInfoEnabled()) {
+				_log.info("Unable to retrieve repository entry", e);
+			}
+
+			return false;
+		}
 	}
 
 	public boolean isSupportsLocking() {
