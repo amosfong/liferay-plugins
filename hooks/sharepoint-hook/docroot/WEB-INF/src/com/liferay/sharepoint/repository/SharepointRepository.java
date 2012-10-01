@@ -115,6 +115,8 @@ public class SharepointRepository extends CMISRepositoryHandler {
 		throws PortalException, SystemException {
 
 		try {
+			clearManualCheckInRequired(fileEntryId, serviceContext);
+
 			ListsSoap listsSoap = getListsSoap();
 
 			String objectId = toObjectId(fileEntryId);
@@ -145,17 +147,19 @@ public class SharepointRepository extends CMISRepositoryHandler {
 	}
 
 	@Override
-	public void checkInFileEntry(long fileEntryId, String lockUuid)
+	public void checkInFileEntry(
+			long fileEntryId, String lockUuid, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		checkInFileEntry(
-			fileEntryId, false, StringPool.BLANK, new ServiceContext());
+		checkInFileEntry(fileEntryId, false, StringPool.BLANK, serviceContext);
 	}
 
 	@Override
 	public FileEntry checkOutFileEntry(
 			long fileEntryId, ServiceContext serviceContext)
 		throws PortalException, SystemException {
+
+		setManualCheckInRequired(fileEntryId, serviceContext);
 
 		String objectId = toObjectId(fileEntryId);
 
