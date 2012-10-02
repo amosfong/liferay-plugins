@@ -285,11 +285,11 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
+		clearManualCheckInRequired(fileEntryId, serviceContext);
+
 		IDfSession idfSession = null;
 
 		try {
-			clearManualCheckInRequired(fileEntryId, serviceContext);
-
 			idfSession = getIdfSession();
 
 			IDfId idfId = toFileEntryObjectId(idfSession, fileEntryId);
@@ -319,11 +319,11 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 			long fileEntryId, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
+		setManualCheckInRequired(fileEntryId, serviceContext);
+
 		IDfSession idfSession = null;
 
 		try {
-			setManualCheckInRequired(fileEntryId, serviceContext);
-
 			idfSession = getIdfSession();
 
 			IDfId idfId = toFileEntryObjectId(idfSession, fileEntryId);
