@@ -114,9 +114,9 @@ public class SharepointRepository extends CMISRepositoryHandler {
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		try {
-			clearManualCheckInRequired(fileEntryId, serviceContext);
+		clearManualCheckInRequired(fileEntryId, serviceContext);
 
+		try {
 			ListsSoap listsSoap = getListsSoap();
 
 			String objectId = toObjectId(fileEntryId);
