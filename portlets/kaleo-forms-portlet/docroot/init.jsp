@@ -65,6 +65,7 @@ page import="com.liferay.portal.service.UserLocalServiceUtil" %><%@
 page import="com.liferay.portal.service.WorkflowDefinitionLinkLocalServiceUtil" %><%@
 page import="com.liferay.portal.service.WorkflowInstanceLinkLocalServiceUtil" %><%@
 page import="com.liferay.portal.util.PortalUtil" %><%@
+page import="com.liferay.portal.workflow.kaleo.designer.service.KaleoDraftDefinitionLocalServiceUtil" %><%@
 page import="com.liferay.portal.workflow.kaleo.forms.KaleoProcessDDMTemplateIdException" %><%@
 page import="com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException" %><%@
 page import="com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess" %><%@
