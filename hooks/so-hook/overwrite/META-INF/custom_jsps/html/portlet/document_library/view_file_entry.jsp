@@ -988,6 +988,9 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 						var WIN = A.config.win;
 
 						<%
+
+						// The following logic is copied from DLUtil#getWebDavURL(ThemeDisplay, Folder, FileEntry, boolean)
+
 						StringBuilder sb = new StringBuilder();
 
 						if (folder != null) {
@@ -997,14 +1000,11 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 								sb.insert(0, HttpUtil.encodeURL(curFolder.getName(), true));
 								sb.insert(0, StringPool.SLASH);
 
-								if (curFolder.getParentFolderId() ==
-										DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
-
+								if (curFolder.getParentFolderId() == DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 									break;
 								}
 								else {
-									curFolder = DLAppLocalServiceUtil.getFolder(
-											curFolder.getParentFolderId());
+									curFolder = DLAppLocalServiceUtil.getFolder(curFolder.getParentFolderId());
 								}
 							}
 						}
