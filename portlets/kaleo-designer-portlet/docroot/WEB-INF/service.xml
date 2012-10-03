@@ -55,6 +55,6 @@
 	</entity>
 	<exceptions>
 		<exception>KaleoDraftDefinitionContent</exception>
-		<exception>KaleoDraftDefinitionTitle</exception>
+		<exception>KaleoDraftDefinitionName</exception>
 	</exceptions>
 </service-builder>

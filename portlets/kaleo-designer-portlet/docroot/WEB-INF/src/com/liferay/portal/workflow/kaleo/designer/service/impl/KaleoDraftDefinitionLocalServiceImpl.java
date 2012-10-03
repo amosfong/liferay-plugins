@@ -16,15 +16,15 @@ package com.liferay.portal.workflow.kaleo.designer.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowDefinition;
 import com.liferay.portal.kernel.workflow.WorkflowDefinitionManagerUtil;
+import com.liferay.portal.kernel.workflow.WorkflowException;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionContentException;
-import com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionTitleException;
+import com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionNameException;
 import com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException;
 import com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition;
 import com.liferay.portal.workflow.kaleo.designer.service.base.KaleoDraftDefinitionLocalServiceBaseImpl;
@@ -40,6 +40,7 @@ import java.util.Map;
 
 /**
  * @author Eduardo Lundgren
+ * @author Marcellus Tavares
  */
 public class KaleoDraftDefinitionLocalServiceImpl
 	extends KaleoDraftDefinitionLocalServiceBaseImpl {
@@ -51,9 +52,10 @@ public class KaleoDraftDefinitionLocalServiceImpl
 		throws PortalException, SystemException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
+
 		Date now = new Date();
 
-		validate(titleMap, content);
+		validate(name);
 
 		long kaleoDraftDefinitionId = counterLocalService.increment();
 
@@ -76,34 +78,6 @@ public class KaleoDraftDefinitionLocalServiceImpl
 		return kaleoDraftDefinition;
 	}
 
-	public KaleoDraftDefinition addWorkflowDefinitionKaleoDraftDefinition(
-			long userId, String name, Map<Locale, String> titleMap,
-			String content, int version, ServiceContext serviceContext)
-		throws PortalException, SystemException {
-
-		User user = userPersistence.findByPrimaryKey(userId);
-
-		validate(titleMap, content);
-
-		WorkflowDefinition workflowDefinition = null;
-
-		try {
-			workflowDefinition =
-				WorkflowDefinitionManagerUtil.getWorkflowDefinition(
-					user.getCompanyId(), name, version);
-		}
-		catch (Exception e) {
-			workflowDefinition = KaleoDesignerUtil.deployWorkflowDefinition(
-				user.getCompanyId(), userId,
-				titleMap.get(LocaleUtil.getDefault()), content, false);
-		}
-
-		return addKaleoDraftDefinition(
-			userId, workflowDefinition.getName(), titleMap,
-			workflowDefinition.getContent(), workflowDefinition.getVersion(), 1,
-			serviceContext);
-	}
-
 	public KaleoDraftDefinition deleteKaleoDraftDefinition(
 			String name, int version, int draftVersion,
 			ServiceContext serviceContext)
@@ -113,6 +87,21 @@ public class KaleoDraftDefinitionLocalServiceImpl
 			name, version, draftVersion, serviceContext);
 
 		return kaleoDraftDefinitionPersistence.remove(kaleoDraftDefinition);
+	}
+
+	public void deleteKaleoDraftDefinitions(
+			String name, int version, ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		List<KaleoDraftDefinition> kaleoDraftDefinitions =
+			kaleoDraftDefinitionPersistence.findByC_N_V(
+				serviceContext.getCompanyId(), name, version);
+
+		for (KaleoDraftDefinition kaleoDraftDefinition :
+				kaleoDraftDefinitions) {
+
+			deleteKaleoDraftDefinition(kaleoDraftDefinition);
+		}
 	}
 
 	public KaleoDraftDefinition getKaleoDraftDefinition(
@@ -157,6 +146,22 @@ public class KaleoDraftDefinitionLocalServiceImpl
 		return kaleoDraftDefinitions.get(0);
 	}
 
+	public List<KaleoDraftDefinition> getLatestKaleoDraftDefinitions(
+			long companyId, int version, int start, int end,
+			OrderByComparator orderByComparator)
+		throws SystemException {
+
+		return kaleoDraftDefinitionFinder.findLatestKaleoDraftDefinitions(
+			companyId, version, start, end, orderByComparator);
+	}
+
+	public int getLatestKaleoDraftDefinitionsCount(long companyId, int version)
+		throws SystemException {
+
+		return kaleoDraftDefinitionFinder.countLatestKaleoDraftDefinitions(
+			companyId, version);
+	}
+
 	public KaleoDraftDefinition incrementKaleoDraftDefinitionDraftVersion(
 			long userId, String name, int version,
 			ServiceContext serviceContext)
@@ -173,57 +178,39 @@ public class KaleoDraftDefinitionLocalServiceImpl
 			kaleoDraftDefinition.getDraftVersion() + 1, serviceContext);
 	}
 
-	public KaleoDraftDefinition incrementKaleoDraftDefinitionVersion(
-			long userId, String name, int version,
-			ServiceContext serviceContext)
-		throws PortalException, SystemException {
-
-		KaleoDraftDefinition kaleoDraftDefinition =
-			getLatestKaleoDraftDefinition(name, version, serviceContext);
-
-		return addKaleoDraftDefinition(
-			userId, kaleoDraftDefinition.getName(),
-			kaleoDraftDefinition.getTitleMap(),
-			kaleoDraftDefinition.getContent(),
-			kaleoDraftDefinition.getVersion() + 1, 1, serviceContext);
-	}
-
 	public KaleoDraftDefinition publishKaleoDraftDefinition(
 			long userId, String name, Map<Locale, String> titleMap,
 			String content, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		validate(titleMap, content);
+		validate(name, content);
 
 		WorkflowDefinition workflowDefinition =
-			WorkflowDefinitionManagerUtil.getLatestKaleoDefinition(
-				serviceContext.getCompanyId(), name);
+			KaleoDesignerUtil.deployWorkflowDefinition(
+				serviceContext.getCompanyId(), serviceContext.getUserId(),
+				titleMap, content);
 
-		KaleoDesignerUtil.deployWorkflowDefinition(
-			serviceContext.getCompanyId(), serviceContext.getUserId(),
-			titleMap.get(serviceContext.getLocale()), content, true);
+		int version = workflowDefinition.getVersion();
 
 		KaleoDraftDefinition kaleoDraftDefinition =
-			incrementKaleoDraftDefinitionVersion(
-				userId, name, workflowDefinition.getVersion(), serviceContext);
+			addKaleoDraftDefinition(
+				userId, name, titleMap, content, version, 1, serviceContext);
 
-		kaleoDraftDefinition = updateKaleoDraftDefinition(
-			name, titleMap, content, kaleoDraftDefinition.getVersion(),
-			kaleoDraftDefinition.getDraftVersion(), serviceContext);
+		if (version == 1) {
+			deleteKaleoDraftDefinitions(name, 0, serviceContext);
+		}
 
 		return kaleoDraftDefinition;
 	}
 
 	public KaleoDraftDefinition updateKaleoDraftDefinition(
-			String name, Map<Locale, String> titleMap, String content,
-			int version, int draftVersion, ServiceContext serviceContext)
+			long userId, String name, Map<Locale, String> titleMap,
+			String content, int version, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		validate(titleMap, content);
-
 		KaleoDraftDefinition kaleoDraftDefinition =
-			kaleoDraftDefinitionPersistence.findByC_N_V_D(
-				serviceContext.getCompanyId(), name, version, draftVersion);
+			incrementKaleoDraftDefinitionDraftVersion(
+				userId, name, version, serviceContext);
 
 		kaleoDraftDefinition.setTitleMap(titleMap);
 		kaleoDraftDefinition.setContent(content);
@@ -233,14 +220,16 @@ public class KaleoDraftDefinitionLocalServiceImpl
 		return kaleoDraftDefinition;
 	}
 
-	public void validate(Map<Locale, String> titleMap, String content)
+	protected void validate(String name) throws PortalException {
+		if (Validator.isNull(name)) {
+			throw new KaleoDraftDefinitionNameException();
+		}
+	}
+
+	protected void validate(String name, String content)
 		throws PortalException {
 
-		String title = titleMap.get(LocaleUtil.getDefault());
-
-		if (Validator.isNull(title)) {
-			throw new KaleoDraftDefinitionTitleException();
-		}
+		validate(name);
 
 		try {
 			InputStream inputStream = new ByteArrayInputStream(
@@ -249,8 +238,8 @@ public class KaleoDraftDefinitionLocalServiceImpl
 			WorkflowDefinitionManagerUtil.validateWorkflowDefinition(
 				inputStream);
 		}
-		catch (Exception e) {
-			throw new KaleoDraftDefinitionContentException(e);
+		catch (WorkflowException we) {
+			throw new KaleoDraftDefinitionContentException(we);
 		}
 	}
 

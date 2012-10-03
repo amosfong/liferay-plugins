@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition;
-import com.liferay.portal.workflow.kaleo.designer.service.KaleoDraftDefinitionLocalServiceUtil;
 import com.liferay.portal.workflow.kaleo.designer.service.base.KaleoDraftDefinitionServiceBaseImpl;
 
 import java.util.List;
@@ -42,16 +41,6 @@ public class KaleoDraftDefinitionServiceImpl
 		return kaleoDraftDefinitionLocalService.addKaleoDraftDefinition(
 			userId, name, titleMap, content, version, draftVersion,
 			serviceContext);
-	}
-
-	public KaleoDraftDefinition addWorkflowDefinitionKaleoDraftDefinition(
-			long userId, String name, Map<Locale, String> titleMap,
-			String content, int version, ServiceContext serviceContext)
-		throws PortalException, SystemException {
-
-		return kaleoDraftDefinitionLocalService.
-			addWorkflowDefinitionKaleoDraftDefinition(
-				userId, name, titleMap, content, version, serviceContext);
 	}
 
 	public KaleoDraftDefinition getKaleoDraftDefinition(
@@ -89,22 +78,12 @@ public class KaleoDraftDefinitionServiceImpl
 
 	public KaleoDraftDefinition updateKaleoDraftDefinition(
 			long userId, String name, Map<Locale, String> titleMap,
-			String content, int version, int draftVersion,
-			ServiceContext serviceContext)
+			String content, int version, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		KaleoDraftDefinitionLocalServiceUtil.validate(titleMap, content);
-
 		KaleoDraftDefinition kaleoDraftDefinition =
-			KaleoDraftDefinitionLocalServiceUtil.
-				incrementKaleoDraftDefinitionDraftVersion(
-					userId, name, version, serviceContext);
-
-		kaleoDraftDefinition =
-			KaleoDraftDefinitionLocalServiceUtil.updateKaleoDraftDefinition(
-				kaleoDraftDefinition.getName(), titleMap, content,
-				kaleoDraftDefinition.getVersion(),
-				kaleoDraftDefinition.getDraftVersion(), serviceContext);
+			kaleoDraftDefinitionLocalService.updateKaleoDraftDefinition(
+				userId, name, titleMap, content, version, serviceContext);
 
 		return kaleoDraftDefinition;
 	}

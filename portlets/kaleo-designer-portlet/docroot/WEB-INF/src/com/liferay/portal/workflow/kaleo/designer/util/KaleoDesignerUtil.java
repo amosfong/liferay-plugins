@@ -15,10 +15,13 @@
 package com.liferay.portal.workflow.kaleo.designer.util;
 
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
+import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
+import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowDefinition;
 import com.liferay.portal.kernel.workflow.WorkflowDefinitionManagerUtil;
@@ -46,8 +49,8 @@ import javax.servlet.http.HttpServletRequest;
 public class KaleoDesignerUtil {
 
 	public static WorkflowDefinition deployWorkflowDefinition(
-			long companyId, long userId, String title, String content,
-			boolean active)
+			long companyId, long userId, Map<Locale, String> titleMap,
+			String content)
 		throws WorkflowException {
 
 		try {
@@ -56,11 +59,7 @@ public class KaleoDesignerUtil {
 
 			WorkflowDefinition workflowDefinition =
 				WorkflowDefinitionManagerUtil.deployWorkflowDefinition(
-					companyId, userId, title, inputStream);
-
-			WorkflowDefinitionManagerUtil.updateActive(
-				companyId, userId, workflowDefinition.getName(),
-				workflowDefinition.getVersion(), active);
+					companyId, userId, _getTitle(titleMap), inputStream);
 
 			return workflowDefinition;
 		}
@@ -92,10 +91,6 @@ public class KaleoDesignerUtil {
 				name, version, draftVersion, serviceContext);
 		}
 
-		if (version <= 0) {
-			return null;
-		}
-
 		try {
 			return KaleoDraftDefinitionLocalServiceUtil.
 				getLatestKaleoDraftDefinition(name, version, serviceContext);
@@ -106,6 +101,10 @@ public class KaleoDesignerUtil {
 					"Could not find Kaleo draft definition for {name=" + name +
 						", version=" + version + "}");
 			}
+		}
+
+		if (version <= 0) {
+			return null;
 		}
 
 		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
@@ -120,8 +119,6 @@ public class KaleoDesignerUtil {
 				serviceContext.getCompanyId(), name, version);
 
 		String content = workflowDefinition.getContent();
-
-		KaleoDraftDefinitionLocalServiceUtil.validate(titleMap, content);
 
 		return KaleoDraftDefinitionLocalServiceUtil.addKaleoDraftDefinition(
 			themeDisplay.getUserId(), name, titleMap, content, version, 1,
@@ -158,6 +155,31 @@ public class KaleoDesignerUtil {
 		}
 
 		return false;
+	}
+
+	private static String _getTitle(Map<Locale, String> titleMap) {
+		String title = StringPool.BLANK;
+
+		if (titleMap == null) {
+			return title;
+		}
+
+		String defaultLanguageId = LocaleUtil.toLanguageId(
+			LocaleUtil.getDefault());
+
+		for (Locale locale : LanguageUtil.getAvailableLocales()) {
+			String languageId = LocaleUtil.toLanguageId(locale);
+
+			String localizedTitle = titleMap.get(locale);
+
+			if (Validator.isNotNull(localizedTitle)) {
+				title = LocalizationUtil.updateLocalization(
+					title, "Title", localizedTitle, languageId,
+					defaultLanguageId);
+			}
+		}
+
+		return title;
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(KaleoDesignerUtil.class);

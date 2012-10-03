@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<custom-sql>
+	<sql id="com.liferay.portal.workflow.kaleo.designer.service.persistence.KaleoDraftDefinitionFinder.countLatestByC_V">
+		<![CDATA[
+			SELECT 
+				COUNT(*) AS COUNT_VALUE
+			FROM 
+				KaleoDraftDefinition 
+			WHERE 
+				KaleoDraftDefinition.kaleoDraftDefinitionId IN
+					( 
+						SELECT 
+							MAX(kaleoDraftDefinitionId) 
+						FROM 
+							KaleoDraftDefinition 
+						WHERE 
+							(KaleoDraftDefinition.companyId = ?) AND
+							(KaleoDraftDefinition.version = ?) 
+						GROUP BY 
+							KaleoDraftDefinition.name
+					)
+		]]>
+	</sql>
+	<sql id="com.liferay.portal.workflow.kaleo.designer.service.persistence.KaleoDraftDefinitionFinder.findLatestByC_V">
+		<![CDATA[
+			SELECT 
+				{KaleoDraftDefinition.*} 
+			FROM 
+				KaleoDraftDefinition 
+			WHERE 
+				KaleoDraftDefinition.kaleoDraftDefinitionId IN
+					( 
+						SELECT 
+							MAX(kaleoDraftDefinitionId) 
+						FROM 
+							KaleoDraftDefinition 
+						WHERE 
+							(KaleoDraftDefinition.companyId = ?) AND
+							(KaleoDraftDefinition.version = ?) 
+						GROUP BY 
+							KaleoDraftDefinition.name
+					)
+		]]>
+	</sql>
+</custom-sql>
