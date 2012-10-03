@@ -32,9 +32,9 @@
 
 		if (kaleoDraftDefinition != null) {
 			try {
-				workflowDefinition = WorkflowDefinitionManagerUtil.getWorkflowDefinition(themeDisplay.getCompanyId(), kaleoDraftDefinition.getName(), kaleoDraftDefinition.getVersion());
-
 				latestKaleoDraftDefinition = KaleoDraftDefinitionLocalServiceUtil.getLatestKaleoDraftDefinition(kaleoDraftDefinition.getName(), kaleoDraftDefinition.getVersion(), serviceContext);
+
+				workflowDefinition = WorkflowDefinitionManagerUtil.getWorkflowDefinition(themeDisplay.getCompanyId(), kaleoDraftDefinition.getName(), kaleoDraftDefinition.getVersion());
 			}
 			catch (Exception e) {
 			}
@@ -55,23 +55,33 @@
 
 		<liferay-ui:header
 			backURL="<%= currentURL %>"
-			title='<%= (kaleoDraftDefinition == null) ? "new-workflow-definition-draft" : kaleoDraftDefinition.getTitle(locale) %>'
+			title='<%= (kaleoDraftDefinition == null) ? "new-workflow-definition-draft" : kaleoDraftDefinition.getName() %>'
 		/>
 
 		<aui:form method="post" name="fm" onSubmit="event.preventDefault();">
 			<aui:model-context bean="<%= kaleoDraftDefinition %>" model="<%= KaleoDraftDefinition.class %>" />
 
-			<aui:input name="name" type="hidden" />
 			<aui:input name="content" type="hidden" value="<%= content %>" />
 			<aui:input name="version" type="hidden" />
 			<aui:input name="draftVersion" type="hidden" />
 			<aui:input name="latestDraftVersion" type="hidden" value="<%= (latestKaleoDraftDefinition == null) ? 1 : latestKaleoDraftDefinition.getDraftVersion() %>" />
 
 			<liferay-ui:error exception="<%= KaleoDraftDefinitionContentException.class %>" message="please-enter-valid-content" />
-			<liferay-ui:error exception="<%= KaleoDraftDefinitionTitleException.class %>" message="please-enter-a-title" />
+			<liferay-ui:error exception="<%= KaleoDraftDefinitionNameException.class %>" message="please-enter-a-valid-name" />
 			<liferay-ui:error exception="<%= WorkflowException.class %>" message="an-error-occurred-in-the-workflow-engine" />
 
 			<aui:fieldset>
+
+				<%
+				boolean disabled = (kaleoDraftDefinition == null) ? false : true;
+				%>
+
+				<c:if test="<%= disabled %>">
+					<aui:input name="name" type="hidden" />
+				</c:if>
+
+				<aui:input disabled="<%= disabled %>" name="name" />
+
 				<c:if test="<%= editable %>">
 					<aui:input name="title" />
 				</c:if>
@@ -731,13 +741,13 @@
 				<c:when test="<%= editable %>">
 					<c:choose>
 						<c:when test="<%= kaleoDraftDefinition == null %>">
-							var title = A.one('#<portlet:namespace />title_<%= LocaleUtil.toLanguageId(locale) %>');
+							var name = A.one('#<portlet:namespace />name');
 
-							if (title) {
-								title.on(
+							if (name) {
+								name.on(
 									'valueChange',
 									function(event) {
-										<portlet:namespace />kaleoDesigner.set('definitionName', title.val());
+										<portlet:namespace />kaleoDesigner.set('definitionName', name.val());
 									}
 								);
 							}
