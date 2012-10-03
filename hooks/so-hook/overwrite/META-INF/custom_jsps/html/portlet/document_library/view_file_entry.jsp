@@ -987,7 +987,47 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 						var UA = A.UA;
 						var WIN = A.config.win;
 
-						var webDavUrl = '<%= webDavUrl %>';
+						<%
+						StringBuilder sb = new StringBuilder();
+
+						if (folder != null) {
+							Folder curFolder = folder;
+
+							while (true) {
+								sb.insert(0, HttpUtil.encodeURL(curFolder.getName(), true));
+								sb.insert(0, StringPool.SLASH);
+
+								if (curFolder.getParentFolderId() ==
+										DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
+
+									break;
+								}
+								else {
+									curFolder = DLAppLocalServiceUtil.getFolder(
+											curFolder.getParentFolderId());
+								}
+							}
+						}
+
+						if (fileEntry != null) {
+							sb.append(StringPool.SLASH);
+							sb.append(HttpUtil.encodeURL(fileEntry.getTitle(), true));
+						}
+
+						Group group = themeDisplay.getScopeGroup();
+
+						StringBundler manualCheckInRequiredWebDavURL = new StringBundler(7);
+
+						manualCheckInRequiredWebDavURL.append(themeDisplay.getPortalURL());
+						manualCheckInRequiredWebDavURL.append(themeDisplay.getPathContext());
+						manualCheckInRequiredWebDavURL.append("/api/secure/webdav");
+						manualCheckInRequiredWebDavURL.append("/manualCheckInRequired");
+						manualCheckInRequiredWebDavURL.append(group.getFriendlyURL());
+						manualCheckInRequiredWebDavURL.append("/document_library");
+						manualCheckInRequiredWebDavURL.append(sb.toString());
+						%>
+
+						var webDavUrl = '<%= manualCheckInRequiredWebDavURL.toString() %>';
 
 						if (webDavUrl && UA.ie) {
 							try {

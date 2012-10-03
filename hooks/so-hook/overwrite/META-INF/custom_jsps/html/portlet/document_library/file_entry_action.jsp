@@ -117,8 +117,6 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 
 					<%
 					if (portletDisplay.isWebDAVEnabled() && BrowserSnifferUtil.isIe(request)) {
-						String webDavUrl = DLUtil.getWebDavURL(themeDisplay, fileEntry.getFolder(), fileEntry);
-
 						String curExtension = fileEntry.getExtension();
 
 						if (curExtension.equalsIgnoreCase("doc") ||
@@ -129,7 +127,46 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 							curExtension.equalsIgnoreCase("xls") ||
 							curExtension.equalsIgnoreCase("xlsx")) {
 
-							String taglibOnClick = liferayPortletResponse.getNamespace() + "editAndCheckout('" + checkOutURL.toString() + "'); Liferay.fire('" + liferayPortletResponse.getNamespace() + "openDocument', {webDavUrl: '" + webDavUrl + "'});";
+
+							StringBuilder sb = new StringBuilder();
+
+							if (fileEntry.getFolder() != null) {
+								Folder curFolder = fileEntry.getFolder();
+
+								while (true) {
+									sb.insert(0, HttpUtil.encodeURL(curFolder.getName(), true));
+									sb.insert(0, StringPool.SLASH);
+
+									if (curFolder.getParentFolderId() ==
+											DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
+
+										break;
+									}
+									else {
+										curFolder = DLAppLocalServiceUtil.getFolder(
+												curFolder.getParentFolderId());
+									}
+								}
+							}
+
+							if (fileEntry != null) {
+								sb.append(StringPool.SLASH);
+								sb.append(HttpUtil.encodeURL(fileEntry.getTitle(), true));
+							}
+
+							Group group = themeDisplay.getScopeGroup();
+
+							StringBundler manualCheckInRequiredWebDavURL = new StringBundler(7);
+
+							manualCheckInRequiredWebDavURL.append(themeDisplay.getPortalURL());
+							manualCheckInRequiredWebDavURL.append(themeDisplay.getPathContext());
+							manualCheckInRequiredWebDavURL.append("/api/secure/webdav");
+							manualCheckInRequiredWebDavURL.append("/manualCheckInRequired");
+							manualCheckInRequiredWebDavURL.append(group.getFriendlyURL());
+							manualCheckInRequiredWebDavURL.append("/document_library");
+							manualCheckInRequiredWebDavURL.append(sb.toString());
+
+							String taglibOnClick = liferayPortletResponse.getNamespace() + "editAndCheckout('" + checkOutURL.toString() + "'); Liferay.fire('" + liferayPortletResponse.getNamespace() + "openDocument', {webDavUrl: '" + manualCheckInRequiredWebDavURL.toString() + "'});";
 					%>
 
 							<liferay-ui:icon
