@@ -19,7 +19,10 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink;
 
-import java.io.Serializable;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 /**
  * The cache model class for representing KaleoProcessLink in entity cache.
@@ -29,7 +32,7 @@ import java.io.Serializable;
  * @generated
  */
 public class KaleoProcessLinkCacheModel implements CacheModel<KaleoProcessLink>,
-	Serializable {
+	Externalizable {
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(9);
@@ -65,6 +68,28 @@ public class KaleoProcessLinkCacheModel implements CacheModel<KaleoProcessLink>,
 		kaleoProcessLinkImpl.resetOriginalValues();
 
 		return kaleoProcessLinkImpl;
+	}
+
+	public void readExternal(ObjectInput objectInput) throws IOException {
+		kaleoProcessLinkId = objectInput.readLong();
+		kaleoProcessId = objectInput.readLong();
+		workflowTaskName = objectInput.readUTF();
+		DDMTemplateId = objectInput.readLong();
+	}
+
+	public void writeExternal(ObjectOutput objectOutput)
+		throws IOException {
+		objectOutput.writeLong(kaleoProcessLinkId);
+		objectOutput.writeLong(kaleoProcessId);
+
+		if (workflowTaskName == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(workflowTaskName);
+		}
+
+		objectOutput.writeLong(DDMTemplateId);
 	}
 
 	public long kaleoProcessLinkId;

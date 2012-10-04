@@ -20,7 +20,10 @@ import com.liferay.portal.model.CacheModel;
 
 import com.liferay.saml.model.SamlSpAuthRequest;
 
-import java.io.Serializable;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 import java.util.Date;
 
@@ -32,7 +35,7 @@ import java.util.Date;
  * @generated
  */
 public class SamlSpAuthRequestCacheModel implements CacheModel<SamlSpAuthRequest>,
-	Serializable {
+	Externalizable {
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(11);
@@ -82,6 +85,35 @@ public class SamlSpAuthRequestCacheModel implements CacheModel<SamlSpAuthRequest
 		samlSpAuthRequestImpl.resetOriginalValues();
 
 		return samlSpAuthRequestImpl;
+	}
+
+	public void readExternal(ObjectInput objectInput) throws IOException {
+		samlSpAuthnRequestId = objectInput.readLong();
+		companyId = objectInput.readLong();
+		createDate = objectInput.readLong();
+		samlIdpEntityId = objectInput.readUTF();
+		samlSpAuthRequestKey = objectInput.readUTF();
+	}
+
+	public void writeExternal(ObjectOutput objectOutput)
+		throws IOException {
+		objectOutput.writeLong(samlSpAuthnRequestId);
+		objectOutput.writeLong(companyId);
+		objectOutput.writeLong(createDate);
+
+		if (samlIdpEntityId == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(samlIdpEntityId);
+		}
+
+		if (samlSpAuthRequestKey == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(samlSpAuthRequestKey);
+		}
 	}
 
 	public long samlSpAuthnRequestId;

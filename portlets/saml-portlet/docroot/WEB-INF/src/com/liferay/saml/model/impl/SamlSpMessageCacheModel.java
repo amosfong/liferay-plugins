@@ -20,7 +20,10 @@ import com.liferay.portal.model.CacheModel;
 
 import com.liferay.saml.model.SamlSpMessage;
 
-import java.io.Serializable;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 import java.util.Date;
 
@@ -32,7 +35,7 @@ import java.util.Date;
  * @generated
  */
 public class SamlSpMessageCacheModel implements CacheModel<SamlSpMessage>,
-	Serializable {
+	Externalizable {
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(13);
@@ -91,6 +94,38 @@ public class SamlSpMessageCacheModel implements CacheModel<SamlSpMessage>,
 		samlSpMessageImpl.resetOriginalValues();
 
 		return samlSpMessageImpl;
+	}
+
+	public void readExternal(ObjectInput objectInput) throws IOException {
+		samlSpMessageId = objectInput.readLong();
+		companyId = objectInput.readLong();
+		createDate = objectInput.readLong();
+		samlIdpEntityId = objectInput.readUTF();
+		samlIdpResponseKey = objectInput.readUTF();
+		expirationDate = objectInput.readLong();
+	}
+
+	public void writeExternal(ObjectOutput objectOutput)
+		throws IOException {
+		objectOutput.writeLong(samlSpMessageId);
+		objectOutput.writeLong(companyId);
+		objectOutput.writeLong(createDate);
+
+		if (samlIdpEntityId == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(samlIdpEntityId);
+		}
+
+		if (samlIdpResponseKey == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(samlIdpResponseKey);
+		}
+
+		objectOutput.writeLong(expirationDate);
 	}
 
 	public long samlSpMessageId;

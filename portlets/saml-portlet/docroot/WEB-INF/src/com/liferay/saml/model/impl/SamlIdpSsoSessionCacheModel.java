@@ -20,7 +20,10 @@ import com.liferay.portal.model.CacheModel;
 
 import com.liferay.saml.model.SamlIdpSsoSession;
 
-import java.io.Serializable;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 import java.util.Date;
 
@@ -32,7 +35,7 @@ import java.util.Date;
  * @generated
  */
 public class SamlIdpSsoSessionCacheModel implements CacheModel<SamlIdpSsoSession>,
-	Serializable {
+	Externalizable {
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(15);
@@ -94,6 +97,40 @@ public class SamlIdpSsoSessionCacheModel implements CacheModel<SamlIdpSsoSession
 		samlIdpSsoSessionImpl.resetOriginalValues();
 
 		return samlIdpSsoSessionImpl;
+	}
+
+	public void readExternal(ObjectInput objectInput) throws IOException {
+		samlIdpSsoSessionId = objectInput.readLong();
+		companyId = objectInput.readLong();
+		userId = objectInput.readLong();
+		userName = objectInput.readUTF();
+		createDate = objectInput.readLong();
+		modifiedDate = objectInput.readLong();
+		samlIdpSsoSessionKey = objectInput.readUTF();
+	}
+
+	public void writeExternal(ObjectOutput objectOutput)
+		throws IOException {
+		objectOutput.writeLong(samlIdpSsoSessionId);
+		objectOutput.writeLong(companyId);
+		objectOutput.writeLong(userId);
+
+		if (userName == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
+
+		objectOutput.writeLong(createDate);
+		objectOutput.writeLong(modifiedDate);
+
+		if (samlIdpSsoSessionKey == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(samlIdpSsoSessionKey);
+		}
 	}
 
 	public long samlIdpSsoSessionId;

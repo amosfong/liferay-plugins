@@ -20,7 +20,10 @@ import com.liferay.portal.model.CacheModel;
 
 import com.liferay.saml.model.SamlSpSession;
 
-import java.io.Serializable;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 import java.util.Date;
 
@@ -32,7 +35,7 @@ import java.util.Date;
  * @generated
  */
 public class SamlSpSessionCacheModel implements CacheModel<SamlSpSession>,
-	Serializable {
+	Externalizable {
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(21);
@@ -116,6 +119,59 @@ public class SamlSpSessionCacheModel implements CacheModel<SamlSpSession>,
 		samlSpSessionImpl.resetOriginalValues();
 
 		return samlSpSessionImpl;
+	}
+
+	public void readExternal(ObjectInput objectInput) throws IOException {
+		samlSpSessionId = objectInput.readLong();
+		companyId = objectInput.readLong();
+		userId = objectInput.readLong();
+		userName = objectInput.readUTF();
+		createDate = objectInput.readLong();
+		modifiedDate = objectInput.readLong();
+		jSessionId = objectInput.readUTF();
+		nameIdFormat = objectInput.readUTF();
+		nameIdValue = objectInput.readUTF();
+		terminated = objectInput.readBoolean();
+	}
+
+	public void writeExternal(ObjectOutput objectOutput)
+		throws IOException {
+		objectOutput.writeLong(samlSpSessionId);
+		objectOutput.writeLong(companyId);
+		objectOutput.writeLong(userId);
+
+		if (userName == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
+
+		objectOutput.writeLong(createDate);
+		objectOutput.writeLong(modifiedDate);
+
+		if (jSessionId == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(jSessionId);
+		}
+
+		if (nameIdFormat == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(nameIdFormat);
+		}
+
+		if (nameIdValue == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(nameIdValue);
+		}
+
+		objectOutput.writeBoolean(terminated);
 	}
 
 	public long samlSpSessionId;

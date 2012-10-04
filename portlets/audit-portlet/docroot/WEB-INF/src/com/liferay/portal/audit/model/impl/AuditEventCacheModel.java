@@ -19,7 +19,10 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
 
-import java.io.Serializable;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 import java.util.Date;
 
@@ -31,7 +34,7 @@ import java.util.Date;
  * @generated
  */
 public class AuditEventCacheModel implements CacheModel<AuditEvent>,
-	Serializable {
+	Externalizable {
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(31);
@@ -160,6 +163,105 @@ public class AuditEventCacheModel implements CacheModel<AuditEvent>,
 		auditEventImpl.resetOriginalValues();
 
 		return auditEventImpl;
+	}
+
+	public void readExternal(ObjectInput objectInput) throws IOException {
+		auditEventId = objectInput.readLong();
+		companyId = objectInput.readLong();
+		userId = objectInput.readLong();
+		userName = objectInput.readUTF();
+		createDate = objectInput.readLong();
+		eventType = objectInput.readUTF();
+		className = objectInput.readUTF();
+		classPK = objectInput.readUTF();
+		message = objectInput.readUTF();
+		clientHost = objectInput.readUTF();
+		clientIP = objectInput.readUTF();
+		serverName = objectInput.readUTF();
+		serverPort = objectInput.readInt();
+		sessionID = objectInput.readUTF();
+		additionalInfo = objectInput.readUTF();
+	}
+
+	public void writeExternal(ObjectOutput objectOutput)
+		throws IOException {
+		objectOutput.writeLong(auditEventId);
+		objectOutput.writeLong(companyId);
+		objectOutput.writeLong(userId);
+
+		if (userName == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
+
+		objectOutput.writeLong(createDate);
+
+		if (eventType == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(eventType);
+		}
+
+		if (className == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(className);
+		}
+
+		if (classPK == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(classPK);
+		}
+
+		if (message == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(message);
+		}
+
+		if (clientHost == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(clientHost);
+		}
+
+		if (clientIP == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(clientIP);
+		}
+
+		if (serverName == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(serverName);
+		}
+
+		objectOutput.writeInt(serverPort);
+
+		if (sessionID == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(sessionID);
+		}
+
+		if (additionalInfo == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(additionalInfo);
+		}
 	}
 
 	public long auditEventId;

@@ -20,7 +20,10 @@ import com.liferay.portal.model.CacheModel;
 
 import com.liferay.reports.model.Entry;
 
-import java.io.Serializable;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 import java.util.Date;
 
@@ -31,7 +34,7 @@ import java.util.Date;
  * @see Entry
  * @generated
  */
-public class EntryCacheModel implements CacheModel<Entry>, Serializable {
+public class EntryCacheModel implements CacheModel<Entry>, Externalizable {
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(43);
@@ -198,6 +201,117 @@ public class EntryCacheModel implements CacheModel<Entry>, Serializable {
 		entryImpl.resetOriginalValues();
 
 		return entryImpl;
+	}
+
+	public void readExternal(ObjectInput objectInput) throws IOException {
+		entryId = objectInput.readLong();
+		groupId = objectInput.readLong();
+		companyId = objectInput.readLong();
+		userId = objectInput.readLong();
+		userName = objectInput.readUTF();
+		createDate = objectInput.readLong();
+		modifiedDate = objectInput.readLong();
+		definitionId = objectInput.readLong();
+		format = objectInput.readUTF();
+		scheduleRequest = objectInput.readBoolean();
+		startDate = objectInput.readLong();
+		endDate = objectInput.readLong();
+		repeating = objectInput.readBoolean();
+		recurrence = objectInput.readUTF();
+		emailNotifications = objectInput.readUTF();
+		emailDelivery = objectInput.readUTF();
+		portletId = objectInput.readUTF();
+		pageURL = objectInput.readUTF();
+		reportParameters = objectInput.readUTF();
+		status = objectInput.readUTF();
+		errorMessage = objectInput.readUTF();
+	}
+
+	public void writeExternal(ObjectOutput objectOutput)
+		throws IOException {
+		objectOutput.writeLong(entryId);
+		objectOutput.writeLong(groupId);
+		objectOutput.writeLong(companyId);
+		objectOutput.writeLong(userId);
+
+		if (userName == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
+
+		objectOutput.writeLong(createDate);
+		objectOutput.writeLong(modifiedDate);
+		objectOutput.writeLong(definitionId);
+
+		if (format == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(format);
+		}
+
+		objectOutput.writeBoolean(scheduleRequest);
+		objectOutput.writeLong(startDate);
+		objectOutput.writeLong(endDate);
+		objectOutput.writeBoolean(repeating);
+
+		if (recurrence == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(recurrence);
+		}
+
+		if (emailNotifications == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(emailNotifications);
+		}
+
+		if (emailDelivery == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(emailDelivery);
+		}
+
+		if (portletId == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(portletId);
+		}
+
+		if (pageURL == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(pageURL);
+		}
+
+		if (reportParameters == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(reportParameters);
+		}
+
+		if (status == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(status);
+		}
+
+		if (errorMessage == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(errorMessage);
+		}
 	}
 
 	public long entryId;

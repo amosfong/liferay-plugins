@@ -20,7 +20,10 @@ import com.liferay.portal.model.CacheModel;
 
 import com.liferay.saml.model.SamlSpIdpConnection;
 
-import java.io.Serializable;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 import java.util.Date;
 
@@ -32,7 +35,7 @@ import java.util.Date;
  * @generated
  */
 public class SamlSpIdpConnectionCacheModel implements CacheModel<SamlSpIdpConnection>,
-	Serializable {
+	Externalizable {
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(37);
@@ -166,6 +169,95 @@ public class SamlSpIdpConnectionCacheModel implements CacheModel<SamlSpIdpConnec
 		samlSpIdpConnectionImpl.resetOriginalValues();
 
 		return samlSpIdpConnectionImpl;
+	}
+
+	public void readExternal(ObjectInput objectInput) throws IOException {
+		samlSpIdpConnectionId = objectInput.readLong();
+		companyId = objectInput.readLong();
+		userId = objectInput.readLong();
+		userName = objectInput.readUTF();
+		createDate = objectInput.readLong();
+		modifiedDate = objectInput.readLong();
+		samlIdpEntityId = objectInput.readUTF();
+		assertionSignatureRequired = objectInput.readBoolean();
+		clockSkew = objectInput.readLong();
+		enabled = objectInput.readBoolean();
+		ldapImportEnabled = objectInput.readBoolean();
+		metadataUrl = objectInput.readUTF();
+		metadataXml = objectInput.readUTF();
+		metadataUpdatedDate = objectInput.readLong();
+		name = objectInput.readUTF();
+		nameIdFormat = objectInput.readUTF();
+		signAuthnRequest = objectInput.readBoolean();
+		userAttributeMappings = objectInput.readUTF();
+	}
+
+	public void writeExternal(ObjectOutput objectOutput)
+		throws IOException {
+		objectOutput.writeLong(samlSpIdpConnectionId);
+		objectOutput.writeLong(companyId);
+		objectOutput.writeLong(userId);
+
+		if (userName == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
+
+		objectOutput.writeLong(createDate);
+		objectOutput.writeLong(modifiedDate);
+
+		if (samlIdpEntityId == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(samlIdpEntityId);
+		}
+
+		objectOutput.writeBoolean(assertionSignatureRequired);
+		objectOutput.writeLong(clockSkew);
+		objectOutput.writeBoolean(enabled);
+		objectOutput.writeBoolean(ldapImportEnabled);
+
+		if (metadataUrl == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(metadataUrl);
+		}
+
+		if (metadataXml == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(metadataXml);
+		}
+
+		objectOutput.writeLong(metadataUpdatedDate);
+
+		if (name == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(name);
+		}
+
+		if (nameIdFormat == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(nameIdFormat);
+		}
+
+		objectOutput.writeBoolean(signAuthnRequest);
+
+		if (userAttributeMappings == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(userAttributeMappings);
+		}
 	}
 
 	public long samlSpIdpConnectionId;

@@ -20,7 +20,10 @@ import com.liferay.portal.model.CacheModel;
 
 import com.liferay.saml.model.SamlIdpSpConnection;
 
-import java.io.Serializable;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 import java.util.Date;
 
@@ -32,7 +35,7 @@ import java.util.Date;
  * @generated
  */
 public class SamlIdpSpConnectionCacheModel implements CacheModel<SamlIdpSpConnection>,
-	Serializable {
+	Externalizable {
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(37);
@@ -171,6 +174,100 @@ public class SamlIdpSpConnectionCacheModel implements CacheModel<SamlIdpSpConnec
 		samlIdpSpConnectionImpl.resetOriginalValues();
 
 		return samlIdpSpConnectionImpl;
+	}
+
+	public void readExternal(ObjectInput objectInput) throws IOException {
+		samlIdpSpConnectionId = objectInput.readLong();
+		companyId = objectInput.readLong();
+		userId = objectInput.readLong();
+		userName = objectInput.readUTF();
+		createDate = objectInput.readLong();
+		modifiedDate = objectInput.readLong();
+		samlSpEntityId = objectInput.readUTF();
+		attributeNames = objectInput.readUTF();
+		attributesEnabled = objectInput.readBoolean();
+		attributesNamespaceEnabled = objectInput.readBoolean();
+		assertionLifetime = objectInput.readInt();
+		enabled = objectInput.readBoolean();
+		metadataUrl = objectInput.readUTF();
+		metadataXml = objectInput.readUTF();
+		metadataUpdatedDate = objectInput.readLong();
+		name = objectInput.readUTF();
+		nameIdAttribute = objectInput.readUTF();
+		nameIdFormat = objectInput.readUTF();
+	}
+
+	public void writeExternal(ObjectOutput objectOutput)
+		throws IOException {
+		objectOutput.writeLong(samlIdpSpConnectionId);
+		objectOutput.writeLong(companyId);
+		objectOutput.writeLong(userId);
+
+		if (userName == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
+
+		objectOutput.writeLong(createDate);
+		objectOutput.writeLong(modifiedDate);
+
+		if (samlSpEntityId == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(samlSpEntityId);
+		}
+
+		if (attributeNames == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(attributeNames);
+		}
+
+		objectOutput.writeBoolean(attributesEnabled);
+		objectOutput.writeBoolean(attributesNamespaceEnabled);
+		objectOutput.writeInt(assertionLifetime);
+		objectOutput.writeBoolean(enabled);
+
+		if (metadataUrl == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(metadataUrl);
+		}
+
+		if (metadataXml == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(metadataXml);
+		}
+
+		objectOutput.writeLong(metadataUpdatedDate);
+
+		if (name == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(name);
+		}
+
+		if (nameIdAttribute == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(nameIdAttribute);
+		}
+
+		if (nameIdFormat == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(nameIdFormat);
+		}
 	}
 
 	public long samlIdpSpConnectionId;
