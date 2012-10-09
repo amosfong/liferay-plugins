@@ -166,7 +166,7 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 							manualCheckInRequiredWebDavURL.append("/document_library");
 							manualCheckInRequiredWebDavURL.append(sb.toString());
 
-							String taglibOnClick = liferayPortletResponse.getNamespace() + "editAndCheckout('" + checkOutURL.toString() + "'); Liferay.fire('" + liferayPortletResponse.getNamespace() + "openDocument', {webDavUrl: '" + manualCheckInRequiredWebDavURL.toString() + "'});";
+							String taglibOnClick = "Liferay.fire('" + liferayPortletResponse.getNamespace() + "openDocument', {webDavUrl: '" + manualCheckInRequiredWebDavURL.toString() + "'});";
 					%>
 
 							<liferay-ui:icon
@@ -189,7 +189,7 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 					</portlet:renderURL>
 
 					<%
-					String taglibOnClickEdit = liferayPortletResponse.getNamespace() + "editAndCheckout('" + checkOutURL.toString() + "');" + liferayPortletResponse.getNamespace() + "openDialog('" + editURL.toString() + "', '" + UnicodeLanguageUtil.get(pageContext, "edit") +"');";
+					String taglibOnClickEdit = liferayPortletResponse.getNamespace() + "openDialog('" + editURL.toString() + "', '" + UnicodeLanguageUtil.get(pageContext, "edit") +"');";
 					%>
 
 					<liferay-ui:icon

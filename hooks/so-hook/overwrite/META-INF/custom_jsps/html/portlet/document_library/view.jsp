@@ -22,12 +22,6 @@
 <liferay-util:include page="/html/portlet/document_library/view.jsp" useCustomPage="<%= false %>" />
 
 <aui:script>
-	function <portlet:namespace />editAndCheckout(checkoutURL) {
-		var A = AUI();
-
-		A.io.request(checkoutURL);
-	}
-
 	function <portlet:namespace />openDialog(uri, title) {
 		var A = AUI();
 

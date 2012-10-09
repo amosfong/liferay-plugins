@@ -965,8 +965,6 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 				</portlet:renderURL>
 
 				handler: function(event) {
-					A.io.request('<%= checkOutURL %>');
-
 					<portlet:namespace />openDialog('<%= editURL %>', '<liferay-ui:message key="edit" />');
 				},
 				icon: 'edit',
