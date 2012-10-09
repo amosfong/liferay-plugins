@@ -59,7 +59,8 @@ public class KaleoDesignerUtil {
 
 			WorkflowDefinition workflowDefinition =
 				WorkflowDefinitionManagerUtil.deployWorkflowDefinition(
-					companyId, userId, _getTitle(titleMap), inputStream);
+					companyId, userId, _getLocalizedTitleXML(titleMap),
+					inputStream);
 
 			return workflowDefinition;
 		}
@@ -157,7 +158,7 @@ public class KaleoDesignerUtil {
 		return false;
 	}
 
-	private static String _getTitle(Map<Locale, String> titleMap) {
+	private static String _getLocalizedTitleXML(Map<Locale, String> titleMap) {
 		String title = StringPool.BLANK;
 
 		if (titleMap == null) {
