@@ -27,18 +27,32 @@ String searchFilter = ParamUtil.getString(request, "searchFilter", "available");
 
 Group layoutGroup = layout.getGroup();
 Group userGroup = user.getGroup();
+
+Role role = RoleLocalServiceUtil.getRole(themeDisplay.getCompanyId(), RoleConstants.SOCIAL_OFFICE_USER);
+
+int roleUsersCount = 0;
+int roleGroupsCuont = 0;
+
+if (Validator.isNotNull(role)) {
+    List<Group> roleGroups = GroupLocalServiceUtil.getRoleGroups(role.getRoleId());
+
+    roleUsersCount = UserLocalServiceUtil.getRoleUsersCount(role.getRoleId());
+    roleGroupsCuont = roleGroups.size();
+}
 %>
 
-<span class="configuration-message">
-	<c:choose>
-		<c:when test="<%= layoutGroup.isControlPanel() %>">
-			<liferay-ui:message key="give-users-social-office-access" />
-		</c:when>
-		<c:otherwise>
-			<liferay-ui:message key="almost-done-now-its-time-to-figure-out-who-to-give-social-office-to" />
-		</c:otherwise>
-	</c:choose>
-</span>
+<c:choose>
+    <c:when test="<%= (roleUsersCount == 0) && (roleGroupsCuont == 0) %>">
+        <div class="portlet-msg-success">
+            <liferay-ui:message key="thank-you-for-installing-social-office-at-this-time-no-users-have-been-given-social-office-access-now-its-time-to-figure-out-who-to-give-social-office-to" />
+        </div>
+    </c:when>
+    <c:otherwise>
+        <div class="portlet-msg-info">
+            <liferay-ui:message key="give-users-social-office-access" />
+        </div>
+    </c:otherwise>
+</c:choose>
 
 <liferay-portlet:renderURL var="portletURL">
 	<portlet:param name="tabs1" value="<%= tabs1 %>" />
