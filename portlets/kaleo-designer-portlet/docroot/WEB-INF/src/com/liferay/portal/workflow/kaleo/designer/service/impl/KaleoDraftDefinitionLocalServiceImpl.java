@@ -14,6 +14,12 @@
 
 package com.liferay.portal.workflow.kaleo.designer.service.impl;
 
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.ProjectionFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.ProjectionList;
+import com.liferay.portal.kernel.dao.orm.Property;
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -33,6 +39,7 @@ import com.liferay.portal.workflow.kaleo.designer.util.KaleoDesignerUtil;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -151,15 +158,33 @@ public class KaleoDraftDefinitionLocalServiceImpl
 			OrderByComparator orderByComparator)
 		throws SystemException {
 
-		return kaleoDraftDefinitionFinder.findLatestKaleoDraftDefinitions(
-			companyId, version, start, end, orderByComparator);
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+			KaleoDraftDefinition.class, getClassLoader());
+
+		Property kaleoDraftDefinitionId = PropertyFactoryUtil.forName(
+			"kaleoDraftDefinitionId");
+
+		dynamicQuery.add(
+			kaleoDraftDefinitionId.in(
+				getKaleoDraftDefinitionIds(companyId, version)));
+
+		return dynamicQuery(dynamicQuery, start, end, orderByComparator);
 	}
 
 	public int getLatestKaleoDraftDefinitionsCount(long companyId, int version)
 		throws SystemException {
 
-		return kaleoDraftDefinitionFinder.countLatestKaleoDraftDefinitions(
-			companyId, version);
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+			KaleoDraftDefinition.class, getClassLoader());
+
+		Property kaleoDraftDefinitionId = PropertyFactoryUtil.forName(
+			"kaleoDraftDefinitionId");
+
+		dynamicQuery.add(
+			kaleoDraftDefinitionId.in(
+				getKaleoDraftDefinitionIds(companyId, version)));
+
+		return (int)dynamicQueryCount(dynamicQuery);
 	}
 
 	public KaleoDraftDefinition incrementKaleoDraftDefinitionDraftVersion(
@@ -218,6 +243,34 @@ public class KaleoDraftDefinitionLocalServiceImpl
 		kaleoDraftDefinitionPersistence.update(kaleoDraftDefinition, false);
 
 		return kaleoDraftDefinition;
+	}
+
+	protected List<Object> getKaleoDraftDefinitionIds(
+		long companyId, int version) throws SystemException {
+
+		List<Object> kaleoDraftDefinitionIds = new ArrayList<Object>();
+
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+			KaleoDraftDefinition.class, getClassLoader());
+
+		ProjectionList projectionList = ProjectionFactoryUtil.projectionList();
+
+		projectionList.add(ProjectionFactoryUtil.max("kaleoDraftDefinitionId"));
+		projectionList.add(ProjectionFactoryUtil.groupProperty("name"));
+
+		dynamicQuery.setProjection(projectionList);
+
+		dynamicQuery.add(
+			PropertyFactoryUtil.forName("companyId").eq(companyId));
+		dynamicQuery.add(PropertyFactoryUtil.forName("version").eq(version));
+
+		List<Object[]> results = dynamicQuery(dynamicQuery);
+
+		for (Object[] result : results) {
+			kaleoDraftDefinitionIds.add(result[0]);
+		}
+
+		return kaleoDraftDefinitionIds;
 	}
 
 	protected void validate(String name) throws PortalException {
