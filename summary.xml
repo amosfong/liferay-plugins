@@ -363,7 +363,7 @@
 		<change-log><![CDATA[]]></change-log>
 		<page-url><![CDATA[http://www.liferay.com]]></page-url>
 		<author><![CDATA[Liferay, Inc.]]></author>
-		<licenses><![CDATA[AGPL]]></licenses>
+		<licenses><![CDATA[EE]]></licenses>
 		<liferay-versions><![CDATA[6.2.0]]></liferay-versions>
 		<releng>
 			<bundle><![CDATA[false]]></bundle>
@@ -724,7 +724,7 @@
 		<change-log><![CDATA[]]></change-log>
 		<page-url><![CDATA[http://www.liferay.com]]></page-url>
 		<author><![CDATA[Liferay, Inc.]]></author>
-		<licenses><![CDATA[AGPL]]></licenses>
+		<licenses><![CDATA[EE]]></licenses>
 		<liferay-versions><![CDATA[6.2.0]]></liferay-versions>
 		<releng>
 			<bundle><![CDATA[false]]></bundle>
@@ -1002,7 +1002,7 @@
 		<type><![CDATA[portlet]]></type>
 		<tags><![CDATA[kaleo, workflow, bi, business intelligence, designer]]></tags>
 		<short-description><![CDATA[]]></short-description>
-		<long-description><![CDATA[This app adds the visual forms and Kaleo Workflow Designer feature to Liferay's existing Kaleo Workflow engine. The Kaleo Workflow Designer helps streamline the creation of workflow definitions and empower more users to create custom workflows. There are two pieces to the workflow designer Kaleo Forms is an extension of the Dynamic Data Lists feature. This enables you to create web forms and basic applications, and then apply a workflow to govern the processing of those forms. Kaleo Designer is a drag and drop interface for creating new workflow definitions. It can be used in conjunction with Kaleo Forms or standalone to create workflow definitions without having to write XML. For details about how to use the Kaleo Forms, Consult the “Workflow with Kaleo�? section of the Liferay User Guide. The Liferay User Guide can be found at http://liferay.com/documentation.<br /><br />This app will appear in your Application menu once installed.]]></long-description>
+		<long-description><![CDATA[This app adds the visual forms and Kaleo Workflow Designer feature to Liferay's existing Kaleo Workflow engine. The Kaleo Workflow Designer helps streamline the creation of workflow definitions and empower more users to create custom workflows. There are two pieces to the workflow designer Kaleo Forms is an extension of the Dynamic Data Lists feature. This enables you to create web forms and basic applications, and then apply a workflow to govern the processing of those forms. Kaleo Designer is a drag and drop interface for creating new workflow definitions. It can be used in conjunction with Kaleo Forms or standalone to create workflow definitions without having to write XML. For details about how to use the Kaleo Forms, Consult the "Workflow with Kaleo" section of the Liferay User Guide. The Liferay User Guide can be found at http://liferay.com/documentation.<br /><br />This app will appear in your Application menu once installed.]]></long-description>
 		<change-log><![CDATA[]]></change-log>
 		<page-url><![CDATA[http://www.liferay.com]]></page-url>
 		<author><![CDATA[Liferay, Inc.]]></author>
@@ -1015,7 +1015,7 @@
 			<dependent-apps><![CDATA[kaleo-designer, kaleo-web]]></dependent-apps>
 			<icon><![CDATA[portlets/kaleo-forms-portlet/docroot/WEB-INF/releng/icons/90x90.png]]></icon>
 			<labs><![CDATA[false]]></labs>
-			<marketplace><![CDATA[false]]></marketplace>
+			<marketplace><![CDATA[true]]></marketplace>
 			<public><![CDATA[false]]></public>
 			<screenshot><![CDATA[portlets/kaleo-forms-portlet/docroot/WEB-INF/releng/screenshots/1.jpg]]></screenshot>
 			<screenshot><![CDATA[portlets/kaleo-forms-portlet/docroot/WEB-INF/releng/screenshots/2.jpg]]></screenshot>
@@ -1139,7 +1139,7 @@
 		<change-log><![CDATA[]]></change-log>
 		<page-url><![CDATA[http://www.liferay.com]]></page-url>
 		<author><![CDATA[Liferay, Inc.]]></author>
-		<licenses><![CDATA[AGPL]]></licenses>
+		<licenses><![CDATA[EE]]></licenses>
 		<liferay-versions><![CDATA[6.2.0]]></liferay-versions>
 		<releng>
 			<bundle><![CDATA[false]]></bundle>
@@ -1236,6 +1236,30 @@
 		</releng>
 	</plugin>
 	<plugin>
+		<artifact-id><![CDATA[plugin-security-manager-portlet]]></artifact-id>
+		<name><![CDATA[Plugin Security Manager EE]]></name>
+		<type><![CDATA[portlet]]></type>
+		<tags><![CDATA[]]></tags>
+		<short-description><![CDATA[]]></short-description>
+		<long-description><![CDATA[]]></long-description>
+		<change-log><![CDATA[]]></change-log>
+		<page-url><![CDATA[http://www.liferay.com]]></page-url>
+		<author><![CDATA[Liferay, Inc.]]></author>
+		<licenses><![CDATA[EE]]></licenses>
+		<liferay-versions><![CDATA[6.2.0]]></liferay-versions>
+		<releng>
+			<bundle><![CDATA[false]]></bundle>
+			<category><![CDATA[Utility]]></category>
+			<demo-url><![CDATA[]]></demo-url>
+			<dependent-apps><![CDATA[]]></dependent-apps>
+			<labs><![CDATA[true]]></labs>
+			<marketplace><![CDATA[true]]></marketplace>
+			<public><![CDATA[false]]></public>
+			<support-url><![CDATA[]]></support-url>
+			<supported><![CDATA[true]]></supported>
+		</releng>
+	</plugin>
+	<plugin>
 		<artifact-id><![CDATA[private-messaging-portlet]]></artifact-id>
 		<name><![CDATA[Private Messaging EE]]></name>
 		<type><![CDATA[portlet]]></type>
@@ -1245,7 +1269,7 @@
 		<change-log><![CDATA[]]></change-log>
 		<page-url><![CDATA[http://www.liferay.com]]></page-url>
 		<author><![CDATA[Liferay, Inc.]]></author>
-		<licenses><![CDATA[AGPL]]></licenses>
+		<licenses><![CDATA[EE]]></licenses>
 		<liferay-versions><![CDATA[6.2.0]]></liferay-versions>
 		<releng>
 			<bundle><![CDATA[false]]></bundle>
@@ -1996,7 +2020,7 @@
 		<change-log><![CDATA[]]></change-log>
 		<page-url><![CDATA[http://www.liferay.com]]></page-url>
 		<author><![CDATA[Liferay, Inc.]]></author>
-		<licenses><![CDATA[AGPL]]></licenses>
+		<licenses><![CDATA[EE]]></licenses>
 		<liferay-versions><![CDATA[6.2.0]]></liferay-versions>
 		<releng>
 			<bundle><![CDATA[false]]></bundle>
@@ -2020,7 +2044,7 @@
 		<change-log><![CDATA[]]></change-log>
 		<page-url><![CDATA[http://www.liferay.com]]></page-url>
 		<author><![CDATA[Liferay, Inc.]]></author>
-		<licenses><![CDATA[AGPL]]></licenses>
+		<licenses><![CDATA[EE]]></licenses>
 		<liferay-versions><![CDATA[6.2.0]]></liferay-versions>
 		<releng>
 			<bundle><![CDATA[false]]></bundle>
@@ -2156,7 +2180,7 @@
 		<change-log><![CDATA[]]></change-log>
 		<page-url><![CDATA[http://www.liferay.com]]></page-url>
 		<author><![CDATA[Liferay, Inc.]]></author>
-		<licenses><![CDATA[AGPL]]></licenses>
+		<licenses><![CDATA[EE]]></licenses>
 		<liferay-versions><![CDATA[6.2.0]]></liferay-versions>
 		<releng>
 			<bundle><![CDATA[false]]></bundle>
@@ -2421,6 +2445,30 @@
 		<page-url><![CDATA[http://www.liferay.com]]></page-url>
 		<author><![CDATA[Liferay, Inc.]]></author>
 		<licenses><![CDATA[EE]]></licenses>
+		<liferay-versions><![CDATA[6.2.0]]></liferay-versions>
+		<releng>
+			<bundle><![CDATA[false]]></bundle>
+			<category><![CDATA[]]></category>
+			<demo-url><![CDATA[]]></demo-url>
+			<dependent-apps><![CDATA[]]></dependent-apps>
+			<labs><![CDATA[true]]></labs>
+			<marketplace><![CDATA[false]]></marketplace>
+			<public><![CDATA[false]]></public>
+			<support-url><![CDATA[]]></support-url>
+			<supported><![CDATA[false]]></supported>
+		</releng>
+	</plugin>
+	<plugin>
+		<artifact-id><![CDATA[test-kaleo-portlet]]></artifact-id>
+		<name><![CDATA[Test Kaleo Web]]></name>
+		<type><![CDATA[portlet]]></type>
+		<tags><![CDATA[]]></tags>
+		<short-description><![CDATA[]]></short-description>
+		<long-description><![CDATA[]]></long-description>
+		<change-log><![CDATA[]]></change-log>
+		<page-url><![CDATA[http://www.liferay.com]]></page-url>
+		<author><![CDATA[Liferay, Inc.]]></author>
+		<licenses><![CDATA[LGPL]]></licenses>
 		<liferay-versions><![CDATA[6.2.0]]></liferay-versions>
 		<releng>
 			<bundle><![CDATA[false]]></bundle>
@@ -2997,7 +3045,7 @@
 		<change-log><![CDATA[]]></change-log>
 		<page-url><![CDATA[http://www.liferay.com]]></page-url>
 		<author><![CDATA[Liferay, Inc.]]></author>
-		<licenses><![CDATA[AGPL]]></licenses>
+		<licenses><![CDATA[EE]]></licenses>
 		<liferay-versions><![CDATA[6.2.0]]></liferay-versions>
 		<releng>
 			<bundle><![CDATA[false]]></bundle>
@@ -3021,7 +3069,7 @@
 		<change-log><![CDATA[]]></change-log>
 		<page-url><![CDATA[http://www.liferay.com]]></page-url>
 		<author><![CDATA[Liferay, Inc.]]></author>
-		<licenses><![CDATA[AGPL]]></licenses>
+		<licenses><![CDATA[EE]]></licenses>
 		<liferay-versions><![CDATA[6.2.0]]></liferay-versions>
 		<releng>
 			<bundle><![CDATA[false]]></bundle>
@@ -3537,7 +3585,6 @@
 	<author>Liferay, Inc.</author>
 	<author>SpringSource, Inc.</author>
 	<author>Sun Microsystems, Inc.</author>
-	<license>AGPL</license>
 	<license>EE</license>
 	<license>LGPL</license>
 </plugins-summary>
