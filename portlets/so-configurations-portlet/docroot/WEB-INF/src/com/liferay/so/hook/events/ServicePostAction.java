@@ -18,7 +18,6 @@
 package com.liferay.so.hook.events;
 
 import com.liferay.portal.kernel.events.Action;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
@@ -44,8 +43,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author Brett Swaim
- * @author Ryan Park
  * @author Jonathan Lee
  */
 public class ServicePostAction extends Action {
@@ -62,46 +59,7 @@ public class ServicePostAction extends Action {
 		}
 	}
 
-	protected void doRun(
-			HttpServletRequest request, HttpServletResponse response)
-		throws Exception {
-
-		SocialOfficeUsersSetupRedirect(request, response);
-	}
-
-	protected boolean isSocialOfficeUsersSetup(long companyId) {
-		try {
-			Group group = GroupLocalServiceUtil.getCompanyGroup(companyId);
-
-			UnicodeProperties typeSettingsProperties =
-				group.getTypeSettingsProperties();
-
-			return GetterUtil.getBoolean(
-				typeSettingsProperties.getProperty("social-office-user-setup"));
-		}
-		catch (Exception e) {
-			return false;
-		}
-	}
-
-	protected void setSocialOfficeUsersSetup(
-		long companyId, boolean socialOfficeUsersSetup)
-		throws Exception {
-
-		Group group = GroupLocalServiceUtil.getCompanyGroup(companyId);
-
-		UnicodeProperties typeSettingsProperties =
-			group.getTypeSettingsProperties();
-
-		typeSettingsProperties.setProperty(
-			"social-office-user-setup",
-			Boolean.toString(socialOfficeUsersSetup));
-
-		GroupLocalServiceUtil.updateGroup(
-			group.getGroupId(), typeSettingsProperties.toString());
-	}
-
-	protected void SocialOfficeUsersSetupRedirect(
+	protected void checkSocialOfficeUsersConfigured(
 			HttpServletRequest request, HttpServletResponse response)
 		throws Exception {
 
@@ -116,7 +74,7 @@ public class ServicePostAction extends Action {
 			themeDisplay.getPermissionChecker();
 
 		if (!permissionChecker.isCompanyAdmin() ||
-			isSocialOfficeUsersSetup(themeDisplay.getCompanyId())) {
+			isSocialOfficeUsersConfigured(themeDisplay.getCompanyId())) {
 
 			return;
 		}
@@ -134,7 +92,7 @@ public class ServicePostAction extends Action {
 				termsOfUseRequired = PrefsPropsUtil.getBoolean(
 					user.getCompanyId(), PropsKeys.TERMS_OF_USE_REQUIRED);
 			}
-			catch (SystemException se) {
+			catch (Exception e) {
 			}
 
 			if (termsOfUseRequired) {
@@ -157,26 +115,63 @@ public class ServicePostAction extends Action {
 				request.getParameter(
 					"_1_WAR_soconfigurationsportlet_mvcPath"))) {
 
-			setSocialOfficeUsersSetup(themeDisplay.getCompanyId(), true);
+			setSocialOfficeUsersConfigured(themeDisplay.getCompanyId(), true);
 
 			return;
 		}
 
-		Group group = GroupLocalServiceUtil.fetchGroup(
+		Group group = GroupLocalServiceUtil.getGroup(
 			themeDisplay.getCompanyId(), GroupConstants.CONTROL_PANEL);
 
-		if (Validator.isNotNull(group)) {
-			PortletURL portletURL = PortletURLFactoryUtil.create(
-				request, "1_WAR_soconfigurationsportlet",
-				group.getDefaultPrivatePlid(), PortletRequest.RENDER_PHASE);
+		PortletURL portletURL = PortletURLFactoryUtil.create(
+			request, "1_WAR_soconfigurationsportlet",
+			group.getDefaultPrivatePlid(), PortletRequest.RENDER_PHASE);
 
-			portletURL.setParameter("mvcPath", "/view.jsp");
+		portletURL.setParameter("mvcPath", "/view.jsp");
+		portletURL.setPortletMode(PortletMode.VIEW);
+		portletURL.setWindowState(WindowState.MAXIMIZED);
 
-			portletURL.setPortletMode(PortletMode.VIEW);
-			portletURL.setWindowState(WindowState.MAXIMIZED);
+		response.sendRedirect(portletURL.toString());
+	}
 
-			response.sendRedirect(portletURL.toString());
+	protected void doRun(
+			HttpServletRequest request, HttpServletResponse response)
+		throws Exception {
+
+		checkSocialOfficeUsersConfigured(request, response);
+	}
+
+	protected boolean isSocialOfficeUsersConfigured(long companyId) {
+		try {
+			Group group = GroupLocalServiceUtil.getCompanyGroup(companyId);
+
+			UnicodeProperties typeSettingsProperties =
+				group.getTypeSettingsProperties();
+
+			return GetterUtil.getBoolean(
+				typeSettingsProperties.getProperty(
+					"social-office-users-configured"));
 		}
+		catch (Exception e) {
+			return false;
+		}
+	}
+
+	protected void setSocialOfficeUsersConfigured(
+			long companyId, boolean socialOfficeUsersConfigured)
+		throws Exception {
+
+		Group group = GroupLocalServiceUtil.getCompanyGroup(companyId);
+
+		UnicodeProperties typeSettingsProperties =
+			group.getTypeSettingsProperties();
+
+		typeSettingsProperties.setProperty(
+			"social-office-users-configured",
+			String.valueOf(socialOfficeUsersConfigured));
+
+		GroupLocalServiceUtil.updateGroup(
+			group.getGroupId(), typeSettingsProperties.toString());
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(ServicePostAction.class);

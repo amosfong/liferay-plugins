@@ -25,33 +25,26 @@ String tabs1 = ParamUtil.getString(request, "tabs1", "users");
 String keywords = ParamUtil.getString(request, "keywords");
 String searchFilter = ParamUtil.getString(request, "searchFilter", "available");
 
-Group layoutGroup = layout.getGroup();
-Group userGroup = user.getGroup();
-
 Role role = RoleLocalServiceUtil.getRole(themeDisplay.getCompanyId(), RoleConstants.SOCIAL_OFFICE_USER);
 
-int roleUsersCount = 0;
-int roleGroupsCuont = 0;
+List<Group> roleGroups = GroupLocalServiceUtil.getRoleGroups(role.getRoleId());
 
-if (Validator.isNotNull(role)) {
-    List<Group> roleGroups = GroupLocalServiceUtil.getRoleGroups(role.getRoleId());
+int roleGroupsCuont = roleGroups.size();
 
-    roleUsersCount = UserLocalServiceUtil.getRoleUsersCount(role.getRoleId());
-    roleGroupsCuont = roleGroups.size();
-}
+int roleUsersCount = UserLocalServiceUtil.getRoleUsersCount(role.getRoleId());
 %>
 
 <c:choose>
-    <c:when test="<%= (roleUsersCount == 0) && (roleGroupsCuont == 0) %>">
-        <div class="portlet-msg-success">
-            <liferay-ui:message key="thank-you-for-installing-social-office-at-this-time-no-users-have-been-given-social-office-access-now-its-time-to-figure-out-who-to-give-social-office-to" />
-        </div>
-    </c:when>
-    <c:otherwise>
-        <div class="portlet-msg-info">
-            <liferay-ui:message key="give-users-social-office-access" />
-        </div>
-    </c:otherwise>
+	<c:when test="<%= (roleGroupsCuont == 0) && (roleUsersCount == 0) %>">
+		<div class="portlet-msg-success">
+			<liferay-ui:message key="thank-you-for-installing-social-office" />
+		</div>
+	</c:when>
+	<c:otherwise>
+		<div class="portlet-msg-info">
+			<liferay-ui:message key="give-users-social-office-access" />
+		</div>
+	</c:otherwise>
 </c:choose>
 
 <liferay-portlet:renderURL var="portletURL">
@@ -94,6 +87,11 @@ if (Validator.isNotNull(role)) {
 </aui:form>
 
 <div class="so-welcome-setup">
+
+	<%
+	Group layoutGroup = layout.getGroup();
+	%>
+
 	<c:if test='<%= !layoutGroup.isControlPanel() && tabs1.equals("users") %>'>
 		<div id="addAllUsers">
 			<aui:input label="give-every-liferay-portal-user-access-to-social-office-can-be-configured-later" name="" type="checkbox" value="" />
@@ -110,6 +108,11 @@ if (Validator.isNotNull(role)) {
 </div>
 
 <aui:script>
+
+	<%
+	Group userGroup = user.getGroup();
+	%>
+
 	<liferay-portlet:actionURL portletName="<%= PortletKeys.SITE_REDIRECTOR %>" var="dashboardURL" windowState="<%= LiferayWindowState.NORMAL.toString() %>">
 		<portlet:param name="struts_action" value="/my_sites/view" />
 		<portlet:param name="groupId" value="<%= String.valueOf(userGroup.getGroupId()) %>" />
