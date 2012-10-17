@@ -120,17 +120,17 @@ public class KaleoDraftDefinitionLocalServiceClpInvoker {
 				"int", "int", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName41 = "addWorkflowDefinitionKaleoDraftDefinition";
+		_methodName41 = "deleteKaleoDraftDefinition";
 
 		_methodParameterTypes41 = new String[] {
-				"long", "java.lang.String", "java.util.Map", "java.lang.String",
-				"int", "com.liferay.portal.service.ServiceContext"
+				"java.lang.String", "int", "int",
+				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName42 = "deleteKaleoDraftDefinition";
+		_methodName42 = "deleteKaleoDraftDefinitions";
 
 		_methodParameterTypes42 = new String[] {
-				"java.lang.String", "int", "int",
+				"java.lang.String", "int",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
@@ -163,38 +163,36 @@ public class KaleoDraftDefinitionLocalServiceClpInvoker {
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName47 = "incrementKaleoDraftDefinitionDraftVersion";
+		_methodName47 = "getLatestKaleoDraftDefinitions";
 
 		_methodParameterTypes47 = new String[] {
-				"long", "java.lang.String", "int",
-				"com.liferay.portal.service.ServiceContext"
+				"long", "int", "int", "int",
+				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName48 = "incrementKaleoDraftDefinitionVersion";
+		_methodName48 = "getLatestKaleoDraftDefinitionsCount";
 
-		_methodParameterTypes48 = new String[] {
-				"long", "java.lang.String", "int",
-				"com.liferay.portal.service.ServiceContext"
-			};
+		_methodParameterTypes48 = new String[] { "long", "int" };
 
-		_methodName49 = "publishKaleoDraftDefinition";
+		_methodName49 = "incrementKaleoDraftDefinitionDraftVersion";
 
 		_methodParameterTypes49 = new String[] {
+				"long", "java.lang.String", "int",
+				"com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName50 = "publishKaleoDraftDefinition";
+
+		_methodParameterTypes50 = new String[] {
 				"long", "java.lang.String", "java.util.Map", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName50 = "updateKaleoDraftDefinition";
-
-		_methodParameterTypes50 = new String[] {
-				"java.lang.String", "java.util.Map", "java.lang.String", "int",
-				"int", "com.liferay.portal.service.ServiceContext"
-			};
-
-		_methodName51 = "validate";
+		_methodName51 = "updateKaleoDraftDefinition";
 
 		_methodParameterTypes51 = new String[] {
-				"java.util.Map", "java.lang.String"
+				"long", "java.lang.String", "java.util.Map", "java.lang.String",
+				"int", "com.liferay.portal.service.ServiceContext"
 			};
 	}
 
@@ -312,20 +310,19 @@ public class KaleoDraftDefinitionLocalServiceClpInvoker {
 
 		if (_methodName41.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
-			return KaleoDraftDefinitionLocalServiceUtil.addWorkflowDefinitionKaleoDraftDefinition(((Long)arguments[0]).longValue(),
-				(java.lang.String)arguments[1],
-				(java.util.Map<java.util.Locale, java.lang.String>)arguments[2],
-				(java.lang.String)arguments[3],
-				((Integer)arguments[4]).intValue(),
-				(com.liferay.portal.service.ServiceContext)arguments[5]);
-		}
-
-		if (_methodName42.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
 			return KaleoDraftDefinitionLocalServiceUtil.deleteKaleoDraftDefinition((java.lang.String)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[3]);
+		}
+
+		if (_methodName42.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
+			KaleoDraftDefinitionLocalServiceUtil.deleteKaleoDraftDefinitions((java.lang.String)arguments[0],
+				((Integer)arguments[1]).intValue(),
+				(com.liferay.portal.service.ServiceContext)arguments[2]);
+
+			return null;
 		}
 
 		if (_methodName43.equals(name) &&
@@ -362,22 +359,29 @@ public class KaleoDraftDefinitionLocalServiceClpInvoker {
 
 		if (_methodName47.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
+			return KaleoDraftDefinitionLocalServiceUtil.getLatestKaleoDraftDefinitions(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue(),
+				((Integer)arguments[3]).intValue(),
+				(com.liferay.portal.kernel.util.OrderByComparator)arguments[4]);
+		}
+
+		if (_methodName48.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
+			return KaleoDraftDefinitionLocalServiceUtil.getLatestKaleoDraftDefinitionsCount(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue());
+		}
+
+		if (_methodName49.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes49, parameterTypes)) {
 			return KaleoDraftDefinitionLocalServiceUtil.incrementKaleoDraftDefinitionDraftVersion(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1],
 				((Integer)arguments[2]).intValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[3]);
 		}
 
-		if (_methodName48.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
-			return KaleoDraftDefinitionLocalServiceUtil.incrementKaleoDraftDefinitionVersion(((Long)arguments[0]).longValue(),
-				(java.lang.String)arguments[1],
-				((Integer)arguments[2]).intValue(),
-				(com.liferay.portal.service.ServiceContext)arguments[3]);
-		}
-
-		if (_methodName49.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes49, parameterTypes)) {
+		if (_methodName50.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
 			return KaleoDraftDefinitionLocalServiceUtil.publishKaleoDraftDefinition(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1],
 				(java.util.Map<java.util.Locale, java.lang.String>)arguments[2],
@@ -385,22 +389,14 @@ public class KaleoDraftDefinitionLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[4]);
 		}
 
-		if (_methodName50.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
-			return KaleoDraftDefinitionLocalServiceUtil.updateKaleoDraftDefinition((java.lang.String)arguments[0],
-				(java.util.Map<java.util.Locale, java.lang.String>)arguments[1],
-				(java.lang.String)arguments[2],
-				((Integer)arguments[3]).intValue(),
-				((Integer)arguments[4]).intValue(),
-				(com.liferay.portal.service.ServiceContext)arguments[5]);
-		}
-
 		if (_methodName51.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
-			KaleoDraftDefinitionLocalServiceUtil.validate((java.util.Map<java.util.Locale, java.lang.String>)arguments[0],
-				(java.lang.String)arguments[1]);
-
-			return null;
+			return KaleoDraftDefinitionLocalServiceUtil.updateKaleoDraftDefinition(((Long)arguments[0]).longValue(),
+				(java.lang.String)arguments[1],
+				(java.util.Map<java.util.Locale, java.lang.String>)arguments[2],
+				(java.lang.String)arguments[3],
+				((Integer)arguments[4]).intValue(),
+				(com.liferay.portal.service.ServiceContext)arguments[5]);
 		}
 
 		throw new UnsupportedOperationException();

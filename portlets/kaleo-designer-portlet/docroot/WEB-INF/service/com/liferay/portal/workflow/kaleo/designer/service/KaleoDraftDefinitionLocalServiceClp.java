@@ -122,17 +122,17 @@ public class KaleoDraftDefinitionLocalServiceClp
 				"int", "int", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName20 = "addWorkflowDefinitionKaleoDraftDefinition";
+		_methodName20 = "deleteKaleoDraftDefinition";
 
 		_methodParameterTypes20 = new String[] {
-				"long", "java.lang.String", "java.util.Map", "java.lang.String",
-				"int", "com.liferay.portal.service.ServiceContext"
+				"java.lang.String", "int", "int",
+				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName21 = "deleteKaleoDraftDefinition";
+		_methodName21 = "deleteKaleoDraftDefinitions";
 
 		_methodParameterTypes21 = new String[] {
-				"java.lang.String", "int", "int",
+				"java.lang.String", "int",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
@@ -165,38 +165,36 @@ public class KaleoDraftDefinitionLocalServiceClp
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName26 = "incrementKaleoDraftDefinitionDraftVersion";
+		_methodName26 = "getLatestKaleoDraftDefinitions";
 
 		_methodParameterTypes26 = new String[] {
-				"long", "java.lang.String", "int",
-				"com.liferay.portal.service.ServiceContext"
+				"long", "int", "int", "int",
+				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName27 = "incrementKaleoDraftDefinitionVersion";
+		_methodName27 = "getLatestKaleoDraftDefinitionsCount";
 
-		_methodParameterTypes27 = new String[] {
-				"long", "java.lang.String", "int",
-				"com.liferay.portal.service.ServiceContext"
-			};
+		_methodParameterTypes27 = new String[] { "long", "int" };
 
-		_methodName28 = "publishKaleoDraftDefinition";
+		_methodName28 = "incrementKaleoDraftDefinitionDraftVersion";
 
 		_methodParameterTypes28 = new String[] {
+				"long", "java.lang.String", "int",
+				"com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName29 = "publishKaleoDraftDefinition";
+
+		_methodParameterTypes29 = new String[] {
 				"long", "java.lang.String", "java.util.Map", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName29 = "updateKaleoDraftDefinition";
-
-		_methodParameterTypes29 = new String[] {
-				"java.lang.String", "java.util.Map", "java.lang.String", "int",
-				"int", "com.liferay.portal.service.ServiceContext"
-			};
-
-		_methodName30 = "validate";
+		_methodName30 = "updateKaleoDraftDefinition";
 
 		_methodParameterTypes30 = new String[] {
-				"java.util.Map", "java.lang.String"
+				"long", "java.lang.String", "java.util.Map", "java.lang.String",
+				"int", "com.liferay.portal.service.ServiceContext"
 			};
 	}
 
@@ -792,55 +790,6 @@ public class KaleoDraftDefinitionLocalServiceClp
 		return (com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition addWorkflowDefinitionKaleoDraftDefinition(
-		long userId, java.lang.String name,
-		java.util.Map<java.util.Locale, java.lang.String> titleMap,
-		java.lang.String content, int version,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName20,
-					_methodParameterTypes20,
-					new Object[] {
-						userId,
-						
-					ClpSerializer.translateInput(name),
-						
-					ClpSerializer.translateInput(titleMap),
-						
-					ClpSerializer.translateInput(content),
-						
-					version,
-						
-					ClpSerializer.translateInput(serviceContext)
-					});
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
-				throw (com.liferay.portal.kernel.exception.PortalException)t;
-			}
-
-			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
-				throw (com.liferay.portal.kernel.exception.SystemException)t;
-			}
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition)ClpSerializer.translateOutput(returnObj);
-	}
-
 	public com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition deleteKaleoDraftDefinition(
 		java.lang.String name, int version, int draftVersion,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -849,8 +798,8 @@ public class KaleoDraftDefinitionLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21,
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20,
 					new Object[] {
 						ClpSerializer.translateInput(name),
 						
@@ -882,6 +831,37 @@ public class KaleoDraftDefinitionLocalServiceClp
 		}
 
 		return (com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public void deleteKaleoDraftDefinitions(java.lang.String name, int version,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		try {
+			_invokableLocalService.invokeMethod(_methodName21,
+				_methodParameterTypes21,
+				new Object[] {
+					ClpSerializer.translateInput(name),
+					
+				version,
+					
+				ClpSerializer.translateInput(serviceContext)
+				});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
 	}
 
 	public com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition getKaleoDraftDefinition(
@@ -1046,32 +1026,29 @@ public class KaleoDraftDefinitionLocalServiceClp
 		return (com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition incrementKaleoDraftDefinitionDraftVersion(
-		long userId, java.lang.String name, int version,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+	public java.util.List<com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition> getLatestKaleoDraftDefinitions(
+		long companyId, int version, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName26,
 					_methodParameterTypes26,
 					new Object[] {
-						userId,
-						
-					ClpSerializer.translateInput(name),
+						companyId,
 						
 					version,
 						
-					ClpSerializer.translateInput(serviceContext)
+					start,
+						
+					end,
+						
+					ClpSerializer.translateInput(orderByComparator)
 					});
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
-				throw (com.liferay.portal.kernel.exception.PortalException)t;
-			}
 
 			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
 				throw (com.liferay.portal.kernel.exception.SystemException)t;
@@ -1086,10 +1063,37 @@ public class KaleoDraftDefinitionLocalServiceClp
 			}
 		}
 
-		return (com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition)ClpSerializer.translateOutput(returnObj);
+		return (java.util.List<com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition>)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition incrementKaleoDraftDefinitionVersion(
+	public int getLatestKaleoDraftDefinitionsCount(long companyId, int version)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName27,
+					_methodParameterTypes27, new Object[] { companyId, version });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Integer)returnObj).intValue();
+	}
+
+	public com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition incrementKaleoDraftDefinitionDraftVersion(
 		long userId, java.lang.String name, int version,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -1097,8 +1101,8 @@ public class KaleoDraftDefinitionLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName27,
-					_methodParameterTypes27,
+			returnObj = _invokableLocalService.invokeMethod(_methodName28,
+					_methodParameterTypes28,
 					new Object[] {
 						userId,
 						
@@ -1142,8 +1146,8 @@ public class KaleoDraftDefinitionLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName28,
-					_methodParameterTypes28,
+			returnObj = _invokableLocalService.invokeMethod(_methodName29,
+					_methodParameterTypes29,
 					new Object[] {
 						userId,
 						
@@ -1180,27 +1184,27 @@ public class KaleoDraftDefinitionLocalServiceClp
 	}
 
 	public com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition updateKaleoDraftDefinition(
-		java.lang.String name,
+		long userId, java.lang.String name,
 		java.util.Map<java.util.Locale, java.lang.String> titleMap,
-		java.lang.String content, int version, int draftVersion,
+		java.lang.String content, int version,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName29,
-					_methodParameterTypes29,
+			returnObj = _invokableLocalService.invokeMethod(_methodName30,
+					_methodParameterTypes30,
 					new Object[] {
-						ClpSerializer.translateInput(name),
+						userId,
+						
+					ClpSerializer.translateInput(name),
 						
 					ClpSerializer.translateInput(titleMap),
 						
 					ClpSerializer.translateInput(content),
 						
 					version,
-						
-					draftVersion,
 						
 					ClpSerializer.translateInput(serviceContext)
 					});
@@ -1226,36 +1230,6 @@ public class KaleoDraftDefinitionLocalServiceClp
 		}
 
 		return (com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition)ClpSerializer.translateOutput(returnObj);
-	}
-
-	public void validate(
-		java.util.Map<java.util.Locale, java.lang.String> titleMap,
-		java.lang.String content)
-		throws com.liferay.portal.kernel.exception.PortalException {
-		try {
-			_invokableLocalService.invokeMethod(_methodName30,
-				_methodParameterTypes30,
-				new Object[] {
-					ClpSerializer.translateInput(titleMap),
-					
-				ClpSerializer.translateInput(content)
-				});
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
-				throw (com.liferay.portal.kernel.exception.PortalException)t;
-			}
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
 	}
 
 	private InvokableLocalService _invokableLocalService;

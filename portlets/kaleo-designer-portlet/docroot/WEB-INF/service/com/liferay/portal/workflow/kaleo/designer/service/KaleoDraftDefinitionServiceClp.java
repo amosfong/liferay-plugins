@@ -39,43 +39,36 @@ public class KaleoDraftDefinitionServiceClp
 				"int", "int", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName4 = "addWorkflowDefinitionKaleoDraftDefinition";
+		_methodName4 = "getKaleoDraftDefinition";
 
 		_methodParameterTypes4 = new String[] {
-				"long", "java.lang.String", "java.util.Map", "java.lang.String",
-				"int", "com.liferay.portal.service.ServiceContext"
-			};
-
-		_methodName5 = "getKaleoDraftDefinition";
-
-		_methodParameterTypes5 = new String[] {
 				"java.lang.String", "int", "int",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName6 = "getKaleoDraftDefinitions";
+		_methodName5 = "getKaleoDraftDefinitions";
 
-		_methodParameterTypes6 = new String[] {  };
+		_methodParameterTypes5 = new String[] {  };
 
-		_methodName7 = "getLatestKaleoDraftDefinition";
+		_methodName6 = "getLatestKaleoDraftDefinition";
 
-		_methodParameterTypes7 = new String[] {
+		_methodParameterTypes6 = new String[] {
 				"java.lang.String", "int",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName8 = "publishKaleoDraftDefinition";
+		_methodName7 = "publishKaleoDraftDefinition";
 
-		_methodParameterTypes8 = new String[] {
+		_methodParameterTypes7 = new String[] {
 				"long", "java.lang.String", "java.util.Map", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName9 = "updateKaleoDraftDefinition";
+		_methodName8 = "updateKaleoDraftDefinition";
 
-		_methodParameterTypes9 = new String[] {
+		_methodParameterTypes8 = new String[] {
 				"long", "java.lang.String", "java.util.Map", "java.lang.String",
-				"int", "int", "com.liferay.portal.service.ServiceContext"
+				"int", "com.liferay.portal.service.ServiceContext"
 			};
 	}
 
@@ -177,55 +170,6 @@ public class KaleoDraftDefinitionServiceClp
 		return (com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition addWorkflowDefinitionKaleoDraftDefinition(
-		long userId, java.lang.String name,
-		java.util.Map<java.util.Locale, java.lang.String> titleMap,
-		java.lang.String content, int version,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableService.invokeMethod(_methodName4,
-					_methodParameterTypes4,
-					new Object[] {
-						userId,
-						
-					ClpSerializer.translateInput(name),
-						
-					ClpSerializer.translateInput(titleMap),
-						
-					ClpSerializer.translateInput(content),
-						
-					version,
-						
-					ClpSerializer.translateInput(serviceContext)
-					});
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
-				throw (com.liferay.portal.kernel.exception.PortalException)t;
-			}
-
-			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
-				throw (com.liferay.portal.kernel.exception.SystemException)t;
-			}
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition)ClpSerializer.translateOutput(returnObj);
-	}
-
 	public com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition getKaleoDraftDefinition(
 		java.lang.String name, int version, int draftVersion,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -234,8 +178,8 @@ public class KaleoDraftDefinitionServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName5,
-					_methodParameterTypes5,
+			returnObj = _invokableService.invokeMethod(_methodName4,
+					_methodParameterTypes4,
 					new Object[] {
 						ClpSerializer.translateInput(name),
 						
@@ -274,8 +218,8 @@ public class KaleoDraftDefinitionServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName6,
-					_methodParameterTypes6, new Object[] {  });
+			returnObj = _invokableService.invokeMethod(_methodName5,
+					_methodParameterTypes5, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -304,8 +248,8 @@ public class KaleoDraftDefinitionServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName7,
-					_methodParameterTypes7,
+			returnObj = _invokableService.invokeMethod(_methodName6,
+					_methodParameterTypes6,
 					new Object[] {
 						ClpSerializer.translateInput(name),
 						
@@ -347,8 +291,8 @@ public class KaleoDraftDefinitionServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName8,
-					_methodParameterTypes8,
+			returnObj = _invokableService.invokeMethod(_methodName7,
+					_methodParameterTypes7,
 					new Object[] {
 						userId,
 						
@@ -387,15 +331,15 @@ public class KaleoDraftDefinitionServiceClp
 	public com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition updateKaleoDraftDefinition(
 		long userId, java.lang.String name,
 		java.util.Map<java.util.Locale, java.lang.String> titleMap,
-		java.lang.String content, int version, int draftVersion,
+		java.lang.String content, int version,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName9,
-					_methodParameterTypes9,
+			returnObj = _invokableService.invokeMethod(_methodName8,
+					_methodParameterTypes8,
 					new Object[] {
 						userId,
 						
@@ -406,8 +350,6 @@ public class KaleoDraftDefinitionServiceClp
 					ClpSerializer.translateInput(content),
 						
 					version,
-						
-					draftVersion,
 						
 					ClpSerializer.translateInput(serviceContext)
 					});
@@ -452,6 +394,4 @@ public class KaleoDraftDefinitionServiceClp
 	private String[] _methodParameterTypes7;
 	private String _methodName8;
 	private String[] _methodParameterTypes8;
-	private String _methodName9;
-	private String[] _methodParameterTypes9;
 }
