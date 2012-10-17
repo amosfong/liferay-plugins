@@ -1,6 +1,7 @@
 /commons-logging.jar
 /jstl-api.jar
 /jstl-impl.jar
+/kaleo-web-service.jar
 /log4j.jar
 /util-bridges.jar
 /util-java.jar
