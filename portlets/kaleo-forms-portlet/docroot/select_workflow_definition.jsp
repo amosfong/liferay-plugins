@@ -17,9 +17,9 @@
 <%@ include file="/init.jsp" %>
 
 <%
-long ddmStructureId = ParamUtil.getLong(request, "ddmStructureId");
-
 String tabs1 = ParamUtil.getString(request, "tabs1", "published");
+
+long ddmStructureId = ParamUtil.getLong(request, "ddmStructureId");
 %>
 
 <liferay-portlet:renderURL varImpl="iteratorURL">
@@ -127,7 +127,6 @@ String tabs1 = ParamUtil.getString(request, "tabs1", "published");
 				keyProperty="kaleoDraftDefinitionId"
 				modelVar="kaleoDraftDefinition"
 			>
-
 				<liferay-ui:search-container-column-text
 					name="name"
 					value="<%= kaleoDraftDefinition.getName() %>"

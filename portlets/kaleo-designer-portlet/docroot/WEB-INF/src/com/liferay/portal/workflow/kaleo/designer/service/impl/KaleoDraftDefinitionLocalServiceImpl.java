@@ -59,7 +59,6 @@ public class KaleoDraftDefinitionLocalServiceImpl
 		throws PortalException, SystemException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
-
 		Date now = new Date();
 
 		validate(name);
@@ -98,7 +97,7 @@ public class KaleoDraftDefinitionLocalServiceImpl
 
 	public void deleteKaleoDraftDefinitions(
 			String name, int version, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		throws SystemException {
 
 		List<KaleoDraftDefinition> kaleoDraftDefinitions =
 			kaleoDraftDefinitionPersistence.findByC_N_V(
@@ -161,12 +160,11 @@ public class KaleoDraftDefinitionLocalServiceImpl
 		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 			KaleoDraftDefinition.class, getClassLoader());
 
-		Property kaleoDraftDefinitionId = PropertyFactoryUtil.forName(
+		Property property = PropertyFactoryUtil.forName(
 			"kaleoDraftDefinitionId");
 
 		dynamicQuery.add(
-			kaleoDraftDefinitionId.in(
-				getKaleoDraftDefinitionIds(companyId, version)));
+			property.in(getKaleoDraftDefinitionIds(companyId, version)));
 
 		return dynamicQuery(dynamicQuery, start, end, orderByComparator);
 	}
@@ -177,12 +175,11 @@ public class KaleoDraftDefinitionLocalServiceImpl
 		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 			KaleoDraftDefinition.class, getClassLoader());
 
-		Property kaleoDraftDefinitionId = PropertyFactoryUtil.forName(
+		Property property = PropertyFactoryUtil.forName(
 			"kaleoDraftDefinitionId");
 
 		dynamicQuery.add(
-			kaleoDraftDefinitionId.in(
-				getKaleoDraftDefinitionIds(companyId, version)));
+			property.in(getKaleoDraftDefinitionIds(companyId, version)));
 
 		return (int)dynamicQueryCount(dynamicQuery);
 	}
