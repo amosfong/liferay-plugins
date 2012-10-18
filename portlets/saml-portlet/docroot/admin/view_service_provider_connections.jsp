@@ -13,18 +13,18 @@
  * details.
  */
 --%>
-<%@ include file="/admin/init.jsp" %>
+
+<%@ include file="/init.jsp" %>
 
 <%
 PortletURL portletURL = renderResponse.createRenderURL();
-String url = PortalUtil.getCurrentURL(request);
 %>
 
 <liferay-ui:search-container
 	emptyResultsMessage="there-are-no-service-providers"
 	headerNames="name"
-	iteratorURL="<%= portletURL %>">
-
+	iteratorURL="<%= portletURL %>"
+>
 	<liferay-ui:search-container-results
 		results="<%= SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnections(company.getCompanyId(), searchContainer.getStart(), searchContainer.getEnd()) %>"
 		total="<%= SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnectionsCount(company.getCompanyId()) %>"
@@ -36,7 +36,6 @@ String url = PortalUtil.getCurrentURL(request);
 		keyProperty="samlIdpSpConnectionId"
 		modelVar="samlIdpSpConnection"
 	>
-
 		<portlet:renderURL var="rowURL">
 			<portlet:param name="mvcPath" value="/admin/edit_service_provider_connection.jsp" />
 			<portlet:param name="redirect" value="<%= currentURL %>" />
@@ -74,7 +73,7 @@ String url = PortalUtil.getCurrentURL(request);
 	</portlet:renderURL>
 
 	<aui:button-row>
-		<aui:button href="<%= addServiceProviderURL %>" id="saml-menu" value="add-service-provider" />
+		<aui:button href="<%= addServiceProviderURL %>" value="add-service-provider" />
 	</aui:button-row>
 
 	<liferay-ui:search-iterator />

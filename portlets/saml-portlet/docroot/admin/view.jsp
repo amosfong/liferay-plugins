@@ -13,7 +13,8 @@
  * details.
  */
 --%>
-<%@ include file="/admin/init.jsp" %>
+
+<%@ include file="/init.jsp" %>
 
 <%
 String tabs1 = ParamUtil.getString(request, "tabs1", "general");
@@ -22,17 +23,17 @@ PortletURL portletURL = renderResponse.createRenderURL();
 
 portletURL.setParameter("tabs1", tabs1);
 
-String tabNames = "general";
+String tabs1Names = "general";
 
 if (SamlUtil.isRoleIdp()) {
-	tabNames += ",identity-provider,service-provider-connections";
+	tabs1Names += ",identity-provider,service-provider-connections";
 }
 else if (SamlUtil.isRoleSp()) {
-	tabNames += ",service-provider,identity-provider-connection";
+	tabs1Names += ",service-provider,identity-provider-connection";
 }
 %>
 
-<liferay-ui:tabs names="<%= tabNames %>" url="<%= portletURL.toString() %>">
+<liferay-ui:tabs names="<%= tabs1Names %>" url="<%= portletURL.toString() %>">
 	<c:choose>
 		<c:when test='<%= tabs1.equals("general") %>'>
 			<liferay-util:include page="/admin/general.jsp" servletContext="<%= pageContext.getServletContext() %>" />

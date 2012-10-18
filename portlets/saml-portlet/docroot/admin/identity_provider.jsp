@@ -13,13 +13,14 @@
  * details.
  */
 --%>
-<%@ include file="/admin/init.jsp" %>
+
+<%@ include file="/init.jsp" %>
 
 <%
+int assertionLifetime = PortletPrefsPropsUtil.getInteger(PortletPropsKeys.SAML_IDP_ASSERTION_LIFETIME);
+String attributeNames = PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTE_NAMES);
 boolean attributesEnabled = PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_ENABLED);
 boolean attributesNamespaceEnabled = PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_NAMESPACE_ENABLED);
-String attributeNames = PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTE_NAMES);
-int assertionLifetime = PortletPrefsPropsUtil.getInteger(PortletPropsKeys.SAML_IDP_ASSERTION_LIFETIME);
 String nameIdentifierFormat = PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_FORMAT);
 String nameIdentifierAttribute = PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_ATTRIBUTE);
 %>
@@ -29,47 +30,47 @@ String nameIdentifierAttribute = PortletPrefsPropsUtil.getString(PortletPropsKey
 </portlet:actionURL>
 
 <aui:form action="<%= updateIdentityProviderURL %>">
-		<aui:fieldset label="general">
-			<aui:input label="sign-metadata" name='<%= "settings--" + PortletPropsKeys.SAML_SIGN_METADATA + "--" %>' type="checkbox" value="<%= MetadataManagerUtil.isSignMetadata() %>" />
+	<aui:fieldset label="general">
+		<aui:input label="sign-metadata" name='<%= "settings--" + PortletPropsKeys.SAML_SIGN_METADATA + "--" %>' type="checkbox" value="<%= MetadataManagerUtil.isSignMetadata() %>" />
 
-			<aui:input label="ssl-required" name='<%= "settings--" + PortletPropsKeys.SAML_SSL_REQUIRED + "--" %>' type="checkbox" value="<%= MetadataManagerUtil.isSSLRequired() %>" />
+		<aui:input label="ssl-required" name='<%= "settings--" + PortletPropsKeys.SAML_SSL_REQUIRED + "--" %>' type="checkbox" value="<%= MetadataManagerUtil.isSSLRequired() %>" />
 
-			<aui:input label="authn-request-signature-required" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_AUTHN_REQUEST_SIGNATURE_REQUIRED + "--" %>' type="checkbox" value="<%= MetadataManagerUtil.isWantAuthnRequestSigned() %>" />
+		<aui:input label="authn-request-signature-required" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_AUTHN_REQUEST_SIGNATURE_REQUIRED + "--" %>' type="checkbox" value="<%= MetadataManagerUtil.isWantAuthnRequestSigned() %>" />
+	</aui:fieldset>
+
+	<aui:fieldset label="session">
+		<aui:input label="session-maximum-age" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_SESSION_MAXIMUM_AGE + "--" %>' value="<%= MetadataManagerUtil.getSessionMaximumAge() %>" />
+
+		<aui:input label="session-timeout" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_SESSION_TIMEOUT + "--" %>' value="<%= MetadataManagerUtil.getSessionTimeout() %>" />
+	</aui:fieldset>
+
+	<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" title="service-provider-defaults">
+		<aui:input label="assertion-lifetime" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_ASSERTION_LIFETIME + "--" %>' value="<%= String.valueOf(assertionLifetime) %>" />
+
+		<aui:fieldset label="name-identifier">
+			<aui:select label="name-identifier-format" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_FORMAT + "--" %>'>
+				<aui:option label="email-address" selected="<%= nameIdentifierFormat.equals(NameIDType.EMAIL) %>" value="<%= NameIDType.EMAIL %>" />
+				<aui:option label="unspecified" selected="<%= nameIdentifierFormat.equals(NameIDType.UNSPECIFIED) %>" value="<%= NameIDType.UNSPECIFIED %>" />
+				<aui:option label="entity" selected="<%= nameIdentifierFormat.equals(NameIDType.ENTITY) %>" value="<%= NameIDType.ENTITY %>" />
+				<aui:option label="persistent" selected="<%= nameIdentifierFormat.equals(NameIDType.PERSISTENT) %>" value="<%= NameIDType.PERSISTENT %>" />
+				<aui:option label="trancient" selected="<%= nameIdentifierFormat.equals(NameIDType.TRANSIENT) %>" value="<%= NameIDType.TRANSIENT %>" />
+				<aui:option label="x509-subject-name" selected="<%= nameIdentifierFormat.equals(NameIDType.X509_SUBJECT) %>" value="<%= NameIDType.X509_SUBJECT %>" />
+				<aui:option label="windows-domain-qualified-name" selected="<%= nameIdentifierFormat.equals(NameIDType.WIN_DOMAIN_QUALIFIED) %>" value="<%= NameIDType.WIN_DOMAIN_QUALIFIED %>" />
+				<aui:option label="kerberos" selected="<%= nameIdentifierFormat.equals(NameIDType.KERBEROS) %>" value="<%= NameIDType.KERBEROS %>" />
+				<aui:option label="encrypted" selected="<%= nameIdentifierFormat.equals(NameIDType.ENCRYPTED) %>" value="<%= NameIDType.ENCRYPTED %>" />
+			</aui:select>
+
+			<aui:input label="name-identifier-attribute" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_ATTRIBUTE + "--" %>' value="<%= nameIdentifierAttribute %>" />
 		</aui:fieldset>
 
-		<aui:fieldset label="session">
-			<aui:input label="session-maximum-age" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_SESSION_MAXIMUM_AGE + "--" %>' value="<%= MetadataManagerUtil.getSessionMaximumAge() %>" />
+		<aui:fieldset label="attributes">
+			<aui:input label="attributes-enabled" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_ENABLED + "--" %>' type="checkbox" value="<%= attributesEnabled %>" />
 
-			<aui:input label="session-timeout" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_SESSION_TIMEOUT + "--" %>' value="<%= MetadataManagerUtil.getSessionTimeout() %>" />
+			<aui:input label="attributes-namespace-enabled" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_NAMESPACE_ENABLED + "--" %>' type="checkbox" value="<%= attributesNamespaceEnabled %>" />
+
+			<aui:input label="attributes" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTE_NAMES + "--" %>' type="textarea" value="<%= attributeNames %>" />
 		</aui:fieldset>
-
-		<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" title="service-provider-defaults">
-			<aui:input label="assertion-lifetime" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_ASSERTION_LIFETIME + "--" %>' value="<%= String.valueOf(assertionLifetime) %>" />
-
-			<aui:fieldset label="name-identifier">
-				<aui:select label="name-identifier-format" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_FORMAT + "--" %>'>
-					<aui:option label="email-address" selected="<%= nameIdentifierFormat.equals(NameIDType.EMAIL) %>" value="<%= NameIDType.EMAIL %>" />
-					<aui:option label="unspecified" selected="<%= nameIdentifierFormat.equals(NameIDType.UNSPECIFIED) %>" value="<%= NameIDType.UNSPECIFIED %>" />
-					<aui:option label="entity" selected="<%= nameIdentifierFormat.equals(NameIDType.ENTITY) %>" value="<%= NameIDType.ENTITY %>" />
-					<aui:option label="persistent" selected="<%= nameIdentifierFormat.equals(NameIDType.PERSISTENT) %>" value="<%= NameIDType.PERSISTENT %>" />
-					<aui:option label="trancient" selected="<%= nameIdentifierFormat.equals(NameIDType.TRANSIENT) %>" value="<%= NameIDType.TRANSIENT %>" />
-					<aui:option label="x509-subject-name" selected="<%= nameIdentifierFormat.equals(NameIDType.X509_SUBJECT) %>" value="<%= NameIDType.X509_SUBJECT %>" />
-					<aui:option label="windows-domain-qualified-name" selected="<%= nameIdentifierFormat.equals(NameIDType.WIN_DOMAIN_QUALIFIED) %>" value="<%= NameIDType.WIN_DOMAIN_QUALIFIED %>" />
-					<aui:option label="kerberos" selected="<%= nameIdentifierFormat.equals(NameIDType.KERBEROS) %>" value="<%= NameIDType.KERBEROS %>" />
-					<aui:option label="encrypted" selected="<%= nameIdentifierFormat.equals(NameIDType.ENCRYPTED) %>" value="<%= NameIDType.ENCRYPTED %>" />
-				</aui:select>
-
-				<aui:input label="name-identifier-attribute" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_ATTRIBUTE + "--" %>' value="<%= nameIdentifierAttribute %>" />
-			</aui:fieldset>
-
-			<aui:fieldset label="attributes">
-				<aui:input label="attributes-enabled" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_ENABLED + "--" %>' type="checkbox" value="<%= attributesEnabled %>" />
-
-				<aui:input label="attributes-namespace-enabled" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_NAMESPACE_ENABLED + "--" %>' type="checkbox" value="<%= attributesNamespaceEnabled %>" />
-
-				<aui:input label="attributes" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTE_NAMES + "--" %>' type="textarea" value="<%= attributeNames %>" />
-			</aui:fieldset>
-		</liferay-ui:panel>
+	</liferay-ui:panel>
 
 	<aui:button-row>
 		<aui:button type="submit" value="save" />

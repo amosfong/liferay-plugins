@@ -13,7 +13,8 @@
  * details.
  */
 --%>
-<%@ include file="/admin/init.jsp" %>
+
+<%@ include file="/init.jsp" %>
 
 <%
 String redirect = ParamUtil.getString(request, "redirect");
@@ -27,14 +28,13 @@ if (samlIdpSpConnectionId > 0) {
 }
 
 String samlSpEntityId = ParamUtil.getString(request, "samlSpEntityId");
-String name = ParamUtil.getString(request, "name");
-boolean enabled = ParamUtil.getBoolean(request, "enabled");
-String metadataUrl = ParamUtil.getString(request, "metadataUrl");
-
 int assertionLifetime = ParamUtil.getInteger(request, "assertionLifetime", PortletPrefsPropsUtil.getInteger(PortletPropsKeys.SAML_IDP_ASSERTION_LIFETIME));
 String attributeNames = ParamUtil.getString(request, "attributeNames", PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTE_NAMES));
 boolean attributesEnabled = ParamUtil.getBoolean(request, "attributesEnabled", PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_ENABLED));
 boolean attributesNamespaceEnabled = ParamUtil.getBoolean(request, "attributesNamespaceEnabled", PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_NAMESPACE_ENABLED));
+boolean enabled = ParamUtil.getBoolean(request, "enabled");
+String metadataUrl = ParamUtil.getString(request, "metadataUrl");
+String name = ParamUtil.getString(request, "name");
 String nameIdAttribute = ParamUtil.getString(request, "nameIdAttribute", PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_ATTRIBUTE));
 String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_FORMAT));
 %>
@@ -49,8 +49,6 @@ String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsP
 </portlet:actionURL>
 
 <aui:form action="<%= updateServiceProviderConnectionURL %>" enctype="multipart/form-data">
-	<aui:model-context bean="<%= samlIdpSpConnection %>" model="<%= SamlIdpSpConnection.class %>" />
-
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 	<aui:input name="samlIdpSpConnectionId" type="hidden" />
 
@@ -59,26 +57,27 @@ String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsP
 	<liferay-ui:error exception="<%= SamlIdpSpConnectionMetadataXmlException.class %>" message="please-enter-a-valid-metadata-xml" />
 	<liferay-ui:error exception="<%= SamlSpIdpConnectionSamlIdpEntityIdException.class %>" message="please-enter-a-valid-service-provider-entity-id" />
 
+	<aui:model-context bean="<%= samlIdpSpConnection %>" model="<%= SamlIdpSpConnection.class %>" />
+
 	<aui:fieldset label="general">
-		<aui:input label="name" name="name" value="<%= name %>" />
+		<aui:input name="name" value="<%= name %>" />
 
 		<aui:input label="entity-id" name="samlSpEntityId" value="<%= samlSpEntityId %>" />
 
-		<aui:input label="enabled" name="enabled" value="<%= enabled %>" />
+		<aui:input name="enabled" value="<%= enabled %>" />
 
-		<aui:input label="assertion-lifetime" name="assertionLifetime" value="<%= String.valueOf(assertionLifetime) %>" />
+		<aui:input name="assertionLifetime" value="<%= assertionLifetime %>" />
 	</aui:fieldset>
 
 	<aui:fieldset label="metadata">
-		<aui:input label="metadata-url" name="metadataUrl" value="<%= metadataUrl %>" />
+		<aui:input name="metadataUrl" value="<%= metadataUrl %>" />
 
 		<aui:button-row>
 			<aui:button onClick='<%= renderResponse.getNamespace() + "uploadMetadataXml();" %>' value="upload-metadata-xml" />
 		</aui:button-row>
 
-
 		<aui:fieldset cssClass="aui-helper-hidden" id="uploadMetadataXmlForm" label="upload-metadata">
-			<aui:input label="metadata-xml" name="metadataXml" type="file" />
+			<aui:input name="metadataXml" type="file" />
 		</aui:fieldset>
 	</aui:fieldset>
 
@@ -99,9 +98,9 @@ String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsP
 	</aui:fieldset>
 
 	<aui:fieldset label="attributes">
-		<aui:input label="attributes-enabled" name="attributesEnabled" value="<%= attributesEnabled %>" />
+		<aui:input name="attributesEnabled" value="<%= attributesEnabled %>" />
 
-		<aui:input label="attributes-namespace-enabled" name="attributesNamespaceEnabled" value="<%= attributesNamespaceEnabled %>" />
+		<aui:input name="attributesNamespaceEnabled" value="<%= attributesNamespaceEnabled %>" />
 
 		<aui:input label="attributes" name="attributeNames" value="<%= attributeNames %>" />
 	</aui:fieldset>

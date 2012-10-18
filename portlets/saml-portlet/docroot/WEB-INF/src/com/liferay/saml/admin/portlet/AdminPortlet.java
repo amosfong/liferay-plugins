@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletResponseUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
+import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PropertiesParamUtil;
@@ -42,7 +43,6 @@ import com.liferay.saml.util.CertificateUtil;
 import com.liferay.saml.util.PortletPropsKeys;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 import java.security.KeyPair;
@@ -54,7 +54,6 @@ import java.util.Date;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
-import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
@@ -72,60 +71,73 @@ public class AdminPortlet extends MVCPortlet {
 
 	public void deleteSamlIdpSpConnection(
 			ActionRequest actionRequest, ActionResponse actionResponse)
-		throws IOException, PortletException {
+		throws Exception {
 
 		long samlIdpSpConnectionId = ParamUtil.getLong(
 			actionRequest, "samlIdpSpConnectionId");
 
-		try {
-			SamlIdpSpConnectionLocalServiceUtil.deleteSamlIdpSpConnection(
-				samlIdpSpConnectionId);
-		}
-		catch (Exception e) {
-			SessionErrors.add(actionRequest, e.getClass());
-		}
+		SamlIdpSpConnectionLocalServiceUtil.deleteSamlIdpSpConnection(
+			samlIdpSpConnectionId);
 	}
 
 	public void downloadCertificate(
 			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
-		throws IOException, PortletException {
+		throws Exception {
 
-		try {
-			X509Credential credential =
-				(X509Credential)MetadataManagerUtil.getSigningCredential();
+		X509Credential x509Credential =
+			(X509Credential)MetadataManagerUtil.getSigningCredential();
 
-			if (credential != null) {
-				X509Certificate certificate = credential.getEntityCertificate();
-
-				StringBundler sb = new StringBundler(3);
-				sb.append("-----BEGIN CERTIFICATE-----\r\n");
-				sb.append(Base64.encode(certificate.getEncoded(), 76));
-				sb.append("\r\n-----END CERTIFICATE-----");
-
-				String entityId = MetadataManagerUtil.getLocalEntityId();
-
-				PortletResponseUtil.sendFile(
-					resourceRequest, resourceResponse, entityId + ".pem",
-					sb.toString().getBytes(), "text/plain");
-			}
+		if (x509Credential == null) {
+			return;
 		}
-		catch (Exception e) {
-			_log.warn("Unabled to send certificate", e);
-		}
+
+		X509Certificate x509Certificate = x509Credential.getEntityCertificate();
+
+		StringBundler sb = new StringBundler(3);
+
+		sb.append("-----BEGIN CERTIFICATE-----\r\n");
+		sb.append(Base64.encode(x509Certificate.getEncoded(), 76));
+		sb.append("\r\n-----END CERTIFICATE-----");
+
+		String content = sb.toString();
+
+		PortletResponseUtil.sendFile(
+			resourceRequest, resourceResponse,
+			MetadataManagerUtil.getLocalEntityId() + ".pem", content.getBytes(),
+			ContentTypes.TEXT_PLAIN);
 	}
 
+	@Override
 	public void serveResource(
-			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
-		throws IOException, PortletException {
+		ResourceRequest resourceRequest, ResourceResponse resourceResponse) {
 
-		downloadCertificate(resourceRequest, resourceResponse);
+		try {
+			downloadCertificate(resourceRequest, resourceResponse);
+		}
+		catch (Exception e) {
+			_log.error("Unable to send certificate", e);
+		}
 	}
 
 	public void updateCertificate(
 			ActionRequest actionRequest, ActionResponse actionResponse)
-		throws IOException, PortletException {
+		throws Exception {
 
-		long companyId = PortalUtil.getCompanyId(actionRequest);
+		UnicodeProperties properties = getProperties(actionRequest);
+
+		String entityId = MetadataManagerUtil.getLocalEntityId();
+
+		String certificateKeyPassword = properties.getProperty(
+			PortletPropsKeys.SAML_KEYSTORE_CREDENTIAL_PASSWORD + "["+ entityId +
+				"]");
+
+		if (Validator.isNull(certificateKeyPassword)) {
+			throw new RuntimeException("TODO");
+
+			/*SessionErrors.add(actionRequest, "certificatePasswordInvalid");
+
+			return;*/
+		}
 
 		String commonName = ParamUtil.getString(
 			actionRequest, "certificateCommonName");
@@ -138,116 +150,84 @@ public class AdminPortlet extends MVCPortlet {
 		String state = ParamUtil.getString(actionRequest, "certificateState");
 		String country = ParamUtil.getString(
 			actionRequest, "certificateCountry");
-		int validityDays = ParamUtil.getInteger(
-			actionRequest, "certificateValidityDays");
+
+		X500Name subjectX500Name = CertificateUtil.createX500Name(
+			commonName, organization, organizationUnit, locality, state,
+			country);
+
 		String keyAlgorithm = ParamUtil.getString(
 			actionRequest, "certificateKeyAlgorithm");
 		int keyLength = ParamUtil.getInteger(
 			actionRequest, "certificateKeyLength");
 
+		KeyPair keyPair = CertificateUtil.generateKeyPair(
+			keyAlgorithm, keyLength);
+
 		Date startDate = new Date(System.currentTimeMillis());
-		Date endDate = new Date(
-			System.currentTimeMillis() + validityDays * Time.DAY);
 
-		String signatureAlgorithm = "SHA1with".concat(keyAlgorithm);
+		int validityDays = ParamUtil.getInteger(
+			actionRequest, "certificateValidityDays");
 
-		UnicodeProperties properties = PropertiesParamUtil.getProperties(
-			actionRequest, "settings--");
+		Date endDate = new Date(startDate.getTime() + validityDays * Time.DAY);
 
-		String entityId = MetadataManagerUtil.getLocalEntityId();
+		X509Certificate x509Certificate = CertificateUtil.generateCertificate(
+			keyPair, subjectX500Name, subjectX500Name, startDate, endDate,
+			"SHA1with" + keyAlgorithm);
 
-		String certificateKeyPassword = properties.getProperty(
-			PortletPropsKeys.SAML_KEYSTORE_CREDENTIAL_PASSWORD.concat(
-				"[").concat(entityId).concat("]"));
+		KeyStore.PrivateKeyEntry privateKeyEntry = new KeyStore.PrivateKeyEntry(
+			keyPair.getPrivate(), new Certificate[] {x509Certificate});
 
-		if (Validator.isNull(certificateKeyPassword)) {
-			SessionErrors.add(actionRequest, "certificatePassword");
+		KeyStore keyStore = KeyStoreManagerUtil.getKeyStore();
 
-			return;
-		}
+		keyStore.setEntry(
+			entityId, privateKeyEntry,
+			new KeyStore.PasswordProtection(
+				certificateKeyPassword.toCharArray()));
 
-		try {
-			CompanyServiceUtil.updatePreferences(companyId, properties);
+		KeyStoreManagerUtil.saveKeyStore(keyStore);
 
-			KeyPair keyPair = CertificateUtil.generateKeyPair(
-				keyAlgorithm, keyLength);
-
-			X500Name subject = CertificateUtil.createX500Name(
-				commonName, organization, organizationUnit, locality, state,
-				country);
-
-			X509Certificate cert = CertificateUtil.generateCertificate(
-				keyPair, subject, subject, startDate, endDate,
-				signatureAlgorithm);
-
-			KeyStore.PrivateKeyEntry pk = new KeyStore.PrivateKeyEntry(
-				keyPair.getPrivate(), new Certificate[]{cert});
-
-			KeyStore keyStore = KeyStoreManagerUtil.getKeyStore();
-
-			keyStore.setEntry(
-				entityId, pk,
-				new KeyStore.PasswordProtection(
-					certificateKeyPassword.toCharArray()));
-
-			KeyStoreManagerUtil.saveKeyStore(keyStore);
-		}
-		catch (Exception e) {
-			SessionErrors.add(actionRequest, e.getClass().getName());
-		}
+		updateProperties(actionRequest, properties);
 	}
 
 	public void updateGeneral(
 			ActionRequest actionRequest, ActionResponse actionResponse)
-		throws IOException, PortletException {
+		throws Exception {
 
-		try {
-			long companyId = PortalUtil.getCompanyId(actionRequest);
+		UnicodeProperties properties = getProperties(actionRequest);
 
-			UnicodeProperties properties = PropertiesParamUtil.getProperties(
-				actionRequest, "settings--");
+		boolean enabled = GetterUtil.getBoolean(
+			properties.getProperty(PortletPropsKeys.SAML_ENABLED));
 
-			boolean enabled = GetterUtil.getBoolean(properties.getProperty(
-				PortletPropsKeys.SAML_ENABLED));
+		if (enabled && (MetadataManagerUtil.getSigningCredential() == null)) {
+			SessionErrors.add(actionRequest, "certificateInvalid");
 
-			if (enabled &&
-				(MetadataManagerUtil.getSigningCredential() == null)) {
-
-				SessionErrors.add(actionRequest, "missingCertificate");
-
-				return;
-			}
-
-			String currentEntityId = MetadataManagerUtil.getLocalEntityId();
-
-			String newEntityId = properties.getProperty(
-				PortletPropsKeys.SAML_ENTITY_ID);
-
-			if (Validator.isNotNull(currentEntityId) &&
-				!currentEntityId.equalsIgnoreCase(newEntityId)) {
-
-				KeyStore keyStore = KeyStoreManagerUtil.getKeyStore();
-
-				keyStore.deleteEntry(currentEntityId);
-
-				KeyStoreManagerUtil.saveKeyStore(keyStore);
-			}
-
-			CompanyServiceUtil.updatePreferences(companyId, properties);
+			return;
 		}
-		catch (Exception e) {
-			SessionErrors.add(actionRequest, e.getClass().getName());
+
+		String currentEntityId = MetadataManagerUtil.getLocalEntityId();
+
+		String newEntityId = properties.getProperty(
+			PortletPropsKeys.SAML_ENTITY_ID);
+
+		if (Validator.isNotNull(currentEntityId) &&
+			!currentEntityId.equalsIgnoreCase(newEntityId)) {
+
+			KeyStore keyStore = KeyStoreManagerUtil.getKeyStore();
+
+			keyStore.deleteEntry(currentEntityId);
+
+			KeyStoreManagerUtil.saveKeyStore(keyStore);
 		}
+
+		updateProperties(actionRequest, properties);
 	}
 
 	public void updateIdentityProvider(
 			ActionRequest actionRequest, ActionResponse actionResponse)
-		throws IOException, PortletException {
+		throws Exception {
 
-		long companyId = PortalUtil.getCompanyId(actionRequest);
+		UnicodeProperties properties = getProperties(actionRequest);
 
-		UnicodeProperties properties = PropertiesParamUtil.getProperties(
-			actionRequest, "settings--");
 		String nameIdentifierAttributeType = ParamUtil.getString(
 			actionRequest, "nameIdentifierAttributeType");
 
@@ -256,74 +236,61 @@ public class AdminPortlet extends MVCPortlet {
 				PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_ATTRIBUTE);
 
 			nameIdentifierAttribute =
-				nameIdentifierAttributeType.concat(":").concat(
-					nameIdentifierAttribute);
+				nameIdentifierAttributeType + ":" + nameIdentifierAttribute;
 
 			properties.setProperty(
 				PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_ATTRIBUTE,
 				nameIdentifierAttribute);
 		}
 
-		try {
-			CompanyServiceUtil.updatePreferences(companyId, properties);
-		}
-		catch (Exception e) {
-			SessionErrors.add(actionRequest, e.getClass().getName());
-		}
+		updateProperties(actionRequest, properties);
 	}
 
 	public void updateServiceProviderConnection(
 			ActionRequest actionRequest, ActionResponse actionResponse)
-		throws IOException, PortletException {
+		throws Exception {
 
 		UploadPortletRequest uploadPortletRequest =
 			PortalUtil.getUploadPortletRequest(actionRequest);
 
 		long samlIdpSpConnectionId = ParamUtil.getLong(
-			uploadPortletRequest, "samlIdpSpConnectionId");
-		String entityId = ParamUtil.getString(
-			uploadPortletRequest, "samlSpEntityId");
-		boolean enabled = ParamUtil.getBoolean(uploadPortletRequest, "enabled");
+			actionRequest, "samlIdpSpConnectionId");
+
+		String entityId = ParamUtil.getString(actionRequest, "samlSpEntityId");
 		int assertionLifetime = ParamUtil.getInteger(
-			uploadPortletRequest, "assertionLifetime");
+			actionRequest, "assertionLifetime");
 		String attributeNames = ParamUtil.getString(
-			uploadPortletRequest, "attributeNames");
+			actionRequest, "attributeNames");
 		boolean attributesEnabled = ParamUtil.getBoolean(
-			uploadPortletRequest, "attributesEnabled");
+			actionRequest, "attributesEnabled");
 		boolean attributesNamespaceEnabled = ParamUtil.getBoolean(
-			uploadPortletRequest, "attributesNamespaceEnabled");
-		String name = ParamUtil.getString(uploadPortletRequest, "name");
-		String nameIdAttribute = ParamUtil.getString(
-			uploadPortletRequest, "nameIdAttribute");
-		String nameIdFormat = ParamUtil.getString(
-			uploadPortletRequest, "nameIdFormat");
-		String metadataUrl = ParamUtil.getString(
-			uploadPortletRequest, "metadataUrl");
+			actionRequest, "attributesNamespaceEnabled");
+		boolean enabled = ParamUtil.getBoolean(actionRequest, "enabled");
+		String metadataUrl = ParamUtil.getString(actionRequest, "metadataUrl");
 		InputStream metadataXmlInputStream =
 			uploadPortletRequest.getFileAsStream("metadataXml");
+		String name = ParamUtil.getString(actionRequest, "name");
+		String nameIdAttribute = ParamUtil.getString(
+			actionRequest, "nameIdAttribute");
+		String nameIdFormat = ParamUtil.getString(
+			actionRequest, "nameIdFormat");
 
-		try {
-			ServiceContext serviceContext = ServiceContextFactory.getInstance(
-				SamlIdpSpConnection.class.getName(), actionRequest);
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			SamlIdpSpConnection.class.getName(), actionRequest);
 
-			if (samlIdpSpConnectionId > 0) {
-				SamlIdpSpConnectionLocalServiceUtil.updateSamlIdpSpConnection(
-					samlIdpSpConnectionId, entityId, assertionLifetime,
-					attributeNames, attributesEnabled,
-					attributesNamespaceEnabled, enabled, name, nameIdAttribute,
-					nameIdFormat, metadataXmlInputStream, metadataUrl,
-					serviceContext);
-			}
-			else {
-				SamlIdpSpConnectionLocalServiceUtil.addSamlIdpSpConnection(
-					entityId, assertionLifetime, attributeNames,
-					attributesEnabled, attributesNamespaceEnabled, enabled,
-					metadataXmlInputStream, name, nameIdAttribute, nameIdFormat,
-					metadataUrl, serviceContext);
-			}
+		if (samlIdpSpConnectionId <= 0) {
+			SamlIdpSpConnectionLocalServiceUtil.addSamlIdpSpConnection(
+				entityId, assertionLifetime, attributeNames, attributesEnabled,
+				attributesNamespaceEnabled, enabled, metadataUrl,
+				metadataXmlInputStream, name, nameIdAttribute, nameIdFormat,
+				serviceContext);
 		}
-		catch (Exception e) {
-			SessionErrors.add(actionRequest, e.getClass().getName());
+		else {
+			SamlIdpSpConnectionLocalServiceUtil.updateSamlIdpSpConnection(
+				samlIdpSpConnectionId, entityId, assertionLifetime,
+				attributeNames, attributesEnabled, attributesNamespaceEnabled,
+				enabled, metadataUrl, metadataXmlInputStream, name,
+				nameIdAttribute, nameIdFormat, serviceContext);
 		}
 	}
 
@@ -339,6 +306,26 @@ public class AdminPortlet extends MVCPortlet {
 		if (!permissionChecker.isCompanyAdmin()) {
 			throw new PrincipalException();
 		}
+	}
+
+	protected UnicodeProperties getProperties(PortletRequest portletRequest) {
+		return PropertiesParamUtil.getProperties(portletRequest, "settings--");
+	}
+
+	@Override
+	protected boolean isSessionErrorException(Throwable cause) {
+		return true;
+	}
+
+	protected void updateProperties(
+			PortletRequest portletRequest, UnicodeProperties properties)
+		throws Exception {
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		CompanyServiceUtil.updatePreferences(
+			themeDisplay.getCompanyId(), properties);
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(AdminPortlet.class);
