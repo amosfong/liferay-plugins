@@ -167,6 +167,10 @@ $gray-dark: #C7D0DA;
 					}
 			}
 
+			.portlet-msg-success.lfr-message-response {
+				display: none;
+			}
+
 			.taglib-discussion {
 				.lfr-discussion {
 					margin: 0;

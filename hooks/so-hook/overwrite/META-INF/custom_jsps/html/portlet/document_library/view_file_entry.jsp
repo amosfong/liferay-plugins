@@ -441,6 +441,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 								</div>
 							</div>
 						</div>
+
 						<portlet:actionURL var="discussionURL">
 							<portlet:param name="struts_action" value="/document_library/edit_file_entry_discussion" />
 						</portlet:actionURL>
