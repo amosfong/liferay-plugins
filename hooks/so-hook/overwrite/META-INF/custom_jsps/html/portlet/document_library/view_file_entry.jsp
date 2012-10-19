@@ -437,7 +437,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 						<div class="lfr-panel lfr-extended lfr-collapsed">
 							<div class="lfr-panel-titlebar aui-helper-unselectable">
 								<div class="lfr-panel-title">
-									<span><liferay-ui:message key="version-history" /></span>
+									<liferay-ui:message key="version-history" />
 								</div>
 							</div>
 						</div>
