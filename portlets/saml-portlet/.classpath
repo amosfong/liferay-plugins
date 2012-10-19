@@ -11,12 +11,13 @@
 	<classpathentry kind="lib" path="/portal-trunk/lib/development/mail.jar" />
 	<classpathentry kind="lib" path="/portal-trunk/lib/development/servlet-api.jar" />
 	<classpathentry kind="lib" path="/portal-trunk/lib/global/portlet.jar" />
-	<classpathentry kind="lib" path="/portal-trunk/lib/portal/bcprov.jar" />
 	<classpathentry kind="lib" path="/portal-trunk/lib/portal/commons-codec.jar" />
 	<classpathentry kind="lib" path="/portal-trunk/lib/portal/commons-collections.jar" />
 	<classpathentry kind="lib" path="/portal-trunk/lib/portal/commons-httpclient.jar" />
 	<classpathentry kind="lib" path="/portal-trunk/lib/portal/commons-lang.jar" />
 	<classpathentry kind="lib" path="/portal-trunk/lib/portal/commons-logging.jar" />
+	<classpathentry kind="lib" path="/portal-trunk/lib/portal/jstl-api.jar" />
+	<classpathentry kind="lib" path="/portal-trunk/lib/portal/jstl-impl.jar" />
 	<classpathentry kind="lib" path="/portal-trunk/lib/portal/log4j.jar" />
 	<classpathentry kind="lib" path="/portal-trunk/lib/portal/serializer.jar" />
 	<classpathentry kind="lib" path="/portal-trunk/lib/portal/slf4j-api.jar" />
@@ -26,6 +27,8 @@
 	<classpathentry kind="lib" path="/portal-trunk/util-bridges/util-bridges.jar" />
 	<classpathentry kind="lib" path="/portal-trunk/util-java/util-java.jar" />
 	<classpathentry kind="lib" path="/portal-trunk/util-taglib/util-taglib.jar" />
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/bcpkix-jdk15on-147.jar" />
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/bcprov-jdk15on-147.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/esapi.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/joda-time.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/not-yet-commons-ssl.jar" />

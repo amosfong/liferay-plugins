@@ -44,9 +44,10 @@ public class SamlIdpSpConnectionLocalServiceImpl
 	public SamlIdpSpConnection addSamlIdpSpConnection(
 			String samlSpEntityId, int assertionLifetime, String attributeNames,
 			boolean attributesEnabled, boolean attributesNamespaceEnabled,
-			boolean enabled, InputStream metadataXmlInputStream,
-			String metadataUrl, String name, String nameIdAttribute,
-			String nameIdFormat, ServiceContext serviceContext)
+			boolean enabled, String metadataUrl,
+			InputStream metadataXmlInputStream, String name,
+			String nameIdAttribute, String nameIdFormat,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		Date now = new Date();
@@ -186,9 +187,10 @@ public class SamlIdpSpConnectionLocalServiceImpl
 			long samlIdpSpConnectionId, String samlSpEntityId,
 			int assertionLifetime, String attributeNames,
 			boolean attributesEnabled, boolean attributesNamespaceEnabled,
-			boolean enabled, String name, String nameIdAttribute,
-			String nameIdFormat, InputStream metadataXmlInputStream,
-			String metadataUrl, ServiceContext serviceContext)
+			boolean enabled, String metadataUrl,
+			InputStream metadataXmlInputStream, String name,
+			String nameIdAttribute, String nameIdFormat,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		Date now = new Date();
@@ -210,15 +212,13 @@ public class SamlIdpSpConnectionLocalServiceImpl
 		}
 
 		samlIdpSpConnection.setModifiedDate(now);
+		samlIdpSpConnection.setSamlSpEntityId(samlSpEntityId);
 		samlIdpSpConnection.setAssertionLifetime(assertionLifetime);
 		samlIdpSpConnection.setAttributeNames(attributeNames);
 		samlIdpSpConnection.setAttributesEnabled(attributesEnabled);
 		samlIdpSpConnection.setAttributesNamespaceEnabled(
 			attributesNamespaceEnabled);
 		samlIdpSpConnection.setEnabled(enabled);
-		samlIdpSpConnection.setName(name);
-		samlIdpSpConnection.setNameIdAttribute(nameIdAttribute);
-		samlIdpSpConnection.setNameIdFormat(nameIdFormat);
 
 		if ((metadataXmlInputStream == null) &&
 			Validator.isNotNull(metadataUrl)) {
@@ -240,7 +240,9 @@ public class SamlIdpSpConnectionLocalServiceImpl
 			samlIdpSpConnection.setMetadataXml(metadataXml);
 		}
 
-		samlIdpSpConnection.setSamlSpEntityId(samlSpEntityId);
+		samlIdpSpConnection.setName(name);
+		samlIdpSpConnection.setNameIdAttribute(nameIdAttribute);
+		samlIdpSpConnection.setNameIdFormat(nameIdFormat);
 
 		samlIdpSpConnectionPersistence.update(samlIdpSpConnection, false);
 

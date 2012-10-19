@@ -1,9 +1,10 @@
-/bcprov.jar
 /commons-codec.jar
 /commons-collections.jar
 /commons-httpclient.jar
 /commons-lang.jar
 /commons-logging.jar
+/jstl-api.jar
+/jstl-impl.jar
 /log4j.jar
 /serializer.jar
 /slf4j-api.jar

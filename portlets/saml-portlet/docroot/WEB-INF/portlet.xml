@@ -3,20 +3,43 @@
 <portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
 	<portlet>
 		<portlet-name>1</portlet-name>
-		<display-name>SAML</display-name>
+		<display-name>SAML Display</display-name>
 		<portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
 		<init-param>
 			<name>view-template</name>
-			<value>/view.jsp</value>
+			<value>/display/view.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>SAML</title>
-			<short-title>SAML</short-title>
-			<keywords>SAML</keywords>
+			<title>SAML Display</title>
+			<short-title>SAML Display</short-title>
+			<keywords>SAML Display</keywords>
+		</portlet-info>
+	</portlet>
+	<portlet>
+		<portlet-name>2</portlet-name>
+		<display-name>SAML Admin</display-name>
+		<portlet-class>com.liferay.saml.admin.portlet.AdminPortlet</portlet-class>
+		<init-param>
+			<name>copy-request-parameters</name>
+			<value>true</value>
+		</init-param>
+		<init-param>
+			<name>view-template</name>
+			<value>/admin/view.jsp</value>
+		</init-param>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<resource-bundle>content.Language</resource-bundle>
+		<portlet-info>
+			<title>SAML Admin</title>
+			<short-title>SAML Admin</short-title>
+			<keywords>SAML Admin</keywords>
 		</portlet-info>
 	</portlet>
 </portlet-app>

@@ -44,7 +44,7 @@ public class SamlSpIdpConnectionLocalServiceImpl
 	public SamlSpIdpConnection addSamlSpIdpConnection(
 			String samlIdpEntityId, boolean assertionSignatureRequired,
 			long clockSkew, boolean enabled, boolean ldapImportEnabled,
-			InputStream metadataXmlInputStream, String metadataUrl, String name,
+			String metadataUrl, InputStream metadataXmlInputStream, String name,
 			String nameIdFormat, boolean signAuthnRequest,
 			String userAttributeMappings, ServiceContext serviceContext)
 		throws PortalException, SystemException {
@@ -186,10 +186,10 @@ public class SamlSpIdpConnectionLocalServiceImpl
 	public SamlSpIdpConnection updateSamlSpIdpConnection(
 			long samlSpIdpConnectionId, String samlIdpEntityId,
 			boolean assertionSignatureRequired, long clockSkew, boolean enabled,
-			boolean ldapImportEnabled, InputStream metadataXmlInputStream,
-			String metadataUrl, String name, String nameIdFormat,
-			boolean signAuthnRequest, String userAttributeMappings,
-			ServiceContext serviceContext)
+			boolean ldapImportEnabled, String metadataUrl,
+			InputStream metadataXmlInputStream, String name,
+			String nameIdFormat, boolean signAuthnRequest,
+			String userAttributeMappings, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		Date now = new Date();

@@ -173,6 +173,9 @@ public class KeyStoreCredentialResolver
 
 			return Collections.singleton(credential);
 		}
+		catch (RuntimeException re) {
+			throw new SecurityException(re);
+		}
 		catch (Exception e) {
 			throw new SecurityException(e);
 		}

@@ -14,12 +14,7 @@
  */
 --%>
 
-<%@ page import="com.liferay.portal.kernel.util.PropsUtil" %>
-<%@ page import="com.liferay.portal.kernel.util.Validator" %>
-<%@ page import="com.liferay.portal.model.User" %>
-<%@ page import="com.liferay.portal.util.PortalUtil" %>
-<%@ page import="com.liferay.saml.util.PortletPropsKeys" %>
-<%@ page import="com.liferay.saml.util.SamlUtil" %>
+<%@ include file="/init.jsp" %>
 
 <%
 User user = PortalUtil.getUser(request);

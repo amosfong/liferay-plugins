@@ -7,6 +7,22 @@
 		<use-default-template>false</use-default-template>
 		<system>true</system>
 	</portlet>
+	<portlet>
+		<portlet-name>2</portlet-name>
+		<scheduler-entry>
+			<scheduler-event-listener-class>com.liferay.saml.messaging.CheckSamlMetadataMessageListener</scheduler-event-listener-class>
+			<trigger>
+				<simple>
+					<property-key>saml.metadata.refresh.interval</property-key>
+					<time-unit>second</time-unit>
+				</simple>
+			</trigger>
+		</scheduler-entry>
+		<control-panel-entry-category>portal</control-panel-entry-category>
+		<control-panel-entry-class>com.liferay.portlet.AdministratorControlPanelEntry</control-panel-entry-class>
+		<header-portlet-css>/admin/css/main.css</header-portlet-css>
+		<css-class-wrapper>saml-portlet-admin</css-class-wrapper>
+	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>
 		<role-link>Administrator</role-link>
