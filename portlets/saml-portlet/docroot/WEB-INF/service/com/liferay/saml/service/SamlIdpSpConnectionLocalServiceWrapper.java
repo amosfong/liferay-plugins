@@ -277,16 +277,17 @@ public class SamlIdpSpConnectionLocalServiceWrapper
 		java.lang.String samlSpEntityId, int assertionLifetime,
 		java.lang.String attributeNames, boolean attributesEnabled,
 		boolean attributesNamespaceEnabled, boolean enabled,
-		java.io.InputStream metadataXmlInputStream,
-		java.lang.String metadataUrl, java.lang.String name,
+		java.lang.String metadataUrl,
+		java.io.InputStream metadataXmlInputStream, java.lang.String name,
 		java.lang.String nameIdAttribute, java.lang.String nameIdFormat,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _samlIdpSpConnectionLocalService.addSamlIdpSpConnection(samlSpEntityId,
 			assertionLifetime, attributeNames, attributesEnabled,
-			attributesNamespaceEnabled, enabled, metadataXmlInputStream,
-			metadataUrl, name, nameIdAttribute, nameIdFormat, serviceContext);
+			attributesNamespaceEnabled, enabled, metadataUrl,
+			metadataXmlInputStream, name, nameIdAttribute, nameIdFormat,
+			serviceContext);
 	}
 
 	public com.liferay.saml.model.SamlIdpSpConnection getSamlIdpSpConnection(
@@ -333,18 +334,17 @@ public class SamlIdpSpConnectionLocalServiceWrapper
 		long samlIdpSpConnectionId, java.lang.String samlSpEntityId,
 		int assertionLifetime, java.lang.String attributeNames,
 		boolean attributesEnabled, boolean attributesNamespaceEnabled,
-		boolean enabled, java.lang.String name,
+		boolean enabled, java.lang.String metadataUrl,
+		java.io.InputStream metadataXmlInputStream, java.lang.String name,
 		java.lang.String nameIdAttribute, java.lang.String nameIdFormat,
-		java.io.InputStream metadataXmlInputStream,
-		java.lang.String metadataUrl,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _samlIdpSpConnectionLocalService.updateSamlIdpSpConnection(samlIdpSpConnectionId,
 			samlSpEntityId, assertionLifetime, attributeNames,
-			attributesEnabled, attributesNamespaceEnabled, enabled, name,
-			nameIdAttribute, nameIdFormat, metadataXmlInputStream, metadataUrl,
-			serviceContext);
+			attributesEnabled, attributesNamespaceEnabled, enabled,
+			metadataUrl, metadataXmlInputStream, name, nameIdAttribute,
+			nameIdFormat, serviceContext);
 	}
 
 	/**

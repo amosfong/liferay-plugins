@@ -74,11 +74,11 @@ public class SamlIdpSpConnectionClp extends BaseModelImpl<SamlIdpSpConnection>
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("samlSpEntityId", getSamlSpEntityId());
+		attributes.put("assertionLifetime", getAssertionLifetime());
 		attributes.put("attributeNames", getAttributeNames());
 		attributes.put("attributesEnabled", getAttributesEnabled());
 		attributes.put("attributesNamespaceEnabled",
 			getAttributesNamespaceEnabled());
-		attributes.put("assertionLifetime", getAssertionLifetime());
 		attributes.put("enabled", getEnabled());
 		attributes.put("metadataUrl", getMetadataUrl());
 		attributes.put("metadataXml", getMetadataXml());
@@ -135,6 +135,12 @@ public class SamlIdpSpConnectionClp extends BaseModelImpl<SamlIdpSpConnection>
 			setSamlSpEntityId(samlSpEntityId);
 		}
 
+		Integer assertionLifetime = (Integer)attributes.get("assertionLifetime");
+
+		if (assertionLifetime != null) {
+			setAssertionLifetime(assertionLifetime);
+		}
+
 		String attributeNames = (String)attributes.get("attributeNames");
 
 		if (attributeNames != null) {
@@ -152,12 +158,6 @@ public class SamlIdpSpConnectionClp extends BaseModelImpl<SamlIdpSpConnection>
 
 		if (attributesNamespaceEnabled != null) {
 			setAttributesNamespaceEnabled(attributesNamespaceEnabled);
-		}
-
-		Integer assertionLifetime = (Integer)attributes.get("assertionLifetime");
-
-		if (assertionLifetime != null) {
-			setAssertionLifetime(assertionLifetime);
 		}
 
 		Boolean enabled = (Boolean)attributes.get("enabled");
@@ -267,6 +267,14 @@ public class SamlIdpSpConnectionClp extends BaseModelImpl<SamlIdpSpConnection>
 		_samlSpEntityId = samlSpEntityId;
 	}
 
+	public int getAssertionLifetime() {
+		return _assertionLifetime;
+	}
+
+	public void setAssertionLifetime(int assertionLifetime) {
+		_assertionLifetime = assertionLifetime;
+	}
+
 	public String getAttributeNames() {
 		return _attributeNames;
 	}
@@ -298,14 +306,6 @@ public class SamlIdpSpConnectionClp extends BaseModelImpl<SamlIdpSpConnection>
 	public void setAttributesNamespaceEnabled(
 		boolean attributesNamespaceEnabled) {
 		_attributesNamespaceEnabled = attributesNamespaceEnabled;
-	}
-
-	public int getAssertionLifetime() {
-		return _assertionLifetime;
-	}
-
-	public void setAssertionLifetime(int assertionLifetime) {
-		_assertionLifetime = assertionLifetime;
 	}
 
 	public boolean getEnabled() {
@@ -404,10 +404,10 @@ public class SamlIdpSpConnectionClp extends BaseModelImpl<SamlIdpSpConnection>
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
 		clone.setSamlSpEntityId(getSamlSpEntityId());
+		clone.setAssertionLifetime(getAssertionLifetime());
 		clone.setAttributeNames(getAttributeNames());
 		clone.setAttributesEnabled(getAttributesEnabled());
 		clone.setAttributesNamespaceEnabled(getAttributesNamespaceEnabled());
-		clone.setAssertionLifetime(getAssertionLifetime());
 		clone.setEnabled(getEnabled());
 		clone.setMetadataUrl(getMetadataUrl());
 		clone.setMetadataXml(getMetadataXml());
@@ -481,14 +481,14 @@ public class SamlIdpSpConnectionClp extends BaseModelImpl<SamlIdpSpConnection>
 		sb.append(getModifiedDate());
 		sb.append(", samlSpEntityId=");
 		sb.append(getSamlSpEntityId());
+		sb.append(", assertionLifetime=");
+		sb.append(getAssertionLifetime());
 		sb.append(", attributeNames=");
 		sb.append(getAttributeNames());
 		sb.append(", attributesEnabled=");
 		sb.append(getAttributesEnabled());
 		sb.append(", attributesNamespaceEnabled=");
 		sb.append(getAttributesNamespaceEnabled());
-		sb.append(", assertionLifetime=");
-		sb.append(getAssertionLifetime());
 		sb.append(", enabled=");
 		sb.append(getEnabled());
 		sb.append(", metadataUrl=");
@@ -544,6 +544,10 @@ public class SamlIdpSpConnectionClp extends BaseModelImpl<SamlIdpSpConnection>
 		sb.append(getSamlSpEntityId());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>assertionLifetime</column-name><column-value><![CDATA[");
+		sb.append(getAssertionLifetime());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>attributeNames</column-name><column-value><![CDATA[");
 		sb.append(getAttributeNames());
 		sb.append("]]></column-value></column>");
@@ -554,10 +558,6 @@ public class SamlIdpSpConnectionClp extends BaseModelImpl<SamlIdpSpConnection>
 		sb.append(
 			"<column><column-name>attributesNamespaceEnabled</column-name><column-value><![CDATA[");
 		sb.append(getAttributesNamespaceEnabled());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>assertionLifetime</column-name><column-value><![CDATA[");
-		sb.append(getAssertionLifetime());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>enabled</column-name><column-value><![CDATA[");
@@ -601,10 +601,10 @@ public class SamlIdpSpConnectionClp extends BaseModelImpl<SamlIdpSpConnection>
 	private Date _createDate;
 	private Date _modifiedDate;
 	private String _samlSpEntityId;
+	private int _assertionLifetime;
 	private String _attributeNames;
 	private boolean _attributesEnabled;
 	private boolean _attributesNamespaceEnabled;
-	private int _assertionLifetime;
 	private boolean _enabled;
 	private String _metadataUrl;
 	private String _metadataXml;

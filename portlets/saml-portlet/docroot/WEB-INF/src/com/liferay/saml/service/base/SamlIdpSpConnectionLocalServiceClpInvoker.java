@@ -116,7 +116,7 @@ public class SamlIdpSpConnectionLocalServiceClpInvoker {
 
 		_methodParameterTypes62 = new String[] {
 				"java.lang.String", "int", "java.lang.String", "boolean",
-				"boolean", "boolean", "java.io.InputStream", "java.lang.String",
+				"boolean", "boolean", "java.lang.String", "java.io.InputStream",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -152,8 +152,8 @@ public class SamlIdpSpConnectionLocalServiceClpInvoker {
 
 		_methodParameterTypes69 = new String[] {
 				"long", "java.lang.String", "int", "java.lang.String", "boolean",
-				"boolean", "boolean", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.io.InputStream", "java.lang.String",
+				"boolean", "boolean", "java.lang.String", "java.io.InputStream",
+				"java.lang.String", "java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 	}
@@ -267,9 +267,9 @@ public class SamlIdpSpConnectionLocalServiceClpInvoker {
 				((Boolean)arguments[3]).booleanValue(),
 				((Boolean)arguments[4]).booleanValue(),
 				((Boolean)arguments[5]).booleanValue(),
-				(java.io.InputStream)arguments[6],
-				(java.lang.String)arguments[7], (java.lang.String)arguments[8],
-				(java.lang.String)arguments[9],
+				(java.lang.String)arguments[6],
+				(java.io.InputStream)arguments[7],
+				(java.lang.String)arguments[8], (java.lang.String)arguments[9],
 				(java.lang.String)arguments[10],
 				(com.liferay.portal.service.ServiceContext)arguments[11]);
 		}
@@ -321,9 +321,10 @@ public class SamlIdpSpConnectionLocalServiceClpInvoker {
 				((Boolean)arguments[4]).booleanValue(),
 				((Boolean)arguments[5]).booleanValue(),
 				((Boolean)arguments[6]).booleanValue(),
-				(java.lang.String)arguments[7], (java.lang.String)arguments[8],
+				(java.lang.String)arguments[7],
+				(java.io.InputStream)arguments[8],
 				(java.lang.String)arguments[9],
-				(java.io.InputStream)arguments[10],
+				(java.lang.String)arguments[10],
 				(java.lang.String)arguments[11],
 				(com.liferay.portal.service.ServiceContext)arguments[12]);
 		}

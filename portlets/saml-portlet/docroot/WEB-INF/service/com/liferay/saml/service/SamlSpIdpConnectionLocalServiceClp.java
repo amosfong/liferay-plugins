@@ -118,7 +118,7 @@ public class SamlSpIdpConnectionLocalServiceClp
 
 		_methodParameterTypes19 = new String[] {
 				"java.lang.String", "boolean", "long", "boolean", "boolean",
-				"java.io.InputStream", "java.lang.String", "java.lang.String",
+				"java.lang.String", "java.io.InputStream", "java.lang.String",
 				"java.lang.String", "boolean", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -154,7 +154,7 @@ public class SamlSpIdpConnectionLocalServiceClp
 
 		_methodParameterTypes26 = new String[] {
 				"long", "java.lang.String", "boolean", "long", "boolean",
-				"boolean", "java.io.InputStream", "java.lang.String",
+				"boolean", "java.lang.String", "java.io.InputStream",
 				"java.lang.String", "java.lang.String", "boolean",
 				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
@@ -704,8 +704,8 @@ public class SamlSpIdpConnectionLocalServiceClp
 	public com.liferay.saml.model.SamlSpIdpConnection addSamlSpIdpConnection(
 		java.lang.String samlIdpEntityId, boolean assertionSignatureRequired,
 		long clockSkew, boolean enabled, boolean ldapImportEnabled,
-		java.io.InputStream metadataXmlInputStream,
-		java.lang.String metadataUrl, java.lang.String name,
+		java.lang.String metadataUrl,
+		java.io.InputStream metadataXmlInputStream, java.lang.String name,
 		java.lang.String nameIdFormat, boolean signAuthnRequest,
 		java.lang.String userAttributeMappings,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -727,9 +727,9 @@ public class SamlSpIdpConnectionLocalServiceClp
 						
 					ldapImportEnabled,
 						
-					ClpSerializer.translateInput(metadataXmlInputStream),
-						
 					ClpSerializer.translateInput(metadataUrl),
+						
+					ClpSerializer.translateInput(metadataXmlInputStream),
 						
 					ClpSerializer.translateInput(name),
 						
@@ -956,8 +956,8 @@ public class SamlSpIdpConnectionLocalServiceClp
 	public com.liferay.saml.model.SamlSpIdpConnection updateSamlSpIdpConnection(
 		long samlSpIdpConnectionId, java.lang.String samlIdpEntityId,
 		boolean assertionSignatureRequired, long clockSkew, boolean enabled,
-		boolean ldapImportEnabled, java.io.InputStream metadataXmlInputStream,
-		java.lang.String metadataUrl, java.lang.String name,
+		boolean ldapImportEnabled, java.lang.String metadataUrl,
+		java.io.InputStream metadataXmlInputStream, java.lang.String name,
 		java.lang.String nameIdFormat, boolean signAuthnRequest,
 		java.lang.String userAttributeMappings,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -981,9 +981,9 @@ public class SamlSpIdpConnectionLocalServiceClp
 						
 					ldapImportEnabled,
 						
-					ClpSerializer.translateInput(metadataXmlInputStream),
-						
 					ClpSerializer.translateInput(metadataUrl),
+						
+					ClpSerializer.translateInput(metadataXmlInputStream),
 						
 					ClpSerializer.translateInput(name),
 						

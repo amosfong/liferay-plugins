@@ -426,10 +426,10 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 		samlIdpSpConnectionImpl.setCreateDate(samlIdpSpConnection.getCreateDate());
 		samlIdpSpConnectionImpl.setModifiedDate(samlIdpSpConnection.getModifiedDate());
 		samlIdpSpConnectionImpl.setSamlSpEntityId(samlIdpSpConnection.getSamlSpEntityId());
+		samlIdpSpConnectionImpl.setAssertionLifetime(samlIdpSpConnection.getAssertionLifetime());
 		samlIdpSpConnectionImpl.setAttributeNames(samlIdpSpConnection.getAttributeNames());
 		samlIdpSpConnectionImpl.setAttributesEnabled(samlIdpSpConnection.isAttributesEnabled());
 		samlIdpSpConnectionImpl.setAttributesNamespaceEnabled(samlIdpSpConnection.isAttributesNamespaceEnabled());
-		samlIdpSpConnectionImpl.setAssertionLifetime(samlIdpSpConnection.getAssertionLifetime());
 		samlIdpSpConnectionImpl.setEnabled(samlIdpSpConnection.isEnabled());
 		samlIdpSpConnectionImpl.setMetadataUrl(samlIdpSpConnection.getMetadataUrl());
 		samlIdpSpConnectionImpl.setMetadataXml(samlIdpSpConnection.getMetadataXml());

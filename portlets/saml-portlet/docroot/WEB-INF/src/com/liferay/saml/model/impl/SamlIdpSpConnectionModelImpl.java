@@ -68,10 +68,10 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 			{ "createDate", Types.TIMESTAMP },
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "samlSpEntityId", Types.VARCHAR },
+			{ "assertionLifetime", Types.INTEGER },
 			{ "attributeNames", Types.VARCHAR },
 			{ "attributesEnabled", Types.BOOLEAN },
 			{ "attributesNamespaceEnabled", Types.BOOLEAN },
-			{ "assertionLifetime", Types.INTEGER },
 			{ "enabled", Types.BOOLEAN },
 			{ "metadataUrl", Types.VARCHAR },
 			{ "metadataXml", Types.CLOB },
@@ -80,7 +80,7 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 			{ "nameIdAttribute", Types.VARCHAR },
 			{ "nameIdFormat", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table SamlIdpSpConnection (samlIdpSpConnectionId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,samlSpEntityId VARCHAR(1024) null,attributeNames STRING null,attributesEnabled BOOLEAN,attributesNamespaceEnabled BOOLEAN,assertionLifetime INTEGER,enabled BOOLEAN,metadataUrl VARCHAR(1024) null,metadataXml TEXT null,metadataUpdatedDate DATE null,name VARCHAR(75) null,nameIdAttribute VARCHAR(1024) null,nameIdFormat VARCHAR(1024) null)";
+	public static final String TABLE_SQL_CREATE = "create table SamlIdpSpConnection (samlIdpSpConnectionId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,samlSpEntityId VARCHAR(1024) null,assertionLifetime INTEGER,attributeNames STRING null,attributesEnabled BOOLEAN,attributesNamespaceEnabled BOOLEAN,enabled BOOLEAN,metadataUrl VARCHAR(1024) null,metadataXml TEXT null,metadataUpdatedDate DATE null,name VARCHAR(75) null,nameIdAttribute VARCHAR(1024) null,nameIdFormat VARCHAR(1024) null)";
 	public static final String TABLE_SQL_DROP = "drop table SamlIdpSpConnection";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
@@ -137,11 +137,11 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("samlSpEntityId", getSamlSpEntityId());
+		attributes.put("assertionLifetime", getAssertionLifetime());
 		attributes.put("attributeNames", getAttributeNames());
 		attributes.put("attributesEnabled", getAttributesEnabled());
 		attributes.put("attributesNamespaceEnabled",
 			getAttributesNamespaceEnabled());
-		attributes.put("assertionLifetime", getAssertionLifetime());
 		attributes.put("enabled", getEnabled());
 		attributes.put("metadataUrl", getMetadataUrl());
 		attributes.put("metadataXml", getMetadataXml());
@@ -198,6 +198,12 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 			setSamlSpEntityId(samlSpEntityId);
 		}
 
+		Integer assertionLifetime = (Integer)attributes.get("assertionLifetime");
+
+		if (assertionLifetime != null) {
+			setAssertionLifetime(assertionLifetime);
+		}
+
 		String attributeNames = (String)attributes.get("attributeNames");
 
 		if (attributeNames != null) {
@@ -215,12 +221,6 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 
 		if (attributesNamespaceEnabled != null) {
 			setAttributesNamespaceEnabled(attributesNamespaceEnabled);
-		}
-
-		Integer assertionLifetime = (Integer)attributes.get("assertionLifetime");
-
-		if (assertionLifetime != null) {
-			setAssertionLifetime(assertionLifetime);
 		}
 
 		Boolean enabled = (Boolean)attributes.get("enabled");
@@ -362,6 +362,14 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 		return GetterUtil.getString(_originalSamlSpEntityId);
 	}
 
+	public int getAssertionLifetime() {
+		return _assertionLifetime;
+	}
+
+	public void setAssertionLifetime(int assertionLifetime) {
+		_assertionLifetime = assertionLifetime;
+	}
+
 	public String getAttributeNames() {
 		if (_attributeNames == null) {
 			return StringPool.BLANK;
@@ -398,14 +406,6 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 	public void setAttributesNamespaceEnabled(
 		boolean attributesNamespaceEnabled) {
 		_attributesNamespaceEnabled = attributesNamespaceEnabled;
-	}
-
-	public int getAssertionLifetime() {
-		return _assertionLifetime;
-	}
-
-	public void setAssertionLifetime(int assertionLifetime) {
-		_assertionLifetime = assertionLifetime;
 	}
 
 	public boolean getEnabled() {
@@ -532,10 +532,10 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 		samlIdpSpConnectionImpl.setCreateDate(getCreateDate());
 		samlIdpSpConnectionImpl.setModifiedDate(getModifiedDate());
 		samlIdpSpConnectionImpl.setSamlSpEntityId(getSamlSpEntityId());
+		samlIdpSpConnectionImpl.setAssertionLifetime(getAssertionLifetime());
 		samlIdpSpConnectionImpl.setAttributeNames(getAttributeNames());
 		samlIdpSpConnectionImpl.setAttributesEnabled(getAttributesEnabled());
 		samlIdpSpConnectionImpl.setAttributesNamespaceEnabled(getAttributesNamespaceEnabled());
-		samlIdpSpConnectionImpl.setAssertionLifetime(getAssertionLifetime());
 		samlIdpSpConnectionImpl.setEnabled(getEnabled());
 		samlIdpSpConnectionImpl.setMetadataUrl(getMetadataUrl());
 		samlIdpSpConnectionImpl.setMetadataXml(getMetadataXml());
@@ -650,6 +650,8 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 			samlIdpSpConnectionCacheModel.samlSpEntityId = null;
 		}
 
+		samlIdpSpConnectionCacheModel.assertionLifetime = getAssertionLifetime();
+
 		samlIdpSpConnectionCacheModel.attributeNames = getAttributeNames();
 
 		String attributeNames = samlIdpSpConnectionCacheModel.attributeNames;
@@ -661,8 +663,6 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 		samlIdpSpConnectionCacheModel.attributesEnabled = getAttributesEnabled();
 
 		samlIdpSpConnectionCacheModel.attributesNamespaceEnabled = getAttributesNamespaceEnabled();
-
-		samlIdpSpConnectionCacheModel.assertionLifetime = getAssertionLifetime();
 
 		samlIdpSpConnectionCacheModel.enabled = getEnabled();
 
@@ -736,14 +736,14 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 		sb.append(getModifiedDate());
 		sb.append(", samlSpEntityId=");
 		sb.append(getSamlSpEntityId());
+		sb.append(", assertionLifetime=");
+		sb.append(getAssertionLifetime());
 		sb.append(", attributeNames=");
 		sb.append(getAttributeNames());
 		sb.append(", attributesEnabled=");
 		sb.append(getAttributesEnabled());
 		sb.append(", attributesNamespaceEnabled=");
 		sb.append(getAttributesNamespaceEnabled());
-		sb.append(", assertionLifetime=");
-		sb.append(getAssertionLifetime());
 		sb.append(", enabled=");
 		sb.append(getEnabled());
 		sb.append(", metadataUrl=");
@@ -799,6 +799,10 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 		sb.append(getSamlSpEntityId());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>assertionLifetime</column-name><column-value><![CDATA[");
+		sb.append(getAssertionLifetime());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>attributeNames</column-name><column-value><![CDATA[");
 		sb.append(getAttributeNames());
 		sb.append("]]></column-value></column>");
@@ -809,10 +813,6 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 		sb.append(
 			"<column><column-name>attributesNamespaceEnabled</column-name><column-value><![CDATA[");
 		sb.append(getAttributesNamespaceEnabled());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>assertionLifetime</column-name><column-value><![CDATA[");
-		sb.append(getAssertionLifetime());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>enabled</column-name><column-value><![CDATA[");
@@ -863,10 +863,10 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 	private Date _modifiedDate;
 	private String _samlSpEntityId;
 	private String _originalSamlSpEntityId;
+	private int _assertionLifetime;
 	private String _attributeNames;
 	private boolean _attributesEnabled;
 	private boolean _attributesNamespaceEnabled;
-	private int _assertionLifetime;
 	private boolean _enabled;
 	private String _metadataUrl;
 	private String _metadataXml;

@@ -116,7 +116,7 @@ public class SamlSpIdpConnectionLocalServiceClpInvoker {
 
 		_methodParameterTypes62 = new String[] {
 				"java.lang.String", "boolean", "long", "boolean", "boolean",
-				"java.io.InputStream", "java.lang.String", "java.lang.String",
+				"java.lang.String", "java.io.InputStream", "java.lang.String",
 				"java.lang.String", "boolean", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -152,7 +152,7 @@ public class SamlSpIdpConnectionLocalServiceClpInvoker {
 
 		_methodParameterTypes69 = new String[] {
 				"long", "java.lang.String", "boolean", "long", "boolean",
-				"boolean", "java.io.InputStream", "java.lang.String",
+				"boolean", "java.lang.String", "java.io.InputStream",
 				"java.lang.String", "java.lang.String", "boolean",
 				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
@@ -266,9 +266,9 @@ public class SamlSpIdpConnectionLocalServiceClpInvoker {
 				((Long)arguments[2]).longValue(),
 				((Boolean)arguments[3]).booleanValue(),
 				((Boolean)arguments[4]).booleanValue(),
-				(java.io.InputStream)arguments[5],
-				(java.lang.String)arguments[6], (java.lang.String)arguments[7],
-				(java.lang.String)arguments[8],
+				(java.lang.String)arguments[5],
+				(java.io.InputStream)arguments[6],
+				(java.lang.String)arguments[7], (java.lang.String)arguments[8],
 				((Boolean)arguments[9]).booleanValue(),
 				(java.lang.String)arguments[10],
 				(com.liferay.portal.service.ServiceContext)arguments[11]);
@@ -320,9 +320,9 @@ public class SamlSpIdpConnectionLocalServiceClpInvoker {
 				((Long)arguments[3]).longValue(),
 				((Boolean)arguments[4]).booleanValue(),
 				((Boolean)arguments[5]).booleanValue(),
-				(java.io.InputStream)arguments[6],
-				(java.lang.String)arguments[7], (java.lang.String)arguments[8],
-				(java.lang.String)arguments[9],
+				(java.lang.String)arguments[6],
+				(java.io.InputStream)arguments[7],
+				(java.lang.String)arguments[8], (java.lang.String)arguments[9],
 				((Boolean)arguments[10]).booleanValue(),
 				(java.lang.String)arguments[11],
 				(com.liferay.portal.service.ServiceContext)arguments[12]);

@@ -178,6 +178,20 @@ public interface SamlIdpSpConnectionModel extends AuditedModel,
 	public void setSamlSpEntityId(String samlSpEntityId);
 
 	/**
+	 * Returns the assertion lifetime of this saml idp sp connection.
+	 *
+	 * @return the assertion lifetime of this saml idp sp connection
+	 */
+	public int getAssertionLifetime();
+
+	/**
+	 * Sets the assertion lifetime of this saml idp sp connection.
+	 *
+	 * @param assertionLifetime the assertion lifetime of this saml idp sp connection
+	 */
+	public void setAssertionLifetime(int assertionLifetime);
+
+	/**
 	 * Returns the attribute names of this saml idp sp connection.
 	 *
 	 * @return the attribute names of this saml idp sp connection
@@ -234,20 +248,6 @@ public interface SamlIdpSpConnectionModel extends AuditedModel,
 	 */
 	public void setAttributesNamespaceEnabled(
 		boolean attributesNamespaceEnabled);
-
-	/**
-	 * Returns the assertion lifetime of this saml idp sp connection.
-	 *
-	 * @return the assertion lifetime of this saml idp sp connection
-	 */
-	public int getAssertionLifetime();
-
-	/**
-	 * Sets the assertion lifetime of this saml idp sp connection.
-	 *
-	 * @param assertionLifetime the assertion lifetime of this saml idp sp connection
-	 */
-	public void setAssertionLifetime(int assertionLifetime);
 
 	/**
 	 * Returns the enabled of this saml idp sp connection.

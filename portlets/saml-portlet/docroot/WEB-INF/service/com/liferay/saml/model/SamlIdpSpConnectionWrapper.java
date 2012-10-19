@@ -53,11 +53,11 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("samlSpEntityId", getSamlSpEntityId());
+		attributes.put("assertionLifetime", getAssertionLifetime());
 		attributes.put("attributeNames", getAttributeNames());
 		attributes.put("attributesEnabled", getAttributesEnabled());
 		attributes.put("attributesNamespaceEnabled",
 			getAttributesNamespaceEnabled());
-		attributes.put("assertionLifetime", getAssertionLifetime());
 		attributes.put("enabled", getEnabled());
 		attributes.put("metadataUrl", getMetadataUrl());
 		attributes.put("metadataXml", getMetadataXml());
@@ -113,6 +113,12 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 			setSamlSpEntityId(samlSpEntityId);
 		}
 
+		Integer assertionLifetime = (Integer)attributes.get("assertionLifetime");
+
+		if (assertionLifetime != null) {
+			setAssertionLifetime(assertionLifetime);
+		}
+
 		String attributeNames = (String)attributes.get("attributeNames");
 
 		if (attributeNames != null) {
@@ -130,12 +136,6 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 
 		if (attributesNamespaceEnabled != null) {
 			setAttributesNamespaceEnabled(attributesNamespaceEnabled);
-		}
-
-		Integer assertionLifetime = (Integer)attributes.get("assertionLifetime");
-
-		if (assertionLifetime != null) {
-			setAssertionLifetime(assertionLifetime);
 		}
 
 		Boolean enabled = (Boolean)attributes.get("enabled");
@@ -346,6 +346,24 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	}
 
 	/**
+	* Returns the assertion lifetime of this saml idp sp connection.
+	*
+	* @return the assertion lifetime of this saml idp sp connection
+	*/
+	public int getAssertionLifetime() {
+		return _samlIdpSpConnection.getAssertionLifetime();
+	}
+
+	/**
+	* Sets the assertion lifetime of this saml idp sp connection.
+	*
+	* @param assertionLifetime the assertion lifetime of this saml idp sp connection
+	*/
+	public void setAssertionLifetime(int assertionLifetime) {
+		_samlIdpSpConnection.setAssertionLifetime(assertionLifetime);
+	}
+
+	/**
 	* Returns the attribute names of this saml idp sp connection.
 	*
 	* @return the attribute names of this saml idp sp connection
@@ -416,24 +434,6 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	public void setAttributesNamespaceEnabled(
 		boolean attributesNamespaceEnabled) {
 		_samlIdpSpConnection.setAttributesNamespaceEnabled(attributesNamespaceEnabled);
-	}
-
-	/**
-	* Returns the assertion lifetime of this saml idp sp connection.
-	*
-	* @return the assertion lifetime of this saml idp sp connection
-	*/
-	public int getAssertionLifetime() {
-		return _samlIdpSpConnection.getAssertionLifetime();
-	}
-
-	/**
-	* Sets the assertion lifetime of this saml idp sp connection.
-	*
-	* @param assertionLifetime the assertion lifetime of this saml idp sp connection
-	*/
-	public void setAssertionLifetime(int assertionLifetime) {
-		_samlIdpSpConnection.setAssertionLifetime(assertionLifetime);
 	}
 
 	/**

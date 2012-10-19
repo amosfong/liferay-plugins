@@ -37,10 +37,10 @@ public class SamlIdpSpConnectionSoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setSamlSpEntityId(model.getSamlSpEntityId());
+		soapModel.setAssertionLifetime(model.getAssertionLifetime());
 		soapModel.setAttributeNames(model.getAttributeNames());
 		soapModel.setAttributesEnabled(model.getAttributesEnabled());
 		soapModel.setAttributesNamespaceEnabled(model.getAttributesNamespaceEnabled());
-		soapModel.setAssertionLifetime(model.getAssertionLifetime());
 		soapModel.setEnabled(model.getEnabled());
 		soapModel.setMetadataUrl(model.getMetadataUrl());
 		soapModel.setMetadataXml(model.getMetadataXml());
@@ -159,6 +159,14 @@ public class SamlIdpSpConnectionSoap implements Serializable {
 		_samlSpEntityId = samlSpEntityId;
 	}
 
+	public int getAssertionLifetime() {
+		return _assertionLifetime;
+	}
+
+	public void setAssertionLifetime(int assertionLifetime) {
+		_assertionLifetime = assertionLifetime;
+	}
+
 	public String getAttributeNames() {
 		return _attributeNames;
 	}
@@ -190,14 +198,6 @@ public class SamlIdpSpConnectionSoap implements Serializable {
 	public void setAttributesNamespaceEnabled(
 		boolean attributesNamespaceEnabled) {
 		_attributesNamespaceEnabled = attributesNamespaceEnabled;
-	}
-
-	public int getAssertionLifetime() {
-		return _assertionLifetime;
-	}
-
-	public void setAssertionLifetime(int assertionLifetime) {
-		_assertionLifetime = assertionLifetime;
 	}
 
 	public boolean getEnabled() {
@@ -267,10 +267,10 @@ public class SamlIdpSpConnectionSoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private String _samlSpEntityId;
+	private int _assertionLifetime;
 	private String _attributeNames;
 	private boolean _attributesEnabled;
 	private boolean _attributesNamespaceEnabled;
-	private int _assertionLifetime;
 	private boolean _enabled;
 	private String _metadataUrl;
 	private String _metadataXml;

@@ -20,10 +20,10 @@
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="samlSpEntityId" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="assertionLifetime" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="attributeNames" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="attributesEnabled" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 		<property name="attributesNamespaceEnabled" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
-		<property name="assertionLifetime" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="enabled" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 		<property name="metadataUrl" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="metadataXml" type="com.liferay.portal.dao.orm.hibernate.StringType" />

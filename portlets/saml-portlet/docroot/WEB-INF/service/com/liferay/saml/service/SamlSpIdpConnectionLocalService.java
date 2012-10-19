@@ -251,8 +251,8 @@ public interface SamlSpIdpConnectionLocalService extends BaseLocalService,
 	public com.liferay.saml.model.SamlSpIdpConnection addSamlSpIdpConnection(
 		java.lang.String samlIdpEntityId, boolean assertionSignatureRequired,
 		long clockSkew, boolean enabled, boolean ldapImportEnabled,
-		java.io.InputStream metadataXmlInputStream,
-		java.lang.String metadataUrl, java.lang.String name,
+		java.lang.String metadataUrl,
+		java.io.InputStream metadataXmlInputStream, java.lang.String name,
 		java.lang.String nameIdFormat, boolean signAuthnRequest,
 		java.lang.String userAttributeMappings,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -292,8 +292,8 @@ public interface SamlSpIdpConnectionLocalService extends BaseLocalService,
 	public com.liferay.saml.model.SamlSpIdpConnection updateSamlSpIdpConnection(
 		long samlSpIdpConnectionId, java.lang.String samlIdpEntityId,
 		boolean assertionSignatureRequired, long clockSkew, boolean enabled,
-		boolean ldapImportEnabled, java.io.InputStream metadataXmlInputStream,
-		java.lang.String metadataUrl, java.lang.String name,
+		boolean ldapImportEnabled, java.lang.String metadataUrl,
+		java.io.InputStream metadataXmlInputStream, java.lang.String name,
 		java.lang.String nameIdFormat, boolean signAuthnRequest,
 		java.lang.String userAttributeMappings,
 		com.liferay.portal.service.ServiceContext serviceContext)

@@ -54,14 +54,14 @@ public class SamlIdpSpConnectionCacheModel implements CacheModel<SamlIdpSpConnec
 		sb.append(modifiedDate);
 		sb.append(", samlSpEntityId=");
 		sb.append(samlSpEntityId);
+		sb.append(", assertionLifetime=");
+		sb.append(assertionLifetime);
 		sb.append(", attributeNames=");
 		sb.append(attributeNames);
 		sb.append(", attributesEnabled=");
 		sb.append(attributesEnabled);
 		sb.append(", attributesNamespaceEnabled=");
 		sb.append(attributesNamespaceEnabled);
-		sb.append(", assertionLifetime=");
-		sb.append(assertionLifetime);
 		sb.append(", enabled=");
 		sb.append(enabled);
 		sb.append(", metadataUrl=");
@@ -116,6 +116,8 @@ public class SamlIdpSpConnectionCacheModel implements CacheModel<SamlIdpSpConnec
 			samlIdpSpConnectionImpl.setSamlSpEntityId(samlSpEntityId);
 		}
 
+		samlIdpSpConnectionImpl.setAssertionLifetime(assertionLifetime);
+
 		if (attributeNames == null) {
 			samlIdpSpConnectionImpl.setAttributeNames(StringPool.BLANK);
 		}
@@ -125,7 +127,6 @@ public class SamlIdpSpConnectionCacheModel implements CacheModel<SamlIdpSpConnec
 
 		samlIdpSpConnectionImpl.setAttributesEnabled(attributesEnabled);
 		samlIdpSpConnectionImpl.setAttributesNamespaceEnabled(attributesNamespaceEnabled);
-		samlIdpSpConnectionImpl.setAssertionLifetime(assertionLifetime);
 		samlIdpSpConnectionImpl.setEnabled(enabled);
 
 		if (metadataUrl == null) {
@@ -184,10 +185,10 @@ public class SamlIdpSpConnectionCacheModel implements CacheModel<SamlIdpSpConnec
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		samlSpEntityId = objectInput.readUTF();
+		assertionLifetime = objectInput.readInt();
 		attributeNames = objectInput.readUTF();
 		attributesEnabled = objectInput.readBoolean();
 		attributesNamespaceEnabled = objectInput.readBoolean();
-		assertionLifetime = objectInput.readInt();
 		enabled = objectInput.readBoolean();
 		metadataUrl = objectInput.readUTF();
 		metadataXml = objectInput.readUTF();
@@ -220,6 +221,8 @@ public class SamlIdpSpConnectionCacheModel implements CacheModel<SamlIdpSpConnec
 			objectOutput.writeUTF(samlSpEntityId);
 		}
 
+		objectOutput.writeInt(assertionLifetime);
+
 		if (attributeNames == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
@@ -229,7 +232,6 @@ public class SamlIdpSpConnectionCacheModel implements CacheModel<SamlIdpSpConnec
 
 		objectOutput.writeBoolean(attributesEnabled);
 		objectOutput.writeBoolean(attributesNamespaceEnabled);
-		objectOutput.writeInt(assertionLifetime);
 		objectOutput.writeBoolean(enabled);
 
 		if (metadataUrl == null) {
@@ -277,10 +279,10 @@ public class SamlIdpSpConnectionCacheModel implements CacheModel<SamlIdpSpConnec
 	public long createDate;
 	public long modifiedDate;
 	public String samlSpEntityId;
+	public int assertionLifetime;
 	public String attributeNames;
 	public boolean attributesEnabled;
 	public boolean attributesNamespaceEnabled;
-	public int assertionLifetime;
 	public boolean enabled;
 	public String metadataUrl;
 	public String metadataXml;

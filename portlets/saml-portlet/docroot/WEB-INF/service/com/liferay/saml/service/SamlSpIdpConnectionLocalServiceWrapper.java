@@ -276,8 +276,8 @@ public class SamlSpIdpConnectionLocalServiceWrapper
 	public com.liferay.saml.model.SamlSpIdpConnection addSamlSpIdpConnection(
 		java.lang.String samlIdpEntityId, boolean assertionSignatureRequired,
 		long clockSkew, boolean enabled, boolean ldapImportEnabled,
-		java.io.InputStream metadataXmlInputStream,
-		java.lang.String metadataUrl, java.lang.String name,
+		java.lang.String metadataUrl,
+		java.io.InputStream metadataXmlInputStream, java.lang.String name,
 		java.lang.String nameIdFormat, boolean signAuthnRequest,
 		java.lang.String userAttributeMappings,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -285,7 +285,7 @@ public class SamlSpIdpConnectionLocalServiceWrapper
 			com.liferay.portal.kernel.exception.SystemException {
 		return _samlSpIdpConnectionLocalService.addSamlSpIdpConnection(samlIdpEntityId,
 			assertionSignatureRequired, clockSkew, enabled, ldapImportEnabled,
-			metadataXmlInputStream, metadataUrl, name, nameIdFormat,
+			metadataUrl, metadataXmlInputStream, name, nameIdFormat,
 			signAuthnRequest, userAttributeMappings, serviceContext);
 	}
 
@@ -332,8 +332,8 @@ public class SamlSpIdpConnectionLocalServiceWrapper
 	public com.liferay.saml.model.SamlSpIdpConnection updateSamlSpIdpConnection(
 		long samlSpIdpConnectionId, java.lang.String samlIdpEntityId,
 		boolean assertionSignatureRequired, long clockSkew, boolean enabled,
-		boolean ldapImportEnabled, java.io.InputStream metadataXmlInputStream,
-		java.lang.String metadataUrl, java.lang.String name,
+		boolean ldapImportEnabled, java.lang.String metadataUrl,
+		java.io.InputStream metadataXmlInputStream, java.lang.String name,
 		java.lang.String nameIdFormat, boolean signAuthnRequest,
 		java.lang.String userAttributeMappings,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -341,7 +341,7 @@ public class SamlSpIdpConnectionLocalServiceWrapper
 			com.liferay.portal.kernel.exception.SystemException {
 		return _samlSpIdpConnectionLocalService.updateSamlSpIdpConnection(samlSpIdpConnectionId,
 			samlIdpEntityId, assertionSignatureRequired, clockSkew, enabled,
-			ldapImportEnabled, metadataXmlInputStream, metadataUrl, name,
+			ldapImportEnabled, metadataUrl, metadataXmlInputStream, name,
 			nameIdFormat, signAuthnRequest, userAttributeMappings,
 			serviceContext);
 	}

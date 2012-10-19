@@ -118,7 +118,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 
 		_methodParameterTypes19 = new String[] {
 				"java.lang.String", "int", "java.lang.String", "boolean",
-				"boolean", "boolean", "java.io.InputStream", "java.lang.String",
+				"boolean", "boolean", "java.lang.String", "java.io.InputStream",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -154,8 +154,8 @@ public class SamlIdpSpConnectionLocalServiceClp
 
 		_methodParameterTypes26 = new String[] {
 				"long", "java.lang.String", "int", "java.lang.String", "boolean",
-				"boolean", "boolean", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.io.InputStream", "java.lang.String",
+				"boolean", "boolean", "java.lang.String", "java.io.InputStream",
+				"java.lang.String", "java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 	}
@@ -705,8 +705,8 @@ public class SamlIdpSpConnectionLocalServiceClp
 		java.lang.String samlSpEntityId, int assertionLifetime,
 		java.lang.String attributeNames, boolean attributesEnabled,
 		boolean attributesNamespaceEnabled, boolean enabled,
-		java.io.InputStream metadataXmlInputStream,
-		java.lang.String metadataUrl, java.lang.String name,
+		java.lang.String metadataUrl,
+		java.io.InputStream metadataXmlInputStream, java.lang.String name,
 		java.lang.String nameIdAttribute, java.lang.String nameIdFormat,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -729,9 +729,9 @@ public class SamlIdpSpConnectionLocalServiceClp
 						
 					enabled,
 						
-					ClpSerializer.translateInput(metadataXmlInputStream),
-						
 					ClpSerializer.translateInput(metadataUrl),
+						
+					ClpSerializer.translateInput(metadataXmlInputStream),
 						
 					ClpSerializer.translateInput(name),
 						
@@ -957,10 +957,9 @@ public class SamlIdpSpConnectionLocalServiceClp
 		long samlIdpSpConnectionId, java.lang.String samlSpEntityId,
 		int assertionLifetime, java.lang.String attributeNames,
 		boolean attributesEnabled, boolean attributesNamespaceEnabled,
-		boolean enabled, java.lang.String name,
+		boolean enabled, java.lang.String metadataUrl,
+		java.io.InputStream metadataXmlInputStream, java.lang.String name,
 		java.lang.String nameIdAttribute, java.lang.String nameIdFormat,
-		java.io.InputStream metadataXmlInputStream,
-		java.lang.String metadataUrl,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -984,15 +983,15 @@ public class SamlIdpSpConnectionLocalServiceClp
 						
 					enabled,
 						
+					ClpSerializer.translateInput(metadataUrl),
+						
+					ClpSerializer.translateInput(metadataXmlInputStream),
+						
 					ClpSerializer.translateInput(name),
 						
 					ClpSerializer.translateInput(nameIdAttribute),
 						
 					ClpSerializer.translateInput(nameIdFormat),
-						
-					ClpSerializer.translateInput(metadataXmlInputStream),
-						
-					ClpSerializer.translateInput(metadataUrl),
 						
 					ClpSerializer.translateInput(serviceContext)
 					});

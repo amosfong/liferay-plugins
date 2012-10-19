@@ -20,10 +20,10 @@
 				<temporal>TIMESTAMP</temporal>
 			</basic>
 			<basic name="samlSpEntityId" />
+			<basic name="assertionLifetime" />
 			<basic name="attributeNames" />
 			<basic name="attributesEnabled" />
 			<basic name="attributesNamespaceEnabled" />
-			<basic name="assertionLifetime" />
 			<basic name="enabled" />
 			<basic name="metadataUrl" />
 			<basic name="metadataXml" />

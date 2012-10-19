@@ -14,12 +14,12 @@
 		<field name="samlSpEntityId" type="String">
 			<hint-collection name="ENTITY-ID" />
 		</field>
+		<field name="assertionLifetime" type="int" />
 		<field name="attributeNames" type="String">
 			<hint-collection name="TEXTAREA" />
 		</field>
 		<field name="attributesEnabled" type="boolean" />
 		<field name="attributesNamespaceEnabled" type="boolean" />
-		<field name="assertionLifetime" type="int" />
 		<field name="enabled" type="boolean" />
 		<field name="metadataUrl" type="String">
 			<hint-collection name="ENTITY-ID" />
