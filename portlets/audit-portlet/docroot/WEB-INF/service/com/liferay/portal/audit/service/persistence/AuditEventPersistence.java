@@ -73,7 +73,7 @@ public interface AuditEventPersistence extends BasePersistence<AuditEvent> {
 			com.liferay.portal.kernel.exception.SystemException;
 
 	public com.liferay.portal.audit.model.AuditEvent updateImpl(
-		com.liferay.portal.audit.model.AuditEvent auditEvent, boolean merge)
+		com.liferay.portal.audit.model.AuditEvent auditEvent)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

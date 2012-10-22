@@ -76,8 +76,7 @@ public interface SamlIdpSpConnectionPersistence extends BasePersistence<SamlIdpS
 			com.liferay.saml.NoSuchIdpSpConnectionException;
 
 	public com.liferay.saml.model.SamlIdpSpConnection updateImpl(
-		com.liferay.saml.model.SamlIdpSpConnection samlIdpSpConnection,
-		boolean merge)
+		com.liferay.saml.model.SamlIdpSpConnection samlIdpSpConnection)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

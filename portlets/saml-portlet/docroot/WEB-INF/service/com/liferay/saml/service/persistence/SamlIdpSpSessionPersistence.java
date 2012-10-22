@@ -76,7 +76,7 @@ public interface SamlIdpSpSessionPersistence extends BasePersistence<SamlIdpSpSe
 			com.liferay.saml.NoSuchIdpSpSessionException;
 
 	public com.liferay.saml.model.SamlIdpSpSession updateImpl(
-		com.liferay.saml.model.SamlIdpSpSession samlIdpSpSession, boolean merge)
+		com.liferay.saml.model.SamlIdpSpSession samlIdpSpSession)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

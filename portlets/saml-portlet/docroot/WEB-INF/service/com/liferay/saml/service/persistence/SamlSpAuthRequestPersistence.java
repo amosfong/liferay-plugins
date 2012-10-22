@@ -76,8 +76,7 @@ public interface SamlSpAuthRequestPersistence extends BasePersistence<SamlSpAuth
 			com.liferay.saml.NoSuchSpAuthRequestException;
 
 	public com.liferay.saml.model.SamlSpAuthRequest updateImpl(
-		com.liferay.saml.model.SamlSpAuthRequest samlSpAuthRequest,
-		boolean merge)
+		com.liferay.saml.model.SamlSpAuthRequest samlSpAuthRequest)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

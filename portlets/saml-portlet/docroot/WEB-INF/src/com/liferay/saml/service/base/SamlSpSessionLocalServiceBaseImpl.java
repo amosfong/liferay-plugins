@@ -90,7 +90,7 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 		throws SystemException {
 		samlSpSession.setNew(true);
 
-		return samlSpSessionPersistence.update(samlSpSession, false);
+		return samlSpSessionPersistence.update(samlSpSession);
 	}
 
 	/**
@@ -263,23 +263,7 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 	@Indexable(type = IndexableType.REINDEX)
 	public SamlSpSession updateSamlSpSession(SamlSpSession samlSpSession)
 		throws SystemException {
-		return updateSamlSpSession(samlSpSession, true);
-	}
-
-	/**
-	 * Updates the saml sp session in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * @param samlSpSession the saml sp session
-	 * @param merge whether to merge the saml sp session with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
-	 * @return the saml sp session that was updated
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Indexable(type = IndexableType.REINDEX)
-	public SamlSpSession updateSamlSpSession(SamlSpSession samlSpSession,
-		boolean merge) throws SystemException {
-		samlSpSession.setNew(false);
-
-		return samlSpSessionPersistence.update(samlSpSession, merge);
+		return samlSpSessionPersistence.update(samlSpSession);
 	}
 
 	/**

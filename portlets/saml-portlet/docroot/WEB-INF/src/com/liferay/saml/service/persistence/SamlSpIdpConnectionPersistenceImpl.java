@@ -38,7 +38,6 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
-import com.liferay.portal.service.persistence.BatchSessionUtil;
 import com.liferay.portal.service.persistence.UserPersistence;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 
@@ -302,7 +301,12 @@ public class SamlSpIdpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 		try {
 			session = openSession();
 
-			BatchSessionUtil.delete(session, samlSpIdpConnection);
+			if (samlSpIdpConnection.isCachedModel()) {
+				samlSpIdpConnection = (SamlSpIdpConnection)session.get(SamlSpIdpConnectionImpl.class,
+						samlSpIdpConnection.getPrimaryKeyObj());
+			}
+
+			session.delete(samlSpIdpConnection);
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -318,8 +322,8 @@ public class SamlSpIdpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 
 	@Override
 	public SamlSpIdpConnection updateImpl(
-		com.liferay.saml.model.SamlSpIdpConnection samlSpIdpConnection,
-		boolean merge) throws SystemException {
+		com.liferay.saml.model.SamlSpIdpConnection samlSpIdpConnection)
+		throws SystemException {
 		samlSpIdpConnection = toUnwrappedModel(samlSpIdpConnection);
 
 		boolean isNew = samlSpIdpConnection.isNew();
@@ -331,9 +335,14 @@ public class SamlSpIdpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 		try {
 			session = openSession();
 
-			BatchSessionUtil.update(session, samlSpIdpConnection, merge);
+			if (samlSpIdpConnection.isNew()) {
+				session.save(samlSpIdpConnection);
 
-			samlSpIdpConnection.setNew(false);
+				samlSpIdpConnection.setNew(false);
+			}
+			else {
+				session.merge(samlSpIdpConnection);
+			}
 		}
 		catch (Exception e) {
 			throw processException(e);

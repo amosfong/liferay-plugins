@@ -38,7 +38,6 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
-import com.liferay.portal.service.persistence.BatchSessionUtil;
 import com.liferay.portal.service.persistence.UserPersistence;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException;
@@ -342,7 +341,12 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 		try {
 			session = openSession();
 
-			BatchSessionUtil.delete(session, kaleoDraftDefinition);
+			if (kaleoDraftDefinition.isCachedModel()) {
+				kaleoDraftDefinition = (KaleoDraftDefinition)session.get(KaleoDraftDefinitionImpl.class,
+						kaleoDraftDefinition.getPrimaryKeyObj());
+			}
+
+			session.delete(kaleoDraftDefinition);
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -358,8 +362,8 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 
 	@Override
 	public KaleoDraftDefinition updateImpl(
-		com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition kaleoDraftDefinition,
-		boolean merge) throws SystemException {
+		com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition kaleoDraftDefinition)
+		throws SystemException {
 		kaleoDraftDefinition = toUnwrappedModel(kaleoDraftDefinition);
 
 		boolean isNew = kaleoDraftDefinition.isNew();
@@ -371,9 +375,14 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 		try {
 			session = openSession();
 
-			BatchSessionUtil.update(session, kaleoDraftDefinition, merge);
+			if (kaleoDraftDefinition.isNew()) {
+				session.save(kaleoDraftDefinition);
 
-			kaleoDraftDefinition.setNew(false);
+				kaleoDraftDefinition.setNew(false);
+			}
+			else {
+				session.merge(kaleoDraftDefinition);
+			}
 		}
 		catch (Exception e) {
 			throw processException(e);

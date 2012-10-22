@@ -103,58 +103,52 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 				"com.liferay.reports.model.Definition"
 			};
 
-		_methodName16 = "updateDefinition";
+		_methodName16 = "getBeanIdentifier";
 
-		_methodParameterTypes16 = new String[] {
-				"com.liferay.reports.model.Definition", "boolean"
-			};
+		_methodParameterTypes16 = new String[] {  };
 
-		_methodName17 = "getBeanIdentifier";
+		_methodName17 = "setBeanIdentifier";
 
-		_methodParameterTypes17 = new String[] {  };
+		_methodParameterTypes17 = new String[] { "java.lang.String" };
 
-		_methodName18 = "setBeanIdentifier";
+		_methodName19 = "addDefinition";
 
-		_methodParameterTypes18 = new String[] { "java.lang.String" };
-
-		_methodName20 = "addDefinition";
-
-		_methodParameterTypes20 = new String[] {
+		_methodParameterTypes19 = new String[] {
 				"long", "java.util.Map", "java.util.Map", "long",
 				"java.lang.String", "java.lang.String", "java.io.InputStream",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName21 = "deleteDefinitionTemplates";
+		_methodName20 = "deleteDefinitionTemplates";
 
-		_methodParameterTypes21 = new String[] { "long", "java.lang.String" };
+		_methodParameterTypes20 = new String[] { "long", "java.lang.String" };
 
-		_methodName22 = "getDefinitions";
+		_methodName21 = "getDefinitions";
 
-		_methodParameterTypes22 = new String[] {
+		_methodParameterTypes21 = new String[] {
 				"long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "boolean", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName23 = "getDefinitionsCount";
+		_methodName22 = "getDefinitionsCount";
 
-		_methodParameterTypes23 = new String[] {
+		_methodParameterTypes22 = new String[] {
 				"long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "boolean"
 			};
 
-		_methodName24 = "updateDefinition";
+		_methodName23 = "updateDefinition";
 
-		_methodParameterTypes24 = new String[] {
+		_methodParameterTypes23 = new String[] {
 				"long", "java.util.Map", "java.util.Map", "long",
 				"java.lang.String", "java.lang.String", "java.io.InputStream",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName25 = "updateDefinitionResources";
+		_methodName24 = "updateDefinitionResources";
 
-		_methodParameterTypes25 = new String[] {
+		_methodParameterTypes24 = new String[] {
 				"com.liferay.reports.model.Definition", "java.lang.String[][]",
 				"java.lang.String[][]"
 			};
@@ -648,41 +642,12 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return (com.liferay.reports.model.Definition)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public com.liferay.reports.model.Definition updateDefinition(
-		com.liferay.reports.model.Definition definition, boolean merge)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName16,
-					_methodParameterTypes16,
-					new Object[] { ClpSerializer.translateInput(definition), merge });
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
-				throw (com.liferay.portal.kernel.exception.SystemException)t;
-			}
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (com.liferay.reports.model.Definition)ClpSerializer.translateOutput(returnObj);
-	}
-
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName17,
-					_methodParameterTypes17, new Object[] {  });
+			returnObj = _invokableLocalService.invokeMethod(_methodName16,
+					_methodParameterTypes16, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -701,8 +666,8 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
-			_invokableLocalService.invokeMethod(_methodName18,
-				_methodParameterTypes18,
+			_invokableLocalService.invokeMethod(_methodName17,
+				_methodParameterTypes17,
 				new Object[] { ClpSerializer.translateInput(beanIdentifier) });
 		}
 		catch (Throwable t) {
@@ -735,8 +700,8 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName20,
-					_methodParameterTypes20,
+			returnObj = _invokableLocalService.invokeMethod(_methodName19,
+					_methodParameterTypes19,
 					new Object[] {
 						userId,
 						
@@ -783,8 +748,8 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		try {
-			_invokableLocalService.invokeMethod(_methodName21,
-				_methodParameterTypes21,
+			_invokableLocalService.invokeMethod(_methodName20,
+				_methodParameterTypes20,
 				new Object[] {
 					companyId,
 					
@@ -821,8 +786,8 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName22,
-					_methodParameterTypes22,
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
 					new Object[] {
 						groupId,
 						
@@ -870,8 +835,8 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName23,
-					_methodParameterTypes23,
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22,
 					new Object[] {
 						groupId,
 						
@@ -917,8 +882,8 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName24,
-					_methodParameterTypes24,
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23,
 					new Object[] {
 						definitionId,
 						
@@ -967,8 +932,8 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		try {
-			_invokableLocalService.invokeMethod(_methodName25,
-				_methodParameterTypes25,
+			_invokableLocalService.invokeMethod(_methodName24,
+				_methodParameterTypes24,
 				new Object[] {
 					ClpSerializer.translateInput(definition),
 					
@@ -1035,8 +1000,8 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 	private String[] _methodParameterTypes16;
 	private String _methodName17;
 	private String[] _methodParameterTypes17;
-	private String _methodName18;
-	private String[] _methodParameterTypes18;
+	private String _methodName19;
+	private String[] _methodParameterTypes19;
 	private String _methodName20;
 	private String[] _methodParameterTypes20;
 	private String _methodName21;
@@ -1047,6 +1012,4 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 	private String[] _methodParameterTypes23;
 	private String _methodName24;
 	private String[] _methodParameterTypes24;
-	private String _methodName25;
-	private String[] _methodParameterTypes25;
 }

@@ -73,7 +73,7 @@ public interface SamlSpMessagePersistence extends BasePersistence<SamlSpMessage>
 			com.liferay.saml.NoSuchSpMessageException;
 
 	public com.liferay.saml.model.SamlSpMessage updateImpl(
-		com.liferay.saml.model.SamlSpMessage samlSpMessage, boolean merge)
+		com.liferay.saml.model.SamlSpMessage samlSpMessage)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

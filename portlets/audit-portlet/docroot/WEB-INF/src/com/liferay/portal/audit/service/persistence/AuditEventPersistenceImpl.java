@@ -41,7 +41,6 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
-import com.liferay.portal.service.persistence.BatchSessionUtil;
 import com.liferay.portal.service.persistence.UserPersistence;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 
@@ -261,7 +260,12 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 		try {
 			session = openSession();
 
-			BatchSessionUtil.delete(session, auditEvent);
+			if (auditEvent.isCachedModel()) {
+				auditEvent = (AuditEvent)session.get(AuditEventImpl.class,
+						auditEvent.getPrimaryKeyObj());
+			}
+
+			session.delete(auditEvent);
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -277,7 +281,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 
 	@Override
 	public AuditEvent updateImpl(
-		com.liferay.portal.audit.model.AuditEvent auditEvent, boolean merge)
+		com.liferay.portal.audit.model.AuditEvent auditEvent)
 		throws SystemException {
 		auditEvent = toUnwrappedModel(auditEvent);
 
@@ -290,9 +294,14 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 		try {
 			session = openSession();
 
-			BatchSessionUtil.update(session, auditEvent, merge);
+			if (auditEvent.isNew()) {
+				session.save(auditEvent);
 
-			auditEvent.setNew(false);
+				auditEvent.setNew(false);
+			}
+			else {
+				session.merge(auditEvent);
+			}
 		}
 		catch (Exception e) {
 			throw processException(e);

@@ -75,8 +75,7 @@ public interface KaleoProcessPersistence extends BasePersistence<KaleoProcess> {
 			com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException;
 
 	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess updateImpl(
-		com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess kaleoProcess,
-		boolean merge)
+		com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess kaleoProcess)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

@@ -94,22 +94,20 @@ public class KaleoDraftDefinitionUtil {
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, boolean)
+	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel)
 	 */
 	public static KaleoDraftDefinition update(
-		KaleoDraftDefinition kaleoDraftDefinition, boolean merge)
-		throws SystemException {
-		return getPersistence().update(kaleoDraftDefinition, merge);
+		KaleoDraftDefinition kaleoDraftDefinition) throws SystemException {
+		return getPersistence().update(kaleoDraftDefinition);
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, boolean, ServiceContext)
+	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, ServiceContext)
 	 */
 	public static KaleoDraftDefinition update(
-		KaleoDraftDefinition kaleoDraftDefinition, boolean merge,
-		ServiceContext serviceContext) throws SystemException {
-		return getPersistence()
-				   .update(kaleoDraftDefinition, merge, serviceContext);
+		KaleoDraftDefinition kaleoDraftDefinition, ServiceContext serviceContext)
+		throws SystemException {
+		return getPersistence().update(kaleoDraftDefinition, serviceContext);
 	}
 
 	/**
@@ -159,10 +157,9 @@ public class KaleoDraftDefinitionUtil {
 	}
 
 	public static com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition updateImpl(
-		com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition kaleoDraftDefinition,
-		boolean merge)
+		com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition kaleoDraftDefinition)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().updateImpl(kaleoDraftDefinition, merge);
+		return getPersistence().updateImpl(kaleoDraftDefinition);
 	}
 
 	/**

@@ -95,21 +95,20 @@ public class SamlSpAuthRequestUtil {
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, boolean)
+	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel)
 	 */
-	public static SamlSpAuthRequest update(
-		SamlSpAuthRequest samlSpAuthRequest, boolean merge)
+	public static SamlSpAuthRequest update(SamlSpAuthRequest samlSpAuthRequest)
 		throws SystemException {
-		return getPersistence().update(samlSpAuthRequest, merge);
+		return getPersistence().update(samlSpAuthRequest);
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, boolean, ServiceContext)
+	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, ServiceContext)
 	 */
 	public static SamlSpAuthRequest update(
-		SamlSpAuthRequest samlSpAuthRequest, boolean merge,
-		ServiceContext serviceContext) throws SystemException {
-		return getPersistence().update(samlSpAuthRequest, merge, serviceContext);
+		SamlSpAuthRequest samlSpAuthRequest, ServiceContext serviceContext)
+		throws SystemException {
+		return getPersistence().update(samlSpAuthRequest, serviceContext);
 	}
 
 	/**
@@ -159,10 +158,9 @@ public class SamlSpAuthRequestUtil {
 	}
 
 	public static com.liferay.saml.model.SamlSpAuthRequest updateImpl(
-		com.liferay.saml.model.SamlSpAuthRequest samlSpAuthRequest,
-		boolean merge)
+		com.liferay.saml.model.SamlSpAuthRequest samlSpAuthRequest)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().updateImpl(samlSpAuthRequest, merge);
+		return getPersistence().updateImpl(samlSpAuthRequest);
 	}
 
 	/**

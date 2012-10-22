@@ -95,22 +95,20 @@ public class SamlIdpSpConnectionUtil {
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, boolean)
+	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel)
 	 */
 	public static SamlIdpSpConnection update(
-		SamlIdpSpConnection samlIdpSpConnection, boolean merge)
-		throws SystemException {
-		return getPersistence().update(samlIdpSpConnection, merge);
+		SamlIdpSpConnection samlIdpSpConnection) throws SystemException {
+		return getPersistence().update(samlIdpSpConnection);
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, boolean, ServiceContext)
+	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, ServiceContext)
 	 */
 	public static SamlIdpSpConnection update(
-		SamlIdpSpConnection samlIdpSpConnection, boolean merge,
-		ServiceContext serviceContext) throws SystemException {
-		return getPersistence()
-				   .update(samlIdpSpConnection, merge, serviceContext);
+		SamlIdpSpConnection samlIdpSpConnection, ServiceContext serviceContext)
+		throws SystemException {
+		return getPersistence().update(samlIdpSpConnection, serviceContext);
 	}
 
 	/**
@@ -160,10 +158,9 @@ public class SamlIdpSpConnectionUtil {
 	}
 
 	public static com.liferay.saml.model.SamlIdpSpConnection updateImpl(
-		com.liferay.saml.model.SamlIdpSpConnection samlIdpSpConnection,
-		boolean merge)
+		com.liferay.saml.model.SamlIdpSpConnection samlIdpSpConnection)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().updateImpl(samlIdpSpConnection, merge);
+		return getPersistence().updateImpl(samlIdpSpConnection);
 	}
 
 	/**

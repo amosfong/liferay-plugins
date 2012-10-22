@@ -41,7 +41,6 @@ import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.security.permission.InlineSQLHelperUtil;
-import com.liferay.portal.service.persistence.BatchSessionUtil;
 import com.liferay.portal.service.persistence.UserPersistence;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 
@@ -353,7 +352,12 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 		try {
 			session = openSession();
 
-			BatchSessionUtil.delete(session, definition);
+			if (definition.isCachedModel()) {
+				definition = (Definition)session.get(DefinitionImpl.class,
+						definition.getPrimaryKeyObj());
+			}
+
+			session.delete(definition);
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -369,7 +373,7 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 
 	@Override
 	public Definition updateImpl(
-		com.liferay.reports.model.Definition definition, boolean merge)
+		com.liferay.reports.model.Definition definition)
 		throws SystemException {
 		definition = toUnwrappedModel(definition);
 
@@ -388,9 +392,14 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 		try {
 			session = openSession();
 
-			BatchSessionUtil.update(session, definition, merge);
+			if (definition.isNew()) {
+				session.save(definition);
 
-			definition.setNew(false);
+				definition.setNew(false);
+			}
+			else {
+				session.merge(definition);
+			}
 		}
 		catch (Exception e) {
 			throw processException(e);

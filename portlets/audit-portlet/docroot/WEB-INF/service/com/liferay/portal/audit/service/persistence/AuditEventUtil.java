@@ -94,19 +94,19 @@ public class AuditEventUtil {
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, boolean)
+	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel)
 	 */
-	public static AuditEvent update(AuditEvent auditEvent, boolean merge)
+	public static AuditEvent update(AuditEvent auditEvent)
 		throws SystemException {
-		return getPersistence().update(auditEvent, merge);
+		return getPersistence().update(auditEvent);
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, boolean, ServiceContext)
+	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, ServiceContext)
 	 */
-	public static AuditEvent update(AuditEvent auditEvent, boolean merge,
+	public static AuditEvent update(AuditEvent auditEvent,
 		ServiceContext serviceContext) throws SystemException {
-		return getPersistence().update(auditEvent, merge, serviceContext);
+		return getPersistence().update(auditEvent, serviceContext);
 	}
 
 	/**
@@ -156,9 +156,9 @@ public class AuditEventUtil {
 	}
 
 	public static com.liferay.portal.audit.model.AuditEvent updateImpl(
-		com.liferay.portal.audit.model.AuditEvent auditEvent, boolean merge)
+		com.liferay.portal.audit.model.AuditEvent auditEvent)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().updateImpl(auditEvent, merge);
+		return getPersistence().updateImpl(auditEvent);
 	}
 
 	/**

@@ -41,7 +41,6 @@ import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.security.permission.InlineSQLHelperUtil;
-import com.liferay.portal.service.persistence.BatchSessionUtil;
 import com.liferay.portal.service.persistence.UserPersistence;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 
@@ -348,7 +347,12 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		try {
 			session = openSession();
 
-			BatchSessionUtil.delete(session, source);
+			if (source.isCachedModel()) {
+				source = (Source)session.get(SourceImpl.class,
+						source.getPrimaryKeyObj());
+			}
+
+			session.delete(source);
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -363,8 +367,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	}
 
 	@Override
-	public Source updateImpl(com.liferay.reports.model.Source source,
-		boolean merge) throws SystemException {
+	public Source updateImpl(com.liferay.reports.model.Source source)
+		throws SystemException {
 		source = toUnwrappedModel(source);
 
 		boolean isNew = source.isNew();
@@ -382,9 +386,14 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		try {
 			session = openSession();
 
-			BatchSessionUtil.update(session, source, merge);
+			if (source.isNew()) {
+				session.save(source);
 
-			source.setNew(false);
+				source.setNew(false);
+			}
+			else {
+				session.merge(source);
+			}
 		}
 		catch (Exception e) {
 			throw processException(e);

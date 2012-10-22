@@ -94,19 +94,18 @@ public class SourceUtil {
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, boolean)
+	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel)
 	 */
-	public static Source update(Source source, boolean merge)
-		throws SystemException {
-		return getPersistence().update(source, merge);
+	public static Source update(Source source) throws SystemException {
+		return getPersistence().update(source);
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, boolean, ServiceContext)
+	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, ServiceContext)
 	 */
-	public static Source update(Source source, boolean merge,
-		ServiceContext serviceContext) throws SystemException {
-		return getPersistence().update(source, merge, serviceContext);
+	public static Source update(Source source, ServiceContext serviceContext)
+		throws SystemException {
+		return getPersistence().update(source, serviceContext);
 	}
 
 	/**
@@ -153,9 +152,9 @@ public class SourceUtil {
 	}
 
 	public static com.liferay.reports.model.Source updateImpl(
-		com.liferay.reports.model.Source source, boolean merge)
+		com.liferay.reports.model.Source source)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().updateImpl(source, merge);
+		return getPersistence().updateImpl(source);
 	}
 
 	/**

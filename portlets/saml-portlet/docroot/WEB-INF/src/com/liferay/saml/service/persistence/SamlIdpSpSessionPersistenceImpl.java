@@ -38,7 +38,6 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
-import com.liferay.portal.service.persistence.BatchSessionUtil;
 import com.liferay.portal.service.persistence.UserPersistence;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 
@@ -300,7 +299,12 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 		try {
 			session = openSession();
 
-			BatchSessionUtil.delete(session, samlIdpSpSession);
+			if (samlIdpSpSession.isCachedModel()) {
+				samlIdpSpSession = (SamlIdpSpSession)session.get(SamlIdpSpSessionImpl.class,
+						samlIdpSpSession.getPrimaryKeyObj());
+			}
+
+			session.delete(samlIdpSpSession);
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -316,7 +320,7 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 
 	@Override
 	public SamlIdpSpSession updateImpl(
-		com.liferay.saml.model.SamlIdpSpSession samlIdpSpSession, boolean merge)
+		com.liferay.saml.model.SamlIdpSpSession samlIdpSpSession)
 		throws SystemException {
 		samlIdpSpSession = toUnwrappedModel(samlIdpSpSession);
 
@@ -329,9 +333,14 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 		try {
 			session = openSession();
 
-			BatchSessionUtil.update(session, samlIdpSpSession, merge);
+			if (samlIdpSpSession.isNew()) {
+				session.save(samlIdpSpSession);
 
-			samlIdpSpSession.setNew(false);
+				samlIdpSpSession.setNew(false);
+			}
+			else {
+				session.merge(samlIdpSpSession);
+			}
 		}
 		catch (Exception e) {
 			throw processException(e);

@@ -38,7 +38,6 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
-import com.liferay.portal.service.persistence.BatchSessionUtil;
 import com.liferay.portal.service.persistence.UserPersistence;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 
@@ -278,7 +277,12 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 		try {
 			session = openSession();
 
-			BatchSessionUtil.delete(session, samlSpAuthRequest);
+			if (samlSpAuthRequest.isCachedModel()) {
+				samlSpAuthRequest = (SamlSpAuthRequest)session.get(SamlSpAuthRequestImpl.class,
+						samlSpAuthRequest.getPrimaryKeyObj());
+			}
+
+			session.delete(samlSpAuthRequest);
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -294,8 +298,8 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 
 	@Override
 	public SamlSpAuthRequest updateImpl(
-		com.liferay.saml.model.SamlSpAuthRequest samlSpAuthRequest,
-		boolean merge) throws SystemException {
+		com.liferay.saml.model.SamlSpAuthRequest samlSpAuthRequest)
+		throws SystemException {
 		samlSpAuthRequest = toUnwrappedModel(samlSpAuthRequest);
 
 		boolean isNew = samlSpAuthRequest.isNew();
@@ -307,9 +311,14 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 		try {
 			session = openSession();
 
-			BatchSessionUtil.update(session, samlSpAuthRequest, merge);
+			if (samlSpAuthRequest.isNew()) {
+				session.save(samlSpAuthRequest);
 
-			samlSpAuthRequest.setNew(false);
+				samlSpAuthRequest.setNew(false);
+			}
+			else {
+				session.merge(samlSpAuthRequest);
+			}
 		}
 		catch (Exception e) {
 			throw processException(e);

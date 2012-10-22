@@ -98,59 +98,53 @@ public class SamlIdpSpConnectionLocalServiceClpInvoker {
 				"com.liferay.saml.model.SamlIdpSpConnection"
 			};
 
-		_methodName15 = "updateSamlIdpSpConnection";
+		_methodName55 = "getBeanIdentifier";
 
-		_methodParameterTypes15 = new String[] {
-				"com.liferay.saml.model.SamlIdpSpConnection", "boolean"
-			};
+		_methodParameterTypes55 = new String[] {  };
 
-		_methodName56 = "getBeanIdentifier";
+		_methodName56 = "setBeanIdentifier";
 
-		_methodParameterTypes56 = new String[] {  };
+		_methodParameterTypes56 = new String[] { "java.lang.String" };
 
-		_methodName57 = "setBeanIdentifier";
+		_methodName61 = "addSamlIdpSpConnection";
 
-		_methodParameterTypes57 = new String[] { "java.lang.String" };
-
-		_methodName62 = "addSamlIdpSpConnection";
-
-		_methodParameterTypes62 = new String[] {
+		_methodParameterTypes61 = new String[] {
 				"java.lang.String", "int", "java.lang.String", "boolean",
 				"boolean", "boolean", "java.lang.String", "java.io.InputStream",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName63 = "getSamlIdpSpConnection";
+		_methodName62 = "getSamlIdpSpConnection";
 
-		_methodParameterTypes63 = new String[] { "long", "java.lang.String" };
+		_methodParameterTypes62 = new String[] { "long", "java.lang.String" };
+
+		_methodName63 = "getSamlIdpSpConnections";
+
+		_methodParameterTypes63 = new String[] { "long" };
 
 		_methodName64 = "getSamlIdpSpConnections";
 
-		_methodParameterTypes64 = new String[] { "long" };
+		_methodParameterTypes64 = new String[] { "long", "int", "int" };
 
 		_methodName65 = "getSamlIdpSpConnections";
 
-		_methodParameterTypes65 = new String[] { "long", "int", "int" };
-
-		_methodName66 = "getSamlIdpSpConnections";
-
-		_methodParameterTypes66 = new String[] {
+		_methodParameterTypes65 = new String[] {
 				"long", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName67 = "getSamlIdpSpConnectionsCount";
+		_methodName66 = "getSamlIdpSpConnectionsCount";
+
+		_methodParameterTypes66 = new String[] { "long" };
+
+		_methodName67 = "updateMetadata";
 
 		_methodParameterTypes67 = new String[] { "long" };
 
-		_methodName68 = "updateMetadata";
+		_methodName68 = "updateSamlIdpSpConnection";
 
-		_methodParameterTypes68 = new String[] { "long" };
-
-		_methodName69 = "updateSamlIdpSpConnection";
-
-		_methodParameterTypes69 = new String[] {
+		_methodParameterTypes68 = new String[] {
 				"long", "java.lang.String", "int", "java.lang.String", "boolean",
 				"boolean", "boolean", "java.lang.String", "java.io.InputStream",
 				"java.lang.String", "java.lang.String", "java.lang.String",
@@ -241,26 +235,20 @@ public class SamlIdpSpConnectionLocalServiceClpInvoker {
 			return SamlIdpSpConnectionLocalServiceUtil.updateSamlIdpSpConnection((com.liferay.saml.model.SamlIdpSpConnection)arguments[0]);
 		}
 
-		if (_methodName15.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes15, parameterTypes)) {
-			return SamlIdpSpConnectionLocalServiceUtil.updateSamlIdpSpConnection((com.liferay.saml.model.SamlIdpSpConnection)arguments[0],
-				((Boolean)arguments[1]).booleanValue());
+		if (_methodName55.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+			return SamlIdpSpConnectionLocalServiceUtil.getBeanIdentifier();
 		}
 
 		if (_methodName56.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
-			return SamlIdpSpConnectionLocalServiceUtil.getBeanIdentifier();
-		}
-
-		if (_methodName57.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
 			SamlIdpSpConnectionLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName62.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
+		if (_methodName61.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
 			return SamlIdpSpConnectionLocalServiceUtil.addSamlIdpSpConnection((java.lang.String)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				(java.lang.String)arguments[2],
@@ -274,46 +262,46 @@ public class SamlIdpSpConnectionLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[11]);
 		}
 
-		if (_methodName63.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
+		if (_methodName62.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
 			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnection(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1]);
 		}
 
+		if (_methodName63.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
+			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnections(((Long)arguments[0]).longValue());
+		}
+
 		if (_methodName64.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
-			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnections(((Long)arguments[0]).longValue());
+			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnections(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue());
 		}
 
 		if (_methodName65.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
 			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnections(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
-				((Integer)arguments[2]).intValue());
-		}
-
-		if (_methodName66.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
-			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnections(((Long)arguments[0]).longValue(),
-				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
 		}
 
-		if (_methodName67.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
+		if (_methodName66.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
 			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnectionsCount(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName68.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
+		if (_methodName67.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
 			SamlIdpSpConnectionLocalServiceUtil.updateMetadata(((Long)arguments[0]).longValue());
 
 			return null;
 		}
 
-		if (_methodName69.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
+		if (_methodName68.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
 			return SamlIdpSpConnectionLocalServiceUtil.updateSamlIdpSpConnection(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1],
 				((Integer)arguments[2]).intValue(),
@@ -362,12 +350,12 @@ public class SamlIdpSpConnectionLocalServiceClpInvoker {
 	private String[] _methodParameterTypes13;
 	private String _methodName14;
 	private String[] _methodParameterTypes14;
-	private String _methodName15;
-	private String[] _methodParameterTypes15;
+	private String _methodName55;
+	private String[] _methodParameterTypes55;
 	private String _methodName56;
 	private String[] _methodParameterTypes56;
-	private String _methodName57;
-	private String[] _methodParameterTypes57;
+	private String _methodName61;
+	private String[] _methodParameterTypes61;
 	private String _methodName62;
 	private String[] _methodParameterTypes62;
 	private String _methodName63;
@@ -382,6 +370,4 @@ public class SamlIdpSpConnectionLocalServiceClpInvoker {
 	private String[] _methodParameterTypes67;
 	private String _methodName68;
 	private String[] _methodParameterTypes68;
-	private String _methodName69;
-	private String[] _methodParameterTypes69;
 }

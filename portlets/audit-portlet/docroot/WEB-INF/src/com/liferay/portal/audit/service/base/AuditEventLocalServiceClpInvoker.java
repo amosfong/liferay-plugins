@@ -98,36 +98,30 @@ public class AuditEventLocalServiceClpInvoker {
 				"com.liferay.portal.audit.model.AuditEvent"
 			};
 
-		_methodName15 = "updateAuditEvent";
+		_methodName31 = "getBeanIdentifier";
 
-		_methodParameterTypes15 = new String[] {
-				"com.liferay.portal.audit.model.AuditEvent", "boolean"
+		_methodParameterTypes31 = new String[] {  };
+
+		_methodName32 = "setBeanIdentifier";
+
+		_methodParameterTypes32 = new String[] { "java.lang.String" };
+
+		_methodName37 = "addAuditEvent";
+
+		_methodParameterTypes37 = new String[] {
+				"com.liferay.portal.kernel.audit.AuditMessage"
 			};
 
-		_methodName32 = "getBeanIdentifier";
-
-		_methodParameterTypes32 = new String[] {  };
-
-		_methodName33 = "setBeanIdentifier";
-
-		_methodParameterTypes33 = new String[] { "java.lang.String" };
-
-		_methodName38 = "addAuditEvent";
+		_methodName38 = "getAuditEvents";
 
 		_methodParameterTypes38 = new String[] {
-				"com.liferay.portal.kernel.audit.AuditMessage"
+				"long", "int", "int",
+				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
 		_methodName39 = "getAuditEvents";
 
 		_methodParameterTypes39 = new String[] {
-				"long", "int", "int",
-				"com.liferay.portal.kernel.util.OrderByComparator"
-			};
-
-		_methodName40 = "getAuditEvents";
-
-		_methodParameterTypes40 = new String[] {
 				"long", "long", "java.lang.String", "java.util.Date",
 				"java.util.Date", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String",
@@ -135,13 +129,13 @@ public class AuditEventLocalServiceClpInvoker {
 				"int", "com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
+		_methodName40 = "getAuditEventsCount";
+
+		_methodParameterTypes40 = new String[] { "long" };
+
 		_methodName41 = "getAuditEventsCount";
 
-		_methodParameterTypes41 = new String[] { "long" };
-
-		_methodName42 = "getAuditEventsCount";
-
-		_methodParameterTypes42 = new String[] {
+		_methodParameterTypes41 = new String[] {
 				"long", "long", "java.lang.String", "java.util.Date",
 				"java.util.Date", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String",
@@ -232,39 +226,33 @@ public class AuditEventLocalServiceClpInvoker {
 			return AuditEventLocalServiceUtil.updateAuditEvent((com.liferay.portal.audit.model.AuditEvent)arguments[0]);
 		}
 
-		if (_methodName15.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes15, parameterTypes)) {
-			return AuditEventLocalServiceUtil.updateAuditEvent((com.liferay.portal.audit.model.AuditEvent)arguments[0],
-				((Boolean)arguments[1]).booleanValue());
+		if (_methodName31.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes31, parameterTypes)) {
+			return AuditEventLocalServiceUtil.getBeanIdentifier();
 		}
 
 		if (_methodName32.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes32, parameterTypes)) {
-			return AuditEventLocalServiceUtil.getBeanIdentifier();
-		}
-
-		if (_methodName33.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes33, parameterTypes)) {
 			AuditEventLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName38.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes38, parameterTypes)) {
+		if (_methodName37.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes37, parameterTypes)) {
 			return AuditEventLocalServiceUtil.addAuditEvent((com.liferay.portal.kernel.audit.AuditMessage)arguments[0]);
 		}
 
-		if (_methodName39.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes39, parameterTypes)) {
+		if (_methodName38.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes38, parameterTypes)) {
 			return AuditEventLocalServiceUtil.getAuditEvents(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
 		}
 
-		if (_methodName40.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes40, parameterTypes)) {
+		if (_methodName39.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes39, parameterTypes)) {
 			return AuditEventLocalServiceUtil.getAuditEvents(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], (java.util.Date)arguments[3],
@@ -280,13 +268,13 @@ public class AuditEventLocalServiceClpInvoker {
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[16]);
 		}
 
-		if (_methodName41.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
+		if (_methodName40.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes40, parameterTypes)) {
 			return AuditEventLocalServiceUtil.getAuditEventsCount(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName42.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
+		if (_methodName41.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
 			return AuditEventLocalServiceUtil.getAuditEventsCount(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], (java.util.Date)arguments[3],
@@ -332,12 +320,12 @@ public class AuditEventLocalServiceClpInvoker {
 	private String[] _methodParameterTypes13;
 	private String _methodName14;
 	private String[] _methodParameterTypes14;
-	private String _methodName15;
-	private String[] _methodParameterTypes15;
+	private String _methodName31;
+	private String[] _methodParameterTypes31;
 	private String _methodName32;
 	private String[] _methodParameterTypes32;
-	private String _methodName33;
-	private String[] _methodParameterTypes33;
+	private String _methodName37;
+	private String[] _methodParameterTypes37;
 	private String _methodName38;
 	private String[] _methodParameterTypes38;
 	private String _methodName39;
@@ -346,6 +334,4 @@ public class AuditEventLocalServiceClpInvoker {
 	private String[] _methodParameterTypes40;
 	private String _methodName41;
 	private String[] _methodParameterTypes41;
-	private String _methodName42;
-	private String[] _methodParameterTypes42;
 }

@@ -231,21 +231,6 @@ public class SamlSpSessionLocalServiceWrapper
 	}
 
 	/**
-	* Updates the saml sp session in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param samlSpSession the saml sp session
-	* @param merge whether to merge the saml sp session with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
-	* @return the saml sp session that was updated
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.saml.model.SamlSpSession updateSamlSpSession(
-		com.liferay.saml.model.SamlSpSession samlSpSession, boolean merge)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _samlSpSessionLocalService.updateSamlSpSession(samlSpSession,
-			merge);
-	}
-
-	/**
 	* Returns the Spring bean ID for this bean.
 	*
 	* @return the Spring bean ID for this bean

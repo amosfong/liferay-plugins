@@ -90,7 +90,7 @@ public abstract class SamlIdpSsoSessionLocalServiceBaseImpl
 		SamlIdpSsoSession samlIdpSsoSession) throws SystemException {
 		samlIdpSsoSession.setNew(true);
 
-		return samlIdpSsoSessionPersistence.update(samlIdpSsoSession, false);
+		return samlIdpSsoSessionPersistence.update(samlIdpSsoSession);
 	}
 
 	/**
@@ -263,24 +263,7 @@ public abstract class SamlIdpSsoSessionLocalServiceBaseImpl
 	@Indexable(type = IndexableType.REINDEX)
 	public SamlIdpSsoSession updateSamlIdpSsoSession(
 		SamlIdpSsoSession samlIdpSsoSession) throws SystemException {
-		return updateSamlIdpSsoSession(samlIdpSsoSession, true);
-	}
-
-	/**
-	 * Updates the saml idp sso session in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * @param samlIdpSsoSession the saml idp sso session
-	 * @param merge whether to merge the saml idp sso session with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
-	 * @return the saml idp sso session that was updated
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Indexable(type = IndexableType.REINDEX)
-	public SamlIdpSsoSession updateSamlIdpSsoSession(
-		SamlIdpSsoSession samlIdpSsoSession, boolean merge)
-		throws SystemException {
-		samlIdpSsoSession.setNew(false);
-
-		return samlIdpSsoSessionPersistence.update(samlIdpSsoSession, merge);
+		return samlIdpSsoSessionPersistence.update(samlIdpSsoSession);
 	}
 
 	/**

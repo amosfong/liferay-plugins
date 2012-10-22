@@ -94,19 +94,19 @@ public class KaleoProcessLinkUtil {
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, boolean)
+	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel)
 	 */
-	public static KaleoProcessLink update(KaleoProcessLink kaleoProcessLink,
-		boolean merge) throws SystemException {
-		return getPersistence().update(kaleoProcessLink, merge);
+	public static KaleoProcessLink update(KaleoProcessLink kaleoProcessLink)
+		throws SystemException {
+		return getPersistence().update(kaleoProcessLink);
 	}
 
 	/**
-	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, boolean, ServiceContext)
+	 * @see com.liferay.portal.service.persistence.BasePersistence#update(com.liferay.portal.model.BaseModel, ServiceContext)
 	 */
 	public static KaleoProcessLink update(KaleoProcessLink kaleoProcessLink,
-		boolean merge, ServiceContext serviceContext) throws SystemException {
-		return getPersistence().update(kaleoProcessLink, merge, serviceContext);
+		ServiceContext serviceContext) throws SystemException {
+		return getPersistence().update(kaleoProcessLink, serviceContext);
 	}
 
 	/**
@@ -156,10 +156,9 @@ public class KaleoProcessLinkUtil {
 	}
 
 	public static com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink updateImpl(
-		com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink kaleoProcessLink,
-		boolean merge)
+		com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink kaleoProcessLink)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().updateImpl(kaleoProcessLink, merge);
+		return getPersistence().updateImpl(kaleoProcessLink);
 	}
 
 	/**

@@ -75,8 +75,7 @@ public interface KaleoDraftDefinitionPersistence extends BasePersistence<KaleoDr
 			com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException;
 
 	public com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition updateImpl(
-		com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition kaleoDraftDefinition,
-		boolean merge)
+		com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition kaleoDraftDefinition)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

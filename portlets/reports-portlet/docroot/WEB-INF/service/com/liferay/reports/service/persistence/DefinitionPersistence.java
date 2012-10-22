@@ -73,7 +73,7 @@ public interface DefinitionPersistence extends BasePersistence<Definition> {
 			com.liferay.reports.NoSuchDefinitionException;
 
 	public com.liferay.reports.model.Definition updateImpl(
-		com.liferay.reports.model.Definition definition, boolean merge)
+		com.liferay.reports.model.Definition definition)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

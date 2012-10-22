@@ -90,7 +90,7 @@ public abstract class SamlSpIdpConnectionLocalServiceBaseImpl
 		SamlSpIdpConnection samlSpIdpConnection) throws SystemException {
 		samlSpIdpConnection.setNew(true);
 
-		return samlSpIdpConnectionPersistence.update(samlSpIdpConnection, false);
+		return samlSpIdpConnectionPersistence.update(samlSpIdpConnection);
 	}
 
 	/**
@@ -264,24 +264,7 @@ public abstract class SamlSpIdpConnectionLocalServiceBaseImpl
 	@Indexable(type = IndexableType.REINDEX)
 	public SamlSpIdpConnection updateSamlSpIdpConnection(
 		SamlSpIdpConnection samlSpIdpConnection) throws SystemException {
-		return updateSamlSpIdpConnection(samlSpIdpConnection, true);
-	}
-
-	/**
-	 * Updates the saml sp idp connection in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * @param samlSpIdpConnection the saml sp idp connection
-	 * @param merge whether to merge the saml sp idp connection with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
-	 * @return the saml sp idp connection that was updated
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Indexable(type = IndexableType.REINDEX)
-	public SamlSpIdpConnection updateSamlSpIdpConnection(
-		SamlSpIdpConnection samlSpIdpConnection, boolean merge)
-		throws SystemException {
-		samlSpIdpConnection.setNew(false);
-
-		return samlSpIdpConnectionPersistence.update(samlSpIdpConnection, merge);
+		return samlSpIdpConnectionPersistence.update(samlSpIdpConnection);
 	}
 
 	/**

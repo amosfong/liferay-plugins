@@ -73,7 +73,7 @@ public interface EntryPersistence extends BasePersistence<Entry> {
 			com.liferay.reports.NoSuchEntryException;
 
 	public com.liferay.reports.model.Entry updateImpl(
-		com.liferay.reports.model.Entry entry, boolean merge)
+		com.liferay.reports.model.Entry entry)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

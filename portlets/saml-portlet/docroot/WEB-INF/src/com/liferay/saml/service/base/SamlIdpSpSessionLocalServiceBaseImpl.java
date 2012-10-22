@@ -90,7 +90,7 @@ public abstract class SamlIdpSpSessionLocalServiceBaseImpl
 		SamlIdpSpSession samlIdpSpSession) throws SystemException {
 		samlIdpSpSession.setNew(true);
 
-		return samlIdpSpSessionPersistence.update(samlIdpSpSession, false);
+		return samlIdpSpSessionPersistence.update(samlIdpSpSession);
 	}
 
 	/**
@@ -263,24 +263,7 @@ public abstract class SamlIdpSpSessionLocalServiceBaseImpl
 	@Indexable(type = IndexableType.REINDEX)
 	public SamlIdpSpSession updateSamlIdpSpSession(
 		SamlIdpSpSession samlIdpSpSession) throws SystemException {
-		return updateSamlIdpSpSession(samlIdpSpSession, true);
-	}
-
-	/**
-	 * Updates the saml idp sp session in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * @param samlIdpSpSession the saml idp sp session
-	 * @param merge whether to merge the saml idp sp session with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
-	 * @return the saml idp sp session that was updated
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Indexable(type = IndexableType.REINDEX)
-	public SamlIdpSpSession updateSamlIdpSpSession(
-		SamlIdpSpSession samlIdpSpSession, boolean merge)
-		throws SystemException {
-		samlIdpSpSession.setNew(false);
-
-		return samlIdpSpSessionPersistence.update(samlIdpSpSession, merge);
+		return samlIdpSpSessionPersistence.update(samlIdpSpSession);
 	}
 
 	/**

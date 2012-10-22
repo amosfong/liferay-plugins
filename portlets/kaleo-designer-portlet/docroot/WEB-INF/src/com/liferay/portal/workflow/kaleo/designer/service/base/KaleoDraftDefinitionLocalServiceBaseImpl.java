@@ -78,8 +78,7 @@ public abstract class KaleoDraftDefinitionLocalServiceBaseImpl
 		KaleoDraftDefinition kaleoDraftDefinition) throws SystemException {
 		kaleoDraftDefinition.setNew(true);
 
-		return kaleoDraftDefinitionPersistence.update(kaleoDraftDefinition,
-			false);
+		return kaleoDraftDefinitionPersistence.update(kaleoDraftDefinition);
 	}
 
 	/**
@@ -253,25 +252,7 @@ public abstract class KaleoDraftDefinitionLocalServiceBaseImpl
 	@Indexable(type = IndexableType.REINDEX)
 	public KaleoDraftDefinition updateKaleoDraftDefinition(
 		KaleoDraftDefinition kaleoDraftDefinition) throws SystemException {
-		return updateKaleoDraftDefinition(kaleoDraftDefinition, true);
-	}
-
-	/**
-	 * Updates the kaleo draft definition in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * @param kaleoDraftDefinition the kaleo draft definition
-	 * @param merge whether to merge the kaleo draft definition with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
-	 * @return the kaleo draft definition that was updated
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Indexable(type = IndexableType.REINDEX)
-	public KaleoDraftDefinition updateKaleoDraftDefinition(
-		KaleoDraftDefinition kaleoDraftDefinition, boolean merge)
-		throws SystemException {
-		kaleoDraftDefinition.setNew(false);
-
-		return kaleoDraftDefinitionPersistence.update(kaleoDraftDefinition,
-			merge);
+		return kaleoDraftDefinitionPersistence.update(kaleoDraftDefinition);
 	}
 
 	/**

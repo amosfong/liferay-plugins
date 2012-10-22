@@ -77,7 +77,7 @@ public abstract class AuditEventLocalServiceBaseImpl
 		throws SystemException {
 		auditEvent.setNew(true);
 
-		return auditEventPersistence.update(auditEvent, false);
+		return auditEventPersistence.update(auditEvent);
 	}
 
 	/**
@@ -250,23 +250,7 @@ public abstract class AuditEventLocalServiceBaseImpl
 	@Indexable(type = IndexableType.REINDEX)
 	public AuditEvent updateAuditEvent(AuditEvent auditEvent)
 		throws SystemException {
-		return updateAuditEvent(auditEvent, true);
-	}
-
-	/**
-	 * Updates the audit event in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * @param auditEvent the audit event
-	 * @param merge whether to merge the audit event with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
-	 * @return the audit event that was updated
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Indexable(type = IndexableType.REINDEX)
-	public AuditEvent updateAuditEvent(AuditEvent auditEvent, boolean merge)
-		throws SystemException {
-		auditEvent.setNew(false);
-
-		return auditEventPersistence.update(auditEvent, merge);
+		return auditEventPersistence.update(auditEvent);
 	}
 
 	/**

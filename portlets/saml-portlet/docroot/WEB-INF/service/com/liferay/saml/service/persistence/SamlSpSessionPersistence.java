@@ -73,7 +73,7 @@ public interface SamlSpSessionPersistence extends BasePersistence<SamlSpSession>
 			com.liferay.saml.NoSuchSpSessionException;
 
 	public com.liferay.saml.model.SamlSpSession updateImpl(
-		com.liferay.saml.model.SamlSpSession samlSpSession, boolean merge)
+		com.liferay.saml.model.SamlSpSession samlSpSession)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

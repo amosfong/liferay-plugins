@@ -218,18 +218,6 @@ public interface SamlIdpSpSessionLocalService extends BaseLocalService,
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Updates the saml idp sp session in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param samlIdpSpSession the saml idp sp session
-	* @param merge whether to merge the saml idp sp session with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
-	* @return the saml idp sp session that was updated
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.saml.model.SamlIdpSpSession updateSamlIdpSpSession(
-		com.liferay.saml.model.SamlIdpSpSession samlIdpSpSession, boolean merge)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
 	* Returns the Spring bean ID for this bean.
 	*
 	* @return the Spring bean ID for this bean

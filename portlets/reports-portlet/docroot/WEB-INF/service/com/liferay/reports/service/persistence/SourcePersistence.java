@@ -73,7 +73,7 @@ public interface SourcePersistence extends BasePersistence<Source> {
 			com.liferay.reports.NoSuchSourceException;
 
 	public com.liferay.reports.model.Source updateImpl(
-		com.liferay.reports.model.Source source, boolean merge)
+		com.liferay.reports.model.Source source)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

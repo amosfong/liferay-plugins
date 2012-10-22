@@ -81,7 +81,7 @@ public abstract class KaleoProcessLinkLocalServiceBaseImpl
 		KaleoProcessLink kaleoProcessLink) throws SystemException {
 		kaleoProcessLink.setNew(true);
 
-		return kaleoProcessLinkPersistence.update(kaleoProcessLink, false);
+		return kaleoProcessLinkPersistence.update(kaleoProcessLink);
 	}
 
 	/**
@@ -254,24 +254,7 @@ public abstract class KaleoProcessLinkLocalServiceBaseImpl
 	@Indexable(type = IndexableType.REINDEX)
 	public KaleoProcessLink updateKaleoProcessLink(
 		KaleoProcessLink kaleoProcessLink) throws SystemException {
-		return updateKaleoProcessLink(kaleoProcessLink, true);
-	}
-
-	/**
-	 * Updates the kaleo process link in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * @param kaleoProcessLink the kaleo process link
-	 * @param merge whether to merge the kaleo process link with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
-	 * @return the kaleo process link that was updated
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Indexable(type = IndexableType.REINDEX)
-	public KaleoProcessLink updateKaleoProcessLink(
-		KaleoProcessLink kaleoProcessLink, boolean merge)
-		throws SystemException {
-		kaleoProcessLink.setNew(false);
-
-		return kaleoProcessLinkPersistence.update(kaleoProcessLink, merge);
+		return kaleoProcessLinkPersistence.update(kaleoProcessLink);
 	}
 
 	/**

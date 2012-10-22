@@ -90,7 +90,7 @@ public abstract class SamlSpAuthRequestLocalServiceBaseImpl
 		SamlSpAuthRequest samlSpAuthRequest) throws SystemException {
 		samlSpAuthRequest.setNew(true);
 
-		return samlSpAuthRequestPersistence.update(samlSpAuthRequest, false);
+		return samlSpAuthRequestPersistence.update(samlSpAuthRequest);
 	}
 
 	/**
@@ -263,24 +263,7 @@ public abstract class SamlSpAuthRequestLocalServiceBaseImpl
 	@Indexable(type = IndexableType.REINDEX)
 	public SamlSpAuthRequest updateSamlSpAuthRequest(
 		SamlSpAuthRequest samlSpAuthRequest) throws SystemException {
-		return updateSamlSpAuthRequest(samlSpAuthRequest, true);
-	}
-
-	/**
-	 * Updates the saml sp auth request in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	 *
-	 * @param samlSpAuthRequest the saml sp auth request
-	 * @param merge whether to merge the saml sp auth request with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
-	 * @return the saml sp auth request that was updated
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Indexable(type = IndexableType.REINDEX)
-	public SamlSpAuthRequest updateSamlSpAuthRequest(
-		SamlSpAuthRequest samlSpAuthRequest, boolean merge)
-		throws SystemException {
-		samlSpAuthRequest.setNew(false);
-
-		return samlSpAuthRequestPersistence.update(samlSpAuthRequest, merge);
+		return samlSpAuthRequestPersistence.update(samlSpAuthRequest);
 	}
 
 	/**

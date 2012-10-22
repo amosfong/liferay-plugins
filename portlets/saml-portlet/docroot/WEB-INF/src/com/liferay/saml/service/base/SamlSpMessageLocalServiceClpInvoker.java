@@ -98,36 +98,30 @@ public class SamlSpMessageLocalServiceClpInvoker {
 				"com.liferay.saml.model.SamlSpMessage"
 			};
 
-		_methodName15 = "updateSamlSpMessage";
+		_methodName55 = "getBeanIdentifier";
 
-		_methodParameterTypes15 = new String[] {
-				"com.liferay.saml.model.SamlSpMessage", "boolean"
-			};
+		_methodParameterTypes55 = new String[] {  };
 
-		_methodName56 = "getBeanIdentifier";
+		_methodName56 = "setBeanIdentifier";
 
-		_methodParameterTypes56 = new String[] {  };
+		_methodParameterTypes56 = new String[] { "java.lang.String" };
 
-		_methodName57 = "setBeanIdentifier";
+		_methodName61 = "addSamlSpMessage";
 
-		_methodParameterTypes57 = new String[] { "java.lang.String" };
-
-		_methodName62 = "addSamlSpMessage";
-
-		_methodParameterTypes62 = new String[] {
+		_methodParameterTypes61 = new String[] {
 				"java.lang.String", "java.lang.String", "java.util.Date",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName63 = "fetchSamlSpMessage";
+		_methodName62 = "fetchSamlSpMessage";
 
-		_methodParameterTypes63 = new String[] {
+		_methodParameterTypes62 = new String[] {
 				"java.lang.String", "java.lang.String"
 			};
 
-		_methodName64 = "getSamlSpMessage";
+		_methodName63 = "getSamlSpMessage";
 
-		_methodParameterTypes64 = new String[] {
+		_methodParameterTypes63 = new String[] {
 				"java.lang.String", "java.lang.String"
 			};
 	}
@@ -215,39 +209,33 @@ public class SamlSpMessageLocalServiceClpInvoker {
 			return SamlSpMessageLocalServiceUtil.updateSamlSpMessage((com.liferay.saml.model.SamlSpMessage)arguments[0]);
 		}
 
-		if (_methodName15.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes15, parameterTypes)) {
-			return SamlSpMessageLocalServiceUtil.updateSamlSpMessage((com.liferay.saml.model.SamlSpMessage)arguments[0],
-				((Boolean)arguments[1]).booleanValue());
+		if (_methodName55.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+			return SamlSpMessageLocalServiceUtil.getBeanIdentifier();
 		}
 
 		if (_methodName56.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
-			return SamlSpMessageLocalServiceUtil.getBeanIdentifier();
-		}
-
-		if (_methodName57.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
 			SamlSpMessageLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName62.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
+		if (_methodName61.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
 			return SamlSpMessageLocalServiceUtil.addSamlSpMessage((java.lang.String)arguments[0],
 				(java.lang.String)arguments[1], (java.util.Date)arguments[2],
 				(com.liferay.portal.service.ServiceContext)arguments[3]);
 		}
 
-		if (_methodName63.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
+		if (_methodName62.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
 			return SamlSpMessageLocalServiceUtil.fetchSamlSpMessage((java.lang.String)arguments[0],
 				(java.lang.String)arguments[1]);
 		}
 
-		if (_methodName64.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+		if (_methodName63.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
 			return SamlSpMessageLocalServiceUtil.getSamlSpMessage((java.lang.String)arguments[0],
 				(java.lang.String)arguments[1]);
 		}
@@ -285,16 +273,14 @@ public class SamlSpMessageLocalServiceClpInvoker {
 	private String[] _methodParameterTypes13;
 	private String _methodName14;
 	private String[] _methodParameterTypes14;
-	private String _methodName15;
-	private String[] _methodParameterTypes15;
+	private String _methodName55;
+	private String[] _methodParameterTypes55;
 	private String _methodName56;
 	private String[] _methodParameterTypes56;
-	private String _methodName57;
-	private String[] _methodParameterTypes57;
+	private String _methodName61;
+	private String[] _methodParameterTypes61;
 	private String _methodName62;
 	private String[] _methodParameterTypes62;
 	private String _methodName63;
 	private String[] _methodParameterTypes63;
-	private String _methodName64;
-	private String[] _methodParameterTypes64;
 }
