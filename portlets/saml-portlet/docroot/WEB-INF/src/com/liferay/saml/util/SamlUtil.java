@@ -167,14 +167,14 @@ public class SamlUtil {
 	}
 
 	public static boolean isEnabled() {
-		return GetterUtil.getBoolean(
-			PropsUtil.get(PortletPropsKeys.SAML_ENABLED));
+		return PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SAML_ENABLED);
 	}
 
 	public static boolean isRoleIdp() {
-		String samlRole = PropsUtil.get(PortletPropsKeys.SAML_ROLE);
+		String samlRole = PortletPrefsPropsUtil.getString(
+			PortletPropsKeys.SAML_ROLE);
 
-		if (samlRole.equals("idp")) {
+		if (Validator.isNotNull(samlRole) && samlRole.equals("idp")) {
 			return true;
 		}
 
@@ -182,9 +182,10 @@ public class SamlUtil {
 	}
 
 	public static boolean isRoleSp() {
-		String samlRole = PropsUtil.get(PortletPropsKeys.SAML_ROLE);
+		String samlRole = PortletPrefsPropsUtil.getString(
+			PortletPropsKeys.SAML_ROLE);
 
-		if (samlRole.equals("sp")) {
+		if (Validator.isNotNull(samlRole) && samlRole.equals("sp")) {
 			return true;
 		}
 
