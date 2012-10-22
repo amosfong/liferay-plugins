@@ -120,7 +120,7 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 		entry.setPageURL(pageURL + "&entryId=" + entryId);
 		entry.setStatus(ReportStatus.PENDING.getValue());
 
-		entryPersistence.update(entry, false);
+		entryPersistence.update(entry);
 
 		// Resources
 
@@ -342,7 +342,7 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 		entry.setScheduleRequest(false);
 		entry.setRepeating(false);
 
-		entryPersistence.update(entry, false);
+		entryPersistence.update(entry);
 
 		SchedulerEngineHelperUtil.unschedule(
 			entry.getJobName(), entry.getSchedulerRequestName(),
@@ -395,7 +395,7 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 
 		entry.setStatus(ReportStatus.COMPLETE.getValue());
 
-		entryPersistence.update(entry, false);
+		entryPersistence.update(entry);
 	}
 
 	public void updateEntryStatus(
@@ -403,9 +403,11 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 		throws PortalException, SystemException {
 
 		Entry entry = entryLocalService.getEntry(entryId);
+
 		entry.setStatus(status.getValue());
 		entry.setErrorMessage(errorMessage);
-		entryPersistence.update(entry, false);
+
+		entryPersistence.update(entry);
 	}
 
 	protected DynamicQuery buildDynamicQuery(

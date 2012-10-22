@@ -98,7 +98,7 @@ public class SamlSpIdpConnectionLocalServiceImpl
 		samlSpIdpConnection.setSignAuthnRequest(signAuthnRequest);
 		samlSpIdpConnection.setUserAttributeMappings(userAttributeMappings);
 
-		samlSpIdpConnectionPersistence.update(samlSpIdpConnection, false);
+		samlSpIdpConnectionPersistence.update(samlSpIdpConnection);
 
 		return samlSpIdpConnection;
 	}
@@ -179,7 +179,7 @@ public class SamlSpIdpConnectionLocalServiceImpl
 			samlSpIdpConnection.setMetadataUpdatedDate(new Date());
 			samlSpIdpConnection.setMetadataXml(metadataXml);
 
-			samlSpIdpConnectionPersistence.update(samlSpIdpConnection, false);
+			samlSpIdpConnectionPersistence.update(samlSpIdpConnection);
 		}
 	}
 
@@ -248,7 +248,7 @@ public class SamlSpIdpConnectionLocalServiceImpl
 		samlSpIdpConnection.setSignAuthnRequest(signAuthnRequest);
 		samlSpIdpConnection.setUserAttributeMappings(userAttributeMappings);
 
-		samlSpIdpConnectionPersistence.update(samlSpIdpConnection, false);
+		samlSpIdpConnectionPersistence.update(samlSpIdpConnection);
 
 		return samlSpIdpConnection;
 	}

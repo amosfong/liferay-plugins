@@ -64,7 +64,7 @@ public class SamlIdpSpSessionLocalServiceImpl
 		samlIdpSpSession.setNameIdFormat(nameIdFormat);
 		samlIdpSpSession.setNameIdValue(nameIdValue);
 
-		samlIdpSpSessionPersistence.update(samlIdpSpSession, false);
+		samlIdpSpSessionPersistence.update(samlIdpSpSession);
 
 		return samlIdpSpSession;
 	}
@@ -94,7 +94,7 @@ public class SamlIdpSpSessionLocalServiceImpl
 
 		samlIdpSpSession.setModifiedDate(new Date());
 
-		samlIdpSpSessionPersistence.update(samlIdpSpSession, false);
+		samlIdpSpSessionPersistence.update(samlIdpSpSession);
 
 		return samlIdpSpSession;
 	}

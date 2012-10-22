@@ -59,7 +59,7 @@ public class KaleoProcessLocalServiceImpl
 		kaleoProcess.setDDLRecordSetId(ddlRecordSetId);
 		kaleoProcess.setDDMTemplateId(ddmTemplateId);
 
-		kaleoProcessPersistence.update(kaleoProcess, false);
+		kaleoProcessPersistence.update(kaleoProcess);
 
 		// Resources
 
@@ -174,7 +174,7 @@ public class KaleoProcessLocalServiceImpl
 		kaleoProcess.setModifiedDate(serviceContext.getModifiedDate(null));
 		kaleoProcess.setDDMTemplateId(ddmTemplateId);
 
-		kaleoProcessPersistence.update(kaleoProcess, false);
+		kaleoProcessPersistence.update(kaleoProcess);
 
 		// Kaleo process links
 

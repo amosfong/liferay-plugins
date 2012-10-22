@@ -54,7 +54,7 @@ public class SamlSpSessionLocalServiceImpl
 		samlSpSession.setNameIdValue(nameIdValue);
 		samlSpSession.setTerminated(false);
 
-		samlSpSessionPersistence.update(samlSpSession, false);
+		samlSpSessionPersistence.update(samlSpSession);
 
 		return samlSpSession;
 	}

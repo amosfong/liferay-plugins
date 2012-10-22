@@ -79,7 +79,7 @@ public class KaleoDraftDefinitionLocalServiceImpl
 		kaleoDraftDefinition.setVersion(version);
 		kaleoDraftDefinition.setDraftVersion(draftVersion);
 
-		kaleoDraftDefinitionPersistence.update(kaleoDraftDefinition, false);
+		kaleoDraftDefinitionPersistence.update(kaleoDraftDefinition);
 
 		return kaleoDraftDefinition;
 	}
@@ -237,7 +237,7 @@ public class KaleoDraftDefinitionLocalServiceImpl
 		kaleoDraftDefinition.setTitleMap(titleMap);
 		kaleoDraftDefinition.setContent(content);
 
-		kaleoDraftDefinitionPersistence.update(kaleoDraftDefinition, false);
+		kaleoDraftDefinitionPersistence.update(kaleoDraftDefinition);
 
 		return kaleoDraftDefinition;
 	}

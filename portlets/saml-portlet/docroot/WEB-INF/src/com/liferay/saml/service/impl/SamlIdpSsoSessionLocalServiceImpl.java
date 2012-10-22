@@ -58,7 +58,7 @@ public class SamlIdpSsoSessionLocalServiceImpl
 		samlIdpSsoSession.setModifiedDate(now);
 		samlIdpSsoSession.setSamlIdpSsoSessionKey(samlIdpSsoSessionKey);
 
-		samlIdpSsoSessionPersistence.update(samlIdpSsoSession, false);
+		samlIdpSsoSessionPersistence.update(samlIdpSsoSession);
 
 		return samlIdpSsoSession;
 	}
@@ -86,7 +86,7 @@ public class SamlIdpSsoSessionLocalServiceImpl
 
 		samlIdpSsoSession.setModifiedDate(new Date());
 
-		samlIdpSsoSessionPersistence.update(samlIdpSsoSession, false);
+		samlIdpSsoSessionPersistence.update(samlIdpSsoSession);
 
 		return samlIdpSsoSession;
 	}

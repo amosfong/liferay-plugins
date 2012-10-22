@@ -98,7 +98,7 @@ public class SamlIdpSpConnectionLocalServiceImpl
 		samlIdpSpConnection.setNameIdAttribute(nameIdAttribute);
 		samlIdpSpConnection.setNameIdFormat(nameIdFormat);
 
-		samlIdpSpConnectionPersistence.update(samlIdpSpConnection, false);
+		samlIdpSpConnectionPersistence.update(samlIdpSpConnection);
 
 		return samlIdpSpConnection;
 	}
@@ -179,7 +179,7 @@ public class SamlIdpSpConnectionLocalServiceImpl
 			samlIdpSpConnection.setMetadataUpdatedDate(new Date());
 			samlIdpSpConnection.setMetadataXml(metadataXml);
 
-			samlIdpSpConnectionPersistence.update(samlIdpSpConnection, false);
+			samlIdpSpConnectionPersistence.update(samlIdpSpConnection);
 		}
 	}
 
@@ -244,7 +244,7 @@ public class SamlIdpSpConnectionLocalServiceImpl
 		samlIdpSpConnection.setNameIdAttribute(nameIdAttribute);
 		samlIdpSpConnection.setNameIdFormat(nameIdFormat);
 
-		samlIdpSpConnectionPersistence.update(samlIdpSpConnection, false);
+		samlIdpSpConnectionPersistence.update(samlIdpSpConnection);
 
 		return samlIdpSpConnection;
 	}
