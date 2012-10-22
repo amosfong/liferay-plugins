@@ -3,20 +3,20 @@
 <portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0">
 	<portlet>
 		<portlet-name>1</portlet-name>
-		<display-name>SAML Display</display-name>
+		<display-name>SAML Keepalive</display-name>
 		<portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
 		<init-param>
 			<name>view-template</name>
-			<value>/display/view.jsp</value>
+			<value>/keepalive/view.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
 			<mime-type>text/html</mime-type>
 		</supports>
 		<portlet-info>
-			<title>SAML Display</title>
-			<short-title>SAML Display</short-title>
-			<keywords>SAML Display</keywords>
+			<title>SAML Keepalive</title>
+			<short-title>SAML Keepalive</short-title>
+			<keywords>SAML Keepalive</keywords>
 		</portlet-info>
 	</portlet>
 	<portlet>
