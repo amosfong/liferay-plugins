@@ -171,7 +171,7 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 
 							<liferay-ui:icon
 								image="../document_library/msoffice"
-								message="open-in-ms-office"
+								message="edit-document-online"
 								onClick="<%= taglibOnClick %>"
 								url="javascript:;"
 							/>
@@ -181,40 +181,30 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 					}
 					%>
 
-					<portlet:renderURL var="editURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
+					<portlet:renderURL var="editURL">
 						<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
 						<portlet:param name="redirect" value="<%= currentURL %>" />
 						<portlet:param name="backURL" value="<%= currentURL %>" />
 						<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
 					</portlet:renderURL>
 
-					<%
-					String taglibOnClickEdit = liferayPortletResponse.getNamespace() + "openDialog('" + editURL.toString() + "', '" + UnicodeLanguageUtil.get(pageContext, "edit") +"');";
-					%>
-
 					<liferay-ui:icon
 						image="edit"
-						onClick="<%= taglibOnClickEdit %>"
-						url="javascript:;"
+						url="editURL"
 					/>
 				</c:if>
 
 				<c:if test="<%= showActions && DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.UPDATE) %>">
-					<portlet:renderURL var="moveURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
+					<portlet:renderURL var="moveURL">
 						<portlet:param name="struts_action" value="/document_library/move_file_entry" />
 						<portlet:param name="redirect" value="<%= viewFolderURL.toString() %>" />
 						<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
 					</portlet:renderURL>
 
-					<%
-					String taglibOnClickMove = liferayPortletResponse.getNamespace() + "openDialog('" + moveURL.toString() + "', '" + UnicodeLanguageUtil.get(pageContext, "move") +"');";
-					%>
-
 					<liferay-ui:icon
 						image="submit"
 						message="move"
-						onClick="<%= taglibOnClickMove %>"
-						url="javascript:;"
+						url="<%= moveURL %>"
 					/>
 				</c:if>
 
@@ -230,7 +220,7 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 							</c:when>
 							<c:otherwise>
 								<c:if test="<%= fileEntry.hasLock() || (permissionChecker.isGroupAdmin(fileEntry.getRepositoryId()) && fileEntry.isCheckedOut()) %>">
-									<portlet:renderURL var="checkInURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
+									<portlet:renderURL var="checkInURL">
 										<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
 										<portlet:param name="redirect" value="<%= currentURL %>" />
 										<portlet:param name="backURL" value="<%= currentURL %>" />
@@ -238,15 +228,10 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 										<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
 									</portlet:renderURL>
 
-									<%
-									String taglibOnClickCheckin = liferayPortletResponse.getNamespace() + "openDialog('" + checkInURL.toString() + "', '" + UnicodeLanguageUtil.get(pageContext, "move") +"');";
-									%>
-
 									<liferay-ui:icon
 										image="unlock"
 										message="checkin"
-										onClick="<%= taglibOnClickCheckin %>"
-										url="javascript:;"
+										url="<%= checkInURL %>"
 									/>
 
 									<portlet:actionURL var="cancelCheckOutURL">
@@ -273,11 +258,16 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 						modelResourceDescription="<%= HtmlUtil.unescape(fileEntry.getTitle()) %>"
 						resourcePrimKey="<%= String.valueOf(fileEntry.getFileEntryId()) %>"
 						var="permissionsURL"
+						windowState="<%= LiferayWindowState.POP_UP.toString() %>"
 					/>
+
+					<%
+					String taglibURLPermissions = "javascript:Liferay.Util.openWindow({dialog: {align: {node: null, points: ['tc', 'tc']}, constrain2view: true, modal: true, resizable: false, width: 960}, id: '" + renderResponse.getNamespace() + "permissions', title: '" + LanguageUtil.get(pageContext, "permissions") + "', uri:'" + HtmlUtil.escapeURL(permissionsURL.toString()) + "'});";
+					%>
 
 					<liferay-ui:icon
 						image="permissions"
-						url="<%= permissionsURL %>"
+						url="<%= taglibURLPermissions %>"
 					/>
 				</c:if>
 
@@ -323,20 +313,15 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 				</c:if>
 
 				<c:if test="<%= showActions && DLFileShortcutPermission.contains(permissionChecker, fileShortcut, ActionKeys.UPDATE) %>">
-					<portlet:renderURL var="editShortcutURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
+					<portlet:renderURL var="editShortcutURL">
 						<portlet:param name="struts_action" value="/document_library/edit_file_shortcut" />
 						<portlet:param name="redirect" value="<%= currentURL %>" />
 						<portlet:param name="fileShortcutId" value="<%= String.valueOf(fileShortcut.getFileShortcutId()) %>" />
 					</portlet:renderURL>
 
-					<%
-					String taglibOnClickEdit = liferayPortletResponse.getNamespace() + "openDialog('" + editShortcutURL.toString() + "', '" + UnicodeLanguageUtil.get(pageContext, "permissions") +"');";
-					%>
-
 					<liferay-ui:icon
 						image="edit"
-						onClick="<%= taglibOnClickEdit %>"
-						url="javascript:;"
+						url="<%= editShortcutURL %>"
 					/>
 				</c:if>
 
@@ -346,11 +331,16 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 						modelResourceDescription="<%= fileEntry.getTitle() %>"
 						resourcePrimKey="<%= String.valueOf(fileShortcut.getFileShortcutId()) %>"
 						var="shortcutPermissionsURL"
+						windowState="<%= LiferayWindowState.POP_UP.toString() %>"
 					/>
+
+					<%
+					String taglibURLshortcutPermissions = "javascript:Liferay.Util.openWindow({dialog: {align: {node: null, points: ['tc', 'tc']}, constrain2view: true, modal: true, resizable: false, width: 960}, id: '" + renderResponse.getNamespace() + "permissions', title: '" + LanguageUtil.get(pageContext, "permissions") + "', uri:'" + HtmlUtil.escapeURL(shortcutPermissionsURL.toString()) + "'});";
+					%>
 
 					<liferay-ui:icon
 						image="permissions"
-						url="<%= shortcutPermissionsURL %>"
+						url="<%= taglibURLshortcutPermissions %>"
 					/>
 				</c:if>
 

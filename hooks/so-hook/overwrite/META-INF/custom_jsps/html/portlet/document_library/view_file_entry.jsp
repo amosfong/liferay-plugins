@@ -965,7 +965,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 				</portlet:renderURL>
 
 				handler: function(event) {
-					<portlet:namespace />openDialog('<%= editURL %>', '<liferay-ui:message key="edit" />');
+					location.href = '<%= editURL %>';
 				},
 				icon: 'edit',
 				label: '<%= UnicodeLanguageUtil.get(pageContext, "edit") %>'
@@ -1060,7 +1060,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 					</portlet:renderURL>
 
 					handler: function(event) {
-						<portlet:namespace />openDialog('<%= checkinURL %>', '<liferay-ui:message key="checkin" />');
+						location.href = '<%= checkinURL %>';
 					},
 					icon: 'unlock',
 					label: '<%= UnicodeLanguageUtil.get(pageContext, "checkin") %>'
@@ -1087,8 +1087,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 				</portlet:renderURL>
 
 				handler: function(event) {
-					<portlet:namespace />openDialog('<%= moveURL %>', '<liferay-ui:message key="move" />');
-				},
+					location.href = '<%= moveURL %>';
 				icon: 'move',
 				label: '<%= UnicodeLanguageUtil.get(pageContext, "move") %>'
 			}
@@ -1103,10 +1102,27 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 					modelResourceDescription="<%= fileEntry.getTitle() %>"
 					resourcePrimKey="<%= String.valueOf(fileEntry.getFileEntryId()) %>"
 					var="permissionsURL"
+					windowState="<%= LiferayWindowState.POP_UP.toString() %>"
 				/>
 
 				handler: function(event) {
-					location.href = '<%= permissionsURL.toString() %>';
+					Liferay.Util.openWindow(
+						{
+							dialog: {
+								align: {
+									node: null,
+									points: ['tc', 'tc']
+								},
+								constrain2view: true,
+								modal: true,
+								resizable: false,
+								width: 960
+							},
+							id: '<portlet:namespace />permissions',
+							title: '<%= UnicodeLanguageUtil.get(pageContext, "permissions") %>',
+							uri:'<%= permissionsURL.toString() %>'
+						}
+					);
 				},
 				icon: 'permissions',
 				label: '<%= UnicodeLanguageUtil.get(pageContext, "permissions") %>'
@@ -1153,29 +1169,6 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 			<portlet:namespace />updateRowsChecked(event.currentTarget);
 		}
 	);
-
-	var <portlet:namespace />openDialog = function(uri, title) {
-		var dialog = new A.Dialog(
-			{
-				align: {
-					node: null,
-					points: ['tc', 'tc']
-				},
-				constrain2view: true,
-				cssClass: 'editting-dialog',
-				destroyOnClose: true,
-				modal: true,
-				resizable: false,
-				title: title,
-				width: 650
-			}
-		).plug(
-			A.Plugin.IO,
-			{
-				uri: uri
-			}
-		).render();
-	};
 </aui:script>
 
 <%
