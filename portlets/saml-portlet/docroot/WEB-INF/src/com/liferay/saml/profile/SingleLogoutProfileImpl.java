@@ -628,8 +628,7 @@ public class SingleLogoutProfileImpl
 		for (SamlSpSession samlSpSession : samlSpSessions) {
 			samlSpSession.setTerminated(true);
 
-			SamlSpSessionLocalServiceUtil.updateSamlSpSession(
-				samlSpSession, false);
+			SamlSpSessionLocalServiceUtil.updateSamlSpSession(samlSpSession);
 
 			statusCodeURI = StatusCode.SUCCESS_URI;
 		}

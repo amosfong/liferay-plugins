@@ -2370,7 +2370,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 				repositoryEntry.setRepositoryId(getRepositoryId());
 				repositoryEntry.setMappedId(idfFolderId.getId());
 
-				RepositoryEntryUtil.update(repositoryEntry, false);
+				RepositoryEntryUtil.update(repositoryEntry);
 			}
 
 			return idfFolderId;
@@ -2422,7 +2422,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		if (!mappedId.equals(repositoryEntry.getMappedId())) {
 			repositoryEntry.setMappedId(mappedId);
 
-			RepositoryEntryUtil.update(repositoryEntry, false);
+			RepositoryEntryUtil.update(repositoryEntry);
 		}
 	}
 
