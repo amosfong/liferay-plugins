@@ -69,6 +69,8 @@ AUI.add(
 		var SELECTOR_PREFIX_CELLEDITOR_VIEW_TYPE = STR_DOT + CSS_CELLEDITOR_VIEW_TYPE + STR_DASH;
 
 		var cdata = function(value) {
+			value = value.replace(/<!\[CDATA\[|\]\]>/gi, '');
+
 			return STR_CDATA_OPEN + value + STR_CDATA_CLOSE;
 		};
 
