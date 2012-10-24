@@ -36,7 +36,7 @@ boolean enabled = ParamUtil.getBoolean(request, "enabled");
 String metadataUrl = ParamUtil.getString(request, "metadataUrl");
 String name = ParamUtil.getString(request, "name");
 String nameIdAttribute = ParamUtil.getString(request, "nameIdAttribute", PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_ATTRIBUTE));
-String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_FORMAT));
+String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_FORMAT, StringPool.BLANK));
 %>
 
 <liferay-ui:header
@@ -45,19 +45,20 @@ String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsP
 />
 
 <portlet:actionURL name="updateServiceProviderConnection" var="updateServiceProviderConnectionURL">
-	<portlet:param name="mvcPath" value="/admin/edit_sp_connection.jsp" />
+	<portlet:param name="mvcPath" value="/admin/edit_service_provider_connection.jsp" />
 </portlet:actionURL>
 
 <aui:form action="<%= updateServiceProviderConnectionURL %>" enctype="multipart/form-data">
+	<aui:model-context bean="<%= samlIdpSpConnection %>" model="<%= SamlIdpSpConnection.class %>" />
+
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 	<aui:input name="samlIdpSpConnectionId" type="hidden" />
 
 	<liferay-ui:error exception="<%= DuplicateSamlIdpSpConnectionSamlSpEntityIdException.class %>" message="please-enter-a-unique-service-provider-entity-id" />
 	<liferay-ui:error exception="<%= SamlIdpSpConnectionMetadataUrlException.class %>" message="please-enter-a-valid-metadata-endpoint-url" />
 	<liferay-ui:error exception="<%= SamlIdpSpConnectionMetadataXmlException.class %>" message="please-enter-a-valid-metadata-xml" />
+	<liferay-ui:error exception="<%= SamlIdpSpConnectionNameException.class %>" message="please-enter-a-valid-name" />
 	<liferay-ui:error exception="<%= SamlSpIdpConnectionSamlIdpEntityIdException.class %>" message="please-enter-a-valid-service-provider-entity-id" />
-
-	<aui:model-context bean="<%= samlIdpSpConnection %>" model="<%= SamlIdpSpConnection.class %>" />
 
 	<aui:fieldset label="general">
 		<aui:input name="name" value="<%= name %>" />
@@ -66,7 +67,7 @@ String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsP
 
 		<aui:input name="enabled" value="<%= enabled %>" />
 
-		<aui:input name="assertionLifetime" value="<%= assertionLifetime %>" />
+		<aui:input name="assertionLifetime" value="<%= String.valueOf(assertionLifetime) %>" />
 	</aui:fieldset>
 
 	<aui:fieldset label="metadata">
@@ -84,14 +85,14 @@ String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsP
 	<aui:fieldset label="name-identifier">
 		<aui:select label="name-identifier-format" name="nameIdFormat">
 			<aui:option label="email-address" selected="<%= nameIdFormat.equals(NameIDType.EMAIL) %>" value="<%= NameIDType.EMAIL %>" />
-			<aui:option label="unspecified" selected="<%= nameIdFormat.equals(NameIDType.UNSPECIFIED) %>" value="<%= NameIDType.UNSPECIFIED %>" />
+			<aui:option label="encrypted" selected="<%= nameIdFormat.equals(NameIDType.ENCRYPTED) %>" value="<%= NameIDType.ENCRYPTED %>" />
 			<aui:option label="entity" selected="<%= nameIdFormat.equals(NameIDType.ENTITY) %>" value="<%= NameIDType.ENTITY %>" />
+			<aui:option label="kerberos" selected="<%= nameIdFormat.equals(NameIDType.KERBEROS) %>" value="<%= NameIDType.KERBEROS %>" />
 			<aui:option label="persistent" selected="<%= nameIdFormat.equals(NameIDType.PERSISTENT) %>" value="<%= NameIDType.PERSISTENT %>" />
 			<aui:option label="trancient" selected="<%= nameIdFormat.equals(NameIDType.TRANSIENT) %>" value="<%= NameIDType.TRANSIENT %>" />
-			<aui:option label="x509-subject-name" selected="<%= nameIdFormat.equals(NameIDType.X509_SUBJECT) %>" value="<%= NameIDType.X509_SUBJECT %>" />
+			<aui:option label="unspecified" selected="<%= nameIdFormat.equals(NameIDType.UNSPECIFIED) %>" value="<%= NameIDType.UNSPECIFIED %>" />
 			<aui:option label="windows-domain-qualified-name" selected="<%= nameIdFormat.equals(NameIDType.WIN_DOMAIN_QUALIFIED) %>" value="<%= NameIDType.WIN_DOMAIN_QUALIFIED %>" />
-			<aui:option label="kerberos" selected="<%= nameIdFormat.equals(NameIDType.KERBEROS) %>" value="<%= NameIDType.KERBEROS %>" />
-			<aui:option label="encrypted" selected="<%= nameIdFormat.equals(NameIDType.ENCRYPTED) %>" value="<%= NameIDType.ENCRYPTED %>" />
+			<aui:option label="x509-subject-name" selected="<%= nameIdFormat.equals(NameIDType.X509_SUBJECT) %>" value="<%= NameIDType.X509_SUBJECT %>" />
 		</aui:select>
 
 		<aui:input label="name-identifier-attribute" name="nameIdAttribute" value="<%= nameIdAttribute %>" />

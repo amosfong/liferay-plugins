@@ -125,6 +125,7 @@ if (x509Credential != null) {
 
 	<aui:form action="<%= updateCertificateURL %>">
 		<div class="<%= ((x509Certificate == null) && Validator.isNotNull(MetadataManagerUtil.getLocalEntityId())) ? "" : "aui-helper-hidden" %>" id="<portlet:namespace />certificateForm">
+			<liferay-ui:error exception="<%= CertificateKeyPasswordException.class %>" message="please-enter-a-valid-key-password" />
 			<liferay-ui:error exception="<%= InvalidParameterException.class %>" message="please-enter-a-valid-key-length-and-algorithm" />
 
 			<aui:input label="common-name" name="certificateCommonName" required="true" value="<%= certificateCommonName %>" />
@@ -139,7 +140,7 @@ if (x509Credential != null) {
 
 			<aui:input label="country" name="certificateCountry" required="true" value="<%= certificateCountry %>" />
 
-			<aui:input label="validity" name="certificateValidityDays" required="true" value="<%= certificateValidityDays %>" />
+			<aui:input label="validity-days" name="certificateValidityDays" required="true" value="<%= certificateValidityDays %>" />
 
 			<aui:select label="key-algorithm" name="certificateKeyAlgorithm" required="true">
 				<aui:option label="rsa" selected='<%= certificateKeyAlgorithm.equals("RSA") %>' value="RSA" />

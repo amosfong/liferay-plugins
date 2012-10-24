@@ -24,7 +24,7 @@ SamlIdpSpConnection samlIdpSpConnection = (SamlIdpSpConnection)row.getObject();
 
 <liferay-ui:icon-menu>
 	<portlet:renderURL var="editURL">
-		<portlet:param name="mvcPath" value="/admin/edit_sp_connection.jsp" />
+		<portlet:param name="mvcPath" value="/admin/edit_service_provider_connection.jsp" />
 		<portlet:param name="redirect" value="<%= currentURL %>" />
 		<portlet:param name="samlIdpSpConnectionId" value="<%= String.valueOf(samlIdpSpConnection.getSamlIdpSpConnectionId()) %>" />
 	</portlet:renderURL>

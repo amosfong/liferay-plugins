@@ -21,8 +21,8 @@ int assertionLifetime = PortletPrefsPropsUtil.getInteger(PortletPropsKeys.SAML_I
 String attributeNames = PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTE_NAMES);
 boolean attributesEnabled = PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_ENABLED);
 boolean attributesNamespaceEnabled = PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_NAMESPACE_ENABLED);
-String nameIdentifierFormat = PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_FORMAT);
-String nameIdentifierAttribute = PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_ATTRIBUTE);
+String nameIdFormat = PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_FORMAT, StringPool.BLANK);
+String nameIdAttribute = PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_ATTRIBUTE);
 %>
 
 <portlet:actionURL name="updateIdentityProvider" var="updateIdentityProviderURL">
@@ -49,18 +49,18 @@ String nameIdentifierAttribute = PortletPrefsPropsUtil.getString(PortletPropsKey
 
 		<aui:fieldset label="name-identifier">
 			<aui:select label="name-identifier-format" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_FORMAT + "--" %>'>
-				<aui:option label="email-address" selected="<%= nameIdentifierFormat.equals(NameIDType.EMAIL) %>" value="<%= NameIDType.EMAIL %>" />
-				<aui:option label="unspecified" selected="<%= nameIdentifierFormat.equals(NameIDType.UNSPECIFIED) %>" value="<%= NameIDType.UNSPECIFIED %>" />
-				<aui:option label="entity" selected="<%= nameIdentifierFormat.equals(NameIDType.ENTITY) %>" value="<%= NameIDType.ENTITY %>" />
-				<aui:option label="persistent" selected="<%= nameIdentifierFormat.equals(NameIDType.PERSISTENT) %>" value="<%= NameIDType.PERSISTENT %>" />
-				<aui:option label="trancient" selected="<%= nameIdentifierFormat.equals(NameIDType.TRANSIENT) %>" value="<%= NameIDType.TRANSIENT %>" />
-				<aui:option label="x509-subject-name" selected="<%= nameIdentifierFormat.equals(NameIDType.X509_SUBJECT) %>" value="<%= NameIDType.X509_SUBJECT %>" />
-				<aui:option label="windows-domain-qualified-name" selected="<%= nameIdentifierFormat.equals(NameIDType.WIN_DOMAIN_QUALIFIED) %>" value="<%= NameIDType.WIN_DOMAIN_QUALIFIED %>" />
-				<aui:option label="kerberos" selected="<%= nameIdentifierFormat.equals(NameIDType.KERBEROS) %>" value="<%= NameIDType.KERBEROS %>" />
-				<aui:option label="encrypted" selected="<%= nameIdentifierFormat.equals(NameIDType.ENCRYPTED) %>" value="<%= NameIDType.ENCRYPTED %>" />
+				<aui:option label="email-address" selected="<%= nameIdFormat.equals(NameIDType.EMAIL) %>" value="<%= NameIDType.EMAIL %>" />
+				<aui:option label="encrypted" selected="<%= nameIdFormat.equals(NameIDType.ENCRYPTED) %>" value="<%= NameIDType.ENCRYPTED %>" />
+				<aui:option label="entity" selected="<%= nameIdFormat.equals(NameIDType.ENTITY) %>" value="<%= NameIDType.ENTITY %>" />
+				<aui:option label="kerberos" selected="<%= nameIdFormat.equals(NameIDType.KERBEROS) %>" value="<%= NameIDType.KERBEROS %>" />
+				<aui:option label="persistent" selected="<%= nameIdFormat.equals(NameIDType.PERSISTENT) %>" value="<%= NameIDType.PERSISTENT %>" />
+				<aui:option label="trancient" selected="<%= nameIdFormat.equals(NameIDType.TRANSIENT) %>" value="<%= NameIDType.TRANSIENT %>" />
+				<aui:option label="unspecified" selected="<%= nameIdFormat.equals(NameIDType.UNSPECIFIED) %>" value="<%= NameIDType.UNSPECIFIED %>" />
+				<aui:option label="windows-domain-qualified-name" selected="<%= nameIdFormat.equals(NameIDType.WIN_DOMAIN_QUALIFIED) %>" value="<%= NameIDType.WIN_DOMAIN_QUALIFIED %>" />
+				<aui:option label="x509-subject-name" selected="<%= nameIdFormat.equals(NameIDType.X509_SUBJECT) %>" value="<%= NameIDType.X509_SUBJECT %>" />
 			</aui:select>
 
-			<aui:input label="name-identifier-attribute" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_ATTRIBUTE + "--" %>' value="<%= nameIdentifierAttribute %>" />
+			<aui:input label="name-identifier-attribute" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_ATTRIBUTE + "--" %>' value="<%= nameIdAttribute %>" />
 		</aui:fieldset>
 
 		<aui:fieldset label="attributes">

@@ -212,15 +212,18 @@
 		</finder>
 	</entity>
 	<exceptions>
+		<exception>CertificateKeyPassword</exception>
 		<exception>DuplicateSamlIdpSpConnectionSamlSpEntityId</exception>
 		<exception>DuplicateSamlIdpSpSession</exception>
 		<exception>DuplicateSamlIdpSsoSession</exception>
 		<exception>DuplicateSamlSpIdpConnectionSamlIdpEntityId</exception>
 		<exception>SamlIdpSpConnectionMetadataUrl</exception>
 		<exception>SamlIdpSpConnectionMetadataXml</exception>
+		<exception>SamlIdpSpConnectionName</exception>
 		<exception>SamlIdpSpConnectionSamlSpEntityId</exception>
 		<exception>SamlSpIdpConnectionMetadataUrl</exception>
 		<exception>SamlSpIdpConnectionMetadataXml</exception>
+		<exception>SamlSpIdpConnectionName</exception>
 		<exception>SamlSpIdpConnectionSamlIdpEntityId</exception>
 	</exceptions>
 </service-builder>

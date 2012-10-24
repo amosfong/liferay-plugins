@@ -25,6 +25,7 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.saml.DuplicateSamlIdpSpConnectionSamlSpEntityIdException;
 import com.liferay.saml.SamlIdpSpConnectionMetadataUrlException;
 import com.liferay.saml.SamlIdpSpConnectionMetadataXmlException;
+import com.liferay.saml.SamlIdpSpConnectionNameException;
 import com.liferay.saml.SamlIdpSpConnectionSamlSpEntityIdException;
 import com.liferay.saml.model.SamlIdpSpConnection;
 import com.liferay.saml.service.base.SamlIdpSpConnectionLocalServiceBaseImpl;
@@ -54,6 +55,10 @@ public class SamlIdpSpConnectionLocalServiceImpl
 
 		if (Validator.isNull(samlSpEntityId)) {
 			throw new SamlIdpSpConnectionSamlSpEntityIdException();
+		}
+
+		if (Validator.isNull(name)) {
+			throw new SamlIdpSpConnectionNameException();
 		}
 
 		if (samlIdpSpConnectionPersistence.fetchByC_SSEI(

@@ -355,6 +355,10 @@ public class ClpSerializer {
 			return new SystemException();
 		}
 
+		if (className.equals("com.liferay.saml.CertificateKeyPasswordException")) {
+			return new com.liferay.saml.CertificateKeyPasswordException();
+		}
+
 		if (className.equals(
 					"com.liferay.saml.DuplicateSamlIdpSpConnectionSamlSpEntityIdException")) {
 			return new com.liferay.saml.DuplicateSamlIdpSpConnectionSamlSpEntityIdException();
@@ -386,6 +390,11 @@ public class ClpSerializer {
 		}
 
 		if (className.equals(
+					"com.liferay.saml.SamlIdpSpConnectionNameException")) {
+			return new com.liferay.saml.SamlIdpSpConnectionNameException();
+		}
+
+		if (className.equals(
 					"com.liferay.saml.SamlIdpSpConnectionSamlSpEntityIdException")) {
 			return new com.liferay.saml.SamlIdpSpConnectionSamlSpEntityIdException();
 		}
@@ -398,6 +407,11 @@ public class ClpSerializer {
 		if (className.equals(
 					"com.liferay.saml.SamlSpIdpConnectionMetadataXmlException")) {
 			return new com.liferay.saml.SamlSpIdpConnectionMetadataXmlException();
+		}
+
+		if (className.equals(
+					"com.liferay.saml.SamlSpIdpConnectionNameException")) {
+			return new com.liferay.saml.SamlSpIdpConnectionNameException();
 		}
 
 		if (className.equals(

@@ -35,6 +35,7 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
+import com.liferay.saml.CertificateKeyPasswordException;
 import com.liferay.saml.credential.KeyStoreManagerUtil;
 import com.liferay.saml.metadata.MetadataManagerUtil;
 import com.liferay.saml.model.SamlIdpSpConnection;
@@ -132,11 +133,7 @@ public class AdminPortlet extends MVCPortlet {
 				"]");
 
 		if (Validator.isNull(certificateKeyPassword)) {
-			throw new RuntimeException("TODO");
-
-			/*SessionErrors.add(actionRequest, "certificatePasswordInvalid");
-
-			return;*/
+			throw new CertificateKeyPasswordException();
 		}
 
 		String commonName = ParamUtil.getString(
@@ -254,29 +251,32 @@ public class AdminPortlet extends MVCPortlet {
 			PortalUtil.getUploadPortletRequest(actionRequest);
 
 		long samlIdpSpConnectionId = ParamUtil.getLong(
-			actionRequest, "samlIdpSpConnectionId");
+			uploadPortletRequest, "samlIdpSpConnectionId");
 
-		String entityId = ParamUtil.getString(actionRequest, "samlSpEntityId");
+		String entityId = ParamUtil.getString(
+			uploadPortletRequest, "samlSpEntityId");
 		int assertionLifetime = ParamUtil.getInteger(
-			actionRequest, "assertionLifetime");
+			uploadPortletRequest, "assertionLifetime");
 		String attributeNames = ParamUtil.getString(
-			actionRequest, "attributeNames");
+			uploadPortletRequest, "attributeNames");
 		boolean attributesEnabled = ParamUtil.getBoolean(
-			actionRequest, "attributesEnabled");
+			uploadPortletRequest, "attributesEnabled");
 		boolean attributesNamespaceEnabled = ParamUtil.getBoolean(
-			actionRequest, "attributesNamespaceEnabled");
-		boolean enabled = ParamUtil.getBoolean(actionRequest, "enabled");
-		String metadataUrl = ParamUtil.getString(actionRequest, "metadataUrl");
+			uploadPortletRequest, "attributesNamespaceEnabled");
+		boolean enabled = ParamUtil.getBoolean(uploadPortletRequest, "enabled");
+		String metadataUrl = ParamUtil.getString(
+			uploadPortletRequest, "metadataUrl");
 		InputStream metadataXmlInputStream =
 			uploadPortletRequest.getFileAsStream("metadataXml");
-		String name = ParamUtil.getString(actionRequest, "name");
+		String name = ParamUtil.getString(uploadPortletRequest, "name");
 		String nameIdAttribute = ParamUtil.getString(
-			actionRequest, "nameIdAttribute");
+			uploadPortletRequest, "nameIdAttribute");
 		String nameIdFormat = ParamUtil.getString(
-			actionRequest, "nameIdFormat");
+			uploadPortletRequest, "nameIdFormat");
+		String redirect = ParamUtil.getString(uploadPortletRequest, "redirect");
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-			SamlIdpSpConnection.class.getName(), actionRequest);
+			SamlIdpSpConnection.class.getName(), uploadPortletRequest);
 
 		if (samlIdpSpConnectionId <= 0) {
 			SamlIdpSpConnectionLocalServiceUtil.addSamlIdpSpConnection(
@@ -292,6 +292,8 @@ public class AdminPortlet extends MVCPortlet {
 				enabled, metadataUrl, metadataXmlInputStream, name,
 				nameIdAttribute, nameIdFormat, serviceContext);
 		}
+
+		actionRequest.setAttribute(WebKeys.REDIRECT, redirect);
 	}
 
 	protected void checkPermissions(PortletRequest portletRequest)
