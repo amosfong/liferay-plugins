@@ -22,8 +22,10 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.saml.model.SamlIdpSpConnection;
 import com.liferay.saml.model.SamlIdpSpSession;
 import com.liferay.saml.model.SamlIdpSsoSession;
+import com.liferay.saml.service.SamlIdpSpConnectionLocalServiceUtil;
 import com.liferay.saml.service.SamlIdpSpSessionLocalServiceUtil;
 
 import java.io.Serializable;
@@ -77,8 +79,23 @@ public class SamlSloContext implements Serializable {
 					continue;
 				}
 
+				String name = samlSpEntityId;
+
+				try {
+					SamlIdpSpConnection samlIdpSpConnection =
+						SamlIdpSpConnectionLocalServiceUtil.
+							getSamlIdpSpConnection(
+								samlIdpSpSession.getCompanyId(),
+								samlSpEntityId);
+
+					name = samlIdpSpConnection.getName();
+				}
+				catch (Exception e) {
+				}
+
 				_samlRequestInfos.put(
-					samlSpEntityId, new SamlSloRequestInfo(samlIdpSpSession));
+					samlSpEntityId, new SamlSloRequestInfo(
+						name, samlIdpSpSession));
 			}
 		}
 		catch (SystemException se) {

@@ -41,7 +41,8 @@ public class SamlSloRequestInfo implements Serializable {
 
 	public static final int REQUEST_STATUS_UNSUPPORTED = 4;
 
-	public SamlSloRequestInfo(SamlIdpSpSession samlIdpSpSession) {
+	public SamlSloRequestInfo(String name, SamlIdpSpSession samlIdpSpSession) {
+		_name = name;
 		_samlIdpSpSession = samlIdpSpSession;
 	}
 
@@ -51,6 +52,10 @@ public class SamlSloRequestInfo implements Serializable {
 
 	public DateTime getInitiateTime() {
 		return _initiateTime;
+	}
+
+	public String getName() {
+		return _name;
 	}
 
 	public SamlIdpSpSession getSamlIdpSpSession() {
@@ -93,7 +98,7 @@ public class SamlSloRequestInfo implements Serializable {
 			jsonObject.put("initiateTime", _initiateTime.toDate());
 		}
 
-		jsonObject.put("name", getEntityId());
+		jsonObject.put("name", getName());
 		jsonObject.put("status", getStatus());
 		jsonObject.put("statusCode", getStatusCode());
 
@@ -101,6 +106,7 @@ public class SamlSloRequestInfo implements Serializable {
 	}
 
 	private DateTime _initiateTime;
+	private String _name;
 	private SamlIdpSpSession _samlIdpSpSession;
 	private int _status;
 	private String _statusCode;
