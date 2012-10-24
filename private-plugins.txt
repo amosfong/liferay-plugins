@@ -8,7 +8,6 @@
 /portlets/reports-portlet
 /portlets/salesforce-portlet
 /portlets/saml-portlet
-/portlets/sample-drools-portlet
 /webs/drools-web
 /webs/ehcache-cluster-web
 /webs/jasperreports-web
