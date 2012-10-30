@@ -251,32 +251,30 @@ public class AdminPortlet extends MVCPortlet {
 			PortalUtil.getUploadPortletRequest(actionRequest);
 
 		long samlIdpSpConnectionId = ParamUtil.getLong(
-			uploadPortletRequest, "samlIdpSpConnectionId");
+			actionRequest, "samlIdpSpConnectionId");
 
-		String entityId = ParamUtil.getString(
-			uploadPortletRequest, "samlSpEntityId");
+		String entityId = ParamUtil.getString(actionRequest, "samlSpEntityId");
 		int assertionLifetime = ParamUtil.getInteger(
-			uploadPortletRequest, "assertionLifetime");
+			actionRequest, "assertionLifetime");
 		String attributeNames = ParamUtil.getString(
-			uploadPortletRequest, "attributeNames");
+			actionRequest, "attributeNames");
 		boolean attributesEnabled = ParamUtil.getBoolean(
-			uploadPortletRequest, "attributesEnabled");
+			actionRequest, "attributesEnabled");
 		boolean attributesNamespaceEnabled = ParamUtil.getBoolean(
-			uploadPortletRequest, "attributesNamespaceEnabled");
-		boolean enabled = ParamUtil.getBoolean(uploadPortletRequest, "enabled");
-		String metadataUrl = ParamUtil.getString(
-			uploadPortletRequest, "metadataUrl");
+			actionRequest, "attributesNamespaceEnabled");
+		boolean enabled = ParamUtil.getBoolean(actionRequest, "enabled");
+		String metadataUrl = ParamUtil.getString(actionRequest, "metadataUrl");
 		InputStream metadataXmlInputStream =
 			uploadPortletRequest.getFileAsStream("metadataXml");
-		String name = ParamUtil.getString(uploadPortletRequest, "name");
+		String name = ParamUtil.getString(actionRequest, "name");
 		String nameIdAttribute = ParamUtil.getString(
-			uploadPortletRequest, "nameIdAttribute");
+			actionRequest, "nameIdAttribute");
 		String nameIdFormat = ParamUtil.getString(
-			uploadPortletRequest, "nameIdFormat");
-		String redirect = ParamUtil.getString(uploadPortletRequest, "redirect");
+			actionRequest, "nameIdFormat");
+		String redirect = ParamUtil.getString(actionRequest, "redirect");
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-			SamlIdpSpConnection.class.getName(), uploadPortletRequest);
+			SamlIdpSpConnection.class.getName(), actionRequest);
 
 		if (samlIdpSpConnectionId <= 0) {
 			SamlIdpSpConnectionLocalServiceUtil.addSamlIdpSpConnection(
