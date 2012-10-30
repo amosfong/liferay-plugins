@@ -41,7 +41,7 @@ if (x509Credential != null) {
 </portlet:actionURL>
 
 <aui:form action="<%= updateGeneralURL %>">
-	<liferay-ui:error key="certificateInvalid" message="cannot-enable-before-signing-credential-is-created" />
+	<liferay-ui:error key="certificateInvalid" message="please-create-a-signing-credential-before-enabling" />
 
 	<aui:fieldset>
 		<aui:input label="enabled" name='<%= "settings--" + PortletPropsKeys.SAML_ENABLED + "--" %>' type="checkbox" value="<%= SamlUtil.isEnabled() %>" />

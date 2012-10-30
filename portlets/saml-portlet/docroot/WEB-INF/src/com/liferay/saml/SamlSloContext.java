@@ -14,7 +14,6 @@
 
 package com.liferay.saml;
 
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -90,16 +89,20 @@ public class SamlSloContext implements Serializable {
 
 					name = samlIdpSpConnection.getName();
 				}
-				catch (Exception e) {
+				catch (NoSuchIdpSpConnectionException nsisce) {
 				}
 
-				_samlRequestInfos.put(
-					samlSpEntityId, new SamlSloRequestInfo(
-						name, samlIdpSpSession));
+				SamlSloRequestInfo samlSloRequestInfo =
+					new SamlSloRequestInfo();
+
+				samlSloRequestInfo.setName(name);
+				samlSloRequestInfo.setSamlIdpSpSession(samlIdpSpSession);
+
+				_samlRequestInfos.put(samlSpEntityId, samlSloRequestInfo);
 			}
 		}
-		catch (SystemException se) {
-			_log.warn(se, se);
+		catch (Exception e) {
+			_log.warn(e, e);
 		}
 	}
 

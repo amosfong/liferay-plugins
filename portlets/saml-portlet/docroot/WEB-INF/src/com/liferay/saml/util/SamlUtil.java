@@ -14,8 +14,6 @@
 
 package com.liferay.saml.util;
 
-import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.HashMap;

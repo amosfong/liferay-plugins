@@ -41,11 +41,6 @@ public class SamlSloRequestInfo implements Serializable {
 
 	public static final int REQUEST_STATUS_UNSUPPORTED = 4;
 
-	public SamlSloRequestInfo(String name, SamlIdpSpSession samlIdpSpSession) {
-		_name = name;
-		_samlIdpSpSession = samlIdpSpSession;
-	}
-
 	public String getEntityId() {
 		return _samlIdpSpSession.getSamlSpEntityId();
 	}
@@ -72,6 +67,14 @@ public class SamlSloRequestInfo implements Serializable {
 
 	public void setInitiateTime(DateTime initiateTime) {
 		_initiateTime = initiateTime;
+	}
+
+	public void setName(String name) {
+		_name = name;
+	}
+
+	public void setSamlIdpSpSession(SamlIdpSpSession samlIdpSpSession) {
+		_samlIdpSpSession = samlIdpSpSession;
 	}
 
 	public void setStatus(int status) {

@@ -271,7 +271,6 @@ public class AdminPortlet extends MVCPortlet {
 			actionRequest, "nameIdAttribute");
 		String nameIdFormat = ParamUtil.getString(
 			actionRequest, "nameIdFormat");
-		String redirect = ParamUtil.getString(actionRequest, "redirect");
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			SamlIdpSpConnection.class.getName(), actionRequest);
@@ -291,7 +290,7 @@ public class AdminPortlet extends MVCPortlet {
 				nameIdAttribute, nameIdFormat, serviceContext);
 		}
 
-		actionRequest.setAttribute(WebKeys.REDIRECT, redirect);
+		sendRedirect(actionRequest, actionResponse);
 	}
 
 	protected void checkPermissions(PortletRequest portletRequest)
