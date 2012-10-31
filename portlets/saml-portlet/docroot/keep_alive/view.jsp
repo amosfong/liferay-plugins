@@ -17,8 +17,6 @@
 <%@ include file="/init.jsp" %>
 
 <%
-User user = PortalUtil.getUser(request);
-
 String entityId = PropsUtil.get(PortletPropsKeys.SAML_ENTITY_ID);
 String keepAliveURL = PropsUtil.get(PortletPropsKeys.SAML_IDP_METADATA_SESSION_KEEP_ALIVE_URL);
 

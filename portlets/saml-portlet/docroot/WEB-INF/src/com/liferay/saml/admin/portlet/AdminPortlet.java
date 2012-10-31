@@ -251,29 +251,30 @@ public class AdminPortlet extends MVCPortlet {
 			PortalUtil.getUploadPortletRequest(actionRequest);
 
 		long samlIdpSpConnectionId = ParamUtil.getLong(
-			actionRequest, "samlIdpSpConnectionId");
+			uploadPortletRequest, "samlIdpSpConnectionId");
 
-		String entityId = ParamUtil.getString(actionRequest, "samlSpEntityId");
+		String entityId = ParamUtil.getString(uploadPortletRequest, "samlSpEntityId");
 		int assertionLifetime = ParamUtil.getInteger(
-			actionRequest, "assertionLifetime");
+			uploadPortletRequest, "assertionLifetime");
 		String attributeNames = ParamUtil.getString(
-			actionRequest, "attributeNames");
+			uploadPortletRequest, "attributeNames");
 		boolean attributesEnabled = ParamUtil.getBoolean(
-			actionRequest, "attributesEnabled");
+			uploadPortletRequest, "attributesEnabled");
 		boolean attributesNamespaceEnabled = ParamUtil.getBoolean(
-			actionRequest, "attributesNamespaceEnabled");
-		boolean enabled = ParamUtil.getBoolean(actionRequest, "enabled");
-		String metadataUrl = ParamUtil.getString(actionRequest, "metadataUrl");
+			uploadPortletRequest, "attributesNamespaceEnabled");
+		boolean enabled = ParamUtil.getBoolean(uploadPortletRequest, "enabled");
+		String metadataUrl = ParamUtil.getString(
+			uploadPortletRequest, "metadataUrl");
 		InputStream metadataXmlInputStream =
 			uploadPortletRequest.getFileAsStream("metadataXml");
-		String name = ParamUtil.getString(actionRequest, "name");
+		String name = ParamUtil.getString(uploadPortletRequest, "name");
 		String nameIdAttribute = ParamUtil.getString(
-			actionRequest, "nameIdAttribute");
+			uploadPortletRequest, "nameIdAttribute");
 		String nameIdFormat = ParamUtil.getString(
-			actionRequest, "nameIdFormat");
+			uploadPortletRequest, "nameIdFormat");
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
-			SamlIdpSpConnection.class.getName(), actionRequest);
+			SamlIdpSpConnection.class.getName(), uploadPortletRequest);
 
 		if (samlIdpSpConnectionId <= 0) {
 			SamlIdpSpConnectionLocalServiceUtil.addSamlIdpSpConnection(
@@ -288,6 +289,14 @@ public class AdminPortlet extends MVCPortlet {
 				attributeNames, attributesEnabled, attributesNamespaceEnabled,
 				enabled, metadataUrl, metadataXmlInputStream, name,
 				nameIdAttribute, nameIdFormat, serviceContext);
+		}
+
+		String redirect = ParamUtil.getString(uploadPortletRequest, "redirect");
+
+		if (Validator.isNotNull(redirect)) {
+			redirect = PortalUtil.escapeRedirect(redirect);
+
+			actionRequest.setAttribute(WebKeys.REDIRECT, redirect);
 		}
 
 		sendRedirect(actionRequest, actionResponse);

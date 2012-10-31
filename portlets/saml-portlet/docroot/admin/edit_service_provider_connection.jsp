@@ -50,7 +50,6 @@ String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsP
 
 <aui:form action="<%= updateServiceProviderConnectionURL %>" enctype="multipart/form-data">
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
-	<aui:input name="samlIdpSpConnectionId" type="hidden" />
 
 	<liferay-ui:error exception="<%= DuplicateSamlIdpSpConnectionSamlSpEntityIdException.class %>" message="please-enter-a-unique-service-provider-entity-id" />
 	<liferay-ui:error exception="<%= SamlIdpSpConnectionMetadataUrlException.class %>" message="please-enter-a-valid-metadata-endpoint-url" />
@@ -59,6 +58,8 @@ String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsP
 	<liferay-ui:error exception="<%= SamlSpIdpConnectionSamlIdpEntityIdException.class %>" message="please-enter-a-valid-service-provider-entity-id" />
 
 	<aui:model-context bean="<%= samlIdpSpConnection %>" model="<%= SamlIdpSpConnection.class %>" />
+
+	<aui:input name="samlIdpSpConnectionId" type="hidden" />
 
 	<aui:fieldset label="general">
 		<aui:input name="name" value="<%= name %>" />
