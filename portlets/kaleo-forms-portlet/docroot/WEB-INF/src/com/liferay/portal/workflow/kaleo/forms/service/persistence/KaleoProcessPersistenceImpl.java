@@ -271,7 +271,9 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 						kaleoProcess.getPrimaryKeyObj());
 			}
 
-			session.delete(kaleoProcess);
+			if (kaleoProcess != null) {
+				session.delete(kaleoProcess);
+			}
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -280,7 +282,9 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 			closeSession(session);
 		}
 
-		clearCache(kaleoProcess);
+		if (kaleoProcess != null) {
+			clearCache(kaleoProcess);
+		}
 
 		return kaleoProcess;
 	}

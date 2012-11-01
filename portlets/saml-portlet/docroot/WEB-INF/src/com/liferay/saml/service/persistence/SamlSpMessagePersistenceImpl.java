@@ -281,7 +281,9 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 						samlSpMessage.getPrimaryKeyObj());
 			}
 
-			session.delete(samlSpMessage);
+			if (samlSpMessage != null) {
+				session.delete(samlSpMessage);
+			}
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -290,7 +292,9 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 			closeSession(session);
 		}
 
-		clearCache(samlSpMessage);
+		if (samlSpMessage != null) {
+			clearCache(samlSpMessage);
+		}
 
 		return samlSpMessage;
 	}

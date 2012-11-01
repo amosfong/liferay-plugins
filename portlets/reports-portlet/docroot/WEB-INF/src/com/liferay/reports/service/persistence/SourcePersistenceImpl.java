@@ -352,7 +352,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 						source.getPrimaryKeyObj());
 			}
 
-			session.delete(source);
+			if (source != null) {
+				session.delete(source);
+			}
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -361,7 +363,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			closeSession(session);
 		}
 
-		clearCache(source);
+		if (source != null) {
+			clearCache(source);
+		}
 
 		return source;
 	}

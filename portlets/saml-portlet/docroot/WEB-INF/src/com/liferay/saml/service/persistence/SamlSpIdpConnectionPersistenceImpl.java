@@ -306,7 +306,9 @@ public class SamlSpIdpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 						samlSpIdpConnection.getPrimaryKeyObj());
 			}
 
-			session.delete(samlSpIdpConnection);
+			if (samlSpIdpConnection != null) {
+				session.delete(samlSpIdpConnection);
+			}
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -315,7 +317,9 @@ public class SamlSpIdpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 			closeSession(session);
 		}
 
-		clearCache(samlSpIdpConnection);
+		if (samlSpIdpConnection != null) {
+			clearCache(samlSpIdpConnection);
+		}
 
 		return samlSpIdpConnection;
 	}

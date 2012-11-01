@@ -275,7 +275,9 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 						samlIdpSsoSession.getPrimaryKeyObj());
 			}
 
-			session.delete(samlIdpSsoSession);
+			if (samlIdpSsoSession != null) {
+				session.delete(samlIdpSsoSession);
+			}
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -284,7 +286,9 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 			closeSession(session);
 		}
 
-		clearCache(samlIdpSsoSession);
+		if (samlIdpSsoSession != null) {
+			clearCache(samlIdpSsoSession);
+		}
 
 		return samlIdpSsoSession;
 	}

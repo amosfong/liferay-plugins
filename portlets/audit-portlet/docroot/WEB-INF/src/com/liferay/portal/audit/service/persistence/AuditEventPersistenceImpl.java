@@ -265,7 +265,9 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 						auditEvent.getPrimaryKeyObj());
 			}
 
-			session.delete(auditEvent);
+			if (auditEvent != null) {
+				session.delete(auditEvent);
+			}
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -274,7 +276,9 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 			closeSession(session);
 		}
 
-		clearCache(auditEvent);
+		if (auditEvent != null) {
+			clearCache(auditEvent);
+		}
 
 		return auditEvent;
 	}

@@ -346,7 +346,9 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 						kaleoDraftDefinition.getPrimaryKeyObj());
 			}
 
-			session.delete(kaleoDraftDefinition);
+			if (kaleoDraftDefinition != null) {
+				session.delete(kaleoDraftDefinition);
+			}
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -355,7 +357,9 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 			closeSession(session);
 		}
 
-		clearCache(kaleoDraftDefinition);
+		if (kaleoDraftDefinition != null) {
+			clearCache(kaleoDraftDefinition);
+		}
 
 		return kaleoDraftDefinition;
 	}

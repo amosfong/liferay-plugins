@@ -303,7 +303,9 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 						kaleoProcessLink.getPrimaryKeyObj());
 			}
 
-			session.delete(kaleoProcessLink);
+			if (kaleoProcessLink != null) {
+				session.delete(kaleoProcessLink);
+			}
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -312,7 +314,9 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 			closeSession(session);
 		}
 
-		clearCache(kaleoProcessLink);
+		if (kaleoProcessLink != null) {
+			clearCache(kaleoProcessLink);
+		}
 
 		return kaleoProcessLink;
 	}

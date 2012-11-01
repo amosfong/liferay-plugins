@@ -282,7 +282,9 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 						samlSpAuthRequest.getPrimaryKeyObj());
 			}
 
-			session.delete(samlSpAuthRequest);
+			if (samlSpAuthRequest != null) {
+				session.delete(samlSpAuthRequest);
+			}
 		}
 		catch (Exception e) {
 			throw processException(e);
@@ -291,7 +293,9 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 			closeSession(session);
 		}
 
-		clearCache(samlSpAuthRequest);
+		if (samlSpAuthRequest != null) {
+			clearCache(samlSpAuthRequest);
+		}
 
 		return samlSpAuthRequest;
 	}
