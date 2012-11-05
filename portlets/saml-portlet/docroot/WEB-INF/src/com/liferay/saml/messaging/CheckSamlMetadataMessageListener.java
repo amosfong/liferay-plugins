@@ -24,7 +24,9 @@ import com.liferay.portal.model.Company;
 import com.liferay.portal.security.auth.CompanyThreadLocal;
 import com.liferay.portal.service.CompanyLocalServiceUtil;
 import com.liferay.saml.model.SamlIdpSpConnection;
+import com.liferay.saml.model.SamlSpIdpConnection;
 import com.liferay.saml.service.SamlIdpSpConnectionLocalServiceUtil;
+import com.liferay.saml.service.SamlSpIdpConnectionLocalServiceUtil;
 import com.liferay.saml.util.SamlUtil;
 
 import java.util.List;
@@ -52,16 +54,19 @@ public class CheckSamlMetadataMessageListener extends BaseMessageListener {
 					continue;
 				}
 
-				if (SamlUtil.isRoleIdp()) {
-					try {
-						updateMetadata(company.getCompanyId());
+				try {
+					if (SamlUtil.isRoleIdp()) {
+						updateSpMetadata(company.getCompanyId());
 					}
-					catch (SystemException se) {
-						if (_log.isWarnEnabled()) {
-							_log.warn(
-								"Unable to refresh metadata for company " +
-									company.getCompanyId(), se);
-						}
+					else if (SamlUtil.isRoleSp()) {
+						updateIdpMetadata(company.getCompanyId());
+					}
+				}
+				catch (SystemException se) {
+					if (_log.isWarnEnabled()) {
+						_log.warn(
+							"Unable to refresh metadata for company " +
+								company.getCompanyId(), se);
 					}
 				}
 			}
@@ -71,7 +76,33 @@ public class CheckSamlMetadataMessageListener extends BaseMessageListener {
 		}
 	}
 
-	protected void updateMetadata(long companyId) throws SystemException {
+	protected void updateIdpMetadata(long companyId) throws SystemException {
+		List<SamlSpIdpConnection> samlSpIdpConnections =
+			SamlSpIdpConnectionLocalServiceUtil.getSamlSpIdpConnections(
+				companyId);
+
+		for (SamlSpIdpConnection samlSpIdpConnection : samlSpIdpConnections) {
+			if (!samlSpIdpConnection.isEnabled() ||
+				Validator.isNull(samlSpIdpConnection.getMetadataUrl())) {
+
+				continue;
+			}
+
+			try {
+				SamlSpIdpConnectionLocalServiceUtil.updateMetadata(
+					samlSpIdpConnection.getSamlSpIdpConnectionId());
+			}
+			catch (Exception e) {
+				if (_log.isWarnEnabled()) {
+					_log.warn(
+						"Unable to refresh metadata for " +
+							samlSpIdpConnection.getSamlIdpEntityId(), e);
+				}
+			}
+		}
+	}
+
+	protected void updateSpMetadata(long companyId) throws SystemException {
 		List<SamlIdpSpConnection> samlIdpSpConnections =
 			SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnections(
 				companyId);

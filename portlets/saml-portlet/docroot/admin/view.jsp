@@ -41,6 +41,12 @@ else if (SamlUtil.isRoleSp()) {
 		<c:when test='<%= tabs1.equals("identity-provider") %>'>
 			<liferay-util:include page="/admin/identity_provider.jsp" servletContext="<%= pageContext.getServletContext() %>" />
 		</c:when>
+		<c:when test='<%= tabs1.equals("identity-provider-connection") %>'>
+			<liferay-util:include page="/admin/edit_identity_provider_connection.jsp" servletContext="<%= pageContext.getServletContext() %>" />
+		</c:when>
+		<c:when test='<%= tabs1.equals("service-provider") %>'>
+			<liferay-util:include page="/admin/service_provider.jsp" servletContext="<%= pageContext.getServletContext() %>" />
+		</c:when>
 		<c:when test='<%= tabs1.equals("service-provider-connections") %>'>
 			<liferay-util:include page="/admin/view_service_provider_connections.jsp" servletContext="<%= pageContext.getServletContext() %>" />
 		</c:when>

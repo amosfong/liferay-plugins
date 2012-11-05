@@ -103,12 +103,13 @@ public class MetadataManagerImpl implements MetadataManager {
 	}
 
 	public long getClockSkew() {
-		return GetterUtil.getInteger(
-			PropsUtil.get(PortletPropsKeys.SAML_SP_CLOCK_SKEW), 3000);
+		return PortletPrefsPropsUtil.getInteger(
+			PortletPropsKeys.SAML_SP_CLOCK_SKEW, 3000);
 	}
 
 	public String getDefaultIdpEntityId() {
-		return PropsUtil.get(PortletPropsKeys.SAML_SP_DEFAULT_IDP_ENTITY_ID);
+		return PortletPrefsPropsUtil.getString(
+			PortletPropsKeys.SAML_SP_DEFAULT_IDP_ENTITY_ID);
 	}
 
 	public EntityDescriptor getEntityDescriptor(HttpServletRequest request)
@@ -264,9 +265,8 @@ public class MetadataManagerImpl implements MetadataManager {
 	}
 
 	public String getNameIdFormat() {
-		return GetterUtil.getString(
-			PropsUtil.get(PortletPropsKeys.SAML_SP_NAME_ID_FORMAT),
-			NameIDType.EMAIL);
+		return PortletPrefsPropsUtil.getString(
+			PortletPropsKeys.SAML_SP_NAME_ID_FORMAT, NameIDType.EMAIL);
 	}
 
 	public String getNameIdFormat(String entityId) {
@@ -472,8 +472,8 @@ public class MetadataManagerImpl implements MetadataManager {
 	}
 
 	public boolean isSignAuthnRequests() {
-		return GetterUtil.getBoolean(
-			PropsUtil.get(PortletPropsKeys.SAML_SP_SIGN_AUTHN_REQUEST));
+		return PortletPrefsPropsUtil.getBoolean(
+			PortletPropsKeys.SAML_SP_SIGN_AUTHN_REQUEST);
 	}
 
 	public boolean isSignMetadata() {
@@ -487,9 +487,8 @@ public class MetadataManagerImpl implements MetadataManager {
 	}
 
 	public boolean isWantAssertionsSigned() {
-		return GetterUtil.getBoolean(
-			PropsUtil.get(
-				PortletPropsKeys.SAML_SP_ASSERTION_SIGNATURE_REQUIRED));
+		return PortletPrefsPropsUtil.getBoolean(
+			PortletPropsKeys.SAML_SP_ASSERTION_SIGNATURE_REQUIRED);
 	}
 
 	public boolean isWantAuthnRequestSigned() {

@@ -24,6 +24,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PropertiesParamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
@@ -40,6 +41,7 @@ import com.liferay.saml.credential.KeyStoreManagerUtil;
 import com.liferay.saml.metadata.MetadataManagerUtil;
 import com.liferay.saml.model.SamlIdpSpConnection;
 import com.liferay.saml.service.SamlIdpSpConnectionLocalServiceUtil;
+import com.liferay.saml.service.SamlSpIdpConnectionLocalServiceUtil;
 import com.liferay.saml.util.CertificateUtil;
 import com.liferay.saml.util.PortletPropsKeys;
 import com.liferay.util.bridges.mvc.MVCPortlet;
@@ -63,6 +65,9 @@ import org.apache.xml.security.utils.Base64;
 
 import org.bouncycastle.asn1.x500.X500Name;
 
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.metadata.IDPSSODescriptor;
+import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.xml.security.x509.X509Credential;
 
 /**
@@ -201,6 +206,27 @@ public class AdminPortlet extends MVCPortlet {
 			return;
 		}
 
+		String samlRole = properties.getProperty(
+			PortletPropsKeys.SAML_ROLE, StringPool.BLANK);
+
+		if (enabled && samlRole.equals("sp")) {
+			String defaultIdpEntityId =
+				MetadataManagerUtil.getDefaultIdpEntityId();
+
+			MetadataProvider metadataProvider =
+				MetadataManagerUtil.getMetadataProvider();
+
+			if (Validator.isNull(defaultIdpEntityId) ||
+				(metadataProvider.getRole(
+					defaultIdpEntityId, IDPSSODescriptor.DEFAULT_ELEMENT_NAME,
+					SAMLConstants.SAML20P_NS) == null)) {
+
+				SessionErrors.add(actionRequest, "identityProviderInvalid");
+
+				return;
+			}
+		}
+
 		String currentEntityId = MetadataManagerUtil.getLocalEntityId();
 
 		String newEntityId = properties.getProperty(
@@ -243,6 +269,71 @@ public class AdminPortlet extends MVCPortlet {
 		updateProperties(actionRequest, properties);
 	}
 
+	public void updateIdentityProviderConnection(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
+
+		UploadPortletRequest uploadPortletRequest =
+			PortalUtil.getUploadPortletRequest(actionRequest);
+
+		long samlSpIdpConnectionId = ParamUtil.getLong(
+			uploadPortletRequest, "samlSpIdpConnectionId");
+		boolean assertionSignatureRequired = ParamUtil.getBoolean(
+			uploadPortletRequest, "assertionSignatureRequired");
+		long clockSkew = ParamUtil.getLong(uploadPortletRequest, "clockSkew");
+		boolean enabled = true;
+		boolean ldapImportEnabled = ParamUtil.getBoolean(
+			uploadPortletRequest, "ldapImportEnabled");
+		String name = ParamUtil.getString(uploadPortletRequest, "name");
+		String nameIdFormat = ParamUtil.getString(
+			uploadPortletRequest, "nameIdFormat");
+		String metadataUrl = ParamUtil.getString(
+			uploadPortletRequest, "metadataUrl");
+		InputStream metadataXmlInputStream =
+			uploadPortletRequest.getFileAsStream("metadataXml");
+		String samlIdpEntityId = ParamUtil.getString(
+			uploadPortletRequest, "samlIdpEntityId");
+		boolean signAuthnRequest = ParamUtil.getBoolean(
+			uploadPortletRequest, "signAuthnRequest");
+		String userAttributeMappings = ParamUtil.getString(
+			uploadPortletRequest, "userAttributeMappings");
+
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			actionRequest);
+
+		if (samlSpIdpConnectionId <= 0) {
+			SamlSpIdpConnectionLocalServiceUtil.addSamlSpIdpConnection(
+				samlIdpEntityId, assertionSignatureRequired, clockSkew, enabled,
+				ldapImportEnabled, metadataUrl, metadataXmlInputStream, name,
+				nameIdFormat, signAuthnRequest, userAttributeMappings,
+				serviceContext);
+		}
+		else {
+			SamlSpIdpConnectionLocalServiceUtil.updateSamlSpIdpConnection(
+				samlSpIdpConnectionId, samlIdpEntityId,
+				assertionSignatureRequired, clockSkew, enabled,
+				ldapImportEnabled, metadataUrl, metadataXmlInputStream, name,
+				nameIdFormat, signAuthnRequest, userAttributeMappings,
+				serviceContext);
+		}
+
+		UnicodeProperties properties = new UnicodeProperties();
+
+		properties.setProperty(
+			PortletPropsKeys.SAML_SP_DEFAULT_IDP_ENTITY_ID, samlIdpEntityId);
+
+		updateProperties(actionRequest, properties);
+	}
+
+	public void updateServiceProvider(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
+
+		UnicodeProperties properties = getProperties(actionRequest);
+
+		updateProperties(actionRequest, properties);
+	}
+
 	public void updateServiceProviderConnection(
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
@@ -253,7 +344,8 @@ public class AdminPortlet extends MVCPortlet {
 		long samlIdpSpConnectionId = ParamUtil.getLong(
 			uploadPortletRequest, "samlIdpSpConnectionId");
 
-		String entityId = ParamUtil.getString(uploadPortletRequest, "samlSpEntityId");
+		String entityId = ParamUtil.getString(
+			uploadPortletRequest, "samlSpEntityId");
 		int assertionLifetime = ParamUtil.getInteger(
 			uploadPortletRequest, "assertionLifetime");
 		String attributeNames = ParamUtil.getString(

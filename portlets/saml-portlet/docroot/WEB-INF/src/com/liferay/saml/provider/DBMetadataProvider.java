@@ -17,8 +17,11 @@ package com.liferay.saml.provider;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.auth.CompanyThreadLocal;
 import com.liferay.saml.NoSuchIdpSpConnectionException;
+import com.liferay.saml.NoSuchSpIdpConnectionException;
 import com.liferay.saml.model.SamlIdpSpConnection;
+import com.liferay.saml.model.SamlSpIdpConnection;
 import com.liferay.saml.service.SamlIdpSpConnectionLocalServiceUtil;
+import com.liferay.saml.service.SamlSpIdpConnectionLocalServiceUtil;
 import com.liferay.saml.util.OpenSamlUtil;
 import com.liferay.saml.util.SamlUtil;
 
@@ -63,22 +66,14 @@ public class DBMetadataProvider extends BaseMetadataProvider {
 		throws MetadataProviderException {
 
 		try {
-			long companyId = CompanyThreadLocal.getCompanyId();
+			String metadataXml = getMetadataXml(entityId);
 
-			SamlIdpSpConnection samlIdpSpConnection =
-				SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnection(
-					companyId, entityId);
-
-			if (!samlIdpSpConnection.isEnabled()) {
-				return null;
-			}
-
-			if (Validator.isNull(samlIdpSpConnection.getMetadataXml())) {
+			if (Validator.isNull(metadataXml)) {
 				return null;
 			}
 
 			Document document = _parserPool.parse(
-				new StringReader(samlIdpSpConnection.getMetadataXml()));
+				new StringReader(metadataXml));
 
 			XMLObject metadataXmlObject = OpenSamlUtil.unmarshallXMLObject(
 				document.getDocumentElement());
@@ -88,13 +83,9 @@ public class DBMetadataProvider extends BaseMetadataProvider {
 
 			return entityDescriptor;
 		}
-		catch (NoSuchIdpSpConnectionException nsisce) {
-		}
 		catch (Exception e) {
 			throw new MetadataProviderException(e);
 		}
-
-		return null;
 	}
 
 	public XMLObject getMetadata() {
@@ -134,6 +125,45 @@ public class DBMetadataProvider extends BaseMetadataProvider {
 
 	public void setParserPool(ParserPool parserPool) {
 		_parserPool = parserPool;
+	}
+
+	protected String getMetadataXml(String entityId) throws Exception {
+		long companyId = CompanyThreadLocal.getCompanyId();
+
+		if (SamlUtil.isRoleIdp()) {
+			try {
+				SamlIdpSpConnection samlIdpSpConnection =
+					SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnection(
+						companyId, entityId);
+
+				if (!samlIdpSpConnection.isEnabled()) {
+					return null;
+				}
+
+				return samlIdpSpConnection.getMetadataXml();
+			}
+			catch (NoSuchIdpSpConnectionException nsisce) {
+				return null;
+			}
+		}
+		else if (SamlUtil.isRoleSp()) {
+			try {
+				SamlSpIdpConnection samlSpIdpConnection =
+					SamlSpIdpConnectionLocalServiceUtil.getSamlSpIdpConnection(
+						companyId, entityId);
+
+				if (!samlSpIdpConnection.isEnabled()) {
+					return null;
+				}
+
+				return samlSpIdpConnection.getMetadataXml();
+			}
+			catch (NoSuchSpIdpConnectionException nssice) {
+				return null;
+			}
+		}
+
+		return null;
 	}
 
 	private ParserPool _parserPool;
