@@ -17,8 +17,9 @@
 
 package com.liferay.so.configurations.portlet;
 
-import com.liferay.portal.kernel.search.Indexer;
-import com.liferay.portal.kernel.util.ListUtil;
+import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -27,11 +28,10 @@ import com.liferay.portal.model.User;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.service.persistence.UserActionableDynamicQuery;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.so.util.RoleConstants;
 import com.liferay.util.bridges.mvc.MVCPortlet;
-
-import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -49,26 +49,29 @@ public class ConfigurationsPortlet extends MVCPortlet {
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		Role role = RoleLocalServiceUtil.getRole(
+		final Role role = RoleLocalServiceUtil.getRole(
 			themeDisplay.getCompanyId(), RoleConstants.SOCIAL_OFFICE_USER);
 
-		int count = UserLocalServiceUtil.getCompanyUsersCount(
-			themeDisplay.getCompanyId());
+		ActionableDynamicQuery actionableDynamicQuery =
+			new UserActionableDynamicQuery() {
 
-		int pages = count / Indexer.DEFAULT_INTERVAL;
+			@Override
+			protected void performAction(Object object)
+				throws PortalException, SystemException {
 
-		for (int i = 0; i <= pages; i++) {
-			int start = (i * Indexer.DEFAULT_INTERVAL);
-			int end = start + Indexer.DEFAULT_INTERVAL;
+				User user = (User)object;
 
-			List<User> users = UserLocalServiceUtil.getCompanyUsers(
-				themeDisplay.getCompanyId(), start, end);
+				if (!user.isDefaultUser()) {
+					UserLocalServiceUtil.addRoleUsers(
+						role.getRoleId(), new long[] {user.getUserId()});
+				}
+			}
 
-			long[] userIds = StringUtil.split(
-				ListUtil.toString(users, "userId"), 0L);
+		};
 
-			UserLocalServiceUtil.addRoleUsers(role.getRoleId(), userIds);
-		}
+		actionableDynamicQuery.setCompanyId(themeDisplay.getCompanyId());
+
+		actionableDynamicQuery.performActions();
 	}
 
 	public void updateGroupsRole(
