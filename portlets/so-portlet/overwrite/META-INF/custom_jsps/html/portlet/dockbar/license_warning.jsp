@@ -19,28 +19,28 @@
 
 <%@ include file="/html/portlet/dockbar/init.jsp" %>
 
-<%@ page import="com.liferay.portal.kernel.util.DateUtil" %><%@
-page import="com.liferay.portal.kernel.util.FastDateFormatConstants" %><%@
-page import="com.liferay.portal.license.util.LicenseManagerUtil" %><%@
-page import="com.liferay.portlet.expando.model.ExpandoBridge" %>
+<%@ page import="com.liferay.portal.kernel.util.DateUtil" %>
+<%@ page import="com.liferay.portal.kernel.util.FastDateFormatConstants" %>
+<%@ page import="com.liferay.portal.license.util.LicenseManagerUtil" %>
+<%@ page import="com.liferay.portlet.expando.model.ExpandoBridge" %>
 
 <%@ page import="java.util.Date" %>
 
 <%
-boolean isSocialOfficeGroup = false;
+boolean socialOfficeEnabled = false;
 
 try {
 	Group group = layout.getGroup();
 
 	ExpandoBridge expandoBridge = group.getExpandoBridge();
 
-	isSocialOfficeGroup = GetterUtil.getBoolean(expandoBridge.getAttribute("socialOfficeEnabled", false));
+	socialOfficeEnabled = GetterUtil.getBoolean(expandoBridge.getAttribute("socialOfficeEnabled"));
 }
 catch (Exception e) {
 }
 %>
 
-<c:if test="<%= isSocialOfficeGroup %>">
+<c:if test="<%= socialOfficeEnabled %>">
 
 	<%
 	Format dateFormatDateTime = FastDateFormatFactoryUtil.getDateTime(FastDateFormatConstants.LONG, FastDateFormatConstants.SHORT, locale, timeZone);
@@ -70,7 +70,7 @@ catch (Exception e) {
 		<aui:script use="anim,aui-base">
 			var licenseWarningMessage = A.one('#<portlet:namespace />licenseWarningMessage');
 
-			if(licenseWarningMessage) {
+			if (licenseWarningMessage) {
 				var warningMessageAnimation = new A.Anim(
 					{
 						duration: 8,
