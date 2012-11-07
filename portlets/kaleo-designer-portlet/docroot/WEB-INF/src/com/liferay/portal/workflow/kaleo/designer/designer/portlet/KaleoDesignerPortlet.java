@@ -336,7 +336,7 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 		List<DDMTemplate> ddmTemplates = DDMTemplateLocalServiceUtil.search(
 			themeDisplay.getCompanyId(), themeDisplay.getScopeGroupId(),
 			PortalUtil.getClassNameId(DDMStructure.class), ddmStructureId,
-			keywords, DDMTemplateConstants.TEMPLATE_TYPE_DETAIL, null, 0,
+			keywords, DDMTemplateConstants.TEMPLATE_TYPE_DISPLAY, null, 0,
 			SearchContainer.DEFAULT_DELTA, (OrderByComparator)null);
 
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
