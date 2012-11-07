@@ -95,8 +95,9 @@ public class CheckSamlMetadataMessageListener extends BaseMessageListener {
 			catch (Exception e) {
 				if (_log.isWarnEnabled()) {
 					_log.warn(
-						"Unable to refresh metadata for " +
-							samlSpIdpConnection.getSamlIdpEntityId(), e);
+						"Unable to refresh IdP metadata for " +
+							samlSpIdpConnection.getSamlIdpEntityId(),
+						e);
 				}
 			}
 		}
@@ -121,8 +122,9 @@ public class CheckSamlMetadataMessageListener extends BaseMessageListener {
 			catch (Exception e) {
 				if (_log.isWarnEnabled()) {
 					_log.warn(
-						"Unable to refresh metadata for " +
-							samlIdpSpConnection.getSamlSpEntityId(), e);
+						"Unable to refresh SP metadata for " +
+							samlIdpSpConnection.getSamlSpEntityId(),
+						e);
 				}
 			}
 		}

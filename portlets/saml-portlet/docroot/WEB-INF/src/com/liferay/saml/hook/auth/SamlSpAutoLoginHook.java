@@ -148,11 +148,11 @@ public class SamlSpAutoLoginHook implements AutoLogin {
 		List<Attribute>attributes = (List<Attribute>)session.getAttribute(
 			PortletWebKeys.SAML_SP_ATTRIBUTES);
 
-		Properties attributeMappings = PropertiesUtil.load(
+		Properties userAttributeMappings = PropertiesUtil.load(
 			PropsUtil.get(PortletPropsKeys.SAML_SP_USER_ATTRIBUTE_MAPPINGS));
 
 		Map<String, String> attributesMap = SamlUtil.getAttributesMap(
-			attributes, attributeMappings);
+			attributes, userAttributeMappings);
 
 		long creatorUserId = 0;
 		long companyId = PortalUtil.getCompanyId(request);

@@ -1153,7 +1153,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 
 			if ((samlSpMessage != null) && !samlSpMessage.isExpired()) {
 				throw new SamlException(
-					"SAML assertion " + messageKey + " replayed from IDP " +
+					"SAML assertion " + messageKey + " replayed from IdP " +
 						idpEntityId);
 			}
 			else {

@@ -16,7 +16,6 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String attributeMappings = PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_SP_USER_ATTRIBUTE_MAPPINGS, StringPool.BLANK);
 boolean ldapImportEnabled = PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SAML_SP_LDAP_IMPORT_ENABLED);
 %>
 

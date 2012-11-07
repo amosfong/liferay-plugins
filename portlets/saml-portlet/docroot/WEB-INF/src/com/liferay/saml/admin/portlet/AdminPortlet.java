@@ -278,21 +278,22 @@ public class AdminPortlet extends MVCPortlet {
 
 		long samlSpIdpConnectionId = ParamUtil.getLong(
 			uploadPortletRequest, "samlSpIdpConnectionId");
+
+		String samlIdpEntityId = ParamUtil.getString(
+			uploadPortletRequest, "samlIdpEntityId");
 		boolean assertionSignatureRequired = ParamUtil.getBoolean(
 			uploadPortletRequest, "assertionSignatureRequired");
 		long clockSkew = ParamUtil.getLong(uploadPortletRequest, "clockSkew");
 		boolean enabled = true;
 		boolean ldapImportEnabled = ParamUtil.getBoolean(
 			uploadPortletRequest, "ldapImportEnabled");
-		String name = ParamUtil.getString(uploadPortletRequest, "name");
-		String nameIdFormat = ParamUtil.getString(
-			uploadPortletRequest, "nameIdFormat");
 		String metadataUrl = ParamUtil.getString(
 			uploadPortletRequest, "metadataUrl");
 		InputStream metadataXmlInputStream =
 			uploadPortletRequest.getFileAsStream("metadataXml");
-		String samlIdpEntityId = ParamUtil.getString(
-			uploadPortletRequest, "samlIdpEntityId");
+		String name = ParamUtil.getString(uploadPortletRequest, "name");
+		String nameIdFormat = ParamUtil.getString(
+			uploadPortletRequest, "nameIdFormat");
 		boolean signAuthnRequest = ParamUtil.getBoolean(
 			uploadPortletRequest, "signAuthnRequest");
 		String userAttributeMappings = ParamUtil.getString(
@@ -344,7 +345,7 @@ public class AdminPortlet extends MVCPortlet {
 		long samlIdpSpConnectionId = ParamUtil.getLong(
 			uploadPortletRequest, "samlIdpSpConnectionId");
 
-		String entityId = ParamUtil.getString(
+		String samlSpEntityId = ParamUtil.getString(
 			uploadPortletRequest, "samlSpEntityId");
 		int assertionLifetime = ParamUtil.getInteger(
 			uploadPortletRequest, "assertionLifetime");
@@ -370,14 +371,14 @@ public class AdminPortlet extends MVCPortlet {
 
 		if (samlIdpSpConnectionId <= 0) {
 			SamlIdpSpConnectionLocalServiceUtil.addSamlIdpSpConnection(
-				entityId, assertionLifetime, attributeNames, attributesEnabled,
-				attributesNamespaceEnabled, enabled, metadataUrl,
-				metadataXmlInputStream, name, nameIdAttribute, nameIdFormat,
-				serviceContext);
+				samlSpEntityId, assertionLifetime, attributeNames,
+				attributesEnabled, attributesNamespaceEnabled, enabled,
+				metadataUrl, metadataXmlInputStream, name, nameIdAttribute,
+				nameIdFormat, serviceContext);
 		}
 		else {
 			SamlIdpSpConnectionLocalServiceUtil.updateSamlIdpSpConnection(
-				samlIdpSpConnectionId, entityId, assertionLifetime,
+				samlIdpSpConnectionId, samlSpEntityId, assertionLifetime,
 				attributeNames, attributesEnabled, attributesNamespaceEnabled,
 				enabled, metadataUrl, metadataXmlInputStream, name,
 				nameIdAttribute, nameIdFormat, serviceContext);

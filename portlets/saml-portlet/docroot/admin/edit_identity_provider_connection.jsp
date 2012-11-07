@@ -13,29 +13,27 @@
  * details.
  */
 --%>
+
 <%@ include file="/init.jsp" %>
 
 <%
 String redirect = ParamUtil.getString(request, "redirect");
 
-String samlIdpEntityId = MetadataManagerUtil.getDefaultIdpEntityId();
-
 SamlSpIdpConnection samlSpIdpConnection = null;
+
+String samlIdpEntityId = MetadataManagerUtil.getDefaultIdpEntityId();
 
 if (Validator.isNotNull(samlIdpEntityId)) {
 	try {
-		samlSpIdpConnection =
-			SamlSpIdpConnectionLocalServiceUtil.getSamlSpIdpConnection(
-				themeDisplay.getCompanyId(), samlIdpEntityId);
+		samlSpIdpConnection = SamlSpIdpConnectionLocalServiceUtil.getSamlSpIdpConnection(themeDisplay.getCompanyId(), samlIdpEntityId);
 	}
 	catch (Exception e) {
 	}
 }
 
-String name = ParamUtil.getString(request, "name");
-String metadataUrl = ParamUtil.getString(request, "metadataUrl");
-
 long clockSkew = ParamUtil.getLong(request, "clockSkew", MetadataManagerUtil.getClockSkew());
+String metadataUrl = ParamUtil.getString(request, "metadataUrl");
+String name = ParamUtil.getString(request, "name");
 String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", MetadataManagerUtil.getNameIdFormat());
 String userAttributeMappings = ParamUtil.getString(request, "userAttributeMappings", PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_SP_USER_ATTRIBUTE_MAPPINGS));
 %>
@@ -57,15 +55,15 @@ String userAttributeMappings = ParamUtil.getString(request, "userAttributeMappin
 	<aui:input name="samlSpIdpConnectionId" type="hidden" />
 
 	<aui:fieldset label="general">
-		<aui:input label="name" name="name" value="<%= name %>" />
+		<aui:input name="name" value="<%= name %>" />
 
 		<aui:input label="entity-id" name="samlIdpEntityId" value="<%= samlIdpEntityId %>" />
 
-		<aui:input label="clock-skew" name="clockSkew" value="<%= String.valueOf(clockSkew) %>" />
+		<aui:input name="clockSkew" value="<%= String.valueOf(clockSkew) %>" />
 	</aui:fieldset>
 
 	<aui:fieldset label="metadata">
-		<aui:input label="metadata-url" name="metadataUrl" value="<%= metadataUrl %>" />
+		<aui:input name="metadataUrl" value="<%= metadataUrl %>" />
 
 		<aui:button-row>
 			<aui:button onClick='<%= renderResponse.getNamespace() + "uploadMetadataXml();" %>' value="upload-metadata-xml" />
@@ -74,7 +72,7 @@ String userAttributeMappings = ParamUtil.getString(request, "userAttributeMappin
 
 		<div class="aui-helper-hidden" id="<portlet:namespace />uploadMetadataXmlForm">
 			<aui:fieldset label="upload-metadata">
-				<aui:input label="metadata-xml" name="metadataXml" type="file" />
+				<aui:input name="metadataXml" type="file" />
 			</aui:fieldset>
 		</div>
 	</aui:fieldset>
@@ -103,7 +101,7 @@ String userAttributeMappings = ParamUtil.getString(request, "userAttributeMappin
 </aui:form>
 
 <aui:script>
-var uploadMetadataXmlForm = AUI().one("#<portlet:namespace />uploadMetadataXmlForm");
+	var uploadMetadataXmlForm = AUI().one("#<portlet:namespace />uploadMetadataXmlForm");
 
 	function <portlet:namespace />uploadMetadataXml() {
 		uploadMetadataXmlForm.show();
