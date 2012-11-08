@@ -79,16 +79,24 @@ public class SObjectConverter {
 	}
 
 	public static MessageBatch convert(QueryResult queryResult) {
+		return convert(queryResult, 200);
+	}
+
+	public static MessageBatch convert(QueryResult queryResult, int batchSize) {
 		String queryLocator = null;
+
+		int queryResultSize = queryResult.getSize();
 
 		if (!queryResult.isDone()) {
 			queryLocator = queryResult.getQueryLocator();
+
+			queryResultSize = batchSize;
 		}
 
 		MessageBatch messageBatch = new MessageBatch(
-			queryLocator, queryResult.getSize());
+				queryLocator, queryResultSize);
 
-		for (int i = 0; i < queryResult.getSize(); i++) {
+		for (int i = 0; i < queryResultSize; i++) {
 			SObject sObject = queryResult.getRecords(i);
 
 			Message message = convert(sObject);
