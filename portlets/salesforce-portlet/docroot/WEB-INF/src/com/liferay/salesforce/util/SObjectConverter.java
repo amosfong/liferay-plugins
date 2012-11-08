@@ -94,7 +94,7 @@ public class SObjectConverter {
 		}
 
 		MessageBatch messageBatch = new MessageBatch(
-				queryLocator, queryResultSize);
+			queryLocator, queryResultSize);
 
 		for (int i = 0; i < queryResultSize; i++) {
 			SObject sObject = queryResult.getRecords(i);
