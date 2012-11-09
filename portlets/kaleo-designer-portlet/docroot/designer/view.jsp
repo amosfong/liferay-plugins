@@ -856,9 +856,13 @@
 									String openerWindowName = ParamUtil.getString(request, "openerWindowName");
 									%>
 
-									var openerDialog = Liferay.Util.getWindow('<%= HtmlUtil.escapeJS(openerWindowName) %>');
+									var openerWindow = Liferay.Util.getTop();
 
-									var openerWindow = openerDialog.iframe.node.get('contentWindow').getDOM();
+									<c:if test="<%= Validator.isNotNull(openerWindowName) %>">
+										var openerDialog = Liferay.Util.getWindow('<%= HtmlUtil.escapeJS(openerWindowName) %>');
+
+										openerWindow = openerDialog.iframe.node.get('contentWindow').getDOM();
+									</c:if>
 
 									openerWindow.Liferay.Portlet.refresh('#p_p_id<%= portletResourceNamespace %>');
 								</c:if>
