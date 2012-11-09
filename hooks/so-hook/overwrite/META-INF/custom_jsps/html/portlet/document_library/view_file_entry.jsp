@@ -19,6 +19,8 @@
 
 <%@ include file="/html/portlet/document_library/init.jsp" %>
 
+<%@ page import="com.liferay.portlet.messageboards.service.MBMessageLocalServiceUtil" %>
+
 <%
 String tabs2 = ParamUtil.getString(request, "tabs2", "version-history");
 
@@ -551,6 +553,25 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 								}
 								%>
 
+								<c:if test="<%= (MBMessageLocalServiceUtil.getDiscussionMessagesCount(DLFileEntryConstants.getClassName(), fileEntryId, WorkflowConstants.STATUS_ANY) != 0) %>">
+									<liferay-ui:panel collapsible="<%= true %>" cssClass="lfr-document-library-general-comments" extended="<%= true %>" id='<%= "documentLibraryCommentsPanel" + fileEntryId %>' persistState="<%= false %>" title="previous-comments">
+										<div class="portlet-msg-info">
+											<liferay-ui:message key="the-following-comments-were-added-prior-to-upgrading-to-social-office-ee" />
+										</div>
+
+										<liferay-ui:discussion
+											className="<%= DLFileEntryConstants.getClassName() %>"
+											classPK="<%= fileEntryId %>"
+											formAction="<%= discussionURL %>"
+											formName='<%= "fm2" + fileEntryId %>'
+											hideControls="<%= true %>"
+											ratingsEnabled="<%= enableCommentRatings %>"
+											redirect="<%= currentURL %>"
+											subject="<%= title %>"
+											userId="<%= fileEntry.getUserId() %>"
+										/>
+									</liferay-ui:panel>
+								</c:if>
 							</c:when>
 							<c:otherwise>
 								<div class="version">

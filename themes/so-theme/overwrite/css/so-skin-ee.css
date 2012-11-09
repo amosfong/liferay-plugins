@@ -12,7 +12,7 @@ $red: #8F0920;
 
 /* Documents and Images Library */
 
-.portlet-document-library {
+.portlet-document-library, .portlet-document-library-display {
 	.document-display-style.display-icon {
 		height: auto;
 	}
@@ -76,6 +76,7 @@ $red: #8F0920;
 		.version {
 			border-top: 1px solid $gray-dark;
 			margin-bottom: 5px;
+			padding: 0 12px;
 			position: relative;
 
 			span {
@@ -83,7 +84,7 @@ $red: #8F0920;
 			}
 
 			.modified-date, .size, .user-name, .version-number {
-				padding: 8px 7px 5px;
+				padding: 8px 0 5px;
 			}
 
 			.version-number {
@@ -93,7 +94,11 @@ $red: #8F0920;
 			}
 
 			.user-name, .version-number {
-				float: left;
+				padding-right: 14px;
+			}
+
+			.user-name {
+				margin-right: 50%;
 			}
 
 			.changelog, .user-name {
@@ -107,14 +112,17 @@ $red: #8F0920;
 
 			.extra {
 				float: right;
+				margin-top: -31px;
+			}
+
+			.modified-date, .size {
+				padding-left: 14px;
 			}
 
 			.actions {
 				background: #EEE;
 				border: 1px solid $gray-dark;
 				clear: both;
-				line-height: 24px;
-				margin: 0 12px;
 				padding: 5px 7px;
 
 				a {
@@ -136,32 +144,14 @@ $red: #8F0920;
 			}
 		}
 
-		.lfr-document-library-comments {
-			padding: 0 5px;
-
-			.lfr-panel-titlebar {
-				background: transparent;
-				border-bottom-width: 0;
-				margin-bottom: 0;
-
-				.lfr-panel-title {
-					font-size: 1em;
-				}
-			}
-
+		.lfr-document-library-comments, .lfr-document-library-general-comments {
 			.lfr-panel-button {
 				background: url(../images/portlet/minimize.png) no-repeat 0 0;
 				height: 16px;
-				margin: 1px 0;
 			}
 
-			&.lfr-collapsed {
-				padding-bottom: 5px;
-
-				.lfr-panel-button {
-					background: url(../images/portlet/maximize.png) no-repeat 0 0;
-					margin: 1px 0;
-				}
+			&.lfr-collapsed .lfr-panel-button {
+				background: url(../images/portlet/maximize.png) no-repeat 0 0;
 			}
 
 			.lfr-panel-content {
@@ -175,6 +165,7 @@ $red: #8F0920;
 
 			.taglib-discussion {
 				float: none;
+				overflow: hidden;
 				width: auto;
 
 				.lfr-discussion {
@@ -266,6 +257,55 @@ $red: #8F0920;
 				margin: 0 0 0 5px;
 			}
 		}
+
+		.lfr-document-library-comments {
+			padding: 0 5px;
+
+			.lfr-panel-titlebar {
+				background: transparent;
+				border-bottom-width: 0;
+				margin-bottom: 0;
+
+				.lfr-panel-title {
+					font-size: 1em;
+				}
+			}
+
+			.lfr-panel-button {
+				margin: 1px 0;
+			}
+
+			&.lfr-collapsed {
+				padding-bottom: 5px;
+			}
+		}
+
+		.lfr-document-library-general-comments {
+			&.lfr-panel.lfr-extended, .lfr-panel-titlebar {
+				margin-bottom: 0;
+			}
+
+			.lfr-panel-titlebar {
+				border-top: 1px solid $gray-dark;
+			}
+
+			.lfr-panel-button {
+				margin: 3px 5px;
+			}
+
+			.lfr-panel-content {
+				padding: 0;
+
+				.taglib-discussion{
+					border-top: 1px solid $gray-dark;
+					padding: 0 30px;
+				}
+
+				.lfr-discussion.first {
+					border-top-width: 0;
+				}
+			}
+		}
 	}
 
 	.editting-dialog-content {
@@ -319,9 +359,21 @@ $red: #8F0920;
 	}
 }
 
+/* ---------- Internet Explorer ---------- */
+
+.ie8 {
+	.portlet-document-library, .portlet-document-library-display{
+		.lfr-document-library-versions .extra {
+			margin-top: -30px;
+			position: relative;
+			top: -1px;
+		}
+	}
+}
+
 /* ---------- Extras ---------- */
 
-.portlet-document-library {
+.portlet-document-library, .portlet-document-library-display {
 	.lfr-document-library-versions .version .actions {
 		@include border-radius(5px);
 
