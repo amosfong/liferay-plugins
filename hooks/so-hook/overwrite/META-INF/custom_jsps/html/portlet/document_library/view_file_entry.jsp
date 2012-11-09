@@ -553,7 +553,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 								}
 								%>
 
-								<c:if test="<%= (MBMessageLocalServiceUtil.getDiscussionMessagesCount(DLFileEntryConstants.getClassName(), fileEntryId, WorkflowConstants.STATUS_ANY) != 0) %>">
+								<c:if test="<%= MBMessageLocalServiceUtil.getDiscussionMessagesCount(DLFileEntryConstants.getClassName(), fileEntryId, WorkflowConstants.STATUS_ANY) != 0 %>">
 									<liferay-ui:panel collapsible="<%= true %>" cssClass="lfr-document-library-general-comments" extended="<%= true %>" id='<%= "documentLibraryCommentsPanel" + fileEntryId %>' persistState="<%= false %>" title="previous-comments">
 										<div class="portlet-msg-info">
 											<liferay-ui:message key="the-following-comments-were-added-prior-to-upgrading-to-social-office-ee" />
