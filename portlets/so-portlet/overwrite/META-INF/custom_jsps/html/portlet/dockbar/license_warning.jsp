@@ -55,7 +55,7 @@ catch (Exception e) {
 	if (licenseProperties != null) {
 		expirationDateTime = GetterUtil.getLong(licenseProperties.get("expirationDate"));
 		licenseRemainingDays = DateUtil.getDaysBetween(new Date(expirationDateTime), new Date());
-		licenseState = GetterUtil.getInteger(licenseProperties.get("licenseState"));
+		licenseState = GetterUtil.getInteger(licenseProperties.get("licenseState"), LicenseManagerUtil.getLicenseState("Social Office EE"));
 		startDateTime = GetterUtil.getLong(licenseProperties.get("startDate"));
 	}
 	%>
