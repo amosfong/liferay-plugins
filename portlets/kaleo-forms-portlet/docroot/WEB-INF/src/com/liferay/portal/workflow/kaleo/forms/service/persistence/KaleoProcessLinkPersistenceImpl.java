@@ -298,7 +298,7 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 		try {
 			session = openSession();
 
-			if (kaleoProcessLink.isCachedModel()) {
+			if (!session.contains(kaleoProcessLink)) {
 				kaleoProcessLink = (KaleoProcessLink)session.get(KaleoProcessLinkImpl.class,
 						kaleoProcessLink.getPrimaryKeyObj());
 			}

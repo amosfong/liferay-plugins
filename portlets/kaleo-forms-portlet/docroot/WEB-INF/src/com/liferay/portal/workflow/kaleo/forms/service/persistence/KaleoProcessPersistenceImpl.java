@@ -266,7 +266,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 		try {
 			session = openSession();
 
-			if (kaleoProcess.isCachedModel()) {
+			if (!session.contains(kaleoProcess)) {
 				kaleoProcess = (KaleoProcess)session.get(KaleoProcessImpl.class,
 						kaleoProcess.getPrimaryKeyObj());
 			}

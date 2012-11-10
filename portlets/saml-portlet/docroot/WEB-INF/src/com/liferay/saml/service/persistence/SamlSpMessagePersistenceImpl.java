@@ -276,7 +276,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 		try {
 			session = openSession();
 
-			if (samlSpMessage.isCachedModel()) {
+			if (!session.contains(samlSpMessage)) {
 				samlSpMessage = (SamlSpMessage)session.get(SamlSpMessageImpl.class,
 						samlSpMessage.getPrimaryKeyObj());
 			}

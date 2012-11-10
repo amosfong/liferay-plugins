@@ -260,7 +260,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 		try {
 			session = openSession();
 
-			if (auditEvent.isCachedModel()) {
+			if (!session.contains(auditEvent)) {
 				auditEvent = (AuditEvent)session.get(AuditEventImpl.class,
 						auditEvent.getPrimaryKeyObj());
 			}

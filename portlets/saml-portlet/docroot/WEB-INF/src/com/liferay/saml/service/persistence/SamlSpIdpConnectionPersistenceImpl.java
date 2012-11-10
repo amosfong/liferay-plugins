@@ -301,7 +301,7 @@ public class SamlSpIdpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 		try {
 			session = openSession();
 
-			if (samlSpIdpConnection.isCachedModel()) {
+			if (!session.contains(samlSpIdpConnection)) {
 				samlSpIdpConnection = (SamlSpIdpConnection)session.get(SamlSpIdpConnectionImpl.class,
 						samlSpIdpConnection.getPrimaryKeyObj());
 			}

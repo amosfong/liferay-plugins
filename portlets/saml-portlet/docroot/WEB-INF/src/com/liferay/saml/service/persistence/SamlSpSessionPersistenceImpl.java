@@ -287,7 +287,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 		try {
 			session = openSession();
 
-			if (samlSpSession.isCachedModel()) {
+			if (!session.contains(samlSpSession)) {
 				samlSpSession = (SamlSpSession)session.get(SamlSpSessionImpl.class,
 						samlSpSession.getPrimaryKeyObj());
 			}

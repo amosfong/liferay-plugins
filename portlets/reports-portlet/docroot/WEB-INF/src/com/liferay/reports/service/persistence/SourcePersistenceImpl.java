@@ -347,7 +347,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		try {
 			session = openSession();
 
-			if (source.isCachedModel()) {
+			if (!session.contains(source)) {
 				source = (Source)session.get(SourceImpl.class,
 						source.getPrimaryKeyObj());
 			}

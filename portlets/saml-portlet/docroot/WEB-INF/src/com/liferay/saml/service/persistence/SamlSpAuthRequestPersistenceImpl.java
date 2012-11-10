@@ -277,7 +277,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 		try {
 			session = openSession();
 
-			if (samlSpAuthRequest.isCachedModel()) {
+			if (!session.contains(samlSpAuthRequest)) {
 				samlSpAuthRequest = (SamlSpAuthRequest)session.get(SamlSpAuthRequestImpl.class,
 						samlSpAuthRequest.getPrimaryKeyObj());
 			}

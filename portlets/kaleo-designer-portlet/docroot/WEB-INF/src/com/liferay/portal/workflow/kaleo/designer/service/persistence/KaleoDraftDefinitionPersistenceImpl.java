@@ -341,7 +341,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 		try {
 			session = openSession();
 
-			if (kaleoDraftDefinition.isCachedModel()) {
+			if (!session.contains(kaleoDraftDefinition)) {
 				kaleoDraftDefinition = (KaleoDraftDefinition)session.get(KaleoDraftDefinitionImpl.class,
 						kaleoDraftDefinition.getPrimaryKeyObj());
 			}

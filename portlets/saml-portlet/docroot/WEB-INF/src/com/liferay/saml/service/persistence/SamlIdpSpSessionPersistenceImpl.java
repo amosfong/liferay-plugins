@@ -299,7 +299,7 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 		try {
 			session = openSession();
 
-			if (samlIdpSpSession.isCachedModel()) {
+			if (!session.contains(samlIdpSpSession)) {
 				samlIdpSpSession = (SamlIdpSpSession)session.get(SamlIdpSpSessionImpl.class,
 						samlIdpSpSession.getPrimaryKeyObj());
 			}

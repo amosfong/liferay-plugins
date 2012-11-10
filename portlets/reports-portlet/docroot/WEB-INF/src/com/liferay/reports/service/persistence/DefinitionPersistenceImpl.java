@@ -352,7 +352,7 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 		try {
 			session = openSession();
 
-			if (definition.isCachedModel()) {
+			if (!session.contains(definition)) {
 				definition = (Definition)session.get(DefinitionImpl.class,
 						definition.getPrimaryKeyObj());
 			}
