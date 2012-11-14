@@ -36,8 +36,6 @@ import com.liferay.reports.model.EntrySoap;
 
 import java.io.Serializable;
 
-import java.lang.reflect.InvocationHandler;
-
 import java.sql.Types;
 
 import java.util.ArrayList;
@@ -630,22 +628,6 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 	}
 
 	@Override
-	public Entry toUnescapedModel() {
-		if (ProxyUtil.isProxyClass(getClass())) {
-			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
-
-			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
-
-			_unescapedModel = (Entry)autoEscapeBeanHandler.getBean();
-		}
-		else {
-			_unescapedModel = (Entry)this;
-		}
-
-		return _unescapedModel;
-	}
-
-	@Override
 	public Object clone() {
 		EntryImpl entryImpl = new EntryImpl();
 
@@ -1032,5 +1014,4 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 	private String _status;
 	private String _errorMessage;
 	private Entry _escapedModel;
-	private Entry _unescapedModel;
 }

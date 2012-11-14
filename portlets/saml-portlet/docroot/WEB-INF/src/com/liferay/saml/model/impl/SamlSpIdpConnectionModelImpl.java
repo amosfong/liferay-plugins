@@ -33,8 +33,6 @@ import com.liferay.saml.model.SamlSpIdpConnectionModel;
 
 import java.io.Serializable;
 
-import java.lang.reflect.InvocationHandler;
-
 import java.sql.Types;
 
 import java.util.Date;
@@ -523,22 +521,6 @@ public class SamlSpIdpConnectionModelImpl extends BaseModelImpl<SamlSpIdpConnect
 	}
 
 	@Override
-	public SamlSpIdpConnection toUnescapedModel() {
-		if (ProxyUtil.isProxyClass(getClass())) {
-			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
-
-			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
-
-			_unescapedModel = (SamlSpIdpConnection)autoEscapeBeanHandler.getBean();
-		}
-		else {
-			_unescapedModel = (SamlSpIdpConnection)this;
-		}
-
-		return _unescapedModel;
-	}
-
-	@Override
 	public Object clone() {
 		SamlSpIdpConnectionImpl samlSpIdpConnectionImpl = new SamlSpIdpConnectionImpl();
 
@@ -888,5 +870,4 @@ public class SamlSpIdpConnectionModelImpl extends BaseModelImpl<SamlSpIdpConnect
 	private String _userAttributeMappings;
 	private long _columnBitmask;
 	private SamlSpIdpConnection _escapedModel;
-	private SamlSpIdpConnection _unescapedModel;
 }

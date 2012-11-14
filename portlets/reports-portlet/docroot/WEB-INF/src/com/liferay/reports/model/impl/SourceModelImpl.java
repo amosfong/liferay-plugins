@@ -39,8 +39,6 @@ import com.liferay.reports.model.SourceSoap;
 
 import java.io.Serializable;
 
-import java.lang.reflect.InvocationHandler;
-
 import java.sql.Types;
 
 import java.util.ArrayList;
@@ -585,22 +583,6 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 	}
 
 	@Override
-	public Source toUnescapedModel() {
-		if (ProxyUtil.isProxyClass(getClass())) {
-			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
-
-			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
-
-			_unescapedModel = (Source)autoEscapeBeanHandler.getBean();
-		}
-		else {
-			_unescapedModel = (Source)this;
-		}
-
-		return _unescapedModel;
-	}
-
-	@Override
 	public Object clone() {
 		SourceImpl sourceImpl = new SourceImpl();
 
@@ -897,5 +879,4 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 	private String _driverPassword;
 	private long _columnBitmask;
 	private Source _escapedModel;
-	private Source _unescapedModel;
 }

@@ -31,8 +31,6 @@ import com.liferay.saml.model.SamlSpMessageModel;
 
 import java.io.Serializable;
 
-import java.lang.reflect.InvocationHandler;
-
 import java.sql.Types;
 
 import java.util.Date;
@@ -273,22 +271,6 @@ public class SamlSpMessageModelImpl extends BaseModelImpl<SamlSpMessage>
 	}
 
 	@Override
-	public SamlSpMessage toUnescapedModel() {
-		if (ProxyUtil.isProxyClass(getClass())) {
-			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
-
-			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
-
-			_unescapedModel = (SamlSpMessage)autoEscapeBeanHandler.getBean();
-		}
-		else {
-			_unescapedModel = (SamlSpMessage)this;
-		}
-
-		return _unescapedModel;
-	}
-
-	@Override
 	public Object clone() {
 		SamlSpMessageImpl samlSpMessageImpl = new SamlSpMessageImpl();
 
@@ -476,5 +458,4 @@ public class SamlSpMessageModelImpl extends BaseModelImpl<SamlSpMessage>
 	private Date _expirationDate;
 	private long _columnBitmask;
 	private SamlSpMessage _escapedModel;
-	private SamlSpMessage _unescapedModel;
 }

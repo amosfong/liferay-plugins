@@ -31,8 +31,6 @@ import com.liferay.saml.model.SamlSpAuthRequestModel;
 
 import java.io.Serializable;
 
-import java.lang.reflect.InvocationHandler;
-
 import java.sql.Types;
 
 import java.util.Date;
@@ -258,22 +256,6 @@ public class SamlSpAuthRequestModelImpl extends BaseModelImpl<SamlSpAuthRequest>
 	}
 
 	@Override
-	public SamlSpAuthRequest toUnescapedModel() {
-		if (ProxyUtil.isProxyClass(getClass())) {
-			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
-
-			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
-
-			_unescapedModel = (SamlSpAuthRequest)autoEscapeBeanHandler.getBean();
-		}
-		else {
-			_unescapedModel = (SamlSpAuthRequest)this;
-		}
-
-		return _unescapedModel;
-	}
-
-	@Override
 	public Object clone() {
 		SamlSpAuthRequestImpl samlSpAuthRequestImpl = new SamlSpAuthRequestImpl();
 
@@ -445,5 +427,4 @@ public class SamlSpAuthRequestModelImpl extends BaseModelImpl<SamlSpAuthRequest>
 	private String _originalSamlSpAuthRequestKey;
 	private long _columnBitmask;
 	private SamlSpAuthRequest _escapedModel;
-	private SamlSpAuthRequest _unescapedModel;
 }

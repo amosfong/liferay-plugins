@@ -25,8 +25,6 @@ import com.liferay.saml.service.SamlSpMessageLocalServiceUtil;
 
 import java.io.Serializable;
 
-import java.lang.reflect.InvocationHandler;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -190,20 +188,6 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 	public SamlSpMessage toEscapedModel() {
 		return (SamlSpMessage)ProxyUtil.newProxyInstance(SamlSpMessage.class.getClassLoader(),
 			new Class[] { SamlSpMessage.class }, new AutoEscapeBeanHandler(this));
-	}
-
-	@Override
-	public SamlSpMessage toUnescapedModel() {
-		if (ProxyUtil.isProxyClass(getClass())) {
-			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
-
-			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
-
-			return (SamlSpMessage)autoEscapeBeanHandler.getBean();
-		}
-		else {
-			return (SamlSpMessage)this;
-		}
 	}
 
 	@Override

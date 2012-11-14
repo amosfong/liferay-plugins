@@ -33,8 +33,6 @@ import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 
 import java.io.Serializable;
 
-import java.lang.reflect.InvocationHandler;
-
 import java.sql.Types;
 
 import java.util.Date;
@@ -462,22 +460,6 @@ public class AuditEventModelImpl extends BaseModelImpl<AuditEvent>
 	}
 
 	@Override
-	public AuditEvent toUnescapedModel() {
-		if (ProxyUtil.isProxyClass(getClass())) {
-			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
-
-			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
-
-			_unescapedModel = (AuditEvent)autoEscapeBeanHandler.getBean();
-		}
-		else {
-			_unescapedModel = (AuditEvent)this;
-		}
-
-		return _unescapedModel;
-	}
-
-	@Override
 	public Object clone() {
 		AuditEventImpl auditEventImpl = new AuditEventImpl();
 
@@ -797,5 +779,4 @@ public class AuditEventModelImpl extends BaseModelImpl<AuditEvent>
 	private String _additionalInfo;
 	private long _columnBitmask;
 	private AuditEvent _escapedModel;
-	private AuditEvent _unescapedModel;
 }

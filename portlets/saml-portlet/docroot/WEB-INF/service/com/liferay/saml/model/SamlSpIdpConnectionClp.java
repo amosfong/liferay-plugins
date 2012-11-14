@@ -26,8 +26,6 @@ import com.liferay.saml.service.SamlSpIdpConnectionLocalServiceUtil;
 
 import java.io.Serializable;
 
-import java.lang.reflect.InvocationHandler;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -397,20 +395,6 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 		return (SamlSpIdpConnection)ProxyUtil.newProxyInstance(SamlSpIdpConnection.class.getClassLoader(),
 			new Class[] { SamlSpIdpConnection.class },
 			new AutoEscapeBeanHandler(this));
-	}
-
-	@Override
-	public SamlSpIdpConnection toUnescapedModel() {
-		if (ProxyUtil.isProxyClass(getClass())) {
-			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
-
-			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
-
-			return (SamlSpIdpConnection)autoEscapeBeanHandler.getBean();
-		}
-		else {
-			return (SamlSpIdpConnection)this;
-		}
 	}
 
 	@Override

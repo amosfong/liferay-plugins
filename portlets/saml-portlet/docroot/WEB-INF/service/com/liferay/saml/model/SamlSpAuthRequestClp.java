@@ -25,8 +25,6 @@ import com.liferay.saml.service.SamlSpAuthRequestLocalServiceUtil;
 
 import java.io.Serializable;
 
-import java.lang.reflect.InvocationHandler;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -173,20 +171,6 @@ public class SamlSpAuthRequestClp extends BaseModelImpl<SamlSpAuthRequest>
 		return (SamlSpAuthRequest)ProxyUtil.newProxyInstance(SamlSpAuthRequest.class.getClassLoader(),
 			new Class[] { SamlSpAuthRequest.class },
 			new AutoEscapeBeanHandler(this));
-	}
-
-	@Override
-	public SamlSpAuthRequest toUnescapedModel() {
-		if (ProxyUtil.isProxyClass(getClass())) {
-			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
-
-			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
-
-			return (SamlSpAuthRequest)autoEscapeBeanHandler.getBean();
-		}
-		else {
-			return (SamlSpAuthRequest)this;
-		}
 	}
 
 	@Override

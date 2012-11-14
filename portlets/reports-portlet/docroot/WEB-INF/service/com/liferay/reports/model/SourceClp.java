@@ -31,8 +31,6 @@ import com.liferay.reports.service.SourceLocalServiceUtil;
 
 import java.io.Serializable;
 
-import java.lang.reflect.InvocationHandler;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -406,20 +404,6 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 	public Source toEscapedModel() {
 		return (Source)ProxyUtil.newProxyInstance(Source.class.getClassLoader(),
 			new Class[] { Source.class }, new AutoEscapeBeanHandler(this));
-	}
-
-	@Override
-	public Source toUnescapedModel() {
-		if (ProxyUtil.isProxyClass(getClass())) {
-			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
-
-			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
-
-			return (Source)autoEscapeBeanHandler.getBean();
-		}
-		else {
-			return (Source)this;
-		}
 	}
 
 	@Override

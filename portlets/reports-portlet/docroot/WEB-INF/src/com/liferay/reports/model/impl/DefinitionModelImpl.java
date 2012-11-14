@@ -40,8 +40,6 @@ import com.liferay.reports.model.DefinitionSoap;
 
 import java.io.Serializable;
 
-import java.lang.reflect.InvocationHandler;
-
 import java.sql.Types;
 
 import java.util.ArrayList;
@@ -662,22 +660,6 @@ public class DefinitionModelImpl extends BaseModelImpl<Definition>
 	}
 
 	@Override
-	public Definition toUnescapedModel() {
-		if (ProxyUtil.isProxyClass(getClass())) {
-			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
-
-			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
-
-			_unescapedModel = (Definition)autoEscapeBeanHandler.getBean();
-		}
-		else {
-			_unescapedModel = (Definition)this;
-		}
-
-		return _unescapedModel;
-	}
-
-	@Override
 	public Object clone() {
 		DefinitionImpl definitionImpl = new DefinitionImpl();
 
@@ -970,5 +952,4 @@ public class DefinitionModelImpl extends BaseModelImpl<Definition>
 	private String _reportParameters;
 	private long _columnBitmask;
 	private Definition _escapedModel;
-	private Definition _unescapedModel;
 }

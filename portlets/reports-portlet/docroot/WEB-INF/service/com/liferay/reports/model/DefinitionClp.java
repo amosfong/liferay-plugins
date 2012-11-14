@@ -32,8 +32,6 @@ import com.liferay.reports.service.DefinitionLocalServiceUtil;
 
 import java.io.Serializable;
 
-import java.lang.reflect.InvocationHandler;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -501,20 +499,6 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 	public Definition toEscapedModel() {
 		return (Definition)ProxyUtil.newProxyInstance(Definition.class.getClassLoader(),
 			new Class[] { Definition.class }, new AutoEscapeBeanHandler(this));
-	}
-
-	@Override
-	public Definition toUnescapedModel() {
-		if (ProxyUtil.isProxyClass(getClass())) {
-			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
-
-			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
-
-			return (Definition)autoEscapeBeanHandler.getBean();
-		}
-		else {
-			return (Definition)this;
-		}
 	}
 
 	@Override

@@ -33,8 +33,6 @@ import com.liferay.saml.model.SamlIdpSsoSessionModel;
 
 import java.io.Serializable;
 
-import java.lang.reflect.InvocationHandler;
-
 import java.sql.Types;
 
 import java.util.Date;
@@ -289,22 +287,6 @@ public class SamlIdpSsoSessionModelImpl extends BaseModelImpl<SamlIdpSsoSession>
 	}
 
 	@Override
-	public SamlIdpSsoSession toUnescapedModel() {
-		if (ProxyUtil.isProxyClass(getClass())) {
-			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
-
-			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
-
-			_unescapedModel = (SamlIdpSsoSession)autoEscapeBeanHandler.getBean();
-		}
-		else {
-			_unescapedModel = (SamlIdpSsoSession)this;
-		}
-
-		return _unescapedModel;
-	}
-
-	@Override
 	public Object clone() {
 		SamlIdpSsoSessionImpl samlIdpSsoSessionImpl = new SamlIdpSsoSessionImpl();
 
@@ -501,5 +483,4 @@ public class SamlIdpSsoSessionModelImpl extends BaseModelImpl<SamlIdpSsoSession>
 	private String _originalSamlIdpSsoSessionKey;
 	private long _columnBitmask;
 	private SamlIdpSsoSession _escapedModel;
-	private SamlIdpSsoSession _unescapedModel;
 }

@@ -25,8 +25,6 @@ import com.liferay.portal.workflow.kaleo.forms.service.KaleoProcessLocalServiceU
 
 import java.io.Serializable;
 
-import java.lang.reflect.InvocationHandler;
-
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -258,20 +256,6 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 	public KaleoProcess toEscapedModel() {
 		return (KaleoProcess)ProxyUtil.newProxyInstance(KaleoProcess.class.getClassLoader(),
 			new Class[] { KaleoProcess.class }, new AutoEscapeBeanHandler(this));
-	}
-
-	@Override
-	public KaleoProcess toUnescapedModel() {
-		if (ProxyUtil.isProxyClass(getClass())) {
-			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
-
-			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
-
-			return (KaleoProcess)autoEscapeBeanHandler.getBean();
-		}
-		else {
-			return (KaleoProcess)this;
-		}
 	}
 
 	@Override

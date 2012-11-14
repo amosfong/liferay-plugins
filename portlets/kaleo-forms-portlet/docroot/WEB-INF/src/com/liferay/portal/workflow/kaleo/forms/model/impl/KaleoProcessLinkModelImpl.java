@@ -32,8 +32,6 @@ import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 
 import java.io.Serializable;
 
-import java.lang.reflect.InvocationHandler;
-
 import java.sql.Types;
 
 import java.util.ArrayList;
@@ -288,22 +286,6 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 	}
 
 	@Override
-	public KaleoProcessLink toUnescapedModel() {
-		if (ProxyUtil.isProxyClass(getClass())) {
-			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
-
-			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
-
-			_unescapedModel = (KaleoProcessLink)autoEscapeBeanHandler.getBean();
-		}
-		else {
-			_unescapedModel = (KaleoProcessLink)this;
-		}
-
-		return _unescapedModel;
-	}
-
-	@Override
 	public Object clone() {
 		KaleoProcessLinkImpl kaleoProcessLinkImpl = new KaleoProcessLinkImpl();
 
@@ -455,5 +437,4 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 	private long _DDMTemplateId;
 	private long _columnBitmask;
 	private KaleoProcessLink _escapedModel;
-	private KaleoProcessLink _unescapedModel;
 }
