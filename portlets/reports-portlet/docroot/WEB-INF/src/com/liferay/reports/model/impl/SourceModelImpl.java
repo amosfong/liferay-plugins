@@ -39,6 +39,8 @@ import com.liferay.reports.model.SourceSoap;
 
 import java.io.Serializable;
 
+import java.lang.reflect.InvocationHandler;
+
 import java.sql.Types;
 
 import java.util.ArrayList;
@@ -574,13 +576,28 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 
 	@Override
 	public Source toEscapedModel() {
-		if (_escapedModelProxy == null) {
-			_escapedModelProxy = (Source)ProxyUtil.newProxyInstance(_classLoader,
-					_escapedModelProxyInterfaces,
-					new AutoEscapeBeanHandler(this));
+		if (_escapedModel == null) {
+			_escapedModel = (Source)ProxyUtil.newProxyInstance(_classLoader,
+					_escapedModelInterfaces, new AutoEscapeBeanHandler(this));
 		}
 
-		return _escapedModelProxy;
+		return _escapedModel;
+	}
+
+	@Override
+	public Source toUnescapedModel() {
+		if (ProxyUtil.isProxyClass(getClass())) {
+			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
+
+			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
+
+			_unescapedModel = (Source)autoEscapeBeanHandler.getBean();
+		}
+		else {
+			_unescapedModel = (Source)this;
+		}
+
+		return _unescapedModel;
 	}
 
 	@Override
@@ -857,9 +874,7 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 	}
 
 	private static ClassLoader _classLoader = Source.class.getClassLoader();
-	private static Class<?>[] _escapedModelProxyInterfaces = new Class[] {
-			Source.class
-		};
+	private static Class<?>[] _escapedModelInterfaces = new Class[] { Source.class };
 	private String _uuid;
 	private String _originalUuid;
 	private long _sourceId;
@@ -881,5 +896,6 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 	private String _driverUserName;
 	private String _driverPassword;
 	private long _columnBitmask;
-	private Source _escapedModelProxy;
+	private Source _escapedModel;
+	private Source _unescapedModel;
 }

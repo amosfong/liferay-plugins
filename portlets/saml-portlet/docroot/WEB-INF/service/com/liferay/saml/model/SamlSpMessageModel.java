@@ -173,6 +173,8 @@ public interface SamlSpMessageModel extends BaseModel<SamlSpMessage> {
 
 	public SamlSpMessage toEscapedModel();
 
+	public SamlSpMessage toUnescapedModel();
+
 	public String toString();
 
 	public String toXmlString();

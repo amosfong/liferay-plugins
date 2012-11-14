@@ -16,6 +16,7 @@ package com.liferay.saml.model;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
@@ -24,7 +25,7 @@ import com.liferay.saml.service.SamlSpMessageLocalServiceUtil;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Proxy;
+import java.lang.reflect.InvocationHandler;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -187,8 +188,22 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 
 	@Override
 	public SamlSpMessage toEscapedModel() {
-		return (SamlSpMessage)Proxy.newProxyInstance(SamlSpMessage.class.getClassLoader(),
+		return (SamlSpMessage)ProxyUtil.newProxyInstance(SamlSpMessage.class.getClassLoader(),
 			new Class[] { SamlSpMessage.class }, new AutoEscapeBeanHandler(this));
+	}
+
+	@Override
+	public SamlSpMessage toUnescapedModel() {
+		if (ProxyUtil.isProxyClass(getClass())) {
+			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
+
+			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
+
+			return (SamlSpMessage)autoEscapeBeanHandler.getBean();
+		}
+		else {
+			return (SamlSpMessage)this;
+		}
 	}
 
 	@Override

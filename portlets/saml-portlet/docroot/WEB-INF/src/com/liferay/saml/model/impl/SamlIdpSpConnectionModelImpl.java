@@ -33,6 +33,8 @@ import com.liferay.saml.model.SamlIdpSpConnectionModel;
 
 import java.io.Serializable;
 
+import java.lang.reflect.InvocationHandler;
+
 import java.sql.Types;
 
 import java.util.Date;
@@ -512,13 +514,28 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 
 	@Override
 	public SamlIdpSpConnection toEscapedModel() {
-		if (_escapedModelProxy == null) {
-			_escapedModelProxy = (SamlIdpSpConnection)ProxyUtil.newProxyInstance(_classLoader,
-					_escapedModelProxyInterfaces,
-					new AutoEscapeBeanHandler(this));
+		if (_escapedModel == null) {
+			_escapedModel = (SamlIdpSpConnection)ProxyUtil.newProxyInstance(_classLoader,
+					_escapedModelInterfaces, new AutoEscapeBeanHandler(this));
 		}
 
-		return _escapedModelProxy;
+		return _escapedModel;
+	}
+
+	@Override
+	public SamlIdpSpConnection toUnescapedModel() {
+		if (ProxyUtil.isProxyClass(getClass())) {
+			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
+
+			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
+
+			_unescapedModel = (SamlIdpSpConnection)autoEscapeBeanHandler.getBean();
+		}
+		else {
+			_unescapedModel = (SamlIdpSpConnection)this;
+		}
+
+		return _unescapedModel;
 	}
 
 	@Override
@@ -849,7 +866,7 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 	}
 
 	private static ClassLoader _classLoader = SamlIdpSpConnection.class.getClassLoader();
-	private static Class<?>[] _escapedModelProxyInterfaces = new Class[] {
+	private static Class<?>[] _escapedModelInterfaces = new Class[] {
 			SamlIdpSpConnection.class
 		};
 	private long _samlIdpSpConnectionId;
@@ -875,5 +892,6 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 	private String _nameIdAttribute;
 	private String _nameIdFormat;
 	private long _columnBitmask;
-	private SamlIdpSpConnection _escapedModelProxy;
+	private SamlIdpSpConnection _escapedModel;
+	private SamlIdpSpConnection _unescapedModel;
 }

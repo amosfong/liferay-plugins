@@ -387,6 +387,8 @@ public interface SamlIdpSpConnectionModel extends AuditedModel,
 
 	public SamlIdpSpConnection toEscapedModel();
 
+	public SamlIdpSpConnection toUnescapedModel();
+
 	public String toString();
 
 	public String toXmlString();

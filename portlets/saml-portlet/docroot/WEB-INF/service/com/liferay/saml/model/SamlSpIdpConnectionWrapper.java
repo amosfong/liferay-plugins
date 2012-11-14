@@ -641,6 +641,10 @@ public class SamlSpIdpConnectionWrapper implements SamlSpIdpConnection,
 		return new SamlSpIdpConnectionWrapper(_samlSpIdpConnection.toEscapedModel());
 	}
 
+	public com.liferay.saml.model.SamlSpIdpConnection toUnescapedModel() {
+		return new SamlSpIdpConnectionWrapper(_samlSpIdpConnection.toUnescapedModel());
+	}
+
 	@Override
 	public java.lang.String toString() {
 		return _samlSpIdpConnection.toString();

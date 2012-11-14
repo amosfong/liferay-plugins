@@ -408,6 +408,10 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 		return new SamlSpSessionWrapper(_samlSpSession.toEscapedModel());
 	}
 
+	public com.liferay.saml.model.SamlSpSession toUnescapedModel() {
+		return new SamlSpSessionWrapper(_samlSpSession.toUnescapedModel());
+	}
+
 	@Override
 	public java.lang.String toString() {
 		return _samlSpSession.toString();

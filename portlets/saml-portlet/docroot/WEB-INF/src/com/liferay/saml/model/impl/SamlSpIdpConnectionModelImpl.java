@@ -33,6 +33,8 @@ import com.liferay.saml.model.SamlSpIdpConnectionModel;
 
 import java.io.Serializable;
 
+import java.lang.reflect.InvocationHandler;
+
 import java.sql.Types;
 
 import java.util.Date;
@@ -512,13 +514,28 @@ public class SamlSpIdpConnectionModelImpl extends BaseModelImpl<SamlSpIdpConnect
 
 	@Override
 	public SamlSpIdpConnection toEscapedModel() {
-		if (_escapedModelProxy == null) {
-			_escapedModelProxy = (SamlSpIdpConnection)ProxyUtil.newProxyInstance(_classLoader,
-					_escapedModelProxyInterfaces,
-					new AutoEscapeBeanHandler(this));
+		if (_escapedModel == null) {
+			_escapedModel = (SamlSpIdpConnection)ProxyUtil.newProxyInstance(_classLoader,
+					_escapedModelInterfaces, new AutoEscapeBeanHandler(this));
 		}
 
-		return _escapedModelProxy;
+		return _escapedModel;
+	}
+
+	@Override
+	public SamlSpIdpConnection toUnescapedModel() {
+		if (ProxyUtil.isProxyClass(getClass())) {
+			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
+
+			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
+
+			_unescapedModel = (SamlSpIdpConnection)autoEscapeBeanHandler.getBean();
+		}
+		else {
+			_unescapedModel = (SamlSpIdpConnection)this;
+		}
+
+		return _unescapedModel;
 	}
 
 	@Override
@@ -844,7 +861,7 @@ public class SamlSpIdpConnectionModelImpl extends BaseModelImpl<SamlSpIdpConnect
 	}
 
 	private static ClassLoader _classLoader = SamlSpIdpConnection.class.getClassLoader();
-	private static Class<?>[] _escapedModelProxyInterfaces = new Class[] {
+	private static Class<?>[] _escapedModelInterfaces = new Class[] {
 			SamlSpIdpConnection.class
 		};
 	private long _samlSpIdpConnectionId;
@@ -870,5 +887,6 @@ public class SamlSpIdpConnectionModelImpl extends BaseModelImpl<SamlSpIdpConnect
 	private boolean _signAuthnRequest;
 	private String _userAttributeMappings;
 	private long _columnBitmask;
-	private SamlSpIdpConnection _escapedModelProxy;
+	private SamlSpIdpConnection _escapedModel;
+	private SamlSpIdpConnection _unescapedModel;
 }

@@ -256,6 +256,10 @@ public class SamlSpAuthRequestWrapper implements SamlSpAuthRequest,
 		return new SamlSpAuthRequestWrapper(_samlSpAuthRequest.toEscapedModel());
 	}
 
+	public com.liferay.saml.model.SamlSpAuthRequest toUnescapedModel() {
+		return new SamlSpAuthRequestWrapper(_samlSpAuthRequest.toUnescapedModel());
+	}
+
 	@Override
 	public java.lang.String toString() {
 		return _samlSpAuthRequest.toString();

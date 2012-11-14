@@ -159,6 +159,8 @@ public interface SamlSpAuthRequestModel extends BaseModel<SamlSpAuthRequest> {
 
 	public SamlSpAuthRequest toEscapedModel();
 
+	public SamlSpAuthRequest toUnescapedModel();
+
 	public String toString();
 
 	public String toXmlString();

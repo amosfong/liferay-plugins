@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
+import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.BaseModel;
@@ -30,7 +31,7 @@ import com.liferay.reports.service.SourceLocalServiceUtil;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Proxy;
+import java.lang.reflect.InvocationHandler;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -403,8 +404,22 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 
 	@Override
 	public Source toEscapedModel() {
-		return (Source)Proxy.newProxyInstance(Source.class.getClassLoader(),
+		return (Source)ProxyUtil.newProxyInstance(Source.class.getClassLoader(),
 			new Class[] { Source.class }, new AutoEscapeBeanHandler(this));
+	}
+
+	@Override
+	public Source toUnescapedModel() {
+		if (ProxyUtil.isProxyClass(getClass())) {
+			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
+
+			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
+
+			return (Source)autoEscapeBeanHandler.getBean();
+		}
+		else {
+			return (Source)this;
+		}
 	}
 
 	@Override

@@ -587,6 +587,10 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 		return new SourceWrapper(_source.toEscapedModel());
 	}
 
+	public com.liferay.reports.model.Source toUnescapedModel() {
+		return new SourceWrapper(_source.toUnescapedModel());
+	}
+
 	@Override
 	public java.lang.String toString() {
 		return _source.toString();

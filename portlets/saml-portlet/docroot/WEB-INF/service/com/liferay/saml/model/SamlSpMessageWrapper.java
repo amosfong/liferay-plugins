@@ -279,6 +279,10 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 		return new SamlSpMessageWrapper(_samlSpMessage.toEscapedModel());
 	}
 
+	public com.liferay.saml.model.SamlSpMessage toUnescapedModel() {
+		return new SamlSpMessageWrapper(_samlSpMessage.toUnescapedModel());
+	}
+
 	@Override
 	public java.lang.String toString() {
 		return _samlSpMessage.toString();

@@ -229,6 +229,10 @@ public class KaleoProcessLinkWrapper implements KaleoProcessLink,
 		return new KaleoProcessLinkWrapper(_kaleoProcessLink.toEscapedModel());
 	}
 
+	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink toUnescapedModel() {
+		return new KaleoProcessLinkWrapper(_kaleoProcessLink.toUnescapedModel());
+	}
+
 	@Override
 	public java.lang.String toString() {
 		return _kaleoProcessLink.toString();

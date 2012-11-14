@@ -375,6 +375,10 @@ public class KaleoProcessWrapper implements KaleoProcess,
 		return new KaleoProcessWrapper(_kaleoProcess.toEscapedModel());
 	}
 
+	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess toUnescapedModel() {
+		return new KaleoProcessWrapper(_kaleoProcess.toUnescapedModel());
+	}
+
 	@Override
 	public java.lang.String toString() {
 		return _kaleoProcess.toString();

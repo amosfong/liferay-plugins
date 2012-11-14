@@ -393,6 +393,8 @@ public interface SamlSpIdpConnectionModel extends AuditedModel,
 
 	public SamlSpIdpConnection toEscapedModel();
 
+	public SamlSpIdpConnection toUnescapedModel();
+
 	public String toString();
 
 	public String toXmlString();

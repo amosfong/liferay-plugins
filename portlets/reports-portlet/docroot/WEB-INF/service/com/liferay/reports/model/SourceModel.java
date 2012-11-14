@@ -383,6 +383,8 @@ public interface SourceModel extends BaseModel<Source>, GroupedModel {
 
 	public Source toEscapedModel();
 
+	public Source toUnescapedModel();
+
 	public String toString();
 
 	public String toXmlString();

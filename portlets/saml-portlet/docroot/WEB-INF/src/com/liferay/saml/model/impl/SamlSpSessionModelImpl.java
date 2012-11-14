@@ -33,6 +33,8 @@ import com.liferay.saml.model.SamlSpSessionModel;
 
 import java.io.Serializable;
 
+import java.lang.reflect.InvocationHandler;
+
 import java.sql.Types;
 
 import java.util.Date;
@@ -350,13 +352,28 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 
 	@Override
 	public SamlSpSession toEscapedModel() {
-		if (_escapedModelProxy == null) {
-			_escapedModelProxy = (SamlSpSession)ProxyUtil.newProxyInstance(_classLoader,
-					_escapedModelProxyInterfaces,
-					new AutoEscapeBeanHandler(this));
+		if (_escapedModel == null) {
+			_escapedModel = (SamlSpSession)ProxyUtil.newProxyInstance(_classLoader,
+					_escapedModelInterfaces, new AutoEscapeBeanHandler(this));
 		}
 
-		return _escapedModelProxy;
+		return _escapedModel;
+	}
+
+	@Override
+	public SamlSpSession toUnescapedModel() {
+		if (ProxyUtil.isProxyClass(getClass())) {
+			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
+
+			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
+
+			_unescapedModel = (SamlSpSession)autoEscapeBeanHandler.getBean();
+		}
+		else {
+			_unescapedModel = (SamlSpSession)this;
+		}
+
+		return _unescapedModel;
 	}
 
 	@Override
@@ -582,7 +599,7 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 	}
 
 	private static ClassLoader _classLoader = SamlSpSession.class.getClassLoader();
-	private static Class<?>[] _escapedModelProxyInterfaces = new Class[] {
+	private static Class<?>[] _escapedModelInterfaces = new Class[] {
 			SamlSpSession.class
 		};
 	private long _samlSpSessionId;
@@ -599,5 +616,6 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 	private String _originalNameIdValue;
 	private boolean _terminated;
 	private long _columnBitmask;
-	private SamlSpSession _escapedModelProxy;
+	private SamlSpSession _escapedModel;
+	private SamlSpSession _unescapedModel;
 }

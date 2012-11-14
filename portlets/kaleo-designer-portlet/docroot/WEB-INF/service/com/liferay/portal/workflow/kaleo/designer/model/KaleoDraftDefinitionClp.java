@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
+import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.BaseModel;
@@ -29,7 +30,7 @@ import com.liferay.portal.workflow.kaleo.designer.service.KaleoDraftDefinitionLo
 
 import java.io.Serializable;
 
-import java.lang.reflect.Proxy;
+import java.lang.reflect.InvocationHandler;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -382,9 +383,23 @@ public class KaleoDraftDefinitionClp extends BaseModelImpl<KaleoDraftDefinition>
 
 	@Override
 	public KaleoDraftDefinition toEscapedModel() {
-		return (KaleoDraftDefinition)Proxy.newProxyInstance(KaleoDraftDefinition.class.getClassLoader(),
+		return (KaleoDraftDefinition)ProxyUtil.newProxyInstance(KaleoDraftDefinition.class.getClassLoader(),
 			new Class[] { KaleoDraftDefinition.class },
 			new AutoEscapeBeanHandler(this));
+	}
+
+	@Override
+	public KaleoDraftDefinition toUnescapedModel() {
+		if (ProxyUtil.isProxyClass(getClass())) {
+			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
+
+			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
+
+			return (KaleoDraftDefinition)autoEscapeBeanHandler.getBean();
+		}
+		else {
+			return (KaleoDraftDefinition)this;
+		}
 	}
 
 	@Override

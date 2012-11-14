@@ -323,6 +323,8 @@ public interface AuditEventModel extends BaseModel<AuditEvent> {
 
 	public AuditEvent toEscapedModel();
 
+	public AuditEvent toUnescapedModel();
+
 	public String toString();
 
 	public String toXmlString();

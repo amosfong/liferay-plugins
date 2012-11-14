@@ -249,6 +249,8 @@ public interface SamlIdpSpSessionModel extends AuditedModel,
 
 	public SamlIdpSpSession toEscapedModel();
 
+	public SamlIdpSpSession toUnescapedModel();
+
 	public String toString();
 
 	public String toXmlString();

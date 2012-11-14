@@ -142,6 +142,8 @@ public interface KaleoProcessLinkModel extends BaseModel<KaleoProcessLink> {
 
 	public KaleoProcessLink toEscapedModel();
 
+	public KaleoProcessLink toUnescapedModel();
+
 	public String toString();
 
 	public String toXmlString();

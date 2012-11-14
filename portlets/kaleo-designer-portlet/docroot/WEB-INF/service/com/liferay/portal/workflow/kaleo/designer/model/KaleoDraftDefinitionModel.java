@@ -367,6 +367,8 @@ public interface KaleoDraftDefinitionModel extends BaseModel<KaleoDraftDefinitio
 
 	public KaleoDraftDefinition toEscapedModel();
 
+	public KaleoDraftDefinition toUnescapedModel();
+
 	public String toString();
 
 	public String toXmlString();

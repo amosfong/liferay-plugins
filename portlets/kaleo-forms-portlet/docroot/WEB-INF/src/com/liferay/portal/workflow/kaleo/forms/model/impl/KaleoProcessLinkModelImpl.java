@@ -32,6 +32,8 @@ import com.liferay.portlet.expando.util.ExpandoBridgeFactoryUtil;
 
 import java.io.Serializable;
 
+import java.lang.reflect.InvocationHandler;
+
 import java.sql.Types;
 
 import java.util.ArrayList;
@@ -277,13 +279,28 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 
 	@Override
 	public KaleoProcessLink toEscapedModel() {
-		if (_escapedModelProxy == null) {
-			_escapedModelProxy = (KaleoProcessLink)ProxyUtil.newProxyInstance(_classLoader,
-					_escapedModelProxyInterfaces,
-					new AutoEscapeBeanHandler(this));
+		if (_escapedModel == null) {
+			_escapedModel = (KaleoProcessLink)ProxyUtil.newProxyInstance(_classLoader,
+					_escapedModelInterfaces, new AutoEscapeBeanHandler(this));
 		}
 
-		return _escapedModelProxy;
+		return _escapedModel;
+	}
+
+	@Override
+	public KaleoProcessLink toUnescapedModel() {
+		if (ProxyUtil.isProxyClass(getClass())) {
+			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
+
+			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
+
+			_unescapedModel = (KaleoProcessLink)autoEscapeBeanHandler.getBean();
+		}
+		else {
+			_unescapedModel = (KaleoProcessLink)this;
+		}
+
+		return _unescapedModel;
 	}
 
 	@Override
@@ -426,7 +443,7 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 	}
 
 	private static ClassLoader _classLoader = KaleoProcessLink.class.getClassLoader();
-	private static Class<?>[] _escapedModelProxyInterfaces = new Class[] {
+	private static Class<?>[] _escapedModelInterfaces = new Class[] {
 			KaleoProcessLink.class
 		};
 	private long _kaleoProcessLinkId;
@@ -437,5 +454,6 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 	private String _originalWorkflowTaskName;
 	private long _DDMTemplateId;
 	private long _columnBitmask;
-	private KaleoProcessLink _escapedModelProxy;
+	private KaleoProcessLink _escapedModel;
+	private KaleoProcessLink _unescapedModel;
 }

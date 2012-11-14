@@ -326,6 +326,10 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 		return new SamlIdpSsoSessionWrapper(_samlIdpSsoSession.toEscapedModel());
 	}
 
+	public com.liferay.saml.model.SamlIdpSsoSession toUnescapedModel() {
+		return new SamlIdpSsoSessionWrapper(_samlIdpSsoSession.toUnescapedModel());
+	}
+
 	@Override
 	public java.lang.String toString() {
 		return _samlIdpSsoSession.toString();

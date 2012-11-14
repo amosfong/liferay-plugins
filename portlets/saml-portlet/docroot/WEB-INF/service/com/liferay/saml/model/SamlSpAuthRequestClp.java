@@ -16,6 +16,7 @@ package com.liferay.saml.model;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
@@ -24,7 +25,7 @@ import com.liferay.saml.service.SamlSpAuthRequestLocalServiceUtil;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Proxy;
+import java.lang.reflect.InvocationHandler;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -169,9 +170,23 @@ public class SamlSpAuthRequestClp extends BaseModelImpl<SamlSpAuthRequest>
 
 	@Override
 	public SamlSpAuthRequest toEscapedModel() {
-		return (SamlSpAuthRequest)Proxy.newProxyInstance(SamlSpAuthRequest.class.getClassLoader(),
+		return (SamlSpAuthRequest)ProxyUtil.newProxyInstance(SamlSpAuthRequest.class.getClassLoader(),
 			new Class[] { SamlSpAuthRequest.class },
 			new AutoEscapeBeanHandler(this));
+	}
+
+	@Override
+	public SamlSpAuthRequest toUnescapedModel() {
+		if (ProxyUtil.isProxyClass(getClass())) {
+			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
+
+			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
+
+			return (SamlSpAuthRequest)autoEscapeBeanHandler.getBean();
+		}
+		else {
+			return (SamlSpAuthRequest)this;
+		}
 	}
 
 	@Override

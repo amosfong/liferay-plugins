@@ -16,6 +16,7 @@ package com.liferay.saml.model;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
@@ -25,7 +26,7 @@ import com.liferay.saml.service.SamlIdpSpConnectionLocalServiceUtil;
 
 import java.io.Serializable;
 
-import java.lang.reflect.Proxy;
+import java.lang.reflect.InvocationHandler;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -388,9 +389,23 @@ public class SamlIdpSpConnectionClp extends BaseModelImpl<SamlIdpSpConnection>
 
 	@Override
 	public SamlIdpSpConnection toEscapedModel() {
-		return (SamlIdpSpConnection)Proxy.newProxyInstance(SamlIdpSpConnection.class.getClassLoader(),
+		return (SamlIdpSpConnection)ProxyUtil.newProxyInstance(SamlIdpSpConnection.class.getClassLoader(),
 			new Class[] { SamlIdpSpConnection.class },
 			new AutoEscapeBeanHandler(this));
+	}
+
+	@Override
+	public SamlIdpSpConnection toUnescapedModel() {
+		if (ProxyUtil.isProxyClass(getClass())) {
+			InvocationHandler invocationHandler = ProxyUtil.getInvocationHandler(this);
+
+			AutoEscapeBeanHandler autoEscapeBeanHandler = (AutoEscapeBeanHandler)invocationHandler;
+
+			return (SamlIdpSpConnection)autoEscapeBeanHandler.getBean();
+		}
+		else {
+			return (SamlIdpSpConnection)this;
+		}
 	}
 
 	@Override

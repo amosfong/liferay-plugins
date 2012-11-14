@@ -523,6 +523,10 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 		return new AuditEventWrapper(_auditEvent.toEscapedModel());
 	}
 
+	public com.liferay.portal.audit.model.AuditEvent toUnescapedModel() {
+		return new AuditEventWrapper(_auditEvent.toUnescapedModel());
+	}
+
 	@Override
 	public java.lang.String toString() {
 		return _auditEvent.toString();

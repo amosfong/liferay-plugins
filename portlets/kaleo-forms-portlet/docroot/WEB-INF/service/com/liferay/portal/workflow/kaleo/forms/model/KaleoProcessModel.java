@@ -231,6 +231,8 @@ public interface KaleoProcessModel extends BaseModel<KaleoProcess>, GroupedModel
 
 	public KaleoProcess toEscapedModel();
 
+	public KaleoProcess toUnescapedModel();
+
 	public String toString();
 
 	public String toXmlString();

@@ -400,6 +400,10 @@ public class SamlIdpSpSessionWrapper implements SamlIdpSpSession,
 		return new SamlIdpSpSessionWrapper(_samlIdpSpSession.toEscapedModel());
 	}
 
+	public com.liferay.saml.model.SamlIdpSpSession toUnescapedModel() {
+		return new SamlIdpSpSessionWrapper(_samlIdpSpSession.toUnescapedModel());
+	}
+
 	@Override
 	public java.lang.String toString() {
 		return _samlIdpSpSession.toString();
