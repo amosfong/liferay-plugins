@@ -980,7 +980,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 
 		fileEntryToolbarChildren.push(
 			{
-				<portlet:renderURL var="editURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
+				<portlet:renderURL var="editURL">
 					<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
 					<portlet:param name="redirect" value="<%= currentURL %>" />
 					<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
@@ -1100,7 +1100,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 		<c:if test="<%= fileEntry.hasLock() || (permissionChecker.isGroupAdmin(fileEntry.getRepositoryId()) && fileEntry.isCheckedOut()) %>">
 			fileEntryToolbarChildren.push(
 				{
-					<portlet:renderURL var="checkinURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
+					<portlet:renderURL var="checkinURL">
 						<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
 						<portlet:param name="redirect" value="<%= currentURL %>" />
 						<portlet:param name="displaySection" value="checkin" />
@@ -1127,8 +1127,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 
 		fileEntryToolbarChildren.push(
 			{
-
-				<portlet:renderURL var="moveURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
+				<portlet:renderURL var="moveURL">
 					<portlet:param name="struts_action" value="/document_library/move_file_entry" />
 					<portlet:param name="redirect" value="<%= currentURL %>" />
 					<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
