@@ -1089,6 +1089,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 
 				handler: function(event) {
 					location.href = '<%= moveURL %>';
+				},
 				icon: 'move',
 				label: '<%= UnicodeLanguageUtil.get(pageContext, "move") %>'
 			}

@@ -262,7 +262,7 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 					/>
 
 					<%
-					String taglibURLPermissions = "javascript:Liferay.Util.openWindow({dialog: {align: {node: null, points: ['tc', 'tc']}, constrain2view: true, modal: true, resizable: false, width: 960}, id: '" + renderResponse.getNamespace() + "permissions', title: '" + LanguageUtil.get(pageContext, "permissions") + "', uri:'" + HtmlUtil.escapeURL(permissionsURL.toString()) + "'});";
+					String taglibURLPermissions = "javascript:Liferay.Util.openWindow({dialog: {align: {node: null, points: ['tc', 'tc']}, constrain2view: true, modal: true, resizable: false, width: 960}, id: 'permissions" + fileEntry.getFileEntryId() + "', title: '" + LanguageUtil.get(pageContext, "permissions") + "', uri:'" + HtmlUtil.escapeURL(permissionsURL.toString()) + "'});";
 					%>
 
 					<liferay-ui:icon
@@ -335,7 +335,7 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 					/>
 
 					<%
-					String taglibURLshortcutPermissions = "javascript:Liferay.Util.openWindow({dialog: {align: {node: null, points: ['tc', 'tc']}, constrain2view: true, modal: true, resizable: false, width: 960}, id: '" + renderResponse.getNamespace() + "permissions', title: '" + LanguageUtil.get(pageContext, "permissions") + "', uri:'" + HtmlUtil.escapeURL(shortcutPermissionsURL.toString()) + "'});";
+					String taglibURLshortcutPermissions = "javascript:Liferay.Util.openWindow({dialog: {align: {node: null, points: ['tc', 'tc']}, constrain2view: true, modal: true, resizable: false, width: 960}, id: 'permissions" + fileEntry.getFileEntryId() + "', title: '" + LanguageUtil.get(pageContext, "permissions") + "', uri:'" + HtmlUtil.escapeURL(shortcutPermissionsURL.toString()) + "'});";
 					%>
 
 					<liferay-ui:icon
