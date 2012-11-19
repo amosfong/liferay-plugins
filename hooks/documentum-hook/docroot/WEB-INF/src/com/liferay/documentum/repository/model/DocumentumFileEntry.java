@@ -475,6 +475,10 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return this;
 	}
 
+	public FileEntry toUnescapedModel() {
+		return this;
+	}
+
 	protected DocumentumVersionLabel getVersionLabel(String version)
 		throws PortalException {
 

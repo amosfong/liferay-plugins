@@ -260,6 +260,10 @@ public class DocumentumFileVersion
 		return this;
 	}
 
+	public FileVersion toUnescapedModel() {
+		return this;
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(
 		DocumentumFileVersion.class);
 

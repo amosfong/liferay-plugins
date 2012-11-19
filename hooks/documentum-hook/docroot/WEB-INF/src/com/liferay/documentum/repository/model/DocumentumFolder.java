@@ -274,6 +274,10 @@ public class DocumentumFolder extends DocumentumModel implements Folder {
 		return this;
 	}
 
+	public Folder toUnescapedModel() {
+		return this;
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(DocumentumFolder.class);
 
 	private Date _createDate;

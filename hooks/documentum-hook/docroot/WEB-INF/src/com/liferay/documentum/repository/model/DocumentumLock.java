@@ -282,6 +282,10 @@ public class DocumentumLock
 		return this;
 	}
 
+	public Lock toUnescapedModel() {
+		return this;
+	}
+
 	public String toXmlString() {
 		return StringPool.BLANK;
 	}
