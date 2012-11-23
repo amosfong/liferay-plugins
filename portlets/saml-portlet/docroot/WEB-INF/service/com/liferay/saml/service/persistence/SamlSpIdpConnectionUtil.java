@@ -112,86 +112,6 @@ public class SamlSpIdpConnectionUtil {
 	}
 
 	/**
-	* Caches the saml sp idp connection in the entity cache if it is enabled.
-	*
-	* @param samlSpIdpConnection the saml sp idp connection
-	*/
-	public static void cacheResult(
-		com.liferay.saml.model.SamlSpIdpConnection samlSpIdpConnection) {
-		getPersistence().cacheResult(samlSpIdpConnection);
-	}
-
-	/**
-	* Caches the saml sp idp connections in the entity cache if it is enabled.
-	*
-	* @param samlSpIdpConnections the saml sp idp connections
-	*/
-	public static void cacheResult(
-		java.util.List<com.liferay.saml.model.SamlSpIdpConnection> samlSpIdpConnections) {
-		getPersistence().cacheResult(samlSpIdpConnections);
-	}
-
-	/**
-	* Creates a new saml sp idp connection with the primary key. Does not add the saml sp idp connection to the database.
-	*
-	* @param samlSpIdpConnectionId the primary key for the new saml sp idp connection
-	* @return the new saml sp idp connection
-	*/
-	public static com.liferay.saml.model.SamlSpIdpConnection create(
-		long samlSpIdpConnectionId) {
-		return getPersistence().create(samlSpIdpConnectionId);
-	}
-
-	/**
-	* Removes the saml sp idp connection with the primary key from the database. Also notifies the appropriate model listeners.
-	*
-	* @param samlSpIdpConnectionId the primary key of the saml sp idp connection
-	* @return the saml sp idp connection that was removed
-	* @throws com.liferay.saml.NoSuchSpIdpConnectionException if a saml sp idp connection with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.saml.model.SamlSpIdpConnection remove(
-		long samlSpIdpConnectionId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.saml.NoSuchSpIdpConnectionException {
-		return getPersistence().remove(samlSpIdpConnectionId);
-	}
-
-	public static com.liferay.saml.model.SamlSpIdpConnection updateImpl(
-		com.liferay.saml.model.SamlSpIdpConnection samlSpIdpConnection)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().updateImpl(samlSpIdpConnection);
-	}
-
-	/**
-	* Returns the saml sp idp connection with the primary key or throws a {@link com.liferay.saml.NoSuchSpIdpConnectionException} if it could not be found.
-	*
-	* @param samlSpIdpConnectionId the primary key of the saml sp idp connection
-	* @return the saml sp idp connection
-	* @throws com.liferay.saml.NoSuchSpIdpConnectionException if a saml sp idp connection with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.saml.model.SamlSpIdpConnection findByPrimaryKey(
-		long samlSpIdpConnectionId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.saml.NoSuchSpIdpConnectionException {
-		return getPersistence().findByPrimaryKey(samlSpIdpConnectionId);
-	}
-
-	/**
-	* Returns the saml sp idp connection with the primary key or returns <code>null</code> if it could not be found.
-	*
-	* @param samlSpIdpConnectionId the primary key of the saml sp idp connection
-	* @return the saml sp idp connection, or <code>null</code> if a saml sp idp connection with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.saml.model.SamlSpIdpConnection fetchByPrimaryKey(
-		long samlSpIdpConnectionId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().fetchByPrimaryKey(samlSpIdpConnectionId);
-	}
-
-	/**
 	* Returns all the saml sp idp connections where companyId = &#63;.
 	*
 	* @param companyId the company ID
@@ -334,6 +254,29 @@ public class SamlSpIdpConnectionUtil {
 	}
 
 	/**
+	* Removes all the saml sp idp connections where companyId = &#63; from the database.
+	*
+	* @param companyId the company ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeByCompanyId(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeByCompanyId(companyId);
+	}
+
+	/**
+	* Returns the number of saml sp idp connections where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @return the number of matching saml sp idp connections
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByCompanyId(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByCompanyId(companyId);
+	}
+
+	/**
 	* Returns the saml sp idp connection where companyId = &#63; and samlIdpEntityId = &#63; or throws a {@link com.liferay.saml.NoSuchSpIdpConnectionException} if it could not be found.
 	*
 	* @param companyId the company ID
@@ -378,6 +321,115 @@ public class SamlSpIdpConnectionUtil {
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
 				   .fetchByC_SIEI(companyId, samlIdpEntityId, retrieveFromCache);
+	}
+
+	/**
+	* Removes the saml sp idp connection where companyId = &#63; and samlIdpEntityId = &#63; from the database.
+	*
+	* @param companyId the company ID
+	* @param samlIdpEntityId the saml idp entity ID
+	* @return the saml sp idp connection that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.saml.model.SamlSpIdpConnection removeByC_SIEI(
+		long companyId, java.lang.String samlIdpEntityId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.saml.NoSuchSpIdpConnectionException {
+		return getPersistence().removeByC_SIEI(companyId, samlIdpEntityId);
+	}
+
+	/**
+	* Returns the number of saml sp idp connections where companyId = &#63; and samlIdpEntityId = &#63;.
+	*
+	* @param companyId the company ID
+	* @param samlIdpEntityId the saml idp entity ID
+	* @return the number of matching saml sp idp connections
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByC_SIEI(long companyId,
+		java.lang.String samlIdpEntityId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByC_SIEI(companyId, samlIdpEntityId);
+	}
+
+	/**
+	* Caches the saml sp idp connection in the entity cache if it is enabled.
+	*
+	* @param samlSpIdpConnection the saml sp idp connection
+	*/
+	public static void cacheResult(
+		com.liferay.saml.model.SamlSpIdpConnection samlSpIdpConnection) {
+		getPersistence().cacheResult(samlSpIdpConnection);
+	}
+
+	/**
+	* Caches the saml sp idp connections in the entity cache if it is enabled.
+	*
+	* @param samlSpIdpConnections the saml sp idp connections
+	*/
+	public static void cacheResult(
+		java.util.List<com.liferay.saml.model.SamlSpIdpConnection> samlSpIdpConnections) {
+		getPersistence().cacheResult(samlSpIdpConnections);
+	}
+
+	/**
+	* Creates a new saml sp idp connection with the primary key. Does not add the saml sp idp connection to the database.
+	*
+	* @param samlSpIdpConnectionId the primary key for the new saml sp idp connection
+	* @return the new saml sp idp connection
+	*/
+	public static com.liferay.saml.model.SamlSpIdpConnection create(
+		long samlSpIdpConnectionId) {
+		return getPersistence().create(samlSpIdpConnectionId);
+	}
+
+	/**
+	* Removes the saml sp idp connection with the primary key from the database. Also notifies the appropriate model listeners.
+	*
+	* @param samlSpIdpConnectionId the primary key of the saml sp idp connection
+	* @return the saml sp idp connection that was removed
+	* @throws com.liferay.saml.NoSuchSpIdpConnectionException if a saml sp idp connection with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.saml.model.SamlSpIdpConnection remove(
+		long samlSpIdpConnectionId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.saml.NoSuchSpIdpConnectionException {
+		return getPersistence().remove(samlSpIdpConnectionId);
+	}
+
+	public static com.liferay.saml.model.SamlSpIdpConnection updateImpl(
+		com.liferay.saml.model.SamlSpIdpConnection samlSpIdpConnection)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().updateImpl(samlSpIdpConnection);
+	}
+
+	/**
+	* Returns the saml sp idp connection with the primary key or throws a {@link com.liferay.saml.NoSuchSpIdpConnectionException} if it could not be found.
+	*
+	* @param samlSpIdpConnectionId the primary key of the saml sp idp connection
+	* @return the saml sp idp connection
+	* @throws com.liferay.saml.NoSuchSpIdpConnectionException if a saml sp idp connection with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.saml.model.SamlSpIdpConnection findByPrimaryKey(
+		long samlSpIdpConnectionId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.saml.NoSuchSpIdpConnectionException {
+		return getPersistence().findByPrimaryKey(samlSpIdpConnectionId);
+	}
+
+	/**
+	* Returns the saml sp idp connection with the primary key or returns <code>null</code> if it could not be found.
+	*
+	* @param samlSpIdpConnectionId the primary key of the saml sp idp connection
+	* @return the saml sp idp connection, or <code>null</code> if a saml sp idp connection with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.saml.model.SamlSpIdpConnection fetchByPrimaryKey(
+		long samlSpIdpConnectionId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().fetchByPrimaryKey(samlSpIdpConnectionId);
 	}
 
 	/**
@@ -430,32 +482,6 @@ public class SamlSpIdpConnectionUtil {
 	}
 
 	/**
-	* Removes all the saml sp idp connections where companyId = &#63; from the database.
-	*
-	* @param companyId the company ID
-	* @throws SystemException if a system exception occurred
-	*/
-	public static void removeByCompanyId(long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		getPersistence().removeByCompanyId(companyId);
-	}
-
-	/**
-	* Removes the saml sp idp connection where companyId = &#63; and samlIdpEntityId = &#63; from the database.
-	*
-	* @param companyId the company ID
-	* @param samlIdpEntityId the saml idp entity ID
-	* @return the saml sp idp connection that was removed
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.saml.model.SamlSpIdpConnection removeByC_SIEI(
-		long companyId, java.lang.String samlIdpEntityId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.saml.NoSuchSpIdpConnectionException {
-		return getPersistence().removeByC_SIEI(companyId, samlIdpEntityId);
-	}
-
-	/**
 	* Removes all the saml sp idp connections from the database.
 	*
 	* @throws SystemException if a system exception occurred
@@ -463,32 +489,6 @@ public class SamlSpIdpConnectionUtil {
 	public static void removeAll()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getPersistence().removeAll();
-	}
-
-	/**
-	* Returns the number of saml sp idp connections where companyId = &#63;.
-	*
-	* @param companyId the company ID
-	* @return the number of matching saml sp idp connections
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByCompanyId(long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByCompanyId(companyId);
-	}
-
-	/**
-	* Returns the number of saml sp idp connections where companyId = &#63; and samlIdpEntityId = &#63;.
-	*
-	* @param companyId the company ID
-	* @param samlIdpEntityId the saml idp entity ID
-	* @return the number of matching saml sp idp connections
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByC_SIEI(long companyId,
-		java.lang.String samlIdpEntityId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByC_SIEI(companyId, samlIdpEntityId);
 	}
 
 	/**

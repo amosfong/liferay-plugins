@@ -74,6 +74,15 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 		".List1";
 	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
 		".List2";
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
+			AuditEventModelImpl.FINDER_CACHE_ENABLED, AuditEventImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL = new FinderPath(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
+			AuditEventModelImpl.FINDER_CACHE_ENABLED, AuditEventImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll", new String[0]);
+	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
+			AuditEventModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_COMPANYID =
 		new FinderPath(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
 			AuditEventModelImpl.FINDER_CACHE_ENABLED, AuditEventImpl.class,
@@ -94,388 +103,6 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 			AuditEventModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCompanyId",
 			new String[] { Long.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
-			AuditEventModelImpl.FINDER_CACHE_ENABLED, AuditEventImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL = new FinderPath(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
-			AuditEventModelImpl.FINDER_CACHE_ENABLED, AuditEventImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
-			AuditEventModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
-
-	/**
-	 * Caches the audit event in the entity cache if it is enabled.
-	 *
-	 * @param auditEvent the audit event
-	 */
-	public void cacheResult(AuditEvent auditEvent) {
-		EntityCacheUtil.putResult(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
-			AuditEventImpl.class, auditEvent.getPrimaryKey(), auditEvent);
-
-		auditEvent.resetOriginalValues();
-	}
-
-	/**
-	 * Caches the audit events in the entity cache if it is enabled.
-	 *
-	 * @param auditEvents the audit events
-	 */
-	public void cacheResult(List<AuditEvent> auditEvents) {
-		for (AuditEvent auditEvent : auditEvents) {
-			if (EntityCacheUtil.getResult(
-						AuditEventModelImpl.ENTITY_CACHE_ENABLED,
-						AuditEventImpl.class, auditEvent.getPrimaryKey()) == null) {
-				cacheResult(auditEvent);
-			}
-			else {
-				auditEvent.resetOriginalValues();
-			}
-		}
-	}
-
-	/**
-	 * Clears the cache for all audit events.
-	 *
-	 * <p>
-	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
-	 * </p>
-	 */
-	@Override
-	public void clearCache() {
-		if (_HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE) {
-			CacheRegistryUtil.clear(AuditEventImpl.class.getName());
-		}
-
-		EntityCacheUtil.clearCache(AuditEventImpl.class.getName());
-
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_ENTITY);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	/**
-	 * Clears the cache for the audit event.
-	 *
-	 * <p>
-	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
-	 * </p>
-	 */
-	@Override
-	public void clearCache(AuditEvent auditEvent) {
-		EntityCacheUtil.removeResult(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
-			AuditEventImpl.class, auditEvent.getPrimaryKey());
-
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	@Override
-	public void clearCache(List<AuditEvent> auditEvents) {
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-
-		for (AuditEvent auditEvent : auditEvents) {
-			EntityCacheUtil.removeResult(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
-				AuditEventImpl.class, auditEvent.getPrimaryKey());
-		}
-	}
-
-	/**
-	 * Creates a new audit event with the primary key. Does not add the audit event to the database.
-	 *
-	 * @param auditEventId the primary key for the new audit event
-	 * @return the new audit event
-	 */
-	public AuditEvent create(long auditEventId) {
-		AuditEvent auditEvent = new AuditEventImpl();
-
-		auditEvent.setNew(true);
-		auditEvent.setPrimaryKey(auditEventId);
-
-		return auditEvent;
-	}
-
-	/**
-	 * Removes the audit event with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param auditEventId the primary key of the audit event
-	 * @return the audit event that was removed
-	 * @throws com.liferay.portal.audit.NoSuchEventException if a audit event with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public AuditEvent remove(long auditEventId)
-		throws NoSuchEventException, SystemException {
-		return remove(Long.valueOf(auditEventId));
-	}
-
-	/**
-	 * Removes the audit event with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param primaryKey the primary key of the audit event
-	 * @return the audit event that was removed
-	 * @throws com.liferay.portal.audit.NoSuchEventException if a audit event with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public AuditEvent remove(Serializable primaryKey)
-		throws NoSuchEventException, SystemException {
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			AuditEvent auditEvent = (AuditEvent)session.get(AuditEventImpl.class,
-					primaryKey);
-
-			if (auditEvent == null) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
-				}
-
-				throw new NoSuchEventException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					primaryKey);
-			}
-
-			return remove(auditEvent);
-		}
-		catch (NoSuchEventException nsee) {
-			throw nsee;
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	@Override
-	protected AuditEvent removeImpl(AuditEvent auditEvent)
-		throws SystemException {
-		auditEvent = toUnwrappedModel(auditEvent);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			if (!session.contains(auditEvent)) {
-				auditEvent = (AuditEvent)session.get(AuditEventImpl.class,
-						auditEvent.getPrimaryKeyObj());
-			}
-
-			if (auditEvent != null) {
-				session.delete(auditEvent);
-			}
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-
-		if (auditEvent != null) {
-			clearCache(auditEvent);
-		}
-
-		return auditEvent;
-	}
-
-	@Override
-	public AuditEvent updateImpl(
-		com.liferay.portal.audit.model.AuditEvent auditEvent)
-		throws SystemException {
-		auditEvent = toUnwrappedModel(auditEvent);
-
-		boolean isNew = auditEvent.isNew();
-
-		AuditEventModelImpl auditEventModelImpl = (AuditEventModelImpl)auditEvent;
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			if (auditEvent.isNew()) {
-				session.save(auditEvent);
-
-				auditEvent.setNew(false);
-			}
-			else {
-				session.merge(auditEvent);
-			}
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-
-		if (isNew || !AuditEventModelImpl.COLUMN_BITMASK_ENABLED) {
-			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-		}
-
-		else {
-			if ((auditEventModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						Long.valueOf(auditEventModelImpl.getOriginalCompanyId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
-					args);
-
-				args = new Object[] {
-						Long.valueOf(auditEventModelImpl.getCompanyId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
-					args);
-			}
-		}
-
-		EntityCacheUtil.putResult(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
-			AuditEventImpl.class, auditEvent.getPrimaryKey(), auditEvent);
-
-		return auditEvent;
-	}
-
-	protected AuditEvent toUnwrappedModel(AuditEvent auditEvent) {
-		if (auditEvent instanceof AuditEventImpl) {
-			return auditEvent;
-		}
-
-		AuditEventImpl auditEventImpl = new AuditEventImpl();
-
-		auditEventImpl.setNew(auditEvent.isNew());
-		auditEventImpl.setPrimaryKey(auditEvent.getPrimaryKey());
-
-		auditEventImpl.setAuditEventId(auditEvent.getAuditEventId());
-		auditEventImpl.setCompanyId(auditEvent.getCompanyId());
-		auditEventImpl.setUserId(auditEvent.getUserId());
-		auditEventImpl.setUserName(auditEvent.getUserName());
-		auditEventImpl.setCreateDate(auditEvent.getCreateDate());
-		auditEventImpl.setEventType(auditEvent.getEventType());
-		auditEventImpl.setClassName(auditEvent.getClassName());
-		auditEventImpl.setClassPK(auditEvent.getClassPK());
-		auditEventImpl.setMessage(auditEvent.getMessage());
-		auditEventImpl.setClientHost(auditEvent.getClientHost());
-		auditEventImpl.setClientIP(auditEvent.getClientIP());
-		auditEventImpl.setServerName(auditEvent.getServerName());
-		auditEventImpl.setServerPort(auditEvent.getServerPort());
-		auditEventImpl.setSessionID(auditEvent.getSessionID());
-		auditEventImpl.setAdditionalInfo(auditEvent.getAdditionalInfo());
-
-		return auditEventImpl;
-	}
-
-	/**
-	 * Returns the audit event with the primary key or throws a {@link com.liferay.portal.NoSuchModelException} if it could not be found.
-	 *
-	 * @param primaryKey the primary key of the audit event
-	 * @return the audit event
-	 * @throws com.liferay.portal.NoSuchModelException if a audit event with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public AuditEvent findByPrimaryKey(Serializable primaryKey)
-		throws NoSuchModelException, SystemException {
-		return findByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the audit event with the primary key or throws a {@link com.liferay.portal.audit.NoSuchEventException} if it could not be found.
-	 *
-	 * @param auditEventId the primary key of the audit event
-	 * @return the audit event
-	 * @throws com.liferay.portal.audit.NoSuchEventException if a audit event with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public AuditEvent findByPrimaryKey(long auditEventId)
-		throws NoSuchEventException, SystemException {
-		AuditEvent auditEvent = fetchByPrimaryKey(auditEventId);
-
-		if (auditEvent == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + auditEventId);
-			}
-
-			throw new NoSuchEventException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				auditEventId);
-		}
-
-		return auditEvent;
-	}
-
-	/**
-	 * Returns the audit event with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param primaryKey the primary key of the audit event
-	 * @return the audit event, or <code>null</code> if a audit event with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public AuditEvent fetchByPrimaryKey(Serializable primaryKey)
-		throws SystemException {
-		return fetchByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the audit event with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param auditEventId the primary key of the audit event
-	 * @return the audit event, or <code>null</code> if a audit event with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public AuditEvent fetchByPrimaryKey(long auditEventId)
-		throws SystemException {
-		AuditEvent auditEvent = (AuditEvent)EntityCacheUtil.getResult(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
-				AuditEventImpl.class, auditEventId);
-
-		if (auditEvent == _nullAuditEvent) {
-			return null;
-		}
-
-		if (auditEvent == null) {
-			Session session = null;
-
-			boolean hasException = false;
-
-			try {
-				session = openSession();
-
-				auditEvent = (AuditEvent)session.get(AuditEventImpl.class,
-						Long.valueOf(auditEventId));
-			}
-			catch (Exception e) {
-				hasException = true;
-
-				throw processException(e);
-			}
-			finally {
-				if (auditEvent != null) {
-					cacheResult(auditEvent);
-				}
-				else if (!hasException) {
-					EntityCacheUtil.putResult(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
-						AuditEventImpl.class, auditEventId, _nullAuditEvent);
-				}
-
-				closeSession(session);
-			}
-		}
-
-		return auditEvent;
-	}
 
 	/**
 	 * Returns all the audit events where companyId = &#63;.
@@ -861,6 +488,446 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	}
 
 	/**
+	 * Removes all the audit events where companyId = &#63; from the database.
+	 *
+	 * @param companyId the company ID
+	 * @throws SystemException if a system exception occurred
+	 */
+	public void removeByCompanyId(long companyId) throws SystemException {
+		for (AuditEvent auditEvent : findByCompanyId(companyId)) {
+			remove(auditEvent);
+		}
+	}
+
+	/**
+	 * Returns the number of audit events where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @return the number of matching audit events
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByCompanyId(long companyId) throws SystemException {
+		Object[] finderArgs = new Object[] { companyId };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_COMPANYID,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_AUDITEVENT_WHERE);
+
+			query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(companyId);
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_COMPANYID,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 = "auditEvent.companyId = ?";
+
+	/**
+	 * Caches the audit event in the entity cache if it is enabled.
+	 *
+	 * @param auditEvent the audit event
+	 */
+	public void cacheResult(AuditEvent auditEvent) {
+		EntityCacheUtil.putResult(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
+			AuditEventImpl.class, auditEvent.getPrimaryKey(), auditEvent);
+
+		auditEvent.resetOriginalValues();
+	}
+
+	/**
+	 * Caches the audit events in the entity cache if it is enabled.
+	 *
+	 * @param auditEvents the audit events
+	 */
+	public void cacheResult(List<AuditEvent> auditEvents) {
+		for (AuditEvent auditEvent : auditEvents) {
+			if (EntityCacheUtil.getResult(
+						AuditEventModelImpl.ENTITY_CACHE_ENABLED,
+						AuditEventImpl.class, auditEvent.getPrimaryKey()) == null) {
+				cacheResult(auditEvent);
+			}
+			else {
+				auditEvent.resetOriginalValues();
+			}
+		}
+	}
+
+	/**
+	 * Clears the cache for all audit events.
+	 *
+	 * <p>
+	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
+	 * </p>
+	 */
+	@Override
+	public void clearCache() {
+		if (_HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE) {
+			CacheRegistryUtil.clear(AuditEventImpl.class.getName());
+		}
+
+		EntityCacheUtil.clearCache(AuditEventImpl.class.getName());
+
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_ENTITY);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	/**
+	 * Clears the cache for the audit event.
+	 *
+	 * <p>
+	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
+	 * </p>
+	 */
+	@Override
+	public void clearCache(AuditEvent auditEvent) {
+		EntityCacheUtil.removeResult(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
+			AuditEventImpl.class, auditEvent.getPrimaryKey());
+
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	@Override
+	public void clearCache(List<AuditEvent> auditEvents) {
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		for (AuditEvent auditEvent : auditEvents) {
+			EntityCacheUtil.removeResult(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
+				AuditEventImpl.class, auditEvent.getPrimaryKey());
+		}
+	}
+
+	/**
+	 * Creates a new audit event with the primary key. Does not add the audit event to the database.
+	 *
+	 * @param auditEventId the primary key for the new audit event
+	 * @return the new audit event
+	 */
+	public AuditEvent create(long auditEventId) {
+		AuditEvent auditEvent = new AuditEventImpl();
+
+		auditEvent.setNew(true);
+		auditEvent.setPrimaryKey(auditEventId);
+
+		return auditEvent;
+	}
+
+	/**
+	 * Removes the audit event with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * @param auditEventId the primary key of the audit event
+	 * @return the audit event that was removed
+	 * @throws com.liferay.portal.audit.NoSuchEventException if a audit event with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AuditEvent remove(long auditEventId)
+		throws NoSuchEventException, SystemException {
+		return remove(Long.valueOf(auditEventId));
+	}
+
+	/**
+	 * Removes the audit event with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * @param primaryKey the primary key of the audit event
+	 * @return the audit event that was removed
+	 * @throws com.liferay.portal.audit.NoSuchEventException if a audit event with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public AuditEvent remove(Serializable primaryKey)
+		throws NoSuchEventException, SystemException {
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			AuditEvent auditEvent = (AuditEvent)session.get(AuditEventImpl.class,
+					primaryKey);
+
+			if (auditEvent == null) {
+				if (_log.isWarnEnabled()) {
+					_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+				}
+
+				throw new NoSuchEventException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+					primaryKey);
+			}
+
+			return remove(auditEvent);
+		}
+		catch (NoSuchEventException nsee) {
+			throw nsee;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	@Override
+	protected AuditEvent removeImpl(AuditEvent auditEvent)
+		throws SystemException {
+		auditEvent = toUnwrappedModel(auditEvent);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			if (!session.contains(auditEvent)) {
+				auditEvent = (AuditEvent)session.get(AuditEventImpl.class,
+						auditEvent.getPrimaryKeyObj());
+			}
+
+			if (auditEvent != null) {
+				session.delete(auditEvent);
+			}
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+
+		if (auditEvent != null) {
+			clearCache(auditEvent);
+		}
+
+		return auditEvent;
+	}
+
+	@Override
+	public AuditEvent updateImpl(
+		com.liferay.portal.audit.model.AuditEvent auditEvent)
+		throws SystemException {
+		auditEvent = toUnwrappedModel(auditEvent);
+
+		boolean isNew = auditEvent.isNew();
+
+		AuditEventModelImpl auditEventModelImpl = (AuditEventModelImpl)auditEvent;
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			if (auditEvent.isNew()) {
+				session.save(auditEvent);
+
+				auditEvent.setNew(false);
+			}
+			else {
+				session.merge(auditEvent);
+			}
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+
+		if (isNew || !AuditEventModelImpl.COLUMN_BITMASK_ENABLED) {
+			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+		}
+
+		else {
+			if ((auditEventModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						Long.valueOf(auditEventModelImpl.getOriginalCompanyId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
+					args);
+
+				args = new Object[] {
+						Long.valueOf(auditEventModelImpl.getCompanyId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
+					args);
+			}
+		}
+
+		EntityCacheUtil.putResult(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
+			AuditEventImpl.class, auditEvent.getPrimaryKey(), auditEvent);
+
+		return auditEvent;
+	}
+
+	protected AuditEvent toUnwrappedModel(AuditEvent auditEvent) {
+		if (auditEvent instanceof AuditEventImpl) {
+			return auditEvent;
+		}
+
+		AuditEventImpl auditEventImpl = new AuditEventImpl();
+
+		auditEventImpl.setNew(auditEvent.isNew());
+		auditEventImpl.setPrimaryKey(auditEvent.getPrimaryKey());
+
+		auditEventImpl.setAuditEventId(auditEvent.getAuditEventId());
+		auditEventImpl.setCompanyId(auditEvent.getCompanyId());
+		auditEventImpl.setUserId(auditEvent.getUserId());
+		auditEventImpl.setUserName(auditEvent.getUserName());
+		auditEventImpl.setCreateDate(auditEvent.getCreateDate());
+		auditEventImpl.setEventType(auditEvent.getEventType());
+		auditEventImpl.setClassName(auditEvent.getClassName());
+		auditEventImpl.setClassPK(auditEvent.getClassPK());
+		auditEventImpl.setMessage(auditEvent.getMessage());
+		auditEventImpl.setClientHost(auditEvent.getClientHost());
+		auditEventImpl.setClientIP(auditEvent.getClientIP());
+		auditEventImpl.setServerName(auditEvent.getServerName());
+		auditEventImpl.setServerPort(auditEvent.getServerPort());
+		auditEventImpl.setSessionID(auditEvent.getSessionID());
+		auditEventImpl.setAdditionalInfo(auditEvent.getAdditionalInfo());
+
+		return auditEventImpl;
+	}
+
+	/**
+	 * Returns the audit event with the primary key or throws a {@link com.liferay.portal.NoSuchModelException} if it could not be found.
+	 *
+	 * @param primaryKey the primary key of the audit event
+	 * @return the audit event
+	 * @throws com.liferay.portal.NoSuchModelException if a audit event with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public AuditEvent findByPrimaryKey(Serializable primaryKey)
+		throws NoSuchModelException, SystemException {
+		return findByPrimaryKey(((Long)primaryKey).longValue());
+	}
+
+	/**
+	 * Returns the audit event with the primary key or throws a {@link com.liferay.portal.audit.NoSuchEventException} if it could not be found.
+	 *
+	 * @param auditEventId the primary key of the audit event
+	 * @return the audit event
+	 * @throws com.liferay.portal.audit.NoSuchEventException if a audit event with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AuditEvent findByPrimaryKey(long auditEventId)
+		throws NoSuchEventException, SystemException {
+		AuditEvent auditEvent = fetchByPrimaryKey(auditEventId);
+
+		if (auditEvent == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + auditEventId);
+			}
+
+			throw new NoSuchEventException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+				auditEventId);
+		}
+
+		return auditEvent;
+	}
+
+	/**
+	 * Returns the audit event with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param primaryKey the primary key of the audit event
+	 * @return the audit event, or <code>null</code> if a audit event with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public AuditEvent fetchByPrimaryKey(Serializable primaryKey)
+		throws SystemException {
+		return fetchByPrimaryKey(((Long)primaryKey).longValue());
+	}
+
+	/**
+	 * Returns the audit event with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param auditEventId the primary key of the audit event
+	 * @return the audit event, or <code>null</code> if a audit event with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AuditEvent fetchByPrimaryKey(long auditEventId)
+		throws SystemException {
+		AuditEvent auditEvent = (AuditEvent)EntityCacheUtil.getResult(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
+				AuditEventImpl.class, auditEventId);
+
+		if (auditEvent == _nullAuditEvent) {
+			return null;
+		}
+
+		if (auditEvent == null) {
+			Session session = null;
+
+			boolean hasException = false;
+
+			try {
+				session = openSession();
+
+				auditEvent = (AuditEvent)session.get(AuditEventImpl.class,
+						Long.valueOf(auditEventId));
+			}
+			catch (Exception e) {
+				hasException = true;
+
+				throw processException(e);
+			}
+			finally {
+				if (auditEvent != null) {
+					cacheResult(auditEvent);
+				}
+				else if (!hasException) {
+					EntityCacheUtil.putResult(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
+						AuditEventImpl.class, auditEventId, _nullAuditEvent);
+				}
+
+				closeSession(session);
+			}
+		}
+
+		return auditEvent;
+	}
+
+	/**
 	 * Returns all the audit events.
 	 *
 	 * @return the audit events
@@ -976,18 +1043,6 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	}
 
 	/**
-	 * Removes all the audit events where companyId = &#63; from the database.
-	 *
-	 * @param companyId the company ID
-	 * @throws SystemException if a system exception occurred
-	 */
-	public void removeByCompanyId(long companyId) throws SystemException {
-		for (AuditEvent auditEvent : findByCompanyId(companyId)) {
-			remove(auditEvent);
-		}
-	}
-
-	/**
 	 * Removes all the audit events from the database.
 	 *
 	 * @throws SystemException if a system exception occurred
@@ -996,59 +1051,6 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 		for (AuditEvent auditEvent : findAll()) {
 			remove(auditEvent);
 		}
-	}
-
-	/**
-	 * Returns the number of audit events where companyId = &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @return the number of matching audit events
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByCompanyId(long companyId) throws SystemException {
-		Object[] finderArgs = new Object[] { companyId };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_COMPANYID,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_AUDITEVENT_WHERE);
-
-			query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(companyId);
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_COMPANYID,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
 	}
 
 	/**
@@ -1128,7 +1130,6 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	private static final String _SQL_SELECT_AUDITEVENT_WHERE = "SELECT auditEvent FROM AuditEvent auditEvent WHERE ";
 	private static final String _SQL_COUNT_AUDITEVENT = "SELECT COUNT(auditEvent) FROM AuditEvent auditEvent";
 	private static final String _SQL_COUNT_AUDITEVENT_WHERE = "SELECT COUNT(auditEvent) FROM AuditEvent auditEvent WHERE ";
-	private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 = "auditEvent.companyId = ?";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "auditEvent.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No AuditEvent exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No AuditEvent exists with the key {";

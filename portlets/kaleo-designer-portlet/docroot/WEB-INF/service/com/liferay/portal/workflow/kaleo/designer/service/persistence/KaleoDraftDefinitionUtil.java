@@ -111,86 +111,6 @@ public class KaleoDraftDefinitionUtil {
 	}
 
 	/**
-	* Caches the kaleo draft definition in the entity cache if it is enabled.
-	*
-	* @param kaleoDraftDefinition the kaleo draft definition
-	*/
-	public static void cacheResult(
-		com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition kaleoDraftDefinition) {
-		getPersistence().cacheResult(kaleoDraftDefinition);
-	}
-
-	/**
-	* Caches the kaleo draft definitions in the entity cache if it is enabled.
-	*
-	* @param kaleoDraftDefinitions the kaleo draft definitions
-	*/
-	public static void cacheResult(
-		java.util.List<com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition> kaleoDraftDefinitions) {
-		getPersistence().cacheResult(kaleoDraftDefinitions);
-	}
-
-	/**
-	* Creates a new kaleo draft definition with the primary key. Does not add the kaleo draft definition to the database.
-	*
-	* @param kaleoDraftDefinitionId the primary key for the new kaleo draft definition
-	* @return the new kaleo draft definition
-	*/
-	public static com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition create(
-		long kaleoDraftDefinitionId) {
-		return getPersistence().create(kaleoDraftDefinitionId);
-	}
-
-	/**
-	* Removes the kaleo draft definition with the primary key from the database. Also notifies the appropriate model listeners.
-	*
-	* @param kaleoDraftDefinitionId the primary key of the kaleo draft definition
-	* @return the kaleo draft definition that was removed
-	* @throws com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException if a kaleo draft definition with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition remove(
-		long kaleoDraftDefinitionId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException {
-		return getPersistence().remove(kaleoDraftDefinitionId);
-	}
-
-	public static com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition updateImpl(
-		com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition kaleoDraftDefinition)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().updateImpl(kaleoDraftDefinition);
-	}
-
-	/**
-	* Returns the kaleo draft definition with the primary key or throws a {@link com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException} if it could not be found.
-	*
-	* @param kaleoDraftDefinitionId the primary key of the kaleo draft definition
-	* @return the kaleo draft definition
-	* @throws com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException if a kaleo draft definition with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition findByPrimaryKey(
-		long kaleoDraftDefinitionId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException {
-		return getPersistence().findByPrimaryKey(kaleoDraftDefinitionId);
-	}
-
-	/**
-	* Returns the kaleo draft definition with the primary key or returns <code>null</code> if it could not be found.
-	*
-	* @param kaleoDraftDefinitionId the primary key of the kaleo draft definition
-	* @return the kaleo draft definition, or <code>null</code> if a kaleo draft definition with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition fetchByPrimaryKey(
-		long kaleoDraftDefinitionId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().fetchByPrimaryKey(kaleoDraftDefinitionId);
-	}
-
-	/**
 	* Returns all the kaleo draft definitions where companyId = &#63;.
 	*
 	* @param companyId the company ID
@@ -330,6 +250,29 @@ public class KaleoDraftDefinitionUtil {
 		return getPersistence()
 				   .findByCompanyId_PrevAndNext(kaleoDraftDefinitionId,
 			companyId, orderByComparator);
+	}
+
+	/**
+	* Removes all the kaleo draft definitions where companyId = &#63; from the database.
+	*
+	* @param companyId the company ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeByCompanyId(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeByCompanyId(companyId);
+	}
+
+	/**
+	* Returns the number of kaleo draft definitions where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @return the number of matching kaleo draft definitions
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByCompanyId(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByCompanyId(companyId);
 	}
 
 	/**
@@ -496,6 +439,33 @@ public class KaleoDraftDefinitionUtil {
 	}
 
 	/**
+	* Removes all the kaleo draft definitions where companyId = &#63; and name = &#63; and version = &#63; from the database.
+	*
+	* @param companyId the company ID
+	* @param name the name
+	* @param version the version
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeByC_N_V(long companyId, java.lang.String name,
+		int version) throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeByC_N_V(companyId, name, version);
+	}
+
+	/**
+	* Returns the number of kaleo draft definitions where companyId = &#63; and name = &#63; and version = &#63;.
+	*
+	* @param companyId the company ID
+	* @param name the name
+	* @param version the version
+	* @return the number of matching kaleo draft definitions
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByC_N_V(long companyId, java.lang.String name,
+		int version) throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByC_N_V(companyId, name, version);
+	}
+
+	/**
 	* Returns the kaleo draft definition where companyId = &#63; and name = &#63; and version = &#63; and draftVersion = &#63; or throws a {@link com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException} if it could not be found.
 	*
 	* @param companyId the company ID
@@ -552,6 +522,121 @@ public class KaleoDraftDefinitionUtil {
 	}
 
 	/**
+	* Removes the kaleo draft definition where companyId = &#63; and name = &#63; and version = &#63; and draftVersion = &#63; from the database.
+	*
+	* @param companyId the company ID
+	* @param name the name
+	* @param version the version
+	* @param draftVersion the draft version
+	* @return the kaleo draft definition that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition removeByC_N_V_D(
+		long companyId, java.lang.String name, int version, int draftVersion)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException {
+		return getPersistence()
+				   .removeByC_N_V_D(companyId, name, version, draftVersion);
+	}
+
+	/**
+	* Returns the number of kaleo draft definitions where companyId = &#63; and name = &#63; and version = &#63; and draftVersion = &#63;.
+	*
+	* @param companyId the company ID
+	* @param name the name
+	* @param version the version
+	* @param draftVersion the draft version
+	* @return the number of matching kaleo draft definitions
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByC_N_V_D(long companyId, java.lang.String name,
+		int version, int draftVersion)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .countByC_N_V_D(companyId, name, version, draftVersion);
+	}
+
+	/**
+	* Caches the kaleo draft definition in the entity cache if it is enabled.
+	*
+	* @param kaleoDraftDefinition the kaleo draft definition
+	*/
+	public static void cacheResult(
+		com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition kaleoDraftDefinition) {
+		getPersistence().cacheResult(kaleoDraftDefinition);
+	}
+
+	/**
+	* Caches the kaleo draft definitions in the entity cache if it is enabled.
+	*
+	* @param kaleoDraftDefinitions the kaleo draft definitions
+	*/
+	public static void cacheResult(
+		java.util.List<com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition> kaleoDraftDefinitions) {
+		getPersistence().cacheResult(kaleoDraftDefinitions);
+	}
+
+	/**
+	* Creates a new kaleo draft definition with the primary key. Does not add the kaleo draft definition to the database.
+	*
+	* @param kaleoDraftDefinitionId the primary key for the new kaleo draft definition
+	* @return the new kaleo draft definition
+	*/
+	public static com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition create(
+		long kaleoDraftDefinitionId) {
+		return getPersistence().create(kaleoDraftDefinitionId);
+	}
+
+	/**
+	* Removes the kaleo draft definition with the primary key from the database. Also notifies the appropriate model listeners.
+	*
+	* @param kaleoDraftDefinitionId the primary key of the kaleo draft definition
+	* @return the kaleo draft definition that was removed
+	* @throws com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException if a kaleo draft definition with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition remove(
+		long kaleoDraftDefinitionId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException {
+		return getPersistence().remove(kaleoDraftDefinitionId);
+	}
+
+	public static com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition updateImpl(
+		com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition kaleoDraftDefinition)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().updateImpl(kaleoDraftDefinition);
+	}
+
+	/**
+	* Returns the kaleo draft definition with the primary key or throws a {@link com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException} if it could not be found.
+	*
+	* @param kaleoDraftDefinitionId the primary key of the kaleo draft definition
+	* @return the kaleo draft definition
+	* @throws com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException if a kaleo draft definition with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition findByPrimaryKey(
+		long kaleoDraftDefinitionId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException {
+		return getPersistence().findByPrimaryKey(kaleoDraftDefinitionId);
+	}
+
+	/**
+	* Returns the kaleo draft definition with the primary key or returns <code>null</code> if it could not be found.
+	*
+	* @param kaleoDraftDefinitionId the primary key of the kaleo draft definition
+	* @return the kaleo draft definition, or <code>null</code> if a kaleo draft definition with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition fetchByPrimaryKey(
+		long kaleoDraftDefinitionId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().fetchByPrimaryKey(kaleoDraftDefinitionId);
+	}
+
+	/**
 	* Returns all the kaleo draft definitions.
 	*
 	* @return the kaleo draft definitions
@@ -601,48 +686,6 @@ public class KaleoDraftDefinitionUtil {
 	}
 
 	/**
-	* Removes all the kaleo draft definitions where companyId = &#63; from the database.
-	*
-	* @param companyId the company ID
-	* @throws SystemException if a system exception occurred
-	*/
-	public static void removeByCompanyId(long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		getPersistence().removeByCompanyId(companyId);
-	}
-
-	/**
-	* Removes all the kaleo draft definitions where companyId = &#63; and name = &#63; and version = &#63; from the database.
-	*
-	* @param companyId the company ID
-	* @param name the name
-	* @param version the version
-	* @throws SystemException if a system exception occurred
-	*/
-	public static void removeByC_N_V(long companyId, java.lang.String name,
-		int version) throws com.liferay.portal.kernel.exception.SystemException {
-		getPersistence().removeByC_N_V(companyId, name, version);
-	}
-
-	/**
-	* Removes the kaleo draft definition where companyId = &#63; and name = &#63; and version = &#63; and draftVersion = &#63; from the database.
-	*
-	* @param companyId the company ID
-	* @param name the name
-	* @param version the version
-	* @param draftVersion the draft version
-	* @return the kaleo draft definition that was removed
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition removeByC_N_V_D(
-		long companyId, java.lang.String name, int version, int draftVersion)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException {
-		return getPersistence()
-				   .removeByC_N_V_D(companyId, name, version, draftVersion);
-	}
-
-	/**
 	* Removes all the kaleo draft definitions from the database.
 	*
 	* @throws SystemException if a system exception occurred
@@ -650,49 +693,6 @@ public class KaleoDraftDefinitionUtil {
 	public static void removeAll()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getPersistence().removeAll();
-	}
-
-	/**
-	* Returns the number of kaleo draft definitions where companyId = &#63;.
-	*
-	* @param companyId the company ID
-	* @return the number of matching kaleo draft definitions
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByCompanyId(long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByCompanyId(companyId);
-	}
-
-	/**
-	* Returns the number of kaleo draft definitions where companyId = &#63; and name = &#63; and version = &#63;.
-	*
-	* @param companyId the company ID
-	* @param name the name
-	* @param version the version
-	* @return the number of matching kaleo draft definitions
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByC_N_V(long companyId, java.lang.String name,
-		int version) throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByC_N_V(companyId, name, version);
-	}
-
-	/**
-	* Returns the number of kaleo draft definitions where companyId = &#63; and name = &#63; and version = &#63; and draftVersion = &#63;.
-	*
-	* @param companyId the company ID
-	* @param name the name
-	* @param version the version
-	* @param draftVersion the draft version
-	* @return the number of matching kaleo draft definitions
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByC_N_V_D(long companyId, java.lang.String name,
-		int version, int draftVersion)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence()
-				   .countByC_N_V_D(companyId, name, version, draftVersion);
 	}
 
 	/**

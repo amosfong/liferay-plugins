@@ -81,6 +81,15 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 		".List1";
 	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
 		".List2";
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
+			KaleoProcessModelImpl.FINDER_CACHE_ENABLED, KaleoProcessImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL = new FinderPath(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
+			KaleoProcessModelImpl.FINDER_CACHE_ENABLED, KaleoProcessImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll", new String[0]);
+	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
+			KaleoProcessModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_GROUPID = new FinderPath(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
 			KaleoProcessModelImpl.FINDER_CACHE_ENABLED, KaleoProcessImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByGroupId",
@@ -100,381 +109,6 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 			KaleoProcessModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByGroupId",
 			new String[] { Long.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
-			KaleoProcessModelImpl.FINDER_CACHE_ENABLED, KaleoProcessImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL = new FinderPath(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
-			KaleoProcessModelImpl.FINDER_CACHE_ENABLED, KaleoProcessImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
-			KaleoProcessModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
-
-	/**
-	 * Caches the kaleo process in the entity cache if it is enabled.
-	 *
-	 * @param kaleoProcess the kaleo process
-	 */
-	public void cacheResult(KaleoProcess kaleoProcess) {
-		EntityCacheUtil.putResult(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
-			KaleoProcessImpl.class, kaleoProcess.getPrimaryKey(), kaleoProcess);
-
-		kaleoProcess.resetOriginalValues();
-	}
-
-	/**
-	 * Caches the kaleo processes in the entity cache if it is enabled.
-	 *
-	 * @param kaleoProcesses the kaleo processes
-	 */
-	public void cacheResult(List<KaleoProcess> kaleoProcesses) {
-		for (KaleoProcess kaleoProcess : kaleoProcesses) {
-			if (EntityCacheUtil.getResult(
-						KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
-						KaleoProcessImpl.class, kaleoProcess.getPrimaryKey()) == null) {
-				cacheResult(kaleoProcess);
-			}
-			else {
-				kaleoProcess.resetOriginalValues();
-			}
-		}
-	}
-
-	/**
-	 * Clears the cache for all kaleo processes.
-	 *
-	 * <p>
-	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
-	 * </p>
-	 */
-	@Override
-	public void clearCache() {
-		if (_HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE) {
-			CacheRegistryUtil.clear(KaleoProcessImpl.class.getName());
-		}
-
-		EntityCacheUtil.clearCache(KaleoProcessImpl.class.getName());
-
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_ENTITY);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	/**
-	 * Clears the cache for the kaleo process.
-	 *
-	 * <p>
-	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
-	 * </p>
-	 */
-	@Override
-	public void clearCache(KaleoProcess kaleoProcess) {
-		EntityCacheUtil.removeResult(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
-			KaleoProcessImpl.class, kaleoProcess.getPrimaryKey());
-
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	@Override
-	public void clearCache(List<KaleoProcess> kaleoProcesses) {
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-
-		for (KaleoProcess kaleoProcess : kaleoProcesses) {
-			EntityCacheUtil.removeResult(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
-				KaleoProcessImpl.class, kaleoProcess.getPrimaryKey());
-		}
-	}
-
-	/**
-	 * Creates a new kaleo process with the primary key. Does not add the kaleo process to the database.
-	 *
-	 * @param kaleoProcessId the primary key for the new kaleo process
-	 * @return the new kaleo process
-	 */
-	public KaleoProcess create(long kaleoProcessId) {
-		KaleoProcess kaleoProcess = new KaleoProcessImpl();
-
-		kaleoProcess.setNew(true);
-		kaleoProcess.setPrimaryKey(kaleoProcessId);
-
-		return kaleoProcess;
-	}
-
-	/**
-	 * Removes the kaleo process with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param kaleoProcessId the primary key of the kaleo process
-	 * @return the kaleo process that was removed
-	 * @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException if a kaleo process with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public KaleoProcess remove(long kaleoProcessId)
-		throws NoSuchKaleoProcessException, SystemException {
-		return remove(Long.valueOf(kaleoProcessId));
-	}
-
-	/**
-	 * Removes the kaleo process with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param primaryKey the primary key of the kaleo process
-	 * @return the kaleo process that was removed
-	 * @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException if a kaleo process with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public KaleoProcess remove(Serializable primaryKey)
-		throws NoSuchKaleoProcessException, SystemException {
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			KaleoProcess kaleoProcess = (KaleoProcess)session.get(KaleoProcessImpl.class,
-					primaryKey);
-
-			if (kaleoProcess == null) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
-				}
-
-				throw new NoSuchKaleoProcessException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					primaryKey);
-			}
-
-			return remove(kaleoProcess);
-		}
-		catch (NoSuchKaleoProcessException nsee) {
-			throw nsee;
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	@Override
-	protected KaleoProcess removeImpl(KaleoProcess kaleoProcess)
-		throws SystemException {
-		kaleoProcess = toUnwrappedModel(kaleoProcess);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			if (!session.contains(kaleoProcess)) {
-				kaleoProcess = (KaleoProcess)session.get(KaleoProcessImpl.class,
-						kaleoProcess.getPrimaryKeyObj());
-			}
-
-			if (kaleoProcess != null) {
-				session.delete(kaleoProcess);
-			}
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-
-		if (kaleoProcess != null) {
-			clearCache(kaleoProcess);
-		}
-
-		return kaleoProcess;
-	}
-
-	@Override
-	public KaleoProcess updateImpl(
-		com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess kaleoProcess)
-		throws SystemException {
-		kaleoProcess = toUnwrappedModel(kaleoProcess);
-
-		boolean isNew = kaleoProcess.isNew();
-
-		KaleoProcessModelImpl kaleoProcessModelImpl = (KaleoProcessModelImpl)kaleoProcess;
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			if (kaleoProcess.isNew()) {
-				session.save(kaleoProcess);
-
-				kaleoProcess.setNew(false);
-			}
-			else {
-				session.merge(kaleoProcess);
-			}
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-
-		if (isNew || !KaleoProcessModelImpl.COLUMN_BITMASK_ENABLED) {
-			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-		}
-
-		else {
-			if ((kaleoProcessModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						Long.valueOf(kaleoProcessModelImpl.getOriginalGroupId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUPID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID,
-					args);
-
-				args = new Object[] {
-						Long.valueOf(kaleoProcessModelImpl.getGroupId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUPID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID,
-					args);
-			}
-		}
-
-		EntityCacheUtil.putResult(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
-			KaleoProcessImpl.class, kaleoProcess.getPrimaryKey(), kaleoProcess);
-
-		return kaleoProcess;
-	}
-
-	protected KaleoProcess toUnwrappedModel(KaleoProcess kaleoProcess) {
-		if (kaleoProcess instanceof KaleoProcessImpl) {
-			return kaleoProcess;
-		}
-
-		KaleoProcessImpl kaleoProcessImpl = new KaleoProcessImpl();
-
-		kaleoProcessImpl.setNew(kaleoProcess.isNew());
-		kaleoProcessImpl.setPrimaryKey(kaleoProcess.getPrimaryKey());
-
-		kaleoProcessImpl.setKaleoProcessId(kaleoProcess.getKaleoProcessId());
-		kaleoProcessImpl.setGroupId(kaleoProcess.getGroupId());
-		kaleoProcessImpl.setCompanyId(kaleoProcess.getCompanyId());
-		kaleoProcessImpl.setUserId(kaleoProcess.getUserId());
-		kaleoProcessImpl.setUserName(kaleoProcess.getUserName());
-		kaleoProcessImpl.setCreateDate(kaleoProcess.getCreateDate());
-		kaleoProcessImpl.setModifiedDate(kaleoProcess.getModifiedDate());
-		kaleoProcessImpl.setDDLRecordSetId(kaleoProcess.getDDLRecordSetId());
-		kaleoProcessImpl.setDDMTemplateId(kaleoProcess.getDDMTemplateId());
-
-		return kaleoProcessImpl;
-	}
-
-	/**
-	 * Returns the kaleo process with the primary key or throws a {@link com.liferay.portal.NoSuchModelException} if it could not be found.
-	 *
-	 * @param primaryKey the primary key of the kaleo process
-	 * @return the kaleo process
-	 * @throws com.liferay.portal.NoSuchModelException if a kaleo process with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public KaleoProcess findByPrimaryKey(Serializable primaryKey)
-		throws NoSuchModelException, SystemException {
-		return findByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the kaleo process with the primary key or throws a {@link com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException} if it could not be found.
-	 *
-	 * @param kaleoProcessId the primary key of the kaleo process
-	 * @return the kaleo process
-	 * @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException if a kaleo process with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public KaleoProcess findByPrimaryKey(long kaleoProcessId)
-		throws NoSuchKaleoProcessException, SystemException {
-		KaleoProcess kaleoProcess = fetchByPrimaryKey(kaleoProcessId);
-
-		if (kaleoProcess == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + kaleoProcessId);
-			}
-
-			throw new NoSuchKaleoProcessException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				kaleoProcessId);
-		}
-
-		return kaleoProcess;
-	}
-
-	/**
-	 * Returns the kaleo process with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param primaryKey the primary key of the kaleo process
-	 * @return the kaleo process, or <code>null</code> if a kaleo process with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public KaleoProcess fetchByPrimaryKey(Serializable primaryKey)
-		throws SystemException {
-		return fetchByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the kaleo process with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param kaleoProcessId the primary key of the kaleo process
-	 * @return the kaleo process, or <code>null</code> if a kaleo process with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public KaleoProcess fetchByPrimaryKey(long kaleoProcessId)
-		throws SystemException {
-		KaleoProcess kaleoProcess = (KaleoProcess)EntityCacheUtil.getResult(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
-				KaleoProcessImpl.class, kaleoProcessId);
-
-		if (kaleoProcess == _nullKaleoProcess) {
-			return null;
-		}
-
-		if (kaleoProcess == null) {
-			Session session = null;
-
-			boolean hasException = false;
-
-			try {
-				session = openSession();
-
-				kaleoProcess = (KaleoProcess)session.get(KaleoProcessImpl.class,
-						Long.valueOf(kaleoProcessId));
-			}
-			catch (Exception e) {
-				hasException = true;
-
-				throw processException(e);
-			}
-			finally {
-				if (kaleoProcess != null) {
-					cacheResult(kaleoProcess);
-				}
-				else if (!hasException) {
-					EntityCacheUtil.putResult(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
-						KaleoProcessImpl.class, kaleoProcessId,
-						_nullKaleoProcess);
-				}
-
-				closeSession(session);
-			}
-		}
-
-		return kaleoProcess;
-	}
 
 	/**
 	 * Returns all the kaleo processes where groupId = &#63;.
@@ -1145,6 +779,487 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	}
 
 	/**
+	 * Removes all the kaleo processes where groupId = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 * @throws SystemException if a system exception occurred
+	 */
+	public void removeByGroupId(long groupId) throws SystemException {
+		for (KaleoProcess kaleoProcess : findByGroupId(groupId)) {
+			remove(kaleoProcess);
+		}
+	}
+
+	/**
+	 * Returns the number of kaleo processes where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @return the number of matching kaleo processes
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByGroupId(long groupId) throws SystemException {
+		Object[] finderArgs = new Object[] { groupId };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_GROUPID,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_KALEOPROCESS_WHERE);
+
+			query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(groupId);
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_GROUPID,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	/**
+	 * Returns the number of kaleo processes that the user has permission to view where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @return the number of matching kaleo processes that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int filterCountByGroupId(long groupId) throws SystemException {
+		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
+			return countByGroupId(groupId);
+		}
+
+		StringBundler query = new StringBundler(2);
+
+		query.append(_FILTER_SQL_COUNT_KALEOPROCESS_WHERE);
+
+		query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				KaleoProcess.class.getName(),
+				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN, groupId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSQLQuery(sql);
+
+			q.addScalar(COUNT_COLUMN_NAME,
+				com.liferay.portal.kernel.dao.orm.Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(groupId);
+
+			Long count = (Long)q.uniqueResult();
+
+			return count.intValue();
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	private static final String _FINDER_COLUMN_GROUPID_GROUPID_2 = "kaleoProcess.groupId = ?";
+
+	/**
+	 * Caches the kaleo process in the entity cache if it is enabled.
+	 *
+	 * @param kaleoProcess the kaleo process
+	 */
+	public void cacheResult(KaleoProcess kaleoProcess) {
+		EntityCacheUtil.putResult(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
+			KaleoProcessImpl.class, kaleoProcess.getPrimaryKey(), kaleoProcess);
+
+		kaleoProcess.resetOriginalValues();
+	}
+
+	/**
+	 * Caches the kaleo processes in the entity cache if it is enabled.
+	 *
+	 * @param kaleoProcesses the kaleo processes
+	 */
+	public void cacheResult(List<KaleoProcess> kaleoProcesses) {
+		for (KaleoProcess kaleoProcess : kaleoProcesses) {
+			if (EntityCacheUtil.getResult(
+						KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
+						KaleoProcessImpl.class, kaleoProcess.getPrimaryKey()) == null) {
+				cacheResult(kaleoProcess);
+			}
+			else {
+				kaleoProcess.resetOriginalValues();
+			}
+		}
+	}
+
+	/**
+	 * Clears the cache for all kaleo processes.
+	 *
+	 * <p>
+	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
+	 * </p>
+	 */
+	@Override
+	public void clearCache() {
+		if (_HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE) {
+			CacheRegistryUtil.clear(KaleoProcessImpl.class.getName());
+		}
+
+		EntityCacheUtil.clearCache(KaleoProcessImpl.class.getName());
+
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_ENTITY);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	/**
+	 * Clears the cache for the kaleo process.
+	 *
+	 * <p>
+	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
+	 * </p>
+	 */
+	@Override
+	public void clearCache(KaleoProcess kaleoProcess) {
+		EntityCacheUtil.removeResult(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
+			KaleoProcessImpl.class, kaleoProcess.getPrimaryKey());
+
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	@Override
+	public void clearCache(List<KaleoProcess> kaleoProcesses) {
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		for (KaleoProcess kaleoProcess : kaleoProcesses) {
+			EntityCacheUtil.removeResult(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
+				KaleoProcessImpl.class, kaleoProcess.getPrimaryKey());
+		}
+	}
+
+	/**
+	 * Creates a new kaleo process with the primary key. Does not add the kaleo process to the database.
+	 *
+	 * @param kaleoProcessId the primary key for the new kaleo process
+	 * @return the new kaleo process
+	 */
+	public KaleoProcess create(long kaleoProcessId) {
+		KaleoProcess kaleoProcess = new KaleoProcessImpl();
+
+		kaleoProcess.setNew(true);
+		kaleoProcess.setPrimaryKey(kaleoProcessId);
+
+		return kaleoProcess;
+	}
+
+	/**
+	 * Removes the kaleo process with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * @param kaleoProcessId the primary key of the kaleo process
+	 * @return the kaleo process that was removed
+	 * @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException if a kaleo process with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public KaleoProcess remove(long kaleoProcessId)
+		throws NoSuchKaleoProcessException, SystemException {
+		return remove(Long.valueOf(kaleoProcessId));
+	}
+
+	/**
+	 * Removes the kaleo process with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * @param primaryKey the primary key of the kaleo process
+	 * @return the kaleo process that was removed
+	 * @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException if a kaleo process with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public KaleoProcess remove(Serializable primaryKey)
+		throws NoSuchKaleoProcessException, SystemException {
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			KaleoProcess kaleoProcess = (KaleoProcess)session.get(KaleoProcessImpl.class,
+					primaryKey);
+
+			if (kaleoProcess == null) {
+				if (_log.isWarnEnabled()) {
+					_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+				}
+
+				throw new NoSuchKaleoProcessException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+					primaryKey);
+			}
+
+			return remove(kaleoProcess);
+		}
+		catch (NoSuchKaleoProcessException nsee) {
+			throw nsee;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	@Override
+	protected KaleoProcess removeImpl(KaleoProcess kaleoProcess)
+		throws SystemException {
+		kaleoProcess = toUnwrappedModel(kaleoProcess);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			if (!session.contains(kaleoProcess)) {
+				kaleoProcess = (KaleoProcess)session.get(KaleoProcessImpl.class,
+						kaleoProcess.getPrimaryKeyObj());
+			}
+
+			if (kaleoProcess != null) {
+				session.delete(kaleoProcess);
+			}
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+
+		if (kaleoProcess != null) {
+			clearCache(kaleoProcess);
+		}
+
+		return kaleoProcess;
+	}
+
+	@Override
+	public KaleoProcess updateImpl(
+		com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess kaleoProcess)
+		throws SystemException {
+		kaleoProcess = toUnwrappedModel(kaleoProcess);
+
+		boolean isNew = kaleoProcess.isNew();
+
+		KaleoProcessModelImpl kaleoProcessModelImpl = (KaleoProcessModelImpl)kaleoProcess;
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			if (kaleoProcess.isNew()) {
+				session.save(kaleoProcess);
+
+				kaleoProcess.setNew(false);
+			}
+			else {
+				session.merge(kaleoProcess);
+			}
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+
+		if (isNew || !KaleoProcessModelImpl.COLUMN_BITMASK_ENABLED) {
+			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+		}
+
+		else {
+			if ((kaleoProcessModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						Long.valueOf(kaleoProcessModelImpl.getOriginalGroupId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUPID, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID,
+					args);
+
+				args = new Object[] {
+						Long.valueOf(kaleoProcessModelImpl.getGroupId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUPID, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID,
+					args);
+			}
+		}
+
+		EntityCacheUtil.putResult(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
+			KaleoProcessImpl.class, kaleoProcess.getPrimaryKey(), kaleoProcess);
+
+		return kaleoProcess;
+	}
+
+	protected KaleoProcess toUnwrappedModel(KaleoProcess kaleoProcess) {
+		if (kaleoProcess instanceof KaleoProcessImpl) {
+			return kaleoProcess;
+		}
+
+		KaleoProcessImpl kaleoProcessImpl = new KaleoProcessImpl();
+
+		kaleoProcessImpl.setNew(kaleoProcess.isNew());
+		kaleoProcessImpl.setPrimaryKey(kaleoProcess.getPrimaryKey());
+
+		kaleoProcessImpl.setKaleoProcessId(kaleoProcess.getKaleoProcessId());
+		kaleoProcessImpl.setGroupId(kaleoProcess.getGroupId());
+		kaleoProcessImpl.setCompanyId(kaleoProcess.getCompanyId());
+		kaleoProcessImpl.setUserId(kaleoProcess.getUserId());
+		kaleoProcessImpl.setUserName(kaleoProcess.getUserName());
+		kaleoProcessImpl.setCreateDate(kaleoProcess.getCreateDate());
+		kaleoProcessImpl.setModifiedDate(kaleoProcess.getModifiedDate());
+		kaleoProcessImpl.setDDLRecordSetId(kaleoProcess.getDDLRecordSetId());
+		kaleoProcessImpl.setDDMTemplateId(kaleoProcess.getDDMTemplateId());
+
+		return kaleoProcessImpl;
+	}
+
+	/**
+	 * Returns the kaleo process with the primary key or throws a {@link com.liferay.portal.NoSuchModelException} if it could not be found.
+	 *
+	 * @param primaryKey the primary key of the kaleo process
+	 * @return the kaleo process
+	 * @throws com.liferay.portal.NoSuchModelException if a kaleo process with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public KaleoProcess findByPrimaryKey(Serializable primaryKey)
+		throws NoSuchModelException, SystemException {
+		return findByPrimaryKey(((Long)primaryKey).longValue());
+	}
+
+	/**
+	 * Returns the kaleo process with the primary key or throws a {@link com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException} if it could not be found.
+	 *
+	 * @param kaleoProcessId the primary key of the kaleo process
+	 * @return the kaleo process
+	 * @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException if a kaleo process with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public KaleoProcess findByPrimaryKey(long kaleoProcessId)
+		throws NoSuchKaleoProcessException, SystemException {
+		KaleoProcess kaleoProcess = fetchByPrimaryKey(kaleoProcessId);
+
+		if (kaleoProcess == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + kaleoProcessId);
+			}
+
+			throw new NoSuchKaleoProcessException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+				kaleoProcessId);
+		}
+
+		return kaleoProcess;
+	}
+
+	/**
+	 * Returns the kaleo process with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param primaryKey the primary key of the kaleo process
+	 * @return the kaleo process, or <code>null</code> if a kaleo process with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public KaleoProcess fetchByPrimaryKey(Serializable primaryKey)
+		throws SystemException {
+		return fetchByPrimaryKey(((Long)primaryKey).longValue());
+	}
+
+	/**
+	 * Returns the kaleo process with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param kaleoProcessId the primary key of the kaleo process
+	 * @return the kaleo process, or <code>null</code> if a kaleo process with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public KaleoProcess fetchByPrimaryKey(long kaleoProcessId)
+		throws SystemException {
+		KaleoProcess kaleoProcess = (KaleoProcess)EntityCacheUtil.getResult(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
+				KaleoProcessImpl.class, kaleoProcessId);
+
+		if (kaleoProcess == _nullKaleoProcess) {
+			return null;
+		}
+
+		if (kaleoProcess == null) {
+			Session session = null;
+
+			boolean hasException = false;
+
+			try {
+				session = openSession();
+
+				kaleoProcess = (KaleoProcess)session.get(KaleoProcessImpl.class,
+						Long.valueOf(kaleoProcessId));
+			}
+			catch (Exception e) {
+				hasException = true;
+
+				throw processException(e);
+			}
+			finally {
+				if (kaleoProcess != null) {
+					cacheResult(kaleoProcess);
+				}
+				else if (!hasException) {
+					EntityCacheUtil.putResult(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
+						KaleoProcessImpl.class, kaleoProcessId,
+						_nullKaleoProcess);
+				}
+
+				closeSession(session);
+			}
+		}
+
+		return kaleoProcess;
+	}
+
+	/**
 	 * Returns all the kaleo processes.
 	 *
 	 * @return the kaleo processes
@@ -1260,18 +1375,6 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	}
 
 	/**
-	 * Removes all the kaleo processes where groupId = &#63; from the database.
-	 *
-	 * @param groupId the group ID
-	 * @throws SystemException if a system exception occurred
-	 */
-	public void removeByGroupId(long groupId) throws SystemException {
-		for (KaleoProcess kaleoProcess : findByGroupId(groupId)) {
-			remove(kaleoProcess);
-		}
-	}
-
-	/**
 	 * Removes all the kaleo processes from the database.
 	 *
 	 * @throws SystemException if a system exception occurred
@@ -1279,107 +1382,6 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	public void removeAll() throws SystemException {
 		for (KaleoProcess kaleoProcess : findAll()) {
 			remove(kaleoProcess);
-		}
-	}
-
-	/**
-	 * Returns the number of kaleo processes where groupId = &#63;.
-	 *
-	 * @param groupId the group ID
-	 * @return the number of matching kaleo processes
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByGroupId(long groupId) throws SystemException {
-		Object[] finderArgs = new Object[] { groupId };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_GROUPID,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_KALEOPROCESS_WHERE);
-
-			query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(groupId);
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_GROUPID,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	/**
-	 * Returns the number of kaleo processes that the user has permission to view where groupId = &#63;.
-	 *
-	 * @param groupId the group ID
-	 * @return the number of matching kaleo processes that the user has permission to view
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int filterCountByGroupId(long groupId) throws SystemException {
-		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
-			return countByGroupId(groupId);
-		}
-
-		StringBundler query = new StringBundler(2);
-
-		query.append(_FILTER_SQL_COUNT_KALEOPROCESS_WHERE);
-
-		query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
-
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				KaleoProcess.class.getName(),
-				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN, groupId);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			SQLQuery q = session.createSQLQuery(sql);
-
-			q.addScalar(COUNT_COLUMN_NAME,
-				com.liferay.portal.kernel.dao.orm.Type.LONG);
-
-			QueryPos qPos = QueryPos.getInstance(q);
-
-			qPos.add(groupId);
-
-			Long count = (Long)q.uniqueResult();
-
-			return count.intValue();
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
 		}
 	}
 
@@ -1470,7 +1472,6 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	private static final String _SQL_SELECT_KALEOPROCESS_WHERE = "SELECT kaleoProcess FROM KaleoProcess kaleoProcess WHERE ";
 	private static final String _SQL_COUNT_KALEOPROCESS = "SELECT COUNT(kaleoProcess) FROM KaleoProcess kaleoProcess";
 	private static final String _SQL_COUNT_KALEOPROCESS_WHERE = "SELECT COUNT(kaleoProcess) FROM KaleoProcess kaleoProcess WHERE ";
-	private static final String _FINDER_COLUMN_GROUPID_GROUPID_2 = "kaleoProcess.groupId = ?";
 	private static final String _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN = "kaleoProcess.kaleoProcessId";
 	private static final String _FILTER_SQL_SELECT_KALEOPROCESS_WHERE = "SELECT DISTINCT {kaleoProcess.*} FROM KaleoProcess kaleoProcess WHERE ";
 	private static final String _FILTER_SQL_SELECT_KALEOPROCESS_NO_INLINE_DISTINCT_WHERE_1 =

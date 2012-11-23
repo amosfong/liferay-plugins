@@ -37,72 +37,6 @@ public interface KaleoProcessLinkPersistence extends BasePersistence<KaleoProces
 	 */
 
 	/**
-	* Caches the kaleo process link in the entity cache if it is enabled.
-	*
-	* @param kaleoProcessLink the kaleo process link
-	*/
-	public void cacheResult(
-		com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink kaleoProcessLink);
-
-	/**
-	* Caches the kaleo process links in the entity cache if it is enabled.
-	*
-	* @param kaleoProcessLinks the kaleo process links
-	*/
-	public void cacheResult(
-		java.util.List<com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink> kaleoProcessLinks);
-
-	/**
-	* Creates a new kaleo process link with the primary key. Does not add the kaleo process link to the database.
-	*
-	* @param kaleoProcessLinkId the primary key for the new kaleo process link
-	* @return the new kaleo process link
-	*/
-	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink create(
-		long kaleoProcessLinkId);
-
-	/**
-	* Removes the kaleo process link with the primary key from the database. Also notifies the appropriate model listeners.
-	*
-	* @param kaleoProcessLinkId the primary key of the kaleo process link
-	* @return the kaleo process link that was removed
-	* @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessLinkException if a kaleo process link with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink remove(
-		long kaleoProcessLinkId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessLinkException;
-
-	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink updateImpl(
-		com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink kaleoProcessLink)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the kaleo process link with the primary key or throws a {@link com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessLinkException} if it could not be found.
-	*
-	* @param kaleoProcessLinkId the primary key of the kaleo process link
-	* @return the kaleo process link
-	* @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessLinkException if a kaleo process link with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink findByPrimaryKey(
-		long kaleoProcessLinkId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessLinkException;
-
-	/**
-	* Returns the kaleo process link with the primary key or returns <code>null</code> if it could not be found.
-	*
-	* @param kaleoProcessLinkId the primary key of the kaleo process link
-	* @return the kaleo process link, or <code>null</code> if a kaleo process link with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink fetchByPrimaryKey(
-		long kaleoProcessLinkId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
 	* Returns all the kaleo process links where kaleoProcessId = &#63;.
 	*
 	* @param kaleoProcessId the kaleo process ID
@@ -222,6 +156,25 @@ public interface KaleoProcessLinkPersistence extends BasePersistence<KaleoProces
 			com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessLinkException;
 
 	/**
+	* Removes all the kaleo process links where kaleoProcessId = &#63; from the database.
+	*
+	* @param kaleoProcessId the kaleo process ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public void removeByKaleoProcessId(long kaleoProcessId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the number of kaleo process links where kaleoProcessId = &#63;.
+	*
+	* @param kaleoProcessId the kaleo process ID
+	* @return the number of matching kaleo process links
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByKaleoProcessId(long kaleoProcessId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Returns the kaleo process link where kaleoProcessId = &#63; and workflowTaskName = &#63; or throws a {@link com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessLinkException} if it could not be found.
 	*
 	* @param kaleoProcessId the kaleo process ID
@@ -259,6 +212,97 @@ public interface KaleoProcessLinkPersistence extends BasePersistence<KaleoProces
 	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink fetchByKPI_WTN(
 		long kaleoProcessId, java.lang.String workflowTaskName,
 		boolean retrieveFromCache)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Removes the kaleo process link where kaleoProcessId = &#63; and workflowTaskName = &#63; from the database.
+	*
+	* @param kaleoProcessId the kaleo process ID
+	* @param workflowTaskName the workflow task name
+	* @return the kaleo process link that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink removeByKPI_WTN(
+		long kaleoProcessId, java.lang.String workflowTaskName)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessLinkException;
+
+	/**
+	* Returns the number of kaleo process links where kaleoProcessId = &#63; and workflowTaskName = &#63;.
+	*
+	* @param kaleoProcessId the kaleo process ID
+	* @param workflowTaskName the workflow task name
+	* @return the number of matching kaleo process links
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByKPI_WTN(long kaleoProcessId,
+		java.lang.String workflowTaskName)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Caches the kaleo process link in the entity cache if it is enabled.
+	*
+	* @param kaleoProcessLink the kaleo process link
+	*/
+	public void cacheResult(
+		com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink kaleoProcessLink);
+
+	/**
+	* Caches the kaleo process links in the entity cache if it is enabled.
+	*
+	* @param kaleoProcessLinks the kaleo process links
+	*/
+	public void cacheResult(
+		java.util.List<com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink> kaleoProcessLinks);
+
+	/**
+	* Creates a new kaleo process link with the primary key. Does not add the kaleo process link to the database.
+	*
+	* @param kaleoProcessLinkId the primary key for the new kaleo process link
+	* @return the new kaleo process link
+	*/
+	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink create(
+		long kaleoProcessLinkId);
+
+	/**
+	* Removes the kaleo process link with the primary key from the database. Also notifies the appropriate model listeners.
+	*
+	* @param kaleoProcessLinkId the primary key of the kaleo process link
+	* @return the kaleo process link that was removed
+	* @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessLinkException if a kaleo process link with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink remove(
+		long kaleoProcessLinkId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessLinkException;
+
+	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink updateImpl(
+		com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink kaleoProcessLink)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the kaleo process link with the primary key or throws a {@link com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessLinkException} if it could not be found.
+	*
+	* @param kaleoProcessLinkId the primary key of the kaleo process link
+	* @return the kaleo process link
+	* @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessLinkException if a kaleo process link with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink findByPrimaryKey(
+		long kaleoProcessLinkId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessLinkException;
+
+	/**
+	* Returns the kaleo process link with the primary key or returns <code>null</code> if it could not be found.
+	*
+	* @param kaleoProcessLinkId the primary key of the kaleo process link
+	* @return the kaleo process link, or <code>null</code> if a kaleo process link with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink fetchByPrimaryKey(
+		long kaleoProcessLinkId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
@@ -305,55 +349,11 @@ public interface KaleoProcessLinkPersistence extends BasePersistence<KaleoProces
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Removes all the kaleo process links where kaleoProcessId = &#63; from the database.
-	*
-	* @param kaleoProcessId the kaleo process ID
-	* @throws SystemException if a system exception occurred
-	*/
-	public void removeByKaleoProcessId(long kaleoProcessId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Removes the kaleo process link where kaleoProcessId = &#63; and workflowTaskName = &#63; from the database.
-	*
-	* @param kaleoProcessId the kaleo process ID
-	* @param workflowTaskName the workflow task name
-	* @return the kaleo process link that was removed
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink removeByKPI_WTN(
-		long kaleoProcessId, java.lang.String workflowTaskName)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessLinkException;
-
-	/**
 	* Removes all the kaleo process links from the database.
 	*
 	* @throws SystemException if a system exception occurred
 	*/
 	public void removeAll()
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of kaleo process links where kaleoProcessId = &#63;.
-	*
-	* @param kaleoProcessId the kaleo process ID
-	* @return the number of matching kaleo process links
-	* @throws SystemException if a system exception occurred
-	*/
-	public int countByKaleoProcessId(long kaleoProcessId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of kaleo process links where kaleoProcessId = &#63; and workflowTaskName = &#63;.
-	*
-	* @param kaleoProcessId the kaleo process ID
-	* @param workflowTaskName the workflow task name
-	* @return the number of matching kaleo process links
-	* @throws SystemException if a system exception occurred
-	*/
-	public int countByKPI_WTN(long kaleoProcessId,
-		java.lang.String workflowTaskName)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

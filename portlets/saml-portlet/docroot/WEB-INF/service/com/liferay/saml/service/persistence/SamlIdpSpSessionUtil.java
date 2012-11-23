@@ -111,86 +111,6 @@ public class SamlIdpSpSessionUtil {
 	}
 
 	/**
-	* Caches the saml idp sp session in the entity cache if it is enabled.
-	*
-	* @param samlIdpSpSession the saml idp sp session
-	*/
-	public static void cacheResult(
-		com.liferay.saml.model.SamlIdpSpSession samlIdpSpSession) {
-		getPersistence().cacheResult(samlIdpSpSession);
-	}
-
-	/**
-	* Caches the saml idp sp sessions in the entity cache if it is enabled.
-	*
-	* @param samlIdpSpSessions the saml idp sp sessions
-	*/
-	public static void cacheResult(
-		java.util.List<com.liferay.saml.model.SamlIdpSpSession> samlIdpSpSessions) {
-		getPersistence().cacheResult(samlIdpSpSessions);
-	}
-
-	/**
-	* Creates a new saml idp sp session with the primary key. Does not add the saml idp sp session to the database.
-	*
-	* @param samlIdpSpSessionId the primary key for the new saml idp sp session
-	* @return the new saml idp sp session
-	*/
-	public static com.liferay.saml.model.SamlIdpSpSession create(
-		long samlIdpSpSessionId) {
-		return getPersistence().create(samlIdpSpSessionId);
-	}
-
-	/**
-	* Removes the saml idp sp session with the primary key from the database. Also notifies the appropriate model listeners.
-	*
-	* @param samlIdpSpSessionId the primary key of the saml idp sp session
-	* @return the saml idp sp session that was removed
-	* @throws com.liferay.saml.NoSuchIdpSpSessionException if a saml idp sp session with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.saml.model.SamlIdpSpSession remove(
-		long samlIdpSpSessionId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.saml.NoSuchIdpSpSessionException {
-		return getPersistence().remove(samlIdpSpSessionId);
-	}
-
-	public static com.liferay.saml.model.SamlIdpSpSession updateImpl(
-		com.liferay.saml.model.SamlIdpSpSession samlIdpSpSession)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().updateImpl(samlIdpSpSession);
-	}
-
-	/**
-	* Returns the saml idp sp session with the primary key or throws a {@link com.liferay.saml.NoSuchIdpSpSessionException} if it could not be found.
-	*
-	* @param samlIdpSpSessionId the primary key of the saml idp sp session
-	* @return the saml idp sp session
-	* @throws com.liferay.saml.NoSuchIdpSpSessionException if a saml idp sp session with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.saml.model.SamlIdpSpSession findByPrimaryKey(
-		long samlIdpSpSessionId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.saml.NoSuchIdpSpSessionException {
-		return getPersistence().findByPrimaryKey(samlIdpSpSessionId);
-	}
-
-	/**
-	* Returns the saml idp sp session with the primary key or returns <code>null</code> if it could not be found.
-	*
-	* @param samlIdpSpSessionId the primary key of the saml idp sp session
-	* @return the saml idp sp session, or <code>null</code> if a saml idp sp session with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.saml.model.SamlIdpSpSession fetchByPrimaryKey(
-		long samlIdpSpSessionId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().fetchByPrimaryKey(samlIdpSpSessionId);
-	}
-
-	/**
 	* Returns all the saml idp sp sessions where samlIdpSsoSessionId = &#63;.
 	*
 	* @param samlIdpSsoSessionId the saml idp sso session ID
@@ -339,6 +259,29 @@ public class SamlIdpSpSessionUtil {
 	}
 
 	/**
+	* Removes all the saml idp sp sessions where samlIdpSsoSessionId = &#63; from the database.
+	*
+	* @param samlIdpSsoSessionId the saml idp sso session ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeBySamlIdpSsoSessionId(long samlIdpSsoSessionId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeBySamlIdpSsoSessionId(samlIdpSsoSessionId);
+	}
+
+	/**
+	* Returns the number of saml idp sp sessions where samlIdpSsoSessionId = &#63;.
+	*
+	* @param samlIdpSsoSessionId the saml idp sso session ID
+	* @return the number of matching saml idp sp sessions
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countBySamlIdpSsoSessionId(long samlIdpSsoSessionId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countBySamlIdpSsoSessionId(samlIdpSsoSessionId);
+	}
+
+	/**
 	* Returns the saml idp sp session where samlIdpSsoSessionId = &#63; and samlSpEntityId = &#63; or throws a {@link com.liferay.saml.NoSuchIdpSpSessionException} if it could not be found.
 	*
 	* @param samlIdpSsoSessionId the saml idp sso session ID
@@ -386,6 +329,117 @@ public class SamlIdpSpSessionUtil {
 		return getPersistence()
 				   .fetchBySISSI_SSEI(samlIdpSsoSessionId, samlSpEntityId,
 			retrieveFromCache);
+	}
+
+	/**
+	* Removes the saml idp sp session where samlIdpSsoSessionId = &#63; and samlSpEntityId = &#63; from the database.
+	*
+	* @param samlIdpSsoSessionId the saml idp sso session ID
+	* @param samlSpEntityId the saml sp entity ID
+	* @return the saml idp sp session that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.saml.model.SamlIdpSpSession removeBySISSI_SSEI(
+		long samlIdpSsoSessionId, java.lang.String samlSpEntityId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.saml.NoSuchIdpSpSessionException {
+		return getPersistence()
+				   .removeBySISSI_SSEI(samlIdpSsoSessionId, samlSpEntityId);
+	}
+
+	/**
+	* Returns the number of saml idp sp sessions where samlIdpSsoSessionId = &#63; and samlSpEntityId = &#63;.
+	*
+	* @param samlIdpSsoSessionId the saml idp sso session ID
+	* @param samlSpEntityId the saml sp entity ID
+	* @return the number of matching saml idp sp sessions
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countBySISSI_SSEI(long samlIdpSsoSessionId,
+		java.lang.String samlSpEntityId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .countBySISSI_SSEI(samlIdpSsoSessionId, samlSpEntityId);
+	}
+
+	/**
+	* Caches the saml idp sp session in the entity cache if it is enabled.
+	*
+	* @param samlIdpSpSession the saml idp sp session
+	*/
+	public static void cacheResult(
+		com.liferay.saml.model.SamlIdpSpSession samlIdpSpSession) {
+		getPersistence().cacheResult(samlIdpSpSession);
+	}
+
+	/**
+	* Caches the saml idp sp sessions in the entity cache if it is enabled.
+	*
+	* @param samlIdpSpSessions the saml idp sp sessions
+	*/
+	public static void cacheResult(
+		java.util.List<com.liferay.saml.model.SamlIdpSpSession> samlIdpSpSessions) {
+		getPersistence().cacheResult(samlIdpSpSessions);
+	}
+
+	/**
+	* Creates a new saml idp sp session with the primary key. Does not add the saml idp sp session to the database.
+	*
+	* @param samlIdpSpSessionId the primary key for the new saml idp sp session
+	* @return the new saml idp sp session
+	*/
+	public static com.liferay.saml.model.SamlIdpSpSession create(
+		long samlIdpSpSessionId) {
+		return getPersistence().create(samlIdpSpSessionId);
+	}
+
+	/**
+	* Removes the saml idp sp session with the primary key from the database. Also notifies the appropriate model listeners.
+	*
+	* @param samlIdpSpSessionId the primary key of the saml idp sp session
+	* @return the saml idp sp session that was removed
+	* @throws com.liferay.saml.NoSuchIdpSpSessionException if a saml idp sp session with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.saml.model.SamlIdpSpSession remove(
+		long samlIdpSpSessionId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.saml.NoSuchIdpSpSessionException {
+		return getPersistence().remove(samlIdpSpSessionId);
+	}
+
+	public static com.liferay.saml.model.SamlIdpSpSession updateImpl(
+		com.liferay.saml.model.SamlIdpSpSession samlIdpSpSession)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().updateImpl(samlIdpSpSession);
+	}
+
+	/**
+	* Returns the saml idp sp session with the primary key or throws a {@link com.liferay.saml.NoSuchIdpSpSessionException} if it could not be found.
+	*
+	* @param samlIdpSpSessionId the primary key of the saml idp sp session
+	* @return the saml idp sp session
+	* @throws com.liferay.saml.NoSuchIdpSpSessionException if a saml idp sp session with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.saml.model.SamlIdpSpSession findByPrimaryKey(
+		long samlIdpSpSessionId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.saml.NoSuchIdpSpSessionException {
+		return getPersistence().findByPrimaryKey(samlIdpSpSessionId);
+	}
+
+	/**
+	* Returns the saml idp sp session with the primary key or returns <code>null</code> if it could not be found.
+	*
+	* @param samlIdpSpSessionId the primary key of the saml idp sp session
+	* @return the saml idp sp session, or <code>null</code> if a saml idp sp session with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.saml.model.SamlIdpSpSession fetchByPrimaryKey(
+		long samlIdpSpSessionId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().fetchByPrimaryKey(samlIdpSpSessionId);
 	}
 
 	/**
@@ -438,33 +492,6 @@ public class SamlIdpSpSessionUtil {
 	}
 
 	/**
-	* Removes all the saml idp sp sessions where samlIdpSsoSessionId = &#63; from the database.
-	*
-	* @param samlIdpSsoSessionId the saml idp sso session ID
-	* @throws SystemException if a system exception occurred
-	*/
-	public static void removeBySamlIdpSsoSessionId(long samlIdpSsoSessionId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		getPersistence().removeBySamlIdpSsoSessionId(samlIdpSsoSessionId);
-	}
-
-	/**
-	* Removes the saml idp sp session where samlIdpSsoSessionId = &#63; and samlSpEntityId = &#63; from the database.
-	*
-	* @param samlIdpSsoSessionId the saml idp sso session ID
-	* @param samlSpEntityId the saml sp entity ID
-	* @return the saml idp sp session that was removed
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.saml.model.SamlIdpSpSession removeBySISSI_SSEI(
-		long samlIdpSsoSessionId, java.lang.String samlSpEntityId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.saml.NoSuchIdpSpSessionException {
-		return getPersistence()
-				   .removeBySISSI_SSEI(samlIdpSsoSessionId, samlSpEntityId);
-	}
-
-	/**
 	* Removes all the saml idp sp sessions from the database.
 	*
 	* @throws SystemException if a system exception occurred
@@ -472,33 +499,6 @@ public class SamlIdpSpSessionUtil {
 	public static void removeAll()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getPersistence().removeAll();
-	}
-
-	/**
-	* Returns the number of saml idp sp sessions where samlIdpSsoSessionId = &#63;.
-	*
-	* @param samlIdpSsoSessionId the saml idp sso session ID
-	* @return the number of matching saml idp sp sessions
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countBySamlIdpSsoSessionId(long samlIdpSsoSessionId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countBySamlIdpSsoSessionId(samlIdpSsoSessionId);
-	}
-
-	/**
-	* Returns the number of saml idp sp sessions where samlIdpSsoSessionId = &#63; and samlSpEntityId = &#63;.
-	*
-	* @param samlIdpSsoSessionId the saml idp sso session ID
-	* @param samlSpEntityId the saml sp entity ID
-	* @return the number of matching saml idp sp sessions
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countBySISSI_SSEI(long samlIdpSsoSessionId,
-		java.lang.String samlSpEntityId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence()
-				   .countBySISSI_SSEI(samlIdpSsoSessionId, samlSpEntityId);
 	}
 
 	/**

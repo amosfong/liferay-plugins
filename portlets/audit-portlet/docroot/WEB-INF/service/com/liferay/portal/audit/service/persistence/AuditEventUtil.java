@@ -110,86 +110,6 @@ public class AuditEventUtil {
 	}
 
 	/**
-	* Caches the audit event in the entity cache if it is enabled.
-	*
-	* @param auditEvent the audit event
-	*/
-	public static void cacheResult(
-		com.liferay.portal.audit.model.AuditEvent auditEvent) {
-		getPersistence().cacheResult(auditEvent);
-	}
-
-	/**
-	* Caches the audit events in the entity cache if it is enabled.
-	*
-	* @param auditEvents the audit events
-	*/
-	public static void cacheResult(
-		java.util.List<com.liferay.portal.audit.model.AuditEvent> auditEvents) {
-		getPersistence().cacheResult(auditEvents);
-	}
-
-	/**
-	* Creates a new audit event with the primary key. Does not add the audit event to the database.
-	*
-	* @param auditEventId the primary key for the new audit event
-	* @return the new audit event
-	*/
-	public static com.liferay.portal.audit.model.AuditEvent create(
-		long auditEventId) {
-		return getPersistence().create(auditEventId);
-	}
-
-	/**
-	* Removes the audit event with the primary key from the database. Also notifies the appropriate model listeners.
-	*
-	* @param auditEventId the primary key of the audit event
-	* @return the audit event that was removed
-	* @throws com.liferay.portal.audit.NoSuchEventException if a audit event with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.audit.model.AuditEvent remove(
-		long auditEventId)
-		throws com.liferay.portal.audit.NoSuchEventException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().remove(auditEventId);
-	}
-
-	public static com.liferay.portal.audit.model.AuditEvent updateImpl(
-		com.liferay.portal.audit.model.AuditEvent auditEvent)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().updateImpl(auditEvent);
-	}
-
-	/**
-	* Returns the audit event with the primary key or throws a {@link com.liferay.portal.audit.NoSuchEventException} if it could not be found.
-	*
-	* @param auditEventId the primary key of the audit event
-	* @return the audit event
-	* @throws com.liferay.portal.audit.NoSuchEventException if a audit event with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.audit.model.AuditEvent findByPrimaryKey(
-		long auditEventId)
-		throws com.liferay.portal.audit.NoSuchEventException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().findByPrimaryKey(auditEventId);
-	}
-
-	/**
-	* Returns the audit event with the primary key or returns <code>null</code> if it could not be found.
-	*
-	* @param auditEventId the primary key of the audit event
-	* @return the audit event, or <code>null</code> if a audit event with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.audit.model.AuditEvent fetchByPrimaryKey(
-		long auditEventId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().fetchByPrimaryKey(auditEventId);
-	}
-
-	/**
 	* Returns all the audit events where companyId = &#63;.
 	*
 	* @param companyId the company ID
@@ -332,6 +252,109 @@ public class AuditEventUtil {
 	}
 
 	/**
+	* Removes all the audit events where companyId = &#63; from the database.
+	*
+	* @param companyId the company ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeByCompanyId(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeByCompanyId(companyId);
+	}
+
+	/**
+	* Returns the number of audit events where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @return the number of matching audit events
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByCompanyId(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByCompanyId(companyId);
+	}
+
+	/**
+	* Caches the audit event in the entity cache if it is enabled.
+	*
+	* @param auditEvent the audit event
+	*/
+	public static void cacheResult(
+		com.liferay.portal.audit.model.AuditEvent auditEvent) {
+		getPersistence().cacheResult(auditEvent);
+	}
+
+	/**
+	* Caches the audit events in the entity cache if it is enabled.
+	*
+	* @param auditEvents the audit events
+	*/
+	public static void cacheResult(
+		java.util.List<com.liferay.portal.audit.model.AuditEvent> auditEvents) {
+		getPersistence().cacheResult(auditEvents);
+	}
+
+	/**
+	* Creates a new audit event with the primary key. Does not add the audit event to the database.
+	*
+	* @param auditEventId the primary key for the new audit event
+	* @return the new audit event
+	*/
+	public static com.liferay.portal.audit.model.AuditEvent create(
+		long auditEventId) {
+		return getPersistence().create(auditEventId);
+	}
+
+	/**
+	* Removes the audit event with the primary key from the database. Also notifies the appropriate model listeners.
+	*
+	* @param auditEventId the primary key of the audit event
+	* @return the audit event that was removed
+	* @throws com.liferay.portal.audit.NoSuchEventException if a audit event with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.audit.model.AuditEvent remove(
+		long auditEventId)
+		throws com.liferay.portal.audit.NoSuchEventException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().remove(auditEventId);
+	}
+
+	public static com.liferay.portal.audit.model.AuditEvent updateImpl(
+		com.liferay.portal.audit.model.AuditEvent auditEvent)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().updateImpl(auditEvent);
+	}
+
+	/**
+	* Returns the audit event with the primary key or throws a {@link com.liferay.portal.audit.NoSuchEventException} if it could not be found.
+	*
+	* @param auditEventId the primary key of the audit event
+	* @return the audit event
+	* @throws com.liferay.portal.audit.NoSuchEventException if a audit event with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.audit.model.AuditEvent findByPrimaryKey(
+		long auditEventId)
+		throws com.liferay.portal.audit.NoSuchEventException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().findByPrimaryKey(auditEventId);
+	}
+
+	/**
+	* Returns the audit event with the primary key or returns <code>null</code> if it could not be found.
+	*
+	* @param auditEventId the primary key of the audit event
+	* @return the audit event, or <code>null</code> if a audit event with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.audit.model.AuditEvent fetchByPrimaryKey(
+		long auditEventId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().fetchByPrimaryKey(auditEventId);
+	}
+
+	/**
 	* Returns all the audit events.
 	*
 	* @return the audit events
@@ -381,17 +404,6 @@ public class AuditEventUtil {
 	}
 
 	/**
-	* Removes all the audit events where companyId = &#63; from the database.
-	*
-	* @param companyId the company ID
-	* @throws SystemException if a system exception occurred
-	*/
-	public static void removeByCompanyId(long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		getPersistence().removeByCompanyId(companyId);
-	}
-
-	/**
 	* Removes all the audit events from the database.
 	*
 	* @throws SystemException if a system exception occurred
@@ -399,18 +411,6 @@ public class AuditEventUtil {
 	public static void removeAll()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getPersistence().removeAll();
-	}
-
-	/**
-	* Returns the number of audit events where companyId = &#63;.
-	*
-	* @param companyId the company ID
-	* @return the number of matching audit events
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByCompanyId(long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByCompanyId(companyId);
 	}
 
 	/**

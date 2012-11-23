@@ -38,67 +38,6 @@ public interface SourcePersistence extends BasePersistence<Source> {
 	 */
 
 	/**
-	* Caches the source in the entity cache if it is enabled.
-	*
-	* @param source the source
-	*/
-	public void cacheResult(com.liferay.reports.model.Source source);
-
-	/**
-	* Caches the sources in the entity cache if it is enabled.
-	*
-	* @param sources the sources
-	*/
-	public void cacheResult(
-		java.util.List<com.liferay.reports.model.Source> sources);
-
-	/**
-	* Creates a new source with the primary key. Does not add the source to the database.
-	*
-	* @param sourceId the primary key for the new source
-	* @return the new source
-	*/
-	public com.liferay.reports.model.Source create(long sourceId);
-
-	/**
-	* Removes the source with the primary key from the database. Also notifies the appropriate model listeners.
-	*
-	* @param sourceId the primary key of the source
-	* @return the source that was removed
-	* @throws com.liferay.reports.NoSuchSourceException if a source with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.reports.model.Source remove(long sourceId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.reports.NoSuchSourceException;
-
-	public com.liferay.reports.model.Source updateImpl(
-		com.liferay.reports.model.Source source)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the source with the primary key or throws a {@link com.liferay.reports.NoSuchSourceException} if it could not be found.
-	*
-	* @param sourceId the primary key of the source
-	* @return the source
-	* @throws com.liferay.reports.NoSuchSourceException if a source with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.reports.model.Source findByPrimaryKey(long sourceId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.reports.NoSuchSourceException;
-
-	/**
-	* Returns the source with the primary key or returns <code>null</code> if it could not be found.
-	*
-	* @param sourceId the primary key of the source
-	* @return the source, or <code>null</code> if a source with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.reports.model.Source fetchByPrimaryKey(long sourceId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
 	* Returns all the sources where uuid = &#63;.
 	*
 	* @param uuid the uuid
@@ -218,6 +157,25 @@ public interface SourcePersistence extends BasePersistence<Source> {
 			com.liferay.reports.NoSuchSourceException;
 
 	/**
+	* Removes all the sources where uuid = &#63; from the database.
+	*
+	* @param uuid the uuid
+	* @throws SystemException if a system exception occurred
+	*/
+	public void removeByUuid(java.lang.String uuid)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the number of sources where uuid = &#63;.
+	*
+	* @param uuid the uuid
+	* @return the number of matching sources
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByUuid(java.lang.String uuid)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Returns the source where uuid = &#63; and groupId = &#63; or throws a {@link com.liferay.reports.NoSuchSourceException} if it could not be found.
 	*
 	* @param uuid the uuid
@@ -254,6 +212,30 @@ public interface SourcePersistence extends BasePersistence<Source> {
 	*/
 	public com.liferay.reports.model.Source fetchByUUID_G(
 		java.lang.String uuid, long groupId, boolean retrieveFromCache)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Removes the source where uuid = &#63; and groupId = &#63; from the database.
+	*
+	* @param uuid the uuid
+	* @param groupId the group ID
+	* @return the source that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.reports.model.Source removeByUUID_G(
+		java.lang.String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.reports.NoSuchSourceException;
+
+	/**
+	* Returns the number of sources where uuid = &#63; and groupId = &#63;.
+	*
+	* @param uuid the uuid
+	* @param groupId the group ID
+	* @return the number of matching sources
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByUUID_G(java.lang.String uuid, long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
@@ -382,6 +364,27 @@ public interface SourcePersistence extends BasePersistence<Source> {
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.reports.NoSuchSourceException;
+
+	/**
+	* Removes all the sources where uuid = &#63; and companyId = &#63; from the database.
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public void removeByUuid_C(java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the number of sources where uuid = &#63; and companyId = &#63;.
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @return the number of matching sources
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByUuid_C(java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
 	* Returns all the sources where groupId = &#63;.
@@ -562,6 +565,35 @@ public interface SourcePersistence extends BasePersistence<Source> {
 			com.liferay.reports.NoSuchSourceException;
 
 	/**
+	* Removes all the sources where groupId = &#63; from the database.
+	*
+	* @param groupId the group ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public void removeByGroupId(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the number of sources where groupId = &#63;.
+	*
+	* @param groupId the group ID
+	* @return the number of matching sources
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByGroupId(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the number of sources that the user has permission to view where groupId = &#63;.
+	*
+	* @param groupId the group ID
+	* @return the number of matching sources that the user has permission to view
+	* @throws SystemException if a system exception occurred
+	*/
+	public int filterCountByGroupId(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Returns all the sources where companyId = &#63;.
 	*
 	* @param companyId the company ID
@@ -681,6 +713,86 @@ public interface SourcePersistence extends BasePersistence<Source> {
 			com.liferay.reports.NoSuchSourceException;
 
 	/**
+	* Removes all the sources where companyId = &#63; from the database.
+	*
+	* @param companyId the company ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public void removeByCompanyId(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the number of sources where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @return the number of matching sources
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByCompanyId(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Caches the source in the entity cache if it is enabled.
+	*
+	* @param source the source
+	*/
+	public void cacheResult(com.liferay.reports.model.Source source);
+
+	/**
+	* Caches the sources in the entity cache if it is enabled.
+	*
+	* @param sources the sources
+	*/
+	public void cacheResult(
+		java.util.List<com.liferay.reports.model.Source> sources);
+
+	/**
+	* Creates a new source with the primary key. Does not add the source to the database.
+	*
+	* @param sourceId the primary key for the new source
+	* @return the new source
+	*/
+	public com.liferay.reports.model.Source create(long sourceId);
+
+	/**
+	* Removes the source with the primary key from the database. Also notifies the appropriate model listeners.
+	*
+	* @param sourceId the primary key of the source
+	* @return the source that was removed
+	* @throws com.liferay.reports.NoSuchSourceException if a source with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.reports.model.Source remove(long sourceId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.reports.NoSuchSourceException;
+
+	public com.liferay.reports.model.Source updateImpl(
+		com.liferay.reports.model.Source source)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the source with the primary key or throws a {@link com.liferay.reports.NoSuchSourceException} if it could not be found.
+	*
+	* @param sourceId the primary key of the source
+	* @return the source
+	* @throws com.liferay.reports.NoSuchSourceException if a source with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.reports.model.Source findByPrimaryKey(long sourceId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.reports.NoSuchSourceException;
+
+	/**
+	* Returns the source with the primary key or returns <code>null</code> if it could not be found.
+	*
+	* @param sourceId the primary key of the source
+	* @return the source, or <code>null</code> if a source with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.reports.model.Source fetchByPrimaryKey(long sourceId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Returns all the sources.
 	*
 	* @return the sources
@@ -723,123 +835,11 @@ public interface SourcePersistence extends BasePersistence<Source> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Removes all the sources where uuid = &#63; from the database.
-	*
-	* @param uuid the uuid
-	* @throws SystemException if a system exception occurred
-	*/
-	public void removeByUuid(java.lang.String uuid)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Removes the source where uuid = &#63; and groupId = &#63; from the database.
-	*
-	* @param uuid the uuid
-	* @param groupId the group ID
-	* @return the source that was removed
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.reports.model.Source removeByUUID_G(
-		java.lang.String uuid, long groupId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.reports.NoSuchSourceException;
-
-	/**
-	* Removes all the sources where uuid = &#63; and companyId = &#63; from the database.
-	*
-	* @param uuid the uuid
-	* @param companyId the company ID
-	* @throws SystemException if a system exception occurred
-	*/
-	public void removeByUuid_C(java.lang.String uuid, long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Removes all the sources where groupId = &#63; from the database.
-	*
-	* @param groupId the group ID
-	* @throws SystemException if a system exception occurred
-	*/
-	public void removeByGroupId(long groupId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Removes all the sources where companyId = &#63; from the database.
-	*
-	* @param companyId the company ID
-	* @throws SystemException if a system exception occurred
-	*/
-	public void removeByCompanyId(long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
 	* Removes all the sources from the database.
 	*
 	* @throws SystemException if a system exception occurred
 	*/
 	public void removeAll()
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of sources where uuid = &#63;.
-	*
-	* @param uuid the uuid
-	* @return the number of matching sources
-	* @throws SystemException if a system exception occurred
-	*/
-	public int countByUuid(java.lang.String uuid)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of sources where uuid = &#63; and groupId = &#63;.
-	*
-	* @param uuid the uuid
-	* @param groupId the group ID
-	* @return the number of matching sources
-	* @throws SystemException if a system exception occurred
-	*/
-	public int countByUUID_G(java.lang.String uuid, long groupId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of sources where uuid = &#63; and companyId = &#63;.
-	*
-	* @param uuid the uuid
-	* @param companyId the company ID
-	* @return the number of matching sources
-	* @throws SystemException if a system exception occurred
-	*/
-	public int countByUuid_C(java.lang.String uuid, long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of sources where groupId = &#63;.
-	*
-	* @param groupId the group ID
-	* @return the number of matching sources
-	* @throws SystemException if a system exception occurred
-	*/
-	public int countByGroupId(long groupId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of sources that the user has permission to view where groupId = &#63;.
-	*
-	* @param groupId the group ID
-	* @return the number of matching sources that the user has permission to view
-	* @throws SystemException if a system exception occurred
-	*/
-	public int filterCountByGroupId(long groupId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of sources where companyId = &#63;.
-	*
-	* @param companyId the company ID
-	* @return the number of matching sources
-	* @throws SystemException if a system exception occurred
-	*/
-	public int countByCompanyId(long companyId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

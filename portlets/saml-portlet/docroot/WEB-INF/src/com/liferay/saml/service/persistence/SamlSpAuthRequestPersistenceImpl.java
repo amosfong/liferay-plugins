@@ -76,17 +76,6 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 		".List1";
 	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
 		".List2";
-	public static final FinderPath FINDER_PATH_FETCH_BY_SIEI_SSARK = new FinderPath(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
-			SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED,
-			SamlSpAuthRequestImpl.class, FINDER_CLASS_NAME_ENTITY,
-			"fetchBySIEI_SSARK",
-			new String[] { String.class.getName(), String.class.getName() },
-			SamlSpAuthRequestModelImpl.SAMLIDPENTITYID_COLUMN_BITMASK |
-			SamlSpAuthRequestModelImpl.SAMLSPAUTHREQUESTKEY_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_SIEI_SSARK = new FinderPath(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
-			SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBySIEI_SSARK",
-			new String[] { String.class.getName(), String.class.getName() });
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
 			SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED,
 			SamlSpAuthRequestImpl.class,
@@ -98,6 +87,308 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
 			SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
+	public static final FinderPath FINDER_PATH_FETCH_BY_SIEI_SSARK = new FinderPath(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED,
+			SamlSpAuthRequestImpl.class, FINDER_CLASS_NAME_ENTITY,
+			"fetchBySIEI_SSARK",
+			new String[] { String.class.getName(), String.class.getName() },
+			SamlSpAuthRequestModelImpl.SAMLIDPENTITYID_COLUMN_BITMASK |
+			SamlSpAuthRequestModelImpl.SAMLSPAUTHREQUESTKEY_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_SIEI_SSARK = new FinderPath(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpAuthRequestModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBySIEI_SSARK",
+			new String[] { String.class.getName(), String.class.getName() });
+
+	/**
+	 * Returns the saml sp auth request where samlIdpEntityId = &#63; and samlSpAuthRequestKey = &#63; or throws a {@link com.liferay.saml.NoSuchSpAuthRequestException} if it could not be found.
+	 *
+	 * @param samlIdpEntityId the saml idp entity ID
+	 * @param samlSpAuthRequestKey the saml sp auth request key
+	 * @return the matching saml sp auth request
+	 * @throws com.liferay.saml.NoSuchSpAuthRequestException if a matching saml sp auth request could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpAuthRequest findBySIEI_SSARK(String samlIdpEntityId,
+		String samlSpAuthRequestKey)
+		throws NoSuchSpAuthRequestException, SystemException {
+		SamlSpAuthRequest samlSpAuthRequest = fetchBySIEI_SSARK(samlIdpEntityId,
+				samlSpAuthRequestKey);
+
+		if (samlSpAuthRequest == null) {
+			StringBundler msg = new StringBundler(6);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("samlIdpEntityId=");
+			msg.append(samlIdpEntityId);
+
+			msg.append(", samlSpAuthRequestKey=");
+			msg.append(samlSpAuthRequestKey);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchSpAuthRequestException(msg.toString());
+		}
+
+		return samlSpAuthRequest;
+	}
+
+	/**
+	 * Returns the saml sp auth request where samlIdpEntityId = &#63; and samlSpAuthRequestKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param samlIdpEntityId the saml idp entity ID
+	 * @param samlSpAuthRequestKey the saml sp auth request key
+	 * @return the matching saml sp auth request, or <code>null</code> if a matching saml sp auth request could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpAuthRequest fetchBySIEI_SSARK(String samlIdpEntityId,
+		String samlSpAuthRequestKey) throws SystemException {
+		return fetchBySIEI_SSARK(samlIdpEntityId, samlSpAuthRequestKey, true);
+	}
+
+	/**
+	 * Returns the saml sp auth request where samlIdpEntityId = &#63; and samlSpAuthRequestKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param samlIdpEntityId the saml idp entity ID
+	 * @param samlSpAuthRequestKey the saml sp auth request key
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching saml sp auth request, or <code>null</code> if a matching saml sp auth request could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpAuthRequest fetchBySIEI_SSARK(String samlIdpEntityId,
+		String samlSpAuthRequestKey, boolean retrieveFromCache)
+		throws SystemException {
+		Object[] finderArgs = new Object[] { samlIdpEntityId, samlSpAuthRequestKey };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_SIEI_SSARK,
+					finderArgs, this);
+		}
+
+		if (result instanceof SamlSpAuthRequest) {
+			SamlSpAuthRequest samlSpAuthRequest = (SamlSpAuthRequest)result;
+
+			if (!Validator.equals(samlIdpEntityId,
+						samlSpAuthRequest.getSamlIdpEntityId()) ||
+					!Validator.equals(samlSpAuthRequestKey,
+						samlSpAuthRequest.getSamlSpAuthRequestKey())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_SELECT_SAMLSPAUTHREQUEST_WHERE);
+
+			if (samlIdpEntityId == null) {
+				query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_1);
+			}
+			else {
+				if (samlIdpEntityId.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_2);
+				}
+			}
+
+			if (samlSpAuthRequestKey == null) {
+				query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_1);
+			}
+			else {
+				if (samlSpAuthRequestKey.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_2);
+				}
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (samlIdpEntityId != null) {
+					qPos.add(samlIdpEntityId);
+				}
+
+				if (samlSpAuthRequestKey != null) {
+					qPos.add(samlSpAuthRequestKey);
+				}
+
+				List<SamlSpAuthRequest> list = q.list();
+
+				result = list;
+
+				SamlSpAuthRequest samlSpAuthRequest = null;
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SIEI_SSARK,
+						finderArgs, list);
+				}
+				else {
+					samlSpAuthRequest = list.get(0);
+
+					cacheResult(samlSpAuthRequest);
+
+					if ((samlSpAuthRequest.getSamlIdpEntityId() == null) ||
+							!samlSpAuthRequest.getSamlIdpEntityId()
+												  .equals(samlIdpEntityId) ||
+							(samlSpAuthRequest.getSamlSpAuthRequestKey() == null) ||
+							!samlSpAuthRequest.getSamlSpAuthRequestKey()
+												  .equals(samlSpAuthRequestKey)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SIEI_SSARK,
+							finderArgs, samlSpAuthRequest);
+					}
+				}
+
+				return samlSpAuthRequest;
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (result == null) {
+					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SIEI_SSARK,
+						finderArgs);
+				}
+
+				closeSession(session);
+			}
+		}
+		else {
+			if (result instanceof List<?>) {
+				return null;
+			}
+			else {
+				return (SamlSpAuthRequest)result;
+			}
+		}
+	}
+
+	/**
+	 * Removes the saml sp auth request where samlIdpEntityId = &#63; and samlSpAuthRequestKey = &#63; from the database.
+	 *
+	 * @param samlIdpEntityId the saml idp entity ID
+	 * @param samlSpAuthRequestKey the saml sp auth request key
+	 * @return the saml sp auth request that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpAuthRequest removeBySIEI_SSARK(String samlIdpEntityId,
+		String samlSpAuthRequestKey)
+		throws NoSuchSpAuthRequestException, SystemException {
+		SamlSpAuthRequest samlSpAuthRequest = findBySIEI_SSARK(samlIdpEntityId,
+				samlSpAuthRequestKey);
+
+		return remove(samlSpAuthRequest);
+	}
+
+	/**
+	 * Returns the number of saml sp auth requests where samlIdpEntityId = &#63; and samlSpAuthRequestKey = &#63;.
+	 *
+	 * @param samlIdpEntityId the saml idp entity ID
+	 * @param samlSpAuthRequestKey the saml sp auth request key
+	 * @return the number of matching saml sp auth requests
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countBySIEI_SSARK(String samlIdpEntityId,
+		String samlSpAuthRequestKey) throws SystemException {
+		Object[] finderArgs = new Object[] { samlIdpEntityId, samlSpAuthRequestKey };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_SIEI_SSARK,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_SAMLSPAUTHREQUEST_WHERE);
+
+			if (samlIdpEntityId == null) {
+				query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_1);
+			}
+			else {
+				if (samlIdpEntityId.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_2);
+				}
+			}
+
+			if (samlSpAuthRequestKey == null) {
+				query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_1);
+			}
+			else {
+				if (samlSpAuthRequestKey.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_2);
+				}
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (samlIdpEntityId != null) {
+					qPos.add(samlIdpEntityId);
+				}
+
+				if (samlSpAuthRequestKey != null) {
+					qPos.add(samlSpAuthRequestKey);
+				}
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_SIEI_SSARK,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_1 = "samlSpAuthRequest.samlIdpEntityId IS NULL AND ";
+	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_2 = "samlSpAuthRequest.samlIdpEntityId = ? AND ";
+	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_3 = "(samlSpAuthRequest.samlIdpEntityId IS NULL OR samlSpAuthRequest.samlIdpEntityId = ?) AND ";
+	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_1 =
+		"samlSpAuthRequest.samlSpAuthRequestKey IS NULL";
+	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_2 =
+		"samlSpAuthRequest.samlSpAuthRequestKey = ?";
+	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_3 =
+		"(samlSpAuthRequest.samlSpAuthRequestKey IS NULL OR samlSpAuthRequest.samlSpAuthRequestKey = ?)";
 
 	/**
 	 * Caches the saml sp auth request in the entity cache if it is enabled.
@@ -498,187 +789,6 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	}
 
 	/**
-	 * Returns the saml sp auth request where samlIdpEntityId = &#63; and samlSpAuthRequestKey = &#63; or throws a {@link com.liferay.saml.NoSuchSpAuthRequestException} if it could not be found.
-	 *
-	 * @param samlIdpEntityId the saml idp entity ID
-	 * @param samlSpAuthRequestKey the saml sp auth request key
-	 * @return the matching saml sp auth request
-	 * @throws com.liferay.saml.NoSuchSpAuthRequestException if a matching saml sp auth request could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlSpAuthRequest findBySIEI_SSARK(String samlIdpEntityId,
-		String samlSpAuthRequestKey)
-		throws NoSuchSpAuthRequestException, SystemException {
-		SamlSpAuthRequest samlSpAuthRequest = fetchBySIEI_SSARK(samlIdpEntityId,
-				samlSpAuthRequestKey);
-
-		if (samlSpAuthRequest == null) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("samlIdpEntityId=");
-			msg.append(samlIdpEntityId);
-
-			msg.append(", samlSpAuthRequestKey=");
-			msg.append(samlSpAuthRequestKey);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			if (_log.isWarnEnabled()) {
-				_log.warn(msg.toString());
-			}
-
-			throw new NoSuchSpAuthRequestException(msg.toString());
-		}
-
-		return samlSpAuthRequest;
-	}
-
-	/**
-	 * Returns the saml sp auth request where samlIdpEntityId = &#63; and samlSpAuthRequestKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param samlIdpEntityId the saml idp entity ID
-	 * @param samlSpAuthRequestKey the saml sp auth request key
-	 * @return the matching saml sp auth request, or <code>null</code> if a matching saml sp auth request could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlSpAuthRequest fetchBySIEI_SSARK(String samlIdpEntityId,
-		String samlSpAuthRequestKey) throws SystemException {
-		return fetchBySIEI_SSARK(samlIdpEntityId, samlSpAuthRequestKey, true);
-	}
-
-	/**
-	 * Returns the saml sp auth request where samlIdpEntityId = &#63; and samlSpAuthRequestKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	 *
-	 * @param samlIdpEntityId the saml idp entity ID
-	 * @param samlSpAuthRequestKey the saml sp auth request key
-	 * @param retrieveFromCache whether to use the finder cache
-	 * @return the matching saml sp auth request, or <code>null</code> if a matching saml sp auth request could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlSpAuthRequest fetchBySIEI_SSARK(String samlIdpEntityId,
-		String samlSpAuthRequestKey, boolean retrieveFromCache)
-		throws SystemException {
-		Object[] finderArgs = new Object[] { samlIdpEntityId, samlSpAuthRequestKey };
-
-		Object result = null;
-
-		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_SIEI_SSARK,
-					finderArgs, this);
-		}
-
-		if (result instanceof SamlSpAuthRequest) {
-			SamlSpAuthRequest samlSpAuthRequest = (SamlSpAuthRequest)result;
-
-			if (!Validator.equals(samlIdpEntityId,
-						samlSpAuthRequest.getSamlIdpEntityId()) ||
-					!Validator.equals(samlSpAuthRequestKey,
-						samlSpAuthRequest.getSamlSpAuthRequestKey())) {
-				result = null;
-			}
-		}
-
-		if (result == null) {
-			StringBundler query = new StringBundler(3);
-
-			query.append(_SQL_SELECT_SAMLSPAUTHREQUEST_WHERE);
-
-			if (samlIdpEntityId == null) {
-				query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_1);
-			}
-			else {
-				if (samlIdpEntityId.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_2);
-				}
-			}
-
-			if (samlSpAuthRequestKey == null) {
-				query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_1);
-			}
-			else {
-				if (samlSpAuthRequestKey.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_2);
-				}
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (samlIdpEntityId != null) {
-					qPos.add(samlIdpEntityId);
-				}
-
-				if (samlSpAuthRequestKey != null) {
-					qPos.add(samlSpAuthRequestKey);
-				}
-
-				List<SamlSpAuthRequest> list = q.list();
-
-				result = list;
-
-				SamlSpAuthRequest samlSpAuthRequest = null;
-
-				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SIEI_SSARK,
-						finderArgs, list);
-				}
-				else {
-					samlSpAuthRequest = list.get(0);
-
-					cacheResult(samlSpAuthRequest);
-
-					if ((samlSpAuthRequest.getSamlIdpEntityId() == null) ||
-							!samlSpAuthRequest.getSamlIdpEntityId()
-												  .equals(samlIdpEntityId) ||
-							(samlSpAuthRequest.getSamlSpAuthRequestKey() == null) ||
-							!samlSpAuthRequest.getSamlSpAuthRequestKey()
-												  .equals(samlSpAuthRequestKey)) {
-						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SIEI_SSARK,
-							finderArgs, samlSpAuthRequest);
-					}
-				}
-
-				return samlSpAuthRequest;
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (result == null) {
-					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SIEI_SSARK,
-						finderArgs);
-				}
-
-				closeSession(session);
-			}
-		}
-		else {
-			if (result instanceof List<?>) {
-				return null;
-			}
-			else {
-				return (SamlSpAuthRequest)result;
-			}
-		}
-	}
-
-	/**
 	 * Returns all the saml sp auth requests.
 	 *
 	 * @return the saml sp auth requests
@@ -794,23 +904,6 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	}
 
 	/**
-	 * Removes the saml sp auth request where samlIdpEntityId = &#63; and samlSpAuthRequestKey = &#63; from the database.
-	 *
-	 * @param samlIdpEntityId the saml idp entity ID
-	 * @param samlSpAuthRequestKey the saml sp auth request key
-	 * @return the saml sp auth request that was removed
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlSpAuthRequest removeBySIEI_SSARK(String samlIdpEntityId,
-		String samlSpAuthRequestKey)
-		throws NoSuchSpAuthRequestException, SystemException {
-		SamlSpAuthRequest samlSpAuthRequest = findBySIEI_SSARK(samlIdpEntityId,
-				samlSpAuthRequestKey);
-
-		return remove(samlSpAuthRequest);
-	}
-
-	/**
 	 * Removes all the saml sp auth requests from the database.
 	 *
 	 * @throws SystemException if a system exception occurred
@@ -819,89 +912,6 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 		for (SamlSpAuthRequest samlSpAuthRequest : findAll()) {
 			remove(samlSpAuthRequest);
 		}
-	}
-
-	/**
-	 * Returns the number of saml sp auth requests where samlIdpEntityId = &#63; and samlSpAuthRequestKey = &#63;.
-	 *
-	 * @param samlIdpEntityId the saml idp entity ID
-	 * @param samlSpAuthRequestKey the saml sp auth request key
-	 * @return the number of matching saml sp auth requests
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countBySIEI_SSARK(String samlIdpEntityId,
-		String samlSpAuthRequestKey) throws SystemException {
-		Object[] finderArgs = new Object[] { samlIdpEntityId, samlSpAuthRequestKey };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_SIEI_SSARK,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(3);
-
-			query.append(_SQL_COUNT_SAMLSPAUTHREQUEST_WHERE);
-
-			if (samlIdpEntityId == null) {
-				query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_1);
-			}
-			else {
-				if (samlIdpEntityId.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_2);
-				}
-			}
-
-			if (samlSpAuthRequestKey == null) {
-				query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_1);
-			}
-			else {
-				if (samlSpAuthRequestKey.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_2);
-				}
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (samlIdpEntityId != null) {
-					qPos.add(samlIdpEntityId);
-				}
-
-				if (samlSpAuthRequestKey != null) {
-					qPos.add(samlSpAuthRequestKey);
-				}
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_SIEI_SSARK,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
 	}
 
 	/**
@@ -993,15 +1003,6 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	private static final String _SQL_SELECT_SAMLSPAUTHREQUEST_WHERE = "SELECT samlSpAuthRequest FROM SamlSpAuthRequest samlSpAuthRequest WHERE ";
 	private static final String _SQL_COUNT_SAMLSPAUTHREQUEST = "SELECT COUNT(samlSpAuthRequest) FROM SamlSpAuthRequest samlSpAuthRequest";
 	private static final String _SQL_COUNT_SAMLSPAUTHREQUEST_WHERE = "SELECT COUNT(samlSpAuthRequest) FROM SamlSpAuthRequest samlSpAuthRequest WHERE ";
-	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_1 = "samlSpAuthRequest.samlIdpEntityId IS NULL AND ";
-	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_2 = "samlSpAuthRequest.samlIdpEntityId = ? AND ";
-	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_3 = "(samlSpAuthRequest.samlIdpEntityId IS NULL OR samlSpAuthRequest.samlIdpEntityId = ?) AND ";
-	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_1 =
-		"samlSpAuthRequest.samlSpAuthRequestKey IS NULL";
-	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_2 =
-		"samlSpAuthRequest.samlSpAuthRequestKey = ?";
-	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_3 =
-		"(samlSpAuthRequest.samlSpAuthRequestKey IS NULL OR samlSpAuthRequest.samlSpAuthRequestKey = ?)";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "samlSpAuthRequest.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No SamlSpAuthRequest exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No SamlSpAuthRequest exists with the key {";

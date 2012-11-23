@@ -38,6 +38,71 @@ public interface SamlSpMessagePersistence extends BasePersistence<SamlSpMessage>
 	 */
 
 	/**
+	* Returns the saml sp message where samlIdpEntityId = &#63; and samlIdpResponseKey = &#63; or throws a {@link com.liferay.saml.NoSuchSpMessageException} if it could not be found.
+	*
+	* @param samlIdpEntityId the saml idp entity ID
+	* @param samlIdpResponseKey the saml idp response key
+	* @return the matching saml sp message
+	* @throws com.liferay.saml.NoSuchSpMessageException if a matching saml sp message could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.saml.model.SamlSpMessage findBySIEI_SIRK(
+		java.lang.String samlIdpEntityId, java.lang.String samlIdpResponseKey)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.saml.NoSuchSpMessageException;
+
+	/**
+	* Returns the saml sp message where samlIdpEntityId = &#63; and samlIdpResponseKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param samlIdpEntityId the saml idp entity ID
+	* @param samlIdpResponseKey the saml idp response key
+	* @return the matching saml sp message, or <code>null</code> if a matching saml sp message could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.saml.model.SamlSpMessage fetchBySIEI_SIRK(
+		java.lang.String samlIdpEntityId, java.lang.String samlIdpResponseKey)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the saml sp message where samlIdpEntityId = &#63; and samlIdpResponseKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param samlIdpEntityId the saml idp entity ID
+	* @param samlIdpResponseKey the saml idp response key
+	* @param retrieveFromCache whether to use the finder cache
+	* @return the matching saml sp message, or <code>null</code> if a matching saml sp message could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.saml.model.SamlSpMessage fetchBySIEI_SIRK(
+		java.lang.String samlIdpEntityId, java.lang.String samlIdpResponseKey,
+		boolean retrieveFromCache)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Removes the saml sp message where samlIdpEntityId = &#63; and samlIdpResponseKey = &#63; from the database.
+	*
+	* @param samlIdpEntityId the saml idp entity ID
+	* @param samlIdpResponseKey the saml idp response key
+	* @return the saml sp message that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.saml.model.SamlSpMessage removeBySIEI_SIRK(
+		java.lang.String samlIdpEntityId, java.lang.String samlIdpResponseKey)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.saml.NoSuchSpMessageException;
+
+	/**
+	* Returns the number of saml sp messages where samlIdpEntityId = &#63; and samlIdpResponseKey = &#63;.
+	*
+	* @param samlIdpEntityId the saml idp entity ID
+	* @param samlIdpResponseKey the saml idp response key
+	* @return the number of matching saml sp messages
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countBySIEI_SIRK(java.lang.String samlIdpEntityId,
+		java.lang.String samlIdpResponseKey)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Caches the saml sp message in the entity cache if it is enabled.
 	*
 	* @param samlSpMessage the saml sp message
@@ -101,46 +166,6 @@ public interface SamlSpMessagePersistence extends BasePersistence<SamlSpMessage>
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the saml sp message where samlIdpEntityId = &#63; and samlIdpResponseKey = &#63; or throws a {@link com.liferay.saml.NoSuchSpMessageException} if it could not be found.
-	*
-	* @param samlIdpEntityId the saml idp entity ID
-	* @param samlIdpResponseKey the saml idp response key
-	* @return the matching saml sp message
-	* @throws com.liferay.saml.NoSuchSpMessageException if a matching saml sp message could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.saml.model.SamlSpMessage findBySIEI_SIRK(
-		java.lang.String samlIdpEntityId, java.lang.String samlIdpResponseKey)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.saml.NoSuchSpMessageException;
-
-	/**
-	* Returns the saml sp message where samlIdpEntityId = &#63; and samlIdpResponseKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	*
-	* @param samlIdpEntityId the saml idp entity ID
-	* @param samlIdpResponseKey the saml idp response key
-	* @return the matching saml sp message, or <code>null</code> if a matching saml sp message could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.saml.model.SamlSpMessage fetchBySIEI_SIRK(
-		java.lang.String samlIdpEntityId, java.lang.String samlIdpResponseKey)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the saml sp message where samlIdpEntityId = &#63; and samlIdpResponseKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	*
-	* @param samlIdpEntityId the saml idp entity ID
-	* @param samlIdpResponseKey the saml idp response key
-	* @param retrieveFromCache whether to use the finder cache
-	* @return the matching saml sp message, or <code>null</code> if a matching saml sp message could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.saml.model.SamlSpMessage fetchBySIEI_SIRK(
-		java.lang.String samlIdpEntityId, java.lang.String samlIdpResponseKey,
-		boolean retrieveFromCache)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
 	* Returns all the saml sp messages.
 	*
 	* @return the saml sp messages
@@ -184,36 +209,11 @@ public interface SamlSpMessagePersistence extends BasePersistence<SamlSpMessage>
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Removes the saml sp message where samlIdpEntityId = &#63; and samlIdpResponseKey = &#63; from the database.
-	*
-	* @param samlIdpEntityId the saml idp entity ID
-	* @param samlIdpResponseKey the saml idp response key
-	* @return the saml sp message that was removed
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.saml.model.SamlSpMessage removeBySIEI_SIRK(
-		java.lang.String samlIdpEntityId, java.lang.String samlIdpResponseKey)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.saml.NoSuchSpMessageException;
-
-	/**
 	* Removes all the saml sp messages from the database.
 	*
 	* @throws SystemException if a system exception occurred
 	*/
 	public void removeAll()
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of saml sp messages where samlIdpEntityId = &#63; and samlIdpResponseKey = &#63;.
-	*
-	* @param samlIdpEntityId the saml idp entity ID
-	* @param samlIdpResponseKey the saml idp response key
-	* @return the number of matching saml sp messages
-	* @throws SystemException if a system exception occurred
-	*/
-	public int countBySIEI_SIRK(java.lang.String samlIdpEntityId,
-		java.lang.String samlIdpResponseKey)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

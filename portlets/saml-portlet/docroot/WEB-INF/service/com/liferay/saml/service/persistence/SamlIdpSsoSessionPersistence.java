@@ -38,6 +38,65 @@ public interface SamlIdpSsoSessionPersistence extends BasePersistence<SamlIdpSso
 	 */
 
 	/**
+	* Returns the saml idp sso session where samlIdpSsoSessionKey = &#63; or throws a {@link com.liferay.saml.NoSuchIdpSsoSessionException} if it could not be found.
+	*
+	* @param samlIdpSsoSessionKey the saml idp sso session key
+	* @return the matching saml idp sso session
+	* @throws com.liferay.saml.NoSuchIdpSsoSessionException if a matching saml idp sso session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.saml.model.SamlIdpSsoSession findBySamlIdpSsoSessionKey(
+		java.lang.String samlIdpSsoSessionKey)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.saml.NoSuchIdpSsoSessionException;
+
+	/**
+	* Returns the saml idp sso session where samlIdpSsoSessionKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param samlIdpSsoSessionKey the saml idp sso session key
+	* @return the matching saml idp sso session, or <code>null</code> if a matching saml idp sso session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.saml.model.SamlIdpSsoSession fetchBySamlIdpSsoSessionKey(
+		java.lang.String samlIdpSsoSessionKey)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the saml idp sso session where samlIdpSsoSessionKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param samlIdpSsoSessionKey the saml idp sso session key
+	* @param retrieveFromCache whether to use the finder cache
+	* @return the matching saml idp sso session, or <code>null</code> if a matching saml idp sso session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.saml.model.SamlIdpSsoSession fetchBySamlIdpSsoSessionKey(
+		java.lang.String samlIdpSsoSessionKey, boolean retrieveFromCache)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Removes the saml idp sso session where samlIdpSsoSessionKey = &#63; from the database.
+	*
+	* @param samlIdpSsoSessionKey the saml idp sso session key
+	* @return the saml idp sso session that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.saml.model.SamlIdpSsoSession removeBySamlIdpSsoSessionKey(
+		java.lang.String samlIdpSsoSessionKey)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.saml.NoSuchIdpSsoSessionException;
+
+	/**
+	* Returns the number of saml idp sso sessions where samlIdpSsoSessionKey = &#63;.
+	*
+	* @param samlIdpSsoSessionKey the saml idp sso session key
+	* @return the number of matching saml idp sso sessions
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countBySamlIdpSsoSessionKey(
+		java.lang.String samlIdpSsoSessionKey)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Caches the saml idp sso session in the entity cache if it is enabled.
 	*
 	* @param samlIdpSsoSession the saml idp sso session
@@ -104,42 +163,6 @@ public interface SamlIdpSsoSessionPersistence extends BasePersistence<SamlIdpSso
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns the saml idp sso session where samlIdpSsoSessionKey = &#63; or throws a {@link com.liferay.saml.NoSuchIdpSsoSessionException} if it could not be found.
-	*
-	* @param samlIdpSsoSessionKey the saml idp sso session key
-	* @return the matching saml idp sso session
-	* @throws com.liferay.saml.NoSuchIdpSsoSessionException if a matching saml idp sso session could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.saml.model.SamlIdpSsoSession findBySamlIdpSsoSessionKey(
-		java.lang.String samlIdpSsoSessionKey)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.saml.NoSuchIdpSsoSessionException;
-
-	/**
-	* Returns the saml idp sso session where samlIdpSsoSessionKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	*
-	* @param samlIdpSsoSessionKey the saml idp sso session key
-	* @return the matching saml idp sso session, or <code>null</code> if a matching saml idp sso session could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.saml.model.SamlIdpSsoSession fetchBySamlIdpSsoSessionKey(
-		java.lang.String samlIdpSsoSessionKey)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the saml idp sso session where samlIdpSsoSessionKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	*
-	* @param samlIdpSsoSessionKey the saml idp sso session key
-	* @param retrieveFromCache whether to use the finder cache
-	* @return the matching saml idp sso session, or <code>null</code> if a matching saml idp sso session could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.saml.model.SamlIdpSsoSession fetchBySamlIdpSsoSessionKey(
-		java.lang.String samlIdpSsoSessionKey, boolean retrieveFromCache)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
 	* Returns all the saml idp sso sessions.
 	*
 	* @return the saml idp sso sessions
@@ -183,34 +206,11 @@ public interface SamlIdpSsoSessionPersistence extends BasePersistence<SamlIdpSso
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Removes the saml idp sso session where samlIdpSsoSessionKey = &#63; from the database.
-	*
-	* @param samlIdpSsoSessionKey the saml idp sso session key
-	* @return the saml idp sso session that was removed
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.saml.model.SamlIdpSsoSession removeBySamlIdpSsoSessionKey(
-		java.lang.String samlIdpSsoSessionKey)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.saml.NoSuchIdpSsoSessionException;
-
-	/**
 	* Removes all the saml idp sso sessions from the database.
 	*
 	* @throws SystemException if a system exception occurred
 	*/
 	public void removeAll()
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of saml idp sso sessions where samlIdpSsoSessionKey = &#63;.
-	*
-	* @param samlIdpSsoSessionKey the saml idp sso session key
-	* @return the number of matching saml idp sso sessions
-	* @throws SystemException if a system exception occurred
-	*/
-	public int countBySamlIdpSsoSessionKey(
-		java.lang.String samlIdpSsoSessionKey)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

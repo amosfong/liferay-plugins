@@ -76,17 +76,6 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 		".List1";
 	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
 		".List2";
-	public static final FinderPath FINDER_PATH_FETCH_BY_SIEI_SIRK = new FinderPath(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
-			SamlSpMessageModelImpl.FINDER_CACHE_ENABLED,
-			SamlSpMessageImpl.class, FINDER_CLASS_NAME_ENTITY,
-			"fetchBySIEI_SIRK",
-			new String[] { String.class.getName(), String.class.getName() },
-			SamlSpMessageModelImpl.SAMLIDPENTITYID_COLUMN_BITMASK |
-			SamlSpMessageModelImpl.SAMLIDPRESPONSEKEY_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_SIEI_SIRK = new FinderPath(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
-			SamlSpMessageModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBySIEI_SIRK",
-			new String[] { String.class.getName(), String.class.getName() });
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
 			SamlSpMessageModelImpl.FINDER_CACHE_ENABLED,
 			SamlSpMessageImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
@@ -98,6 +87,305 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
 			SamlSpMessageModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
+	public static final FinderPath FINDER_PATH_FETCH_BY_SIEI_SIRK = new FinderPath(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpMessageModelImpl.FINDER_CACHE_ENABLED,
+			SamlSpMessageImpl.class, FINDER_CLASS_NAME_ENTITY,
+			"fetchBySIEI_SIRK",
+			new String[] { String.class.getName(), String.class.getName() },
+			SamlSpMessageModelImpl.SAMLIDPENTITYID_COLUMN_BITMASK |
+			SamlSpMessageModelImpl.SAMLIDPRESPONSEKEY_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_SIEI_SIRK = new FinderPath(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpMessageModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBySIEI_SIRK",
+			new String[] { String.class.getName(), String.class.getName() });
+
+	/**
+	 * Returns the saml sp message where samlIdpEntityId = &#63; and samlIdpResponseKey = &#63; or throws a {@link com.liferay.saml.NoSuchSpMessageException} if it could not be found.
+	 *
+	 * @param samlIdpEntityId the saml idp entity ID
+	 * @param samlIdpResponseKey the saml idp response key
+	 * @return the matching saml sp message
+	 * @throws com.liferay.saml.NoSuchSpMessageException if a matching saml sp message could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpMessage findBySIEI_SIRK(String samlIdpEntityId,
+		String samlIdpResponseKey)
+		throws NoSuchSpMessageException, SystemException {
+		SamlSpMessage samlSpMessage = fetchBySIEI_SIRK(samlIdpEntityId,
+				samlIdpResponseKey);
+
+		if (samlSpMessage == null) {
+			StringBundler msg = new StringBundler(6);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("samlIdpEntityId=");
+			msg.append(samlIdpEntityId);
+
+			msg.append(", samlIdpResponseKey=");
+			msg.append(samlIdpResponseKey);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchSpMessageException(msg.toString());
+		}
+
+		return samlSpMessage;
+	}
+
+	/**
+	 * Returns the saml sp message where samlIdpEntityId = &#63; and samlIdpResponseKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param samlIdpEntityId the saml idp entity ID
+	 * @param samlIdpResponseKey the saml idp response key
+	 * @return the matching saml sp message, or <code>null</code> if a matching saml sp message could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpMessage fetchBySIEI_SIRK(String samlIdpEntityId,
+		String samlIdpResponseKey) throws SystemException {
+		return fetchBySIEI_SIRK(samlIdpEntityId, samlIdpResponseKey, true);
+	}
+
+	/**
+	 * Returns the saml sp message where samlIdpEntityId = &#63; and samlIdpResponseKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param samlIdpEntityId the saml idp entity ID
+	 * @param samlIdpResponseKey the saml idp response key
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching saml sp message, or <code>null</code> if a matching saml sp message could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpMessage fetchBySIEI_SIRK(String samlIdpEntityId,
+		String samlIdpResponseKey, boolean retrieveFromCache)
+		throws SystemException {
+		Object[] finderArgs = new Object[] { samlIdpEntityId, samlIdpResponseKey };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_SIEI_SIRK,
+					finderArgs, this);
+		}
+
+		if (result instanceof SamlSpMessage) {
+			SamlSpMessage samlSpMessage = (SamlSpMessage)result;
+
+			if (!Validator.equals(samlIdpEntityId,
+						samlSpMessage.getSamlIdpEntityId()) ||
+					!Validator.equals(samlIdpResponseKey,
+						samlSpMessage.getSamlIdpResponseKey())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_SELECT_SAMLSPMESSAGE_WHERE);
+
+			if (samlIdpEntityId == null) {
+				query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_1);
+			}
+			else {
+				if (samlIdpEntityId.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_2);
+				}
+			}
+
+			if (samlIdpResponseKey == null) {
+				query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_1);
+			}
+			else {
+				if (samlIdpResponseKey.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_2);
+				}
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (samlIdpEntityId != null) {
+					qPos.add(samlIdpEntityId);
+				}
+
+				if (samlIdpResponseKey != null) {
+					qPos.add(samlIdpResponseKey);
+				}
+
+				List<SamlSpMessage> list = q.list();
+
+				result = list;
+
+				SamlSpMessage samlSpMessage = null;
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SIEI_SIRK,
+						finderArgs, list);
+				}
+				else {
+					samlSpMessage = list.get(0);
+
+					cacheResult(samlSpMessage);
+
+					if ((samlSpMessage.getSamlIdpEntityId() == null) ||
+							!samlSpMessage.getSamlIdpEntityId()
+											  .equals(samlIdpEntityId) ||
+							(samlSpMessage.getSamlIdpResponseKey() == null) ||
+							!samlSpMessage.getSamlIdpResponseKey()
+											  .equals(samlIdpResponseKey)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SIEI_SIRK,
+							finderArgs, samlSpMessage);
+					}
+				}
+
+				return samlSpMessage;
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (result == null) {
+					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SIEI_SIRK,
+						finderArgs);
+				}
+
+				closeSession(session);
+			}
+		}
+		else {
+			if (result instanceof List<?>) {
+				return null;
+			}
+			else {
+				return (SamlSpMessage)result;
+			}
+		}
+	}
+
+	/**
+	 * Removes the saml sp message where samlIdpEntityId = &#63; and samlIdpResponseKey = &#63; from the database.
+	 *
+	 * @param samlIdpEntityId the saml idp entity ID
+	 * @param samlIdpResponseKey the saml idp response key
+	 * @return the saml sp message that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpMessage removeBySIEI_SIRK(String samlIdpEntityId,
+		String samlIdpResponseKey)
+		throws NoSuchSpMessageException, SystemException {
+		SamlSpMessage samlSpMessage = findBySIEI_SIRK(samlIdpEntityId,
+				samlIdpResponseKey);
+
+		return remove(samlSpMessage);
+	}
+
+	/**
+	 * Returns the number of saml sp messages where samlIdpEntityId = &#63; and samlIdpResponseKey = &#63;.
+	 *
+	 * @param samlIdpEntityId the saml idp entity ID
+	 * @param samlIdpResponseKey the saml idp response key
+	 * @return the number of matching saml sp messages
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countBySIEI_SIRK(String samlIdpEntityId,
+		String samlIdpResponseKey) throws SystemException {
+		Object[] finderArgs = new Object[] { samlIdpEntityId, samlIdpResponseKey };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_SIEI_SIRK,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_SAMLSPMESSAGE_WHERE);
+
+			if (samlIdpEntityId == null) {
+				query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_1);
+			}
+			else {
+				if (samlIdpEntityId.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_2);
+				}
+			}
+
+			if (samlIdpResponseKey == null) {
+				query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_1);
+			}
+			else {
+				if (samlIdpResponseKey.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_2);
+				}
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (samlIdpEntityId != null) {
+					qPos.add(samlIdpEntityId);
+				}
+
+				if (samlIdpResponseKey != null) {
+					qPos.add(samlIdpResponseKey);
+				}
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_SIEI_SIRK,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_1 = "samlSpMessage.samlIdpEntityId IS NULL AND ";
+	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_2 = "samlSpMessage.samlIdpEntityId = ? AND ";
+	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_3 = "(samlSpMessage.samlIdpEntityId IS NULL OR samlSpMessage.samlIdpEntityId = ?) AND ";
+	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_1 = "samlSpMessage.samlIdpResponseKey IS NULL";
+	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_2 = "samlSpMessage.samlIdpResponseKey = ?";
+	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_3 = "(samlSpMessage.samlIdpResponseKey IS NULL OR samlSpMessage.samlIdpResponseKey = ?)";
 
 	/**
 	 * Caches the saml sp message in the entity cache if it is enabled.
@@ -496,187 +784,6 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	}
 
 	/**
-	 * Returns the saml sp message where samlIdpEntityId = &#63; and samlIdpResponseKey = &#63; or throws a {@link com.liferay.saml.NoSuchSpMessageException} if it could not be found.
-	 *
-	 * @param samlIdpEntityId the saml idp entity ID
-	 * @param samlIdpResponseKey the saml idp response key
-	 * @return the matching saml sp message
-	 * @throws com.liferay.saml.NoSuchSpMessageException if a matching saml sp message could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlSpMessage findBySIEI_SIRK(String samlIdpEntityId,
-		String samlIdpResponseKey)
-		throws NoSuchSpMessageException, SystemException {
-		SamlSpMessage samlSpMessage = fetchBySIEI_SIRK(samlIdpEntityId,
-				samlIdpResponseKey);
-
-		if (samlSpMessage == null) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("samlIdpEntityId=");
-			msg.append(samlIdpEntityId);
-
-			msg.append(", samlIdpResponseKey=");
-			msg.append(samlIdpResponseKey);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			if (_log.isWarnEnabled()) {
-				_log.warn(msg.toString());
-			}
-
-			throw new NoSuchSpMessageException(msg.toString());
-		}
-
-		return samlSpMessage;
-	}
-
-	/**
-	 * Returns the saml sp message where samlIdpEntityId = &#63; and samlIdpResponseKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param samlIdpEntityId the saml idp entity ID
-	 * @param samlIdpResponseKey the saml idp response key
-	 * @return the matching saml sp message, or <code>null</code> if a matching saml sp message could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlSpMessage fetchBySIEI_SIRK(String samlIdpEntityId,
-		String samlIdpResponseKey) throws SystemException {
-		return fetchBySIEI_SIRK(samlIdpEntityId, samlIdpResponseKey, true);
-	}
-
-	/**
-	 * Returns the saml sp message where samlIdpEntityId = &#63; and samlIdpResponseKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	 *
-	 * @param samlIdpEntityId the saml idp entity ID
-	 * @param samlIdpResponseKey the saml idp response key
-	 * @param retrieveFromCache whether to use the finder cache
-	 * @return the matching saml sp message, or <code>null</code> if a matching saml sp message could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlSpMessage fetchBySIEI_SIRK(String samlIdpEntityId,
-		String samlIdpResponseKey, boolean retrieveFromCache)
-		throws SystemException {
-		Object[] finderArgs = new Object[] { samlIdpEntityId, samlIdpResponseKey };
-
-		Object result = null;
-
-		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_SIEI_SIRK,
-					finderArgs, this);
-		}
-
-		if (result instanceof SamlSpMessage) {
-			SamlSpMessage samlSpMessage = (SamlSpMessage)result;
-
-			if (!Validator.equals(samlIdpEntityId,
-						samlSpMessage.getSamlIdpEntityId()) ||
-					!Validator.equals(samlIdpResponseKey,
-						samlSpMessage.getSamlIdpResponseKey())) {
-				result = null;
-			}
-		}
-
-		if (result == null) {
-			StringBundler query = new StringBundler(3);
-
-			query.append(_SQL_SELECT_SAMLSPMESSAGE_WHERE);
-
-			if (samlIdpEntityId == null) {
-				query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_1);
-			}
-			else {
-				if (samlIdpEntityId.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_2);
-				}
-			}
-
-			if (samlIdpResponseKey == null) {
-				query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_1);
-			}
-			else {
-				if (samlIdpResponseKey.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_2);
-				}
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (samlIdpEntityId != null) {
-					qPos.add(samlIdpEntityId);
-				}
-
-				if (samlIdpResponseKey != null) {
-					qPos.add(samlIdpResponseKey);
-				}
-
-				List<SamlSpMessage> list = q.list();
-
-				result = list;
-
-				SamlSpMessage samlSpMessage = null;
-
-				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SIEI_SIRK,
-						finderArgs, list);
-				}
-				else {
-					samlSpMessage = list.get(0);
-
-					cacheResult(samlSpMessage);
-
-					if ((samlSpMessage.getSamlIdpEntityId() == null) ||
-							!samlSpMessage.getSamlIdpEntityId()
-											  .equals(samlIdpEntityId) ||
-							(samlSpMessage.getSamlIdpResponseKey() == null) ||
-							!samlSpMessage.getSamlIdpResponseKey()
-											  .equals(samlIdpResponseKey)) {
-						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SIEI_SIRK,
-							finderArgs, samlSpMessage);
-					}
-				}
-
-				return samlSpMessage;
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (result == null) {
-					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SIEI_SIRK,
-						finderArgs);
-				}
-
-				closeSession(session);
-			}
-		}
-		else {
-			if (result instanceof List<?>) {
-				return null;
-			}
-			else {
-				return (SamlSpMessage)result;
-			}
-		}
-	}
-
-	/**
 	 * Returns all the saml sp messages.
 	 *
 	 * @return the saml sp messages
@@ -792,23 +899,6 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	}
 
 	/**
-	 * Removes the saml sp message where samlIdpEntityId = &#63; and samlIdpResponseKey = &#63; from the database.
-	 *
-	 * @param samlIdpEntityId the saml idp entity ID
-	 * @param samlIdpResponseKey the saml idp response key
-	 * @return the saml sp message that was removed
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlSpMessage removeBySIEI_SIRK(String samlIdpEntityId,
-		String samlIdpResponseKey)
-		throws NoSuchSpMessageException, SystemException {
-		SamlSpMessage samlSpMessage = findBySIEI_SIRK(samlIdpEntityId,
-				samlIdpResponseKey);
-
-		return remove(samlSpMessage);
-	}
-
-	/**
 	 * Removes all the saml sp messages from the database.
 	 *
 	 * @throws SystemException if a system exception occurred
@@ -817,89 +907,6 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 		for (SamlSpMessage samlSpMessage : findAll()) {
 			remove(samlSpMessage);
 		}
-	}
-
-	/**
-	 * Returns the number of saml sp messages where samlIdpEntityId = &#63; and samlIdpResponseKey = &#63;.
-	 *
-	 * @param samlIdpEntityId the saml idp entity ID
-	 * @param samlIdpResponseKey the saml idp response key
-	 * @return the number of matching saml sp messages
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countBySIEI_SIRK(String samlIdpEntityId,
-		String samlIdpResponseKey) throws SystemException {
-		Object[] finderArgs = new Object[] { samlIdpEntityId, samlIdpResponseKey };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_SIEI_SIRK,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(3);
-
-			query.append(_SQL_COUNT_SAMLSPMESSAGE_WHERE);
-
-			if (samlIdpEntityId == null) {
-				query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_1);
-			}
-			else {
-				if (samlIdpEntityId.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_2);
-				}
-			}
-
-			if (samlIdpResponseKey == null) {
-				query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_1);
-			}
-			else {
-				if (samlIdpResponseKey.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_2);
-				}
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (samlIdpEntityId != null) {
-					qPos.add(samlIdpEntityId);
-				}
-
-				if (samlIdpResponseKey != null) {
-					qPos.add(samlIdpResponseKey);
-				}
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_SIEI_SIRK,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
 	}
 
 	/**
@@ -991,12 +998,6 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	private static final String _SQL_SELECT_SAMLSPMESSAGE_WHERE = "SELECT samlSpMessage FROM SamlSpMessage samlSpMessage WHERE ";
 	private static final String _SQL_COUNT_SAMLSPMESSAGE = "SELECT COUNT(samlSpMessage) FROM SamlSpMessage samlSpMessage";
 	private static final String _SQL_COUNT_SAMLSPMESSAGE_WHERE = "SELECT COUNT(samlSpMessage) FROM SamlSpMessage samlSpMessage WHERE ";
-	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_1 = "samlSpMessage.samlIdpEntityId IS NULL AND ";
-	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_2 = "samlSpMessage.samlIdpEntityId = ? AND ";
-	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_3 = "(samlSpMessage.samlIdpEntityId IS NULL OR samlSpMessage.samlIdpEntityId = ?) AND ";
-	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_1 = "samlSpMessage.samlIdpResponseKey IS NULL";
-	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_2 = "samlSpMessage.samlIdpResponseKey = ?";
-	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_3 = "(samlSpMessage.samlIdpResponseKey IS NULL OR samlSpMessage.samlIdpResponseKey = ?)";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "samlSpMessage.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No SamlSpMessage exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No SamlSpMessage exists with the key {";

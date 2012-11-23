@@ -110,86 +110,6 @@ public class KaleoProcessUtil {
 	}
 
 	/**
-	* Caches the kaleo process in the entity cache if it is enabled.
-	*
-	* @param kaleoProcess the kaleo process
-	*/
-	public static void cacheResult(
-		com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess kaleoProcess) {
-		getPersistence().cacheResult(kaleoProcess);
-	}
-
-	/**
-	* Caches the kaleo processes in the entity cache if it is enabled.
-	*
-	* @param kaleoProcesses the kaleo processes
-	*/
-	public static void cacheResult(
-		java.util.List<com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess> kaleoProcesses) {
-		getPersistence().cacheResult(kaleoProcesses);
-	}
-
-	/**
-	* Creates a new kaleo process with the primary key. Does not add the kaleo process to the database.
-	*
-	* @param kaleoProcessId the primary key for the new kaleo process
-	* @return the new kaleo process
-	*/
-	public static com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess create(
-		long kaleoProcessId) {
-		return getPersistence().create(kaleoProcessId);
-	}
-
-	/**
-	* Removes the kaleo process with the primary key from the database. Also notifies the appropriate model listeners.
-	*
-	* @param kaleoProcessId the primary key of the kaleo process
-	* @return the kaleo process that was removed
-	* @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException if a kaleo process with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess remove(
-		long kaleoProcessId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException {
-		return getPersistence().remove(kaleoProcessId);
-	}
-
-	public static com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess updateImpl(
-		com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess kaleoProcess)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().updateImpl(kaleoProcess);
-	}
-
-	/**
-	* Returns the kaleo process with the primary key or throws a {@link com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException} if it could not be found.
-	*
-	* @param kaleoProcessId the primary key of the kaleo process
-	* @return the kaleo process
-	* @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException if a kaleo process with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess findByPrimaryKey(
-		long kaleoProcessId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException {
-		return getPersistence().findByPrimaryKey(kaleoProcessId);
-	}
-
-	/**
-	* Returns the kaleo process with the primary key or returns <code>null</code> if it could not be found.
-	*
-	* @param kaleoProcessId the primary key of the kaleo process
-	* @return the kaleo process, or <code>null</code> if a kaleo process with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess fetchByPrimaryKey(
-		long kaleoProcessId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().fetchByPrimaryKey(kaleoProcessId);
-	}
-
-	/**
 	* Returns all the kaleo processes where groupId = &#63;.
 	*
 	* @param groupId the group ID
@@ -402,6 +322,121 @@ public class KaleoProcessUtil {
 	}
 
 	/**
+	* Removes all the kaleo processes where groupId = &#63; from the database.
+	*
+	* @param groupId the group ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeByGroupId(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeByGroupId(groupId);
+	}
+
+	/**
+	* Returns the number of kaleo processes where groupId = &#63;.
+	*
+	* @param groupId the group ID
+	* @return the number of matching kaleo processes
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByGroupId(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByGroupId(groupId);
+	}
+
+	/**
+	* Returns the number of kaleo processes that the user has permission to view where groupId = &#63;.
+	*
+	* @param groupId the group ID
+	* @return the number of matching kaleo processes that the user has permission to view
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int filterCountByGroupId(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().filterCountByGroupId(groupId);
+	}
+
+	/**
+	* Caches the kaleo process in the entity cache if it is enabled.
+	*
+	* @param kaleoProcess the kaleo process
+	*/
+	public static void cacheResult(
+		com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess kaleoProcess) {
+		getPersistence().cacheResult(kaleoProcess);
+	}
+
+	/**
+	* Caches the kaleo processes in the entity cache if it is enabled.
+	*
+	* @param kaleoProcesses the kaleo processes
+	*/
+	public static void cacheResult(
+		java.util.List<com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess> kaleoProcesses) {
+		getPersistence().cacheResult(kaleoProcesses);
+	}
+
+	/**
+	* Creates a new kaleo process with the primary key. Does not add the kaleo process to the database.
+	*
+	* @param kaleoProcessId the primary key for the new kaleo process
+	* @return the new kaleo process
+	*/
+	public static com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess create(
+		long kaleoProcessId) {
+		return getPersistence().create(kaleoProcessId);
+	}
+
+	/**
+	* Removes the kaleo process with the primary key from the database. Also notifies the appropriate model listeners.
+	*
+	* @param kaleoProcessId the primary key of the kaleo process
+	* @return the kaleo process that was removed
+	* @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException if a kaleo process with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess remove(
+		long kaleoProcessId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException {
+		return getPersistence().remove(kaleoProcessId);
+	}
+
+	public static com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess updateImpl(
+		com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess kaleoProcess)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().updateImpl(kaleoProcess);
+	}
+
+	/**
+	* Returns the kaleo process with the primary key or throws a {@link com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException} if it could not be found.
+	*
+	* @param kaleoProcessId the primary key of the kaleo process
+	* @return the kaleo process
+	* @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException if a kaleo process with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess findByPrimaryKey(
+		long kaleoProcessId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException {
+		return getPersistence().findByPrimaryKey(kaleoProcessId);
+	}
+
+	/**
+	* Returns the kaleo process with the primary key or returns <code>null</code> if it could not be found.
+	*
+	* @param kaleoProcessId the primary key of the kaleo process
+	* @return the kaleo process, or <code>null</code> if a kaleo process with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess fetchByPrimaryKey(
+		long kaleoProcessId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().fetchByPrimaryKey(kaleoProcessId);
+	}
+
+	/**
 	* Returns all the kaleo processes.
 	*
 	* @return the kaleo processes
@@ -451,17 +486,6 @@ public class KaleoProcessUtil {
 	}
 
 	/**
-	* Removes all the kaleo processes where groupId = &#63; from the database.
-	*
-	* @param groupId the group ID
-	* @throws SystemException if a system exception occurred
-	*/
-	public static void removeByGroupId(long groupId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		getPersistence().removeByGroupId(groupId);
-	}
-
-	/**
 	* Removes all the kaleo processes from the database.
 	*
 	* @throws SystemException if a system exception occurred
@@ -469,30 +493,6 @@ public class KaleoProcessUtil {
 	public static void removeAll()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getPersistence().removeAll();
-	}
-
-	/**
-	* Returns the number of kaleo processes where groupId = &#63;.
-	*
-	* @param groupId the group ID
-	* @return the number of matching kaleo processes
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByGroupId(long groupId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByGroupId(groupId);
-	}
-
-	/**
-	* Returns the number of kaleo processes that the user has permission to view where groupId = &#63;.
-	*
-	* @param groupId the group ID
-	* @return the number of matching kaleo processes that the user has permission to view
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int filterCountByGroupId(long groupId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().filterCountByGroupId(groupId);
 	}
 
 	/**

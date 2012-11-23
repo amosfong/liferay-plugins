@@ -76,6 +76,17 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 		".List1";
 	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
 		".List2";
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(SamlIdpSpConnectionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlIdpSpConnectionModelImpl.FINDER_CACHE_ENABLED,
+			SamlIdpSpConnectionImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL = new FinderPath(SamlIdpSpConnectionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlIdpSpConnectionModelImpl.FINDER_CACHE_ENABLED,
+			SamlIdpSpConnectionImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll", new String[0]);
+	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(SamlIdpSpConnectionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlIdpSpConnectionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_COMPANYID =
 		new FinderPath(SamlIdpSpConnectionModelImpl.ENTITY_CACHE_ENABLED,
 			SamlIdpSpConnectionModelImpl.FINDER_CACHE_ENABLED,
@@ -98,6 +109,450 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 			SamlIdpSpConnectionModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCompanyId",
 			new String[] { Long.class.getName() });
+
+	/**
+	 * Returns all the saml idp sp connections where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @return the matching saml idp sp connections
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<SamlIdpSpConnection> findByCompanyId(long companyId)
+		throws SystemException {
+		return findByCompanyId(companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
+			null);
+	}
+
+	/**
+	 * Returns a range of all the saml idp sp connections where companyId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param companyId the company ID
+	 * @param start the lower bound of the range of saml idp sp connections
+	 * @param end the upper bound of the range of saml idp sp connections (not inclusive)
+	 * @return the range of matching saml idp sp connections
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<SamlIdpSpConnection> findByCompanyId(long companyId, int start,
+		int end) throws SystemException {
+		return findByCompanyId(companyId, start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the saml idp sp connections where companyId = &#63;.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * </p>
+	 *
+	 * @param companyId the company ID
+	 * @param start the lower bound of the range of saml idp sp connections
+	 * @param end the upper bound of the range of saml idp sp connections (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of matching saml idp sp connections
+	 * @throws SystemException if a system exception occurred
+	 */
+	public List<SamlIdpSpConnection> findByCompanyId(long companyId, int start,
+		int end, OrderByComparator orderByComparator) throws SystemException {
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+				(orderByComparator == null)) {
+			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID;
+			finderArgs = new Object[] { companyId };
+		}
+		else {
+			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_COMPANYID;
+			finderArgs = new Object[] { companyId, start, end, orderByComparator };
+		}
+
+		List<SamlIdpSpConnection> list = (List<SamlIdpSpConnection>)FinderCacheUtil.getResult(finderPath,
+				finderArgs, this);
+
+		if ((list != null) && !list.isEmpty()) {
+			for (SamlIdpSpConnection samlIdpSpConnection : list) {
+				if ((companyId != samlIdpSpConnection.getCompanyId())) {
+					list = null;
+
+					break;
+				}
+			}
+		}
+
+		if (list == null) {
+			StringBundler query = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(3 +
+						(orderByComparator.getOrderByFields().length * 3));
+			}
+			else {
+				query = new StringBundler(2);
+			}
+
+			query.append(_SQL_SELECT_SAMLIDPSPCONNECTION_WHERE);
+
+			query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+
+			if (orderByComparator != null) {
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(companyId);
+
+				list = (List<SamlIdpSpConnection>)QueryUtil.list(q,
+						getDialect(), start, end);
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (list == null) {
+					FinderCacheUtil.removeResult(finderPath, finderArgs);
+				}
+				else {
+					cacheResult(list);
+
+					FinderCacheUtil.putResult(finderPath, finderArgs, list);
+				}
+
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Returns the first saml idp sp connection in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching saml idp sp connection
+	 * @throws com.liferay.saml.NoSuchIdpSpConnectionException if a matching saml idp sp connection could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlIdpSpConnection findByCompanyId_First(long companyId,
+		OrderByComparator orderByComparator)
+		throws NoSuchIdpSpConnectionException, SystemException {
+		SamlIdpSpConnection samlIdpSpConnection = fetchByCompanyId_First(companyId,
+				orderByComparator);
+
+		if (samlIdpSpConnection != null) {
+			return samlIdpSpConnection;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchIdpSpConnectionException(msg.toString());
+	}
+
+	/**
+	 * Returns the first saml idp sp connection in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the first matching saml idp sp connection, or <code>null</code> if a matching saml idp sp connection could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlIdpSpConnection fetchByCompanyId_First(long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
+		List<SamlIdpSpConnection> list = findByCompanyId(companyId, 0, 1,
+				orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the last saml idp sp connection in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching saml idp sp connection
+	 * @throws com.liferay.saml.NoSuchIdpSpConnectionException if a matching saml idp sp connection could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlIdpSpConnection findByCompanyId_Last(long companyId,
+		OrderByComparator orderByComparator)
+		throws NoSuchIdpSpConnectionException, SystemException {
+		SamlIdpSpConnection samlIdpSpConnection = fetchByCompanyId_Last(companyId,
+				orderByComparator);
+
+		if (samlIdpSpConnection != null) {
+			return samlIdpSpConnection;
+		}
+
+		StringBundler msg = new StringBundler(4);
+
+		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+		msg.append("companyId=");
+		msg.append(companyId);
+
+		msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+		throw new NoSuchIdpSpConnectionException(msg.toString());
+	}
+
+	/**
+	 * Returns the last saml idp sp connection in the ordered set where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the last matching saml idp sp connection, or <code>null</code> if a matching saml idp sp connection could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlIdpSpConnection fetchByCompanyId_Last(long companyId,
+		OrderByComparator orderByComparator) throws SystemException {
+		int count = countByCompanyId(companyId);
+
+		List<SamlIdpSpConnection> list = findByCompanyId(companyId, count - 1,
+				count, orderByComparator);
+
+		if (!list.isEmpty()) {
+			return list.get(0);
+		}
+
+		return null;
+	}
+
+	/**
+	 * Returns the saml idp sp connections before and after the current saml idp sp connection in the ordered set where companyId = &#63;.
+	 *
+	 * @param samlIdpSpConnectionId the primary key of the current saml idp sp connection
+	 * @param companyId the company ID
+	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	 * @return the previous, current, and next saml idp sp connection
+	 * @throws com.liferay.saml.NoSuchIdpSpConnectionException if a saml idp sp connection with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlIdpSpConnection[] findByCompanyId_PrevAndNext(
+		long samlIdpSpConnectionId, long companyId,
+		OrderByComparator orderByComparator)
+		throws NoSuchIdpSpConnectionException, SystemException {
+		SamlIdpSpConnection samlIdpSpConnection = findByPrimaryKey(samlIdpSpConnectionId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SamlIdpSpConnection[] array = new SamlIdpSpConnectionImpl[3];
+
+			array[0] = getByCompanyId_PrevAndNext(session, samlIdpSpConnection,
+					companyId, orderByComparator, true);
+
+			array[1] = samlIdpSpConnection;
+
+			array[2] = getByCompanyId_PrevAndNext(session, samlIdpSpConnection,
+					companyId, orderByComparator, false);
+
+			return array;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	protected SamlIdpSpConnection getByCompanyId_PrevAndNext(Session session,
+		SamlIdpSpConnection samlIdpSpConnection, long companyId,
+		OrderByComparator orderByComparator, boolean previous) {
+		StringBundler query = null;
+
+		if (orderByComparator != null) {
+			query = new StringBundler(6 +
+					(orderByComparator.getOrderByFields().length * 6));
+		}
+		else {
+			query = new StringBundler(3);
+		}
+
+		query.append(_SQL_SELECT_SAMLIDPSPCONNECTION_WHERE);
+
+		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+
+		if (orderByComparator != null) {
+			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
+
+			if (orderByConditionFields.length > 0) {
+				query.append(WHERE_AND);
+			}
+
+			for (int i = 0; i < orderByConditionFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByConditionFields[i]);
+
+				if ((i + 1) < orderByConditionFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN_HAS_NEXT);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(WHERE_GREATER_THAN);
+					}
+					else {
+						query.append(WHERE_LESSER_THAN);
+					}
+				}
+			}
+
+			query.append(ORDER_BY_CLAUSE);
+
+			String[] orderByFields = orderByComparator.getOrderByFields();
+
+			for (int i = 0; i < orderByFields.length; i++) {
+				query.append(_ORDER_BY_ENTITY_ALIAS);
+				query.append(orderByFields[i]);
+
+				if ((i + 1) < orderByFields.length) {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC_HAS_NEXT);
+					}
+					else {
+						query.append(ORDER_BY_DESC_HAS_NEXT);
+					}
+				}
+				else {
+					if (orderByComparator.isAscending() ^ previous) {
+						query.append(ORDER_BY_ASC);
+					}
+					else {
+						query.append(ORDER_BY_DESC);
+					}
+				}
+			}
+		}
+
+		String sql = query.toString();
+
+		Query q = session.createQuery(sql);
+
+		q.setFirstResult(0);
+		q.setMaxResults(2);
+
+		QueryPos qPos = QueryPos.getInstance(q);
+
+		qPos.add(companyId);
+
+		if (orderByComparator != null) {
+			Object[] values = orderByComparator.getOrderByConditionValues(samlIdpSpConnection);
+
+			for (Object value : values) {
+				qPos.add(value);
+			}
+		}
+
+		List<SamlIdpSpConnection> list = q.list();
+
+		if (list.size() == 2) {
+			return list.get(1);
+		}
+		else {
+			return null;
+		}
+	}
+
+	/**
+	 * Removes all the saml idp sp connections where companyId = &#63; from the database.
+	 *
+	 * @param companyId the company ID
+	 * @throws SystemException if a system exception occurred
+	 */
+	public void removeByCompanyId(long companyId) throws SystemException {
+		for (SamlIdpSpConnection samlIdpSpConnection : findByCompanyId(
+				companyId)) {
+			remove(samlIdpSpConnection);
+		}
+	}
+
+	/**
+	 * Returns the number of saml idp sp connections where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @return the number of matching saml idp sp connections
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByCompanyId(long companyId) throws SystemException {
+		Object[] finderArgs = new Object[] { companyId };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_COMPANYID,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_SAMLIDPSPCONNECTION_WHERE);
+
+			query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(companyId);
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_COMPANYID,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 = "samlIdpSpConnection.companyId = ?";
 	public static final FinderPath FINDER_PATH_FETCH_BY_C_SSEI = new FinderPath(SamlIdpSpConnectionModelImpl.ENTITY_CACHE_ENABLED,
 			SamlIdpSpConnectionModelImpl.FINDER_CACHE_ENABLED,
 			SamlIdpSpConnectionImpl.class, FINDER_CLASS_NAME_ENTITY,
@@ -109,17 +564,265 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 			SamlIdpSpConnectionModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByC_SSEI",
 			new String[] { Long.class.getName(), String.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(SamlIdpSpConnectionModelImpl.ENTITY_CACHE_ENABLED,
-			SamlIdpSpConnectionModelImpl.FINDER_CACHE_ENABLED,
-			SamlIdpSpConnectionImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL = new FinderPath(SamlIdpSpConnectionModelImpl.ENTITY_CACHE_ENABLED,
-			SamlIdpSpConnectionModelImpl.FINDER_CACHE_ENABLED,
-			SamlIdpSpConnectionImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(SamlIdpSpConnectionModelImpl.ENTITY_CACHE_ENABLED,
-			SamlIdpSpConnectionModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
+
+	/**
+	 * Returns the saml idp sp connection where companyId = &#63; and samlSpEntityId = &#63; or throws a {@link com.liferay.saml.NoSuchIdpSpConnectionException} if it could not be found.
+	 *
+	 * @param companyId the company ID
+	 * @param samlSpEntityId the saml sp entity ID
+	 * @return the matching saml idp sp connection
+	 * @throws com.liferay.saml.NoSuchIdpSpConnectionException if a matching saml idp sp connection could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlIdpSpConnection findByC_SSEI(long companyId,
+		String samlSpEntityId)
+		throws NoSuchIdpSpConnectionException, SystemException {
+		SamlIdpSpConnection samlIdpSpConnection = fetchByC_SSEI(companyId,
+				samlSpEntityId);
+
+		if (samlIdpSpConnection == null) {
+			StringBundler msg = new StringBundler(6);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("companyId=");
+			msg.append(companyId);
+
+			msg.append(", samlSpEntityId=");
+			msg.append(samlSpEntityId);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchIdpSpConnectionException(msg.toString());
+		}
+
+		return samlIdpSpConnection;
+	}
+
+	/**
+	 * Returns the saml idp sp connection where companyId = &#63; and samlSpEntityId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param companyId the company ID
+	 * @param samlSpEntityId the saml sp entity ID
+	 * @return the matching saml idp sp connection, or <code>null</code> if a matching saml idp sp connection could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlIdpSpConnection fetchByC_SSEI(long companyId,
+		String samlSpEntityId) throws SystemException {
+		return fetchByC_SSEI(companyId, samlSpEntityId, true);
+	}
+
+	/**
+	 * Returns the saml idp sp connection where companyId = &#63; and samlSpEntityId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param companyId the company ID
+	 * @param samlSpEntityId the saml sp entity ID
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching saml idp sp connection, or <code>null</code> if a matching saml idp sp connection could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlIdpSpConnection fetchByC_SSEI(long companyId,
+		String samlSpEntityId, boolean retrieveFromCache)
+		throws SystemException {
+		Object[] finderArgs = new Object[] { companyId, samlSpEntityId };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_C_SSEI,
+					finderArgs, this);
+		}
+
+		if (result instanceof SamlIdpSpConnection) {
+			SamlIdpSpConnection samlIdpSpConnection = (SamlIdpSpConnection)result;
+
+			if ((companyId != samlIdpSpConnection.getCompanyId()) ||
+					!Validator.equals(samlSpEntityId,
+						samlIdpSpConnection.getSamlSpEntityId())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_SELECT_SAMLIDPSPCONNECTION_WHERE);
+
+			query.append(_FINDER_COLUMN_C_SSEI_COMPANYID_2);
+
+			if (samlSpEntityId == null) {
+				query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_1);
+			}
+			else {
+				if (samlSpEntityId.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_2);
+				}
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(companyId);
+
+				if (samlSpEntityId != null) {
+					qPos.add(samlSpEntityId);
+				}
+
+				List<SamlIdpSpConnection> list = q.list();
+
+				result = list;
+
+				SamlIdpSpConnection samlIdpSpConnection = null;
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_SSEI,
+						finderArgs, list);
+				}
+				else {
+					samlIdpSpConnection = list.get(0);
+
+					cacheResult(samlIdpSpConnection);
+
+					if ((samlIdpSpConnection.getCompanyId() != companyId) ||
+							(samlIdpSpConnection.getSamlSpEntityId() == null) ||
+							!samlIdpSpConnection.getSamlSpEntityId()
+													.equals(samlSpEntityId)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_SSEI,
+							finderArgs, samlIdpSpConnection);
+					}
+				}
+
+				return samlIdpSpConnection;
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (result == null) {
+					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_SSEI,
+						finderArgs);
+				}
+
+				closeSession(session);
+			}
+		}
+		else {
+			if (result instanceof List<?>) {
+				return null;
+			}
+			else {
+				return (SamlIdpSpConnection)result;
+			}
+		}
+	}
+
+	/**
+	 * Removes the saml idp sp connection where companyId = &#63; and samlSpEntityId = &#63; from the database.
+	 *
+	 * @param companyId the company ID
+	 * @param samlSpEntityId the saml sp entity ID
+	 * @return the saml idp sp connection that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlIdpSpConnection removeByC_SSEI(long companyId,
+		String samlSpEntityId)
+		throws NoSuchIdpSpConnectionException, SystemException {
+		SamlIdpSpConnection samlIdpSpConnection = findByC_SSEI(companyId,
+				samlSpEntityId);
+
+		return remove(samlIdpSpConnection);
+	}
+
+	/**
+	 * Returns the number of saml idp sp connections where companyId = &#63; and samlSpEntityId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @param samlSpEntityId the saml sp entity ID
+	 * @return the number of matching saml idp sp connections
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByC_SSEI(long companyId, String samlSpEntityId)
+		throws SystemException {
+		Object[] finderArgs = new Object[] { companyId, samlSpEntityId };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_C_SSEI,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_SAMLIDPSPCONNECTION_WHERE);
+
+			query.append(_FINDER_COLUMN_C_SSEI_COMPANYID_2);
+
+			if (samlSpEntityId == null) {
+				query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_1);
+			}
+			else {
+				if (samlSpEntityId.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_2);
+				}
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(companyId);
+
+				if (samlSpEntityId != null) {
+					qPos.add(samlSpEntityId);
+				}
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_C_SSEI,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_C_SSEI_COMPANYID_2 = "samlIdpSpConnection.companyId = ? AND ";
+	private static final String _FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_1 = "samlIdpSpConnection.samlSpEntityId IS NULL";
+	private static final String _FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_2 = "samlIdpSpConnection.samlSpEntityId = ?";
+	private static final String _FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_3 = "(samlIdpSpConnection.samlSpEntityId IS NULL OR samlIdpSpConnection.samlSpEntityId = ?)";
 
 	/**
 	 * Caches the saml idp sp connection in the entity cache if it is enabled.
@@ -556,548 +1259,6 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	}
 
 	/**
-	 * Returns all the saml idp sp connections where companyId = &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @return the matching saml idp sp connections
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<SamlIdpSpConnection> findByCompanyId(long companyId)
-		throws SystemException {
-		return findByCompanyId(companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
-			null);
-	}
-
-	/**
-	 * Returns a range of all the saml idp sp connections where companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param companyId the company ID
-	 * @param start the lower bound of the range of saml idp sp connections
-	 * @param end the upper bound of the range of saml idp sp connections (not inclusive)
-	 * @return the range of matching saml idp sp connections
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<SamlIdpSpConnection> findByCompanyId(long companyId, int start,
-		int end) throws SystemException {
-		return findByCompanyId(companyId, start, end, null);
-	}
-
-	/**
-	 * Returns an ordered range of all the saml idp sp connections where companyId = &#63;.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param companyId the company ID
-	 * @param start the lower bound of the range of saml idp sp connections
-	 * @param end the upper bound of the range of saml idp sp connections (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of matching saml idp sp connections
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<SamlIdpSpConnection> findByCompanyId(long companyId, int start,
-		int end, OrderByComparator orderByComparator) throws SystemException {
-		FinderPath finderPath = null;
-		Object[] finderArgs = null;
-
-		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID;
-			finderArgs = new Object[] { companyId };
-		}
-		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_BY_COMPANYID;
-			finderArgs = new Object[] { companyId, start, end, orderByComparator };
-		}
-
-		List<SamlIdpSpConnection> list = (List<SamlIdpSpConnection>)FinderCacheUtil.getResult(finderPath,
-				finderArgs, this);
-
-		if ((list != null) && !list.isEmpty()) {
-			for (SamlIdpSpConnection samlIdpSpConnection : list) {
-				if ((companyId != samlIdpSpConnection.getCompanyId())) {
-					list = null;
-
-					break;
-				}
-			}
-		}
-
-		if (list == null) {
-			StringBundler query = null;
-
-			if (orderByComparator != null) {
-				query = new StringBundler(3 +
-						(orderByComparator.getOrderByFields().length * 3));
-			}
-			else {
-				query = new StringBundler(2);
-			}
-
-			query.append(_SQL_SELECT_SAMLIDPSPCONNECTION_WHERE);
-
-			query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
-
-			if (orderByComparator != null) {
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(companyId);
-
-				list = (List<SamlIdpSpConnection>)QueryUtil.list(q,
-						getDialect(), start, end);
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (list == null) {
-					FinderCacheUtil.removeResult(finderPath, finderArgs);
-				}
-				else {
-					cacheResult(list);
-
-					FinderCacheUtil.putResult(finderPath, finderArgs, list);
-				}
-
-				closeSession(session);
-			}
-		}
-
-		return list;
-	}
-
-	/**
-	 * Returns the first saml idp sp connection in the ordered set where companyId = &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching saml idp sp connection
-	 * @throws com.liferay.saml.NoSuchIdpSpConnectionException if a matching saml idp sp connection could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlIdpSpConnection findByCompanyId_First(long companyId,
-		OrderByComparator orderByComparator)
-		throws NoSuchIdpSpConnectionException, SystemException {
-		SamlIdpSpConnection samlIdpSpConnection = fetchByCompanyId_First(companyId,
-				orderByComparator);
-
-		if (samlIdpSpConnection != null) {
-			return samlIdpSpConnection;
-		}
-
-		StringBundler msg = new StringBundler(4);
-
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		msg.append("companyId=");
-		msg.append(companyId);
-
-		msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-		throw new NoSuchIdpSpConnectionException(msg.toString());
-	}
-
-	/**
-	 * Returns the first saml idp sp connection in the ordered set where companyId = &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the first matching saml idp sp connection, or <code>null</code> if a matching saml idp sp connection could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlIdpSpConnection fetchByCompanyId_First(long companyId,
-		OrderByComparator orderByComparator) throws SystemException {
-		List<SamlIdpSpConnection> list = findByCompanyId(companyId, 0, 1,
-				orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns the last saml idp sp connection in the ordered set where companyId = &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching saml idp sp connection
-	 * @throws com.liferay.saml.NoSuchIdpSpConnectionException if a matching saml idp sp connection could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlIdpSpConnection findByCompanyId_Last(long companyId,
-		OrderByComparator orderByComparator)
-		throws NoSuchIdpSpConnectionException, SystemException {
-		SamlIdpSpConnection samlIdpSpConnection = fetchByCompanyId_Last(companyId,
-				orderByComparator);
-
-		if (samlIdpSpConnection != null) {
-			return samlIdpSpConnection;
-		}
-
-		StringBundler msg = new StringBundler(4);
-
-		msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-		msg.append("companyId=");
-		msg.append(companyId);
-
-		msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-		throw new NoSuchIdpSpConnectionException(msg.toString());
-	}
-
-	/**
-	 * Returns the last saml idp sp connection in the ordered set where companyId = &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the last matching saml idp sp connection, or <code>null</code> if a matching saml idp sp connection could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlIdpSpConnection fetchByCompanyId_Last(long companyId,
-		OrderByComparator orderByComparator) throws SystemException {
-		int count = countByCompanyId(companyId);
-
-		List<SamlIdpSpConnection> list = findByCompanyId(companyId, count - 1,
-				count, orderByComparator);
-
-		if (!list.isEmpty()) {
-			return list.get(0);
-		}
-
-		return null;
-	}
-
-	/**
-	 * Returns the saml idp sp connections before and after the current saml idp sp connection in the ordered set where companyId = &#63;.
-	 *
-	 * @param samlIdpSpConnectionId the primary key of the current saml idp sp connection
-	 * @param companyId the company ID
-	 * @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
-	 * @return the previous, current, and next saml idp sp connection
-	 * @throws com.liferay.saml.NoSuchIdpSpConnectionException if a saml idp sp connection with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlIdpSpConnection[] findByCompanyId_PrevAndNext(
-		long samlIdpSpConnectionId, long companyId,
-		OrderByComparator orderByComparator)
-		throws NoSuchIdpSpConnectionException, SystemException {
-		SamlIdpSpConnection samlIdpSpConnection = findByPrimaryKey(samlIdpSpConnectionId);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			SamlIdpSpConnection[] array = new SamlIdpSpConnectionImpl[3];
-
-			array[0] = getByCompanyId_PrevAndNext(session, samlIdpSpConnection,
-					companyId, orderByComparator, true);
-
-			array[1] = samlIdpSpConnection;
-
-			array[2] = getByCompanyId_PrevAndNext(session, samlIdpSpConnection,
-					companyId, orderByComparator, false);
-
-			return array;
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	protected SamlIdpSpConnection getByCompanyId_PrevAndNext(Session session,
-		SamlIdpSpConnection samlIdpSpConnection, long companyId,
-		OrderByComparator orderByComparator, boolean previous) {
-		StringBundler query = null;
-
-		if (orderByComparator != null) {
-			query = new StringBundler(6 +
-					(orderByComparator.getOrderByFields().length * 6));
-		}
-		else {
-			query = new StringBundler(3);
-		}
-
-		query.append(_SQL_SELECT_SAMLIDPSPCONNECTION_WHERE);
-
-		query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
-
-		if (orderByComparator != null) {
-			String[] orderByConditionFields = orderByComparator.getOrderByConditionFields();
-
-			if (orderByConditionFields.length > 0) {
-				query.append(WHERE_AND);
-			}
-
-			for (int i = 0; i < orderByConditionFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByConditionFields[i]);
-
-				if ((i + 1) < orderByConditionFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN_HAS_NEXT);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(WHERE_GREATER_THAN);
-					}
-					else {
-						query.append(WHERE_LESSER_THAN);
-					}
-				}
-			}
-
-			query.append(ORDER_BY_CLAUSE);
-
-			String[] orderByFields = orderByComparator.getOrderByFields();
-
-			for (int i = 0; i < orderByFields.length; i++) {
-				query.append(_ORDER_BY_ENTITY_ALIAS);
-				query.append(orderByFields[i]);
-
-				if ((i + 1) < orderByFields.length) {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC_HAS_NEXT);
-					}
-					else {
-						query.append(ORDER_BY_DESC_HAS_NEXT);
-					}
-				}
-				else {
-					if (orderByComparator.isAscending() ^ previous) {
-						query.append(ORDER_BY_ASC);
-					}
-					else {
-						query.append(ORDER_BY_DESC);
-					}
-				}
-			}
-		}
-
-		String sql = query.toString();
-
-		Query q = session.createQuery(sql);
-
-		q.setFirstResult(0);
-		q.setMaxResults(2);
-
-		QueryPos qPos = QueryPos.getInstance(q);
-
-		qPos.add(companyId);
-
-		if (orderByComparator != null) {
-			Object[] values = orderByComparator.getOrderByConditionValues(samlIdpSpConnection);
-
-			for (Object value : values) {
-				qPos.add(value);
-			}
-		}
-
-		List<SamlIdpSpConnection> list = q.list();
-
-		if (list.size() == 2) {
-			return list.get(1);
-		}
-		else {
-			return null;
-		}
-	}
-
-	/**
-	 * Returns the saml idp sp connection where companyId = &#63; and samlSpEntityId = &#63; or throws a {@link com.liferay.saml.NoSuchIdpSpConnectionException} if it could not be found.
-	 *
-	 * @param companyId the company ID
-	 * @param samlSpEntityId the saml sp entity ID
-	 * @return the matching saml idp sp connection
-	 * @throws com.liferay.saml.NoSuchIdpSpConnectionException if a matching saml idp sp connection could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlIdpSpConnection findByC_SSEI(long companyId,
-		String samlSpEntityId)
-		throws NoSuchIdpSpConnectionException, SystemException {
-		SamlIdpSpConnection samlIdpSpConnection = fetchByC_SSEI(companyId,
-				samlSpEntityId);
-
-		if (samlIdpSpConnection == null) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("companyId=");
-			msg.append(companyId);
-
-			msg.append(", samlSpEntityId=");
-			msg.append(samlSpEntityId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			if (_log.isWarnEnabled()) {
-				_log.warn(msg.toString());
-			}
-
-			throw new NoSuchIdpSpConnectionException(msg.toString());
-		}
-
-		return samlIdpSpConnection;
-	}
-
-	/**
-	 * Returns the saml idp sp connection where companyId = &#63; and samlSpEntityId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param companyId the company ID
-	 * @param samlSpEntityId the saml sp entity ID
-	 * @return the matching saml idp sp connection, or <code>null</code> if a matching saml idp sp connection could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlIdpSpConnection fetchByC_SSEI(long companyId,
-		String samlSpEntityId) throws SystemException {
-		return fetchByC_SSEI(companyId, samlSpEntityId, true);
-	}
-
-	/**
-	 * Returns the saml idp sp connection where companyId = &#63; and samlSpEntityId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	 *
-	 * @param companyId the company ID
-	 * @param samlSpEntityId the saml sp entity ID
-	 * @param retrieveFromCache whether to use the finder cache
-	 * @return the matching saml idp sp connection, or <code>null</code> if a matching saml idp sp connection could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlIdpSpConnection fetchByC_SSEI(long companyId,
-		String samlSpEntityId, boolean retrieveFromCache)
-		throws SystemException {
-		Object[] finderArgs = new Object[] { companyId, samlSpEntityId };
-
-		Object result = null;
-
-		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_C_SSEI,
-					finderArgs, this);
-		}
-
-		if (result instanceof SamlIdpSpConnection) {
-			SamlIdpSpConnection samlIdpSpConnection = (SamlIdpSpConnection)result;
-
-			if ((companyId != samlIdpSpConnection.getCompanyId()) ||
-					!Validator.equals(samlSpEntityId,
-						samlIdpSpConnection.getSamlSpEntityId())) {
-				result = null;
-			}
-		}
-
-		if (result == null) {
-			StringBundler query = new StringBundler(3);
-
-			query.append(_SQL_SELECT_SAMLIDPSPCONNECTION_WHERE);
-
-			query.append(_FINDER_COLUMN_C_SSEI_COMPANYID_2);
-
-			if (samlSpEntityId == null) {
-				query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_1);
-			}
-			else {
-				if (samlSpEntityId.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_2);
-				}
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(companyId);
-
-				if (samlSpEntityId != null) {
-					qPos.add(samlSpEntityId);
-				}
-
-				List<SamlIdpSpConnection> list = q.list();
-
-				result = list;
-
-				SamlIdpSpConnection samlIdpSpConnection = null;
-
-				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_SSEI,
-						finderArgs, list);
-				}
-				else {
-					samlIdpSpConnection = list.get(0);
-
-					cacheResult(samlIdpSpConnection);
-
-					if ((samlIdpSpConnection.getCompanyId() != companyId) ||
-							(samlIdpSpConnection.getSamlSpEntityId() == null) ||
-							!samlIdpSpConnection.getSamlSpEntityId()
-													.equals(samlSpEntityId)) {
-						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_SSEI,
-							finderArgs, samlIdpSpConnection);
-					}
-				}
-
-				return samlIdpSpConnection;
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (result == null) {
-					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_SSEI,
-						finderArgs);
-				}
-
-				closeSession(session);
-			}
-		}
-		else {
-			if (result instanceof List<?>) {
-				return null;
-			}
-			else {
-				return (SamlIdpSpConnection)result;
-			}
-		}
-	}
-
-	/**
 	 * Returns all the saml idp sp connections.
 	 *
 	 * @return the saml idp sp connections
@@ -1213,36 +1374,6 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	}
 
 	/**
-	 * Removes all the saml idp sp connections where companyId = &#63; from the database.
-	 *
-	 * @param companyId the company ID
-	 * @throws SystemException if a system exception occurred
-	 */
-	public void removeByCompanyId(long companyId) throws SystemException {
-		for (SamlIdpSpConnection samlIdpSpConnection : findByCompanyId(
-				companyId)) {
-			remove(samlIdpSpConnection);
-		}
-	}
-
-	/**
-	 * Removes the saml idp sp connection where companyId = &#63; and samlSpEntityId = &#63; from the database.
-	 *
-	 * @param companyId the company ID
-	 * @param samlSpEntityId the saml sp entity ID
-	 * @return the saml idp sp connection that was removed
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlIdpSpConnection removeByC_SSEI(long companyId,
-		String samlSpEntityId)
-		throws NoSuchIdpSpConnectionException, SystemException {
-		SamlIdpSpConnection samlIdpSpConnection = findByC_SSEI(companyId,
-				samlSpEntityId);
-
-		return remove(samlIdpSpConnection);
-	}
-
-	/**
 	 * Removes all the saml idp sp connections from the database.
 	 *
 	 * @throws SystemException if a system exception occurred
@@ -1251,130 +1382,6 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 		for (SamlIdpSpConnection samlIdpSpConnection : findAll()) {
 			remove(samlIdpSpConnection);
 		}
-	}
-
-	/**
-	 * Returns the number of saml idp sp connections where companyId = &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @return the number of matching saml idp sp connections
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByCompanyId(long companyId) throws SystemException {
-		Object[] finderArgs = new Object[] { companyId };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_COMPANYID,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_SAMLIDPSPCONNECTION_WHERE);
-
-			query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(companyId);
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_COMPANYID,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	/**
-	 * Returns the number of saml idp sp connections where companyId = &#63; and samlSpEntityId = &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @param samlSpEntityId the saml sp entity ID
-	 * @return the number of matching saml idp sp connections
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByC_SSEI(long companyId, String samlSpEntityId)
-		throws SystemException {
-		Object[] finderArgs = new Object[] { companyId, samlSpEntityId };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_C_SSEI,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(3);
-
-			query.append(_SQL_COUNT_SAMLIDPSPCONNECTION_WHERE);
-
-			query.append(_FINDER_COLUMN_C_SSEI_COMPANYID_2);
-
-			if (samlSpEntityId == null) {
-				query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_1);
-			}
-			else {
-				if (samlSpEntityId.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_2);
-				}
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(companyId);
-
-				if (samlSpEntityId != null) {
-					qPos.add(samlSpEntityId);
-				}
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_C_SSEI,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
 	}
 
 	/**
@@ -1466,11 +1473,6 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	private static final String _SQL_SELECT_SAMLIDPSPCONNECTION_WHERE = "SELECT samlIdpSpConnection FROM SamlIdpSpConnection samlIdpSpConnection WHERE ";
 	private static final String _SQL_COUNT_SAMLIDPSPCONNECTION = "SELECT COUNT(samlIdpSpConnection) FROM SamlIdpSpConnection samlIdpSpConnection";
 	private static final String _SQL_COUNT_SAMLIDPSPCONNECTION_WHERE = "SELECT COUNT(samlIdpSpConnection) FROM SamlIdpSpConnection samlIdpSpConnection WHERE ";
-	private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 = "samlIdpSpConnection.companyId = ?";
-	private static final String _FINDER_COLUMN_C_SSEI_COMPANYID_2 = "samlIdpSpConnection.companyId = ? AND ";
-	private static final String _FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_1 = "samlIdpSpConnection.samlSpEntityId IS NULL";
-	private static final String _FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_2 = "samlIdpSpConnection.samlSpEntityId = ?";
-	private static final String _FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_3 = "(samlIdpSpConnection.samlSpEntityId IS NULL OR samlIdpSpConnection.samlSpEntityId = ?)";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "samlIdpSpConnection.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No SamlIdpSpConnection exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No SamlIdpSpConnection exists with the key {";

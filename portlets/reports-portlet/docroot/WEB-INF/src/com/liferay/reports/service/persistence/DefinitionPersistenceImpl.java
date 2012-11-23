@@ -79,6 +79,15 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 		".List1";
 	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
 		".List2";
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll", new String[0]);
+	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+			DefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_UUID = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
 			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUuid",
@@ -97,564 +106,6 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 			DefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid",
 			new String[] { String.class.getName() });
-	public static final FinderPath FINDER_PATH_FETCH_BY_UUID_G = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
-			FINDER_CLASS_NAME_ENTITY, "fetchByUUID_G",
-			new String[] { String.class.getName(), Long.class.getName() },
-			DefinitionModelImpl.UUID_COLUMN_BITMASK |
-			DefinitionModelImpl.GROUPID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_UUID_G = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUUID_G",
-			new String[] { String.class.getName(), Long.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_UUID_C = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUuid_C",
-			new String[] {
-				String.class.getName(), Long.class.getName(),
-				
-			"java.lang.Integer", "java.lang.Integer",
-				"com.liferay.portal.kernel.util.OrderByComparator"
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C =
-		new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUuid_C",
-			new String[] { String.class.getName(), Long.class.getName() },
-			DefinitionModelImpl.UUID_COLUMN_BITMASK |
-			DefinitionModelImpl.COMPANYID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_UUID_C = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
-			new String[] { String.class.getName(), Long.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_GROUPID = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByGroupId",
-			new String[] {
-				Long.class.getName(),
-				
-			"java.lang.Integer", "java.lang.Integer",
-				"com.liferay.portal.kernel.util.OrderByComparator"
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID =
-		new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByGroupId",
-			new String[] { Long.class.getName() },
-			DefinitionModelImpl.GROUPID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_GROUPID = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByGroupId",
-			new String[] { Long.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_COMPANYID =
-		new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCompanyId",
-			new String[] {
-				Long.class.getName(),
-				
-			"java.lang.Integer", "java.lang.Integer",
-				"com.liferay.portal.kernel.util.OrderByComparator"
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID =
-		new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCompanyId",
-			new String[] { Long.class.getName() },
-			DefinitionModelImpl.COMPANYID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_COMPANYID = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCompanyId",
-			new String[] { Long.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
-
-	/**
-	 * Caches the definition in the entity cache if it is enabled.
-	 *
-	 * @param definition the definition
-	 */
-	public void cacheResult(Definition definition) {
-		EntityCacheUtil.putResult(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionImpl.class, definition.getPrimaryKey(), definition);
-
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
-			new Object[] {
-				definition.getUuid(), Long.valueOf(definition.getGroupId())
-			}, definition);
-
-		definition.resetOriginalValues();
-	}
-
-	/**
-	 * Caches the definitions in the entity cache if it is enabled.
-	 *
-	 * @param definitions the definitions
-	 */
-	public void cacheResult(List<Definition> definitions) {
-		for (Definition definition : definitions) {
-			if (EntityCacheUtil.getResult(
-						DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-						DefinitionImpl.class, definition.getPrimaryKey()) == null) {
-				cacheResult(definition);
-			}
-			else {
-				definition.resetOriginalValues();
-			}
-		}
-	}
-
-	/**
-	 * Clears the cache for all definitions.
-	 *
-	 * <p>
-	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
-	 * </p>
-	 */
-	@Override
-	public void clearCache() {
-		if (_HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE) {
-			CacheRegistryUtil.clear(DefinitionImpl.class.getName());
-		}
-
-		EntityCacheUtil.clearCache(DefinitionImpl.class.getName());
-
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_ENTITY);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	/**
-	 * Clears the cache for the definition.
-	 *
-	 * <p>
-	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
-	 * </p>
-	 */
-	@Override
-	public void clearCache(Definition definition) {
-		EntityCacheUtil.removeResult(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionImpl.class, definition.getPrimaryKey());
-
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-
-		clearUniqueFindersCache(definition);
-	}
-
-	@Override
-	public void clearCache(List<Definition> definitions) {
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-
-		for (Definition definition : definitions) {
-			EntityCacheUtil.removeResult(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-				DefinitionImpl.class, definition.getPrimaryKey());
-
-			clearUniqueFindersCache(definition);
-		}
-	}
-
-	protected void clearUniqueFindersCache(Definition definition) {
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G,
-			new Object[] {
-				definition.getUuid(), Long.valueOf(definition.getGroupId())
-			});
-	}
-
-	/**
-	 * Creates a new definition with the primary key. Does not add the definition to the database.
-	 *
-	 * @param definitionId the primary key for the new definition
-	 * @return the new definition
-	 */
-	public Definition create(long definitionId) {
-		Definition definition = new DefinitionImpl();
-
-		definition.setNew(true);
-		definition.setPrimaryKey(definitionId);
-
-		String uuid = PortalUUIDUtil.generate();
-
-		definition.setUuid(uuid);
-
-		return definition;
-	}
-
-	/**
-	 * Removes the definition with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param definitionId the primary key of the definition
-	 * @return the definition that was removed
-	 * @throws com.liferay.reports.NoSuchDefinitionException if a definition with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Definition remove(long definitionId)
-		throws NoSuchDefinitionException, SystemException {
-		return remove(Long.valueOf(definitionId));
-	}
-
-	/**
-	 * Removes the definition with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param primaryKey the primary key of the definition
-	 * @return the definition that was removed
-	 * @throws com.liferay.reports.NoSuchDefinitionException if a definition with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public Definition remove(Serializable primaryKey)
-		throws NoSuchDefinitionException, SystemException {
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			Definition definition = (Definition)session.get(DefinitionImpl.class,
-					primaryKey);
-
-			if (definition == null) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
-				}
-
-				throw new NoSuchDefinitionException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					primaryKey);
-			}
-
-			return remove(definition);
-		}
-		catch (NoSuchDefinitionException nsee) {
-			throw nsee;
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	@Override
-	protected Definition removeImpl(Definition definition)
-		throws SystemException {
-		definition = toUnwrappedModel(definition);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			if (!session.contains(definition)) {
-				definition = (Definition)session.get(DefinitionImpl.class,
-						definition.getPrimaryKeyObj());
-			}
-
-			if (definition != null) {
-				session.delete(definition);
-			}
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-
-		if (definition != null) {
-			clearCache(definition);
-		}
-
-		return definition;
-	}
-
-	@Override
-	public Definition updateImpl(
-		com.liferay.reports.model.Definition definition)
-		throws SystemException {
-		definition = toUnwrappedModel(definition);
-
-		boolean isNew = definition.isNew();
-
-		DefinitionModelImpl definitionModelImpl = (DefinitionModelImpl)definition;
-
-		if (Validator.isNull(definition.getUuid())) {
-			String uuid = PortalUUIDUtil.generate();
-
-			definition.setUuid(uuid);
-		}
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			if (definition.isNew()) {
-				session.save(definition);
-
-				definition.setNew(false);
-			}
-			else {
-				session.merge(definition);
-			}
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-
-		if (isNew || !DefinitionModelImpl.COLUMN_BITMASK_ENABLED) {
-			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-		}
-
-		else {
-			if ((definitionModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						definitionModelImpl.getOriginalUuid()
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID,
-					args);
-
-				args = new Object[] { definitionModelImpl.getUuid() };
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID,
-					args);
-			}
-
-			if ((definitionModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						definitionModelImpl.getOriginalUuid(),
-						Long.valueOf(definitionModelImpl.getOriginalCompanyId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_C, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C,
-					args);
-
-				args = new Object[] {
-						definitionModelImpl.getUuid(),
-						Long.valueOf(definitionModelImpl.getCompanyId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_C, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C,
-					args);
-			}
-
-			if ((definitionModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						Long.valueOf(definitionModelImpl.getOriginalGroupId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUPID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID,
-					args);
-
-				args = new Object[] {
-						Long.valueOf(definitionModelImpl.getGroupId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUPID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID,
-					args);
-			}
-
-			if ((definitionModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						Long.valueOf(definitionModelImpl.getOriginalCompanyId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
-					args);
-
-				args = new Object[] {
-						Long.valueOf(definitionModelImpl.getCompanyId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
-					args);
-			}
-		}
-
-		EntityCacheUtil.putResult(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-			DefinitionImpl.class, definition.getPrimaryKey(), definition);
-
-		if (isNew) {
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
-				new Object[] {
-					definition.getUuid(), Long.valueOf(definition.getGroupId())
-				}, definition);
-		}
-		else {
-			if ((definitionModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						definitionModelImpl.getOriginalUuid(),
-						Long.valueOf(definitionModelImpl.getOriginalGroupId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
-
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
-
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
-					new Object[] {
-						definition.getUuid(),
-						Long.valueOf(definition.getGroupId())
-					}, definition);
-			}
-		}
-
-		return definition;
-	}
-
-	protected Definition toUnwrappedModel(Definition definition) {
-		if (definition instanceof DefinitionImpl) {
-			return definition;
-		}
-
-		DefinitionImpl definitionImpl = new DefinitionImpl();
-
-		definitionImpl.setNew(definition.isNew());
-		definitionImpl.setPrimaryKey(definition.getPrimaryKey());
-
-		definitionImpl.setUuid(definition.getUuid());
-		definitionImpl.setDefinitionId(definition.getDefinitionId());
-		definitionImpl.setGroupId(definition.getGroupId());
-		definitionImpl.setCompanyId(definition.getCompanyId());
-		definitionImpl.setUserId(definition.getUserId());
-		definitionImpl.setUserName(definition.getUserName());
-		definitionImpl.setCreateDate(definition.getCreateDate());
-		definitionImpl.setModifiedDate(definition.getModifiedDate());
-		definitionImpl.setName(definition.getName());
-		definitionImpl.setDescription(definition.getDescription());
-		definitionImpl.setSourceId(definition.getSourceId());
-		definitionImpl.setReportName(definition.getReportName());
-		definitionImpl.setReportParameters(definition.getReportParameters());
-
-		return definitionImpl;
-	}
-
-	/**
-	 * Returns the definition with the primary key or throws a {@link com.liferay.portal.NoSuchModelException} if it could not be found.
-	 *
-	 * @param primaryKey the primary key of the definition
-	 * @return the definition
-	 * @throws com.liferay.portal.NoSuchModelException if a definition with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public Definition findByPrimaryKey(Serializable primaryKey)
-		throws NoSuchModelException, SystemException {
-		return findByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the definition with the primary key or throws a {@link com.liferay.reports.NoSuchDefinitionException} if it could not be found.
-	 *
-	 * @param definitionId the primary key of the definition
-	 * @return the definition
-	 * @throws com.liferay.reports.NoSuchDefinitionException if a definition with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Definition findByPrimaryKey(long definitionId)
-		throws NoSuchDefinitionException, SystemException {
-		Definition definition = fetchByPrimaryKey(definitionId);
-
-		if (definition == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + definitionId);
-			}
-
-			throw new NoSuchDefinitionException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				definitionId);
-		}
-
-		return definition;
-	}
-
-	/**
-	 * Returns the definition with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param primaryKey the primary key of the definition
-	 * @return the definition, or <code>null</code> if a definition with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public Definition fetchByPrimaryKey(Serializable primaryKey)
-		throws SystemException {
-		return fetchByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the definition with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param definitionId the primary key of the definition
-	 * @return the definition, or <code>null</code> if a definition with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Definition fetchByPrimaryKey(long definitionId)
-		throws SystemException {
-		Definition definition = (Definition)EntityCacheUtil.getResult(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-				DefinitionImpl.class, definitionId);
-
-		if (definition == _nullDefinition) {
-			return null;
-		}
-
-		if (definition == null) {
-			Session session = null;
-
-			boolean hasException = false;
-
-			try {
-				session = openSession();
-
-				definition = (Definition)session.get(DefinitionImpl.class,
-						Long.valueOf(definitionId));
-			}
-			catch (Exception e) {
-				hasException = true;
-
-				throw processException(e);
-			}
-			finally {
-				if (definition != null) {
-					cacheResult(definition);
-				}
-				else if (!hasException) {
-					EntityCacheUtil.putResult(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
-						DefinitionImpl.class, definitionId, _nullDefinition);
-				}
-
-				closeSession(session);
-			}
-		}
-
-		return definition;
-	}
 
 	/**
 	 * Returns all the definitions where uuid = &#63;.
@@ -1059,6 +510,97 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 	}
 
 	/**
+	 * Removes all the definitions where uuid = &#63; from the database.
+	 *
+	 * @param uuid the uuid
+	 * @throws SystemException if a system exception occurred
+	 */
+	public void removeByUuid(String uuid) throws SystemException {
+		for (Definition definition : findByUuid(uuid)) {
+			remove(definition);
+		}
+	}
+
+	/**
+	 * Returns the number of definitions where uuid = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @return the number of matching definitions
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByUuid(String uuid) throws SystemException {
+		Object[] finderArgs = new Object[] { uuid };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_UUID,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_DEFINITION_WHERE);
+
+			if (uuid == null) {
+				query.append(_FINDER_COLUMN_UUID_UUID_1);
+			}
+			else {
+				if (uuid.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_UUID_UUID_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_UUID_UUID_2);
+				}
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (uuid != null) {
+					qPos.add(uuid);
+				}
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_UUID_UUID_1 = "definition.uuid IS NULL";
+	private static final String _FINDER_COLUMN_UUID_UUID_2 = "definition.uuid = ?";
+	private static final String _FINDER_COLUMN_UUID_UUID_3 = "(definition.uuid IS NULL OR definition.uuid = ?)";
+	public static final FinderPath FINDER_PATH_FETCH_BY_UUID_G = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByUUID_G",
+			new String[] { String.class.getName(), Long.class.getName() },
+			DefinitionModelImpl.UUID_COLUMN_BITMASK |
+			DefinitionModelImpl.GROUPID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_UUID_G = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+			DefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUUID_G",
+			new String[] { String.class.getName(), Long.class.getName() });
+
+	/**
 	 * Returns the definition where uuid = &#63; and groupId = &#63; or throws a {@link com.liferay.reports.NoSuchDefinitionException} if it could not be found.
 	 *
 	 * @param uuid the uuid
@@ -1220,6 +762,117 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 			}
 		}
 	}
+
+	/**
+	 * Removes the definition where uuid = &#63; and groupId = &#63; from the database.
+	 *
+	 * @param uuid the uuid
+	 * @param groupId the group ID
+	 * @return the definition that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Definition removeByUUID_G(String uuid, long groupId)
+		throws NoSuchDefinitionException, SystemException {
+		Definition definition = findByUUID_G(uuid, groupId);
+
+		return remove(definition);
+	}
+
+	/**
+	 * Returns the number of definitions where uuid = &#63; and groupId = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param groupId the group ID
+	 * @return the number of matching definitions
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByUUID_G(String uuid, long groupId)
+		throws SystemException {
+		Object[] finderArgs = new Object[] { uuid, groupId };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_UUID_G,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_DEFINITION_WHERE);
+
+			if (uuid == null) {
+				query.append(_FINDER_COLUMN_UUID_G_UUID_1);
+			}
+			else {
+				if (uuid.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_UUID_G_UUID_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_UUID_G_UUID_2);
+				}
+			}
+
+			query.append(_FINDER_COLUMN_UUID_G_GROUPID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (uuid != null) {
+					qPos.add(uuid);
+				}
+
+				qPos.add(groupId);
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_G,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_UUID_G_UUID_1 = "definition.uuid IS NULL AND ";
+	private static final String _FINDER_COLUMN_UUID_G_UUID_2 = "definition.uuid = ? AND ";
+	private static final String _FINDER_COLUMN_UUID_G_UUID_3 = "(definition.uuid IS NULL OR definition.uuid = ?) AND ";
+	private static final String _FINDER_COLUMN_UUID_G_GROUPID_2 = "definition.groupId = ?";
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_UUID_C = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUuid_C",
+			new String[] {
+				String.class.getName(), Long.class.getName(),
+				
+			"java.lang.Integer", "java.lang.Integer",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			});
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C =
+		new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUuid_C",
+			new String[] { String.class.getName(), Long.class.getName() },
+			DefinitionModelImpl.UUID_COLUMN_BITMASK |
+			DefinitionModelImpl.COMPANYID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_UUID_C = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+			DefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
+			new String[] { String.class.getName(), Long.class.getName() });
 
 	/**
 	 * Returns all the definitions where uuid = &#63; and companyId = &#63;.
@@ -1655,6 +1308,115 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 			return null;
 		}
 	}
+
+	/**
+	 * Removes all the definitions where uuid = &#63; and companyId = &#63; from the database.
+	 *
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @throws SystemException if a system exception occurred
+	 */
+	public void removeByUuid_C(String uuid, long companyId)
+		throws SystemException {
+		for (Definition definition : findByUuid_C(uuid, companyId)) {
+			remove(definition);
+		}
+	}
+
+	/**
+	 * Returns the number of definitions where uuid = &#63; and companyId = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @return the number of matching definitions
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByUuid_C(String uuid, long companyId)
+		throws SystemException {
+		Object[] finderArgs = new Object[] { uuid, companyId };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_UUID_C,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_DEFINITION_WHERE);
+
+			if (uuid == null) {
+				query.append(_FINDER_COLUMN_UUID_C_UUID_1);
+			}
+			else {
+				if (uuid.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_UUID_C_UUID_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_UUID_C_UUID_2);
+				}
+			}
+
+			query.append(_FINDER_COLUMN_UUID_C_COMPANYID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (uuid != null) {
+					qPos.add(uuid);
+				}
+
+				qPos.add(companyId);
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_C,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_UUID_C_UUID_1 = "definition.uuid IS NULL AND ";
+	private static final String _FINDER_COLUMN_UUID_C_UUID_2 = "definition.uuid = ? AND ";
+	private static final String _FINDER_COLUMN_UUID_C_UUID_3 = "(definition.uuid IS NULL OR definition.uuid = ?) AND ";
+	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 = "definition.companyId = ?";
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_GROUPID = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByGroupId",
+			new String[] {
+				Long.class.getName(),
+				
+			"java.lang.Integer", "java.lang.Integer",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			});
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID =
+		new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByGroupId",
+			new String[] { Long.class.getName() },
+			DefinitionModelImpl.GROUPID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_GROUPID = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+			DefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByGroupId",
+			new String[] { Long.class.getName() });
 
 	/**
 	 * Returns all the definitions where groupId = &#63;.
@@ -2348,6 +2110,141 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 	}
 
 	/**
+	 * Removes all the definitions where groupId = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 * @throws SystemException if a system exception occurred
+	 */
+	public void removeByGroupId(long groupId) throws SystemException {
+		for (Definition definition : findByGroupId(groupId)) {
+			remove(definition);
+		}
+	}
+
+	/**
+	 * Returns the number of definitions where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @return the number of matching definitions
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByGroupId(long groupId) throws SystemException {
+		Object[] finderArgs = new Object[] { groupId };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_GROUPID,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_DEFINITION_WHERE);
+
+			query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(groupId);
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_GROUPID,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	/**
+	 * Returns the number of definitions that the user has permission to view where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @return the number of matching definitions that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int filterCountByGroupId(long groupId) throws SystemException {
+		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
+			return countByGroupId(groupId);
+		}
+
+		StringBundler query = new StringBundler(2);
+
+		query.append(_FILTER_SQL_COUNT_DEFINITION_WHERE);
+
+		query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				Definition.class.getName(),
+				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN, groupId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSQLQuery(sql);
+
+			q.addScalar(COUNT_COLUMN_NAME,
+				com.liferay.portal.kernel.dao.orm.Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(groupId);
+
+			Long count = (Long)q.uniqueResult();
+
+			return count.intValue();
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	private static final String _FINDER_COLUMN_GROUPID_GROUPID_2 = "definition.groupId = ?";
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_COMPANYID =
+		new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCompanyId",
+			new String[] {
+				Long.class.getName(),
+				
+			"java.lang.Integer", "java.lang.Integer",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			});
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID =
+		new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+			DefinitionModelImpl.FINDER_CACHE_ENABLED, DefinitionImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCompanyId",
+			new String[] { Long.class.getName() },
+			DefinitionModelImpl.COMPANYID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_COMPANYID = new FinderPath(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+			DefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCompanyId",
+			new String[] { Long.class.getName() });
+
+	/**
 	 * Returns all the definitions where companyId = &#63;.
 	 *
 	 * @param companyId the company ID
@@ -2731,6 +2628,553 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 	}
 
 	/**
+	 * Removes all the definitions where companyId = &#63; from the database.
+	 *
+	 * @param companyId the company ID
+	 * @throws SystemException if a system exception occurred
+	 */
+	public void removeByCompanyId(long companyId) throws SystemException {
+		for (Definition definition : findByCompanyId(companyId)) {
+			remove(definition);
+		}
+	}
+
+	/**
+	 * Returns the number of definitions where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @return the number of matching definitions
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByCompanyId(long companyId) throws SystemException {
+		Object[] finderArgs = new Object[] { companyId };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_COMPANYID,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_DEFINITION_WHERE);
+
+			query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(companyId);
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_COMPANYID,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 = "definition.companyId = ?";
+
+	/**
+	 * Caches the definition in the entity cache if it is enabled.
+	 *
+	 * @param definition the definition
+	 */
+	public void cacheResult(Definition definition) {
+		EntityCacheUtil.putResult(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+			DefinitionImpl.class, definition.getPrimaryKey(), definition);
+
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
+			new Object[] {
+				definition.getUuid(), Long.valueOf(definition.getGroupId())
+			}, definition);
+
+		definition.resetOriginalValues();
+	}
+
+	/**
+	 * Caches the definitions in the entity cache if it is enabled.
+	 *
+	 * @param definitions the definitions
+	 */
+	public void cacheResult(List<Definition> definitions) {
+		for (Definition definition : definitions) {
+			if (EntityCacheUtil.getResult(
+						DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+						DefinitionImpl.class, definition.getPrimaryKey()) == null) {
+				cacheResult(definition);
+			}
+			else {
+				definition.resetOriginalValues();
+			}
+		}
+	}
+
+	/**
+	 * Clears the cache for all definitions.
+	 *
+	 * <p>
+	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
+	 * </p>
+	 */
+	@Override
+	public void clearCache() {
+		if (_HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE) {
+			CacheRegistryUtil.clear(DefinitionImpl.class.getName());
+		}
+
+		EntityCacheUtil.clearCache(DefinitionImpl.class.getName());
+
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_ENTITY);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	/**
+	 * Clears the cache for the definition.
+	 *
+	 * <p>
+	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
+	 * </p>
+	 */
+	@Override
+	public void clearCache(Definition definition) {
+		EntityCacheUtil.removeResult(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+			DefinitionImpl.class, definition.getPrimaryKey());
+
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		clearUniqueFindersCache(definition);
+	}
+
+	@Override
+	public void clearCache(List<Definition> definitions) {
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		for (Definition definition : definitions) {
+			EntityCacheUtil.removeResult(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+				DefinitionImpl.class, definition.getPrimaryKey());
+
+			clearUniqueFindersCache(definition);
+		}
+	}
+
+	protected void clearUniqueFindersCache(Definition definition) {
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G,
+			new Object[] {
+				definition.getUuid(), Long.valueOf(definition.getGroupId())
+			});
+	}
+
+	/**
+	 * Creates a new definition with the primary key. Does not add the definition to the database.
+	 *
+	 * @param definitionId the primary key for the new definition
+	 * @return the new definition
+	 */
+	public Definition create(long definitionId) {
+		Definition definition = new DefinitionImpl();
+
+		definition.setNew(true);
+		definition.setPrimaryKey(definitionId);
+
+		String uuid = PortalUUIDUtil.generate();
+
+		definition.setUuid(uuid);
+
+		return definition;
+	}
+
+	/**
+	 * Removes the definition with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * @param definitionId the primary key of the definition
+	 * @return the definition that was removed
+	 * @throws com.liferay.reports.NoSuchDefinitionException if a definition with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Definition remove(long definitionId)
+		throws NoSuchDefinitionException, SystemException {
+		return remove(Long.valueOf(definitionId));
+	}
+
+	/**
+	 * Removes the definition with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * @param primaryKey the primary key of the definition
+	 * @return the definition that was removed
+	 * @throws com.liferay.reports.NoSuchDefinitionException if a definition with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Definition remove(Serializable primaryKey)
+		throws NoSuchDefinitionException, SystemException {
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			Definition definition = (Definition)session.get(DefinitionImpl.class,
+					primaryKey);
+
+			if (definition == null) {
+				if (_log.isWarnEnabled()) {
+					_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+				}
+
+				throw new NoSuchDefinitionException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+					primaryKey);
+			}
+
+			return remove(definition);
+		}
+		catch (NoSuchDefinitionException nsee) {
+			throw nsee;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	@Override
+	protected Definition removeImpl(Definition definition)
+		throws SystemException {
+		definition = toUnwrappedModel(definition);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			if (!session.contains(definition)) {
+				definition = (Definition)session.get(DefinitionImpl.class,
+						definition.getPrimaryKeyObj());
+			}
+
+			if (definition != null) {
+				session.delete(definition);
+			}
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+
+		if (definition != null) {
+			clearCache(definition);
+		}
+
+		return definition;
+	}
+
+	@Override
+	public Definition updateImpl(
+		com.liferay.reports.model.Definition definition)
+		throws SystemException {
+		definition = toUnwrappedModel(definition);
+
+		boolean isNew = definition.isNew();
+
+		DefinitionModelImpl definitionModelImpl = (DefinitionModelImpl)definition;
+
+		if (Validator.isNull(definition.getUuid())) {
+			String uuid = PortalUUIDUtil.generate();
+
+			definition.setUuid(uuid);
+		}
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			if (definition.isNew()) {
+				session.save(definition);
+
+				definition.setNew(false);
+			}
+			else {
+				session.merge(definition);
+			}
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+
+		if (isNew || !DefinitionModelImpl.COLUMN_BITMASK_ENABLED) {
+			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+		}
+
+		else {
+			if ((definitionModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						definitionModelImpl.getOriginalUuid()
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID,
+					args);
+
+				args = new Object[] { definitionModelImpl.getUuid() };
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID,
+					args);
+			}
+
+			if ((definitionModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						definitionModelImpl.getOriginalUuid(),
+						Long.valueOf(definitionModelImpl.getOriginalCompanyId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_C, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C,
+					args);
+
+				args = new Object[] {
+						definitionModelImpl.getUuid(),
+						Long.valueOf(definitionModelImpl.getCompanyId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_C, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C,
+					args);
+			}
+
+			if ((definitionModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						Long.valueOf(definitionModelImpl.getOriginalGroupId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUPID, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID,
+					args);
+
+				args = new Object[] {
+						Long.valueOf(definitionModelImpl.getGroupId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUPID, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID,
+					args);
+			}
+
+			if ((definitionModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						Long.valueOf(definitionModelImpl.getOriginalCompanyId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
+					args);
+
+				args = new Object[] {
+						Long.valueOf(definitionModelImpl.getCompanyId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
+					args);
+			}
+		}
+
+		EntityCacheUtil.putResult(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+			DefinitionImpl.class, definition.getPrimaryKey(), definition);
+
+		if (isNew) {
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
+				new Object[] {
+					definition.getUuid(), Long.valueOf(definition.getGroupId())
+				}, definition);
+		}
+		else {
+			if ((definitionModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						definitionModelImpl.getOriginalUuid(),
+						Long.valueOf(definitionModelImpl.getOriginalGroupId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
+
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
+
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
+					new Object[] {
+						definition.getUuid(),
+						Long.valueOf(definition.getGroupId())
+					}, definition);
+			}
+		}
+
+		return definition;
+	}
+
+	protected Definition toUnwrappedModel(Definition definition) {
+		if (definition instanceof DefinitionImpl) {
+			return definition;
+		}
+
+		DefinitionImpl definitionImpl = new DefinitionImpl();
+
+		definitionImpl.setNew(definition.isNew());
+		definitionImpl.setPrimaryKey(definition.getPrimaryKey());
+
+		definitionImpl.setUuid(definition.getUuid());
+		definitionImpl.setDefinitionId(definition.getDefinitionId());
+		definitionImpl.setGroupId(definition.getGroupId());
+		definitionImpl.setCompanyId(definition.getCompanyId());
+		definitionImpl.setUserId(definition.getUserId());
+		definitionImpl.setUserName(definition.getUserName());
+		definitionImpl.setCreateDate(definition.getCreateDate());
+		definitionImpl.setModifiedDate(definition.getModifiedDate());
+		definitionImpl.setName(definition.getName());
+		definitionImpl.setDescription(definition.getDescription());
+		definitionImpl.setSourceId(definition.getSourceId());
+		definitionImpl.setReportName(definition.getReportName());
+		definitionImpl.setReportParameters(definition.getReportParameters());
+
+		return definitionImpl;
+	}
+
+	/**
+	 * Returns the definition with the primary key or throws a {@link com.liferay.portal.NoSuchModelException} if it could not be found.
+	 *
+	 * @param primaryKey the primary key of the definition
+	 * @return the definition
+	 * @throws com.liferay.portal.NoSuchModelException if a definition with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Definition findByPrimaryKey(Serializable primaryKey)
+		throws NoSuchModelException, SystemException {
+		return findByPrimaryKey(((Long)primaryKey).longValue());
+	}
+
+	/**
+	 * Returns the definition with the primary key or throws a {@link com.liferay.reports.NoSuchDefinitionException} if it could not be found.
+	 *
+	 * @param definitionId the primary key of the definition
+	 * @return the definition
+	 * @throws com.liferay.reports.NoSuchDefinitionException if a definition with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Definition findByPrimaryKey(long definitionId)
+		throws NoSuchDefinitionException, SystemException {
+		Definition definition = fetchByPrimaryKey(definitionId);
+
+		if (definition == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + definitionId);
+			}
+
+			throw new NoSuchDefinitionException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+				definitionId);
+		}
+
+		return definition;
+	}
+
+	/**
+	 * Returns the definition with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param primaryKey the primary key of the definition
+	 * @return the definition, or <code>null</code> if a definition with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Definition fetchByPrimaryKey(Serializable primaryKey)
+		throws SystemException {
+		return fetchByPrimaryKey(((Long)primaryKey).longValue());
+	}
+
+	/**
+	 * Returns the definition with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param definitionId the primary key of the definition
+	 * @return the definition, or <code>null</code> if a definition with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Definition fetchByPrimaryKey(long definitionId)
+		throws SystemException {
+		Definition definition = (Definition)EntityCacheUtil.getResult(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+				DefinitionImpl.class, definitionId);
+
+		if (definition == _nullDefinition) {
+			return null;
+		}
+
+		if (definition == null) {
+			Session session = null;
+
+			boolean hasException = false;
+
+			try {
+				session = openSession();
+
+				definition = (Definition)session.get(DefinitionImpl.class,
+						Long.valueOf(definitionId));
+			}
+			catch (Exception e) {
+				hasException = true;
+
+				throw processException(e);
+			}
+			finally {
+				if (definition != null) {
+					cacheResult(definition);
+				}
+				else if (!hasException) {
+					EntityCacheUtil.putResult(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
+						DefinitionImpl.class, definitionId, _nullDefinition);
+				}
+
+				closeSession(session);
+			}
+		}
+
+		return definition;
+	}
+
+	/**
 	 * Returns all the definitions.
 	 *
 	 * @return the definitions
@@ -2846,71 +3290,6 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 	}
 
 	/**
-	 * Removes all the definitions where uuid = &#63; from the database.
-	 *
-	 * @param uuid the uuid
-	 * @throws SystemException if a system exception occurred
-	 */
-	public void removeByUuid(String uuid) throws SystemException {
-		for (Definition definition : findByUuid(uuid)) {
-			remove(definition);
-		}
-	}
-
-	/**
-	 * Removes the definition where uuid = &#63; and groupId = &#63; from the database.
-	 *
-	 * @param uuid the uuid
-	 * @param groupId the group ID
-	 * @return the definition that was removed
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Definition removeByUUID_G(String uuid, long groupId)
-		throws NoSuchDefinitionException, SystemException {
-		Definition definition = findByUUID_G(uuid, groupId);
-
-		return remove(definition);
-	}
-
-	/**
-	 * Removes all the definitions where uuid = &#63; and companyId = &#63; from the database.
-	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
-	 * @throws SystemException if a system exception occurred
-	 */
-	public void removeByUuid_C(String uuid, long companyId)
-		throws SystemException {
-		for (Definition definition : findByUuid_C(uuid, companyId)) {
-			remove(definition);
-		}
-	}
-
-	/**
-	 * Removes all the definitions where groupId = &#63; from the database.
-	 *
-	 * @param groupId the group ID
-	 * @throws SystemException if a system exception occurred
-	 */
-	public void removeByGroupId(long groupId) throws SystemException {
-		for (Definition definition : findByGroupId(groupId)) {
-			remove(definition);
-		}
-	}
-
-	/**
-	 * Removes all the definitions where companyId = &#63; from the database.
-	 *
-	 * @param companyId the company ID
-	 * @throws SystemException if a system exception occurred
-	 */
-	public void removeByCompanyId(long companyId) throws SystemException {
-		for (Definition definition : findByCompanyId(companyId)) {
-			remove(definition);
-		}
-	}
-
-	/**
 	 * Removes all the definitions from the database.
 	 *
 	 * @throws SystemException if a system exception occurred
@@ -2919,367 +3298,6 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 		for (Definition definition : findAll()) {
 			remove(definition);
 		}
-	}
-
-	/**
-	 * Returns the number of definitions where uuid = &#63;.
-	 *
-	 * @param uuid the uuid
-	 * @return the number of matching definitions
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByUuid(String uuid) throws SystemException {
-		Object[] finderArgs = new Object[] { uuid };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_UUID,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_DEFINITION_WHERE);
-
-			if (uuid == null) {
-				query.append(_FINDER_COLUMN_UUID_UUID_1);
-			}
-			else {
-				if (uuid.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_UUID_UUID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_UUID_UUID_2);
-				}
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (uuid != null) {
-					qPos.add(uuid);
-				}
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	/**
-	 * Returns the number of definitions where uuid = &#63; and groupId = &#63;.
-	 *
-	 * @param uuid the uuid
-	 * @param groupId the group ID
-	 * @return the number of matching definitions
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByUUID_G(String uuid, long groupId)
-		throws SystemException {
-		Object[] finderArgs = new Object[] { uuid, groupId };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_UUID_G,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(3);
-
-			query.append(_SQL_COUNT_DEFINITION_WHERE);
-
-			if (uuid == null) {
-				query.append(_FINDER_COLUMN_UUID_G_UUID_1);
-			}
-			else {
-				if (uuid.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_UUID_G_UUID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_UUID_G_UUID_2);
-				}
-			}
-
-			query.append(_FINDER_COLUMN_UUID_G_GROUPID_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (uuid != null) {
-					qPos.add(uuid);
-				}
-
-				qPos.add(groupId);
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_G,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	/**
-	 * Returns the number of definitions where uuid = &#63; and companyId = &#63;.
-	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
-	 * @return the number of matching definitions
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByUuid_C(String uuid, long companyId)
-		throws SystemException {
-		Object[] finderArgs = new Object[] { uuid, companyId };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_UUID_C,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(3);
-
-			query.append(_SQL_COUNT_DEFINITION_WHERE);
-
-			if (uuid == null) {
-				query.append(_FINDER_COLUMN_UUID_C_UUID_1);
-			}
-			else {
-				if (uuid.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_UUID_C_UUID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_UUID_C_UUID_2);
-				}
-			}
-
-			query.append(_FINDER_COLUMN_UUID_C_COMPANYID_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (uuid != null) {
-					qPos.add(uuid);
-				}
-
-				qPos.add(companyId);
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_C,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	/**
-	 * Returns the number of definitions where groupId = &#63;.
-	 *
-	 * @param groupId the group ID
-	 * @return the number of matching definitions
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByGroupId(long groupId) throws SystemException {
-		Object[] finderArgs = new Object[] { groupId };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_GROUPID,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_DEFINITION_WHERE);
-
-			query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(groupId);
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_GROUPID,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	/**
-	 * Returns the number of definitions that the user has permission to view where groupId = &#63;.
-	 *
-	 * @param groupId the group ID
-	 * @return the number of matching definitions that the user has permission to view
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int filterCountByGroupId(long groupId) throws SystemException {
-		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
-			return countByGroupId(groupId);
-		}
-
-		StringBundler query = new StringBundler(2);
-
-		query.append(_FILTER_SQL_COUNT_DEFINITION_WHERE);
-
-		query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
-
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				Definition.class.getName(),
-				_FILTER_ENTITY_TABLE_FILTER_PK_COLUMN, groupId);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			SQLQuery q = session.createSQLQuery(sql);
-
-			q.addScalar(COUNT_COLUMN_NAME,
-				com.liferay.portal.kernel.dao.orm.Type.LONG);
-
-			QueryPos qPos = QueryPos.getInstance(q);
-
-			qPos.add(groupId);
-
-			Long count = (Long)q.uniqueResult();
-
-			return count.intValue();
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	/**
-	 * Returns the number of definitions where companyId = &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @return the number of matching definitions
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByCompanyId(long companyId) throws SystemException {
-		Object[] finderArgs = new Object[] { companyId };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_COMPANYID,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_DEFINITION_WHERE);
-
-			query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(companyId);
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_COMPANYID,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
 	}
 
 	/**
@@ -3363,19 +3381,6 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 	private static final String _SQL_SELECT_DEFINITION_WHERE = "SELECT definition FROM Definition definition WHERE ";
 	private static final String _SQL_COUNT_DEFINITION = "SELECT COUNT(definition) FROM Definition definition";
 	private static final String _SQL_COUNT_DEFINITION_WHERE = "SELECT COUNT(definition) FROM Definition definition WHERE ";
-	private static final String _FINDER_COLUMN_UUID_UUID_1 = "definition.uuid IS NULL";
-	private static final String _FINDER_COLUMN_UUID_UUID_2 = "definition.uuid = ?";
-	private static final String _FINDER_COLUMN_UUID_UUID_3 = "(definition.uuid IS NULL OR definition.uuid = ?)";
-	private static final String _FINDER_COLUMN_UUID_G_UUID_1 = "definition.uuid IS NULL AND ";
-	private static final String _FINDER_COLUMN_UUID_G_UUID_2 = "definition.uuid = ? AND ";
-	private static final String _FINDER_COLUMN_UUID_G_UUID_3 = "(definition.uuid IS NULL OR definition.uuid = ?) AND ";
-	private static final String _FINDER_COLUMN_UUID_G_GROUPID_2 = "definition.groupId = ?";
-	private static final String _FINDER_COLUMN_UUID_C_UUID_1 = "definition.uuid IS NULL AND ";
-	private static final String _FINDER_COLUMN_UUID_C_UUID_2 = "definition.uuid = ? AND ";
-	private static final String _FINDER_COLUMN_UUID_C_UUID_3 = "(definition.uuid IS NULL OR definition.uuid = ?) AND ";
-	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 = "definition.companyId = ?";
-	private static final String _FINDER_COLUMN_GROUPID_GROUPID_2 = "definition.groupId = ?";
-	private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 = "definition.companyId = ?";
 	private static final String _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN = "definition.definitionId";
 	private static final String _FILTER_SQL_SELECT_DEFINITION_WHERE = "SELECT DISTINCT {definition.*} FROM Reports_Definition definition WHERE ";
 	private static final String _FILTER_SQL_SELECT_DEFINITION_NO_INLINE_DISTINCT_WHERE_1 =

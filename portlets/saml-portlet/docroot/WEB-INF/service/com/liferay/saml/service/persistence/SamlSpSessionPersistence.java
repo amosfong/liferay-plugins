@@ -38,69 +38,6 @@ public interface SamlSpSessionPersistence extends BasePersistence<SamlSpSession>
 	 */
 
 	/**
-	* Caches the saml sp session in the entity cache if it is enabled.
-	*
-	* @param samlSpSession the saml sp session
-	*/
-	public void cacheResult(com.liferay.saml.model.SamlSpSession samlSpSession);
-
-	/**
-	* Caches the saml sp sessions in the entity cache if it is enabled.
-	*
-	* @param samlSpSessions the saml sp sessions
-	*/
-	public void cacheResult(
-		java.util.List<com.liferay.saml.model.SamlSpSession> samlSpSessions);
-
-	/**
-	* Creates a new saml sp session with the primary key. Does not add the saml sp session to the database.
-	*
-	* @param samlSpSessionId the primary key for the new saml sp session
-	* @return the new saml sp session
-	*/
-	public com.liferay.saml.model.SamlSpSession create(long samlSpSessionId);
-
-	/**
-	* Removes the saml sp session with the primary key from the database. Also notifies the appropriate model listeners.
-	*
-	* @param samlSpSessionId the primary key of the saml sp session
-	* @return the saml sp session that was removed
-	* @throws com.liferay.saml.NoSuchSpSessionException if a saml sp session with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.saml.model.SamlSpSession remove(long samlSpSessionId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.saml.NoSuchSpSessionException;
-
-	public com.liferay.saml.model.SamlSpSession updateImpl(
-		com.liferay.saml.model.SamlSpSession samlSpSession)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the saml sp session with the primary key or throws a {@link com.liferay.saml.NoSuchSpSessionException} if it could not be found.
-	*
-	* @param samlSpSessionId the primary key of the saml sp session
-	* @return the saml sp session
-	* @throws com.liferay.saml.NoSuchSpSessionException if a saml sp session with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.saml.model.SamlSpSession findByPrimaryKey(
-		long samlSpSessionId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.saml.NoSuchSpSessionException;
-
-	/**
-	* Returns the saml sp session with the primary key or returns <code>null</code> if it could not be found.
-	*
-	* @param samlSpSessionId the primary key of the saml sp session
-	* @return the saml sp session, or <code>null</code> if a saml sp session with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.saml.model.SamlSpSession fetchByPrimaryKey(
-		long samlSpSessionId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
 	* Returns all the saml sp sessions where nameIdValue = &#63;.
 	*
 	* @param nameIdValue the name ID value
@@ -220,6 +157,25 @@ public interface SamlSpSessionPersistence extends BasePersistence<SamlSpSession>
 			com.liferay.saml.NoSuchSpSessionException;
 
 	/**
+	* Removes all the saml sp sessions where nameIdValue = &#63; from the database.
+	*
+	* @param nameIdValue the name ID value
+	* @throws SystemException if a system exception occurred
+	*/
+	public void removeByNameIdValue(java.lang.String nameIdValue)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the number of saml sp sessions where nameIdValue = &#63;.
+	*
+	* @param nameIdValue the name ID value
+	* @return the number of matching saml sp sessions
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByNameIdValue(java.lang.String nameIdValue)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Returns the saml sp session where jSessionId = &#63; or throws a {@link com.liferay.saml.NoSuchSpSessionException} if it could not be found.
 	*
 	* @param jSessionId the j session ID
@@ -253,6 +209,91 @@ public interface SamlSpSessionPersistence extends BasePersistence<SamlSpSession>
 	*/
 	public com.liferay.saml.model.SamlSpSession fetchByJSessionId(
 		java.lang.String jSessionId, boolean retrieveFromCache)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Removes the saml sp session where jSessionId = &#63; from the database.
+	*
+	* @param jSessionId the j session ID
+	* @return the saml sp session that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.saml.model.SamlSpSession removeByJSessionId(
+		java.lang.String jSessionId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.saml.NoSuchSpSessionException;
+
+	/**
+	* Returns the number of saml sp sessions where jSessionId = &#63;.
+	*
+	* @param jSessionId the j session ID
+	* @return the number of matching saml sp sessions
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByJSessionId(java.lang.String jSessionId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Caches the saml sp session in the entity cache if it is enabled.
+	*
+	* @param samlSpSession the saml sp session
+	*/
+	public void cacheResult(com.liferay.saml.model.SamlSpSession samlSpSession);
+
+	/**
+	* Caches the saml sp sessions in the entity cache if it is enabled.
+	*
+	* @param samlSpSessions the saml sp sessions
+	*/
+	public void cacheResult(
+		java.util.List<com.liferay.saml.model.SamlSpSession> samlSpSessions);
+
+	/**
+	* Creates a new saml sp session with the primary key. Does not add the saml sp session to the database.
+	*
+	* @param samlSpSessionId the primary key for the new saml sp session
+	* @return the new saml sp session
+	*/
+	public com.liferay.saml.model.SamlSpSession create(long samlSpSessionId);
+
+	/**
+	* Removes the saml sp session with the primary key from the database. Also notifies the appropriate model listeners.
+	*
+	* @param samlSpSessionId the primary key of the saml sp session
+	* @return the saml sp session that was removed
+	* @throws com.liferay.saml.NoSuchSpSessionException if a saml sp session with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.saml.model.SamlSpSession remove(long samlSpSessionId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.saml.NoSuchSpSessionException;
+
+	public com.liferay.saml.model.SamlSpSession updateImpl(
+		com.liferay.saml.model.SamlSpSession samlSpSession)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the saml sp session with the primary key or throws a {@link com.liferay.saml.NoSuchSpSessionException} if it could not be found.
+	*
+	* @param samlSpSessionId the primary key of the saml sp session
+	* @return the saml sp session
+	* @throws com.liferay.saml.NoSuchSpSessionException if a saml sp session with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.saml.model.SamlSpSession findByPrimaryKey(
+		long samlSpSessionId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.saml.NoSuchSpSessionException;
+
+	/**
+	* Returns the saml sp session with the primary key or returns <code>null</code> if it could not be found.
+	*
+	* @param samlSpSessionId the primary key of the saml sp session
+	* @return the saml sp session, or <code>null</code> if a saml sp session with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.saml.model.SamlSpSession fetchByPrimaryKey(
+		long samlSpSessionId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
@@ -299,52 +340,11 @@ public interface SamlSpSessionPersistence extends BasePersistence<SamlSpSession>
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Removes all the saml sp sessions where nameIdValue = &#63; from the database.
-	*
-	* @param nameIdValue the name ID value
-	* @throws SystemException if a system exception occurred
-	*/
-	public void removeByNameIdValue(java.lang.String nameIdValue)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Removes the saml sp session where jSessionId = &#63; from the database.
-	*
-	* @param jSessionId the j session ID
-	* @return the saml sp session that was removed
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.saml.model.SamlSpSession removeByJSessionId(
-		java.lang.String jSessionId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.saml.NoSuchSpSessionException;
-
-	/**
 	* Removes all the saml sp sessions from the database.
 	*
 	* @throws SystemException if a system exception occurred
 	*/
 	public void removeAll()
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of saml sp sessions where nameIdValue = &#63;.
-	*
-	* @param nameIdValue the name ID value
-	* @return the number of matching saml sp sessions
-	* @throws SystemException if a system exception occurred
-	*/
-	public int countByNameIdValue(java.lang.String nameIdValue)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of saml sp sessions where jSessionId = &#63;.
-	*
-	* @param jSessionId the j session ID
-	* @return the number of matching saml sp sessions
-	* @throws SystemException if a system exception occurred
-	*/
-	public int countByJSessionId(java.lang.String jSessionId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

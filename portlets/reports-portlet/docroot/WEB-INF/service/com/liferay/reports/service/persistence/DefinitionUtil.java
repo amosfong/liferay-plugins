@@ -111,84 +111,6 @@ public class DefinitionUtil {
 	}
 
 	/**
-	* Caches the definition in the entity cache if it is enabled.
-	*
-	* @param definition the definition
-	*/
-	public static void cacheResult(
-		com.liferay.reports.model.Definition definition) {
-		getPersistence().cacheResult(definition);
-	}
-
-	/**
-	* Caches the definitions in the entity cache if it is enabled.
-	*
-	* @param definitions the definitions
-	*/
-	public static void cacheResult(
-		java.util.List<com.liferay.reports.model.Definition> definitions) {
-		getPersistence().cacheResult(definitions);
-	}
-
-	/**
-	* Creates a new definition with the primary key. Does not add the definition to the database.
-	*
-	* @param definitionId the primary key for the new definition
-	* @return the new definition
-	*/
-	public static com.liferay.reports.model.Definition create(long definitionId) {
-		return getPersistence().create(definitionId);
-	}
-
-	/**
-	* Removes the definition with the primary key from the database. Also notifies the appropriate model listeners.
-	*
-	* @param definitionId the primary key of the definition
-	* @return the definition that was removed
-	* @throws com.liferay.reports.NoSuchDefinitionException if a definition with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.reports.model.Definition remove(long definitionId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.reports.NoSuchDefinitionException {
-		return getPersistence().remove(definitionId);
-	}
-
-	public static com.liferay.reports.model.Definition updateImpl(
-		com.liferay.reports.model.Definition definition)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().updateImpl(definition);
-	}
-
-	/**
-	* Returns the definition with the primary key or throws a {@link com.liferay.reports.NoSuchDefinitionException} if it could not be found.
-	*
-	* @param definitionId the primary key of the definition
-	* @return the definition
-	* @throws com.liferay.reports.NoSuchDefinitionException if a definition with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.reports.model.Definition findByPrimaryKey(
-		long definitionId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.reports.NoSuchDefinitionException {
-		return getPersistence().findByPrimaryKey(definitionId);
-	}
-
-	/**
-	* Returns the definition with the primary key or returns <code>null</code> if it could not be found.
-	*
-	* @param definitionId the primary key of the definition
-	* @return the definition, or <code>null</code> if a definition with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.reports.model.Definition fetchByPrimaryKey(
-		long definitionId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().fetchByPrimaryKey(definitionId);
-	}
-
-	/**
 	* Returns all the definitions where uuid = &#63;.
 	*
 	* @param uuid the uuid
@@ -325,6 +247,29 @@ public class DefinitionUtil {
 	}
 
 	/**
+	* Removes all the definitions where uuid = &#63; from the database.
+	*
+	* @param uuid the uuid
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeByUuid(java.lang.String uuid)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeByUuid(uuid);
+	}
+
+	/**
+	* Returns the number of definitions where uuid = &#63;.
+	*
+	* @param uuid the uuid
+	* @return the number of matching definitions
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByUuid(java.lang.String uuid)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByUuid(uuid);
+	}
+
+	/**
 	* Returns the definition where uuid = &#63; and groupId = &#63; or throws a {@link com.liferay.reports.NoSuchDefinitionException} if it could not be found.
 	*
 	* @param uuid the uuid
@@ -367,6 +312,34 @@ public class DefinitionUtil {
 		java.lang.String uuid, long groupId, boolean retrieveFromCache)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence().fetchByUUID_G(uuid, groupId, retrieveFromCache);
+	}
+
+	/**
+	* Removes the definition where uuid = &#63; and groupId = &#63; from the database.
+	*
+	* @param uuid the uuid
+	* @param groupId the group ID
+	* @return the definition that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.reports.model.Definition removeByUUID_G(
+		java.lang.String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.reports.NoSuchDefinitionException {
+		return getPersistence().removeByUUID_G(uuid, groupId);
+	}
+
+	/**
+	* Returns the number of definitions where uuid = &#63; and groupId = &#63;.
+	*
+	* @param uuid the uuid
+	* @param groupId the group ID
+	* @return the number of matching definitions
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByUUID_G(java.lang.String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByUUID_G(uuid, groupId);
 	}
 
 	/**
@@ -517,6 +490,31 @@ public class DefinitionUtil {
 		return getPersistence()
 				   .findByUuid_C_PrevAndNext(definitionId, uuid, companyId,
 			orderByComparator);
+	}
+
+	/**
+	* Removes all the definitions where uuid = &#63; and companyId = &#63; from the database.
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeByUuid_C(java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeByUuid_C(uuid, companyId);
+	}
+
+	/**
+	* Returns the number of definitions where uuid = &#63; and companyId = &#63;.
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @return the number of matching definitions
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByUuid_C(java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByUuid_C(uuid, companyId);
 	}
 
 	/**
@@ -732,6 +730,41 @@ public class DefinitionUtil {
 	}
 
 	/**
+	* Removes all the definitions where groupId = &#63; from the database.
+	*
+	* @param groupId the group ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeByGroupId(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeByGroupId(groupId);
+	}
+
+	/**
+	* Returns the number of definitions where groupId = &#63;.
+	*
+	* @param groupId the group ID
+	* @return the number of matching definitions
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByGroupId(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByGroupId(groupId);
+	}
+
+	/**
+	* Returns the number of definitions that the user has permission to view where groupId = &#63;.
+	*
+	* @param groupId the group ID
+	* @return the number of matching definitions that the user has permission to view
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int filterCountByGroupId(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().filterCountByGroupId(groupId);
+	}
+
+	/**
 	* Returns all the definitions where companyId = &#63;.
 	*
 	* @param companyId the company ID
@@ -874,6 +907,107 @@ public class DefinitionUtil {
 	}
 
 	/**
+	* Removes all the definitions where companyId = &#63; from the database.
+	*
+	* @param companyId the company ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public static void removeByCompanyId(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		getPersistence().removeByCompanyId(companyId);
+	}
+
+	/**
+	* Returns the number of definitions where companyId = &#63;.
+	*
+	* @param companyId the company ID
+	* @return the number of matching definitions
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByCompanyId(long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByCompanyId(companyId);
+	}
+
+	/**
+	* Caches the definition in the entity cache if it is enabled.
+	*
+	* @param definition the definition
+	*/
+	public static void cacheResult(
+		com.liferay.reports.model.Definition definition) {
+		getPersistence().cacheResult(definition);
+	}
+
+	/**
+	* Caches the definitions in the entity cache if it is enabled.
+	*
+	* @param definitions the definitions
+	*/
+	public static void cacheResult(
+		java.util.List<com.liferay.reports.model.Definition> definitions) {
+		getPersistence().cacheResult(definitions);
+	}
+
+	/**
+	* Creates a new definition with the primary key. Does not add the definition to the database.
+	*
+	* @param definitionId the primary key for the new definition
+	* @return the new definition
+	*/
+	public static com.liferay.reports.model.Definition create(long definitionId) {
+		return getPersistence().create(definitionId);
+	}
+
+	/**
+	* Removes the definition with the primary key from the database. Also notifies the appropriate model listeners.
+	*
+	* @param definitionId the primary key of the definition
+	* @return the definition that was removed
+	* @throws com.liferay.reports.NoSuchDefinitionException if a definition with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.reports.model.Definition remove(long definitionId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.reports.NoSuchDefinitionException {
+		return getPersistence().remove(definitionId);
+	}
+
+	public static com.liferay.reports.model.Definition updateImpl(
+		com.liferay.reports.model.Definition definition)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().updateImpl(definition);
+	}
+
+	/**
+	* Returns the definition with the primary key or throws a {@link com.liferay.reports.NoSuchDefinitionException} if it could not be found.
+	*
+	* @param definitionId the primary key of the definition
+	* @return the definition
+	* @throws com.liferay.reports.NoSuchDefinitionException if a definition with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.reports.model.Definition findByPrimaryKey(
+		long definitionId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.reports.NoSuchDefinitionException {
+		return getPersistence().findByPrimaryKey(definitionId);
+	}
+
+	/**
+	* Returns the definition with the primary key or returns <code>null</code> if it could not be found.
+	*
+	* @param definitionId the primary key of the definition
+	* @return the definition, or <code>null</code> if a definition with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.reports.model.Definition fetchByPrimaryKey(
+		long definitionId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().fetchByPrimaryKey(definitionId);
+	}
+
+	/**
 	* Returns all the definitions.
 	*
 	* @return the definitions
@@ -923,66 +1057,6 @@ public class DefinitionUtil {
 	}
 
 	/**
-	* Removes all the definitions where uuid = &#63; from the database.
-	*
-	* @param uuid the uuid
-	* @throws SystemException if a system exception occurred
-	*/
-	public static void removeByUuid(java.lang.String uuid)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		getPersistence().removeByUuid(uuid);
-	}
-
-	/**
-	* Removes the definition where uuid = &#63; and groupId = &#63; from the database.
-	*
-	* @param uuid the uuid
-	* @param groupId the group ID
-	* @return the definition that was removed
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.reports.model.Definition removeByUUID_G(
-		java.lang.String uuid, long groupId)
-		throws com.liferay.portal.kernel.exception.SystemException,
-			com.liferay.reports.NoSuchDefinitionException {
-		return getPersistence().removeByUUID_G(uuid, groupId);
-	}
-
-	/**
-	* Removes all the definitions where uuid = &#63; and companyId = &#63; from the database.
-	*
-	* @param uuid the uuid
-	* @param companyId the company ID
-	* @throws SystemException if a system exception occurred
-	*/
-	public static void removeByUuid_C(java.lang.String uuid, long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		getPersistence().removeByUuid_C(uuid, companyId);
-	}
-
-	/**
-	* Removes all the definitions where groupId = &#63; from the database.
-	*
-	* @param groupId the group ID
-	* @throws SystemException if a system exception occurred
-	*/
-	public static void removeByGroupId(long groupId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		getPersistence().removeByGroupId(groupId);
-	}
-
-	/**
-	* Removes all the definitions where companyId = &#63; from the database.
-	*
-	* @param companyId the company ID
-	* @throws SystemException if a system exception occurred
-	*/
-	public static void removeByCompanyId(long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		getPersistence().removeByCompanyId(companyId);
-	}
-
-	/**
 	* Removes all the definitions from the database.
 	*
 	* @throws SystemException if a system exception occurred
@@ -990,80 +1064,6 @@ public class DefinitionUtil {
 	public static void removeAll()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		getPersistence().removeAll();
-	}
-
-	/**
-	* Returns the number of definitions where uuid = &#63;.
-	*
-	* @param uuid the uuid
-	* @return the number of matching definitions
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByUuid(java.lang.String uuid)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByUuid(uuid);
-	}
-
-	/**
-	* Returns the number of definitions where uuid = &#63; and groupId = &#63;.
-	*
-	* @param uuid the uuid
-	* @param groupId the group ID
-	* @return the number of matching definitions
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByUUID_G(java.lang.String uuid, long groupId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByUUID_G(uuid, groupId);
-	}
-
-	/**
-	* Returns the number of definitions where uuid = &#63; and companyId = &#63;.
-	*
-	* @param uuid the uuid
-	* @param companyId the company ID
-	* @return the number of matching definitions
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByUuid_C(java.lang.String uuid, long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByUuid_C(uuid, companyId);
-	}
-
-	/**
-	* Returns the number of definitions where groupId = &#63;.
-	*
-	* @param groupId the group ID
-	* @return the number of matching definitions
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByGroupId(long groupId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByGroupId(groupId);
-	}
-
-	/**
-	* Returns the number of definitions that the user has permission to view where groupId = &#63;.
-	*
-	* @param groupId the group ID
-	* @return the number of matching definitions that the user has permission to view
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int filterCountByGroupId(long groupId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().filterCountByGroupId(groupId);
-	}
-
-	/**
-	* Returns the number of definitions where companyId = &#63;.
-	*
-	* @param companyId the company ID
-	* @return the number of matching definitions
-	* @throws SystemException if a system exception occurred
-	*/
-	public static int countByCompanyId(long companyId)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByCompanyId(companyId);
 	}
 
 	/**

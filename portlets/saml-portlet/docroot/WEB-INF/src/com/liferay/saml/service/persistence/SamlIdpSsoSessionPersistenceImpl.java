@@ -76,17 +76,6 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 		".List1";
 	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
 		".List2";
-	public static final FinderPath FINDER_PATH_FETCH_BY_SAMLIDPSSOSESSIONKEY = new FinderPath(SamlIdpSsoSessionModelImpl.ENTITY_CACHE_ENABLED,
-			SamlIdpSsoSessionModelImpl.FINDER_CACHE_ENABLED,
-			SamlIdpSsoSessionImpl.class, FINDER_CLASS_NAME_ENTITY,
-			"fetchBySamlIdpSsoSessionKey",
-			new String[] { String.class.getName() },
-			SamlIdpSsoSessionModelImpl.SAMLIDPSSOSESSIONKEY_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_SAMLIDPSSOSESSIONKEY = new FinderPath(SamlIdpSsoSessionModelImpl.ENTITY_CACHE_ENABLED,
-			SamlIdpSsoSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"countBySamlIdpSsoSessionKey",
-			new String[] { String.class.getName() });
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(SamlIdpSsoSessionModelImpl.ENTITY_CACHE_ENABLED,
 			SamlIdpSsoSessionModelImpl.FINDER_CACHE_ENABLED,
 			SamlIdpSsoSessionImpl.class,
@@ -98,6 +87,258 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(SamlIdpSsoSessionModelImpl.ENTITY_CACHE_ENABLED,
 			SamlIdpSsoSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
+	public static final FinderPath FINDER_PATH_FETCH_BY_SAMLIDPSSOSESSIONKEY = new FinderPath(SamlIdpSsoSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlIdpSsoSessionModelImpl.FINDER_CACHE_ENABLED,
+			SamlIdpSsoSessionImpl.class, FINDER_CLASS_NAME_ENTITY,
+			"fetchBySamlIdpSsoSessionKey",
+			new String[] { String.class.getName() },
+			SamlIdpSsoSessionModelImpl.SAMLIDPSSOSESSIONKEY_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_SAMLIDPSSOSESSIONKEY = new FinderPath(SamlIdpSsoSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlIdpSsoSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countBySamlIdpSsoSessionKey",
+			new String[] { String.class.getName() });
+
+	/**
+	 * Returns the saml idp sso session where samlIdpSsoSessionKey = &#63; or throws a {@link com.liferay.saml.NoSuchIdpSsoSessionException} if it could not be found.
+	 *
+	 * @param samlIdpSsoSessionKey the saml idp sso session key
+	 * @return the matching saml idp sso session
+	 * @throws com.liferay.saml.NoSuchIdpSsoSessionException if a matching saml idp sso session could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlIdpSsoSession findBySamlIdpSsoSessionKey(
+		String samlIdpSsoSessionKey)
+		throws NoSuchIdpSsoSessionException, SystemException {
+		SamlIdpSsoSession samlIdpSsoSession = fetchBySamlIdpSsoSessionKey(samlIdpSsoSessionKey);
+
+		if (samlIdpSsoSession == null) {
+			StringBundler msg = new StringBundler(4);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("samlIdpSsoSessionKey=");
+			msg.append(samlIdpSsoSessionKey);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchIdpSsoSessionException(msg.toString());
+		}
+
+		return samlIdpSsoSession;
+	}
+
+	/**
+	 * Returns the saml idp sso session where samlIdpSsoSessionKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param samlIdpSsoSessionKey the saml idp sso session key
+	 * @return the matching saml idp sso session, or <code>null</code> if a matching saml idp sso session could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlIdpSsoSession fetchBySamlIdpSsoSessionKey(
+		String samlIdpSsoSessionKey) throws SystemException {
+		return fetchBySamlIdpSsoSessionKey(samlIdpSsoSessionKey, true);
+	}
+
+	/**
+	 * Returns the saml idp sso session where samlIdpSsoSessionKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param samlIdpSsoSessionKey the saml idp sso session key
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching saml idp sso session, or <code>null</code> if a matching saml idp sso session could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlIdpSsoSession fetchBySamlIdpSsoSessionKey(
+		String samlIdpSsoSessionKey, boolean retrieveFromCache)
+		throws SystemException {
+		Object[] finderArgs = new Object[] { samlIdpSsoSessionKey };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_SAMLIDPSSOSESSIONKEY,
+					finderArgs, this);
+		}
+
+		if (result instanceof SamlIdpSsoSession) {
+			SamlIdpSsoSession samlIdpSsoSession = (SamlIdpSsoSession)result;
+
+			if (!Validator.equals(samlIdpSsoSessionKey,
+						samlIdpSsoSession.getSamlIdpSsoSessionKey())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_SELECT_SAMLIDPSSOSESSION_WHERE);
+
+			if (samlIdpSsoSessionKey == null) {
+				query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_1);
+			}
+			else {
+				if (samlIdpSsoSessionKey.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_2);
+				}
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (samlIdpSsoSessionKey != null) {
+					qPos.add(samlIdpSsoSessionKey);
+				}
+
+				List<SamlIdpSsoSession> list = q.list();
+
+				result = list;
+
+				SamlIdpSsoSession samlIdpSsoSession = null;
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SAMLIDPSSOSESSIONKEY,
+						finderArgs, list);
+				}
+				else {
+					samlIdpSsoSession = list.get(0);
+
+					cacheResult(samlIdpSsoSession);
+
+					if ((samlIdpSsoSession.getSamlIdpSsoSessionKey() == null) ||
+							!samlIdpSsoSession.getSamlIdpSsoSessionKey()
+												  .equals(samlIdpSsoSessionKey)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SAMLIDPSSOSESSIONKEY,
+							finderArgs, samlIdpSsoSession);
+					}
+				}
+
+				return samlIdpSsoSession;
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (result == null) {
+					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SAMLIDPSSOSESSIONKEY,
+						finderArgs);
+				}
+
+				closeSession(session);
+			}
+		}
+		else {
+			if (result instanceof List<?>) {
+				return null;
+			}
+			else {
+				return (SamlIdpSsoSession)result;
+			}
+		}
+	}
+
+	/**
+	 * Removes the saml idp sso session where samlIdpSsoSessionKey = &#63; from the database.
+	 *
+	 * @param samlIdpSsoSessionKey the saml idp sso session key
+	 * @return the saml idp sso session that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlIdpSsoSession removeBySamlIdpSsoSessionKey(
+		String samlIdpSsoSessionKey)
+		throws NoSuchIdpSsoSessionException, SystemException {
+		SamlIdpSsoSession samlIdpSsoSession = findBySamlIdpSsoSessionKey(samlIdpSsoSessionKey);
+
+		return remove(samlIdpSsoSession);
+	}
+
+	/**
+	 * Returns the number of saml idp sso sessions where samlIdpSsoSessionKey = &#63;.
+	 *
+	 * @param samlIdpSsoSessionKey the saml idp sso session key
+	 * @return the number of matching saml idp sso sessions
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countBySamlIdpSsoSessionKey(String samlIdpSsoSessionKey)
+		throws SystemException {
+		Object[] finderArgs = new Object[] { samlIdpSsoSessionKey };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_SAMLIDPSSOSESSIONKEY,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_SAMLIDPSSOSESSION_WHERE);
+
+			if (samlIdpSsoSessionKey == null) {
+				query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_1);
+			}
+			else {
+				if (samlIdpSsoSessionKey.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_2);
+				}
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (samlIdpSsoSessionKey != null) {
+					qPos.add(samlIdpSsoSessionKey);
+				}
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_SAMLIDPSSOSESSIONKEY,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_1 =
+		"samlIdpSsoSession.samlIdpSsoSessionKey IS NULL";
+	private static final String _FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_2 =
+		"samlIdpSsoSession.samlIdpSsoSessionKey = ?";
+	private static final String _FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_3 =
+		"(samlIdpSsoSession.samlIdpSsoSessionKey IS NULL OR samlIdpSsoSession.samlIdpSsoSessionKey = ?)";
 
 	/**
 	 * Caches the saml idp sso session in the entity cache if it is enabled.
@@ -485,159 +726,6 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	}
 
 	/**
-	 * Returns the saml idp sso session where samlIdpSsoSessionKey = &#63; or throws a {@link com.liferay.saml.NoSuchIdpSsoSessionException} if it could not be found.
-	 *
-	 * @param samlIdpSsoSessionKey the saml idp sso session key
-	 * @return the matching saml idp sso session
-	 * @throws com.liferay.saml.NoSuchIdpSsoSessionException if a matching saml idp sso session could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlIdpSsoSession findBySamlIdpSsoSessionKey(
-		String samlIdpSsoSessionKey)
-		throws NoSuchIdpSsoSessionException, SystemException {
-		SamlIdpSsoSession samlIdpSsoSession = fetchBySamlIdpSsoSessionKey(samlIdpSsoSessionKey);
-
-		if (samlIdpSsoSession == null) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("samlIdpSsoSessionKey=");
-			msg.append(samlIdpSsoSessionKey);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			if (_log.isWarnEnabled()) {
-				_log.warn(msg.toString());
-			}
-
-			throw new NoSuchIdpSsoSessionException(msg.toString());
-		}
-
-		return samlIdpSsoSession;
-	}
-
-	/**
-	 * Returns the saml idp sso session where samlIdpSsoSessionKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param samlIdpSsoSessionKey the saml idp sso session key
-	 * @return the matching saml idp sso session, or <code>null</code> if a matching saml idp sso session could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlIdpSsoSession fetchBySamlIdpSsoSessionKey(
-		String samlIdpSsoSessionKey) throws SystemException {
-		return fetchBySamlIdpSsoSessionKey(samlIdpSsoSessionKey, true);
-	}
-
-	/**
-	 * Returns the saml idp sso session where samlIdpSsoSessionKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	 *
-	 * @param samlIdpSsoSessionKey the saml idp sso session key
-	 * @param retrieveFromCache whether to use the finder cache
-	 * @return the matching saml idp sso session, or <code>null</code> if a matching saml idp sso session could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlIdpSsoSession fetchBySamlIdpSsoSessionKey(
-		String samlIdpSsoSessionKey, boolean retrieveFromCache)
-		throws SystemException {
-		Object[] finderArgs = new Object[] { samlIdpSsoSessionKey };
-
-		Object result = null;
-
-		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_SAMLIDPSSOSESSIONKEY,
-					finderArgs, this);
-		}
-
-		if (result instanceof SamlIdpSsoSession) {
-			SamlIdpSsoSession samlIdpSsoSession = (SamlIdpSsoSession)result;
-
-			if (!Validator.equals(samlIdpSsoSessionKey,
-						samlIdpSsoSession.getSamlIdpSsoSessionKey())) {
-				result = null;
-			}
-		}
-
-		if (result == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_SELECT_SAMLIDPSSOSESSION_WHERE);
-
-			if (samlIdpSsoSessionKey == null) {
-				query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_1);
-			}
-			else {
-				if (samlIdpSsoSessionKey.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_2);
-				}
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (samlIdpSsoSessionKey != null) {
-					qPos.add(samlIdpSsoSessionKey);
-				}
-
-				List<SamlIdpSsoSession> list = q.list();
-
-				result = list;
-
-				SamlIdpSsoSession samlIdpSsoSession = null;
-
-				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SAMLIDPSSOSESSIONKEY,
-						finderArgs, list);
-				}
-				else {
-					samlIdpSsoSession = list.get(0);
-
-					cacheResult(samlIdpSsoSession);
-
-					if ((samlIdpSsoSession.getSamlIdpSsoSessionKey() == null) ||
-							!samlIdpSsoSession.getSamlIdpSsoSessionKey()
-												  .equals(samlIdpSsoSessionKey)) {
-						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SAMLIDPSSOSESSIONKEY,
-							finderArgs, samlIdpSsoSession);
-					}
-				}
-
-				return samlIdpSsoSession;
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (result == null) {
-					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SAMLIDPSSOSESSIONKEY,
-						finderArgs);
-				}
-
-				closeSession(session);
-			}
-		}
-		else {
-			if (result instanceof List<?>) {
-				return null;
-			}
-			else {
-				return (SamlIdpSsoSession)result;
-			}
-		}
-	}
-
-	/**
 	 * Returns all the saml idp sso sessions.
 	 *
 	 * @return the saml idp sso sessions
@@ -753,21 +841,6 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	}
 
 	/**
-	 * Removes the saml idp sso session where samlIdpSsoSessionKey = &#63; from the database.
-	 *
-	 * @param samlIdpSsoSessionKey the saml idp sso session key
-	 * @return the saml idp sso session that was removed
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlIdpSsoSession removeBySamlIdpSsoSessionKey(
-		String samlIdpSsoSessionKey)
-		throws NoSuchIdpSsoSessionException, SystemException {
-		SamlIdpSsoSession samlIdpSsoSession = findBySamlIdpSsoSessionKey(samlIdpSsoSessionKey);
-
-		return remove(samlIdpSsoSession);
-	}
-
-	/**
 	 * Removes all the saml idp sso sessions from the database.
 	 *
 	 * @throws SystemException if a system exception occurred
@@ -776,72 +849,6 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 		for (SamlIdpSsoSession samlIdpSsoSession : findAll()) {
 			remove(samlIdpSsoSession);
 		}
-	}
-
-	/**
-	 * Returns the number of saml idp sso sessions where samlIdpSsoSessionKey = &#63;.
-	 *
-	 * @param samlIdpSsoSessionKey the saml idp sso session key
-	 * @return the number of matching saml idp sso sessions
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countBySamlIdpSsoSessionKey(String samlIdpSsoSessionKey)
-		throws SystemException {
-		Object[] finderArgs = new Object[] { samlIdpSsoSessionKey };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_SAMLIDPSSOSESSIONKEY,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_SAMLIDPSSOSESSION_WHERE);
-
-			if (samlIdpSsoSessionKey == null) {
-				query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_1);
-			}
-			else {
-				if (samlIdpSsoSessionKey.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_2);
-				}
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (samlIdpSsoSessionKey != null) {
-					qPos.add(samlIdpSsoSessionKey);
-				}
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_SAMLIDPSSOSESSIONKEY,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
 	}
 
 	/**
@@ -933,12 +940,6 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	private static final String _SQL_SELECT_SAMLIDPSSOSESSION_WHERE = "SELECT samlIdpSsoSession FROM SamlIdpSsoSession samlIdpSsoSession WHERE ";
 	private static final String _SQL_COUNT_SAMLIDPSSOSESSION = "SELECT COUNT(samlIdpSsoSession) FROM SamlIdpSsoSession samlIdpSsoSession";
 	private static final String _SQL_COUNT_SAMLIDPSSOSESSION_WHERE = "SELECT COUNT(samlIdpSsoSession) FROM SamlIdpSsoSession samlIdpSsoSession WHERE ";
-	private static final String _FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_1 =
-		"samlIdpSsoSession.samlIdpSsoSessionKey IS NULL";
-	private static final String _FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_2 =
-		"samlIdpSsoSession.samlIdpSsoSessionKey = ?";
-	private static final String _FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_3 =
-		"(samlIdpSsoSession.samlIdpSsoSessionKey IS NULL OR samlIdpSsoSession.samlIdpSsoSessionKey = ?)";
 	private static final String _ORDER_BY_ENTITY_ALIAS = "samlIdpSsoSession.";
 	private static final String _NO_SUCH_ENTITY_WITH_PRIMARY_KEY = "No SamlIdpSsoSession exists with the primary key ";
 	private static final String _NO_SUCH_ENTITY_WITH_KEY = "No SamlIdpSsoSession exists with the key {";

@@ -79,6 +79,15 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		".List1";
 	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
 		".List2";
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll", new String[0]);
+	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_UUID = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
 			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUuid",
@@ -97,549 +106,6 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid",
 			new String[] { String.class.getName() });
-	public static final FinderPath FINDER_PATH_FETCH_BY_UUID_G = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
-			FINDER_CLASS_NAME_ENTITY, "fetchByUUID_G",
-			new String[] { String.class.getName(), Long.class.getName() },
-			SourceModelImpl.UUID_COLUMN_BITMASK |
-			SourceModelImpl.GROUPID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_UUID_G = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-			SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUUID_G",
-			new String[] { String.class.getName(), Long.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_UUID_C = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUuid_C",
-			new String[] {
-				String.class.getName(), Long.class.getName(),
-				
-			"java.lang.Integer", "java.lang.Integer",
-				"com.liferay.portal.kernel.util.OrderByComparator"
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C =
-		new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUuid_C",
-			new String[] { String.class.getName(), Long.class.getName() },
-			SourceModelImpl.UUID_COLUMN_BITMASK |
-			SourceModelImpl.COMPANYID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_UUID_C = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-			SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
-			new String[] { String.class.getName(), Long.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_GROUPID = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByGroupId",
-			new String[] {
-				Long.class.getName(),
-				
-			"java.lang.Integer", "java.lang.Integer",
-				"com.liferay.portal.kernel.util.OrderByComparator"
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID =
-		new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByGroupId",
-			new String[] { Long.class.getName() },
-			SourceModelImpl.GROUPID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_GROUPID = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-			SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByGroupId",
-			new String[] { Long.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_COMPANYID =
-		new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCompanyId",
-			new String[] {
-				Long.class.getName(),
-				
-			"java.lang.Integer", "java.lang.Integer",
-				"com.liferay.portal.kernel.util.OrderByComparator"
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID =
-		new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCompanyId",
-			new String[] { Long.class.getName() },
-			SourceModelImpl.COMPANYID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_COMPANYID = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-			SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCompanyId",
-			new String[] { Long.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
-			SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
-
-	/**
-	 * Caches the source in the entity cache if it is enabled.
-	 *
-	 * @param source the source
-	 */
-	public void cacheResult(Source source) {
-		EntityCacheUtil.putResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
-			SourceImpl.class, source.getPrimaryKey(), source);
-
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
-			new Object[] { source.getUuid(), Long.valueOf(source.getGroupId()) },
-			source);
-
-		source.resetOriginalValues();
-	}
-
-	/**
-	 * Caches the sources in the entity cache if it is enabled.
-	 *
-	 * @param sources the sources
-	 */
-	public void cacheResult(List<Source> sources) {
-		for (Source source : sources) {
-			if (EntityCacheUtil.getResult(
-						SourceModelImpl.ENTITY_CACHE_ENABLED, SourceImpl.class,
-						source.getPrimaryKey()) == null) {
-				cacheResult(source);
-			}
-			else {
-				source.resetOriginalValues();
-			}
-		}
-	}
-
-	/**
-	 * Clears the cache for all sources.
-	 *
-	 * <p>
-	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
-	 * </p>
-	 */
-	@Override
-	public void clearCache() {
-		if (_HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE) {
-			CacheRegistryUtil.clear(SourceImpl.class.getName());
-		}
-
-		EntityCacheUtil.clearCache(SourceImpl.class.getName());
-
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_ENTITY);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	/**
-	 * Clears the cache for the source.
-	 *
-	 * <p>
-	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
-	 * </p>
-	 */
-	@Override
-	public void clearCache(Source source) {
-		EntityCacheUtil.removeResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
-			SourceImpl.class, source.getPrimaryKey());
-
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-
-		clearUniqueFindersCache(source);
-	}
-
-	@Override
-	public void clearCache(List<Source> sources) {
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-
-		for (Source source : sources) {
-			EntityCacheUtil.removeResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceImpl.class, source.getPrimaryKey());
-
-			clearUniqueFindersCache(source);
-		}
-	}
-
-	protected void clearUniqueFindersCache(Source source) {
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G,
-			new Object[] { source.getUuid(), Long.valueOf(source.getGroupId()) });
-	}
-
-	/**
-	 * Creates a new source with the primary key. Does not add the source to the database.
-	 *
-	 * @param sourceId the primary key for the new source
-	 * @return the new source
-	 */
-	public Source create(long sourceId) {
-		Source source = new SourceImpl();
-
-		source.setNew(true);
-		source.setPrimaryKey(sourceId);
-
-		String uuid = PortalUUIDUtil.generate();
-
-		source.setUuid(uuid);
-
-		return source;
-	}
-
-	/**
-	 * Removes the source with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param sourceId the primary key of the source
-	 * @return the source that was removed
-	 * @throws com.liferay.reports.NoSuchSourceException if a source with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Source remove(long sourceId)
-		throws NoSuchSourceException, SystemException {
-		return remove(Long.valueOf(sourceId));
-	}
-
-	/**
-	 * Removes the source with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param primaryKey the primary key of the source
-	 * @return the source that was removed
-	 * @throws com.liferay.reports.NoSuchSourceException if a source with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public Source remove(Serializable primaryKey)
-		throws NoSuchSourceException, SystemException {
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			Source source = (Source)session.get(SourceImpl.class, primaryKey);
-
-			if (source == null) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
-				}
-
-				throw new NoSuchSourceException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					primaryKey);
-			}
-
-			return remove(source);
-		}
-		catch (NoSuchSourceException nsee) {
-			throw nsee;
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	@Override
-	protected Source removeImpl(Source source) throws SystemException {
-		source = toUnwrappedModel(source);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			if (!session.contains(source)) {
-				source = (Source)session.get(SourceImpl.class,
-						source.getPrimaryKeyObj());
-			}
-
-			if (source != null) {
-				session.delete(source);
-			}
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-
-		if (source != null) {
-			clearCache(source);
-		}
-
-		return source;
-	}
-
-	@Override
-	public Source updateImpl(com.liferay.reports.model.Source source)
-		throws SystemException {
-		source = toUnwrappedModel(source);
-
-		boolean isNew = source.isNew();
-
-		SourceModelImpl sourceModelImpl = (SourceModelImpl)source;
-
-		if (Validator.isNull(source.getUuid())) {
-			String uuid = PortalUUIDUtil.generate();
-
-			source.setUuid(uuid);
-		}
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			if (source.isNew()) {
-				session.save(source);
-
-				source.setNew(false);
-			}
-			else {
-				session.merge(source);
-			}
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-
-		if (isNew || !SourceModelImpl.COLUMN_BITMASK_ENABLED) {
-			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-		}
-
-		else {
-			if ((sourceModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] { sourceModelImpl.getOriginalUuid() };
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID,
-					args);
-
-				args = new Object[] { sourceModelImpl.getUuid() };
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID,
-					args);
-			}
-
-			if ((sourceModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						sourceModelImpl.getOriginalUuid(),
-						Long.valueOf(sourceModelImpl.getOriginalCompanyId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_C, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C,
-					args);
-
-				args = new Object[] {
-						sourceModelImpl.getUuid(),
-						Long.valueOf(sourceModelImpl.getCompanyId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_C, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C,
-					args);
-			}
-
-			if ((sourceModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						Long.valueOf(sourceModelImpl.getOriginalGroupId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUPID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID,
-					args);
-
-				args = new Object[] { Long.valueOf(sourceModelImpl.getGroupId()) };
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUPID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID,
-					args);
-			}
-
-			if ((sourceModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						Long.valueOf(sourceModelImpl.getOriginalCompanyId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
-					args);
-
-				args = new Object[] { Long.valueOf(sourceModelImpl.getCompanyId()) };
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
-					args);
-			}
-		}
-
-		EntityCacheUtil.putResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
-			SourceImpl.class, source.getPrimaryKey(), source);
-
-		if (isNew) {
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
-				new Object[] { source.getUuid(), Long.valueOf(
-						source.getGroupId()) }, source);
-		}
-		else {
-			if ((sourceModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						sourceModelImpl.getOriginalUuid(),
-						Long.valueOf(sourceModelImpl.getOriginalGroupId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
-
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
-
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
-					new Object[] {
-						source.getUuid(), Long.valueOf(source.getGroupId())
-					}, source);
-			}
-		}
-
-		return source;
-	}
-
-	protected Source toUnwrappedModel(Source source) {
-		if (source instanceof SourceImpl) {
-			return source;
-		}
-
-		SourceImpl sourceImpl = new SourceImpl();
-
-		sourceImpl.setNew(source.isNew());
-		sourceImpl.setPrimaryKey(source.getPrimaryKey());
-
-		sourceImpl.setUuid(source.getUuid());
-		sourceImpl.setSourceId(source.getSourceId());
-		sourceImpl.setGroupId(source.getGroupId());
-		sourceImpl.setCompanyId(source.getCompanyId());
-		sourceImpl.setUserId(source.getUserId());
-		sourceImpl.setUserName(source.getUserName());
-		sourceImpl.setCreateDate(source.getCreateDate());
-		sourceImpl.setModifiedDate(source.getModifiedDate());
-		sourceImpl.setName(source.getName());
-		sourceImpl.setDriverClassName(source.getDriverClassName());
-		sourceImpl.setDriverUrl(source.getDriverUrl());
-		sourceImpl.setDriverUserName(source.getDriverUserName());
-		sourceImpl.setDriverPassword(source.getDriverPassword());
-
-		return sourceImpl;
-	}
-
-	/**
-	 * Returns the source with the primary key or throws a {@link com.liferay.portal.NoSuchModelException} if it could not be found.
-	 *
-	 * @param primaryKey the primary key of the source
-	 * @return the source
-	 * @throws com.liferay.portal.NoSuchModelException if a source with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public Source findByPrimaryKey(Serializable primaryKey)
-		throws NoSuchModelException, SystemException {
-		return findByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the source with the primary key or throws a {@link com.liferay.reports.NoSuchSourceException} if it could not be found.
-	 *
-	 * @param sourceId the primary key of the source
-	 * @return the source
-	 * @throws com.liferay.reports.NoSuchSourceException if a source with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Source findByPrimaryKey(long sourceId)
-		throws NoSuchSourceException, SystemException {
-		Source source = fetchByPrimaryKey(sourceId);
-
-		if (source == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + sourceId);
-			}
-
-			throw new NoSuchSourceException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				sourceId);
-		}
-
-		return source;
-	}
-
-	/**
-	 * Returns the source with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param primaryKey the primary key of the source
-	 * @return the source, or <code>null</code> if a source with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public Source fetchByPrimaryKey(Serializable primaryKey)
-		throws SystemException {
-		return fetchByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the source with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param sourceId the primary key of the source
-	 * @return the source, or <code>null</code> if a source with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Source fetchByPrimaryKey(long sourceId) throws SystemException {
-		Source source = (Source)EntityCacheUtil.getResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceImpl.class, sourceId);
-
-		if (source == _nullSource) {
-			return null;
-		}
-
-		if (source == null) {
-			Session session = null;
-
-			boolean hasException = false;
-
-			try {
-				session = openSession();
-
-				source = (Source)session.get(SourceImpl.class,
-						Long.valueOf(sourceId));
-			}
-			catch (Exception e) {
-				hasException = true;
-
-				throw processException(e);
-			}
-			finally {
-				if (source != null) {
-					cacheResult(source);
-				}
-				else if (!hasException) {
-					EntityCacheUtil.putResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
-						SourceImpl.class, sourceId, _nullSource);
-				}
-
-				closeSession(session);
-			}
-		}
-
-		return source;
-	}
 
 	/**
 	 * Returns all the sources where uuid = &#63;.
@@ -1033,6 +499,97 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	}
 
 	/**
+	 * Removes all the sources where uuid = &#63; from the database.
+	 *
+	 * @param uuid the uuid
+	 * @throws SystemException if a system exception occurred
+	 */
+	public void removeByUuid(String uuid) throws SystemException {
+		for (Source source : findByUuid(uuid)) {
+			remove(source);
+		}
+	}
+
+	/**
+	 * Returns the number of sources where uuid = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @return the number of matching sources
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByUuid(String uuid) throws SystemException {
+		Object[] finderArgs = new Object[] { uuid };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_UUID,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_SOURCE_WHERE);
+
+			if (uuid == null) {
+				query.append(_FINDER_COLUMN_UUID_UUID_1);
+			}
+			else {
+				if (uuid.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_UUID_UUID_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_UUID_UUID_2);
+				}
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (uuid != null) {
+					qPos.add(uuid);
+				}
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_UUID_UUID_1 = "source.uuid IS NULL";
+	private static final String _FINDER_COLUMN_UUID_UUID_2 = "source.uuid = ?";
+	private static final String _FINDER_COLUMN_UUID_UUID_3 = "(source.uuid IS NULL OR source.uuid = ?)";
+	public static final FinderPath FINDER_PATH_FETCH_BY_UUID_G = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByUUID_G",
+			new String[] { String.class.getName(), Long.class.getName() },
+			SourceModelImpl.UUID_COLUMN_BITMASK |
+			SourceModelImpl.GROUPID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_UUID_G = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUUID_G",
+			new String[] { String.class.getName(), Long.class.getName() });
+
+	/**
 	 * Returns the source where uuid = &#63; and groupId = &#63; or throws a {@link com.liferay.reports.NoSuchSourceException} if it could not be found.
 	 *
 	 * @param uuid the uuid
@@ -1192,6 +749,117 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			}
 		}
 	}
+
+	/**
+	 * Removes the source where uuid = &#63; and groupId = &#63; from the database.
+	 *
+	 * @param uuid the uuid
+	 * @param groupId the group ID
+	 * @return the source that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Source removeByUUID_G(String uuid, long groupId)
+		throws NoSuchSourceException, SystemException {
+		Source source = findByUUID_G(uuid, groupId);
+
+		return remove(source);
+	}
+
+	/**
+	 * Returns the number of sources where uuid = &#63; and groupId = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param groupId the group ID
+	 * @return the number of matching sources
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByUUID_G(String uuid, long groupId)
+		throws SystemException {
+		Object[] finderArgs = new Object[] { uuid, groupId };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_UUID_G,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_SOURCE_WHERE);
+
+			if (uuid == null) {
+				query.append(_FINDER_COLUMN_UUID_G_UUID_1);
+			}
+			else {
+				if (uuid.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_UUID_G_UUID_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_UUID_G_UUID_2);
+				}
+			}
+
+			query.append(_FINDER_COLUMN_UUID_G_GROUPID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (uuid != null) {
+					qPos.add(uuid);
+				}
+
+				qPos.add(groupId);
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_G,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_UUID_G_UUID_1 = "source.uuid IS NULL AND ";
+	private static final String _FINDER_COLUMN_UUID_G_UUID_2 = "source.uuid = ? AND ";
+	private static final String _FINDER_COLUMN_UUID_G_UUID_3 = "(source.uuid IS NULL OR source.uuid = ?) AND ";
+	private static final String _FINDER_COLUMN_UUID_G_GROUPID_2 = "source.groupId = ?";
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_UUID_C = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUuid_C",
+			new String[] {
+				String.class.getName(), Long.class.getName(),
+				
+			"java.lang.Integer", "java.lang.Integer",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			});
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C =
+		new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByUuid_C",
+			new String[] { String.class.getName(), Long.class.getName() },
+			SourceModelImpl.UUID_COLUMN_BITMASK |
+			SourceModelImpl.COMPANYID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_UUID_C = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUuid_C",
+			new String[] { String.class.getName(), Long.class.getName() });
 
 	/**
 	 * Returns all the sources where uuid = &#63; and companyId = &#63;.
@@ -1615,6 +1283,115 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			return null;
 		}
 	}
+
+	/**
+	 * Removes all the sources where uuid = &#63; and companyId = &#63; from the database.
+	 *
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @throws SystemException if a system exception occurred
+	 */
+	public void removeByUuid_C(String uuid, long companyId)
+		throws SystemException {
+		for (Source source : findByUuid_C(uuid, companyId)) {
+			remove(source);
+		}
+	}
+
+	/**
+	 * Returns the number of sources where uuid = &#63; and companyId = &#63;.
+	 *
+	 * @param uuid the uuid
+	 * @param companyId the company ID
+	 * @return the number of matching sources
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByUuid_C(String uuid, long companyId)
+		throws SystemException {
+		Object[] finderArgs = new Object[] { uuid, companyId };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_UUID_C,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_SOURCE_WHERE);
+
+			if (uuid == null) {
+				query.append(_FINDER_COLUMN_UUID_C_UUID_1);
+			}
+			else {
+				if (uuid.equals(StringPool.BLANK)) {
+					query.append(_FINDER_COLUMN_UUID_C_UUID_3);
+				}
+				else {
+					query.append(_FINDER_COLUMN_UUID_C_UUID_2);
+				}
+			}
+
+			query.append(_FINDER_COLUMN_UUID_C_COMPANYID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (uuid != null) {
+					qPos.add(uuid);
+				}
+
+				qPos.add(companyId);
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_C,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_UUID_C_UUID_1 = "source.uuid IS NULL AND ";
+	private static final String _FINDER_COLUMN_UUID_C_UUID_2 = "source.uuid = ? AND ";
+	private static final String _FINDER_COLUMN_UUID_C_UUID_3 = "(source.uuid IS NULL OR source.uuid = ?) AND ";
+	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 = "source.companyId = ?";
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_GROUPID = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByGroupId",
+			new String[] {
+				Long.class.getName(),
+				
+			"java.lang.Integer", "java.lang.Integer",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			});
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID =
+		new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByGroupId",
+			new String[] { Long.class.getName() },
+			SourceModelImpl.GROUPID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_GROUPID = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByGroupId",
+			new String[] { Long.class.getName() });
 
 	/**
 	 * Returns all the sources where groupId = &#63;.
@@ -2279,6 +2056,141 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	}
 
 	/**
+	 * Removes all the sources where groupId = &#63; from the database.
+	 *
+	 * @param groupId the group ID
+	 * @throws SystemException if a system exception occurred
+	 */
+	public void removeByGroupId(long groupId) throws SystemException {
+		for (Source source : findByGroupId(groupId)) {
+			remove(source);
+		}
+	}
+
+	/**
+	 * Returns the number of sources where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @return the number of matching sources
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByGroupId(long groupId) throws SystemException {
+		Object[] finderArgs = new Object[] { groupId };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_GROUPID,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_SOURCE_WHERE);
+
+			query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(groupId);
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_GROUPID,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	/**
+	 * Returns the number of sources that the user has permission to view where groupId = &#63;.
+	 *
+	 * @param groupId the group ID
+	 * @return the number of matching sources that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int filterCountByGroupId(long groupId) throws SystemException {
+		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
+			return countByGroupId(groupId);
+		}
+
+		StringBundler query = new StringBundler(2);
+
+		query.append(_FILTER_SQL_COUNT_SOURCE_WHERE);
+
+		query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				Source.class.getName(), _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN,
+				groupId);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSQLQuery(sql);
+
+			q.addScalar(COUNT_COLUMN_NAME,
+				com.liferay.portal.kernel.dao.orm.Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(groupId);
+
+			Long count = (Long)q.uniqueResult();
+
+			return count.intValue();
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	private static final String _FINDER_COLUMN_GROUPID_GROUPID_2 = "source.groupId = ?";
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_COMPANYID =
+		new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByCompanyId",
+			new String[] {
+				Long.class.getName(),
+				
+			"java.lang.Integer", "java.lang.Integer",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			});
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID =
+		new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByCompanyId",
+			new String[] { Long.class.getName() },
+			SourceModelImpl.COMPANYID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_COMPANYID = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCompanyId",
+			new String[] { Long.class.getName() });
+
+	/**
 	 * Returns all the sources where companyId = &#63;.
 	 *
 	 * @param companyId the company ID
@@ -2649,6 +2561,538 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	}
 
 	/**
+	 * Removes all the sources where companyId = &#63; from the database.
+	 *
+	 * @param companyId the company ID
+	 * @throws SystemException if a system exception occurred
+	 */
+	public void removeByCompanyId(long companyId) throws SystemException {
+		for (Source source : findByCompanyId(companyId)) {
+			remove(source);
+		}
+	}
+
+	/**
+	 * Returns the number of sources where companyId = &#63;.
+	 *
+	 * @param companyId the company ID
+	 * @return the number of matching sources
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByCompanyId(long companyId) throws SystemException {
+		Object[] finderArgs = new Object[] { companyId };
+
+		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_COMPANYID,
+				finderArgs, this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_SOURCE_WHERE);
+
+			query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(companyId);
+
+				count = (Long)q.uniqueResult();
+			}
+			catch (Exception e) {
+				throw processException(e);
+			}
+			finally {
+				if (count == null) {
+					count = Long.valueOf(0);
+				}
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_COMPANYID,
+					finderArgs, count);
+
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 = "source.companyId = ?";
+
+	/**
+	 * Caches the source in the entity cache if it is enabled.
+	 *
+	 * @param source the source
+	 */
+	public void cacheResult(Source source) {
+		EntityCacheUtil.putResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceImpl.class, source.getPrimaryKey(), source);
+
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
+			new Object[] { source.getUuid(), Long.valueOf(source.getGroupId()) },
+			source);
+
+		source.resetOriginalValues();
+	}
+
+	/**
+	 * Caches the sources in the entity cache if it is enabled.
+	 *
+	 * @param sources the sources
+	 */
+	public void cacheResult(List<Source> sources) {
+		for (Source source : sources) {
+			if (EntityCacheUtil.getResult(
+						SourceModelImpl.ENTITY_CACHE_ENABLED, SourceImpl.class,
+						source.getPrimaryKey()) == null) {
+				cacheResult(source);
+			}
+			else {
+				source.resetOriginalValues();
+			}
+		}
+	}
+
+	/**
+	 * Clears the cache for all sources.
+	 *
+	 * <p>
+	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
+	 * </p>
+	 */
+	@Override
+	public void clearCache() {
+		if (_HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE) {
+			CacheRegistryUtil.clear(SourceImpl.class.getName());
+		}
+
+		EntityCacheUtil.clearCache(SourceImpl.class.getName());
+
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_ENTITY);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	/**
+	 * Clears the cache for the source.
+	 *
+	 * <p>
+	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
+	 * </p>
+	 */
+	@Override
+	public void clearCache(Source source) {
+		EntityCacheUtil.removeResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceImpl.class, source.getPrimaryKey());
+
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		clearUniqueFindersCache(source);
+	}
+
+	@Override
+	public void clearCache(List<Source> sources) {
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		for (Source source : sources) {
+			EntityCacheUtil.removeResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
+				SourceImpl.class, source.getPrimaryKey());
+
+			clearUniqueFindersCache(source);
+		}
+	}
+
+	protected void clearUniqueFindersCache(Source source) {
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G,
+			new Object[] { source.getUuid(), Long.valueOf(source.getGroupId()) });
+	}
+
+	/**
+	 * Creates a new source with the primary key. Does not add the source to the database.
+	 *
+	 * @param sourceId the primary key for the new source
+	 * @return the new source
+	 */
+	public Source create(long sourceId) {
+		Source source = new SourceImpl();
+
+		source.setNew(true);
+		source.setPrimaryKey(sourceId);
+
+		String uuid = PortalUUIDUtil.generate();
+
+		source.setUuid(uuid);
+
+		return source;
+	}
+
+	/**
+	 * Removes the source with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * @param sourceId the primary key of the source
+	 * @return the source that was removed
+	 * @throws com.liferay.reports.NoSuchSourceException if a source with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Source remove(long sourceId)
+		throws NoSuchSourceException, SystemException {
+		return remove(Long.valueOf(sourceId));
+	}
+
+	/**
+	 * Removes the source with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * @param primaryKey the primary key of the source
+	 * @return the source that was removed
+	 * @throws com.liferay.reports.NoSuchSourceException if a source with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Source remove(Serializable primaryKey)
+		throws NoSuchSourceException, SystemException {
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			Source source = (Source)session.get(SourceImpl.class, primaryKey);
+
+			if (source == null) {
+				if (_log.isWarnEnabled()) {
+					_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+				}
+
+				throw new NoSuchSourceException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+					primaryKey);
+			}
+
+			return remove(source);
+		}
+		catch (NoSuchSourceException nsee) {
+			throw nsee;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	@Override
+	protected Source removeImpl(Source source) throws SystemException {
+		source = toUnwrappedModel(source);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			if (!session.contains(source)) {
+				source = (Source)session.get(SourceImpl.class,
+						source.getPrimaryKeyObj());
+			}
+
+			if (source != null) {
+				session.delete(source);
+			}
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+
+		if (source != null) {
+			clearCache(source);
+		}
+
+		return source;
+	}
+
+	@Override
+	public Source updateImpl(com.liferay.reports.model.Source source)
+		throws SystemException {
+		source = toUnwrappedModel(source);
+
+		boolean isNew = source.isNew();
+
+		SourceModelImpl sourceModelImpl = (SourceModelImpl)source;
+
+		if (Validator.isNull(source.getUuid())) {
+			String uuid = PortalUUIDUtil.generate();
+
+			source.setUuid(uuid);
+		}
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			if (source.isNew()) {
+				session.save(source);
+
+				source.setNew(false);
+			}
+			else {
+				session.merge(source);
+			}
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+
+		if (isNew || !SourceModelImpl.COLUMN_BITMASK_ENABLED) {
+			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+		}
+
+		else {
+			if ((sourceModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] { sourceModelImpl.getOriginalUuid() };
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID,
+					args);
+
+				args = new Object[] { sourceModelImpl.getUuid() };
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID,
+					args);
+			}
+
+			if ((sourceModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						sourceModelImpl.getOriginalUuid(),
+						Long.valueOf(sourceModelImpl.getOriginalCompanyId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_C, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C,
+					args);
+
+				args = new Object[] {
+						sourceModelImpl.getUuid(),
+						Long.valueOf(sourceModelImpl.getCompanyId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_C, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C,
+					args);
+			}
+
+			if ((sourceModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						Long.valueOf(sourceModelImpl.getOriginalGroupId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUPID, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID,
+					args);
+
+				args = new Object[] { Long.valueOf(sourceModelImpl.getGroupId()) };
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUPID, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID,
+					args);
+			}
+
+			if ((sourceModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						Long.valueOf(sourceModelImpl.getOriginalCompanyId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
+					args);
+
+				args = new Object[] { Long.valueOf(sourceModelImpl.getCompanyId()) };
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
+					args);
+			}
+		}
+
+		EntityCacheUtil.putResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
+			SourceImpl.class, source.getPrimaryKey(), source);
+
+		if (isNew) {
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
+				new Object[] { source.getUuid(), Long.valueOf(
+						source.getGroupId()) }, source);
+		}
+		else {
+			if ((sourceModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						sourceModelImpl.getOriginalUuid(),
+						Long.valueOf(sourceModelImpl.getOriginalGroupId())
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
+
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
+
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
+					new Object[] {
+						source.getUuid(), Long.valueOf(source.getGroupId())
+					}, source);
+			}
+		}
+
+		return source;
+	}
+
+	protected Source toUnwrappedModel(Source source) {
+		if (source instanceof SourceImpl) {
+			return source;
+		}
+
+		SourceImpl sourceImpl = new SourceImpl();
+
+		sourceImpl.setNew(source.isNew());
+		sourceImpl.setPrimaryKey(source.getPrimaryKey());
+
+		sourceImpl.setUuid(source.getUuid());
+		sourceImpl.setSourceId(source.getSourceId());
+		sourceImpl.setGroupId(source.getGroupId());
+		sourceImpl.setCompanyId(source.getCompanyId());
+		sourceImpl.setUserId(source.getUserId());
+		sourceImpl.setUserName(source.getUserName());
+		sourceImpl.setCreateDate(source.getCreateDate());
+		sourceImpl.setModifiedDate(source.getModifiedDate());
+		sourceImpl.setName(source.getName());
+		sourceImpl.setDriverClassName(source.getDriverClassName());
+		sourceImpl.setDriverUrl(source.getDriverUrl());
+		sourceImpl.setDriverUserName(source.getDriverUserName());
+		sourceImpl.setDriverPassword(source.getDriverPassword());
+
+		return sourceImpl;
+	}
+
+	/**
+	 * Returns the source with the primary key or throws a {@link com.liferay.portal.NoSuchModelException} if it could not be found.
+	 *
+	 * @param primaryKey the primary key of the source
+	 * @return the source
+	 * @throws com.liferay.portal.NoSuchModelException if a source with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Source findByPrimaryKey(Serializable primaryKey)
+		throws NoSuchModelException, SystemException {
+		return findByPrimaryKey(((Long)primaryKey).longValue());
+	}
+
+	/**
+	 * Returns the source with the primary key or throws a {@link com.liferay.reports.NoSuchSourceException} if it could not be found.
+	 *
+	 * @param sourceId the primary key of the source
+	 * @return the source
+	 * @throws com.liferay.reports.NoSuchSourceException if a source with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Source findByPrimaryKey(long sourceId)
+		throws NoSuchSourceException, SystemException {
+		Source source = fetchByPrimaryKey(sourceId);
+
+		if (source == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + sourceId);
+			}
+
+			throw new NoSuchSourceException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+				sourceId);
+		}
+
+		return source;
+	}
+
+	/**
+	 * Returns the source with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param primaryKey the primary key of the source
+	 * @return the source, or <code>null</code> if a source with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Source fetchByPrimaryKey(Serializable primaryKey)
+		throws SystemException {
+		return fetchByPrimaryKey(((Long)primaryKey).longValue());
+	}
+
+	/**
+	 * Returns the source with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param sourceId the primary key of the source
+	 * @return the source, or <code>null</code> if a source with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Source fetchByPrimaryKey(long sourceId) throws SystemException {
+		Source source = (Source)EntityCacheUtil.getResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
+				SourceImpl.class, sourceId);
+
+		if (source == _nullSource) {
+			return null;
+		}
+
+		if (source == null) {
+			Session session = null;
+
+			boolean hasException = false;
+
+			try {
+				session = openSession();
+
+				source = (Source)session.get(SourceImpl.class,
+						Long.valueOf(sourceId));
+			}
+			catch (Exception e) {
+				hasException = true;
+
+				throw processException(e);
+			}
+			finally {
+				if (source != null) {
+					cacheResult(source);
+				}
+				else if (!hasException) {
+					EntityCacheUtil.putResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
+						SourceImpl.class, sourceId, _nullSource);
+				}
+
+				closeSession(session);
+			}
+		}
+
+		return source;
+	}
+
+	/**
 	 * Returns all the sources.
 	 *
 	 * @return the sources
@@ -2763,71 +3207,6 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	}
 
 	/**
-	 * Removes all the sources where uuid = &#63; from the database.
-	 *
-	 * @param uuid the uuid
-	 * @throws SystemException if a system exception occurred
-	 */
-	public void removeByUuid(String uuid) throws SystemException {
-		for (Source source : findByUuid(uuid)) {
-			remove(source);
-		}
-	}
-
-	/**
-	 * Removes the source where uuid = &#63; and groupId = &#63; from the database.
-	 *
-	 * @param uuid the uuid
-	 * @param groupId the group ID
-	 * @return the source that was removed
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Source removeByUUID_G(String uuid, long groupId)
-		throws NoSuchSourceException, SystemException {
-		Source source = findByUUID_G(uuid, groupId);
-
-		return remove(source);
-	}
-
-	/**
-	 * Removes all the sources where uuid = &#63; and companyId = &#63; from the database.
-	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
-	 * @throws SystemException if a system exception occurred
-	 */
-	public void removeByUuid_C(String uuid, long companyId)
-		throws SystemException {
-		for (Source source : findByUuid_C(uuid, companyId)) {
-			remove(source);
-		}
-	}
-
-	/**
-	 * Removes all the sources where groupId = &#63; from the database.
-	 *
-	 * @param groupId the group ID
-	 * @throws SystemException if a system exception occurred
-	 */
-	public void removeByGroupId(long groupId) throws SystemException {
-		for (Source source : findByGroupId(groupId)) {
-			remove(source);
-		}
-	}
-
-	/**
-	 * Removes all the sources where companyId = &#63; from the database.
-	 *
-	 * @param companyId the company ID
-	 * @throws SystemException if a system exception occurred
-	 */
-	public void removeByCompanyId(long companyId) throws SystemException {
-		for (Source source : findByCompanyId(companyId)) {
-			remove(source);
-		}
-	}
-
-	/**
 	 * Removes all the sources from the database.
 	 *
 	 * @throws SystemException if a system exception occurred
@@ -2836,367 +3215,6 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		for (Source source : findAll()) {
 			remove(source);
 		}
-	}
-
-	/**
-	 * Returns the number of sources where uuid = &#63;.
-	 *
-	 * @param uuid the uuid
-	 * @return the number of matching sources
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByUuid(String uuid) throws SystemException {
-		Object[] finderArgs = new Object[] { uuid };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_UUID,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_SOURCE_WHERE);
-
-			if (uuid == null) {
-				query.append(_FINDER_COLUMN_UUID_UUID_1);
-			}
-			else {
-				if (uuid.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_UUID_UUID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_UUID_UUID_2);
-				}
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (uuid != null) {
-					qPos.add(uuid);
-				}
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	/**
-	 * Returns the number of sources where uuid = &#63; and groupId = &#63;.
-	 *
-	 * @param uuid the uuid
-	 * @param groupId the group ID
-	 * @return the number of matching sources
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByUUID_G(String uuid, long groupId)
-		throws SystemException {
-		Object[] finderArgs = new Object[] { uuid, groupId };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_UUID_G,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(3);
-
-			query.append(_SQL_COUNT_SOURCE_WHERE);
-
-			if (uuid == null) {
-				query.append(_FINDER_COLUMN_UUID_G_UUID_1);
-			}
-			else {
-				if (uuid.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_UUID_G_UUID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_UUID_G_UUID_2);
-				}
-			}
-
-			query.append(_FINDER_COLUMN_UUID_G_GROUPID_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (uuid != null) {
-					qPos.add(uuid);
-				}
-
-				qPos.add(groupId);
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_G,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	/**
-	 * Returns the number of sources where uuid = &#63; and companyId = &#63;.
-	 *
-	 * @param uuid the uuid
-	 * @param companyId the company ID
-	 * @return the number of matching sources
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByUuid_C(String uuid, long companyId)
-		throws SystemException {
-		Object[] finderArgs = new Object[] { uuid, companyId };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_UUID_C,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(3);
-
-			query.append(_SQL_COUNT_SOURCE_WHERE);
-
-			if (uuid == null) {
-				query.append(_FINDER_COLUMN_UUID_C_UUID_1);
-			}
-			else {
-				if (uuid.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_UUID_C_UUID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_UUID_C_UUID_2);
-				}
-			}
-
-			query.append(_FINDER_COLUMN_UUID_C_COMPANYID_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (uuid != null) {
-					qPos.add(uuid);
-				}
-
-				qPos.add(companyId);
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_C,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	/**
-	 * Returns the number of sources where groupId = &#63;.
-	 *
-	 * @param groupId the group ID
-	 * @return the number of matching sources
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByGroupId(long groupId) throws SystemException {
-		Object[] finderArgs = new Object[] { groupId };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_GROUPID,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_SOURCE_WHERE);
-
-			query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(groupId);
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_GROUPID,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	/**
-	 * Returns the number of sources that the user has permission to view where groupId = &#63;.
-	 *
-	 * @param groupId the group ID
-	 * @return the number of matching sources that the user has permission to view
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int filterCountByGroupId(long groupId) throws SystemException {
-		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
-			return countByGroupId(groupId);
-		}
-
-		StringBundler query = new StringBundler(2);
-
-		query.append(_FILTER_SQL_COUNT_SOURCE_WHERE);
-
-		query.append(_FINDER_COLUMN_GROUPID_GROUPID_2);
-
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				Source.class.getName(), _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN,
-				groupId);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			SQLQuery q = session.createSQLQuery(sql);
-
-			q.addScalar(COUNT_COLUMN_NAME,
-				com.liferay.portal.kernel.dao.orm.Type.LONG);
-
-			QueryPos qPos = QueryPos.getInstance(q);
-
-			qPos.add(groupId);
-
-			Long count = (Long)q.uniqueResult();
-
-			return count.intValue();
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	/**
-	 * Returns the number of sources where companyId = &#63;.
-	 *
-	 * @param companyId the company ID
-	 * @return the number of matching sources
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByCompanyId(long companyId) throws SystemException {
-		Object[] finderArgs = new Object[] { companyId };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_COMPANYID,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_SOURCE_WHERE);
-
-			query.append(_FINDER_COLUMN_COMPANYID_COMPANYID_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(companyId);
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_COMPANYID,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
 	}
 
 	/**
@@ -3280,19 +3298,6 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	private static final String _SQL_SELECT_SOURCE_WHERE = "SELECT source FROM Source source WHERE ";
 	private static final String _SQL_COUNT_SOURCE = "SELECT COUNT(source) FROM Source source";
 	private static final String _SQL_COUNT_SOURCE_WHERE = "SELECT COUNT(source) FROM Source source WHERE ";
-	private static final String _FINDER_COLUMN_UUID_UUID_1 = "source.uuid IS NULL";
-	private static final String _FINDER_COLUMN_UUID_UUID_2 = "source.uuid = ?";
-	private static final String _FINDER_COLUMN_UUID_UUID_3 = "(source.uuid IS NULL OR source.uuid = ?)";
-	private static final String _FINDER_COLUMN_UUID_G_UUID_1 = "source.uuid IS NULL AND ";
-	private static final String _FINDER_COLUMN_UUID_G_UUID_2 = "source.uuid = ? AND ";
-	private static final String _FINDER_COLUMN_UUID_G_UUID_3 = "(source.uuid IS NULL OR source.uuid = ?) AND ";
-	private static final String _FINDER_COLUMN_UUID_G_GROUPID_2 = "source.groupId = ?";
-	private static final String _FINDER_COLUMN_UUID_C_UUID_1 = "source.uuid IS NULL AND ";
-	private static final String _FINDER_COLUMN_UUID_C_UUID_2 = "source.uuid = ? AND ";
-	private static final String _FINDER_COLUMN_UUID_C_UUID_3 = "(source.uuid IS NULL OR source.uuid = ?) AND ";
-	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 = "source.companyId = ?";
-	private static final String _FINDER_COLUMN_GROUPID_GROUPID_2 = "source.groupId = ?";
-	private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 = "source.companyId = ?";
 	private static final String _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN = "source.sourceId";
 	private static final String _FILTER_SQL_SELECT_SOURCE_WHERE = "SELECT DISTINCT {source.*} FROM Reports_Source source WHERE ";
 	private static final String _FILTER_SQL_SELECT_SOURCE_NO_INLINE_DISTINCT_WHERE_1 =
