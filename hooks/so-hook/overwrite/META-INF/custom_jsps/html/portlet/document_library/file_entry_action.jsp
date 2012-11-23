@@ -190,7 +190,7 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 
 					<liferay-ui:icon
 						image="edit"
-						url="editURL"
+						url="<%= editURL %>"
 					/>
 				</c:if>
 
