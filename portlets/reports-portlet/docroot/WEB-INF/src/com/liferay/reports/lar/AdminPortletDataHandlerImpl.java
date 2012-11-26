@@ -30,13 +30,13 @@ import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.portal.model.CompanyConstants;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portlet.documentlibrary.store.DLStoreUtil;
-import com.liferay.reports.PortletConstants;
 import com.liferay.reports.model.Definition;
 import com.liferay.reports.model.Source;
 import com.liferay.reports.service.DefinitionLocalServiceUtil;
 import com.liferay.reports.service.SourceLocalServiceUtil;
 import com.liferay.reports.service.persistence.DefinitionUtil;
 import com.liferay.reports.service.persistence.SourceUtil;
+import com.liferay.reports.util.PortletKeys;
 
 import java.io.InputStream;
 
@@ -240,8 +240,7 @@ public class AdminPortletDataHandlerImpl extends BasePortletDataHandler {
 
 		StringBundler sb = new StringBundler(5);
 
-		sb.append(
-			portletDataContext.getPortletPath(PortletConstants.PORTLET_KEY));
+		sb.append(portletDataContext.getPortletPath(PortletKeys.REPORTS_ADMIN));
 		sb.append("/bin/");
 		sb.append(definition.getDefinitionId());
 		sb.append(StringPool.SLASH);
@@ -255,8 +254,7 @@ public class AdminPortletDataHandlerImpl extends BasePortletDataHandler {
 
 		StringBundler sb = new StringBundler(4);
 
-		sb.append(
-			portletDataContext.getPortletPath(PortletConstants.PORTLET_KEY));
+		sb.append(portletDataContext.getPortletPath(PortletKeys.REPORTS_ADMIN));
 		sb.append("/definitions/");
 		sb.append(definition.getDefinitionId());
 		sb.append(".xml");
@@ -269,8 +267,7 @@ public class AdminPortletDataHandlerImpl extends BasePortletDataHandler {
 
 		StringBundler sb = new StringBundler(4);
 
-		sb.append(
-			portletDataContext.getPortletPath(PortletConstants.PORTLET_KEY));
+		sb.append(portletDataContext.getPortletPath(PortletKeys.REPORTS_ADMIN));
 		sb.append("/sources/");
 		sb.append(source.getSourceId());
 		sb.append(".xml");
@@ -284,10 +281,7 @@ public class AdminPortletDataHandlerImpl extends BasePortletDataHandler {
 		throws Exception {
 
 		long userId = portletDataContext.getUserId(definition.getUserUuid());
-		long sourceId = MapUtil.getLong(
-			sourceIds, definition.getSourceId(),
-			PortletConstants.PORTAL_DATA_SOURCE_ID);
-
+		long sourceId = MapUtil.getLong(sourceIds, definition.getSourceId());
 		String fileName = null;
 		InputStream inputStream = null;
 
@@ -318,7 +312,8 @@ public class AdminPortletDataHandlerImpl extends BasePortletDataHandler {
 
 					importedDefinition =
 						DefinitionLocalServiceUtil.addDefinition(
-							userId, definition.getNameMap(),
+							userId, portletDataContext.getScopeGroupId(),
+							definition.getNameMap(),
 							definition.getDescriptionMap(), sourceId,
 							definition.getReportParameters(), fileName,
 							inputStream, serviceContext);
@@ -335,10 +330,10 @@ public class AdminPortletDataHandlerImpl extends BasePortletDataHandler {
 			}
 			else {
 				importedDefinition = DefinitionLocalServiceUtil.addDefinition(
-					userId, definition.getNameMap(),
-					definition.getDescriptionMap(), sourceId,
-					definition.getReportParameters(), fileName, inputStream,
-					serviceContext);
+					userId, portletDataContext.getScopeGroupId(),
+					definition.getNameMap(), definition.getDescriptionMap(),
+					sourceId, definition.getReportParameters(), fileName,
+					inputStream, serviceContext);
 			}
 
 			portletDataContext.importClassedModel(
@@ -369,7 +364,8 @@ public class AdminPortletDataHandlerImpl extends BasePortletDataHandler {
 				serviceContext.setUuid(source.getUuid());
 
 				importedSource = SourceLocalServiceUtil.addSource(
-					userId, source.getNameMap(), source.getDriverClassName(),
+					userId, portletDataContext.getScopeGroupId(),
+					source.getNameMap(), source.getDriverClassName(),
 					source.getDriverUrl(), source.getDriverUserName(),
 					source.getDriverPassword(), serviceContext);
 			}
@@ -383,7 +379,8 @@ public class AdminPortletDataHandlerImpl extends BasePortletDataHandler {
 		}
 		else {
 			importedSource = SourceLocalServiceUtil.addSource(
-				userId, source.getNameMap(), source.getDriverClassName(),
+				userId, portletDataContext.getScopeGroupId(),
+				source.getNameMap(), source.getDriverClassName(),
 				source.getDriverUrl(), source.getDriverUserName(),
 				source.getDriverPassword(), serviceContext);
 		}

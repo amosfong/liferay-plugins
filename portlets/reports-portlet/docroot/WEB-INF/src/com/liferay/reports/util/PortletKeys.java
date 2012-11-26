@@ -12,24 +12,13 @@
  * details.
  */
 
-package com.liferay.reports;
+package com.liferay.reports.util;
 
 /**
- * @author Michael C. Han
- * @author Gavin Wan
+ * @author Brian Wing Shun Chan
  */
-public class PortletConstants {
+public class PortletKeys extends com.liferay.portal.util.PortletKeys {
 
-	public static final String DATA_SOURCE = "data_source";
-
-	public static final String DEFINITION = "definition";
-
-	public static final String FILE_NAME = "file_name";
-
-	public static final long PORTAL_DATA_SOURCE_ID = 0;
-
-	public static final String PORTLET_KEY = "1_WAR_reportsportlet";
-
-	public static final String REQUEST_PROCESSED = "request_processed";
+	public static final String REPORTS_ADMIN = "1_WAR_reportsportlet";
 
 }
