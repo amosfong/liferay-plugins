@@ -62,7 +62,7 @@ public class SourceServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
-	public static com.liferay.reports.model.Source addSource(
+	public static com.liferay.reports.model.Source addSource(long groupId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.lang.String driverClassName, java.lang.String driverUrl,
 		java.lang.String driverUserName, java.lang.String driverPassword,
@@ -70,7 +70,7 @@ public class SourceServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .addSource(nameMap, driverClassName, driverUrl,
+				   .addSource(groupId, nameMap, driverClassName, driverUrl,
 			driverUserName, driverPassword, serviceContext);
 	}
 

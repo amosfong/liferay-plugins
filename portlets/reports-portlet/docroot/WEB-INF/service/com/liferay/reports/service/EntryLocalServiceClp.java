@@ -103,10 +103,10 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		_methodName18 = "addEntry";
 
 		_methodParameterTypes18 = new String[] {
-				"long", "long", "java.lang.String", "boolean", "java.util.Date",
-				"java.util.Date", "boolean", "java.lang.String",
+				"long", "long", "long", "java.lang.String", "boolean",
+				"java.util.Date", "java.util.Date", "boolean",
 				"java.lang.String", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.lang.String",
+				"java.lang.String", "java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
@@ -667,7 +667,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		throw new UnsupportedOperationException();
 	}
 
-	public com.liferay.reports.model.Entry addEntry(long userId,
+	public com.liferay.reports.model.Entry addEntry(long userId, long groupId,
 		long definitionId, java.lang.String format, boolean schedulerRequest,
 		java.util.Date startDate, java.util.Date endDate, boolean repeating,
 		java.lang.String recurrence, java.lang.String emailNotifications,
@@ -683,6 +683,8 @@ public class EntryLocalServiceClp implements EntryLocalService {
 					_methodParameterTypes18,
 					new Object[] {
 						userId,
+						
+					groupId,
 						
 					definitionId,
 						

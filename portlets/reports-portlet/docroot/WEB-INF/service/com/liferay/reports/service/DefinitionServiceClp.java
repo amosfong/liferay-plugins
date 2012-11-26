@@ -34,8 +34,8 @@ public class DefinitionServiceClp implements DefinitionService {
 		_methodName3 = "addDefinition";
 
 		_methodParameterTypes3 = new String[] {
-				"java.util.Map", "java.util.Map", "long", "java.lang.String",
-				"java.lang.String", "java.io.InputStream",
+				"long", "java.util.Map", "java.util.Map", "long",
+				"java.lang.String", "java.lang.String", "java.io.InputStream",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
@@ -114,7 +114,7 @@ public class DefinitionServiceClp implements DefinitionService {
 		throw new UnsupportedOperationException();
 	}
 
-	public com.liferay.reports.model.Definition addDefinition(
+	public com.liferay.reports.model.Definition addDefinition(long groupId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
 		long sourceId, java.lang.String reportParameters,
@@ -128,7 +128,9 @@ public class DefinitionServiceClp implements DefinitionService {
 			returnObj = _invokableService.invokeMethod(_methodName3,
 					_methodParameterTypes3,
 					new Object[] {
-						ClpSerializer.translateInput(nameMap),
+						groupId,
+						
+					ClpSerializer.translateInput(nameMap),
 						
 					ClpSerializer.translateInput(descriptionMap),
 						

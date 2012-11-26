@@ -55,15 +55,15 @@ public class SourceServiceWrapper implements SourceService,
 		return _sourceService.invokeMethod(name, parameterTypes, arguments);
 	}
 
-	public com.liferay.reports.model.Source addSource(
+	public com.liferay.reports.model.Source addSource(long groupId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.lang.String driverClassName, java.lang.String driverUrl,
 		java.lang.String driverUserName, java.lang.String driverPassword,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _sourceService.addSource(nameMap, driverClassName, driverUrl,
-			driverUserName, driverPassword, serviceContext);
+		return _sourceService.addSource(groupId, nameMap, driverClassName,
+			driverUrl, driverUserName, driverPassword, serviceContext);
 	}
 
 	public com.liferay.reports.model.Source deleteSource(long sourceId)

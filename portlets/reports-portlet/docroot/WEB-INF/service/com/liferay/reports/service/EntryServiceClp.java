@@ -34,7 +34,7 @@ public class EntryServiceClp implements EntryService {
 		_methodName3 = "addEntry";
 
 		_methodParameterTypes3 = new String[] {
-				"long", "java.lang.String", "boolean", "java.util.Date",
+				"long", "long", "java.lang.String", "boolean", "java.util.Date",
 				"java.util.Date", "boolean", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String",
@@ -116,8 +116,8 @@ public class EntryServiceClp implements EntryService {
 		throw new UnsupportedOperationException();
 	}
 
-	public com.liferay.reports.model.Entry addEntry(long definitionId,
-		java.lang.String format, boolean schedulerRequest,
+	public com.liferay.reports.model.Entry addEntry(long groupId,
+		long definitionId, java.lang.String format, boolean schedulerRequest,
 		java.util.Date startDate, java.util.Date endDate, boolean repeating,
 		java.lang.String recurrence, java.lang.String emailNotifications,
 		java.lang.String emailDelivery, java.lang.String portletId,
@@ -131,7 +131,9 @@ public class EntryServiceClp implements EntryService {
 			returnObj = _invokableService.invokeMethod(_methodName3,
 					_methodParameterTypes3,
 					new Object[] {
-						definitionId,
+						groupId,
+						
+					definitionId,
 						
 					ClpSerializer.translateInput(format),
 						

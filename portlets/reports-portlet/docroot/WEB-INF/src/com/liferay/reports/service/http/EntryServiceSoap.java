@@ -64,7 +64,7 @@ import java.rmi.RemoteException;
  * @generated
  */
 public class EntryServiceSoap {
-	public static com.liferay.reports.model.EntrySoap addEntry(
+	public static com.liferay.reports.model.EntrySoap addEntry(long groupId,
 		long definitionId, java.lang.String format, boolean schedulerRequest,
 		java.util.Date startDate, java.util.Date endDate, boolean repeating,
 		java.lang.String recurrence, java.lang.String emailNotifications,
@@ -73,10 +73,10 @@ public class EntryServiceSoap {
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
-			com.liferay.reports.model.Entry returnValue = EntryServiceUtil.addEntry(definitionId,
-					format, schedulerRequest, startDate, endDate, repeating,
-					recurrence, emailNotifications, emailDelivery, portletId,
-					pageURL, reportParameters, serviceContext);
+			com.liferay.reports.model.Entry returnValue = EntryServiceUtil.addEntry(groupId,
+					definitionId, format, schedulerRequest, startDate, endDate,
+					repeating, recurrence, emailNotifications, emailDelivery,
+					portletId, pageURL, reportParameters, serviceContext);
 
 			return com.liferay.reports.model.EntrySoap.toSoapModel(returnValue);
 		}

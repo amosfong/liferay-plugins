@@ -55,8 +55,8 @@ public class EntryServiceWrapper implements EntryService,
 		return _entryService.invokeMethod(name, parameterTypes, arguments);
 	}
 
-	public com.liferay.reports.model.Entry addEntry(long definitionId,
-		java.lang.String format, boolean schedulerRequest,
+	public com.liferay.reports.model.Entry addEntry(long groupId,
+		long definitionId, java.lang.String format, boolean schedulerRequest,
 		java.util.Date startDate, java.util.Date endDate, boolean repeating,
 		java.lang.String recurrence, java.lang.String emailNotifications,
 		java.lang.String emailDelivery, java.lang.String portletId,
@@ -64,9 +64,10 @@ public class EntryServiceWrapper implements EntryService,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _entryService.addEntry(definitionId, format, schedulerRequest,
-			startDate, endDate, repeating, recurrence, emailNotifications,
-			emailDelivery, portletId, pageURL, reportParameters, serviceContext);
+		return _entryService.addEntry(groupId, definitionId, format,
+			schedulerRequest, startDate, endDate, repeating, recurrence,
+			emailNotifications, emailDelivery, portletId, pageURL,
+			reportParameters, serviceContext);
 	}
 
 	public void deleteAttachment(long companyId, long entryId,

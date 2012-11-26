@@ -34,7 +34,7 @@ public class SourceServiceClp implements SourceService {
 		_methodName3 = "addSource";
 
 		_methodParameterTypes3 = new String[] {
-				"java.util.Map", "java.lang.String", "java.lang.String",
+				"long", "java.util.Map", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -112,7 +112,7 @@ public class SourceServiceClp implements SourceService {
 		throw new UnsupportedOperationException();
 	}
 
-	public com.liferay.reports.model.Source addSource(
+	public com.liferay.reports.model.Source addSource(long groupId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.lang.String driverClassName, java.lang.String driverUrl,
 		java.lang.String driverUserName, java.lang.String driverPassword,
@@ -125,7 +125,9 @@ public class SourceServiceClp implements SourceService {
 			returnObj = _invokableService.invokeMethod(_methodName3,
 					_methodParameterTypes3,
 					new Object[] {
-						ClpSerializer.translateInput(nameMap),
+						groupId,
+						
+					ClpSerializer.translateInput(nameMap),
 						
 					ClpSerializer.translateInput(driverClassName),
 						

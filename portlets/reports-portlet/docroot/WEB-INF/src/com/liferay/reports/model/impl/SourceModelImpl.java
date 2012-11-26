@@ -87,6 +87,8 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 		};
 	public static final String TABLE_SQL_CREATE = "create table Reports_Source (uuid_ VARCHAR(75) null,sourceId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name STRING null,driverClassName VARCHAR(75) null,driverUrl STRING null,driverUserName VARCHAR(75) null,driverPassword VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table Reports_Source";
+	public static final String ORDER_BY_JPQL = " ORDER BY source.sourceId ASC";
+	public static final String ORDER_BY_SQL = " ORDER BY Reports_Source.sourceId ASC";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
@@ -102,6 +104,7 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 	public static long COMPANYID_COLUMN_BITMASK = 1L;
 	public static long GROUPID_COLUMN_BITMASK = 2L;
 	public static long UUID_COLUMN_BITMASK = 4L;
+	public static long SOURCEID_COLUMN_BITMASK = 8L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.

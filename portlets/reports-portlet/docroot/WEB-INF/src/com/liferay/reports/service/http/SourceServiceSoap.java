@@ -68,7 +68,7 @@ import java.util.Map;
  * @generated
  */
 public class SourceServiceSoap {
-	public static com.liferay.reports.model.SourceSoap addSource(
+	public static com.liferay.reports.model.SourceSoap addSource(long groupId,
 		java.lang.String[] nameMapLanguageIds,
 		java.lang.String[] nameMapValues, java.lang.String driverClassName,
 		java.lang.String driverUrl, java.lang.String driverUserName,
@@ -79,9 +79,9 @@ public class SourceServiceSoap {
 			Map<Locale, String> nameMap = LocalizationUtil.getLocalizationMap(nameMapLanguageIds,
 					nameMapValues);
 
-			com.liferay.reports.model.Source returnValue = SourceServiceUtil.addSource(nameMap,
-					driverClassName, driverUrl, driverUserName, driverPassword,
-					serviceContext);
+			com.liferay.reports.model.Source returnValue = SourceServiceUtil.addSource(groupId,
+					nameMap, driverClassName, driverUrl, driverUserName,
+					driverPassword, serviceContext);
 
 			return com.liferay.reports.model.SourceSoap.toSoapModel(returnValue);
 		}

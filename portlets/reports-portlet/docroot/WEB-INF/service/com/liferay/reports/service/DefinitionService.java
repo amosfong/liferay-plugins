@@ -66,7 +66,7 @@ public interface DefinitionService extends BaseService, InvokableService {
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
 
-	public com.liferay.reports.model.Definition addDefinition(
+	public com.liferay.reports.model.Definition addDefinition(long groupId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
 		long sourceId, java.lang.String reportParameters,

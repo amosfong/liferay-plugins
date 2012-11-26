@@ -114,7 +114,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		_methodName19 = "addDefinition";
 
 		_methodParameterTypes19 = new String[] {
-				"long", "java.util.Map", "java.util.Map", "long",
+				"long", "long", "java.util.Map", "java.util.Map", "long",
 				"java.lang.String", "java.lang.String", "java.io.InputStream",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -690,6 +690,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 	}
 
 	public com.liferay.reports.model.Definition addDefinition(long userId,
+		long groupId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
 		long sourceId, java.lang.String reportParameters,
@@ -704,6 +705,8 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 					_methodParameterTypes19,
 					new Object[] {
 						userId,
+						
+					groupId,
 						
 					ClpSerializer.translateInput(nameMap),
 						

@@ -34,7 +34,7 @@ public class SourceServiceClpInvoker {
 		_methodName36 = "addSource";
 
 		_methodParameterTypes36 = new String[] {
-				"java.util.Map", "java.lang.String", "java.lang.String",
+				"long", "java.util.Map", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -81,10 +81,11 @@ public class SourceServiceClpInvoker {
 
 		if (_methodName36.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes36, parameterTypes)) {
-			return SourceServiceUtil.addSource((java.util.Map<java.util.Locale, java.lang.String>)arguments[0],
-				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
-				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
-				(com.liferay.portal.service.ServiceContext)arguments[5]);
+			return SourceServiceUtil.addSource(((Long)arguments[0]).longValue(),
+				(java.util.Map<java.util.Locale, java.lang.String>)arguments[1],
+				(java.lang.String)arguments[2], (java.lang.String)arguments[3],
+				(java.lang.String)arguments[4], (java.lang.String)arguments[5],
+				(com.liferay.portal.service.ServiceContext)arguments[6]);
 		}
 
 		if (_methodName37.equals(name) &&

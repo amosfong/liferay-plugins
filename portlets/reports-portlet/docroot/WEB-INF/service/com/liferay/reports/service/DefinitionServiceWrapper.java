@@ -55,7 +55,7 @@ public class DefinitionServiceWrapper implements DefinitionService,
 		return _definitionService.invokeMethod(name, parameterTypes, arguments);
 	}
 
-	public com.liferay.reports.model.Definition addDefinition(
+	public com.liferay.reports.model.Definition addDefinition(long groupId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
 		long sourceId, java.lang.String reportParameters,
@@ -63,8 +63,9 @@ public class DefinitionServiceWrapper implements DefinitionService,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _definitionService.addDefinition(nameMap, descriptionMap,
-			sourceId, reportParameters, fileName, inputStream, serviceContext);
+		return _definitionService.addDefinition(groupId, nameMap,
+			descriptionMap, sourceId, reportParameters, fileName, inputStream,
+			serviceContext);
 	}
 
 	public com.liferay.reports.model.Definition deleteDefinition(

@@ -113,7 +113,7 @@ public class DefinitionLocalServiceClpInvoker {
 		_methodName52 = "addDefinition";
 
 		_methodParameterTypes52 = new String[] {
-				"long", "java.util.Map", "java.util.Map", "long",
+				"long", "long", "java.util.Map", "java.util.Map", "long",
 				"java.lang.String", "java.lang.String", "java.io.InputStream",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -267,12 +267,13 @@ public class DefinitionLocalServiceClpInvoker {
 		if (_methodName52.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
 			return DefinitionLocalServiceUtil.addDefinition(((Long)arguments[0]).longValue(),
-				(java.util.Map<java.util.Locale, java.lang.String>)arguments[1],
+				((Long)arguments[1]).longValue(),
 				(java.util.Map<java.util.Locale, java.lang.String>)arguments[2],
-				((Long)arguments[3]).longValue(),
-				(java.lang.String)arguments[4], (java.lang.String)arguments[5],
-				(java.io.InputStream)arguments[6],
-				(com.liferay.portal.service.ServiceContext)arguments[7]);
+				(java.util.Map<java.util.Locale, java.lang.String>)arguments[3],
+				((Long)arguments[4]).longValue(),
+				(java.lang.String)arguments[5], (java.lang.String)arguments[6],
+				(java.io.InputStream)arguments[7],
+				(com.liferay.portal.service.ServiceContext)arguments[8]);
 		}
 
 		if (_methodName53.equals(name) &&

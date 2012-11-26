@@ -34,7 +34,7 @@ public class EntryServiceClpInvoker {
 		_methodName42 = "addEntry";
 
 		_methodParameterTypes42 = new String[] {
-				"long", "java.lang.String", "boolean", "java.util.Date",
+				"long", "long", "java.lang.String", "boolean", "java.util.Date",
 				"java.util.Date", "boolean", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String",
@@ -88,15 +88,17 @@ public class EntryServiceClpInvoker {
 		if (_methodName42.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
 			return EntryServiceUtil.addEntry(((Long)arguments[0]).longValue(),
-				(java.lang.String)arguments[1],
-				((Boolean)arguments[2]).booleanValue(),
-				(java.util.Date)arguments[3], (java.util.Date)arguments[4],
-				((Boolean)arguments[5]).booleanValue(),
-				(java.lang.String)arguments[6], (java.lang.String)arguments[7],
-				(java.lang.String)arguments[8], (java.lang.String)arguments[9],
+				((Long)arguments[1]).longValue(),
+				(java.lang.String)arguments[2],
+				((Boolean)arguments[3]).booleanValue(),
+				(java.util.Date)arguments[4], (java.util.Date)arguments[5],
+				((Boolean)arguments[6]).booleanValue(),
+				(java.lang.String)arguments[7], (java.lang.String)arguments[8],
+				(java.lang.String)arguments[9],
 				(java.lang.String)arguments[10],
 				(java.lang.String)arguments[11],
-				(com.liferay.portal.service.ServiceContext)arguments[12]);
+				(java.lang.String)arguments[12],
+				(com.liferay.portal.service.ServiceContext)arguments[13]);
 		}
 
 		if (_methodName43.equals(name) &&

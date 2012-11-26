@@ -109,8 +109,8 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		_methodName19 = "addSource";
 
 		_methodParameterTypes19 = new String[] {
-				"long", "java.util.Map", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.lang.String",
+				"long", "long", "java.util.Map", "java.lang.String",
+				"java.lang.String", "java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
@@ -669,6 +669,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 	}
 
 	public com.liferay.reports.model.Source addSource(long userId,
+		long groupId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.lang.String driverClassName, java.lang.String driverUrl,
 		java.lang.String driverUserName, java.lang.String driverPassword,
@@ -682,6 +683,8 @@ public class SourceLocalServiceClp implements SourceLocalService {
 					_methodParameterTypes19,
 					new Object[] {
 						userId,
+						
+					groupId,
 						
 					ClpSerializer.translateInput(nameMap),
 						

@@ -63,6 +63,7 @@ public class DefinitionServiceUtil {
 	}
 
 	public static com.liferay.reports.model.Definition addDefinition(
+		long groupId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
 		long sourceId, java.lang.String reportParameters,
@@ -71,7 +72,7 @@ public class DefinitionServiceUtil {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .addDefinition(nameMap, descriptionMap, sourceId,
+				   .addDefinition(groupId, nameMap, descriptionMap, sourceId,
 			reportParameters, fileName, inputStream, serviceContext);
 	}
 

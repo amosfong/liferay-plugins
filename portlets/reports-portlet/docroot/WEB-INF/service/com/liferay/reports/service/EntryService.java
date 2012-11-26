@@ -66,8 +66,8 @@ public interface EntryService extends BaseService, InvokableService {
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
 
-	public com.liferay.reports.model.Entry addEntry(long definitionId,
-		java.lang.String format, boolean schedulerRequest,
+	public com.liferay.reports.model.Entry addEntry(long groupId,
+		long definitionId, java.lang.String format, boolean schedulerRequest,
 		java.util.Date startDate, java.util.Date endDate, boolean repeating,
 		java.lang.String recurrence, java.lang.String emailNotifications,
 		java.lang.String emailDelivery, java.lang.String portletId,
