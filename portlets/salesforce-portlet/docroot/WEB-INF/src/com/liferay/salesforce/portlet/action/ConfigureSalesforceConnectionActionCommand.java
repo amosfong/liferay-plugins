@@ -26,9 +26,8 @@ import com.liferay.salesforce.connection.SalesforceConnectionManager;
 import com.liferay.salesforce.service.ClpSerializer;
 import com.liferay.salesforce.util.PortletPropsKeys;
 import com.liferay.salesforce.util.PrefsPortletPropsUtil;
-import com.liferay.util.bridges.mvc.ActionCommand;
+import com.liferay.util.bridges.mvc.BaseActionCommand;
 
-import javax.portlet.PortletException;
 import javax.portlet.PortletPreferences;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
@@ -37,21 +36,7 @@ import javax.portlet.PortletResponse;
  * @author Michael C. Han
  */
 public class ConfigureSalesforceConnectionActionCommand
-	implements ActionCommand {
-
-	public boolean processCommand(
-			PortletRequest portletRequest, PortletResponse portletResponse)
-		throws PortletException {
-
-		try {
-			doProcessCommand(portletRequest, portletResponse);
-
-			return true;
-		}
-		catch (Exception e) {
-			throw new PortletException(e);
-		}
-	}
+	extends BaseActionCommand {
 
 	protected void doProcessCommand(
 			PortletRequest portletRequest, PortletResponse portletResponse)
@@ -108,9 +93,7 @@ public class ConfigureSalesforceConnectionActionCommand
 			return true;
 		}
 		catch (Exception e) {
-			if (_log.isErrorEnabled()) {
-				_log.error(e, e);
-			}
+			_log.error(e, e);
 		}
 
 		return false;
