@@ -1,5 +1,5 @@
 Liferay.Report = {
-	
+
 	deleteParameter: function(parameterKey, parameterValue, parameterType) {
 		var instance = this;
 
@@ -53,7 +53,7 @@ Liferay.Report = {
 				AUI().one('.cancelUpdateTemplateFile').setStyle('display', 'block');
 			}
 		);
-		
+
 		AUI().one('.cancelUpdateTemplateFile').on(
 			'click',
 			function() {
@@ -66,7 +66,7 @@ Liferay.Report = {
 
 		AUI().one('.parameters-input-type').on(
 			'change',
-			function(){
+			function() {
 				var parametersValueFieldSet = AUI().one('.parameters-value-field-set');
 				var parametersInputDate = AUI().one('.parameters-input-date');
 				var parametersValue = AUI().one('.parameters-value');
@@ -182,7 +182,7 @@ Liferay.Report = {
 
 		var reportParameter = {
 			key: parameterKey,
-			value: parameterValue, 
+			value: parameterValue,
 			type: parameterType
 		};
 

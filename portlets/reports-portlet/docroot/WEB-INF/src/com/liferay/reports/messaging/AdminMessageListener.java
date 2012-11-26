@@ -37,6 +37,7 @@ public class AdminMessageListener extends BaseMessageListener {
 		if (reportResultContainer.hasError()) {
 			ReportGenerationException reportGenerationException =
 				reportResultContainer.getReportGenerationException();
+
 			EntryLocalServiceUtil.updateEntryStatus(
 				entryId, ReportStatus.ERROR,
 				reportGenerationException.getMessage());

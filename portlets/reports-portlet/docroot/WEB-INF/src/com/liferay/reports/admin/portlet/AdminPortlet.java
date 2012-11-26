@@ -71,12 +71,13 @@ public class AdminPortlet extends MVCPortlet {
 
 		String shortFileName = StringUtil.extractLast(
 			fileName, StringPool.SLASH);
-		InputStream is = DLStoreUtil.getFileAsStream(
+		InputStream inputStream = DLStoreUtil.getFileAsStream(
 			themeDisplay.getCompanyId(), CompanyConstants.SYSTEM, fileName);
 		String contentType = MimeTypesUtil.getContentType(fileName);
 
 		PortletResponseUtil.sendFile(
-			resourceRequest, resourceResponse, shortFileName, is, contentType);
+			resourceRequest, resourceResponse, shortFileName, inputStream,
+			contentType);
 	}
 
 }
