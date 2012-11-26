@@ -14,46 +14,26 @@
 
 package com.liferay.reports.admin.portlet.action;
 
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.reports.NoSuchDefinitionException;
 import com.liferay.reports.service.DefinitionServiceUtil;
-import com.liferay.util.bridges.mvc.ActionCommand;
+import com.liferay.util.bridges.mvc.BaseActionCommand;
 
-import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 
 /**
  * @author Michael C. Han
  */
-public class DeleteDefinitionActionCommand implements ActionCommand {
+public class DeleteDefinitionActionCommand extends BaseActionCommand {
 
-	public boolean processCommand(
+	@Override
+	protected void doProcessCommand(
 			PortletRequest portletRequest, PortletResponse portletResponse)
-		throws PortletException {
+		throws Exception {
 
 		long definitionId = ParamUtil.getLong(portletRequest, "definitionId");
 
-		if (definitionId == -1) {
-			SessionErrors.add(
-				portletRequest, NoSuchDefinitionException.class.getName());
-
-			return false;
-		}
-
-		try {
-			DefinitionServiceUtil.deleteDefinition(definitionId);
-		}
-		catch (PortalException pe) {
-			SessionErrors.add(portletRequest, pe.getClass());
-		}
-		catch (Exception e) {
-			throw new PortletException(e);
-		}
-
-		return true;
+		DefinitionServiceUtil.deleteDefinition(definitionId);
 	}
 
 }

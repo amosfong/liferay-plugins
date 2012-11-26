@@ -31,9 +31,6 @@ long sourceId = ParamUtil.getLong(request, "sourceId");
 if (sourceId > 0) {
 	source = SourceLocalServiceUtil.getSource(sourceId);
 }
-else {
-	source = (Source)request.getAttribute(PortletConstants.DATA_SOURCE);
-}
 %>
 
 <aui:script>
@@ -46,9 +43,11 @@ else {
 			var url = "<portlet:renderURL windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>"><portlet:param name="mvcPath" value="/admin/data_source/test_database_connection.jsp" /></portlet:renderURL>";
 
 			var data = {};
+
 			<c:if test="<%= (source != null) %>">
 				data.<portlet:namespace />sourceId = document.<portlet:namespace />fm['<portlet:namespace />sourceId'].value;
 			</c:if>
+
 			data.<portlet:namespace />driverClassName = document.<portlet:namespace />fm['<portlet:namespace />driverClassName'].value;
 			data.<portlet:namespace />driverUrl = document.<portlet:namespace />fm['<portlet:namespace />driverUrl'].value;
 			data.<portlet:namespace />driverUserName = document.<portlet:namespace />fm['<portlet:namespace />driverUserName'].value;
@@ -88,17 +87,17 @@ else {
 	<portlet:param name="redirect" value="<%= searchSourcesURL %>" />
 </portlet:actionURL>
 
-<aui:form action="<%=actionURL %>" method="post" name="fm">
+<aui:form action="<%= actionURL %>" method="post" name="fm">
 	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (source == null) ? Constants.ADD : Constants.UPDATE %>" />
 	<c:if test="<%= (source != null) %>">
 		<aui:input name="sourceId" type="hidden" value="<%= source.getSourceId() %>" />
 	</c:if>
 
+	<liferay-ui:error exception="<%= SourceDriverClassNameException.class %>" message="please-enter-a-valid-data-source-driver" />
+	<liferay-ui:error exception="<%= SourceLoginException.class %>" message="please-enter-a-valid-user-name" />
 	<liferay-ui:error exception="<%= SourceNameException.class %>" message="please-enter-a-valid-data-source-name" />
 	<liferay-ui:error exception="<%= SourceTypeException.class %>" message="please-enter-a-valid-data-source-type" />
-	<liferay-ui:error exception="<%= SourceDriverClassNameException.class %>" message="please-enter-a-valid-data-source-driver" />
 	<liferay-ui:error exception="<%= SourceURLException.class %>" message="please-enter-a-valid-data-source-url" />
-	<liferay-ui:error exception="<%= SourceLoginException.class %>" message="please-enter-a-valid-user-name" />
 
 	<aui:fieldset>
 		<aui:field-wrapper label="data-source-name">

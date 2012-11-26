@@ -14,46 +14,26 @@
 
 package com.liferay.reports.admin.portlet.action;
 
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.reports.NoSuchSourceException;
 import com.liferay.reports.service.SourceServiceUtil;
-import com.liferay.util.bridges.mvc.ActionCommand;
+import com.liferay.util.bridges.mvc.BaseActionCommand;
 
-import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 
 /**
  * @author Michael C. Han
  */
-public class DeleteDataSourceActionCommand implements ActionCommand {
+public class DeleteDataSourceActionCommand extends BaseActionCommand {
 
-	public boolean processCommand(
+	@Override
+	protected void doProcessCommand(
 			PortletRequest portletRequest, PortletResponse portletResponse)
-		throws PortletException {
+		throws Exception {
 
 		long sourceId = ParamUtil.getLong(portletRequest, "sourceId");
 
-		if (sourceId == -1) {
-			SessionErrors.add(
-				portletRequest, NoSuchSourceException.class.getName());
-
-			return false;
-		}
-
-		try {
-			SourceServiceUtil.deleteSource(sourceId);
-		}
-		catch (PortalException pe) {
-			SessionErrors.add(portletRequest, pe.getClass());
-		}
-		catch (Exception e) {
-			throw new PortletException(e);
-		}
-
-		return true;
+		SourceServiceUtil.deleteSource(sourceId);
 	}
 
 }

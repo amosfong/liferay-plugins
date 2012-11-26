@@ -14,29 +14,26 @@
 
 package com.liferay.reports.admin.portlet.action;
 
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
-import com.liferay.reports.NoSuchDefinitionException;
+import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.reports.model.Definition;
 import com.liferay.reports.model.Entry;
 import com.liferay.reports.service.DefinitionLocalServiceUtil;
 import com.liferay.reports.service.EntryServiceUtil;
 import com.liferay.reports.util.ReportsUtil;
-import com.liferay.util.bridges.mvc.ActionCommand;
+import com.liferay.util.bridges.mvc.BaseActionCommand;
 
 import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 import java.util.Calendar;
 
-import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 
@@ -44,93 +41,74 @@ import javax.portlet.PortletResponse;
  * @author Michael C. Han
  * @author Gavin Wan
  */
-public class GenerateReportActionCommand implements ActionCommand {
+public class GenerateReportActionCommand extends BaseActionCommand {
 
-	public boolean processCommand(
+	@Override
+	protected void doProcessCommand(
 			PortletRequest portletRequest, PortletResponse portletResponse)
-		throws PortletException {
+		throws Exception {
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
 
 		long definitionId = ParamUtil.getLong(portletRequest, "definitionId");
 
-		if (definitionId <= 0) {
-			SessionErrors.add(
-				portletRequest, NoSuchDefinitionException.class.getName());
-
-			return false;
-		}
-
-		String emailDelivery = ParamUtil.getString(
-			portletRequest, "emailDelivery");
+		String format = ParamUtil.getString(portletRequest, "format");
 		String emailNotifications = ParamUtil.getString(
 			portletRequest, "emailNotifications");
-		String format = ParamUtil.getString(portletRequest, "format");
+		String emailDelivery = ParamUtil.getString(
+			portletRequest, "emailDelivery");
 		String generatedReportsURL = ParamUtil.getString(
 			portletRequest, "generatedReportsURL");
 
-		try {
-			JSONArray entryReportParametersJSONArray =
-				JSONFactoryUtil.createJSONArray();
+		JSONArray entryReportParametersJSONArray =
+			JSONFactoryUtil.createJSONArray();
 
-			Definition definition = DefinitionLocalServiceUtil.getDefinition(
-				definitionId);
+		Definition definition = DefinitionLocalServiceUtil.getDefinition(
+			definitionId);
 
-			JSONArray reportParametersJSONArray =
-				JSONFactoryUtil.createJSONArray(
-					definition.getReportParameters());
+		JSONArray reportParametersJSONArray = JSONFactoryUtil.createJSONArray(
+			definition.getReportParameters());
 
-			for (int i = 0; i < reportParametersJSONArray.length(); i++) {
-				JSONObject definitionReportParameterJSONObject =
-					reportParametersJSONArray.getJSONObject(i);
+		for (int i = 0; i < reportParametersJSONArray.length(); i++) {
+			JSONObject definitionReportParameterJSONObject =
+				reportParametersJSONArray.getJSONObject(i);
 
-				String key = definitionReportParameterJSONObject.getString(
-					"key");
+			String key = definitionReportParameterJSONObject.getString("key");
 
-				JSONObject entryReportParameterJSONObject =
-					JSONFactoryUtil.createJSONObject();
+			JSONObject entryReportParameterJSONObject =
+				JSONFactoryUtil.createJSONObject();
 
-				entryReportParameterJSONObject.put("key", key);
+			entryReportParameterJSONObject.put("key", key);
 
-				String value = ParamUtil.getString(
-					portletRequest, "parameterValue" + key);
+			String value = ParamUtil.getString(
+				portletRequest, "parameterValue" + key);
 
-				String type = definitionReportParameterJSONObject.getString(
-					"type");
+			String type = definitionReportParameterJSONObject.getString("type");
 
-				if (type.equals("date")) {
-					Calendar calendar = ReportsUtil.getDate(
-						portletRequest, key, true);
+			if (type.equals("date")) {
+				Calendar calendar = ReportsUtil.getDate(
+					portletRequest, key, true);
 
-					DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+				DateFormat dateFormat =
+					DateFormatFactoryUtil.getSimpleDateFormat("yyyy-MM-dd");
 
-					value = df.format(calendar.getTime());
-				}
-
-				entryReportParameterJSONObject.put("value", value);
-
-				entryReportParametersJSONArray.put(
-					entryReportParameterJSONObject);
+				value = dateFormat.format(calendar.getTime());
 			}
 
-			ServiceContext serviceContext = ServiceContextFactory.getInstance(
-				Entry.class.getName(), portletRequest);
+			entryReportParameterJSONObject.put("value", value);
 
-			EntryServiceUtil.addEntry(
-				definitionId, format, false, null, null, false, null,
-				emailNotifications, emailDelivery, null, generatedReportsURL,
-				entryReportParametersJSONArray.toString(), serviceContext);
-
-			portletRequest.setAttribute(
-				WebKeys.REDIRECT,
-				ParamUtil.getString(portletRequest,"searchRequestsURL"));
-		}
-		catch (PortalException pe) {
-			SessionErrors.add(portletRequest, pe.getClass());
-		}
-		catch (Exception e) {
-			throw new PortletException(e);
+			entryReportParametersJSONArray.put(entryReportParameterJSONObject);
 		}
 
-		return true;
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			Entry.class.getName(), portletRequest);
+
+		EntryServiceUtil.addEntry(
+			themeDisplay.getScopeGroupId(), definitionId, format, false, null,
+			null, false, null, emailNotifications, emailDelivery, null,
+			generatedReportsURL, entryReportParametersJSONArray.toString(),
+			serviceContext);
 	}
 
 }

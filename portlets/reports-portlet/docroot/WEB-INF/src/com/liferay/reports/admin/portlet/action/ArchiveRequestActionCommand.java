@@ -14,42 +14,26 @@
 
 package com.liferay.reports.admin.portlet.action;
 
-import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.reports.NoSuchEntryException;
 import com.liferay.reports.service.EntryServiceUtil;
-import com.liferay.util.bridges.mvc.ActionCommand;
+import com.liferay.util.bridges.mvc.BaseActionCommand;
 
-import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 
 /**
  * @author Gavin Wan
  */
-public class ArchiveRequestActionCommand implements ActionCommand {
+public class ArchiveRequestActionCommand extends BaseActionCommand {
 
-	public boolean processCommand(
+	@Override
+	protected void doProcessCommand(
 			PortletRequest portletRequest, PortletResponse portletResponse)
-		throws PortletException {
+		throws Exception {
 
 		long entryId = ParamUtil.getLong(portletRequest, "entryId");
 
-		if (entryId == -1) {
-			SessionErrors.add(
-				portletRequest, NoSuchEntryException.class.getName());
-
-			return false;
-		}
-
-		try {
-			EntryServiceUtil.deleteEntry(entryId);
-		}
-		catch (Exception e) {
-			throw new PortletException(e);
-		}
-
-		return true;
+		EntryServiceUtil.deleteEntry(entryId);
 	}
 
 }

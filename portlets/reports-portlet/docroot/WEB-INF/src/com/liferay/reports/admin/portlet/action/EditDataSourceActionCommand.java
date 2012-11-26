@@ -14,40 +14,39 @@
 
 package com.liferay.reports.admin.portlet.action;
 
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.servlet.SessionErrors;
-import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
-import com.liferay.reports.PortletConstants;
+import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.reports.model.Source;
 import com.liferay.reports.service.SourceServiceUtil;
-import com.liferay.util.bridges.mvc.ActionCommand;
+import com.liferay.util.bridges.mvc.BaseActionCommand;
 
 import java.util.Locale;
 import java.util.Map;
 
-import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 
 /**
  * @author Gavin Wan
  */
-public class EditDataSourceActionCommand implements ActionCommand {
+public class EditDataSourceActionCommand extends BaseActionCommand {
 
-	public boolean processCommand(
+	@Override
+	protected void doProcessCommand(
 			PortletRequest portletRequest, PortletResponse portletResponse)
-		throws PortletException {
+		throws Exception {
 
-		String cmd = ParamUtil.getString(portletRequest, Constants.CMD);
+		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		long sourceId = ParamUtil.getLong(portletRequest, "sourceId");
 
 		Map<Locale, String> nameMap = LocalizationUtil.getLocalizationMap(
 			portletRequest, "name");
-
 		String driverClassName = ParamUtil.getString(
 			portletRequest, "driverClassName");
 		String driverUrl = ParamUtil.getString(portletRequest, "driverUrl");
@@ -56,35 +55,19 @@ public class EditDataSourceActionCommand implements ActionCommand {
 		String driverPassword = ParamUtil.getString(
 			portletRequest, "driverPassword");
 
-		long sourceId = ParamUtil.getLong(portletRequest, "sourceId");
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			Source.class.getName(), portletRequest);
 
-		try {
-			ServiceContext serviceContext = ServiceContextFactory.getInstance(
-				Source.class.getName(), portletRequest);
-
-			Source source = null;
-
-			if (cmd.equals(Constants.ADD)) {
-				source = SourceServiceUtil.addSource(
-					nameMap, driverClassName, driverUrl, driverUserName,
-					driverPassword, serviceContext);
-			}
-			else if (cmd.equals(Constants.UPDATE)) {
-				source = SourceServiceUtil.updateSource(
-					sourceId, nameMap, driverClassName, driverUrl,
-					driverUserName, driverPassword, serviceContext);
-			}
-
-			portletRequest.setAttribute(PortletConstants.DATA_SOURCE, source);
+		if (sourceId <= 0) {
+			SourceServiceUtil.addSource(
+				themeDisplay.getScopeGroupId(), nameMap, driverClassName,
+				driverUrl, driverUserName, driverPassword, serviceContext);
 		}
-		catch (PortalException pe) {
-			SessionErrors.add(portletRequest, pe.getClass());
+		else {
+			SourceServiceUtil.updateSource(
+				sourceId, nameMap, driverClassName, driverUrl, driverUserName,
+				driverPassword, serviceContext);
 		}
-		catch (SystemException se) {
-			throw new PortletException(se);
-		}
-
-		return true;
 	}
 
 }

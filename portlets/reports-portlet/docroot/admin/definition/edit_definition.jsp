@@ -23,20 +23,17 @@
 <%
 String backURL = ParamUtil.getString(request, "backURL", viewDefinitionsURL);
 
-Definition definition = (Definition)request.getAttribute(PortletConstants.DEFINITION);
+Definition definition = null;
 
-long definitionId = 0L;
+long definitionId = ParamUtil.getLong(request, "definitionId");
+
+if (definitionId > 0) {
+	definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
+}
+
 String fileName = null;
 boolean isNew = false;
 String reportParameters = StringPool.BLANK;
-
-if (definition == null) {
-	definitionId = ParamUtil.getLong(request, "definitionId");
-
-	if (definitionId > 0) {
-		definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
-	}
-}
 
 if ((definition == null) || definition.isNew()) {
 	isNew = true;
@@ -107,11 +104,12 @@ Calendar today = CalendarFactoryUtil.getCalendar(timeZone, locale);
 	<portlet:param name="mvcPath" value="/admin/definition/edit_definition.jsp" />
 </portlet:actionURL>
 
-<aui:form action="<%=actionURL %>" method="post" name="fm">
-	<liferay-ui:error exception="<%= DefinitionNameException.class %>" message="please-enter-a-valid-name" />
+<aui:form action="<%= actionURL %>" method="post" name="fm">
 	<liferay-ui:error exception="<%= DefinitionFileException.class %>" message="please-enter-a-valid-file" />
+	<liferay-ui:error exception="<%= DefinitionNameException.class %>" message="please-enter-a-valid-name" />
 
 	<aui:input name="viewDefinitionsURL" type="hidden" value="<%= viewDefinitionsURL %>" />
+
 	<c:if test="<%= !isNew %>">
 		<aui:input name="definitionId" type="hidden" value="<%= definition.getDefinitionId() %>" /><%= definition.getDefinitionId() %>
 	</c:if>
@@ -133,11 +131,16 @@ Calendar today = CalendarFactoryUtil.getCalendar(timeZone, locale);
 
 			for (Iterator itr = list.iterator(); itr.hasNext();) {
 				Source element = (Source)itr.next();
+
 				if (SourcePermission.contains(permissionChecker, element, ActionKeys.VIEW)){
 			%>
 
 				<aui:option label="<%= element.getName(locale) %>" selected="<%= !isNew && (definition.getSourceId() == element.getSourceId()) %>" value="<%= element.getSourceId() %>" />
-		 	<% }} %>
+
+			<%
+				}
+			}
+			%>
 
 		</aui:select>
 
@@ -217,33 +220,15 @@ Calendar today = CalendarFactoryUtil.getCalendar(timeZone, locale);
 		</c:if>
 
 		<c:if test="<%= !isNew %>">
-
-			<%
-				String updateDefinition = renderResponse.getNamespace() + "updateDefinition();";
-			%>
-
-			<aui:button onClick="<%= updateDefinition %>" value="update" />
+			<aui:button onClick='<%= renderResponse.getNamespace() + "updateDefinition();" %>' value="update" />
 
 			<c:if test="<%= !isNew && DefinitionPermission.contains(permissionChecker, definition, ActionKeys.ADD_REPORT) %>">
+				<aui:button onClick='<%= renderResponse.getNamespace() + "generateImmdiately();" %>' value="add-report" />
 
-				<%
-					String generateImmdiately = renderResponse.getNamespace() + "generateImmdiately();";
-				%>
-
-				<aui:button onClick="<%= generateImmdiately %>" value="add-report" />
-
-				<%
-					String addScheduler = renderResponse.getNamespace() + "addScheduler();";
-				%>
-
-				<aui:button onClick="<%= addScheduler %>" value="add-schedule" />
+				<aui:button onClick='<%= renderResponse.getNamespace() + "addScheduler();" %>' value="add-schedule" />
 			</c:if>
 
-			<%
-				String deleteDefinition = renderResponse.getNamespace() + "deleteDefinition();";
-			%>
-
-			<aui:button onClick="<%= deleteDefinition %>" value="delete" />
+			<aui:button onClick='<%= renderResponse.getNamespace() + "deleteDefinition();" %>' value="delete" />
 		</c:if>
 
 		<aui:button href="<%= viewURL %>" type="cancel" />

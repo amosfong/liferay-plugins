@@ -14,49 +14,32 @@
 
 package com.liferay.reports.admin.portlet.action;
 
-import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portlet.social.NoSuchRequestException;
 import com.liferay.reports.service.EntryLocalServiceUtil;
-import com.liferay.util.bridges.mvc.ActionCommand;
+import com.liferay.util.bridges.mvc.BaseActionCommand;
 
-import javax.portlet.PortletException;
 import javax.portlet.PortletRequest;
 import javax.portlet.PortletResponse;
 
 /**
  * @author Gavin Wan
  */
-public class DeliverReportActionCommand implements ActionCommand {
+public class DeliverReportActionCommand extends BaseActionCommand {
 
-	public boolean processCommand(
+	@Override
+	protected void doProcessCommand(
 			PortletRequest portletRequest, PortletResponse portletResponse)
-		throws PortletException {
+		throws Exception {
 
 		long entryId = ParamUtil.getLong(portletRequest, "entryId");
 
-		if (entryId == -1) {
-			SessionErrors.add(
-				portletRequest, NoSuchRequestException.class.getName());
-
-			return false;
-		}
-
-		String deliveryMailAddresses = ParamUtil.getString(
-			portletRequest, "emailDelivery");
+		String[] emailDeliveries = StringUtil.split(
+			ParamUtil.getString(portletRequest, "emailDelivery"));
 		String fileName = ParamUtil.getString(portletRequest, "fileName");
 
-		try {
-			EntryLocalServiceUtil.sendEmails(
-				entryId, fileName, StringUtil.split(deliveryMailAddresses),
-				false);
-		}
-		catch (Exception e) {
-			throw new PortletException(e);
-		}
-
-		return true;
+		EntryLocalServiceUtil.sendEmails(
+			entryId, fileName, emailDeliveries, false);
 	}
 
 }
