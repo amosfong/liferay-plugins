@@ -37,7 +37,7 @@ import java.util.Map;
 public class SourceServiceImpl extends SourceServiceBaseImpl {
 
 	public Source addSource(
-			Map<Locale, String> nameMap, String driverClassName,
+			long groupId, Map<Locale, String> nameMap, String driverClassName,
 			String driverUrl, String driverUserName, String driverPassword,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
@@ -47,8 +47,8 @@ public class SourceServiceImpl extends SourceServiceBaseImpl {
 			ActionKeys.ADD_SOURCE);
 
 		return sourceLocalService.addSource(
-			getUserId(), nameMap, driverClassName, driverUrl, driverUserName,
-			driverPassword, serviceContext);
+			getUserId(), groupId, nameMap, driverClassName, driverUrl,
+			driverUserName, driverPassword, serviceContext);
 	}
 
 	public Source deleteSource(long sourceId)

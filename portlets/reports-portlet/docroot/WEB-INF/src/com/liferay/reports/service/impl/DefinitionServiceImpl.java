@@ -39,9 +39,10 @@ import java.util.Map;
 public class DefinitionServiceImpl extends DefinitionServiceBaseImpl {
 
 	public Definition addDefinition(
-			Map<Locale, String> nameMap, Map<Locale, String> descriptionMap,
-			long sourceId, String reportParameters, String fileName,
-			InputStream inputStream, ServiceContext serviceContext)
+			long groupId, Map<Locale, String> nameMap,
+			Map<Locale, String> descriptionMap, long sourceId,
+			String reportParameters, String fileName, InputStream inputStream,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		AdminPermission.check(
@@ -49,8 +50,8 @@ public class DefinitionServiceImpl extends DefinitionServiceBaseImpl {
 			ActionKeys.ADD_DEFINITION);
 
 		return definitionLocalService.addDefinition(
-			getUserId(), nameMap, descriptionMap, sourceId, reportParameters,
-			fileName, inputStream, serviceContext);
+			getUserId(), groupId, nameMap, descriptionMap, sourceId,
+			reportParameters, fileName, inputStream, serviceContext);
 	}
 
 	public Definition deleteDefinition(long definitionId)

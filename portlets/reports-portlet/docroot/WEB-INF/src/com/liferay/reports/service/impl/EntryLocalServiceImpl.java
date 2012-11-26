@@ -39,6 +39,7 @@ import com.liferay.portal.kernel.scheduler.StorageType;
 import com.liferay.portal.kernel.scheduler.Trigger;
 import com.liferay.portal.kernel.scheduler.TriggerFactoryUtil;
 import com.liferay.portal.kernel.scheduler.TriggerType;
+import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
@@ -55,7 +56,6 @@ import com.liferay.portlet.documentlibrary.NoSuchDirectoryException;
 import com.liferay.portlet.documentlibrary.store.DLStoreUtil;
 import com.liferay.reports.EntryEmailDeliveryException;
 import com.liferay.reports.EntryEmailNotificationsException;
-import com.liferay.reports.PortletConstants;
 import com.liferay.reports.ReportStatus;
 import com.liferay.reports.admin.util.AdminUtil;
 import com.liferay.reports.model.Definition;
@@ -65,7 +65,7 @@ import com.liferay.reports.service.base.EntryLocalServiceBaseImpl;
 
 import java.io.File;
 
-import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -80,21 +80,19 @@ import javax.portlet.PortletPreferences;
 public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 
 	public Entry addEntry(
-			long userId, long definitionId, String format,
+			long userId, long groupId, long definitionId, String format,
 			boolean schedulerRequest, Date startDate, Date endDate,
 			boolean repeating, String recurrence, String emailNotifications,
 			String emailDelivery, String portletId, String pageURL,
 			String reportParameters, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		validate(emailNotifications, emailDelivery);
-
 		// Entry
 
 		User user = userPersistence.findByPrimaryKey(userId);
-		long groupId = serviceContext.getScopeGroupId();
-
 		Date now = new Date();
+
+		validate(emailNotifications, emailDelivery);
 
 		long entryId = counterLocalService.increment();
 
@@ -184,11 +182,13 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 			ResourceConstants.SCOPE_INDIVIDUAL, entry.getEntryId());
 
 		// Scheduler
+
 		if (entry.isRepeating()) {
 			SchedulerEngineHelperUtil.unschedule(
 				entry.getJobName(), entry.getSchedulerRequestName(),
 				StorageType.PERSISTED);
 		}
+
 		// Attachments
 
 		try {
@@ -249,10 +249,9 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 
 		ReportRequestContext reportRequestContext = null;
 
-		if (sourceId == PortletConstants.PORTAL_DATA_SOURCE_ID) {
-			reportRequestContext =
-				new ReportRequestContext(ReportDataSourceType.PORTAL);
-
+		if (sourceId == 0) {
+			reportRequestContext = new ReportRequestContext(
+				ReportDataSourceType.PORTAL);
 		}
 		else {
 			Source source = sourcePersistence.findByPrimaryKey(sourceId);
@@ -357,13 +356,15 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 		Date now = new Date();
 
 		if (entry.isScheduleRequest()) {
-			SimpleDateFormat simpleDateFormat =
-				new SimpleDateFormat("MM_dd_yyyy_HH_mm");
-
 			StringBundler sb = new StringBundler(4);
 
 			sb.append(StringUtil.extractFirst(reportName, StringPool.PERIOD));
-			sb.append(simpleDateFormat.format(now));
+
+			DateFormat dateFormat = DateFormatFactoryUtil.getSimpleDateFormat(
+				"MM_dd_yyyy_HH_mm");
+
+			sb.append(dateFormat.format(now));
+
 			sb.append(StringPool.PERIOD);
 			sb.append(StringUtil.extractLast(reportName, StringPool.PERIOD));
 
@@ -585,14 +586,14 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 	protected void validate(String emailNotifications, String emailDelivery)
 		throws PortalException {
 
-		for (String email : StringUtil.split(emailNotifications)) {
-			if (!Validator.isEmailAddress(email)) {
+		for (String emailAddress : StringUtil.split(emailNotifications)) {
+			if (!Validator.isEmailAddress(emailAddress)) {
 				throw new EntryEmailNotificationsException();
 			}
 		}
 
-		for (String email : StringUtil.split(emailDelivery)) {
-			if (!Validator.isEmailAddress(email)) {
+		for (String emailAddress : StringUtil.split(emailDelivery)) {
+			if (!Validator.isEmailAddress(emailAddress)) {
 				throw new EntryEmailDeliveryException();
 			}
 		}

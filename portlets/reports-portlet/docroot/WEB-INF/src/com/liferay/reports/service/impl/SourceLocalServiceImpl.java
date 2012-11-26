@@ -50,33 +50,31 @@ import java.util.Map;
 public class SourceLocalServiceImpl extends SourceLocalServiceBaseImpl {
 
 	public Source addSource(
-			long userId, Map<Locale, String> nameMap, String driverClassName,
-			String driverUrl, String driverUserName, String driverPassword,
-			ServiceContext serviceContext)
+			long userId, long groupId, Map<Locale, String> nameMap,
+			String driverClassName, String driverUrl, String driverUserName,
+			String driverPassword, ServiceContext serviceContext)
 		throws PortalException, SystemException {
+
+		// Source
+
+		User user = userPersistence.findByPrimaryKey(userId);
+		Date now = new Date();
 
 		validate(
 			nameMap, driverClassName, driverUrl, driverUserName,
 			driverPassword);
 
-		User user = userPersistence.findByPrimaryKey(userId);
-		long groupId = serviceContext.getScopeGroupId();
-		Date now = new Date();
-
 		long sourceId = counterLocalService.increment();
-
-		// Source
 
 		Source source = sourceLocalService.createSource(sourceId);
 
+		source.setUuid(serviceContext.getUuid());
 		source.setGroupId(groupId);
 		source.setCompanyId(user.getCompanyId());
-		source.setUuid(serviceContext.getUuid());
 		source.setUserId(user.getUserId());
 		source.setUserName(user.getFullName());
 		source.setCreateDate(serviceContext.getCreateDate(now));
 		source.setModifiedDate(serviceContext.getModifiedDate(now));
-
 		source.setNameMap(nameMap);
 		source.setDriverClassName(driverClassName);
 		source.setDriverUrl(driverUrl);
@@ -125,7 +123,6 @@ public class SourceLocalServiceImpl extends SourceLocalServiceBaseImpl {
 		return sourcePersistence.findByPrimaryKey(sourceId);
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<Source> getSources(
 			long groupId, String name, String driverUrl, boolean andSearch,
 			int start, int end, OrderByComparator orderByComparator)

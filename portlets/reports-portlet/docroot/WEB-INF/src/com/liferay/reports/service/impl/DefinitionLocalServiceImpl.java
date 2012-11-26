@@ -52,7 +52,7 @@ import java.util.Map;
 public class DefinitionLocalServiceImpl extends DefinitionLocalServiceBaseImpl {
 
 	public Definition addDefinition(
-			long userId, Map<Locale, String> nameMap,
+			long userId, long groupId, Map<Locale, String> nameMap,
 			Map<Locale, String> descriptionMap, long sourceId,
 			String reportParameters, String fileName, InputStream inputStream,
 			ServiceContext serviceContext)
@@ -60,26 +60,22 @@ public class DefinitionLocalServiceImpl extends DefinitionLocalServiceBaseImpl {
 
 		// Definition
 
-		validate(nameMap);
-
 		User user = userPersistence.findByPrimaryKey(userId);
-		long groupId = serviceContext.getScopeGroupId();
-		long companyId = user.getCompanyId();
-
 		Date now = new Date();
+
+		validate(nameMap);
 
 		long definitionId = counterLocalService.increment();
 
 		Definition definition = definitionPersistence.create(definitionId);
 
-		definition.setGroupId(groupId);
-		definition.setCompanyId(companyId);
 		definition.setUuid(serviceContext.getUuid());
+		definition.setGroupId(groupId);
+		definition.setCompanyId(user.getCompanyId());
 		definition.setUserId(user.getUserId());
 		definition.setUserName(user.getFullName());
 		definition.setCreateDate(serviceContext.getCreateDate(now));
 		definition.setModifiedDate(serviceContext.getModifiedDate(now));
-
 		definition.setNameMap(nameMap);
 		definition.setDescriptionMap(descriptionMap);
 		definition.setSourceId(sourceId);
@@ -96,8 +92,9 @@ public class DefinitionLocalServiceImpl extends DefinitionLocalServiceBaseImpl {
 		// Attachments
 
 		if (Validator.isNotNull(fileName) && (inputStream != null)) {
-			doAddDefinitionFile(
-				companyId, groupId, definition, fileName, inputStream);
+			addDefinitionFile(
+				user.getCompanyId(), groupId, definition, fileName,
+				inputStream);
 		}
 
 		return definition;
@@ -180,10 +177,10 @@ public class DefinitionLocalServiceImpl extends DefinitionLocalServiceBaseImpl {
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
+		// Definition
+
 		Definition definition = definitionPersistence.findByPrimaryKey(
 			definitionId);
-
-		// Definition
 
 		validate(nameMap);
 
@@ -212,6 +209,7 @@ public class DefinitionLocalServiceImpl extends DefinitionLocalServiceBaseImpl {
 		}
 
 		// Attachments
+
 		if (Validator.isNotNull(fileName) && (inputStream != null)) {
 			long companyId = definition.getCompanyId();
 
@@ -223,7 +221,7 @@ public class DefinitionLocalServiceImpl extends DefinitionLocalServiceBaseImpl {
 			catch (NoSuchDirectoryException nsde) {
 			}
 
-			doAddDefinitionFile(
+			addDefinitionFile(
 				companyId, definition.getGroupId(), definition, fileName,
 				inputStream);
 		}
@@ -240,6 +238,28 @@ public class DefinitionLocalServiceImpl extends DefinitionLocalServiceBaseImpl {
 			definition.getCompanyId(), definition.getGroupId(),
 			Definition.class.getName(), definition.getDefinitionId(),
 			communityPermissions, guestPermissions);
+	}
+
+	protected void addDefinitionFile(
+			long companyId, long groupId, Definition definition,
+			String fileName, InputStream inputStream)
+		throws PortalException, SystemException {
+
+		String directoryName = definition.getAttachmentsDir();
+
+		try {
+			DLStoreUtil.addDirectory(
+				companyId, CompanyConstants.SYSTEM, directoryName);
+		}
+		catch (DuplicateDirectoryException dde) {
+		}
+
+		String fileLocation = directoryName.concat(
+			StringPool.SLASH).concat(fileName);
+
+		DLStoreUtil.addFile(
+			companyId, CompanyConstants.SYSTEM, fileLocation, false,
+			inputStream);
 	}
 
 	protected DynamicQuery buildDynamicQuery(
@@ -299,28 +319,6 @@ public class DefinitionLocalServiceImpl extends DefinitionLocalServiceBaseImpl {
 		dynamicQuery.add(junction);
 
 		return dynamicQuery;
-	}
-
-	protected void doAddDefinitionFile(
-			long companyId, long groupId, Definition definition,
-			String fileName, InputStream inputStream)
-		throws PortalException, SystemException {
-
-		String directoryName = definition.getAttachmentsDir();
-
-		try {
-			DLStoreUtil.addDirectory(
-				companyId, CompanyConstants.SYSTEM, directoryName);
-		}
-		catch (DuplicateDirectoryException dde) {
-		}
-
-		String fileLocation = directoryName.concat(
-			StringPool.SLASH).concat(fileName);
-
-		DLStoreUtil.addFile(
-			companyId, CompanyConstants.SYSTEM, fileLocation, false,
-			inputStream);
 	}
 
 	protected void validate(Map<Locale, String> nameMap)

@@ -35,20 +35,21 @@ import java.util.List;
 public class EntryServiceImpl extends EntryServiceBaseImpl {
 
 	public Entry addEntry(
-			long definitionId, String format, boolean schedulerRequest,
-			Date startDate, Date endDate, boolean repeating, String recurrence,
-			String emailNotifications, String emailDelivery, String portletId,
-			String pageURL, String reportParameters,
-			ServiceContext serviceContext)
+			long groupId, long definitionId, String format,
+			boolean schedulerRequest, Date startDate, Date endDate,
+			boolean repeating, String recurrence, String emailNotifications,
+			String emailDelivery, String portletId, String pageURL,
+			String reportParameters, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		DefinitionPermission.check(
 			getPermissionChecker(), definitionId, ActionKeys.ADD_REPORT);
 
 		return entryLocalService.addEntry(
-			getUserId(), definitionId, format, schedulerRequest, startDate,
-			endDate, repeating, recurrence, emailNotifications, emailDelivery,
-			portletId, pageURL, reportParameters, serviceContext);
+			getUserId(), groupId, definitionId, format, schedulerRequest,
+			startDate, endDate, repeating, recurrence, emailNotifications,
+			emailDelivery, portletId, pageURL, reportParameters,
+			serviceContext);
 	}
 
 	public void deleteAttachment(long companyId, long entryId, String fileName)
