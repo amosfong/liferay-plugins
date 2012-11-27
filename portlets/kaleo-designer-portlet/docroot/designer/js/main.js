@@ -272,7 +272,7 @@ AUI.add(
 			REGEX_TOKEN_3: /^<\/\w/,
 			REGEX_TOKEN_4: /^<\w[^>]*[^\/]>.*$/,
 
-			create: function (name, content, attrs) {
+			create: function(name, content, attrs) {
 				var instance = this;
 
 				var node = instance.createObj(name, attrs);
@@ -2369,7 +2369,7 @@ AUI.add(
 						instance.setStdModContent(WidgetStdMod.BODY, buffer.join(STR_BLANK), WidgetStdMod.AFTER);
 					},
 
-					getEditRecipientsLinks: function(){
+					getEditRecipientsLinks: function() {
 						var instance = this;
 
 						return instance.get('boundingBox').all('.aui-celleditor-view-menu-edit-recipients');

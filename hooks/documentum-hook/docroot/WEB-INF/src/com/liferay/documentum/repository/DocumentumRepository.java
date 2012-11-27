@@ -1080,7 +1080,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 
 			IDfId versionIDfId = null;
 
-			for (int i = 0;i < versionCount; i++) {
+			for (int i = 0; i < versionCount; i++) {
 				IDfVersionLabels idfVersionLabels =
 					idfVersionTreeLabels.getVersion(i);
 
