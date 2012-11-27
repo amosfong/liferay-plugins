@@ -220,8 +220,9 @@ public class DQLQueryBuilder {
 	}
 
 	public static void main(String[] arguments) {
-		System.out.println(buildFoldersAndFileEntriesSelectQueryString(
-			null, 100, new String[] {"jpeg", "png"}, null));
+		System.out.println(
+			buildFoldersAndFileEntriesSelectQueryString(
+				null, 100, new String[] {"jpeg", "png"}, null));
 	}
 
 	protected static String buildFileEntriesWhereClause(
@@ -315,9 +316,10 @@ public class DQLQueryBuilder {
 		if (mimeTypes != null) {
 			DQLDisjunction dqlDisjunction = new DQLDisjunction();
 
-			dqlDisjunction.add(_buildFieldExpression(
-				documentRepository, Constants.R_OBJECT_TYPE,
-				Constants.DM_FOLDER, DQLSimpleExpressionOperator.EQ));
+			dqlDisjunction.add(
+				_buildFieldExpression(
+					documentRepository, Constants.R_OBJECT_TYPE,
+					Constants.DM_FOLDER, DQLSimpleExpressionOperator.EQ));
 
 			for (String mimeType : mimeTypes) {
 				dqlDisjunction.add(
