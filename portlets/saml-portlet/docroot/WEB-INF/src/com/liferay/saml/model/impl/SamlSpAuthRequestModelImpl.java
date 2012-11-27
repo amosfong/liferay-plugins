@@ -67,6 +67,8 @@ public class SamlSpAuthRequestModelImpl extends BaseModelImpl<SamlSpAuthRequest>
 		};
 	public static final String TABLE_SQL_CREATE = "create table SamlSpAuthRequest (samlSpAuthnRequestId LONG not null primary key,companyId LONG,createDate DATE null,samlIdpEntityId VARCHAR(1024) null,samlSpAuthRequestKey VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table SamlSpAuthRequest";
+	public static final String ORDER_BY_JPQL = " ORDER BY samlSpAuthRequest.samlSpAuthnRequestId ASC";
+	public static final String ORDER_BY_SQL = " ORDER BY SamlSpAuthRequest.samlSpAuthnRequestId ASC";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
@@ -81,6 +83,7 @@ public class SamlSpAuthRequestModelImpl extends BaseModelImpl<SamlSpAuthRequest>
 			true);
 	public static long SAMLIDPENTITYID_COLUMN_BITMASK = 1L;
 	public static long SAMLSPAUTHREQUESTKEY_COLUMN_BITMASK = 2L;
+	public static long SAMLSPAUTHNREQUESTID_COLUMN_BITMASK = 4L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.saml.model.SamlSpAuthRequest"));
 

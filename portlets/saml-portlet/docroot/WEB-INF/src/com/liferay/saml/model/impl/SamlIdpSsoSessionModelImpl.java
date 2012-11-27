@@ -71,6 +71,8 @@ public class SamlIdpSsoSessionModelImpl extends BaseModelImpl<SamlIdpSsoSession>
 		};
 	public static final String TABLE_SQL_CREATE = "create table SamlIdpSsoSession (samlIdpSsoSessionId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,samlIdpSsoSessionKey VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table SamlIdpSsoSession";
+	public static final String ORDER_BY_JPQL = " ORDER BY samlIdpSsoSession.samlIdpSsoSessionId ASC";
+	public static final String ORDER_BY_SQL = " ORDER BY SamlIdpSsoSession.samlIdpSsoSessionId ASC";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
@@ -84,6 +86,7 @@ public class SamlIdpSsoSessionModelImpl extends BaseModelImpl<SamlIdpSsoSession>
 				"value.object.column.bitmask.enabled.com.liferay.saml.model.SamlIdpSsoSession"),
 			true);
 	public static long SAMLIDPSSOSESSIONKEY_COLUMN_BITMASK = 1L;
+	public static long SAMLIDPSSOSESSIONID_COLUMN_BITMASK = 2L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.saml.model.SamlIdpSsoSession"));
 

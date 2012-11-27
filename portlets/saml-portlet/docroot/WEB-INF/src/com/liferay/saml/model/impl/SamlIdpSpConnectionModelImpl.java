@@ -82,6 +82,8 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 		};
 	public static final String TABLE_SQL_CREATE = "create table SamlIdpSpConnection (samlIdpSpConnectionId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,samlSpEntityId VARCHAR(1024) null,assertionLifetime INTEGER,attributeNames STRING null,attributesEnabled BOOLEAN,attributesNamespaceEnabled BOOLEAN,enabled BOOLEAN,metadataUrl VARCHAR(1024) null,metadataXml TEXT null,metadataUpdatedDate DATE null,name VARCHAR(75) null,nameIdAttribute VARCHAR(1024) null,nameIdFormat VARCHAR(1024) null)";
 	public static final String TABLE_SQL_DROP = "drop table SamlIdpSpConnection";
+	public static final String ORDER_BY_JPQL = " ORDER BY samlIdpSpConnection.samlIdpSpConnectionId ASC";
+	public static final String ORDER_BY_SQL = " ORDER BY SamlIdpSpConnection.samlIdpSpConnectionId ASC";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
@@ -96,6 +98,7 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 			true);
 	public static long COMPANYID_COLUMN_BITMASK = 1L;
 	public static long SAMLSPENTITYID_COLUMN_BITMASK = 2L;
+	public static long SAMLIDPSPCONNECTIONID_COLUMN_BITMASK = 4L;
 	public static final long LOCK_EXPIRATION_TIME = GetterUtil.getLong(com.liferay.util.service.ServiceProps.get(
 				"lock.expiration.time.com.liferay.saml.model.SamlIdpSpConnection"));
 

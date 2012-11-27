@@ -69,6 +69,8 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 		};
 	public static final String TABLE_SQL_CREATE = "create table KaleoProcessLink (kaleoProcessLinkId LONG not null primary key,kaleoProcessId LONG,workflowTaskName VARCHAR(75) null,DDMTemplateId LONG)";
 	public static final String TABLE_SQL_DROP = "drop table KaleoProcessLink";
+	public static final String ORDER_BY_JPQL = " ORDER BY kaleoProcessLink.kaleoProcessLinkId ASC";
+	public static final String ORDER_BY_SQL = " ORDER BY KaleoProcessLink.kaleoProcessLinkId ASC";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
@@ -83,6 +85,7 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 			true);
 	public static long KALEOPROCESSID_COLUMN_BITMASK = 1L;
 	public static long WORKFLOWTASKNAME_COLUMN_BITMASK = 2L;
+	public static long KALEOPROCESSLINKID_COLUMN_BITMASK = 4L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.

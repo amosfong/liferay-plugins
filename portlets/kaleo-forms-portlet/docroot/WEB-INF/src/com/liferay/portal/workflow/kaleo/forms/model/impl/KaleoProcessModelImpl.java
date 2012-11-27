@@ -77,6 +77,8 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 		};
 	public static final String TABLE_SQL_CREATE = "create table KaleoProcess (kaleoProcessId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,DDLRecordSetId LONG,DDMTemplateId LONG)";
 	public static final String TABLE_SQL_DROP = "drop table KaleoProcess";
+	public static final String ORDER_BY_JPQL = " ORDER BY kaleoProcess.kaleoProcessId ASC";
+	public static final String ORDER_BY_SQL = " ORDER BY KaleoProcess.kaleoProcessId ASC";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
@@ -90,6 +92,7 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 				"value.object.column.bitmask.enabled.com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess"),
 			true);
 	public static long GROUPID_COLUMN_BITMASK = 1L;
+	public static long KALEOPROCESSID_COLUMN_BITMASK = 2L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
