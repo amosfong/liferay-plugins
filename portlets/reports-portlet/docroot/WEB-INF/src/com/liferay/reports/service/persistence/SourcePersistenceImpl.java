@@ -593,9 +593,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_UUID_UUID_1 = "source.uuid IS NULL";
-	private static final String _FINDER_COLUMN_UUID_UUID_2 = "source.uuid = ?";
-	private static final String _FINDER_COLUMN_UUID_UUID_3 = "(source.uuid IS NULL OR source.uuid = ?)";
+	private static final String _FINDER_COLUMN_UUID_UUID_1 = "source.uuid_ IS NULL";
+	private static final String _FINDER_COLUMN_UUID_UUID_2 = "source.uuid_ = ?";
+	private static final String _FINDER_COLUMN_UUID_UUID_3 = "(source.uuid_ IS NULL OR source.uuid_ = ?)";
 	public static final FinderPath FINDER_PATH_FETCH_BY_UUID_G = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
 			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
 			FINDER_CLASS_NAME_ENTITY, "fetchByUUID_G",
@@ -846,9 +846,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_UUID_G_UUID_1 = "source.uuid IS NULL AND ";
-	private static final String _FINDER_COLUMN_UUID_G_UUID_2 = "source.uuid = ? AND ";
-	private static final String _FINDER_COLUMN_UUID_G_UUID_3 = "(source.uuid IS NULL OR source.uuid = ?) AND ";
+	private static final String _FINDER_COLUMN_UUID_G_UUID_1 = "source.uuid_ IS NULL AND ";
+	private static final String _FINDER_COLUMN_UUID_G_UUID_2 = "source.uuid_ = ? AND ";
+	private static final String _FINDER_COLUMN_UUID_G_UUID_3 = "(source.uuid_ IS NULL OR source.uuid_ = ?) AND ";
 	private static final String _FINDER_COLUMN_UUID_G_GROUPID_2 = "source.groupId = ?";
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_UUID_C = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
 			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,
@@ -1396,9 +1396,9 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		return count.intValue();
 	}
 
-	private static final String _FINDER_COLUMN_UUID_C_UUID_1 = "source.uuid IS NULL AND ";
-	private static final String _FINDER_COLUMN_UUID_C_UUID_2 = "source.uuid = ? AND ";
-	private static final String _FINDER_COLUMN_UUID_C_UUID_3 = "(source.uuid IS NULL OR source.uuid = ?) AND ";
+	private static final String _FINDER_COLUMN_UUID_C_UUID_1 = "source.uuid_ IS NULL AND ";
+	private static final String _FINDER_COLUMN_UUID_C_UUID_2 = "source.uuid_ = ? AND ";
+	private static final String _FINDER_COLUMN_UUID_C_UUID_3 = "(source.uuid_ IS NULL OR source.uuid_ = ?) AND ";
 	private static final String _FINDER_COLUMN_UUID_C_COMPANYID_2 = "source.companyId = ?";
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_GROUPID = new FinderPath(SourceModelImpl.ENTITY_CACHE_ENABLED,
 			SourceModelImpl.FINDER_CACHE_ENABLED, SourceImpl.class,

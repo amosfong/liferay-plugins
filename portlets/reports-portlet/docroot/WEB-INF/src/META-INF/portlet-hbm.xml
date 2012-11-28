@@ -10,7 +10,7 @@
 		<id name="definitionId" type="long">
 			<generator class="assigned" />
 		</id>
-		<property name="uuid" type="com.liferay.portal.dao.orm.hibernate.StringType" column="uuid_" />
+		<property name="uuid_" access="com.liferay.portal.dao.orm.hibernate.EscapedPropertyAccessor" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
@@ -54,7 +54,7 @@
 		<id name="sourceId" type="long">
 			<generator class="assigned" />
 		</id>
-		<property name="uuid" type="com.liferay.portal.dao.orm.hibernate.StringType" column="uuid_" />
+		<property name="uuid_" access="com.liferay.portal.dao.orm.hibernate.EscapedPropertyAccessor" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="companyId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="userId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
