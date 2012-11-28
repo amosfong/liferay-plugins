@@ -116,6 +116,6 @@
 		<property name="jSessionId" access="com.liferay.portal.dao.orm.hibernate.CamelCasePropertyAccessor" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="nameIdFormat" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="nameIdValue" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="terminated_" access="com.liferay.portal.dao.orm.hibernate.EscapedPropertyAccessor" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
+		<property name="terminated" type="com.liferay.portal.dao.orm.hibernate.BooleanType" column="terminated_" />
 	</class>
 </hibernate-mapping>
