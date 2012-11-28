@@ -1,4 +1,3 @@
-/hooks/antisamy-hook
 /hooks/audit-hook
 /hooks/documentum-hook
 /hooks/sharepoint-hook
