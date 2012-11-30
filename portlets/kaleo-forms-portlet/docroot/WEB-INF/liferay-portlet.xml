@@ -10,7 +10,6 @@
 		<header-portlet-css>/css/main.css</header-portlet-css>
 		<footer-portal-javascript>/html/portlet/workflow_tasks/js/main.js</footer-portal-javascript>
 		<footer-portlet-javascript>/js/main.js</footer-portlet-javascript>
-		<footer-portlet-javascript>/js/service.js</footer-portlet-javascript>
 		<css-class-wrapper>kaleo-forms-portlet</css-class-wrapper>
 	</portlet>
 	<role-mapper>

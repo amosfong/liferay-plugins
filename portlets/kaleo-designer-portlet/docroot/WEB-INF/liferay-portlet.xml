@@ -13,7 +13,6 @@
 		<autopropagated-parameters>availableFields,availablePropertyModels,kaleoProcessId,openerWindowName,portletResourceNamespace,propertiesSaveCallback,saveCallback,uiScope</autopropagated-parameters>
 		<footer-portlet-css>/designer/css/main.css</footer-portlet-css>
 		<footer-portlet-javascript>/designer/js/main.js</footer-portlet-javascript>
-		<footer-portlet-javascript>/js/service.js</footer-portlet-javascript>
 		<css-class-wrapper>kaleo-designer-portlet</css-class-wrapper>
 		<add-default-resource>true</add-default-resource>
 	</portlet>

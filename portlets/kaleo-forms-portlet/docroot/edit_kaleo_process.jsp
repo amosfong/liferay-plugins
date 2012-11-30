@@ -250,13 +250,15 @@ if (kaleoProcess != null) {
 		function(kaleoProcessId, workflowTaskName, callback) {
 			var A = AUI();
 
-			Liferay.Service.KaleoForms.KaleoProcessLink.fetchKaleoProcessLink(
+			Liferay.Service(
+				'/kaleoprocesslink/fetch-kaleo-process-link',
 				{
 					kaleoProcessId: kaleoProcessId,
 					workflowTaskName: workflowTaskName
 				},
 				function(json1) {
-					Liferay.Service.DDM.DDMTemplate.getTemplate(
+					Liferay.Service(
+						'/ddmtemplate/get-template',
 						{
 							templateId: json1.DDMTemplateId
 						},
@@ -281,45 +283,41 @@ if (kaleoProcess != null) {
 			var kaleoDesigner = event.currentTarget;
 
 			var editingNode = kaleoDesigner.editingNode;
-			var recordset = kaleoDesigner.propertyList.get('recordset');
 
 			if (editingNode) {
-				var record = kaleoDesigner.propertyList.selection.getActiveRecord();
+				var record = kaleoDesigner.propertyList.getActiveRecord();
 
-				if (record) {
-					var data = record.get('data');
+				if (record && (record.get('attributeName') === 'forms')) {
+					var forms = editingNode.get('forms');
+					var workflowTaskName = editingNode.get('name');
 
-					if (data.attributeName === 'forms') {
-						var forms = editingNode.get('forms');
-						var workflowTaskName = editingNode.get('name');
+					Liferay.Service(
+						'/kaleoprocesslink/update-kaleo-process-link',
+						{
+							kaleoProcessId: '<%= kaleoProcessId %>',
+							workflowTaskName: workflowTaskName,
+							ddmTemplateId: forms.templateId
+						},
+						function(json) {
+							<portlet:namespace />addKaleoProcessLinkId(json.kaleoProcessLinkId);
 
-						Liferay.Service.KaleoForms.KaleoProcessLink.updateKaleoProcessLink(
-							{
-								kaleoProcessId: '<%= kaleoProcessId %>',
-								workflowTaskName: workflowTaskName,
-								ddmTemplateId: forms.templateId
-							},
-							function(json) {
-								<portlet:namespace />addKaleoProcessLinkId(json.kaleoProcessLinkId);
+							var templateName = forms.templateName[0];
 
-								var templateName = forms.templateName[0];
-
-								if (templateName) {
-									templateName = '(' + templateName + ')';
-								}
-
-								editingNode._uiSetName(
-									A.Lang.sub(
-										'{workflowTaskName} {formName}',
-										{
-											formName: templateName,
-											workflowTaskName: workflowTaskName
-										}
-									)
-								);
+							if (templateName) {
+								templateName = '(' + templateName + ')';
 							}
-						);
-					}
+
+							editingNode._uiSetName(
+								A.Lang.sub(
+									'{workflowTaskName} {formName}',
+									{
+										formName: templateName,
+										workflowTaskName: workflowTaskName
+									}
+								)
+							);
+						}
+					);
 				}
 			}
 		},

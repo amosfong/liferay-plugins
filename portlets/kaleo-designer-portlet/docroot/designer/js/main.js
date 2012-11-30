@@ -1754,7 +1754,7 @@ AUI.add(
 
 						instance.setStdModContent(WidgetStdMod.BODY, selectWrapper);
 
-						instance.typeSelect.on('valueChange', A.bind(instance._onTypeValueChange, instance));
+						instance.typeSelect.on(['change', 'keyup'], A.bind(instance._onTypeValueChange, instance));
 
 						var buffer = [];
 
@@ -2065,7 +2065,7 @@ AUI.add(
 					_onTypeValueChange: function(event) {
 						var instance = this;
 
-						instance.showView(event.newVal);
+						instance.showView(event.currentTarget.val());
 					},
 
 					_syncElementsFocus: function() {
