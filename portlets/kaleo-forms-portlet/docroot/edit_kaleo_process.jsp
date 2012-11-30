@@ -251,23 +251,27 @@ if (kaleoProcess != null) {
 			var A = AUI();
 
 			Liferay.Service(
-				'/kaleoprocesslink/fetch-kaleo-process-link',
+				'/kaleo-forms-portlet/kaleoprocesslink/fetch-kaleo-process-link',
 				{
 					kaleoProcessId: kaleoProcessId,
 					workflowTaskName: workflowTaskName
 				},
 				function(json1) {
-					Liferay.Service(
-						'/ddmtemplate/get-template',
-						{
-							templateId: json1.DDMTemplateId
-						},
-						function(json2) {
-							if (callback) {
-								callback.call(this, json1, json2);
+					var ddmTemplateId = json1.DDMTemplateId;
+
+					if (ddmTemplateId) {
+						Liferay.Service(
+							'/ddmtemplate/get-template',
+							{
+								templateId: ddmTemplateId
+							},
+							function(json2) {
+								if (callback) {
+									callback.call(this, json1, json2);
+								}
 							}
-						}
-					);
+						);
+					}
 				}
 			);
 		},
@@ -292,11 +296,11 @@ if (kaleoProcess != null) {
 					var workflowTaskName = editingNode.get('name');
 
 					Liferay.Service(
-						'/kaleoprocesslink/update-kaleo-process-link',
+						'/kaleo-forms-portlet/kaleoprocesslink/update-kaleo-process-link',
 						{
 							kaleoProcessId: '<%= kaleoProcessId %>',
 							workflowTaskName: workflowTaskName,
-							ddmTemplateId: forms.templateId
+							ddmTemplateId: forms.templateId.join()
 						},
 						function(json) {
 							<portlet:namespace />addKaleoProcessLinkId(json.kaleoProcessLinkId);

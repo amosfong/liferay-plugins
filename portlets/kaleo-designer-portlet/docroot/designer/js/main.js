@@ -244,19 +244,19 @@ AUI.add(
 
 		var PropertyListFormatter = {
 			assignmentsType: function(data) {
-				var assignmentType = data.record.get('data.value.assignmentType.0');
+				var assignmentType = data.value.assignmentType[0];
 
 				return KaleoDesignerStrings[assignmentType || 'assignToAssetCreator'];
 			},
 
 			forms: function(data) {
-				var templateName = data.record.get('data.value.templateName');
+				var templateName = data.value.templateName;
 
 				return AArray(templateName).join(', ');
 			},
 
 			names: function(data) {
-				var names = data.record.get('data.value.name');
+				var names = data.value.name;
 
 				return AArray(names).join(', ');
 			},
@@ -1447,6 +1447,8 @@ AUI.add(
 						var instance = this;
 
 						instance.get('boundingBox').delegate('click', A.bind(instance._onClickViewMenu, instance), '.aui-celleditor-view-menu a');
+
+						instance.after('visibleChange', instance._afterEditorVisibleChange);
 					},
 
 					addDynamicViews: emptyFn,
@@ -1531,6 +1533,14 @@ AUI.add(
 						instance.syncToolbarUI();
 
 						instance.syncViewsUI();
+					},
+
+					_afterEditorVisibleChange: function(event) {
+						var instance = this;
+
+						if (event.newVal) {
+							instance.syncViewsUI();
+						}
 					},
 
 					_onClickViewMenu: function(event) {
@@ -2024,14 +2034,12 @@ AUI.add(
 						instance.addSectionButton.set('disabled', disabled);
 					},
 
-					_afterVisibleChange: function(event) {
+					syncViewsUI: function() {
 						var instance = this;
 
-						AssignmentsEditor.superclass._afterVisibleChange.apply(this, arguments);
+						AssignmentsEditor.superclass.syncViewsUI.apply(this, arguments);
 
-						if (event.newVal) {
-							instance.showView(instance.typeSelect.val());
-						}
+						instance.showView(instance.typeSelect.val());
 					},
 
 					_countRoleTypeViews: function(val) {
