@@ -15,7 +15,6 @@
 package com.liferay.reports.service.persistence;
 
 import com.liferay.portal.NoSuchModelException;
-import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -42,7 +41,6 @@ import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.security.permission.InlineSQLHelperUtil;
-import com.liferay.portal.service.persistence.UserPersistence;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 
 import com.liferay.reports.NoSuchSourceException;
@@ -3367,14 +3365,6 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
-	@BeanReference(type = DefinitionPersistence.class)
-	protected DefinitionPersistence definitionPersistence;
-	@BeanReference(type = EntryPersistence.class)
-	protected EntryPersistence entryPersistence;
-	@BeanReference(type = SourcePersistence.class)
-	protected SourcePersistence sourcePersistence;
-	@BeanReference(type = UserPersistence.class)
-	protected UserPersistence userPersistence;
 	private static final String _SQL_SELECT_SOURCE = "SELECT source FROM Source source";
 	private static final String _SQL_SELECT_SOURCE_WHERE = "SELECT source FROM Source source WHERE ";
 	private static final String _SQL_COUNT_SOURCE = "SELECT COUNT(source) FROM Source source";

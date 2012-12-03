@@ -15,7 +15,6 @@
 package com.liferay.saml.service.persistence;
 
 import com.liferay.portal.NoSuchModelException;
-import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -39,7 +38,6 @@ import com.liferay.portal.kernel.util.UnmodifiableList;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
-import com.liferay.portal.service.persistence.UserPersistence;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 
 import com.liferay.saml.NoSuchSpMessageException;
@@ -982,22 +980,6 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
-	@BeanReference(type = SamlIdpSpConnectionPersistence.class)
-	protected SamlIdpSpConnectionPersistence samlIdpSpConnectionPersistence;
-	@BeanReference(type = SamlIdpSpSessionPersistence.class)
-	protected SamlIdpSpSessionPersistence samlIdpSpSessionPersistence;
-	@BeanReference(type = SamlIdpSsoSessionPersistence.class)
-	protected SamlIdpSsoSessionPersistence samlIdpSsoSessionPersistence;
-	@BeanReference(type = SamlSpAuthRequestPersistence.class)
-	protected SamlSpAuthRequestPersistence samlSpAuthRequestPersistence;
-	@BeanReference(type = SamlSpIdpConnectionPersistence.class)
-	protected SamlSpIdpConnectionPersistence samlSpIdpConnectionPersistence;
-	@BeanReference(type = SamlSpMessagePersistence.class)
-	protected SamlSpMessagePersistence samlSpMessagePersistence;
-	@BeanReference(type = SamlSpSessionPersistence.class)
-	protected SamlSpSessionPersistence samlSpSessionPersistence;
-	@BeanReference(type = UserPersistence.class)
-	protected UserPersistence userPersistence;
 	private static final String _SQL_SELECT_SAMLSPMESSAGE = "SELECT samlSpMessage FROM SamlSpMessage samlSpMessage";
 	private static final String _SQL_SELECT_SAMLSPMESSAGE_WHERE = "SELECT samlSpMessage FROM SamlSpMessage samlSpMessage WHERE ";
 	private static final String _SQL_COUNT_SAMLSPMESSAGE = "SELECT COUNT(samlSpMessage) FROM SamlSpMessage samlSpMessage";

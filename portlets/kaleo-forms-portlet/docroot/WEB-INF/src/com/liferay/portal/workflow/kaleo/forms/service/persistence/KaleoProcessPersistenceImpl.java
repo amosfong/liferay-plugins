@@ -15,7 +15,6 @@
 package com.liferay.portal.workflow.kaleo.forms.service.persistence;
 
 import com.liferay.portal.NoSuchModelException;
-import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -40,17 +39,11 @@ import com.liferay.portal.kernel.util.UnmodifiableList;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.security.permission.InlineSQLHelperUtil;
-import com.liferay.portal.service.persistence.UserPersistence;
-import com.liferay.portal.service.persistence.WorkflowDefinitionLinkPersistence;
-import com.liferay.portal.service.persistence.WorkflowInstanceLinkPersistence;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 import com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException;
 import com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess;
 import com.liferay.portal.workflow.kaleo.forms.model.impl.KaleoProcessImpl;
 import com.liferay.portal.workflow.kaleo.forms.model.impl.KaleoProcessModelImpl;
-
-import com.liferay.portlet.dynamicdatalists.service.persistence.DDLRecordPersistence;
-import com.liferay.portlet.dynamicdatalists.service.persistence.DDLRecordSetPersistence;
 
 import java.io.Serializable;
 
@@ -1491,20 +1484,6 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
-	@BeanReference(type = KaleoProcessPersistence.class)
-	protected KaleoProcessPersistence kaleoProcessPersistence;
-	@BeanReference(type = KaleoProcessLinkPersistence.class)
-	protected KaleoProcessLinkPersistence kaleoProcessLinkPersistence;
-	@BeanReference(type = UserPersistence.class)
-	protected UserPersistence userPersistence;
-	@BeanReference(type = WorkflowDefinitionLinkPersistence.class)
-	protected WorkflowDefinitionLinkPersistence workflowDefinitionLinkPersistence;
-	@BeanReference(type = WorkflowInstanceLinkPersistence.class)
-	protected WorkflowInstanceLinkPersistence workflowInstanceLinkPersistence;
-	@BeanReference(type = DDLRecordPersistence.class)
-	protected DDLRecordPersistence ddlRecordPersistence;
-	@BeanReference(type = DDLRecordSetPersistence.class)
-	protected DDLRecordSetPersistence ddlRecordSetPersistence;
 	private static final String _SQL_SELECT_KALEOPROCESS = "SELECT kaleoProcess FROM KaleoProcess kaleoProcess";
 	private static final String _SQL_SELECT_KALEOPROCESS_WHERE = "SELECT kaleoProcess FROM KaleoProcess kaleoProcess WHERE ";
 	private static final String _SQL_COUNT_KALEOPROCESS = "SELECT COUNT(kaleoProcess) FROM KaleoProcess kaleoProcess";
