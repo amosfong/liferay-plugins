@@ -2076,7 +2076,7 @@
 			<bundle><![CDATA[false]]></bundle>
 			<category><![CDATA[Productivity]]></category>
 			<demo-url><![CDATA[]]></demo-url>
-			<dependent-apps><![CDATA[chat-portlet, contacts-portlet, deploy-listener-hook, documentum-hook, events-display-portlet, microblogs-portlet, private-messaging-portlet, resources-importer-web, sharepoint-hook, so-configurations-portlet, so-hook, so-portlet, so-theme, so-welcome-theme, tasks-portlet, wysiwyg-portlet]]></dependent-apps>
+			<dependent-apps><![CDATA[chat-portlet, contacts-portlet, deploy-listener-hook, documentum-hook, events-display-portlet, microblogs-portlet, private-messaging-portlet, sharepoint-hook, so-configurations-portlet, so-hook, so-portlet, so-theme, tasks-portlet, wysiwyg-portlet]]></dependent-apps>
 			<icon><![CDATA[portlets/so-portlet/docroot/WEB-INF/releng/icons/90x90.png]]></icon>
 			<labs><![CDATA[false]]></labs>
 			<marketplace><![CDATA[true]]></marketplace>
@@ -3125,11 +3125,11 @@
 		<liferay-versions><![CDATA[6.2.0]]></liferay-versions>
 		<releng>
 			<bundle><![CDATA[false]]></bundle>
-			<category><![CDATA[]]></category>
+			<category><![CDATA[Themes]]></category>
 			<demo-url><![CDATA[]]></demo-url>
-			<dependent-apps><![CDATA[]]></dependent-apps>
+			<dependent-apps><![CDATA[resources-importer-web]]></dependent-apps>
 			<labs><![CDATA[false]]></labs>
-			<marketplace><![CDATA[false]]></marketplace>
+			<marketplace><![CDATA[true]]></marketplace>
 			<public><![CDATA[false]]></public>
 			<support-url><![CDATA[]]></support-url>
 			<supported><![CDATA[true]]></supported>
