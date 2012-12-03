@@ -32,8 +32,6 @@ if (Validator.isNotNull(samlIdpEntityId)) {
 }
 
 long clockSkew = ParamUtil.getLong(request, "clockSkew", MetadataManagerUtil.getClockSkew());
-String metadataUrl = ParamUtil.getString(request, "metadataUrl");
-String name = ParamUtil.getString(request, "name");
 String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", MetadataManagerUtil.getNameIdFormat());
 String userAttributeMappings = ParamUtil.getString(request, "userAttributeMappings", PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_SP_USER_ATTRIBUTE_MAPPINGS));
 %>
@@ -55,7 +53,7 @@ String userAttributeMappings = ParamUtil.getString(request, "userAttributeMappin
 	<aui:input name="samlSpIdpConnectionId" type="hidden" />
 
 	<aui:fieldset label="general">
-		<aui:input name="name" value="<%= name %>" />
+		<aui:input name="name" />
 
 		<aui:input label="entity-id" name="samlIdpEntityId" value="<%= samlIdpEntityId %>" />
 
@@ -63,7 +61,7 @@ String userAttributeMappings = ParamUtil.getString(request, "userAttributeMappin
 	</aui:fieldset>
 
 	<aui:fieldset label="metadata">
-		<aui:input name="metadataUrl" value="<%= metadataUrl %>" />
+		<aui:input name="metadataUrl" />
 
 		<aui:button-row>
 			<aui:button onClick='<%= renderResponse.getNamespace() + "uploadMetadataXml();" %>' value="upload-metadata-xml" />

@@ -27,14 +27,10 @@ if (samlIdpSpConnectionId > 0) {
 	samlIdpSpConnection = SamlIdpSpConnectionLocalServiceUtil.fetchSamlIdpSpConnection(samlIdpSpConnectionId);
 }
 
-String samlSpEntityId = ParamUtil.getString(request, "samlSpEntityId");
 int assertionLifetime = ParamUtil.getInteger(request, "assertionLifetime", PortletPrefsPropsUtil.getInteger(PortletPropsKeys.SAML_IDP_ASSERTION_LIFETIME));
 String attributeNames = ParamUtil.getString(request, "attributeNames", PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTE_NAMES));
 boolean attributesEnabled = ParamUtil.getBoolean(request, "attributesEnabled", PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_ENABLED));
 boolean attributesNamespaceEnabled = ParamUtil.getBoolean(request, "attributesNamespaceEnabled", PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_NAMESPACE_ENABLED));
-boolean enabled = ParamUtil.getBoolean(request, "enabled");
-String metadataUrl = ParamUtil.getString(request, "metadataUrl");
-String name = ParamUtil.getString(request, "name");
 String nameIdAttribute = ParamUtil.getString(request, "nameIdAttribute", PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_ATTRIBUTE));
 String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_FORMAT, StringPool.BLANK));
 %>
@@ -62,17 +58,17 @@ String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsP
 	<aui:input name="samlIdpSpConnectionId" type="hidden" />
 
 	<aui:fieldset label="general">
-		<aui:input name="name" value="<%= name %>" />
+		<aui:input name="name" />
 
-		<aui:input label="entity-id" name="samlSpEntityId" value="<%= samlSpEntityId %>" />
+		<aui:input label="entity-id" name="samlSpEntityId" />
 
-		<aui:input name="enabled" value="<%= enabled %>" />
+		<aui:input name="enabled" />
 
 		<aui:input name="assertionLifetime" value="<%= String.valueOf(assertionLifetime) %>" />
 	</aui:fieldset>
 
 	<aui:fieldset label="metadata">
-		<aui:input name="metadataUrl" value="<%= metadataUrl %>" />
+		<aui:input name="metadataUrl" />
 
 		<aui:button-row>
 			<aui:button onClick='<%= renderResponse.getNamespace() + "uploadMetadataXml();" %>' value="upload-metadata-xml" />
