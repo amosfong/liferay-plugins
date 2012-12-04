@@ -577,6 +577,7 @@ AUI.add(
 						AArray.each(
 							json.nodes,
 							function(item, index, collection) {
+								var description = item.description;
 								var initial = item.initial;
 								var metadata = item.metadata;
 								var name = item.name;
@@ -586,6 +587,10 @@ AUI.add(
 								var xmlNode = XMLUtil.createObj(item.xmlType);
 
 								buffer.push(xmlNode.open, XMLUtil.create('name', name));
+
+								if (description) {
+									buffer.push(XMLUtil.create('description', cdata(jsonStringify(description))));
+								}
 
 								if (metadata) {
 									buffer.push(XMLUtil.create('metadata', cdata(jsonStringify(metadata))));
@@ -1334,6 +1339,7 @@ AUI.add(
 						var schema = {
 							resultListLocator: tagName,
 							resultFields: [
+								'description',
 								'initial',
 								'metadata',
 								'name',
@@ -1363,6 +1369,7 @@ AUI.add(
 								AArray.each(
 									fieldData.results,
 									function(item, index, collection) {
+										var description = jsonParse(item.description);
 										var type = tagName;
 
 										if (item.initial) {
@@ -1386,6 +1393,7 @@ AUI.add(
 											{
 												actions: instance._normalizeToActions(item),
 												assignments: instance._normalizeToAssignments(item.assignments),
+												description: description,
 												fields: [{}],
 												initial: item.initial,
 												metadata: metadata,
