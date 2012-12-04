@@ -18,7 +18,6 @@
 
 <%
 long definitionId = ParamUtil.getLong(request, "definitionId");
-long entryId = ParamUtil.getLong(request, "entryId");
 
 Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 %>
@@ -27,6 +26,11 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 	<portlet:param name="mvcPath" value="/admin/view.jsp" />
 	<portlet:param name="tabs1" value="definitions" />
 </portlet:renderURL>
+
+<liferay-ui:header
+	backURL="<%= searchDefinitionURL %>"
+	title='<%= "new-report-entry" %>'
+/>
 
 <portlet:renderURL var="searchRequestsURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 	<portlet:param name="mvcPath" value="/admin/view.jsp" />
@@ -38,19 +42,14 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 	<portlet:param name="redirect" value="<%= searchRequestsURL %>" />
 </portlet:actionURL>
 
-<portlet:renderURL var="generatedReportsURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
-	<portlet:param name="mvcPath" value="/admin/report/requested_report_detail.jsp" />
-</portlet:renderURL>
-
-<liferay-ui:header
-	backURL="<%= searchDefinitionURL %>"
-	title='<%= "new-report-entry" %>'
-/>
-
 <aui:form action="<%= addSchedulerURL %>" method="post" name="fm">
-	<aui:input name="entryId" type="hidden" value="<%= entryId %>" />
-	<aui:input name="generatedReportsURL" type="hidden" value="<%= generatedReportsURL %>" />
 	<aui:input name="definitionId" type="hidden" value="<%= definitionId %>" />
+
+	<portlet:renderURL var="generatedReportsURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
+		<portlet:param name="mvcPath" value="/admin/report/requested_report_detail.jsp" />
+	</portlet:renderURL>
+
+	<aui:input name="generatedReportsURL" type="hidden" value="<%= generatedReportsURL %>" />
 
 	<liferay-ui:error exception="<%= DefinitionNameException.class %>" message="please-enter-a-valid-name" />
 	<liferay-ui:error exception="<%= EntryEmailDeliveryException.class %>" message="please-enter-a-valid-email-address" />
@@ -98,9 +97,9 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 						<td>
 
 							<%
-							String[] date = value.split("-");
-
 							Calendar calendar = CalendarFactoryUtil.getCalendar(timeZone, locale);
+
+							String[] date = value.split("-");
 
 							calendar.set(Calendar.YEAR, GetterUtil.getInteger(date[0]));
 							calendar.set(Calendar.MONTH, GetterUtil.getInteger(date[1]) - 1);

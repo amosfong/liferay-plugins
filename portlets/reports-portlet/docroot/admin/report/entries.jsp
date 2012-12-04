@@ -66,10 +66,10 @@
 		<liferay-ui:search-container-results>
 
 			<%
+			DisplayTerms displayTerms = searchContainer.getDisplayTerms();
+
 			Date startDate = PortalUtil.getDate(startDateMonth, startDateDay, startDateYear, timeZone, null);
 			Date endDate = PortalUtil.getDate(endDateMonth, endDateDay + 1, endDateYear, timeZone, null);
-
-			DisplayTerms displayTerms = searchContainer.getDisplayTerms();
 
 			if (displayTerms.isAdvancedSearch()) {
 				results = EntryServiceUtil.getEntries(themeDisplay.getParentGroupId(), definitionName, null, startDate, endDate, displayTerms.isAndOperator(), searchContainer.getStart(), searchContainer.getEnd(), null);

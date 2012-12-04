@@ -76,11 +76,7 @@ String name = BeanParamUtil.getString(source, request, "name");
 
 			<aui:button href="<%= searchSourcesURL %>" type="cancel" />
 
-			<%
-			String taglibOnClick = renderResponse.getNamespace() + "testDatabaseConnection();";
-			%>
-
-			<aui:button name="testDatabaseConnectionButton" onClick="<%= taglibOnClick %>" value="test-database-connection" />
+			<aui:button name="testDatabaseConnectionButton" onClick='<%= renderResponse.getNamespace() + "testDatabaseConnection();" %>' value="test-database-connection" />
 		</aui:button-row>
 	</aui:fieldset>
 </aui:form>

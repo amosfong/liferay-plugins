@@ -18,24 +18,9 @@
 
 <%
 long definitionId = ParamUtil.getLong(request, "definitionId");
-long entryId = ParamUtil.getLong(request, "entryId");
 
 Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 %>
-
-<portlet:renderURL var="searchRequestsURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
-	<portlet:param name="mvcPath" value="/admin/view.jsp" />
-	<portlet:param name="tabs1" value="reports" />
-</portlet:renderURL>
-
-<portlet:actionURL name="generateReport" var="generateReportURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
-	<portlet:param name="mvcPath" value="/admin/report/generate_report.jsp" />
-	<portlet:param name="redirect" value="<%= searchRequestsURL %>" />
-</portlet:actionURL>
-
-<portlet:renderURL var="generatedReportsURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
-	<portlet:param name="mvcPath" value="/admin/report/requested_report_detail.jsp" />
-</portlet:renderURL>
 
 <portlet:renderURL var="searchDefinitionURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 	<portlet:param name="mvcPath" value="/admin/view.jsp" />
@@ -47,10 +32,24 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 	title='<%= "new-report-entry" %>'
 />
 
+<portlet:renderURL var="searchRequestsURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
+	<portlet:param name="mvcPath" value="/admin/view.jsp" />
+	<portlet:param name="tabs1" value="reports" />
+</portlet:renderURL>
+
+<portlet:actionURL name="generateReport" var="generateReportURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
+	<portlet:param name="mvcPath" value="/admin/report/generate_report.jsp" />
+	<portlet:param name="redirect" value="<%= searchRequestsURL %>" />
+</portlet:actionURL>
+
 <aui:form action="<%= generateReportURL %>" method="post" name="fm">
-	<aui:input name="entryId" type="hidden" value="<%= entryId %>" />
-	<aui:input name="generatedReportsURL" type="hidden" value="<%= generatedReportsURL %>" />
 	<aui:input name="definitionId" type="hidden" value="<%= definitionId %>" />
+
+	<portlet:renderURL var="generatedReportsURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
+		<portlet:param name="mvcPath" value="/admin/report/requested_report_detail.jsp" />
+	</portlet:renderURL>
+
+	<aui:input name="generatedReportsURL" type="hidden" value="<%= generatedReportsURL %>" />
 
 	<liferay-ui:error exception="<%= EntryEmailDeliveryException.class %>" message="please-enter-a-valid-email-address" />
 	<liferay-ui:error exception="<%= EntryEmailNotificationsException.class %>" message="please-enter-a-valid-email-address" />

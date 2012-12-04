@@ -17,18 +17,17 @@
 <%@ include file="/init.jsp" %>
 
 <%
-PortletURL portletURL = renderResponse.createRenderURL();
-
-portletURL.setWindowState(WindowState.NORMAL);
-
-portletURL.setParameter("tabs1", "reports");
-portletURL.setParameter("mvcPath", "/admin/view.jsp");
-
 long entryId = ParamUtil.getLong(request, "entryId", -1);
 
 Entry entry = EntryLocalServiceUtil.getEntry(entryId);
 
 Definition definition = DefinitionLocalServiceUtil.getDefinition(entry.getDefinitionId());
+
+PortletURL portletURL = renderResponse.createRenderURL();
+
+portletURL.setParameter("tabs1", "reports");
+portletURL.setParameter("mvcPath", "/admin/view.jsp");
+portletURL.setWindowState(WindowState.NORMAL);
 %>
 
 <portlet:renderURL var="searchRequestURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
@@ -41,16 +40,22 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(entry.getDefini
 	title="<%= definition.getName(locale) %>"
 />
 
-<c:if test="<%= ReportStatus.PENDING.getValue().equals(entry.getStatus()) %>">
-	<div class="portlet-msg-info">
-		<liferay-ui:message key="processing-report.-this-may-take-several-minutes" />
-	</div>
-</c:if>
-<c:if test="<%= ReportStatus.ERROR.getValue().equals(entry.getStatus()) %>">
-	<div class="portlet-msg-error">
-		<liferay-ui:message key="an-error-occurred-while-processing-the-report" />
-	</div>
-</c:if>
+<%
+String status = entry.getStatus();
+%>
+
+<c:choose>
+	<c:when test="<%= status.equals(ReportStatus.ERROR.getValue()) %>">
+		<div class="portlet-msg-error">
+			<liferay-ui:message key="an-error-occurred-while-processing-the-report" />
+		</div>
+	</c:when>
+	<c:when test="<%= status.equals(ReportStatus.PENDING.getValue()) %>">
+		<div class="portlet-msg-info">
+			<liferay-ui:message key="processing-report.-this-may-take-several-minutes" />
+		</div>
+	</c:when>
+</c:choose>
 
 <aui:fieldset>
 	<aui:field-wrapper label="requested-report-id">

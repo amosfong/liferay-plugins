@@ -23,23 +23,19 @@
 <%
 String backURL = ParamUtil.getString(request, "backURL", viewDefinitionsURL);
 
-boolean existing = true;
-String fileName = StringPool.BLANK;
-
 long definitionId = ParamUtil.getLong(request, "definitionId");
 
 Definition definition = DefinitionLocalServiceUtil.fetchDefinition(definitionId);
 
-if (definition == null) {
-	existing = false;
-}
-else {
-	fileName = definition.getReportName();
-}
-
 String name = BeanParamUtil.getString(definition, request, "name");
 String description = BeanParamUtil.getString(definition, request, "description");
 long sourceId = BeanParamUtil.getLong(definition, request, "sourceId");
+
+String reportName = StringPool.BLANK;
+
+if (definition != null) {
+	reportName = definition.getReportName();
+}
 %>
 
 <portlet:renderURL var="definitionsURL">
@@ -65,7 +61,7 @@ long sourceId = BeanParamUtil.getLong(definition, request, "sourceId");
 
 	<aui:input name="viewDefinitionsURL" type="hidden" value="<%= viewDefinitionsURL %>" />
 
-	<c:if test="<%= existing %>">
+	<c:if test="<%= definition != null %>">
 		<aui:input name="definitionId" type="hidden" />
 
 		<%= definitionId %>
@@ -98,17 +94,17 @@ long sourceId = BeanParamUtil.getLong(definition, request, "sourceId");
 		</aui:select>
 
 		<aui:field-wrapper label="template">
-			<aui:input inputCssClass="templateUpdated" name="templateUpdated" type="hidden" value="<%= !existing %>" />
+			<aui:input inputCssClass="templateUpdated" name="templateUpdated" type="hidden" value="<%= definition == null %>" />
 
-			<span class="existingFile" style='<%= Validator.isNull(fileName) ? "display: none;" : "display: block;" %>'>
-				<%= fileName %>
+			<span class="existingFile" style='<%= Validator.isNull(reportName) ? "display: none;" : "display: block;" %>'>
+				<%= reportName %>
 
 				<img class="removeExisting" src="<%= themeDisplay.getPathThemeImages() %>/arrows/02_x.png" />
 
-				<aui:input name="fileName" type="hidden" value="<%= fileName %>" />
+				<aui:input name="reportName" type="hidden" value="<%= reportName %>" />
 			</span>
 
-			<aui:input inputCssClass="templateFile" name="templateFile" style='<%= Validator.isNull(fileName) ? "display: block;" : "display: none;" %>' type="file" />
+			<aui:input inputCssClass="templateFile" name="templateFile" style='<%= Validator.isNull(reportName) ? "display: block;" : "display: none;" %>' type="file" />
 
 			<aui:button inputCssClass="cancelUpdateTemplateFile" style="display:none;" value="cancel" />
 		</aui:field-wrapper>
@@ -162,7 +158,7 @@ long sourceId = BeanParamUtil.getLong(definition, request, "sourceId");
 		</aui:field-wrapper>
 	</aui:fieldset>
 
-	<c:if test="<%= !existing %>">
+	<c:if test="<%= definition == null %>">
 		<aui:field-wrapper label="permissions">
 			<liferay-ui:input-permissions modelName="<%= Definition.class.getName() %>" />
 		</aui:field-wrapper>
@@ -174,9 +170,9 @@ long sourceId = BeanParamUtil.getLong(definition, request, "sourceId");
 			<portlet:param name="tabs1" value="definitions" />
 		</portlet:renderURL>
 
-		<aui:button onClick='<%= renderResponse.getNamespace() + "editDefinition();" %>' value='<%= existing ? "update" : "save" %>' />
+		<aui:button onClick='<%= renderResponse.getNamespace() + "editDefinition();" %>' value='<%= (definition != null) ? "update" : "save" %>' />
 
-		<c:if test="<%= existing %>">
+		<c:if test="<%= definition != null %>">
 			<c:if test="<%= DefinitionPermission.contains(permissionChecker, definition, ActionKeys.ADD_REPORT) %>">
 				<aui:button onClick='<%= renderResponse.getNamespace() + "addReport();" %>' value="add-report" />
 
@@ -219,7 +215,7 @@ long sourceId = BeanParamUtil.getLong(definition, request, "sourceId");
 	function <portlet:namespace />editDefinition() {
 		var isTemplateUpdated = AUI().one('.templateUpdated').get('value');
 
-		if ((isTemplateUpdated == 'true') || <%= !existing %>) {
+		if ((isTemplateUpdated == 'true') || (<%= definition == null %>)) {
 			document.<portlet:namespace />fm.encoding = "multipart/form-data";
 		}
 

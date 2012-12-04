@@ -32,18 +32,18 @@ if (Validator.isNull(driverPassword)) {
 	}
 }
 
-boolean connectionSuccess = true;
+boolean validJDBCConnection = true;
 
 try {
 	ReportsUtil.validateJDBCConnection(driverClassName, driverUrl, driverUserName, driverPassword);
 }
 catch (SourceJDBCConnectionException sjdbcce) {
-	connectionSuccess = false;
+	validJDBCConnection = false;
 }
 %>
 
 <c:choose>
-	<c:when test="<%= connectionSuccess %>">
+	<c:when test="<%= validJDBCConnection %>">
 		<div class="portlet-msg-success">
 			<liferay-ui:message key="you-have-successfully-connected-to-the-database" />
 		</div>
