@@ -24,7 +24,7 @@ ResultRow row = (ResultRow) request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT
 String fileName = (String)row.getObject();
 %>
 
-<liferay-ui:icon-menu cssClass="">
+<liferay-ui:icon-menu>
 	<portlet:renderURL var="deliverReportURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 		<portlet:param name="mvcPath" value="/admin/report/deliver_report.jsp" />
 		<portlet:param name="entryId" value="<%= String.valueOf(entry.getEntryId()) %>" />
@@ -50,6 +50,7 @@ String fileName = (String)row.getObject();
 
 	<c:if test="<%= EntryPermission.contains(permissionChecker, entry.getEntryId(), ActionKeys.DELETE) %>">
 		<portlet:actionURL name="deleteReport" var="deleteReportURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
+			<portlet:param name="redirect" value="<%= currentURL %>" />
 			<portlet:param name="entryId" value="<%= String.valueOf(entry.getEntryId()) %>" />
 			<portlet:param name="fileName" value="<%= fileName %>" />
 		</portlet:actionURL>

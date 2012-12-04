@@ -14,7 +14,12 @@
  */
 --%>
 
-<%@ include file="/admin/report/init.jsp" %>
+<%@ include file="/init.jsp" %>
+
+<%
+String definitionName = ParamUtil.getString(request, "definitionName");
+String userName = ParamUtil.getString(request, "userName");
+%>
 
 <liferay-portlet:renderURL varImpl="searchURL">
 	<portlet:param name="mvcPath" value="/admin/view.jsp" />
@@ -22,6 +27,20 @@
 
 <aui:form action="<%= searchURL %>" method="get" name="fm">
 	<liferay-portlet:renderURLParams varImpl="searchURL" />
+
+	<%
+	Calendar calendar = CalendarFactoryUtil.getCalendar(timeZone, locale);
+
+	int endDateDay = ParamUtil.getInteger(request, "endDateDay", calendar.get(Calendar.DATE));
+	int endDateMonth = ParamUtil.getInteger(request, "endDateMonth", calendar.get(Calendar.MONTH));
+	int endDateYear = ParamUtil.getInteger(request, "endDateYear", calendar.get(Calendar.YEAR));
+
+	calendar.add(Calendar.DATE, -1);
+
+	int startDateDay = ParamUtil.getInteger(request, "startDateDay", calendar.get(Calendar.DATE));
+	int startDateMonth = ParamUtil.getInteger(request, "startDateMonth", calendar.get(Calendar.MONTH));
+	int startDateYear = ParamUtil.getInteger(request, "startDateYear", calendar.get(Calendar.YEAR));
+	%>
 
 	<liferay-portlet:renderURL varImpl="iteratorURL">
 		<portlet:param name="definitionName" value="<%= definitionName %>" />
@@ -79,32 +98,23 @@
 			</liferay-portlet:renderURL>
 
 			<%
-			String name = StringPool.BLANK;
-
-			try{
-				Definition definition = DefinitionLocalServiceUtil.getDefinition(entry.getDefinitionId());
-
-				name = definition.getName(locale);
-			}
-			catch (NoSuchDefinitionException nsde) {
-				name = "definition doesn't exist";
-			}
+			Definition definition = DefinitionLocalServiceUtil.fetchDefinition(entry.getDefinitionId());
 			%>
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="definition-name"
-				value="<%= name %>"
+				value="<%= (definition == null) ? StringPool.BLANK : definition.getName(locale) %>"
 			/>
 
 			<%
-			User requestedUesr = UserLocalServiceUtil.getUser(entry.getUserId());
+			User user2 = UserLocalServiceUtil.fetchUser(entry.getUserId());
 			%>
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="source-name"
-				value="<%= requestedUesr.getScreenName() %>"
+				value="<%= (user2 == null) ? StringPool.BLANK : user2.getScreenName() %>"
 			/>
 
 			<liferay-ui:search-container-column-text

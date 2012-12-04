@@ -1,3 +1,5 @@
+<%@ page import="com.liferay.portal.kernel.util.Validator" %>
+
 <%--
 /**
  * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
@@ -17,20 +19,33 @@
 <%@ include file="/init.jsp" %>
 
 <%
-long sourceId = ParamUtil.getLong(request, "sourceId", 0);
 String driverClassName = ParamUtil.getString(request, "driverClassName");
 String driverUrl = ParamUtil.getString(request, "driverUrl");
 String driverUserName = ParamUtil.getString(request, "driverUserName");
 String driverPassword = ParamUtil.getString(request, "driverPassword");
 
-if (Validator.isNull(driverPassword) && (sourceId > 0)) {
-	Source source = SourceLocalServiceUtil.getSource(sourceId);
-	driverPassword = source.getDriverPassword();
+if (Validator.isNull(driverPassword)) {
+	long sourceId = ParamUtil.getLong(request, "sourceId");
+
+	Source source = SourceLocalServiceUtil.fetchSource(sourceId);
+
+	if (source != null) {
+		driverPassword = source.getDriverPassword();
+	}
+}
+
+boolean connectionSuccess = true;
+
+try {
+	ReportsUtil.validateJDBCConnection(driverClassName, driverUrl, driverUserName, driverPassword);
+}
+catch (SourceJDBCConnectionException sjdbcce) {
+	connectionSuccess = false;
 }
 %>
 
 <c:choose>
-	<c:when test="<%= ReportsUtil.validateJDBCConnection(driverClassName, driverUrl, driverUserName, driverPassword) %>">
+	<c:when test="<%= connectionSuccess %>">
 		<div class="portlet-msg-success">
 			<liferay-ui:message key="you-have-successfully-connected-to-the-database" />
 		</div>

@@ -133,6 +133,7 @@
 		<exception>SourceColumnNames</exception>
 		<exception>SourceDriverClassName</exception>
 		<exception>SourceFile</exception>
+		<exception>SourceJDBCConnection</exception>
 		<exception>SourceLogin</exception>
 		<exception>SourceName</exception>
 		<exception>SourceType</exception>

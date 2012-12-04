@@ -68,31 +68,19 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(entry.getDefini
 	<aui:field-wrapper label="data-source-name">
 
 		<%
-		String name = null;
-
-		if (definition.getSourceId() == PortletConstants.PORTAL_DATA_SOURCE_ID) {
-			name = String.valueOf(ReportDataSourceType.PORTAL);
-		}
-		else {
-			Source source = SourceLocalServiceUtil.getSource(definition.getSourceId());
-
-			name = source.getName(locale);
-		}
+		Source source = SourceLocalServiceUtil.fetchSource(definition.getSourceId());
 		%>
 
-		<%= name %>
+		<%= (source == null) ? ReportDataSourceType.PORTAL.getValue() : source.getName(locale) %>
 	</aui:field-wrapper>
 
 	<aui:field-wrapper label="report-parameters">
 
 		<%
 		for (String reportParameter : StringUtil.split(entry.getReportParameters())) {
-			if (Validator.isNull(reportParameter)) {
-				continue;
-			}
 		%>
 
-			<%= reportParameter %>
+			<%= Validator.isNull(reportParameter) ? StringPool.BLANK : reportParameter %>
 
 		<%
 		}
@@ -104,23 +92,27 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(entry.getDefini
 		<aui:field-wrapper label="is-schedule-request">
 
 				<%
-				StringBuffer repeatingInof = new StringBuffer();
-				repeatingInof.append("<br />");
-				repeatingInof.append(LanguageUtil.get(pageContext, "scheduler-from")).append(" : ");
-				repeatingInof.append(dateFormatDateTime.format(entry.getStartDate()));
+				StringBundler sb = new StringBundler((entry.getEndDate() != null) ? 12 : 8);
+
+				sb.append("<br />");
+				sb.append(LanguageUtil.get(pageContext, "scheduler-from"));
+				sb.append(" : ");
+				sb.append(dateFormatDateTime.format(entry.getStartDate()));
 
 				if (entry.getEndDate() != null) {
-					repeatingInof.append("<br />");
-					repeatingInof.append(LanguageUtil.get(pageContext, "scheduler-to")).append(" : ");
-					repeatingInof.append(dateFormatDateTime.format(entry.getEndDate()));
+					sb.append("<br />");
+					sb.append(LanguageUtil.get(pageContext, "scheduler-to"));
+					sb.append(" : ");
+					sb.append(dateFormatDateTime.format(entry.getEndDate()));
 				}
 
-				repeatingInof.append("<br />");
-				repeatingInof.append(LanguageUtil.get(pageContext, "scheduler-crontext")).append(" : ");
-				repeatingInof.append(entry.getRecurrence());
+				sb.append("<br />");
+				sb.append(LanguageUtil.get(pageContext, "scheduler-crontext"));
+				sb.append(" : ");
+				sb.append(entry.getRecurrence());
 				%>
 
-				<%= repeatingInof.toString() %>
+				<%= sb.toString() %>
 		</aui:field-wrapper>
 	</c:if>
 
@@ -143,24 +135,25 @@ List<String> headerNames = new ArrayList<String>();
 headerNames.add("file");
 headerNames.add("download");
 
-SearchContainer downloadFileNamesContainer = new SearchContainer(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, SearchContainer.DEFAULT_DELTA, portletURL, headerNames, null);
+List<String> attachmentsFiles = Arrays.asList(entry.getAttachmentsFiles());
 
-String[] attachmentsFiles = entry.getAttachmentsFiles();
-
-List<String> fileNames = Arrays.asList(attachmentsFiles);
-
-fileNames = ListUtil.subList(fileNames, downloadFileNamesContainer.getStart(), downloadFileNamesContainer.getEnd());
-
-request.setAttribute("entry",entry);
+request.setAttribute("entry", entry);
 %>
 
-<liferay-ui:search-container delta="2" iteratorURL="<%= portletURL %>">
+<liferay-ui:search-container
+	delta="2"
+	iteratorURL="<%= portletURL %>"
+	searchContainer="<%= new SearchContainer(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, SearchContainer.DEFAULT_DELTA, portletURL, headerNames, null) %>"
+>
 	<liferay-ui:search-container-results
-		results="<%= fileNames %>"
-		total="<%= attachmentsFiles.length %>"
+		results="<%= ListUtil.subList(attachmentsFiles, searchContainer.getStart(), searchContainer.getEnd()) %>"
+		total="<%= attachmentsFiles.size() %>"
 	/>
 
-	<liferay-ui:search-container-row className="java.lang.String" modelVar="fileName">
+	<liferay-ui:search-container-row
+		className="java.lang.String"
+		modelVar="fileName"
+	>
 		<liferay-ui:search-container-column-text
 			name="file"
 			value="<%= StringUtil.extractLast(fileName, StringPool.SLASH) %>"
@@ -171,5 +164,5 @@ request.setAttribute("entry",entry);
 		/>
 	</liferay-ui:search-container-row>
 
-	<liferay-ui:search-iterator searchContainer="<%= downloadFileNamesContainer %>" />
+	<liferay-ui:search-iterator />
 </liferay-ui:search-container>

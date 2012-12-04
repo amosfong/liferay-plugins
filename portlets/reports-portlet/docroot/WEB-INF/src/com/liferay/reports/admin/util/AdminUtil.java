@@ -34,10 +34,8 @@ public class AdminUtil {
 		if (Validator.isNotNull(emailDeliveryBody)) {
 			return emailDeliveryBody;
 		}
-		else {
-			return ContentUtil.get(
-				PortletPropsValues.ADMIN_EMAIL_DELIVERY_BODY);
-		}
+
+		return ContentUtil.get(PortletPropsValues.ADMIN_EMAIL_DELIVERY_BODY);
 	}
 
 	public static String getEmailDeliverySubject(
@@ -49,10 +47,8 @@ public class AdminUtil {
 		if (Validator.isNotNull(emailDeliverySubject)) {
 			return emailDeliverySubject;
 		}
-		else {
-			return ContentUtil.get(
-				PortletPropsValues.ADMIN_EMAIL_DELIVERY_SUBJECT);
-		}
+
+		return ContentUtil.get(PortletPropsValues.ADMIN_EMAIL_DELIVERY_SUBJECT);
 	}
 
 	public static String getEmailFromAddress(PortletPreferences preferences) {
@@ -76,10 +72,9 @@ public class AdminUtil {
 		if (Validator.isNotNull(emailNotificationsBody)) {
 			return emailNotificationsBody;
 		}
-		else {
-			return ContentUtil.get(
-				PortletPropsValues.ADMIN_EMAIL_NOTIFICATIONS_BODY);
-		}
+
+		return ContentUtil.get(
+			PortletPropsValues.ADMIN_EMAIL_NOTIFICATIONS_BODY);
 	}
 
 	public static String getEmailNotificationsSubject(
@@ -91,10 +86,9 @@ public class AdminUtil {
 		if (Validator.isNotNull(emailNotificationsSubject)) {
 			return emailNotificationsSubject;
 		}
-		else {
-			return ContentUtil.get(
-				PortletPropsValues.ADMIN_EMAIL_NOTIFICATIONS_SUBJECT);
-		}
+
+		return ContentUtil.get(
+			PortletPropsValues.ADMIN_EMAIL_NOTIFICATIONS_SUBJECT);
 	}
 
 }

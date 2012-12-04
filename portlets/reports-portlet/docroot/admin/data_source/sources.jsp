@@ -27,15 +27,14 @@ String driverUrl = ParamUtil.getString(request, "driverUrl");
 </liferay-portlet:renderURL>
 
 <aui:form action="<%= searchURL %>" method="get" name="fm">
-
-	<liferay-ui:error key="could-not-connect-database" message="could-not-connect-to-the-database.-please-verify-that-the-settings-are-correct" />
-	<liferay-ui:success key="successful-connect-database" message="you-have-successfully-connected-to-the-database" />
+	<liferay-ui:error key="connectionError" message="could-not-connect-to-the-database.-please-verify-that-the-settings-are-correct" />
+	<liferay-ui:success key="connectionSuccess" message="you-have-successfully-connected-to-the-database" />
 
 	<liferay-portlet:renderURLParams varImpl="searchURL" />
 
 	<liferay-portlet:renderURL varImpl="iteratorURL">
 		<portlet:param name="name" value="<%= name %>" />
-		<portlet:param name="driverUrl" value="<%= String.valueOf(driverUrl) %>" />
+		<portlet:param name="driverUrl" value="<%= driverUrl %>" />
 	</liferay-portlet:renderURL>
 
 	<liferay-ui:search-container
@@ -89,13 +88,13 @@ String driverUrl = ParamUtil.getString(request, "driverUrl");
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="jdbc-url"
-				value="<%= source.getDriverUrl() %>"
+				property="driverUrl"
 			/>
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="jdbc-user-name"
-				value="<%= source.getDriverUserName() %>"
+				property="driverUserName"
 			/>
 
 			<liferay-ui:search-container-column-jsp

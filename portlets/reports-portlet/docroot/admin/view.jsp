@@ -17,30 +17,30 @@
 <%@ include file="/init.jsp" %>
 
 <%
-String tabs1 = ParamUtil.getString(request, "tabs1","reports");
+String tabs1 = ParamUtil.getString(request, "tabs1", "reports");
 
 PortletURL portletURL = renderResponse.createRenderURL();
 
 portletURL.setParameter("tabs1", tabs1);
 
-String tabs = "reports";
+String tabs1Names = "reports";
 
-boolean canAddDefinition = AdminPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_DEFINITION);
-boolean canAddDataSource = AdminPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_SOURCE);
+boolean showDefinitionsTab = AdminPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_DEFINITION);
+boolean showDataSourcesTab = AdminPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_SOURCE);
 
 if (portletName.equals("1")) {
-	if (canAddDefinition) {
-		tabs += ",definitions";
+	if (showDefinitionsTab) {
+		tabs1Names += ",definitions";
 	}
 
-	if (canAddDataSource) {
-		tabs += ",sources";
+	if (showDataSourcesTab) {
+		tabs1Names += ",sources";
 	}
 }
 %>
 
 <liferay-ui:tabs
-	names="<%= tabs %>"
+	names="<%= tabs1Names %>"
 	param="tabs1"
 	url="<%= portletURL.toString() %>"
 />
@@ -49,10 +49,10 @@ if (portletName.equals("1")) {
 	<c:when test='<%= tabs1.equals("reports") %>'>
 		<liferay-util:include page="/admin/report/entries.jsp" servletContext="<%= application %>" />
 	</c:when>
-	<c:when test='<%= canAddDefinition && tabs1.equals("definitions") %>'>
+	<c:when test='<%= showDefinitionsTab && tabs1.equals("definitions") %>'>
 		<liferay-util:include page="/admin/definition/definitions.jsp" servletContext="<%= application %>" />
 	</c:when>
-	<c:when test='<%= canAddDataSource && tabs1.equals("sources") %>'>
+	<c:when test='<%= showDataSourcesTab && tabs1.equals("sources") %>'>
 		<liferay-util:include page="/admin/data_source/sources.jsp" servletContext="<%= application %>" />
 	</c:when>
 </c:choose>

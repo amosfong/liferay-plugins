@@ -20,11 +20,6 @@
 SearchContainer searchContainer = (SearchContainer)request.getAttribute("liferay-ui:search:searchContainer");
 
 DisplayTerms displayTerms = searchContainer.getDisplayTerms();
-
-String name = ParamUtil.getString(request, "name");
-String description = ParamUtil.getString(request, "description");
-String sourceId = ParamUtil.getString(request, "sourceId");
-String reportName = ParamUtil.getString(request, "reportName");
 %>
 
 <liferay-ui:search-toggle
@@ -33,27 +28,28 @@ String reportName = ParamUtil.getString(request, "reportName");
 	id="toggle_id_reports_definition_search"
 >
 	<aui:fieldset>
-		<aui:input label="definition-name" name="name" size="20" value="<%= name %>" />
+		<aui:input name="definitionName" size="20" value='<%= ParamUtil.getString(request, "definitionName") %>' />
 
 		<aui:select label="data-source-name" name="sourceId">
-			<aui:option label="all" value="" />
-			<aui:option label="<%= ReportDataSourceType.PORTAL %>" value="<%= PortletConstants.PORTAL_DATA_SOURCE_ID %>" />
+			<aui:option label="all" />
+			<aui:option label="<%= ReportDataSourceType.PORTAL %>" value="0" />
 
 			<%
-			List<Source> list = SourceServiceUtil.getSources(themeDisplay.getParentGroupId(), null, null, false, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+			List<Source> sources = SourceServiceUtil.getSources(themeDisplay.getParentGroupId(), null, null, false, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 
-			for (Iterator itr = list.iterator(); itr.hasNext();) {
-				Source element = (Source)itr.next();
-				if (SourcePermission.contains(permissionChecker, element, ActionKeys.VIEW)){
+			for (Source source : sources) {
 			%>
 
-				<aui:option label="<%= element.getName(locale) %>" value="<%= element.getSourceId() %>" />
-			<% }} %>
+				<aui:option label="<%= source.getName(locale) %>" value="<%= source.getSourceId() %>" />
+
+			<%
+			}
+			%>
 
 		</aui:select>
 
-		<aui:input label="description" name="description" size="20" value="<%= description %>" />
+		<aui:input name="description" size="20" value='<%= ParamUtil.getString(request, "description") %>' />
 
-		<aui:input label="template" name="reportName" size="20" value="<%= reportName %>" />
+		<aui:input label="template" name="reportName" size="20" value='<%= ParamUtil.getString(request, "reportName") %>' />
 	</aui:fieldset>
 </liferay-ui:search-toggle>

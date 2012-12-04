@@ -20,15 +20,13 @@
 ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 
 Definition definition = (Definition)row.getObject();
-
-String definitionId = String.valueOf(definition.getDefinitionId());
 %>
 
-<liferay-ui:icon-menu cssClass="">
+<liferay-ui:icon-menu>
 	<c:if test="<%= DefinitionPermission.contains(permissionChecker, definition, ActionKeys.UPDATE) %>">
 		<portlet:renderURL var="editURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 			<portlet:param name="mvcPath" value="/admin/definition/edit_definition.jsp" />
-			<portlet:param name="definitionId" value="<%= definitionId %>" />
+			<portlet:param name="definitionId" value="<%= String.valueOf(definition.getDefinitionId()) %>" />
 		</portlet:renderURL>
 
 		<liferay-ui:icon
@@ -41,7 +39,7 @@ String definitionId = String.valueOf(definition.getDefinitionId());
 		<liferay-security:permissionsURL
 			modelResource="<%= Definition.class.getName() %>"
 			modelResourceDescription="<%= definition.getName(locale) %>"
-			resourcePrimKey="<%= definitionId %>"
+			resourcePrimKey="<%= String.valueOf(definition.getDefinitionId()) %>"
 			var="permissionsURL"
 		/>
 
@@ -52,22 +50,22 @@ String definitionId = String.valueOf(definition.getDefinitionId());
 	</c:if>
 
 	<c:if test="<%= DefinitionPermission.contains(permissionChecker, definition, ActionKeys.ADD_REPORT) %>">
-		<portlet:renderURL var="generateImmdiatelyURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
+		<portlet:renderURL var="addReportURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 			<portlet:param name="mvcPath" value="/admin/report/generate_report.jsp" />
-			<portlet:param name="definitionId" value="<%= definitionId %>" />
+			<portlet:param name="definitionId" value="<%= String.valueOf(definition.getDefinitionId()) %>" />
 		</portlet:renderURL>
 
 		<liferay-ui:icon
 			image="add_template"
 			message="add-report"
-			url="<%= generateImmdiatelyURL %>"
+			url="<%= addReportURL %>"
 		/>
 	</c:if>
 
 	<c:if test="<%= DefinitionPermission.contains(permissionChecker, definition, ActionKeys.ADD_REPORT) %>">
 		<portlet:renderURL var="addScheduleURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 			<portlet:param name="mvcPath" value="/admin/report/edit_schedule.jsp" />
-			<portlet:param name="definitionId" value="<%= definitionId %>" />
+			<portlet:param name="definitionId" value="<%= String.valueOf(definition.getDefinitionId()) %>" />
 		</portlet:renderURL>
 
 		<liferay-ui:icon
@@ -79,8 +77,9 @@ String definitionId = String.valueOf(definition.getDefinitionId());
 
 	<c:if test="<%= DefinitionPermission.contains(permissionChecker, definition, ActionKeys.DELETE) %>">
 		<portlet:actionURL name="deleteDefinition" var="deleteURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
-			<portlet:param name="definitionId" value="<%= definitionId %>" />
 			<portlet:param name="tabs1" value="definitions" />
+			<portlet:param name="redirect" value="<%= currentURL %>" />
+			<portlet:param name="definitionId" value="<%= String.valueOf(definition.getDefinitionId()) %>" />
 		</portlet:actionURL>
 
 		<liferay-ui:icon-delete

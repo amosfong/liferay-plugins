@@ -14,6 +14,7 @@
 
 package com.liferay.reports.admin.portlet.action;
 
+import com.liferay.portal.kernel.servlet.SessionMessages;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.reports.model.Source;
 import com.liferay.reports.service.SourceLocalServiceUtil;
@@ -40,6 +41,8 @@ public class TestDataSourceActionCommand extends BaseActionCommand {
 		ReportsUtil.validateJDBCConnection(
 			source.getDriverClassName(), source.getDriverUrl(),
 			source.getDriverUserName(), source.getDriverPassword());
+
+		SessionMessages.add(portletRequest, "connectionSuccess");
 	}
 
 }

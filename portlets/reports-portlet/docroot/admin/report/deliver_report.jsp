@@ -46,13 +46,12 @@ String fileName = ParamUtil.getString(request, "fileName");
 			<%= StringUtil.extractLast(fileName, StringPool.FORWARD_SLASH) %>
 		</aui:field-wrapper>
 
-		<aui:input label="email-recipient" name="emailDelivery" type="text"></aui:input>
+		<aui:input label="email-recipient" name="emailDelivery" type="text" />
 	</aui:fieldset>
 
 	<aui:button-row>
 		<aui:button type="submit" value="deliver" />
 
 		<aui:button href="<%= backURL %>" type="cancel" />
-
 	</aui:button-row>
 </aui:form>

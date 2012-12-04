@@ -57,10 +57,10 @@ else if (tabs2.equals("notifications-email")) {
 	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= Constants.UPDATE %>" />
 	<aui:input name="tabs2" type="hidden" value="<%= tabs2 %>" />
 
-	<liferay-ui:error key="deliveryEmailMessageBody" message="please-enter-a-valid-body" />
-	<liferay-ui:error key="deliveryEmailMessageSubject" message="please-enter-a-valid-subject" />
-	<liferay-ui:error key="notificationsEmailMessageBody" message="please-enter-a-valid-body" />
-	<liferay-ui:error key="notificationsEmailMessageSubject" message="please-enter-a-valid-subject" />
+	<liferay-ui:error key="emailDeliveryBody" message="please-enter-a-valid-body" />
+	<liferay-ui:error key="emailDeliverySubject" message="please-enter-a-valid-subject" />
+	<liferay-ui:error key="emailNotificationsBody" message="please-enter-a-valid-body" />
+	<liferay-ui:error key="emailNotificationsSubject" message="please-enter-a-valid-subject" />
 	<liferay-ui:error key="emailFromAddress" message="please-enter-a-valid-email-address" />
 	<liferay-ui:error key="emailFromName" message="please-enter-a-valid-name" />
 

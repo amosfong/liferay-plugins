@@ -23,75 +23,24 @@
 <%
 String backURL = ParamUtil.getString(request, "backURL", viewDefinitionsURL);
 
-Definition definition = null;
-
 long definitionId = ParamUtil.getLong(request, "definitionId");
 
-if (definitionId > 0) {
-	definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
-}
+boolean existing = true;
+String fileName = StringPool.BLANK;
 
-String fileName = null;
-boolean isNew = false;
-String reportParameters = StringPool.BLANK;
+Definition definition = DefinitionLocalServiceUtil.fetchDefinition(definitionId);
 
-if ((definition == null) || definition.isNew()) {
-	isNew = true;
+if (definition == null) {
+	existing = false;
 }
 else {
-	definitionId = definition.getDefinitionId();
 	fileName = definition.getReportName();
-	reportParameters = definition.getReportParameters();
 }
-
-Calendar today = CalendarFactoryUtil.getCalendar(timeZone, locale);
 %>
 
 <portlet:renderURL var="definitionsURL">
 	<portlet:param name="tabs1" value="definitions" />
 </portlet:renderURL>
-
-<script type="text/javascript">
-	AUI().ready(
-		function(A) {
-			Liferay.Report.initialize(
-				{
-					parameters:'<%= reportParameters %>',
-					namespace:'<portlet:namespace />'
-				}
-			);
-		}
-	);
-
-	function <portlet:namespace />addScheduler() {
-		submitForm(document.<portlet:namespace />fm, '<portlet:renderURL windowState="<%= WindowState.MAXIMIZED.toString() %>"><portlet:param name="mvcPath" value="/admin/report/edit_schedule.jsp" /><portlet:param name="definitionId" value="<%= String.valueOf(definitionId) %>" /></portlet:renderURL>');
-	}
-
-	function <portlet:namespace />addDefinition() {
-		document.<portlet:namespace />fm.encoding = "multipart/form-data";
-		submitForm(document.<portlet:namespace />fm, '<portlet:actionURL name="editDefinition" windowState="<%= WindowState.MAXIMIZED.toString() %>"><portlet:param name="mvcPath" value="/admin/definition/edit_definition.jsp" /><portlet:param name="<%= Constants.CMD %>" value="<%= Constants.ADD %>" /></portlet:actionURL>');
-	}
-
-	function <portlet:namespace />updateDefinition() {
-		var isTemplateUpdated = AUI().one('.templateUpdated').get('value');
-
-		if (isTemplateUpdated == 'true') {
-			document.<portlet:namespace />fm.encoding = "multipart/form-data";
-		}
-
-		submitForm(document.<portlet:namespace />fm, '<portlet:actionURL name="editDefinition" windowState="<%= WindowState.MAXIMIZED.toString() %>"><portlet:param name="mvcPath" value="/admin/definition/edit_definition.jsp" /><portlet:param name="<%= Constants.CMD %>" value="<%= Constants.UPDATE %>" /></portlet:actionURL>');
-	}
-
-	function <portlet:namespace />generateImmdiately() {
-		submitForm(document.<portlet:namespace />fm, '<portlet:renderURL windowState="<%= WindowState.MAXIMIZED.toString() %>"><portlet:param name="mvcPath" value="/admin/report/generate_report.jsp" /><portlet:param name="definitionId" value="<%= String.valueOf(definitionId) %>" /></portlet:renderURL>');
-	}
-
-	function <portlet:namespace />deleteDefinition() {
-		if (confirm('<%= UnicodeLanguageUtil.get(pageContext, "are-you-sure-you-want-to-delete-this") %>')) {
-			submitForm(document.<portlet:namespace />fm, '<portlet:actionURL name="deleteDefinition" windowState="<%= WindowState.MAXIMIZED.toString() %>"><portlet:param name="redirect" value="<%= definitionsURL%>" /></portlet:actionURL>');
-		}
-	}
-</script>
 
 <liferay-ui:header
 	backURL="<%= backURL %>"
@@ -108,97 +57,108 @@ Calendar today = CalendarFactoryUtil.getCalendar(timeZone, locale);
 	<liferay-ui:error exception="<%= DefinitionFileException.class %>" message="please-enter-a-valid-file" />
 	<liferay-ui:error exception="<%= DefinitionNameException.class %>" message="please-enter-a-valid-name" />
 
+	<aui:model-context bean="<%= definition %>" model="<%= Definition.class %>" />
+
 	<aui:input name="viewDefinitionsURL" type="hidden" value="<%= viewDefinitionsURL %>" />
 
-	<c:if test="<%= !isNew %>">
-		<aui:input name="definitionId" type="hidden" value="<%= definition.getDefinitionId() %>" /><%= definition.getDefinitionId() %>
+	<c:if test="<%= existing %>">
+		<aui:input name="definitionId" type="hidden" />
+
+		<%= definitionId %>
 	</c:if>
 
 	<aui:fieldset>
 		<aui:field-wrapper label="definition-name">
-			<liferay-ui:input-localized name="definitionName" xml='<%= BeanPropertiesUtil.getString(definition, "name") %>' />
+			<liferay-ui:input-localized name="name" xml='<%= BeanParamUtil.getString(definition, request, "name") %>' />
 		</aui:field-wrapper>
 
 		<aui:field-wrapper label="description">
-			<liferay-ui:input-localized name="definitionDescription" type="textarea" xml='<%= BeanPropertiesUtil.getString(definition, "description") %>' />
+			<liferay-ui:input-localized name="description" type="textarea" xml='<%= BeanParamUtil.getString(definition, request, "description") %>' />
 		</aui:field-wrapper>
 
 		<aui:select label="data-source-name" name="sourceId">
-			<aui:option label="<%= ReportDataSourceType.PORTAL.getValue() %>" selected="<%= (definition != null) && (definition.getSourceId() == PortletConstants.PORTAL_DATA_SOURCE_ID) %>" value="<%= PortletConstants.PORTAL_DATA_SOURCE_ID %>" />
+			<aui:option label="<%= ReportDataSourceType.PORTAL.getValue() %>" selected='<%= BeanParamUtil.getLong(definition, request, "sourceId") == 0 %>' value="<%= 0 %>" />
 
 			<%
-			List<Source> list = SourceServiceUtil.getSources(themeDisplay.getParentGroupId(), null, null, false, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+			List<Source> sources = SourceServiceUtil.getSources(themeDisplay.getParentGroupId(), null, null, false, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 
-			for (Iterator itr = list.iterator(); itr.hasNext();) {
-				Source element = (Source)itr.next();
-
-				if (SourcePermission.contains(permissionChecker, element, ActionKeys.VIEW)){
+			for (Source source : sources) {
 			%>
 
-				<aui:option label="<%= element.getName(locale) %>" selected="<%= !isNew && (definition.getSourceId() == element.getSourceId()) %>" value="<%= element.getSourceId() %>" />
+				<aui:option label="<%= source.getName(locale) %>" selected='<%= BeanParamUtil.getLong(definition, request, "sourceId") == source.getSourceId() %>' value="<%= source.getSourceId() %>" />
 
 			<%
-				}
 			}
 			%>
 
 		</aui:select>
 
 		<aui:field-wrapper label="template">
-			<aui:input inputCssClass="templateUpdated" name="templateUpdated" type="hidden" value="<%= isNew %>" />
+			<aui:input inputCssClass="templateUpdated" name="templateUpdated" type="hidden" value="<%= !existing %>" />
 
-			<span class="existingFile" style='<%= (Validator.isNull(fileName))?"display: none;":"display: block;" %>'>
-				<%= fileName %> <img class="removeExisting" src="<%= themeDisplay.getPathThemeImages() %>/arrows/02_x.png" />
+			<span class="existingFile" style='<%= Validator.isNull(fileName) ? "display: none;" : "display: block;" %>'>
+				<%= fileName %>
+
+				<img class="removeExisting" src="<%= themeDisplay.getPathThemeImages() %>/arrows/02_x.png" />
+
 				<aui:input name="fileName" type="hidden" value="<%= fileName %>" />
 			</span>
 
-			<aui:input inputCssClass="templateFile" label="" name="templateFile" style='<%= (Validator.isNull(fileName))?"display: block;":"display: none;" %>' type="file" />
+			<aui:input inputCssClass="templateFile" name="templateFile" style='<%= Validator.isNull(fileName) ? "display: block;" : "display: none;" %>' type="file" />
 
 			<aui:button inputCssClass="cancelUpdateTemplateFile" style="display:none;" value="cancel" />
-
 		</aui:field-wrapper>
 
 		<aui:field-wrapper helpMessage="definition-report-parameters-help" label="report-parameters">
 			<aui:input inputCssClass="reportParameters" name="reportParameters" type="hidden" />
+
 			<aui:column>
 				<aui:input inlineLabel="key" inputCssClass="parameters-key" name="key" size="20" type="text" />
 			</aui:column>
+
 			<aui:column>
 				<aui:input cssClass="parameters-value-field-set" inlineLabel="default-value" inputCssClass="parameters-value" name="value" size="20" type="text" />
+
+				<%
+				Calendar calendar = CalendarFactoryUtil.getCalendar(timeZone, locale);
+				%>
 
 				<aui:field-wrapper cssClass="parameters-input-date">
 					<liferay-ui:input-date
 						dayParam="parameterDateDay"
-						dayValue="<%= today.get(Calendar.DATE) %>"
+						dayValue="<%= calendar.get(Calendar.DATE) %>"
 						disabled="<%= false %>"
-						firstDayOfWeek="<%= today.getFirstDayOfWeek() - 1 %>"
+						firstDayOfWeek="<%= calendar.getFirstDayOfWeek() - 1 %>"
 						monthParam="parameterDateMonth"
-						monthValue="<%= today.get(Calendar.MONTH) %>"
+						monthValue="<%= calendar.get(Calendar.MONTH) %>"
 						yearParam="parameterDateYear"
-						yearRangeEnd="<%= today.get(Calendar.YEAR) + 100 %>"
-						yearRangeStart="<%= today.get(Calendar.YEAR) - 100 %>"
-						yearValue="<%= today.get(Calendar.YEAR) %>"
+						yearRangeEnd="<%= calendar.get(Calendar.YEAR) + 100 %>"
+						yearRangeStart="<%= calendar.get(Calendar.YEAR) - 100 %>"
+						yearValue="<%= calendar.get(Calendar.YEAR) %>"
 					/>
 				</aui:field-wrapper>
 			</aui:column>
+
 			<aui:column>
-				<aui:select inlineLabel="type" inputCssClass="parameters-input-type" name="">
+				<aui:select inlineLabel="type" inputCssClass="parameters-input-type" name="type">
 					<aui:option label="text" value="text" />
 					<aui:option label="date" value="date" />
 				</aui:select>
 			</aui:column>
 			<aui:column>
-				<span class="add-parameter"><liferay-ui:icon image="add" cssClass="add-parameter-button" /></span>
+				<span class="add-parameter">
+					<liferay-ui:icon cssClass="add-parameter-button" image="add" />
+				</span>
 			</aui:column>
 		</aui:field-wrapper>
-		<aui:field-wrapper label="">
+		<aui:field-wrapper>
 			<aui:column>
 				<div class="report-tags"></div>
 			</aui:column>
 		</aui:field-wrapper>
 	</aui:fieldset>
 
-	<c:if test="<%= isNew %>">
+	<c:if test="<%= !existing %>">
 		<aui:field-wrapper label="permissions">
 			<liferay-ui:input-permissions modelName="<%= Definition.class.getName() %>" />
 		</aui:field-wrapper>
@@ -206,24 +166,15 @@ Calendar today = CalendarFactoryUtil.getCalendar(timeZone, locale);
 
 	<aui:button-row>
 		<portlet:renderURL var="viewURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
-			<portlet:param name="tabs1" value="definitions" />
 			<portlet:param name="mvcPath" value="/admin/view.jsp" />
+			<portlet:param name="tabs1" value="definitions" />
 		</portlet:renderURL>
 
-		<c:if test="<%= isNew %>">
+		<aui:button onClick='<%= renderResponse.getNamespace() + "editDefinition();" %>' value='<%= existing ? "update" : "save" %>' />
 
-			<%
-				String addDefinition = renderResponse.getNamespace() + "addDefinition();";
-			%>
-
-			<aui:button onClick="<%= addDefinition %>" value="save" />
-		</c:if>
-
-		<c:if test="<%= !isNew %>">
-			<aui:button onClick='<%= renderResponse.getNamespace() + "updateDefinition();" %>' value="update" />
-
-			<c:if test="<%= !isNew && DefinitionPermission.contains(permissionChecker, definition, ActionKeys.ADD_REPORT) %>">
-				<aui:button onClick='<%= renderResponse.getNamespace() + "generateImmdiately();" %>' value="add-report" />
+		<c:if test="<%= existing %>">
+			<c:if test="<%= DefinitionPermission.contains(permissionChecker, definition, ActionKeys.ADD_REPORT) %>">
+				<aui:button onClick='<%= renderResponse.getNamespace() + "addReport();" %>' value="add-report" />
 
 				<aui:button onClick='<%= renderResponse.getNamespace() + "addScheduler();" %>' value="add-schedule" />
 			</c:if>
@@ -234,3 +185,40 @@ Calendar today = CalendarFactoryUtil.getCalendar(timeZone, locale);
 		<aui:button href="<%= viewURL %>" type="cancel" />
 	</aui:button-row>
 </aui:form>
+
+<script type="text/javascript">
+	AUI().ready(
+		function(A) {
+			Liferay.Report.initialize(
+				{
+					parameters:'<%= BeanParamUtil.getString(definition, request, "reportParameters") %>',
+					namespace:'<portlet:namespace />'
+				}
+			);
+		}
+	);
+
+	function <portlet:namespace />addReport() {
+		submitForm(document.<portlet:namespace />fm, '<portlet:renderURL windowState="<%= WindowState.MAXIMIZED.toString() %>"><portlet:param name="mvcPath" value="/admin/report/generate_report.jsp" /><portlet:param name="definitionId" value="<%= String.valueOf(definitionId) %>" /></portlet:renderURL>');
+	}
+
+	function <portlet:namespace />addScheduler() {
+		submitForm(document.<portlet:namespace />fm, '<portlet:renderURL windowState="<%= WindowState.MAXIMIZED.toString() %>"><portlet:param name="mvcPath" value="/admin/report/edit_schedule.jsp" /><portlet:param name="definitionId" value="<%= String.valueOf(definitionId) %>" /></portlet:renderURL>');
+	}
+
+	function <portlet:namespace />deleteDefinition() {
+		if (confirm('<%= UnicodeLanguageUtil.get(pageContext, "are-you-sure-you-want-to-delete-this") %>')) {
+			submitForm(document.<portlet:namespace />fm, '<portlet:actionURL name="deleteDefinition" windowState="<%= WindowState.MAXIMIZED.toString() %>"><portlet:param name="redirect" value="<%= definitionsURL %>" /></portlet:actionURL>');
+		}
+	}
+
+	function <portlet:namespace />editDefinition() {
+		var isTemplateUpdated = AUI().one('.templateUpdated').get('value');
+
+		if ((isTemplateUpdated == 'true') || <%= !existing %>) {
+			document.<portlet:namespace />fm.encoding = "multipart/form-data";
+		}
+
+		submitForm(document.<portlet:namespace />fm, '<portlet:actionURL name="editDefinition" windowState="<%= WindowState.MAXIMIZED.toString() %>"><portlet:param name="mvcPath" value="/admin/definition/edit_definition.jsp" /><portlet:param name="redirect" value="<%= definitionsURL %>" /></portlet:actionURL>');
+	}
+</script>

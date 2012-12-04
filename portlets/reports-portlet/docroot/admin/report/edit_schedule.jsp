@@ -100,35 +100,28 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 							<%
 							String[] date = value.split("-");
 
-							Calendar today = CalendarFactoryUtil.getCalendar(timeZone, locale);
+							Calendar calendar = CalendarFactoryUtil.getCalendar(timeZone, locale);
 
-							today.set(Calendar.YEAR, GetterUtil.getInteger(date[0]));
-							today.set(Calendar.MONTH, GetterUtil.getInteger(date[1]) - 1);
-							today.set(Calendar.DATE, GetterUtil.getInteger(date[2]));
+							calendar.set(Calendar.YEAR, GetterUtil.getInteger(date[0]));
+							calendar.set(Calendar.MONTH, GetterUtil.getInteger(date[1]) - 1);
+							calendar.set(Calendar.DATE, GetterUtil.getInteger(date[2]));
 							%>
 
 							<liferay-ui:input-date
 								dayParam='<%= key + "Day" %>'
-								dayValue="<%= today.get(Calendar.DATE) %>"
+								dayValue="<%= calendar.get(Calendar.DATE) %>"
 								disabled="<%= false %>"
-								firstDayOfWeek="<%= today.getFirstDayOfWeek() - 1 %>"
+								firstDayOfWeek="<%= calendar.getFirstDayOfWeek() - 1 %>"
 								monthParam='<%= key + "Month" %>'
-								monthValue="<%= today.get(Calendar.MONTH) %>"
+								monthValue="<%= calendar.get(Calendar.MONTH) %>"
 								yearParam='<%= key +"Year" %>'
-								yearRangeEnd="<%= today.get(Calendar.YEAR) + 100 %>"
-								yearRangeStart="<%= today.get(Calendar.YEAR) - 100 %>"
-								yearValue="<%= today.get(Calendar.YEAR) %>"
+								yearRangeEnd="<%= calendar.get(Calendar.YEAR) + 100 %>"
+								yearRangeStart="<%= calendar.get(Calendar.YEAR) - 100 %>"
+								yearValue="<%= calendar.get(Calendar.YEAR) %>"
 							/>
 						</td>
 						<td>
-
-							<%
-							String name = "useVariable" + key;
-							String useVariableScript = "useVariable" + key + "();";
-							%>
-
-							<aui:select label="" name="<%= name %>" onChange="<%= useVariableScript %>">
-								<aui:option />
+							<aui:select name='<%= "useVariable" + key %>' onChange='<%= "useVariable" + key + "();" %>' showEmptyOption="<%= Boolean.TRUE %>">
 								<aui:option label="start-date" value="startDate" />
 								<aui:option label="end-date" value="endDate" />
 							</aui:select>
@@ -136,6 +129,7 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 							<script type="text/javascript">
 								function useVariable<%= key %>() {
 									var A = AUI();
+
 									var type = A.one('#<%= renderResponse.getNamespace() + "useVariable" + key %>').get('value');
 									var day = A.one('#<%= renderResponse.getNamespace()+ key + "Day" %>');
 									var month = A.one('#<%= renderResponse.getNamespace()+ key + "Month" %>');
@@ -168,7 +162,7 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 						</td>
 						<td colspan="3">
 							<span class="aui-field aui-field-text" id="aui_3_2_0_1428">
-								<input name="<portlet:namespace /><%= "parameterValue" + key %>" type="text" value="<%= value %>" /> <br />
+								<input name="<portlet:namespace /><%= "parameterValue" + key %>" type="text" value="<%= value %>" /><br />
 							</span>
 						</td>
 					</c:otherwise>

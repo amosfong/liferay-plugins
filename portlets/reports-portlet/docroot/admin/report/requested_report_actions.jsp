@@ -20,16 +20,14 @@
 ResultRow row = (ResultRow) request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 
 Entry entry = (Entry) row.getObject();
-
-String entryId = String.valueOf(entry.getEntryId());
 %>
 
-<liferay-ui:icon-menu cssClass="">
+<liferay-ui:icon-menu>
 	<c:if test="<%= EntryPermission.contains(permissionChecker, entry.getEntryId(), ActionKeys.PERMISSIONS) %>">
 		<liferay-security:permissionsURL
 			modelResource="<%= Entry.class.getName() %>"
-			modelResourceDescription="<%= entryId %>"
-			resourcePrimKey="<%= entryId %>"
+			modelResourceDescription="<%= String.valueOf(entry.getEntryId()) %>"
+			resourcePrimKey="<%= String.valueOf(entry.getEntryId()) %>"
 			var="permissionsURL"
 		/>
 
@@ -39,7 +37,11 @@ String entryId = String.valueOf(entry.getEntryId());
 		/>
 	</c:if>
 
-	<c:if test="<%= entry.isRepeating() && (entry.getEndDate() == null || DateUtil.newDate().before(entry.getEndDate())) %>">
+	<%
+	Date now = new Date();
+	%>
+
+	<c:if test="<%= entry.isRepeating() && ((entry.getEndDate() == null) || now.before(entry.getEndDate())) %>">
 		<c:if test="<%= EntryPermission.contains(permissionChecker, entry.getEntryId(), ActionKeys.DELETE) %>">
 			<portlet:renderURL var="searchRequestURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 				<portlet:param name="mvcPath" value="/admin/view.jsp" />
@@ -47,8 +49,8 @@ String entryId = String.valueOf(entry.getEntryId());
 			</portlet:renderURL>
 
 			<portlet:actionURL name="unscheduleReportRequest" var="unscheduleURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
-				<portlet:param name="entryId" value="<%= entryId %>" />
 				<portlet:param name="redirect" value="<%= searchRequestURL %>" />
+				<portlet:param name="entryId" value="<%= String.valueOf(entry.getEntryId()) %>" />
 			</portlet:actionURL>
 
 			<liferay-ui:icon
@@ -62,12 +64,13 @@ String entryId = String.valueOf(entry.getEntryId());
 	<c:if test="<%= EntryPermission.contains(permissionChecker, entry.getEntryId(), ActionKeys.DELETE) %>">
 		<portlet:renderURL var="searchRequestURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 			<portlet:param name="mvcPath" value="/admin/view.jsp" />
+			<portlet:param name="redirect" value="<%= currentURL %>" />
 			<portlet:param name="tabs1" value="reports" />
 		</portlet:renderURL>
 
 		<portlet:actionURL name="archiveRequest" var="deleteURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
-			<portlet:param name="entryId" value="<%= entryId %>" />
 			<portlet:param name="redirect" value="<%= searchRequestURL %>" />
+			<portlet:param name="entryId" value="<%= String.valueOf(entry.getEntryId()) %>" />
 		</portlet:actionURL>
 
 		<liferay-ui:icon-delete

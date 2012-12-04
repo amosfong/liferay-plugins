@@ -17,23 +17,73 @@
 <%@ include file="/init.jsp" %>
 
 <portlet:renderURL var="searchSourcesURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
-	<portlet:param name="tabs1" value="sources" />
 	<portlet:param name="mvcPath" value="/admin/view.jsp" />
+	<portlet:param name="tabs1" value="sources" />
 </portlet:renderURL>
 
 <%
 String backURL = ParamUtil.getString(request, "backURL", searchSourcesURL);
 
-Source source = null;
-
 long sourceId = ParamUtil.getLong(request, "sourceId");
 
-if (sourceId > 0) {
-	source = SourceLocalServiceUtil.getSource(sourceId);
-}
+Source source = SourceLocalServiceUtil.fetchSource(sourceId);
 %>
 
-<aui:script>
+<liferay-ui:header
+	backURL="<%= backURL %>"
+	title='<%= (source == null) ? "new-data-source" : source.getName(locale) %>'
+/>
+
+<portlet:actionURL name="editDataSource" var="actionURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
+	<portlet:param name="mvcPath" value="/admin/data_source/edit_data_source.jsp" />
+	<portlet:param name="redirect" value="<%= searchSourcesURL %>" />
+</portlet:actionURL>
+
+<aui:form action="<%= actionURL %>" method="post" name="fm">
+	<liferay-ui:error exception="<%= SourceDriverClassNameException.class %>" message="please-enter-a-valid-data-source-driver" />
+	<liferay-ui:error exception="<%= SourceLoginException.class %>" message="please-enter-a-valid-user-name" />
+	<liferay-ui:error exception="<%= SourceNameException.class %>" message="please-enter-a-valid-data-source-name" />
+	<liferay-ui:error exception="<%= SourceTypeException.class %>" message="please-enter-a-valid-data-source-type" />
+	<liferay-ui:error exception="<%= SourceURLException.class %>" message="please-enter-a-valid-data-source-url" />
+
+	<aui:model-context bean="<%= source %>" model="<%= Source.class %>" />
+
+	<aui:input name="sourceId" type="hidden" />
+
+	<aui:fieldset>
+		<aui:field-wrapper label="data-source-name">
+			<liferay-ui:input-localized name="name" xml='<%= BeanParamUtil.getString(source, request, "name") %>' />
+		</aui:field-wrapper>
+
+		<aui:input label="jdbc-driver-class-name" name="driverClassName" />
+
+		<aui:input label="jdbc-url" name="driverUrl" />
+
+		<aui:input label="jdbc-user-name" name="driverUserName" />
+
+		<aui:input autocomplete="off" label="jdbc-password" name="driverPassword" type="password" />
+
+		<c:if test="<%= source == null %>">
+			<aui:field-wrapper label="permissions">
+				<liferay-ui:input-permissions modelName="<%= Source.class.getName() %>" />
+			</aui:field-wrapper>
+		</c:if>
+
+		<aui:button-row>
+			<aui:button type="submit" />
+
+			<aui:button href="<%= searchSourcesURL %>" type="cancel" />
+
+			<%
+			String taglibOnClick = renderResponse.getNamespace() + "testDatabaseConnection();";
+			%>
+
+			<aui:button name="testDatabaseConnectionButton" onClick="<%= taglibOnClick %>" value="test-database-connection" />
+		</aui:button-row>
+	</aui:fieldset>
+</aui:form>
+
+<aui:script use="aui-dialog,aui-io">
 	Liferay.provide(
 		window,
 		'<portlet:namespace />testDatabaseConnection',
@@ -72,62 +122,6 @@ if (sourceId > 0) {
 					}
 				);
 			}
-		},
-		['aui-dialog', 'aui-io']
+		}
 	);
 </aui:script>
-
-<liferay-ui:header
-	backURL="<%= backURL %>"
-	title='<%= (source == null) ? "new-data-source" : source.getName(locale) %>'
-/>
-
-<portlet:actionURL name="editDataSource" var="actionURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
-	<portlet:param name="mvcPath" value="/admin/data_source/edit_data_source.jsp" />
-	<portlet:param name="redirect" value="<%= searchSourcesURL %>" />
-</portlet:actionURL>
-
-<aui:form action="<%= actionURL %>" method="post" name="fm">
-	<aui:input name="<%= Constants.CMD %>" type="hidden" value="<%= (source == null) ? Constants.ADD : Constants.UPDATE %>" />
-	<c:if test="<%= (source != null) %>">
-		<aui:input name="sourceId" type="hidden" value="<%= source.getSourceId() %>" />
-	</c:if>
-
-	<liferay-ui:error exception="<%= SourceDriverClassNameException.class %>" message="please-enter-a-valid-data-source-driver" />
-	<liferay-ui:error exception="<%= SourceLoginException.class %>" message="please-enter-a-valid-user-name" />
-	<liferay-ui:error exception="<%= SourceNameException.class %>" message="please-enter-a-valid-data-source-name" />
-	<liferay-ui:error exception="<%= SourceTypeException.class %>" message="please-enter-a-valid-data-source-type" />
-	<liferay-ui:error exception="<%= SourceURLException.class %>" message="please-enter-a-valid-data-source-url" />
-
-	<aui:fieldset>
-		<aui:field-wrapper label="data-source-name">
-			<liferay-ui:input-localized name="name" xml='<%= BeanPropertiesUtil.getString(source, "name") %>' />
-		</aui:field-wrapper>
-
-		<aui:input label="jdbc-driver-class-name" name="driverClassName" value="<%= (source == null) ? StringPool.BLANK : source.getDriverClassName() %>" />
-
-		<aui:input label="jdbc-url" name="driverUrl" value="<%= (source == null) ? StringPool.BLANK : source.getDriverUrl() %>" />
-
-		<aui:input label="jdbc-user-name" name="driverUserName" value="<%= (source == null) ? StringPool.BLANK : source.getDriverUserName() %>" />
-
-		<aui:input autocomplete="off" label="jdbc-password" name="driverPassword" type="password" />
-
-		<c:if test="<%= source == null %>">
-			<aui:field-wrapper label="permissions">
-				<liferay-ui:input-permissions modelName="<%= Source.class.getName() %>" />
-			</aui:field-wrapper>
-		</c:if>
-
-		<aui:button-row>
-			<aui:button type="submit" />
-
-			<aui:button href="<%= searchSourcesURL %>" type="cancel" />
-
-			<%
-			String taglibOnClick = renderResponse.getNamespace() + "testDatabaseConnection();";
-			%>
-
-			<aui:button name="testDatabaseConnectionButton" onClick="<%= taglibOnClick %>" value="test-database-connection" />
-		</aui:button-row>
-	</aui:fieldset>
-</aui:form>

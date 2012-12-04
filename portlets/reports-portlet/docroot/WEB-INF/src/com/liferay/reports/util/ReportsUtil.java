@@ -15,9 +15,8 @@
 package com.liferay.reports.util;
 
 import com.liferay.portal.kernel.dao.jdbc.DataSourceFactoryUtil;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.language.LanguageUtil;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.CalendarFactoryUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -25,6 +24,7 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.TimeZoneUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.reports.SourceJDBCConnectionException;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -113,9 +113,10 @@ public class ReportsUtil {
 		return map;
 	}
 
-	public static boolean validateJDBCConnection(
-		String driverClassName, String driverUrl, String driverUserName,
-		String driverPassword) {
+	public static void validateJDBCConnection(
+			String driverClassName, String driverUrl, String driverUserName,
+			String driverPassword)
+		throws PortalException {
 
 		Connection connection = null;
 
@@ -124,13 +125,9 @@ public class ReportsUtil {
 				driverClassName, driverUrl, driverUserName, driverPassword);
 
 			connection = dataSource.getConnection();
-
-			return true;
 		}
 		catch (Exception e) {
-			if (_log.isWarnEnabled()) {
-				_log.warn("Unable to connect to data source", e);
-			}
+			throw new SourceJDBCConnectionException();
 		}
 		finally {
 			if (connection != null) {
@@ -141,10 +138,6 @@ public class ReportsUtil {
 				}
 			}
 		}
-
-		return false;
 	}
-
-	private static Log _log = LogFactoryUtil.getLog(ReportsUtil.class);
 
 }

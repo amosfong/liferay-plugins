@@ -87,28 +87,13 @@ String reportName = ParamUtil.getString(request, "reportName");
 			/>
 
 			<%
-			Source source = null;
-
-			try {
-				source = SourceLocalServiceUtil.getSource(definition.getSourceId());
-			}
-			catch (NoSuchSourceException nsse) {
-			}
-
-			String name = null;
-
-			if (definition.getSourceId() == PortletConstants.PORTAL_DATA_SOURCE_ID) {
-				name = ReportDataSourceType.PORTAL.getValue();
-			}
-			else if (source != null) {
-				name = source.getName(locale);
-			}
+			Source source = SourceLocalServiceUtil.fetchSource(definition.getSourceId());
 			%>
 
 			<liferay-ui:search-container-column-text
 				href="<%= rowURL %>"
 				name="source-name"
-				value="<%= name %>"
+				value="<%= (source == null) ? ReportDataSourceType.PORTAL.getValue() : source.getName(locale) %>"
 			/>
 
 			<liferay-ui:search-container-column-text

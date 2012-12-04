@@ -20,15 +20,13 @@
 ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 
 Source source = (Source)row.getObject();
-
-String sourceId = String.valueOf(source.getSourceId());
 %>
 
-<liferay-ui:icon-menu cssClass="">
+<liferay-ui:icon-menu>
 	<c:if test="<%= SourcePermission.contains(permissionChecker, source, ActionKeys.VIEW) %>">
 		<portlet:actionURL name="testDataSource" var="testConnectionURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
-			<portlet:param name="sourceId" value="<%= sourceId %>" />
 			<portlet:param name="tabs1" value="sources" />
+			<portlet:param name="sourceId" value="<%= String.valueOf(source.getSourceId()) %>" />
 		</portlet:actionURL>
 
 		<liferay-ui:icon
@@ -41,7 +39,7 @@ String sourceId = String.valueOf(source.getSourceId());
 	<c:if test="<%= SourcePermission.contains(permissionChecker, source, ActionKeys.UPDATE) %>">
 		<portlet:renderURL var="editURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 			<portlet:param name="mvcPath" value="/admin/data_source/edit_data_source.jsp" />
-			<portlet:param name="sourceId" value="<%= sourceId %>" />
+			<portlet:param name="sourceId" value="<%= String.valueOf(source.getSourceId()) %>" />
 		</portlet:renderURL>
 
 		<liferay-ui:icon
@@ -54,7 +52,7 @@ String sourceId = String.valueOf(source.getSourceId());
 		<liferay-security:permissionsURL
 			modelResource="<%= Source.class.getName() %>"
 			modelResourceDescription="<%= source.getName(locale) %>"
-			resourcePrimKey="<%= sourceId %>"
+			resourcePrimKey="<%= String.valueOf(source.getSourceId()) %>"
 			var="permissionsURL"
 		/>
 
@@ -66,8 +64,9 @@ String sourceId = String.valueOf(source.getSourceId());
 
 	<c:if test="<%= SourcePermission.contains(permissionChecker, source, ActionKeys.DELETE) %>">
 		<portlet:actionURL name="deleteDataSource" var="deleteURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
-			<portlet:param name="sourceId" value="<%= sourceId %>" />
 			<portlet:param name="tabs1" value="sources" />
+			<portlet:param name="redirect" value="<%= currentURL %>" />
+			<portlet:param name="sourceId" value="<%= String.valueOf(source.getSourceId()) %>" />
 		</portlet:actionURL>
 
 		<liferay-ui:icon-delete
