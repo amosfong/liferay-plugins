@@ -28,7 +28,9 @@ String tabs1Names = "reports";
 boolean hasAddDefinitionPermission = AdminPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_DEFINITION);
 boolean hasAddSourcePermission = AdminPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_SOURCE);
 
-if (portletName.equals("1")) {
+String portletId = portletDisplay.getId();
+
+if (portletId.equals(PortletKeys.REPORTS_ADMIN)) {
 	if (hasAddDefinitionPermission) {
 		tabs1Names += ",definitions";
 	}

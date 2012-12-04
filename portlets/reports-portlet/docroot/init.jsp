@@ -53,7 +53,6 @@ page import="com.liferay.portal.model.User" %><%@
 page import="com.liferay.portal.service.PortletPreferencesLocalServiceUtil" %><%@
 page import="com.liferay.portal.service.UserLocalServiceUtil" %><%@
 page import="com.liferay.portal.util.PortalUtil" %><%@
-page import="com.liferay.portal.util.PortletKeys" %><%@
 page import="com.liferay.portlet.PortletPreferencesFactoryUtil" %><%@
 page import="com.liferay.portlet.calendar.EventDurationException" %><%@
 page import="com.liferay.portlet.calendar.EventStartDateException" %><%@
@@ -84,6 +83,7 @@ page import="com.liferay.reports.service.permission.AdminPermission" %><%@
 page import="com.liferay.reports.service.permission.DefinitionPermission" %><%@
 page import="com.liferay.reports.service.permission.EntryPermission" %><%@
 page import="com.liferay.reports.service.permission.SourcePermission" %><%@
+page import="com.liferay.reports.util.PortletKeys" %><%@
 page import="com.liferay.reports.util.ReportsUtil" %>
 
 <%@ page import="java.text.Format" %>
