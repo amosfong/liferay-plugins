@@ -39,18 +39,16 @@ public class WebSsoAutoLoginHook implements AutoLogin {
 			HttpServletRequest request, HttpServletResponse response)
 		throws AutoLoginException {
 
-		String[] credentials = null;
-
 		try {
 			if (!SamlUtil.isEnabled() || !SamlUtil.isRoleIdp()) {
-				return credentials;
+				return null;
 			}
 
 			String samlSsoSessionId = CookieUtil.get(
 				request, PortletWebKeys.SAML_SSO_SESSION_ID);
 
 			if (Validator.isNull(samlSsoSessionId)) {
-				return credentials;
+				return null;
 			}
 
 			SamlIdpSsoSession samlIdpSsoSession =
@@ -58,17 +56,17 @@ public class WebSsoAutoLoginHook implements AutoLogin {
 					samlSsoSessionId);
 
 			if ((samlIdpSsoSession == null) || samlIdpSsoSession.isExpired()) {
-				return credentials;
+				return null;
 			}
 
 			User user = UserLocalServiceUtil.fetchUserById(
 				samlIdpSsoSession.getUserId());
 
 			if (user == null) {
-				return credentials;
+				return null;
 			}
 
-			credentials = new String[3];
+			String[] credentials = new String[3];
 
 			credentials[0] = String.valueOf(user.getUserId());
 			credentials[1] = user.getPassword();

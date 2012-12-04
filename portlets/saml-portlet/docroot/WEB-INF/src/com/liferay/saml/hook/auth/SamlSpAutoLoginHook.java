@@ -61,11 +61,9 @@ public class SamlSpAutoLoginHook implements AutoLogin {
 			HttpServletRequest request, HttpServletResponse response)
 		throws AutoLoginException {
 
-		String[] credentials = null;
-
 		try {
 			if (!SamlUtil.isEnabled() || !SamlUtil.isRoleSp()) {
-				return credentials;
+				return null;
 			}
 
 			HttpSession session = request.getSession();
@@ -74,7 +72,7 @@ public class SamlSpAutoLoginHook implements AutoLogin {
 				PortletWebKeys.SAML_SP_NAME_ID);
 
 			if (nameId == null) {
-				return credentials;
+				return null;
 			}
 
 			User user = null;
@@ -117,21 +115,23 @@ public class SamlSpAutoLoginHook implements AutoLogin {
 				user = addUser(request);
 			}
 
-			if (user != null) {
-				credentials = new String[3];
-
-				credentials[0] = String.valueOf(user.getUserId());
-				credentials[1] = user.getPassword();
-				credentials[2] = Boolean.TRUE.toString();
-
-				ServiceContext serviceContext =
-					ServiceContextFactory.getInstance(request);
-
-				serviceContext.setUserId(user.getUserId());
-
-				SamlSpSessionLocalServiceUtil.addSamlSpSession(
-					session.getId(), nameIdFormat, nameIdValue, serviceContext);
+			if (user == null) {
+				return null;
 			}
+
+			String[] credentials = new String[3];
+
+			credentials[0] = String.valueOf(user.getUserId());
+			credentials[1] = user.getPassword();
+			credentials[2] = Boolean.TRUE.toString();
+
+			ServiceContext serviceContext = ServiceContextFactory.getInstance(
+				request);
+
+			serviceContext.setUserId(user.getUserId());
+
+			SamlSpSessionLocalServiceUtil.addSamlSpSession(
+				session.getId(), nameIdFormat, nameIdValue, serviceContext);
 
 			return credentials;
 		}
