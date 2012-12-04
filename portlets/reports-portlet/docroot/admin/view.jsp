@@ -25,15 +25,15 @@ portletURL.setParameter("tabs1", tabs1);
 
 String tabs1Names = "reports";
 
-boolean showDefinitionsTab = AdminPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_DEFINITION);
-boolean showDataSourcesTab = AdminPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_SOURCE);
+boolean hasAddDefinitionPermission = AdminPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_DEFINITION);
+boolean hasAddSourcePermission = AdminPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_SOURCE);
 
 if (portletName.equals("1")) {
-	if (showDefinitionsTab) {
+	if (hasAddDefinitionPermission) {
 		tabs1Names += ",definitions";
 	}
 
-	if (showDataSourcesTab) {
+	if (hasAddSourcePermission) {
 		tabs1Names += ",sources";
 	}
 }
@@ -49,10 +49,10 @@ if (portletName.equals("1")) {
 	<c:when test='<%= tabs1.equals("reports") %>'>
 		<liferay-util:include page="/admin/report/entries.jsp" servletContext="<%= application %>" />
 	</c:when>
-	<c:when test='<%= showDefinitionsTab && tabs1.equals("definitions") %>'>
+	<c:when test='<%= hasAddDefinitionPermission && tabs1.equals("definitions") %>'>
 		<liferay-util:include page="/admin/definition/definitions.jsp" servletContext="<%= application %>" />
 	</c:when>
-	<c:when test='<%= showDataSourcesTab && tabs1.equals("sources") %>'>
+	<c:when test='<%= hasAddSourcePermission && tabs1.equals("sources") %>'>
 		<liferay-util:include page="/admin/data_source/sources.jsp" servletContext="<%= application %>" />
 	</c:when>
 </c:choose>
