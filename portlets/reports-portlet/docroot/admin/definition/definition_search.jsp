@@ -20,6 +20,10 @@
 SearchContainer searchContainer = (SearchContainer)request.getAttribute("liferay-ui:search:searchContainer");
 
 DisplayTerms displayTerms = searchContainer.getDisplayTerms();
+
+String definitionName = ParamUtil.getString(request, "definitionName");
+String description = ParamUtil.getString(request, "description");
+String reportName = ParamUtil.getString(request, "reportName");
 %>
 
 <liferay-ui:search-toggle
@@ -28,7 +32,7 @@ DisplayTerms displayTerms = searchContainer.getDisplayTerms();
 	id="toggle_id_reports_definition_search"
 >
 	<aui:fieldset>
-		<aui:input name="definitionName" size="20" value='<%= ParamUtil.getString(request, "definitionName") %>' />
+		<aui:input name="definitionName" size="20" value="<%= definitionName %>" />
 
 		<aui:select label="data-source-name" name="sourceId">
 			<aui:option label="all" />
@@ -48,8 +52,8 @@ DisplayTerms displayTerms = searchContainer.getDisplayTerms();
 
 		</aui:select>
 
-		<aui:input name="description" size="20" value='<%= ParamUtil.getString(request, "description") %>' />
+		<aui:input name="description" size="20" value="<%= description %>" />
 
-		<aui:input label="template" name="reportName" size="20" value='<%= ParamUtil.getString(request, "reportName") %>' />
+		<aui:input label="template" name="reportName" size="20" value="<%= reportName %>" />
 	</aui:fieldset>
 </liferay-ui:search-toggle>

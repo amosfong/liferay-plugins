@@ -27,9 +27,6 @@ String driverUrl = ParamUtil.getString(request, "driverUrl");
 </liferay-portlet:renderURL>
 
 <aui:form action="<%= searchURL %>" method="get" name="fm">
-	<liferay-ui:error key="connectionError" message="could-not-connect-to-the-database.-please-verify-that-the-settings-are-correct" />
-	<liferay-ui:success key="connectionSuccess" message="you-have-successfully-connected-to-the-database" />
-
 	<liferay-portlet:renderURLParams varImpl="searchURL" />
 
 	<liferay-portlet:renderURL varImpl="iteratorURL">

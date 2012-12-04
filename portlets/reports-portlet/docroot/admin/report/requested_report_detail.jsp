@@ -92,23 +92,29 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(entry.getDefini
 		<aui:field-wrapper label="is-schedule-request">
 
 				<%
-				StringBundler sb = new StringBundler((entry.getEndDate() != null) ? 12 : 8);
+				StringBundler sb = new StringBundler((entry.getEndDate() != null) ? 18 : 12);
 
 				sb.append("<br />");
 				sb.append(LanguageUtil.get(pageContext, "scheduler-from"));
-				sb.append(" : ");
+				sb.append(StringPool.BLANK);
+				sb.append(StringPool.COLON);
+				sb.append(StringPool.BLANK);
 				sb.append(dateFormatDateTime.format(entry.getStartDate()));
 
 				if (entry.getEndDate() != null) {
 					sb.append("<br />");
 					sb.append(LanguageUtil.get(pageContext, "scheduler-to"));
-					sb.append(" : ");
+					sb.append(StringPool.BLANK);
+					sb.append(StringPool.COLON);
+					sb.append(StringPool.BLANK);
 					sb.append(dateFormatDateTime.format(entry.getEndDate()));
 				}
 
 				sb.append("<br />");
 				sb.append(LanguageUtil.get(pageContext, "scheduler-crontext"));
-				sb.append(" : ");
+				sb.append(StringPool.BLANK);
+				sb.append(StringPool.COLON);
+				sb.append(StringPool.BLANK);
 				sb.append(entry.getRecurrence());
 				%>
 

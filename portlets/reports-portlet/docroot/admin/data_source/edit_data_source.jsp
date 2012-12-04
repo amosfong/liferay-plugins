@@ -27,6 +27,8 @@ String backURL = ParamUtil.getString(request, "backURL", searchSourcesURL);
 long sourceId = ParamUtil.getLong(request, "sourceId");
 
 Source source = SourceLocalServiceUtil.fetchSource(sourceId);
+
+String name = BeanParamUtil.getString(source, request, "name");
 %>
 
 <liferay-ui:header
@@ -52,7 +54,7 @@ Source source = SourceLocalServiceUtil.fetchSource(sourceId);
 
 	<aui:fieldset>
 		<aui:field-wrapper label="data-source-name">
-			<liferay-ui:input-localized name="name" xml='<%= BeanParamUtil.getString(source, request, "name") %>' />
+			<liferay-ui:input-localized name="name" xml="<%= name %>" />
 		</aui:field-wrapper>
 
 		<aui:input label="jdbc-driver-class-name" name="driverClassName" />

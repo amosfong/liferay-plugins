@@ -20,6 +20,25 @@
 SearchContainer searchContainer = (SearchContainer)request.getAttribute("liferay-ui:search:searchContainer");
 
 DisplayTerms displayTerms = searchContainer.getDisplayTerms();
+
+String definitionName = ParamUtil.getString(request, "definitionName");
+String userName = ParamUtil.getString(request, "userName");
+
+Calendar calendar = CalendarFactoryUtil.getCalendar(timeZone, locale);
+
+int endDateDay = ParamUtil.getInteger(request, "endDateDay", calendar.get(Calendar.DATE));
+int endDateMonth = ParamUtil.getInteger(request, "endDateMonth", calendar.get(Calendar.MONTH));
+int endDateYear = ParamUtil.getInteger(request, "endDateYear", calendar.get(Calendar.YEAR));
+int endDateYearRangeEnd = calendar.get(Calendar.YEAR);
+int endDateYearRangeStart = calendar.get(Calendar.YEAR) - 50;
+
+calendar.add(Calendar.DATE, -1);
+
+int startDateDay = ParamUtil.getInteger(request, "startDateDay", calendar.get(Calendar.DATE));
+int startDateMonth = ParamUtil.getInteger(request, "startDateMonth", calendar.get(Calendar.MONTH));
+int startDateYear = ParamUtil.getInteger(request, "startDateYear", calendar.get(Calendar.YEAR));
+int startDateYearRangeEnd = calendar.get(Calendar.YEAR);
+int startDateYearRangeStart = calendar.get(Calendar.YEAR) - 50;
 %>
 
 <liferay-ui:search-toggle
@@ -29,28 +48,10 @@ DisplayTerms displayTerms = searchContainer.getDisplayTerms();
 >
 	<aui:fieldset>
 		<aui:fieldset>
-			<aui:input name="definitionName" size="20" value='<%= ParamUtil.getString(request, "definitionName") %>' />
+			<aui:input name="definitionName" size="20" value="<%= definitionName %>" />
 
-			<aui:input label="requested-by" name="userName" size="20" value='<%= ParamUtil.getString(request, "userName") %>' />
+			<aui:input label="requested-by" name="userName" size="20" value="<%= userName %>" />
 		</aui:fieldset>
-
-		<%
-		Calendar calendar = CalendarFactoryUtil.getCalendar(timeZone, locale);
-
-		int endDateDay = ParamUtil.getInteger(request, "endDateDay", calendar.get(Calendar.DATE));
-		int endDateMonth = ParamUtil.getInteger(request, "endDateMonth", calendar.get(Calendar.MONTH));
-		int endDateYear = ParamUtil.getInteger(request, "endDateYear", calendar.get(Calendar.YEAR));
-		int endDateYearRangeEnd = calendar.get(Calendar.YEAR);
-		int endDateYearRangeStart = calendar.get(Calendar.YEAR) - 50;
-
-		calendar.add(Calendar.DATE, -1);
-
-		int startDateDay = ParamUtil.getInteger(request, "startDateDay", calendar.get(Calendar.DATE));
-		int startDateMonth = ParamUtil.getInteger(request, "startDateMonth", calendar.get(Calendar.MONTH));
-		int startDateYear = ParamUtil.getInteger(request, "startDateYear", calendar.get(Calendar.YEAR));
-		int startDateYearRangeEnd = calendar.get(Calendar.YEAR);
-		int startDateYearRangeStart = calendar.get(Calendar.YEAR) - 50;
-		%>
 
 		<aui:fieldset>
 			<aui:field-wrapper label="start-date">

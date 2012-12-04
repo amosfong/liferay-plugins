@@ -20,6 +20,9 @@
 SearchContainer searchContainer = (SearchContainer)request.getAttribute("liferay-ui:search:searchContainer");
 
 DisplayTerms displayTerms = searchContainer.getDisplayTerms();
+
+String name = ParamUtil.getString(request, "name");
+String driverUrl = ParamUtil.getString(request, "driverUrl");
 %>
 
 <liferay-ui:search-toggle
@@ -28,8 +31,8 @@ DisplayTerms displayTerms = searchContainer.getDisplayTerms();
 	id="toggle_id_reports_source_search"
 >
 	<aui:fieldset>
-		<aui:input label="source-name" name="name" size="20" value='<%= ParamUtil.getString(request, "name") %>' />
+		<aui:input label="source-name" name="name" size="20" value="<%= name %>" />
 
-		<aui:input label="jdbc-url" name="driverUrl" size="20" value='<%= ParamUtil.getString(request, "driverUrl") %>' />
+		<aui:input label="jdbc-url" name="driverUrl" size="20" value="<%= driverUrl %>" />
 	</aui:fieldset>
 </liferay-ui:search-toggle>

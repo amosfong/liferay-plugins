@@ -16,11 +16,6 @@
 
 <%@ include file="/init.jsp" %>
 
-<%
-String definitionName = ParamUtil.getString(request, "definitionName");
-String userName = ParamUtil.getString(request, "userName");
-%>
-
 <liferay-portlet:renderURL varImpl="searchURL">
 	<portlet:param name="mvcPath" value="/admin/view.jsp" />
 </liferay-portlet:renderURL>
@@ -29,6 +24,8 @@ String userName = ParamUtil.getString(request, "userName");
 	<liferay-portlet:renderURLParams varImpl="searchURL" />
 
 	<%
+	String definitionName = ParamUtil.getString(request, "definitionName");
+
 	Calendar calendar = CalendarFactoryUtil.getCalendar(timeZone, locale);
 
 	int endDateDay = ParamUtil.getInteger(request, "endDateDay", calendar.get(Calendar.DATE));
@@ -40,6 +37,8 @@ String userName = ParamUtil.getString(request, "userName");
 	int startDateDay = ParamUtil.getInteger(request, "startDateDay", calendar.get(Calendar.DATE));
 	int startDateMonth = ParamUtil.getInteger(request, "startDateMonth", calendar.get(Calendar.MONTH));
 	int startDateYear = ParamUtil.getInteger(request, "startDateYear", calendar.get(Calendar.YEAR));
+
+	String userName = ParamUtil.getString(request, "userName");
 	%>
 
 	<liferay-portlet:renderURL varImpl="iteratorURL">
@@ -108,7 +107,7 @@ String userName = ParamUtil.getString(request, "userName");
 			/>
 
 			<%
-			User user2 = UserLocalServiceUtil.fetchUser(entry.getUserId());
+			User user2 = UserLocalServiceUtil.fetchUserById(entry.getUserId());
 			%>
 
 			<liferay-ui:search-container-column-text

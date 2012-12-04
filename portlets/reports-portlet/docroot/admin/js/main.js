@@ -1,5 +1,103 @@
 Liferay.Report = {
 
+	deleteParameter: function(parameterKey, parameterValue, parameterType) {
+		var instance = this;
+
+		instance._portletMessageContainer.setStyle('display', 'none');
+
+		if (confirm(Liferay.Language.get('are-you-sure-you-want-to-delete-this-entry'))) {
+			var parametersInput = AUI().one('.reportParameters');
+
+			var reportParameters = JSON.parse(parametersInput.get('value'));
+
+			for (var i in reportParameters) {
+				var reportParameter = reportParameters[i];
+
+				if (reportParameter.key == parameterKey) {
+					reportParameters.splice(i, 1);
+
+					break;
+				}
+			}
+
+			parametersInput.set('value', JSON.stringify(reportParameters));
+
+			var key = ('.report-tag-' + parameterKey).replace(/ /g,"BLANK");
+
+			AUI().one(key).remove(true);
+		}
+	},
+
+	initialize: function(param) {
+		var instance = this;
+
+		var namespace = param.namespace;
+
+		instance._portletMessageContainer = AUI().one('.report-message');
+
+		instance._displayParameters(param.parameters);
+
+		AUI().one('.add-parameter').on(
+			'click',
+			function() {
+				instance._addParameter(namespace);
+			}
+		);
+
+		AUI().one('.removeExisting').on(
+			'click',
+			function() {
+				AUI().one('.existingFile').setStyle('display', 'none');
+				AUI().one('.templateFile').setStyle('display', 'block');
+				AUI().one('.cancelUpdateTemplateFile').setStyle('display', 'block');
+			}
+		);
+
+		AUI().one('.cancelUpdateTemplateFile').on(
+			'click',
+			function() {
+				AUI().one('.existingFile').setStyle('display', 'block');
+				AUI().one('.templateFile').setStyle('display', 'none');
+				AUI().one('.cancelUpdateTemplateFile').setStyle('display', 'none');
+			}
+		);
+
+		AUI().one('.parameters-input-type').on(
+			'change',
+			function() {
+				var parametersValueFieldSet = AUI().one('.parameters-value-field-set');
+				var parametersInputDate = AUI().one('.parameters-input-date');
+				var parametersValue = AUI().one('.parameters-value');
+
+				if (this.get('value') == 'text') {
+					parametersValue.set('value', '');
+					parametersValue.attr('disabled', '');
+					parametersInputDate.setStyle('display', 'none');
+					parametersValueFieldSet.setStyle('display', 'block');
+				}
+
+				if (this.get('value') == 'date') {
+					parametersValueFieldSet.setStyle('display', 'none');
+					parametersInputDate.setStyle('display', 'block');
+				}
+
+				if (this.get('value') == 'startDateDay') {
+					parametersInputDate.setStyle('display', 'none');
+					parametersValueFieldSet.setStyle('display', 'block');
+					parametersValue.attr('disabled','disabled');
+					parametersValue.set('value', '${startDateDay}');
+				}
+
+				if (this.get('value') == 'endDateDay') {
+					parametersInputDate.setStyle('display', 'none');
+					parametersValueFieldSet.setStyle('display', 'block');
+					parametersValue.attr('disabled','disabled');
+					parametersValue.set('value', '${endDateDay}');
+				}
+			}
+		);
+	},
+
 	_addParameter: function(namespace) {
 		var instance = this;
 
@@ -109,34 +207,6 @@ Liferay.Report = {
 		tagsContainer.set('innerHTML', oldTags + innerHTML);
 	},
 
-	deleteParameter: function(parameterKey, parameterValue, parameterType) {
-		var instance = this;
-
-		instance._portletMessageContainer.setStyle('display', 'none');
-
-		if (confirm(Liferay.Language.get('are-you-sure-you-want-to-delete-this-entry'))) {
-			var parametersInput = AUI().one('.reportParameters');
-
-			var reportParameters = JSON.parse(parametersInput.get('value'));
-
-			for (var i in reportParameters) {
-				var reportParameter = reportParameters[i];
-
-				if (reportParameter.key == parameterKey) {
-					reportParameters.splice(i, 1);
-
-					break;
-				}
-			}
-
-			parametersInput.set('value', JSON.stringify(reportParameters));
-
-			var key = ('.report-tag-' + parameterKey).replace(/ /g,"BLANK");
-
-			AUI().one(key).remove(true);
-		}
-	},
-
 	_displayParameters: function(parameters) {
 		var instance = this;
 
@@ -157,76 +227,6 @@ Liferay.Report = {
 				instance._addTag(reportParameter.key, reportParameter.value, reportParameter.type);
 			}
 		}
-	},
-
-	initialize: function(param) {
-		var instance = this;
-
-		var namespace = param.namespace;
-
-		instance._portletMessageContainer = AUI().one('.report-message');
-
-		instance._displayParameters(param.parameters);
-
-		AUI().one('.add-parameter').on(
-			'click',
-			function() {
-				instance._addParameter(namespace);
-			}
-		);
-
-		AUI().one('.removeExisting').on(
-			'click',
-			function() {
-				AUI().one('.existingFile').setStyle('display', 'none');
-				AUI().one('.templateFile').setStyle('display', 'block');
-				AUI().one('.cancelUpdateTemplateFile').setStyle('display', 'block');
-			}
-		);
-
-		AUI().one('.cancelUpdateTemplateFile').on(
-			'click',
-			function() {
-				AUI().one('.existingFile').setStyle('display', 'block');
-				AUI().one('.templateFile').setStyle('display', 'none');
-				AUI().one('.cancelUpdateTemplateFile').setStyle('display', 'none');
-			}
-		);
-
-		AUI().one('.parameters-input-type').on(
-			'change',
-			function() {
-				var parametersValueFieldSet = AUI().one('.parameters-value-field-set');
-				var parametersInputDate = AUI().one('.parameters-input-date');
-				var parametersValue = AUI().one('.parameters-value');
-
-				if (this.get('value') == 'text') {
-					parametersValue.set('value', '');
-					parametersValue.attr('disabled', '');
-					parametersInputDate.setStyle('display', 'none');
-					parametersValueFieldSet.setStyle('display', 'block');
-				}
-
-				if (this.get('value') == 'date') {
-					parametersValueFieldSet.setStyle('display', 'none');
-					parametersInputDate.setStyle('display', 'block');
-				}
-
-				if (this.get('value') == 'startDateDay') {
-					parametersInputDate.setStyle('display', 'none');
-					parametersValueFieldSet.setStyle('display', 'block');
-					parametersValue.attr('disabled','disabled');
-					parametersValue.set('value', '${startDateDay}');
-				}
-
-				if (this.get('value') == 'endDateDay') {
-					parametersInputDate.setStyle('display', 'none');
-					parametersValueFieldSet.setStyle('display', 'block');
-					parametersValue.attr('disabled','disabled');
-					parametersValue.set('value', '${endDateDay}');
-				}
-			}
-		);
 	},
 
 	_sendMessage: function(messageKey) {

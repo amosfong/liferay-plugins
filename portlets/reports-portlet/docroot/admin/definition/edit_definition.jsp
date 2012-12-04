@@ -23,10 +23,10 @@
 <%
 String backURL = ParamUtil.getString(request, "backURL", viewDefinitionsURL);
 
-long definitionId = ParamUtil.getLong(request, "definitionId");
-
 boolean existing = true;
 String fileName = StringPool.BLANK;
+
+long definitionId = ParamUtil.getLong(request, "definitionId");
 
 Definition definition = DefinitionLocalServiceUtil.fetchDefinition(definitionId);
 
@@ -36,6 +36,10 @@ if (definition == null) {
 else {
 	fileName = definition.getReportName();
 }
+
+String name = BeanParamUtil.getString(definition, request, "name");
+String description = BeanParamUtil.getString(definition, request, "description");
+long sourceId = BeanParamUtil.getLong(definition, request, "sourceId");
 %>
 
 <portlet:renderURL var="definitionsURL">
@@ -69,15 +73,15 @@ else {
 
 	<aui:fieldset>
 		<aui:field-wrapper label="definition-name">
-			<liferay-ui:input-localized name="name" xml='<%= BeanParamUtil.getString(definition, request, "name") %>' />
+			<liferay-ui:input-localized name="name" xml="<%= name %>" />
 		</aui:field-wrapper>
 
 		<aui:field-wrapper label="description">
-			<liferay-ui:input-localized name="description" type="textarea" xml='<%= BeanParamUtil.getString(definition, request, "description") %>' />
+			<liferay-ui:input-localized name="description" type="textarea" xml="<%= description %>" />
 		</aui:field-wrapper>
 
 		<aui:select label="data-source-name" name="sourceId">
-			<aui:option label="<%= ReportDataSourceType.PORTAL.getValue() %>" selected='<%= BeanParamUtil.getLong(definition, request, "sourceId") == 0 %>' value="<%= 0 %>" />
+			<aui:option label="<%= ReportDataSourceType.PORTAL.getValue() %>" selected="<%= sourceId == 0 %>" value="<%= 0 %>" />
 
 			<%
 			List<Source> sources = SourceServiceUtil.getSources(themeDisplay.getParentGroupId(), null, null, false, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
@@ -85,7 +89,7 @@ else {
 			for (Source source : sources) {
 			%>
 
-				<aui:option label="<%= source.getName(locale) %>" selected='<%= BeanParamUtil.getLong(definition, request, "sourceId") == source.getSourceId() %>' value="<%= source.getSourceId() %>" />
+				<aui:option label="<%= source.getName(locale) %>" selected="<%= sourceId == source.getSourceId() %>" value="<%= source.getSourceId() %>" />
 
 			<%
 			}

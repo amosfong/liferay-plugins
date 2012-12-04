@@ -59,10 +59,10 @@ else if (tabs2.equals("notifications-email")) {
 
 	<liferay-ui:error key="emailDeliveryBody" message="please-enter-a-valid-body" />
 	<liferay-ui:error key="emailDeliverySubject" message="please-enter-a-valid-subject" />
-	<liferay-ui:error key="emailNotificationsBody" message="please-enter-a-valid-body" />
-	<liferay-ui:error key="emailNotificationsSubject" message="please-enter-a-valid-subject" />
 	<liferay-ui:error key="emailFromAddress" message="please-enter-a-valid-email-address" />
 	<liferay-ui:error key="emailFromName" message="please-enter-a-valid-name" />
+	<liferay-ui:error key="emailNotificationsBody" message="please-enter-a-valid-body" />
+	<liferay-ui:error key="emailNotificationsSubject" message="please-enter-a-valid-subject" />
 
 	<aui:fieldset>
 		<c:choose>
