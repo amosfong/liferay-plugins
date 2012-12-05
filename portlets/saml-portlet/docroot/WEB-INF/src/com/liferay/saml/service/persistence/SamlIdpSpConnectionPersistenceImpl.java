@@ -928,14 +928,63 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 		}
 	}
 
+	protected void cacheUniqueFindersCache(
+		SamlIdpSpConnection samlIdpSpConnection) {
+		if (samlIdpSpConnection.isNew()) {
+			Object[] args = new Object[] {
+					Long.valueOf(samlIdpSpConnection.getCompanyId()),
+					
+					samlIdpSpConnection.getSamlSpEntityId()
+				};
+
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_C_SSEI, args,
+				Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_SSEI, args,
+				samlIdpSpConnection);
+		}
+		else {
+			SamlIdpSpConnectionModelImpl samlIdpSpConnectionModelImpl = (SamlIdpSpConnectionModelImpl)samlIdpSpConnection;
+
+			if ((samlIdpSpConnectionModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_C_SSEI.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						Long.valueOf(samlIdpSpConnection.getCompanyId()),
+						
+						samlIdpSpConnection.getSamlSpEntityId()
+					};
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_C_SSEI, args,
+					Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_SSEI, args,
+					samlIdpSpConnection);
+			}
+		}
+	}
+
 	protected void clearUniqueFindersCache(
 		SamlIdpSpConnection samlIdpSpConnection) {
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_SSEI,
-			new Object[] {
+		SamlIdpSpConnectionModelImpl samlIdpSpConnectionModelImpl = (SamlIdpSpConnectionModelImpl)samlIdpSpConnection;
+
+		Object[] args = new Object[] {
 				Long.valueOf(samlIdpSpConnection.getCompanyId()),
 				
-			samlIdpSpConnection.getSamlSpEntityId()
-			});
+				samlIdpSpConnection.getSamlSpEntityId()
+			};
+
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_SSEI, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_SSEI, args);
+
+		if ((samlIdpSpConnectionModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_C_SSEI.getColumnBitmask()) != 0) {
+			args = new Object[] {
+					Long.valueOf(samlIdpSpConnectionModelImpl.getOriginalCompanyId()),
+					
+					samlIdpSpConnectionModelImpl.getOriginalSamlSpEntityId()
+				};
+
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_SSEI, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_SSEI, args);
+		}
 	}
 
 	/**
@@ -1104,35 +1153,8 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 			SamlIdpSpConnectionImpl.class, samlIdpSpConnection.getPrimaryKey(),
 			samlIdpSpConnection);
 
-		if (isNew) {
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_SSEI,
-				new Object[] {
-					Long.valueOf(samlIdpSpConnection.getCompanyId()),
-					
-				samlIdpSpConnection.getSamlSpEntityId()
-				}, samlIdpSpConnection);
-		}
-		else {
-			if ((samlIdpSpConnectionModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_C_SSEI.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						Long.valueOf(samlIdpSpConnectionModelImpl.getOriginalCompanyId()),
-						
-						samlIdpSpConnectionModelImpl.getOriginalSamlSpEntityId()
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_SSEI, args);
-
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_SSEI, args);
-
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_SSEI,
-					new Object[] {
-						Long.valueOf(samlIdpSpConnection.getCompanyId()),
-						
-					samlIdpSpConnection.getSamlSpEntityId()
-					}, samlIdpSpConnection);
-			}
-		}
+		clearUniqueFindersCache(samlIdpSpConnection);
+		cacheUniqueFindersCache(samlIdpSpConnection);
 
 		return samlIdpSpConnection;
 	}

@@ -927,13 +927,61 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 		}
 	}
 
+	protected void cacheUniqueFindersCache(KaleoProcessLink kaleoProcessLink) {
+		if (kaleoProcessLink.isNew()) {
+			Object[] args = new Object[] {
+					Long.valueOf(kaleoProcessLink.getKaleoProcessId()),
+					
+					kaleoProcessLink.getWorkflowTaskName()
+				};
+
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_KPI_WTN, args,
+				Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_KPI_WTN, args,
+				kaleoProcessLink);
+		}
+		else {
+			KaleoProcessLinkModelImpl kaleoProcessLinkModelImpl = (KaleoProcessLinkModelImpl)kaleoProcessLink;
+
+			if ((kaleoProcessLinkModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_KPI_WTN.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						Long.valueOf(kaleoProcessLink.getKaleoProcessId()),
+						
+						kaleoProcessLink.getWorkflowTaskName()
+					};
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_KPI_WTN, args,
+					Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_KPI_WTN, args,
+					kaleoProcessLink);
+			}
+		}
+	}
+
 	protected void clearUniqueFindersCache(KaleoProcessLink kaleoProcessLink) {
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_KPI_WTN,
-			new Object[] {
+		KaleoProcessLinkModelImpl kaleoProcessLinkModelImpl = (KaleoProcessLinkModelImpl)kaleoProcessLink;
+
+		Object[] args = new Object[] {
 				Long.valueOf(kaleoProcessLink.getKaleoProcessId()),
 				
-			kaleoProcessLink.getWorkflowTaskName()
-			});
+				kaleoProcessLink.getWorkflowTaskName()
+			};
+
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_KPI_WTN, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_KPI_WTN, args);
+
+		if ((kaleoProcessLinkModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_KPI_WTN.getColumnBitmask()) != 0) {
+			args = new Object[] {
+					Long.valueOf(kaleoProcessLinkModelImpl.getOriginalKaleoProcessId()),
+					
+					kaleoProcessLinkModelImpl.getOriginalWorkflowTaskName()
+				};
+
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_KPI_WTN, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_KPI_WTN, args);
+		}
 	}
 
 	/**
@@ -1102,35 +1150,8 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 			KaleoProcessLinkImpl.class, kaleoProcessLink.getPrimaryKey(),
 			kaleoProcessLink);
 
-		if (isNew) {
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_KPI_WTN,
-				new Object[] {
-					Long.valueOf(kaleoProcessLink.getKaleoProcessId()),
-					
-				kaleoProcessLink.getWorkflowTaskName()
-				}, kaleoProcessLink);
-		}
-		else {
-			if ((kaleoProcessLinkModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_KPI_WTN.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						Long.valueOf(kaleoProcessLinkModelImpl.getOriginalKaleoProcessId()),
-						
-						kaleoProcessLinkModelImpl.getOriginalWorkflowTaskName()
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_KPI_WTN, args);
-
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_KPI_WTN, args);
-
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_KPI_WTN,
-					new Object[] {
-						Long.valueOf(kaleoProcessLink.getKaleoProcessId()),
-						
-					kaleoProcessLink.getWorkflowTaskName()
-					}, kaleoProcessLink);
-			}
-		}
+		clearUniqueFindersCache(kaleoProcessLink);
+		cacheUniqueFindersCache(kaleoProcessLink);
 
 		return kaleoProcessLink;
 	}

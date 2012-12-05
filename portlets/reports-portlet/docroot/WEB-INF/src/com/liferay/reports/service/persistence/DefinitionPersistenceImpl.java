@@ -2803,11 +2803,55 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 		}
 	}
 
+	protected void cacheUniqueFindersCache(Definition definition) {
+		if (definition.isNew()) {
+			Object[] args = new Object[] {
+					definition.getUuid(), Long.valueOf(definition.getGroupId())
+				};
+
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_G, args,
+				Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G, args,
+				definition);
+		}
+		else {
+			DefinitionModelImpl definitionModelImpl = (DefinitionModelImpl)definition;
+
+			if ((definitionModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						definition.getUuid(),
+						Long.valueOf(definition.getGroupId())
+					};
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_G, args,
+					Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G, args,
+					definition);
+			}
+		}
+	}
+
 	protected void clearUniqueFindersCache(Definition definition) {
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G,
-			new Object[] {
+		DefinitionModelImpl definitionModelImpl = (DefinitionModelImpl)definition;
+
+		Object[] args = new Object[] {
 				definition.getUuid(), Long.valueOf(definition.getGroupId())
-			});
+			};
+
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
+
+		if ((definitionModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
+			args = new Object[] {
+					definitionModelImpl.getOriginalUuid(),
+					Long.valueOf(definitionModelImpl.getOriginalGroupId())
+				};
+
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
+		}
 	}
 
 	/**
@@ -3042,31 +3086,8 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 		EntityCacheUtil.putResult(DefinitionModelImpl.ENTITY_CACHE_ENABLED,
 			DefinitionImpl.class, definition.getPrimaryKey(), definition);
 
-		if (isNew) {
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
-				new Object[] {
-					definition.getUuid(), Long.valueOf(definition.getGroupId())
-				}, definition);
-		}
-		else {
-			if ((definitionModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						definitionModelImpl.getOriginalUuid(),
-						Long.valueOf(definitionModelImpl.getOriginalGroupId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
-
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
-
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
-					new Object[] {
-						definition.getUuid(),
-						Long.valueOf(definition.getGroupId())
-					}, definition);
-			}
-		}
+		clearUniqueFindersCache(definition);
+		cacheUniqueFindersCache(definition);
 
 		return definition;
 	}

@@ -940,13 +940,61 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 		}
 	}
 
+	protected void cacheUniqueFindersCache(SamlIdpSpSession samlIdpSpSession) {
+		if (samlIdpSpSession.isNew()) {
+			Object[] args = new Object[] {
+					Long.valueOf(samlIdpSpSession.getSamlIdpSsoSessionId()),
+					
+					samlIdpSpSession.getSamlSpEntityId()
+				};
+
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_SISSI_SSEI, args,
+				Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SISSI_SSEI, args,
+				samlIdpSpSession);
+		}
+		else {
+			SamlIdpSpSessionModelImpl samlIdpSpSessionModelImpl = (SamlIdpSpSessionModelImpl)samlIdpSpSession;
+
+			if ((samlIdpSpSessionModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_SISSI_SSEI.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						Long.valueOf(samlIdpSpSession.getSamlIdpSsoSessionId()),
+						
+						samlIdpSpSession.getSamlSpEntityId()
+					};
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_SISSI_SSEI,
+					args, Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SISSI_SSEI,
+					args, samlIdpSpSession);
+			}
+		}
+	}
+
 	protected void clearUniqueFindersCache(SamlIdpSpSession samlIdpSpSession) {
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SISSI_SSEI,
-			new Object[] {
+		SamlIdpSpSessionModelImpl samlIdpSpSessionModelImpl = (SamlIdpSpSessionModelImpl)samlIdpSpSession;
+
+		Object[] args = new Object[] {
 				Long.valueOf(samlIdpSpSession.getSamlIdpSsoSessionId()),
 				
-			samlIdpSpSession.getSamlSpEntityId()
-			});
+				samlIdpSpSession.getSamlSpEntityId()
+			};
+
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_SISSI_SSEI, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SISSI_SSEI, args);
+
+		if ((samlIdpSpSessionModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_SISSI_SSEI.getColumnBitmask()) != 0) {
+			args = new Object[] {
+					Long.valueOf(samlIdpSpSessionModelImpl.getOriginalSamlIdpSsoSessionId()),
+					
+					samlIdpSpSessionModelImpl.getOriginalSamlSpEntityId()
+				};
+
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_SISSI_SSEI, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SISSI_SSEI, args);
+		}
 	}
 
 	/**
@@ -1115,37 +1163,8 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 			SamlIdpSpSessionImpl.class, samlIdpSpSession.getPrimaryKey(),
 			samlIdpSpSession);
 
-		if (isNew) {
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SISSI_SSEI,
-				new Object[] {
-					Long.valueOf(samlIdpSpSession.getSamlIdpSsoSessionId()),
-					
-				samlIdpSpSession.getSamlSpEntityId()
-				}, samlIdpSpSession);
-		}
-		else {
-			if ((samlIdpSpSessionModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_SISSI_SSEI.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						Long.valueOf(samlIdpSpSessionModelImpl.getOriginalSamlIdpSsoSessionId()),
-						
-						samlIdpSpSessionModelImpl.getOriginalSamlSpEntityId()
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_SISSI_SSEI,
-					args);
-
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SISSI_SSEI,
-					args);
-
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SISSI_SSEI,
-					new Object[] {
-						Long.valueOf(samlIdpSpSession.getSamlIdpSsoSessionId()),
-						
-					samlIdpSpSession.getSamlSpEntityId()
-					}, samlIdpSpSession);
-			}
-		}
+		clearUniqueFindersCache(samlIdpSpSession);
+		cacheUniqueFindersCache(samlIdpSpSession);
 
 		return samlIdpSpSession;
 	}

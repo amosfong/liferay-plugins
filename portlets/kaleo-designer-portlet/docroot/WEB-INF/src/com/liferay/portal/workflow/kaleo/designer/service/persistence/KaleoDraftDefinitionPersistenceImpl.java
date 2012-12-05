@@ -1569,16 +1569,71 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 		}
 	}
 
+	protected void cacheUniqueFindersCache(
+		KaleoDraftDefinition kaleoDraftDefinition) {
+		if (kaleoDraftDefinition.isNew()) {
+			Object[] args = new Object[] {
+					Long.valueOf(kaleoDraftDefinition.getCompanyId()),
+					
+					kaleoDraftDefinition.getName(),
+					Integer.valueOf(kaleoDraftDefinition.getVersion()),
+					Integer.valueOf(kaleoDraftDefinition.getDraftVersion())
+				};
+
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_C_N_V_D, args,
+				Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_N_V_D, args,
+				kaleoDraftDefinition);
+		}
+		else {
+			KaleoDraftDefinitionModelImpl kaleoDraftDefinitionModelImpl = (KaleoDraftDefinitionModelImpl)kaleoDraftDefinition;
+
+			if ((kaleoDraftDefinitionModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_C_N_V_D.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						Long.valueOf(kaleoDraftDefinition.getCompanyId()),
+						
+						kaleoDraftDefinition.getName(),
+						Integer.valueOf(kaleoDraftDefinition.getVersion()),
+						Integer.valueOf(kaleoDraftDefinition.getDraftVersion())
+					};
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_C_N_V_D, args,
+					Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_N_V_D, args,
+					kaleoDraftDefinition);
+			}
+		}
+	}
+
 	protected void clearUniqueFindersCache(
 		KaleoDraftDefinition kaleoDraftDefinition) {
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_N_V_D,
-			new Object[] {
+		KaleoDraftDefinitionModelImpl kaleoDraftDefinitionModelImpl = (KaleoDraftDefinitionModelImpl)kaleoDraftDefinition;
+
+		Object[] args = new Object[] {
 				Long.valueOf(kaleoDraftDefinition.getCompanyId()),
 				
-			kaleoDraftDefinition.getName(),
+				kaleoDraftDefinition.getName(),
 				Integer.valueOf(kaleoDraftDefinition.getVersion()),
 				Integer.valueOf(kaleoDraftDefinition.getDraftVersion())
-			});
+			};
+
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_N_V_D, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_N_V_D, args);
+
+		if ((kaleoDraftDefinitionModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_C_N_V_D.getColumnBitmask()) != 0) {
+			args = new Object[] {
+					Long.valueOf(kaleoDraftDefinitionModelImpl.getOriginalCompanyId()),
+					
+					kaleoDraftDefinitionModelImpl.getOriginalName(),
+					Integer.valueOf(kaleoDraftDefinitionModelImpl.getOriginalVersion()),
+					Integer.valueOf(kaleoDraftDefinitionModelImpl.getOriginalDraftVersion())
+				};
+
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_N_V_D, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_N_V_D, args);
+		}
 	}
 
 	/**
@@ -1772,41 +1827,8 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 			KaleoDraftDefinitionImpl.class,
 			kaleoDraftDefinition.getPrimaryKey(), kaleoDraftDefinition);
 
-		if (isNew) {
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_N_V_D,
-				new Object[] {
-					Long.valueOf(kaleoDraftDefinition.getCompanyId()),
-					
-				kaleoDraftDefinition.getName(),
-					Integer.valueOf(kaleoDraftDefinition.getVersion()),
-					Integer.valueOf(kaleoDraftDefinition.getDraftVersion())
-				}, kaleoDraftDefinition);
-		}
-		else {
-			if ((kaleoDraftDefinitionModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_C_N_V_D.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						Long.valueOf(kaleoDraftDefinitionModelImpl.getOriginalCompanyId()),
-						
-						kaleoDraftDefinitionModelImpl.getOriginalName(),
-						Integer.valueOf(kaleoDraftDefinitionModelImpl.getOriginalVersion()),
-						Integer.valueOf(kaleoDraftDefinitionModelImpl.getOriginalDraftVersion())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_N_V_D, args);
-
-				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_N_V_D, args);
-
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_N_V_D,
-					new Object[] {
-						Long.valueOf(kaleoDraftDefinition.getCompanyId()),
-						
-					kaleoDraftDefinition.getName(),
-						Integer.valueOf(kaleoDraftDefinition.getVersion()),
-						Integer.valueOf(kaleoDraftDefinition.getDraftVersion())
-					}, kaleoDraftDefinition);
-			}
-		}
+		clearUniqueFindersCache(kaleoDraftDefinition);
+		cacheUniqueFindersCache(kaleoDraftDefinition);
 
 		return kaleoDraftDefinition;
 	}
