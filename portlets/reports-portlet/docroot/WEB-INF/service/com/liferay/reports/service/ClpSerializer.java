@@ -306,6 +306,11 @@ public class ClpSerializer {
 			return new com.liferay.reports.SourceFileException();
 		}
 
+		if (className.equals(
+					"com.liferay.reports.SourceJDBCConnectionException")) {
+			return new com.liferay.reports.SourceJDBCConnectionException();
+		}
+
 		if (className.equals("com.liferay.reports.SourceLoginException")) {
 			return new com.liferay.reports.SourceLoginException();
 		}
