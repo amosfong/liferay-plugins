@@ -311,15 +311,7 @@ if (kaleoProcess != null) {
 								templateName = '(' + templateName + ')';
 							}
 
-							editingNode._uiSetName(
-								A.Lang.sub(
-									'{workflowTaskName} {formName}',
-									{
-										formName: templateName,
-										workflowTaskName: workflowTaskName
-									}
-								)
-							);
+							editingNode._uiSetName(workflowTaskName + ' ' + templateName);
 						}
 					);
 				}
