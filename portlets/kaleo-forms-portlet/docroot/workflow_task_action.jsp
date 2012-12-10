@@ -63,7 +63,7 @@ if ((kaleoProcessLinkId > 0) && !workflowTask.isCompleted() && _isAssignedToUser
 long[] pooledActorsIds = WorkflowTaskManagerUtil.getPooledActorsIds(company.getCompanyId(), workflowTask.getWorkflowTaskId());
 %>
 
-<liferay-ui:icon-menu showExpanded="<%= (row == null) %>" showWhenSingleIcon="<%= (row == null) %>">
+<liferay-ui:icon-menu showExpanded="<%= row == null %>" showWhenSingleIcon="<%= row == null %>">
 	<c:if test="<%= showCompleteFormButton %>">
 		<portlet:actionURL name="completeForm" var="completeFormURL">
 			<portlet:param name="redirect" value="<%= currentURL %>" />

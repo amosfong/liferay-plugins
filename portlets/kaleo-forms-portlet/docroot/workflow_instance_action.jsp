@@ -31,7 +31,7 @@ else {
 }
 %>
 
-<liferay-ui:icon-menu showExpanded="<%= (row == null) %>" showWhenSingleIcon="<%= true %>">
+<liferay-ui:icon-menu showExpanded="<%= row == null %>" showWhenSingleIcon="<%= true %>">
 	<c:if test="<%= !workflowInstance.isComplete() %>">
 		<portlet:actionURL name="deleteWorkflowInstance" var="deleteURL">
 			<portlet:param name="redirect" value="<%= currentURL %>" />
