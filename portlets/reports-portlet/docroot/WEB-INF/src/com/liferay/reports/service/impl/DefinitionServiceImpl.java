@@ -63,10 +63,19 @@ public class DefinitionServiceImpl extends DefinitionServiceBaseImpl {
 		return definitionLocalService.deleteDefinition(definitionId);
 	}
 
+	public Definition getDefinition(long definitionId)
+		throws PortalException, SystemException {
+
+		DefinitionPermission.check(
+			getPermissionChecker(), definitionId, ActionKeys.VIEW);
+
+		return definitionLocalService.getDefinition(definitionId);
+	}
+
 	public List<Definition> getDefinitions(
-		long groupId, String definitionName, String description,
-		String sourceId, String reportName, boolean andSearch, int start,
-		int end, OrderByComparator orderByComparator)
+			long groupId, String definitionName, String description,
+			String sourceId, String reportName, boolean andSearch, int start,
+			int end, OrderByComparator orderByComparator)
 		throws PortalException, SystemException {
 
 		List<Definition> definitions = definitionLocalService.getDefinitions(
@@ -77,8 +86,8 @@ public class DefinitionServiceImpl extends DefinitionServiceBaseImpl {
 	}
 
 	public int getDefinitionsCount(
-		long groupId, String definitionName, String description,
-		String sourceId, String reportName, boolean andSearch)
+			long groupId, String definitionName, String description,
+			String sourceId, String reportName, boolean andSearch)
 		throws SystemException {
 
 		return definitionLocalService.getDefinitionsCount(

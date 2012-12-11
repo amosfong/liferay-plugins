@@ -25,7 +25,7 @@ import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.reports.model.Definition;
 import com.liferay.reports.model.Entry;
-import com.liferay.reports.service.DefinitionLocalServiceUtil;
+import com.liferay.reports.service.DefinitionServiceUtil;
 import com.liferay.reports.service.EntryServiceUtil;
 import com.liferay.reports.util.ReportsUtil;
 import com.liferay.util.bridges.mvc.BaseActionCommand;
@@ -64,7 +64,7 @@ public class GenerateReportActionCommand extends BaseActionCommand {
 		JSONArray entryReportParametersJSONArray =
 			JSONFactoryUtil.createJSONArray();
 
-		Definition definition = DefinitionLocalServiceUtil.getDefinition(
+		Definition definition = DefinitionServiceUtil.getDefinition(
 			definitionId);
 
 		JSONArray reportParametersJSONArray = JSONFactoryUtil.createJSONArray(

@@ -60,6 +60,15 @@ public class SourceServiceImpl extends SourceServiceBaseImpl {
 		return sourceLocalService.deleteSource(sourceId);
 	}
 
+	public Source getSource(long sourceId)
+		throws PortalException, SystemException {
+
+		SourcePermission.check(
+			getPermissionChecker(), sourceId, ActionKeys.VIEW);
+
+		return sourceLocalService.getSource(sourceId);
+	}
+
 	public List<Source> getSources(
 			long groupId, String name, String driverUrl, boolean andSearch,
 			int start, int end, OrderByComparator orderByComparator)

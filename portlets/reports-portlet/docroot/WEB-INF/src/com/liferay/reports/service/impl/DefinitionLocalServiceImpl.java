@@ -93,8 +93,7 @@ public class DefinitionLocalServiceImpl extends DefinitionLocalServiceBaseImpl {
 
 		if (Validator.isNotNull(fileName) && (inputStream != null)) {
 			addDefinitionFile(
-				user.getCompanyId(), groupId, definition, fileName,
-				inputStream);
+				user.getCompanyId(), definition, fileName, inputStream);
 		}
 
 		return definition;
@@ -221,9 +220,7 @@ public class DefinitionLocalServiceImpl extends DefinitionLocalServiceBaseImpl {
 			catch (NoSuchDirectoryException nsde) {
 			}
 
-			addDefinitionFile(
-				companyId, definition.getGroupId(), definition, fileName,
-				inputStream);
+			addDefinitionFile(companyId, definition, fileName, inputStream);
 		}
 
 		return definition;
@@ -241,8 +238,8 @@ public class DefinitionLocalServiceImpl extends DefinitionLocalServiceBaseImpl {
 	}
 
 	protected void addDefinitionFile(
-			long companyId, long groupId, Definition definition,
-			String fileName, InputStream inputStream)
+			long companyId, Definition definition, String fileName,
+			InputStream inputStream)
 		throws PortalException, SystemException {
 
 		String directoryName = definition.getAttachmentsDir();

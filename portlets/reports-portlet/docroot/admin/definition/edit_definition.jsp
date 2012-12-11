@@ -94,23 +94,23 @@ if (definition != null) {
 		</aui:select>
 
 		<aui:field-wrapper label="template">
-			<aui:input inputCssClass="templateUpdated" name="templateUpdated" type="hidden" value="<%= definition == null %>" />
+			<aui:input inputCssClass="template-updated" name="templateUpdated" type="hidden" value="<%= definition == null %>" />
 
-			<span class="existingFile" style='<%= Validator.isNull(reportName) ? "display: none;" : "display: block;" %>'>
+			<span class="existing-report" style='<%= Validator.isNull(reportName) ? "display: none;" : "display: block;" %>'>
 				<%= reportName %>
 
-				<img class="removeExisting" src="<%= themeDisplay.getPathThemeImages() %>/arrows/02_x.png" />
+				<img class="remove-existing-report" src="<%= themeDisplay.getPathThemeImages() %>/arrows/02_x.png" />
 
 				<aui:input name="reportName" type="hidden" value="<%= reportName %>" />
 			</span>
 
-			<aui:input inputCssClass="templateFile" name="templateFile" style='<%= Validator.isNull(reportName) ? "display: block;" : "display: none;" %>' type="file" />
+			<aui:input inputCssClass="template-report" name="templateReport" style='<%= Validator.isNull(reportName) ? "display: block;" : "display: none;" %>' type="file" />
 
-			<aui:button inputCssClass="cancelUpdateTemplateFile" style="display:none;" value="cancel" />
+			<aui:button inputCssClass="cancel-update-template-report" style="display:none;" value="cancel" />
 		</aui:field-wrapper>
 
 		<aui:field-wrapper helpMessage="definition-report-parameters-help" label="report-parameters">
-			<aui:input inputCssClass="reportParameters" name="reportParameters" type="hidden" />
+			<aui:input inputCssClass="report-parameters" name="reportParameters" type="hidden" />
 
 			<aui:column>
 				<aui:input inlineLabel="key" inputCssClass="parameters-key" name="key" size="20" type="text" />
@@ -213,7 +213,7 @@ if (definition != null) {
 	}
 
 	function <portlet:namespace />editDefinition() {
-		var isTemplateUpdated = AUI().one('.templateUpdated').get('value');
+		var isTemplateUpdated = AUI().one('.template-updated').get('value');
 
 		if ((isTemplateUpdated == 'true') || (<%= definition == null %>)) {
 			document.<portlet:namespace />fm.encoding = "multipart/form-data";

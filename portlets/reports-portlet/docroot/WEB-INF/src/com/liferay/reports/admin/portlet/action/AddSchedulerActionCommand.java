@@ -33,7 +33,7 @@ import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.reports.model.Definition;
 import com.liferay.reports.model.Entry;
-import com.liferay.reports.service.DefinitionLocalServiceUtil;
+import com.liferay.reports.service.DefinitionServiceUtil;
 import com.liferay.reports.service.EntryServiceUtil;
 import com.liferay.reports.util.ReportsUtil;
 import com.liferay.util.bridges.mvc.BaseActionCommand;
@@ -106,7 +106,7 @@ public class AddSchedulerActionCommand extends BaseActionCommand {
 		JSONArray entryReportParametersJSONArray =
 			JSONFactoryUtil.createJSONArray();
 
-		Definition definition = DefinitionLocalServiceUtil.getDefinition(
+		Definition definition = DefinitionServiceUtil.getDefinition(
 			definitionId);
 
 		JSONArray reportParametersJSONArray = JSONFactoryUtil.createJSONArray(

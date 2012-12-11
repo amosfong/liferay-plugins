@@ -16,7 +16,7 @@ package com.liferay.reports.admin.portlet.action;
 
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.reports.model.Source;
-import com.liferay.reports.service.SourceLocalServiceUtil;
+import com.liferay.reports.service.SourceServiceUtil;
 import com.liferay.reports.util.ReportsUtil;
 import com.liferay.util.bridges.mvc.BaseActionCommand;
 
@@ -35,7 +35,7 @@ public class TestDataSourceActionCommand extends BaseActionCommand {
 
 		long sourceId = ParamUtil.getLong(portletRequest, "sourceId");
 
-		Source source = SourceLocalServiceUtil.getSource(sourceId);
+		Source source = SourceServiceUtil.getSource(sourceId);
 
 		ReportsUtil.validateJDBCConnection(
 			source.getDriverClassName(), source.getDriverUrl(),

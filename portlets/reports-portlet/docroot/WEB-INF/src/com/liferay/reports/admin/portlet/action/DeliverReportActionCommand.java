@@ -16,7 +16,7 @@ package com.liferay.reports.admin.portlet.action;
 
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.reports.service.EntryLocalServiceUtil;
+import com.liferay.reports.service.EntryServiceUtil;
 import com.liferay.util.bridges.mvc.BaseActionCommand;
 
 import javax.portlet.PortletRequest;
@@ -34,12 +34,11 @@ public class DeliverReportActionCommand extends BaseActionCommand {
 
 		long entryId = ParamUtil.getLong(portletRequest, "entryId");
 
-		String[] emailDeliveries = StringUtil.split(
-			ParamUtil.getString(portletRequest, "emailDelivery"));
+		String[] emailAddresses = StringUtil.split(
+			ParamUtil.getString(portletRequest, "emailAddresses"));
 		String fileName = ParamUtil.getString(portletRequest, "fileName");
 
-		EntryLocalServiceUtil.sendEmails(
-			entryId, fileName, emailDeliveries, false);
+		EntryServiceUtil.sendEmails(entryId, fileName, emailAddresses, false);
 	}
 
 }

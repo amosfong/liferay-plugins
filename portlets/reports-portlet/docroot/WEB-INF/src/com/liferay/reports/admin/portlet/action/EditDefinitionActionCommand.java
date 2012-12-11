@@ -67,8 +67,10 @@ public class EditDefinitionActionCommand extends BaseActionCommand {
 			long sourceId = ParamUtil.getLong(uploadPortletRequest, "sourceId");
 			String reportParameters = ParamUtil.getString(
 				uploadPortletRequest, "reportParameters");
-			String fileName = uploadPortletRequest.getFileName("templateFile");
-			inputStream = uploadPortletRequest.getFileAsStream("templateFile");
+			String fileName = uploadPortletRequest.getFileName(
+				"templateReport");
+			inputStream = uploadPortletRequest.getFileAsStream(
+				"templateReport");
 
 			ServiceContext serviceContext = ServiceContextFactory.getInstance(
 				Definition.class.getName(), portletRequest);

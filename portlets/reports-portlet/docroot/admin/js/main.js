@@ -6,7 +6,7 @@ Liferay.Report = {
 		instance._portletMessageContainer.setStyle('display', 'none');
 
 		if (confirm(Liferay.Language.get('are-you-sure-you-want-to-delete-this-entry'))) {
-			var parametersInput = AUI().one('.reportParameters');
+			var parametersInput = AUI().one('.report-parameters');
 
 			var reportParameters = JSON.parse(parametersInput.get('value'));
 
@@ -44,21 +44,21 @@ Liferay.Report = {
 			}
 		);
 
-		AUI().one('.removeExisting').on(
+		AUI().one('.remove-existing-report').on(
 			'click',
 			function() {
-				AUI().one('.existingFile').setStyle('display', 'none');
-				AUI().one('.templateFile').setStyle('display', 'block');
-				AUI().one('.cancelUpdateTemplateFile').setStyle('display', 'block');
+				AUI().one('.existing-report').setStyle('display', 'none');
+				AUI().one('.template-report').setStyle('display', 'block');
+				AUI().one('.cancel-update-template-report').setStyle('display', 'block');
 			}
 		);
 
-		AUI().one('.cancelUpdateTemplateFile').on(
+		AUI().one('.cancel-update-template-report').on(
 			'click',
 			function() {
-				AUI().one('.existingFile').setStyle('display', 'block');
-				AUI().one('.templateFile').setStyle('display', 'none');
-				AUI().one('.cancelUpdateTemplateFile').setStyle('display', 'none');
+				AUI().one('.existing-report').setStyle('display', 'block');
+				AUI().one('.template-report').setStyle('display', 'none');
+				AUI().one('.cancel-update-template-report').setStyle('display', 'none');
 			}
 		);
 
@@ -131,7 +131,7 @@ Liferay.Report = {
 			return;
 		}
 
-		var reportParameters = AUI().one('.reportParameters').get('value');
+		var reportParameters = AUI().one('.report-parameters').get('value');
 
 		if (reportParameters) {
 			var reportParametersJSON = JSON.parse(reportParameters);
@@ -172,7 +172,7 @@ Liferay.Report = {
 	_addReportParameter: function(parameterKey, parameterValue, parameterType) {
 		var reportParameters = [];
 
-		var parametersInput = AUI().one('.reportParameters');
+		var parametersInput = AUI().one('.report-parameters');
 
 		if (parametersInput.get('value')) {
 			reportParameters = JSON.parse(parametersInput.get('value'));
@@ -212,7 +212,7 @@ Liferay.Report = {
 
 		instance._portletMessageContainer.setStyle('display', 'none');
 
-		AUI().one('.reportParameters').set('value', parameters);
+		AUI().one('.report-parameters').set('value', parameters);
 
 		if (!parameters) {
 			return;

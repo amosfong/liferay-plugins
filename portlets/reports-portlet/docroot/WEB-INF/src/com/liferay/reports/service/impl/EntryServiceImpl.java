@@ -93,6 +93,17 @@ public class EntryServiceImpl extends EntryServiceBaseImpl {
 			andSearch);
 	}
 
+	public void sendEmails(
+			long entryId, String fileName, String[] emailAddresses,
+			boolean notification)
+		throws PortalException, SystemException {
+
+		EntryPermission.check(getPermissionChecker(), entryId, ActionKeys.VIEW);
+
+		entryLocalService.sendEmails(
+			entryId, fileName, emailAddresses, notification);
+	}
+
 	public void unscheduleEntry(long entryId)
 		throws PortalException, SystemException {
 
