@@ -142,14 +142,14 @@ public class KeyStoreCredentialResolver
 
 			KeyStore.PasswordProtection keyStorePasswordProtection = null;
 
-			String samlKeystoreCredentialPassword =
+			String samlKeyStoreCredentialPassword =
 				PortletPrefsPropsUtil.getString(
 					PortletPropsKeys.SAML_KEYSTORE_CREDENTIAL_PASSWORD,
 					new Filter(entityId));
 
-			if (samlKeystoreCredentialPassword != null) {
+			if (samlKeyStoreCredentialPassword != null) {
 				keyStorePasswordProtection = new KeyStore.PasswordProtection(
-					samlKeystoreCredentialPassword.toCharArray());
+					samlKeyStoreCredentialPassword.toCharArray());
 			}
 
 			KeyStore keyStore = KeyStoreManagerUtil.getKeyStore();
