@@ -461,7 +461,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 									<c:if test="<%= curFileVersion.isApproved() %>">
 										<div class="version">
 											<span class="version-number"><liferay-ui:message key="version" /> <%= curFileVersion.getVersion() %></span>
-											<span class="user-name"><liferay-ui:message key="by" />: <%= curFileVersion.getUserName() %></span>
+											<span class="user-name"><liferay-ui:message key="by" />: <%= curFileVersion.getStatusByUserName() %></span>
 
 											<div class="extra">
 												<span class="modified-date"><liferay-ui:message key="on" />: <%= dateFormatDateTime.format(curFileVersion.getCreateDate()) %></span>
@@ -576,7 +576,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 							<c:otherwise>
 								<div class="version">
 									<span class="version-number"><liferay-ui:message key="version" /> <%= fileVersion.getVersion() %></span>
-									<span class="user-name"><liferay-ui:message key="by" />: <%= fileVersion.getUserName() %></span>
+									<span class="user-name"><liferay-ui:message key="by" />: <%= fileVersion.getStatusByUserName() %></span>
 
 									<div class="extra">
 										<span class="modified-date"><liferay-ui:message key="on" />: <%= dateFormatDateTime.format(fileVersion.getCreateDate()) %></span>
