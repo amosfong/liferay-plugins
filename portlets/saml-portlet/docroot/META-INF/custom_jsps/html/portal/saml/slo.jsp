@@ -75,8 +75,8 @@ JSONArray samlSloRequestInfosJSONArray = samlSloContextJSONObject.getJSONArray("
 		String name = samlSloRequestInfoJSONObject.getString("name");
 	%>
 
-		<div class="saml-sp" id="samlSp<%= i %>">
-			<a class="saml-sp-label" href="?cmd=logout&entityId=entityId" target="_blank">
+		<div class="saml-sp">
+			<a class="saml-sp-label" href="?cmd=logout&entityId=<%= entityId %>" target="_blank">
 				<liferay-ui:message arguments="<%= name %>" key="sign-out-from-x" />
 			</a>
 		</div>
@@ -128,7 +128,7 @@ JSONArray samlSloRequestInfosJSONArray = samlSloContextJSONObject.getJSONArray("
 			'<div id="samlSp{$i}" class="saml-sp">' +
 				'<span class="saml-sp-label portlet-msg-progress-label">{name}</span>' +
 				'<a class="aui-helper-hidden saml-sp-retry" data-entityId="{entityId}" href="javascript:;"><%= UnicodeLanguageUtil.get(pageContext, "retry") %></a>' +
-				'<iframe class="aui-helper-hidden-accessible" src="?cmd=logout&entityId={entityId}" />' +
+				'<iframe class="aui-helper-hidden-accessible" src="?cmd=logout&entityId={entityId}"></iframe>' +
 			'</div>' +
 		'</tpl>'
 	);
