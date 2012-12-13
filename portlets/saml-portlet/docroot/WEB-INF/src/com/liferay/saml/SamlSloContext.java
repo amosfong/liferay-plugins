@@ -56,6 +56,11 @@ public class SamlSloContext implements Serializable {
 
 		_samlMessageContext = samlMessageContext;
 
+		if (samlMessageContext != null) {
+			samlMessageContext.setInboundMessageTransport(null);
+			samlMessageContext.setOutboundMessageTransport(null);
+		}
+
 		if (samlIdpSsoSession == null) {
 			return;
 		}

@@ -80,6 +80,8 @@ import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.ws.message.decoder.MessageDecoder;
 import org.opensaml.ws.message.encoder.MessageEncoder;
 import org.opensaml.ws.security.SecurityPolicyResolver;
+import org.opensaml.ws.transport.http.HttpServletRequestAdapter;
+import org.opensaml.ws.transport.http.HttpServletResponseAdapter;
 import org.opensaml.xml.security.credential.Credential;
 
 /**
@@ -836,6 +838,18 @@ public class SingleLogoutProfileImpl
 
 		logoutResponse.setVersion(SAMLVersion.VERSION_20);
 
+		HttpServletRequestAdapter httpServletRequestAdapter =
+			new HttpServletRequestAdapter(request);
+
+		samlMessageContext.setInboundMessageTransport(
+			httpServletRequestAdapter);
+
+		HttpServletResponseAdapter httpServletResponseAdapter =
+			new HttpServletResponseAdapter(response, request.isSecure());
+
+		samlMessageContext.setOutboundMessageTransport(
+			httpServletResponseAdapter);
+
 		samlMessageContext.setOutboundSAMLMessage(logoutResponse);
 
 		samlMessageContext.setOutboundSAMLMessageSigningCredential(
@@ -848,7 +862,11 @@ public class SingleLogoutProfileImpl
 
 			HttpSession session = request.getSession();
 
-			session.invalidate();
+			try {
+				session.invalidate();
+			}
+			catch (Exception e) {
+			}
 		}
 
 		sendSamlMessage(samlMessageContext);
