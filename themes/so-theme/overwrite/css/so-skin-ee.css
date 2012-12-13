@@ -26,7 +26,6 @@ $red: #8F0920;
 	}
 
 	.aui-column-content-first {
-		border-right: 1px solid $gray-dark;
 		position: relative;
 	}
 
@@ -319,6 +318,10 @@ $red: #8F0920;
 			word-break: break-all;
 		}
 	}
+}
+
+.portlet-document-library .aui-column-content-first {
+	border-right: 1px solid $gray-dark;
 }
 
 /* ---------- License Dialog ---------- */
