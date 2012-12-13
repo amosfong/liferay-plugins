@@ -28,6 +28,7 @@
 		</portlet-ref>
 		<permissions>
 			<supports>
+				<action-key>ADD_PORTLET_DISPLAY_TEMPLATE</action-key>
 				<action-key>ADD_PROCESS</action-key>
 				<action-key>ADD_STRUCTURE</action-key>
 				<action-key>ADD_TEMPLATE</action-key>
