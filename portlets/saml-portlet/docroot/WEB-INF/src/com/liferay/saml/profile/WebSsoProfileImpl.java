@@ -50,7 +50,6 @@ import com.liferay.saml.service.SamlSpMessageLocalServiceUtil;
 import com.liferay.saml.util.OpenSamlUtil;
 import com.liferay.saml.util.PortletWebKeys;
 import com.liferay.saml.util.SamlUtil;
-import com.liferay.util.CookieUtil;
 
 import java.io.IOException;
 
@@ -235,8 +234,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 			samlMessageContext.setOutboundMessageTransport(
 				outHttpServletRequestAdapter);
 
-			String samlSsoSessionId = CookieUtil.get(
-				request, PortletWebKeys.SAML_SSO_SESSION_ID);
+			String samlSsoSessionId = getSamlSsoSessionId(request);
 
 			samlSsoRequestContext.setSamlSsoSessionId(samlSsoSessionId);
 
@@ -288,8 +286,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 
 		samlSsoRequestContext = new SamlSsoRequestContext(samlMessageContext);
 
-		String samlSsoSessionId = CookieUtil.get(
-			request, PortletWebKeys.SAML_SSO_SESSION_ID);
+		String samlSsoSessionId = getSamlSsoSessionId(request);
 
 		samlSsoRequestContext.setSamlSsoSessionId(samlSsoSessionId);
 

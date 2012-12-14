@@ -17,13 +17,13 @@ package com.liferay.saml.hook.filter;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.BaseFilter;
+import com.liferay.portal.kernel.util.CookieKeys;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.User;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.saml.profile.SingleLogoutProfileUtil;
 import com.liferay.saml.util.PortletWebKeys;
 import com.liferay.saml.util.SamlUtil;
-import com.liferay.util.CookieUtil;
 
 import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
@@ -88,7 +88,7 @@ public class SamlIdpSsoFilter extends BaseFilter {
 		String requestURI = request.getRequestURI();
 
 		if (requestURI.equals("/c/portal/logout")) {
-			String samlSsoSessionId = CookieUtil.get(
+			String samlSsoSessionId = CookieKeys.getCookie(
 				request, PortletWebKeys.SAML_SSO_SESSION_ID);
 
 			if (Validator.isNotNull(samlSsoSessionId)) {

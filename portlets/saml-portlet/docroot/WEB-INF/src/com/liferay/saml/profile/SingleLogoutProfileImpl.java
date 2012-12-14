@@ -44,7 +44,6 @@ import com.liferay.saml.transport.HttpClientOutTransport;
 import com.liferay.saml.util.OpenSamlUtil;
 import com.liferay.saml.util.PortletWebKeys;
 import com.liferay.saml.util.SamlUtil;
-import com.liferay.util.CookieUtil;
 
 import java.io.Writer;
 
@@ -297,8 +296,7 @@ public class SingleLogoutProfileImpl
 			(SamlSloContext)session.getAttribute(
 				PortletWebKeys.SAML_SLO_CONTEXT);
 
-		String samlSsoSessionId = CookieUtil.get(
-			request, PortletWebKeys.SAML_SSO_SESSION_ID);
+		String samlSsoSessionId = getSamlSsoSessionId(request);
 
 		if ((samlSloContext == null) && Validator.isNotNull(samlSsoSessionId)) {
 			SamlIdpSsoSession samlIdpSsoSession =
@@ -1012,8 +1010,7 @@ public class SingleLogoutProfileImpl
 	protected void terminateSsoSession(
 		HttpServletRequest request, HttpServletResponse response) {
 
-		String samlSsoSessionId = CookieUtil.get(
-			request, PortletWebKeys.SAML_SSO_SESSION_ID);
+		String samlSsoSessionId = getSamlSsoSessionId(request);
 
 		if (Validator.isNotNull(samlSsoSessionId)) {
 			try {

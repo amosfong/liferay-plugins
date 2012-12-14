@@ -15,9 +15,11 @@
 package com.liferay.saml.profile;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.util.CookieKeys;
 import com.liferay.saml.SamlException;
 import com.liferay.saml.binding.SamlBinding;
 import com.liferay.saml.metadata.MetadataManagerUtil;
+import com.liferay.saml.util.PortletWebKeys;
 import com.liferay.saml.util.SamlUtil;
 
 import java.util.List;
@@ -217,6 +219,11 @@ public abstract class BaseProfile {
 		samlMessageContext.setPeerEntityRoleMetadata(roleDescriptor);
 
 		return samlMessageContext;
+	}
+
+	public String getSamlSsoSessionId(HttpServletRequest request) {
+		return CookieKeys.getCookie(
+			request, PortletWebKeys.SAML_SSO_SESSION_ID);
 	}
 
 	public void sendSamlMessage(SAMLMessageContext<?, ?, ?> samlMessageContext)

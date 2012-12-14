@@ -17,6 +17,7 @@ package com.liferay.saml.hook.action;
 import com.liferay.portal.kernel.servlet.HttpHeaders;
 import com.liferay.portal.kernel.struts.BaseStrutsAction;
 import com.liferay.portal.kernel.util.ContentTypes;
+import com.liferay.portal.kernel.util.CookieKeys;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.util.PortalUtil;
@@ -27,7 +28,6 @@ import com.liferay.saml.service.SamlIdpSpSessionLocalServiceUtil;
 import com.liferay.saml.service.SamlIdpSsoSessionLocalServiceUtil;
 import com.liferay.saml.util.PortletWebKeys;
 import com.liferay.saml.util.SamlUtil;
-import com.liferay.util.CookieUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -110,7 +110,7 @@ public class SessionKeepAliveAction extends BaseStrutsAction {
 	protected List<String> getSessionKeepAliveURLs(HttpServletRequest request)
 		throws Exception {
 
-		String samlSsoSessionId = CookieUtil.get(
+		String samlSsoSessionId = CookieKeys.getCookie(
 			request, PortletWebKeys.SAML_SSO_SESSION_ID);
 
 		SamlIdpSsoSession samlIdpSsoSession =
