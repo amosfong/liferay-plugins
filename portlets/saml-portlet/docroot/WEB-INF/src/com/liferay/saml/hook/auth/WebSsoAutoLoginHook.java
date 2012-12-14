@@ -16,16 +16,16 @@ package com.liferay.saml.hook.auth;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.CookieKeys;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.User;
-import com.liferay.portal.security.auth.AutoLogin;
 import com.liferay.portal.security.auth.AutoLoginException;
+import com.liferay.portal.security.auth.BaseAutoLogin;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.saml.model.SamlIdpSsoSession;
 import com.liferay.saml.service.SamlIdpSsoSessionLocalServiceUtil;
 import com.liferay.saml.util.PortletWebKeys;
 import com.liferay.saml.util.SamlUtil;
-import com.liferay.util.CookieUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,9 +33,9 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Mika Koivisto
  */
-public class WebSsoAutoLoginHook implements AutoLogin {
+public class WebSsoAutoLoginHook extends BaseAutoLogin {
 
-	public String[] login(
+	protected String[] doLogin(
 			HttpServletRequest request, HttpServletResponse response)
 		throws AutoLoginException {
 
@@ -44,7 +44,7 @@ public class WebSsoAutoLoginHook implements AutoLogin {
 				return null;
 			}
 
-			String samlSsoSessionId = CookieUtil.get(
+			String samlSsoSessionId = CookieKeys.getCookie(
 				request, PortletWebKeys.SAML_SSO_SESSION_ID);
 
 			if (Validator.isNull(samlSsoSessionId)) {

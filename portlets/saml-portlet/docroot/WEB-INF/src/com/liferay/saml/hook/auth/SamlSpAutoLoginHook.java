@@ -24,8 +24,8 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.User;
-import com.liferay.portal.security.auth.AutoLogin;
 import com.liferay.portal.security.auth.AutoLoginException;
+import com.liferay.portal.security.auth.BaseAutoLogin;
 import com.liferay.portal.security.ldap.PortalLDAPImporterUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
@@ -55,9 +55,9 @@ import org.opensaml.saml2.core.NameIDType;
 /**
  * @author Mika Koivisto
  */
-public class SamlSpAutoLoginHook implements AutoLogin {
+public class SamlSpAutoLoginHook extends BaseAutoLogin {
 
-	public String[] login(
+	protected String[] doLogin(
 			HttpServletRequest request, HttpServletResponse response)
 		throws AutoLoginException {
 
