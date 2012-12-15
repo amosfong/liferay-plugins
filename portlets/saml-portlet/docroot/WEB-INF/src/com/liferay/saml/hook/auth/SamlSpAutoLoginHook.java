@@ -57,6 +57,59 @@ import org.opensaml.saml2.core.NameIDType;
  */
 public class SamlSpAutoLoginHook extends BaseAutoLogin {
 
+	protected User addUser(HttpServletRequest request) throws Exception {
+		HttpSession session = request.getSession();
+
+		List<Attribute>attributes = (List<Attribute>)session.getAttribute(
+			PortletWebKeys.SAML_SP_ATTRIBUTES);
+
+		Properties userAttributeMappings = PropertiesUtil.load(
+			PropsUtil.get(PortletPropsKeys.SAML_SP_USER_ATTRIBUTE_MAPPINGS));
+
+		Map<String, String> attributesMap = SamlUtil.getAttributesMap(
+			attributes, userAttributeMappings);
+
+		long creatorUserId = 0;
+		long companyId = PortalUtil.getCompanyId(request);
+		boolean autoPassword = false;
+		String password1 = PwdGenerator.getPassword();
+		String password2 = password1;
+		boolean autoScreenName = false;
+		String screenName = attributesMap.get("screenName");
+		String emailAddress = attributesMap.get("emailAddress");
+		long facebookId = 0;
+		String openId = StringPool.BLANK;
+		Locale locale = getLocale(request);
+		String firstName = attributesMap.get("firstName");
+		String middleName = StringPool.BLANK;
+		String lastName = attributesMap.get("lastName");
+		int prefixId = 0;
+		int suffixId = 0;
+		boolean male = true;
+		int birthdayMonth = Calendar.JANUARY;
+		int birthdayDay = 1;
+		int birthdayYear = 1970;
+		String jobTitle = StringPool.BLANK;
+		long[] groupIds = null;
+		long[] organizationIds = null;
+		long[] roleIds = null;
+		long[] userGroupIds = null;
+		boolean sendEmail = false;
+
+		ServiceContext serviceContext = new ServiceContext();
+
+		String uuid = attributesMap.get("uuid");
+
+		serviceContext.setUuid(uuid);
+
+		return UserLocalServiceUtil.addUser(
+			creatorUserId, companyId, autoPassword, password1, password2,
+			autoScreenName, screenName, emailAddress, facebookId, openId,
+			locale, firstName, middleName, lastName, prefixId, suffixId, male,
+			birthdayMonth, birthdayDay, birthdayYear, jobTitle, groupIds,
+			organizationIds, roleIds, userGroupIds, sendEmail, serviceContext);
+	}
+
 	protected String[] doLogin(
 			HttpServletRequest request, HttpServletResponse response)
 		throws AutoLoginException {
@@ -140,59 +193,6 @@ public class SamlSpAutoLoginHook extends BaseAutoLogin {
 
 			throw new AutoLoginException(e);
 		}
-	}
-
-	protected User addUser(HttpServletRequest request) throws Exception {
-		HttpSession session = request.getSession();
-
-		List<Attribute>attributes = (List<Attribute>)session.getAttribute(
-			PortletWebKeys.SAML_SP_ATTRIBUTES);
-
-		Properties userAttributeMappings = PropertiesUtil.load(
-			PropsUtil.get(PortletPropsKeys.SAML_SP_USER_ATTRIBUTE_MAPPINGS));
-
-		Map<String, String> attributesMap = SamlUtil.getAttributesMap(
-			attributes, userAttributeMappings);
-
-		long creatorUserId = 0;
-		long companyId = PortalUtil.getCompanyId(request);
-		boolean autoPassword = false;
-		String password1 = PwdGenerator.getPassword();
-		String password2 = password1;
-		boolean autoScreenName = false;
-		String screenName = attributesMap.get("screenName");
-		String emailAddress = attributesMap.get("emailAddress");
-		long facebookId = 0;
-		String openId = StringPool.BLANK;
-		Locale locale = getLocale(request);
-		String firstName = attributesMap.get("firstName");
-		String middleName = StringPool.BLANK;
-		String lastName = attributesMap.get("lastName");
-		int prefixId = 0;
-		int suffixId = 0;
-		boolean male = true;
-		int birthdayMonth = Calendar.JANUARY;
-		int birthdayDay = 1;
-		int birthdayYear = 1970;
-		String jobTitle = StringPool.BLANK;
-		long[] groupIds = null;
-		long[] organizationIds = null;
-		long[] roleIds = null;
-		long[] userGroupIds = null;
-		boolean sendEmail = false;
-
-		ServiceContext serviceContext = new ServiceContext();
-
-		String uuid = attributesMap.get("uuid");
-
-		serviceContext.setUuid(uuid);
-
-		return UserLocalServiceUtil.addUser(
-			creatorUserId, companyId, autoPassword, password1, password2,
-			autoScreenName, screenName, emailAddress, facebookId, openId,
-			locale, firstName, middleName, lastName, prefixId, suffixId, male,
-			birthdayMonth, birthdayDay, birthdayYear, jobTitle, groupIds,
-			organizationIds, roleIds, userGroupIds, sendEmail, serviceContext);
 	}
 
 	protected Locale getLocale(HttpServletRequest request) {
