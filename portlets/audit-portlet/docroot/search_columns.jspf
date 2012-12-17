@@ -35,13 +35,13 @@
 <liferay-ui:search-container-column-text
 	href="<%= rowURL %>"
 	name="resource-name"
-	value='<%= (String)PortalClassInvoker.invoke("com.liferay.portal.security.permission.ResourceActionsUtil", "getModelResource", new Object[] {pageContext, event.getClassName()}, false) %>'
+	value='<%= (String)PortalClassInvoker.invoke(false, new MethodKey(ClassResolverUtil.resolve("com.liferay.portal.security.permission.ResourceActionsUtil", PortalClassLoaderUtil.getClassLoader()), "getModelResource", PageContext.class, String.class), pageContext, event.getClassName()) %>'
 />
 
 <liferay-ui:search-container-column-text
 	href="<%= rowURL %>"
 	name="resource-action"
-	value='<%= (String)PortalClassInvoker.invoke("com.liferay.portal.security.permission.ResourceActionsUtil", "getAction", new Object[] {pageContext, event.getEventType()}, false) %>'
+	value='<%= (String)PortalClassInvoker.invoke(false, new MethodKey(ClassResolverUtil.resolve("com.liferay.portal.security.permission.ResourceActionsUtil", PortalClassLoaderUtil.getClassLoader()), "getAction", PageContext.class, String.class), pageContext, event.getEventType()) %>'
 />
 
 <liferay-ui:search-container-column-text

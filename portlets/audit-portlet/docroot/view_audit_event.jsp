@@ -98,7 +98,7 @@ catch (NoSuchEventException nsee) {
 				<strong><liferay-ui:message key="resource-name" /></strong>
 			</td>
 			<td>
-				<%= (String)PortalClassInvoker.invoke("com.liferay.portal.security.permission.ResourceActionsUtil", "getModelResource", new Object[] {pageContext, auditEvent.getClassName()}, false) %>
+				<%= (String)PortalClassInvoker.invoke(false, new MethodKey(ClassResolverUtil.resolve("com.liferay.portal.security.permission.ResourceActionsUtil", PortalClassLoaderUtil.getClassLoader()), "getModelResource", PageContext.class, String.class), pageContext, auditEvent.getClassName()) %>
 
 				(<%= auditEvent.getClassName() %>)
 			</td>
@@ -108,7 +108,7 @@ catch (NoSuchEventException nsee) {
 				<strong><liferay-ui:message key="resource-action" /></strong>
 			</td>
 			<td>
-				<%= (String)PortalClassInvoker.invoke("com.liferay.portal.security.permission.ResourceActionsUtil", "getAction", new Object[] {pageContext, auditEvent.getEventType()}, false) %>
+				<%= (String)PortalClassInvoker.invoke(false, new MethodKey(ClassResolverUtil.resolve("com.liferay.portal.security.permission.ResourceActionsUtil", PortalClassLoaderUtil.getClassLoader()), "getAction", PageContext.class, String.class), pageContext, auditEvent.getEventType()) %>
 
 				(<%= auditEvent.getEventType() %>)
 			</td>
