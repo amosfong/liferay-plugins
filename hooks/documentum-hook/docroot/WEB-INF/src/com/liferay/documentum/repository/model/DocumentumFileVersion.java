@@ -246,6 +246,10 @@ public class DocumentumFileVersion
 		return false;
 	}
 
+	public boolean isInTrashFolder() {
+		return false;
+	}
+
 	public boolean isPending() {
 		return false;
 	}
