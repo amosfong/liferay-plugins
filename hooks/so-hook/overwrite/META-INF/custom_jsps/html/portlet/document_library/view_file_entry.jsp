@@ -470,7 +470,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 
 											<c:if test="<%= Validator.isNotNull(curFileVersion.getChangeLog()) %>">
 												<div class="changelog">
-													<%= curFileVersion.getChangeLog() %>
+													<%= HtmlUtil.escape(curFileVersion.getChangeLog()) %>
 												</div>
 											</c:if>
 
