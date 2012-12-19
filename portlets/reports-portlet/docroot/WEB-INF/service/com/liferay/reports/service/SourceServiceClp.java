@@ -43,22 +43,26 @@ public class SourceServiceClp implements SourceService {
 
 		_methodParameterTypes4 = new String[] { "long" };
 
-		_methodName5 = "getSources";
+		_methodName5 = "getSource";
 
-		_methodParameterTypes5 = new String[] {
+		_methodParameterTypes5 = new String[] { "long" };
+
+		_methodName6 = "getSources";
+
+		_methodParameterTypes6 = new String[] {
 				"long", "java.lang.String", "java.lang.String", "boolean", "int",
 				"int", "com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName6 = "getSourcesCount";
+		_methodName7 = "getSourcesCount";
 
-		_methodParameterTypes6 = new String[] {
+		_methodParameterTypes7 = new String[] {
 				"long", "java.lang.String", "java.lang.String", "boolean"
 			};
 
-		_methodName7 = "updateSource";
+		_methodName8 = "updateSource";
 
-		_methodParameterTypes7 = new String[] {
+		_methodParameterTypes8 = new String[] {
 				"long", "java.util.Map", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
@@ -195,6 +199,38 @@ public class SourceServiceClp implements SourceService {
 		return (com.liferay.reports.model.Source)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public com.liferay.reports.model.Source getSource(long sourceId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName5,
+					_methodParameterTypes5, new Object[] { sourceId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.reports.model.Source)ClpSerializer.translateOutput(returnObj);
+	}
+
 	public java.util.List<com.liferay.reports.model.Source> getSources(
 		long groupId, java.lang.String name, java.lang.String driverUrl,
 		boolean andSearch, int start, int end,
@@ -204,8 +240,8 @@ public class SourceServiceClp implements SourceService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName5,
-					_methodParameterTypes5,
+			returnObj = _invokableService.invokeMethod(_methodName6,
+					_methodParameterTypes6,
 					new Object[] {
 						groupId,
 						
@@ -251,8 +287,8 @@ public class SourceServiceClp implements SourceService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName6,
-					_methodParameterTypes6,
+			returnObj = _invokableService.invokeMethod(_methodName7,
+					_methodParameterTypes7,
 					new Object[] {
 						groupId,
 						
@@ -292,8 +328,8 @@ public class SourceServiceClp implements SourceService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName7,
-					_methodParameterTypes7,
+			returnObj = _invokableService.invokeMethod(_methodName8,
+					_methodParameterTypes8,
 					new Object[] {
 						sourceId,
 						
@@ -348,4 +384,6 @@ public class SourceServiceClp implements SourceService {
 	private String[] _methodParameterTypes6;
 	private String _methodName7;
 	private String[] _methodParameterTypes7;
+	private String _methodName8;
+	private String[] _methodParameterTypes8;
 }

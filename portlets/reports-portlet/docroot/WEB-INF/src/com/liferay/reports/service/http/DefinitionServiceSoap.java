@@ -78,6 +78,20 @@ public class DefinitionServiceSoap {
 		}
 	}
 
+	public static com.liferay.reports.model.DefinitionSoap getDefinition(
+		long definitionId) throws RemoteException {
+		try {
+			com.liferay.reports.model.Definition returnValue = DefinitionServiceUtil.getDefinition(definitionId);
+
+			return com.liferay.reports.model.DefinitionSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.reports.model.DefinitionSoap[] getDefinitions(
 		long groupId, java.lang.String definitionName,
 		java.lang.String description, java.lang.String sourceId,

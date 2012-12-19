@@ -64,9 +64,15 @@ public class EntryServiceClp implements EntryService {
 				"java.util.Date", "boolean"
 			};
 
-		_methodName8 = "unscheduleEntry";
+		_methodName8 = "sendEmails";
 
-		_methodParameterTypes8 = new String[] { "long" };
+		_methodParameterTypes8 = new String[] {
+				"long", "java.lang.String", "java.lang.String[][]", "boolean"
+			};
+
+		_methodName9 = "unscheduleEntry";
+
+		_methodParameterTypes9 = new String[] { "long" };
 	}
 
 	public java.lang.String getBeanIdentifier() {
@@ -348,12 +354,50 @@ public class EntryServiceClp implements EntryService {
 		return ((Integer)returnObj).intValue();
 	}
 
-	public void unscheduleEntry(long entryId)
+	public void sendEmails(long entryId, java.lang.String fileName,
+		java.lang.String[] emailAddresses, boolean notification)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableService.invokeMethod(_methodName8,
-				_methodParameterTypes8, new Object[] { entryId });
+				_methodParameterTypes8,
+				new Object[] {
+					entryId,
+					
+				ClpSerializer.translateInput(fileName),
+					
+				ClpSerializer.translateInput(emailAddresses),
+					
+				notification
+				});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	public void unscheduleEntry(long entryId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		try {
+			_invokableService.invokeMethod(_methodName9,
+				_methodParameterTypes9, new Object[] { entryId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -393,4 +437,6 @@ public class EntryServiceClp implements EntryService {
 	private String[] _methodParameterTypes7;
 	private String _methodName8;
 	private String[] _methodParameterTypes8;
+	private String _methodName9;
+	private String[] _methodParameterTypes9;
 }

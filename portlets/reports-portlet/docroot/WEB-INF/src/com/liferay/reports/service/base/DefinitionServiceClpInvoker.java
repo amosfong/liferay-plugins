@@ -43,24 +43,28 @@ public class DefinitionServiceClpInvoker {
 
 		_methodParameterTypes37 = new String[] { "long" };
 
-		_methodName38 = "getDefinitions";
+		_methodName38 = "getDefinition";
 
-		_methodParameterTypes38 = new String[] {
+		_methodParameterTypes38 = new String[] { "long" };
+
+		_methodName39 = "getDefinitions";
+
+		_methodParameterTypes39 = new String[] {
 				"long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "boolean", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName39 = "getDefinitionsCount";
+		_methodName40 = "getDefinitionsCount";
 
-		_methodParameterTypes39 = new String[] {
+		_methodParameterTypes40 = new String[] {
 				"long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "boolean"
 			};
 
-		_methodName40 = "updateDefinition";
+		_methodName41 = "updateDefinition";
 
-		_methodParameterTypes40 = new String[] {
+		_methodParameterTypes41 = new String[] {
 				"long", "java.util.Map", "java.util.Map", "long",
 				"java.lang.String", "java.lang.String", "java.io.InputStream",
 				"com.liferay.portal.service.ServiceContext"
@@ -99,6 +103,11 @@ public class DefinitionServiceClpInvoker {
 
 		if (_methodName38.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes38, parameterTypes)) {
+			return DefinitionServiceUtil.getDefinition(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName39.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes39, parameterTypes)) {
 			return DefinitionServiceUtil.getDefinitions(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
 				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
@@ -108,16 +117,16 @@ public class DefinitionServiceClpInvoker {
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[8]);
 		}
 
-		if (_methodName39.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes39, parameterTypes)) {
+		if (_methodName40.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes40, parameterTypes)) {
 			return DefinitionServiceUtil.getDefinitionsCount(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
 				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
 				((Boolean)arguments[5]).booleanValue());
 		}
 
-		if (_methodName40.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes40, parameterTypes)) {
+		if (_methodName41.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
 			return DefinitionServiceUtil.updateDefinition(((Long)arguments[0]).longValue(),
 				(java.util.Map<java.util.Locale, java.lang.String>)arguments[1],
 				(java.util.Map<java.util.Locale, java.lang.String>)arguments[2],
@@ -144,4 +153,6 @@ public class DefinitionServiceClpInvoker {
 	private String[] _methodParameterTypes39;
 	private String _methodName40;
 	private String[] _methodParameterTypes40;
+	private String _methodName41;
+	private String[] _methodParameterTypes41;
 }

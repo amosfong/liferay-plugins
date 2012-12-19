@@ -102,6 +102,13 @@ public class EntryServiceWrapper implements EntryService,
 			createDateGT, createDateLT, andSearch);
 	}
 
+	public void sendEmails(long entryId, java.lang.String fileName,
+		java.lang.String[] emailAddresses, boolean notification)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_entryService.sendEmails(entryId, fileName, emailAddresses, notification);
+	}
+
 	public void unscheduleEntry(long entryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {

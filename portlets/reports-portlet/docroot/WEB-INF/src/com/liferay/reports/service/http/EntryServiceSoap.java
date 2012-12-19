@@ -151,6 +151,20 @@ public class EntryServiceSoap {
 		}
 	}
 
+	public static void sendEmails(long entryId, java.lang.String fileName,
+		java.lang.String[] emailAddresses, boolean notification)
+		throws RemoteException {
+		try {
+			EntryServiceUtil.sendEmails(entryId, fileName, emailAddresses,
+				notification);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static void unscheduleEntry(long entryId) throws RemoteException {
 		try {
 			EntryServiceUtil.unscheduleEntry(entryId);

@@ -83,6 +83,13 @@ public class DefinitionServiceUtil {
 		return getService().deleteDefinition(definitionId);
 	}
 
+	public static com.liferay.reports.model.Definition getDefinition(
+		long definitionId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getDefinition(definitionId);
+	}
+
 	public static java.util.List<com.liferay.reports.model.Definition> getDefinitions(
 		long groupId, java.lang.String definitionName,
 		java.lang.String description, java.lang.String sourceId,

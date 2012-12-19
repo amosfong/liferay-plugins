@@ -106,6 +106,20 @@ public class SourceServiceSoap {
 		}
 	}
 
+	public static com.liferay.reports.model.SourceSoap getSource(long sourceId)
+		throws RemoteException {
+		try {
+			com.liferay.reports.model.Source returnValue = SourceServiceUtil.getSource(sourceId);
+
+			return com.liferay.reports.model.SourceSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.reports.model.SourceSoap[] getSources(
 		long groupId, java.lang.String name, java.lang.String driverUrl,
 		boolean andSearch, int start, int end,

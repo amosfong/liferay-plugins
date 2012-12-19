@@ -43,24 +43,28 @@ public class DefinitionServiceClp implements DefinitionService {
 
 		_methodParameterTypes4 = new String[] { "long" };
 
-		_methodName5 = "getDefinitions";
+		_methodName5 = "getDefinition";
 
-		_methodParameterTypes5 = new String[] {
+		_methodParameterTypes5 = new String[] { "long" };
+
+		_methodName6 = "getDefinitions";
+
+		_methodParameterTypes6 = new String[] {
 				"long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "boolean", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName6 = "getDefinitionsCount";
+		_methodName7 = "getDefinitionsCount";
 
-		_methodParameterTypes6 = new String[] {
+		_methodParameterTypes7 = new String[] {
 				"long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "boolean"
 			};
 
-		_methodName7 = "updateDefinition";
+		_methodName8 = "updateDefinition";
 
-		_methodParameterTypes7 = new String[] {
+		_methodParameterTypes8 = new String[] {
 				"long", "java.util.Map", "java.util.Map", "long",
 				"java.lang.String", "java.lang.String", "java.io.InputStream",
 				"com.liferay.portal.service.ServiceContext"
@@ -201,6 +205,38 @@ public class DefinitionServiceClp implements DefinitionService {
 		return (com.liferay.reports.model.Definition)ClpSerializer.translateOutput(returnObj);
 	}
 
+	public com.liferay.reports.model.Definition getDefinition(long definitionId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName5,
+					_methodParameterTypes5, new Object[] { definitionId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.reports.model.Definition)ClpSerializer.translateOutput(returnObj);
+	}
+
 	public java.util.List<com.liferay.reports.model.Definition> getDefinitions(
 		long groupId, java.lang.String definitionName,
 		java.lang.String description, java.lang.String sourceId,
@@ -211,8 +247,8 @@ public class DefinitionServiceClp implements DefinitionService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName5,
-					_methodParameterTypes5,
+			returnObj = _invokableService.invokeMethod(_methodName6,
+					_methodParameterTypes6,
 					new Object[] {
 						groupId,
 						
@@ -264,8 +300,8 @@ public class DefinitionServiceClp implements DefinitionService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName6,
-					_methodParameterTypes6,
+			returnObj = _invokableService.invokeMethod(_methodName7,
+					_methodParameterTypes7,
 					new Object[] {
 						groupId,
 						
@@ -311,8 +347,8 @@ public class DefinitionServiceClp implements DefinitionService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName7,
-					_methodParameterTypes7,
+			returnObj = _invokableService.invokeMethod(_methodName8,
+					_methodParameterTypes8,
 					new Object[] {
 						definitionId,
 						
@@ -369,4 +405,6 @@ public class DefinitionServiceClp implements DefinitionService {
 	private String[] _methodParameterTypes6;
 	private String _methodName7;
 	private String[] _methodParameterTypes7;
+	private String _methodName8;
+	private String[] _methodParameterTypes8;
 }

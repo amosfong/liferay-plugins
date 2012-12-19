@@ -100,6 +100,11 @@ public interface EntryService extends BaseService, InvokableService {
 		java.util.Date createDateLT, boolean andSearch)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	public void sendEmails(long entryId, java.lang.String fileName,
+		java.lang.String[] emailAddresses, boolean notification)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
 	public void unscheduleEntry(long entryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;

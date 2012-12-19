@@ -80,6 +80,12 @@ public class SourceServiceUtil {
 		return getService().deleteSource(sourceId);
 	}
 
+	public static com.liferay.reports.model.Source getSource(long sourceId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getSource(sourceId);
+	}
+
 	public static java.util.List<com.liferay.reports.model.Source> getSources(
 		long groupId, java.lang.String name, java.lang.String driverUrl,
 		boolean andSearch, int start, int end,

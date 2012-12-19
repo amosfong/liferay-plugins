@@ -79,6 +79,11 @@ public interface SourceService extends BaseService, InvokableService {
 			com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.reports.model.Source getSource(long sourceId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.reports.model.Source> getSources(
 		long groupId, java.lang.String name, java.lang.String driverUrl,
 		boolean andSearch, int start, int end,

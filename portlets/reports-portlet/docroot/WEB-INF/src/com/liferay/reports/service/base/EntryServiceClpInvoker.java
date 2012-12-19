@@ -66,9 +66,15 @@ public class EntryServiceClpInvoker {
 				"java.util.Date", "boolean"
 			};
 
-		_methodName47 = "unscheduleEntry";
+		_methodName47 = "sendEmails";
 
-		_methodParameterTypes47 = new String[] { "long" };
+		_methodParameterTypes47 = new String[] {
+				"long", "java.lang.String", "java.lang.String[][]", "boolean"
+			};
+
+		_methodName48 = "unscheduleEntry";
+
+		_methodParameterTypes48 = new String[] { "long" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -135,6 +141,16 @@ public class EntryServiceClpInvoker {
 
 		if (_methodName47.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
+			EntryServiceUtil.sendEmails(((Long)arguments[0]).longValue(),
+				(java.lang.String)arguments[1],
+				(java.lang.String[])arguments[2],
+				((Boolean)arguments[3]).booleanValue());
+
+			return null;
+		}
+
+		if (_methodName48.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
 			EntryServiceUtil.unscheduleEntry(((Long)arguments[0]).longValue());
 
 			return null;
@@ -159,4 +175,6 @@ public class EntryServiceClpInvoker {
 	private String[] _methodParameterTypes46;
 	private String _methodName47;
 	private String[] _methodParameterTypes47;
+	private String _methodName48;
+	private String[] _methodParameterTypes48;
 }

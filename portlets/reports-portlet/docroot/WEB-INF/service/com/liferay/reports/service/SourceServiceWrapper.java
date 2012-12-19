@@ -72,6 +72,12 @@ public class SourceServiceWrapper implements SourceService,
 		return _sourceService.deleteSource(sourceId);
 	}
 
+	public com.liferay.reports.model.Source getSource(long sourceId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _sourceService.getSource(sourceId);
+	}
+
 	public java.util.List<com.liferay.reports.model.Source> getSources(
 		long groupId, java.lang.String name, java.lang.String driverUrl,
 		boolean andSearch, int start, int end,

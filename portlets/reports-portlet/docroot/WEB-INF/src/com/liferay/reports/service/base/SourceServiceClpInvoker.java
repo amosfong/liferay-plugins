@@ -43,22 +43,26 @@ public class SourceServiceClpInvoker {
 
 		_methodParameterTypes37 = new String[] { "long" };
 
-		_methodName38 = "getSources";
+		_methodName38 = "getSource";
 
-		_methodParameterTypes38 = new String[] {
+		_methodParameterTypes38 = new String[] { "long" };
+
+		_methodName39 = "getSources";
+
+		_methodParameterTypes39 = new String[] {
 				"long", "java.lang.String", "java.lang.String", "boolean", "int",
 				"int", "com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName39 = "getSourcesCount";
+		_methodName40 = "getSourcesCount";
 
-		_methodParameterTypes39 = new String[] {
+		_methodParameterTypes40 = new String[] {
 				"long", "java.lang.String", "java.lang.String", "boolean"
 			};
 
-		_methodName40 = "updateSource";
+		_methodName41 = "updateSource";
 
-		_methodParameterTypes40 = new String[] {
+		_methodParameterTypes41 = new String[] {
 				"long", "java.util.Map", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
@@ -95,6 +99,11 @@ public class SourceServiceClpInvoker {
 
 		if (_methodName38.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes38, parameterTypes)) {
+			return SourceServiceUtil.getSource(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName39.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes39, parameterTypes)) {
 			return SourceServiceUtil.getSources(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
 				((Boolean)arguments[3]).booleanValue(),
@@ -103,15 +112,15 @@ public class SourceServiceClpInvoker {
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[6]);
 		}
 
-		if (_methodName39.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes39, parameterTypes)) {
+		if (_methodName40.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes40, parameterTypes)) {
 			return SourceServiceUtil.getSourcesCount(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
 				((Boolean)arguments[3]).booleanValue());
 		}
 
-		if (_methodName40.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes40, parameterTypes)) {
+		if (_methodName41.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
 			return SourceServiceUtil.updateSource(((Long)arguments[0]).longValue(),
 				(java.util.Map<java.util.Locale, java.lang.String>)arguments[1],
 				(java.lang.String)arguments[2], (java.lang.String)arguments[3],
@@ -136,4 +145,6 @@ public class SourceServiceClpInvoker {
 	private String[] _methodParameterTypes39;
 	private String _methodName40;
 	private String[] _methodParameterTypes40;
+	private String _methodName41;
+	private String[] _methodParameterTypes41;
 }

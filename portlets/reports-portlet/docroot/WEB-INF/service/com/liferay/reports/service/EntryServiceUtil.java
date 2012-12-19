@@ -112,6 +112,13 @@ public class EntryServiceUtil {
 			createDateGT, createDateLT, andSearch);
 	}
 
+	public static void sendEmails(long entryId, java.lang.String fileName,
+		java.lang.String[] emailAddresses, boolean notification)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().sendEmails(entryId, fileName, emailAddresses, notification);
+	}
+
 	public static void unscheduleEntry(long entryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {

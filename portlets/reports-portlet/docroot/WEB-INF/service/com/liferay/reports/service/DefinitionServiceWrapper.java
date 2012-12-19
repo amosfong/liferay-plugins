@@ -75,6 +75,12 @@ public class DefinitionServiceWrapper implements DefinitionService,
 		return _definitionService.deleteDefinition(definitionId);
 	}
 
+	public com.liferay.reports.model.Definition getDefinition(long definitionId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _definitionService.getDefinition(definitionId);
+	}
+
 	public java.util.List<com.liferay.reports.model.Definition> getDefinitions(
 		long groupId, java.lang.String definitionName,
 		java.lang.String description, java.lang.String sourceId,
