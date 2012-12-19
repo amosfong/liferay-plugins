@@ -1047,21 +1047,8 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 
 		verifyAudienceRestrictions(
 			conditions.getAudienceRestrictions(), samlMessageContext);
-		verifyDateTime(
+		verifyNotOnOrAfterDateTime(
 			MetadataManagerUtil.getClockSkew(), conditions.getNotOnOrAfter());
-	}
-
-	protected void verifyDateTime(long clockSkew, DateTime time)
-		throws PortalException {
-
-		DateTime now = new DateTime(DateTimeZone.UTC);
-
-		DateTime lowerBound = now.minusMillis((int)clockSkew);
-		DateTime upperBound = now.plusMillis((int)clockSkew);
-
-		if (time.isBefore(lowerBound) || upperBound.isAfter(time)) {
-			throw new SamlException("Unable to verify date");
-		}
 	}
 
 	protected void verifyDestination(
@@ -1130,6 +1117,19 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 		if (!peerEntityId.equals(issuer.getValue())) {
 			throw new SamlException(
 				"Issuer does not match expected peer entity ID");
+		}
+	}
+
+	protected void verifyNotOnOrAfterDateTime(
+			long clockSkew, DateTime expireTime)
+		throws PortalException {
+
+		DateTime now = new DateTime(DateTimeZone.UTC);
+
+		DateTime upperBound = expireTime.plusMillis((int)clockSkew);
+
+		if (upperBound.isBefore(now)) {
+			throw new SamlException("Unable to verify date");
 		}
 	}
 
@@ -1226,7 +1226,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 					continue;
 				}
 
-				verifyDateTime(
+				verifyNotOnOrAfterDateTime(
 					MetadataManagerUtil.getClockSkew(),
 					subjectConfirmationData.getNotOnOrAfter());
 
