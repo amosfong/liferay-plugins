@@ -5,6 +5,10 @@
 	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="docroot/WEB-INF/src" />
 	<classpathentry kind="src" path="/portal-trunk" />
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER" />
+	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="test/integration" />
+	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="test/unit" />
+	<classpathentry kind="lib" path="/portal-trunk/lib/development/junit.jar" />
+	<classpathentry kind="lib" path="/portal-trunk/lib/portal/commons-io.jar" />
 	<classpathentry kind="lib" path="/portal-trunk/lib/development/activation.jar" />
 	<classpathentry kind="lib" path="/portal-trunk/lib/development/annotations.jar" />
 	<classpathentry kind="lib" path="/portal-trunk/lib/development/jsp-api.jar" />
