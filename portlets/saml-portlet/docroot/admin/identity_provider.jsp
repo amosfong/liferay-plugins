@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-int assertionLifetime = PortletPrefsPropsUtil.getInteger(PortletPropsKeys.SAML_IDP_ASSERTION_LIFETIME, 1800);
+int assertionLifetime = PortletPrefsPropsUtil.getInteger(PortletPropsKeys.SAML_IDP_ASSERTION_LIFETIME, MetadataManagerImpl.SAML_IDP_ASSERTION_LIFETIME_DEFAULT);
 String attributeNames = PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTE_NAMES);
 boolean attributesEnabled = PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_ENABLED);
 boolean attributesNamespaceEnabled = PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_NAMESPACE_ENABLED);

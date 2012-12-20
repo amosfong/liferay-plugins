@@ -83,6 +83,8 @@ import org.opensaml.xml.signature.impl.ExplicitKeySignatureTrustEngine;
  */
 public class MetadataManagerImpl implements MetadataManager {
 
+	public static final int SAML_IDP_ASSERTION_LIFETIME_DEFAULT = 1800;
+
 	public int getAssertionLifetime(String entityId) {
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -99,7 +101,8 @@ public class MetadataManagerImpl implements MetadataManager {
 		String samlIdpAssertionLifetime = PortletPrefsPropsUtil.getString(
 			PortletPropsKeys.SAML_IDP_ASSERTION_LIFETIME, new Filter(entityId));
 
-		return GetterUtil.getInteger(samlIdpAssertionLifetime, 1800);
+		return GetterUtil.getInteger(
+			samlIdpAssertionLifetime, SAML_IDP_ASSERTION_LIFETIME_DEFAULT);
 	}
 
 	public long getClockSkew() {

@@ -27,7 +27,7 @@ if (samlIdpSpConnectionId > 0) {
 	samlIdpSpConnection = SamlIdpSpConnectionLocalServiceUtil.fetchSamlIdpSpConnection(samlIdpSpConnectionId);
 }
 
-int assertionLifetime = ParamUtil.getInteger(request, "assertionLifetime", PortletPrefsPropsUtil.getInteger(PortletPropsKeys.SAML_IDP_ASSERTION_LIFETIME, 1800));
+int assertionLifetime = ParamUtil.getInteger(request, "assertionLifetime", PortletPrefsPropsUtil.getInteger(PortletPropsKeys.SAML_IDP_ASSERTION_LIFETIME, MetadataManagerImpl.SAML_IDP_ASSERTION_LIFETIME_DEFAULT));
 String attributeNames = ParamUtil.getString(request, "attributeNames", PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTE_NAMES));
 boolean attributesEnabled = ParamUtil.getBoolean(request, "attributesEnabled", PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_ENABLED));
 boolean attributesNamespaceEnabled = ParamUtil.getBoolean(request, "attributesNamespaceEnabled", PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTES_NAMESPACE_ENABLED));
