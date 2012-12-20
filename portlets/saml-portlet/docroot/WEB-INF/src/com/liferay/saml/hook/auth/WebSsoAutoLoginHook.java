@@ -35,6 +35,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class WebSsoAutoLoginHook extends BaseAutoLogin {
 
+	@Override
 	protected String[] doLogin(
 			HttpServletRequest request, HttpServletResponse response)
 		throws AutoLoginException {

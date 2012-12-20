@@ -110,6 +110,7 @@ public class SamlSpAutoLoginHook extends BaseAutoLogin {
 			organizationIds, roleIds, userGroupIds, sendEmail, serviceContext);
 	}
 
+	@Override
 	protected String[] doLogin(
 			HttpServletRequest request, HttpServletResponse response)
 		throws AutoLoginException {
