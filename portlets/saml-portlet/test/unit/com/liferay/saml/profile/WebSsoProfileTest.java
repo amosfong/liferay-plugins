@@ -21,7 +21,6 @@ import junit.framework.Assert;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -29,21 +28,16 @@ import org.junit.Test;
  */
 public class WebSsoProfileTest {
 
-	@Before
-	public void setUp() {
-		_webSsoProfileImpl = new WebSsoProfileImpl();
-	}
-
 	@Test
 	public void testVerifyNotOnOrAfterDateTimeLessThanNow() {
-		DateTime notOnOrAfter = new DateTime(DateTimeZone.UTC);
+		DateTime dateTime = new DateTime(DateTimeZone.UTC);
 
-		notOnOrAfter = notOnOrAfter.minusMillis(4000);
+		dateTime = dateTime.minusMillis(4000);
 
 		try {
-			_webSsoProfileImpl.verifyNotOnOrAfterDateTime(3000, notOnOrAfter);
+			_webSsoProfileImpl.verifyNotOnOrAfterDateTime(3000, dateTime);
 
-			Assert.fail("Expected exception");
+			Assert.fail();
 		}
 		catch (PortalException pe) {
 		}
@@ -51,46 +45,46 @@ public class WebSsoProfileTest {
 
 	@Test
 	public void testVerifyNotOnOrAfterDateTimeLessThanNowSmallerSkew() {
-		DateTime notOnOrAfter = new DateTime(DateTimeZone.UTC);
+		DateTime dateTime = new DateTime(DateTimeZone.UTC);
 
-		notOnOrAfter = notOnOrAfter.minusMillis(300);
+		dateTime = dateTime.minusMillis(300);
 
 		try {
-			_webSsoProfileImpl.verifyNotOnOrAfterDateTime(3000, notOnOrAfter);
+			_webSsoProfileImpl.verifyNotOnOrAfterDateTime(3000, dateTime);
 		}
 		catch (PortalException pe) {
-			Assert.fail("Verifying date failed");
+			Assert.fail();
 		}
 	}
 
 	@Test
 	public void testVerifyNotOnOrAfterDateTimeLessThanSkew() {
-		DateTime notOnOrAfter = new DateTime(DateTimeZone.UTC);
+		DateTime dateTime = new DateTime(DateTimeZone.UTC);
 
-		notOnOrAfter = notOnOrAfter.plusMillis(200);
+		dateTime = dateTime.plusMillis(200);
 
 		try {
-			_webSsoProfileImpl.verifyNotOnOrAfterDateTime(3000, notOnOrAfter);
+			_webSsoProfileImpl.verifyNotOnOrAfterDateTime(3000, dateTime);
 		}
 		catch (PortalException pe) {
-			Assert.fail("Verifying date failed");
+			Assert.fail();
 		}
 	}
 
 	@Test
 	public void testVerifyNotOnOrAfterDateTimeMoreThanSkew() {
-		DateTime notOnOrAfter = new DateTime(DateTimeZone.UTC);
+		DateTime dateTime = new DateTime(DateTimeZone.UTC);
 
-		notOnOrAfter = notOnOrAfter.plusMillis(50000);
+		dateTime = dateTime.plusMillis(50000);
 
 		try {
-			_webSsoProfileImpl.verifyNotOnOrAfterDateTime(3000, notOnOrAfter);
+			_webSsoProfileImpl.verifyNotOnOrAfterDateTime(3000, dateTime);
 		}
 		catch (PortalException pe) {
-			Assert.fail("Verifying date failed");
+			Assert.fail();
 		}
 	}
 
-	private WebSsoProfileImpl _webSsoProfileImpl;
+	private WebSsoProfileImpl _webSsoProfileImpl = new WebSsoProfileImpl();
 
 }

@@ -1120,15 +1120,14 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 		}
 	}
 
-	protected void verifyNotOnOrAfterDateTime(
-			long clockSkew, DateTime expireTime)
+	protected void verifyNotOnOrAfterDateTime(long clockSkew, DateTime dateTime)
 		throws PortalException {
 
-		DateTime now = new DateTime(DateTimeZone.UTC);
+		DateTime nowDateTime = new DateTime(DateTimeZone.UTC);
 
-		DateTime upperBound = expireTime.plusMillis((int)clockSkew);
+		DateTime upperBoundDateTime = dateTime.plusMillis((int)clockSkew);
 
-		if (upperBound.isBefore(now)) {
+		if (upperBoundDateTime.isBefore(nowDateTime)) {
 			throw new SamlException("Unable to verify date");
 		}
 	}
