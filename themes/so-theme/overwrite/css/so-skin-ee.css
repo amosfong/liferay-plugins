@@ -13,10 +13,6 @@ $red: #8F0920;
 /* Documents and Images Library */
 
 .portlet-document-library, .portlet-document-library-display {
-	.document-display-style.display-icon {
-		height: auto;
-	}
-
 	.lfr-header-row {
 		min-height: 30px;
 	}
