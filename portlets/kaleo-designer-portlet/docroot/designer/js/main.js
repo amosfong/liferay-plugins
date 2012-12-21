@@ -1370,6 +1370,7 @@ AUI.add(
 									fieldData.results,
 									function(item, index, collection) {
 										var description = jsonParse(item.description);
+
 										var type = tagName;
 
 										if (item.initial) {
