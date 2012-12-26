@@ -246,7 +246,7 @@ public class DocumentumFileVersion
 		return false;
 	}
 
-	public boolean isInTrashFolder() {
+	public boolean isInTrashContainer() {
 		return false;
 	}
 
