@@ -668,16 +668,18 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 
 			query.append(_FINDER_COLUMN_C_SSEI_COMPANYID_2);
 
+			boolean bindSamlSpEntityId = false;
+
 			if (samlSpEntityId == null) {
 				query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_1);
 			}
+			else if (samlSpEntityId.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_3);
+			}
 			else {
-				if (samlSpEntityId.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_2);
-				}
+				bindSamlSpEntityId = true;
+
+				query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_2);
 			}
 
 			String sql = query.toString();
@@ -693,7 +695,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 
 				qPos.add(companyId);
 
-				if (samlSpEntityId != null) {
+				if (bindSamlSpEntityId) {
 					qPos.add(samlSpEntityId);
 				}
 
@@ -786,16 +788,18 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 
 			query.append(_FINDER_COLUMN_C_SSEI_COMPANYID_2);
 
+			boolean bindSamlSpEntityId = false;
+
 			if (samlSpEntityId == null) {
 				query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_1);
 			}
+			else if (samlSpEntityId.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_3);
+			}
 			else {
-				if (samlSpEntityId.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_2);
-				}
+				bindSamlSpEntityId = true;
+
+				query.append(_FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_2);
 			}
 
 			String sql = query.toString();
@@ -811,7 +815,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 
 				qPos.add(companyId);
 
-				if (samlSpEntityId != null) {
+				if (bindSamlSpEntityId) {
 					qPos.add(samlSpEntityId);
 				}
 
@@ -835,7 +839,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	private static final String _FINDER_COLUMN_C_SSEI_COMPANYID_2 = "samlIdpSpConnection.companyId = ? AND ";
 	private static final String _FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_1 = "samlIdpSpConnection.samlSpEntityId IS NULL";
 	private static final String _FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_2 = "samlIdpSpConnection.samlSpEntityId = ?";
-	private static final String _FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_3 = "(samlIdpSpConnection.samlSpEntityId IS NULL OR samlIdpSpConnection.samlSpEntityId = ?)";
+	private static final String _FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_3 = "(samlIdpSpConnection.samlSpEntityId IS NULL OR samlIdpSpConnection.samlSpEntityId = '')";
 
 	/**
 	 * Caches the saml idp sp connection in the entity cache if it is enabled.

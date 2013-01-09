@@ -186,28 +186,32 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 
 			query.append(_SQL_SELECT_SAMLSPAUTHREQUEST_WHERE);
 
+			boolean bindSamlIdpEntityId = false;
+
 			if (samlIdpEntityId == null) {
 				query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_1);
 			}
-			else {
-				if (samlIdpEntityId.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_2);
-				}
+			else if (samlIdpEntityId.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_3);
 			}
+			else {
+				bindSamlIdpEntityId = true;
+
+				query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_2);
+			}
+
+			boolean bindSamlSpAuthRequestKey = false;
 
 			if (samlSpAuthRequestKey == null) {
 				query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_1);
 			}
+			else if (samlSpAuthRequestKey.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_3);
+			}
 			else {
-				if (samlSpAuthRequestKey.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_2);
-				}
+				bindSamlSpAuthRequestKey = true;
+
+				query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_2);
 			}
 
 			String sql = query.toString();
@@ -221,11 +225,11 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (samlIdpEntityId != null) {
+				if (bindSamlIdpEntityId) {
 					qPos.add(samlIdpEntityId);
 				}
 
-				if (samlSpAuthRequestKey != null) {
+				if (bindSamlSpAuthRequestKey) {
 					qPos.add(samlSpAuthRequestKey);
 				}
 
@@ -318,28 +322,32 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 
 			query.append(_SQL_COUNT_SAMLSPAUTHREQUEST_WHERE);
 
+			boolean bindSamlIdpEntityId = false;
+
 			if (samlIdpEntityId == null) {
 				query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_1);
 			}
-			else {
-				if (samlIdpEntityId.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_2);
-				}
+			else if (samlIdpEntityId.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_3);
 			}
+			else {
+				bindSamlIdpEntityId = true;
+
+				query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_2);
+			}
+
+			boolean bindSamlSpAuthRequestKey = false;
 
 			if (samlSpAuthRequestKey == null) {
 				query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_1);
 			}
+			else if (samlSpAuthRequestKey.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_3);
+			}
 			else {
-				if (samlSpAuthRequestKey.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_2);
-				}
+				bindSamlSpAuthRequestKey = true;
+
+				query.append(_FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_2);
 			}
 
 			String sql = query.toString();
@@ -353,11 +361,11 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (samlIdpEntityId != null) {
+				if (bindSamlIdpEntityId) {
 					qPos.add(samlIdpEntityId);
 				}
 
-				if (samlSpAuthRequestKey != null) {
+				if (bindSamlSpAuthRequestKey) {
 					qPos.add(samlSpAuthRequestKey);
 				}
 
@@ -380,13 +388,13 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 
 	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_1 = "samlSpAuthRequest.samlIdpEntityId IS NULL AND ";
 	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_2 = "samlSpAuthRequest.samlIdpEntityId = ? AND ";
-	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_3 = "(samlSpAuthRequest.samlIdpEntityId IS NULL OR samlSpAuthRequest.samlIdpEntityId = ?) AND ";
+	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLIDPENTITYID_3 = "(samlSpAuthRequest.samlIdpEntityId IS NULL OR samlSpAuthRequest.samlIdpEntityId = '') AND ";
 	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_1 =
 		"samlSpAuthRequest.samlSpAuthRequestKey IS NULL";
 	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_2 =
 		"samlSpAuthRequest.samlSpAuthRequestKey = ?";
 	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_3 =
-		"(samlSpAuthRequest.samlSpAuthRequestKey IS NULL OR samlSpAuthRequest.samlSpAuthRequestKey = ?)";
+		"(samlSpAuthRequest.samlSpAuthRequestKey IS NULL OR samlSpAuthRequest.samlSpAuthRequestKey = '')";
 
 	/**
 	 * Caches the saml sp auth request in the entity cache if it is enabled.

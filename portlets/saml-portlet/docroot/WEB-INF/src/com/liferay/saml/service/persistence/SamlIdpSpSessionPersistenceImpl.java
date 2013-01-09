@@ -681,16 +681,18 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 
 			query.append(_FINDER_COLUMN_SISSI_SSEI_SAMLIDPSSOSESSIONID_2);
 
+			boolean bindSamlSpEntityId = false;
+
 			if (samlSpEntityId == null) {
 				query.append(_FINDER_COLUMN_SISSI_SSEI_SAMLSPENTITYID_1);
 			}
+			else if (samlSpEntityId.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_SISSI_SSEI_SAMLSPENTITYID_3);
+			}
 			else {
-				if (samlSpEntityId.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SISSI_SSEI_SAMLSPENTITYID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SISSI_SSEI_SAMLSPENTITYID_2);
-				}
+				bindSamlSpEntityId = true;
+
+				query.append(_FINDER_COLUMN_SISSI_SSEI_SAMLSPENTITYID_2);
 			}
 
 			String sql = query.toString();
@@ -706,7 +708,7 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 
 				qPos.add(samlIdpSsoSessionId);
 
-				if (samlSpEntityId != null) {
+				if (bindSamlSpEntityId) {
 					qPos.add(samlSpEntityId);
 				}
 
@@ -799,16 +801,18 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 
 			query.append(_FINDER_COLUMN_SISSI_SSEI_SAMLIDPSSOSESSIONID_2);
 
+			boolean bindSamlSpEntityId = false;
+
 			if (samlSpEntityId == null) {
 				query.append(_FINDER_COLUMN_SISSI_SSEI_SAMLSPENTITYID_1);
 			}
+			else if (samlSpEntityId.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_SISSI_SSEI_SAMLSPENTITYID_3);
+			}
 			else {
-				if (samlSpEntityId.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SISSI_SSEI_SAMLSPENTITYID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SISSI_SSEI_SAMLSPENTITYID_2);
-				}
+				bindSamlSpEntityId = true;
+
+				query.append(_FINDER_COLUMN_SISSI_SSEI_SAMLSPENTITYID_2);
 			}
 
 			String sql = query.toString();
@@ -824,7 +828,7 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 
 				qPos.add(samlIdpSsoSessionId);
 
-				if (samlSpEntityId != null) {
+				if (bindSamlSpEntityId) {
 					qPos.add(samlSpEntityId);
 				}
 
@@ -848,7 +852,7 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 	private static final String _FINDER_COLUMN_SISSI_SSEI_SAMLIDPSSOSESSIONID_2 = "samlIdpSpSession.samlIdpSsoSessionId = ? AND ";
 	private static final String _FINDER_COLUMN_SISSI_SSEI_SAMLSPENTITYID_1 = "samlIdpSpSession.samlSpEntityId IS NULL";
 	private static final String _FINDER_COLUMN_SISSI_SSEI_SAMLSPENTITYID_2 = "samlIdpSpSession.samlSpEntityId = ?";
-	private static final String _FINDER_COLUMN_SISSI_SSEI_SAMLSPENTITYID_3 = "(samlIdpSpSession.samlSpEntityId IS NULL OR samlIdpSpSession.samlSpEntityId = ?)";
+	private static final String _FINDER_COLUMN_SISSI_SSEI_SAMLSPENTITYID_3 = "(samlIdpSpSession.samlSpEntityId IS NULL OR samlIdpSpSession.samlSpEntityId = '')";
 
 	/**
 	 * Caches the saml idp sp session in the entity cache if it is enabled.

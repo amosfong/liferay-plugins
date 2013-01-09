@@ -186,28 +186,32 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 
 			query.append(_SQL_SELECT_SAMLSPMESSAGE_WHERE);
 
+			boolean bindSamlIdpEntityId = false;
+
 			if (samlIdpEntityId == null) {
 				query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_1);
 			}
-			else {
-				if (samlIdpEntityId.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_2);
-				}
+			else if (samlIdpEntityId.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_3);
 			}
+			else {
+				bindSamlIdpEntityId = true;
+
+				query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_2);
+			}
+
+			boolean bindSamlIdpResponseKey = false;
 
 			if (samlIdpResponseKey == null) {
 				query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_1);
 			}
+			else if (samlIdpResponseKey.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_3);
+			}
 			else {
-				if (samlIdpResponseKey.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_2);
-				}
+				bindSamlIdpResponseKey = true;
+
+				query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_2);
 			}
 
 			String sql = query.toString();
@@ -221,11 +225,11 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (samlIdpEntityId != null) {
+				if (bindSamlIdpEntityId) {
 					qPos.add(samlIdpEntityId);
 				}
 
-				if (samlIdpResponseKey != null) {
+				if (bindSamlIdpResponseKey) {
 					qPos.add(samlIdpResponseKey);
 				}
 
@@ -318,28 +322,32 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 
 			query.append(_SQL_COUNT_SAMLSPMESSAGE_WHERE);
 
+			boolean bindSamlIdpEntityId = false;
+
 			if (samlIdpEntityId == null) {
 				query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_1);
 			}
-			else {
-				if (samlIdpEntityId.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_2);
-				}
+			else if (samlIdpEntityId.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_3);
 			}
+			else {
+				bindSamlIdpEntityId = true;
+
+				query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_2);
+			}
+
+			boolean bindSamlIdpResponseKey = false;
 
 			if (samlIdpResponseKey == null) {
 				query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_1);
 			}
+			else if (samlIdpResponseKey.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_3);
+			}
 			else {
-				if (samlIdpResponseKey.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_2);
-				}
+				bindSamlIdpResponseKey = true;
+
+				query.append(_FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_2);
 			}
 
 			String sql = query.toString();
@@ -353,11 +361,11 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (samlIdpEntityId != null) {
+				if (bindSamlIdpEntityId) {
 					qPos.add(samlIdpEntityId);
 				}
 
-				if (samlIdpResponseKey != null) {
+				if (bindSamlIdpResponseKey) {
 					qPos.add(samlIdpResponseKey);
 				}
 
@@ -380,10 +388,10 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 
 	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_1 = "samlSpMessage.samlIdpEntityId IS NULL AND ";
 	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_2 = "samlSpMessage.samlIdpEntityId = ? AND ";
-	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_3 = "(samlSpMessage.samlIdpEntityId IS NULL OR samlSpMessage.samlIdpEntityId = ?) AND ";
+	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPENTITYID_3 = "(samlSpMessage.samlIdpEntityId IS NULL OR samlSpMessage.samlIdpEntityId = '') AND ";
 	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_1 = "samlSpMessage.samlIdpResponseKey IS NULL";
 	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_2 = "samlSpMessage.samlIdpResponseKey = ?";
-	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_3 = "(samlSpMessage.samlIdpResponseKey IS NULL OR samlSpMessage.samlIdpResponseKey = ?)";
+	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_3 = "(samlSpMessage.samlIdpResponseKey IS NULL OR samlSpMessage.samlIdpResponseKey = '')";
 
 	/**
 	 * Caches the saml sp message in the entity cache if it is enabled.

@@ -197,16 +197,18 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 			query.append(_SQL_SELECT_SAMLSPSESSION_WHERE);
 
+			boolean bindNameIdValue = false;
+
 			if (nameIdValue == null) {
 				query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_1);
 			}
+			else if (nameIdValue.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_3);
+			}
 			else {
-				if (nameIdValue.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_2);
-				}
+				bindNameIdValue = true;
+
+				query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_2);
 			}
 
 			if (orderByComparator != null) {
@@ -229,7 +231,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (nameIdValue != null) {
+				if (bindNameIdValue) {
 					qPos.add(nameIdValue);
 				}
 
@@ -422,16 +424,18 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 		query.append(_SQL_SELECT_SAMLSPSESSION_WHERE);
 
+		boolean bindNameIdValue = false;
+
 		if (nameIdValue == null) {
 			query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_1);
 		}
+		else if (nameIdValue.equals(StringPool.BLANK)) {
+			query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_3);
+		}
 		else {
-			if (nameIdValue.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_3);
-			}
-			else {
-				query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_2);
-			}
+			bindNameIdValue = true;
+
+			query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_2);
 		}
 
 		if (orderByComparator != null) {
@@ -502,7 +506,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 		QueryPos qPos = QueryPos.getInstance(q);
 
-		if (nameIdValue != null) {
+		if (bindNameIdValue) {
 			qPos.add(nameIdValue);
 		}
 
@@ -558,16 +562,18 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 			query.append(_SQL_COUNT_SAMLSPSESSION_WHERE);
 
+			boolean bindNameIdValue = false;
+
 			if (nameIdValue == null) {
 				query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_1);
 			}
+			else if (nameIdValue.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_3);
+			}
 			else {
-				if (nameIdValue.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_2);
-				}
+				bindNameIdValue = true;
+
+				query.append(_FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_2);
 			}
 
 			String sql = query.toString();
@@ -581,7 +587,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (nameIdValue != null) {
+				if (bindNameIdValue) {
 					qPos.add(nameIdValue);
 				}
 
@@ -604,7 +610,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 	private static final String _FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_1 = "samlSpSession.nameIdValue IS NULL";
 	private static final String _FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_2 = "samlSpSession.nameIdValue = ?";
-	private static final String _FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_3 = "(samlSpSession.nameIdValue IS NULL OR samlSpSession.nameIdValue = ?)";
+	private static final String _FINDER_COLUMN_NAMEIDVALUE_NAMEIDVALUE_3 = "(samlSpSession.nameIdValue IS NULL OR samlSpSession.nameIdValue = '')";
 	public static final FinderPath FINDER_PATH_FETCH_BY_JSESSIONID = new FinderPath(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
 			SamlSpSessionModelImpl.FINDER_CACHE_ENABLED,
 			SamlSpSessionImpl.class, FINDER_CLASS_NAME_ENTITY,
@@ -691,16 +697,18 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 			query.append(_SQL_SELECT_SAMLSPSESSION_WHERE);
 
+			boolean bindJSessionId = false;
+
 			if (jSessionId == null) {
 				query.append(_FINDER_COLUMN_JSESSIONID_JSESSIONID_1);
 			}
+			else if (jSessionId.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_JSESSIONID_JSESSIONID_3);
+			}
 			else {
-				if (jSessionId.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_JSESSIONID_JSESSIONID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_JSESSIONID_JSESSIONID_2);
-				}
+				bindJSessionId = true;
+
+				query.append(_FINDER_COLUMN_JSESSIONID_JSESSIONID_2);
 			}
 
 			String sql = query.toString();
@@ -714,7 +722,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (jSessionId != null) {
+				if (bindJSessionId) {
 					qPos.add(jSessionId);
 				}
 
@@ -798,16 +806,18 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 			query.append(_SQL_COUNT_SAMLSPSESSION_WHERE);
 
+			boolean bindJSessionId = false;
+
 			if (jSessionId == null) {
 				query.append(_FINDER_COLUMN_JSESSIONID_JSESSIONID_1);
 			}
+			else if (jSessionId.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_JSESSIONID_JSESSIONID_3);
+			}
 			else {
-				if (jSessionId.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_JSESSIONID_JSESSIONID_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_JSESSIONID_JSESSIONID_2);
-				}
+				bindJSessionId = true;
+
+				query.append(_FINDER_COLUMN_JSESSIONID_JSESSIONID_2);
 			}
 
 			String sql = query.toString();
@@ -821,7 +831,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (jSessionId != null) {
+				if (bindJSessionId) {
 					qPos.add(jSessionId);
 				}
 
@@ -844,7 +854,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 	private static final String _FINDER_COLUMN_JSESSIONID_JSESSIONID_1 = "samlSpSession.jSessionId IS NULL";
 	private static final String _FINDER_COLUMN_JSESSIONID_JSESSIONID_2 = "samlSpSession.jSessionId = ?";
-	private static final String _FINDER_COLUMN_JSESSIONID_JSESSIONID_3 = "(samlSpSession.jSessionId IS NULL OR samlSpSession.jSessionId = ?)";
+	private static final String _FINDER_COLUMN_JSESSIONID_JSESSIONID_3 = "(samlSpSession.jSessionId IS NULL OR samlSpSession.jSessionId = '')";
 
 	/**
 	 * Caches the saml sp session in the entity cache if it is enabled.

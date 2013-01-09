@@ -702,16 +702,18 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 
 			query.append(_FINDER_COLUMN_C_N_V_COMPANYID_2);
 
+			boolean bindName = false;
+
 			if (name == null) {
 				query.append(_FINDER_COLUMN_C_N_V_NAME_1);
 			}
+			else if (name.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_C_N_V_NAME_3);
+			}
 			else {
-				if (name.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_C_N_V_NAME_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_C_N_V_NAME_2);
-				}
+				bindName = true;
+
+				query.append(_FINDER_COLUMN_C_N_V_NAME_2);
 			}
 
 			query.append(_FINDER_COLUMN_C_N_V_VERSION_2);
@@ -738,7 +740,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 
 				qPos.add(companyId);
 
-				if (name != null) {
+				if (bindName) {
 					qPos.add(name);
 				}
 
@@ -960,16 +962,18 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 
 		query.append(_FINDER_COLUMN_C_N_V_COMPANYID_2);
 
+		boolean bindName = false;
+
 		if (name == null) {
 			query.append(_FINDER_COLUMN_C_N_V_NAME_1);
 		}
+		else if (name.equals(StringPool.BLANK)) {
+			query.append(_FINDER_COLUMN_C_N_V_NAME_3);
+		}
 		else {
-			if (name.equals(StringPool.BLANK)) {
-				query.append(_FINDER_COLUMN_C_N_V_NAME_3);
-			}
-			else {
-				query.append(_FINDER_COLUMN_C_N_V_NAME_2);
-			}
+			bindName = true;
+
+			query.append(_FINDER_COLUMN_C_N_V_NAME_2);
 		}
 
 		query.append(_FINDER_COLUMN_C_N_V_VERSION_2);
@@ -1044,7 +1048,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 
 		qPos.add(companyId);
 
-		if (name != null) {
+		if (bindName) {
 			qPos.add(name);
 		}
 
@@ -1110,16 +1114,18 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 
 			query.append(_FINDER_COLUMN_C_N_V_COMPANYID_2);
 
+			boolean bindName = false;
+
 			if (name == null) {
 				query.append(_FINDER_COLUMN_C_N_V_NAME_1);
 			}
+			else if (name.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_C_N_V_NAME_3);
+			}
 			else {
-				if (name.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_C_N_V_NAME_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_C_N_V_NAME_2);
-				}
+				bindName = true;
+
+				query.append(_FINDER_COLUMN_C_N_V_NAME_2);
 			}
 
 			query.append(_FINDER_COLUMN_C_N_V_VERSION_2);
@@ -1137,7 +1143,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 
 				qPos.add(companyId);
 
-				if (name != null) {
+				if (bindName) {
 					qPos.add(name);
 				}
 
@@ -1163,7 +1169,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	private static final String _FINDER_COLUMN_C_N_V_COMPANYID_2 = "kaleoDraftDefinition.companyId = ? AND ";
 	private static final String _FINDER_COLUMN_C_N_V_NAME_1 = "kaleoDraftDefinition.name IS NULL AND ";
 	private static final String _FINDER_COLUMN_C_N_V_NAME_2 = "kaleoDraftDefinition.name = ? AND ";
-	private static final String _FINDER_COLUMN_C_N_V_NAME_3 = "(kaleoDraftDefinition.name IS NULL OR kaleoDraftDefinition.name = ?) AND ";
+	private static final String _FINDER_COLUMN_C_N_V_NAME_3 = "(kaleoDraftDefinition.name IS NULL OR kaleoDraftDefinition.name = '') AND ";
 	private static final String _FINDER_COLUMN_C_N_V_VERSION_2 = "kaleoDraftDefinition.version = ?";
 	public static final FinderPath FINDER_PATH_FETCH_BY_C_N_V_D = new FinderPath(KaleoDraftDefinitionModelImpl.ENTITY_CACHE_ENABLED,
 			KaleoDraftDefinitionModelImpl.FINDER_CACHE_ENABLED,
@@ -1289,16 +1295,18 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 
 			query.append(_FINDER_COLUMN_C_N_V_D_COMPANYID_2);
 
+			boolean bindName = false;
+
 			if (name == null) {
 				query.append(_FINDER_COLUMN_C_N_V_D_NAME_1);
 			}
+			else if (name.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_C_N_V_D_NAME_3);
+			}
 			else {
-				if (name.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_C_N_V_D_NAME_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_C_N_V_D_NAME_2);
-				}
+				bindName = true;
+
+				query.append(_FINDER_COLUMN_C_N_V_D_NAME_2);
 			}
 
 			query.append(_FINDER_COLUMN_C_N_V_D_VERSION_2);
@@ -1318,7 +1326,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 
 				qPos.add(companyId);
 
-				if (name != null) {
+				if (bindName) {
 					qPos.add(name);
 				}
 
@@ -1415,16 +1423,18 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 
 			query.append(_FINDER_COLUMN_C_N_V_D_COMPANYID_2);
 
+			boolean bindName = false;
+
 			if (name == null) {
 				query.append(_FINDER_COLUMN_C_N_V_D_NAME_1);
 			}
+			else if (name.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_C_N_V_D_NAME_3);
+			}
 			else {
-				if (name.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_C_N_V_D_NAME_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_C_N_V_D_NAME_2);
-				}
+				bindName = true;
+
+				query.append(_FINDER_COLUMN_C_N_V_D_NAME_2);
 			}
 
 			query.append(_FINDER_COLUMN_C_N_V_D_VERSION_2);
@@ -1444,7 +1454,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 
 				qPos.add(companyId);
 
-				if (name != null) {
+				if (bindName) {
 					qPos.add(name);
 				}
 
@@ -1472,7 +1482,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	private static final String _FINDER_COLUMN_C_N_V_D_COMPANYID_2 = "kaleoDraftDefinition.companyId = ? AND ";
 	private static final String _FINDER_COLUMN_C_N_V_D_NAME_1 = "kaleoDraftDefinition.name IS NULL AND ";
 	private static final String _FINDER_COLUMN_C_N_V_D_NAME_2 = "kaleoDraftDefinition.name = ? AND ";
-	private static final String _FINDER_COLUMN_C_N_V_D_NAME_3 = "(kaleoDraftDefinition.name IS NULL OR kaleoDraftDefinition.name = ?) AND ";
+	private static final String _FINDER_COLUMN_C_N_V_D_NAME_3 = "(kaleoDraftDefinition.name IS NULL OR kaleoDraftDefinition.name = '') AND ";
 	private static final String _FINDER_COLUMN_C_N_V_D_VERSION_2 = "kaleoDraftDefinition.version = ? AND ";
 	private static final String _FINDER_COLUMN_C_N_V_D_DRAFTVERSION_2 = "kaleoDraftDefinition.draftVersion = ?";
 

@@ -675,16 +675,18 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 
 			query.append(_FINDER_COLUMN_KPI_WTN_KALEOPROCESSID_2);
 
+			boolean bindWorkflowTaskName = false;
+
 			if (workflowTaskName == null) {
 				query.append(_FINDER_COLUMN_KPI_WTN_WORKFLOWTASKNAME_1);
 			}
+			else if (workflowTaskName.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_KPI_WTN_WORKFLOWTASKNAME_3);
+			}
 			else {
-				if (workflowTaskName.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_KPI_WTN_WORKFLOWTASKNAME_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_KPI_WTN_WORKFLOWTASKNAME_2);
-				}
+				bindWorkflowTaskName = true;
+
+				query.append(_FINDER_COLUMN_KPI_WTN_WORKFLOWTASKNAME_2);
 			}
 
 			String sql = query.toString();
@@ -700,7 +702,7 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 
 				qPos.add(kaleoProcessId);
 
-				if (workflowTaskName != null) {
+				if (bindWorkflowTaskName) {
 					qPos.add(workflowTaskName);
 				}
 
@@ -786,16 +788,18 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 
 			query.append(_FINDER_COLUMN_KPI_WTN_KALEOPROCESSID_2);
 
+			boolean bindWorkflowTaskName = false;
+
 			if (workflowTaskName == null) {
 				query.append(_FINDER_COLUMN_KPI_WTN_WORKFLOWTASKNAME_1);
 			}
+			else if (workflowTaskName.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_KPI_WTN_WORKFLOWTASKNAME_3);
+			}
 			else {
-				if (workflowTaskName.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_KPI_WTN_WORKFLOWTASKNAME_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_KPI_WTN_WORKFLOWTASKNAME_2);
-				}
+				bindWorkflowTaskName = true;
+
+				query.append(_FINDER_COLUMN_KPI_WTN_WORKFLOWTASKNAME_2);
 			}
 
 			String sql = query.toString();
@@ -811,7 +815,7 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 
 				qPos.add(kaleoProcessId);
 
-				if (workflowTaskName != null) {
+				if (bindWorkflowTaskName) {
 					qPos.add(workflowTaskName);
 				}
 
@@ -835,7 +839,7 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 	private static final String _FINDER_COLUMN_KPI_WTN_KALEOPROCESSID_2 = "kaleoProcessLink.kaleoProcessId = ? AND ";
 	private static final String _FINDER_COLUMN_KPI_WTN_WORKFLOWTASKNAME_1 = "kaleoProcessLink.workflowTaskName IS NULL";
 	private static final String _FINDER_COLUMN_KPI_WTN_WORKFLOWTASKNAME_2 = "kaleoProcessLink.workflowTaskName = ?";
-	private static final String _FINDER_COLUMN_KPI_WTN_WORKFLOWTASKNAME_3 = "(kaleoProcessLink.workflowTaskName IS NULL OR kaleoProcessLink.workflowTaskName = ?)";
+	private static final String _FINDER_COLUMN_KPI_WTN_WORKFLOWTASKNAME_3 = "(kaleoProcessLink.workflowTaskName IS NULL OR kaleoProcessLink.workflowTaskName = '')";
 
 	/**
 	 * Caches the kaleo process link in the entity cache if it is enabled.

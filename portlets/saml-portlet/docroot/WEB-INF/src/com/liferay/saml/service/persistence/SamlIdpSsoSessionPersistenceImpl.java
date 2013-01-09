@@ -177,16 +177,18 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 
 			query.append(_SQL_SELECT_SAMLIDPSSOSESSION_WHERE);
 
+			boolean bindSamlIdpSsoSessionKey = false;
+
 			if (samlIdpSsoSessionKey == null) {
 				query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_1);
 			}
+			else if (samlIdpSsoSessionKey.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_3);
+			}
 			else {
-				if (samlIdpSsoSessionKey.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_2);
-				}
+				bindSamlIdpSsoSessionKey = true;
+
+				query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_2);
 			}
 
 			String sql = query.toString();
@@ -200,7 +202,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (samlIdpSsoSessionKey != null) {
+				if (bindSamlIdpSsoSessionKey) {
 					qPos.add(samlIdpSsoSessionKey);
 				}
 
@@ -287,16 +289,18 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 
 			query.append(_SQL_COUNT_SAMLIDPSSOSESSION_WHERE);
 
+			boolean bindSamlIdpSsoSessionKey = false;
+
 			if (samlIdpSsoSessionKey == null) {
 				query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_1);
 			}
+			else if (samlIdpSsoSessionKey.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_3);
+			}
 			else {
-				if (samlIdpSsoSessionKey.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_2);
-				}
+				bindSamlIdpSsoSessionKey = true;
+
+				query.append(_FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_2);
 			}
 
 			String sql = query.toString();
@@ -310,7 +314,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (samlIdpSsoSessionKey != null) {
+				if (bindSamlIdpSsoSessionKey) {
 					qPos.add(samlIdpSsoSessionKey);
 				}
 
@@ -336,7 +340,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	private static final String _FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_2 =
 		"samlIdpSsoSession.samlIdpSsoSessionKey = ?";
 	private static final String _FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_3 =
-		"(samlIdpSsoSession.samlIdpSsoSessionKey IS NULL OR samlIdpSsoSession.samlIdpSsoSessionKey = ?)";
+		"(samlIdpSsoSession.samlIdpSsoSessionKey IS NULL OR samlIdpSsoSession.samlIdpSsoSessionKey = '')";
 
 	/**
 	 * Caches the saml idp sso session in the entity cache if it is enabled.
