@@ -55,7 +55,7 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 	}
 
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_samlSpIdpConnectionId);
+		return _samlSpIdpConnectionId;
 	}
 
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {

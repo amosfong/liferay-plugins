@@ -1020,7 +1020,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 */
 	public KaleoProcess remove(long kaleoProcessId)
 		throws NoSuchKaleoProcessException, SystemException {
-		return remove(Long.valueOf(kaleoProcessId));
+		return remove((Serializable)kaleoProcessId);
 	}
 
 	/**
@@ -1138,16 +1138,14 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 			if ((kaleoProcessModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						Long.valueOf(kaleoProcessModelImpl.getOriginalGroupId())
+						kaleoProcessModelImpl.getOriginalGroupId()
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUPID, args);
 				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID,
 					args);
 
-				args = new Object[] {
-						Long.valueOf(kaleoProcessModelImpl.getGroupId())
-					};
+				args = new Object[] { kaleoProcessModelImpl.getGroupId() };
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUPID, args);
 				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID,

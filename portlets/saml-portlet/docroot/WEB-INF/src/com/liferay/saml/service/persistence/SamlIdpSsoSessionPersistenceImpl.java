@@ -504,7 +504,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	 */
 	public SamlIdpSsoSession remove(long samlIdpSsoSessionId)
 		throws NoSuchIdpSsoSessionException, SystemException {
-		return remove(Long.valueOf(samlIdpSsoSessionId));
+		return remove((Serializable)samlIdpSsoSessionId);
 	}
 
 	/**

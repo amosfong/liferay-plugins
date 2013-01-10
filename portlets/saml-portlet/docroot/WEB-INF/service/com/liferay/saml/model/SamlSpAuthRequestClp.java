@@ -54,7 +54,7 @@ public class SamlSpAuthRequestClp extends BaseModelImpl<SamlSpAuthRequest>
 	}
 
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_samlSpAuthnRequestId);
+		return _samlSpAuthnRequestId;
 	}
 
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {

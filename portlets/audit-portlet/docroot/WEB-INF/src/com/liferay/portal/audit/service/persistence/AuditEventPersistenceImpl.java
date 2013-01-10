@@ -663,7 +663,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 */
 	public AuditEvent remove(long auditEventId)
 		throws NoSuchEventException, SystemException {
-		return remove(Long.valueOf(auditEventId));
+		return remove((Serializable)auditEventId);
 	}
 
 	/**
@@ -781,7 +781,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 			if ((auditEventModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						Long.valueOf(auditEventModelImpl.getOriginalCompanyId())
+						auditEventModelImpl.getOriginalCompanyId()
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
@@ -789,9 +789,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
 					args);
 
-				args = new Object[] {
-						Long.valueOf(auditEventModelImpl.getCompanyId())
-					};
+				args = new Object[] { auditEventModelImpl.getCompanyId() };
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
 					args);

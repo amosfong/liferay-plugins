@@ -55,7 +55,7 @@ public class SamlIdpSsoSessionClp extends BaseModelImpl<SamlIdpSsoSession>
 	}
 
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_samlIdpSsoSessionId);
+		return _samlIdpSsoSessionId;
 	}
 
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {

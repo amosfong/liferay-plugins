@@ -852,9 +852,8 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_KPI_WTN,
 			new Object[] {
-				Long.valueOf(kaleoProcessLink.getKaleoProcessId()),
-				
-			kaleoProcessLink.getWorkflowTaskName()
+				kaleoProcessLink.getKaleoProcessId(),
+				kaleoProcessLink.getWorkflowTaskName()
 			}, kaleoProcessLink);
 
 		kaleoProcessLink.resetOriginalValues();
@@ -933,8 +932,7 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 	protected void cacheUniqueFindersCache(KaleoProcessLink kaleoProcessLink) {
 		if (kaleoProcessLink.isNew()) {
 			Object[] args = new Object[] {
-					Long.valueOf(kaleoProcessLink.getKaleoProcessId()),
-					
+					kaleoProcessLink.getKaleoProcessId(),
 					kaleoProcessLink.getWorkflowTaskName()
 				};
 
@@ -949,8 +947,7 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 			if ((kaleoProcessLinkModelImpl.getColumnBitmask() &
 					FINDER_PATH_FETCH_BY_KPI_WTN.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						Long.valueOf(kaleoProcessLink.getKaleoProcessId()),
-						
+						kaleoProcessLink.getKaleoProcessId(),
 						kaleoProcessLink.getWorkflowTaskName()
 					};
 
@@ -966,8 +963,7 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 		KaleoProcessLinkModelImpl kaleoProcessLinkModelImpl = (KaleoProcessLinkModelImpl)kaleoProcessLink;
 
 		Object[] args = new Object[] {
-				Long.valueOf(kaleoProcessLink.getKaleoProcessId()),
-				
+				kaleoProcessLink.getKaleoProcessId(),
 				kaleoProcessLink.getWorkflowTaskName()
 			};
 
@@ -977,8 +973,7 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 		if ((kaleoProcessLinkModelImpl.getColumnBitmask() &
 				FINDER_PATH_FETCH_BY_KPI_WTN.getColumnBitmask()) != 0) {
 			args = new Object[] {
-					Long.valueOf(kaleoProcessLinkModelImpl.getOriginalKaleoProcessId()),
-					
+					kaleoProcessLinkModelImpl.getOriginalKaleoProcessId(),
 					kaleoProcessLinkModelImpl.getOriginalWorkflowTaskName()
 				};
 
@@ -1012,7 +1007,7 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 	 */
 	public KaleoProcessLink remove(long kaleoProcessLinkId)
 		throws NoSuchKaleoProcessLinkException, SystemException {
-		return remove(Long.valueOf(kaleoProcessLinkId));
+		return remove((Serializable)kaleoProcessLinkId);
 	}
 
 	/**
@@ -1130,7 +1125,7 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 			if ((kaleoProcessLinkModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_KALEOPROCESSID.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						Long.valueOf(kaleoProcessLinkModelImpl.getOriginalKaleoProcessId())
+						kaleoProcessLinkModelImpl.getOriginalKaleoProcessId()
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_KALEOPROCESSID,
@@ -1139,7 +1134,7 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 					args);
 
 				args = new Object[] {
-						Long.valueOf(kaleoProcessLinkModelImpl.getKaleoProcessId())
+						kaleoProcessLinkModelImpl.getKaleoProcessId()
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_KALEOPROCESSID,

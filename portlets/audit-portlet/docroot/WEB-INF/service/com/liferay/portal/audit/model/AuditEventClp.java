@@ -55,7 +55,7 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 	}
 
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_auditEventId);
+		return _auditEventId;
 	}
 
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {

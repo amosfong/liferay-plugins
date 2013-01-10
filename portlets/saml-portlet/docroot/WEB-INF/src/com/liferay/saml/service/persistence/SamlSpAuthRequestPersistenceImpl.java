@@ -408,8 +408,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SIEI_SSARK,
 			new Object[] {
 				samlSpAuthRequest.getSamlIdpEntityId(),
-				
-			samlSpAuthRequest.getSamlSpAuthRequestKey()
+				samlSpAuthRequest.getSamlSpAuthRequestKey()
 			}, samlSpAuthRequest);
 
 		samlSpAuthRequest.resetOriginalValues();
@@ -489,7 +488,6 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 		if (samlSpAuthRequest.isNew()) {
 			Object[] args = new Object[] {
 					samlSpAuthRequest.getSamlIdpEntityId(),
-					
 					samlSpAuthRequest.getSamlSpAuthRequestKey()
 				};
 
@@ -505,7 +503,6 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 					FINDER_PATH_FETCH_BY_SIEI_SSARK.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
 						samlSpAuthRequest.getSamlIdpEntityId(),
-						
 						samlSpAuthRequest.getSamlSpAuthRequestKey()
 					};
 
@@ -522,7 +519,6 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 
 		Object[] args = new Object[] {
 				samlSpAuthRequest.getSamlIdpEntityId(),
-				
 				samlSpAuthRequest.getSamlSpAuthRequestKey()
 			};
 
@@ -533,7 +529,6 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 				FINDER_PATH_FETCH_BY_SIEI_SSARK.getColumnBitmask()) != 0) {
 			args = new Object[] {
 					samlSpAuthRequestModelImpl.getOriginalSamlIdpEntityId(),
-					
 					samlSpAuthRequestModelImpl.getOriginalSamlSpAuthRequestKey()
 				};
 
@@ -567,7 +562,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 */
 	public SamlSpAuthRequest remove(long samlSpAuthnRequestId)
 		throws NoSuchSpAuthRequestException, SystemException {
-		return remove(Long.valueOf(samlSpAuthnRequestId));
+		return remove((Serializable)samlSpAuthnRequestId);
 	}
 
 	/**

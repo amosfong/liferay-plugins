@@ -60,7 +60,7 @@ public class KaleoDraftDefinitionClp extends BaseModelImpl<KaleoDraftDefinition>
 	}
 
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_kaleoDraftDefinitionId);
+		return _kaleoDraftDefinitionId;
 	}
 
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {

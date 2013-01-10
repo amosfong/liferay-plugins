@@ -1006,7 +1006,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 */
 	public SamlSpSession remove(long samlSpSessionId)
 		throws NoSuchSpSessionException, SystemException {
-		return remove(Long.valueOf(samlSpSessionId));
+		return remove((Serializable)samlSpSessionId);
 	}
 
 	/**

@@ -52,7 +52,7 @@ public class KaleoProcessLinkClp extends BaseModelImpl<KaleoProcessLink>
 	}
 
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_kaleoProcessLinkId);
+		return _kaleoProcessLinkId;
 	}
 
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {

@@ -171,7 +171,7 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 	}
 
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_sourceId);
+		return _sourceId;
 	}
 
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {

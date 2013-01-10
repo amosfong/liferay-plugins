@@ -114,7 +114,7 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 	}
 
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_samlIdpSpConnectionId);
+		return _samlIdpSpConnectionId;
 	}
 
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {

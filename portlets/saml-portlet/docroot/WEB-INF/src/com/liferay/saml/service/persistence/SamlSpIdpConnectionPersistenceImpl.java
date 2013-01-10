@@ -852,9 +852,8 @@ public class SamlSpIdpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_SIEI,
 			new Object[] {
-				Long.valueOf(samlSpIdpConnection.getCompanyId()),
-				
-			samlSpIdpConnection.getSamlIdpEntityId()
+				samlSpIdpConnection.getCompanyId(),
+				samlSpIdpConnection.getSamlIdpEntityId()
 			}, samlSpIdpConnection);
 
 		samlSpIdpConnection.resetOriginalValues();
@@ -935,8 +934,7 @@ public class SamlSpIdpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 		SamlSpIdpConnection samlSpIdpConnection) {
 		if (samlSpIdpConnection.isNew()) {
 			Object[] args = new Object[] {
-					Long.valueOf(samlSpIdpConnection.getCompanyId()),
-					
+					samlSpIdpConnection.getCompanyId(),
 					samlSpIdpConnection.getSamlIdpEntityId()
 				};
 
@@ -951,8 +949,7 @@ public class SamlSpIdpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 			if ((samlSpIdpConnectionModelImpl.getColumnBitmask() &
 					FINDER_PATH_FETCH_BY_C_SIEI.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						Long.valueOf(samlSpIdpConnection.getCompanyId()),
-						
+						samlSpIdpConnection.getCompanyId(),
 						samlSpIdpConnection.getSamlIdpEntityId()
 					};
 
@@ -969,8 +966,7 @@ public class SamlSpIdpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 		SamlSpIdpConnectionModelImpl samlSpIdpConnectionModelImpl = (SamlSpIdpConnectionModelImpl)samlSpIdpConnection;
 
 		Object[] args = new Object[] {
-				Long.valueOf(samlSpIdpConnection.getCompanyId()),
-				
+				samlSpIdpConnection.getCompanyId(),
 				samlSpIdpConnection.getSamlIdpEntityId()
 			};
 
@@ -980,8 +976,7 @@ public class SamlSpIdpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 		if ((samlSpIdpConnectionModelImpl.getColumnBitmask() &
 				FINDER_PATH_FETCH_BY_C_SIEI.getColumnBitmask()) != 0) {
 			args = new Object[] {
-					Long.valueOf(samlSpIdpConnectionModelImpl.getOriginalCompanyId()),
-					
+					samlSpIdpConnectionModelImpl.getOriginalCompanyId(),
 					samlSpIdpConnectionModelImpl.getOriginalSamlIdpEntityId()
 				};
 
@@ -1015,7 +1010,7 @@ public class SamlSpIdpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 */
 	public SamlSpIdpConnection remove(long samlSpIdpConnectionId)
 		throws NoSuchSpIdpConnectionException, SystemException {
-		return remove(Long.valueOf(samlSpIdpConnectionId));
+		return remove((Serializable)samlSpIdpConnectionId);
 	}
 
 	/**
@@ -1133,7 +1128,7 @@ public class SamlSpIdpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 			if ((samlSpIdpConnectionModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						Long.valueOf(samlSpIdpConnectionModelImpl.getOriginalCompanyId())
+						samlSpIdpConnectionModelImpl.getOriginalCompanyId()
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
@@ -1141,9 +1136,7 @@ public class SamlSpIdpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
 					args);
 
-				args = new Object[] {
-						Long.valueOf(samlSpIdpConnectionModelImpl.getCompanyId())
-					};
+				args = new Object[] { samlSpIdpConnectionModelImpl.getCompanyId() };
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
 					args);

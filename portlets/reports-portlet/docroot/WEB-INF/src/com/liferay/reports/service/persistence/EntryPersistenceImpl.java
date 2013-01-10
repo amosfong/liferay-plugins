@@ -182,7 +182,7 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	 */
 	public Entry remove(long entryId)
 		throws NoSuchEntryException, SystemException {
-		return remove(Long.valueOf(entryId));
+		return remove((Serializable)entryId);
 	}
 
 	/**

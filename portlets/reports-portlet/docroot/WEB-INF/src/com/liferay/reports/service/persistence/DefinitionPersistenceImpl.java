@@ -2742,9 +2742,8 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 			DefinitionImpl.class, definition.getPrimaryKey(), definition);
 
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
-			new Object[] {
-				definition.getUuid(), Long.valueOf(definition.getGroupId())
-			}, definition);
+			new Object[] { definition.getUuid(), definition.getGroupId() },
+			definition);
 
 		definition.resetOriginalValues();
 	}
@@ -2821,7 +2820,7 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 	protected void cacheUniqueFindersCache(Definition definition) {
 		if (definition.isNew()) {
 			Object[] args = new Object[] {
-					definition.getUuid(), Long.valueOf(definition.getGroupId())
+					definition.getUuid(), definition.getGroupId()
 				};
 
 			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_G, args,
@@ -2835,8 +2834,7 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 			if ((definitionModelImpl.getColumnBitmask() &
 					FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						definition.getUuid(),
-						Long.valueOf(definition.getGroupId())
+						definition.getUuid(), definition.getGroupId()
 					};
 
 				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_G, args,
@@ -2851,7 +2849,7 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 		DefinitionModelImpl definitionModelImpl = (DefinitionModelImpl)definition;
 
 		Object[] args = new Object[] {
-				definition.getUuid(), Long.valueOf(definition.getGroupId())
+				definition.getUuid(), definition.getGroupId()
 			};
 
 		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
@@ -2861,7 +2859,7 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 				FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
 			args = new Object[] {
 					definitionModelImpl.getOriginalUuid(),
-					Long.valueOf(definitionModelImpl.getOriginalGroupId())
+					definitionModelImpl.getOriginalGroupId()
 				};
 
 			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
@@ -2898,7 +2896,7 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 	 */
 	public Definition remove(long definitionId)
 		throws NoSuchDefinitionException, SystemException {
-		return remove(Long.valueOf(definitionId));
+		return remove((Serializable)definitionId);
 	}
 
 	/**
@@ -3040,7 +3038,7 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
 						definitionModelImpl.getOriginalUuid(),
-						Long.valueOf(definitionModelImpl.getOriginalCompanyId())
+						definitionModelImpl.getOriginalCompanyId()
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_C, args);
@@ -3049,7 +3047,7 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 
 				args = new Object[] {
 						definitionModelImpl.getUuid(),
-						Long.valueOf(definitionModelImpl.getCompanyId())
+						definitionModelImpl.getCompanyId()
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_C, args);
@@ -3060,16 +3058,14 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 			if ((definitionModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						Long.valueOf(definitionModelImpl.getOriginalGroupId())
+						definitionModelImpl.getOriginalGroupId()
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUPID, args);
 				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID,
 					args);
 
-				args = new Object[] {
-						Long.valueOf(definitionModelImpl.getGroupId())
-					};
+				args = new Object[] { definitionModelImpl.getGroupId() };
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUPID, args);
 				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID,
@@ -3079,7 +3075,7 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 			if ((definitionModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						Long.valueOf(definitionModelImpl.getOriginalCompanyId())
+						definitionModelImpl.getOriginalCompanyId()
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
@@ -3087,9 +3083,7 @@ public class DefinitionPersistenceImpl extends BasePersistenceImpl<Definition>
 				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
 					args);
 
-				args = new Object[] {
-						Long.valueOf(definitionModelImpl.getCompanyId())
-					};
+				args = new Object[] { definitionModelImpl.getCompanyId() };
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
 					args);

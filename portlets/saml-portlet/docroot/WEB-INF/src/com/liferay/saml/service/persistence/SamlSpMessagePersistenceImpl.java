@@ -405,8 +405,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SIEI_SIRK,
 			new Object[] {
 				samlSpMessage.getSamlIdpEntityId(),
-				
-			samlSpMessage.getSamlIdpResponseKey()
+				samlSpMessage.getSamlIdpResponseKey()
 			}, samlSpMessage);
 
 		samlSpMessage.resetOriginalValues();
@@ -485,7 +484,6 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 		if (samlSpMessage.isNew()) {
 			Object[] args = new Object[] {
 					samlSpMessage.getSamlIdpEntityId(),
-					
 					samlSpMessage.getSamlIdpResponseKey()
 				};
 
@@ -501,7 +499,6 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 					FINDER_PATH_FETCH_BY_SIEI_SIRK.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
 						samlSpMessage.getSamlIdpEntityId(),
-						
 						samlSpMessage.getSamlIdpResponseKey()
 					};
 
@@ -518,7 +515,6 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 
 		Object[] args = new Object[] {
 				samlSpMessage.getSamlIdpEntityId(),
-				
 				samlSpMessage.getSamlIdpResponseKey()
 			};
 
@@ -529,7 +525,6 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 				FINDER_PATH_FETCH_BY_SIEI_SIRK.getColumnBitmask()) != 0) {
 			args = new Object[] {
 					samlSpMessageModelImpl.getOriginalSamlIdpEntityId(),
-					
 					samlSpMessageModelImpl.getOriginalSamlIdpResponseKey()
 				};
 
@@ -563,7 +558,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 */
 	public SamlSpMessage remove(long samlSpMessageId)
 		throws NoSuchSpMessageException, SystemException {
-		return remove(Long.valueOf(samlSpMessageId));
+		return remove((Serializable)samlSpMessageId);
 	}
 
 	/**

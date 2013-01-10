@@ -60,7 +60,7 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 	}
 
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_sourceId);
+		return _sourceId;
 	}
 
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {

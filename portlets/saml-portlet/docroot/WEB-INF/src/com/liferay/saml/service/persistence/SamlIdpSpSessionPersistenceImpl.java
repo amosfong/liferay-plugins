@@ -865,9 +865,8 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SISSI_SSEI,
 			new Object[] {
-				Long.valueOf(samlIdpSpSession.getSamlIdpSsoSessionId()),
-				
-			samlIdpSpSession.getSamlSpEntityId()
+				samlIdpSpSession.getSamlIdpSsoSessionId(),
+				samlIdpSpSession.getSamlSpEntityId()
 			}, samlIdpSpSession);
 
 		samlIdpSpSession.resetOriginalValues();
@@ -946,8 +945,7 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 	protected void cacheUniqueFindersCache(SamlIdpSpSession samlIdpSpSession) {
 		if (samlIdpSpSession.isNew()) {
 			Object[] args = new Object[] {
-					Long.valueOf(samlIdpSpSession.getSamlIdpSsoSessionId()),
-					
+					samlIdpSpSession.getSamlIdpSsoSessionId(),
 					samlIdpSpSession.getSamlSpEntityId()
 				};
 
@@ -962,8 +960,7 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 			if ((samlIdpSpSessionModelImpl.getColumnBitmask() &
 					FINDER_PATH_FETCH_BY_SISSI_SSEI.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						Long.valueOf(samlIdpSpSession.getSamlIdpSsoSessionId()),
-						
+						samlIdpSpSession.getSamlIdpSsoSessionId(),
 						samlIdpSpSession.getSamlSpEntityId()
 					};
 
@@ -979,8 +976,7 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 		SamlIdpSpSessionModelImpl samlIdpSpSessionModelImpl = (SamlIdpSpSessionModelImpl)samlIdpSpSession;
 
 		Object[] args = new Object[] {
-				Long.valueOf(samlIdpSpSession.getSamlIdpSsoSessionId()),
-				
+				samlIdpSpSession.getSamlIdpSsoSessionId(),
 				samlIdpSpSession.getSamlSpEntityId()
 			};
 
@@ -990,8 +986,7 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 		if ((samlIdpSpSessionModelImpl.getColumnBitmask() &
 				FINDER_PATH_FETCH_BY_SISSI_SSEI.getColumnBitmask()) != 0) {
 			args = new Object[] {
-					Long.valueOf(samlIdpSpSessionModelImpl.getOriginalSamlIdpSsoSessionId()),
-					
+					samlIdpSpSessionModelImpl.getOriginalSamlIdpSsoSessionId(),
 					samlIdpSpSessionModelImpl.getOriginalSamlSpEntityId()
 				};
 
@@ -1025,7 +1020,7 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 	 */
 	public SamlIdpSpSession remove(long samlIdpSpSessionId)
 		throws NoSuchIdpSpSessionException, SystemException {
-		return remove(Long.valueOf(samlIdpSpSessionId));
+		return remove((Serializable)samlIdpSpSessionId);
 	}
 
 	/**
@@ -1143,7 +1138,7 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 			if ((samlIdpSpSessionModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_SAMLIDPSSOSESSIONID.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						Long.valueOf(samlIdpSpSessionModelImpl.getOriginalSamlIdpSsoSessionId())
+						samlIdpSpSessionModelImpl.getOriginalSamlIdpSsoSessionId()
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_SAMLIDPSSOSESSIONID,
@@ -1152,7 +1147,7 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 					args);
 
 				args = new Object[] {
-						Long.valueOf(samlIdpSpSessionModelImpl.getSamlIdpSsoSessionId())
+						samlIdpSpSessionModelImpl.getSamlIdpSsoSessionId()
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_SAMLIDPSSOSESSIONID,

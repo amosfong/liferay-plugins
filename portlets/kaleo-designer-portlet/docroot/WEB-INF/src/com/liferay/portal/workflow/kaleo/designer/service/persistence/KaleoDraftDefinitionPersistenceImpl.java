@@ -1497,11 +1497,10 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_N_V_D,
 			new Object[] {
-				Long.valueOf(kaleoDraftDefinition.getCompanyId()),
-				
-			kaleoDraftDefinition.getName(),
-				Integer.valueOf(kaleoDraftDefinition.getVersion()),
-				Integer.valueOf(kaleoDraftDefinition.getDraftVersion())
+				kaleoDraftDefinition.getCompanyId(),
+				kaleoDraftDefinition.getName(),
+				kaleoDraftDefinition.getVersion(),
+				kaleoDraftDefinition.getDraftVersion()
 			}, kaleoDraftDefinition);
 
 		kaleoDraftDefinition.resetOriginalValues();
@@ -1582,11 +1581,10 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 		KaleoDraftDefinition kaleoDraftDefinition) {
 		if (kaleoDraftDefinition.isNew()) {
 			Object[] args = new Object[] {
-					Long.valueOf(kaleoDraftDefinition.getCompanyId()),
-					
+					kaleoDraftDefinition.getCompanyId(),
 					kaleoDraftDefinition.getName(),
-					Integer.valueOf(kaleoDraftDefinition.getVersion()),
-					Integer.valueOf(kaleoDraftDefinition.getDraftVersion())
+					kaleoDraftDefinition.getVersion(),
+					kaleoDraftDefinition.getDraftVersion()
 				};
 
 			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_C_N_V_D, args,
@@ -1600,11 +1598,10 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 			if ((kaleoDraftDefinitionModelImpl.getColumnBitmask() &
 					FINDER_PATH_FETCH_BY_C_N_V_D.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						Long.valueOf(kaleoDraftDefinition.getCompanyId()),
-						
+						kaleoDraftDefinition.getCompanyId(),
 						kaleoDraftDefinition.getName(),
-						Integer.valueOf(kaleoDraftDefinition.getVersion()),
-						Integer.valueOf(kaleoDraftDefinition.getDraftVersion())
+						kaleoDraftDefinition.getVersion(),
+						kaleoDraftDefinition.getDraftVersion()
 					};
 
 				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_C_N_V_D, args,
@@ -1620,11 +1617,10 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 		KaleoDraftDefinitionModelImpl kaleoDraftDefinitionModelImpl = (KaleoDraftDefinitionModelImpl)kaleoDraftDefinition;
 
 		Object[] args = new Object[] {
-				Long.valueOf(kaleoDraftDefinition.getCompanyId()),
-				
+				kaleoDraftDefinition.getCompanyId(),
 				kaleoDraftDefinition.getName(),
-				Integer.valueOf(kaleoDraftDefinition.getVersion()),
-				Integer.valueOf(kaleoDraftDefinition.getDraftVersion())
+				kaleoDraftDefinition.getVersion(),
+				kaleoDraftDefinition.getDraftVersion()
 			};
 
 		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_N_V_D, args);
@@ -1633,11 +1629,10 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 		if ((kaleoDraftDefinitionModelImpl.getColumnBitmask() &
 				FINDER_PATH_FETCH_BY_C_N_V_D.getColumnBitmask()) != 0) {
 			args = new Object[] {
-					Long.valueOf(kaleoDraftDefinitionModelImpl.getOriginalCompanyId()),
-					
+					kaleoDraftDefinitionModelImpl.getOriginalCompanyId(),
 					kaleoDraftDefinitionModelImpl.getOriginalName(),
-					Integer.valueOf(kaleoDraftDefinitionModelImpl.getOriginalVersion()),
-					Integer.valueOf(kaleoDraftDefinitionModelImpl.getOriginalDraftVersion())
+					kaleoDraftDefinitionModelImpl.getOriginalVersion(),
+					kaleoDraftDefinitionModelImpl.getOriginalDraftVersion()
 				};
 
 			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_N_V_D, args);
@@ -1670,7 +1665,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 */
 	public KaleoDraftDefinition remove(long kaleoDraftDefinitionId)
 		throws NoSuchKaleoDraftDefinitionException, SystemException {
-		return remove(Long.valueOf(kaleoDraftDefinitionId));
+		return remove((Serializable)kaleoDraftDefinitionId);
 	}
 
 	/**
@@ -1788,7 +1783,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 			if ((kaleoDraftDefinitionModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						Long.valueOf(kaleoDraftDefinitionModelImpl.getOriginalCompanyId())
+						kaleoDraftDefinitionModelImpl.getOriginalCompanyId()
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
@@ -1796,9 +1791,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
 					args);
 
-				args = new Object[] {
-						Long.valueOf(kaleoDraftDefinitionModelImpl.getCompanyId())
-					};
+				args = new Object[] { kaleoDraftDefinitionModelImpl.getCompanyId() };
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
 					args);
@@ -1809,10 +1802,9 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 			if ((kaleoDraftDefinitionModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_C_N_V.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						Long.valueOf(kaleoDraftDefinitionModelImpl.getOriginalCompanyId()),
-						
+						kaleoDraftDefinitionModelImpl.getOriginalCompanyId(),
 						kaleoDraftDefinitionModelImpl.getOriginalName(),
-						Integer.valueOf(kaleoDraftDefinitionModelImpl.getOriginalVersion())
+						kaleoDraftDefinitionModelImpl.getOriginalVersion()
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_N_V, args);
@@ -1820,10 +1812,9 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 					args);
 
 				args = new Object[] {
-						Long.valueOf(kaleoDraftDefinitionModelImpl.getCompanyId()),
-						
+						kaleoDraftDefinitionModelImpl.getCompanyId(),
 						kaleoDraftDefinitionModelImpl.getName(),
-						Integer.valueOf(kaleoDraftDefinitionModelImpl.getVersion())
+						kaleoDraftDefinitionModelImpl.getVersion()
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_N_V, args);

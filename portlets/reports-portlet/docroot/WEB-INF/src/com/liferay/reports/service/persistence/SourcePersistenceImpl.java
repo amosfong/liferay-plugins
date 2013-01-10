@@ -2727,8 +2727,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			SourceImpl.class, source.getPrimaryKey(), source);
 
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_UUID_G,
-			new Object[] { source.getUuid(), Long.valueOf(source.getGroupId()) },
-			source);
+			new Object[] { source.getUuid(), source.getGroupId() }, source);
 
 		source.resetOriginalValues();
 	}
@@ -2804,9 +2803,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 
 	protected void cacheUniqueFindersCache(Source source) {
 		if (source.isNew()) {
-			Object[] args = new Object[] {
-					source.getUuid(), Long.valueOf(source.getGroupId())
-				};
+			Object[] args = new Object[] { source.getUuid(), source.getGroupId() };
 
 			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_G, args,
 				Long.valueOf(1));
@@ -2818,7 +2815,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			if ((sourceModelImpl.getColumnBitmask() &
 					FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						source.getUuid(), Long.valueOf(source.getGroupId())
+						source.getUuid(), source.getGroupId()
 					};
 
 				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_UUID_G, args,
@@ -2832,9 +2829,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	protected void clearUniqueFindersCache(Source source) {
 		SourceModelImpl sourceModelImpl = (SourceModelImpl)source;
 
-		Object[] args = new Object[] {
-				source.getUuid(), Long.valueOf(source.getGroupId())
-			};
+		Object[] args = new Object[] { source.getUuid(), source.getGroupId() };
 
 		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_UUID_G, args);
@@ -2843,7 +2838,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 				FINDER_PATH_FETCH_BY_UUID_G.getColumnBitmask()) != 0) {
 			args = new Object[] {
 					sourceModelImpl.getOriginalUuid(),
-					Long.valueOf(sourceModelImpl.getOriginalGroupId())
+					sourceModelImpl.getOriginalGroupId()
 				};
 
 			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_G, args);
@@ -2880,7 +2875,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 */
 	public Source remove(long sourceId)
 		throws NoSuchSourceException, SystemException {
-		return remove(Long.valueOf(sourceId));
+		return remove((Serializable)sourceId);
 	}
 
 	/**
@@ -3017,7 +3012,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_UUID_C.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
 						sourceModelImpl.getOriginalUuid(),
-						Long.valueOf(sourceModelImpl.getOriginalCompanyId())
+						sourceModelImpl.getOriginalCompanyId()
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_C, args);
@@ -3026,7 +3021,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 
 				args = new Object[] {
 						sourceModelImpl.getUuid(),
-						Long.valueOf(sourceModelImpl.getCompanyId())
+						sourceModelImpl.getCompanyId()
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_UUID_C, args);
@@ -3037,14 +3032,14 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			if ((sourceModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						Long.valueOf(sourceModelImpl.getOriginalGroupId())
+						sourceModelImpl.getOriginalGroupId()
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUPID, args);
 				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID,
 					args);
 
-				args = new Object[] { Long.valueOf(sourceModelImpl.getGroupId()) };
+				args = new Object[] { sourceModelImpl.getGroupId() };
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_GROUPID, args);
 				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_GROUPID,
@@ -3054,7 +3049,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			if ((sourceModelImpl.getColumnBitmask() &
 					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID.getColumnBitmask()) != 0) {
 				Object[] args = new Object[] {
-						Long.valueOf(sourceModelImpl.getOriginalCompanyId())
+						sourceModelImpl.getOriginalCompanyId()
 					};
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
@@ -3062,7 +3057,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_COMPANYID,
 					args);
 
-				args = new Object[] { Long.valueOf(sourceModelImpl.getCompanyId()) };
+				args = new Object[] { sourceModelImpl.getCompanyId() };
 
 				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_COMPANYID,
 					args);

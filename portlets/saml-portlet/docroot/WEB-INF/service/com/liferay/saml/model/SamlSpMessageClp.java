@@ -54,7 +54,7 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 	}
 
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_samlSpMessageId);
+		return _samlSpMessageId;
 	}
 
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
