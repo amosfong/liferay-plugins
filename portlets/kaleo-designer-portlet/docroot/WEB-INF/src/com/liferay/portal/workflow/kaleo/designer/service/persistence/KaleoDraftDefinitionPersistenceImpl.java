@@ -14,7 +14,6 @@
 
 package com.liferay.portal.workflow.kaleo.designer.service.persistence;
 
-import com.liferay.portal.NoSuchModelException;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -1875,13 +1874,24 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 *
 	 * @param primaryKey the primary key of the kaleo draft definition
 	 * @return the kaleo draft definition
-	 * @throws com.liferay.portal.NoSuchModelException if a kaleo draft definition with the primary key could not be found
+	 * @throws com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException if a kaleo draft definition with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public KaleoDraftDefinition findByPrimaryKey(Serializable primaryKey)
-		throws NoSuchModelException, SystemException {
-		return findByPrimaryKey(((Long)primaryKey).longValue());
+		throws NoSuchKaleoDraftDefinitionException, SystemException {
+		KaleoDraftDefinition kaleoDraftDefinition = fetchByPrimaryKey(primaryKey);
+
+		if (kaleoDraftDefinition == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			}
+
+			throw new NoSuchKaleoDraftDefinitionException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+				primaryKey);
+		}
+
+		return kaleoDraftDefinition;
 	}
 
 	/**
@@ -1894,19 +1904,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 */
 	public KaleoDraftDefinition findByPrimaryKey(long kaleoDraftDefinitionId)
 		throws NoSuchKaleoDraftDefinitionException, SystemException {
-		KaleoDraftDefinition kaleoDraftDefinition = fetchByPrimaryKey(kaleoDraftDefinitionId);
-
-		if (kaleoDraftDefinition == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					kaleoDraftDefinitionId);
-			}
-
-			throw new NoSuchKaleoDraftDefinitionException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				kaleoDraftDefinitionId);
-		}
-
-		return kaleoDraftDefinition;
+		return findByPrimaryKey((Serializable)kaleoDraftDefinitionId);
 	}
 
 	/**
@@ -1919,20 +1917,8 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	@Override
 	public KaleoDraftDefinition fetchByPrimaryKey(Serializable primaryKey)
 		throws SystemException {
-		return fetchByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the kaleo draft definition with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param kaleoDraftDefinitionId the primary key of the kaleo draft definition
-	 * @return the kaleo draft definition, or <code>null</code> if a kaleo draft definition with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public KaleoDraftDefinition fetchByPrimaryKey(long kaleoDraftDefinitionId)
-		throws SystemException {
 		KaleoDraftDefinition kaleoDraftDefinition = (KaleoDraftDefinition)EntityCacheUtil.getResult(KaleoDraftDefinitionModelImpl.ENTITY_CACHE_ENABLED,
-				KaleoDraftDefinitionImpl.class, kaleoDraftDefinitionId);
+				KaleoDraftDefinitionImpl.class, primaryKey);
 
 		if (kaleoDraftDefinition == _nullKaleoDraftDefinition) {
 			return null;
@@ -1945,20 +1931,20 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 				session = openSession();
 
 				kaleoDraftDefinition = (KaleoDraftDefinition)session.get(KaleoDraftDefinitionImpl.class,
-						Long.valueOf(kaleoDraftDefinitionId));
+						primaryKey);
 
 				if (kaleoDraftDefinition != null) {
 					cacheResult(kaleoDraftDefinition);
 				}
 				else {
 					EntityCacheUtil.putResult(KaleoDraftDefinitionModelImpl.ENTITY_CACHE_ENABLED,
-						KaleoDraftDefinitionImpl.class, kaleoDraftDefinitionId,
+						KaleoDraftDefinitionImpl.class, primaryKey,
 						_nullKaleoDraftDefinition);
 				}
 			}
 			catch (Exception e) {
 				EntityCacheUtil.removeResult(KaleoDraftDefinitionModelImpl.ENTITY_CACHE_ENABLED,
-					KaleoDraftDefinitionImpl.class, kaleoDraftDefinitionId);
+					KaleoDraftDefinitionImpl.class, primaryKey);
 
 				throw processException(e);
 			}
@@ -1968,6 +1954,18 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 		}
 
 		return kaleoDraftDefinition;
+	}
+
+	/**
+	 * Returns the kaleo draft definition with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param kaleoDraftDefinitionId the primary key of the kaleo draft definition
+	 * @return the kaleo draft definition, or <code>null</code> if a kaleo draft definition with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public KaleoDraftDefinition fetchByPrimaryKey(long kaleoDraftDefinitionId)
+		throws SystemException {
+		return fetchByPrimaryKey((Serializable)kaleoDraftDefinitionId);
 	}
 
 	/**

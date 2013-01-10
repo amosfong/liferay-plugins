@@ -14,7 +14,6 @@
 
 package com.liferay.saml.service.persistence;
 
-import com.liferay.portal.NoSuchModelException;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -715,13 +714,24 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 *
 	 * @param primaryKey the primary key of the saml sp auth request
 	 * @return the saml sp auth request
-	 * @throws com.liferay.portal.NoSuchModelException if a saml sp auth request with the primary key could not be found
+	 * @throws com.liferay.saml.NoSuchSpAuthRequestException if a saml sp auth request with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public SamlSpAuthRequest findByPrimaryKey(Serializable primaryKey)
-		throws NoSuchModelException, SystemException {
-		return findByPrimaryKey(((Long)primaryKey).longValue());
+		throws NoSuchSpAuthRequestException, SystemException {
+		SamlSpAuthRequest samlSpAuthRequest = fetchByPrimaryKey(primaryKey);
+
+		if (samlSpAuthRequest == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			}
+
+			throw new NoSuchSpAuthRequestException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+				primaryKey);
+		}
+
+		return samlSpAuthRequest;
 	}
 
 	/**
@@ -734,19 +744,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 */
 	public SamlSpAuthRequest findByPrimaryKey(long samlSpAuthnRequestId)
 		throws NoSuchSpAuthRequestException, SystemException {
-		SamlSpAuthRequest samlSpAuthRequest = fetchByPrimaryKey(samlSpAuthnRequestId);
-
-		if (samlSpAuthRequest == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					samlSpAuthnRequestId);
-			}
-
-			throw new NoSuchSpAuthRequestException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				samlSpAuthnRequestId);
-		}
-
-		return samlSpAuthRequest;
+		return findByPrimaryKey((Serializable)samlSpAuthnRequestId);
 	}
 
 	/**
@@ -759,20 +757,8 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	@Override
 	public SamlSpAuthRequest fetchByPrimaryKey(Serializable primaryKey)
 		throws SystemException {
-		return fetchByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the saml sp auth request with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param samlSpAuthnRequestId the primary key of the saml sp auth request
-	 * @return the saml sp auth request, or <code>null</code> if a saml sp auth request with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlSpAuthRequest fetchByPrimaryKey(long samlSpAuthnRequestId)
-		throws SystemException {
 		SamlSpAuthRequest samlSpAuthRequest = (SamlSpAuthRequest)EntityCacheUtil.getResult(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpAuthRequestImpl.class, samlSpAuthnRequestId);
+				SamlSpAuthRequestImpl.class, primaryKey);
 
 		if (samlSpAuthRequest == _nullSamlSpAuthRequest) {
 			return null;
@@ -785,20 +771,20 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 				session = openSession();
 
 				samlSpAuthRequest = (SamlSpAuthRequest)session.get(SamlSpAuthRequestImpl.class,
-						Long.valueOf(samlSpAuthnRequestId));
+						primaryKey);
 
 				if (samlSpAuthRequest != null) {
 					cacheResult(samlSpAuthRequest);
 				}
 				else {
 					EntityCacheUtil.putResult(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
-						SamlSpAuthRequestImpl.class, samlSpAuthnRequestId,
+						SamlSpAuthRequestImpl.class, primaryKey,
 						_nullSamlSpAuthRequest);
 				}
 			}
 			catch (Exception e) {
 				EntityCacheUtil.removeResult(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
-					SamlSpAuthRequestImpl.class, samlSpAuthnRequestId);
+					SamlSpAuthRequestImpl.class, primaryKey);
 
 				throw processException(e);
 			}
@@ -808,6 +794,18 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 		}
 
 		return samlSpAuthRequest;
+	}
+
+	/**
+	 * Returns the saml sp auth request with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param samlSpAuthnRequestId the primary key of the saml sp auth request
+	 * @return the saml sp auth request, or <code>null</code> if a saml sp auth request with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpAuthRequest fetchByPrimaryKey(long samlSpAuthnRequestId)
+		throws SystemException {
+		return fetchByPrimaryKey((Serializable)samlSpAuthnRequestId);
 	}
 
 	/**

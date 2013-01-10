@@ -14,7 +14,6 @@
 
 package com.liferay.portal.audit.service.persistence;
 
-import com.liferay.portal.NoSuchModelException;
 import com.liferay.portal.audit.NoSuchEventException;
 import com.liferay.portal.audit.model.AuditEvent;
 import com.liferay.portal.audit.model.impl.AuditEventImpl;
@@ -841,13 +840,24 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 *
 	 * @param primaryKey the primary key of the audit event
 	 * @return the audit event
-	 * @throws com.liferay.portal.NoSuchModelException if a audit event with the primary key could not be found
+	 * @throws com.liferay.portal.audit.NoSuchEventException if a audit event with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public AuditEvent findByPrimaryKey(Serializable primaryKey)
-		throws NoSuchModelException, SystemException {
-		return findByPrimaryKey(((Long)primaryKey).longValue());
+		throws NoSuchEventException, SystemException {
+		AuditEvent auditEvent = fetchByPrimaryKey(primaryKey);
+
+		if (auditEvent == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			}
+
+			throw new NoSuchEventException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+				primaryKey);
+		}
+
+		return auditEvent;
 	}
 
 	/**
@@ -860,18 +870,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 */
 	public AuditEvent findByPrimaryKey(long auditEventId)
 		throws NoSuchEventException, SystemException {
-		AuditEvent auditEvent = fetchByPrimaryKey(auditEventId);
-
-		if (auditEvent == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + auditEventId);
-			}
-
-			throw new NoSuchEventException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				auditEventId);
-		}
-
-		return auditEvent;
+		return findByPrimaryKey((Serializable)auditEventId);
 	}
 
 	/**
@@ -884,20 +883,8 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	@Override
 	public AuditEvent fetchByPrimaryKey(Serializable primaryKey)
 		throws SystemException {
-		return fetchByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the audit event with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param auditEventId the primary key of the audit event
-	 * @return the audit event, or <code>null</code> if a audit event with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public AuditEvent fetchByPrimaryKey(long auditEventId)
-		throws SystemException {
 		AuditEvent auditEvent = (AuditEvent)EntityCacheUtil.getResult(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
-				AuditEventImpl.class, auditEventId);
+				AuditEventImpl.class, primaryKey);
 
 		if (auditEvent == _nullAuditEvent) {
 			return null;
@@ -910,19 +897,19 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 				session = openSession();
 
 				auditEvent = (AuditEvent)session.get(AuditEventImpl.class,
-						Long.valueOf(auditEventId));
+						primaryKey);
 
 				if (auditEvent != null) {
 					cacheResult(auditEvent);
 				}
 				else {
 					EntityCacheUtil.putResult(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
-						AuditEventImpl.class, auditEventId, _nullAuditEvent);
+						AuditEventImpl.class, primaryKey, _nullAuditEvent);
 				}
 			}
 			catch (Exception e) {
 				EntityCacheUtil.removeResult(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
-					AuditEventImpl.class, auditEventId);
+					AuditEventImpl.class, primaryKey);
 
 				throw processException(e);
 			}
@@ -932,6 +919,18 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 		}
 
 		return auditEvent;
+	}
+
+	/**
+	 * Returns the audit event with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param auditEventId the primary key of the audit event
+	 * @return the audit event, or <code>null</code> if a audit event with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public AuditEvent fetchByPrimaryKey(long auditEventId)
+		throws SystemException {
+		return fetchByPrimaryKey((Serializable)auditEventId);
 	}
 
 	/**

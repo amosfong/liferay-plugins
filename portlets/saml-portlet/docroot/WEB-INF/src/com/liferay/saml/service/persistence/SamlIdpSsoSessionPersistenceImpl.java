@@ -14,7 +14,6 @@
 
 package com.liferay.saml.service.persistence;
 
-import com.liferay.portal.NoSuchModelException;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -654,13 +653,24 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	 *
 	 * @param primaryKey the primary key of the saml idp sso session
 	 * @return the saml idp sso session
-	 * @throws com.liferay.portal.NoSuchModelException if a saml idp sso session with the primary key could not be found
+	 * @throws com.liferay.saml.NoSuchIdpSsoSessionException if a saml idp sso session with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public SamlIdpSsoSession findByPrimaryKey(Serializable primaryKey)
-		throws NoSuchModelException, SystemException {
-		return findByPrimaryKey(((Long)primaryKey).longValue());
+		throws NoSuchIdpSsoSessionException, SystemException {
+		SamlIdpSsoSession samlIdpSsoSession = fetchByPrimaryKey(primaryKey);
+
+		if (samlIdpSsoSession == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			}
+
+			throw new NoSuchIdpSsoSessionException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+				primaryKey);
+		}
+
+		return samlIdpSsoSession;
 	}
 
 	/**
@@ -673,19 +683,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	 */
 	public SamlIdpSsoSession findByPrimaryKey(long samlIdpSsoSessionId)
 		throws NoSuchIdpSsoSessionException, SystemException {
-		SamlIdpSsoSession samlIdpSsoSession = fetchByPrimaryKey(samlIdpSsoSessionId);
-
-		if (samlIdpSsoSession == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					samlIdpSsoSessionId);
-			}
-
-			throw new NoSuchIdpSsoSessionException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				samlIdpSsoSessionId);
-		}
-
-		return samlIdpSsoSession;
+		return findByPrimaryKey((Serializable)samlIdpSsoSessionId);
 	}
 
 	/**
@@ -698,20 +696,8 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	@Override
 	public SamlIdpSsoSession fetchByPrimaryKey(Serializable primaryKey)
 		throws SystemException {
-		return fetchByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the saml idp sso session with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param samlIdpSsoSessionId the primary key of the saml idp sso session
-	 * @return the saml idp sso session, or <code>null</code> if a saml idp sso session with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlIdpSsoSession fetchByPrimaryKey(long samlIdpSsoSessionId)
-		throws SystemException {
 		SamlIdpSsoSession samlIdpSsoSession = (SamlIdpSsoSession)EntityCacheUtil.getResult(SamlIdpSsoSessionModelImpl.ENTITY_CACHE_ENABLED,
-				SamlIdpSsoSessionImpl.class, samlIdpSsoSessionId);
+				SamlIdpSsoSessionImpl.class, primaryKey);
 
 		if (samlIdpSsoSession == _nullSamlIdpSsoSession) {
 			return null;
@@ -724,20 +710,20 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 				session = openSession();
 
 				samlIdpSsoSession = (SamlIdpSsoSession)session.get(SamlIdpSsoSessionImpl.class,
-						Long.valueOf(samlIdpSsoSessionId));
+						primaryKey);
 
 				if (samlIdpSsoSession != null) {
 					cacheResult(samlIdpSsoSession);
 				}
 				else {
 					EntityCacheUtil.putResult(SamlIdpSsoSessionModelImpl.ENTITY_CACHE_ENABLED,
-						SamlIdpSsoSessionImpl.class, samlIdpSsoSessionId,
+						SamlIdpSsoSessionImpl.class, primaryKey,
 						_nullSamlIdpSsoSession);
 				}
 			}
 			catch (Exception e) {
 				EntityCacheUtil.removeResult(SamlIdpSsoSessionModelImpl.ENTITY_CACHE_ENABLED,
-					SamlIdpSsoSessionImpl.class, samlIdpSsoSessionId);
+					SamlIdpSsoSessionImpl.class, primaryKey);
 
 				throw processException(e);
 			}
@@ -747,6 +733,18 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 		}
 
 		return samlIdpSsoSession;
+	}
+
+	/**
+	 * Returns the saml idp sso session with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param samlIdpSsoSessionId the primary key of the saml idp sso session
+	 * @return the saml idp sso session, or <code>null</code> if a saml idp sso session with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlIdpSsoSession fetchByPrimaryKey(long samlIdpSsoSessionId)
+		throws SystemException {
+		return fetchByPrimaryKey((Serializable)samlIdpSsoSessionId);
 	}
 
 	/**

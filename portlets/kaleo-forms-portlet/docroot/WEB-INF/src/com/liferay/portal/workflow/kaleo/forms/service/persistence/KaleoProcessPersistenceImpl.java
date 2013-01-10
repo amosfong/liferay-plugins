@@ -14,7 +14,6 @@
 
 package com.liferay.portal.workflow.kaleo.forms.service.persistence;
 
-import com.liferay.portal.NoSuchModelException;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -1190,13 +1189,24 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 *
 	 * @param primaryKey the primary key of the kaleo process
 	 * @return the kaleo process
-	 * @throws com.liferay.portal.NoSuchModelException if a kaleo process with the primary key could not be found
+	 * @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException if a kaleo process with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public KaleoProcess findByPrimaryKey(Serializable primaryKey)
-		throws NoSuchModelException, SystemException {
-		return findByPrimaryKey(((Long)primaryKey).longValue());
+		throws NoSuchKaleoProcessException, SystemException {
+		KaleoProcess kaleoProcess = fetchByPrimaryKey(primaryKey);
+
+		if (kaleoProcess == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			}
+
+			throw new NoSuchKaleoProcessException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+				primaryKey);
+		}
+
+		return kaleoProcess;
 	}
 
 	/**
@@ -1209,18 +1219,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 */
 	public KaleoProcess findByPrimaryKey(long kaleoProcessId)
 		throws NoSuchKaleoProcessException, SystemException {
-		KaleoProcess kaleoProcess = fetchByPrimaryKey(kaleoProcessId);
-
-		if (kaleoProcess == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + kaleoProcessId);
-			}
-
-			throw new NoSuchKaleoProcessException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				kaleoProcessId);
-		}
-
-		return kaleoProcess;
+		return findByPrimaryKey((Serializable)kaleoProcessId);
 	}
 
 	/**
@@ -1233,20 +1232,8 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	@Override
 	public KaleoProcess fetchByPrimaryKey(Serializable primaryKey)
 		throws SystemException {
-		return fetchByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the kaleo process with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param kaleoProcessId the primary key of the kaleo process
-	 * @return the kaleo process, or <code>null</code> if a kaleo process with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public KaleoProcess fetchByPrimaryKey(long kaleoProcessId)
-		throws SystemException {
 		KaleoProcess kaleoProcess = (KaleoProcess)EntityCacheUtil.getResult(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
-				KaleoProcessImpl.class, kaleoProcessId);
+				KaleoProcessImpl.class, primaryKey);
 
 		if (kaleoProcess == _nullKaleoProcess) {
 			return null;
@@ -1259,20 +1246,19 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 				session = openSession();
 
 				kaleoProcess = (KaleoProcess)session.get(KaleoProcessImpl.class,
-						Long.valueOf(kaleoProcessId));
+						primaryKey);
 
 				if (kaleoProcess != null) {
 					cacheResult(kaleoProcess);
 				}
 				else {
 					EntityCacheUtil.putResult(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
-						KaleoProcessImpl.class, kaleoProcessId,
-						_nullKaleoProcess);
+						KaleoProcessImpl.class, primaryKey, _nullKaleoProcess);
 				}
 			}
 			catch (Exception e) {
 				EntityCacheUtil.removeResult(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
-					KaleoProcessImpl.class, kaleoProcessId);
+					KaleoProcessImpl.class, primaryKey);
 
 				throw processException(e);
 			}
@@ -1282,6 +1268,18 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 		}
 
 		return kaleoProcess;
+	}
+
+	/**
+	 * Returns the kaleo process with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param kaleoProcessId the primary key of the kaleo process
+	 * @return the kaleo process, or <code>null</code> if a kaleo process with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public KaleoProcess fetchByPrimaryKey(long kaleoProcessId)
+		throws SystemException {
+		return fetchByPrimaryKey((Serializable)kaleoProcessId);
 	}
 
 	/**

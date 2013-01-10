@@ -14,7 +14,6 @@
 
 package com.liferay.saml.service.persistence;
 
-import com.liferay.portal.NoSuchModelException;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -1181,13 +1180,24 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 *
 	 * @param primaryKey the primary key of the saml sp session
 	 * @return the saml sp session
-	 * @throws com.liferay.portal.NoSuchModelException if a saml sp session with the primary key could not be found
+	 * @throws com.liferay.saml.NoSuchSpSessionException if a saml sp session with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public SamlSpSession findByPrimaryKey(Serializable primaryKey)
-		throws NoSuchModelException, SystemException {
-		return findByPrimaryKey(((Long)primaryKey).longValue());
+		throws NoSuchSpSessionException, SystemException {
+		SamlSpSession samlSpSession = fetchByPrimaryKey(primaryKey);
+
+		if (samlSpSession == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			}
+
+			throw new NoSuchSpSessionException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+				primaryKey);
+		}
+
+		return samlSpSession;
 	}
 
 	/**
@@ -1200,18 +1210,7 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	 */
 	public SamlSpSession findByPrimaryKey(long samlSpSessionId)
 		throws NoSuchSpSessionException, SystemException {
-		SamlSpSession samlSpSession = fetchByPrimaryKey(samlSpSessionId);
-
-		if (samlSpSession == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + samlSpSessionId);
-			}
-
-			throw new NoSuchSpSessionException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				samlSpSessionId);
-		}
-
-		return samlSpSession;
+		return findByPrimaryKey((Serializable)samlSpSessionId);
 	}
 
 	/**
@@ -1224,20 +1223,8 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	@Override
 	public SamlSpSession fetchByPrimaryKey(Serializable primaryKey)
 		throws SystemException {
-		return fetchByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the saml sp session with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param samlSpSessionId the primary key of the saml sp session
-	 * @return the saml sp session, or <code>null</code> if a saml sp session with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlSpSession fetchByPrimaryKey(long samlSpSessionId)
-		throws SystemException {
 		SamlSpSession samlSpSession = (SamlSpSession)EntityCacheUtil.getResult(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpSessionImpl.class, samlSpSessionId);
+				SamlSpSessionImpl.class, primaryKey);
 
 		if (samlSpSession == _nullSamlSpSession) {
 			return null;
@@ -1250,20 +1237,19 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 				session = openSession();
 
 				samlSpSession = (SamlSpSession)session.get(SamlSpSessionImpl.class,
-						Long.valueOf(samlSpSessionId));
+						primaryKey);
 
 				if (samlSpSession != null) {
 					cacheResult(samlSpSession);
 				}
 				else {
 					EntityCacheUtil.putResult(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-						SamlSpSessionImpl.class, samlSpSessionId,
-						_nullSamlSpSession);
+						SamlSpSessionImpl.class, primaryKey, _nullSamlSpSession);
 				}
 			}
 			catch (Exception e) {
 				EntityCacheUtil.removeResult(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-					SamlSpSessionImpl.class, samlSpSessionId);
+					SamlSpSessionImpl.class, primaryKey);
 
 				throw processException(e);
 			}
@@ -1273,6 +1259,18 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 		}
 
 		return samlSpSession;
+	}
+
+	/**
+	 * Returns the saml sp session with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param samlSpSessionId the primary key of the saml sp session
+	 * @return the saml sp session, or <code>null</code> if a saml sp session with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpSession fetchByPrimaryKey(long samlSpSessionId)
+		throws SystemException {
+		return fetchByPrimaryKey((Serializable)samlSpSessionId);
 	}
 
 	/**

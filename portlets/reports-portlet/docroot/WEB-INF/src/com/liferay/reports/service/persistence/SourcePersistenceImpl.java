@@ -14,7 +14,6 @@
 
 package com.liferay.reports.service.persistence;
 
-import com.liferay.portal.NoSuchModelException;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -3113,13 +3112,24 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 *
 	 * @param primaryKey the primary key of the source
 	 * @return the source
-	 * @throws com.liferay.portal.NoSuchModelException if a source with the primary key could not be found
+	 * @throws com.liferay.reports.NoSuchSourceException if a source with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public Source findByPrimaryKey(Serializable primaryKey)
-		throws NoSuchModelException, SystemException {
-		return findByPrimaryKey(((Long)primaryKey).longValue());
+		throws NoSuchSourceException, SystemException {
+		Source source = fetchByPrimaryKey(primaryKey);
+
+		if (source == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			}
+
+			throw new NoSuchSourceException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+				primaryKey);
+		}
+
+		return source;
 	}
 
 	/**
@@ -3132,18 +3142,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	 */
 	public Source findByPrimaryKey(long sourceId)
 		throws NoSuchSourceException, SystemException {
-		Source source = fetchByPrimaryKey(sourceId);
-
-		if (source == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + sourceId);
-			}
-
-			throw new NoSuchSourceException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				sourceId);
-		}
-
-		return source;
+		return findByPrimaryKey((Serializable)sourceId);
 	}
 
 	/**
@@ -3156,19 +3155,8 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	@Override
 	public Source fetchByPrimaryKey(Serializable primaryKey)
 		throws SystemException {
-		return fetchByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the source with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param sourceId the primary key of the source
-	 * @return the source, or <code>null</code> if a source with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public Source fetchByPrimaryKey(long sourceId) throws SystemException {
 		Source source = (Source)EntityCacheUtil.getResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
-				SourceImpl.class, sourceId);
+				SourceImpl.class, primaryKey);
 
 		if (source == _nullSource) {
 			return null;
@@ -3180,20 +3168,19 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 			try {
 				session = openSession();
 
-				source = (Source)session.get(SourceImpl.class,
-						Long.valueOf(sourceId));
+				source = (Source)session.get(SourceImpl.class, primaryKey);
 
 				if (source != null) {
 					cacheResult(source);
 				}
 				else {
 					EntityCacheUtil.putResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
-						SourceImpl.class, sourceId, _nullSource);
+						SourceImpl.class, primaryKey, _nullSource);
 				}
 			}
 			catch (Exception e) {
 				EntityCacheUtil.removeResult(SourceModelImpl.ENTITY_CACHE_ENABLED,
-					SourceImpl.class, sourceId);
+					SourceImpl.class, primaryKey);
 
 				throw processException(e);
 			}
@@ -3203,6 +3190,17 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		}
 
 		return source;
+	}
+
+	/**
+	 * Returns the source with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param sourceId the primary key of the source
+	 * @return the source, or <code>null</code> if a source with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public Source fetchByPrimaryKey(long sourceId) throws SystemException {
+		return fetchByPrimaryKey((Serializable)sourceId);
 	}
 
 	/**

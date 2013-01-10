@@ -14,7 +14,6 @@
 
 package com.liferay.saml.service.persistence;
 
-import com.liferay.portal.NoSuchModelException;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -1203,13 +1202,24 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 	 *
 	 * @param primaryKey the primary key of the saml idp sp session
 	 * @return the saml idp sp session
-	 * @throws com.liferay.portal.NoSuchModelException if a saml idp sp session with the primary key could not be found
+	 * @throws com.liferay.saml.NoSuchIdpSpSessionException if a saml idp sp session with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public SamlIdpSpSession findByPrimaryKey(Serializable primaryKey)
-		throws NoSuchModelException, SystemException {
-		return findByPrimaryKey(((Long)primaryKey).longValue());
+		throws NoSuchIdpSpSessionException, SystemException {
+		SamlIdpSpSession samlIdpSpSession = fetchByPrimaryKey(primaryKey);
+
+		if (samlIdpSpSession == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			}
+
+			throw new NoSuchIdpSpSessionException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+				primaryKey);
+		}
+
+		return samlIdpSpSession;
 	}
 
 	/**
@@ -1222,19 +1232,7 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 	 */
 	public SamlIdpSpSession findByPrimaryKey(long samlIdpSpSessionId)
 		throws NoSuchIdpSpSessionException, SystemException {
-		SamlIdpSpSession samlIdpSpSession = fetchByPrimaryKey(samlIdpSpSessionId);
-
-		if (samlIdpSpSession == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					samlIdpSpSessionId);
-			}
-
-			throw new NoSuchIdpSpSessionException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				samlIdpSpSessionId);
-		}
-
-		return samlIdpSpSession;
+		return findByPrimaryKey((Serializable)samlIdpSpSessionId);
 	}
 
 	/**
@@ -1247,20 +1245,8 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 	@Override
 	public SamlIdpSpSession fetchByPrimaryKey(Serializable primaryKey)
 		throws SystemException {
-		return fetchByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the saml idp sp session with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param samlIdpSpSessionId the primary key of the saml idp sp session
-	 * @return the saml idp sp session, or <code>null</code> if a saml idp sp session with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlIdpSpSession fetchByPrimaryKey(long samlIdpSpSessionId)
-		throws SystemException {
 		SamlIdpSpSession samlIdpSpSession = (SamlIdpSpSession)EntityCacheUtil.getResult(SamlIdpSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-				SamlIdpSpSessionImpl.class, samlIdpSpSessionId);
+				SamlIdpSpSessionImpl.class, primaryKey);
 
 		if (samlIdpSpSession == _nullSamlIdpSpSession) {
 			return null;
@@ -1273,20 +1259,20 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 				session = openSession();
 
 				samlIdpSpSession = (SamlIdpSpSession)session.get(SamlIdpSpSessionImpl.class,
-						Long.valueOf(samlIdpSpSessionId));
+						primaryKey);
 
 				if (samlIdpSpSession != null) {
 					cacheResult(samlIdpSpSession);
 				}
 				else {
 					EntityCacheUtil.putResult(SamlIdpSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-						SamlIdpSpSessionImpl.class, samlIdpSpSessionId,
+						SamlIdpSpSessionImpl.class, primaryKey,
 						_nullSamlIdpSpSession);
 				}
 			}
 			catch (Exception e) {
 				EntityCacheUtil.removeResult(SamlIdpSpSessionModelImpl.ENTITY_CACHE_ENABLED,
-					SamlIdpSpSessionImpl.class, samlIdpSpSessionId);
+					SamlIdpSpSessionImpl.class, primaryKey);
 
 				throw processException(e);
 			}
@@ -1296,6 +1282,18 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 		}
 
 		return samlIdpSpSession;
+	}
+
+	/**
+	 * Returns the saml idp sp session with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param samlIdpSpSessionId the primary key of the saml idp sp session
+	 * @return the saml idp sp session, or <code>null</code> if a saml idp sp session with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlIdpSpSession fetchByPrimaryKey(long samlIdpSpSessionId)
+		throws SystemException {
+		return fetchByPrimaryKey((Serializable)samlIdpSpSessionId);
 	}
 
 	/**

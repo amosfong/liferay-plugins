@@ -14,7 +14,6 @@
 
 package com.liferay.saml.service.persistence;
 
-import com.liferay.portal.NoSuchModelException;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -1201,13 +1200,24 @@ public class SamlSpIdpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 *
 	 * @param primaryKey the primary key of the saml sp idp connection
 	 * @return the saml sp idp connection
-	 * @throws com.liferay.portal.NoSuchModelException if a saml sp idp connection with the primary key could not be found
+	 * @throws com.liferay.saml.NoSuchSpIdpConnectionException if a saml sp idp connection with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public SamlSpIdpConnection findByPrimaryKey(Serializable primaryKey)
-		throws NoSuchModelException, SystemException {
-		return findByPrimaryKey(((Long)primaryKey).longValue());
+		throws NoSuchSpIdpConnectionException, SystemException {
+		SamlSpIdpConnection samlSpIdpConnection = fetchByPrimaryKey(primaryKey);
+
+		if (samlSpIdpConnection == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			}
+
+			throw new NoSuchSpIdpConnectionException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+				primaryKey);
+		}
+
+		return samlSpIdpConnection;
 	}
 
 	/**
@@ -1220,19 +1230,7 @@ public class SamlSpIdpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 */
 	public SamlSpIdpConnection findByPrimaryKey(long samlSpIdpConnectionId)
 		throws NoSuchSpIdpConnectionException, SystemException {
-		SamlSpIdpConnection samlSpIdpConnection = fetchByPrimaryKey(samlSpIdpConnectionId);
-
-		if (samlSpIdpConnection == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					samlSpIdpConnectionId);
-			}
-
-			throw new NoSuchSpIdpConnectionException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				samlSpIdpConnectionId);
-		}
-
-		return samlSpIdpConnection;
+		return findByPrimaryKey((Serializable)samlSpIdpConnectionId);
 	}
 
 	/**
@@ -1245,20 +1243,8 @@ public class SamlSpIdpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	@Override
 	public SamlSpIdpConnection fetchByPrimaryKey(Serializable primaryKey)
 		throws SystemException {
-		return fetchByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the saml sp idp connection with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param samlSpIdpConnectionId the primary key of the saml sp idp connection
-	 * @return the saml sp idp connection, or <code>null</code> if a saml sp idp connection with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlSpIdpConnection fetchByPrimaryKey(long samlSpIdpConnectionId)
-		throws SystemException {
 		SamlSpIdpConnection samlSpIdpConnection = (SamlSpIdpConnection)EntityCacheUtil.getResult(SamlSpIdpConnectionModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpIdpConnectionImpl.class, samlSpIdpConnectionId);
+				SamlSpIdpConnectionImpl.class, primaryKey);
 
 		if (samlSpIdpConnection == _nullSamlSpIdpConnection) {
 			return null;
@@ -1271,20 +1257,20 @@ public class SamlSpIdpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 				session = openSession();
 
 				samlSpIdpConnection = (SamlSpIdpConnection)session.get(SamlSpIdpConnectionImpl.class,
-						Long.valueOf(samlSpIdpConnectionId));
+						primaryKey);
 
 				if (samlSpIdpConnection != null) {
 					cacheResult(samlSpIdpConnection);
 				}
 				else {
 					EntityCacheUtil.putResult(SamlSpIdpConnectionModelImpl.ENTITY_CACHE_ENABLED,
-						SamlSpIdpConnectionImpl.class, samlSpIdpConnectionId,
+						SamlSpIdpConnectionImpl.class, primaryKey,
 						_nullSamlSpIdpConnection);
 				}
 			}
 			catch (Exception e) {
 				EntityCacheUtil.removeResult(SamlSpIdpConnectionModelImpl.ENTITY_CACHE_ENABLED,
-					SamlSpIdpConnectionImpl.class, samlSpIdpConnectionId);
+					SamlSpIdpConnectionImpl.class, primaryKey);
 
 				throw processException(e);
 			}
@@ -1294,6 +1280,18 @@ public class SamlSpIdpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 		}
 
 		return samlSpIdpConnection;
+	}
+
+	/**
+	 * Returns the saml sp idp connection with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param samlSpIdpConnectionId the primary key of the saml sp idp connection
+	 * @return the saml sp idp connection, or <code>null</code> if a saml sp idp connection with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpIdpConnection fetchByPrimaryKey(long samlSpIdpConnectionId)
+		throws SystemException {
+		return fetchByPrimaryKey((Serializable)samlSpIdpConnectionId);
 	}
 
 	/**

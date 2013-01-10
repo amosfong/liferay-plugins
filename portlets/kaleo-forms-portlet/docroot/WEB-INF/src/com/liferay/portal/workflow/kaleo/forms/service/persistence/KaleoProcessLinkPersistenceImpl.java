@@ -14,7 +14,6 @@
 
 package com.liferay.portal.workflow.kaleo.forms.service.persistence;
 
-import com.liferay.portal.NoSuchModelException;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -1184,13 +1183,24 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 	 *
 	 * @param primaryKey the primary key of the kaleo process link
 	 * @return the kaleo process link
-	 * @throws com.liferay.portal.NoSuchModelException if a kaleo process link with the primary key could not be found
+	 * @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessLinkException if a kaleo process link with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public KaleoProcessLink findByPrimaryKey(Serializable primaryKey)
-		throws NoSuchModelException, SystemException {
-		return findByPrimaryKey(((Long)primaryKey).longValue());
+		throws NoSuchKaleoProcessLinkException, SystemException {
+		KaleoProcessLink kaleoProcessLink = fetchByPrimaryKey(primaryKey);
+
+		if (kaleoProcessLink == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			}
+
+			throw new NoSuchKaleoProcessLinkException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+				primaryKey);
+		}
+
+		return kaleoProcessLink;
 	}
 
 	/**
@@ -1203,19 +1213,7 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 	 */
 	public KaleoProcessLink findByPrimaryKey(long kaleoProcessLinkId)
 		throws NoSuchKaleoProcessLinkException, SystemException {
-		KaleoProcessLink kaleoProcessLink = fetchByPrimaryKey(kaleoProcessLinkId);
-
-		if (kaleoProcessLink == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					kaleoProcessLinkId);
-			}
-
-			throw new NoSuchKaleoProcessLinkException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				kaleoProcessLinkId);
-		}
-
-		return kaleoProcessLink;
+		return findByPrimaryKey((Serializable)kaleoProcessLinkId);
 	}
 
 	/**
@@ -1228,20 +1226,8 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 	@Override
 	public KaleoProcessLink fetchByPrimaryKey(Serializable primaryKey)
 		throws SystemException {
-		return fetchByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the kaleo process link with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param kaleoProcessLinkId the primary key of the kaleo process link
-	 * @return the kaleo process link, or <code>null</code> if a kaleo process link with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public KaleoProcessLink fetchByPrimaryKey(long kaleoProcessLinkId)
-		throws SystemException {
 		KaleoProcessLink kaleoProcessLink = (KaleoProcessLink)EntityCacheUtil.getResult(KaleoProcessLinkModelImpl.ENTITY_CACHE_ENABLED,
-				KaleoProcessLinkImpl.class, kaleoProcessLinkId);
+				KaleoProcessLinkImpl.class, primaryKey);
 
 		if (kaleoProcessLink == _nullKaleoProcessLink) {
 			return null;
@@ -1254,20 +1240,20 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 				session = openSession();
 
 				kaleoProcessLink = (KaleoProcessLink)session.get(KaleoProcessLinkImpl.class,
-						Long.valueOf(kaleoProcessLinkId));
+						primaryKey);
 
 				if (kaleoProcessLink != null) {
 					cacheResult(kaleoProcessLink);
 				}
 				else {
 					EntityCacheUtil.putResult(KaleoProcessLinkModelImpl.ENTITY_CACHE_ENABLED,
-						KaleoProcessLinkImpl.class, kaleoProcessLinkId,
+						KaleoProcessLinkImpl.class, primaryKey,
 						_nullKaleoProcessLink);
 				}
 			}
 			catch (Exception e) {
 				EntityCacheUtil.removeResult(KaleoProcessLinkModelImpl.ENTITY_CACHE_ENABLED,
-					KaleoProcessLinkImpl.class, kaleoProcessLinkId);
+					KaleoProcessLinkImpl.class, primaryKey);
 
 				throw processException(e);
 			}
@@ -1277,6 +1263,18 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 		}
 
 		return kaleoProcessLink;
+	}
+
+	/**
+	 * Returns the kaleo process link with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param kaleoProcessLinkId the primary key of the kaleo process link
+	 * @return the kaleo process link, or <code>null</code> if a kaleo process link with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public KaleoProcessLink fetchByPrimaryKey(long kaleoProcessLinkId)
+		throws SystemException {
+		return fetchByPrimaryKey((Serializable)kaleoProcessLinkId);
 	}
 
 	/**

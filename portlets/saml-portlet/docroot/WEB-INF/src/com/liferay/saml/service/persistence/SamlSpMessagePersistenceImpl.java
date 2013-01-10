@@ -14,7 +14,6 @@
 
 package com.liferay.saml.service.persistence;
 
-import com.liferay.portal.NoSuchModelException;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -711,13 +710,24 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 *
 	 * @param primaryKey the primary key of the saml sp message
 	 * @return the saml sp message
-	 * @throws com.liferay.portal.NoSuchModelException if a saml sp message with the primary key could not be found
+	 * @throws com.liferay.saml.NoSuchSpMessageException if a saml sp message with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
 	public SamlSpMessage findByPrimaryKey(Serializable primaryKey)
-		throws NoSuchModelException, SystemException {
-		return findByPrimaryKey(((Long)primaryKey).longValue());
+		throws NoSuchSpMessageException, SystemException {
+		SamlSpMessage samlSpMessage = fetchByPrimaryKey(primaryKey);
+
+		if (samlSpMessage == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			}
+
+			throw new NoSuchSpMessageException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+				primaryKey);
+		}
+
+		return samlSpMessage;
 	}
 
 	/**
@@ -730,18 +740,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 */
 	public SamlSpMessage findByPrimaryKey(long samlSpMessageId)
 		throws NoSuchSpMessageException, SystemException {
-		SamlSpMessage samlSpMessage = fetchByPrimaryKey(samlSpMessageId);
-
-		if (samlSpMessage == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + samlSpMessageId);
-			}
-
-			throw new NoSuchSpMessageException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				samlSpMessageId);
-		}
-
-		return samlSpMessage;
+		return findByPrimaryKey((Serializable)samlSpMessageId);
 	}
 
 	/**
@@ -754,20 +753,8 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	@Override
 	public SamlSpMessage fetchByPrimaryKey(Serializable primaryKey)
 		throws SystemException {
-		return fetchByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the saml sp message with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param samlSpMessageId the primary key of the saml sp message
-	 * @return the saml sp message, or <code>null</code> if a saml sp message with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public SamlSpMessage fetchByPrimaryKey(long samlSpMessageId)
-		throws SystemException {
 		SamlSpMessage samlSpMessage = (SamlSpMessage)EntityCacheUtil.getResult(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
-				SamlSpMessageImpl.class, samlSpMessageId);
+				SamlSpMessageImpl.class, primaryKey);
 
 		if (samlSpMessage == _nullSamlSpMessage) {
 			return null;
@@ -780,20 +767,19 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 				session = openSession();
 
 				samlSpMessage = (SamlSpMessage)session.get(SamlSpMessageImpl.class,
-						Long.valueOf(samlSpMessageId));
+						primaryKey);
 
 				if (samlSpMessage != null) {
 					cacheResult(samlSpMessage);
 				}
 				else {
 					EntityCacheUtil.putResult(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
-						SamlSpMessageImpl.class, samlSpMessageId,
-						_nullSamlSpMessage);
+						SamlSpMessageImpl.class, primaryKey, _nullSamlSpMessage);
 				}
 			}
 			catch (Exception e) {
 				EntityCacheUtil.removeResult(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
-					SamlSpMessageImpl.class, samlSpMessageId);
+					SamlSpMessageImpl.class, primaryKey);
 
 				throw processException(e);
 			}
@@ -803,6 +789,18 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 		}
 
 		return samlSpMessage;
+	}
+
+	/**
+	 * Returns the saml sp message with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param samlSpMessageId the primary key of the saml sp message
+	 * @return the saml sp message, or <code>null</code> if a saml sp message with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpMessage fetchByPrimaryKey(long samlSpMessageId)
+		throws SystemException {
+		return fetchByPrimaryKey((Serializable)samlSpMessageId);
 	}
 
 	/**
