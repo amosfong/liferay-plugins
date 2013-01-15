@@ -1003,7 +1003,6 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 			fileEntryToolbarChildren.push(
 				{
 					handler: function(event) {
-						var LANG = A.Lang
 						var UA = A.UA;
 						var WIN = A.config.win;
 
@@ -1049,19 +1048,46 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 
 						var webDavUrl = '<%= manualCheckInRequiredWebDavURL.toString() %>';
 
+						var checkOutURL = '<%= checkOutURL.toString() %>';
+
 						if (webDavUrl && UA.ie) {
 							try {
 								var executor = new WIN.ActiveXObject('SharePoint.OpenDocuments');
 
 								executor.EditDocument(webDavUrl);
+
+								A.io.request(
+									checkOutURL,
+									{
+										method: 'POST',
+										after: {
+											success: function(event, id, obj) {
+												location.href = "<%= currentURL %>";
+											}
+										}
+									}
+								);
 							}
 							catch (exception) {
-								var errorMessage = LANG.sub(
+								var errorMessage = A.Lang.sub(
 									Liferay.Language.get('cannot-open-the-requested-document-due-to-the-following-reason'),
 									[exception.message]
 								);
 
-								alert(errorMessage);
+								var documentContainer = A.one('.lfr-asset-column-details');
+
+								var existingMessage = documentContainer.one('.portlet-msg-error');
+
+								if (existingMessage) {
+									existingMessage.setContent(errorMessage);
+								}
+								else {
+									var output = A.Node.create('<div class="lfr-message-response portlet-msg-error" />');
+
+									output.html(errorMessage);
+
+									documentContainer.prepend(output);
+								}
 							}
 						}
 					},

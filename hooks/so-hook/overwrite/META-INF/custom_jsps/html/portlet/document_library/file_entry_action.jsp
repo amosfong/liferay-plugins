@@ -166,7 +166,7 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 							manualCheckInRequiredWebDavURL.append("/document_library");
 							manualCheckInRequiredWebDavURL.append(sb.toString());
 
-							String taglibOnClick = "Liferay.fire('" + liferayPortletResponse.getNamespace() + "openDocument', {webDavUrl: '" + manualCheckInRequiredWebDavURL.toString() + "'});";
+							String taglibOnClick = liferayPortletResponse.getNamespace() + "checkOutAndOpen('" + checkOutURL.toString() + "', '" + manualCheckInRequiredWebDavURL.toString() + "');";
 					%>
 
 							<liferay-ui:icon
