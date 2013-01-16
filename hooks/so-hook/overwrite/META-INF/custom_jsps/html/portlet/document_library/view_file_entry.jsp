@@ -481,9 +481,15 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 													url="<%= DLUtil.getPreviewURL(fileEntry, curFileVersion, themeDisplay, StringPool.BLANK) %>"
 												/>
 
-												<portlet:renderURL var="viewFileVersionURL">
+												<portlet:renderURL var="viewFileEntryURL">
 													<portlet:param name="struts_action" value="/document_library/view_file_entry" />
 													<portlet:param name="redirect" value="<%= redirect %>" />
+													<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
+												</portlet:renderURL>
+
+												<portlet:renderURL var="viewFileVersionURL">
+													<portlet:param name="struts_action" value="/document_library/view_file_entry" />
+													<portlet:param name="redirect" value="<%= viewFileEntryURL %>" />
 													<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
 													<portlet:param name="version" value="<%= curFileVersion.getVersion() %>" />
 												</portlet:renderURL>
@@ -493,12 +499,6 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 													label="<%= true %>"
 													url="<%= viewFileVersionURL %>"
 												/>
-
-												<portlet:renderURL var="viewFileEntryURL">
-													<portlet:param name="struts_action" value="/document_library/view_file_entry" />
-													<portlet:param name="redirect" value="<%= redirect %>" />
-													<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
-												</portlet:renderURL>
 
 												<c:if test="<%= showActions && (i != 0) && (curFileVersion.getStatus() == WorkflowConstants.STATUS_APPROVED) && DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.UPDATE) && (!fileEntry.isCheckedOut() || fileEntry.hasLock()) %>">
 													<portlet:actionURL var="revertURL">
