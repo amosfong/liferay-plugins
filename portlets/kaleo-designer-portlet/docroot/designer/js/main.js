@@ -587,7 +587,6 @@ AUI.add(
 								var xmlNode = XMLUtil.createObj(item.xmlType);
 
 								buffer.push(xmlNode.open, XMLUtil.create('name', name));
-
 								
 								if (description) {
 									buffer.push(XMLUtil.create('description', cdata(jsonStringify(description))));
@@ -596,7 +595,7 @@ AUI.add(
 								if (metadata) {
 									buffer.push(XMLUtil.create('metadata', cdata(jsonStringify(metadata))));
 								}
-								
+
 								instance._appendXMLActions(buffer, item);
 
 								if (initial) {
@@ -611,7 +610,6 @@ AUI.add(
 									buffer.push(XMLUtil.create('scriptLanguage', scriptLanguage));
 								}
 
-								
 								instance._appendXMLAssignments(buffer, item);
 								instance._appendXMLTransitions(buffer, item);
 
