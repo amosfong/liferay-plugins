@@ -41,9 +41,9 @@ import org.w3c.dom.Document;
 public class MetadataUtil {
 
 	public static InputStream getMetadata(String url) {
-		try {
-			GetMethod getMethod = new GetMethod(url);
+		GetMethod getMethod = new GetMethod(url);
 
+		try {
 			_httpClient.executeMethod(getMethod);
 
 			if (getMethod.getStatusCode() != HttpStatus.SC_OK) {
@@ -70,6 +70,9 @@ public class MetadataUtil {
 		}
 		catch (Exception e) {
 			_log.warn("Unable to get metadata from " + url, e);
+		}
+		finally {
+			getMethod.releaseConnection();
 		}
 
 		return null;
