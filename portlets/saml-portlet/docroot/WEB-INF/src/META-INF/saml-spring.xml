@@ -75,11 +75,11 @@
 		<constructor-arg ref="org.apache.commons.httpclient.params.HttpClientParams" />
 		<constructor-arg ref="org.apache.commons.httpclient.HttpConnectionManager" />
 	</bean>
+	<bean id="org.apache.commons.httpclient.HttpConnectionManager" class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager" destroy-method="shutdown" />
 	<bean id="org.apache.commons.httpclient.params.HttpClientParams" class="org.apache.commons.httpclient.params.HttpClientParams">
 		<property name="connectionManagerTimeout" value="60000" />
 		<property name="soTimeout" value="60000" />
 	</bean>
-	<bean id="org.apache.commons.httpclient.HttpConnectionManager" class="org.apache.commons.httpclient.MultiThreadedHttpConnectionManager" destroy-method="shutdown" />
 	<bean id="org.apache.velocity.app.VelocityEngine" class="com.liferay.saml.util.VelocityEngineFactory" factory-method="getVelocityEngine" />
 	<bean id="org.opensaml.common.IdentifierGenerator" class="com.liferay.saml.util.SamlIdentifierGenerator" />
 	<bean id="org.opensaml.xml.parse.ParserPool" class="org.opensaml.xml.parse.BasicParserPool" />
