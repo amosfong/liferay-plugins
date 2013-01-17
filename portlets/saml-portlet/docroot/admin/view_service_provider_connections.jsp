@@ -18,6 +18,7 @@
 
 <%
 PortletURL portletURL = renderResponse.createRenderURL();
+
 portletURL.setParameter("tabs1", "service-provider-connections");
 %>
 
