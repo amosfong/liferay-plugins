@@ -36,6 +36,8 @@ long fileEntryId = fileEntry.getFileEntryId();
 long folderId = fileEntry.getFolderId();
 String extension = fileEntry.getExtension();
 String title = fileEntry.getTitle();
+boolean checkedOut = fileEntry.isCheckedOut();
+boolean hasLock = fileEntry.hasLock();
 
 Folder folder = fileEntry.getFolder();
 FileVersion fileVersion = (FileVersion)request.getAttribute(WebKeys.DOCUMENT_LIBRARY_FILE_VERSION);
@@ -160,7 +162,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 		<aui:column columnWidth="<%= 65 %>" cssClass="lfr-asset-column-details" first="<%= true %>">
 			<c:if test="<%= (fileEntry.getLock() != null) && DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.UPDATE) %>">
 				<c:choose>
-					<c:when test="<%= fileEntry.hasLock() %>">
+					<c:when test="<%= hasLock %>">
 						<div class="portlet-msg-lock portlet-msg-success">
 							<c:choose>
 								<c:when test="<%= lock.isNeverExpires() %>">
@@ -500,7 +502,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 													url="<%= viewFileVersionURL %>"
 												/>
 
-												<c:if test="<%= showActions && (i != 0) && (curFileVersion.getStatus() == WorkflowConstants.STATUS_APPROVED) && DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.UPDATE) && (!fileEntry.isCheckedOut() || fileEntry.hasLock()) %>">
+												<c:if test="<%= (!checkedOut || hasLock) && showActions && (i != 0) && (curFileVersion.getStatus() == WorkflowConstants.STATUS_APPROVED) && DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.UPDATE) %>">
 													<portlet:actionURL var="revertURL">
 														<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
 														<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.REVERT %>" />
@@ -517,7 +519,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 													/>
 												</c:if>
 
-												<c:if test="<%= DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.DELETE) && (curFileVersion.getStatus() == WorkflowConstants.STATUS_APPROVED) && (fileEntry.getModel() instanceof DLFileEntry) && (((DLFileEntry)fileEntry.getModel()).getFileVersionsCount(WorkflowConstants.STATUS_APPROVED) > 1) %>">
+												<c:if test="<%= (!checkedOut || hasLock) && DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.DELETE) && (curFileVersion.getStatus() == WorkflowConstants.STATUS_APPROVED) && (fileEntry.getModel() instanceof DLFileEntry) && (((DLFileEntry)fileEntry.getModel()).getFileVersionsCount(WorkflowConstants.STATUS_APPROVED) > 1) %>">
 													<portlet:actionURL var="deleteURL">
 														<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
 														<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
@@ -594,7 +596,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 											<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
 										</portlet:renderURL>
 
-										<c:if test="<%= (fileVersion.getStatus() == WorkflowConstants.STATUS_APPROVED) && DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.UPDATE) && (!fileEntry.isCheckedOut() || fileEntry.hasLock()) %>">
+										<c:if test="<%= (!checkedOut || hasLock) && (fileVersion.getStatus() == WorkflowConstants.STATUS_APPROVED) && DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.UPDATE) %>">
 											<portlet:actionURL var="revertURL">
 												<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
 												<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.REVERT %>" />
@@ -611,7 +613,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 											/>
 										</c:if>
 
-										<c:if test="<%= DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.DELETE) && (fileVersion.getStatus() == WorkflowConstants.STATUS_APPROVED) && (fileEntry.getModel() instanceof DLFileEntry) && (((DLFileEntry)fileEntry.getModel()).getFileVersionsCount(WorkflowConstants.STATUS_APPROVED) > 1) %>">
+										<c:if test="<%= (!checkedOut || hasLock) && DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.DELETE) && (fileVersion.getStatus() == WorkflowConstants.STATUS_APPROVED) && (fileEntry.getModel() instanceof DLFileEntry) && (((DLFileEntry)fileEntry.getModel()).getFileVersionsCount(WorkflowConstants.STATUS_APPROVED) > 1) %>">
 											<portlet:actionURL var="deleteURL">
 												<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
 												<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
@@ -655,7 +657,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 		<aui:column columnWidth="<%= 35 %>" cssClass="lfr-asset-column-details context-pane" last="<%= true %>">
 			<div class="body-row asset-details">
 				<div class="asset-details-content">
-					<h3 class="version <%= fileEntry.isCheckedOut() ? "document-locked" : StringPool.BLANK %>">
+					<h3 class="version <%= checkedOut ? "document-locked" : StringPool.BLANK %>">
 						<liferay-ui:message key="version" /> <%= HtmlUtil.escape(fileVersion.getVersion()) %>
 					</h3>
 
@@ -957,7 +959,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 	</c:if>
 
 	<c:if test="<%= DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.UPDATE) %>">
-		<c:if test="<%= !fileEntry.isCheckedOut() %>">
+		<c:if test="<%= !checkedOut %>">
 			fileEntryToolbarChildren.push(
 				{
 
@@ -978,28 +980,30 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 			<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
 		</portlet:actionURL>
 
-		fileEntryToolbarChildren.push(
-			{
-				<portlet:renderURL var="editURL">
-					<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
-					<portlet:param name="redirect" value="<%= currentURL %>" />
-					<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
-				</portlet:renderURL>
+		<c:if test= "<%= !checkedOut || hasLock %>">
+			fileEntryToolbarChildren.push(
+				{
+					<portlet:renderURL var="editURL">
+						<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
+						<portlet:param name="redirect" value="<%= currentURL %>" />
+						<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
+					</portlet:renderURL>
 
-				handler: function(event) {
-					location.href = '<%= editURL %>';
-				},
-				icon: 'edit',
-				label: '<%= UnicodeLanguageUtil.get(pageContext, "edit") %>'
-			}
-		);
+					handler: function(event) {
+						location.href = '<%= editURL %>';
+					},
+					icon: 'edit',
+					label: '<%= UnicodeLanguageUtil.get(pageContext, "edit") %>'
+				}
+			);
+		</c:if>
 
 
 		<%
 		String curExtension = fileEntry.getExtension();
 		%>
 
-		<c:if test='<%= portletDisplay.isWebDAVEnabled() && BrowserSnifferUtil.isIe(request) && (curExtension.equalsIgnoreCase("doc") || curExtension.equalsIgnoreCase("docx") || curExtension.equalsIgnoreCase("dot") || curExtension.equalsIgnoreCase("ppt") || curExtension.equalsIgnoreCase("pptx") || curExtension.equalsIgnoreCase("xls") || curExtension.equalsIgnoreCase("xlsx")) %>'>
+		<c:if test='<%= (!checkedOut || hasLock) && portletDisplay.isWebDAVEnabled() && BrowserSnifferUtil.isIe(request) && (curExtension.equalsIgnoreCase("doc") || curExtension.equalsIgnoreCase("docx") || curExtension.equalsIgnoreCase("dot") || curExtension.equalsIgnoreCase("ppt") || curExtension.equalsIgnoreCase("pptx") || curExtension.equalsIgnoreCase("xls") || curExtension.equalsIgnoreCase("xlsx")) %>'>
 			fileEntryToolbarChildren.push(
 				{
 					handler: function(event) {
@@ -1097,7 +1101,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 			);
 		</c:if>
 
-		<c:if test="<%= fileEntry.hasLock() || (permissionChecker.isGroupAdmin(fileEntry.getRepositoryId()) && fileEntry.isCheckedOut()) %>">
+		<c:if test="<%= hasLock || (permissionChecker.isGroupAdmin(fileEntry.getRepositoryId()) && checkedOut) %>">
 			fileEntryToolbarChildren.push(
 				{
 					<portlet:renderURL var="checkinURL">
@@ -1125,21 +1129,23 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 			);
 		</c:if>
 
-		fileEntryToolbarChildren.push(
-			{
-				<portlet:renderURL var="moveURL">
-					<portlet:param name="struts_action" value="/document_library/move_file_entry" />
-					<portlet:param name="redirect" value="<%= currentURL %>" />
-					<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
-				</portlet:renderURL>
+		<c:if test="<%= !checkedOut || hasLock %>">
+			fileEntryToolbarChildren.push(
+				{
+					<portlet:renderURL var="moveURL">
+						<portlet:param name="struts_action" value="/document_library/move_file_entry" />
+						<portlet:param name="redirect" value="<%= currentURL %>" />
+						<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
+					</portlet:renderURL>
 
-				handler: function(event) {
-					location.href = '<%= moveURL %>';
-				},
-				icon: 'move',
-				label: '<%= UnicodeLanguageUtil.get(pageContext, "move") %>'
-			}
-		);
+					handler: function(event) {
+						location.href = '<%= moveURL %>';
+					},
+					icon: 'move',
+					label: '<%= UnicodeLanguageUtil.get(pageContext, "move") %>'
+				}
+			);
+		</c:if>
 	</c:if>
 
 	<c:if test="<%= DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.PERMISSIONS) %>">
@@ -1178,7 +1184,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 		);
 	</c:if>
 
-	<c:if test="<%= DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.DELETE) %>">
+	<c:if test="<%= (!checkedOut || hasLock) && DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.DELETE) %>">
 		fileEntryToolbarChildren.push(
 			{
 				<portlet:renderURL var="viewFolderURL">
