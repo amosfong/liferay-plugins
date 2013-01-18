@@ -980,7 +980,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 			<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
 		</portlet:actionURL>
 
-		<c:if test= "<%= !checkedOut || hasLock %>">
+		<c:if test="<%= !checkedOut || hasLock %>">
 			fileEntryToolbarChildren.push(
 				{
 					<portlet:renderURL var="editURL">
