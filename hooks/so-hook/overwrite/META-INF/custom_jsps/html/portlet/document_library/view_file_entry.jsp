@@ -475,20 +475,20 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 
 								versionsSearchContainer.setResults(fileVersionsSubset);
 								versionsSearchContainer.setTotal(fileVersionsCount);
-
 								%>
 
 								<c:if test="<%= fileVersionsSubset.size() > 5 %>">
 									<div class="lfr-search-container">
 										<div class="taglib-search-iterator-page-iterator-top">
 											<liferay-ui:search-paginator
+													id="versionsSearchContainerTop"
 													searchContainer="<%= versionsSearchContainer %>"
-													id="versionsSearchContainerTop" />
+													/>
 										</div>
 									</div>
 								</c:if>
 
-								<liferay-ui:search-container searchContainer="<%= versionsSearchContainer %>" >
+								<liferay-ui:search-container searchContainer="<%= versionsSearchContainer %>">
 
 									<liferay-ui:search-container-results
 											results="<%= fileVersionsSubset %>"
@@ -498,8 +498,8 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 									<liferay-ui:search-container-row
 											className="com.liferay.portal.kernel.repository.model.FileVersion"
 											escapedModel="<%= false %>"
-											modelVar="curFileVersion"
 											indexVar="i"
+											modelVar="curFileVersion"
 											>
 
 										<c:if test="<%= curFileVersion.isApproved() %>">
@@ -600,8 +600,9 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 								<div class="lfr-search-container">
 									<div class="taglib-search-iterator-page-iterator-bottom">
 										<liferay-ui:search-paginator
+												id="versionsSearchContainerBottom"
 												searchContainer="<%= versionsSearchContainer %>"
-												id="versionsSearchContainerBottom"/>
+												/>
 									</div>
 								</div>
 
