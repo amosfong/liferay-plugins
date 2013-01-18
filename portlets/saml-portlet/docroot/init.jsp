@@ -36,6 +36,7 @@ page import="com.liferay.saml.DuplicateSamlSpIdpConnectionSamlIdpEntityIdExcepti
 page import="com.liferay.saml.SamlIdpSpConnectionMetadataUrlException" %><%@
 page import="com.liferay.saml.SamlIdpSpConnectionMetadataXmlException" %><%@
 page import="com.liferay.saml.SamlIdpSpConnectionNameException" %><%@
+page import="com.liferay.saml.SamlIdpSpConnectionSamlSpEntityIdException" %><%@
 page import="com.liferay.saml.SamlSpIdpConnectionMetadataUrlException" %><%@
 page import="com.liferay.saml.SamlSpIdpConnectionMetadataXmlException" %><%@
 page import="com.liferay.saml.SamlSpIdpConnectionSamlIdpEntityIdException" %><%@
