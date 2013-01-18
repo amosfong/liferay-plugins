@@ -346,7 +346,7 @@ else if (dlFileEntryType != null) {
 				<aui:input label="major-revision" name="majorVersion" type="radio" value="true" />
 				<aui:input checked="true" label="minor-revision" name="majorVersion" type="radio" value="false" />
 
-				<aui:input name="changeLog" />
+				<aui:input cssClass="lfr-input-text-container" name="changeLog" type="text" ignoreRequestValue="<%= true %>"/>
 			</aui:field-wrapper>
 		</c:if>
 
