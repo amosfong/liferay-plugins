@@ -1059,12 +1059,12 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 								A.io.request(
 									checkOutURL,
 									{
-										method: 'POST',
 										after: {
 											success: function(event, id, obj) {
 												location.href = "<%= currentURL %>";
 											}
-										}
+										},
+										method: 'POST'
 									}
 								);
 							}
