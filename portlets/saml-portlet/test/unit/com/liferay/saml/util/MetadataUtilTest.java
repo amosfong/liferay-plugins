@@ -29,18 +29,20 @@ public class MetadataUtilTest {
 	public static void setUp() throws Exception {
 		OpenSamlBootstrap.bootstrap();
 
-		new MetadataUtil().setParserPool(new BasicParserPool());
+		MetadataUtil metadataUtil = new MetadataUtil();
+		
+		metadataUtil.setParserPool(new BasicParserPool());
 	}
 
 	@Test
 	public void testParseMetadata() throws Exception {
-		InputStream metadataInputStream = getClass().getResourceAsStream(
+		InputStream inputStream = getClass().getResourceAsStream(
 			"dependencies/entities-descriptor.xml");
 
 		String metadata = MetadataUtil.parseMetadataXml(
-			metadataInputStream, "https://saml.liferay.com/shibboleth");
+			inputStream, "https://saml.liferay.com/shibboleth");
 
-		Assert.assertNotNull("Can't find metadata", metadata);
+		Assert.assertNotNull(metadata);
 	}
 
 }

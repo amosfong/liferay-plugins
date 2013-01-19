@@ -97,7 +97,7 @@ public class SamlUtil {
 		if ((entityDescriptors != null) && !entityDescriptors.isEmpty()) {
 			for (EntityDescriptor entityDescriptor : entityDescriptors) {
 				if (DatatypeHelper.safeEquals(
-					entityDescriptor.getEntityID(), entityId)) {
+						entityDescriptor.getEntityID(), entityId)) {
 
 					return entityDescriptor;
 				}
