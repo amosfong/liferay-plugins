@@ -587,7 +587,7 @@ AUI.add(
 								var xmlNode = XMLUtil.createObj(item.xmlType);
 
 								buffer.push(xmlNode.open, XMLUtil.create('name', name));
-								
+
 								if (description) {
 									buffer.push(XMLUtil.create('description', cdata(jsonStringify(description))));
 								}
