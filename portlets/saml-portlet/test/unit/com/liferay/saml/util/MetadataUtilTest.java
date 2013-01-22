@@ -17,9 +17,11 @@ package com.liferay.saml.util;
 import java.io.InputStream;
 
 import org.junit.Assert;
-import org.junit.Test;
 import org.junit.BeforeClass;
+import org.junit.Test;
+
 import org.opensaml.xml.parse.BasicParserPool;
+
 /**
  * @author Mika Koivisto
  */
@@ -30,7 +32,7 @@ public class MetadataUtilTest {
 		OpenSamlBootstrap.bootstrap();
 
 		MetadataUtil metadataUtil = new MetadataUtil();
-		
+
 		metadataUtil.setParserPool(new BasicParserPool());
 	}
 
