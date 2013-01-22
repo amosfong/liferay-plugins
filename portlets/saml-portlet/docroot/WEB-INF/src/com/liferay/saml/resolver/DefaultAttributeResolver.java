@@ -421,16 +421,7 @@ public class DefaultAttributeResolver implements AttributeResolver {
 	}
 
 	protected String[] getAttributeNames(String entityId) {
-		String[] samlIdpMetadataAttributeNames = PropsUtil.getArray(
-			PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTE_NAMES,
-			new Filter(entityId));
-
-		if (samlIdpMetadataAttributeNames == null) {
-			samlIdpMetadataAttributeNames = PropsUtil.getArray(
-				PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTE_NAMES);
-		}
-
-		return samlIdpMetadataAttributeNames;
+		return MetadataManagerUtil.getAttributeNames(entityId);
 	}
 
 	protected List<Attribute> getSalesForceAttributes(

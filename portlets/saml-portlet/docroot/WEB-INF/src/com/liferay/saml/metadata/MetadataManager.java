@@ -31,6 +31,8 @@ public interface MetadataManager {
 
 	public int getAssertionLifetime(String entityId);
 
+	public String[] getAttributeNames(String entityId);
+
 	public long getClockSkew();
 
 	public String getDefaultIdpEntityId();

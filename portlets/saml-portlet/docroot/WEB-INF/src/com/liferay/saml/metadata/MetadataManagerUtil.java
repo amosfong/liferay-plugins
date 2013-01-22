@@ -33,6 +33,10 @@ public class MetadataManagerUtil {
 		return getMetadataManager().getAssertionLifetime(entityId);
 	}
 
+	public static String[] getAttributeNames(String entityId) {
+		return getMetadataManager().getAttributeNames(entityId);
+	}
+
 	public static long getClockSkew() {
 		return getMetadataManager().getClockSkew();
 	}

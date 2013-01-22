@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.auth.CompanyThreadLocal;
 import com.liferay.saml.model.SamlIdpSpConnection;
@@ -103,6 +104,40 @@ public class MetadataManagerImpl implements MetadataManager {
 
 		return GetterUtil.getInteger(
 			samlIdpAssertionLifetime, SAML_IDP_ASSERTION_LIFETIME_DEFAULT);
+	}
+
+	public String[] getAttributeNames(String entityId) {
+		long companyId = CompanyThreadLocal.getCompanyId();
+
+		try {
+			SamlIdpSpConnection samlIdpSpConnection =
+				SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnection(
+					companyId, entityId);
+
+			return StringUtil.splitLines(
+				samlIdpSpConnection.getAttributeNames());
+		}
+		catch (Exception e) {
+		}
+
+		String attributeNames = PortletPrefsPropsUtil.getString(
+			PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTE_NAMES.concat(
+				"[").concat(entityId).concat("]"));
+
+		if (Validator.isNotNull(attributeNames)) {
+			return StringUtil.splitLines(attributeNames);
+		}
+
+		attributeNames = PropsUtil.get(
+			PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTE_NAMES,
+			new Filter(entityId));
+
+		if (Validator.isNotNull(attributeNames)) {
+			return StringUtil.split(attributeNames);
+		}
+
+		return PropsUtil.getArray(
+			PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTE_NAMES);
 	}
 
 	public long getClockSkew() {
