@@ -37,12 +37,23 @@ public class MetadataUtilTest {
 	}
 
 	@Test
-	public void testParseMetadata() throws Exception {
+	public void testParseEntitiesDescriptor() throws Exception {
 		InputStream inputStream = getClass().getResourceAsStream(
 			"dependencies/entities-descriptor.xml");
 
 		String metadata = MetadataUtil.parseMetadataXml(
 			inputStream, "https://saml.liferay.com/shibboleth");
+
+		Assert.assertNotNull(metadata);
+	}
+
+	@Test
+	public void testParseEntityDescriptor() throws Exception {
+		InputStream inputStream = getClass().getResourceAsStream(
+			"dependencies/entity-descriptor.xml");
+
+		String metadata = MetadataUtil.parseMetadataXml(
+			inputStream, "liferaysamlidpdemo");
 
 		Assert.assertNotNull(metadata);
 	}
