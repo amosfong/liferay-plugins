@@ -38,7 +38,9 @@ public class MetadataUtilTest {
 
 	@Test
 	public void testParseEntitiesDescriptor() throws Exception {
-		InputStream inputStream = getClass().getResourceAsStream(
+		Class<?> clazz = getClass();
+
+		InputStream inputStream = clazz.getResourceAsStream(
 			"dependencies/entities-descriptor.xml");
 
 		String metadata = MetadataUtil.parseMetadataXml(
@@ -49,7 +51,9 @@ public class MetadataUtilTest {
 
 	@Test
 	public void testParseEntityDescriptor() throws Exception {
-		InputStream inputStream = getClass().getResourceAsStream(
+		Class<?> clazz = getClass();
+
+		InputStream inputStream = clazz.getResourceAsStream(
 			"dependencies/entity-descriptor.xml");
 
 		String metadata = MetadataUtil.parseMetadataXml(
