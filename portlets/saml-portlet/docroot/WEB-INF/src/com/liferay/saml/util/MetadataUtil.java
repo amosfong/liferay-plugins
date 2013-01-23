@@ -14,11 +14,13 @@
 
 package com.liferay.saml.util;
 
+import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayOutputStream;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.HttpHeaders;
 import com.liferay.portal.kernel.util.StreamUtil;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import java.util.zip.GZIPInputStream;
@@ -66,7 +68,14 @@ public class MetadataUtil {
 				}
 			}
 
-			return inputStream;
+			UnsyncByteArrayOutputStream unsyncByteArrayOutputStream =
+				new UnsyncByteArrayOutputStream();
+
+			StreamUtil.transfer(inputStream, unsyncByteArrayOutputStream);
+
+			byte[] bytes = unsyncByteArrayOutputStream.toByteArray();
+
+			return new ByteArrayInputStream(bytes);
 		}
 		catch (Exception e) {
 			_log.warn("Unable to get metadata from " + url, e);
