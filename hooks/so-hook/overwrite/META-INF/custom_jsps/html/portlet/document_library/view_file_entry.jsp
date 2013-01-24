@@ -452,158 +452,130 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 
 						<c:choose>
 							<c:when test="<%= fileVersionId == fileEntry.getFileVersion().getFileVersionId() %>">
+								<div class="lfr-search-container">
+									<liferay-portlet:renderURL varImpl="viewFileEntryURL">
+										<portlet:param name="struts_action" value="/document_library/view_file_entry" />
+										<portlet:param name="redirect" value="<%= redirect %>" />
+										<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
+									</liferay-portlet:renderURL>
 
-								<%
-								int DEFAULT_VERSIONS_DELTA = 5;
+									<liferay-ui:search-container
+										delta="5"
+										deltaConfigurable="<%= false %>"
+										iteratorURL="<%= viewFileEntryURL %>"
+										var="searchContainter"
+									>
 
-								PortletURL viewFileEntryIteratorURL = renderResponse.createRenderURL();
-								viewFileEntryIteratorURL.setParameter("struts_action", "/document_library/view_file_entry");
-								viewFileEntryIteratorURL.setParameter("redirect", redirect);
-								viewFileEntryIteratorURL.setParameter("fileEntryId", String.valueOf(fileEntry.getFileEntryId()));
+										<%
+										List<FileVersion> fileVersions = fileEntry.getFileVersions(WorkflowConstants.STATUS_APPROVED);
+										%>
 
-								SearchContainer versionsSearchContainer = new SearchContainer(
-									renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, DEFAULT_VERSIONS_DELTA, viewFileEntryIteratorURL, null, null);
+										<liferay-ui:search-container-results
+											results="<%= ListUtil.subList(fileVersions, searchContainter.getStart(), searchContainter.getEnd()) %>"
+											total="<%= fileVersions.size() %>"
+										/>
 
-								// TODO once we can modify core API for Social Office, add paginated method [getFileVersions(int status, int start, int end)]
-								// TODO and this paginated method to fetch only relevant versions, not all of them
-								List<FileVersion> fileVersions = fileEntry.getFileVersions(WorkflowConstants.STATUS_APPROVED);
-
-								List<FileVersion> fileVersionsSubset = ListUtil.subList(
-									fileVersions, versionsSearchContainer.getStart(), versionsSearchContainer.getEnd());
-
-								int fileVersionsCount = fileVersions.size();
-
-								versionsSearchContainer.setResults(fileVersionsSubset);
-								versionsSearchContainer.setTotal(fileVersionsCount);
-								%>
-
-								<c:if test="<%= fileVersionsSubset.size() > 5 %>">
-									<div class="lfr-search-container">
 										<div class="taglib-search-iterator-page-iterator-top">
-											<liferay-ui:search-paginator
-													id="versionsSearchContainerTop"
-													searchContainer="<%= versionsSearchContainer %>"
-													/>
+											<liferay-ui:search-paginator id="searchPaginatorTop" searchContainer="<%= searchContainter %>" type="article" />
 										</div>
-									</div>
-								</c:if>
 
-								<liferay-ui:search-container searchContainer="<%= versionsSearchContainer %>">
-
-									<liferay-ui:search-container-results
-											results="<%= fileVersionsSubset %>"
-											total="<%= fileVersionsCount %>"
-											/>
-
-									<liferay-ui:search-container-row
+										<liferay-ui:search-container-row
 											className="com.liferay.portal.kernel.repository.model.FileVersion"
 											escapedModel="<%= false %>"
 											indexVar="i"
 											modelVar="curFileVersion"
-											>
+										>
 
-										<c:if test="<%= curFileVersion.isApproved() %>">
-											<div class="version">
-												<span class="version-number"><liferay-ui:message key="version" /> <%= curFileVersion.getVersion() %></span>
-												<span class="user-name"><liferay-ui:message key="by" />: <%= curFileVersion.getStatusByUserName() %></span>
+											<c:if test="<%= curFileVersion.isApproved() %>">
+												<div class="version">
+													<span class="version-number"><liferay-ui:message key="version" /> <%= curFileVersion.getVersion() %></span>
+													<span class="user-name"><liferay-ui:message key="by" />: <%= curFileVersion.getStatusByUserName() %></span>
 
-												<div class="extra">
-													<span class="modified-date"><liferay-ui:message key="on" />: <%= dateFormatDateTime.format(curFileVersion.getCreateDate()) %></span>
-													<span class="size"><liferay-ui:message key="size" />: <%= TextFormatter.formatKB(curFileVersion.getSize(), locale) + "k" %></span>
-												</div>
-
-												<c:if test="<%= Validator.isNotNull(curFileVersion.getChangeLog()) %>">
-													<div class="changelog">
-														<%= HtmlUtil.escape(curFileVersion.getChangeLog()) %>
+													<div class="extra">
+														<span class="modified-date"><liferay-ui:message key="on" />: <%= dateFormatDateTime.format(curFileVersion.getCreateDate()) %></span>
+														<span class="size"><liferay-ui:message key="size" />: <%= TextFormatter.formatKB(curFileVersion.getSize(), locale) + "k" %></span>
 													</div>
-												</c:if>
 
-												<div class="actions">
-													<liferay-ui:icon
-														image="download"
-														label="<%= true %>"
-														url="<%= DLUtil.getPreviewURL(fileEntry, curFileVersion, themeDisplay, StringPool.BLANK) %>"
-													/>
+													<c:if test="<%= Validator.isNotNull(curFileVersion.getChangeLog()) %>">
+														<div class="changelog">
+															<%= HtmlUtil.escape(curFileVersion.getChangeLog()) %>
+														</div>
+													</c:if>
 
-													<portlet:renderURL var="viewFileEntryURL">
-														<portlet:param name="struts_action" value="/document_library/view_file_entry" />
-														<portlet:param name="redirect" value="<%= redirect %>" />
-														<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
-													</portlet:renderURL>
+													<div class="actions">
+														<liferay-ui:icon
+															image="download"
+															label="<%= true %>"
+															url="<%= DLUtil.getPreviewURL(fileEntry, curFileVersion, themeDisplay, StringPool.BLANK) %>"
+														/>
 
-												<portlet:renderURL var="viewFileVersionURL">
-													<portlet:param name="struts_action" value="/document_library/view_file_entry" />
-													<portlet:param name="redirect" value="<%= viewFileEntryURL %>" />
-													<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
-													<portlet:param name="version" value="<%= curFileVersion.getVersion() %>" />
-												</portlet:renderURL>
-
-												<liferay-ui:icon
-													image="view"
-													label="<%= true %>"
-													url="<%= viewFileVersionURL %>"
-												/>
-
-												<c:if test="<%= (!checkedOut || hasLock) && showActions && (i != 0) && (curFileVersion.getStatus() == WorkflowConstants.STATUS_APPROVED) && DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.UPDATE) %>">
-													<portlet:actionURL var="revertURL">
-														<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
-														<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.REVERT %>" />
-														<portlet:param name="redirect" value="<%= viewFileEntryURL %>" />
-														<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
-														<portlet:param name="version" value="<%= String.valueOf(curFileVersion.getVersion()) %>" />
-													</portlet:actionURL>
+														<portlet:renderURL var="viewFileVersionURL">
+															<portlet:param name="struts_action" value="/document_library/view_file_entry" />
+															<portlet:param name="redirect" value="<%= currentURL %>" />
+															<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
+															<portlet:param name="version" value="<%= curFileVersion.getVersion() %>" />
+														</portlet:renderURL>
 
 														<liferay-ui:icon
-															image="undo"
+															image="view"
 															label="<%= true %>"
-															message="revert"
-															url="<%= revertURL %>"
+															url="<%= viewFileVersionURL %>"
 														/>
-													</c:if>
 
-												<c:if test="<%= (!checkedOut || hasLock) && DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.DELETE) && (curFileVersion.getStatus() == WorkflowConstants.STATUS_APPROVED) && (fileEntry.getModel() instanceof DLFileEntry) && (((DLFileEntry)fileEntry.getModel()).getFileVersionsCount(WorkflowConstants.STATUS_APPROVED) > 1) %>">
-													<portlet:actionURL var="deleteURL">
-														<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
-														<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
-														<portlet:param name="redirect" value="<%= viewFileEntryURL %>" />
-														<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
-														<portlet:param name="version" value="<%= String.valueOf(curFileVersion.getVersion()) %>" />
-													</portlet:actionURL>
+														<c:if test="<%= (!checkedOut || hasLock) && showActions && (i != 0) && (curFileVersion.getStatus() == WorkflowConstants.STATUS_APPROVED) && DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.UPDATE) %>">
+															<portlet:actionURL var="revertURL">
+																<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
+																<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.REVERT %>" />
+																<portlet:param name="redirect" value="<%= currentURL %>" />
+																<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
+																<portlet:param name="version" value="<%= String.valueOf(curFileVersion.getVersion()) %>" />
+															</portlet:actionURL>
 
-														<liferay-ui:icon-delete
-															label="<%= true %>"
-															message="delete-version"
-															url="<%= deleteURL %>"
-														/>
-													</c:if>
+															<liferay-ui:icon
+																image="undo"
+																label="<%= true %>"
+																message="revert"
+																url="<%= revertURL %>"
+															/>
+														</c:if>
+
+														<c:if test="<%= (!checkedOut || hasLock) && DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.DELETE) && (curFileVersion.getStatus() == WorkflowConstants.STATUS_APPROVED) && (fileEntry.getModel() instanceof DLFileEntry) && (((DLFileEntry)fileEntry.getModel()).getFileVersionsCount(WorkflowConstants.STATUS_APPROVED) > 1) %>">
+															<portlet:actionURL var="deleteURL">
+																<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
+																<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.DELETE %>" />
+																<portlet:param name="redirect" value="<%= currentURL %>" />
+																<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
+																<portlet:param name="version" value="<%= String.valueOf(curFileVersion.getVersion()) %>" />
+															</portlet:actionURL>
+
+															<liferay-ui:icon-delete
+																label="<%= true %>"
+																message="delete-version"
+																url="<%= deleteURL %>"
+															/>
+														</c:if>
+													</div>
 												</div>
-											</div>
 
-											<liferay-ui:panel collapsible="<%= true %>" cssClass="lfr-document-library-comments" extended="<%= true %>" id='<%= "documentLibraryCommentsPanel" + curFileVersion.getFileVersionId() %>' persistState="<%= false %>" title="comments">
-												<liferay-ui:discussion
-													className="<%= DLFileVersion.class.getName() %>"
-													classPK="<%= curFileVersion.getFileVersionId() %>"
-													formAction="<%= discussionURL %>"
-													formName='<%= "fm2" + curFileVersion.getFileVersionId() %>'
-													ratingsEnabled="<%= enableCommentRatings %>"
-													redirect="<%= currentURL %>"
-													subject="<%= title %>"
-													userId="<%= curFileVersion.getUserId() %>"
-												/>
-											</liferay-ui:panel>
-										</c:if>
+												<liferay-ui:panel collapsible="<%= true %>" cssClass="lfr-document-library-comments" extended="<%= true %>" id='<%= "documentLibraryCommentsPanel" + curFileVersion.getFileVersionId() %>' persistState="<%= false %>" title="comments">
+													<liferay-ui:discussion
+														className="<%= DLFileVersion.class.getName() %>"
+														classPK="<%= curFileVersion.getFileVersionId() %>"
+														formAction="<%= discussionURL %>"
+														formName='<%= "fm2" + curFileVersion.getFileVersionId() %>'
+														ratingsEnabled="<%= enableCommentRatings %>"
+														redirect="<%= currentURL %>"
+														subject="<%= title %>"
+														userId="<%= curFileVersion.getUserId() %>"
+													/>
+												</liferay-ui:panel>
+											</c:if>
+										</liferay-ui:search-container-row>
 
-									</liferay-ui:search-container-row>
-
-								</liferay-ui:search-container>
-
-								<div class="lfr-search-container">
-									<div class="taglib-search-iterator-page-iterator-bottom">
-										<liferay-ui:search-paginator
-												id="versionsSearchContainerBottom"
-												searchContainer="<%= versionsSearchContainer %>"
-												/>
-									</div>
+										<div class="taglib-search-iterator-page-iterator-bottom">
+											<liferay-ui:search-paginator id="searchPaginatorBottom" searchContainer="<%= searchContainter %>" type="article" />
+										</div>
+									</liferay-ui:search-container>
 								</div>
 
 								<c:if test="<%= MBMessageLocalServiceUtil.getDiscussionMessagesCount(DLFileEntryConstants.getClassName(), fileEntryId, WorkflowConstants.STATUS_ANY) != 0 %>">
