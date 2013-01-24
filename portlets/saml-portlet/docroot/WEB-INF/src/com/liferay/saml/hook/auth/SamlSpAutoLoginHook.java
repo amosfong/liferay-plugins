@@ -49,7 +49,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.opensaml.saml2.core.Attribute;
-import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.NameIDType;
 
 /**
@@ -122,19 +121,20 @@ public class SamlSpAutoLoginHook extends BaseAutoLogin {
 
 			HttpSession session = request.getSession();
 
-			NameID nameId = (NameID)session.getAttribute(
-				PortletWebKeys.SAML_SP_NAME_ID);
+			String nameIdFormat = session.getAttribute(
+				PortletWebKeys.SAML_SP_NAME_ID_FORMAT);
+			String nameIdValue = session.getAttribute(
+				PortletWebKeys.SAML_SP_NAME_ID_VALUE);
 
-			if (nameId == null) {
+			if (Validator.isNull(nameIdFormat) ||
+				Validator.isNull(nameIdValue)) {
+
 				return null;
 			}
 
 			User user = null;
 
 			long companyId = PortalUtil.getCompanyId(request);
-
-			String nameIdFormat = nameId.getFormat();
-			String nameIdValue = nameId.getValue();
 
 			if (GetterUtil.getBoolean(
 					PropsUtil.get(

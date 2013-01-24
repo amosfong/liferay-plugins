@@ -470,7 +470,10 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 		HttpSession session = request.getSession();
 
 		session.setAttribute(PortletWebKeys.SAML_SP_ATTRIBUTES, attributes);
-		session.setAttribute(PortletWebKeys.SAML_SP_NAME_ID, nameId);
+		session.setAttribute(
+			PortletWebKeys.SAML_SP_NAME_ID_FORMAT, nameId.getFormat());
+		session.setAttribute(
+			PortletWebKeys.SAML_SP_NAME_ID_VALUE, nameId.getValue());
 
 		StringBundler sb = new StringBundler(3);
 

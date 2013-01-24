@@ -30,7 +30,10 @@ public interface PortletWebKeys {
 
 	public static final String SAML_SP_ATTRIBUTES = "SAML_SP_ATTRIBUTES";
 
-	public static final String SAML_SP_NAME_ID = "SAML_SP_NAME_ID";
+	public static final String SAML_SP_NAME_ID_FORMAT =
+		"SAML_SP_NAME_ID_FORMAT";
+
+	public static final String SAML_SP_NAME_ID_VALUE = "SAML_SP_NAME_ID_VALUE";
 
 	public static final String SAML_SSO_REQUEST_CONTEXT =
 		"SAML_SSO_REQUEST_CONTEXT";
