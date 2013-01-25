@@ -27,7 +27,7 @@ boolean ldapImportEnabled = PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SA
 	<aui:fieldset label="general">
 		<aui:input label="assertion-signature-required" name='<%= "settings--" + PortletPropsKeys.SAML_SP_ASSERTION_SIGNATURE_REQUIRED + "--" %>' type="checkbox" value="<%= MetadataManagerUtil.isWantAssertionsSigned() %>" />
 
-		<aui:input label="clock-skew" name='<%= "settings--" + PortletPropsKeys.SAML_SP_CLOCK_SKEW + "--" %>' value="<%= MetadataManagerUtil.getClockSkew() %>" />
+		<aui:input helpMessage="clock-skew-help" label="clock-skew" name='<%= "settings--" + PortletPropsKeys.SAML_SP_CLOCK_SKEW + "--" %>' value="<%= MetadataManagerUtil.getClockSkew() %>" />
 
 		<aui:input label="ldap-import-enabled" name='<%= "settings--" + PortletPropsKeys.SAML_SP_LDAP_IMPORT_ENABLED + "--" %>' type="checkbox" value="<%= ldapImportEnabled %>" />
 

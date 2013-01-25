@@ -58,13 +58,13 @@ String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsP
 	<aui:input name="samlIdpSpConnectionId" type="hidden" />
 
 	<aui:fieldset label="general">
-		<aui:input name="name" />
+		<aui:input name="name" required="true" />
 
-		<aui:input label="entity-id" name="samlSpEntityId" />
+		<aui:input helpMessage="service-provider-connection-entity-id-help" label="entity-id" name="samlSpEntityId" required="true" />
 
 		<aui:input name="enabled" />
 
-		<aui:input name="assertionLifetime" value="<%= String.valueOf(assertionLifetime) %>" />
+		<aui:input helpMessage="assertion-lifetime-help" name="assertionLifetime" value="<%= String.valueOf(assertionLifetime) %>" required="true" />
 	</aui:fieldset>
 
 	<aui:fieldset label="metadata">
@@ -92,15 +92,15 @@ String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsP
 			<aui:option label="x509-subject-name" selected="<%= nameIdFormat.equals(NameIDType.X509_SUBJECT) %>" value="<%= NameIDType.X509_SUBJECT %>" />
 		</aui:select>
 
-		<aui:input label="name-identifier-attribute" name="nameIdAttribute" value="<%= nameIdAttribute %>" />
+		<aui:input label="name-identifier-attribute-name" helpMessage="name-identifier-attribute-name-help" name="nameIdAttribute" value="<%= nameIdAttribute %>" required="true" />
 	</aui:fieldset>
 
 	<aui:fieldset label="attributes">
 		<aui:input name="attributesEnabled" value="<%= attributesEnabled %>" />
 
-		<aui:input name="attributesNamespaceEnabled" value="<%= attributesNamespaceEnabled %>" />
+		<aui:input helpMessage="attributes-namespace-enabled-help" name="attributesNamespaceEnabled" value="<%= attributesNamespaceEnabled %>" />
 
-		<aui:input label="attributes" name="attributeNames" value="<%= attributeNames %>" />
+		<aui:input helpMessage="attributes-help" label="attributes" name="attributeNames" value="<%= attributeNames %>" />
 	</aui:fieldset>
 
 	<aui:button-row>

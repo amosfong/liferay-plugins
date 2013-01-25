@@ -53,9 +53,9 @@ String userAttributeMappings = ParamUtil.getString(request, "userAttributeMappin
 	<aui:input name="samlSpIdpConnectionId" type="hidden" />
 
 	<aui:fieldset label="general">
-		<aui:input name="name" />
+		<aui:input name="name" required="true" />
 
-		<aui:input label="entity-id" name="samlIdpEntityId" value="<%= samlIdpEntityId %>" />
+		<aui:input label="entity-id" name="samlIdpEntityId" required="true" value="<%= samlIdpEntityId %>" />
 
 		<aui:input name="clockSkew" value="<%= String.valueOf(clockSkew) %>" />
 	</aui:fieldset>
