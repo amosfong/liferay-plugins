@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.PropertiesUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.auth.AutoLoginException;
@@ -121,9 +122,9 @@ public class SamlSpAutoLoginHook extends BaseAutoLogin {
 
 			HttpSession session = request.getSession();
 
-			String nameIdFormat = session.getAttribute(
+			String nameIdFormat = (String)session.getAttribute(
 				PortletWebKeys.SAML_SP_NAME_ID_FORMAT);
-			String nameIdValue = session.getAttribute(
+			String nameIdValue = (String)session.getAttribute(
 				PortletWebKeys.SAML_SP_NAME_ID_VALUE);
 
 			if (Validator.isNull(nameIdFormat) ||
