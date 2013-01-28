@@ -73,6 +73,22 @@ public class DocumentumFolder extends DocumentumModel implements Folder {
 		return containsPermission(_permit, actionId);
 	}
 
+	public List<Long> getAncestorFolderIds()
+		throws PortalException, SystemException {
+
+		List<Long> folderIds = new ArrayList<Long>();
+
+		Folder folder = this;
+
+		while (!folder.isRoot()) {
+			folder = folder.getParentFolder();
+
+			folderIds.add(folder.getFolderId());
+		}
+
+		return folderIds;
+	}
+
 	public List<Folder> getAncestors() throws PortalException, SystemException {
 		List<Folder> folders = new ArrayList<Folder>();
 
@@ -261,6 +277,10 @@ public class DocumentumFolder extends DocumentumModel implements Folder {
 	}
 
 	public boolean isSupportsSocial() {
+		return false;
+	}
+
+	public boolean isSupportsSubscribing() {
 		return false;
 	}
 
