@@ -23,7 +23,7 @@ long ddmStructureId = ParamUtil.getLong(request, "ddmStructureId");
 %>
 
 <liferay-portlet:renderURL varImpl="iteratorURL">
-	<portlet:param name="jspPage" value="/select_workflow_definition.jsp" />
+	<portlet:param name="mvcPath" value="/select_workflow_definition.jsp" />
 	<portlet:param name="tabs1" value="<%= tabs1 %>" />
 </liferay-portlet:renderURL>
 
@@ -41,7 +41,7 @@ long ddmStructureId = ParamUtil.getLong(request, "ddmStructureId");
 	<div class="separator"><!-- --></div>
 
 	<liferay-portlet:renderURL varImpl="portletURL">
-		<portlet:param name="jspPage" value="/select_workflow_definition.jsp" />
+		<portlet:param name="mvcPath" value="/select_workflow_definition.jsp" />
 		<portlet:param name="tabs1" value="<%= tabs1 %>" />
 	</liferay-portlet:renderURL>
 
