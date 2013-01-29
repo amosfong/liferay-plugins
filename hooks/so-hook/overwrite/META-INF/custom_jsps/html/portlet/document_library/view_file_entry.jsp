@@ -450,8 +450,12 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 							<portlet:param name="struts_action" value="/document_library/edit_file_entry_discussion" />
 						</portlet:actionURL>
 
+						<%
+						FileVersion fileEntryFileVersion = fileEntry.getFileVersion();
+						%>
+
 						<c:choose>
-							<c:when test="<%= fileVersionId == fileEntry.getFileVersion().getFileVersionId() %>">
+							<c:when test="<%= fileVersionId == fileEntryFileVersion.getFileVersionId() %>">
 								<div class="lfr-search-container">
 									<liferay-portlet:renderURL varImpl="viewFileEntryURL">
 										<portlet:param name="struts_action" value="/document_library/view_file_entry" />
@@ -460,10 +464,9 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 									</liferay-portlet:renderURL>
 
 									<liferay-ui:search-container
-										delta="5"
+										delta="<%= 5 %>"
 										deltaConfigurable="<%= false %>"
 										iteratorURL="<%= viewFileEntryURL %>"
-										var="searchContainter"
 									>
 
 										<%
@@ -476,16 +479,13 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 										/>
 
 										<div class="taglib-search-iterator-page-iterator-top">
-											<liferay-ui:search-paginator id="searchPaginatorTop" searchContainer="<%= searchContainter %>" type="article" />
+											<liferay-ui:search-paginator searchContainer="<%= searchContainter %>" type="article" />
 										</div>
 
 										<liferay-ui:search-container-row
 											className="com.liferay.portal.kernel.repository.model.FileVersion"
-											escapedModel="<%= false %>"
-											indexVar="i"
 											modelVar="curFileVersion"
 										>
-
 											<c:if test="<%= curFileVersion.isApproved() %>">
 												<div class="version">
 													<span class="version-number"><liferay-ui:message key="version" /> <%= curFileVersion.getVersion() %></span>
@@ -522,7 +522,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 															url="<%= viewFileVersionURL %>"
 														/>
 
-														<c:if test="<%= (!checkedOut || hasLock) && showActions && (i != 0) && (curFileVersion.getStatus() == WorkflowConstants.STATUS_APPROVED) && DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.UPDATE) %>">
+														<c:if test="<%= (!checkedOut || hasLock) && showActions && (index != 0) && (curFileVersion.getStatus() == WorkflowConstants.STATUS_APPROVED) && DLFileEntryPermission.contains(permissionChecker, fileEntry, ActionKeys.UPDATE) %>">
 															<portlet:actionURL var="revertURL">
 																<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
 																<portlet:param name="<%= Constants.CMD %>" value="<%= Constants.REVERT %>" />
@@ -573,7 +573,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 										</liferay-ui:search-container-row>
 
 										<div class="taglib-search-iterator-page-iterator-bottom">
-											<liferay-ui:search-paginator id="searchPaginatorBottom" searchContainer="<%= searchContainter %>" type="article" />
+											<liferay-ui:search-paginator searchContainer="<%= searchContainter %>" type="article" />
 										</div>
 									</liferay-ui:search-container>
 								</div>
