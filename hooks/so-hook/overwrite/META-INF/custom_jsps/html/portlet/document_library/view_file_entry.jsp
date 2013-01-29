@@ -143,12 +143,6 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 		versionText = LanguageUtil.get(pageContext, "not-approved");
 	}
 	%>
-
-	<liferay-ui:header
-		backURL="<%= redirect %>"
-		localizeTitle="<%= false %>"
-		title="<%= fileEntry.getTitle() %>"
-	/>
 </c:if>
 
 <div class="view">
@@ -680,6 +674,12 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 		<aui:column columnWidth="<%= 35 %>" cssClass="lfr-asset-column-details context-pane" last="<%= true %>">
 			<div class="body-row asset-details">
 				<div class="asset-details-content">
+					<liferay-ui:header
+						backURL="<%= redirect %>"
+						localizeTitle="<%= false %>"
+						title="<%= fileEntry.getTitle() %>"
+					/>
+
 					<h3 class="version <%= checkedOut ? "document-locked" : StringPool.BLANK %>">
 						<liferay-ui:message key="version" /> <%= HtmlUtil.escape(fileVersion.getVersion()) %>
 					</h3>

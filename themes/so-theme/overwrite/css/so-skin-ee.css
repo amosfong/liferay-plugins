@@ -53,6 +53,11 @@ $red: #8F0920;
 			font-weight: bold;
 			word-wrap: break-word;
 		}
+
+		.header-back-to a {
+			line-height: 1em;
+			padding: 0 0 5px 10px;
+		}
 	}
 
 	.lfr-preview-file {
