@@ -469,12 +469,12 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 										%>
 
 										<liferay-ui:search-container-results
-											results="<%= ListUtil.subList(fileVersions, searchContainter.getStart(), searchContainter.getEnd()) %>"
+											results="<%= ListUtil.subList(fileVersions, searchContainer.getStart(), searchContainer.getEnd()) %>"
 											total="<%= fileVersions.size() %>"
 										/>
 
 										<div class="taglib-search-iterator-page-iterator-top">
-											<liferay-ui:search-paginator searchContainer="<%= searchContainter %>" type="article" />
+											<liferay-ui:search-paginator searchContainer="<%= searchContainer %>" type="article" />
 										</div>
 
 										<liferay-ui:search-container-row
@@ -568,7 +568,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 										</liferay-ui:search-container-row>
 
 										<div class="taglib-search-iterator-page-iterator-bottom">
-											<liferay-ui:search-paginator searchContainer="<%= searchContainter %>" type="article" />
+											<liferay-ui:search-paginator searchContainer="<%= searchContainer %>" type="article" />
 										</div>
 									</liferay-ui:search-container>
 								</div>
