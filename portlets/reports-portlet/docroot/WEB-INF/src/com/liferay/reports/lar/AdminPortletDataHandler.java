@@ -49,7 +49,7 @@ import javax.portlet.PortletPreferences;
 /**
  * @author Michael C. Han
  */
-public class AdminPortletDataHandlerImpl extends BasePortletDataHandler {
+public class AdminPortletDataHandler extends BasePortletDataHandler {
 
 	@Override
 	public PortletDataHandlerControl[] getExportControls() {
@@ -73,7 +73,7 @@ public class AdminPortletDataHandlerImpl extends BasePortletDataHandler {
 		throws Exception {
 
 		if (!portletDataContext.addPrimaryKey(
-				AdminPortletDataHandlerImpl.class, "deleteData")) {
+				AdminPortletDataHandler.class, "deleteData")) {
 
 			DefinitionUtil.removeByGroupId(
 				portletDataContext.getScopeGroupId());
