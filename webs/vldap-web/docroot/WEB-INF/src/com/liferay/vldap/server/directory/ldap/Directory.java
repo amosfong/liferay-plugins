@@ -109,9 +109,10 @@ public abstract class Directory {
 			PortletPropsValues.SEARCH_MAX_SIZE, new UserScreenNameComparator());
 
 		for (User user : users) {
-			UserDirectory userDirectory = new UserDirectory(top, company, user);
+			String value = LdapUtil.buildName(
+				top, company, "cn=" + user.getScreenName());
 
-			addAttribute("member", userDirectory.getName());
+			addAttribute("member", value);
 		}
 	}
 
