@@ -51,19 +51,16 @@ import javax.portlet.PortletPreferences;
  */
 public class AdminPortletDataHandler extends BasePortletDataHandler {
 
-	@Override
-	public PortletDataHandlerControl[] getExportControls() {
-		return new PortletDataHandlerControl[] {_definitions};
-	}
+	public static final String NAMESPACE = "reports";
 
-	@Override
-	public PortletDataHandlerControl[] getImportControls() {
-		return new PortletDataHandlerControl[] {_definitions};
-	}
-
-	@Override
-	public boolean isPublishToLiveByDefault() {
-		return _PUBLISH_TO_LIVE_BY_DEFAULT;
+	public AdminPortletDataHandler() {
+		setExportControls(
+			new PortletDataHandlerBoolean(
+				NAMESPACE, "definitions", true,
+				new PortletDataHandlerControl[] {
+					new PortletDataHandlerBoolean(NAMESPACE, "sources")
+				}));
+		setPublishToLiveByDefault(true);
 	}
 
 	@Override
@@ -100,7 +97,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 		rootElement.addAttribute(
 			"group-id", String.valueOf(portletDataContext.getScopeGroupId()));
 
-		if (portletDataContext.getBooleanParameter(_NAMESPACE, "sources")) {
+		if (portletDataContext.getBooleanParameter(NAMESPACE, "sources")) {
 			List<Source> sources = SourceUtil.findByGroupId(
 				portletDataContext.getScopeGroupId());
 
@@ -109,7 +106,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 			}
 		}
 
-		if (portletDataContext.getBooleanParameter(_NAMESPACE, "definitions")) {
+		if (portletDataContext.getBooleanParameter(NAMESPACE, "definitions")) {
 			List<Definition> definitions = DefinitionUtil.findByGroupId(
 				portletDataContext.getScopeGroupId());
 
@@ -137,7 +134,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 
 		Map<Long, Long> sourceIds = new HashMap<Long, Long>();
 
-		if (portletDataContext.getBooleanParameter(_NAMESPACE, "sources")) {
+		if (portletDataContext.getBooleanParameter(NAMESPACE, "sources")) {
 			for (Element sourceElement : rootElement.elements("source")) {
 				String path = sourceElement.attributeValue("path");
 
@@ -153,7 +150,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 			}
 		}
 
-		if (portletDataContext.getBooleanParameter(_NAMESPACE, "definitions")) {
+		if (portletDataContext.getBooleanParameter(NAMESPACE, "definitions")) {
 			for (Element definitionElement :
 					rootElement.elements("definition")) {
 
@@ -195,7 +192,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 		Element definitionElement = rootElement.addElement("definition");
 
 		portletDataContext.addClassedModel(
-			definitionElement, path, definition, _NAMESPACE);
+			definitionElement, path, definition, NAMESPACE);
 
 		for (String fullFileName : definition.getAttachmentsFiles()) {
 			String binPath = getDefinitionAttachmentBinPath(
@@ -232,7 +229,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 		Element sourceElement = rootElement.addElement("source");
 
 		portletDataContext.addClassedModel(
-			sourceElement, path, source, _NAMESPACE);
+			sourceElement, path, source, NAMESPACE);
 	}
 
 	protected String getDefinitionAttachmentBinPath(
@@ -286,7 +283,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 		InputStream inputStream = null;
 
 		ServiceContext serviceContext = portletDataContext.createServiceContext(
-			definitionElement, definition, _NAMESPACE);
+			definitionElement, definition, NAMESPACE);
 
 		Element attachmentElement = definitionElement.element("attachment");
 
@@ -337,7 +334,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 			}
 
 			portletDataContext.importClassedModel(
-				definition, importedDefinition, _NAMESPACE);
+				definition, importedDefinition, NAMESPACE);
 		}
 		finally {
 			StreamUtil.cleanUp(inputStream);
@@ -352,7 +349,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 		long userId = portletDataContext.getUserId(source.getUserUuid());
 
 		ServiceContext serviceContext = portletDataContext.createServiceContext(
-			sourceElement, source, _NAMESPACE);
+			sourceElement, source, NAMESPACE);
 
 		Source importedSource = null;
 
@@ -388,20 +385,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 		sourceIds.put(source.getSourceId(), importedSource.getSourceId());
 
 		portletDataContext.importClassedModel(
-			source, importedSource, _NAMESPACE);
+			source, importedSource, NAMESPACE);
 	}
-
-	private static final String _NAMESPACE = "reports";
-
-	private static final boolean _PUBLISH_TO_LIVE_BY_DEFAULT = true;
-
-	private static PortletDataHandlerControl[] _definitionOptions =
-		new PortletDataHandlerControl[] {
-			new PortletDataHandlerBoolean(_NAMESPACE, "sources")
-		};
-
-	private static PortletDataHandlerBoolean _definitions =
-		new PortletDataHandlerBoolean(
-			_NAMESPACE, "definitions", true, _definitionOptions);
 
 }
