@@ -50,8 +50,8 @@ public class ReportsUtil {
 		PortletRequest portletRequest, String paramPrefix,
 		boolean timeZoneSensitive) {
 
-		ThemeDisplay themeDisplay =
-			(ThemeDisplay) portletRequest.getAttribute(WebKeys.THEME_DISPLAY);
+		ThemeDisplay themeDisplay = (ThemeDisplay)portletRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
 
 		int dateMonth = ParamUtil.getInteger(
 			portletRequest, paramPrefix + "Month");
