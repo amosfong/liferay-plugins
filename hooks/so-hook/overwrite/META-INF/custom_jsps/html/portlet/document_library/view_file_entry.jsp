@@ -143,6 +143,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 		versionText = LanguageUtil.get(pageContext, "not-approved");
 	}
 	%>
+
 </c:if>
 
 <div class="view">
