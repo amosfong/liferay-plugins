@@ -90,9 +90,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 		portletDataContext.addPermissions(
 			"com.liferay.reports.admin", portletDataContext.getScopeGroupId());
 
-		Document document = SAXReaderUtil.createDocument();
-
-		Element rootElement = document.addElement("reports-admin-data");
+		Element rootElement = addExportRootElement();
 
 		rootElement.addAttribute(
 			"group-id", String.valueOf(portletDataContext.getScopeGroupId()));
@@ -115,7 +113,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 			}
 		}
 
-		return document.formattedString();
+		return rootElement.formattedString();
 	}
 
 	@Override
