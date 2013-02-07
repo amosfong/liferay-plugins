@@ -69,16 +69,17 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 			PortletPreferences portletPreferences)
 		throws Exception {
 
-		if (!portletDataContext.addPrimaryKey(
+		if (portletDataContext.addPrimaryKey(
 				AdminPortletDataHandler.class, "deleteData")) {
 
-			DefinitionUtil.removeByGroupId(
-				portletDataContext.getScopeGroupId());
-
-			SourceUtil.removeByGroupId(portletDataContext.getScopeGroupId());
+			return portletPreferences;
 		}
 
-		return null;
+		DefinitionUtil.removeByGroupId(portletDataContext.getScopeGroupId());
+
+		SourceUtil.removeByGroupId(portletDataContext.getScopeGroupId());
+
+		return portletPreferences;
 	}
 
 	@Override
