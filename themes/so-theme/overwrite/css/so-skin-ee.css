@@ -58,6 +58,10 @@ $red: #8F0920;
 			line-height: 1em;
 			padding: 0 0 5px 10px;
 		}
+
+		.taglib-search-iterator-page-iterator-top, .taglib-search-iterator-page-iterator-bottom {
+			border-top: 1px solid $gray-dark;
+		}
 	}
 
 	.lfr-preview-file {
@@ -98,7 +102,7 @@ $red: #8F0920;
 			}
 
 			.user-name {
-				margin-right: 50%;
+				margin-right: 18em;
 			}
 
 			.changelog, .user-name {
@@ -111,7 +115,9 @@ $red: #8F0920;
 			}
 
 			.extra {
-				float: right;
+				position: absolute;
+				right: 15px;
+				top: 0;
 			}
 
 			.modified-date, .size {
@@ -359,18 +365,6 @@ $red: #8F0920;
 
 	.license-expired-details {
 		width: 100%;
-	}
-}
-
-/* ---------- Internet Explorer ---------- */
-
-.ie8 {
-	.portlet-document-library, .portlet-document-library-display{
-		.lfr-document-library-versions .extra {
-			margin-top: -30px;
-			position: relative;
-			top: -1px;
-		}
 	}
 }
 

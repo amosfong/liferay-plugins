@@ -473,9 +473,11 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 											total="<%= fileVersions.size() %>"
 										/>
 
-										<div class="taglib-search-iterator-page-iterator-top">
-											<liferay-ui:search-paginator searchContainer="<%= searchContainer %>" type="article" />
-										</div>
+										<c:if test="<%= fileVersions.size() > searchContainer.getDelta() %>">
+											<div class="taglib-search-iterator-page-iterator-top">
+												<liferay-ui:search-paginator searchContainer="<%= searchContainer %>" type="article" />
+											</div>
+										</c:if>
 
 										<liferay-ui:search-container-row
 											className="com.liferay.portal.kernel.repository.model.FileVersion"
@@ -567,9 +569,11 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 											</c:if>
 										</liferay-ui:search-container-row>
 
-										<div class="taglib-search-iterator-page-iterator-bottom">
-											<liferay-ui:search-paginator searchContainer="<%= searchContainer %>" type="article" />
-										</div>
+										<c:if test="<%= fileVersions.size() > searchContainer.getDelta() %>">
+											<div class="taglib-search-iterator-page-iterator-bottom">
+												<liferay-ui:search-paginator searchContainer="<%= searchContainer %>" type="article" />
+											</div>
+										</c:if>
 									</liferay-ui:search-container>
 								</div>
 
