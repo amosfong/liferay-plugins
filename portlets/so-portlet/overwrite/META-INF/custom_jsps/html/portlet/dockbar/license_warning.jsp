@@ -55,7 +55,7 @@ catch (Exception e) {
 	if (licenseProperties != null) {
 		expirationDateTime = GetterUtil.getLong(licenseProperties.get("expirationDate"));
 
-		if (DateUtil.compareTo(new Date(expirationDateTime), new Date(), false) == 1) {
+		if (expirationDateTime > System.currentTimeMillis()) {
 			licenseRemainingDays = DateUtil.getDaysBetween(new Date(expirationDateTime), new Date(), themeDisplay.getTimeZone());
 		}
 
