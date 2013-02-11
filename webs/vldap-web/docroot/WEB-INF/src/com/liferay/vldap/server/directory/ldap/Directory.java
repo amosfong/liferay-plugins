@@ -110,7 +110,7 @@ public abstract class Directory {
 
 		for (User user : users) {
 			String value = LdapUtil.buildName(
-				top, company, "cn=" + user.getScreenName());
+				top, company, "Users", "cn=" + user.getScreenName());
 
 			addAttribute("member", value);
 		}
