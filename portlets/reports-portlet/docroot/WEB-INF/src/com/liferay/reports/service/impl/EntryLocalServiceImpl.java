@@ -256,8 +256,8 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 		else {
 			Source source = sourcePersistence.findByPrimaryKey(sourceId);
 
-			reportRequestContext =
-				new ReportRequestContext(ReportDataSourceType.JDBC);
+			reportRequestContext = new ReportRequestContext(
+				ReportDataSourceType.JDBC);
 
 			reportRequestContext.setAttribute(
 				ReportRequestContext.JDBC_DRIVER_CLASS,

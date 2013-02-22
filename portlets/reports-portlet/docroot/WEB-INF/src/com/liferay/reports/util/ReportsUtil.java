@@ -122,7 +122,8 @@ public class ReportsUtil {
 
 		try {
 			DataSource dataSource = DataSourceFactoryUtil.initDataSource(
-				driverClassName, driverUrl, driverUserName, driverPassword);
+				driverClassName, driverUrl, driverUserName, driverPassword,
+				StringPool.BLANK);
 
 			connection = dataSource.getConnection();
 		}
