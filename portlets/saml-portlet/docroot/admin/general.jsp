@@ -17,14 +17,6 @@
 <%@ include file="/init.jsp" %>
 
 <%
-UnicodeProperties properties = PropertiesParamUtil.getProperties(request, "settings--");
-
-String samlRole = properties.getProperty(PortletPropsKeys.SAML_ROLE, PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_ROLE, StringPool.BLANK));
-boolean isSamlRoleIdp = samlRole.equals("idp");
-boolean isSamlRoleSp = samlRole.equals("sp");
-
-String entityId = properties.getProperty(PortletPropsKeys.SAML_ENTITY_ID, MetadataManagerUtil.getLocalEntityId());
-
 String certificateCommonName = ParamUtil.getString(request, "certificateCommonName");
 String certificateCountry = ParamUtil.getString(request, "certificateCountry");
 String certificateLocality = ParamUtil.getString(request, "certificateLocality");
@@ -34,6 +26,8 @@ String certificateOrganization = ParamUtil.getString(request, "certificateOrgani
 String certificateOrganizationUnit = ParamUtil.getString(request, "certificateOrganizationUnit");
 String certificateState = ParamUtil.getString(request, "certificateState");
 String certificateValidityDays = ParamUtil.getString(request, "certificateValidityDays", "356");
+
+UnicodeProperties properties = PropertiesParamUtil.getProperties(request, "settings--");
 
 X509Certificate x509Certificate = null;
 
@@ -56,11 +50,16 @@ if (x509Credential != null) {
 		<aui:input label="enabled" name='<%= "settings--" + PortletPropsKeys.SAML_ENABLED + "--" %>' type="checkbox" value="<%= SamlUtil.isEnabled() %>" />
 
 		<aui:select label="saml-role" name='<%= "settings--" + PortletPropsKeys.SAML_ROLE + "--" %>' required="true" showEmptyOption="<%= true %>">
-			<aui:option label="identity-provider" selected='<%= isSamlRoleIdp %>' value="idp" />
-			<aui:option label="service-provider" selected='<%= isSamlRoleSp %>' value="sp" />
+
+			<%
+			String samlRole = properties.getProperty(PortletPropsKeys.SAML_ROLE, PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_ROLE, StringPool.BLANK));
+			%>
+
+			<aui:option label="identity-provider" selected='<%= samlRole.equals("idp") %>' value="idp" />
+			<aui:option label="service-provider" selected='<%= samlRole.equals("sp") %>' value="sp" />
 		</aui:select>
 
-		<aui:input helpMessage="entity-id-help" label="entity-id" name='<%= "settings--" + PortletPropsKeys.SAML_ENTITY_ID + "--" %>' required="true" value="<%= entityId %>" />
+		<aui:input helpMessage="entity-id-help" label="entity-id" name='<%= "settings--" + PortletPropsKeys.SAML_ENTITY_ID + "--" %>' required="true" value="<%= properties.getProperty(PortletPropsKeys.SAML_ENTITY_ID, MetadataManagerUtil.getLocalEntityId()) %>" />
 	</aui:fieldset>
 
 	<aui:button-row>
