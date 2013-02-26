@@ -149,7 +149,13 @@ headerTitle = headerTitle.concat(StringPool.COLON + StringPool.SPACE + ddlRecord
 				DDMStructure ddmStructure = ddlRecordSet.getDDMStructure();
 				%>
 
-				<%= DDMXSDUtil.getHTML(pageContext, ddmStructure.getXsd(), fields, "", true, locale) %>
+				<liferay-ddm:html
+					classNameId="<%= PortalUtil.getClassNameId(DDMStructure.class) %>"
+					classPK="<%= ddmStructure.getStructureId() %>"
+					fields="<%= fields %>"
+					readOnly="<%= true %>"
+					requestedLocale="<%= locale %>"
+				/>
 
 			</liferay-ui:panel>
 

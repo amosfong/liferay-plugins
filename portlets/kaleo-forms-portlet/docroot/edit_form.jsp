@@ -49,23 +49,31 @@ String formName = ParamUtil.getString(request, "formName");
 
 		Fields fields = ddlRecord.getFields();
 
-		String content = null;
+		long classNameId = 0;
+		long classPK = 0;
 
 		try {
 			DDMTemplate ddmTemplate = DDMTemplateLocalServiceUtil.getTemplate(kaleoProcessLink.getDDMTemplateId());
 
-			content = DDMXSDUtil.getHTML(pageContext, ddmTemplate, fields, StringPool.BLANK, false, locale);
+			classNameId = PortalUtil.getClassNameId(DDMTemplate.class);
+			classPK = ddmTemplate.getTemplateId();
 		}
 		catch (NoSuchTemplateException nste) {
 			DDLRecordSet ddlRecordSet = kaleoProcess.getDDLRecordSet();
 
 			DDMStructure ddmStructure = ddlRecordSet.getDDMStructure();
 
-			content = DDMXSDUtil.getHTML(pageContext, ddmStructure, fields, StringPool.BLANK, false, locale);
+			classNameId = PortalUtil.getClassNameId(DDMStructure.class);
+			classPK = ddmStructure.getStructureId();
 		}
 		%>
 
-		<%= content %>
+		<liferay-ddm:html
+			classNameId="<%= classNameId %>"
+			classPK="<%= classPK %>"
+			fields="<%= fields %>"
+			requestedLocale="<%= locale %>"
+		/>
 	</aui:fieldset>
 
 	<aui:button name="saveButton" type="submit" value="save" />

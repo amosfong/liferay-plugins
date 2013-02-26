@@ -49,7 +49,11 @@ long groupId = BeanParamUtil.getLong(kaleoProcess, request, "groupId", scopeGrou
 		DDMTemplate ddmTemplate = kaleoProcess.getDDMTemplate();
 		%>
 
-		<%= DDMXSDUtil.getHTML(pageContext, ddmTemplate.getScript(), locale) %>
+		<liferay-ddm:html
+			classNameId="<%= PortalUtil.getClassNameId(DDMTemplate.class) %>"
+			classPK="<%= ddmTemplate.getTemplateId() %>"
+			requestedLocale="<%= locale %>"
+		/>
 
 		<aui:button-row>
 			<aui:button name="saveButton" type="submit" value="save" />
