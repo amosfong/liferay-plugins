@@ -806,7 +806,6 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 						%>
 
 									<liferay-ui:panel collapsible="<%= true %>" cssClass="metadata" extended="<%= true %>" id="documentLibraryMetadataPanel" persistState="<%= true %>" title="<%= HtmlUtil.escape(ddmStructure.getName(LocaleUtil.getDefault())) %>">
-
 										<liferay-ddm:html
 											classNameId="<%= PortalUtil.getClassNameId(DDMStructure.class) %>"
 											classPK="<%= ddmStructure.getPrimaryKey() %>"
@@ -815,7 +814,6 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 											readOnly="<%= true %>"
 											requestedLocale="<%= locale %>"
 										/>
-
 									</liferay-ui:panel>
 
 						<%
