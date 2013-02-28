@@ -77,10 +77,10 @@ public class DispatchIoHandler implements IoHandler {
 			LdapHandlerContext ldapHandlerContext = getLdapHandlerContext(
 				ioSession);
 
-			List<Response> resposes = ldapHandler.messageReceived(
+			List<Response> responses = ldapHandler.messageReceived(
 				request, ioSession, ldapHandlerContext);
 
-			writeResponses(resposes, ioSession);
+			writeResponses(responses, ioSession);
 		}
 		catch (Exception e) {
 			_log.error(e, e);
