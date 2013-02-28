@@ -50,14 +50,12 @@ String formName = ParamUtil.getString(request, "formName");
 		Fields fields = ddlRecord.getFields();
 
 		long classNameId = 0;
-
 		long classPK = 0;
 
 		try {
 			DDMTemplate ddmTemplate = DDMTemplateLocalServiceUtil.getTemplate(kaleoProcessLink.getDDMTemplateId());
 
 			classNameId = PortalUtil.getClassNameId(DDMTemplate.class);
-
 			classPK = ddmTemplate.getTemplateId();
 		}
 		catch (NoSuchTemplateException nste) {
@@ -66,7 +64,6 @@ String formName = ParamUtil.getString(request, "formName");
 			DDMStructure ddmStructure = ddlRecordSet.getDDMStructure();
 
 			classNameId = PortalUtil.getClassNameId(DDMStructure.class);
-
 			classPK = ddmStructure.getStructureId();
 		}
 		%>
