@@ -3379,7 +3379,7 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 
 				for (String listenerClassName : listenerClassNames) {
 					listenersList.add((ModelListener<Source>)InstanceFactory.newInstance(
-							listenerClassName));
+							getClassLoader(), listenerClassName));
 				}
 
 				listeners = listenersList.toArray(new ModelListener[listenersList.size()]);

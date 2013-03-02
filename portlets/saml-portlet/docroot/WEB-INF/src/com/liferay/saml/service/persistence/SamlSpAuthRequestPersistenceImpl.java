@@ -985,7 +985,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 
 				for (String listenerClassName : listenerClassNames) {
 					listenersList.add((ModelListener<SamlSpAuthRequest>)InstanceFactory.newInstance(
-							listenerClassName));
+							getClassLoader(), listenerClassName));
 				}
 
 				listeners = listenersList.toArray(new ModelListener[listenersList.size()]);

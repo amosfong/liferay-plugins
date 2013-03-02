@@ -373,6 +373,16 @@ public class SamlIdpSpSessionWrapper implements SamlIdpSpSession,
 	}
 
 	public void setExpandoBridgeAttributes(
+		com.liferay.portal.model.BaseModel<?> baseModel) {
+		_samlIdpSpSession.setExpandoBridgeAttributes(baseModel);
+	}
+
+	public void setExpandoBridgeAttributes(
+		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+		_samlIdpSpSession.setExpandoBridgeAttributes(expandoBridge);
+	}
+
+	public void setExpandoBridgeAttributes(
 		com.liferay.portal.service.ServiceContext serviceContext) {
 		_samlIdpSpSession.setExpandoBridgeAttributes(serviceContext);
 	}

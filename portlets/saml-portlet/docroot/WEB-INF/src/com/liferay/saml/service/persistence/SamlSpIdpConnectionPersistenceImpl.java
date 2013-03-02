@@ -1469,7 +1469,7 @@ public class SamlSpIdpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 
 				for (String listenerClassName : listenerClassNames) {
 					listenersList.add((ModelListener<SamlSpIdpConnection>)InstanceFactory.newInstance(
-							listenerClassName));
+							getClassLoader(), listenerClassName));
 				}
 
 				listeners = listenersList.toArray(new ModelListener[listenersList.size()]);

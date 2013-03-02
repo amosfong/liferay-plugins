@@ -1113,7 +1113,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 
 				for (String listenerClassName : listenerClassNames) {
 					listenersList.add((ModelListener<AuditEvent>)InstanceFactory.newInstance(
-							listenerClassName));
+							getClassLoader(), listenerClassName));
 				}
 
 				listeners = listenersList.toArray(new ModelListener[listenersList.size()]);

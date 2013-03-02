@@ -929,7 +929,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 
 				for (String listenerClassName : listenerClassNames) {
 					listenersList.add((ModelListener<SamlIdpSsoSession>)InstanceFactory.newInstance(
-							listenerClassName));
+							getClassLoader(), listenerClassName));
 				}
 
 				listeners = listenersList.toArray(new ModelListener[listenersList.size()]);

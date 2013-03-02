@@ -1473,7 +1473,7 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 
 				for (String listenerClassName : listenerClassNames) {
 					listenersList.add((ModelListener<SamlIdpSpSession>)InstanceFactory.newInstance(
-							listenerClassName));
+							getClassLoader(), listenerClassName));
 				}
 
 				listeners = listenersList.toArray(new ModelListener[listenersList.size()]);

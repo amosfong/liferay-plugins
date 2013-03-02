@@ -1454,7 +1454,7 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 
 				for (String listenerClassName : listenerClassNames) {
 					listenersList.add((ModelListener<KaleoProcessLink>)InstanceFactory.newInstance(
-							listenerClassName));
+							getClassLoader(), listenerClassName));
 				}
 
 				listeners = listenersList.toArray(new ModelListener[listenersList.size()]);
