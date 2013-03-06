@@ -660,7 +660,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #getWrappedModel}
+	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
 	 */
 	public SamlIdpSpConnection getWrappedSamlIdpSpConnection() {
 		return _samlIdpSpConnection;

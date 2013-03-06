@@ -338,7 +338,7 @@ public class SourceLocalServiceUtil {
 	}
 
 	/**
-	 * @deprecated
+	 * @deprecated As of 6.2.0
 	 */
 	public void setService(SourceLocalService service) {
 	}

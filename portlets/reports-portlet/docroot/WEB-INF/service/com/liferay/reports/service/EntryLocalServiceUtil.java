@@ -379,7 +379,7 @@ public class EntryLocalServiceUtil {
 	}
 
 	/**
-	 * @deprecated
+	 * @deprecated As of 6.2.0
 	 */
 	public void setService(EntryLocalService service) {
 	}

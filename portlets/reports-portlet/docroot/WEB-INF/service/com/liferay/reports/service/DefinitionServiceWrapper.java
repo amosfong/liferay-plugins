@@ -117,14 +117,14 @@ public class DefinitionServiceWrapper implements DefinitionService,
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #getWrappedService}
+	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
 	public DefinitionService getWrappedDefinitionService() {
 		return _definitionService;
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #setWrappedService}
+	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
 	 */
 	public void setWrappedDefinitionService(DefinitionService definitionService) {
 		_definitionService = definitionService;

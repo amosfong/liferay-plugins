@@ -86,14 +86,14 @@ public class SalesforceEventLocalServiceWrapper
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #getWrappedService}
+	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
 	public SalesforceEventLocalService getWrappedSalesforceEventLocalService() {
 		return _salesforceEventLocalService;
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #setWrappedService}
+	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
 	 */
 	public void setWrappedSalesforceEventLocalService(
 		SalesforceEventLocalService salesforceEventLocalService) {

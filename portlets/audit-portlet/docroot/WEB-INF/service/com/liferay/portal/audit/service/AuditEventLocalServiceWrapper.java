@@ -303,14 +303,14 @@ public class AuditEventLocalServiceWrapper implements AuditEventLocalService,
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #getWrappedService}
+	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
 	public AuditEventLocalService getWrappedAuditEventLocalService() {
 		return _auditEventLocalService;
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #setWrappedService}
+	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
 	 */
 	public void setWrappedAuditEventLocalService(
 		AuditEventLocalService auditEventLocalService) {
