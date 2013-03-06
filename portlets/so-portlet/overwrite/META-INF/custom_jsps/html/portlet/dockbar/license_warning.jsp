@@ -54,7 +54,11 @@ catch (Exception e) {
 
 	if (licenseProperties != null) {
 		expirationDateTime = GetterUtil.getLong(licenseProperties.get("expirationDate"));
-		licenseRemainingDays = DateUtil.getDaysBetween(new Date(expirationDateTime), new Date());
+
+		if (DateUtil.compareTo(new Date(expirationDateTime), new Date(), false) == 1) {
+			licenseRemainingDays = DateUtil.getDaysBetween(new Date(expirationDateTime), new Date(), themeDisplay.getTimeZone());
+		}
+
 		licenseState = GetterUtil.getInteger(licenseProperties.get("licenseState"), LicenseManagerUtil.getLicenseState("Social Office EE"));
 		startDateTime = GetterUtil.getLong(licenseProperties.get("startDate"));
 	}
@@ -63,7 +67,7 @@ catch (Exception e) {
 	<c:if test="<%= (licenseState == 3) && (licenseRemainingDays < 10) %>">
 		<div class="license-warning-message" id="<portlet:namespace />licenseWarningMessage">
 			<span class="portlet-msg-alert">
-				<liferay-ui:message arguments="<%= new Object[] {String.valueOf(licenseRemainingDays), dateFormatDateTime.format(new Date())} %>" key="your-social-office-license-will-expire-in-x-days-on-x" /> <liferay-ui:message key="please-contact-your-portal-administrator-to-continue-using-social-office" />
+				<liferay-ui:message arguments="<%= new Object[] {String.valueOf(licenseRemainingDays), dateFormatDateTime.format(new Date(expirationDateTime))} %>" key="your-social-office-license-will-expire-in-x-days-on-x" /> <liferay-ui:message key="please-contact-your-portal-administrator-to-continue-using-social-office" />
 			</span>
 		</div>
 
