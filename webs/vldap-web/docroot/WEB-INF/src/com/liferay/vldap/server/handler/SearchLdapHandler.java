@@ -148,8 +148,8 @@ public class SearchLdapHandler extends BaseLdapHandler {
 			StopWatch stopWatch)
 		throws Exception {
 
-		SearchResultEntry searchResponseEntry =
-			new SearchResultEntryImpl(searchRequest.getMessageId());
+		SearchResultEntry searchResponseEntry = new SearchResultEntryImpl(
+			searchRequest.getMessageId());
 
 		Entry entry = directory.toEntry(searchRequest.getAttributes());
 

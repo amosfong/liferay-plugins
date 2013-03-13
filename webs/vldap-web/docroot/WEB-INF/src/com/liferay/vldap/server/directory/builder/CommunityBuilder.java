@@ -130,8 +130,8 @@ public class CommunityBuilder extends DirectoryBuilder {
 			else {
 				groups.addAll(
 					GroupLocalServiceUtil.search(
-						company.getCompanyId(), name, description, null, 0,
-						sizeLimit));
+						company.getCompanyId(), name, description, null, true,
+						0, sizeLimit));
 			}
 		}
 

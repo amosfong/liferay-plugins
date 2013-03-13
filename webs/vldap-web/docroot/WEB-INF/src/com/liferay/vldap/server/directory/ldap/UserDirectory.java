@@ -86,7 +86,7 @@ public class UserDirectory extends Directory {
 
 		List<Group> groups = GroupLocalServiceUtil.search(
 			user.getCompanyId(), new long[] {groupClassNameId}, null, null,
-			params, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+			params, true, QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 
 		for (Group group : groups) {
 			StringBundler sb = new StringBundler(6);
