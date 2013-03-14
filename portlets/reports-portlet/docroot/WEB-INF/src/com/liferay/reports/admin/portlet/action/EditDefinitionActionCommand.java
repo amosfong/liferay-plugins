@@ -59,11 +59,10 @@ public class EditDefinitionActionCommand extends BaseActionCommand {
 				uploadPortletRequest, "definitionId");
 
 			Map<Locale, String> definitionNameMap =
-				ReportsUtil.getLocalizationMap(
-					uploadPortletRequest, "definitionName");
+				ReportsUtil.getLocalizationMap(uploadPortletRequest, "name");
 			Map<Locale, String> definitionDescriptionMap =
 				ReportsUtil.getLocalizationMap(
-					uploadPortletRequest, "definitionDescription");
+					uploadPortletRequest, "description");
 			long sourceId = ParamUtil.getLong(uploadPortletRequest, "sourceId");
 			String reportParameters = ParamUtil.getString(
 				uploadPortletRequest, "reportParameters");
