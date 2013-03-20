@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <projectDescription>
-	<name>ehcache-cluster-web-trunk</name>
+	<name>ehcache-cluster-web-master</name>
 	<comment></comment>
 	<projects></projects>
 	<buildSpec>
