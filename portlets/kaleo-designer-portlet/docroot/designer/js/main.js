@@ -764,17 +764,19 @@ AUI.add(
 								buffer.push(xmlRoles.close);
 							}
 							else if (assignmentType === 'scriptedAssignment') {
-								var script = dataAssignments.script;
 								var xmlScriptedAssignment = XMLUtil.createObj('scriptedAssignment');
 
-								if (script) {
-									buffer.push(
-										xmlScriptedAssignment.open,
-										XMLUtil.create('script', cdata(script)),
-										XMLUtil.create('scriptLanguage', dataAssignments.scriptLanguage),
-										xmlScriptedAssignment.close
-									);
-								}
+								AArray.each(
+									dataAssignments.script,
+									function(item, index, collection) {
+										buffer.push(
+											xmlScriptedAssignment.open,
+											XMLUtil.create('script', cdata(item)),
+											XMLUtil.create('scriptLanguage', dataAssignments.scriptLanguage[index]),
+											xmlScriptedAssignment.close
+										);
+									}
+								);
 							}
 							else if (assignmentType === 'user') {
 								var xmlUser = XMLUtil.createObj('user');
