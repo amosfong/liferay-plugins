@@ -40,6 +40,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -157,14 +158,20 @@ public class KaleoDraftDefinitionLocalServiceImpl
 			OrderByComparator orderByComparator)
 		throws SystemException {
 
+		List<Object> kaleoDraftDefinitioIds = getKaleoDraftDefinitionIds(
+			companyId, version);
+
+		if (kaleoDraftDefinitioIds.isEmpty()) {
+			return Collections.emptyList();
+		}
+
 		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 			KaleoDraftDefinition.class, getClassLoader());
 
 		Property property = PropertyFactoryUtil.forName(
 			"kaleoDraftDefinitionId");
 
-		dynamicQuery.add(
-			property.in(getKaleoDraftDefinitionIds(companyId, version)));
+		dynamicQuery.add(property.in(kaleoDraftDefinitioIds));
 
 		return dynamicQuery(dynamicQuery, start, end, orderByComparator);
 	}
@@ -172,14 +179,20 @@ public class KaleoDraftDefinitionLocalServiceImpl
 	public int getLatestKaleoDraftDefinitionsCount(long companyId, int version)
 		throws SystemException {
 
+		List<Object> kaleoDraftDefinitioIds = getKaleoDraftDefinitionIds(
+			companyId, version);
+
+		if (kaleoDraftDefinitioIds.isEmpty()) {
+			return 0;
+		}
+
 		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 			KaleoDraftDefinition.class, getClassLoader());
 
 		Property property = PropertyFactoryUtil.forName(
 			"kaleoDraftDefinitionId");
 
-		dynamicQuery.add(
-			property.in(getKaleoDraftDefinitionIds(companyId, version)));
+		dynamicQuery.add(property.in(kaleoDraftDefinitioIds));
 
 		return (int)dynamicQueryCount(dynamicQuery);
 	}
@@ -243,7 +256,8 @@ public class KaleoDraftDefinitionLocalServiceImpl
 	}
 
 	protected List<Object> getKaleoDraftDefinitionIds(
-		long companyId, int version) throws SystemException {
+			long companyId, int version)
+		throws SystemException {
 
 		List<Object> kaleoDraftDefinitionIds = new ArrayList<Object>();
 
