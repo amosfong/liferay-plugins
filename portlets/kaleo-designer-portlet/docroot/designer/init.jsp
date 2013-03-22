@@ -38,6 +38,7 @@ page import="com.liferay.portal.kernel.workflow.WorkflowEngineManagerUtil" %><%@
 page import="com.liferay.portal.kernel.workflow.WorkflowException" %><%@
 page import="com.liferay.portal.service.ServiceContext" %><%@
 page import="com.liferay.portal.service.ServiceContextFactory" %><%@
+page import="com.liferay.portal.workflow.kaleo.designer.DuplicateKaleoDraftDefinitionNameException" %><%@
 page import="com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionContentException" %><%@
 page import="com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionNameException" %><%@
 page import="com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition" %><%@

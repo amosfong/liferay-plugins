@@ -37,6 +37,7 @@ import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.workflow.kaleo.designer.DuplicateKaleoDraftDefinitionNameException;
 import com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionContentException;
 import com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionNameException;
 import com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException;
@@ -101,12 +102,6 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 			if (isSessionErrorException(e)) {
 				SessionErrors.add(actionRequest, e.getClass(), e);
 
-				KaleoDraftDefinition kaleoDraftDefinition =
-					KaleoDesignerUtil.getKaleoDraftDefinition(actionRequest);
-
-				actionRequest.setAttribute(
-					WebKeys.KALEO_DRAFT_DEFINITION, kaleoDraftDefinition);
-
 				actionRequest.setAttribute(
 					WebKeys.KALEO_DRAFT_DEFINITION_CONTENT, content);
 			}
@@ -147,12 +142,6 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 			if (isSessionErrorException(e)) {
 				SessionErrors.add(actionRequest, e.getClass(), e);
 
-				KaleoDraftDefinition kaleoDraftDefinition =
-					KaleoDesignerUtil.getKaleoDraftDefinition(actionRequest);
-
-				actionRequest.setAttribute(
-					WebKeys.KALEO_DRAFT_DEFINITION, kaleoDraftDefinition);
-
 				actionRequest.setAttribute(
 					WebKeys.KALEO_DRAFT_DEFINITION_CONTENT, content);
 			}
@@ -167,13 +156,12 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 			RenderRequest renderRequest, RenderResponse renderResponse)
 		throws IOException, PortletException {
 
-		KaleoDraftDefinition kaleoDraftDefinition =
-			(KaleoDraftDefinition)renderRequest.getAttribute(
-				WebKeys.KALEO_DRAFT_DEFINITION);
+		if (!SessionErrors.contains(
+				renderRequest,
+				DuplicateKaleoDraftDefinitionNameException.class)) {
 
-		if (kaleoDraftDefinition == null) {
 			try {
-				kaleoDraftDefinition =
+				KaleoDraftDefinition kaleoDraftDefinition =
 					KaleoDesignerUtil.getKaleoDraftDefinition(renderRequest);
 
 				renderRequest.setAttribute(
@@ -247,12 +235,6 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 			if (isSessionErrorException(e)) {
 				SessionErrors.add(actionRequest, e.getClass(), e);
 
-				KaleoDraftDefinition kaleoDraftDefinition =
-					KaleoDesignerUtil.getKaleoDraftDefinition(actionRequest);
-
-				actionRequest.setAttribute(
-					WebKeys.KALEO_DRAFT_DEFINITION, kaleoDraftDefinition);
-
 				actionRequest.setAttribute(
 					WebKeys.KALEO_DRAFT_DEFINITION_CONTENT, content);
 			}
@@ -276,7 +258,8 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 
 	@Override
 	protected boolean isSessionErrorException(Throwable cause) {
-		if (cause instanceof KaleoDraftDefinitionContentException ||
+		if (cause instanceof DuplicateKaleoDraftDefinitionNameException ||
+			cause instanceof KaleoDraftDefinitionContentException ||
 			cause instanceof KaleoDraftDefinitionNameException ||
 			cause instanceof NoSuchKaleoDraftDefinitionException ||
 			cause instanceof WorkflowException) {

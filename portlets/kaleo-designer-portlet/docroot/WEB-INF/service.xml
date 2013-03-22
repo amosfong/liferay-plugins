@@ -54,6 +54,7 @@
 		</finder>
 	</entity>
 	<exceptions>
+		<exception>DuplicateKaleoDraftDefinitionName</exception>
 		<exception>KaleoDraftDefinitionContent</exception>
 		<exception>KaleoDraftDefinitionName</exception>
 	</exceptions>

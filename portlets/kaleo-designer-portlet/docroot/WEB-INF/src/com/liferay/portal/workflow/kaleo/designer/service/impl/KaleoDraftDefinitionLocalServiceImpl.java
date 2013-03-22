@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.workflow.WorkflowDefinitionManagerUtil;
 import com.liferay.portal.kernel.workflow.WorkflowException;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.workflow.kaleo.designer.DuplicateKaleoDraftDefinitionNameException;
 import com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionContentException;
 import com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionNameException;
 import com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException;
@@ -62,7 +63,7 @@ public class KaleoDraftDefinitionLocalServiceImpl
 		User user = userPersistence.findByPrimaryKey(userId);
 		Date now = new Date();
 
-		validate(name);
+		validate(user.getCompanyId(), name, version, draftVersion);
 
 		long kaleoDraftDefinitionId = counterLocalService.increment();
 
@@ -218,7 +219,7 @@ public class KaleoDraftDefinitionLocalServiceImpl
 			String content, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		validate(name, content);
+		validate(content);
 
 		WorkflowDefinition workflowDefinition =
 			KaleoDesignerUtil.deployWorkflowDefinition(
@@ -284,17 +285,31 @@ public class KaleoDraftDefinitionLocalServiceImpl
 		return kaleoDraftDefinitionIds;
 	}
 
-	protected void validate(String name) throws PortalException {
+	protected void validate(
+			long companyId, String name, int version, int draftVersion)
+		throws PortalException, SystemException {
+
 		if (Validator.isNull(name)) {
 			throw new KaleoDraftDefinitionNameException();
 		}
+
+		if (kaleoDraftDefinitionPersistence.countByC_N_V_D(
+				companyId, name, version, draftVersion) > 0) {
+
+			throw new DuplicateKaleoDraftDefinitionNameException();
+		}
 	}
 
-	protected void validate(String name, String content)
-		throws PortalException {
+	protected void validate(
+			long companyId, String name, String content, int version,
+			int draftVersion)
+		throws PortalException, SystemException {
 
-		validate(name);
+		validate(companyId, name, version, draftVersion);
+		validate(content);
+	}
 
+	protected void validate(String content) throws PortalException {
 		try {
 			InputStream inputStream = new ByteArrayInputStream(
 				content.getBytes());

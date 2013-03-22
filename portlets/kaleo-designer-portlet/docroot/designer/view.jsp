@@ -66,6 +66,7 @@
 			<aui:input name="draftVersion" type="hidden" />
 			<aui:input name="latestDraftVersion" type="hidden" value="<%= (latestKaleoDraftDefinition == null) ? 1 : latestKaleoDraftDefinition.getDraftVersion() %>" />
 
+			<liferay-ui:error exception="<%= DuplicateKaleoDraftDefinitionNameException.class %>" message="please-enter-a-unique-name" />
 			<liferay-ui:error exception="<%= KaleoDraftDefinitionContentException.class %>" message="please-enter-valid-content" />
 			<liferay-ui:error exception="<%= KaleoDraftDefinitionNameException.class %>" message="please-enter-a-valid-name" />
 			<liferay-ui:error exception="<%= WorkflowException.class %>" message="an-error-occurred-in-the-workflow-engine" />

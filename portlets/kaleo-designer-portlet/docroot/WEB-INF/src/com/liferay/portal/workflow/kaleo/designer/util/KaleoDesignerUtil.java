@@ -75,6 +75,14 @@ public class KaleoDesignerUtil {
 			HttpServletRequest request)
 		throws Exception {
 
+		KaleoDraftDefinition kaleoDraftDefinition =
+			(KaleoDraftDefinition)request.getAttribute(
+				WebKeys.KALEO_DRAFT_DEFINITION);
+
+		if (kaleoDraftDefinition != null) {
+			return kaleoDraftDefinition;
+		}
+
 		String name = ParamUtil.getString(request, "name");
 
 		if (Validator.isNull(name)) {
