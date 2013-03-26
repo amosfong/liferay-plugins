@@ -14,6 +14,8 @@
 
 package com.liferay.saml.util;
 
+import com.liferay.portal.kernel.util.Validator;
+
 import java.io.StringWriter;
 
 import java.util.List;
@@ -327,6 +329,12 @@ public class OpenSamlUtil {
 	}
 
 	public static NameID buildNameId(String nameIdFormat, String nameIdValue) {
+		return buildNameId(nameIdFormat, nameIdValue, null);
+	}
+
+	public static NameID buildNameId(
+		String nameIdFormat, String nameIdValue, String spNameIdQualifier) {
+
 		SAMLObjectBuilder<NameID> samlObjectBuilder =
 			(SAMLObjectBuilder<NameID>)_getBuilder(NameID.DEFAULT_ELEMENT_NAME);
 
@@ -334,6 +342,10 @@ public class OpenSamlUtil {
 
 		nameId.setFormat(nameIdFormat);
 		nameId.setValue(nameIdValue);
+
+		if (Validator.isNotNull(spNameIdQualifier)) {
+			nameId.setSPNameQualifier(spNameIdQualifier);
+		}
 
 		return nameId;
 	}
