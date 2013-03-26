@@ -31,11 +31,16 @@ UnicodeProperties properties = PropertiesParamUtil.getProperties(request, "setti
 
 X509Certificate x509Certificate = null;
 
-X509Credential x509Credential = (X509Credential)MetadataManagerUtil.getSigningCredential();
+try {
+	X509Credential x509Credential = (X509Credential)MetadataManagerUtil.getSigningCredential();
 
-if (x509Credential != null) {
-	x509Certificate = x509Credential.getEntityCertificate();
+	if (x509Credential != null) {
+		x509Certificate = x509Credential.getEntityCertificate();
+	}
 }
+catch (Exception e) {
+}
+
 %>
 
 <portlet:actionURL name="updateGeneral" var="updateGeneralURL">
