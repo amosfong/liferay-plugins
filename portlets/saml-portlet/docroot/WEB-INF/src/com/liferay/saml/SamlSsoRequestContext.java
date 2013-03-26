@@ -66,6 +66,14 @@ public class SamlSsoRequestContext implements Serializable {
 		return _userId;
 	}
 
+	public boolean isNewSession() {
+		return _isNewSession;
+	}
+
+	public void setNewSession(boolean isNewSession) {
+		_isNewSession = isNewSession;
+	}
+
 	public void setSamlSsoSessionId(String samlSsoSessionId) {
 		_samlSsoSessionId = samlSsoSessionId;
 	}
@@ -78,6 +86,7 @@ public class SamlSsoRequestContext implements Serializable {
 		_userId = userId;
 	}
 
+	private boolean _isNewSession;
 	private SAMLMessageContext<AuthnRequest, Response, NameID>
 		_samlMessageContext;
 	private String _samlSsoSessionId;

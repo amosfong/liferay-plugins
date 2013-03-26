@@ -177,8 +177,6 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 			SamlSsoRequestContext samlSsoRequestContext, NameID nameId)
 		throws Exception {
 
-		samlSsoRequestContext.setSamlSsoSessionId(generateIdentifier(30));
-
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			request);
 
@@ -236,7 +234,14 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 
 			String samlSsoSessionId = getSamlSsoSessionId(request);
 
-			samlSsoRequestContext.setSamlSsoSessionId(samlSsoSessionId);
+			if (Validator.isNotNull(samlSsoSessionId)) {
+				samlSsoRequestContext.setSamlSsoSessionId(samlSsoSessionId);
+			}
+			else {
+				samlSsoRequestContext.setNewSession(true);
+				samlSsoRequestContext.setSamlSsoSessionId(
+					generateIdentifier(30));
+			}
 
 			samlSsoRequestContext.setStage(
 				SamlSsoRequestContext.STAGE_AUTHENTICATED);
@@ -323,9 +328,10 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 
 		boolean sessionExpired = false;
 
-		String samlSsoSessionId = samlSsoRequestContext.getSamlSsoSessionId();
+		if (!samlSsoRequestContext.isNewSession()) {
+			String samlSsoSessionId =
+				samlSsoRequestContext.getSamlSsoSessionId();
 
-		if (Validator.isNotNull(samlSsoSessionId)) {
 			SamlIdpSsoSession samlIdpSsoSession =
 				SamlIdpSsoSessionLocalServiceUtil.fetchSamlIdpSso(
 					samlSsoSessionId);
@@ -438,17 +444,25 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 								subjectConfirmation.getMethod())) {
 
 							assertion = curAssertion;
+
+							break;
 						}
 					}
 				}
 			}
 
-			for (AttributeStatement attributeStatement :
-					curAssertion.getAttributeStatements()) {
+			if (assertion != null) {
+				for (AttributeStatement attributeStatement :
+						curAssertion.getAttributeStatements()) {
 
-				for (Attribute attribute : attributeStatement.getAttributes()) {
-					attributes.add(attribute);
+					for (Attribute attribute :
+							attributeStatement.getAttributes()) {
+
+						attributes.add(attribute);
+					}
 				}
+
+				break;
 			}
 		}
 
@@ -595,7 +609,8 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 
 		List<AuthnStatement> authnStatements = assertion.getAuthnStatements();
 
-		authnStatements.add(getSuccessAuthnStatement(assertion));
+		authnStatements.add(
+			getSuccessAuthnStatement(samlSsoRequestContext, assertion));
 
 		boolean attributesEnabled = MetadataManagerUtil.isAttributesEnabled(
 			samlMessageContext.getPeerEntityId());
@@ -664,7 +679,9 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 		return authnContext;
 	}
 
-	protected AuthnStatement getSuccessAuthnStatement(Assertion assertion) {
+	protected AuthnStatement getSuccessAuthnStatement(
+		SamlSsoRequestContext samlSsoRequestContext, Assertion assertion) {
+
 		AuthnStatement authnStatement = OpenSamlUtil.buildAuthnStatement();
 
 		AuthnContext authnContext = getSuccessAuthnContext();
@@ -672,6 +689,9 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 		authnStatement.setAuthnContext(authnContext);
 
 		authnStatement.setAuthnInstant(assertion.getIssueInstant());
+
+		authnStatement.setSessionIndex(
+			samlSsoRequestContext.getSamlSsoSessionId());
 
 		return authnStatement;
 	}
@@ -951,7 +971,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 
 		samlMessageContext.setPeerEntityEndpoint(assertionConsumerService);
 
-		if (Validator.isNull(samlSsoRequestContext.getSamlSsoSessionId())) {
+		if (samlSsoRequestContext.isNewSession()) {
 			addSamlSsoSession(request, response, samlSsoRequestContext, nameId);
 		}
 		else {
