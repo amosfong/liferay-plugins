@@ -64,7 +64,7 @@ String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsP
 
 		<aui:input name="enabled" />
 
-		<aui:input helpMessage="assertion-lifetime-help" name="assertionLifetime" value="<%= String.valueOf(assertionLifetime) %>" required="true" />
+		<aui:input helpMessage="assertion-lifetime-help" name="assertionLifetime" required="true" value="<%= String.valueOf(assertionLifetime) %>" />
 	</aui:fieldset>
 
 	<aui:fieldset label="metadata">
@@ -92,7 +92,7 @@ String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsP
 			<aui:option label="x509-subject-name" selected="<%= nameIdFormat.equals(NameIDType.X509_SUBJECT) %>" value="<%= NameIDType.X509_SUBJECT %>" />
 		</aui:select>
 
-		<aui:input label="name-identifier-attribute-name" helpMessage="name-identifier-attribute-name-help" name="nameIdAttribute" value="<%= nameIdAttribute %>" required="true" />
+		<aui:input helpMessage="name-identifier-attribute-name-help" label="name-identifier-attribute-name" name="nameIdAttribute" required="true" value="<%= nameIdAttribute %>" />
 	</aui:fieldset>
 
 	<aui:fieldset label="attributes">

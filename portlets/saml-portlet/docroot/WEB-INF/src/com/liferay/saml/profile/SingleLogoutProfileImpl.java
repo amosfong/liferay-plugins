@@ -707,7 +707,7 @@ public class SingleLogoutProfileImpl
 		throws Exception {
 
 		SingleLogoutService singleLogoutService =
-			(SingleLogoutService) samlMessageContext.getPeerEntityEndpoint();
+			(SingleLogoutService)samlMessageContext.getPeerEntityEndpoint();
 
 		LogoutRequest logoutRequest = OpenSamlUtil.buildLogoutRequest();
 
@@ -938,7 +938,7 @@ public class SingleLogoutProfileImpl
 		throws Exception {
 
 		SingleLogoutService singleLogoutService =
-			(SingleLogoutService) samlMessageContext.getPeerEntityEndpoint();
+			(SingleLogoutService)samlMessageContext.getPeerEntityEndpoint();
 
 		PostMethod postMethod = new PostMethod(
 			singleLogoutService.getLocation());

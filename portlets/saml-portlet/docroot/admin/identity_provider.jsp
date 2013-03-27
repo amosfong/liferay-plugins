@@ -45,7 +45,7 @@ String nameIdAttribute = PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_I
 	</aui:fieldset>
 
 	<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" title="service-provider-defaults">
-		<aui:input label="assertion-lifetime" helpMessage="assertion-lifetime-help" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_ASSERTION_LIFETIME + "--" %>' value="<%= String.valueOf(assertionLifetime) %>" />
+		<aui:input helpMessage="assertion-lifetime-help" label="assertion-lifetime" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_ASSERTION_LIFETIME + "--" %>' value="<%= String.valueOf(assertionLifetime) %>" />
 
 		<aui:fieldset label="name-identifier">
 			<aui:select label="name-identifier-format" name='<%= "settings--" + PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_FORMAT + "--" %>'>
