@@ -40,7 +40,6 @@ try {
 }
 catch (Exception e) {
 }
-
 %>
 
 <portlet:actionURL name="updateGeneral" var="updateGeneralURL">
