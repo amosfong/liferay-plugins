@@ -34,6 +34,7 @@ public class DefaultNameIdResolver implements NameIdResolver {
 
 		String nameIdFormat = getNameIdFormat(entityId, nameIdPolicy);
 		String nameIdValue = getNameIdValue(user, entityId);
+
 		String spNameQualifier = null;
 
 		if ((nameIdPolicy != null) &&

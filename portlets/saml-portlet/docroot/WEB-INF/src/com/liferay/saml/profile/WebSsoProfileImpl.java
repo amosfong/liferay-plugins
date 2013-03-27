@@ -688,7 +688,6 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 		authnStatement.setAuthnContext(authnContext);
 
 		authnStatement.setAuthnInstant(assertion.getIssueInstant());
-
 		authnStatement.setSessionIndex(
 			samlSsoRequestContext.getSamlSsoSessionId());
 
