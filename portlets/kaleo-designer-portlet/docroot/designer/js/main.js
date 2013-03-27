@@ -244,19 +244,37 @@ AUI.add(
 
 		var PropertyListFormatter = {
 			assignmentsType: function(data) {
-				var assignmentType = data.value.assignmentType[0];
+				var value = data.value;
+
+				var assignmentType;
+
+				if (value && value.assignmentType) {
+					assignmentType = value.assignmentType[0];
+				}
 
 				return KaleoDesignerStrings[assignmentType || 'assignToAssetCreator'];
 			},
 
 			forms: function(data) {
-				var templateName = data.value.templateName;
+				var value = data.value;
+
+				var templateName;
+
+				if (value) {
+					templateName = value.templateName;
+				}
 
 				return AArray(templateName).join(', ');
 			},
 
 			names: function(data) {
-				var names = data.value.name;
+				var value = data.value;
+
+				var names;
+
+				if (value) {
+					names = value.name;
+				}
 
 				return AArray(names).join(', ');
 			},
