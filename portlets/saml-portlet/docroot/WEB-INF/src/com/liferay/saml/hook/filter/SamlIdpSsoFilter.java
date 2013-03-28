@@ -65,9 +65,9 @@ public class SamlIdpSsoFilter extends BaseFilter {
 			}
 		}
 
-		String requestURI = request.getRequestURI();
+		String requestPath = SamlUtil.getRequestPath(request);
 
-		if (requestURI.equals("/c/portal/logout")) {
+		if (requestPath.equals("/c/portal/logout")) {
 			return true;
 		}
 
@@ -85,9 +85,9 @@ public class SamlIdpSsoFilter extends BaseFilter {
 			FilterChain filterChain)
 		throws Exception {
 
-		String requestURI = request.getRequestURI();
+		String requestPath = SamlUtil.getRequestPath(request);
 
-		if (requestURI.equals("/c/portal/logout")) {
+		if (requestPath.equals("/c/portal/logout")) {
 			String samlSsoSessionId = CookieKeys.getCookie(
 				request, PortletWebKeys.SAML_SSO_SESSION_ID);
 

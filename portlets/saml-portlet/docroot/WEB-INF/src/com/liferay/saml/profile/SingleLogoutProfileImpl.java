@@ -125,7 +125,7 @@ public class SingleLogoutProfileImpl
 			HttpServletRequest request, HttpServletResponse response)
 		throws PortalException, SystemException {
 
-		String requestURI = request.getRequestURI();
+		String requestPath = SamlUtil.getRequestPath(request);
 
 		try {
 			response.addHeader(
@@ -134,10 +134,10 @@ public class SingleLogoutProfileImpl
 			response.addHeader(
 				HttpHeaders.PRAGMA, HttpHeaders.PRAGMA_NO_CACHE_VALUE);
 
-			if (requestURI.equals("/c/portal/logout")) {
+			if (requestPath.equals("/c/portal/logout")) {
 				initiateIdpSingleLogout(request, response, null);
 			}
-			else if (requestURI.equals("/c/portal/saml/slo_logout")) {
+			else if (requestPath.equals("/c/portal/saml/slo_logout")) {
 				SamlSloContext samlSloContext = getSamlSloContext(
 					request, null);
 
@@ -187,15 +187,15 @@ public class SingleLogoutProfileImpl
 		SamlBinding samlBinding = null;
 
 		String method = request.getMethod();
-		String requestURI = request.getRequestURI();
+		String requestPath = SamlUtil.getRequestPath(request);
 
-		if (requestURI.endsWith("/slo_redirect") &&
+		if (requestPath.endsWith("/slo_redirect") &&
 			method.equalsIgnoreCase(HttpMethods.GET)) {
 
 			samlBinding = getSamlBinding(
 				SAMLConstants.SAML2_REDIRECT_BINDING_URI);
 		}
-		else if (requestURI.endsWith("/slo_soap") &&
+		else if (requestPath.endsWith("/slo_soap") &&
 				 method.equalsIgnoreCase(HttpMethods.POST)) {
 
 			samlBinding = getSamlBinding(

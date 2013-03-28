@@ -77,10 +77,10 @@ public class SamlSpSsoFilter extends BaseFilter {
 			}
 		}
 
-		String requestURI = request.getRequestURI();
+		String requestPath = SamlUtil.getRequestPath(request);
 
-		if (requestURI.equals("/c/portal/login") ||
-			requestURI.equals("/c/portal/logout")) {
+		if (requestPath.equals("/c/portal/login") ||
+			requestPath.equals("/c/portal/logout")) {
 
 			return true;
 		}
@@ -134,12 +134,12 @@ public class SamlSpSsoFilter extends BaseFilter {
 			FilterChain filterChain)
 		throws Exception {
 
-		String requestURI = request.getRequestURI();
+		String requestPath = SamlUtil.getRequestPath(request);
 
-		if (requestURI.equals("/c/portal/login")) {
+		if (requestPath.equals("/c/portal/login")) {
 			login(request, response);
 		}
-		else if (requestURI.equals("/c/portal/logout") &&
+		else if (requestPath.equals("/c/portal/logout") &&
 				 SingleLogoutProfileUtil.isSingleLogoutSupported(request)) {
 
 			HttpSession session = request.getSession();

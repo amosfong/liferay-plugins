@@ -14,12 +14,18 @@
 
 package com.liferay.saml.util;
 
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.util.PortalUtil;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.opensaml.common.binding.SAMLMessageContext;
 import org.opensaml.saml2.core.Attribute;
@@ -125,6 +131,24 @@ public class SamlUtil {
 		}
 
 		return null;
+	}
+
+	public static String getRequestPath(HttpServletRequest request) {
+		String uri = request.getRequestURI();
+
+		String contextPath = request.getContextPath();
+
+		if (Validator.isNotNull(contextPath) &&
+			!contextPath.equals(StringPool.SLASH)) {
+
+			uri = uri.substring(contextPath.length());
+		}
+
+		Matcher matcher = _uriJSessionIdPattern.matcher(uri);
+
+		uri = matcher.replaceFirst(StringPool.BLANK);
+
+		return uri;
 	}
 
 	public static SingleLogoutService getSingleLogoutServiceForBinding(
@@ -270,5 +294,8 @@ public class SamlUtil {
 
 		return null;
 	}
+
+	private static Pattern _uriJSessionIdPattern = Pattern.compile(
+		";jsessionid=.*");
 
 }
