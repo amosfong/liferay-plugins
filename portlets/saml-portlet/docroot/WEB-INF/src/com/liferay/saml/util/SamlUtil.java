@@ -16,7 +16,6 @@ package com.liferay.saml.util;
 
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.util.PortalUtil;
 
 import java.util.HashMap;
 import java.util.List;
@@ -134,21 +133,19 @@ public class SamlUtil {
 	}
 
 	public static String getRequestPath(HttpServletRequest request) {
-		String uri = request.getRequestURI();
+		String requestURI = request.getRequestURI();
 
 		String contextPath = request.getContextPath();
 
 		if (Validator.isNotNull(contextPath) &&
 			!contextPath.equals(StringPool.SLASH)) {
 
-			uri = uri.substring(contextPath.length());
+			requestURI = requestURI.substring(contextPath.length());
 		}
 
-		Matcher matcher = _uriJSessionIdPattern.matcher(uri);
+		Matcher matcher = _pattern.matcher(requestURI);
 
-		uri = matcher.replaceFirst(StringPool.BLANK);
-
-		return uri;
+		return matcher.replaceFirst(StringPool.BLANK);
 	}
 
 	public static SingleLogoutService getSingleLogoutServiceForBinding(
@@ -295,7 +292,6 @@ public class SamlUtil {
 		return null;
 	}
 
-	private static Pattern _uriJSessionIdPattern = Pattern.compile(
-		";jsessionid=.*");
+	private static Pattern _pattern = Pattern.compile(";jsessionid=.*");
 
 }
