@@ -16,8 +16,10 @@ package com.liferay.saml.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.saml.NoSuchSpSessionException;
 import com.liferay.saml.model.SamlSpSession;
 import com.liferay.saml.service.base.SamlSpSessionLocalServiceBaseImpl;
 
@@ -31,11 +33,12 @@ public class SamlSpSessionLocalServiceImpl
 	extends SamlSpSessionLocalServiceBaseImpl {
 
 	public SamlSpSession addSamlSpSession(
-			String jSessionId, String nameIdFormat, String nameIdValue,
-			ServiceContext serviceContext)
+			String assertionXml, String jSessionId, String nameIdFormat,
+			String nameIdValue, String samlSpSessionKey, String sessionIndex,
+			long userId, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		User user = userLocalService.getUserById(serviceContext.getUserId());
+		User user = userLocalService.getUserById(userId);
 		Date now = new Date();
 
 		long samlSpSessionId = counterLocalService.increment(
@@ -49,9 +52,12 @@ public class SamlSpSessionLocalServiceImpl
 		samlSpSession.setUserName(user.getFullName());
 		samlSpSession.setCreateDate(now);
 		samlSpSession.setModifiedDate(now);
+		samlSpSession.setAssertionXml(assertionXml);
 		samlSpSession.setJSessionId(jSessionId);
 		samlSpSession.setNameIdFormat(nameIdFormat);
 		samlSpSession.setNameIdValue(nameIdValue);
+		samlSpSession.setSamlSpSessionKey(samlSpSessionKey);
+		samlSpSession.setSessionIndex(sessionIndex);
 		samlSpSession.setTerminated(false);
 
 		samlSpSessionPersistence.update(samlSpSession);
@@ -59,22 +65,84 @@ public class SamlSpSessionLocalServiceImpl
 		return samlSpSession;
 	}
 
-	public SamlSpSession fetchSamlSpSession(String jSessionId)
+	public SamlSpSession fetchSamlSpSessionByJSessionId(String jSessionId)
 		throws SystemException {
 
 		return samlSpSessionPersistence.fetchByJSessionId(jSessionId);
 	}
 
-	public SamlSpSession getSamlSpSession(String jSessionId)
+	public SamlSpSession fetchSamlSpSessionBySamlSpSessionKey(
+			String samlSpSessionKey)
+		throws SystemException {
+
+		return samlSpSessionPersistence.fetchBySamlSpSessionKey(
+			samlSpSessionKey);
+	}
+
+	public SamlSpSession fetchSamlSpSessionBySessionIndex(String sessionIndex)
+		throws SystemException {
+
+		if (Validator.isNull(sessionIndex)) {
+			return null;
+		}
+
+		return samlSpSessionPersistence.fetchBySessionIndex(sessionIndex);
+	}
+
+	public SamlSpSession getSamlSpSessionByJSessionId(String jSessionId)
 		throws PortalException, SystemException {
 
 		return samlSpSessionPersistence.findByJSessionId(jSessionId);
+	}
+
+	public SamlSpSession getSamlSpSessionBySamlSpSessionKey(
+			String samlSpSessionKey)
+		throws PortalException, SystemException {
+
+		return samlSpSessionPersistence.findBySamlSpSessionKey(
+			samlSpSessionKey);
+	}
+
+	public SamlSpSession getSamlSpSessionBySessionIndex(String sessionIndex)
+		throws PortalException, SystemException {
+
+		if (Validator.isNull(sessionIndex)) {
+			throw new NoSuchSpSessionException();
+		}
+
+		return samlSpSessionPersistence.findBySessionIndex(sessionIndex);
 	}
 
 	public List<SamlSpSession> getSamlSpSessions(String nameIdValue)
 		throws SystemException {
 
 		return samlSpSessionPersistence.findByNameIdValue(nameIdValue);
+	}
+
+	public SamlSpSession updateSamlSpSession(
+			long samlSpSessionId, String assertionXml, String jSessionId,
+			String nameIdFormat, String nameIdValue, String samlSpSessionKey,
+			String sessionIndex, long userId, ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		SamlSpSession samlSpSession = samlSpSessionPersistence.findByPrimaryKey(
+			samlSpSessionId);
+
+		User user = userLocalService.getUserById(userId);
+		Date now = new Date();
+
+		samlSpSession.setCompanyId(serviceContext.getCompanyId());
+		samlSpSession.setUserId(user.getUserId());
+		samlSpSession.setUserName(user.getFullName());
+		samlSpSession.setModifiedDate(now);
+		samlSpSession.setAssertionXml(assertionXml);
+		samlSpSession.setJSessionId(jSessionId);
+		samlSpSession.setNameIdFormat(nameIdFormat);
+		samlSpSession.setNameIdValue(nameIdValue);
+		samlSpSession.setSamlSpSessionKey(samlSpSessionKey);
+		samlSpSession.setSessionIndex(sessionIndex);
+
+		return samlSpSession;
 	}
 
 }

@@ -119,6 +119,9 @@
 		<field name="userName" type="String" />
 		<field name="createDate" type="Date" />
 		<field name="modifiedDate" type="Date" />
+		<field name="assertionXml" type="String">
+			<hint-collection name="CLOB" />
+		</field>
 		<field name="jSessionId" type="String" />
 		<field name="nameIdFormat" type="String">
 			<hint-collection name="ENTITY-ID" />
@@ -126,6 +129,8 @@
 		<field name="nameIdValue" type="String">
 			<hint-collection name="ENTITY-ID" />
 		</field>
+		<field name="samlSpSessionKey" type="String" />
+		<field name="sessionIndex" type="String" />
 		<field name="terminated" type="boolean" />
 	</model>
 </model-hints>
