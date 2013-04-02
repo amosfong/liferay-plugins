@@ -85,6 +85,249 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
 			SamlSpSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
+	public static final FinderPath FINDER_PATH_FETCH_BY_SAMLSPSESSIONKEY = new FinderPath(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpSessionModelImpl.FINDER_CACHE_ENABLED,
+			SamlSpSessionImpl.class, FINDER_CLASS_NAME_ENTITY,
+			"fetchBySamlSpSessionKey", new String[] { String.class.getName() },
+			SamlSpSessionModelImpl.SAMLSPSESSIONKEY_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_SAMLSPSESSIONKEY = new FinderPath(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countBySamlSpSessionKey", new String[] { String.class.getName() });
+
+	/**
+	 * Returns the saml sp session where samlSpSessionKey = &#63; or throws a {@link com.liferay.saml.NoSuchSpSessionException} if it could not be found.
+	 *
+	 * @param samlSpSessionKey the saml sp session key
+	 * @return the matching saml sp session
+	 * @throws com.liferay.saml.NoSuchSpSessionException if a matching saml sp session could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpSession findBySamlSpSessionKey(String samlSpSessionKey)
+		throws NoSuchSpSessionException, SystemException {
+		SamlSpSession samlSpSession = fetchBySamlSpSessionKey(samlSpSessionKey);
+
+		if (samlSpSession == null) {
+			StringBundler msg = new StringBundler(4);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("samlSpSessionKey=");
+			msg.append(samlSpSessionKey);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchSpSessionException(msg.toString());
+		}
+
+		return samlSpSession;
+	}
+
+	/**
+	 * Returns the saml sp session where samlSpSessionKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param samlSpSessionKey the saml sp session key
+	 * @return the matching saml sp session, or <code>null</code> if a matching saml sp session could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpSession fetchBySamlSpSessionKey(String samlSpSessionKey)
+		throws SystemException {
+		return fetchBySamlSpSessionKey(samlSpSessionKey, true);
+	}
+
+	/**
+	 * Returns the saml sp session where samlSpSessionKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param samlSpSessionKey the saml sp session key
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching saml sp session, or <code>null</code> if a matching saml sp session could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpSession fetchBySamlSpSessionKey(String samlSpSessionKey,
+		boolean retrieveFromCache) throws SystemException {
+		Object[] finderArgs = new Object[] { samlSpSessionKey };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_SAMLSPSESSIONKEY,
+					finderArgs, this);
+		}
+
+		if (result instanceof SamlSpSession) {
+			SamlSpSession samlSpSession = (SamlSpSession)result;
+
+			if (!Validator.equals(samlSpSessionKey,
+						samlSpSession.getSamlSpSessionKey())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_SELECT_SAMLSPSESSION_WHERE);
+
+			boolean bindSamlSpSessionKey = false;
+
+			if (samlSpSessionKey == null) {
+				query.append(_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_1);
+			}
+			else if (samlSpSessionKey.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_3);
+			}
+			else {
+				bindSamlSpSessionKey = true;
+
+				query.append(_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindSamlSpSessionKey) {
+					qPos.add(samlSpSessionKey);
+				}
+
+				List<SamlSpSession> list = q.list();
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SAMLSPSESSIONKEY,
+						finderArgs, list);
+				}
+				else {
+					SamlSpSession samlSpSession = list.get(0);
+
+					result = samlSpSession;
+
+					cacheResult(samlSpSession);
+
+					if ((samlSpSession.getSamlSpSessionKey() == null) ||
+							!samlSpSession.getSamlSpSessionKey()
+											  .equals(samlSpSessionKey)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SAMLSPSESSIONKEY,
+							finderArgs, samlSpSession);
+					}
+				}
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SAMLSPSESSIONKEY,
+					finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (SamlSpSession)result;
+		}
+	}
+
+	/**
+	 * Removes the saml sp session where samlSpSessionKey = &#63; from the database.
+	 *
+	 * @param samlSpSessionKey the saml sp session key
+	 * @return the saml sp session that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpSession removeBySamlSpSessionKey(String samlSpSessionKey)
+		throws NoSuchSpSessionException, SystemException {
+		SamlSpSession samlSpSession = findBySamlSpSessionKey(samlSpSessionKey);
+
+		return remove(samlSpSession);
+	}
+
+	/**
+	 * Returns the number of saml sp sessions where samlSpSessionKey = &#63;.
+	 *
+	 * @param samlSpSessionKey the saml sp session key
+	 * @return the number of matching saml sp sessions
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countBySamlSpSessionKey(String samlSpSessionKey)
+		throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_SAMLSPSESSIONKEY;
+
+		Object[] finderArgs = new Object[] { samlSpSessionKey };
+
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_SAMLSPSESSION_WHERE);
+
+			boolean bindSamlSpSessionKey = false;
+
+			if (samlSpSessionKey == null) {
+				query.append(_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_1);
+			}
+			else if (samlSpSessionKey.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_3);
+			}
+			else {
+				bindSamlSpSessionKey = true;
+
+				query.append(_FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindSamlSpSessionKey) {
+					qPos.add(samlSpSessionKey);
+				}
+
+				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_1 =
+		"samlSpSession.samlSpSessionKey IS NULL";
+	private static final String _FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_2 =
+		"samlSpSession.samlSpSessionKey = ?";
+	private static final String _FINDER_COLUMN_SAMLSPSESSIONKEY_SAMLSPSESSIONKEY_3 =
+		"(samlSpSession.samlSpSessionKey IS NULL OR samlSpSession.samlSpSessionKey = '')";
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_NAMEIDVALUE =
 		new FinderPath(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
 			SamlSpSessionModelImpl.FINDER_CACHE_ENABLED,
@@ -854,6 +1097,251 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	private static final String _FINDER_COLUMN_JSESSIONID_JSESSIONID_1 = "samlSpSession.jSessionId IS NULL";
 	private static final String _FINDER_COLUMN_JSESSIONID_JSESSIONID_2 = "samlSpSession.jSessionId = ?";
 	private static final String _FINDER_COLUMN_JSESSIONID_JSESSIONID_3 = "(samlSpSession.jSessionId IS NULL OR samlSpSession.jSessionId = '')";
+	public static final FinderPath FINDER_PATH_FETCH_BY_SESSIONINDEX = new FinderPath(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpSessionModelImpl.FINDER_CACHE_ENABLED,
+			SamlSpSessionImpl.class, FINDER_CLASS_NAME_ENTITY,
+			"fetchBySessionIndex", new String[] { String.class.getName() },
+			SamlSpSessionModelImpl.SESSIONINDEX_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_SESSIONINDEX = new FinderPath(SamlSpSessionModelImpl.ENTITY_CACHE_ENABLED,
+			SamlSpSessionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countBySessionIndex",
+			new String[] { String.class.getName() });
+
+	/**
+	 * Returns the saml sp session where sessionIndex = &#63; or throws a {@link com.liferay.saml.NoSuchSpSessionException} if it could not be found.
+	 *
+	 * @param sessionIndex the session index
+	 * @return the matching saml sp session
+	 * @throws com.liferay.saml.NoSuchSpSessionException if a matching saml sp session could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpSession findBySessionIndex(String sessionIndex)
+		throws NoSuchSpSessionException, SystemException {
+		SamlSpSession samlSpSession = fetchBySessionIndex(sessionIndex);
+
+		if (samlSpSession == null) {
+			StringBundler msg = new StringBundler(4);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("sessionIndex=");
+			msg.append(sessionIndex);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchSpSessionException(msg.toString());
+		}
+
+		return samlSpSession;
+	}
+
+	/**
+	 * Returns the saml sp session where sessionIndex = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param sessionIndex the session index
+	 * @return the matching saml sp session, or <code>null</code> if a matching saml sp session could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpSession fetchBySessionIndex(String sessionIndex)
+		throws SystemException {
+		return fetchBySessionIndex(sessionIndex, true);
+	}
+
+	/**
+	 * Returns the saml sp session where sessionIndex = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param sessionIndex the session index
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching saml sp session, or <code>null</code> if a matching saml sp session could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpSession fetchBySessionIndex(String sessionIndex,
+		boolean retrieveFromCache) throws SystemException {
+		Object[] finderArgs = new Object[] { sessionIndex };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_SESSIONINDEX,
+					finderArgs, this);
+		}
+
+		if (result instanceof SamlSpSession) {
+			SamlSpSession samlSpSession = (SamlSpSession)result;
+
+			if (!Validator.equals(sessionIndex, samlSpSession.getSessionIndex())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_SELECT_SAMLSPSESSION_WHERE);
+
+			boolean bindSessionIndex = false;
+
+			if (sessionIndex == null) {
+				query.append(_FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_1);
+			}
+			else if (sessionIndex.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_3);
+			}
+			else {
+				bindSessionIndex = true;
+
+				query.append(_FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindSessionIndex) {
+					qPos.add(sessionIndex);
+				}
+
+				List<SamlSpSession> list = q.list();
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SESSIONINDEX,
+						finderArgs, list);
+				}
+				else {
+					if ((list.size() > 1) && _log.isWarnEnabled()) {
+						_log.warn(
+							"SamlSpSessionPersistenceImpl.fetchBySessionIndex(String, boolean) with parameters (" +
+							StringUtil.merge(finderArgs) +
+							") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+					}
+
+					SamlSpSession samlSpSession = list.get(0);
+
+					result = samlSpSession;
+
+					cacheResult(samlSpSession);
+
+					if ((samlSpSession.getSessionIndex() == null) ||
+							!samlSpSession.getSessionIndex().equals(sessionIndex)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SESSIONINDEX,
+							finderArgs, samlSpSession);
+					}
+				}
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SESSIONINDEX,
+					finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (SamlSpSession)result;
+		}
+	}
+
+	/**
+	 * Removes the saml sp session where sessionIndex = &#63; from the database.
+	 *
+	 * @param sessionIndex the session index
+	 * @return the saml sp session that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	public SamlSpSession removeBySessionIndex(String sessionIndex)
+		throws NoSuchSpSessionException, SystemException {
+		SamlSpSession samlSpSession = findBySessionIndex(sessionIndex);
+
+		return remove(samlSpSession);
+	}
+
+	/**
+	 * Returns the number of saml sp sessions where sessionIndex = &#63;.
+	 *
+	 * @param sessionIndex the session index
+	 * @return the number of matching saml sp sessions
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countBySessionIndex(String sessionIndex)
+		throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_SESSIONINDEX;
+
+		Object[] finderArgs = new Object[] { sessionIndex };
+
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_SAMLSPSESSION_WHERE);
+
+			boolean bindSessionIndex = false;
+
+			if (sessionIndex == null) {
+				query.append(_FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_1);
+			}
+			else if (sessionIndex.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_3);
+			}
+			else {
+				bindSessionIndex = true;
+
+				query.append(_FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindSessionIndex) {
+					qPos.add(sessionIndex);
+				}
+
+				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_1 = "samlSpSession.sessionIndex IS NULL";
+	private static final String _FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_2 = "samlSpSession.sessionIndex = ?";
+	private static final String _FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_3 = "(samlSpSession.sessionIndex IS NULL OR samlSpSession.sessionIndex = '')";
 
 	/**
 	 * Caches the saml sp session in the entity cache if it is enabled.
@@ -865,8 +1353,14 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 			SamlSpSessionImpl.class, samlSpSession.getPrimaryKey(),
 			samlSpSession);
 
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SAMLSPSESSIONKEY,
+			new Object[] { samlSpSession.getSamlSpSessionKey() }, samlSpSession);
+
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JSESSIONID,
 			new Object[] { samlSpSession.getJSessionId() }, samlSpSession);
+
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SESSIONINDEX,
+			new Object[] { samlSpSession.getSessionIndex() }, samlSpSession);
 
 		samlSpSession.resetOriginalValues();
 	}
@@ -942,15 +1436,39 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 	protected void cacheUniqueFindersCache(SamlSpSession samlSpSession) {
 		if (samlSpSession.isNew()) {
-			Object[] args = new Object[] { samlSpSession.getJSessionId() };
+			Object[] args = new Object[] { samlSpSession.getSamlSpSessionKey() };
+
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_SAMLSPSESSIONKEY,
+				args, Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SAMLSPSESSIONKEY,
+				args, samlSpSession);
+
+			args = new Object[] { samlSpSession.getJSessionId() };
 
 			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_JSESSIONID, args,
 				Long.valueOf(1));
 			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JSESSIONID, args,
 				samlSpSession);
+
+			args = new Object[] { samlSpSession.getSessionIndex() };
+
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_SESSIONINDEX, args,
+				Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SESSIONINDEX, args,
+				samlSpSession);
 		}
 		else {
 			SamlSpSessionModelImpl samlSpSessionModelImpl = (SamlSpSessionModelImpl)samlSpSession;
+
+			if ((samlSpSessionModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_SAMLSPSESSIONKEY.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] { samlSpSession.getSamlSpSessionKey() };
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_SAMLSPSESSIONKEY,
+					args, Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SAMLSPSESSIONKEY,
+					args, samlSpSession);
+			}
 
 			if ((samlSpSessionModelImpl.getColumnBitmask() &
 					FINDER_PATH_FETCH_BY_JSESSIONID.getColumnBitmask()) != 0) {
@@ -961,13 +1479,40 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_JSESSIONID,
 					args, samlSpSession);
 			}
+
+			if ((samlSpSessionModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_SESSIONINDEX.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] { samlSpSession.getSessionIndex() };
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_SESSIONINDEX,
+					args, Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_SESSIONINDEX,
+					args, samlSpSession);
+			}
 		}
 	}
 
 	protected void clearUniqueFindersCache(SamlSpSession samlSpSession) {
 		SamlSpSessionModelImpl samlSpSessionModelImpl = (SamlSpSessionModelImpl)samlSpSession;
 
-		Object[] args = new Object[] { samlSpSession.getJSessionId() };
+		Object[] args = new Object[] { samlSpSession.getSamlSpSessionKey() };
+
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_SAMLSPSESSIONKEY, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SAMLSPSESSIONKEY, args);
+
+		if ((samlSpSessionModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_SAMLSPSESSIONKEY.getColumnBitmask()) != 0) {
+			args = new Object[] {
+					samlSpSessionModelImpl.getOriginalSamlSpSessionKey()
+				};
+
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_SAMLSPSESSIONKEY,
+				args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SAMLSPSESSIONKEY,
+				args);
+		}
+
+		args = new Object[] { samlSpSession.getJSessionId() };
 
 		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_JSESSIONID, args);
 		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_JSESSIONID, args);
@@ -978,6 +1523,19 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 
 			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_JSESSIONID, args);
 			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_JSESSIONID, args);
+		}
+
+		args = new Object[] { samlSpSession.getSessionIndex() };
+
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_SESSIONINDEX, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SESSIONINDEX, args);
+
+		if ((samlSpSessionModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_SESSIONINDEX.getColumnBitmask()) != 0) {
+			args = new Object[] { samlSpSessionModelImpl.getOriginalSessionIndex() };
+
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_SESSIONINDEX, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_SESSIONINDEX, args);
 		}
 	}
 
@@ -1167,9 +1725,12 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 		samlSpSessionImpl.setUserName(samlSpSession.getUserName());
 		samlSpSessionImpl.setCreateDate(samlSpSession.getCreateDate());
 		samlSpSessionImpl.setModifiedDate(samlSpSession.getModifiedDate());
+		samlSpSessionImpl.setSamlSpSessionKey(samlSpSession.getSamlSpSessionKey());
+		samlSpSessionImpl.setAssertionXml(samlSpSession.getAssertionXml());
 		samlSpSessionImpl.setJSessionId(samlSpSession.getJSessionId());
 		samlSpSessionImpl.setNameIdFormat(samlSpSession.getNameIdFormat());
 		samlSpSessionImpl.setNameIdValue(samlSpSession.getNameIdValue());
+		samlSpSessionImpl.setSessionIndex(samlSpSession.getSessionIndex());
 		samlSpSessionImpl.setTerminated(samlSpSession.isTerminated());
 
 		return samlSpSessionImpl;

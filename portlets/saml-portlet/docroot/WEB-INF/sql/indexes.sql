@@ -15,3 +15,5 @@ create index IX_5615F9DD on SamlSpMessage (samlIdpEntityId, samlIdpResponseKey);
 
 create index IX_85F532ED on SamlSpSession (jSessionId);
 create index IX_1040A689 on SamlSpSession (nameIdValue);
+create unique index IX_C66E4319 on SamlSpSession (samlSpSessionKey);
+create index IX_2001B382 on SamlSpSession (sessionIndex);

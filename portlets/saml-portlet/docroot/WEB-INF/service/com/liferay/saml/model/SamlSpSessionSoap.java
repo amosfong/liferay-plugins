@@ -36,9 +36,12 @@ public class SamlSpSessionSoap implements Serializable {
 		soapModel.setUserName(model.getUserName());
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
+		soapModel.setSamlSpSessionKey(model.getSamlSpSessionKey());
+		soapModel.setAssertionXml(model.getAssertionXml());
 		soapModel.setJSessionId(model.getJSessionId());
 		soapModel.setNameIdFormat(model.getNameIdFormat());
 		soapModel.setNameIdValue(model.getNameIdValue());
+		soapModel.setSessionIndex(model.getSessionIndex());
 		soapModel.setTerminated(model.getTerminated());
 
 		return soapModel;
@@ -140,6 +143,22 @@ public class SamlSpSessionSoap implements Serializable {
 		_modifiedDate = modifiedDate;
 	}
 
+	public String getSamlSpSessionKey() {
+		return _samlSpSessionKey;
+	}
+
+	public void setSamlSpSessionKey(String samlSpSessionKey) {
+		_samlSpSessionKey = samlSpSessionKey;
+	}
+
+	public String getAssertionXml() {
+		return _assertionXml;
+	}
+
+	public void setAssertionXml(String assertionXml) {
+		_assertionXml = assertionXml;
+	}
+
 	public String getJSessionId() {
 		return _jSessionId;
 	}
@@ -164,6 +183,14 @@ public class SamlSpSessionSoap implements Serializable {
 		_nameIdValue = nameIdValue;
 	}
 
+	public String getSessionIndex() {
+		return _sessionIndex;
+	}
+
+	public void setSessionIndex(String sessionIndex) {
+		_sessionIndex = sessionIndex;
+	}
+
 	public boolean getTerminated() {
 		return _terminated;
 	}
@@ -182,8 +209,11 @@ public class SamlSpSessionSoap implements Serializable {
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
+	private String _samlSpSessionKey;
+	private String _assertionXml;
 	private String _jSessionId;
 	private String _nameIdFormat;
 	private String _nameIdValue;
+	private String _sessionIndex;
 	private boolean _terminated;
 }

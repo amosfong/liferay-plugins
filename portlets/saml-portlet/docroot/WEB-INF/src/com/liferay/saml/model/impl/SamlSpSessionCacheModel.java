@@ -38,7 +38,7 @@ public class SamlSpSessionCacheModel implements CacheModel<SamlSpSession>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(27);
 
 		sb.append("{samlSpSessionId=");
 		sb.append(samlSpSessionId);
@@ -52,12 +52,18 @@ public class SamlSpSessionCacheModel implements CacheModel<SamlSpSession>,
 		sb.append(createDate);
 		sb.append(", modifiedDate=");
 		sb.append(modifiedDate);
+		sb.append(", samlSpSessionKey=");
+		sb.append(samlSpSessionKey);
+		sb.append(", assertionXml=");
+		sb.append(assertionXml);
 		sb.append(", jSessionId=");
 		sb.append(jSessionId);
 		sb.append(", nameIdFormat=");
 		sb.append(nameIdFormat);
 		sb.append(", nameIdValue=");
 		sb.append(nameIdValue);
+		sb.append(", sessionIndex=");
+		sb.append(sessionIndex);
 		sb.append(", terminated=");
 		sb.append(terminated);
 		sb.append("}");
@@ -93,6 +99,20 @@ public class SamlSpSessionCacheModel implements CacheModel<SamlSpSession>,
 			samlSpSessionImpl.setModifiedDate(new Date(modifiedDate));
 		}
 
+		if (samlSpSessionKey == null) {
+			samlSpSessionImpl.setSamlSpSessionKey(StringPool.BLANK);
+		}
+		else {
+			samlSpSessionImpl.setSamlSpSessionKey(samlSpSessionKey);
+		}
+
+		if (assertionXml == null) {
+			samlSpSessionImpl.setAssertionXml(StringPool.BLANK);
+		}
+		else {
+			samlSpSessionImpl.setAssertionXml(assertionXml);
+		}
+
 		if (jSessionId == null) {
 			samlSpSessionImpl.setJSessionId(StringPool.BLANK);
 		}
@@ -114,6 +134,13 @@ public class SamlSpSessionCacheModel implements CacheModel<SamlSpSession>,
 			samlSpSessionImpl.setNameIdValue(nameIdValue);
 		}
 
+		if (sessionIndex == null) {
+			samlSpSessionImpl.setSessionIndex(StringPool.BLANK);
+		}
+		else {
+			samlSpSessionImpl.setSessionIndex(sessionIndex);
+		}
+
 		samlSpSessionImpl.setTerminated(terminated);
 
 		samlSpSessionImpl.resetOriginalValues();
@@ -128,9 +155,12 @@ public class SamlSpSessionCacheModel implements CacheModel<SamlSpSession>,
 		userName = objectInput.readUTF();
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
+		samlSpSessionKey = objectInput.readUTF();
+		assertionXml = objectInput.readUTF();
 		jSessionId = objectInput.readUTF();
 		nameIdFormat = objectInput.readUTF();
 		nameIdValue = objectInput.readUTF();
+		sessionIndex = objectInput.readUTF();
 		terminated = objectInput.readBoolean();
 	}
 
@@ -149,6 +179,20 @@ public class SamlSpSessionCacheModel implements CacheModel<SamlSpSession>,
 
 		objectOutput.writeLong(createDate);
 		objectOutput.writeLong(modifiedDate);
+
+		if (samlSpSessionKey == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(samlSpSessionKey);
+		}
+
+		if (assertionXml == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(assertionXml);
+		}
 
 		if (jSessionId == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
@@ -171,6 +215,13 @@ public class SamlSpSessionCacheModel implements CacheModel<SamlSpSession>,
 			objectOutput.writeUTF(nameIdValue);
 		}
 
+		if (sessionIndex == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(sessionIndex);
+		}
+
 		objectOutput.writeBoolean(terminated);
 	}
 
@@ -180,8 +231,11 @@ public class SamlSpSessionCacheModel implements CacheModel<SamlSpSession>,
 	public String userName;
 	public long createDate;
 	public long modifiedDate;
+	public String samlSpSessionKey;
+	public String assertionXml;
 	public String jSessionId;
 	public String nameIdFormat;
 	public String nameIdValue;
+	public String sessionIndex;
 	public boolean terminated;
 }

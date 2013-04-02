@@ -110,20 +110,45 @@ public class SamlSpSessionLocalServiceClpInvoker {
 
 		_methodParameterTypes61 = new String[] {
 				"java.lang.String", "java.lang.String", "java.lang.String",
+				"java.lang.String", "java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName62 = "fetchSamlSpSession";
+		_methodName62 = "fetchSamlSpSessionByJSessionId";
 
 		_methodParameterTypes62 = new String[] { "java.lang.String" };
 
-		_methodName63 = "getSamlSpSession";
+		_methodName63 = "fetchSamlSpSessionBySamlSpSessionKey";
 
 		_methodParameterTypes63 = new String[] { "java.lang.String" };
 
-		_methodName64 = "getSamlSpSessions";
+		_methodName64 = "fetchSamlSpSessionBySessionIndex";
 
 		_methodParameterTypes64 = new String[] { "java.lang.String" };
+
+		_methodName65 = "getSamlSpSessionByJSessionId";
+
+		_methodParameterTypes65 = new String[] { "java.lang.String" };
+
+		_methodName66 = "getSamlSpSessionBySamlSpSessionKey";
+
+		_methodParameterTypes66 = new String[] { "java.lang.String" };
+
+		_methodName67 = "getSamlSpSessionBySessionIndex";
+
+		_methodParameterTypes67 = new String[] { "java.lang.String" };
+
+		_methodName68 = "getSamlSpSessions";
+
+		_methodParameterTypes68 = new String[] { "java.lang.String" };
+
+		_methodName69 = "updateSamlSpSession";
+
+		_methodParameterTypes69 = new String[] {
+				"long", "java.lang.String", "java.lang.String",
+				"java.lang.String", "java.lang.String", "java.lang.String",
+				"java.lang.String", "com.liferay.portal.service.ServiceContext"
+			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -225,22 +250,53 @@ public class SamlSpSessionLocalServiceClpInvoker {
 				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
 			return SamlSpSessionLocalServiceUtil.addSamlSpSession((java.lang.String)arguments[0],
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
-				(com.liferay.portal.service.ServiceContext)arguments[3]);
+				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
+				(java.lang.String)arguments[5],
+				(com.liferay.portal.service.ServiceContext)arguments[6]);
 		}
 
 		if (_methodName62.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
-			return SamlSpSessionLocalServiceUtil.fetchSamlSpSession((java.lang.String)arguments[0]);
+			return SamlSpSessionLocalServiceUtil.fetchSamlSpSessionByJSessionId((java.lang.String)arguments[0]);
 		}
 
 		if (_methodName63.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
-			return SamlSpSessionLocalServiceUtil.getSamlSpSession((java.lang.String)arguments[0]);
+			return SamlSpSessionLocalServiceUtil.fetchSamlSpSessionBySamlSpSessionKey((java.lang.String)arguments[0]);
 		}
 
 		if (_methodName64.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+			return SamlSpSessionLocalServiceUtil.fetchSamlSpSessionBySessionIndex((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName65.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+			return SamlSpSessionLocalServiceUtil.getSamlSpSessionByJSessionId((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName66.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
+			return SamlSpSessionLocalServiceUtil.getSamlSpSessionBySamlSpSessionKey((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName67.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
+			return SamlSpSessionLocalServiceUtil.getSamlSpSessionBySessionIndex((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName68.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
 			return SamlSpSessionLocalServiceUtil.getSamlSpSessions((java.lang.String)arguments[0]);
+		}
+
+		if (_methodName69.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
+			return SamlSpSessionLocalServiceUtil.updateSamlSpSession(((Long)arguments[0]).longValue(),
+				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
+				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
+				(java.lang.String)arguments[5], (java.lang.String)arguments[6],
+				(com.liferay.portal.service.ServiceContext)arguments[7]);
 		}
 
 		throw new UnsupportedOperationException();
@@ -288,4 +344,14 @@ public class SamlSpSessionLocalServiceClpInvoker {
 	private String[] _methodParameterTypes63;
 	private String _methodName64;
 	private String[] _methodParameterTypes64;
+	private String _methodName65;
+	private String[] _methodParameterTypes65;
+	private String _methodName66;
+	private String[] _methodParameterTypes66;
+	private String _methodName67;
+	private String[] _methodParameterTypes67;
+	private String _methodName68;
+	private String[] _methodParameterTypes68;
+	private String _methodName69;
+	private String[] _methodParameterTypes69;
 }

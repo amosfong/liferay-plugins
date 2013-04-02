@@ -111,20 +111,45 @@ public class SamlSpSessionLocalServiceClp implements SamlSpSessionLocalService {
 
 		_methodParameterTypes18 = new String[] {
 				"java.lang.String", "java.lang.String", "java.lang.String",
+				"java.lang.String", "java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName19 = "fetchSamlSpSession";
+		_methodName19 = "fetchSamlSpSessionByJSessionId";
 
 		_methodParameterTypes19 = new String[] { "java.lang.String" };
 
-		_methodName20 = "getSamlSpSession";
+		_methodName20 = "fetchSamlSpSessionBySamlSpSessionKey";
 
 		_methodParameterTypes20 = new String[] { "java.lang.String" };
 
-		_methodName21 = "getSamlSpSessions";
+		_methodName21 = "fetchSamlSpSessionBySessionIndex";
 
 		_methodParameterTypes21 = new String[] { "java.lang.String" };
+
+		_methodName22 = "getSamlSpSessionByJSessionId";
+
+		_methodParameterTypes22 = new String[] { "java.lang.String" };
+
+		_methodName23 = "getSamlSpSessionBySamlSpSessionKey";
+
+		_methodParameterTypes23 = new String[] { "java.lang.String" };
+
+		_methodName24 = "getSamlSpSessionBySessionIndex";
+
+		_methodParameterTypes24 = new String[] { "java.lang.String" };
+
+		_methodName25 = "getSamlSpSessions";
+
+		_methodParameterTypes25 = new String[] { "java.lang.String" };
+
+		_methodName26 = "updateSamlSpSession";
+
+		_methodParameterTypes26 = new String[] {
+				"long", "java.lang.String", "java.lang.String",
+				"java.lang.String", "java.lang.String", "java.lang.String",
+				"java.lang.String", "com.liferay.portal.service.ServiceContext"
+			};
 	}
 
 	public com.liferay.saml.model.SamlSpSession addSamlSpSession(
@@ -625,8 +650,9 @@ public class SamlSpSessionLocalServiceClp implements SamlSpSessionLocalService {
 	}
 
 	public com.liferay.saml.model.SamlSpSession addSamlSpSession(
+		java.lang.String samlSpSessionKey, java.lang.String assertionXml,
 		java.lang.String jSessionId, java.lang.String nameIdFormat,
-		java.lang.String nameIdValue,
+		java.lang.String nameIdValue, java.lang.String sessionIndex,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -636,11 +662,17 @@ public class SamlSpSessionLocalServiceClp implements SamlSpSessionLocalService {
 			returnObj = _invokableLocalService.invokeMethod(_methodName18,
 					_methodParameterTypes18,
 					new Object[] {
-						ClpSerializer.translateInput(jSessionId),
+						ClpSerializer.translateInput(samlSpSessionKey),
+						
+					ClpSerializer.translateInput(assertionXml),
+						
+					ClpSerializer.translateInput(jSessionId),
 						
 					ClpSerializer.translateInput(nameIdFormat),
 						
 					ClpSerializer.translateInput(nameIdValue),
+						
+					ClpSerializer.translateInput(sessionIndex),
 						
 					ClpSerializer.translateInput(serviceContext)
 					});
@@ -668,7 +700,7 @@ public class SamlSpSessionLocalServiceClp implements SamlSpSessionLocalService {
 		return (com.liferay.saml.model.SamlSpSession)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public com.liferay.saml.model.SamlSpSession fetchSamlSpSession(
+	public com.liferay.saml.model.SamlSpSession fetchSamlSpSessionByJSessionId(
 		java.lang.String jSessionId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -697,16 +729,144 @@ public class SamlSpSessionLocalServiceClp implements SamlSpSessionLocalService {
 		return (com.liferay.saml.model.SamlSpSession)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public com.liferay.saml.model.SamlSpSession getSamlSpSession(
+	public com.liferay.saml.model.SamlSpSession fetchSamlSpSessionBySamlSpSessionKey(
+		java.lang.String samlSpSessionKey)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20,
+					new Object[] { ClpSerializer.translateInput(
+							samlSpSessionKey) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.saml.model.SamlSpSession)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public com.liferay.saml.model.SamlSpSession fetchSamlSpSessionBySessionIndex(
+		java.lang.String sessionIndex)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
+					new Object[] { ClpSerializer.translateInput(sessionIndex) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.saml.model.SamlSpSession)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public com.liferay.saml.model.SamlSpSession getSamlSpSessionByJSessionId(
 		java.lang.String jSessionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName20,
-					_methodParameterTypes20,
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22,
 					new Object[] { ClpSerializer.translateInput(jSessionId) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.saml.model.SamlSpSession)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public com.liferay.saml.model.SamlSpSession getSamlSpSessionBySamlSpSessionKey(
+		java.lang.String samlSpSessionKey)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23,
+					new Object[] { ClpSerializer.translateInput(
+							samlSpSessionKey) });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.saml.model.SamlSpSession)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public com.liferay.saml.model.SamlSpSession getSamlSpSessionBySessionIndex(
+		java.lang.String sessionIndex)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24,
+					new Object[] { ClpSerializer.translateInput(sessionIndex) });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -737,8 +897,8 @@ public class SamlSpSessionLocalServiceClp implements SamlSpSessionLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21,
+			returnObj = _invokableLocalService.invokeMethod(_methodName25,
+					_methodParameterTypes25,
 					new Object[] { ClpSerializer.translateInput(nameIdValue) });
 		}
 		catch (Throwable t) {
@@ -758,6 +918,60 @@ public class SamlSpSessionLocalServiceClp implements SamlSpSessionLocalService {
 		}
 
 		return (java.util.List<com.liferay.saml.model.SamlSpSession>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	public com.liferay.saml.model.SamlSpSession updateSamlSpSession(
+		long samlSpSessionId, java.lang.String samlSpSessionKey,
+		java.lang.String assertionXml, java.lang.String jSessionId,
+		java.lang.String nameIdFormat, java.lang.String nameIdValue,
+		java.lang.String sessionIndex,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName26,
+					_methodParameterTypes26,
+					new Object[] {
+						samlSpSessionId,
+						
+					ClpSerializer.translateInput(samlSpSessionKey),
+						
+					ClpSerializer.translateInput(assertionXml),
+						
+					ClpSerializer.translateInput(jSessionId),
+						
+					ClpSerializer.translateInput(nameIdFormat),
+						
+					ClpSerializer.translateInput(nameIdValue),
+						
+					ClpSerializer.translateInput(sessionIndex),
+						
+					ClpSerializer.translateInput(serviceContext)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.saml.model.SamlSpSession)ClpSerializer.translateOutput(returnObj);
 	}
 
 	private InvokableLocalService _invokableLocalService;
@@ -803,4 +1017,14 @@ public class SamlSpSessionLocalServiceClp implements SamlSpSessionLocalService {
 	private String[] _methodParameterTypes20;
 	private String _methodName21;
 	private String[] _methodParameterTypes21;
+	private String _methodName22;
+	private String[] _methodParameterTypes22;
+	private String _methodName23;
+	private String[] _methodParameterTypes23;
+	private String _methodName24;
+	private String[] _methodParameterTypes24;
+	private String _methodName25;
+	private String[] _methodParameterTypes25;
+	private String _methodName26;
+	private String[] _methodParameterTypes26;
 }

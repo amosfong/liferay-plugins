@@ -163,6 +163,36 @@ public interface SamlSpSessionModel extends AuditedModel,
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
+	 * Returns the saml sp session key of this saml sp session.
+	 *
+	 * @return the saml sp session key of this saml sp session
+	 */
+	@AutoEscape
+	public String getSamlSpSessionKey();
+
+	/**
+	 * Sets the saml sp session key of this saml sp session.
+	 *
+	 * @param samlSpSessionKey the saml sp session key of this saml sp session
+	 */
+	public void setSamlSpSessionKey(String samlSpSessionKey);
+
+	/**
+	 * Returns the assertion xml of this saml sp session.
+	 *
+	 * @return the assertion xml of this saml sp session
+	 */
+	@AutoEscape
+	public String getAssertionXml();
+
+	/**
+	 * Sets the assertion xml of this saml sp session.
+	 *
+	 * @param assertionXml the assertion xml of this saml sp session
+	 */
+	public void setAssertionXml(String assertionXml);
+
+	/**
 	 * Returns the j session ID of this saml sp session.
 	 *
 	 * @return the j session ID of this saml sp session
@@ -206,6 +236,21 @@ public interface SamlSpSessionModel extends AuditedModel,
 	 * @param nameIdValue the name ID value of this saml sp session
 	 */
 	public void setNameIdValue(String nameIdValue);
+
+	/**
+	 * Returns the session index of this saml sp session.
+	 *
+	 * @return the session index of this saml sp session
+	 */
+	@AutoEscape
+	public String getSessionIndex();
+
+	/**
+	 * Sets the session index of this saml sp session.
+	 *
+	 * @param sessionIndex the session index of this saml sp session
+	 */
+	public void setSessionIndex(String sessionIndex);
 
 	/**
 	 * Returns the terminated of this saml sp session.

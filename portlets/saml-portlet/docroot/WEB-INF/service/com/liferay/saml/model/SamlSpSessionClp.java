@@ -72,9 +72,12 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("samlSpSessionKey", getSamlSpSessionKey());
+		attributes.put("assertionXml", getAssertionXml());
 		attributes.put("jSessionId", getJSessionId());
 		attributes.put("nameIdFormat", getNameIdFormat());
 		attributes.put("nameIdValue", getNameIdValue());
+		attributes.put("sessionIndex", getSessionIndex());
 		attributes.put("terminated", getTerminated());
 
 		return attributes;
@@ -118,6 +121,18 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 			setModifiedDate(modifiedDate);
 		}
 
+		String samlSpSessionKey = (String)attributes.get("samlSpSessionKey");
+
+		if (samlSpSessionKey != null) {
+			setSamlSpSessionKey(samlSpSessionKey);
+		}
+
+		String assertionXml = (String)attributes.get("assertionXml");
+
+		if (assertionXml != null) {
+			setAssertionXml(assertionXml);
+		}
+
 		String jSessionId = (String)attributes.get("jSessionId");
 
 		if (jSessionId != null) {
@@ -134,6 +149,12 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 
 		if (nameIdValue != null) {
 			setNameIdValue(nameIdValue);
+		}
+
+		String sessionIndex = (String)attributes.get("sessionIndex");
+
+		if (sessionIndex != null) {
+			setSessionIndex(sessionIndex);
 		}
 
 		Boolean terminated = (Boolean)attributes.get("terminated");
@@ -199,6 +220,22 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		_modifiedDate = modifiedDate;
 	}
 
+	public String getSamlSpSessionKey() {
+		return _samlSpSessionKey;
+	}
+
+	public void setSamlSpSessionKey(String samlSpSessionKey) {
+		_samlSpSessionKey = samlSpSessionKey;
+	}
+
+	public String getAssertionXml() {
+		return _assertionXml;
+	}
+
+	public void setAssertionXml(String assertionXml) {
+		_assertionXml = assertionXml;
+	}
+
 	public String getJSessionId() {
 		return _jSessionId;
 	}
@@ -221,6 +258,14 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 
 	public void setNameIdValue(String nameIdValue) {
 		_nameIdValue = nameIdValue;
+	}
+
+	public String getSessionIndex() {
+		return _sessionIndex;
+	}
+
+	public void setSessionIndex(String sessionIndex) {
+		_sessionIndex = sessionIndex;
 	}
 
 	public boolean getTerminated() {
@@ -269,9 +314,12 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		clone.setUserName(getUserName());
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
+		clone.setSamlSpSessionKey(getSamlSpSessionKey());
+		clone.setAssertionXml(getAssertionXml());
 		clone.setJSessionId(getJSessionId());
 		clone.setNameIdFormat(getNameIdFormat());
 		clone.setNameIdValue(getNameIdValue());
+		clone.setSessionIndex(getSessionIndex());
 		clone.setTerminated(getTerminated());
 
 		return clone;
@@ -323,7 +371,7 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(27);
 
 		sb.append("{samlSpSessionId=");
 		sb.append(getSamlSpSessionId());
@@ -337,12 +385,18 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		sb.append(getCreateDate());
 		sb.append(", modifiedDate=");
 		sb.append(getModifiedDate());
+		sb.append(", samlSpSessionKey=");
+		sb.append(getSamlSpSessionKey());
+		sb.append(", assertionXml=");
+		sb.append(getAssertionXml());
 		sb.append(", jSessionId=");
 		sb.append(getJSessionId());
 		sb.append(", nameIdFormat=");
 		sb.append(getNameIdFormat());
 		sb.append(", nameIdValue=");
 		sb.append(getNameIdValue());
+		sb.append(", sessionIndex=");
+		sb.append(getSessionIndex());
 		sb.append(", terminated=");
 		sb.append(getTerminated());
 		sb.append("}");
@@ -351,7 +405,7 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 	}
 
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(34);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.saml.model.SamlSpSession");
@@ -382,6 +436,14 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		sb.append(getModifiedDate());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>samlSpSessionKey</column-name><column-value><![CDATA[");
+		sb.append(getSamlSpSessionKey());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>assertionXml</column-name><column-value><![CDATA[");
+		sb.append(getAssertionXml());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>jSessionId</column-name><column-value><![CDATA[");
 		sb.append(getJSessionId());
 		sb.append("]]></column-value></column>");
@@ -392,6 +454,10 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		sb.append(
 			"<column><column-name>nameIdValue</column-name><column-value><![CDATA[");
 		sb.append(getNameIdValue());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>sessionIndex</column-name><column-value><![CDATA[");
+		sb.append(getSessionIndex());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>terminated</column-name><column-value><![CDATA[");
@@ -410,9 +476,12 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 	private String _userName;
 	private Date _createDate;
 	private Date _modifiedDate;
+	private String _samlSpSessionKey;
+	private String _assertionXml;
 	private String _jSessionId;
 	private String _nameIdFormat;
 	private String _nameIdValue;
+	private String _sessionIndex;
 	private boolean _terminated;
 	private BaseModel<?> _samlSpSessionRemoteModel;
 }

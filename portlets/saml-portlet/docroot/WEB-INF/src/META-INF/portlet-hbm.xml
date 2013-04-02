@@ -113,9 +113,12 @@
 		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
+		<property name="samlSpSessionKey" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="assertionXml" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="jSessionId" access="com.liferay.portal.dao.orm.hibernate.CamelCasePropertyAccessor" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="nameIdFormat" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="nameIdValue" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="sessionIndex" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="terminated" type="com.liferay.portal.dao.orm.hibernate.BooleanType" column="terminated_" />
 	</class>
 </hibernate-mapping>

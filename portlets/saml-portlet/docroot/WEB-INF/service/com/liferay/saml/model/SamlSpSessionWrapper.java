@@ -52,9 +52,12 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 		attributes.put("userName", getUserName());
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
+		attributes.put("samlSpSessionKey", getSamlSpSessionKey());
+		attributes.put("assertionXml", getAssertionXml());
 		attributes.put("jSessionId", getJSessionId());
 		attributes.put("nameIdFormat", getNameIdFormat());
 		attributes.put("nameIdValue", getNameIdValue());
+		attributes.put("sessionIndex", getSessionIndex());
 		attributes.put("terminated", getTerminated());
 
 		return attributes;
@@ -97,6 +100,18 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 			setModifiedDate(modifiedDate);
 		}
 
+		String samlSpSessionKey = (String)attributes.get("samlSpSessionKey");
+
+		if (samlSpSessionKey != null) {
+			setSamlSpSessionKey(samlSpSessionKey);
+		}
+
+		String assertionXml = (String)attributes.get("assertionXml");
+
+		if (assertionXml != null) {
+			setAssertionXml(assertionXml);
+		}
+
 		String jSessionId = (String)attributes.get("jSessionId");
 
 		if (jSessionId != null) {
@@ -113,6 +128,12 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 
 		if (nameIdValue != null) {
 			setNameIdValue(nameIdValue);
+		}
+
+		String sessionIndex = (String)attributes.get("sessionIndex");
+
+		if (sessionIndex != null) {
+			setSessionIndex(sessionIndex);
 		}
 
 		Boolean terminated = (Boolean)attributes.get("terminated");
@@ -269,6 +290,42 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	}
 
 	/**
+	* Returns the saml sp session key of this saml sp session.
+	*
+	* @return the saml sp session key of this saml sp session
+	*/
+	public java.lang.String getSamlSpSessionKey() {
+		return _samlSpSession.getSamlSpSessionKey();
+	}
+
+	/**
+	* Sets the saml sp session key of this saml sp session.
+	*
+	* @param samlSpSessionKey the saml sp session key of this saml sp session
+	*/
+	public void setSamlSpSessionKey(java.lang.String samlSpSessionKey) {
+		_samlSpSession.setSamlSpSessionKey(samlSpSessionKey);
+	}
+
+	/**
+	* Returns the assertion xml of this saml sp session.
+	*
+	* @return the assertion xml of this saml sp session
+	*/
+	public java.lang.String getAssertionXml() {
+		return _samlSpSession.getAssertionXml();
+	}
+
+	/**
+	* Sets the assertion xml of this saml sp session.
+	*
+	* @param assertionXml the assertion xml of this saml sp session
+	*/
+	public void setAssertionXml(java.lang.String assertionXml) {
+		_samlSpSession.setAssertionXml(assertionXml);
+	}
+
+	/**
 	* Returns the j session ID of this saml sp session.
 	*
 	* @return the j session ID of this saml sp session
@@ -320,6 +377,24 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*/
 	public void setNameIdValue(java.lang.String nameIdValue) {
 		_samlSpSession.setNameIdValue(nameIdValue);
+	}
+
+	/**
+	* Returns the session index of this saml sp session.
+	*
+	* @return the session index of this saml sp session
+	*/
+	public java.lang.String getSessionIndex() {
+		return _samlSpSession.getSessionIndex();
+	}
+
+	/**
+	* Sets the session index of this saml sp session.
+	*
+	* @param sessionIndex the session index of this saml sp session
+	*/
+	public void setSessionIndex(java.lang.String sessionIndex) {
+		_samlSpSession.setSessionIndex(sessionIndex);
 	}
 
 	/**

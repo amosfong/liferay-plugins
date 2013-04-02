@@ -155,9 +155,12 @@
 			<basic name="modifiedDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
+			<basic name="samlSpSessionKey" />
+			<basic name="assertionXml" />
 			<basic name="jSessionId" />
 			<basic name="nameIdFormat" />
 			<basic name="nameIdValue" />
+			<basic name="sessionIndex" />
 			<basic name="terminated">
 				<column name="TERMINATED_" />
 			</basic>

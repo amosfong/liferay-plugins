@@ -87,8 +87,11 @@ create table SamlSpSession (
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
+	samlSpSessionKey VARCHAR(75) null,
+	assertionXml TEXT null,
 	jSessionId VARCHAR(75) null,
 	nameIdFormat VARCHAR(1024) null,
 	nameIdValue VARCHAR(1024) null,
+	sessionIndex VARCHAR(75) null,
 	terminated_ BOOLEAN
 );

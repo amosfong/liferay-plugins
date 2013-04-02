@@ -38,6 +38,64 @@ public interface SamlSpSessionPersistence extends BasePersistence<SamlSpSession>
 	 */
 
 	/**
+	* Returns the saml sp session where samlSpSessionKey = &#63; or throws a {@link com.liferay.saml.NoSuchSpSessionException} if it could not be found.
+	*
+	* @param samlSpSessionKey the saml sp session key
+	* @return the matching saml sp session
+	* @throws com.liferay.saml.NoSuchSpSessionException if a matching saml sp session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.saml.model.SamlSpSession findBySamlSpSessionKey(
+		java.lang.String samlSpSessionKey)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.saml.NoSuchSpSessionException;
+
+	/**
+	* Returns the saml sp session where samlSpSessionKey = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param samlSpSessionKey the saml sp session key
+	* @return the matching saml sp session, or <code>null</code> if a matching saml sp session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.saml.model.SamlSpSession fetchBySamlSpSessionKey(
+		java.lang.String samlSpSessionKey)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the saml sp session where samlSpSessionKey = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param samlSpSessionKey the saml sp session key
+	* @param retrieveFromCache whether to use the finder cache
+	* @return the matching saml sp session, or <code>null</code> if a matching saml sp session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.saml.model.SamlSpSession fetchBySamlSpSessionKey(
+		java.lang.String samlSpSessionKey, boolean retrieveFromCache)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Removes the saml sp session where samlSpSessionKey = &#63; from the database.
+	*
+	* @param samlSpSessionKey the saml sp session key
+	* @return the saml sp session that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.saml.model.SamlSpSession removeBySamlSpSessionKey(
+		java.lang.String samlSpSessionKey)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.saml.NoSuchSpSessionException;
+
+	/**
+	* Returns the number of saml sp sessions where samlSpSessionKey = &#63;.
+	*
+	* @param samlSpSessionKey the saml sp session key
+	* @return the number of matching saml sp sessions
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countBySamlSpSessionKey(java.lang.String samlSpSessionKey)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Returns all the saml sp sessions where nameIdValue = &#63;.
 	*
 	* @param nameIdValue the name ID value
@@ -231,6 +289,64 @@ public interface SamlSpSessionPersistence extends BasePersistence<SamlSpSession>
 	* @throws SystemException if a system exception occurred
 	*/
 	public int countByJSessionId(java.lang.String jSessionId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the saml sp session where sessionIndex = &#63; or throws a {@link com.liferay.saml.NoSuchSpSessionException} if it could not be found.
+	*
+	* @param sessionIndex the session index
+	* @return the matching saml sp session
+	* @throws com.liferay.saml.NoSuchSpSessionException if a matching saml sp session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.saml.model.SamlSpSession findBySessionIndex(
+		java.lang.String sessionIndex)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.saml.NoSuchSpSessionException;
+
+	/**
+	* Returns the saml sp session where sessionIndex = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param sessionIndex the session index
+	* @return the matching saml sp session, or <code>null</code> if a matching saml sp session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.saml.model.SamlSpSession fetchBySessionIndex(
+		java.lang.String sessionIndex)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the saml sp session where sessionIndex = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param sessionIndex the session index
+	* @param retrieveFromCache whether to use the finder cache
+	* @return the matching saml sp session, or <code>null</code> if a matching saml sp session could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.saml.model.SamlSpSession fetchBySessionIndex(
+		java.lang.String sessionIndex, boolean retrieveFromCache)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Removes the saml sp session where sessionIndex = &#63; from the database.
+	*
+	* @param sessionIndex the session index
+	* @return the saml sp session that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.saml.model.SamlSpSession removeBySessionIndex(
+		java.lang.String sessionIndex)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.saml.NoSuchSpSessionException;
+
+	/**
+	* Returns the number of saml sp sessions where sessionIndex = &#63;.
+	*
+	* @param sessionIndex the session index
+	* @return the number of matching saml sp sessions
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countBySessionIndex(java.lang.String sessionIndex)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
