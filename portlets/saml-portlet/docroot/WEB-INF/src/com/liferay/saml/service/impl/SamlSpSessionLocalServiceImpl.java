@@ -33,12 +33,12 @@ public class SamlSpSessionLocalServiceImpl
 	extends SamlSpSessionLocalServiceBaseImpl {
 
 	public SamlSpSession addSamlSpSession(
-			String assertionXml, String jSessionId, String nameIdFormat,
-			String nameIdValue, String samlSpSessionKey, String sessionIndex,
-			long userId, ServiceContext serviceContext)
+			String samlSpSessionKey, String assertionXml, String jSessionId,
+			String nameIdFormat, String nameIdValue, String sessionIndex,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		User user = userLocalService.getUserById(userId);
+		User user = userLocalService.getUserById(serviceContext.getUserId());
 		Date now = new Date();
 
 		long samlSpSessionId = counterLocalService.increment(
@@ -52,11 +52,11 @@ public class SamlSpSessionLocalServiceImpl
 		samlSpSession.setUserName(user.getFullName());
 		samlSpSession.setCreateDate(now);
 		samlSpSession.setModifiedDate(now);
+		samlSpSession.setSamlSpSessionKey(samlSpSessionKey);
 		samlSpSession.setAssertionXml(assertionXml);
 		samlSpSession.setJSessionId(jSessionId);
 		samlSpSession.setNameIdFormat(nameIdFormat);
 		samlSpSession.setNameIdValue(nameIdValue);
-		samlSpSession.setSamlSpSessionKey(samlSpSessionKey);
 		samlSpSession.setSessionIndex(sessionIndex);
 		samlSpSession.setTerminated(false);
 
@@ -120,26 +120,25 @@ public class SamlSpSessionLocalServiceImpl
 	}
 
 	public SamlSpSession updateSamlSpSession(
-			long samlSpSessionId, String assertionXml, String jSessionId,
-			String nameIdFormat, String nameIdValue, String samlSpSessionKey,
-			String sessionIndex, long userId, ServiceContext serviceContext)
+			long samlSpSessionId, String samlSpSessionKey, String assertionXml,
+			String jSessionId, String nameIdFormat, String nameIdValue,
+			String sessionIndex, ServiceContext serviceContext)
 		throws PortalException, SystemException {
+
+		User user = userLocalService.getUserById(serviceContext.getUserId());
 
 		SamlSpSession samlSpSession = samlSpSessionPersistence.findByPrimaryKey(
 			samlSpSessionId);
 
-		User user = userLocalService.getUserById(userId);
-		Date now = new Date();
-
 		samlSpSession.setCompanyId(serviceContext.getCompanyId());
 		samlSpSession.setUserId(user.getUserId());
 		samlSpSession.setUserName(user.getFullName());
-		samlSpSession.setModifiedDate(now);
+		samlSpSession.setModifiedDate(new Date());
+		samlSpSession.setSamlSpSessionKey(samlSpSessionKey);
 		samlSpSession.setAssertionXml(assertionXml);
 		samlSpSession.setJSessionId(jSessionId);
 		samlSpSession.setNameIdFormat(nameIdFormat);
 		samlSpSession.setNameIdValue(nameIdValue);
-		samlSpSession.setSamlSpSessionKey(samlSpSessionKey);
 		samlSpSession.setSessionIndex(sessionIndex);
 
 		return samlSpSession;

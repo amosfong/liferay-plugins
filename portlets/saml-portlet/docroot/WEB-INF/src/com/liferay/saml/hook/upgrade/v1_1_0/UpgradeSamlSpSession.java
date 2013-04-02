@@ -28,10 +28,10 @@ public class UpgradeSamlSpSession extends UpgradeProcess {
 	@Override
 	protected void doUpgrade() throws Exception {
 		try {
-			runSQL("alter_column_type SamlSpSession assertionXml TEXT null");
 			runSQL(
 				"alter_column_type SamlSpSession samlSpSessionKey " +
 					"VARCHAR(75) null");
+			runSQL("alter_column_type SamlSpSession assertionXml TEXT null");
 			runSQL(
 				"alter_column_type SamlSpSession sessionIndex VARCHAR(75) " +
 					"null");
