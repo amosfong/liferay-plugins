@@ -14,6 +14,8 @@
 
 package com.liferay.saml.util;
 
+import com.liferay.portal.kernel.servlet.HttpMethods;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -27,33 +29,32 @@ public class SamlUtilTest {
 	@Test
 	public void testGetRequestPath() {
 		MockHttpServletRequest request = new MockHttpServletRequest(
-			"GET", "/c/portal/login;jsessionid=ACD311312312323BF.worker1");
+			HttpMethods.GET,
+			"/c/portal/login;jsessionid=ACD311312312323BF.worker1");
 
-		String path = SamlUtil.getRequestPath(request);
-
-		Assert.assertEquals("/c/portal/login", path);
+		Assert.assertEquals(
+			"/c/portal/login", SamlUtil.getRequestPath(request));
 	}
 
 	@Test
 	public void testGetRequestPathWithContext() {
 		MockHttpServletRequest request = new MockHttpServletRequest(
-			"GET",
+			HttpMethods.GET,
 			"/portal/c/portal/login;jsessionid=ACD311312312323BF.worker1");
+
 		request.setContextPath("/portal");
 
-		String path = SamlUtil.getRequestPath(request);
-
-		Assert.assertEquals("/c/portal/login", path);
+		Assert.assertEquals(
+			"/c/portal/login", SamlUtil.getRequestPath(request));
 	}
 
 	@Test
 	public void testGetRequestPathWithoutJsessionId() {
 		MockHttpServletRequest request = new MockHttpServletRequest(
-			"GET", "/c/portal/login");
+			HttpMethods.GET, "/c/portal/login");
 
-		String path = SamlUtil.getRequestPath(request);
-
-		Assert.assertEquals("/c/portal/login", path);
+		Assert.assertEquals(
+			"/c/portal/login", SamlUtil.getRequestPath(request));
 	}
 
 }
