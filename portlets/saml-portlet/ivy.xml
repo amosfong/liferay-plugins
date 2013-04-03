@@ -1,0 +1,15 @@
+<ivy-module version="2.0">
+	<info organisation="com.liferay" module="saml-portlet" />
+
+	<dependencies>
+		<dependency name="bcpkix-jdk15on" org="org.bouncycastle" rev="1.47" />
+		<dependency name="bcprov-jdk15on" org="org.bouncycastle" rev="1.47" />
+		<dependency name="esapi" org="org.owasp.esapi" rev="2.0.1" />
+		<dependency name="joda-time" org="joda-time" rev="2.0" />
+		<dependency name="not-yet-commons-ssl" org="ca.juliusdavies" rev="0.3.11" />
+		<dependency name="opensaml" org="org.opensaml" rev="2.5.1-1" />
+		<dependency name="openws" org="org.opensaml" rev="1.4.2-1" />
+		<dependency name="xml-resolver" org="xml-resolver" rev="1.2" />
+		<dependency name="xmltooling" org="org.opensaml" rev="1.3.2-1" />
+	</dependencies>
+</ivy-module>

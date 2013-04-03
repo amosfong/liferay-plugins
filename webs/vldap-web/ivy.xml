@@ -1,0 +1,8 @@
+<ivy-module version="2.0">
+	<info organisation="com.liferay" module="vldap-web" />
+
+	<dependencies>
+		<dependency name="mina-core" org="org.apache.mina" rev="2.0.4" />
+		<dependency name="shared-all" org="org.apache.directory.shared" rev="1.0.0-M4" />
+	</dependencies>
+</ivy-module>
