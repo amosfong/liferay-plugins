@@ -35,6 +35,8 @@ public interface PortletWebKeys {
 
 	public static final String SAML_SP_NAME_ID_VALUE = "SAML_SP_NAME_ID_VALUE";
 
+	public static final String SAML_SP_SESSION_KEY = "SAML_SP_SESSION_KEY";
+
 	public static final String SAML_SSO_REQUEST_CONTEXT =
 		"SAML_SSO_REQUEST_CONTEXT";
 

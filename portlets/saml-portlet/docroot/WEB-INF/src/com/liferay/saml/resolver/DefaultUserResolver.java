@@ -1,0 +1,270 @@
+/**
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
+package com.liferay.saml.resolver;
+
+import com.liferay.portal.NoSuchUserException;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.PropertiesUtil;
+import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.model.User;
+import com.liferay.portal.security.auth.CompanyThreadLocal;
+import com.liferay.portal.security.ldap.PortalLDAPImporterUtil;
+import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.saml.metadata.MetadataManagerUtil;
+import com.liferay.saml.util.PortletPrefsPropsUtil;
+import com.liferay.saml.util.PortletPropsKeys;
+import com.liferay.saml.util.SamlUtil;
+import com.liferay.util.PwdGenerator;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Properties;
+
+import org.opensaml.common.SAMLObject;
+import org.opensaml.common.binding.SAMLMessageContext;
+import org.opensaml.saml2.core.Assertion;
+import org.opensaml.saml2.core.Attribute;
+import org.opensaml.saml2.core.AttributeStatement;
+import org.opensaml.saml2.core.NameID;
+import org.opensaml.saml2.core.NameIDType;
+import org.opensaml.saml2.core.Response;
+
+/**
+ * @author Mika Koivisto
+ */
+public class DefaultUserResolver implements UserResolver {
+
+	public User resolveUser(
+			Assertion assertion,
+			SAMLMessageContext<Response, SAMLObject, NameID> samlMessageContext,
+			ServiceContext serviceContext)
+		throws Exception {
+
+		User user = null;
+
+		long companyId = CompanyThreadLocal.getCompanyId();
+
+		String subjectNameIdentifier = getSubjectNameIdentifier(
+			companyId, assertion, samlMessageContext);
+
+		String subjectNameIdentifierType = getSubjectNameIdentifierType(
+			companyId, assertion, samlMessageContext);
+
+		
+		if (SamlUtil.isLdapImportEnabled()) {
+			user = importLdapUser(
+				companyId, subjectNameIdentifier, subjectNameIdentifierType);
+		}
+
+		if (user == null) {
+			return importUser(
+				companyId, subjectNameIdentifier, subjectNameIdentifierType,
+				assertion, samlMessageContext, serviceContext);
+		}
+
+		return user;
+	}
+
+	protected User addUser(
+			long companyId, Map<String, String> attributesMap,
+			ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		long creatorUserId = 0;
+		boolean autoPassword = false;
+		String password1 = PwdGenerator.getPassword();
+		String password2 = password1;
+		boolean autoScreenName = false;
+		String screenName = attributesMap.get("screenName");
+		String emailAddress = attributesMap.get("emailAddress");
+		long facebookId = 0;
+		String openId = StringPool.BLANK;
+		Locale locale = serviceContext.getLocale();
+		String firstName = attributesMap.get("firstName");
+		String middleName = StringPool.BLANK;
+		String lastName = attributesMap.get("lastName");
+		int prefixId = 0;
+		int suffixId = 0;
+		boolean male = true;
+		int birthdayMonth = Calendar.JANUARY;
+		int birthdayDay = 1;
+		int birthdayYear = 1970;
+		String jobTitle = StringPool.BLANK;
+		long[] groupIds = null;
+		long[] organizationIds = null;
+		long[] roleIds = null;
+		long[] userGroupIds = null;
+		boolean sendEmail = false;
+
+		String uuid = attributesMap.get("uuid");
+
+		serviceContext.setUuid(uuid);
+
+		User user = UserLocalServiceUtil.addUser(
+			creatorUserId, companyId, autoPassword, password1, password2,
+			autoScreenName, screenName, emailAddress, facebookId, openId,
+			locale, firstName, middleName, lastName, prefixId, suffixId, male,
+			birthdayMonth, birthdayDay, birthdayYear, jobTitle, groupIds,
+			organizationIds, roleIds, userGroupIds, sendEmail, serviceContext);
+
+		UserLocalServiceUtil.updatePasswordReset(user.getUserId(), false);
+
+		UserLocalServiceUtil.updateEmailAddressVerified(user.getUserId(), true);
+
+		return user;
+	}
+
+	protected List<Attribute> getAttributes(
+			Assertion assertion,
+			SAMLMessageContext<Response, SAMLObject, NameID>
+				samlMessageContext) {
+
+		List<Attribute> attributes = new ArrayList<Attribute>();
+
+		for (AttributeStatement attributeStatement :
+				assertion.getAttributeStatements()) {
+
+			attributes.addAll(attributeStatement.getAttributes());
+		}
+
+		return attributes;
+	}
+
+	protected Map<String, String> getAttributesMap(
+		List<Attribute> attributes,
+		SAMLMessageContext<Response, SAMLObject, NameID> samlMessageContext) {
+
+		String peerEntityId = samlMessageContext.getPeerEntityId();
+
+		try {
+			String mappings = MetadataManagerUtil.getUserAttributeMappings(
+				peerEntityId);
+
+			if (Validator.isNotNull(mappings)) {
+				Properties userAttributeMappings = PropertiesUtil.load(
+					mappings);
+
+				return SamlUtil.getAttributesMap(
+					attributes, userAttributeMappings);
+			}
+		}
+		catch (Exception e) {
+		}
+
+		return new HashMap<String, String>();
+	}
+
+	protected String getSubjectNameIdentifier(
+		long companyId, Assertion assertion,
+		SAMLMessageContext<Response, SAMLObject, NameID> samlMessageContext) {
+
+		NameID nameId = samlMessageContext.getSubjectNameIdentifier();
+
+		return nameId.getValue();
+	}
+
+	protected String getSubjectNameIdentifierType(
+		long companyId, Assertion assertion,
+		SAMLMessageContext<Response, SAMLObject, NameID> samlMessageContext) {
+
+		NameID nameId = samlMessageContext.getSubjectNameIdentifier();
+
+		if (nameId.getFormat().equals(NameIDType.EMAIL)) {
+			return _SUBJECT_NAME_TYPE_EMAIL;
+		}
+
+		return _SUBJECT_NAME_TYPE_SCREENNAME;
+	}
+
+	protected User getUser(
+			long companyId, String subjectNameIdentifier,
+			String subjectNameIdentifierType) 
+		throws PortalException, SystemException {
+
+		try {
+			if (subjectNameIdentifierType.endsWith(_SUBJECT_NAME_TYPE_EMAIL)) {
+				return UserLocalServiceUtil.getUserByEmailAddress(
+					companyId, subjectNameIdentifier);
+			}
+			else if (subjectNameIdentifierType.endsWith(
+				_SUBJECT_NAME_TYPE_SCREENNAME)) {
+
+				return UserLocalServiceUtil.getUserByScreenName(
+					companyId, subjectNameIdentifier);
+			}
+			else if (subjectNameIdentifierType.endsWith(
+				_SUBJECT_NAME_TYPE_UUID)) {
+
+				return UserLocalServiceUtil.getUserByUuidAndCompanyId(
+					subjectNameIdentifier, companyId);
+			}
+		}
+		catch (NoSuchUserException nsue) {
+		}
+
+		return null;
+	}
+
+	protected User importLdapUser(
+			long companyId, String subjectNameIdentifier,
+			String subjectNameIdentifierType)
+		throws Exception {
+
+		if (subjectNameIdentifierType.endsWith(_SUBJECT_NAME_TYPE_EMAIL)) {
+			return PortalLDAPImporterUtil.importLDAPUser(
+				companyId, subjectNameIdentifier, StringPool.BLANK);
+		}
+		else {
+			return PortalLDAPImporterUtil.importLDAPUser(
+				companyId, StringPool.BLANK, subjectNameIdentifier);
+		}
+	}
+
+	protected User importUser(
+			long companyId, String subjectNameIdentifier,
+			String subjectNameIdentifierType, Assertion assertion,
+			SAMLMessageContext<Response, SAMLObject, NameID>
+				samlMessageContext, ServiceContext serviceContext) 
+		throws PortalException, SystemException {
+
+		User user = getUser(
+			companyId, subjectNameIdentifier, subjectNameIdentifierType);
+
+		if (user == null) {
+			List<Attribute> attributes = getAttributes(
+				assertion, samlMessageContext);
+
+			Map<String, String> attributesMap = getAttributesMap(
+				attributes, samlMessageContext);
+
+			return addUser(companyId, attributesMap, serviceContext);
+		}
+
+		return user;
+	}
+
+	private static final String _SUBJECT_NAME_TYPE_EMAIL = "emailAddress";
+	private static final String _SUBJECT_NAME_TYPE_SCREENNAME = "screenName";
+	private static final String _SUBJECT_NAME_TYPE_UUID = "uuid";
+
+}

@@ -66,6 +66,8 @@ public interface MetadataManager {
 
 	public Credential getSigningCredential() throws SecurityException;
 
+	public String getUserAttributeMappings(String entityId);
+
 	public boolean isAttributesEnabled(String entityId);
 
 	public boolean isAttributesNamespaceEnabled(String entityId);

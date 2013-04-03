@@ -66,6 +66,13 @@
 		<property name="webSsoProfile" ref="com.liferay.saml.profile.WebSsoProfile" />
 	</bean>
 
+	<!-- Resolver -->
+
+	<bean id="com.liferay.saml.resolver.UserResolver" class="com.liferay.saml.resolver.DefaultUserResolver" />
+	<bean id="com.liferay.saml.resolver.UserResolverUtil" class="com.liferay.saml.resolver.UserResolverUtil">
+		<property name="userResolver" ref="com.liferay.saml.resolver.UserResolver" />
+	</bean>
+
 	<!-- Util -->
 
 	<bean id="com.liferay.saml.util.MetadataUtil" class="com.liferay.saml.util.MetadataUtil">

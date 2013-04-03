@@ -186,6 +186,11 @@ public class SamlUtil {
 		return PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SAML_ENABLED);
 	}
 
+	public static boolean isLdapImportEnabled() {
+		return PortletPrefsPropsUtil.getBoolean(
+			PortletPropsKeys.SAML_SP_LDAP_IMPORT_ENABLED);
+	}
+
 	public static boolean isRoleIdp() {
 		String samlRole = PortletPrefsPropsUtil.getString(
 			PortletPropsKeys.SAML_ROLE);

@@ -108,6 +108,10 @@ public class MetadataManagerUtil {
 		return getMetadataManager().getSigningCredential();
 	}
 
+	public static String getUserAttributeMappings(String entityId) {
+		return getMetadataManager().getUserAttributeMappings(entityId);
+	}
+
 	public static boolean isAttributesEnabled(String entityId) {
 		return getMetadataManager().isAttributesEnabled(entityId);
 	}

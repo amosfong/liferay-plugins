@@ -39,14 +39,17 @@ import com.liferay.saml.metadata.MetadataManagerUtil;
 import com.liferay.saml.model.SamlIdpSsoSession;
 import com.liferay.saml.model.SamlSpAuthRequest;
 import com.liferay.saml.model.SamlSpMessage;
+import com.liferay.saml.model.SamlSpSession;
 import com.liferay.saml.resolver.AttributeResolver;
 import com.liferay.saml.resolver.AttributeResolverFactory;
 import com.liferay.saml.resolver.NameIdResolver;
 import com.liferay.saml.resolver.NameIdResolverFactory;
+import com.liferay.saml.resolver.UserResolverUtil;
 import com.liferay.saml.service.SamlIdpSpSessionLocalServiceUtil;
 import com.liferay.saml.service.SamlIdpSsoSessionLocalServiceUtil;
 import com.liferay.saml.service.SamlSpAuthRequestLocalServiceUtil;
 import com.liferay.saml.service.SamlSpMessageLocalServiceUtil;
+import com.liferay.saml.service.SamlSpSessionLocalServiceUtil;
 import com.liferay.saml.util.OpenSamlUtil;
 import com.liferay.saml.util.PortletWebKeys;
 import com.liferay.saml.util.SamlUtil;
@@ -293,7 +296,14 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 
 		String samlSsoSessionId = getSamlSsoSessionId(request);
 
-		samlSsoRequestContext.setSamlSsoSessionId(samlSsoSessionId);
+		if (Validator.isNotNull(samlSsoSessionId)) {
+			samlSsoRequestContext.setSamlSsoSessionId(samlSsoSessionId);
+		}
+		else {
+			samlSsoRequestContext.setNewSession(true);
+			samlSsoRequestContext.setSamlSsoSessionId(
+				generateIdentifier(30));
+		}
 
 		samlSsoRequestContext.setStage(SamlSsoRequestContext.STAGE_INITIAL);
 
@@ -355,7 +365,9 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 
 				response.addCookie(cookie);
 
-				samlSsoRequestContext.setSamlSsoSessionId(null);
+				samlSsoRequestContext.setNewSession(true);
+				samlSsoRequestContext.setSamlSsoSessionId(
+					generateIdentifier(30));
 			}
 		}
 
@@ -481,13 +493,47 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 			_log.debug("SAML authenticated user " + nameId.getValue());
 		}
 
+		String assertionXml = OpenSamlUtil.marshallElement(assertion.getDOM());
+
+		List<AuthnStatement> authnStatements = assertion.getAuthnStatements();
+
+		AuthnStatement authnStatement = authnStatements.get(0);
+
+		String sessionIndex = authnStatement.getSessionIndex();
+
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			request);
+
+		User user = UserResolverUtil.resolveUser(
+			assertion, samlMessageContext, serviceContext);
+
+		serviceContext.setUserId(user.getUserId());
+
 		HttpSession session = request.getSession();
 
-		session.setAttribute(PortletWebKeys.SAML_SP_ATTRIBUTES, attributes);
+		SamlSpSession samlSpSession =
+			SamlSpSessionLocalServiceUtil.fetchSamlSpSessionByJSessionId(
+				session.getId());
+
+		if (samlSpSession != null) {
+			SamlSpSessionLocalServiceUtil.updateSamlSpSession(
+				samlSpSession.getSamlSpSessionId(),
+				samlSpSession.getSamlSpSessionKey(), assertionXml,
+				session.getId(), nameId.getFormat(), nameId.getValue(),
+				sessionIndex, serviceContext);
+		}
+		else {
+			String samlSpSessionKey = generateIdentifier(30);
+
+			samlSpSession = SamlSpSessionLocalServiceUtil.addSamlSpSession(
+				samlSpSessionKey, assertionXml, session.getId(),
+				nameId.getFormat(), nameId.getValue(), sessionIndex,
+				serviceContext);
+		}
+
 		session.setAttribute(
-			PortletWebKeys.SAML_SP_NAME_ID_FORMAT, nameId.getFormat());
-		session.setAttribute(
-			PortletWebKeys.SAML_SP_NAME_ID_VALUE, nameId.getValue());
+			PortletWebKeys.SAML_SP_SESSION_KEY,
+			samlSpSession.getSamlSpSessionKey());
 
 		StringBundler sb = new StringBundler(3);
 

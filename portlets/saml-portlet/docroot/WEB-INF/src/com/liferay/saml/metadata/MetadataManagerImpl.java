@@ -26,11 +26,13 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.auth.CompanyThreadLocal;
 import com.liferay.saml.model.SamlIdpSpConnection;
+import com.liferay.saml.model.SamlSpIdpConnection;
 import com.liferay.saml.provider.CachingChainingMetadataProvider;
 import com.liferay.saml.provider.DBMetadataProvider;
 import com.liferay.saml.provider.ReinitializingFilesystemMetadataProvider;
 import com.liferay.saml.provider.ReinitializingHttpMetadataProvider;
 import com.liferay.saml.service.SamlIdpSpConnectionLocalServiceUtil;
+import com.liferay.saml.service.SamlSpIdpConnectionLocalServiceUtil;
 import com.liferay.saml.util.PortletPrefsPropsUtil;
 import com.liferay.saml.util.PortletPropsKeys;
 import com.liferay.saml.util.PortletPropsValues;
@@ -467,6 +469,22 @@ public class MetadataManagerImpl implements MetadataManager {
 		criteriaSet.add(entityIdCriteria);
 
 		return _credentialResolver.resolveSingle(criteriaSet);
+	}
+
+	public String getUserAttributeMappings(String entityId) {
+		long companyId = CompanyThreadLocal.getCompanyId();
+
+		try {
+			SamlSpIdpConnection samlSpIdpConnection =
+				SamlSpIdpConnectionLocalServiceUtil.getSamlSpIdpConnection(
+					companyId, entityId);
+
+			return samlSpIdpConnection.getUserAttributeMappings();
+		}
+		catch (Exception e) {
+		}
+
+		return PropsUtil.get(PortletPropsKeys.SAML_SP_USER_ATTRIBUTE_MAPPINGS);
 	}
 
 	public boolean isAttributesEnabled(String entityId) {
