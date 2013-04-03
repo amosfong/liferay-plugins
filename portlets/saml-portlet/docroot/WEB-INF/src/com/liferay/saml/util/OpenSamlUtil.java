@@ -47,6 +47,7 @@ import org.opensaml.saml2.core.LogoutResponse;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.NameIDPolicy;
 import org.opensaml.saml2.core.Response;
+import org.opensaml.saml2.core.SessionIndex;
 import org.opensaml.saml2.core.Status;
 import org.opensaml.saml2.core.StatusCode;
 import org.opensaml.saml2.core.Subject;
@@ -368,6 +369,18 @@ public class OpenSamlUtil {
 		response.setVersion(SAMLVersion.VERSION_20);
 
 		return response;
+	}
+
+	public static SessionIndex buildSessionIndex(String sessionIndexValue) {
+		SAMLObjectBuilder<SessionIndex> samlObjectBuilder =
+			(SAMLObjectBuilder<SessionIndex>)_getBuilder(
+				SessionIndex.DEFAULT_ELEMENT_NAME);
+
+		SessionIndex sessionIndex = samlObjectBuilder.buildObject();
+
+		sessionIndex.setSessionIndex(sessionIndexValue);
+
+		return sessionIndex;
 	}
 
 	public static Signature buildSignature(Credential credential) {

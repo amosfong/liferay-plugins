@@ -145,7 +145,7 @@ public class SamlSpSsoFilter extends BaseFilter {
 			HttpSession session = request.getSession();
 
 			SamlSpSession samlSpSession =
-				SamlSpSessionLocalServiceUtil.fetchSamlSpSession(
+				SamlSpSessionLocalServiceUtil.fetchSamlSpSessionByJSessionId(
 					session.getId());
 
 			if (samlSpSession != null) {
@@ -159,7 +159,7 @@ public class SamlSpSsoFilter extends BaseFilter {
 			HttpSession session = request.getSession();
 
 			SamlSpSession samlSpSession =
-				SamlSpSessionLocalServiceUtil.fetchSamlSpSession(
+				SamlSpSessionLocalServiceUtil.fetchSamlSpSessionByJSessionId(
 					session.getId());
 
 			if ((samlSpSession != null) && samlSpSession.isTerminated()) {
