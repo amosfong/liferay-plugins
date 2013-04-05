@@ -234,6 +234,11 @@ public class ClpSerializer {
 		}
 
 		if (className.equals(
+					"com.liferay.portal.workflow.kaleo.designer.DuplicateKaleoDraftDefinitionNameException")) {
+			return new com.liferay.portal.workflow.kaleo.designer.DuplicateKaleoDraftDefinitionNameException();
+		}
+
+		if (className.equals(
 					"com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionContentException")) {
 			return new com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionContentException();
 		}
