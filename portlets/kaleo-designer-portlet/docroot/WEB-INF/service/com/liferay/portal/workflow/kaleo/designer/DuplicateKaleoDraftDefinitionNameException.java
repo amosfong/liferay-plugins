@@ -19,7 +19,8 @@ import com.liferay.portal.kernel.exception.PortalException;
 /**
  * @author Eduardo Lundgren
  */
-public class DuplicateKaleoDraftDefinitionNameException extends PortalException {
+public class DuplicateKaleoDraftDefinitionNameException
+	extends PortalException {
 
 	public DuplicateKaleoDraftDefinitionNameException() {
 		super();
@@ -29,7 +30,9 @@ public class DuplicateKaleoDraftDefinitionNameException extends PortalException 
 		super(msg);
 	}
 
-	public DuplicateKaleoDraftDefinitionNameException(String msg, Throwable cause) {
+	public DuplicateKaleoDraftDefinitionNameException(
+		String msg, Throwable cause) {
+
 		super(msg, cause);
 	}
 
