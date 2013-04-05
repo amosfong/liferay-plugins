@@ -47,7 +47,6 @@ import com.liferay.saml.util.SamlUtil;
 
 import java.io.Writer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -263,6 +262,17 @@ public class SingleLogoutProfileImpl
 		}
 	}
 
+	protected void addSessionIndex(
+		LogoutRequest logoutRequest, String sessionIndexString) {
+
+		List<SessionIndex> sessionIndexes = logoutRequest.getSessionIndexes();
+
+		SessionIndex sessionIndex = OpenSamlUtil.buildSessionIndex(
+			sessionIndexString);
+
+		sessionIndexes.add(sessionIndex);
+	}
+
 	protected void dispatch(
 			HttpServletRequest request, HttpServletResponse response,
 			String path)
@@ -304,7 +314,8 @@ public class SingleLogoutProfileImpl
 			LogoutRequest logoutRequest =
 				samlMessageContext.getInboundSAMLMessage();
 
-			List<SessionIndex> sessionIndexes = logoutRequest.getSessionIndexes();
+			List<SessionIndex> sessionIndexes =
+					logoutRequest.getSessionIndexes();
 
 			if (!sessionIndexes.isEmpty()) {
 				SessionIndex sessionIndex = sessionIndexes.get(0);
@@ -447,7 +458,7 @@ public class SingleLogoutProfileImpl
 		else {
 			try {
 				sendIdpLogoutRequest(
-					request, response, samlSloRequestInfo, samlSloContext);
+					request, response, samlSloContext, samlSloRequestInfo);
 			}
 			catch (Exception e) {
 				if (_log.isDebugEnabled()) {
@@ -674,7 +685,7 @@ public class SingleLogoutProfileImpl
 				SamlSpSessionLocalServiceUtil.updateSamlSpSession(
 					samlSpSession);
 			}
-			else if (!statusCodeURI.equals(StatusCode.PARTIAL_LOGOUT_URI)){
+			else if (!statusCodeURI.equals(StatusCode.PARTIAL_LOGOUT_URI)) {
 				statusCodeURI = StatusCode.UNKNOWN_PRINCIPAL_URI;
 
 				continue;
@@ -756,7 +767,8 @@ public class SingleLogoutProfileImpl
 
 	protected void sendAsyncLogoutRequest(
 			SAMLMessageContext<LogoutResponse, LogoutRequest, NameID>
-				samlMessageContext, SamlSloContext samlSloContext)
+				samlMessageContext,
+			SamlSloContext samlSloContext)
 		throws Exception {
 
 		SingleLogoutService singleLogoutService =
@@ -777,14 +789,9 @@ public class SingleLogoutProfileImpl
 
 		logoutRequest.setNameID(samlMessageContext.getSubjectNameIdentifier());
 
-		SessionIndex sessionIndex = OpenSamlUtil.buildSessionIndex(
-			samlSloContext.getSamlSsoSessionId());
-
-		List<SessionIndex> sessionIndexes = logoutRequest.getSessionIndexes();
-
-		sessionIndexes.add(sessionIndex);
-
 		logoutRequest.setVersion(SAMLVersion.VERSION_20);
+
+		addSessionIndex(logoutRequest, samlSloContext.getSamlSsoSessionId());
 
 		samlMessageContext.setOutboundSAMLMessage(logoutRequest);
 
@@ -806,8 +813,8 @@ public class SingleLogoutProfileImpl
 
 	protected void sendIdpLogoutRequest(
 			HttpServletRequest request, HttpServletResponse response,
-			SamlSloRequestInfo samlSloRequestInfo,
-			SamlSloContext samlSloContext)
+			SamlSloContext samlSloContext,
+			SamlSloRequestInfo samlSloRequestInfo)
 		throws Exception {
 
 		SAMLMessageContext<LogoutResponse, LogoutRequest, NameID>
@@ -842,7 +849,8 @@ public class SingleLogoutProfileImpl
 		String binding = singleLogoutService.getBinding();
 
 		if (binding.equals(SAMLConstants.SAML2_SOAP11_BINDING_URI)) {
-			String statusCode = sendSyncLogoutRequest(samlMessageContext, samlSloContext);
+			String statusCode = sendSyncLogoutRequest(
+				samlMessageContext, samlSloContext);
 
 			samlSloRequestInfo.setStatusCode(statusCode);
 
@@ -997,7 +1005,8 @@ public class SingleLogoutProfileImpl
 
 	protected String sendSyncLogoutRequest(
 			SAMLMessageContext<LogoutResponse, LogoutRequest, NameID>
-				samlMessageContext, SamlSloContext samlSloContext)
+				samlMessageContext,
+			SamlSloContext samlSloContext)
 		throws Exception {
 
 		SingleLogoutService singleLogoutService =
@@ -1031,14 +1040,9 @@ public class SingleLogoutProfileImpl
 
 		logoutRequest.setNameID(samlMessageContext.getSubjectNameIdentifier());
 
-		SessionIndex sessionIndex = OpenSamlUtil.buildSessionIndex(
-			samlSloContext.getSamlSsoSessionId());
-
-		List<SessionIndex> sessionIndexes = logoutRequest.getSessionIndexes();
-
-		sessionIndexes.add(sessionIndex);
-
 		logoutRequest.setVersion(SAMLVersion.VERSION_20);
+
+		addSessionIndex(logoutRequest, samlSloContext.getSamlSsoSessionId());
 
 		samlMessageContext.setOutboundSAMLMessage(logoutRequest);
 

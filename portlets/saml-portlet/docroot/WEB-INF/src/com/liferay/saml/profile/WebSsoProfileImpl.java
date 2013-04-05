@@ -301,8 +301,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 		}
 		else {
 			samlSsoRequestContext.setNewSession(true);
-			samlSsoRequestContext.setSamlSsoSessionId(
-				generateIdentifier(30));
+			samlSsoRequestContext.setSamlSsoSessionId(generateIdentifier(30));
 		}
 
 		samlSsoRequestContext.setStage(SamlSsoRequestContext.STAGE_INITIAL);
@@ -380,7 +379,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 			boolean forceAuthn = false;
 
 			if (sessionExpired || ((authnRequest != null) &&
-				authnRequest.isForceAuthn())) {
+				 authnRequest.isForceAuthn())) {
 
 				forceAuthn = true;
 			}

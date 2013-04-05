@@ -76,14 +76,14 @@ public class SamlUtil {
 	}
 
 	public static Map<String, String> getAttributesMap(
-		List<Attribute> attributes, Properties attributeMappings) {
+		List<Attribute> attributes, Properties attributeMappingsProperties) {
 
 		Map<String, String> attributesMap = new HashMap<String, String>();
 
-		for (Object key : attributeMappings.keySet()) {
+		for (Object key : attributeMappingsProperties.keySet()) {
 			String keyString = (String)key;
 
-			String name = attributeMappings.getProperty(keyString);
+			String name = attributeMappingsProperties.getProperty(keyString);
 
 			String value = _getAttributeValue(attributes, name);
 
@@ -186,7 +186,7 @@ public class SamlUtil {
 		return PortletPrefsPropsUtil.getBoolean(PortletPropsKeys.SAML_ENABLED);
 	}
 
-	public static boolean isLdapImportEnabled() {
+	public static boolean isLDAPImportEnabled() {
 		return PortletPrefsPropsUtil.getBoolean(
 			PortletPropsKeys.SAML_SP_LDAP_IMPORT_ENABLED);
 	}
@@ -246,7 +246,7 @@ public class SamlUtil {
 				return assertionConsumerService;
 			}
 			else if (Validator.isNotNull(assertionConsumerServiceURL) &&
-					assertionConsumerServiceURL.equals(
+					 assertionConsumerServiceURL.equals(
 						assertionConsumerService.getLocation())) {
 
 				return assertionConsumerService;

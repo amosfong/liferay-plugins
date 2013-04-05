@@ -18,7 +18,6 @@ import com.liferay.portal.NoSuchUserException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.PropertiesUtil;
-import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.User;
@@ -27,14 +26,12 @@ import com.liferay.portal.security.ldap.PortalLDAPImporterUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.saml.metadata.MetadataManagerUtil;
-import com.liferay.saml.util.PortletPrefsPropsUtil;
-import com.liferay.saml.util.PortletPropsKeys;
 import com.liferay.saml.util.SamlUtil;
 import com.liferay.util.PwdGenerator;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -66,12 +63,10 @@ public class DefaultUserResolver implements UserResolver {
 
 		String subjectNameIdentifier = getSubjectNameIdentifier(
 			companyId, assertion, samlMessageContext);
-
 		String subjectNameIdentifierType = getSubjectNameIdentifierType(
 			companyId, assertion, samlMessageContext);
 
-		
-		if (SamlUtil.isLdapImportEnabled()) {
+		if (SamlUtil.isLDAPImportEnabled()) {
 			user = importLdapUser(
 				companyId, subjectNameIdentifier, subjectNameIdentifierType);
 		}
@@ -157,21 +152,21 @@ public class DefaultUserResolver implements UserResolver {
 		String peerEntityId = samlMessageContext.getPeerEntityId();
 
 		try {
-			String mappings = MetadataManagerUtil.getUserAttributeMappings(
-				peerEntityId);
+			String userAttributeMappings =
+				MetadataManagerUtil.getUserAttributeMappings(peerEntityId);
 
-			if (Validator.isNotNull(mappings)) {
-				Properties userAttributeMappings = PropertiesUtil.load(
-					mappings);
+			if (Validator.isNotNull(userAttributeMappings)) {
+				Properties userAttributeMappingsProperties =
+					PropertiesUtil.load(userAttributeMappings);
 
 				return SamlUtil.getAttributesMap(
-					attributes, userAttributeMappings);
+					attributes, userAttributeMappingsProperties);
 			}
 		}
 		catch (Exception e) {
 		}
 
-		return new HashMap<String, String>();
+		return Collections.emptyMap();
 	}
 
 	protected String getSubjectNameIdentifier(
@@ -189,8 +184,10 @@ public class DefaultUserResolver implements UserResolver {
 
 		NameID nameId = samlMessageContext.getSubjectNameIdentifier();
 
-		if (nameId.getFormat().equals(NameIDType.EMAIL)) {
-			return _SUBJECT_NAME_TYPE_EMAIL;
+		String format = nameId.getFormat();
+
+		if (format.equals(NameIDType.EMAIL)) {
+			return _SUBJECT_NAME_TYPE_EMAIL_ADDRESS;
 		}
 
 		return _SUBJECT_NAME_TYPE_SCREENNAME;
@@ -198,22 +195,24 @@ public class DefaultUserResolver implements UserResolver {
 
 	protected User getUser(
 			long companyId, String subjectNameIdentifier,
-			String subjectNameIdentifierType) 
+			String subjectNameIdentifierType)
 		throws PortalException, SystemException {
 
 		try {
-			if (subjectNameIdentifierType.endsWith(_SUBJECT_NAME_TYPE_EMAIL)) {
+			if (subjectNameIdentifierType.endsWith(
+					_SUBJECT_NAME_TYPE_EMAIL_ADDRESS)) {
+
 				return UserLocalServiceUtil.getUserByEmailAddress(
 					companyId, subjectNameIdentifier);
 			}
 			else if (subjectNameIdentifierType.endsWith(
-				_SUBJECT_NAME_TYPE_SCREENNAME)) {
+						_SUBJECT_NAME_TYPE_SCREENNAME)) {
 
 				return UserLocalServiceUtil.getUserByScreenName(
 					companyId, subjectNameIdentifier);
 			}
 			else if (subjectNameIdentifierType.endsWith(
-				_SUBJECT_NAME_TYPE_UUID)) {
+						_SUBJECT_NAME_TYPE_UUID)) {
 
 				return UserLocalServiceUtil.getUserByUuidAndCompanyId(
 					subjectNameIdentifier, companyId);
@@ -230,7 +229,9 @@ public class DefaultUserResolver implements UserResolver {
 			String subjectNameIdentifierType)
 		throws Exception {
 
-		if (subjectNameIdentifierType.endsWith(_SUBJECT_NAME_TYPE_EMAIL)) {
+		if (subjectNameIdentifierType.endsWith(
+				_SUBJECT_NAME_TYPE_EMAIL_ADDRESS)) {
+
 			return PortalLDAPImporterUtil.importLDAPUser(
 				companyId, subjectNameIdentifier, StringPool.BLANK);
 		}
@@ -244,27 +245,30 @@ public class DefaultUserResolver implements UserResolver {
 			long companyId, String subjectNameIdentifier,
 			String subjectNameIdentifierType, Assertion assertion,
 			SAMLMessageContext<Response, SAMLObject, NameID>
-				samlMessageContext, ServiceContext serviceContext) 
+				samlMessageContext, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		User user = getUser(
 			companyId, subjectNameIdentifier, subjectNameIdentifierType);
 
-		if (user == null) {
-			List<Attribute> attributes = getAttributes(
-				assertion, samlMessageContext);
-
-			Map<String, String> attributesMap = getAttributesMap(
-				attributes, samlMessageContext);
-
-			return addUser(companyId, attributesMap, serviceContext);
+		if (user != null) {
+			return user;
 		}
 
-		return user;
+		List<Attribute> attributes = getAttributes(
+			assertion, samlMessageContext);
+
+		Map<String, String> attributesMap = getAttributesMap(
+			attributes, samlMessageContext);
+
+		return addUser(companyId, attributesMap, serviceContext);
 	}
 
-	private static final String _SUBJECT_NAME_TYPE_EMAIL = "emailAddress";
+	private static final String _SUBJECT_NAME_TYPE_EMAIL_ADDRESS =
+		"emailAddress";
+
 	private static final String _SUBJECT_NAME_TYPE_SCREENNAME = "screenName";
+
 	private static final String _SUBJECT_NAME_TYPE_UUID = "uuid";
 
 }

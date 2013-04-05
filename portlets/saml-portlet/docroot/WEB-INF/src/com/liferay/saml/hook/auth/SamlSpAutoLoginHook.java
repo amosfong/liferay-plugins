@@ -56,8 +56,8 @@ public class SamlSpAutoLoginHook extends BaseAutoLogin {
 			}
 
 			SamlSpSession samlSpSession =
-				SamlSpSessionLocalServiceUtil.fetchSamlSpSessionBySamlSpSessionKey(
-					samlSpSessionKey);
+				SamlSpSessionLocalServiceUtil.
+					fetchSamlSpSessionBySamlSpSessionKey(samlSpSessionKey);
 
 			if (samlSpSession == null) {
 				return null;

@@ -371,14 +371,14 @@ public class OpenSamlUtil {
 		return response;
 	}
 
-	public static SessionIndex buildSessionIndex(String sessionIndexValue) {
+	public static SessionIndex buildSessionIndex(String sessionIndexString) {
 		SAMLObjectBuilder<SessionIndex> samlObjectBuilder =
 			(SAMLObjectBuilder<SessionIndex>)_getBuilder(
 				SessionIndex.DEFAULT_ELEMENT_NAME);
 
 		SessionIndex sessionIndex = samlObjectBuilder.buildObject();
 
-		sessionIndex.setSessionIndex(sessionIndexValue);
+		sessionIndex.setSessionIndex(sessionIndexString);
 
 		return sessionIndex;
 	}

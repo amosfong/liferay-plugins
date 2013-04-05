@@ -16,11 +16,10 @@ package com.liferay.saml.profile;
 
 import com.liferay.portal.kernel.exception.PortalException;
 
-import junit.framework.Assert;
-
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

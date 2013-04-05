@@ -77,7 +77,7 @@ public class SamlSloContext implements Serializable {
 				String samlSpEntityId = samlIdpSpSession.getSamlSpEntityId();
 
 				if ((samlMessageContext != null) &&
-						samlSpEntityId.equals(
+					samlSpEntityId.equals(
 							samlMessageContext.getPeerEntityId())) {
 
 					continue;
