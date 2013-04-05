@@ -44,8 +44,8 @@ public class KaleoDraftDefinitionServiceImpl
 	}
 
 	public KaleoDraftDefinition getKaleoDraftDefinition(
-		String name, int version, int draftVersion,
-		ServiceContext serviceContext)
+			String name, int version, int draftVersion,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		return kaleoDraftDefinitionLocalService.getKaleoDraftDefinition(

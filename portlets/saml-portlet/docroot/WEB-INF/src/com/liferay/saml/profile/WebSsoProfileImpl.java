@@ -374,7 +374,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 			((authnRequest != null) && authnRequest.isForceAuthn() &&
 			 (user != null) &&
 			 (samlSsoRequestContext.getStage() ==
-			 	SamlSsoRequestContext.STAGE_INITIAL))) {
+				 SamlSsoRequestContext.STAGE_INITIAL))) {
 
 			boolean forceAuthn = false;
 
