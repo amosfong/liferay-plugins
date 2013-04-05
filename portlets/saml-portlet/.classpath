@@ -7,6 +7,9 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER" />
 	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="test/unit" />
 	<classpathentry kind="lib" path="/portal-master/lib/development/junit.jar" />
+	<classpathentry kind="lib" path="/portal-master/lib/development/mockito.jar" />
+	<classpathentry kind="lib" path="/portal-master/lib/development/powermock-mockito.jar" />
+	<classpathentry kind="lib" path="/portal-master/lib/development/spring-test.jar" />
 	<classpathentry kind="lib" path="/portal-master/lib/portal/commons-io.jar" />
 	<classpathentry kind="lib" path="/portal-master/lib/development/activation.jar" />
 	<classpathentry kind="lib" path="/portal-master/lib/development/annotations.jar" />
@@ -30,14 +33,14 @@
 	<classpathentry kind="lib" path="/portal-master/util-bridges/util-bridges.jar" />
 	<classpathentry kind="lib" path="/portal-master/util-java/util-java.jar" />
 	<classpathentry kind="lib" path="/portal-master/util-taglib/util-taglib.jar" />
-	<classpathentry kind="lib" path="docroot/WEB-INF/lib/bcpkix-jdk15on-147.jar" />
-	<classpathentry kind="lib" path="docroot/WEB-INF/lib/bcprov-jdk15on-147.jar" />
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/bcpkix-jdk15on.jar" />
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/bcprov-jdk15on.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/esapi.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/joda-time.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/not-yet-commons-ssl.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/opensaml.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/openws.jar" />
-	<classpathentry kind="lib" path="docroot/WEB-INF/lib/resolver.jar" />
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/xml-resolver.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/xmltooling.jar" />
 	<classpathentry kind="output" path="bin" />
 </classpath>
