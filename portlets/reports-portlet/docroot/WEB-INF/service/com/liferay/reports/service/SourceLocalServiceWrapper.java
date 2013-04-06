@@ -185,12 +185,12 @@ public class SourceLocalServiceWrapper implements SourceLocalService,
 	}
 
 	/**
-	* Returns the source with the UUID in the group.
+	* Returns the source matching the UUID and group.
 	*
-	* @param uuid the UUID of source
-	* @param groupId the group id of the source
-	* @return the source
-	* @throws PortalException if a source with the UUID in the group could not be found
+	* @param uuid the source's UUID
+	* @param groupId the primary key of the group
+	* @return the matching source
+	* @throws PortalException if a matching source could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.reports.model.Source getSourceByUuidAndGroupId(
