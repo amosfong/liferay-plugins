@@ -148,9 +148,9 @@ Liferay.Report = {
 		}
 
 		if (parameterType == 'date') {
-			var parameterDateDay = AUI().one('#'+namespace+'parameterDateDay');
-			var parameterDateMonth = AUI().one('#'+namespace+'parameterDateMonth');
-			var parameterDateYear = AUI().one('#'+namespace+'parameterDateYear');
+			var parameterDateDay = AUI().one('#'+namespace+'parameterdateday');
+			var parameterDateMonth = AUI().one('#'+namespace+'parameterdatemonth');
+			var parameterDateYear = AUI().one('#'+namespace+'parameterdateyear');
 
 			var parameterDate = new Date();
 

@@ -49,11 +49,12 @@ if (definition != null) {
 
 <div class="report-message"></div>
 
-<portlet:actionURL var="actionURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
+<portlet:actionURL name="editDefinition" var="actionURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 	<portlet:param name="mvcPath" value="/admin/definition/edit_definition.jsp" />
+	<portlet:param name="redirect" value="<%= definitionsURL %>" />
 </portlet:actionURL>
 
-<aui:form action="<%= actionURL %>" method="post" name="fm">
+<aui:form action="<%= actionURL %>" enctype="multipart/form-data" method="post" name="fm">
 	<liferay-ui:error exception="<%= DefinitionFileException.class %>" message="please-enter-a-valid-file" />
 	<liferay-ui:error exception="<%= DefinitionNameException.class %>" message="please-enter-a-valid-name" />
 
@@ -94,8 +95,6 @@ if (definition != null) {
 		</aui:select>
 
 		<aui:field-wrapper label="template">
-			<aui:input inputCssClass="template-updated" name="templateUpdated" type="hidden" value="<%= definition == null %>" />
-
 			<span class="existing-report" style='<%= Validator.isNull(reportName) ? "display: none;" : "display: block;" %>'>
 				<%= reportName %>
 
@@ -170,7 +169,7 @@ if (definition != null) {
 			<portlet:param name="tabs1" value="definitions" />
 		</portlet:renderURL>
 
-		<aui:button onClick='<%= renderResponse.getNamespace() + "editDefinition();" %>' value='<%= (definition != null) ? "update" : "save" %>' />
+		<aui:button type="submit" value='<%= (definition != null) ? "update" : "save" %>' />
 
 		<c:if test="<%= definition != null %>">
 			<c:if test="<%= DefinitionPermission.contains(permissionChecker, definition, ActionKeys.ADD_REPORT) %>">
@@ -210,15 +209,5 @@ if (definition != null) {
 		if (confirm('<%= UnicodeLanguageUtil.get(pageContext, "are-you-sure-you-want-to-delete-this") %>')) {
 			submitForm(document.<portlet:namespace />fm, '<portlet:actionURL name="deleteDefinition" windowState="<%= WindowState.MAXIMIZED.toString() %>"><portlet:param name="redirect" value="<%= definitionsURL %>" /></portlet:actionURL>');
 		}
-	}
-
-	function <portlet:namespace />editDefinition() {
-		var isTemplateUpdated = AUI().one('.template-updated').get('value');
-
-		if ((isTemplateUpdated == 'true') || (<%= definition == null %>)) {
-			document.<portlet:namespace />fm.encoding = "multipart/form-data";
-		}
-
-		submitForm(document.<portlet:namespace />fm, '<portlet:actionURL name="editDefinition" windowState="<%= WindowState.MAXIMIZED.toString() %>"><portlet:param name="mvcPath" value="/admin/definition/edit_definition.jsp" /><portlet:param name="redirect" value="<%= definitionsURL %>" /></portlet:actionURL>');
 	}
 </script>
