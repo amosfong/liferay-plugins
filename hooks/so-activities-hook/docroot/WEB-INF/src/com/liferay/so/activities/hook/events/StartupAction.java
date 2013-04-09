@@ -21,9 +21,9 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.kernel.util.PropsUtil;
-import com.liferay.so.activities.model.SocialActivityInterpreter;
-import com.liferay.so.activities.model.impl.SocialActivityInterpreterImpl;
-import com.liferay.so.activities.service.SocialActivityInterpreterLocalServiceUtil;
+import com.liferay.portlet.social.model.SocialActivityInterpreter;
+import com.liferay.portlet.social.model.impl.SocialActivityInterpreterImpl;
+import com.liferay.portlet.social.service.SocialActivityInterpreterLocalServiceUtil;
 
 /**
  * @author Brian Wing Shun Chan
