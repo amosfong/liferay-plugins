@@ -1,1 +1,0 @@
-create index IX_260A37D9 on SO_SocialActivity (activitySetId);
