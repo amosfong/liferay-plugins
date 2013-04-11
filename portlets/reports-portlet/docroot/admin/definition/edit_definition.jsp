@@ -51,7 +51,6 @@ if (definition != null) {
 
 <portlet:actionURL name="editDefinition" var="actionURL" windowState="<%= WindowState.MAXIMIZED.toString() %>">
 	<portlet:param name="mvcPath" value="/admin/definition/edit_definition.jsp" />
-	<portlet:param name="redirect" value="<%= definitionsURL %>" />
 </portlet:actionURL>
 
 <aui:form action="<%= actionURL %>" enctype="multipart/form-data" method="post" name="fm">
@@ -60,6 +59,7 @@ if (definition != null) {
 
 	<aui:model-context bean="<%= definition %>" model="<%= Definition.class %>" />
 
+	<aui:input name="redirect" type="hidden" value="<%= definitionsURL %>" />
 	<aui:input name="viewDefinitionsURL" type="hidden" value="<%= viewDefinitionsURL %>" />
 
 	<c:if test="<%= definition != null %>">
