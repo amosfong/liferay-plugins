@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.util.DateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
@@ -63,12 +64,15 @@ public class GenerateReportActionCommand extends BaseActionCommand {
 
 		JSONArray entryReportParametersJSONArray =
 			JSONFactoryUtil.createJSONArray();
+		JSONArray reportParametersJSONArray = JSONFactoryUtil.createJSONArray();
 
 		Definition definition = DefinitionServiceUtil.getDefinition(
 			definitionId);
 
-		JSONArray reportParametersJSONArray = JSONFactoryUtil.createJSONArray(
-			definition.getReportParameters());
+		if (Validator.isNotNull(definition.getReportParameters())) {
+			reportParametersJSONArray = JSONFactoryUtil.createJSONArray(
+				definition.getReportParameters());
+		}
 
 		for (int i = 0; i < reportParametersJSONArray.length(); i++) {
 			JSONObject definitionReportParameterJSONObject =
