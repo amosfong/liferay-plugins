@@ -10,7 +10,7 @@
 	</portlet>
 	<portlet>
 		<portlet-name>2</portlet-name>
-		<autopropagated-parameters>availableFields,availablePropertyModels,kaleoProcessId,openerWindowName,portletResourceNamespace,propertiesSaveCallback,saveCallback,uiScope</autopropagated-parameters>
+		<autopropagated-parameters>availableFields,availablePropertyModels,kaleoProcessId,openerWindowName,portletResourceNamespace,propertiesSaveCallback,refreshOpenerOnClose,saveCallback,uiScope</autopropagated-parameters>
 		<footer-portlet-css>/designer/css/main.css</footer-portlet-css>
 		<footer-portlet-javascript>/designer/js/main.js</footer-portlet-javascript>
 		<css-class-wrapper>kaleo-designer-portlet</css-class-wrapper>

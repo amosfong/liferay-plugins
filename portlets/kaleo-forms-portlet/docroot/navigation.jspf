@@ -19,7 +19,7 @@
 		<liferay-ui:icon-menu
 			align="auto"
 			direction="right"
-			message='submit-new'
+			message="submit-new"
 			showWhenSingleIcon="<%= true %>"
 		>
 

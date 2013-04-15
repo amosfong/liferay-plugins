@@ -142,7 +142,7 @@ if (kaleoProcess != null) {
 				image="add"
 				label="<%= true %>"
 				message="select"
-				url='javascript:;'
+				url="javascript:;"
 			/>
 		</aui:field-wrapper>
 
@@ -337,6 +337,7 @@ if (kaleoProcess != null) {
 					openerWindowName: openerWindowName,
 					portletResourceNamespace: '<%= renderResponse.getNamespace() %>',
 					propertiesSaveCallback: '<portlet:namespace />kaleoDesignerPropertiesSaveCallback',
+					refreshOpenerOnClose: true,
 					saveCallback: saveCallback,
 					version: workflowDefinitionVersion,
 					versionLabel: '<liferay-ui:message key="version" />'

@@ -851,7 +851,12 @@
 								}
 							</c:when>
 							<c:otherwise>
-								<c:if test="<%= Validator.isNotNull(portletResourceNamespace) %>">
+
+								<%
+								boolean refreshOpenerOnClose = ParamUtil.getBoolean(request, "refreshOpenerOnClose");
+								%>
+
+								<c:if test="<%= Validator.isNotNull(portletResourceNamespace) && refreshOpenerOnClose %>">
 
 									<%
 									String openerWindowName = ParamUtil.getString(request, "openerWindowName");

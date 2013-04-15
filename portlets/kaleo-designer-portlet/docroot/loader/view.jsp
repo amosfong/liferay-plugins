@@ -34,6 +34,7 @@
 			kaleoURL.setParameter('openerWindowName', config.openerWindowName);
 			kaleoURL.setParameter('portletResourceNamespace', config.portletResourceNamespace);
 			kaleoURL.setParameter('propertiesSaveCallback', config.propertiesSaveCallback);
+			kaleoURL.setParameter('refreshOpenerOnClose', config.refreshOpenerOnClose);
 			kaleoURL.setParameter('saveCallback', config.saveCallback);
 			kaleoURL.setParameter('uiScope', config.uiScope);
 			kaleoURL.setParameter('version', config.version);
