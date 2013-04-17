@@ -244,6 +244,7 @@ public class CalendarUtil {
 			"permissions",
 			_getPermissionsJSONObject(
 				themeDisplay.getPermissionChecker(), calendar));
+		jsonObject.put("resourceGroupId", calendar.getResourceGroupId());
 		jsonObject.put("userId", calendar.getUserId());
 
 		return jsonObject;
