@@ -20,9 +20,12 @@ import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
+import com.liferay.portal.workflow.kaleo.forms.service.ClpSerializer;
 import com.liferay.portal.workflow.kaleo.forms.service.KaleoProcessLinkLocalServiceUtil;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Method;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -104,6 +107,20 @@ public class KaleoProcessLinkClp extends BaseModelImpl<KaleoProcessLink>
 
 	public void setKaleoProcessLinkId(long kaleoProcessLinkId) {
 		_kaleoProcessLinkId = kaleoProcessLinkId;
+
+		if (_kaleoProcessLinkRemoteModel != null) {
+			try {
+				Class<?> clazz = _kaleoProcessLinkRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setKaleoProcessLinkId",
+						long.class);
+
+				method.invoke(_kaleoProcessLinkRemoteModel, kaleoProcessLinkId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getKaleoProcessId() {
@@ -112,6 +129,19 @@ public class KaleoProcessLinkClp extends BaseModelImpl<KaleoProcessLink>
 
 	public void setKaleoProcessId(long kaleoProcessId) {
 		_kaleoProcessId = kaleoProcessId;
+
+		if (_kaleoProcessLinkRemoteModel != null) {
+			try {
+				Class<?> clazz = _kaleoProcessLinkRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setKaleoProcessId", long.class);
+
+				method.invoke(_kaleoProcessLinkRemoteModel, kaleoProcessId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getWorkflowTaskName() {
@@ -120,6 +150,20 @@ public class KaleoProcessLinkClp extends BaseModelImpl<KaleoProcessLink>
 
 	public void setWorkflowTaskName(String workflowTaskName) {
 		_workflowTaskName = workflowTaskName;
+
+		if (_kaleoProcessLinkRemoteModel != null) {
+			try {
+				Class<?> clazz = _kaleoProcessLinkRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setWorkflowTaskName",
+						String.class);
+
+				method.invoke(_kaleoProcessLinkRemoteModel, workflowTaskName);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getDDMTemplateId() {
@@ -128,10 +172,38 @@ public class KaleoProcessLinkClp extends BaseModelImpl<KaleoProcessLink>
 
 	public void setDDMTemplateId(long DDMTemplateId) {
 		_DDMTemplateId = DDMTemplateId;
+
+		if (_kaleoProcessLinkRemoteModel != null) {
+			try {
+				Class<?> clazz = _kaleoProcessLinkRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setDDMTemplateId", long.class);
+
+				method.invoke(_kaleoProcessLinkRemoteModel, DDMTemplateId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess getKaleoProcess() {
-		throw new UnsupportedOperationException();
+		try {
+			String methodName = "getKaleoProcess";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess returnObj =
+				(com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
 	}
 
 	public BaseModel<?> getKaleoProcessLinkRemoteModel() {
@@ -141,6 +213,47 @@ public class KaleoProcessLinkClp extends BaseModelImpl<KaleoProcessLink>
 	public void setKaleoProcessLinkRemoteModel(
 		BaseModel<?> kaleoProcessLinkRemoteModel) {
 		_kaleoProcessLinkRemoteModel = kaleoProcessLinkRemoteModel;
+	}
+
+	public Object invokeOnRemoteModel(String methodName,
+		Class<?>[] parameterTypes, Object[] parameterValues)
+		throws Exception {
+		Object[] remoteParameterValues = new Object[parameterValues.length];
+
+		for (int i = 0; i < parameterValues.length; i++) {
+			if (parameterValues[i] != null) {
+				remoteParameterValues[i] = ClpSerializer.translateInput(parameterValues[i]);
+			}
+		}
+
+		Class<?> remoteModelClass = _kaleoProcessLinkRemoteModel.getClass();
+
+		ClassLoader remoteModelClassLoader = remoteModelClass.getClassLoader();
+
+		Class<?>[] remoteParameterTypes = new Class[parameterTypes.length];
+
+		for (int i = 0; i < parameterTypes.length; i++) {
+			if (parameterTypes[i].isPrimitive()) {
+				remoteParameterTypes[i] = parameterTypes[i];
+			}
+			else {
+				String parameterTypeName = parameterTypes[i].getName();
+
+				remoteParameterTypes[i] = remoteModelClassLoader.loadClass(parameterTypeName);
+			}
+		}
+
+		Method method = remoteModelClass.getMethod(methodName,
+				remoteParameterTypes);
+
+		Object returnValue = method.invoke(_kaleoProcessLinkRemoteModel,
+				remoteParameterValues);
+
+		if (returnValue != null) {
+			returnValue = ClpSerializer.translateOutput(returnValue);
+		}
+
+		return returnValue;
 	}
 
 	public void persist() throws SystemException {

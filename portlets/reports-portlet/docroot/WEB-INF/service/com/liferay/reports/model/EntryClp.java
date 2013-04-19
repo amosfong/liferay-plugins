@@ -23,9 +23,12 @@ import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.util.PortalUtil;
 
+import com.liferay.reports.service.ClpSerializer;
 import com.liferay.reports.service.EntryLocalServiceUtil;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Method;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -226,6 +229,19 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setEntryId(long entryId) {
 		_entryId = entryId;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setEntryId", long.class);
+
+				method.invoke(_entryRemoteModel, entryId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getGroupId() {
@@ -234,6 +250,19 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setGroupId(long groupId) {
 		_groupId = groupId;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setGroupId", long.class);
+
+				method.invoke(_entryRemoteModel, groupId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getCompanyId() {
@@ -242,6 +271,19 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCompanyId", long.class);
+
+				method.invoke(_entryRemoteModel, companyId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getUserId() {
@@ -250,6 +292,19 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setUserId(long userId) {
 		_userId = userId;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserId", long.class);
+
+				method.invoke(_entryRemoteModel, userId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getUserUuid() throws SystemException {
@@ -266,6 +321,19 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setUserName(String userName) {
 		_userName = userName;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserName", String.class);
+
+				method.invoke(_entryRemoteModel, userName);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public Date getCreateDate() {
@@ -274,6 +342,19 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCreateDate", Date.class);
+
+				method.invoke(_entryRemoteModel, createDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public Date getModifiedDate() {
@@ -282,6 +363,19 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setModifiedDate", Date.class);
+
+				method.invoke(_entryRemoteModel, modifiedDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getDefinitionId() {
@@ -290,6 +384,19 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setDefinitionId(long definitionId) {
 		_definitionId = definitionId;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setDefinitionId", long.class);
+
+				method.invoke(_entryRemoteModel, definitionId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getFormat() {
@@ -298,6 +405,19 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setFormat(String format) {
 		_format = format;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setFormat", String.class);
+
+				method.invoke(_entryRemoteModel, format);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public boolean getScheduleRequest() {
@@ -310,6 +430,20 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setScheduleRequest(boolean scheduleRequest) {
 		_scheduleRequest = scheduleRequest;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setScheduleRequest",
+						boolean.class);
+
+				method.invoke(_entryRemoteModel, scheduleRequest);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public Date getStartDate() {
@@ -318,6 +452,19 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setStartDate(Date startDate) {
 		_startDate = startDate;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setStartDate", Date.class);
+
+				method.invoke(_entryRemoteModel, startDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public Date getEndDate() {
@@ -326,6 +473,19 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setEndDate(Date endDate) {
 		_endDate = endDate;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setEndDate", Date.class);
+
+				method.invoke(_entryRemoteModel, endDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public boolean getRepeating() {
@@ -338,6 +498,19 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setRepeating(boolean repeating) {
 		_repeating = repeating;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setRepeating", boolean.class);
+
+				method.invoke(_entryRemoteModel, repeating);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getRecurrence() {
@@ -346,6 +519,19 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setRecurrence(String recurrence) {
 		_recurrence = recurrence;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setRecurrence", String.class);
+
+				method.invoke(_entryRemoteModel, recurrence);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getEmailNotifications() {
@@ -354,6 +540,20 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setEmailNotifications(String emailNotifications) {
 		_emailNotifications = emailNotifications;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setEmailNotifications",
+						String.class);
+
+				method.invoke(_entryRemoteModel, emailNotifications);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getEmailDelivery() {
@@ -362,6 +562,19 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setEmailDelivery(String emailDelivery) {
 		_emailDelivery = emailDelivery;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setEmailDelivery", String.class);
+
+				method.invoke(_entryRemoteModel, emailDelivery);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getPortletId() {
@@ -370,6 +583,19 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setPortletId(String portletId) {
 		_portletId = portletId;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setPortletId", String.class);
+
+				method.invoke(_entryRemoteModel, portletId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getPageURL() {
@@ -378,6 +604,19 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setPageURL(String pageURL) {
 		_pageURL = pageURL;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setPageURL", String.class);
+
+				method.invoke(_entryRemoteModel, pageURL);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getReportParameters() {
@@ -386,6 +625,20 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setReportParameters(String reportParameters) {
 		_reportParameters = reportParameters;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setReportParameters",
+						String.class);
+
+				method.invoke(_entryRemoteModel, reportParameters);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getStatus() {
@@ -394,6 +647,19 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setStatus(String status) {
 		_status = status;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setStatus", String.class);
+
+				method.invoke(_entryRemoteModel, status);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getErrorMessage() {
@@ -402,26 +668,109 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setErrorMessage(String errorMessage) {
 		_errorMessage = errorMessage;
+
+		if (_entryRemoteModel != null) {
+			try {
+				Class<?> clazz = _entryRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setErrorMessage", String.class);
+
+				method.invoke(_entryRemoteModel, errorMessage);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public java.lang.String getSchedulerRequestName() {
-		throw new UnsupportedOperationException();
+		try {
+			String methodName = "getSchedulerRequestName";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
 	}
 
 	public java.lang.String getJobName() {
-		throw new UnsupportedOperationException();
+		try {
+			String methodName = "getJobName";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
 	}
 
 	public java.lang.String[] getAttachmentsFiles() {
-		throw new UnsupportedOperationException();
+		try {
+			String methodName = "getAttachmentsFiles";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			java.lang.String[] returnObj = (java.lang.String[])invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
 	}
 
 	public java.lang.String getAttachmentsDir() {
-		throw new UnsupportedOperationException();
+		try {
+			String methodName = "getAttachmentsDir";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
 	}
 
 	public com.liferay.portal.kernel.cal.TZSRecurrence getRecurrenceObj() {
-		throw new UnsupportedOperationException();
+		try {
+			String methodName = "getRecurrenceObj";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			com.liferay.portal.kernel.cal.TZSRecurrence returnObj = (com.liferay.portal.kernel.cal.TZSRecurrence)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
 	}
 
 	public BaseModel<?> getEntryRemoteModel() {
@@ -430,6 +779,47 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 
 	public void setEntryRemoteModel(BaseModel<?> entryRemoteModel) {
 		_entryRemoteModel = entryRemoteModel;
+	}
+
+	public Object invokeOnRemoteModel(String methodName,
+		Class<?>[] parameterTypes, Object[] parameterValues)
+		throws Exception {
+		Object[] remoteParameterValues = new Object[parameterValues.length];
+
+		for (int i = 0; i < parameterValues.length; i++) {
+			if (parameterValues[i] != null) {
+				remoteParameterValues[i] = ClpSerializer.translateInput(parameterValues[i]);
+			}
+		}
+
+		Class<?> remoteModelClass = _entryRemoteModel.getClass();
+
+		ClassLoader remoteModelClassLoader = remoteModelClass.getClassLoader();
+
+		Class<?>[] remoteParameterTypes = new Class[parameterTypes.length];
+
+		for (int i = 0; i < parameterTypes.length; i++) {
+			if (parameterTypes[i].isPrimitive()) {
+				remoteParameterTypes[i] = parameterTypes[i];
+			}
+			else {
+				String parameterTypeName = parameterTypes[i].getName();
+
+				remoteParameterTypes[i] = remoteModelClassLoader.loadClass(parameterTypeName);
+			}
+		}
+
+		Method method = remoteModelClass.getMethod(methodName,
+				remoteParameterTypes);
+
+		Object returnValue = method.invoke(_entryRemoteModel,
+				remoteParameterValues);
+
+		if (returnValue != null) {
+			returnValue = ClpSerializer.translateOutput(returnValue);
+		}
+
+		return returnValue;
 	}
 
 	public void persist() throws SystemException {

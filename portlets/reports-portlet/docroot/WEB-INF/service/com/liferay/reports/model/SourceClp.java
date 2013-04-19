@@ -27,9 +27,12 @@ import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.util.PortalUtil;
 
+import com.liferay.reports.service.ClpSerializer;
 import com.liferay.reports.service.SourceLocalServiceUtil;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Method;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -175,6 +178,19 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 
 	public void setUuid(String uuid) {
 		_uuid = uuid;
+
+		if (_sourceRemoteModel != null) {
+			try {
+				Class<?> clazz = _sourceRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUuid", String.class);
+
+				method.invoke(_sourceRemoteModel, uuid);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getSourceId() {
@@ -183,6 +199,19 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 
 	public void setSourceId(long sourceId) {
 		_sourceId = sourceId;
+
+		if (_sourceRemoteModel != null) {
+			try {
+				Class<?> clazz = _sourceRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setSourceId", long.class);
+
+				method.invoke(_sourceRemoteModel, sourceId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getGroupId() {
@@ -191,6 +220,19 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 
 	public void setGroupId(long groupId) {
 		_groupId = groupId;
+
+		if (_sourceRemoteModel != null) {
+			try {
+				Class<?> clazz = _sourceRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setGroupId", long.class);
+
+				method.invoke(_sourceRemoteModel, groupId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getCompanyId() {
@@ -199,6 +241,19 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
+
+		if (_sourceRemoteModel != null) {
+			try {
+				Class<?> clazz = _sourceRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCompanyId", long.class);
+
+				method.invoke(_sourceRemoteModel, companyId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getUserId() {
@@ -207,6 +262,19 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 
 	public void setUserId(long userId) {
 		_userId = userId;
+
+		if (_sourceRemoteModel != null) {
+			try {
+				Class<?> clazz = _sourceRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserId", long.class);
+
+				method.invoke(_sourceRemoteModel, userId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getUserUuid() throws SystemException {
@@ -223,6 +291,19 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 
 	public void setUserName(String userName) {
 		_userName = userName;
+
+		if (_sourceRemoteModel != null) {
+			try {
+				Class<?> clazz = _sourceRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserName", String.class);
+
+				method.invoke(_sourceRemoteModel, userName);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public Date getCreateDate() {
@@ -231,6 +312,19 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
+
+		if (_sourceRemoteModel != null) {
+			try {
+				Class<?> clazz = _sourceRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCreateDate", Date.class);
+
+				method.invoke(_sourceRemoteModel, createDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public Date getModifiedDate() {
@@ -239,6 +333,19 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
+
+		if (_sourceRemoteModel != null) {
+			try {
+				Class<?> clazz = _sourceRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setModifiedDate", Date.class);
+
+				method.invoke(_sourceRemoteModel, modifiedDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getName() {
@@ -282,6 +389,19 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 
 	public void setName(String name) {
 		_name = name;
+
+		if (_sourceRemoteModel != null) {
+			try {
+				Class<?> clazz = _sourceRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setName", String.class);
+
+				method.invoke(_sourceRemoteModel, name);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public void setName(String name, Locale locale) {
@@ -342,6 +462,20 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 
 	public void setDriverClassName(String driverClassName) {
 		_driverClassName = driverClassName;
+
+		if (_sourceRemoteModel != null) {
+			try {
+				Class<?> clazz = _sourceRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setDriverClassName",
+						String.class);
+
+				method.invoke(_sourceRemoteModel, driverClassName);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getDriverUrl() {
@@ -350,6 +484,19 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 
 	public void setDriverUrl(String driverUrl) {
 		_driverUrl = driverUrl;
+
+		if (_sourceRemoteModel != null) {
+			try {
+				Class<?> clazz = _sourceRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setDriverUrl", String.class);
+
+				method.invoke(_sourceRemoteModel, driverUrl);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getDriverUserName() {
@@ -358,6 +505,20 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 
 	public void setDriverUserName(String driverUserName) {
 		_driverUserName = driverUserName;
+
+		if (_sourceRemoteModel != null) {
+			try {
+				Class<?> clazz = _sourceRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setDriverUserName",
+						String.class);
+
+				method.invoke(_sourceRemoteModel, driverUserName);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getDriverPassword() {
@@ -366,14 +527,56 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 
 	public void setDriverPassword(String driverPassword) {
 		_driverPassword = driverPassword;
+
+		if (_sourceRemoteModel != null) {
+			try {
+				Class<?> clazz = _sourceRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setDriverPassword",
+						String.class);
+
+				method.invoke(_sourceRemoteModel, driverPassword);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public java.lang.String[] getAttachmentsFiles() {
-		throw new UnsupportedOperationException();
+		try {
+			String methodName = "getAttachmentsFiles";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			java.lang.String[] returnObj = (java.lang.String[])invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
 	}
 
 	public java.lang.String getAttachmentsDir() {
-		throw new UnsupportedOperationException();
+		try {
+			String methodName = "getAttachmentsDir";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
 	}
 
 	public BaseModel<?> getSourceRemoteModel() {
@@ -382,6 +585,47 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 
 	public void setSourceRemoteModel(BaseModel<?> sourceRemoteModel) {
 		_sourceRemoteModel = sourceRemoteModel;
+	}
+
+	public Object invokeOnRemoteModel(String methodName,
+		Class<?>[] parameterTypes, Object[] parameterValues)
+		throws Exception {
+		Object[] remoteParameterValues = new Object[parameterValues.length];
+
+		for (int i = 0; i < parameterValues.length; i++) {
+			if (parameterValues[i] != null) {
+				remoteParameterValues[i] = ClpSerializer.translateInput(parameterValues[i]);
+			}
+		}
+
+		Class<?> remoteModelClass = _sourceRemoteModel.getClass();
+
+		ClassLoader remoteModelClassLoader = remoteModelClass.getClassLoader();
+
+		Class<?>[] remoteParameterTypes = new Class[parameterTypes.length];
+
+		for (int i = 0; i < parameterTypes.length; i++) {
+			if (parameterTypes[i].isPrimitive()) {
+				remoteParameterTypes[i] = parameterTypes[i];
+			}
+			else {
+				String parameterTypeName = parameterTypes[i].getName();
+
+				remoteParameterTypes[i] = remoteModelClassLoader.loadClass(parameterTypeName);
+			}
+		}
+
+		Method method = remoteModelClass.getMethod(methodName,
+				remoteParameterTypes);
+
+		Object returnValue = method.invoke(_sourceRemoteModel,
+				remoteParameterValues);
+
+		if (returnValue != null) {
+			returnValue = ClpSerializer.translateOutput(returnValue);
+		}
+
+		return returnValue;
 	}
 
 	public void persist() throws SystemException {

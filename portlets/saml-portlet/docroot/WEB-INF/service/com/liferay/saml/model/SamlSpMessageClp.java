@@ -21,9 +21,12 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 
+import com.liferay.saml.service.ClpSerializer;
 import com.liferay.saml.service.SamlSpMessageLocalServiceUtil;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Method;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -120,6 +123,19 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 
 	public void setSamlSpMessageId(long samlSpMessageId) {
 		_samlSpMessageId = samlSpMessageId;
+
+		if (_samlSpMessageRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpMessageRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setSamlSpMessageId", long.class);
+
+				method.invoke(_samlSpMessageRemoteModel, samlSpMessageId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getCompanyId() {
@@ -128,6 +144,19 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
+
+		if (_samlSpMessageRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpMessageRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCompanyId", long.class);
+
+				method.invoke(_samlSpMessageRemoteModel, companyId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public Date getCreateDate() {
@@ -136,6 +165,19 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
+
+		if (_samlSpMessageRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpMessageRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCreateDate", Date.class);
+
+				method.invoke(_samlSpMessageRemoteModel, createDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getSamlIdpEntityId() {
@@ -144,6 +186,20 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 
 	public void setSamlIdpEntityId(String samlIdpEntityId) {
 		_samlIdpEntityId = samlIdpEntityId;
+
+		if (_samlSpMessageRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpMessageRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setSamlIdpEntityId",
+						String.class);
+
+				method.invoke(_samlSpMessageRemoteModel, samlIdpEntityId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getSamlIdpResponseKey() {
@@ -152,6 +208,20 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 
 	public void setSamlIdpResponseKey(String samlIdpResponseKey) {
 		_samlIdpResponseKey = samlIdpResponseKey;
+
+		if (_samlSpMessageRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpMessageRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setSamlIdpResponseKey",
+						String.class);
+
+				method.invoke(_samlSpMessageRemoteModel, samlIdpResponseKey);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public Date getExpirationDate() {
@@ -160,10 +230,37 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 
 	public void setExpirationDate(Date expirationDate) {
 		_expirationDate = expirationDate;
+
+		if (_samlSpMessageRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpMessageRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setExpirationDate", Date.class);
+
+				method.invoke(_samlSpMessageRemoteModel, expirationDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public boolean isExpired() {
-		throw new UnsupportedOperationException();
+		try {
+			String methodName = "isExpired";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			Boolean returnObj = (Boolean)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
 	}
 
 	public BaseModel<?> getSamlSpMessageRemoteModel() {
@@ -173,6 +270,47 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 	public void setSamlSpMessageRemoteModel(
 		BaseModel<?> samlSpMessageRemoteModel) {
 		_samlSpMessageRemoteModel = samlSpMessageRemoteModel;
+	}
+
+	public Object invokeOnRemoteModel(String methodName,
+		Class<?>[] parameterTypes, Object[] parameterValues)
+		throws Exception {
+		Object[] remoteParameterValues = new Object[parameterValues.length];
+
+		for (int i = 0; i < parameterValues.length; i++) {
+			if (parameterValues[i] != null) {
+				remoteParameterValues[i] = ClpSerializer.translateInput(parameterValues[i]);
+			}
+		}
+
+		Class<?> remoteModelClass = _samlSpMessageRemoteModel.getClass();
+
+		ClassLoader remoteModelClassLoader = remoteModelClass.getClassLoader();
+
+		Class<?>[] remoteParameterTypes = new Class[parameterTypes.length];
+
+		for (int i = 0; i < parameterTypes.length; i++) {
+			if (parameterTypes[i].isPrimitive()) {
+				remoteParameterTypes[i] = parameterTypes[i];
+			}
+			else {
+				String parameterTypeName = parameterTypes[i].getName();
+
+				remoteParameterTypes[i] = remoteModelClassLoader.loadClass(parameterTypeName);
+			}
+		}
+
+		Method method = remoteModelClass.getMethod(methodName,
+				remoteParameterTypes);
+
+		Object returnValue = method.invoke(_samlSpMessageRemoteModel,
+				remoteParameterValues);
+
+		if (returnValue != null) {
+			returnValue = ClpSerializer.translateOutput(returnValue);
+		}
+
+		return returnValue;
 	}
 
 	public void persist() throws SystemException {

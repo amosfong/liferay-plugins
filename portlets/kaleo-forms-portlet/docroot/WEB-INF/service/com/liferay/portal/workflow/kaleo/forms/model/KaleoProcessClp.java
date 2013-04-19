@@ -21,9 +21,12 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.workflow.kaleo.forms.service.ClpSerializer;
 import com.liferay.portal.workflow.kaleo.forms.service.KaleoProcessLocalServiceUtil;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Method;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -141,6 +144,19 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 
 	public void setKaleoProcessId(long kaleoProcessId) {
 		_kaleoProcessId = kaleoProcessId;
+
+		if (_kaleoProcessRemoteModel != null) {
+			try {
+				Class<?> clazz = _kaleoProcessRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setKaleoProcessId", long.class);
+
+				method.invoke(_kaleoProcessRemoteModel, kaleoProcessId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getGroupId() {
@@ -149,6 +165,19 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 
 	public void setGroupId(long groupId) {
 		_groupId = groupId;
+
+		if (_kaleoProcessRemoteModel != null) {
+			try {
+				Class<?> clazz = _kaleoProcessRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setGroupId", long.class);
+
+				method.invoke(_kaleoProcessRemoteModel, groupId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getCompanyId() {
@@ -157,6 +186,19 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
+
+		if (_kaleoProcessRemoteModel != null) {
+			try {
+				Class<?> clazz = _kaleoProcessRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCompanyId", long.class);
+
+				method.invoke(_kaleoProcessRemoteModel, companyId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getUserId() {
@@ -165,6 +207,19 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 
 	public void setUserId(long userId) {
 		_userId = userId;
+
+		if (_kaleoProcessRemoteModel != null) {
+			try {
+				Class<?> clazz = _kaleoProcessRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserId", long.class);
+
+				method.invoke(_kaleoProcessRemoteModel, userId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getUserUuid() throws SystemException {
@@ -181,6 +236,19 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 
 	public void setUserName(String userName) {
 		_userName = userName;
+
+		if (_kaleoProcessRemoteModel != null) {
+			try {
+				Class<?> clazz = _kaleoProcessRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserName", String.class);
+
+				method.invoke(_kaleoProcessRemoteModel, userName);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public Date getCreateDate() {
@@ -189,6 +257,19 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
+
+		if (_kaleoProcessRemoteModel != null) {
+			try {
+				Class<?> clazz = _kaleoProcessRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCreateDate", Date.class);
+
+				method.invoke(_kaleoProcessRemoteModel, createDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public Date getModifiedDate() {
@@ -197,6 +278,19 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
+
+		if (_kaleoProcessRemoteModel != null) {
+			try {
+				Class<?> clazz = _kaleoProcessRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setModifiedDate", Date.class);
+
+				method.invoke(_kaleoProcessRemoteModel, modifiedDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getDDLRecordSetId() {
@@ -205,6 +299,19 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 
 	public void setDDLRecordSetId(long DDLRecordSetId) {
 		_DDLRecordSetId = DDLRecordSetId;
+
+		if (_kaleoProcessRemoteModel != null) {
+			try {
+				Class<?> clazz = _kaleoProcessRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setDDLRecordSetId", long.class);
+
+				method.invoke(_kaleoProcessRemoteModel, DDLRecordSetId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getDDMTemplateId() {
@@ -213,26 +320,110 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 
 	public void setDDMTemplateId(long DDMTemplateId) {
 		_DDMTemplateId = DDMTemplateId;
+
+		if (_kaleoProcessRemoteModel != null) {
+			try {
+				Class<?> clazz = _kaleoProcessRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setDDMTemplateId", long.class);
+
+				method.invoke(_kaleoProcessRemoteModel, DDMTemplateId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public com.liferay.portlet.dynamicdatamapping.model.DDMTemplate getDDMTemplate() {
-		throw new UnsupportedOperationException();
+		try {
+			String methodName = "getDDMTemplate";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			com.liferay.portlet.dynamicdatamapping.model.DDMTemplate returnObj = (com.liferay.portlet.dynamicdatamapping.model.DDMTemplate)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
 	}
 
 	public com.liferay.portlet.dynamicdatalists.model.DDLRecordSet getDDLRecordSet() {
-		throw new UnsupportedOperationException();
+		try {
+			String methodName = "getDDLRecordSet";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			com.liferay.portlet.dynamicdatalists.model.DDLRecordSet returnObj = (com.liferay.portlet.dynamicdatalists.model.DDLRecordSet)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
 	}
 
 	public java.lang.String getName(java.util.Locale locale) {
-		throw new UnsupportedOperationException();
+		try {
+			String methodName = "getName";
+
+			Class<?>[] parameterTypes = new Class<?>[] { java.util.Locale.class };
+
+			Object[] parameterValues = new Object[] { locale };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
 	}
 
 	public java.util.List<com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink> getKaleoProcessLinks() {
-		throw new UnsupportedOperationException();
+		try {
+			String methodName = "getKaleoProcessLinks";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			java.util.List<com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink> returnObj =
+				(java.util.List<com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink>)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
 	}
 
 	public java.lang.String getDescription(java.util.Locale locale) {
-		throw new UnsupportedOperationException();
+		try {
+			String methodName = "getDescription";
+
+			Class<?>[] parameterTypes = new Class<?>[] { java.util.Locale.class };
+
+			Object[] parameterValues = new Object[] { locale };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
 	}
 
 	public BaseModel<?> getKaleoProcessRemoteModel() {
@@ -241,6 +432,47 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 
 	public void setKaleoProcessRemoteModel(BaseModel<?> kaleoProcessRemoteModel) {
 		_kaleoProcessRemoteModel = kaleoProcessRemoteModel;
+	}
+
+	public Object invokeOnRemoteModel(String methodName,
+		Class<?>[] parameterTypes, Object[] parameterValues)
+		throws Exception {
+		Object[] remoteParameterValues = new Object[parameterValues.length];
+
+		for (int i = 0; i < parameterValues.length; i++) {
+			if (parameterValues[i] != null) {
+				remoteParameterValues[i] = ClpSerializer.translateInput(parameterValues[i]);
+			}
+		}
+
+		Class<?> remoteModelClass = _kaleoProcessRemoteModel.getClass();
+
+		ClassLoader remoteModelClassLoader = remoteModelClass.getClassLoader();
+
+		Class<?>[] remoteParameterTypes = new Class[parameterTypes.length];
+
+		for (int i = 0; i < parameterTypes.length; i++) {
+			if (parameterTypes[i].isPrimitive()) {
+				remoteParameterTypes[i] = parameterTypes[i];
+			}
+			else {
+				String parameterTypeName = parameterTypes[i].getName();
+
+				remoteParameterTypes[i] = remoteModelClassLoader.loadClass(parameterTypeName);
+			}
+		}
+
+		Method method = remoteModelClass.getMethod(methodName,
+				remoteParameterTypes);
+
+		Object returnValue = method.invoke(_kaleoProcessRemoteModel,
+				remoteParameterValues);
+
+		if (returnValue != null) {
+			returnValue = ClpSerializer.translateOutput(returnValue);
+		}
+
+		return returnValue;
 	}
 
 	public void persist() throws SystemException {

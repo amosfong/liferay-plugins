@@ -22,9 +22,12 @@ import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.util.PortalUtil;
 
+import com.liferay.saml.service.ClpSerializer;
 import com.liferay.saml.service.SamlSpIdpConnectionLocalServiceUtil;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Method;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -209,6 +212,21 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 
 	public void setSamlSpIdpConnectionId(long samlSpIdpConnectionId) {
 		_samlSpIdpConnectionId = samlSpIdpConnectionId;
+
+		if (_samlSpIdpConnectionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpIdpConnectionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setSamlSpIdpConnectionId",
+						long.class);
+
+				method.invoke(_samlSpIdpConnectionRemoteModel,
+					samlSpIdpConnectionId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getCompanyId() {
@@ -217,6 +235,19 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
+
+		if (_samlSpIdpConnectionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpIdpConnectionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCompanyId", long.class);
+
+				method.invoke(_samlSpIdpConnectionRemoteModel, companyId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getUserId() {
@@ -225,6 +256,19 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 
 	public void setUserId(long userId) {
 		_userId = userId;
+
+		if (_samlSpIdpConnectionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpIdpConnectionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserId", long.class);
+
+				method.invoke(_samlSpIdpConnectionRemoteModel, userId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getUserUuid() throws SystemException {
@@ -241,6 +285,19 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 
 	public void setUserName(String userName) {
 		_userName = userName;
+
+		if (_samlSpIdpConnectionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpIdpConnectionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserName", String.class);
+
+				method.invoke(_samlSpIdpConnectionRemoteModel, userName);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public Date getCreateDate() {
@@ -249,6 +306,19 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
+
+		if (_samlSpIdpConnectionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpIdpConnectionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCreateDate", Date.class);
+
+				method.invoke(_samlSpIdpConnectionRemoteModel, createDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public Date getModifiedDate() {
@@ -257,6 +327,19 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
+
+		if (_samlSpIdpConnectionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpIdpConnectionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setModifiedDate", Date.class);
+
+				method.invoke(_samlSpIdpConnectionRemoteModel, modifiedDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getSamlIdpEntityId() {
@@ -265,6 +348,20 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 
 	public void setSamlIdpEntityId(String samlIdpEntityId) {
 		_samlIdpEntityId = samlIdpEntityId;
+
+		if (_samlSpIdpConnectionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpIdpConnectionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setSamlIdpEntityId",
+						String.class);
+
+				method.invoke(_samlSpIdpConnectionRemoteModel, samlIdpEntityId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public boolean getAssertionSignatureRequired() {
@@ -278,6 +375,21 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 	public void setAssertionSignatureRequired(
 		boolean assertionSignatureRequired) {
 		_assertionSignatureRequired = assertionSignatureRequired;
+
+		if (_samlSpIdpConnectionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpIdpConnectionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setAssertionSignatureRequired",
+						boolean.class);
+
+				method.invoke(_samlSpIdpConnectionRemoteModel,
+					assertionSignatureRequired);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getClockSkew() {
@@ -286,6 +398,19 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 
 	public void setClockSkew(long clockSkew) {
 		_clockSkew = clockSkew;
+
+		if (_samlSpIdpConnectionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpIdpConnectionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setClockSkew", long.class);
+
+				method.invoke(_samlSpIdpConnectionRemoteModel, clockSkew);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public boolean getEnabled() {
@@ -298,6 +423,19 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 
 	public void setEnabled(boolean enabled) {
 		_enabled = enabled;
+
+		if (_samlSpIdpConnectionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpIdpConnectionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setEnabled", boolean.class);
+
+				method.invoke(_samlSpIdpConnectionRemoteModel, enabled);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public boolean getLdapImportEnabled() {
@@ -310,6 +448,20 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 
 	public void setLdapImportEnabled(boolean ldapImportEnabled) {
 		_ldapImportEnabled = ldapImportEnabled;
+
+		if (_samlSpIdpConnectionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpIdpConnectionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setLdapImportEnabled",
+						boolean.class);
+
+				method.invoke(_samlSpIdpConnectionRemoteModel, ldapImportEnabled);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getMetadataUrl() {
@@ -318,6 +470,19 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 
 	public void setMetadataUrl(String metadataUrl) {
 		_metadataUrl = metadataUrl;
+
+		if (_samlSpIdpConnectionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpIdpConnectionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setMetadataUrl", String.class);
+
+				method.invoke(_samlSpIdpConnectionRemoteModel, metadataUrl);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getMetadataXml() {
@@ -326,6 +491,19 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 
 	public void setMetadataXml(String metadataXml) {
 		_metadataXml = metadataXml;
+
+		if (_samlSpIdpConnectionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpIdpConnectionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setMetadataXml", String.class);
+
+				method.invoke(_samlSpIdpConnectionRemoteModel, metadataXml);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public Date getMetadataUpdatedDate() {
@@ -334,6 +512,21 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 
 	public void setMetadataUpdatedDate(Date metadataUpdatedDate) {
 		_metadataUpdatedDate = metadataUpdatedDate;
+
+		if (_samlSpIdpConnectionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpIdpConnectionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setMetadataUpdatedDate",
+						Date.class);
+
+				method.invoke(_samlSpIdpConnectionRemoteModel,
+					metadataUpdatedDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getName() {
@@ -342,6 +535,19 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 
 	public void setName(String name) {
 		_name = name;
+
+		if (_samlSpIdpConnectionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpIdpConnectionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setName", String.class);
+
+				method.invoke(_samlSpIdpConnectionRemoteModel, name);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getNameIdFormat() {
@@ -350,6 +556,19 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 
 	public void setNameIdFormat(String nameIdFormat) {
 		_nameIdFormat = nameIdFormat;
+
+		if (_samlSpIdpConnectionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpIdpConnectionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setNameIdFormat", String.class);
+
+				method.invoke(_samlSpIdpConnectionRemoteModel, nameIdFormat);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public boolean getSignAuthnRequest() {
@@ -362,6 +581,20 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 
 	public void setSignAuthnRequest(boolean signAuthnRequest) {
 		_signAuthnRequest = signAuthnRequest;
+
+		if (_samlSpIdpConnectionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpIdpConnectionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setSignAuthnRequest",
+						boolean.class);
+
+				method.invoke(_samlSpIdpConnectionRemoteModel, signAuthnRequest);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getUserAttributeMappings() {
@@ -370,6 +603,21 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 
 	public void setUserAttributeMappings(String userAttributeMappings) {
 		_userAttributeMappings = userAttributeMappings;
+
+		if (_samlSpIdpConnectionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpIdpConnectionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserAttributeMappings",
+						String.class);
+
+				method.invoke(_samlSpIdpConnectionRemoteModel,
+					userAttributeMappings);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public BaseModel<?> getSamlSpIdpConnectionRemoteModel() {
@@ -379,6 +627,47 @@ public class SamlSpIdpConnectionClp extends BaseModelImpl<SamlSpIdpConnection>
 	public void setSamlSpIdpConnectionRemoteModel(
 		BaseModel<?> samlSpIdpConnectionRemoteModel) {
 		_samlSpIdpConnectionRemoteModel = samlSpIdpConnectionRemoteModel;
+	}
+
+	public Object invokeOnRemoteModel(String methodName,
+		Class<?>[] parameterTypes, Object[] parameterValues)
+		throws Exception {
+		Object[] remoteParameterValues = new Object[parameterValues.length];
+
+		for (int i = 0; i < parameterValues.length; i++) {
+			if (parameterValues[i] != null) {
+				remoteParameterValues[i] = ClpSerializer.translateInput(parameterValues[i]);
+			}
+		}
+
+		Class<?> remoteModelClass = _samlSpIdpConnectionRemoteModel.getClass();
+
+		ClassLoader remoteModelClassLoader = remoteModelClass.getClassLoader();
+
+		Class<?>[] remoteParameterTypes = new Class[parameterTypes.length];
+
+		for (int i = 0; i < parameterTypes.length; i++) {
+			if (parameterTypes[i].isPrimitive()) {
+				remoteParameterTypes[i] = parameterTypes[i];
+			}
+			else {
+				String parameterTypeName = parameterTypes[i].getName();
+
+				remoteParameterTypes[i] = remoteModelClassLoader.loadClass(parameterTypeName);
+			}
+		}
+
+		Method method = remoteModelClass.getMethod(methodName,
+				remoteParameterTypes);
+
+		Object returnValue = method.invoke(_samlSpIdpConnectionRemoteModel,
+				remoteParameterValues);
+
+		if (returnValue != null) {
+			returnValue = ClpSerializer.translateOutput(returnValue);
+		}
+
+		return returnValue;
 	}
 
 	public void persist() throws SystemException {

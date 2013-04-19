@@ -15,6 +15,7 @@
 package com.liferay.portal.audit.model;
 
 import com.liferay.portal.audit.service.AuditEventLocalServiceUtil;
+import com.liferay.portal.audit.service.ClpSerializer;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.DateUtil;
@@ -25,6 +26,8 @@ import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.util.PortalUtil;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Method;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -184,6 +187,19 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 
 	public void setAuditEventId(long auditEventId) {
 		_auditEventId = auditEventId;
+
+		if (_auditEventRemoteModel != null) {
+			try {
+				Class<?> clazz = _auditEventRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setAuditEventId", long.class);
+
+				method.invoke(_auditEventRemoteModel, auditEventId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getCompanyId() {
@@ -192,6 +208,19 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
+
+		if (_auditEventRemoteModel != null) {
+			try {
+				Class<?> clazz = _auditEventRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCompanyId", long.class);
+
+				method.invoke(_auditEventRemoteModel, companyId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getUserId() {
@@ -200,6 +229,19 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 
 	public void setUserId(long userId) {
 		_userId = userId;
+
+		if (_auditEventRemoteModel != null) {
+			try {
+				Class<?> clazz = _auditEventRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserId", long.class);
+
+				method.invoke(_auditEventRemoteModel, userId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getUserUuid() throws SystemException {
@@ -216,6 +258,19 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 
 	public void setUserName(String userName) {
 		_userName = userName;
+
+		if (_auditEventRemoteModel != null) {
+			try {
+				Class<?> clazz = _auditEventRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserName", String.class);
+
+				method.invoke(_auditEventRemoteModel, userName);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public Date getCreateDate() {
@@ -224,6 +279,19 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
+
+		if (_auditEventRemoteModel != null) {
+			try {
+				Class<?> clazz = _auditEventRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCreateDate", Date.class);
+
+				method.invoke(_auditEventRemoteModel, createDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getEventType() {
@@ -232,6 +300,19 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 
 	public void setEventType(String eventType) {
 		_eventType = eventType;
+
+		if (_auditEventRemoteModel != null) {
+			try {
+				Class<?> clazz = _auditEventRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setEventType", String.class);
+
+				method.invoke(_auditEventRemoteModel, eventType);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getClassName() {
@@ -240,6 +321,19 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 
 	public void setClassName(String className) {
 		_className = className;
+
+		if (_auditEventRemoteModel != null) {
+			try {
+				Class<?> clazz = _auditEventRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setClassName", String.class);
+
+				method.invoke(_auditEventRemoteModel, className);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getClassPK() {
@@ -248,6 +342,19 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 
 	public void setClassPK(String classPK) {
 		_classPK = classPK;
+
+		if (_auditEventRemoteModel != null) {
+			try {
+				Class<?> clazz = _auditEventRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setClassPK", String.class);
+
+				method.invoke(_auditEventRemoteModel, classPK);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getMessage() {
@@ -256,6 +363,19 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 
 	public void setMessage(String message) {
 		_message = message;
+
+		if (_auditEventRemoteModel != null) {
+			try {
+				Class<?> clazz = _auditEventRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setMessage", String.class);
+
+				method.invoke(_auditEventRemoteModel, message);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getClientHost() {
@@ -264,6 +384,19 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 
 	public void setClientHost(String clientHost) {
 		_clientHost = clientHost;
+
+		if (_auditEventRemoteModel != null) {
+			try {
+				Class<?> clazz = _auditEventRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setClientHost", String.class);
+
+				method.invoke(_auditEventRemoteModel, clientHost);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getClientIP() {
@@ -272,6 +405,19 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 
 	public void setClientIP(String clientIP) {
 		_clientIP = clientIP;
+
+		if (_auditEventRemoteModel != null) {
+			try {
+				Class<?> clazz = _auditEventRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setClientIP", String.class);
+
+				method.invoke(_auditEventRemoteModel, clientIP);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getServerName() {
@@ -280,6 +426,19 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 
 	public void setServerName(String serverName) {
 		_serverName = serverName;
+
+		if (_auditEventRemoteModel != null) {
+			try {
+				Class<?> clazz = _auditEventRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setServerName", String.class);
+
+				method.invoke(_auditEventRemoteModel, serverName);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public int getServerPort() {
@@ -288,6 +447,19 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 
 	public void setServerPort(int serverPort) {
 		_serverPort = serverPort;
+
+		if (_auditEventRemoteModel != null) {
+			try {
+				Class<?> clazz = _auditEventRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setServerPort", int.class);
+
+				method.invoke(_auditEventRemoteModel, serverPort);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getSessionID() {
@@ -296,6 +468,19 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 
 	public void setSessionID(String sessionID) {
 		_sessionID = sessionID;
+
+		if (_auditEventRemoteModel != null) {
+			try {
+				Class<?> clazz = _auditEventRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setSessionID", String.class);
+
+				method.invoke(_auditEventRemoteModel, sessionID);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getAdditionalInfo() {
@@ -304,6 +489,20 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 
 	public void setAdditionalInfo(String additionalInfo) {
 		_additionalInfo = additionalInfo;
+
+		if (_auditEventRemoteModel != null) {
+			try {
+				Class<?> clazz = _auditEventRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setAdditionalInfo",
+						String.class);
+
+				method.invoke(_auditEventRemoteModel, additionalInfo);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public BaseModel<?> getAuditEventRemoteModel() {
@@ -312,6 +511,47 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 
 	public void setAuditEventRemoteModel(BaseModel<?> auditEventRemoteModel) {
 		_auditEventRemoteModel = auditEventRemoteModel;
+	}
+
+	public Object invokeOnRemoteModel(String methodName,
+		Class<?>[] parameterTypes, Object[] parameterValues)
+		throws Exception {
+		Object[] remoteParameterValues = new Object[parameterValues.length];
+
+		for (int i = 0; i < parameterValues.length; i++) {
+			if (parameterValues[i] != null) {
+				remoteParameterValues[i] = ClpSerializer.translateInput(parameterValues[i]);
+			}
+		}
+
+		Class<?> remoteModelClass = _auditEventRemoteModel.getClass();
+
+		ClassLoader remoteModelClassLoader = remoteModelClass.getClassLoader();
+
+		Class<?>[] remoteParameterTypes = new Class[parameterTypes.length];
+
+		for (int i = 0; i < parameterTypes.length; i++) {
+			if (parameterTypes[i].isPrimitive()) {
+				remoteParameterTypes[i] = parameterTypes[i];
+			}
+			else {
+				String parameterTypeName = parameterTypes[i].getName();
+
+				remoteParameterTypes[i] = remoteModelClassLoader.loadClass(parameterTypeName);
+			}
+		}
+
+		Method method = remoteModelClass.getMethod(methodName,
+				remoteParameterTypes);
+
+		Object returnValue = method.invoke(_auditEventRemoteModel,
+				remoteParameterValues);
+
+		if (returnValue != null) {
+			returnValue = ClpSerializer.translateOutput(returnValue);
+		}
+
+		return returnValue;
 	}
 
 	public void persist() throws SystemException {

@@ -22,9 +22,12 @@ import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 import com.liferay.portal.util.PortalUtil;
 
+import com.liferay.saml.service.ClpSerializer;
 import com.liferay.saml.service.SamlIdpSpSessionLocalServiceUtil;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Method;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -149,6 +152,20 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 
 	public void setSamlIdpSpSessionId(long samlIdpSpSessionId) {
 		_samlIdpSpSessionId = samlIdpSpSessionId;
+
+		if (_samlIdpSpSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlIdpSpSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setSamlIdpSpSessionId",
+						long.class);
+
+				method.invoke(_samlIdpSpSessionRemoteModel, samlIdpSpSessionId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getCompanyId() {
@@ -157,6 +174,19 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
+
+		if (_samlIdpSpSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlIdpSpSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCompanyId", long.class);
+
+				method.invoke(_samlIdpSpSessionRemoteModel, companyId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getUserId() {
@@ -165,6 +195,19 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 
 	public void setUserId(long userId) {
 		_userId = userId;
+
+		if (_samlIdpSpSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlIdpSpSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserId", long.class);
+
+				method.invoke(_samlIdpSpSessionRemoteModel, userId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getUserUuid() throws SystemException {
@@ -181,6 +224,19 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 
 	public void setUserName(String userName) {
 		_userName = userName;
+
+		if (_samlIdpSpSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlIdpSpSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setUserName", String.class);
+
+				method.invoke(_samlIdpSpSessionRemoteModel, userName);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public Date getCreateDate() {
@@ -189,6 +245,19 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
+
+		if (_samlIdpSpSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlIdpSpSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCreateDate", Date.class);
+
+				method.invoke(_samlIdpSpSessionRemoteModel, createDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public Date getModifiedDate() {
@@ -197,6 +266,19 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
+
+		if (_samlIdpSpSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlIdpSpSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setModifiedDate", Date.class);
+
+				method.invoke(_samlIdpSpSessionRemoteModel, modifiedDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getSamlIdpSsoSessionId() {
@@ -205,6 +287,20 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 
 	public void setSamlIdpSsoSessionId(long samlIdpSsoSessionId) {
 		_samlIdpSsoSessionId = samlIdpSsoSessionId;
+
+		if (_samlIdpSpSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlIdpSpSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setSamlIdpSsoSessionId",
+						long.class);
+
+				method.invoke(_samlIdpSpSessionRemoteModel, samlIdpSsoSessionId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getSamlSpEntityId() {
@@ -213,6 +309,20 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 
 	public void setSamlSpEntityId(String samlSpEntityId) {
 		_samlSpEntityId = samlSpEntityId;
+
+		if (_samlIdpSpSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlIdpSpSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setSamlSpEntityId",
+						String.class);
+
+				method.invoke(_samlIdpSpSessionRemoteModel, samlSpEntityId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getNameIdFormat() {
@@ -221,6 +331,19 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 
 	public void setNameIdFormat(String nameIdFormat) {
 		_nameIdFormat = nameIdFormat;
+
+		if (_samlIdpSpSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlIdpSpSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setNameIdFormat", String.class);
+
+				method.invoke(_samlIdpSpSessionRemoteModel, nameIdFormat);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getNameIdValue() {
@@ -229,6 +352,19 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 
 	public void setNameIdValue(String nameIdValue) {
 		_nameIdValue = nameIdValue;
+
+		if (_samlIdpSpSessionRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlIdpSpSessionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setNameIdValue", String.class);
+
+				method.invoke(_samlIdpSpSessionRemoteModel, nameIdValue);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public BaseModel<?> getSamlIdpSpSessionRemoteModel() {
@@ -238,6 +374,47 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 	public void setSamlIdpSpSessionRemoteModel(
 		BaseModel<?> samlIdpSpSessionRemoteModel) {
 		_samlIdpSpSessionRemoteModel = samlIdpSpSessionRemoteModel;
+	}
+
+	public Object invokeOnRemoteModel(String methodName,
+		Class<?>[] parameterTypes, Object[] parameterValues)
+		throws Exception {
+		Object[] remoteParameterValues = new Object[parameterValues.length];
+
+		for (int i = 0; i < parameterValues.length; i++) {
+			if (parameterValues[i] != null) {
+				remoteParameterValues[i] = ClpSerializer.translateInput(parameterValues[i]);
+			}
+		}
+
+		Class<?> remoteModelClass = _samlIdpSpSessionRemoteModel.getClass();
+
+		ClassLoader remoteModelClassLoader = remoteModelClass.getClassLoader();
+
+		Class<?>[] remoteParameterTypes = new Class[parameterTypes.length];
+
+		for (int i = 0; i < parameterTypes.length; i++) {
+			if (parameterTypes[i].isPrimitive()) {
+				remoteParameterTypes[i] = parameterTypes[i];
+			}
+			else {
+				String parameterTypeName = parameterTypes[i].getName();
+
+				remoteParameterTypes[i] = remoteModelClassLoader.loadClass(parameterTypeName);
+			}
+		}
+
+		Method method = remoteModelClass.getMethod(methodName,
+				remoteParameterTypes);
+
+		Object returnValue = method.invoke(_samlIdpSpSessionRemoteModel,
+				remoteParameterValues);
+
+		if (returnValue != null) {
+			returnValue = ClpSerializer.translateOutput(returnValue);
+		}
+
+		return returnValue;
 	}
 
 	public void persist() throws SystemException {

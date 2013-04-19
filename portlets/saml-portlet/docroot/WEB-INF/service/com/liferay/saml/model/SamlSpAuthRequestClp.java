@@ -21,9 +21,12 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.impl.BaseModelImpl;
 
+import com.liferay.saml.service.ClpSerializer;
 import com.liferay.saml.service.SamlSpAuthRequestLocalServiceUtil;
 
 import java.io.Serializable;
+
+import java.lang.reflect.Method;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -114,6 +117,21 @@ public class SamlSpAuthRequestClp extends BaseModelImpl<SamlSpAuthRequest>
 
 	public void setSamlSpAuthnRequestId(long samlSpAuthnRequestId) {
 		_samlSpAuthnRequestId = samlSpAuthnRequestId;
+
+		if (_samlSpAuthRequestRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpAuthRequestRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setSamlSpAuthnRequestId",
+						long.class);
+
+				method.invoke(_samlSpAuthRequestRemoteModel,
+					samlSpAuthnRequestId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public long getCompanyId() {
@@ -122,6 +140,19 @@ public class SamlSpAuthRequestClp extends BaseModelImpl<SamlSpAuthRequest>
 
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
+
+		if (_samlSpAuthRequestRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpAuthRequestRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCompanyId", long.class);
+
+				method.invoke(_samlSpAuthRequestRemoteModel, companyId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public Date getCreateDate() {
@@ -130,6 +161,19 @@ public class SamlSpAuthRequestClp extends BaseModelImpl<SamlSpAuthRequest>
 
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
+
+		if (_samlSpAuthRequestRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpAuthRequestRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setCreateDate", Date.class);
+
+				method.invoke(_samlSpAuthRequestRemoteModel, createDate);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getSamlIdpEntityId() {
@@ -138,6 +182,20 @@ public class SamlSpAuthRequestClp extends BaseModelImpl<SamlSpAuthRequest>
 
 	public void setSamlIdpEntityId(String samlIdpEntityId) {
 		_samlIdpEntityId = samlIdpEntityId;
+
+		if (_samlSpAuthRequestRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpAuthRequestRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setSamlIdpEntityId",
+						String.class);
+
+				method.invoke(_samlSpAuthRequestRemoteModel, samlIdpEntityId);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public String getSamlSpAuthRequestKey() {
@@ -146,6 +204,21 @@ public class SamlSpAuthRequestClp extends BaseModelImpl<SamlSpAuthRequest>
 
 	public void setSamlSpAuthRequestKey(String samlSpAuthRequestKey) {
 		_samlSpAuthRequestKey = samlSpAuthRequestKey;
+
+		if (_samlSpAuthRequestRemoteModel != null) {
+			try {
+				Class<?> clazz = _samlSpAuthRequestRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setSamlSpAuthRequestKey",
+						String.class);
+
+				method.invoke(_samlSpAuthRequestRemoteModel,
+					samlSpAuthRequestKey);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
 	}
 
 	public BaseModel<?> getSamlSpAuthRequestRemoteModel() {
@@ -155,6 +228,47 @@ public class SamlSpAuthRequestClp extends BaseModelImpl<SamlSpAuthRequest>
 	public void setSamlSpAuthRequestRemoteModel(
 		BaseModel<?> samlSpAuthRequestRemoteModel) {
 		_samlSpAuthRequestRemoteModel = samlSpAuthRequestRemoteModel;
+	}
+
+	public Object invokeOnRemoteModel(String methodName,
+		Class<?>[] parameterTypes, Object[] parameterValues)
+		throws Exception {
+		Object[] remoteParameterValues = new Object[parameterValues.length];
+
+		for (int i = 0; i < parameterValues.length; i++) {
+			if (parameterValues[i] != null) {
+				remoteParameterValues[i] = ClpSerializer.translateInput(parameterValues[i]);
+			}
+		}
+
+		Class<?> remoteModelClass = _samlSpAuthRequestRemoteModel.getClass();
+
+		ClassLoader remoteModelClassLoader = remoteModelClass.getClassLoader();
+
+		Class<?>[] remoteParameterTypes = new Class[parameterTypes.length];
+
+		for (int i = 0; i < parameterTypes.length; i++) {
+			if (parameterTypes[i].isPrimitive()) {
+				remoteParameterTypes[i] = parameterTypes[i];
+			}
+			else {
+				String parameterTypeName = parameterTypes[i].getName();
+
+				remoteParameterTypes[i] = remoteModelClassLoader.loadClass(parameterTypeName);
+			}
+		}
+
+		Method method = remoteModelClass.getMethod(methodName,
+				remoteParameterTypes);
+
+		Object returnValue = method.invoke(_samlSpAuthRequestRemoteModel,
+				remoteParameterValues);
+
+		if (returnValue != null) {
+			returnValue = ClpSerializer.translateOutput(returnValue);
+		}
+
+		return returnValue;
 	}
 
 	public void persist() throws SystemException {
