@@ -168,34 +168,16 @@ public class UserBuilder extends DirectoryBuilder {
 				continue;
 			}
 
-			String screenName = filterConstraint.getValue("cn");
-
-			if (screenName != null) {
-				users.add(
-					UserLocalServiceUtil.getUserByScreenName(
-						company.getCompanyId(), screenName));
-
-				continue;
-			}
-
-			String emailAddress = filterConstraint.getValue("mail");
-
-			if (emailAddress != null) {
-				users.add(
-					UserLocalServiceUtil.getUserByEmailAddress(
-						company.getCompanyId(), emailAddress));
-
-				continue;
-			}
-
 			String firstName = filterConstraint.getValue("givenName");
 			String lastName = filterConstraint.getValue("sn");
+			String screenName = filterConstraint.getValue("cn");
+			String emailAddress = filterConstraint.getValue("mail");
 
 			users.addAll(
 				UserLocalServiceUtil.search(
-					company.getCompanyId(), firstName, null, lastName, null,
-					null, WorkflowConstants.STATUS_APPROVED, params, true, 0,
-					(int)searchBase.getSizeLimit(),
+					company.getCompanyId(), firstName, null, lastName,
+					screenName, emailAddress, WorkflowConstants.STATUS_APPROVED,
+					params, true, 0, (int)searchBase.getSizeLimit(),
 					new UserScreenNameComparator()));
 		}
 
