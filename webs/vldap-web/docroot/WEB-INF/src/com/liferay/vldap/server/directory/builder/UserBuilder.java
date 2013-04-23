@@ -173,13 +173,13 @@ public class UserBuilder extends DirectoryBuilder {
 			String screenName = filterConstraint.getValue("cn");
 			String emailAddress = filterConstraint.getValue("mail");
 
-			List<User> curUsers = UserLocalServiceUtil.search(
+			List<User> searchUsers = UserLocalServiceUtil.search(
 				company.getCompanyId(), firstName, null, lastName, screenName,
 				emailAddress, WorkflowConstants.STATUS_APPROVED, params, true,
 				0, (int)searchBase.getSizeLimit(),
 				new UserScreenNameComparator());
 
-			for (User user : curUsers) {
+			for (User user : searchUsers) {
 				if ((screenName != null) &&
 					!screenName.equals(user.getScreenName())) {
 
