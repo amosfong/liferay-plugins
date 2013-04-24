@@ -82,6 +82,8 @@ public class ShindigFilter extends InjectedFilter {
 			setPermissionChecker(servletRequest);
 		}
 
+		ShindigUtil.setScheme(servletRequest.getScheme());
+
 		String serverName = servletRequest.getServerName();
 
 		String host = serverName.concat(StringPool.COLON).concat(
