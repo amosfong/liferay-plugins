@@ -16,6 +16,8 @@
 
 <%
 PortletURL portletURL = renderResponse.createRenderURL();
+
+portletURL.setParameter("tabs2", tabs2);
 %>
 
 <liferay-ui:search-container
