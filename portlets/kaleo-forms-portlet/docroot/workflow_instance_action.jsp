@@ -33,8 +33,12 @@ else {
 
 <liferay-ui:icon-menu showExpanded="<%= row == null %>" showWhenSingleIcon="<%= true %>">
 	<c:if test="<%= !workflowInstance.isComplete() %>">
+		<portlet:renderURL var="redirectURL">
+			<portlet:param name="tabs2" value="my-pending-requests" />
+		</portlet:renderURL>
+
 		<portlet:actionURL name="deleteWorkflowInstance" var="deleteURL">
-			<portlet:param name="redirect" value="<%= currentURL %>" />
+			<portlet:param name="redirect" value="<%= redirectURL %>" />
 			<portlet:param name="workflowInstanceId" value="<%= StringUtil.valueOf(workflowInstance.getWorkflowInstanceId()) %>" />
 		</portlet:actionURL>
 
