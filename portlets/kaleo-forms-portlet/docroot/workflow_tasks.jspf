@@ -15,11 +15,17 @@
 --%>
 
 <%
+String curParam = SearchContainer.DEFAULT_CUR_PARAM;
+
+if (searchByUserRoles) {
+	curParam = "cur2";
+}
+
 PortletURL portletURL = renderResponse.createRenderURL();
 %>
 
 <liferay-ui:search-container
-	searchContainer='<%= new SearchContainer(renderRequest, portletURL, null, "there-are-no-tasks") %>'
+	searchContainer='<%= new SearchContainer(renderRequest, null, null, curParam, SearchContainer.DEFAULT_DELTA, portletURL, null, "there-are-no-tasks") %>'
 >
 	<liferay-ui:search-container-results
 		results="<%= WorkflowTaskManagerUtil.search(company.getCompanyId(), user.getUserId(), null, KaleoProcess.class.getName(), null, null, null, false, searchByUserRoles, true, searchContainer.getStart(), searchContainer.getEnd(), null) %>"
