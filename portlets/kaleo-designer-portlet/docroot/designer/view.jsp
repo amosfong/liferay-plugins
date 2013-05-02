@@ -122,7 +122,7 @@
 
 									<c:if test="<%= editable %>">
 										<aui:field-wrapper label="draft-history">
-											<div class="lfr-portlet-workflowdesigner-toolbar" id="<portlet:namespace />kaleoDesignerToolbar"></div>
+											<div class="lfr-portlet-workflowdesigner-toolbar" id="<portlet:namespace />kaleoDesignerToolbarContainer"></div>
 										</aui:field-wrapper>
 									</c:if>
 								</c:if>
@@ -320,7 +320,7 @@
 					<portlet:namespace />kaleoDesignerToolbar = new A.Toolbar(
 						{
 							activeState: false,
-							boundingBox: '#<portlet:namespace />kaleoDesignerToolbar',
+							boundingBox: '#<portlet:namespace />kaleoDesignerToolbarContainer',
 							children: [
 								{
 									handler: <portlet:namespace />undoKaleoDraftDefinition,
