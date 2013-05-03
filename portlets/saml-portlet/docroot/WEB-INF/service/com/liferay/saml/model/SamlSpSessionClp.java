@@ -555,18 +555,15 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof SamlSpSessionClp)) {
 			return false;
 		}
 
-		SamlSpSessionClp samlSpSession = null;
-
-		try {
-			samlSpSession = (SamlSpSessionClp)obj;
-		}
-		catch (ClassCastException cce) {
-			return false;
-		}
+		SamlSpSessionClp samlSpSession = (SamlSpSessionClp)obj;
 
 		long primaryKey = samlSpSession.getPrimaryKey();
 

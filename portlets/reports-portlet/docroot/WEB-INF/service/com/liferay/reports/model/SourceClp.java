@@ -687,18 +687,15 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof SourceClp)) {
 			return false;
 		}
 
-		SourceClp source = null;
-
-		try {
-			source = (SourceClp)obj;
-		}
-		catch (ClassCastException cce) {
-			return false;
-		}
+		SourceClp source = (SourceClp)obj;
 
 		long primaryKey = source.getPrimaryKey();
 

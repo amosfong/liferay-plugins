@@ -614,18 +614,15 @@ public class KaleoDraftDefinitionModelImpl extends BaseModelImpl<KaleoDraftDefin
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof KaleoDraftDefinition)) {
 			return false;
 		}
 
-		KaleoDraftDefinition kaleoDraftDefinition = null;
-
-		try {
-			kaleoDraftDefinition = (KaleoDraftDefinition)obj;
-		}
-		catch (ClassCastException cce) {
-			return false;
-		}
+		KaleoDraftDefinition kaleoDraftDefinition = (KaleoDraftDefinition)obj;
 
 		long primaryKey = kaleoDraftDefinition.getPrimaryKey();
 

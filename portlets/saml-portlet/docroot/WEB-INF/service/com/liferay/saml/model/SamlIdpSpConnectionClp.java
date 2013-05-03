@@ -723,18 +723,15 @@ public class SamlIdpSpConnectionClp extends BaseModelImpl<SamlIdpSpConnection>
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof SamlIdpSpConnectionClp)) {
 			return false;
 		}
 
-		SamlIdpSpConnectionClp samlIdpSpConnection = null;
-
-		try {
-			samlIdpSpConnection = (SamlIdpSpConnectionClp)obj;
-		}
-		catch (ClassCastException cce) {
-			return false;
-		}
+		SamlIdpSpConnectionClp samlIdpSpConnection = (SamlIdpSpConnectionClp)obj;
 
 		long primaryKey = samlIdpSpConnection.getPrimaryKey();
 

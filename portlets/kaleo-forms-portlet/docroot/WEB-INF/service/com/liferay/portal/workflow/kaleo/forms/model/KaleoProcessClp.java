@@ -523,18 +523,15 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof KaleoProcessClp)) {
 			return false;
 		}
 
-		KaleoProcessClp kaleoProcess = null;
-
-		try {
-			kaleoProcess = (KaleoProcessClp)obj;
-		}
-		catch (ClassCastException cce) {
-			return false;
-		}
+		KaleoProcessClp kaleoProcess = (KaleoProcessClp)obj;
 
 		long primaryKey = kaleoProcess.getPrimaryKey();
 

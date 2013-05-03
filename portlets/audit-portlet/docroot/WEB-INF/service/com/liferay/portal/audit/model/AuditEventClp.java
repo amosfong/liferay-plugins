@@ -608,18 +608,15 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof AuditEventClp)) {
 			return false;
 		}
 
-		AuditEventClp auditEvent = null;
-
-		try {
-			auditEvent = (AuditEventClp)obj;
-		}
-		catch (ClassCastException cce) {
-			return false;
-		}
+		AuditEventClp auditEvent = (AuditEventClp)obj;
 
 		long primaryKey = auditEvent.getPrimaryKey();
 

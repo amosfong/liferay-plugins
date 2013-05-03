@@ -305,18 +305,15 @@ public class SamlSpMessageModelImpl extends BaseModelImpl<SamlSpMessage>
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof SamlSpMessage)) {
 			return false;
 		}
 
-		SamlSpMessage samlSpMessage = null;
-
-		try {
-			samlSpMessage = (SamlSpMessage)obj;
-		}
-		catch (ClassCastException cce) {
-			return false;
-		}
+		SamlSpMessage samlSpMessage = (SamlSpMessage)obj;
 
 		long primaryKey = samlSpMessage.getPrimaryKey();
 

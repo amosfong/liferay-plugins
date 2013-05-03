@@ -567,18 +567,15 @@ public class SamlIdpSpConnectionModelImpl extends BaseModelImpl<SamlIdpSpConnect
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof SamlIdpSpConnection)) {
 			return false;
 		}
 
-		SamlIdpSpConnection samlIdpSpConnection = null;
-
-		try {
-			samlIdpSpConnection = (SamlIdpSpConnection)obj;
-		}
-		catch (ClassCastException cce) {
-			return false;
-		}
+		SamlIdpSpConnection samlIdpSpConnection = (SamlIdpSpConnection)obj;
 
 		long primaryKey = samlIdpSpConnection.getPrimaryKey();
 

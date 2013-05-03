@@ -318,18 +318,15 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof KaleoProcessLink)) {
 			return false;
 		}
 
-		KaleoProcessLink kaleoProcessLink = null;
-
-		try {
-			kaleoProcessLink = (KaleoProcessLink)obj;
-		}
-		catch (ClassCastException cce) {
-			return false;
-		}
+		KaleoProcessLink kaleoProcessLink = (KaleoProcessLink)obj;
 
 		long primaryKey = kaleoProcessLink.getPrimaryKey();
 

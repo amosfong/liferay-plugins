@@ -624,18 +624,15 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof Source)) {
 			return false;
 		}
 
-		Source source = null;
-
-		try {
-			source = (Source)obj;
-		}
-		catch (ClassCastException cce) {
-			return false;
-		}
+		Source source = (Source)obj;
 
 		long primaryKey = source.getPrimaryKey();
 

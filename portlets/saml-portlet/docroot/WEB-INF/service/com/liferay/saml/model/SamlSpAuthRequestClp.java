@@ -316,18 +316,15 @@ public class SamlSpAuthRequestClp extends BaseModelImpl<SamlSpAuthRequest>
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof SamlSpAuthRequestClp)) {
 			return false;
 		}
 
-		SamlSpAuthRequestClp samlSpAuthRequest = null;
-
-		try {
-			samlSpAuthRequest = (SamlSpAuthRequestClp)obj;
-		}
-		catch (ClassCastException cce) {
-			return false;
-		}
+		SamlSpAuthRequestClp samlSpAuthRequest = (SamlSpAuthRequestClp)obj;
 
 		long primaryKey = samlSpAuthRequest.getPrimaryKey();
 
