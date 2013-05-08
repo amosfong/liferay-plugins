@@ -17,9 +17,7 @@ package com.liferay.reports.service;
 import com.liferay.portal.service.ServiceWrapper;
 
 /**
- * <p>
- * This class is a wrapper for {@link DefinitionService}.
- * </p>
+ * Provides a wrapper for {@link DefinitionService}.
  *
  * @author    Brian Wing Shun Chan
  * @see       DefinitionService

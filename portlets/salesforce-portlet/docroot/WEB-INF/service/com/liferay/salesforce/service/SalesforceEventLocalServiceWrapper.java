@@ -17,9 +17,7 @@ package com.liferay.salesforce.service;
 import com.liferay.portal.service.ServiceWrapper;
 
 /**
- * <p>
- * This class is a wrapper for {@link SalesforceEventLocalService}.
- * </p>
+ * Provides a wrapper for {@link SalesforceEventLocalService}.
  *
  * @author    Michael C. Han
  * @see       SalesforceEventLocalService

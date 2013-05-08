@@ -17,9 +17,7 @@ package com.liferay.salesforce.service;
 import com.liferay.portal.service.ServiceWrapper;
 
 /**
- * <p>
- * This class is a wrapper for {@link SalesforceAccountLocalService}.
- * </p>
+ * Provides a wrapper for {@link SalesforceAccountLocalService}.
  *
  * @author    Michael C. Han
  * @see       SalesforceAccountLocalService

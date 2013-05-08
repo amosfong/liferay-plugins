@@ -17,9 +17,7 @@ package com.liferay.saml.service;
 import com.liferay.portal.service.ServiceWrapper;
 
 /**
- * <p>
- * This class is a wrapper for {@link SamlSpIdpConnectionLocalService}.
- * </p>
+ * Provides a wrapper for {@link SamlSpIdpConnectionLocalService}.
  *
  * @author    Mika Koivisto
  * @see       SamlSpIdpConnectionLocalService

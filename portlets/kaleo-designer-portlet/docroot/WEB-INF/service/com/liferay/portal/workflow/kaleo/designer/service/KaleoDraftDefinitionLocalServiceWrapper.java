@@ -17,9 +17,7 @@ package com.liferay.portal.workflow.kaleo.designer.service;
 import com.liferay.portal.service.ServiceWrapper;
 
 /**
- * <p>
- * This class is a wrapper for {@link KaleoDraftDefinitionLocalService}.
- * </p>
+ * Provides a wrapper for {@link KaleoDraftDefinitionLocalService}.
  *
  * @author    Eduardo Lundgren
  * @see       KaleoDraftDefinitionLocalService

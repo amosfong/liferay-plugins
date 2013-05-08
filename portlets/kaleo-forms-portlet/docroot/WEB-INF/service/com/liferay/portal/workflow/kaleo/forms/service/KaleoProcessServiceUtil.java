@@ -19,11 +19,12 @@ import com.liferay.portal.kernel.util.ReferenceRegistry;
 import com.liferay.portal.service.InvokableService;
 
 /**
- * The utility for the kaleo process remote service. This utility wraps {@link com.liferay.portal.workflow.kaleo.forms.service.impl.KaleoProcessServiceImpl} and is the primary access point for service operations in application layer code running on a remote server.
- *
- * <p>
- * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
- * </p>
+ * Provides the remote service utility for KaleoProcess. This utility wraps
+ * {@link com.liferay.portal.workflow.kaleo.forms.service.impl.KaleoProcessServiceImpl} and is the
+ * primary access point for service operations in application layer code running
+ * on a remote server. Methods of this service are expected to have security
+ * checks based on the propagated JAAS credentials because this service can be
+ * accessed remotely.
  *
  * @author Marcellus Tavares
  * @see KaleoProcessService

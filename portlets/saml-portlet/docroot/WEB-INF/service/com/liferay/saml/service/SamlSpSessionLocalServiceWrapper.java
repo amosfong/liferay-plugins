@@ -17,9 +17,7 @@ package com.liferay.saml.service;
 import com.liferay.portal.service.ServiceWrapper;
 
 /**
- * <p>
- * This class is a wrapper for {@link SamlSpSessionLocalService}.
- * </p>
+ * Provides a wrapper for {@link SamlSpSessionLocalService}.
  *
  * @author    Mika Koivisto
  * @see       SamlSpSessionLocalService

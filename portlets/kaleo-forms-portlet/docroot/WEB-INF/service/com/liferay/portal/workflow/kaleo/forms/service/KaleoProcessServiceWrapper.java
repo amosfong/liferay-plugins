@@ -17,9 +17,7 @@ package com.liferay.portal.workflow.kaleo.forms.service;
 import com.liferay.portal.service.ServiceWrapper;
 
 /**
- * <p>
- * This class is a wrapper for {@link KaleoProcessService}.
- * </p>
+ * Provides a wrapper for {@link KaleoProcessService}.
  *
  * @author    Marcellus Tavares
  * @see       KaleoProcessService
