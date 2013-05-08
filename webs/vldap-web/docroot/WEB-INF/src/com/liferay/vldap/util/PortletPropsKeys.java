@@ -23,6 +23,9 @@ public class PortletPropsKeys {
 
 	public static final String BIND_SASL_HOSTNAME = "bind.sasl.hostname";
 
+	public static final String DEFAULT_POSIX_GROUP_ID =
+		"default.posix.group.id";
+
 	public static final String HOSTS_ALLOWED = "hosts.allowed";
 
 	public static final String SEARCH_MAX_SIZE = "search.max.size";

@@ -28,6 +28,9 @@ public class PortletPropsValues {
 	public static final String BIND_SASL_HOSTNAME = GetterUtil.getString(
 		PortletProps.get(PortletPropsKeys.BIND_SASL_HOSTNAME));
 
+	public static final String DEFAULT_POSIX_GROUP_ID = GetterUtil.getString(
+		PortletProps.get(PortletPropsKeys.DEFAULT_POSIX_GROUP_ID));
+
 	public static final String[] HOSTS_ALLOWED = PortletProps.getArray(
 		PortletPropsKeys.HOSTS_ALLOWED);
 

@@ -26,6 +26,7 @@ import com.liferay.portal.model.UserGroup;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.vldap.util.LdapUtil;
+import com.liferay.vldap.util.PortletPropsValues;
 
 import java.text.Format;
 
@@ -71,6 +72,7 @@ public class UserDirectory extends Directory {
 		addAttribute("objectclass", "top");
 		addAttribute("uid", String.valueOf(user.getUserId()));
 		addAttribute("uuid", user.getUuid());
+		addAttribute("gidNumber", PortletPropsValues.DEFAULT_POSIX_GROUP_ID);
 
 		String name = LdapUtil.buildName(top, company);
 
