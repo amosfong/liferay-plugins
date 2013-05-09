@@ -54,6 +54,7 @@ public class UserDirectory extends Directory {
 		addAttribute("createTimestamp", _simpleDateFormat.format(createDate));
 
 		addAttribute("displayName", user.getFullName());
+		addAttribute("gidNumber", PortletPropsValues.POSIX_GROUP_ID);
 		addAttribute("givenName", user.getFirstName());
 		addAttribute("mail", user.getEmailAddress());
 
@@ -65,14 +66,13 @@ public class UserDirectory extends Directory {
 
 		addAttribute("modifyTimestamp", _simpleDateFormat.format(modifyDate));
 
-		addAttribute("sn", user.getLastName());
 		addAttribute("objectclass", "groupOfNames");
 		addAttribute("objectclass", "inetOrgPerson");
 		addAttribute("objectclass", "liferayPerson");
 		addAttribute("objectclass", "top");
+		addAttribute("sn", user.getLastName());
 		addAttribute("uid", String.valueOf(user.getUserId()));
 		addAttribute("uuid", user.getUuid());
-		addAttribute("gidNumber", PortletPropsValues.DEFAULT_POSIX_GROUP_ID);
 
 		String name = LdapUtil.buildName(top, company);
 
