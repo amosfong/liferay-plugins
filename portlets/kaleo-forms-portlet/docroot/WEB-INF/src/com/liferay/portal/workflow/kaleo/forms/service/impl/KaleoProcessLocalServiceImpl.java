@@ -133,17 +133,17 @@ public class KaleoProcessLocalServiceImpl
 			KaleoProcess.class.getName(), kaleoProcess.getPrimaryKey());
 	}
 
+	public KaleoProcess getDDLRecordSetKaleoProcess(long ddlRecordSetId)
+		throws PortalException, SystemException {
+
+		return kaleoProcessPersistence.findByDDLRecordSetId(ddlRecordSetId);
+	}
+
 	@Override
 	public KaleoProcess getKaleoProcess(long kaleoProcessId)
 		throws PortalException, SystemException {
 
 		return kaleoProcessPersistence.findByPrimaryKey(kaleoProcessId);
-	}
-
-	public KaleoProcess getKaleoProcessByDDLRecordSetId(long ddlRecordSetId)
-		throws PortalException, SystemException {
-
-		return kaleoProcessPersistence.findByDDLRecordSetId(ddlRecordSetId);
 	}
 
 	public List<KaleoProcess> getKaleoProcesses(long groupId)
