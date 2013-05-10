@@ -248,6 +248,64 @@ public interface KaleoProcessPersistence extends BasePersistence<KaleoProcess> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
+	* Returns the kaleo process where DDLRecordSetId = &#63; or throws a {@link com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException} if it could not be found.
+	*
+	* @param DDLRecordSetId the d d l record set ID
+	* @return the matching kaleo process
+	* @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException if a matching kaleo process could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess findByDDLRecordSetId(
+		long DDLRecordSetId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException;
+
+	/**
+	* Returns the kaleo process where DDLRecordSetId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param DDLRecordSetId the d d l record set ID
+	* @return the matching kaleo process, or <code>null</code> if a matching kaleo process could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess fetchByDDLRecordSetId(
+		long DDLRecordSetId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the kaleo process where DDLRecordSetId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param DDLRecordSetId the d d l record set ID
+	* @param retrieveFromCache whether to use the finder cache
+	* @return the matching kaleo process, or <code>null</code> if a matching kaleo process could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess fetchByDDLRecordSetId(
+		long DDLRecordSetId, boolean retrieveFromCache)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Removes the kaleo process where DDLRecordSetId = &#63; from the database.
+	*
+	* @param DDLRecordSetId the d d l record set ID
+	* @return the kaleo process that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess removeByDDLRecordSetId(
+		long DDLRecordSetId)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException;
+
+	/**
+	* Returns the number of kaleo processes where DDLRecordSetId = &#63;.
+	*
+	* @param DDLRecordSetId the d d l record set ID
+	* @return the number of matching kaleo processes
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByDDLRecordSetId(long DDLRecordSetId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Caches the kaleo process in the entity cache if it is enabled.
 	*
 	* @param kaleoProcess the kaleo process

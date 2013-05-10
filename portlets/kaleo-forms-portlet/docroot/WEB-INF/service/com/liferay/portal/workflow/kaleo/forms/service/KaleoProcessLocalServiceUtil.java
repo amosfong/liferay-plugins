@@ -279,6 +279,13 @@ public class KaleoProcessLocalServiceUtil {
 		getService().deleteKaleoProcessData(kaleoProcessId);
 	}
 
+	public static com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess getDDLRecordSetKaleoProcess(
+		long ddlRecordSetId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getDDLRecordSetKaleoProcess(ddlRecordSetId);
+	}
+
 	public static java.util.List<com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess> getKaleoProcesses(
 		long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {

@@ -91,8 +91,9 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess"),
 			true);
-	public static long GROUPID_COLUMN_BITMASK = 1L;
-	public static long KALEOPROCESSID_COLUMN_BITMASK = 2L;
+	public static long DDLRECORDSETID_COLUMN_BITMASK = 1L;
+	public static long GROUPID_COLUMN_BITMASK = 2L;
+	public static long KALEOPROCESSID_COLUMN_BITMASK = 4L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -338,7 +339,19 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 	}
 
 	public void setDDLRecordSetId(long DDLRecordSetId) {
+		_columnBitmask |= DDLRECORDSETID_COLUMN_BITMASK;
+
+		if (!_setOriginalDDLRecordSetId) {
+			_setOriginalDDLRecordSetId = true;
+
+			_originalDDLRecordSetId = _DDLRecordSetId;
+		}
+
 		_DDLRecordSetId = DDLRecordSetId;
+	}
+
+	public long getOriginalDDLRecordSetId() {
+		return _originalDDLRecordSetId;
 	}
 
 	@JSON
@@ -444,6 +457,10 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 		kaleoProcessModelImpl._originalGroupId = kaleoProcessModelImpl._groupId;
 
 		kaleoProcessModelImpl._setOriginalGroupId = false;
+
+		kaleoProcessModelImpl._originalDDLRecordSetId = kaleoProcessModelImpl._DDLRecordSetId;
+
+		kaleoProcessModelImpl._setOriginalDDLRecordSetId = false;
 
 		kaleoProcessModelImpl._columnBitmask = 0;
 	}
@@ -584,6 +601,8 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 	private Date _createDate;
 	private Date _modifiedDate;
 	private long _DDLRecordSetId;
+	private long _originalDDLRecordSetId;
+	private boolean _setOriginalDDLRecordSetId;
 	private long _DDMTemplateId;
 	private long _columnBitmask;
 	private KaleoProcess _escapedModel;

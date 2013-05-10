@@ -917,6 +917,220 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	}
 
 	private static final String _FINDER_COLUMN_GROUPID_GROUPID_2 = "kaleoProcess.groupId = ?";
+	public static final FinderPath FINDER_PATH_FETCH_BY_DDLRECORDSETID = new FinderPath(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
+			KaleoProcessModelImpl.FINDER_CACHE_ENABLED, KaleoProcessImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByDDLRecordSetId",
+			new String[] { Long.class.getName() },
+			KaleoProcessModelImpl.DDLRECORDSETID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_DDLRECORDSETID = new FinderPath(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
+			KaleoProcessModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByDDLRecordSetId",
+			new String[] { Long.class.getName() });
+
+	/**
+	 * Returns the kaleo process where DDLRecordSetId = &#63; or throws a {@link com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException} if it could not be found.
+	 *
+	 * @param DDLRecordSetId the d d l record set ID
+	 * @return the matching kaleo process
+	 * @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException if a matching kaleo process could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public KaleoProcess findByDDLRecordSetId(long DDLRecordSetId)
+		throws NoSuchKaleoProcessException, SystemException {
+		KaleoProcess kaleoProcess = fetchByDDLRecordSetId(DDLRecordSetId);
+
+		if (kaleoProcess == null) {
+			StringBundler msg = new StringBundler(4);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("DDLRecordSetId=");
+			msg.append(DDLRecordSetId);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchKaleoProcessException(msg.toString());
+		}
+
+		return kaleoProcess;
+	}
+
+	/**
+	 * Returns the kaleo process where DDLRecordSetId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param DDLRecordSetId the d d l record set ID
+	 * @return the matching kaleo process, or <code>null</code> if a matching kaleo process could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public KaleoProcess fetchByDDLRecordSetId(long DDLRecordSetId)
+		throws SystemException {
+		return fetchByDDLRecordSetId(DDLRecordSetId, true);
+	}
+
+	/**
+	 * Returns the kaleo process where DDLRecordSetId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param DDLRecordSetId the d d l record set ID
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching kaleo process, or <code>null</code> if a matching kaleo process could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	public KaleoProcess fetchByDDLRecordSetId(long DDLRecordSetId,
+		boolean retrieveFromCache) throws SystemException {
+		Object[] finderArgs = new Object[] { DDLRecordSetId };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_DDLRECORDSETID,
+					finderArgs, this);
+		}
+
+		if (result instanceof KaleoProcess) {
+			KaleoProcess kaleoProcess = (KaleoProcess)result;
+
+			if ((DDLRecordSetId != kaleoProcess.getDDLRecordSetId())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_SELECT_KALEOPROCESS_WHERE);
+
+			query.append(_FINDER_COLUMN_DDLRECORDSETID_DDLRECORDSETID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(DDLRecordSetId);
+
+				List<KaleoProcess> list = q.list();
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_DDLRECORDSETID,
+						finderArgs, list);
+				}
+				else {
+					if ((list.size() > 1) && _log.isWarnEnabled()) {
+						_log.warn(
+							"KaleoProcessPersistenceImpl.fetchByDDLRecordSetId(long, boolean) with parameters (" +
+							StringUtil.merge(finderArgs) +
+							") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+					}
+
+					KaleoProcess kaleoProcess = list.get(0);
+
+					result = kaleoProcess;
+
+					cacheResult(kaleoProcess);
+
+					if ((kaleoProcess.getDDLRecordSetId() != DDLRecordSetId)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_DDLRECORDSETID,
+							finderArgs, kaleoProcess);
+					}
+				}
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_DDLRECORDSETID,
+					finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (KaleoProcess)result;
+		}
+	}
+
+	/**
+	 * Removes the kaleo process where DDLRecordSetId = &#63; from the database.
+	 *
+	 * @param DDLRecordSetId the d d l record set ID
+	 * @return the kaleo process that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	public KaleoProcess removeByDDLRecordSetId(long DDLRecordSetId)
+		throws NoSuchKaleoProcessException, SystemException {
+		KaleoProcess kaleoProcess = findByDDLRecordSetId(DDLRecordSetId);
+
+		return remove(kaleoProcess);
+	}
+
+	/**
+	 * Returns the number of kaleo processes where DDLRecordSetId = &#63;.
+	 *
+	 * @param DDLRecordSetId the d d l record set ID
+	 * @return the number of matching kaleo processes
+	 * @throws SystemException if a system exception occurred
+	 */
+	public int countByDDLRecordSetId(long DDLRecordSetId)
+		throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_DDLRECORDSETID;
+
+		Object[] finderArgs = new Object[] { DDLRecordSetId };
+
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_KALEOPROCESS_WHERE);
+
+			query.append(_FINDER_COLUMN_DDLRECORDSETID_DDLRECORDSETID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(DDLRecordSetId);
+
+				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_DDLRECORDSETID_DDLRECORDSETID_2 = "kaleoProcess.DDLRecordSetId = ?";
 
 	/**
 	 * Caches the kaleo process in the entity cache if it is enabled.
@@ -926,6 +1140,9 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	public void cacheResult(KaleoProcess kaleoProcess) {
 		EntityCacheUtil.putResult(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
 			KaleoProcessImpl.class, kaleoProcess.getPrimaryKey(), kaleoProcess);
+
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_DDLRECORDSETID,
+			new Object[] { kaleoProcess.getDDLRecordSetId() }, kaleoProcess);
 
 		kaleoProcess.resetOriginalValues();
 	}
@@ -982,6 +1199,8 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		clearUniqueFindersCache(kaleoProcess);
 	}
 
 	@Override
@@ -992,6 +1211,53 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 		for (KaleoProcess kaleoProcess : kaleoProcesses) {
 			EntityCacheUtil.removeResult(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
 				KaleoProcessImpl.class, kaleoProcess.getPrimaryKey());
+
+			clearUniqueFindersCache(kaleoProcess);
+		}
+	}
+
+	protected void cacheUniqueFindersCache(KaleoProcess kaleoProcess) {
+		if (kaleoProcess.isNew()) {
+			Object[] args = new Object[] { kaleoProcess.getDDLRecordSetId() };
+
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_DDLRECORDSETID,
+				args, Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_DDLRECORDSETID,
+				args, kaleoProcess);
+		}
+		else {
+			KaleoProcessModelImpl kaleoProcessModelImpl = (KaleoProcessModelImpl)kaleoProcess;
+
+			if ((kaleoProcessModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_DDLRECORDSETID.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] { kaleoProcess.getDDLRecordSetId() };
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_DDLRECORDSETID,
+					args, Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_DDLRECORDSETID,
+					args, kaleoProcess);
+			}
+		}
+	}
+
+	protected void clearUniqueFindersCache(KaleoProcess kaleoProcess) {
+		KaleoProcessModelImpl kaleoProcessModelImpl = (KaleoProcessModelImpl)kaleoProcess;
+
+		Object[] args = new Object[] { kaleoProcess.getDDLRecordSetId() };
+
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_DDLRECORDSETID, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_DDLRECORDSETID, args);
+
+		if ((kaleoProcessModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_DDLRECORDSETID.getColumnBitmask()) != 0) {
+			args = new Object[] {
+					kaleoProcessModelImpl.getOriginalDDLRecordSetId()
+				};
+
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_DDLRECORDSETID,
+				args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_DDLRECORDSETID,
+				args);
 		}
 	}
 
@@ -1155,6 +1421,9 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 
 		EntityCacheUtil.putResult(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
 			KaleoProcessImpl.class, kaleoProcess.getPrimaryKey(), kaleoProcess);
+
+		clearUniqueFindersCache(kaleoProcess);
+		cacheUniqueFindersCache(kaleoProcess);
 
 		return kaleoProcess;
 	}

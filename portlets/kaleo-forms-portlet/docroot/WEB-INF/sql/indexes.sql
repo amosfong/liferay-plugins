@@ -1,3 +1,4 @@
+create index IX_65CA6CC9 on KaleoProcess (DDLRecordSetId);
 create index IX_A29A06D5 on KaleoProcess (groupId);
 
 create index IX_3F378B4D on KaleoProcessLink (kaleoProcessId);
