@@ -47,7 +47,7 @@ PortletURL portletURL = renderResponse.createRenderURL();
 
 		DDLRecord ddlRecord = DDLRecordLocalServiceUtil.getDDLRecord(classPK);
 
-		KaleoProcess kaleoProcess = KaleoProcessLocalServiceUtil.getKaleoProcessByDDLRecordSetId(ddlRecord.getRecordSetId());
+		KaleoProcess kaleoProcess = KaleoProcessLocalServiceUtil.getDDLRecordSetKaleoProcess(ddlRecord.getRecordSetId());
 		%>
 
 		<liferay-ui:search-container-row-parameter

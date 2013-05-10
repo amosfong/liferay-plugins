@@ -31,7 +31,7 @@ long classPK = GetterUtil.getLong((String)workflowContext.get(WorkflowConstants.
 
 DDLRecord ddlRecord = DDLRecordLocalServiceUtil.getDDLRecord(classPK);
 
-KaleoProcess kaleoProcess = KaleoProcessLocalServiceUtil.getKaleoProcessByDDLRecordSetId(ddlRecord.getRecordSetId());
+KaleoProcess kaleoProcess = KaleoProcessLocalServiceUtil.getDDLRecordSetKaleoProcess(ddlRecord.getRecordSetId());
 
 DDLRecordSet ddlRecordSet = kaleoProcess.getDDLRecordSet();
 
