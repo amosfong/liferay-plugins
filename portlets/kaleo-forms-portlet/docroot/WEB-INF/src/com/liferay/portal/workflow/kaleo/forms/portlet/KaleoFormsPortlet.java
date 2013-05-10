@@ -222,21 +222,12 @@ public class KaleoFormsPortlet extends MVCPortlet {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			DDLRecord.class.getName(), uploadPortletRequest);
 
-		long kaleoProcessId = ParamUtil.getLong(
-			serviceContext, "kaleoProcessId");
-
-		KaleoProcess kaleoProcess =
-			KaleoProcessLocalServiceUtil.getKaleoProcess(kaleoProcessId);
-
 		DDLRecord ddlRecord = updateDDLRecord(serviceContext);
-
-		serviceContext.setAttribute(
-			"ddlRecordId", String.valueOf(ddlRecord.getRecordId()));
 
 		WorkflowHandlerRegistryUtil.startWorkflowInstance(
 			serviceContext.getCompanyId(), serviceContext.getScopeGroupId(),
 			serviceContext.getUserId(), KaleoProcess.class.getName(),
-			kaleoProcessId, kaleoProcess, serviceContext);
+			ddlRecord.getRecordId(), ddlRecord, serviceContext);
 	}
 
 	public void updateKaleoProcess(

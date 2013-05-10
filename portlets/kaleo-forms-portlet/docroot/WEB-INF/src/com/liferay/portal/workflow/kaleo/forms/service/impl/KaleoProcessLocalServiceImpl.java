@@ -140,6 +140,12 @@ public class KaleoProcessLocalServiceImpl
 		return kaleoProcessPersistence.findByPrimaryKey(kaleoProcessId);
 	}
 
+	public KaleoProcess getKaleoProcessByDDLRecordSetId(long ddlRecordSetId)
+		throws PortalException, SystemException {
+
+		return kaleoProcessPersistence.findByDDLRecordSetId(ddlRecordSetId);
+	}
+
 	public List<KaleoProcess> getKaleoProcesses(long groupId)
 		throws SystemException {
 

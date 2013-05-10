@@ -24,6 +24,7 @@ import com.liferay.portal.security.permission.ResourceActionsUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.WorkflowDefinitionLinkLocalServiceUtil;
 import com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess;
+import com.liferay.portal.workflow.kaleo.forms.service.KaleoProcessLocalServiceUtil;
 import com.liferay.portlet.dynamicdatalists.model.DDLRecord;
 import com.liferay.portlet.dynamicdatalists.model.DDLRecordVersion;
 import com.liferay.portlet.dynamicdatalists.service.DDLRecordLocalServiceUtil;
@@ -53,8 +54,15 @@ public class KaleoProcessWorkflowHandler extends BaseWorkflowHandler {
 			long companyId, long groupId, long classPK)
 		throws PortalException, SystemException {
 
+		DDLRecord ddlRecord = DDLRecordLocalServiceUtil.getRecord(classPK);
+
+		KaleoProcess kaleoProcess =
+			KaleoProcessLocalServiceUtil.getKaleoProcessByDDLRecordSetId(
+				ddlRecord.getRecordSetId());
+
 		return WorkflowDefinitionLinkLocalServiceUtil.getWorkflowDefinitionLink(
-			companyId, groupId, getClassName(), classPK, 0);
+			companyId, groupId, getClassName(),
+			kaleoProcess.getKaleoProcessId(), 0);
 	}
 
 	@Override
@@ -74,15 +82,16 @@ public class KaleoProcessWorkflowHandler extends BaseWorkflowHandler {
 		long userId = GetterUtil.getLong(
 			(String)workflowContext.get(WorkflowConstants.CONTEXT_USER_ID));
 
-		ServiceContext serviceContext = (ServiceContext)workflowContext.get(
-			"serviceContext");
-
 		long ddlRecordId = GetterUtil.getLong(
-			serviceContext.getAttribute("ddlRecordId"));
+			(String)workflowContext.get(
+				WorkflowConstants.CONTEXT_ENTRY_CLASS_PK));
 
 		DDLRecord record = DDLRecordLocalServiceUtil.getRecord(ddlRecordId);
 
 		DDLRecordVersion recordVersion = record.getRecordVersion();
+
+		ServiceContext serviceContext = (ServiceContext)workflowContext.get(
+			"serviceContext");
 
 		return DDLRecordLocalServiceUtil.updateStatus(
 			userId, recordVersion.getRecordVersionId(), status, serviceContext);
