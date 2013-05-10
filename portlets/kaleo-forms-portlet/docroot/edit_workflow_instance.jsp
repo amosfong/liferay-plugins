@@ -29,13 +29,11 @@ long groupId = GetterUtil.getLong((String)workflowContext.get(WorkflowConstants.
 String className = (String)workflowContext.get(WorkflowConstants.CONTEXT_ENTRY_CLASS_NAME);
 long classPK = GetterUtil.getLong((String)workflowContext.get(WorkflowConstants.CONTEXT_ENTRY_CLASS_PK));
 
-KaleoProcess kaleoProcess = KaleoProcessLocalServiceUtil.getKaleoProcess(classPK);
+DDLRecord ddlRecord = DDLRecordLocalServiceUtil.getDDLRecord(classPK);
+
+KaleoProcess kaleoProcess = KaleoProcessLocalServiceUtil.getKaleoProcessByDDLRecordSetId(ddlRecord.getRecordSetId());
 
 DDLRecordSet ddlRecordSet = kaleoProcess.getDDLRecordSet();
-
-ServiceContext serviceContext = (ServiceContext)workflowContext.get(WorkflowConstants.CONTEXT_SERVICE_CONTEXT);
-
-long ddlRecordId = GetterUtil.getLong((String)serviceContext.getAttribute("ddlRecordId"));
 
 String headerTitle = LanguageUtil.get(pageContext, workflowInstance.getWorkflowDefinitionName());
 
@@ -72,8 +70,6 @@ headerTitle = headerTitle.concat(StringPool.COLON + StringPool.SPACE + ddlRecord
 			<liferay-ui:panel defaultState="open" title="current-entry">
 
 				<%
-				DDLRecord ddlRecord = DDLRecordLocalServiceUtil.getRecord(ddlRecordId);
-
 				Fields fields = ddlRecord.getFields();
 
 				DDMStructure ddmStructure = ddlRecordSet.getDDMStructure();
@@ -119,7 +115,7 @@ headerTitle = headerTitle.concat(StringPool.COLON + StringPool.SPACE + ddlRecord
 
 							<liferay-ui:search-container-row-parameter
 								name="ddlRecordId"
-								value="<%= ddlRecordId %>"
+								value="<%= ddlRecord.getRecordId() %>"
 							/>
 
 							<liferay-ui:search-container-column-text

@@ -32,6 +32,10 @@ long kaleoProcessId = BeanParamUtil.getLong(kaleoProcess, request, "kaleoProcess
 <%
 PortletURL portletURL = renderResponse.createRenderURL();
 
+portletURL.setParameter("mvcPath", "/view_kaleo_process.jsp");
+portletURL.setParameter("backURL", backURL);
+portletURL.setParameter("kaleoProcessId", String.valueOf(kaleoProcessId));
+
 DDLRecordSet ddlRecordSet = kaleoProcess.getDDLRecordSet();
 
 DDMStructure ddmStructure = ddlRecordSet.getDDMStructure();
@@ -72,7 +76,6 @@ for (int i = 0; i < results.size(); i++) {
 	// Columns
 
 	for (Map<String, String> fields : fieldsMap.values()) {
-		String dataType = fields.get(FieldConstants.DATA_TYPE);
 		String name = fields.get(FieldConstants.NAME);
 
 		String value = null;

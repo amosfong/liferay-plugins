@@ -45,11 +45,9 @@ PortletURL portletURL = renderResponse.createRenderURL();
 
 		long classPK = GetterUtil.getLong((String)workflowContext.get(WorkflowConstants.CONTEXT_ENTRY_CLASS_PK));
 
-		KaleoProcess kaleoProcess = KaleoProcessLocalServiceUtil.getKaleoProcess(classPK);
+		DDLRecord ddlRecord = DDLRecordLocalServiceUtil.getDDLRecord(classPK);
 
-		ServiceContext serviceContext = (ServiceContext)workflowContext.get(WorkflowConstants.CONTEXT_SERVICE_CONTEXT);
-
-		long ddlRecordId = GetterUtil.getLong((String)serviceContext.getAttribute("ddlRecordId"));
+		KaleoProcess kaleoProcess = KaleoProcessLocalServiceUtil.getKaleoProcessByDDLRecordSetId(ddlRecord.getRecordSetId());
 		%>
 
 		<liferay-ui:search-container-row-parameter
@@ -59,7 +57,7 @@ PortletURL portletURL = renderResponse.createRenderURL();
 
 		<liferay-ui:search-container-row-parameter
 			name="ddlRecordId"
-			value="<%= ddlRecordId %>"
+			value="<%= ddlRecord.getRecordId() %>"
 		/>
 
 		<portlet:renderURL var="rowURL">

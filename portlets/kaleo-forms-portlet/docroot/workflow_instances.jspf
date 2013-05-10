@@ -45,7 +45,9 @@ portletURL.setParameter("tabs2", tabs2);
 
 		long classPK = GetterUtil.getLong((String)workflowContext.get(WorkflowConstants.CONTEXT_ENTRY_CLASS_PK));
 
-		KaleoProcess kaleoProcess = KaleoProcessLocalServiceUtil.getKaleoProcess(classPK);
+		DDLRecord ddlRecord = DDLRecordLocalServiceUtil.getDDLRecord(classPK);
+
+		KaleoProcess kaleoProcess = KaleoProcessLocalServiceUtil.getKaleoProcessByDDLRecordSetId(ddlRecord.getRecordSetId());
 		%>
 
 		<liferay-ui:search-container-column-text
