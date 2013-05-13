@@ -23,6 +23,7 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.workflow.kaleo.forms.KaleoProcessDDMTemplateIdException;
 import com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess;
 import com.liferay.portal.workflow.kaleo.forms.service.base.KaleoProcessLocalServiceBaseImpl;
+import com.liferay.portlet.dynamicdatalists.model.DDLRecord;
 
 import java.util.Date;
 import java.util.List;
@@ -122,15 +123,20 @@ public class KaleoProcessLocalServiceImpl
 		KaleoProcess kaleoProcess = kaleoProcessPersistence.findByPrimaryKey(
 			kaleoProcessId);
 
-		ddlRecordLocalService.deleteRecords(kaleoProcess.getDDLRecordSetId());
-
 		workflowDefinitionLinkLocalService.deleteWorkflowDefinitionLink(
 			kaleoProcess.getCompanyId(), kaleoProcess.getGroupId(),
-			KaleoProcess.class.getName(), kaleoProcess.getPrimaryKey(), 0);
+			KaleoProcess.class.getName(), kaleoProcess.getKaleoProcessId(), 0);
 
-		workflowInstanceLinkLocalService.deleteWorkflowInstanceLinks(
-			kaleoProcess.getCompanyId(), kaleoProcess.getGroupId(),
-			KaleoProcess.class.getName(), kaleoProcess.getPrimaryKey());
+		List<DDLRecord> ddlRecords = ddlRecordLocalService.getRecords(
+			kaleoProcess.getDDLRecordSetId());
+
+		for (DDLRecord ddlRecord : ddlRecords) {
+			workflowInstanceLinkLocalService.deleteWorkflowInstanceLinks(
+				kaleoProcess.getCompanyId(), kaleoProcess.getGroupId(),
+				KaleoProcess.class.getName(), ddlRecord.getRecordId());
+
+			ddlRecordLocalService.deleteRecord(ddlRecord.getRecordId());
+		}
 	}
 
 	public KaleoProcess getDDLRecordSetKaleoProcess(long ddlRecordSetId)
