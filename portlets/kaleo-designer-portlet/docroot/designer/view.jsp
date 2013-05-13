@@ -589,7 +589,7 @@
 					String portletResourceNamespace = ParamUtil.getString(request, "portletResourceNamespace");
 					%>
 
-					portletResourceNamespace: '<%= HtmlUtil.escape(portletResourceNamespace) %>',
+					portletResourceNamespace: '<%= HtmlUtil.escapeJS(portletResourceNamespace) %>',
 					srcNode: '#<portlet:namespace />diagramBuilderContent'
 				}
 			).render();
@@ -793,7 +793,7 @@
 								if (item.get('type') === 'task') {
 									var workflowTaskName = item.get('name');
 
-									var getDDMTemplate = Liferay.Util.getOpener().<%= portletResourceNamespace %>getDDMTemplate;
+									var getDDMTemplate = Liferay.Util.getOpener()["<%= HtmlUtil.escapeJS(portletResourceNamespace) %>getDDMTemplate"];
 
 									if (getDDMTemplate) {
 										getDDMTemplate(
@@ -870,7 +870,7 @@
 										openerWindow = openerDialog.iframe.node.get('contentWindow').getDOM();
 									</c:if>
 
-									openerWindow.Liferay.Portlet.refresh('#p_p_id<%= portletResourceNamespace %>');
+									openerWindow.Liferay.Portlet.refresh('#p_p_id<%= HtmlUtil.escapeJS(portletResourceNamespace) %>');
 								</c:if>
 							</c:otherwise>
 						</c:choose>
