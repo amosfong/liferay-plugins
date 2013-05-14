@@ -3,7 +3,6 @@
 
 <service-builder package-path="com.liferay.sync">
 	<namespace>Sync</namespace>
-
 	<entity name="SyncDLObject" local-service="true" remote-service="true">
 
 		<!-- PK fields -->
@@ -23,8 +22,8 @@
 		<column name="repositoryId" type="long" />
 		<column name="parentFolderId" type="long" />
 		<column name="name" type="String" />
-		<column name="checksum" type="String" />
 		<column name="description" type="String" />
+		<column name="checksum" type="String" />
 		<column name="event" type="String" />
 		<column name="lockUserId" type="long" />
 		<column name="lockUserName" type="String" />
@@ -61,5 +60,4 @@
 
 		<tx-required>getFileDeltaAsStream</tx-required>
 	</entity>
-
 </service-builder>
