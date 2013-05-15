@@ -4,27 +4,32 @@
 <project name="spi-provider-tomcat-web" basedir="." default="deploy">
 	<import file="../build-common-web.xml" />
 
-	<target name="compile-java">
-		<copy todir="${javac.destdir}">
-			<fileset dir="${javac.srcdir}" excludes="**/*.java" />
-		</copy>
+	<path id="plugin-lib.classpath">
+		<fileset dir="docroot/WEB-INF/embedded-tomcat-lib" includes="*.jar" />
+	</path>
 
-		<path id="plugin-lib.classpath">
-			<fileset dir="docroot/WEB-INF/embedded-tomcat-lib" includes="*.jar" />
-			<fileset dir="docroot/WEB-INF/lib" includes="*.jar" />
-			<pathelement location="docroot/WEB-INF/classes" />
-		</path>
+	<target name="clean">
+		<if>
+			<available file="docroot/WEB-INF/lib" />
+			<then>
+				<move todir="docroot/WEB-INF/embedded-tomcat-lib">
+					<fileset dir="docroot/WEB-INF/lib" includes="ecj.jar,tomcat-embed-*.jar" />
+				</move>
+			</then>
+		</if>
 
-		<javac
-			classpathref="${javac.classpathref}"
-			compiler="${javac.compiler}"
-			debug="${javac.debug}"
-			deprecation="${javac.deprecation}"
-			destdir="${javac.destdir}"
-			encoding="${javac.encoding}"
-			includeAntRuntime="false"
-			nowarn="${javac.nowarn}"
-			srcdir="${javac.srcdir}"
-		/>
+		<antcall target="build-common-plugin.clean" />
+	</target>
+
+	<target name="setup-eclipse">
+		<antcall target="build-common.setup-eclipse" />
+
+		<replace file=".classpath">
+			<replacetoken><![CDATA[util-taglib.jar" />]]></replacetoken>
+			<replacevalue><![CDATA[util-taglib.jar" />
+	<classpathentry kind="lib" path="docroot/WEB-INF/embedded-tomcat-lib/tomcat-embed-core.jar" />
+	<classpathentry kind="lib" path="docroot/WEB-INF/embedded-tomcat-lib/tomcat-embed-jasper.jar" />
+	<classpathentry kind="lib" path="docroot/WEB-INF/embedded-tomcat-lib/tomcat-embed-logging-juli.jar" />]]></replacevalue>
+		</replace>
 	</target>
 </project>

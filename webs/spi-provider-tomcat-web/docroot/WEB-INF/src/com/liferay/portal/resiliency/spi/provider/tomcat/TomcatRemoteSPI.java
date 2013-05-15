@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -14,7 +14,6 @@
 
 package com.liferay.portal.resiliency.spi.provider.tomcat;
 
-import com.liferay.portal.kernel.resiliency.PortalResiliencyException;
 import com.liferay.portal.kernel.resiliency.spi.SPIConfiguration;
 import com.liferay.portal.kernel.resiliency.spi.remote.RemoteSPI;
 
@@ -28,6 +27,7 @@ import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 
 import org.apache.catalina.Context;
+import org.apache.catalina.Host;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.startup.Tomcat;
@@ -37,9 +37,7 @@ import org.apache.catalina.startup.Tomcat;
  */
 public class TomcatRemoteSPI extends RemoteSPI {
 
-	public TomcatRemoteSPI(SPIConfiguration spiConfiguration)
-		throws PortalResiliencyException {
-
+	public TomcatRemoteSPI(SPIConfiguration spiConfiguration) {
 		super(spiConfiguration);
 	}
 
@@ -49,6 +47,16 @@ public class TomcatRemoteSPI extends RemoteSPI {
 		throws RemoteException {
 
 		try {
+			Host host = _tomcat.getHost();
+
+			Context context = (Context)host.findChild(contextPath);
+
+			if (context == null) {
+				context = _tomcat.addContext(contextPath, docBasePath);
+			}
+
+			context.setCrossContext(true);
+
 			Thread currentThread = Thread.currentThread();
 
 			ClassLoader classLoader = currentThread.getContextClassLoader();
@@ -58,20 +66,12 @@ public class TomcatRemoteSPI extends RemoteSPI {
 
 			Servlet servlet = servletClass.newInstance();
 
-			Context context = (Context)_tomcat.getHost().findChild(contextPath);
-
-			if (context == null) {
-				context = _tomcat.addContext(contextPath, docBasePath);
-			}
-
-			context.setCrossContext(true);
-
 			Tomcat.addServlet(context, servletClassName, servlet);
 
 			context.addServletMapping(mappingPattern, servletClassName);
 		}
 		catch (Exception e) {
-			throw new RemoteException("Failed to addServlet", e);
+			throw new RemoteException("Unable to add servlet", e);
 		}
 	}
 
@@ -84,7 +84,7 @@ public class TomcatRemoteSPI extends RemoteSPI {
 			context.setCrossContext(true);
 		}
 		catch (ServletException se) {
-			throw new RemoteException("Failed to addWebapp", se);
+			throw new RemoteException("Unable to add web application", se);
 		}
 	}
 
@@ -109,7 +109,7 @@ public class TomcatRemoteSPI extends RemoteSPI {
 			_tomcat.init();
 		}
 		catch (LifecycleException le) {
-			throw new RemoteException("Failed to init", le);
+			throw new RemoteException("Unable to init", le);
 		}
 	}
 
@@ -118,7 +118,7 @@ public class TomcatRemoteSPI extends RemoteSPI {
 			_tomcat.start();
 		}
 		catch (LifecycleException le) {
-			throw new RemoteException("Failed to start", le);
+			throw new RemoteException("Unable to start", le);
 		}
 	}
 
@@ -127,12 +127,13 @@ public class TomcatRemoteSPI extends RemoteSPI {
 			_tomcat.stop();
 		}
 		catch (LifecycleException le) {
-			throw new RemoteException("Failed to stop", le);
+			throw new RemoteException("Unable to stop", le);
 		}
 	}
 
+	@Override
 	public String toString() {
-		return spiConfiguration.getId();
+		return spiConfiguration.getSPIId();
 	}
 
 	private void readObject(ObjectInputStream objectInputStream)

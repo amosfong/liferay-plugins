@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2000-2012 Liferay, Inc. All rights reserved.
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -14,11 +14,9 @@
 
 package com.liferay.portal.resiliency.spi.provider.tomcat;
 
-import com.liferay.portal.kernel.resiliency.PortalResiliencyException;
 import com.liferay.portal.kernel.resiliency.spi.SPIConfiguration;
 import com.liferay.portal.kernel.resiliency.spi.provider.BaseSPIProvider;
 import com.liferay.portal.kernel.resiliency.spi.remote.RemoteSPI;
-import com.liferay.util.resiliency.spi.provider.SPIClassPathContextListener;
 
 /**
  * @author Shuyang Zhou
@@ -27,14 +25,14 @@ public class TomcatSPIProvider extends BaseSPIProvider {
 
 	public static final String NAME = "Tomcat SPI Provider";
 
-	public RemoteSPI createRemoteSPI(SPIConfiguration spiConfiguration)
-		throws PortalResiliencyException {
-
+	@Override
+	public RemoteSPI createRemoteSPI(SPIConfiguration spiConfiguration) {
 		return new TomcatRemoteSPI(spiConfiguration);
 	}
 
+	@Override
 	public String getClassPath() {
-		return SPIClassPathContextListener.SPI_CLASSPATH;
+		return null;
 	}
 
 	public String getName() {
