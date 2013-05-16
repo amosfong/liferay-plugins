@@ -6,6 +6,9 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER" />
 	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="test/integration" />
 	<classpathentry kind="lib" path="/portal-master/lib/development/junit.jar" />
+	<classpathentry kind="lib" path="/portal-master/lib/development/mockito.jar" />
+	<classpathentry kind="lib" path="/portal-master/lib/development/powermock-mockito.jar" />
+	<classpathentry kind="lib" path="/portal-master/lib/development/spring-test.jar" />
 	<classpathentry kind="lib" path="/portal-master/lib/portal/commons-io.jar" />
 	<classpathentry kind="lib" path="/portal-master/lib/development/activation.jar" />
 	<classpathentry kind="lib" path="/portal-master/lib/development/annotations.jar" />
@@ -22,6 +25,8 @@
 	<classpathentry kind="lib" path="/portal-master/lib/portal/commons-logging.jar" />
 	<classpathentry kind="lib" path="/portal-master/lib/portal/commons-pool.jar" />
 	<classpathentry kind="lib" path="/portal-master/lib/portal/groovy.jar" />
+	<classpathentry kind="lib" path="/portal-master/lib/portal/jcommon.jar" />
+	<classpathentry kind="lib" path="/portal-master/lib/portal/jfreechart.jar" />
 	<classpathentry kind="lib" path="/portal-master/lib/portal/log4j.jar" />
 	<classpathentry kind="lib" path="/portal-master/lib/portal/poi.jar" />
 	<classpathentry kind="lib" path="/portal-master/portal-service/portal-service.jar" />
@@ -34,5 +39,6 @@
 	<classpathentry kind="lib" path="tmp/WEB-INF/lib/jasperreports-fonts-4.0.2.jar" />
 	<classpathentry kind="lib" path="tmp/WEB-INF/lib/jasperreports-javaflow-4.0.2.jar" />
 	<classpathentry kind="lib" path="tmp/WEB-INF/lib/jxl-2.6.10.jar" />
+	<classpathentry kind="lib" path="tmp/WEB-INF/lib/portal-compat-shared.jar" />
 	<classpathentry kind="output" path="bin" />
 </classpath>
