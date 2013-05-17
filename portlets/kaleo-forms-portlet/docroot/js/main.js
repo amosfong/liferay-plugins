@@ -33,6 +33,12 @@ AUI.add(
 							width: 400
 						}
 					).render();
+
+				if (dialog.get('y') < 0 ) {
+					var scrollTop = A.DOM.docScrollY();
+
+					dialog.set('y', scrollTop);
+				}
 			}
 		};
 
