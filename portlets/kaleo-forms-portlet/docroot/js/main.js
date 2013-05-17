@@ -34,7 +34,7 @@ AUI.add(
 						}
 					).render();
 
-				if (dialog.get('y') < 0 ) {
+				if (dialog.get('y') < 0) {
 					var scrollTop = A.DOM.docScrollY();
 
 					dialog.set('y', scrollTop);
