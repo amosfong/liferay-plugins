@@ -25,20 +25,16 @@ AUI.add(
 				content.show();
 
 				var dialog = new A.Dialog(
-						{
-							bodyContent: content,
-							centered: true,
-							modal: true,
-							title: icon.text(),
-							width: 400
-						}
-					).render();
-
-				if (dialog.get('y') < 0) {
-					var scrollTop = A.DOM.docScrollY();
-
-					dialog.set('y', scrollTop);
-				}
+					{
+						bodyContent: content,
+						centered: true,
+						constrain: true,
+						constrain2view: true,
+						modal: true,
+						title: icon.text(),
+						width: 400
+					}
+				).render();
 			}
 		};
 
