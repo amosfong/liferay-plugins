@@ -15,6 +15,7 @@
 package com.liferay.reports.lar;
 
 import com.liferay.portal.kernel.lar.BasePortletDataHandler;
+import com.liferay.portal.kernel.lar.DataLevel;
 import com.liferay.portal.kernel.lar.PortletDataContext;
 import com.liferay.portal.kernel.lar.PortletDataHandlerBoolean;
 import com.liferay.portal.kernel.lar.PortletDataHandlerControl;
@@ -52,6 +53,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 	public static final String NAMESPACE = "reports";
 
 	public AdminPortletDataHandler() {
+		setDataLevel(DataLevel.SITE);
 		setExportControls(
 			new PortletDataHandlerBoolean(
 				NAMESPACE, "definitions", true,
