@@ -17,6 +17,7 @@ package com.liferay.portal.resiliency.spi.provider.tomcat;
 import com.liferay.portal.kernel.resiliency.spi.SPIConfiguration;
 import com.liferay.portal.kernel.resiliency.spi.provider.BaseSPIProvider;
 import com.liferay.portal.kernel.resiliency.spi.remote.RemoteSPI;
+import com.liferay.util.resiliency.spi.provider.SPIClassPathContextListener;
 
 /**
  * @author Shuyang Zhou
@@ -32,7 +33,7 @@ public class TomcatSPIProvider extends BaseSPIProvider {
 
 	@Override
 	public String getClassPath() {
-		return null;
+		return SPIClassPathContextListener.SPI_CLASS_PATH;
 	}
 
 	public String getName() {
