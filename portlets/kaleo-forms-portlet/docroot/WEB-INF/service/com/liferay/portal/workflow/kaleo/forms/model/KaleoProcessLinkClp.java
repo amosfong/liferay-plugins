@@ -38,26 +38,32 @@ public class KaleoProcessLinkClp extends BaseModelImpl<KaleoProcessLink>
 	public KaleoProcessLinkClp() {
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return KaleoProcessLink.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return KaleoProcessLink.class.getName();
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _kaleoProcessLinkId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setKaleoProcessLinkId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _kaleoProcessLinkId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
@@ -101,10 +107,12 @@ public class KaleoProcessLinkClp extends BaseModelImpl<KaleoProcessLink>
 		}
 	}
 
+	@Override
 	public long getKaleoProcessLinkId() {
 		return _kaleoProcessLinkId;
 	}
 
+	@Override
 	public void setKaleoProcessLinkId(long kaleoProcessLinkId) {
 		_kaleoProcessLinkId = kaleoProcessLinkId;
 
@@ -123,10 +131,12 @@ public class KaleoProcessLinkClp extends BaseModelImpl<KaleoProcessLink>
 		}
 	}
 
+	@Override
 	public long getKaleoProcessId() {
 		return _kaleoProcessId;
 	}
 
+	@Override
 	public void setKaleoProcessId(long kaleoProcessId) {
 		_kaleoProcessId = kaleoProcessId;
 
@@ -144,10 +154,12 @@ public class KaleoProcessLinkClp extends BaseModelImpl<KaleoProcessLink>
 		}
 	}
 
+	@Override
 	public String getWorkflowTaskName() {
 		return _workflowTaskName;
 	}
 
+	@Override
 	public void setWorkflowTaskName(String workflowTaskName) {
 		_workflowTaskName = workflowTaskName;
 
@@ -166,10 +178,12 @@ public class KaleoProcessLinkClp extends BaseModelImpl<KaleoProcessLink>
 		}
 	}
 
+	@Override
 	public long getDDMTemplateId() {
 		return _DDMTemplateId;
 	}
 
+	@Override
 	public void setDDMTemplateId(long DDMTemplateId) {
 		_DDMTemplateId = DDMTemplateId;
 
@@ -187,6 +201,7 @@ public class KaleoProcessLinkClp extends BaseModelImpl<KaleoProcessLink>
 		}
 	}
 
+	@Override
 	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess getKaleoProcess() {
 		try {
 			String methodName = "getKaleoProcess";
@@ -256,6 +271,7 @@ public class KaleoProcessLinkClp extends BaseModelImpl<KaleoProcessLink>
 		return returnValue;
 	}
 
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			KaleoProcessLinkLocalServiceUtil.addKaleoProcessLink(this);
@@ -284,6 +300,7 @@ public class KaleoProcessLinkClp extends BaseModelImpl<KaleoProcessLink>
 		return clone;
 	}
 
+	@Override
 	public int compareTo(KaleoProcessLink kaleoProcessLink) {
 		long primaryKey = kaleoProcessLink.getPrimaryKey();
 
@@ -342,6 +359,7 @@ public class KaleoProcessLinkClp extends BaseModelImpl<KaleoProcessLink>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(16);
 

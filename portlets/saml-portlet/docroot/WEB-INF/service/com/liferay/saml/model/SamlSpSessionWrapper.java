@@ -35,14 +35,17 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 		_samlSpSession = samlSpSession;
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return SamlSpSession.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return SamlSpSession.class.getName();
 	}
 
+	@Override
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
@@ -63,6 +66,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 		return attributes;
 	}
 
+	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		Long samlSpSessionId = (Long)attributes.get("samlSpSessionId");
 
@@ -148,6 +152,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @return the primary key of this saml sp session
 	*/
+	@Override
 	public long getPrimaryKey() {
 		return _samlSpSession.getPrimaryKey();
 	}
@@ -157,6 +162,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @param primaryKey the primary key of this saml sp session
 	*/
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_samlSpSession.setPrimaryKey(primaryKey);
 	}
@@ -166,6 +172,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @return the saml sp session ID of this saml sp session
 	*/
+	@Override
 	public long getSamlSpSessionId() {
 		return _samlSpSession.getSamlSpSessionId();
 	}
@@ -175,6 +182,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @param samlSpSessionId the saml sp session ID of this saml sp session
 	*/
+	@Override
 	public void setSamlSpSessionId(long samlSpSessionId) {
 		_samlSpSession.setSamlSpSessionId(samlSpSessionId);
 	}
@@ -184,6 +192,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @return the company ID of this saml sp session
 	*/
+	@Override
 	public long getCompanyId() {
 		return _samlSpSession.getCompanyId();
 	}
@@ -193,6 +202,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @param companyId the company ID of this saml sp session
 	*/
+	@Override
 	public void setCompanyId(long companyId) {
 		_samlSpSession.setCompanyId(companyId);
 	}
@@ -202,6 +212,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @return the user ID of this saml sp session
 	*/
+	@Override
 	public long getUserId() {
 		return _samlSpSession.getUserId();
 	}
@@ -211,6 +222,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @param userId the user ID of this saml sp session
 	*/
+	@Override
 	public void setUserId(long userId) {
 		_samlSpSession.setUserId(userId);
 	}
@@ -221,6 +233,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	* @return the user uuid of this saml sp session
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.lang.String getUserUuid()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _samlSpSession.getUserUuid();
@@ -231,6 +244,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @param userUuid the user uuid of this saml sp session
 	*/
+	@Override
 	public void setUserUuid(java.lang.String userUuid) {
 		_samlSpSession.setUserUuid(userUuid);
 	}
@@ -240,6 +254,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @return the user name of this saml sp session
 	*/
+	@Override
 	public java.lang.String getUserName() {
 		return _samlSpSession.getUserName();
 	}
@@ -249,6 +264,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @param userName the user name of this saml sp session
 	*/
+	@Override
 	public void setUserName(java.lang.String userName) {
 		_samlSpSession.setUserName(userName);
 	}
@@ -258,6 +274,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @return the create date of this saml sp session
 	*/
+	@Override
 	public java.util.Date getCreateDate() {
 		return _samlSpSession.getCreateDate();
 	}
@@ -267,6 +284,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @param createDate the create date of this saml sp session
 	*/
+	@Override
 	public void setCreateDate(java.util.Date createDate) {
 		_samlSpSession.setCreateDate(createDate);
 	}
@@ -276,6 +294,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @return the modified date of this saml sp session
 	*/
+	@Override
 	public java.util.Date getModifiedDate() {
 		return _samlSpSession.getModifiedDate();
 	}
@@ -285,6 +304,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @param modifiedDate the modified date of this saml sp session
 	*/
+	@Override
 	public void setModifiedDate(java.util.Date modifiedDate) {
 		_samlSpSession.setModifiedDate(modifiedDate);
 	}
@@ -294,6 +314,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @return the saml sp session key of this saml sp session
 	*/
+	@Override
 	public java.lang.String getSamlSpSessionKey() {
 		return _samlSpSession.getSamlSpSessionKey();
 	}
@@ -303,6 +324,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @param samlSpSessionKey the saml sp session key of this saml sp session
 	*/
+	@Override
 	public void setSamlSpSessionKey(java.lang.String samlSpSessionKey) {
 		_samlSpSession.setSamlSpSessionKey(samlSpSessionKey);
 	}
@@ -312,6 +334,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @return the assertion xml of this saml sp session
 	*/
+	@Override
 	public java.lang.String getAssertionXml() {
 		return _samlSpSession.getAssertionXml();
 	}
@@ -321,6 +344,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @param assertionXml the assertion xml of this saml sp session
 	*/
+	@Override
 	public void setAssertionXml(java.lang.String assertionXml) {
 		_samlSpSession.setAssertionXml(assertionXml);
 	}
@@ -330,6 +354,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @return the j session ID of this saml sp session
 	*/
+	@Override
 	public java.lang.String getJSessionId() {
 		return _samlSpSession.getJSessionId();
 	}
@@ -339,6 +364,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @param jSessionId the j session ID of this saml sp session
 	*/
+	@Override
 	public void setJSessionId(java.lang.String jSessionId) {
 		_samlSpSession.setJSessionId(jSessionId);
 	}
@@ -348,6 +374,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @return the name ID format of this saml sp session
 	*/
+	@Override
 	public java.lang.String getNameIdFormat() {
 		return _samlSpSession.getNameIdFormat();
 	}
@@ -357,6 +384,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @param nameIdFormat the name ID format of this saml sp session
 	*/
+	@Override
 	public void setNameIdFormat(java.lang.String nameIdFormat) {
 		_samlSpSession.setNameIdFormat(nameIdFormat);
 	}
@@ -366,6 +394,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @return the name ID value of this saml sp session
 	*/
+	@Override
 	public java.lang.String getNameIdValue() {
 		return _samlSpSession.getNameIdValue();
 	}
@@ -375,6 +404,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @param nameIdValue the name ID value of this saml sp session
 	*/
+	@Override
 	public void setNameIdValue(java.lang.String nameIdValue) {
 		_samlSpSession.setNameIdValue(nameIdValue);
 	}
@@ -384,6 +414,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @return the session index of this saml sp session
 	*/
+	@Override
 	public java.lang.String getSessionIndex() {
 		return _samlSpSession.getSessionIndex();
 	}
@@ -393,6 +424,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @param sessionIndex the session index of this saml sp session
 	*/
+	@Override
 	public void setSessionIndex(java.lang.String sessionIndex) {
 		_samlSpSession.setSessionIndex(sessionIndex);
 	}
@@ -402,6 +434,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @return the terminated of this saml sp session
 	*/
+	@Override
 	public boolean getTerminated() {
 		return _samlSpSession.getTerminated();
 	}
@@ -411,6 +444,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @return <code>true</code> if this saml sp session is terminated; <code>false</code> otherwise
 	*/
+	@Override
 	public boolean isTerminated() {
 		return _samlSpSession.isTerminated();
 	}
@@ -420,52 +454,64 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	*
 	* @param terminated the terminated of this saml sp session
 	*/
+	@Override
 	public void setTerminated(boolean terminated) {
 		_samlSpSession.setTerminated(terminated);
 	}
 
+	@Override
 	public boolean isNew() {
 		return _samlSpSession.isNew();
 	}
 
+	@Override
 	public void setNew(boolean n) {
 		_samlSpSession.setNew(n);
 	}
 
+	@Override
 	public boolean isCachedModel() {
 		return _samlSpSession.isCachedModel();
 	}
 
+	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_samlSpSession.setCachedModel(cachedModel);
 	}
 
+	@Override
 	public boolean isEscapedModel() {
 		return _samlSpSession.isEscapedModel();
 	}
 
+	@Override
 	public java.io.Serializable getPrimaryKeyObj() {
 		return _samlSpSession.getPrimaryKeyObj();
 	}
 
+	@Override
 	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
 		_samlSpSession.setPrimaryKeyObj(primaryKeyObj);
 	}
 
+	@Override
 	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
 		return _samlSpSession.getExpandoBridge();
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.model.BaseModel<?> baseModel) {
 		_samlSpSession.setExpandoBridgeAttributes(baseModel);
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
 		_samlSpSession.setExpandoBridgeAttributes(expandoBridge);
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.service.ServiceContext serviceContext) {
 		_samlSpSession.setExpandoBridgeAttributes(serviceContext);
@@ -476,6 +522,7 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 		return new SamlSpSessionWrapper((SamlSpSession)_samlSpSession.clone());
 	}
 
+	@Override
 	public int compareTo(com.liferay.saml.model.SamlSpSession samlSpSession) {
 		return _samlSpSession.compareTo(samlSpSession);
 	}
@@ -485,14 +532,17 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 		return _samlSpSession.hashCode();
 	}
 
+	@Override
 	public com.liferay.portal.model.CacheModel<com.liferay.saml.model.SamlSpSession> toCacheModel() {
 		return _samlSpSession.toCacheModel();
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlSpSession toEscapedModel() {
 		return new SamlSpSessionWrapper(_samlSpSession.toEscapedModel());
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlSpSession toUnescapedModel() {
 		return new SamlSpSessionWrapper(_samlSpSession.toUnescapedModel());
 	}
@@ -502,10 +552,12 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 		return _samlSpSession.toString();
 	}
 
+	@Override
 	public java.lang.String toXmlString() {
 		return _samlSpSession.toXmlString();
 	}
 
+	@Override
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_samlSpSession.persist();
@@ -518,10 +570,12 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 		return _samlSpSession;
 	}
 
+	@Override
 	public SamlSpSession getWrappedModel() {
 		return _samlSpSession;
 	}
 
+	@Override
 	public void resetOriginalValues() {
 		_samlSpSession.resetOriginalValues();
 	}

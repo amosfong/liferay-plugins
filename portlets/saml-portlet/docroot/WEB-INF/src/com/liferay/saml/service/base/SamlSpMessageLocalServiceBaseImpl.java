@@ -86,6 +86,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public SamlSpMessage addSamlSpMessage(SamlSpMessage samlSpMessage)
 		throws SystemException {
 		samlSpMessage.setNew(true);
@@ -99,6 +100,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 * @param samlSpMessageId the primary key for the new saml sp message
 	 * @return the new saml sp message
 	 */
+	@Override
 	public SamlSpMessage createSamlSpMessage(long samlSpMessageId) {
 		return samlSpMessagePersistence.create(samlSpMessageId);
 	}
@@ -112,6 +114,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public SamlSpMessage deleteSamlSpMessage(long samlSpMessageId)
 		throws PortalException, SystemException {
 		return samlSpMessagePersistence.remove(samlSpMessageId);
@@ -125,11 +128,13 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public SamlSpMessage deleteSamlSpMessage(SamlSpMessage samlSpMessage)
 		throws SystemException {
 		return samlSpMessagePersistence.remove(samlSpMessage);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -144,6 +149,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -163,6 +169,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -184,6 +191,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -198,11 +206,13 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return samlSpMessagePersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public SamlSpMessage fetchSamlSpMessage(long samlSpMessageId)
 		throws SystemException {
 		return samlSpMessagePersistence.fetchByPrimaryKey(samlSpMessageId);
@@ -216,11 +226,13 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 * @throws PortalException if a saml sp message with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlSpMessage getSamlSpMessage(long samlSpMessageId)
 		throws PortalException, SystemException {
 		return samlSpMessagePersistence.findByPrimaryKey(samlSpMessageId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return samlSpMessagePersistence.findByPrimaryKey(primaryKeyObj);
@@ -238,6 +250,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 * @return the range of saml sp messages
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SamlSpMessage> getSamlSpMessages(int start, int end)
 		throws SystemException {
 		return samlSpMessagePersistence.findAll(start, end);
@@ -249,6 +262,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 * @return the number of saml sp messages
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getSamlSpMessagesCount() throws SystemException {
 		return samlSpMessagePersistence.countAll();
 	}
@@ -261,6 +275,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public SamlSpMessage updateSamlSpMessage(SamlSpMessage samlSpMessage)
 		throws SystemException {
 		return samlSpMessagePersistence.update(samlSpMessage);
@@ -642,6 +657,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -651,10 +667,12 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}
 
+	@Override
 	public Object invokeMethod(String name, String[] parameterTypes,
 		Object[] arguments) throws Throwable {
 		Thread currentThread = Thread.currentThread();

@@ -71,6 +71,7 @@ public class DefinitionServiceClp implements DefinitionService {
 			};
 	}
 
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -93,6 +94,7 @@ public class DefinitionServiceClp implements DefinitionService {
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableService.invokeMethod(_methodName1,
@@ -112,12 +114,14 @@ public class DefinitionServiceClp implements DefinitionService {
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public com.liferay.reports.model.Definition addDefinition(long groupId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
@@ -172,6 +176,7 @@ public class DefinitionServiceClp implements DefinitionService {
 		return (com.liferay.reports.model.Definition)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.reports.model.Definition deleteDefinition(
 		long definitionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -205,6 +210,7 @@ public class DefinitionServiceClp implements DefinitionService {
 		return (com.liferay.reports.model.Definition)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.reports.model.Definition getDefinition(long definitionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -237,6 +243,7 @@ public class DefinitionServiceClp implements DefinitionService {
 		return (com.liferay.reports.model.Definition)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.reports.model.Definition> getDefinitions(
 		long groupId, java.lang.String definitionName,
 		java.lang.String description, java.lang.String sourceId,
@@ -292,6 +299,7 @@ public class DefinitionServiceClp implements DefinitionService {
 		return (java.util.List<com.liferay.reports.model.Definition>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getDefinitionsCount(long groupId,
 		java.lang.String definitionName, java.lang.String description,
 		java.lang.String sourceId, java.lang.String reportName,
@@ -335,6 +343,7 @@ public class DefinitionServiceClp implements DefinitionService {
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public com.liferay.reports.model.Definition updateDefinition(
 		long definitionId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,

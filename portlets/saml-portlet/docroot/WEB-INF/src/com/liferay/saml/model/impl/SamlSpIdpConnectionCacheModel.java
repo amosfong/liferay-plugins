@@ -81,6 +81,7 @@ public class SamlSpIdpConnectionCacheModel implements CacheModel<SamlSpIdpConnec
 		return sb.toString();
 	}
 
+	@Override
 	public SamlSpIdpConnection toEntityModel() {
 		SamlSpIdpConnectionImpl samlSpIdpConnectionImpl = new SamlSpIdpConnectionImpl();
 
@@ -171,6 +172,7 @@ public class SamlSpIdpConnectionCacheModel implements CacheModel<SamlSpIdpConnec
 		return samlSpIdpConnectionImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		samlSpIdpConnectionId = objectInput.readLong();
 		companyId = objectInput.readLong();
@@ -192,6 +194,7 @@ public class SamlSpIdpConnectionCacheModel implements CacheModel<SamlSpIdpConnec
 		userAttributeMappings = objectInput.readUTF();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(samlSpIdpConnectionId);

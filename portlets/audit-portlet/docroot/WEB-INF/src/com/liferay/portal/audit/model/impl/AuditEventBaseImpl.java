@@ -37,6 +37,7 @@ public abstract class AuditEventBaseImpl extends AuditEventModelImpl
 	 *
 	 * Never modify or reference this class directly. All methods that expect a audit event model instance should use the {@link AuditEvent} interface instead.
 	 */
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			AuditEventLocalServiceUtil.addAuditEvent(this);

@@ -90,26 +90,32 @@ public class SamlSpAuthRequestModelImpl extends BaseModelImpl<SamlSpAuthRequest>
 	public SamlSpAuthRequestModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _samlSpAuthnRequestId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setSamlSpAuthnRequestId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _samlSpAuthnRequestId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return SamlSpAuthRequest.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return SamlSpAuthRequest.class.getName();
 	}
@@ -161,30 +167,37 @@ public class SamlSpAuthRequestModelImpl extends BaseModelImpl<SamlSpAuthRequest>
 		}
 	}
 
+	@Override
 	public long getSamlSpAuthnRequestId() {
 		return _samlSpAuthnRequestId;
 	}
 
+	@Override
 	public void setSamlSpAuthnRequestId(long samlSpAuthnRequestId) {
 		_samlSpAuthnRequestId = samlSpAuthnRequestId;
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 	}
 
+	@Override
 	public String getSamlIdpEntityId() {
 		if (_samlIdpEntityId == null) {
 			return StringPool.BLANK;
@@ -194,6 +207,7 @@ public class SamlSpAuthRequestModelImpl extends BaseModelImpl<SamlSpAuthRequest>
 		}
 	}
 
+	@Override
 	public void setSamlIdpEntityId(String samlIdpEntityId) {
 		_columnBitmask |= SAMLIDPENTITYID_COLUMN_BITMASK;
 
@@ -208,6 +222,7 @@ public class SamlSpAuthRequestModelImpl extends BaseModelImpl<SamlSpAuthRequest>
 		return GetterUtil.getString(_originalSamlIdpEntityId);
 	}
 
+	@Override
 	public String getSamlSpAuthRequestKey() {
 		if (_samlSpAuthRequestKey == null) {
 			return StringPool.BLANK;
@@ -217,6 +232,7 @@ public class SamlSpAuthRequestModelImpl extends BaseModelImpl<SamlSpAuthRequest>
 		}
 	}
 
+	@Override
 	public void setSamlSpAuthRequestKey(String samlSpAuthRequestKey) {
 		_columnBitmask |= SAMLSPAUTHREQUESTKEY_COLUMN_BITMASK;
 
@@ -273,6 +289,7 @@ public class SamlSpAuthRequestModelImpl extends BaseModelImpl<SamlSpAuthRequest>
 		return samlSpAuthRequestImpl;
 	}
 
+	@Override
 	public int compareTo(SamlSpAuthRequest samlSpAuthRequest) {
 		long primaryKey = samlSpAuthRequest.getPrimaryKey();
 
@@ -381,6 +398,7 @@ public class SamlSpAuthRequestModelImpl extends BaseModelImpl<SamlSpAuthRequest>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(19);
 

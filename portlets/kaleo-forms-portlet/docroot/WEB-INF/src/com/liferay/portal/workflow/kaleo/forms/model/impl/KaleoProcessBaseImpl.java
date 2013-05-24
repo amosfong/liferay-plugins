@@ -37,6 +37,7 @@ public abstract class KaleoProcessBaseImpl extends KaleoProcessModelImpl
 	 *
 	 * Never modify or reference this class directly. All methods that expect a kaleo process model instance should use the {@link KaleoProcess} interface instead.
 	 */
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			KaleoProcessLocalServiceUtil.addKaleoProcess(this);

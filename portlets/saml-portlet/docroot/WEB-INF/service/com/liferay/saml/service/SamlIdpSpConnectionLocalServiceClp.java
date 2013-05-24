@@ -154,6 +154,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 			};
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSpConnection addSamlIdpSpConnection(
 		com.liferay.saml.model.SamlIdpSpConnection samlIdpSpConnection)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -185,6 +186,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return (com.liferay.saml.model.SamlIdpSpConnection)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSpConnection createSamlIdpSpConnection(
 		long samlIdpSpConnectionId) {
 		Object returnObj = null;
@@ -209,6 +211,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return (com.liferay.saml.model.SamlIdpSpConnection)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSpConnection deleteSamlIdpSpConnection(
 		long samlIdpSpConnectionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -243,6 +246,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return (com.liferay.saml.model.SamlIdpSpConnection)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSpConnection deleteSamlIdpSpConnection(
 		com.liferay.saml.model.SamlIdpSpConnection samlIdpSpConnection)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -274,6 +278,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return (com.liferay.saml.model.SamlIdpSpConnection)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		Object returnObj = null;
 
@@ -296,6 +301,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return (com.liferay.portal.kernel.dao.orm.DynamicQuery)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -326,6 +332,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -362,6 +369,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -402,6 +410,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -431,6 +440,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return ((Long)returnObj).longValue();
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSpConnection fetchSamlIdpSpConnection(
 		long samlIdpSpConnectionId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -460,6 +470,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return (com.liferay.saml.model.SamlIdpSpConnection)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSpConnection getSamlIdpSpConnection(
 		long samlIdpSpConnectionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -494,6 +505,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return (com.liferay.saml.model.SamlIdpSpConnection)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -528,6 +540,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.saml.model.SamlIdpSpConnection> getSamlIdpSpConnections(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -556,6 +569,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return (java.util.List<com.liferay.saml.model.SamlIdpSpConnection>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getSamlIdpSpConnectionsCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -583,6 +597,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSpConnection updateSamlIdpSpConnection(
 		com.liferay.saml.model.SamlIdpSpConnection samlIdpSpConnection)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -614,6 +629,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return (com.liferay.saml.model.SamlIdpSpConnection)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -636,6 +652,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableLocalService.invokeMethod(_methodName16,
@@ -655,12 +672,14 @@ public class SamlIdpSpConnectionLocalServiceClp
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSpConnection addSamlIdpSpConnection(
 		java.lang.String samlSpEntityId, int assertionLifetime,
 		java.lang.String attributeNames, boolean attributesEnabled,
@@ -725,6 +744,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return (com.liferay.saml.model.SamlIdpSpConnection)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSpConnection getSamlIdpSpConnection(
 		long companyId, java.lang.String samlSpEntityId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -763,6 +783,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return (com.liferay.saml.model.SamlIdpSpConnection)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.saml.model.SamlIdpSpConnection> getSamlIdpSpConnections(
 		long companyId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -791,6 +812,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return (java.util.List<com.liferay.saml.model.SamlIdpSpConnection>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.saml.model.SamlIdpSpConnection> getSamlIdpSpConnections(
 		long companyId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -820,6 +842,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return (java.util.List<com.liferay.saml.model.SamlIdpSpConnection>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.saml.model.SamlIdpSpConnection> getSamlIdpSpConnections(
 		long companyId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
@@ -858,6 +881,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return (java.util.List<com.liferay.saml.model.SamlIdpSpConnection>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getSamlIdpSpConnectionsCount(long companyId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -885,6 +909,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public void updateMetadata(long samlIdpSpConnectionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -913,6 +938,7 @@ public class SamlIdpSpConnectionLocalServiceClp
 		}
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSpConnection updateSamlIdpSpConnection(
 		long samlIdpSpConnectionId, java.lang.String samlSpEntityId,
 		int assertionLifetime, java.lang.String attributeNames,

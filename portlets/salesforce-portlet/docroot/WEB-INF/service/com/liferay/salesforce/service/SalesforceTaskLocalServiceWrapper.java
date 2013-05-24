@@ -36,6 +36,7 @@ public class SalesforceTaskLocalServiceWrapper
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _salesforceTaskLocalService.getBeanIdentifier();
 	}
@@ -45,10 +46,12 @@ public class SalesforceTaskLocalServiceWrapper
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_salesforceTaskLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
@@ -56,6 +59,7 @@ public class SalesforceTaskLocalServiceWrapper
 			arguments);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch getTasksByAccountId(
 		long companyId, java.lang.String accountId,
 		java.util.List<java.lang.String> fieldNames)
@@ -65,6 +69,7 @@ public class SalesforceTaskLocalServiceWrapper
 			accountId, fieldNames);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch getTasksByUserId(
 		long companyId, java.lang.String userId,
 		java.util.List<java.lang.String> fieldNames)
@@ -74,6 +79,7 @@ public class SalesforceTaskLocalServiceWrapper
 			fieldNames);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch getTasksByUserName(
 		long companyId, java.lang.String userName,
 		java.util.List<java.lang.String> fieldNames)
@@ -98,10 +104,12 @@ public class SalesforceTaskLocalServiceWrapper
 		_salesforceTaskLocalService = salesforceTaskLocalService;
 	}
 
+	@Override
 	public SalesforceTaskLocalService getWrappedService() {
 		return _salesforceTaskLocalService;
 	}
 
+	@Override
 	public void setWrappedService(
 		SalesforceTaskLocalService salesforceTaskLocalService) {
 		_salesforceTaskLocalService = salesforceTaskLocalService;

@@ -46,6 +46,7 @@ public class KaleoProcessLinkServiceClp implements KaleoProcessLinkService {
 		_methodParameterTypes5 = new String[] { "long", "java.lang.String", "long" };
 	}
 
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -68,6 +69,7 @@ public class KaleoProcessLinkServiceClp implements KaleoProcessLinkService {
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableService.invokeMethod(_methodName1,
@@ -87,12 +89,14 @@ public class KaleoProcessLinkServiceClp implements KaleoProcessLinkService {
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink fetchKaleoProcessLink(
 		long kaleoProcessId, java.lang.String workflowTaskName)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -126,6 +130,7 @@ public class KaleoProcessLinkServiceClp implements KaleoProcessLinkService {
 		return (com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink updateKaleoProcessLink(
 		long kaleoProcessLinkId, long kaleoProcessId,
 		java.lang.String workflowTaskName, long ddmTemplateId)
@@ -169,6 +174,7 @@ public class KaleoProcessLinkServiceClp implements KaleoProcessLinkService {
 		return (com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink updateKaleoProcessLink(
 		long kaleoProcessId, java.lang.String workflowTaskName,
 		long ddmTemplateId)

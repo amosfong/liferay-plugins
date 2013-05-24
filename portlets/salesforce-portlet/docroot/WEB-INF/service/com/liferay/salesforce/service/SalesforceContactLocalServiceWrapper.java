@@ -36,6 +36,7 @@ public class SalesforceContactLocalServiceWrapper
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _salesforceContactLocalService.getBeanIdentifier();
 	}
@@ -45,10 +46,12 @@ public class SalesforceContactLocalServiceWrapper
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_salesforceContactLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
@@ -56,6 +59,7 @@ public class SalesforceContactLocalServiceWrapper
 			parameterTypes, arguments);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch getContactsByAccountId(
 		long companyId, java.lang.String accountId,
 		java.util.List<java.lang.String> fieldNames)
@@ -65,6 +69,7 @@ public class SalesforceContactLocalServiceWrapper
 			accountId, fieldNames);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch getContactsByOwnerId(
 		long companyId, java.lang.String userId,
 		java.util.List<java.lang.String> fieldNames)
@@ -74,6 +79,7 @@ public class SalesforceContactLocalServiceWrapper
 			userId, fieldNames);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch getContactsByUserName(
 		long companyId, java.lang.String userName,
 		java.util.List<java.lang.String> fieldNames)
@@ -98,10 +104,12 @@ public class SalesforceContactLocalServiceWrapper
 		_salesforceContactLocalService = salesforceContactLocalService;
 	}
 
+	@Override
 	public SalesforceContactLocalService getWrappedService() {
 		return _salesforceContactLocalService;
 	}
 
+	@Override
 	public void setWrappedService(
 		SalesforceContactLocalService salesforceContactLocalService) {
 		_salesforceContactLocalService = salesforceContactLocalService;

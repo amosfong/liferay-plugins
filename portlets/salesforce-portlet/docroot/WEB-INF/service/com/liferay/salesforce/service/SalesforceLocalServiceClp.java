@@ -92,6 +92,7 @@ public class SalesforceLocalServiceClp implements SalesforceLocalService {
 			};
 	}
 
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -114,6 +115,7 @@ public class SalesforceLocalServiceClp implements SalesforceLocalService {
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableLocalService.invokeMethod(_methodName1,
@@ -133,12 +135,14 @@ public class SalesforceLocalServiceClp implements SalesforceLocalService {
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public void executeAdd(long companyId,
 		java.util.List<com.liferay.portal.kernel.messaging.Message> messages)
 		throws com.liferay.portal.kernel.exception.SystemException,
@@ -169,6 +173,7 @@ public class SalesforceLocalServiceClp implements SalesforceLocalService {
 		}
 	}
 
+	@Override
 	public java.lang.String executeAdd(long companyId,
 		com.liferay.portal.kernel.messaging.Message message)
 		throws com.liferay.portal.kernel.exception.SystemException,
@@ -207,6 +212,7 @@ public class SalesforceLocalServiceClp implements SalesforceLocalService {
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void executeAddOrUpdate(long companyId, java.lang.String externalId,
 		java.util.List<com.liferay.portal.kernel.messaging.Message> messages)
 		throws com.liferay.portal.kernel.exception.SystemException,
@@ -243,6 +249,7 @@ public class SalesforceLocalServiceClp implements SalesforceLocalService {
 		}
 	}
 
+	@Override
 	public void executeAddOrUpdate(long companyId, java.lang.String externalId,
 		com.liferay.portal.kernel.messaging.Message message)
 		throws com.liferay.portal.kernel.exception.SystemException,
@@ -279,6 +286,7 @@ public class SalesforceLocalServiceClp implements SalesforceLocalService {
 		}
 	}
 
+	@Override
 	public void executeDelete(long companyId,
 		java.util.List<java.lang.String> objectIds)
 		throws com.liferay.portal.kernel.exception.SystemException,
@@ -310,6 +318,7 @@ public class SalesforceLocalServiceClp implements SalesforceLocalService {
 		}
 	}
 
+	@Override
 	public boolean executeDelete(long companyId, java.lang.String objectId)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.salesforce.service.SalesforceException {
@@ -347,6 +356,7 @@ public class SalesforceLocalServiceClp implements SalesforceLocalService {
 		return ((Boolean)returnObj).booleanValue();
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch executeQuery(
 		long companyId, java.lang.String queryString)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -380,6 +390,7 @@ public class SalesforceLocalServiceClp implements SalesforceLocalService {
 		return (com.liferay.portal.kernel.messaging.MessageBatch)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.Message executeQuery(
 		long companyId, java.lang.String objectId, java.lang.String objectType,
 		java.util.List<java.lang.String> fieldNames)
@@ -423,6 +434,7 @@ public class SalesforceLocalServiceClp implements SalesforceLocalService {
 		return (com.liferay.portal.kernel.messaging.Message)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch executeQueryMore(
 		long companyId, java.lang.String queryLocator)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -456,6 +468,7 @@ public class SalesforceLocalServiceClp implements SalesforceLocalService {
 		return (com.liferay.portal.kernel.messaging.MessageBatch)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch executeSearch(
 		long companyId, java.lang.String searchString)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -489,6 +502,7 @@ public class SalesforceLocalServiceClp implements SalesforceLocalService {
 		return (com.liferay.portal.kernel.messaging.MessageBatch)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void executeUpdate(long companyId,
 		java.util.List<com.liferay.portal.kernel.messaging.Message> messages)
 		throws com.liferay.portal.kernel.exception.SystemException,
@@ -519,6 +533,7 @@ public class SalesforceLocalServiceClp implements SalesforceLocalService {
 		}
 	}
 
+	@Override
 	public void executeUpdate(long companyId,
 		com.liferay.portal.kernel.messaging.Message message)
 		throws com.liferay.portal.kernel.exception.SystemException,

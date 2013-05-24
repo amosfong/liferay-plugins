@@ -35,14 +35,17 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 		_samlIdpSpConnection = samlIdpSpConnection;
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return SamlIdpSpConnection.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return SamlIdpSpConnection.class.getName();
 	}
 
+	@Override
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
@@ -69,6 +72,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 		return attributes;
 	}
 
+	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		Long samlIdpSpConnectionId = (Long)attributes.get(
 				"samlIdpSpConnectionId");
@@ -186,6 +190,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return the primary key of this saml idp sp connection
 	*/
+	@Override
 	public long getPrimaryKey() {
 		return _samlIdpSpConnection.getPrimaryKey();
 	}
@@ -195,6 +200,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param primaryKey the primary key of this saml idp sp connection
 	*/
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_samlIdpSpConnection.setPrimaryKey(primaryKey);
 	}
@@ -204,6 +210,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return the saml idp sp connection ID of this saml idp sp connection
 	*/
+	@Override
 	public long getSamlIdpSpConnectionId() {
 		return _samlIdpSpConnection.getSamlIdpSpConnectionId();
 	}
@@ -213,6 +220,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param samlIdpSpConnectionId the saml idp sp connection ID of this saml idp sp connection
 	*/
+	@Override
 	public void setSamlIdpSpConnectionId(long samlIdpSpConnectionId) {
 		_samlIdpSpConnection.setSamlIdpSpConnectionId(samlIdpSpConnectionId);
 	}
@@ -222,6 +230,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return the company ID of this saml idp sp connection
 	*/
+	@Override
 	public long getCompanyId() {
 		return _samlIdpSpConnection.getCompanyId();
 	}
@@ -231,6 +240,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param companyId the company ID of this saml idp sp connection
 	*/
+	@Override
 	public void setCompanyId(long companyId) {
 		_samlIdpSpConnection.setCompanyId(companyId);
 	}
@@ -240,6 +250,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return the user ID of this saml idp sp connection
 	*/
+	@Override
 	public long getUserId() {
 		return _samlIdpSpConnection.getUserId();
 	}
@@ -249,6 +260,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param userId the user ID of this saml idp sp connection
 	*/
+	@Override
 	public void setUserId(long userId) {
 		_samlIdpSpConnection.setUserId(userId);
 	}
@@ -259,6 +271,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	* @return the user uuid of this saml idp sp connection
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.lang.String getUserUuid()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _samlIdpSpConnection.getUserUuid();
@@ -269,6 +282,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param userUuid the user uuid of this saml idp sp connection
 	*/
+	@Override
 	public void setUserUuid(java.lang.String userUuid) {
 		_samlIdpSpConnection.setUserUuid(userUuid);
 	}
@@ -278,6 +292,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return the user name of this saml idp sp connection
 	*/
+	@Override
 	public java.lang.String getUserName() {
 		return _samlIdpSpConnection.getUserName();
 	}
@@ -287,6 +302,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param userName the user name of this saml idp sp connection
 	*/
+	@Override
 	public void setUserName(java.lang.String userName) {
 		_samlIdpSpConnection.setUserName(userName);
 	}
@@ -296,6 +312,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return the create date of this saml idp sp connection
 	*/
+	@Override
 	public java.util.Date getCreateDate() {
 		return _samlIdpSpConnection.getCreateDate();
 	}
@@ -305,6 +322,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param createDate the create date of this saml idp sp connection
 	*/
+	@Override
 	public void setCreateDate(java.util.Date createDate) {
 		_samlIdpSpConnection.setCreateDate(createDate);
 	}
@@ -314,6 +332,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return the modified date of this saml idp sp connection
 	*/
+	@Override
 	public java.util.Date getModifiedDate() {
 		return _samlIdpSpConnection.getModifiedDate();
 	}
@@ -323,6 +342,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param modifiedDate the modified date of this saml idp sp connection
 	*/
+	@Override
 	public void setModifiedDate(java.util.Date modifiedDate) {
 		_samlIdpSpConnection.setModifiedDate(modifiedDate);
 	}
@@ -332,6 +352,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return the saml sp entity ID of this saml idp sp connection
 	*/
+	@Override
 	public java.lang.String getSamlSpEntityId() {
 		return _samlIdpSpConnection.getSamlSpEntityId();
 	}
@@ -341,6 +362,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param samlSpEntityId the saml sp entity ID of this saml idp sp connection
 	*/
+	@Override
 	public void setSamlSpEntityId(java.lang.String samlSpEntityId) {
 		_samlIdpSpConnection.setSamlSpEntityId(samlSpEntityId);
 	}
@@ -350,6 +372,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return the assertion lifetime of this saml idp sp connection
 	*/
+	@Override
 	public int getAssertionLifetime() {
 		return _samlIdpSpConnection.getAssertionLifetime();
 	}
@@ -359,6 +382,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param assertionLifetime the assertion lifetime of this saml idp sp connection
 	*/
+	@Override
 	public void setAssertionLifetime(int assertionLifetime) {
 		_samlIdpSpConnection.setAssertionLifetime(assertionLifetime);
 	}
@@ -368,6 +392,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return the attribute names of this saml idp sp connection
 	*/
+	@Override
 	public java.lang.String getAttributeNames() {
 		return _samlIdpSpConnection.getAttributeNames();
 	}
@@ -377,6 +402,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param attributeNames the attribute names of this saml idp sp connection
 	*/
+	@Override
 	public void setAttributeNames(java.lang.String attributeNames) {
 		_samlIdpSpConnection.setAttributeNames(attributeNames);
 	}
@@ -386,6 +412,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return the attributes enabled of this saml idp sp connection
 	*/
+	@Override
 	public boolean getAttributesEnabled() {
 		return _samlIdpSpConnection.getAttributesEnabled();
 	}
@@ -395,6 +422,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return <code>true</code> if this saml idp sp connection is attributes enabled; <code>false</code> otherwise
 	*/
+	@Override
 	public boolean isAttributesEnabled() {
 		return _samlIdpSpConnection.isAttributesEnabled();
 	}
@@ -404,6 +432,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param attributesEnabled the attributes enabled of this saml idp sp connection
 	*/
+	@Override
 	public void setAttributesEnabled(boolean attributesEnabled) {
 		_samlIdpSpConnection.setAttributesEnabled(attributesEnabled);
 	}
@@ -413,6 +442,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return the attributes namespace enabled of this saml idp sp connection
 	*/
+	@Override
 	public boolean getAttributesNamespaceEnabled() {
 		return _samlIdpSpConnection.getAttributesNamespaceEnabled();
 	}
@@ -422,6 +452,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return <code>true</code> if this saml idp sp connection is attributes namespace enabled; <code>false</code> otherwise
 	*/
+	@Override
 	public boolean isAttributesNamespaceEnabled() {
 		return _samlIdpSpConnection.isAttributesNamespaceEnabled();
 	}
@@ -431,6 +462,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param attributesNamespaceEnabled the attributes namespace enabled of this saml idp sp connection
 	*/
+	@Override
 	public void setAttributesNamespaceEnabled(
 		boolean attributesNamespaceEnabled) {
 		_samlIdpSpConnection.setAttributesNamespaceEnabled(attributesNamespaceEnabled);
@@ -441,6 +473,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return the enabled of this saml idp sp connection
 	*/
+	@Override
 	public boolean getEnabled() {
 		return _samlIdpSpConnection.getEnabled();
 	}
@@ -450,6 +483,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return <code>true</code> if this saml idp sp connection is enabled; <code>false</code> otherwise
 	*/
+	@Override
 	public boolean isEnabled() {
 		return _samlIdpSpConnection.isEnabled();
 	}
@@ -459,6 +493,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param enabled the enabled of this saml idp sp connection
 	*/
+	@Override
 	public void setEnabled(boolean enabled) {
 		_samlIdpSpConnection.setEnabled(enabled);
 	}
@@ -468,6 +503,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return the metadata url of this saml idp sp connection
 	*/
+	@Override
 	public java.lang.String getMetadataUrl() {
 		return _samlIdpSpConnection.getMetadataUrl();
 	}
@@ -477,6 +513,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param metadataUrl the metadata url of this saml idp sp connection
 	*/
+	@Override
 	public void setMetadataUrl(java.lang.String metadataUrl) {
 		_samlIdpSpConnection.setMetadataUrl(metadataUrl);
 	}
@@ -486,6 +523,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return the metadata xml of this saml idp sp connection
 	*/
+	@Override
 	public java.lang.String getMetadataXml() {
 		return _samlIdpSpConnection.getMetadataXml();
 	}
@@ -495,6 +533,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param metadataXml the metadata xml of this saml idp sp connection
 	*/
+	@Override
 	public void setMetadataXml(java.lang.String metadataXml) {
 		_samlIdpSpConnection.setMetadataXml(metadataXml);
 	}
@@ -504,6 +543,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return the metadata updated date of this saml idp sp connection
 	*/
+	@Override
 	public java.util.Date getMetadataUpdatedDate() {
 		return _samlIdpSpConnection.getMetadataUpdatedDate();
 	}
@@ -513,6 +553,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param metadataUpdatedDate the metadata updated date of this saml idp sp connection
 	*/
+	@Override
 	public void setMetadataUpdatedDate(java.util.Date metadataUpdatedDate) {
 		_samlIdpSpConnection.setMetadataUpdatedDate(metadataUpdatedDate);
 	}
@@ -522,6 +563,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return the name of this saml idp sp connection
 	*/
+	@Override
 	public java.lang.String getName() {
 		return _samlIdpSpConnection.getName();
 	}
@@ -531,6 +573,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param name the name of this saml idp sp connection
 	*/
+	@Override
 	public void setName(java.lang.String name) {
 		_samlIdpSpConnection.setName(name);
 	}
@@ -540,6 +583,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return the name ID attribute of this saml idp sp connection
 	*/
+	@Override
 	public java.lang.String getNameIdAttribute() {
 		return _samlIdpSpConnection.getNameIdAttribute();
 	}
@@ -549,6 +593,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param nameIdAttribute the name ID attribute of this saml idp sp connection
 	*/
+	@Override
 	public void setNameIdAttribute(java.lang.String nameIdAttribute) {
 		_samlIdpSpConnection.setNameIdAttribute(nameIdAttribute);
 	}
@@ -558,6 +603,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @return the name ID format of this saml idp sp connection
 	*/
+	@Override
 	public java.lang.String getNameIdFormat() {
 		return _samlIdpSpConnection.getNameIdFormat();
 	}
@@ -567,52 +613,64 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 	*
 	* @param nameIdFormat the name ID format of this saml idp sp connection
 	*/
+	@Override
 	public void setNameIdFormat(java.lang.String nameIdFormat) {
 		_samlIdpSpConnection.setNameIdFormat(nameIdFormat);
 	}
 
+	@Override
 	public boolean isNew() {
 		return _samlIdpSpConnection.isNew();
 	}
 
+	@Override
 	public void setNew(boolean n) {
 		_samlIdpSpConnection.setNew(n);
 	}
 
+	@Override
 	public boolean isCachedModel() {
 		return _samlIdpSpConnection.isCachedModel();
 	}
 
+	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_samlIdpSpConnection.setCachedModel(cachedModel);
 	}
 
+	@Override
 	public boolean isEscapedModel() {
 		return _samlIdpSpConnection.isEscapedModel();
 	}
 
+	@Override
 	public java.io.Serializable getPrimaryKeyObj() {
 		return _samlIdpSpConnection.getPrimaryKeyObj();
 	}
 
+	@Override
 	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
 		_samlIdpSpConnection.setPrimaryKeyObj(primaryKeyObj);
 	}
 
+	@Override
 	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
 		return _samlIdpSpConnection.getExpandoBridge();
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.model.BaseModel<?> baseModel) {
 		_samlIdpSpConnection.setExpandoBridgeAttributes(baseModel);
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
 		_samlIdpSpConnection.setExpandoBridgeAttributes(expandoBridge);
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.service.ServiceContext serviceContext) {
 		_samlIdpSpConnection.setExpandoBridgeAttributes(serviceContext);
@@ -623,6 +681,7 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 		return new SamlIdpSpConnectionWrapper((SamlIdpSpConnection)_samlIdpSpConnection.clone());
 	}
 
+	@Override
 	public int compareTo(
 		com.liferay.saml.model.SamlIdpSpConnection samlIdpSpConnection) {
 		return _samlIdpSpConnection.compareTo(samlIdpSpConnection);
@@ -633,14 +692,17 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 		return _samlIdpSpConnection.hashCode();
 	}
 
+	@Override
 	public com.liferay.portal.model.CacheModel<com.liferay.saml.model.SamlIdpSpConnection> toCacheModel() {
 		return _samlIdpSpConnection.toCacheModel();
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSpConnection toEscapedModel() {
 		return new SamlIdpSpConnectionWrapper(_samlIdpSpConnection.toEscapedModel());
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSpConnection toUnescapedModel() {
 		return new SamlIdpSpConnectionWrapper(_samlIdpSpConnection.toUnescapedModel());
 	}
@@ -650,10 +712,12 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 		return _samlIdpSpConnection.toString();
 	}
 
+	@Override
 	public java.lang.String toXmlString() {
 		return _samlIdpSpConnection.toXmlString();
 	}
 
+	@Override
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_samlIdpSpConnection.persist();
@@ -666,10 +730,12 @@ public class SamlIdpSpConnectionWrapper implements SamlIdpSpConnection,
 		return _samlIdpSpConnection;
 	}
 
+	@Override
 	public SamlIdpSpConnection getWrappedModel() {
 		return _samlIdpSpConnection;
 	}
 
+	@Override
 	public void resetOriginalValues() {
 		_samlIdpSpConnection.resetOriginalValues();
 	}

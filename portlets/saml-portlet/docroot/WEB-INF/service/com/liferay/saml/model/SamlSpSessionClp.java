@@ -41,26 +41,32 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 	public SamlSpSessionClp() {
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return SamlSpSession.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return SamlSpSession.class.getName();
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _samlSpSessionId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setSamlSpSessionId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _samlSpSessionId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
@@ -167,10 +173,12 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public long getSamlSpSessionId() {
 		return _samlSpSessionId;
 	}
 
+	@Override
 	public void setSamlSpSessionId(long samlSpSessionId) {
 		_samlSpSessionId = samlSpSessionId;
 
@@ -188,10 +196,12 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 
@@ -209,10 +219,12 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 
@@ -230,18 +242,22 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	public String getUserName() {
 		return _userName;
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 
@@ -259,10 +275,12 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 
@@ -280,10 +298,12 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 
@@ -301,10 +321,12 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public String getSamlSpSessionKey() {
 		return _samlSpSessionKey;
 	}
 
+	@Override
 	public void setSamlSpSessionKey(String samlSpSessionKey) {
 		_samlSpSessionKey = samlSpSessionKey;
 
@@ -323,10 +345,12 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public String getAssertionXml() {
 		return _assertionXml;
 	}
 
+	@Override
 	public void setAssertionXml(String assertionXml) {
 		_assertionXml = assertionXml;
 
@@ -344,10 +368,12 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public String getJSessionId() {
 		return _jSessionId;
 	}
 
+	@Override
 	public void setJSessionId(String jSessionId) {
 		_jSessionId = jSessionId;
 
@@ -365,10 +391,12 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public String getNameIdFormat() {
 		return _nameIdFormat;
 	}
 
+	@Override
 	public void setNameIdFormat(String nameIdFormat) {
 		_nameIdFormat = nameIdFormat;
 
@@ -386,10 +414,12 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public String getNameIdValue() {
 		return _nameIdValue;
 	}
 
+	@Override
 	public void setNameIdValue(String nameIdValue) {
 		_nameIdValue = nameIdValue;
 
@@ -407,10 +437,12 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public String getSessionIndex() {
 		return _sessionIndex;
 	}
 
+	@Override
 	public void setSessionIndex(String sessionIndex) {
 		_sessionIndex = sessionIndex;
 
@@ -428,14 +460,17 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public boolean getTerminated() {
 		return _terminated;
 	}
 
+	@Override
 	public boolean isTerminated() {
 		return _terminated;
 	}
 
+	@Override
 	public void setTerminated(boolean terminated) {
 		_terminated = terminated;
 
@@ -503,6 +538,7 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		return returnValue;
 	}
 
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			SamlSpSessionLocalServiceUtil.addSamlSpSession(this);
@@ -539,6 +575,7 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		return clone;
 	}
 
+	@Override
 	public int compareTo(SamlSpSession samlSpSession) {
 		long primaryKey = samlSpSession.getPrimaryKey();
 
@@ -615,6 +652,7 @@ public class SamlSpSessionClp extends BaseModelImpl<SamlSpSession>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(43);
 

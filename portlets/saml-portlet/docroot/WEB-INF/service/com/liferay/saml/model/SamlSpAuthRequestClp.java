@@ -40,26 +40,32 @@ public class SamlSpAuthRequestClp extends BaseModelImpl<SamlSpAuthRequest>
 	public SamlSpAuthRequestClp() {
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return SamlSpAuthRequest.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return SamlSpAuthRequest.class.getName();
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _samlSpAuthnRequestId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setSamlSpAuthnRequestId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _samlSpAuthnRequestId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
@@ -111,10 +117,12 @@ public class SamlSpAuthRequestClp extends BaseModelImpl<SamlSpAuthRequest>
 		}
 	}
 
+	@Override
 	public long getSamlSpAuthnRequestId() {
 		return _samlSpAuthnRequestId;
 	}
 
+	@Override
 	public void setSamlSpAuthnRequestId(long samlSpAuthnRequestId) {
 		_samlSpAuthnRequestId = samlSpAuthnRequestId;
 
@@ -134,10 +142,12 @@ public class SamlSpAuthRequestClp extends BaseModelImpl<SamlSpAuthRequest>
 		}
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 
@@ -155,10 +165,12 @@ public class SamlSpAuthRequestClp extends BaseModelImpl<SamlSpAuthRequest>
 		}
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 
@@ -176,10 +188,12 @@ public class SamlSpAuthRequestClp extends BaseModelImpl<SamlSpAuthRequest>
 		}
 	}
 
+	@Override
 	public String getSamlIdpEntityId() {
 		return _samlIdpEntityId;
 	}
 
+	@Override
 	public void setSamlIdpEntityId(String samlIdpEntityId) {
 		_samlIdpEntityId = samlIdpEntityId;
 
@@ -198,10 +212,12 @@ public class SamlSpAuthRequestClp extends BaseModelImpl<SamlSpAuthRequest>
 		}
 	}
 
+	@Override
 	public String getSamlSpAuthRequestKey() {
 		return _samlSpAuthRequestKey;
 	}
 
+	@Override
 	public void setSamlSpAuthRequestKey(String samlSpAuthRequestKey) {
 		_samlSpAuthRequestKey = samlSpAuthRequestKey;
 
@@ -271,6 +287,7 @@ public class SamlSpAuthRequestClp extends BaseModelImpl<SamlSpAuthRequest>
 		return returnValue;
 	}
 
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			SamlSpAuthRequestLocalServiceUtil.addSamlSpAuthRequest(this);
@@ -300,6 +317,7 @@ public class SamlSpAuthRequestClp extends BaseModelImpl<SamlSpAuthRequest>
 		return clone;
 	}
 
+	@Override
 	public int compareTo(SamlSpAuthRequest samlSpAuthRequest) {
 		long primaryKey = samlSpAuthRequest.getPrimaryKey();
 
@@ -360,6 +378,7 @@ public class SamlSpAuthRequestClp extends BaseModelImpl<SamlSpAuthRequest>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(19);
 

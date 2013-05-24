@@ -110,6 +110,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @return the matching kaleo processes
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<KaleoProcess> findByGroupId(long groupId)
 		throws SystemException {
 		return findByGroupId(groupId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
@@ -128,6 +129,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @return the range of matching kaleo processes
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<KaleoProcess> findByGroupId(long groupId, int start, int end)
 		throws SystemException {
 		return findByGroupId(groupId, start, end, null);
@@ -147,6 +149,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @return the ordered range of matching kaleo processes
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<KaleoProcess> findByGroupId(long groupId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -253,6 +256,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException if a matching kaleo process could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoProcess findByGroupId_First(long groupId,
 		OrderByComparator orderByComparator)
 		throws NoSuchKaleoProcessException, SystemException {
@@ -283,6 +287,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @return the first matching kaleo process, or <code>null</code> if a matching kaleo process could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoProcess fetchByGroupId_First(long groupId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<KaleoProcess> list = findByGroupId(groupId, 0, 1, orderByComparator);
@@ -303,6 +308,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException if a matching kaleo process could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoProcess findByGroupId_Last(long groupId,
 		OrderByComparator orderByComparator)
 		throws NoSuchKaleoProcessException, SystemException {
@@ -333,6 +339,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @return the last matching kaleo process, or <code>null</code> if a matching kaleo process could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoProcess fetchByGroupId_Last(long groupId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByGroupId(groupId);
@@ -357,6 +364,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException if a kaleo process with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoProcess[] findByGroupId_PrevAndNext(long kaleoProcessId,
 		long groupId, OrderByComparator orderByComparator)
 		throws NoSuchKaleoProcessException, SystemException {
@@ -499,6 +507,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @return the matching kaleo processes that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<KaleoProcess> filterFindByGroupId(long groupId)
 		throws SystemException {
 		return filterFindByGroupId(groupId, QueryUtil.ALL_POS,
@@ -518,6 +527,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @return the range of matching kaleo processes that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<KaleoProcess> filterFindByGroupId(long groupId, int start,
 		int end) throws SystemException {
 		return filterFindByGroupId(groupId, start, end, null);
@@ -537,6 +547,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @return the ordered range of matching kaleo processes that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<KaleoProcess> filterFindByGroupId(long groupId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
@@ -628,6 +639,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException if a kaleo process with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoProcess[] filterFindByGroupId_PrevAndNext(long kaleoProcessId,
 		long groupId, OrderByComparator orderByComparator)
 		throws NoSuchKaleoProcessException, SystemException {
@@ -809,6 +821,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @param groupId the group ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByGroupId(long groupId) throws SystemException {
 		for (KaleoProcess kaleoProcess : findByGroupId(groupId,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -823,6 +836,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @return the number of matching kaleo processes
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByGroupId(long groupId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_GROUPID;
 
@@ -875,6 +889,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @return the number of matching kaleo processes that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int filterCountByGroupId(long groupId) throws SystemException {
 		if (!InlineSQLHelperUtil.isEnabled(groupId)) {
 			return countByGroupId(groupId);
@@ -935,6 +950,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException if a matching kaleo process could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoProcess findByDDLRecordSetId(long DDLRecordSetId)
 		throws NoSuchKaleoProcessException, SystemException {
 		KaleoProcess kaleoProcess = fetchByDDLRecordSetId(DDLRecordSetId);
@@ -966,6 +982,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @return the matching kaleo process, or <code>null</code> if a matching kaleo process could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoProcess fetchByDDLRecordSetId(long DDLRecordSetId)
 		throws SystemException {
 		return fetchByDDLRecordSetId(DDLRecordSetId, true);
@@ -979,6 +996,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @return the matching kaleo process, or <code>null</code> if a matching kaleo process could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoProcess fetchByDDLRecordSetId(long DDLRecordSetId,
 		boolean retrieveFromCache) throws SystemException {
 		Object[] finderArgs = new Object[] { DDLRecordSetId };
@@ -1070,6 +1088,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @return the kaleo process that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoProcess removeByDDLRecordSetId(long DDLRecordSetId)
 		throws NoSuchKaleoProcessException, SystemException {
 		KaleoProcess kaleoProcess = findByDDLRecordSetId(DDLRecordSetId);
@@ -1084,6 +1103,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @return the number of matching kaleo processes
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByDDLRecordSetId(long DDLRecordSetId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_DDLRECORDSETID;
@@ -1137,6 +1157,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 *
 	 * @param kaleoProcess the kaleo process
 	 */
+	@Override
 	public void cacheResult(KaleoProcess kaleoProcess) {
 		EntityCacheUtil.putResult(KaleoProcessModelImpl.ENTITY_CACHE_ENABLED,
 			KaleoProcessImpl.class, kaleoProcess.getPrimaryKey(), kaleoProcess);
@@ -1152,6 +1173,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 *
 	 * @param kaleoProcesses the kaleo processes
 	 */
+	@Override
 	public void cacheResult(List<KaleoProcess> kaleoProcesses) {
 		for (KaleoProcess kaleoProcess : kaleoProcesses) {
 			if (EntityCacheUtil.getResult(
@@ -1267,6 +1289,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @param kaleoProcessId the primary key for the new kaleo process
 	 * @return the new kaleo process
 	 */
+	@Override
 	public KaleoProcess create(long kaleoProcessId) {
 		KaleoProcess kaleoProcess = new KaleoProcessImpl();
 
@@ -1284,6 +1307,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException if a kaleo process with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoProcess remove(long kaleoProcessId)
 		throws NoSuchKaleoProcessException, SystemException {
 		return remove((Serializable)kaleoProcessId);
@@ -1484,6 +1508,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @throws com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException if a kaleo process with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoProcess findByPrimaryKey(long kaleoProcessId)
 		throws NoSuchKaleoProcessException, SystemException {
 		return findByPrimaryKey((Serializable)kaleoProcessId);
@@ -1544,6 +1569,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @return the kaleo process, or <code>null</code> if a kaleo process with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoProcess fetchByPrimaryKey(long kaleoProcessId)
 		throws SystemException {
 		return fetchByPrimaryKey((Serializable)kaleoProcessId);
@@ -1555,6 +1581,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @return the kaleo processes
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<KaleoProcess> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -1571,6 +1598,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @return the range of kaleo processes
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<KaleoProcess> findAll(int start, int end)
 		throws SystemException {
 		return findAll(start, end, null);
@@ -1589,6 +1617,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @return the ordered range of kaleo processes
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<KaleoProcess> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -1674,6 +1703,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (KaleoProcess kaleoProcess : findAll()) {
 			remove(kaleoProcess);
@@ -1686,6 +1716,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	 * @return the number of kaleo processes
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -1782,6 +1813,7 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 		};
 
 	private static CacheModel<KaleoProcess> _nullKaleoProcessCacheModel = new CacheModel<KaleoProcess>() {
+			@Override
 			public KaleoProcess toEntityModel() {
 				return _nullKaleoProcess;
 			}

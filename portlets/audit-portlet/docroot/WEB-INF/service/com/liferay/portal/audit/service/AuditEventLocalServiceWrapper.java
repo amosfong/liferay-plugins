@@ -37,6 +37,7 @@ public class AuditEventLocalServiceWrapper implements AuditEventLocalService,
 	* @return the audit event that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.audit.model.AuditEvent addAuditEvent(
 		com.liferay.portal.audit.model.AuditEvent auditEvent)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -49,6 +50,7 @@ public class AuditEventLocalServiceWrapper implements AuditEventLocalService,
 	* @param auditEventId the primary key for the new audit event
 	* @return the new audit event
 	*/
+	@Override
 	public com.liferay.portal.audit.model.AuditEvent createAuditEvent(
 		long auditEventId) {
 		return _auditEventLocalService.createAuditEvent(auditEventId);
@@ -62,6 +64,7 @@ public class AuditEventLocalServiceWrapper implements AuditEventLocalService,
 	* @throws PortalException if a audit event with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.audit.model.AuditEvent deleteAuditEvent(
 		long auditEventId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -76,12 +79,14 @@ public class AuditEventLocalServiceWrapper implements AuditEventLocalService,
 	* @return the audit event that was removed
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.audit.model.AuditEvent deleteAuditEvent(
 		com.liferay.portal.audit.model.AuditEvent auditEvent)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _auditEventLocalService.deleteAuditEvent(auditEvent);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _auditEventLocalService.dynamicQuery();
 	}
@@ -93,6 +98,7 @@ public class AuditEventLocalServiceWrapper implements AuditEventLocalService,
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -113,6 +119,7 @@ public class AuditEventLocalServiceWrapper implements AuditEventLocalService,
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -134,6 +141,7 @@ public class AuditEventLocalServiceWrapper implements AuditEventLocalService,
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -151,12 +159,14 @@ public class AuditEventLocalServiceWrapper implements AuditEventLocalService,
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _auditEventLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	@Override
 	public com.liferay.portal.audit.model.AuditEvent fetchAuditEvent(
 		long auditEventId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -171,6 +181,7 @@ public class AuditEventLocalServiceWrapper implements AuditEventLocalService,
 	* @throws PortalException if a audit event with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.audit.model.AuditEvent getAuditEvent(
 		long auditEventId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -178,6 +189,7 @@ public class AuditEventLocalServiceWrapper implements AuditEventLocalService,
 		return _auditEventLocalService.getAuditEvent(auditEventId);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -197,6 +209,7 @@ public class AuditEventLocalServiceWrapper implements AuditEventLocalService,
 	* @return the range of audit events
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.portal.audit.model.AuditEvent> getAuditEvents(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -209,6 +222,7 @@ public class AuditEventLocalServiceWrapper implements AuditEventLocalService,
 	* @return the number of audit events
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getAuditEventsCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _auditEventLocalService.getAuditEventsCount();
@@ -221,6 +235,7 @@ public class AuditEventLocalServiceWrapper implements AuditEventLocalService,
 	* @return the audit event that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.portal.audit.model.AuditEvent updateAuditEvent(
 		com.liferay.portal.audit.model.AuditEvent auditEvent)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -232,6 +247,7 @@ public class AuditEventLocalServiceWrapper implements AuditEventLocalService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _auditEventLocalService.getBeanIdentifier();
 	}
@@ -241,10 +257,12 @@ public class AuditEventLocalServiceWrapper implements AuditEventLocalService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_auditEventLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
@@ -252,12 +270,14 @@ public class AuditEventLocalServiceWrapper implements AuditEventLocalService,
 			arguments);
 	}
 
+	@Override
 	public com.liferay.portal.audit.model.AuditEvent addAuditEvent(
 		com.liferay.portal.kernel.audit.AuditMessage auditMessage)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _auditEventLocalService.addAuditEvent(auditMessage);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portal.audit.model.AuditEvent> getAuditEvents(
 		long companyId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
@@ -266,6 +286,7 @@ public class AuditEventLocalServiceWrapper implements AuditEventLocalService,
 			orderByComparator);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portal.audit.model.AuditEvent> getAuditEvents(
 		long companyId, long userId, java.lang.String userName,
 		java.util.Date createDateGT, java.util.Date createDateLT,
@@ -281,11 +302,13 @@ public class AuditEventLocalServiceWrapper implements AuditEventLocalService,
 			andSearch, start, end, orderByComparator);
 	}
 
+	@Override
 	public int getAuditEventsCount(long companyId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _auditEventLocalService.getAuditEventsCount(companyId);
 	}
 
+	@Override
 	public int getAuditEventsCount(long companyId, long userId,
 		java.lang.String userName, java.util.Date createDateGT,
 		java.util.Date createDateLT, java.lang.String eventType,
@@ -315,10 +338,12 @@ public class AuditEventLocalServiceWrapper implements AuditEventLocalService,
 		_auditEventLocalService = auditEventLocalService;
 	}
 
+	@Override
 	public AuditEventLocalService getWrappedService() {
 		return _auditEventLocalService;
 	}
 
+	@Override
 	public void setWrappedService(AuditEventLocalService auditEventLocalService) {
 		_auditEventLocalService = auditEventLocalService;
 	}

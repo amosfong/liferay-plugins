@@ -38,6 +38,7 @@ public class SamlSpMessageLocalServiceWrapper
 	* @return the saml sp message that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.saml.model.SamlSpMessage addSamlSpMessage(
 		com.liferay.saml.model.SamlSpMessage samlSpMessage)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -50,6 +51,7 @@ public class SamlSpMessageLocalServiceWrapper
 	* @param samlSpMessageId the primary key for the new saml sp message
 	* @return the new saml sp message
 	*/
+	@Override
 	public com.liferay.saml.model.SamlSpMessage createSamlSpMessage(
 		long samlSpMessageId) {
 		return _samlSpMessageLocalService.createSamlSpMessage(samlSpMessageId);
@@ -63,6 +65,7 @@ public class SamlSpMessageLocalServiceWrapper
 	* @throws PortalException if a saml sp message with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.saml.model.SamlSpMessage deleteSamlSpMessage(
 		long samlSpMessageId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -77,12 +80,14 @@ public class SamlSpMessageLocalServiceWrapper
 	* @return the saml sp message that was removed
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.saml.model.SamlSpMessage deleteSamlSpMessage(
 		com.liferay.saml.model.SamlSpMessage samlSpMessage)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _samlSpMessageLocalService.deleteSamlSpMessage(samlSpMessage);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _samlSpMessageLocalService.dynamicQuery();
 	}
@@ -94,6 +99,7 @@ public class SamlSpMessageLocalServiceWrapper
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -114,6 +120,7 @@ public class SamlSpMessageLocalServiceWrapper
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -135,6 +142,7 @@ public class SamlSpMessageLocalServiceWrapper
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -152,12 +160,14 @@ public class SamlSpMessageLocalServiceWrapper
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _samlSpMessageLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlSpMessage fetchSamlSpMessage(
 		long samlSpMessageId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -172,6 +182,7 @@ public class SamlSpMessageLocalServiceWrapper
 	* @throws PortalException if a saml sp message with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.saml.model.SamlSpMessage getSamlSpMessage(
 		long samlSpMessageId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -179,6 +190,7 @@ public class SamlSpMessageLocalServiceWrapper
 		return _samlSpMessageLocalService.getSamlSpMessage(samlSpMessageId);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -198,6 +210,7 @@ public class SamlSpMessageLocalServiceWrapper
 	* @return the range of saml sp messages
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.saml.model.SamlSpMessage> getSamlSpMessages(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -210,6 +223,7 @@ public class SamlSpMessageLocalServiceWrapper
 	* @return the number of saml sp messages
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getSamlSpMessagesCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _samlSpMessageLocalService.getSamlSpMessagesCount();
@@ -222,6 +236,7 @@ public class SamlSpMessageLocalServiceWrapper
 	* @return the saml sp message that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.saml.model.SamlSpMessage updateSamlSpMessage(
 		com.liferay.saml.model.SamlSpMessage samlSpMessage)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -233,6 +248,7 @@ public class SamlSpMessageLocalServiceWrapper
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _samlSpMessageLocalService.getBeanIdentifier();
 	}
@@ -242,10 +258,12 @@ public class SamlSpMessageLocalServiceWrapper
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_samlSpMessageLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
@@ -253,6 +271,7 @@ public class SamlSpMessageLocalServiceWrapper
 			arguments);
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlSpMessage addSamlSpMessage(
 		java.lang.String samlIdpEntityId, java.lang.String samlIdpResponseKey,
 		java.util.Date expirationDate,
@@ -262,6 +281,7 @@ public class SamlSpMessageLocalServiceWrapper
 			samlIdpResponseKey, expirationDate, serviceContext);
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlSpMessage fetchSamlSpMessage(
 		java.lang.String samlIdpEntityId, java.lang.String samlIdpResponseKey)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -269,6 +289,7 @@ public class SamlSpMessageLocalServiceWrapper
 			samlIdpResponseKey);
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlSpMessage getSamlSpMessage(
 		java.lang.String samlIdpEntityId, java.lang.String samlIdpResponseKey)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -292,10 +313,12 @@ public class SamlSpMessageLocalServiceWrapper
 		_samlSpMessageLocalService = samlSpMessageLocalService;
 	}
 
+	@Override
 	public SamlSpMessageLocalService getWrappedService() {
 		return _samlSpMessageLocalService;
 	}
 
+	@Override
 	public void setWrappedService(
 		SamlSpMessageLocalService samlSpMessageLocalService) {
 		_samlSpMessageLocalService = samlSpMessageLocalService;

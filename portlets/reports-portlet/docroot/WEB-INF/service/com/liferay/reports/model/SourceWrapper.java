@@ -34,14 +34,17 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 		_source = source;
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return Source.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return Source.class.getName();
 	}
 
+	@Override
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
@@ -62,6 +65,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 		return attributes;
 	}
 
+	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		String uuid = (String)attributes.get("uuid");
 
@@ -147,6 +151,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @return the primary key of this source
 	*/
+	@Override
 	public long getPrimaryKey() {
 		return _source.getPrimaryKey();
 	}
@@ -156,6 +161,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @param primaryKey the primary key of this source
 	*/
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_source.setPrimaryKey(primaryKey);
 	}
@@ -165,6 +171,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @return the uuid of this source
 	*/
+	@Override
 	public java.lang.String getUuid() {
 		return _source.getUuid();
 	}
@@ -174,6 +181,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @param uuid the uuid of this source
 	*/
+	@Override
 	public void setUuid(java.lang.String uuid) {
 		_source.setUuid(uuid);
 	}
@@ -183,6 +191,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @return the source ID of this source
 	*/
+	@Override
 	public long getSourceId() {
 		return _source.getSourceId();
 	}
@@ -192,6 +201,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @param sourceId the source ID of this source
 	*/
+	@Override
 	public void setSourceId(long sourceId) {
 		_source.setSourceId(sourceId);
 	}
@@ -201,6 +211,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @return the group ID of this source
 	*/
+	@Override
 	public long getGroupId() {
 		return _source.getGroupId();
 	}
@@ -210,6 +221,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @param groupId the group ID of this source
 	*/
+	@Override
 	public void setGroupId(long groupId) {
 		_source.setGroupId(groupId);
 	}
@@ -219,6 +231,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @return the company ID of this source
 	*/
+	@Override
 	public long getCompanyId() {
 		return _source.getCompanyId();
 	}
@@ -228,6 +241,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @param companyId the company ID of this source
 	*/
+	@Override
 	public void setCompanyId(long companyId) {
 		_source.setCompanyId(companyId);
 	}
@@ -237,6 +251,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @return the user ID of this source
 	*/
+	@Override
 	public long getUserId() {
 		return _source.getUserId();
 	}
@@ -246,6 +261,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @param userId the user ID of this source
 	*/
+	@Override
 	public void setUserId(long userId) {
 		_source.setUserId(userId);
 	}
@@ -256,6 +272,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	* @return the user uuid of this source
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.lang.String getUserUuid()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _source.getUserUuid();
@@ -266,6 +283,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @param userUuid the user uuid of this source
 	*/
+	@Override
 	public void setUserUuid(java.lang.String userUuid) {
 		_source.setUserUuid(userUuid);
 	}
@@ -275,6 +293,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @return the user name of this source
 	*/
+	@Override
 	public java.lang.String getUserName() {
 		return _source.getUserName();
 	}
@@ -284,6 +303,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @param userName the user name of this source
 	*/
+	@Override
 	public void setUserName(java.lang.String userName) {
 		_source.setUserName(userName);
 	}
@@ -293,6 +313,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @return the create date of this source
 	*/
+	@Override
 	public java.util.Date getCreateDate() {
 		return _source.getCreateDate();
 	}
@@ -302,6 +323,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @param createDate the create date of this source
 	*/
+	@Override
 	public void setCreateDate(java.util.Date createDate) {
 		_source.setCreateDate(createDate);
 	}
@@ -311,6 +333,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @return the modified date of this source
 	*/
+	@Override
 	public java.util.Date getModifiedDate() {
 		return _source.getModifiedDate();
 	}
@@ -320,6 +343,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @param modifiedDate the modified date of this source
 	*/
+	@Override
 	public void setModifiedDate(java.util.Date modifiedDate) {
 		_source.setModifiedDate(modifiedDate);
 	}
@@ -329,6 +353,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @return the name of this source
 	*/
+	@Override
 	public java.lang.String getName() {
 		return _source.getName();
 	}
@@ -339,6 +364,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	* @param locale the locale of the language
 	* @return the localized name of this source
 	*/
+	@Override
 	public java.lang.String getName(java.util.Locale locale) {
 		return _source.getName(locale);
 	}
@@ -350,6 +376,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	* @param useDefault whether to use the default language if no localization exists for the requested language
 	* @return the localized name of this source. If <code>useDefault</code> is <code>false</code> and no localization exists for the requested language, an empty string will be returned.
 	*/
+	@Override
 	public java.lang.String getName(java.util.Locale locale, boolean useDefault) {
 		return _source.getName(locale, useDefault);
 	}
@@ -360,6 +387,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	* @param languageId the ID of the language
 	* @return the localized name of this source
 	*/
+	@Override
 	public java.lang.String getName(java.lang.String languageId) {
 		return _source.getName(languageId);
 	}
@@ -371,15 +399,18 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	* @param useDefault whether to use the default language if no localization exists for the requested language
 	* @return the localized name of this source
 	*/
+	@Override
 	public java.lang.String getName(java.lang.String languageId,
 		boolean useDefault) {
 		return _source.getName(languageId, useDefault);
 	}
 
+	@Override
 	public java.lang.String getNameCurrentLanguageId() {
 		return _source.getNameCurrentLanguageId();
 	}
 
+	@Override
 	public java.lang.String getNameCurrentValue() {
 		return _source.getNameCurrentValue();
 	}
@@ -389,6 +420,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @return the locales and localized names of this source
 	*/
+	@Override
 	public java.util.Map<java.util.Locale, java.lang.String> getNameMap() {
 		return _source.getNameMap();
 	}
@@ -398,6 +430,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @param name the name of this source
 	*/
+	@Override
 	public void setName(java.lang.String name) {
 		_source.setName(name);
 	}
@@ -408,6 +441,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	* @param name the localized name of this source
 	* @param locale the locale of the language
 	*/
+	@Override
 	public void setName(java.lang.String name, java.util.Locale locale) {
 		_source.setName(name, locale);
 	}
@@ -419,11 +453,13 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	* @param locale the locale of the language
 	* @param defaultLocale the default locale
 	*/
+	@Override
 	public void setName(java.lang.String name, java.util.Locale locale,
 		java.util.Locale defaultLocale) {
 		_source.setName(name, locale, defaultLocale);
 	}
 
+	@Override
 	public void setNameCurrentLanguageId(java.lang.String languageId) {
 		_source.setNameCurrentLanguageId(languageId);
 	}
@@ -433,6 +469,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @param nameMap the locales and localized names of this source
 	*/
+	@Override
 	public void setNameMap(
 		java.util.Map<java.util.Locale, java.lang.String> nameMap) {
 		_source.setNameMap(nameMap);
@@ -444,6 +481,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	* @param nameMap the locales and localized names of this source
 	* @param defaultLocale the default locale
 	*/
+	@Override
 	public void setNameMap(
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.util.Locale defaultLocale) {
@@ -455,6 +493,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @return the driver class name of this source
 	*/
+	@Override
 	public java.lang.String getDriverClassName() {
 		return _source.getDriverClassName();
 	}
@@ -464,6 +503,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @param driverClassName the driver class name of this source
 	*/
+	@Override
 	public void setDriverClassName(java.lang.String driverClassName) {
 		_source.setDriverClassName(driverClassName);
 	}
@@ -473,6 +513,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @return the driver url of this source
 	*/
+	@Override
 	public java.lang.String getDriverUrl() {
 		return _source.getDriverUrl();
 	}
@@ -482,6 +523,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @param driverUrl the driver url of this source
 	*/
+	@Override
 	public void setDriverUrl(java.lang.String driverUrl) {
 		_source.setDriverUrl(driverUrl);
 	}
@@ -491,6 +533,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @return the driver user name of this source
 	*/
+	@Override
 	public java.lang.String getDriverUserName() {
 		return _source.getDriverUserName();
 	}
@@ -500,6 +543,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @param driverUserName the driver user name of this source
 	*/
+	@Override
 	public void setDriverUserName(java.lang.String driverUserName) {
 		_source.setDriverUserName(driverUserName);
 	}
@@ -509,6 +553,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @return the driver password of this source
 	*/
+	@Override
 	public java.lang.String getDriverPassword() {
 		return _source.getDriverPassword();
 	}
@@ -518,57 +563,70 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 	*
 	* @param driverPassword the driver password of this source
 	*/
+	@Override
 	public void setDriverPassword(java.lang.String driverPassword) {
 		_source.setDriverPassword(driverPassword);
 	}
 
+	@Override
 	public boolean isNew() {
 		return _source.isNew();
 	}
 
+	@Override
 	public void setNew(boolean n) {
 		_source.setNew(n);
 	}
 
+	@Override
 	public boolean isCachedModel() {
 		return _source.isCachedModel();
 	}
 
+	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_source.setCachedModel(cachedModel);
 	}
 
+	@Override
 	public boolean isEscapedModel() {
 		return _source.isEscapedModel();
 	}
 
+	@Override
 	public java.io.Serializable getPrimaryKeyObj() {
 		return _source.getPrimaryKeyObj();
 	}
 
+	@Override
 	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
 		_source.setPrimaryKeyObj(primaryKeyObj);
 	}
 
+	@Override
 	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
 		return _source.getExpandoBridge();
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.model.BaseModel<?> baseModel) {
 		_source.setExpandoBridgeAttributes(baseModel);
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
 		_source.setExpandoBridgeAttributes(expandoBridge);
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.service.ServiceContext serviceContext) {
 		_source.setExpandoBridgeAttributes(serviceContext);
 	}
 
+	@Override
 	public void prepareLocalizedFieldsForImport(
 		java.util.Locale defaultImportLocale)
 		throws com.liferay.portal.LocaleException {
@@ -580,6 +638,7 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 		return new SourceWrapper((Source)_source.clone());
 	}
 
+	@Override
 	public int compareTo(com.liferay.reports.model.Source source) {
 		return _source.compareTo(source);
 	}
@@ -589,14 +648,17 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 		return _source.hashCode();
 	}
 
+	@Override
 	public com.liferay.portal.model.CacheModel<com.liferay.reports.model.Source> toCacheModel() {
 		return _source.toCacheModel();
 	}
 
+	@Override
 	public com.liferay.reports.model.Source toEscapedModel() {
 		return new SourceWrapper(_source.toEscapedModel());
 	}
 
+	@Override
 	public com.liferay.reports.model.Source toUnescapedModel() {
 		return new SourceWrapper(_source.toUnescapedModel());
 	}
@@ -606,19 +668,23 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 		return _source.toString();
 	}
 
+	@Override
 	public java.lang.String toXmlString() {
 		return _source.toXmlString();
 	}
 
+	@Override
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_source.persist();
 	}
 
+	@Override
 	public java.lang.String getAttachmentsDir() {
 		return _source.getAttachmentsDir();
 	}
 
+	@Override
 	public java.lang.String[] getAttachmentsFiles()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -632,10 +698,12 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 		return _source;
 	}
 
+	@Override
 	public Source getWrappedModel() {
 		return _source;
 	}
 
+	@Override
 	public void resetOriginalValues() {
 		_source.resetOriginalValues();
 	}

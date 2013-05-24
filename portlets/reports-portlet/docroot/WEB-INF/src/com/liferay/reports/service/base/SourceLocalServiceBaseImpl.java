@@ -80,6 +80,7 @@ public abstract class SourceLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Source addSource(Source source) throws SystemException {
 		source.setNew(true);
 
@@ -92,6 +93,7 @@ public abstract class SourceLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @param sourceId the primary key for the new source
 	 * @return the new source
 	 */
+	@Override
 	public Source createSource(long sourceId) {
 		return sourcePersistence.create(sourceId);
 	}
@@ -105,6 +107,7 @@ public abstract class SourceLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Source deleteSource(long sourceId)
 		throws PortalException, SystemException {
 		return sourcePersistence.remove(sourceId);
@@ -119,11 +122,13 @@ public abstract class SourceLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Source deleteSource(Source source)
 		throws PortalException, SystemException {
 		return sourcePersistence.remove(source);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -138,6 +143,7 @@ public abstract class SourceLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -157,6 +163,7 @@ public abstract class SourceLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -177,6 +184,7 @@ public abstract class SourceLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -191,11 +199,13 @@ public abstract class SourceLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return sourcePersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public Source fetchSource(long sourceId) throws SystemException {
 		return sourcePersistence.fetchByPrimaryKey(sourceId);
 	}
@@ -208,11 +218,13 @@ public abstract class SourceLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a source with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Source getSource(long sourceId)
 		throws PortalException, SystemException {
 		return sourcePersistence.findByPrimaryKey(sourceId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return sourcePersistence.findByPrimaryKey(primaryKeyObj);
@@ -227,6 +239,7 @@ public abstract class SourceLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws PortalException if a matching source could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Source getSourceByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException, SystemException {
 		return sourcePersistence.findByUUID_G(uuid, groupId);
@@ -244,6 +257,7 @@ public abstract class SourceLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the range of sources
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Source> getSources(int start, int end)
 		throws SystemException {
 		return sourcePersistence.findAll(start, end);
@@ -255,6 +269,7 @@ public abstract class SourceLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @return the number of sources
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getSourcesCount() throws SystemException {
 		return sourcePersistence.countAll();
 	}
@@ -267,6 +282,7 @@ public abstract class SourceLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Source updateSource(Source source) throws SystemException {
 		return sourcePersistence.update(source);
 	}
@@ -545,6 +561,7 @@ public abstract class SourceLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -554,10 +571,12 @@ public abstract class SourceLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}
 
+	@Override
 	public Object invokeMethod(String name, String[] parameterTypes,
 		Object[] arguments) throws Throwable {
 		Thread currentThread = Thread.currentThread();

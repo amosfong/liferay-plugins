@@ -110,6 +110,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 * @return the matching audit events
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<AuditEvent> findByCompanyId(long companyId)
 		throws SystemException {
 		return findByCompanyId(companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
@@ -129,6 +130,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 * @return the range of matching audit events
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<AuditEvent> findByCompanyId(long companyId, int start, int end)
 		throws SystemException {
 		return findByCompanyId(companyId, start, end, null);
@@ -148,6 +150,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 * @return the ordered range of matching audit events
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<AuditEvent> findByCompanyId(long companyId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -254,6 +257,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 * @throws com.liferay.portal.audit.NoSuchEventException if a matching audit event could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public AuditEvent findByCompanyId_First(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchEventException, SystemException {
@@ -284,6 +288,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 * @return the first matching audit event, or <code>null</code> if a matching audit event could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public AuditEvent fetchByCompanyId_First(long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<AuditEvent> list = findByCompanyId(companyId, 0, 1,
@@ -305,6 +310,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 * @throws com.liferay.portal.audit.NoSuchEventException if a matching audit event could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public AuditEvent findByCompanyId_Last(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchEventException, SystemException {
@@ -335,6 +341,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 * @return the last matching audit event, or <code>null</code> if a matching audit event could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public AuditEvent fetchByCompanyId_Last(long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByCompanyId(companyId);
@@ -359,6 +366,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 * @throws com.liferay.portal.audit.NoSuchEventException if a audit event with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public AuditEvent[] findByCompanyId_PrevAndNext(long auditEventId,
 		long companyId, OrderByComparator orderByComparator)
 		throws NoSuchEventException, SystemException {
@@ -500,6 +508,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 * @param companyId the company ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByCompanyId(long companyId) throws SystemException {
 		for (AuditEvent auditEvent : findByCompanyId(companyId,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -514,6 +523,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 * @return the number of matching audit events
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByCompanyId(long companyId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_COMPANYID;
 
@@ -566,6 +576,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 *
 	 * @param auditEvent the audit event
 	 */
+	@Override
 	public void cacheResult(AuditEvent auditEvent) {
 		EntityCacheUtil.putResult(AuditEventModelImpl.ENTITY_CACHE_ENABLED,
 			AuditEventImpl.class, auditEvent.getPrimaryKey(), auditEvent);
@@ -578,6 +589,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 *
 	 * @param auditEvents the audit events
 	 */
+	@Override
 	public void cacheResult(List<AuditEvent> auditEvents) {
 		for (AuditEvent auditEvent : auditEvents) {
 			if (EntityCacheUtil.getResult(
@@ -644,6 +656,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 * @param auditEventId the primary key for the new audit event
 	 * @return the new audit event
 	 */
+	@Override
 	public AuditEvent create(long auditEventId) {
 		AuditEvent auditEvent = new AuditEventImpl();
 
@@ -661,6 +674,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 * @throws com.liferay.portal.audit.NoSuchEventException if a audit event with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public AuditEvent remove(long auditEventId)
 		throws NoSuchEventException, SystemException {
 		return remove((Serializable)auditEventId);
@@ -866,6 +880,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 * @throws com.liferay.portal.audit.NoSuchEventException if a audit event with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public AuditEvent findByPrimaryKey(long auditEventId)
 		throws NoSuchEventException, SystemException {
 		return findByPrimaryKey((Serializable)auditEventId);
@@ -926,6 +941,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 * @return the audit event, or <code>null</code> if a audit event with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public AuditEvent fetchByPrimaryKey(long auditEventId)
 		throws SystemException {
 		return fetchByPrimaryKey((Serializable)auditEventId);
@@ -937,6 +953,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 * @return the audit events
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<AuditEvent> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -953,6 +970,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 * @return the range of audit events
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<AuditEvent> findAll(int start, int end)
 		throws SystemException {
 		return findAll(start, end, null);
@@ -971,6 +989,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 * @return the ordered range of audit events
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<AuditEvent> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -1056,6 +1075,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (AuditEvent auditEvent : findAll()) {
 			remove(auditEvent);
@@ -1068,6 +1088,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	 * @return the number of audit events
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -1154,6 +1175,7 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 		};
 
 	private static CacheModel<AuditEvent> _nullAuditEventCacheModel = new CacheModel<AuditEvent>() {
+			@Override
 			public AuditEvent toEntityModel() {
 				return _nullAuditEvent;
 			}

@@ -169,6 +169,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 			};
 	}
 
+	@Override
 	public com.liferay.reports.model.Entry addEntry(
 		com.liferay.reports.model.Entry entry)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -198,6 +199,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		return (com.liferay.reports.model.Entry)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.reports.model.Entry createEntry(long entryId) {
 		Object returnObj = null;
 
@@ -220,6 +222,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		return (com.liferay.reports.model.Entry)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.reports.model.Entry deleteEntry(long entryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -252,6 +255,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		return (com.liferay.reports.model.Entry)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.reports.model.Entry deleteEntry(
 		com.liferay.reports.model.Entry entry)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -286,6 +290,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		return (com.liferay.reports.model.Entry)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		Object returnObj = null;
 
@@ -308,6 +313,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		return (com.liferay.portal.kernel.dao.orm.DynamicQuery)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -338,6 +344,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -374,6 +381,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -414,6 +422,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -443,6 +452,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		return ((Long)returnObj).longValue();
 	}
 
+	@Override
 	public com.liferay.reports.model.Entry fetchEntry(long entryId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -470,6 +480,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		return (com.liferay.reports.model.Entry)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.reports.model.Entry getEntry(long entryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -502,6 +513,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		return (com.liferay.reports.model.Entry)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -536,6 +548,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.reports.model.Entry> getEntries(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -564,6 +577,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		return (java.util.List<com.liferay.reports.model.Entry>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getEntriesCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -591,6 +605,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public com.liferay.reports.model.Entry updateEntry(
 		com.liferay.reports.model.Entry entry)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -620,6 +635,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		return (com.liferay.reports.model.Entry)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -642,6 +658,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableLocalService.invokeMethod(_methodName16,
@@ -661,12 +678,14 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public com.liferay.reports.model.Entry addEntry(long userId, long groupId,
 		long definitionId, java.lang.String format, boolean schedulerRequest,
 		java.util.Date startDate, java.util.Date endDate, boolean repeating,
@@ -736,6 +755,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		return (com.liferay.reports.model.Entry)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void addEntryResources(com.liferay.reports.model.Entry entry,
 		boolean addCommunityPermissions, boolean addGuestPermissions)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -772,6 +792,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		}
 	}
 
+	@Override
 	public void addEntryResources(com.liferay.reports.model.Entry entry,
 		java.lang.String[] communityPermissions,
 		java.lang.String[] guestPermissions)
@@ -809,6 +830,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		}
 	}
 
+	@Override
 	public void deleteAttachment(long companyId, java.lang.String fileName)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -838,6 +860,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		}
 	}
 
+	@Override
 	public void generateReport(long entryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -866,6 +889,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		}
 	}
 
+	@Override
 	public java.util.List<com.liferay.reports.model.Entry> getEntries(
 		long groupId, java.lang.String definitionName,
 		java.lang.String userName, java.util.Date createDateGT,
@@ -916,6 +940,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		return (java.util.List<com.liferay.reports.model.Entry>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getEntriesCount(long groupId, java.lang.String definitionName,
 		java.lang.String userName, java.util.Date createDateGT,
 		java.util.Date createDateLT, boolean andSearch)
@@ -958,6 +983,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public void sendEmails(long entryId, java.lang.String fileName,
 		java.lang.String[] emailAddresses, boolean notification)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -996,6 +1022,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		}
 	}
 
+	@Override
 	public void unscheduleEntry(long entryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -1024,6 +1051,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		}
 	}
 
+	@Override
 	public void updateEntry(long entryId, java.lang.String reportName,
 		byte[] reportResults)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -1060,6 +1088,7 @@ public class EntryLocalServiceClp implements EntryLocalService {
 		}
 	}
 
+	@Override
 	public void updateEntryStatus(long entryId,
 		com.liferay.reports.ReportStatus status, java.lang.String errorMessage)
 		throws com.liferay.portal.kernel.exception.PortalException,

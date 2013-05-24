@@ -41,26 +41,32 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 	public AuditEventClp() {
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return AuditEvent.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return AuditEvent.class.getName();
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _auditEventId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setAuditEventId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _auditEventId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
@@ -181,10 +187,12 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public long getAuditEventId() {
 		return _auditEventId;
 	}
 
+	@Override
 	public void setAuditEventId(long auditEventId) {
 		_auditEventId = auditEventId;
 
@@ -202,10 +210,12 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 
@@ -223,10 +233,12 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 
@@ -244,18 +256,22 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	public String getUserName() {
 		return _userName;
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 
@@ -273,10 +289,12 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 
@@ -294,10 +312,12 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public String getEventType() {
 		return _eventType;
 	}
 
+	@Override
 	public void setEventType(String eventType) {
 		_eventType = eventType;
 
@@ -315,10 +335,12 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public String getClassName() {
 		return _className;
 	}
 
+	@Override
 	public void setClassName(String className) {
 		_className = className;
 
@@ -336,10 +358,12 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public String getClassPK() {
 		return _classPK;
 	}
 
+	@Override
 	public void setClassPK(String classPK) {
 		_classPK = classPK;
 
@@ -357,10 +381,12 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public String getMessage() {
 		return _message;
 	}
 
+	@Override
 	public void setMessage(String message) {
 		_message = message;
 
@@ -378,10 +404,12 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public String getClientHost() {
 		return _clientHost;
 	}
 
+	@Override
 	public void setClientHost(String clientHost) {
 		_clientHost = clientHost;
 
@@ -399,10 +427,12 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public String getClientIP() {
 		return _clientIP;
 	}
 
+	@Override
 	public void setClientIP(String clientIP) {
 		_clientIP = clientIP;
 
@@ -420,10 +450,12 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public String getServerName() {
 		return _serverName;
 	}
 
+	@Override
 	public void setServerName(String serverName) {
 		_serverName = serverName;
 
@@ -441,10 +473,12 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public int getServerPort() {
 		return _serverPort;
 	}
 
+	@Override
 	public void setServerPort(int serverPort) {
 		_serverPort = serverPort;
 
@@ -462,10 +496,12 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public String getSessionID() {
 		return _sessionID;
 	}
 
+	@Override
 	public void setSessionID(String sessionID) {
 		_sessionID = sessionID;
 
@@ -483,10 +519,12 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public String getAdditionalInfo() {
 		return _additionalInfo;
 	}
 
+	@Override
 	public void setAdditionalInfo(String additionalInfo) {
 		_additionalInfo = additionalInfo;
 
@@ -554,6 +592,7 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 		return returnValue;
 	}
 
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			AuditEventLocalServiceUtil.addAuditEvent(this);
@@ -592,6 +631,7 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 		return clone;
 	}
 
+	@Override
 	public int compareTo(AuditEvent auditEvent) {
 		int value = 0;
 
@@ -672,6 +712,7 @@ public class AuditEventClp extends BaseModelImpl<AuditEvent>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(49);
 

@@ -77,6 +77,7 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 		return sb.toString();
 	}
 
+	@Override
 	public SyncDLObject toEntityModel() {
 		SyncDLObjectImpl syncDLObjectImpl = new SyncDLObjectImpl();
 
@@ -154,6 +155,7 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 		return syncDLObjectImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		objectId = objectInput.readLong();
 		companyId = objectInput.readLong();
@@ -174,6 +176,7 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 		version = objectInput.readUTF();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(objectId);

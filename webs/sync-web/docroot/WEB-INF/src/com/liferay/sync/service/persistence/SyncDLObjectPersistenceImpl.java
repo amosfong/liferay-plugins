@@ -109,6 +109,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @return the matching sync d l objects
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SyncDLObject> findByC_M_R(long companyId, long modifiedDate,
 		long repositoryId) throws SystemException {
 		return findByC_M_R(companyId, modifiedDate, repositoryId,
@@ -130,6 +131,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @return the range of matching sync d l objects
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SyncDLObject> findByC_M_R(long companyId, long modifiedDate,
 		long repositoryId, int start, int end) throws SystemException {
 		return findByC_M_R(companyId, modifiedDate, repositoryId, start, end,
@@ -152,6 +154,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @return the ordered range of matching sync d l objects
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SyncDLObject> findByC_M_R(long companyId, long modifiedDate,
 		long repositoryId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -267,6 +270,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @throws com.liferay.sync.NoSuchDLObjectException if a matching sync d l object could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SyncDLObject findByC_M_R_First(long companyId, long modifiedDate,
 		long repositoryId, OrderByComparator orderByComparator)
 		throws NoSuchDLObjectException, SystemException {
@@ -305,6 +309,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @return the first matching sync d l object, or <code>null</code> if a matching sync d l object could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SyncDLObject fetchByC_M_R_First(long companyId, long modifiedDate,
 		long repositoryId, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -329,6 +334,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @throws com.liferay.sync.NoSuchDLObjectException if a matching sync d l object could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SyncDLObject findByC_M_R_Last(long companyId, long modifiedDate,
 		long repositoryId, OrderByComparator orderByComparator)
 		throws NoSuchDLObjectException, SystemException {
@@ -367,6 +373,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @return the last matching sync d l object, or <code>null</code> if a matching sync d l object could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SyncDLObject fetchByC_M_R_Last(long companyId, long modifiedDate,
 		long repositoryId, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -394,6 +401,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @throws com.liferay.sync.NoSuchDLObjectException if a sync d l object with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SyncDLObject[] findByC_M_R_PrevAndNext(long objectId,
 		long companyId, long modifiedDate, long repositoryId,
 		OrderByComparator orderByComparator)
@@ -546,6 +554,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @param repositoryId the repository ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByC_M_R(long companyId, long modifiedDate,
 		long repositoryId) throws SystemException {
 		for (SyncDLObject syncDLObject : findByC_M_R(companyId, modifiedDate,
@@ -563,6 +572,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @return the number of matching sync d l objects
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByC_M_R(long companyId, long modifiedDate, long repositoryId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_WITH_PAGINATION_COUNT_BY_C_M_R;
@@ -638,6 +648,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @throws com.liferay.sync.NoSuchDLObjectException if a matching sync d l object could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SyncDLObject findByFileId(long fileId)
 		throws NoSuchDLObjectException, SystemException {
 		SyncDLObject syncDLObject = fetchByFileId(fileId);
@@ -669,6 +680,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @return the matching sync d l object, or <code>null</code> if a matching sync d l object could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SyncDLObject fetchByFileId(long fileId) throws SystemException {
 		return fetchByFileId(fileId, true);
 	}
@@ -681,6 +693,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @return the matching sync d l object, or <code>null</code> if a matching sync d l object could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SyncDLObject fetchByFileId(long fileId, boolean retrieveFromCache)
 		throws SystemException {
 		Object[] finderArgs = new Object[] { fileId };
@@ -765,6 +778,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @return the sync d l object that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SyncDLObject removeByFileId(long fileId)
 		throws NoSuchDLObjectException, SystemException {
 		SyncDLObject syncDLObject = findByFileId(fileId);
@@ -779,6 +793,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @return the number of matching sync d l objects
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByFileId(long fileId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_FILEID;
 
@@ -831,6 +846,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 *
 	 * @param syncDLObject the sync d l object
 	 */
+	@Override
 	public void cacheResult(SyncDLObject syncDLObject) {
 		EntityCacheUtil.putResult(SyncDLObjectModelImpl.ENTITY_CACHE_ENABLED,
 			SyncDLObjectImpl.class, syncDLObject.getPrimaryKey(), syncDLObject);
@@ -846,6 +862,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 *
 	 * @param syncDLObjects the sync d l objects
 	 */
+	@Override
 	public void cacheResult(List<SyncDLObject> syncDLObjects) {
 		for (SyncDLObject syncDLObject : syncDLObjects) {
 			if (EntityCacheUtil.getResult(
@@ -957,6 +974,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @param objectId the primary key for the new sync d l object
 	 * @return the new sync d l object
 	 */
+	@Override
 	public SyncDLObject create(long objectId) {
 		SyncDLObject syncDLObject = new SyncDLObjectImpl();
 
@@ -974,6 +992,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @throws com.liferay.sync.NoSuchDLObjectException if a sync d l object with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SyncDLObject remove(long objectId)
 		throws NoSuchDLObjectException, SystemException {
 		return remove((Serializable)objectId);
@@ -1161,6 +1180,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @throws com.liferay.sync.NoSuchDLObjectException if a sync d l object with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SyncDLObject findByPrimaryKey(long objectId)
 		throws NoSuchDLObjectException, SystemException {
 		return findByPrimaryKey((Serializable)objectId);
@@ -1221,6 +1241,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @return the sync d l object, or <code>null</code> if a sync d l object with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SyncDLObject fetchByPrimaryKey(long objectId)
 		throws SystemException {
 		return fetchByPrimaryKey((Serializable)objectId);
@@ -1232,6 +1253,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @return the sync d l objects
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SyncDLObject> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -1248,6 +1270,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @return the range of sync d l objects
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SyncDLObject> findAll(int start, int end)
 		throws SystemException {
 		return findAll(start, end, null);
@@ -1266,6 +1289,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @return the ordered range of sync d l objects
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SyncDLObject> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -1351,6 +1375,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (SyncDLObject syncDLObject : findAll()) {
 			remove(syncDLObject);
@@ -1363,6 +1388,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	 * @return the number of sync d l objects
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -1457,6 +1483,7 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 		};
 
 	private static CacheModel<SyncDLObject> _nullSyncDLObjectCacheModel = new CacheModel<SyncDLObject>() {
+			@Override
 			public SyncDLObject toEntityModel() {
 				return _nullSyncDLObject;
 			}

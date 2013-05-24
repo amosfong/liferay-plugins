@@ -37,6 +37,7 @@ public abstract class SourceBaseImpl extends SourceModelImpl implements Source {
 	 *
 	 * Never modify or reference this class directly. All methods that expect a source model instance should use the {@link Source} interface instead.
 	 */
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			SourceLocalServiceUtil.addSource(this);

@@ -36,6 +36,7 @@ public class SalesforceAccountLocalServiceWrapper
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _salesforceAccountLocalService.getBeanIdentifier();
 	}
@@ -45,10 +46,12 @@ public class SalesforceAccountLocalServiceWrapper
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_salesforceAccountLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
@@ -56,6 +59,7 @@ public class SalesforceAccountLocalServiceWrapper
 			parameterTypes, arguments);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch getAccountsByName(
 		long companyId, java.lang.String name,
 		java.util.List<java.lang.String> fieldNames)
@@ -64,6 +68,7 @@ public class SalesforceAccountLocalServiceWrapper
 			name, fieldNames);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch getAccountsByOwnerId(
 		long companyId, java.lang.String ownerId,
 		java.util.List<java.lang.String> fieldNames)
@@ -73,6 +78,7 @@ public class SalesforceAccountLocalServiceWrapper
 			ownerId, fieldNames);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch getAccountsByUserName(
 		long companyId, java.lang.String userName,
 		java.util.List<java.lang.String> fieldNames)
@@ -97,10 +103,12 @@ public class SalesforceAccountLocalServiceWrapper
 		_salesforceAccountLocalService = salesforceAccountLocalService;
 	}
 
+	@Override
 	public SalesforceAccountLocalService getWrappedService() {
 		return _salesforceAccountLocalService;
 	}
 
+	@Override
 	public void setWrappedService(
 		SalesforceAccountLocalService salesforceAccountLocalService) {
 		_salesforceAccountLocalService = salesforceAccountLocalService;

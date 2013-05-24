@@ -86,6 +86,7 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public SamlSpSession addSamlSpSession(SamlSpSession samlSpSession)
 		throws SystemException {
 		samlSpSession.setNew(true);
@@ -99,6 +100,7 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 	 * @param samlSpSessionId the primary key for the new saml sp session
 	 * @return the new saml sp session
 	 */
+	@Override
 	public SamlSpSession createSamlSpSession(long samlSpSessionId) {
 		return samlSpSessionPersistence.create(samlSpSessionId);
 	}
@@ -112,6 +114,7 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public SamlSpSession deleteSamlSpSession(long samlSpSessionId)
 		throws PortalException, SystemException {
 		return samlSpSessionPersistence.remove(samlSpSessionId);
@@ -125,11 +128,13 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public SamlSpSession deleteSamlSpSession(SamlSpSession samlSpSession)
 		throws SystemException {
 		return samlSpSessionPersistence.remove(samlSpSession);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -144,6 +149,7 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -163,6 +169,7 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -184,6 +191,7 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -198,11 +206,13 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return samlSpSessionPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public SamlSpSession fetchSamlSpSession(long samlSpSessionId)
 		throws SystemException {
 		return samlSpSessionPersistence.fetchByPrimaryKey(samlSpSessionId);
@@ -216,11 +226,13 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 	 * @throws PortalException if a saml sp session with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlSpSession getSamlSpSession(long samlSpSessionId)
 		throws PortalException, SystemException {
 		return samlSpSessionPersistence.findByPrimaryKey(samlSpSessionId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return samlSpSessionPersistence.findByPrimaryKey(primaryKeyObj);
@@ -238,6 +250,7 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 	 * @return the range of saml sp sessions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SamlSpSession> getSamlSpSessions(int start, int end)
 		throws SystemException {
 		return samlSpSessionPersistence.findAll(start, end);
@@ -249,6 +262,7 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 	 * @return the number of saml sp sessions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getSamlSpSessionsCount() throws SystemException {
 		return samlSpSessionPersistence.countAll();
 	}
@@ -261,6 +275,7 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public SamlSpSession updateSamlSpSession(SamlSpSession samlSpSession)
 		throws SystemException {
 		return samlSpSessionPersistence.update(samlSpSession);
@@ -642,6 +657,7 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -651,10 +667,12 @@ public abstract class SamlSpSessionLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}
 
+	@Override
 	public Object invokeMethod(String name, String[] parameterTypes,
 		Object[] arguments) throws Throwable {
 		Thread currentThread = Thread.currentThread();

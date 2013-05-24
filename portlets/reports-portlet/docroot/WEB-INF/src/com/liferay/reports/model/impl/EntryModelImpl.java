@@ -167,26 +167,32 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 	public EntryModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _entryId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setEntryId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _entryId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return Entry.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return Entry.class.getName();
 	}
@@ -349,50 +355,61 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		}
 	}
 
+	@Override
 	@JSON
 	public long getEntryId() {
 		return _entryId;
 	}
 
+	@Override
 	public void setEntryId(long entryId) {
 		_entryId = entryId;
 	}
 
+	@Override
 	@JSON
 	public long getGroupId() {
 		return _groupId;
 	}
 
+	@Override
 	public void setGroupId(long groupId) {
 		_groupId = groupId;
 	}
 
+	@Override
 	@JSON
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 	}
 
+	@Override
 	@JSON
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	@JSON
 	public String getUserName() {
 		if (_userName == null) {
@@ -403,37 +420,45 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		}
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 	}
 
+	@Override
 	@JSON
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 	}
 
+	@Override
 	@JSON
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 	}
 
+	@Override
 	@JSON
 	public long getDefinitionId() {
 		return _definitionId;
 	}
 
+	@Override
 	public void setDefinitionId(long definitionId) {
 		_definitionId = definitionId;
 	}
 
+	@Override
 	@JSON
 	public String getFormat() {
 		if (_format == null) {
@@ -444,54 +469,66 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		}
 	}
 
+	@Override
 	public void setFormat(String format) {
 		_format = format;
 	}
 
+	@Override
 	@JSON
 	public boolean getScheduleRequest() {
 		return _scheduleRequest;
 	}
 
+	@Override
 	public boolean isScheduleRequest() {
 		return _scheduleRequest;
 	}
 
+	@Override
 	public void setScheduleRequest(boolean scheduleRequest) {
 		_scheduleRequest = scheduleRequest;
 	}
 
+	@Override
 	@JSON
 	public Date getStartDate() {
 		return _startDate;
 	}
 
+	@Override
 	public void setStartDate(Date startDate) {
 		_startDate = startDate;
 	}
 
+	@Override
 	@JSON
 	public Date getEndDate() {
 		return _endDate;
 	}
 
+	@Override
 	public void setEndDate(Date endDate) {
 		_endDate = endDate;
 	}
 
+	@Override
 	@JSON
 	public boolean getRepeating() {
 		return _repeating;
 	}
 
+	@Override
 	public boolean isRepeating() {
 		return _repeating;
 	}
 
+	@Override
 	public void setRepeating(boolean repeating) {
 		_repeating = repeating;
 	}
 
+	@Override
 	@JSON
 	public String getRecurrence() {
 		if (_recurrence == null) {
@@ -502,10 +539,12 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		}
 	}
 
+	@Override
 	public void setRecurrence(String recurrence) {
 		_recurrence = recurrence;
 	}
 
+	@Override
 	@JSON
 	public String getEmailNotifications() {
 		if (_emailNotifications == null) {
@@ -516,10 +555,12 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		}
 	}
 
+	@Override
 	public void setEmailNotifications(String emailNotifications) {
 		_emailNotifications = emailNotifications;
 	}
 
+	@Override
 	@JSON
 	public String getEmailDelivery() {
 		if (_emailDelivery == null) {
@@ -530,10 +571,12 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		}
 	}
 
+	@Override
 	public void setEmailDelivery(String emailDelivery) {
 		_emailDelivery = emailDelivery;
 	}
 
+	@Override
 	@JSON
 	public String getPortletId() {
 		if (_portletId == null) {
@@ -544,10 +587,12 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		}
 	}
 
+	@Override
 	public void setPortletId(String portletId) {
 		_portletId = portletId;
 	}
 
+	@Override
 	@JSON
 	public String getPageURL() {
 		if (_pageURL == null) {
@@ -558,10 +603,12 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		}
 	}
 
+	@Override
 	public void setPageURL(String pageURL) {
 		_pageURL = pageURL;
 	}
 
+	@Override
 	@JSON
 	public String getReportParameters() {
 		if (_reportParameters == null) {
@@ -572,10 +619,12 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		}
 	}
 
+	@Override
 	public void setReportParameters(String reportParameters) {
 		_reportParameters = reportParameters;
 	}
 
+	@Override
 	@JSON
 	public String getStatus() {
 		if (_status == null) {
@@ -586,10 +635,12 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		}
 	}
 
+	@Override
 	public void setStatus(String status) {
 		_status = status;
 	}
 
+	@Override
 	@JSON
 	public String getErrorMessage() {
 		if (_errorMessage == null) {
@@ -600,6 +651,7 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		}
 	}
 
+	@Override
 	public void setErrorMessage(String errorMessage) {
 		_errorMessage = errorMessage;
 	}
@@ -658,6 +710,7 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		return entryImpl;
 	}
 
+	@Override
 	public int compareTo(Entry entry) {
 		int value = 0;
 
@@ -889,6 +942,7 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(67);
 

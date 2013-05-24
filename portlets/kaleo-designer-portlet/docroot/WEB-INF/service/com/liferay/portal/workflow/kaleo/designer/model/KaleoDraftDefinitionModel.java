@@ -84,6 +84,7 @@ public interface KaleoDraftDefinitionModel extends BaseModel<KaleoDraftDefinitio
 	 *
 	 * @return the group ID of this kaleo draft definition
 	 */
+	@Override
 	public long getGroupId();
 
 	/**
@@ -91,6 +92,7 @@ public interface KaleoDraftDefinitionModel extends BaseModel<KaleoDraftDefinitio
 	 *
 	 * @param groupId the group ID of this kaleo draft definition
 	 */
+	@Override
 	public void setGroupId(long groupId);
 
 	/**
@@ -98,6 +100,7 @@ public interface KaleoDraftDefinitionModel extends BaseModel<KaleoDraftDefinitio
 	 *
 	 * @return the company ID of this kaleo draft definition
 	 */
+	@Override
 	public long getCompanyId();
 
 	/**
@@ -105,6 +108,7 @@ public interface KaleoDraftDefinitionModel extends BaseModel<KaleoDraftDefinitio
 	 *
 	 * @param companyId the company ID of this kaleo draft definition
 	 */
+	@Override
 	public void setCompanyId(long companyId);
 
 	/**
@@ -112,6 +116,7 @@ public interface KaleoDraftDefinitionModel extends BaseModel<KaleoDraftDefinitio
 	 *
 	 * @return the user ID of this kaleo draft definition
 	 */
+	@Override
 	public long getUserId();
 
 	/**
@@ -119,6 +124,7 @@ public interface KaleoDraftDefinitionModel extends BaseModel<KaleoDraftDefinitio
 	 *
 	 * @param userId the user ID of this kaleo draft definition
 	 */
+	@Override
 	public void setUserId(long userId);
 
 	/**
@@ -127,6 +133,7 @@ public interface KaleoDraftDefinitionModel extends BaseModel<KaleoDraftDefinitio
 	 * @return the user uuid of this kaleo draft definition
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public String getUserUuid() throws SystemException;
 
 	/**
@@ -134,6 +141,7 @@ public interface KaleoDraftDefinitionModel extends BaseModel<KaleoDraftDefinitio
 	 *
 	 * @param userUuid the user uuid of this kaleo draft definition
 	 */
+	@Override
 	public void setUserUuid(String userUuid);
 
 	/**
@@ -142,6 +150,7 @@ public interface KaleoDraftDefinitionModel extends BaseModel<KaleoDraftDefinitio
 	 * @return the user name of this kaleo draft definition
 	 */
 	@AutoEscape
+	@Override
 	public String getUserName();
 
 	/**
@@ -149,6 +158,7 @@ public interface KaleoDraftDefinitionModel extends BaseModel<KaleoDraftDefinitio
 	 *
 	 * @param userName the user name of this kaleo draft definition
 	 */
+	@Override
 	public void setUserName(String userName);
 
 	/**
@@ -156,6 +166,7 @@ public interface KaleoDraftDefinitionModel extends BaseModel<KaleoDraftDefinitio
 	 *
 	 * @return the create date of this kaleo draft definition
 	 */
+	@Override
 	public Date getCreateDate();
 
 	/**
@@ -163,6 +174,7 @@ public interface KaleoDraftDefinitionModel extends BaseModel<KaleoDraftDefinitio
 	 *
 	 * @param createDate the create date of this kaleo draft definition
 	 */
+	@Override
 	public void setCreateDate(Date createDate);
 
 	/**
@@ -170,6 +182,7 @@ public interface KaleoDraftDefinitionModel extends BaseModel<KaleoDraftDefinitio
 	 *
 	 * @return the modified date of this kaleo draft definition
 	 */
+	@Override
 	public Date getModifiedDate();
 
 	/**
@@ -177,6 +190,7 @@ public interface KaleoDraftDefinitionModel extends BaseModel<KaleoDraftDefinitio
 	 *
 	 * @param modifiedDate the modified date of this kaleo draft definition
 	 */
+	@Override
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
@@ -336,44 +350,63 @@ public interface KaleoDraftDefinitionModel extends BaseModel<KaleoDraftDefinitio
 	 */
 	public void setDraftVersion(int draftVersion);
 
+	@Override
 	public boolean isNew();
 
+	@Override
 	public void setNew(boolean n);
 
+	@Override
 	public boolean isCachedModel();
 
+	@Override
 	public void setCachedModel(boolean cachedModel);
 
+	@Override
 	public boolean isEscapedModel();
 
+	@Override
 	public Serializable getPrimaryKeyObj();
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj);
 
+	@Override
 	public ExpandoBridge getExpandoBridge();
 
+	@Override
 	public void setExpandoBridgeAttributes(BaseModel<?> baseModel);
 
+	@Override
 	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge);
 
+	@Override
 	public void setExpandoBridgeAttributes(ServiceContext serviceContext);
 
 	public void prepareLocalizedFieldsForImport(Locale defaultImportLocale)
 		throws LocaleException;
 
+	@Override
 	public Object clone();
 
+	@Override
 	public int compareTo(KaleoDraftDefinition kaleoDraftDefinition);
 
+	@Override
 	public int hashCode();
 
+	@Override
 	public CacheModel<KaleoDraftDefinition> toCacheModel();
 
+	@Override
 	public KaleoDraftDefinition toEscapedModel();
 
+	@Override
 	public KaleoDraftDefinition toUnescapedModel();
 
+	@Override
 	public String toString();
 
+	@Override
 	public String toXmlString();
 }

@@ -115,6 +115,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the matching kaleo draft definitions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<KaleoDraftDefinition> findByCompanyId(long companyId)
 		throws SystemException {
 		return findByCompanyId(companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
@@ -134,6 +135,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the range of matching kaleo draft definitions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<KaleoDraftDefinition> findByCompanyId(long companyId,
 		int start, int end) throws SystemException {
 		return findByCompanyId(companyId, start, end, null);
@@ -153,6 +155,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the ordered range of matching kaleo draft definitions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<KaleoDraftDefinition> findByCompanyId(long companyId,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -260,6 +263,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @throws com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException if a matching kaleo draft definition could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoDraftDefinition findByCompanyId_First(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchKaleoDraftDefinitionException, SystemException {
@@ -290,6 +294,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the first matching kaleo draft definition, or <code>null</code> if a matching kaleo draft definition could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoDraftDefinition fetchByCompanyId_First(long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<KaleoDraftDefinition> list = findByCompanyId(companyId, 0, 1,
@@ -311,6 +316,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @throws com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException if a matching kaleo draft definition could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoDraftDefinition findByCompanyId_Last(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchKaleoDraftDefinitionException, SystemException {
@@ -341,6 +347,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the last matching kaleo draft definition, or <code>null</code> if a matching kaleo draft definition could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoDraftDefinition fetchByCompanyId_Last(long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByCompanyId(companyId);
@@ -365,6 +372,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @throws com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException if a kaleo draft definition with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoDraftDefinition[] findByCompanyId_PrevAndNext(
 		long kaleoDraftDefinitionId, long companyId,
 		OrderByComparator orderByComparator)
@@ -507,6 +515,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @param companyId the company ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByCompanyId(long companyId) throws SystemException {
 		for (KaleoDraftDefinition kaleoDraftDefinition : findByCompanyId(
 				companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -521,6 +530,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the number of matching kaleo draft definitions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByCompanyId(long companyId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_COMPANYID;
 
@@ -607,6 +617,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the matching kaleo draft definitions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<KaleoDraftDefinition> findByC_N_V(long companyId, String name,
 		int version) throws SystemException {
 		return findByC_N_V(companyId, name, version, QueryUtil.ALL_POS,
@@ -628,6 +639,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the range of matching kaleo draft definitions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<KaleoDraftDefinition> findByC_N_V(long companyId, String name,
 		int version, int start, int end) throws SystemException {
 		return findByC_N_V(companyId, name, version, start, end, null);
@@ -649,6 +661,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the ordered range of matching kaleo draft definitions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<KaleoDraftDefinition> findByC_N_V(long companyId, String name,
 		int version, int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -786,6 +799,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @throws com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException if a matching kaleo draft definition could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoDraftDefinition findByC_N_V_First(long companyId, String name,
 		int version, OrderByComparator orderByComparator)
 		throws NoSuchKaleoDraftDefinitionException, SystemException {
@@ -824,6 +838,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the first matching kaleo draft definition, or <code>null</code> if a matching kaleo draft definition could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoDraftDefinition fetchByC_N_V_First(long companyId, String name,
 		int version, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -848,6 +863,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @throws com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException if a matching kaleo draft definition could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoDraftDefinition findByC_N_V_Last(long companyId, String name,
 		int version, OrderByComparator orderByComparator)
 		throws NoSuchKaleoDraftDefinitionException, SystemException {
@@ -886,6 +902,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the last matching kaleo draft definition, or <code>null</code> if a matching kaleo draft definition could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoDraftDefinition fetchByC_N_V_Last(long companyId, String name,
 		int version, OrderByComparator orderByComparator)
 		throws SystemException {
@@ -913,6 +930,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @throws com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException if a kaleo draft definition with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoDraftDefinition[] findByC_N_V_PrevAndNext(
 		long kaleoDraftDefinitionId, long companyId, String name, int version,
 		OrderByComparator orderByComparator)
@@ -1079,6 +1097,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @param version the version
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByC_N_V(long companyId, String name, int version)
 		throws SystemException {
 		for (KaleoDraftDefinition kaleoDraftDefinition : findByC_N_V(
@@ -1097,6 +1116,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the number of matching kaleo draft definitions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByC_N_V(long companyId, String name, int version)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_N_V;
@@ -1201,6 +1221,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @throws com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException if a matching kaleo draft definition could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoDraftDefinition findByC_N_V_D(long companyId, String name,
 		int version, int draftVersion)
 		throws NoSuchKaleoDraftDefinitionException, SystemException {
@@ -1246,6 +1267,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the matching kaleo draft definition, or <code>null</code> if a matching kaleo draft definition could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoDraftDefinition fetchByC_N_V_D(long companyId, String name,
 		int version, int draftVersion) throws SystemException {
 		return fetchByC_N_V_D(companyId, name, version, draftVersion, true);
@@ -1262,6 +1284,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the matching kaleo draft definition, or <code>null</code> if a matching kaleo draft definition could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoDraftDefinition fetchByC_N_V_D(long companyId, String name,
 		int version, int draftVersion, boolean retrieveFromCache)
 		throws SystemException {
@@ -1385,6 +1408,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the kaleo draft definition that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoDraftDefinition removeByC_N_V_D(long companyId, String name,
 		int version, int draftVersion)
 		throws NoSuchKaleoDraftDefinitionException, SystemException {
@@ -1404,6 +1428,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the number of matching kaleo draft definitions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByC_N_V_D(long companyId, String name, int version,
 		int draftVersion) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_N_V_D;
@@ -1490,6 +1515,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 *
 	 * @param kaleoDraftDefinition the kaleo draft definition
 	 */
+	@Override
 	public void cacheResult(KaleoDraftDefinition kaleoDraftDefinition) {
 		EntityCacheUtil.putResult(KaleoDraftDefinitionModelImpl.ENTITY_CACHE_ENABLED,
 			KaleoDraftDefinitionImpl.class,
@@ -1511,6 +1537,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 *
 	 * @param kaleoDraftDefinitions the kaleo draft definitions
 	 */
+	@Override
 	public void cacheResult(List<KaleoDraftDefinition> kaleoDraftDefinitions) {
 		for (KaleoDraftDefinition kaleoDraftDefinition : kaleoDraftDefinitions) {
 			if (EntityCacheUtil.getResult(
@@ -1646,6 +1673,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @param kaleoDraftDefinitionId the primary key for the new kaleo draft definition
 	 * @return the new kaleo draft definition
 	 */
+	@Override
 	public KaleoDraftDefinition create(long kaleoDraftDefinitionId) {
 		KaleoDraftDefinition kaleoDraftDefinition = new KaleoDraftDefinitionImpl();
 
@@ -1663,6 +1691,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @throws com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException if a kaleo draft definition with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoDraftDefinition remove(long kaleoDraftDefinitionId)
 		throws NoSuchKaleoDraftDefinitionException, SystemException {
 		return remove((Serializable)kaleoDraftDefinitionId);
@@ -1893,6 +1922,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @throws com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException if a kaleo draft definition with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoDraftDefinition findByPrimaryKey(long kaleoDraftDefinitionId)
 		throws NoSuchKaleoDraftDefinitionException, SystemException {
 		return findByPrimaryKey((Serializable)kaleoDraftDefinitionId);
@@ -1954,6 +1984,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the kaleo draft definition, or <code>null</code> if a kaleo draft definition with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public KaleoDraftDefinition fetchByPrimaryKey(long kaleoDraftDefinitionId)
 		throws SystemException {
 		return fetchByPrimaryKey((Serializable)kaleoDraftDefinitionId);
@@ -1965,6 +1996,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the kaleo draft definitions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<KaleoDraftDefinition> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -1981,6 +2013,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the range of kaleo draft definitions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<KaleoDraftDefinition> findAll(int start, int end)
 		throws SystemException {
 		return findAll(start, end, null);
@@ -1999,6 +2032,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the ordered range of kaleo draft definitions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<KaleoDraftDefinition> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -2084,6 +2118,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (KaleoDraftDefinition kaleoDraftDefinition : findAll()) {
 			remove(kaleoDraftDefinition);
@@ -2096,6 +2131,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	 * @return the number of kaleo draft definitions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -2183,6 +2219,7 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 
 	private static CacheModel<KaleoDraftDefinition> _nullKaleoDraftDefinitionCacheModel =
 		new CacheModel<KaleoDraftDefinition>() {
+			@Override
 			public KaleoDraftDefinition toEntityModel() {
 				return _nullKaleoDraftDefinition;
 			}

@@ -46,26 +46,32 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 	public SourceClp() {
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return Source.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return Source.class.getName();
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _sourceId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setSourceId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _sourceId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
@@ -172,10 +178,12 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		}
 	}
 
+	@Override
 	public String getUuid() {
 		return _uuid;
 	}
 
+	@Override
 	public void setUuid(String uuid) {
 		_uuid = uuid;
 
@@ -193,10 +201,12 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		}
 	}
 
+	@Override
 	public long getSourceId() {
 		return _sourceId;
 	}
 
+	@Override
 	public void setSourceId(long sourceId) {
 		_sourceId = sourceId;
 
@@ -214,10 +224,12 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		}
 	}
 
+	@Override
 	public long getGroupId() {
 		return _groupId;
 	}
 
+	@Override
 	public void setGroupId(long groupId) {
 		_groupId = groupId;
 
@@ -235,10 +247,12 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		}
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 
@@ -256,10 +270,12 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		}
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 
@@ -277,18 +293,22 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		}
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	public String getUserName() {
 		return _userName;
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 
@@ -306,10 +326,12 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		}
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 
@@ -327,10 +349,12 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		}
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 
@@ -348,45 +372,54 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		}
 	}
 
+	@Override
 	public String getName() {
 		return _name;
 	}
 
+	@Override
 	public String getName(Locale locale) {
 		String languageId = LocaleUtil.toLanguageId(locale);
 
 		return getName(languageId);
 	}
 
+	@Override
 	public String getName(Locale locale, boolean useDefault) {
 		String languageId = LocaleUtil.toLanguageId(locale);
 
 		return getName(languageId, useDefault);
 	}
 
+	@Override
 	public String getName(String languageId) {
 		return LocalizationUtil.getLocalization(getName(), languageId);
 	}
 
+	@Override
 	public String getName(String languageId, boolean useDefault) {
 		return LocalizationUtil.getLocalization(getName(), languageId,
 			useDefault);
 	}
 
+	@Override
 	public String getNameCurrentLanguageId() {
 		return _nameCurrentLanguageId;
 	}
 
+	@Override
 	public String getNameCurrentValue() {
 		Locale locale = getLocale(_nameCurrentLanguageId);
 
 		return getName(locale);
 	}
 
+	@Override
 	public Map<Locale, String> getNameMap() {
 		return LocalizationUtil.getLocalizationMap(getName());
 	}
 
+	@Override
 	public void setName(String name) {
 		_name = name;
 
@@ -404,10 +437,12 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		}
 	}
 
+	@Override
 	public void setName(String name, Locale locale) {
 		setName(name, locale, LocaleUtil.getDefault());
 	}
 
+	@Override
 	public void setName(String name, Locale locale, Locale defaultLocale) {
 		String languageId = LocaleUtil.toLanguageId(locale);
 		String defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);
@@ -422,14 +457,17 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		}
 	}
 
+	@Override
 	public void setNameCurrentLanguageId(String languageId) {
 		_nameCurrentLanguageId = languageId;
 	}
 
+	@Override
 	public void setNameMap(Map<Locale, String> nameMap) {
 		setNameMap(nameMap, LocaleUtil.getDefault());
 	}
 
+	@Override
 	public void setNameMap(Map<Locale, String> nameMap, Locale defaultLocale) {
 		if (nameMap == null) {
 			return;
@@ -456,10 +494,12 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		}
 	}
 
+	@Override
 	public String getDriverClassName() {
 		return _driverClassName;
 	}
 
+	@Override
 	public void setDriverClassName(String driverClassName) {
 		_driverClassName = driverClassName;
 
@@ -478,10 +518,12 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		}
 	}
 
+	@Override
 	public String getDriverUrl() {
 		return _driverUrl;
 	}
 
+	@Override
 	public void setDriverUrl(String driverUrl) {
 		_driverUrl = driverUrl;
 
@@ -499,10 +541,12 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		}
 	}
 
+	@Override
 	public String getDriverUserName() {
 		return _driverUserName;
 	}
 
+	@Override
 	public void setDriverUserName(String driverUserName) {
 		_driverUserName = driverUserName;
 
@@ -521,10 +565,12 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		}
 	}
 
+	@Override
 	public String getDriverPassword() {
 		return _driverPassword;
 	}
 
+	@Override
 	public void setDriverPassword(String driverPassword) {
 		_driverPassword = driverPassword;
 
@@ -543,6 +589,7 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		}
 	}
 
+	@Override
 	public java.lang.String[] getAttachmentsFiles() {
 		try {
 			String methodName = "getAttachmentsFiles";
@@ -561,6 +608,7 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		}
 	}
 
+	@Override
 	public java.lang.String getAttachmentsDir() {
 		try {
 			String methodName = "getAttachmentsDir";
@@ -628,6 +676,7 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		return returnValue;
 	}
 
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			SourceLocalServiceUtil.addSource(this);
@@ -637,6 +686,7 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		}
 	}
 
+	@Override
 	@SuppressWarnings("unused")
 	public void prepareLocalizedFieldsForImport(Locale defaultImportLocale)
 		throws LocaleException {
@@ -671,6 +721,7 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		return clone;
 	}
 
+	@Override
 	public int compareTo(Source source) {
 		long primaryKey = source.getPrimaryKey();
 
@@ -747,6 +798,7 @@ public class SourceClp extends BaseModelImpl<Source> implements Source {
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(43);
 

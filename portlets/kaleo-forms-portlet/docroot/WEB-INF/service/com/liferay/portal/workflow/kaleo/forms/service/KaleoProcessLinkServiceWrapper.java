@@ -35,6 +35,7 @@ public class KaleoProcessLinkServiceWrapper implements KaleoProcessLinkService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _kaleoProcessLinkService.getBeanIdentifier();
 	}
@@ -44,10 +45,12 @@ public class KaleoProcessLinkServiceWrapper implements KaleoProcessLinkService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_kaleoProcessLinkService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
@@ -55,6 +58,7 @@ public class KaleoProcessLinkServiceWrapper implements KaleoProcessLinkService,
 			arguments);
 	}
 
+	@Override
 	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink fetchKaleoProcessLink(
 		long kaleoProcessId, java.lang.String workflowTaskName)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -62,6 +66,7 @@ public class KaleoProcessLinkServiceWrapper implements KaleoProcessLinkService,
 			workflowTaskName);
 	}
 
+	@Override
 	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink updateKaleoProcessLink(
 		long kaleoProcessLinkId, long kaleoProcessId,
 		java.lang.String workflowTaskName, long ddmTemplateId)
@@ -71,6 +76,7 @@ public class KaleoProcessLinkServiceWrapper implements KaleoProcessLinkService,
 			kaleoProcessId, workflowTaskName, ddmTemplateId);
 	}
 
+	@Override
 	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink updateKaleoProcessLink(
 		long kaleoProcessId, java.lang.String workflowTaskName,
 		long ddmTemplateId)
@@ -94,10 +100,12 @@ public class KaleoProcessLinkServiceWrapper implements KaleoProcessLinkService,
 		_kaleoProcessLinkService = kaleoProcessLinkService;
 	}
 
+	@Override
 	public KaleoProcessLinkService getWrappedService() {
 		return _kaleoProcessLinkService;
 	}
 
+	@Override
 	public void setWrappedService(
 		KaleoProcessLinkService kaleoProcessLinkService) {
 		_kaleoProcessLinkService = kaleoProcessLinkService;

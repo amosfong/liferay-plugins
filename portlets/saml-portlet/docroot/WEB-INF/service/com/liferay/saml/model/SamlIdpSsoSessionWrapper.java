@@ -35,14 +35,17 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 		_samlIdpSsoSession = samlIdpSsoSession;
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return SamlIdpSsoSession.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return SamlIdpSsoSession.class.getName();
 	}
 
+	@Override
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
@@ -57,6 +60,7 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 		return attributes;
 	}
 
+	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		Long samlIdpSsoSessionId = (Long)attributes.get("samlIdpSsoSessionId");
 
@@ -107,6 +111,7 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 	*
 	* @return the primary key of this saml idp sso session
 	*/
+	@Override
 	public long getPrimaryKey() {
 		return _samlIdpSsoSession.getPrimaryKey();
 	}
@@ -116,6 +121,7 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 	*
 	* @param primaryKey the primary key of this saml idp sso session
 	*/
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_samlIdpSsoSession.setPrimaryKey(primaryKey);
 	}
@@ -125,6 +131,7 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 	*
 	* @return the saml idp sso session ID of this saml idp sso session
 	*/
+	@Override
 	public long getSamlIdpSsoSessionId() {
 		return _samlIdpSsoSession.getSamlIdpSsoSessionId();
 	}
@@ -134,6 +141,7 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 	*
 	* @param samlIdpSsoSessionId the saml idp sso session ID of this saml idp sso session
 	*/
+	@Override
 	public void setSamlIdpSsoSessionId(long samlIdpSsoSessionId) {
 		_samlIdpSsoSession.setSamlIdpSsoSessionId(samlIdpSsoSessionId);
 	}
@@ -143,6 +151,7 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 	*
 	* @return the company ID of this saml idp sso session
 	*/
+	@Override
 	public long getCompanyId() {
 		return _samlIdpSsoSession.getCompanyId();
 	}
@@ -152,6 +161,7 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 	*
 	* @param companyId the company ID of this saml idp sso session
 	*/
+	@Override
 	public void setCompanyId(long companyId) {
 		_samlIdpSsoSession.setCompanyId(companyId);
 	}
@@ -161,6 +171,7 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 	*
 	* @return the user ID of this saml idp sso session
 	*/
+	@Override
 	public long getUserId() {
 		return _samlIdpSsoSession.getUserId();
 	}
@@ -170,6 +181,7 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 	*
 	* @param userId the user ID of this saml idp sso session
 	*/
+	@Override
 	public void setUserId(long userId) {
 		_samlIdpSsoSession.setUserId(userId);
 	}
@@ -180,6 +192,7 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 	* @return the user uuid of this saml idp sso session
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.lang.String getUserUuid()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _samlIdpSsoSession.getUserUuid();
@@ -190,6 +203,7 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 	*
 	* @param userUuid the user uuid of this saml idp sso session
 	*/
+	@Override
 	public void setUserUuid(java.lang.String userUuid) {
 		_samlIdpSsoSession.setUserUuid(userUuid);
 	}
@@ -199,6 +213,7 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 	*
 	* @return the user name of this saml idp sso session
 	*/
+	@Override
 	public java.lang.String getUserName() {
 		return _samlIdpSsoSession.getUserName();
 	}
@@ -208,6 +223,7 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 	*
 	* @param userName the user name of this saml idp sso session
 	*/
+	@Override
 	public void setUserName(java.lang.String userName) {
 		_samlIdpSsoSession.setUserName(userName);
 	}
@@ -217,6 +233,7 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 	*
 	* @return the create date of this saml idp sso session
 	*/
+	@Override
 	public java.util.Date getCreateDate() {
 		return _samlIdpSsoSession.getCreateDate();
 	}
@@ -226,6 +243,7 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 	*
 	* @param createDate the create date of this saml idp sso session
 	*/
+	@Override
 	public void setCreateDate(java.util.Date createDate) {
 		_samlIdpSsoSession.setCreateDate(createDate);
 	}
@@ -235,6 +253,7 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 	*
 	* @return the modified date of this saml idp sso session
 	*/
+	@Override
 	public java.util.Date getModifiedDate() {
 		return _samlIdpSsoSession.getModifiedDate();
 	}
@@ -244,6 +263,7 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 	*
 	* @param modifiedDate the modified date of this saml idp sso session
 	*/
+	@Override
 	public void setModifiedDate(java.util.Date modifiedDate) {
 		_samlIdpSsoSession.setModifiedDate(modifiedDate);
 	}
@@ -253,6 +273,7 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 	*
 	* @return the saml idp sso session key of this saml idp sso session
 	*/
+	@Override
 	public java.lang.String getSamlIdpSsoSessionKey() {
 		return _samlIdpSsoSession.getSamlIdpSsoSessionKey();
 	}
@@ -262,52 +283,64 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 	*
 	* @param samlIdpSsoSessionKey the saml idp sso session key of this saml idp sso session
 	*/
+	@Override
 	public void setSamlIdpSsoSessionKey(java.lang.String samlIdpSsoSessionKey) {
 		_samlIdpSsoSession.setSamlIdpSsoSessionKey(samlIdpSsoSessionKey);
 	}
 
+	@Override
 	public boolean isNew() {
 		return _samlIdpSsoSession.isNew();
 	}
 
+	@Override
 	public void setNew(boolean n) {
 		_samlIdpSsoSession.setNew(n);
 	}
 
+	@Override
 	public boolean isCachedModel() {
 		return _samlIdpSsoSession.isCachedModel();
 	}
 
+	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_samlIdpSsoSession.setCachedModel(cachedModel);
 	}
 
+	@Override
 	public boolean isEscapedModel() {
 		return _samlIdpSsoSession.isEscapedModel();
 	}
 
+	@Override
 	public java.io.Serializable getPrimaryKeyObj() {
 		return _samlIdpSsoSession.getPrimaryKeyObj();
 	}
 
+	@Override
 	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
 		_samlIdpSsoSession.setPrimaryKeyObj(primaryKeyObj);
 	}
 
+	@Override
 	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
 		return _samlIdpSsoSession.getExpandoBridge();
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.model.BaseModel<?> baseModel) {
 		_samlIdpSsoSession.setExpandoBridgeAttributes(baseModel);
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
 		_samlIdpSsoSession.setExpandoBridgeAttributes(expandoBridge);
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.service.ServiceContext serviceContext) {
 		_samlIdpSsoSession.setExpandoBridgeAttributes(serviceContext);
@@ -318,6 +351,7 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 		return new SamlIdpSsoSessionWrapper((SamlIdpSsoSession)_samlIdpSsoSession.clone());
 	}
 
+	@Override
 	public int compareTo(
 		com.liferay.saml.model.SamlIdpSsoSession samlIdpSsoSession) {
 		return _samlIdpSsoSession.compareTo(samlIdpSsoSession);
@@ -328,14 +362,17 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 		return _samlIdpSsoSession.hashCode();
 	}
 
+	@Override
 	public com.liferay.portal.model.CacheModel<com.liferay.saml.model.SamlIdpSsoSession> toCacheModel() {
 		return _samlIdpSsoSession.toCacheModel();
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSsoSession toEscapedModel() {
 		return new SamlIdpSsoSessionWrapper(_samlIdpSsoSession.toEscapedModel());
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSsoSession toUnescapedModel() {
 		return new SamlIdpSsoSessionWrapper(_samlIdpSsoSession.toUnescapedModel());
 	}
@@ -345,15 +382,18 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 		return _samlIdpSsoSession.toString();
 	}
 
+	@Override
 	public java.lang.String toXmlString() {
 		return _samlIdpSsoSession.toXmlString();
 	}
 
+	@Override
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_samlIdpSsoSession.persist();
 	}
 
+	@Override
 	public boolean isExpired() {
 		return _samlIdpSsoSession.isExpired();
 	}
@@ -365,10 +405,12 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 		return _samlIdpSsoSession;
 	}
 
+	@Override
 	public SamlIdpSsoSession getWrappedModel() {
 		return _samlIdpSsoSession;
 	}
 
+	@Override
 	public void resetOriginalValues() {
 		_samlIdpSsoSession.resetOriginalValues();
 	}

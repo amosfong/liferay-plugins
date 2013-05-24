@@ -34,6 +34,7 @@ public class SyncDLObjectServiceWrapper implements SyncDLObjectService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _syncDLObjectService.getBeanIdentifier();
 	}
@@ -43,10 +44,12 @@ public class SyncDLObjectServiceWrapper implements SyncDLObjectService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_syncDLObjectService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
@@ -68,10 +71,12 @@ public class SyncDLObjectServiceWrapper implements SyncDLObjectService,
 		_syncDLObjectService = syncDLObjectService;
 	}
 
+	@Override
 	public SyncDLObjectService getWrappedService() {
 		return _syncDLObjectService;
 	}
 
+	@Override
 	public void setWrappedService(SyncDLObjectService syncDLObjectService) {
 		_syncDLObjectService = syncDLObjectService;
 	}

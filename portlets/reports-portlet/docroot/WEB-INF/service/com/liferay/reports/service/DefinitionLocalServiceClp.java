@@ -154,6 +154,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 			};
 	}
 
+	@Override
 	public com.liferay.reports.model.Definition addDefinition(
 		com.liferay.reports.model.Definition definition)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -183,6 +184,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return (com.liferay.reports.model.Definition)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.reports.model.Definition createDefinition(
 		long definitionId) {
 		Object returnObj = null;
@@ -206,6 +208,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return (com.liferay.reports.model.Definition)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.reports.model.Definition deleteDefinition(
 		long definitionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -239,6 +242,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return (com.liferay.reports.model.Definition)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.reports.model.Definition deleteDefinition(
 		com.liferay.reports.model.Definition definition)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -273,6 +277,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return (com.liferay.reports.model.Definition)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		Object returnObj = null;
 
@@ -295,6 +300,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return (com.liferay.portal.kernel.dao.orm.DynamicQuery)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -325,6 +331,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -361,6 +368,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -401,6 +409,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -430,6 +439,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return ((Long)returnObj).longValue();
 	}
 
+	@Override
 	public com.liferay.reports.model.Definition fetchDefinition(
 		long definitionId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -458,6 +468,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return (com.liferay.reports.model.Definition)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.reports.model.Definition getDefinition(long definitionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -490,6 +501,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return (com.liferay.reports.model.Definition)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -524,6 +536,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.reports.model.Definition getDefinitionByUuidAndGroupId(
 		java.lang.String uuid, long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -558,6 +571,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return (com.liferay.reports.model.Definition)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.reports.model.Definition> getDefinitions(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -586,6 +600,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return (java.util.List<com.liferay.reports.model.Definition>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getDefinitionsCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -613,6 +628,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public com.liferay.reports.model.Definition updateDefinition(
 		com.liferay.reports.model.Definition definition)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -642,6 +658,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return (com.liferay.reports.model.Definition)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -664,6 +681,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableLocalService.invokeMethod(_methodName17,
@@ -683,12 +701,14 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public com.liferay.reports.model.Definition addDefinition(long userId,
 		long groupId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
@@ -746,6 +766,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return (com.liferay.reports.model.Definition)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void deleteDefinitionTemplates(long companyId,
 		java.lang.String attachmentsDirectory)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -780,6 +801,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		}
 	}
 
+	@Override
 	public java.util.List<com.liferay.reports.model.Definition> getDefinitions(
 		long groupId, java.lang.String definitionName,
 		java.lang.String description, java.lang.String sourceId,
@@ -830,6 +852,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return (java.util.List<com.liferay.reports.model.Definition>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getDefinitionsCount(long groupId,
 		java.lang.String definitionName, java.lang.String description,
 		java.lang.String sourceId, java.lang.String reportName,
@@ -873,6 +896,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public com.liferay.reports.model.Definition updateDefinition(
 		long definitionId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
@@ -928,6 +952,7 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		return (com.liferay.reports.model.Definition)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void updateDefinitionResources(
 		com.liferay.reports.model.Definition definition,
 		java.lang.String[] communityPermissions,

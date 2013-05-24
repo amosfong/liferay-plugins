@@ -105,26 +105,32 @@ public class SamlSpIdpConnectionModelImpl extends BaseModelImpl<SamlSpIdpConnect
 	public SamlSpIdpConnectionModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _samlSpIdpConnectionId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setSamlSpIdpConnectionId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _samlSpIdpConnectionId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return SamlSpIdpConnection.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return SamlSpIdpConnection.class.getName();
 	}
@@ -270,18 +276,22 @@ public class SamlSpIdpConnectionModelImpl extends BaseModelImpl<SamlSpIdpConnect
 		}
 	}
 
+	@Override
 	public long getSamlSpIdpConnectionId() {
 		return _samlSpIdpConnectionId;
 	}
 
+	@Override
 	public void setSamlSpIdpConnectionId(long samlSpIdpConnectionId) {
 		_samlSpIdpConnectionId = samlSpIdpConnectionId;
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
 
@@ -298,22 +308,27 @@ public class SamlSpIdpConnectionModelImpl extends BaseModelImpl<SamlSpIdpConnect
 		return _originalCompanyId;
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	public String getUserName() {
 		if (_userName == null) {
 			return StringPool.BLANK;
@@ -323,26 +338,32 @@ public class SamlSpIdpConnectionModelImpl extends BaseModelImpl<SamlSpIdpConnect
 		}
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 	}
 
+	@Override
 	public String getSamlIdpEntityId() {
 		if (_samlIdpEntityId == null) {
 			return StringPool.BLANK;
@@ -352,6 +373,7 @@ public class SamlSpIdpConnectionModelImpl extends BaseModelImpl<SamlSpIdpConnect
 		}
 	}
 
+	@Override
 	public void setSamlIdpEntityId(String samlIdpEntityId) {
 		_columnBitmask |= SAMLIDPENTITYID_COLUMN_BITMASK;
 
@@ -366,51 +388,63 @@ public class SamlSpIdpConnectionModelImpl extends BaseModelImpl<SamlSpIdpConnect
 		return GetterUtil.getString(_originalSamlIdpEntityId);
 	}
 
+	@Override
 	public boolean getAssertionSignatureRequired() {
 		return _assertionSignatureRequired;
 	}
 
+	@Override
 	public boolean isAssertionSignatureRequired() {
 		return _assertionSignatureRequired;
 	}
 
+	@Override
 	public void setAssertionSignatureRequired(
 		boolean assertionSignatureRequired) {
 		_assertionSignatureRequired = assertionSignatureRequired;
 	}
 
+	@Override
 	public long getClockSkew() {
 		return _clockSkew;
 	}
 
+	@Override
 	public void setClockSkew(long clockSkew) {
 		_clockSkew = clockSkew;
 	}
 
+	@Override
 	public boolean getEnabled() {
 		return _enabled;
 	}
 
+	@Override
 	public boolean isEnabled() {
 		return _enabled;
 	}
 
+	@Override
 	public void setEnabled(boolean enabled) {
 		_enabled = enabled;
 	}
 
+	@Override
 	public boolean getLdapImportEnabled() {
 		return _ldapImportEnabled;
 	}
 
+	@Override
 	public boolean isLdapImportEnabled() {
 		return _ldapImportEnabled;
 	}
 
+	@Override
 	public void setLdapImportEnabled(boolean ldapImportEnabled) {
 		_ldapImportEnabled = ldapImportEnabled;
 	}
 
+	@Override
 	public String getMetadataUrl() {
 		if (_metadataUrl == null) {
 			return StringPool.BLANK;
@@ -420,10 +454,12 @@ public class SamlSpIdpConnectionModelImpl extends BaseModelImpl<SamlSpIdpConnect
 		}
 	}
 
+	@Override
 	public void setMetadataUrl(String metadataUrl) {
 		_metadataUrl = metadataUrl;
 	}
 
+	@Override
 	public String getMetadataXml() {
 		if (_metadataXml == null) {
 			return StringPool.BLANK;
@@ -433,18 +469,22 @@ public class SamlSpIdpConnectionModelImpl extends BaseModelImpl<SamlSpIdpConnect
 		}
 	}
 
+	@Override
 	public void setMetadataXml(String metadataXml) {
 		_metadataXml = metadataXml;
 	}
 
+	@Override
 	public Date getMetadataUpdatedDate() {
 		return _metadataUpdatedDate;
 	}
 
+	@Override
 	public void setMetadataUpdatedDate(Date metadataUpdatedDate) {
 		_metadataUpdatedDate = metadataUpdatedDate;
 	}
 
+	@Override
 	public String getName() {
 		if (_name == null) {
 			return StringPool.BLANK;
@@ -454,10 +494,12 @@ public class SamlSpIdpConnectionModelImpl extends BaseModelImpl<SamlSpIdpConnect
 		}
 	}
 
+	@Override
 	public void setName(String name) {
 		_name = name;
 	}
 
+	@Override
 	public String getNameIdFormat() {
 		if (_nameIdFormat == null) {
 			return StringPool.BLANK;
@@ -467,22 +509,27 @@ public class SamlSpIdpConnectionModelImpl extends BaseModelImpl<SamlSpIdpConnect
 		}
 	}
 
+	@Override
 	public void setNameIdFormat(String nameIdFormat) {
 		_nameIdFormat = nameIdFormat;
 	}
 
+	@Override
 	public boolean getSignAuthnRequest() {
 		return _signAuthnRequest;
 	}
 
+	@Override
 	public boolean isSignAuthnRequest() {
 		return _signAuthnRequest;
 	}
 
+	@Override
 	public void setSignAuthnRequest(boolean signAuthnRequest) {
 		_signAuthnRequest = signAuthnRequest;
 	}
 
+	@Override
 	public String getUserAttributeMappings() {
 		if (_userAttributeMappings == null) {
 			return StringPool.BLANK;
@@ -492,6 +539,7 @@ public class SamlSpIdpConnectionModelImpl extends BaseModelImpl<SamlSpIdpConnect
 		}
 	}
 
+	@Override
 	public void setUserAttributeMappings(String userAttributeMappings) {
 		_userAttributeMappings = userAttributeMappings;
 	}
@@ -551,6 +599,7 @@ public class SamlSpIdpConnectionModelImpl extends BaseModelImpl<SamlSpIdpConnect
 		return samlSpIdpConnectionImpl;
 	}
 
+	@Override
 	public int compareTo(SamlSpIdpConnection samlSpIdpConnection) {
 		long primaryKey = samlSpIdpConnection.getPrimaryKey();
 
@@ -757,6 +806,7 @@ public class SamlSpIdpConnectionModelImpl extends BaseModelImpl<SamlSpIdpConnect
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(58);
 

@@ -115,6 +115,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @return the matching saml idp sp connections
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SamlIdpSpConnection> findByCompanyId(long companyId)
 		throws SystemException {
 		return findByCompanyId(companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
@@ -134,6 +135,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @return the range of matching saml idp sp connections
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SamlIdpSpConnection> findByCompanyId(long companyId, int start,
 		int end) throws SystemException {
 		return findByCompanyId(companyId, start, end, null);
@@ -153,6 +155,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @return the ordered range of matching saml idp sp connections
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SamlIdpSpConnection> findByCompanyId(long companyId, int start,
 		int end, OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -259,6 +262,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @throws com.liferay.saml.NoSuchIdpSpConnectionException if a matching saml idp sp connection could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlIdpSpConnection findByCompanyId_First(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchIdpSpConnectionException, SystemException {
@@ -289,6 +293,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @return the first matching saml idp sp connection, or <code>null</code> if a matching saml idp sp connection could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlIdpSpConnection fetchByCompanyId_First(long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<SamlIdpSpConnection> list = findByCompanyId(companyId, 0, 1,
@@ -310,6 +315,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @throws com.liferay.saml.NoSuchIdpSpConnectionException if a matching saml idp sp connection could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlIdpSpConnection findByCompanyId_Last(long companyId,
 		OrderByComparator orderByComparator)
 		throws NoSuchIdpSpConnectionException, SystemException {
@@ -340,6 +346,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @return the last matching saml idp sp connection, or <code>null</code> if a matching saml idp sp connection could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlIdpSpConnection fetchByCompanyId_Last(long companyId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByCompanyId(companyId);
@@ -364,6 +371,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @throws com.liferay.saml.NoSuchIdpSpConnectionException if a saml idp sp connection with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlIdpSpConnection[] findByCompanyId_PrevAndNext(
 		long samlIdpSpConnectionId, long companyId,
 		OrderByComparator orderByComparator)
@@ -506,6 +514,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @param companyId the company ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByCompanyId(long companyId) throws SystemException {
 		for (SamlIdpSpConnection samlIdpSpConnection : findByCompanyId(
 				companyId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
@@ -520,6 +529,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @return the number of matching saml idp sp connections
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByCompanyId(long companyId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_COMPANYID;
 
@@ -587,6 +597,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @throws com.liferay.saml.NoSuchIdpSpConnectionException if a matching saml idp sp connection could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlIdpSpConnection findByC_SSEI(long companyId,
 		String samlSpEntityId)
 		throws NoSuchIdpSpConnectionException, SystemException {
@@ -624,6 +635,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @return the matching saml idp sp connection, or <code>null</code> if a matching saml idp sp connection could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlIdpSpConnection fetchByC_SSEI(long companyId,
 		String samlSpEntityId) throws SystemException {
 		return fetchByC_SSEI(companyId, samlSpEntityId, true);
@@ -638,6 +650,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @return the matching saml idp sp connection, or <code>null</code> if a matching saml idp sp connection could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlIdpSpConnection fetchByC_SSEI(long companyId,
 		String samlSpEntityId, boolean retrieveFromCache)
 		throws SystemException {
@@ -754,6 +767,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @return the saml idp sp connection that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlIdpSpConnection removeByC_SSEI(long companyId,
 		String samlSpEntityId)
 		throws NoSuchIdpSpConnectionException, SystemException {
@@ -771,6 +785,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @return the number of matching saml idp sp connections
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByC_SSEI(long companyId, String samlSpEntityId)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_C_SSEI;
@@ -845,6 +860,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 *
 	 * @param samlIdpSpConnection the saml idp sp connection
 	 */
+	@Override
 	public void cacheResult(SamlIdpSpConnection samlIdpSpConnection) {
 		EntityCacheUtil.putResult(SamlIdpSpConnectionModelImpl.ENTITY_CACHE_ENABLED,
 			SamlIdpSpConnectionImpl.class, samlIdpSpConnection.getPrimaryKey(),
@@ -864,6 +880,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 *
 	 * @param samlIdpSpConnections the saml idp sp connections
 	 */
+	@Override
 	public void cacheResult(List<SamlIdpSpConnection> samlIdpSpConnections) {
 		for (SamlIdpSpConnection samlIdpSpConnection : samlIdpSpConnections) {
 			if (EntityCacheUtil.getResult(
@@ -991,6 +1008,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @param samlIdpSpConnectionId the primary key for the new saml idp sp connection
 	 * @return the new saml idp sp connection
 	 */
+	@Override
 	public SamlIdpSpConnection create(long samlIdpSpConnectionId) {
 		SamlIdpSpConnection samlIdpSpConnection = new SamlIdpSpConnectionImpl();
 
@@ -1008,6 +1026,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @throws com.liferay.saml.NoSuchIdpSpConnectionException if a saml idp sp connection with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlIdpSpConnection remove(long samlIdpSpConnectionId)
 		throws NoSuchIdpSpConnectionException, SystemException {
 		return remove((Serializable)samlIdpSpConnectionId);
@@ -1221,6 +1240,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @throws com.liferay.saml.NoSuchIdpSpConnectionException if a saml idp sp connection with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlIdpSpConnection findByPrimaryKey(long samlIdpSpConnectionId)
 		throws NoSuchIdpSpConnectionException, SystemException {
 		return findByPrimaryKey((Serializable)samlIdpSpConnectionId);
@@ -1282,6 +1302,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @return the saml idp sp connection, or <code>null</code> if a saml idp sp connection with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlIdpSpConnection fetchByPrimaryKey(long samlIdpSpConnectionId)
 		throws SystemException {
 		return fetchByPrimaryKey((Serializable)samlIdpSpConnectionId);
@@ -1293,6 +1314,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @return the saml idp sp connections
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SamlIdpSpConnection> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -1309,6 +1331,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @return the range of saml idp sp connections
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SamlIdpSpConnection> findAll(int start, int end)
 		throws SystemException {
 		return findAll(start, end, null);
@@ -1327,6 +1350,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @return the ordered range of saml idp sp connections
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SamlIdpSpConnection> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -1412,6 +1436,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (SamlIdpSpConnection samlIdpSpConnection : findAll()) {
 			remove(samlIdpSpConnection);
@@ -1424,6 +1449,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	 * @return the number of saml idp sp connections
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -1511,6 +1537,7 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 
 	private static CacheModel<SamlIdpSpConnection> _nullSamlIdpSpConnectionCacheModel =
 		new CacheModel<SamlIdpSpConnection>() {
+			@Override
 			public SamlIdpSpConnection toEntityModel() {
 				return _nullSamlIdpSpConnection;
 			}

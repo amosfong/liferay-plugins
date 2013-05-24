@@ -74,6 +74,7 @@ public class AuditEventCacheModel implements CacheModel<AuditEvent>,
 		return sb.toString();
 	}
 
+	@Override
 	public AuditEvent toEntityModel() {
 		AuditEventImpl auditEventImpl = new AuditEventImpl();
 
@@ -165,6 +166,7 @@ public class AuditEventCacheModel implements CacheModel<AuditEvent>,
 		return auditEventImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		auditEventId = objectInput.readLong();
 		companyId = objectInput.readLong();
@@ -183,6 +185,7 @@ public class AuditEventCacheModel implements CacheModel<AuditEvent>,
 		additionalInfo = objectInput.readUTF();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(auditEventId);

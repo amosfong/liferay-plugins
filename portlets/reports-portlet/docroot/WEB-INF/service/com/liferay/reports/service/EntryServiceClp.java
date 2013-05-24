@@ -75,6 +75,7 @@ public class EntryServiceClp implements EntryService {
 		_methodParameterTypes9 = new String[] { "long" };
 	}
 
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -97,6 +98,7 @@ public class EntryServiceClp implements EntryService {
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableService.invokeMethod(_methodName1,
@@ -116,12 +118,14 @@ public class EntryServiceClp implements EntryService {
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public com.liferay.reports.model.Entry addEntry(long groupId,
 		long definitionId, java.lang.String format, boolean schedulerRequest,
 		java.util.Date startDate, java.util.Date endDate, boolean repeating,
@@ -189,6 +193,7 @@ public class EntryServiceClp implements EntryService {
 		return (com.liferay.reports.model.Entry)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void deleteAttachment(long companyId, long entryId,
 		java.lang.String fileName)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -225,6 +230,7 @@ public class EntryServiceClp implements EntryService {
 		}
 	}
 
+	@Override
 	public com.liferay.reports.model.Entry deleteEntry(long entryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -257,6 +263,7 @@ public class EntryServiceClp implements EntryService {
 		return (com.liferay.reports.model.Entry)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.reports.model.Entry> getEntries(
 		long groupId, java.lang.String definitionName,
 		java.lang.String userName, java.util.Date createDateGT,
@@ -312,6 +319,7 @@ public class EntryServiceClp implements EntryService {
 		return (java.util.List<com.liferay.reports.model.Entry>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getEntriesCount(long groupId, java.lang.String definitionName,
 		java.lang.String userName, java.util.Date createDateGT,
 		java.util.Date createDateLT, boolean andSearch)
@@ -354,6 +362,7 @@ public class EntryServiceClp implements EntryService {
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public void sendEmails(long entryId, java.lang.String fileName,
 		java.lang.String[] emailAddresses, boolean notification)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -392,6 +401,7 @@ public class EntryServiceClp implements EntryService {
 		}
 	}
 
+	@Override
 	public void unscheduleEntry(long entryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {

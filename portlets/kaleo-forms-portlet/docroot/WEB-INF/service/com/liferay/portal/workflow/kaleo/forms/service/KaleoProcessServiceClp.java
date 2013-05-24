@@ -69,6 +69,7 @@ public class KaleoProcessServiceClp implements KaleoProcessService {
 			};
 	}
 
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -91,6 +92,7 @@ public class KaleoProcessServiceClp implements KaleoProcessService {
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableService.invokeMethod(_methodName1,
@@ -110,12 +112,14 @@ public class KaleoProcessServiceClp implements KaleoProcessService {
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess addKaleoProcess(
 		long groupId, long ddlRecordSetId, long ddmTemplateId,
 		long[] kaleoProcessLinkIds,
@@ -162,6 +166,7 @@ public class KaleoProcessServiceClp implements KaleoProcessService {
 		return (com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess deleteKaleoProcess(
 		long kaleoProcessId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -195,6 +200,7 @@ public class KaleoProcessServiceClp implements KaleoProcessService {
 		return (com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void deleteKaleoProcessData(long kaleoProcessId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -223,6 +229,7 @@ public class KaleoProcessServiceClp implements KaleoProcessService {
 		}
 	}
 
+	@Override
 	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess getKaleoProcess(
 		long kaleoProcessId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -256,6 +263,7 @@ public class KaleoProcessServiceClp implements KaleoProcessService {
 		return (com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess> getKaleoProcesses(
 		long groupId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
@@ -294,6 +302,7 @@ public class KaleoProcessServiceClp implements KaleoProcessService {
 		return (java.util.List<com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getKaleoProcessesCount(long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -321,6 +330,7 @@ public class KaleoProcessServiceClp implements KaleoProcessService {
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess updateKaleoProcess(
 		long kaleoProcessId, long ddmTemplateId, long[] kaleoProcessLinkIds,
 		com.liferay.portal.service.ServiceContext serviceContext)

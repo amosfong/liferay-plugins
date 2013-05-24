@@ -106,6 +106,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @throws com.liferay.saml.NoSuchSpMessageException if a matching saml sp message could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlSpMessage findBySIEI_SIRK(String samlIdpEntityId,
 		String samlIdpResponseKey)
 		throws NoSuchSpMessageException, SystemException {
@@ -143,6 +144,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @return the matching saml sp message, or <code>null</code> if a matching saml sp message could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlSpMessage fetchBySIEI_SIRK(String samlIdpEntityId,
 		String samlIdpResponseKey) throws SystemException {
 		return fetchBySIEI_SIRK(samlIdpEntityId, samlIdpResponseKey, true);
@@ -157,6 +159,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @return the matching saml sp message, or <code>null</code> if a matching saml sp message could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlSpMessage fetchBySIEI_SIRK(String samlIdpEntityId,
 		String samlIdpResponseKey, boolean retrieveFromCache)
 		throws SystemException {
@@ -290,6 +293,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @return the saml sp message that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlSpMessage removeBySIEI_SIRK(String samlIdpEntityId,
 		String samlIdpResponseKey)
 		throws NoSuchSpMessageException, SystemException {
@@ -307,6 +311,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @return the number of matching saml sp messages
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countBySIEI_SIRK(String samlIdpEntityId,
 		String samlIdpResponseKey) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_SIEI_SIRK;
@@ -397,6 +402,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 *
 	 * @param samlSpMessage the saml sp message
 	 */
+	@Override
 	public void cacheResult(SamlSpMessage samlSpMessage) {
 		EntityCacheUtil.putResult(SamlSpMessageModelImpl.ENTITY_CACHE_ENABLED,
 			SamlSpMessageImpl.class, samlSpMessage.getPrimaryKey(),
@@ -416,6 +422,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 *
 	 * @param samlSpMessages the saml sp messages
 	 */
+	@Override
 	public void cacheResult(List<SamlSpMessage> samlSpMessages) {
 		for (SamlSpMessage samlSpMessage : samlSpMessages) {
 			if (EntityCacheUtil.getResult(
@@ -539,6 +546,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @param samlSpMessageId the primary key for the new saml sp message
 	 * @return the new saml sp message
 	 */
+	@Override
 	public SamlSpMessage create(long samlSpMessageId) {
 		SamlSpMessage samlSpMessage = new SamlSpMessageImpl();
 
@@ -556,6 +564,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @throws com.liferay.saml.NoSuchSpMessageException if a saml sp message with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlSpMessage remove(long samlSpMessageId)
 		throws NoSuchSpMessageException, SystemException {
 		return remove((Serializable)samlSpMessageId);
@@ -733,6 +742,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @throws com.liferay.saml.NoSuchSpMessageException if a saml sp message with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlSpMessage findByPrimaryKey(long samlSpMessageId)
 		throws NoSuchSpMessageException, SystemException {
 		return findByPrimaryKey((Serializable)samlSpMessageId);
@@ -793,6 +803,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @return the saml sp message, or <code>null</code> if a saml sp message with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlSpMessage fetchByPrimaryKey(long samlSpMessageId)
 		throws SystemException {
 		return fetchByPrimaryKey((Serializable)samlSpMessageId);
@@ -804,6 +815,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @return the saml sp messages
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SamlSpMessage> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -820,6 +832,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @return the range of saml sp messages
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SamlSpMessage> findAll(int start, int end)
 		throws SystemException {
 		return findAll(start, end, null);
@@ -838,6 +851,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @return the ordered range of saml sp messages
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SamlSpMessage> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -923,6 +937,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (SamlSpMessage samlSpMessage : findAll()) {
 			remove(samlSpMessage);
@@ -935,6 +950,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	 * @return the number of saml sp messages
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -1021,6 +1037,7 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 		};
 
 	private static CacheModel<SamlSpMessage> _nullSamlSpMessageCacheModel = new CacheModel<SamlSpMessage>() {
+			@Override
 			public SamlSpMessage toEntityModel() {
 				return _nullSamlSpMessage;
 			}

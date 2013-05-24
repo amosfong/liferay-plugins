@@ -84,6 +84,7 @@ public abstract class SyncDLObjectLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public SyncDLObject addSyncDLObject(SyncDLObject syncDLObject)
 		throws SystemException {
 		syncDLObject.setNew(true);
@@ -97,6 +98,7 @@ public abstract class SyncDLObjectLocalServiceBaseImpl
 	 * @param objectId the primary key for the new sync d l object
 	 * @return the new sync d l object
 	 */
+	@Override
 	public SyncDLObject createSyncDLObject(long objectId) {
 		return syncDLObjectPersistence.create(objectId);
 	}
@@ -110,6 +112,7 @@ public abstract class SyncDLObjectLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public SyncDLObject deleteSyncDLObject(long objectId)
 		throws PortalException, SystemException {
 		return syncDLObjectPersistence.remove(objectId);
@@ -123,11 +126,13 @@ public abstract class SyncDLObjectLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public SyncDLObject deleteSyncDLObject(SyncDLObject syncDLObject)
 		throws SystemException {
 		return syncDLObjectPersistence.remove(syncDLObject);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -142,6 +147,7 @@ public abstract class SyncDLObjectLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -161,6 +167,7 @@ public abstract class SyncDLObjectLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -182,6 +189,7 @@ public abstract class SyncDLObjectLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -196,11 +204,13 @@ public abstract class SyncDLObjectLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return syncDLObjectPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public SyncDLObject fetchSyncDLObject(long objectId)
 		throws SystemException {
 		return syncDLObjectPersistence.fetchByPrimaryKey(objectId);
@@ -214,11 +224,13 @@ public abstract class SyncDLObjectLocalServiceBaseImpl
 	 * @throws PortalException if a sync d l object with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SyncDLObject getSyncDLObject(long objectId)
 		throws PortalException, SystemException {
 		return syncDLObjectPersistence.findByPrimaryKey(objectId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return syncDLObjectPersistence.findByPrimaryKey(primaryKeyObj);
@@ -236,6 +248,7 @@ public abstract class SyncDLObjectLocalServiceBaseImpl
 	 * @return the range of sync d l objects
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SyncDLObject> getSyncDLObjects(int start, int end)
 		throws SystemException {
 		return syncDLObjectPersistence.findAll(start, end);
@@ -247,6 +260,7 @@ public abstract class SyncDLObjectLocalServiceBaseImpl
 	 * @return the number of sync d l objects
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getSyncDLObjectsCount() throws SystemException {
 		return syncDLObjectPersistence.countAll();
 	}
@@ -259,6 +273,7 @@ public abstract class SyncDLObjectLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public SyncDLObject updateSyncDLObject(SyncDLObject syncDLObject)
 		throws SystemException {
 		return syncDLObjectPersistence.update(syncDLObject);
@@ -576,6 +591,7 @@ public abstract class SyncDLObjectLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -585,10 +601,12 @@ public abstract class SyncDLObjectLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}
 
+	@Override
 	public Object invokeMethod(String name, String[] parameterTypes,
 		Object[] arguments) throws Throwable {
 		Thread currentThread = Thread.currentThread();

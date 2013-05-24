@@ -37,6 +37,7 @@ public abstract class KaleoDraftDefinitionBaseImpl
 	 *
 	 * Never modify or reference this class directly. All methods that expect a kaleo draft definition model instance should use the {@link KaleoDraftDefinition} interface instead.
 	 */
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			KaleoDraftDefinitionLocalServiceUtil.addKaleoDraftDefinition(this);

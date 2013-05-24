@@ -62,6 +62,7 @@ public class KaleoProcessCacheModel implements CacheModel<KaleoProcess>,
 		return sb.toString();
 	}
 
+	@Override
 	public KaleoProcess toEntityModel() {
 		KaleoProcessImpl kaleoProcessImpl = new KaleoProcessImpl();
 
@@ -99,6 +100,7 @@ public class KaleoProcessCacheModel implements CacheModel<KaleoProcess>,
 		return kaleoProcessImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		kaleoProcessId = objectInput.readLong();
 		groupId = objectInput.readLong();
@@ -111,6 +113,7 @@ public class KaleoProcessCacheModel implements CacheModel<KaleoProcess>,
 		DDMTemplateId = objectInput.readLong();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(kaleoProcessId);

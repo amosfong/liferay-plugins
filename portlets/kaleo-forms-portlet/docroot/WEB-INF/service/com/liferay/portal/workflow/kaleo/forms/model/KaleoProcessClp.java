@@ -40,26 +40,32 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 	public KaleoProcessClp() {
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return KaleoProcess.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return KaleoProcess.class.getName();
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _kaleoProcessId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setKaleoProcessId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _kaleoProcessId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
@@ -138,10 +144,12 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 		}
 	}
 
+	@Override
 	public long getKaleoProcessId() {
 		return _kaleoProcessId;
 	}
 
+	@Override
 	public void setKaleoProcessId(long kaleoProcessId) {
 		_kaleoProcessId = kaleoProcessId;
 
@@ -159,10 +167,12 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 		}
 	}
 
+	@Override
 	public long getGroupId() {
 		return _groupId;
 	}
 
+	@Override
 	public void setGroupId(long groupId) {
 		_groupId = groupId;
 
@@ -180,10 +190,12 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 		}
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 
@@ -201,10 +213,12 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 		}
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 
@@ -222,18 +236,22 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 		}
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	public String getUserName() {
 		return _userName;
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 
@@ -251,10 +269,12 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 		}
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 
@@ -272,10 +292,12 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 		}
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 
@@ -293,10 +315,12 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 		}
 	}
 
+	@Override
 	public long getDDLRecordSetId() {
 		return _DDLRecordSetId;
 	}
 
+	@Override
 	public void setDDLRecordSetId(long DDLRecordSetId) {
 		_DDLRecordSetId = DDLRecordSetId;
 
@@ -314,10 +338,12 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 		}
 	}
 
+	@Override
 	public long getDDMTemplateId() {
 		return _DDMTemplateId;
 	}
 
+	@Override
 	public void setDDMTemplateId(long DDMTemplateId) {
 		_DDMTemplateId = DDMTemplateId;
 
@@ -335,6 +361,7 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 		}
 	}
 
+	@Override
 	public com.liferay.portlet.dynamicdatamapping.model.DDMTemplate getDDMTemplate() {
 		try {
 			String methodName = "getDDMTemplate";
@@ -353,6 +380,7 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 		}
 	}
 
+	@Override
 	public com.liferay.portlet.dynamicdatalists.model.DDLRecordSet getDDLRecordSet() {
 		try {
 			String methodName = "getDDLRecordSet";
@@ -371,6 +399,7 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 		}
 	}
 
+	@Override
 	public java.lang.String getName(java.util.Locale locale) {
 		try {
 			String methodName = "getName";
@@ -389,6 +418,7 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 		}
 	}
 
+	@Override
 	public java.util.List<com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink> getKaleoProcessLinks() {
 		try {
 			String methodName = "getKaleoProcessLinks";
@@ -408,6 +438,7 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 		}
 	}
 
+	@Override
 	public java.lang.String getDescription(java.util.Locale locale) {
 		try {
 			String methodName = "getDescription";
@@ -475,6 +506,7 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 		return returnValue;
 	}
 
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			KaleoProcessLocalServiceUtil.addKaleoProcess(this);
@@ -507,6 +539,7 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 		return clone;
 	}
 
+	@Override
 	public int compareTo(KaleoProcess kaleoProcess) {
 		long primaryKey = kaleoProcess.getPrimaryKey();
 
@@ -575,6 +608,7 @@ public class KaleoProcessClp extends BaseModelImpl<KaleoProcess>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(31);
 

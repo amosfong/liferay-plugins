@@ -102,26 +102,32 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 	public SamlSpSessionModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _samlSpSessionId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setSamlSpSessionId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _samlSpSessionId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return SamlSpSession.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return SamlSpSession.class.getName();
 	}
@@ -228,38 +234,47 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public long getSamlSpSessionId() {
 		return _samlSpSessionId;
 	}
 
+	@Override
 	public void setSamlSpSessionId(long samlSpSessionId) {
 		_samlSpSessionId = samlSpSessionId;
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	public String getUserName() {
 		if (_userName == null) {
 			return StringPool.BLANK;
@@ -269,26 +284,32 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 	}
 
+	@Override
 	public String getSamlSpSessionKey() {
 		if (_samlSpSessionKey == null) {
 			return StringPool.BLANK;
@@ -298,6 +319,7 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public void setSamlSpSessionKey(String samlSpSessionKey) {
 		_columnBitmask |= SAMLSPSESSIONKEY_COLUMN_BITMASK;
 
@@ -312,6 +334,7 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 		return GetterUtil.getString(_originalSamlSpSessionKey);
 	}
 
+	@Override
 	public String getAssertionXml() {
 		if (_assertionXml == null) {
 			return StringPool.BLANK;
@@ -321,10 +344,12 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public void setAssertionXml(String assertionXml) {
 		_assertionXml = assertionXml;
 	}
 
+	@Override
 	public String getJSessionId() {
 		if (_jSessionId == null) {
 			return StringPool.BLANK;
@@ -334,6 +359,7 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public void setJSessionId(String jSessionId) {
 		_columnBitmask |= JSESSIONID_COLUMN_BITMASK;
 
@@ -348,6 +374,7 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 		return GetterUtil.getString(_originalJSessionId);
 	}
 
+	@Override
 	public String getNameIdFormat() {
 		if (_nameIdFormat == null) {
 			return StringPool.BLANK;
@@ -357,10 +384,12 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public void setNameIdFormat(String nameIdFormat) {
 		_nameIdFormat = nameIdFormat;
 	}
 
+	@Override
 	public String getNameIdValue() {
 		if (_nameIdValue == null) {
 			return StringPool.BLANK;
@@ -370,6 +399,7 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public void setNameIdValue(String nameIdValue) {
 		_columnBitmask |= NAMEIDVALUE_COLUMN_BITMASK;
 
@@ -384,6 +414,7 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 		return GetterUtil.getString(_originalNameIdValue);
 	}
 
+	@Override
 	public String getSessionIndex() {
 		if (_sessionIndex == null) {
 			return StringPool.BLANK;
@@ -393,6 +424,7 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 		}
 	}
 
+	@Override
 	public void setSessionIndex(String sessionIndex) {
 		_columnBitmask |= SESSIONINDEX_COLUMN_BITMASK;
 
@@ -407,14 +439,17 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 		return GetterUtil.getString(_originalSessionIndex);
 	}
 
+	@Override
 	public boolean getTerminated() {
 		return _terminated;
 	}
 
+	@Override
 	public boolean isTerminated() {
 		return _terminated;
 	}
 
+	@Override
 	public void setTerminated(boolean terminated) {
 		_terminated = terminated;
 	}
@@ -469,6 +504,7 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 		return samlSpSessionImpl;
 	}
 
+	@Override
 	public int compareTo(SamlSpSession samlSpSession) {
 		long primaryKey = samlSpSession.getPrimaryKey();
 
@@ -649,6 +685,7 @@ public class SamlSpSessionModelImpl extends BaseModelImpl<SamlSpSession>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(43);
 

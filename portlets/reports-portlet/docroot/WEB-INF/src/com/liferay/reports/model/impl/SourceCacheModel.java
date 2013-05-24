@@ -70,6 +70,7 @@ public class SourceCacheModel implements CacheModel<Source>, Externalizable {
 		return sb.toString();
 	}
 
+	@Override
 	public Source toEntityModel() {
 		SourceImpl sourceImpl = new SourceImpl();
 
@@ -146,6 +147,7 @@ public class SourceCacheModel implements CacheModel<Source>, Externalizable {
 		return sourceImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
 		sourceId = objectInput.readLong();
@@ -162,6 +164,7 @@ public class SourceCacheModel implements CacheModel<Source>, Externalizable {
 		driverPassword = objectInput.readUTF();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		if (uuid == null) {

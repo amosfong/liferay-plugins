@@ -34,14 +34,17 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 		_syncDLObject = syncDLObject;
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return SyncDLObject.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return SyncDLObject.class.getName();
 	}
 
+	@Override
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
@@ -66,6 +69,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 		return attributes;
 	}
 
+	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		Long objectId = (Long)attributes.get("objectId");
 
@@ -175,6 +179,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @return the primary key of this sync d l object
 	*/
+	@Override
 	public long getPrimaryKey() {
 		return _syncDLObject.getPrimaryKey();
 	}
@@ -184,6 +189,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @param primaryKey the primary key of this sync d l object
 	*/
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_syncDLObject.setPrimaryKey(primaryKey);
 	}
@@ -193,6 +199,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @return the object ID of this sync d l object
 	*/
+	@Override
 	public long getObjectId() {
 		return _syncDLObject.getObjectId();
 	}
@@ -202,6 +209,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @param objectId the object ID of this sync d l object
 	*/
+	@Override
 	public void setObjectId(long objectId) {
 		_syncDLObject.setObjectId(objectId);
 	}
@@ -211,6 +219,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @return the company ID of this sync d l object
 	*/
+	@Override
 	public long getCompanyId() {
 		return _syncDLObject.getCompanyId();
 	}
@@ -220,6 +229,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @param companyId the company ID of this sync d l object
 	*/
+	@Override
 	public void setCompanyId(long companyId) {
 		_syncDLObject.setCompanyId(companyId);
 	}
@@ -229,6 +239,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @return the create date of this sync d l object
 	*/
+	@Override
 	public long getCreateDate() {
 		return _syncDLObject.getCreateDate();
 	}
@@ -238,6 +249,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @param createDate the create date of this sync d l object
 	*/
+	@Override
 	public void setCreateDate(long createDate) {
 		_syncDLObject.setCreateDate(createDate);
 	}
@@ -247,6 +259,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @return the modified date of this sync d l object
 	*/
+	@Override
 	public long getModifiedDate() {
 		return _syncDLObject.getModifiedDate();
 	}
@@ -256,6 +269,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @param modifiedDate the modified date of this sync d l object
 	*/
+	@Override
 	public void setModifiedDate(long modifiedDate) {
 		_syncDLObject.setModifiedDate(modifiedDate);
 	}
@@ -265,6 +279,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @return the file ID of this sync d l object
 	*/
+	@Override
 	public long getFileId() {
 		return _syncDLObject.getFileId();
 	}
@@ -274,6 +289,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @param fileId the file ID of this sync d l object
 	*/
+	@Override
 	public void setFileId(long fileId) {
 		_syncDLObject.setFileId(fileId);
 	}
@@ -283,6 +299,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @return the file uuid of this sync d l object
 	*/
+	@Override
 	public java.lang.String getFileUuid() {
 		return _syncDLObject.getFileUuid();
 	}
@@ -292,6 +309,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @param fileUuid the file uuid of this sync d l object
 	*/
+	@Override
 	public void setFileUuid(java.lang.String fileUuid) {
 		_syncDLObject.setFileUuid(fileUuid);
 	}
@@ -301,6 +319,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @return the repository ID of this sync d l object
 	*/
+	@Override
 	public long getRepositoryId() {
 		return _syncDLObject.getRepositoryId();
 	}
@@ -310,6 +329,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @param repositoryId the repository ID of this sync d l object
 	*/
+	@Override
 	public void setRepositoryId(long repositoryId) {
 		_syncDLObject.setRepositoryId(repositoryId);
 	}
@@ -319,6 +339,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @return the parent folder ID of this sync d l object
 	*/
+	@Override
 	public long getParentFolderId() {
 		return _syncDLObject.getParentFolderId();
 	}
@@ -328,6 +349,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @param parentFolderId the parent folder ID of this sync d l object
 	*/
+	@Override
 	public void setParentFolderId(long parentFolderId) {
 		_syncDLObject.setParentFolderId(parentFolderId);
 	}
@@ -337,6 +359,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @return the name of this sync d l object
 	*/
+	@Override
 	public java.lang.String getName() {
 		return _syncDLObject.getName();
 	}
@@ -346,6 +369,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @param name the name of this sync d l object
 	*/
+	@Override
 	public void setName(java.lang.String name) {
 		_syncDLObject.setName(name);
 	}
@@ -355,6 +379,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @return the description of this sync d l object
 	*/
+	@Override
 	public java.lang.String getDescription() {
 		return _syncDLObject.getDescription();
 	}
@@ -364,6 +389,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @param description the description of this sync d l object
 	*/
+	@Override
 	public void setDescription(java.lang.String description) {
 		_syncDLObject.setDescription(description);
 	}
@@ -373,6 +399,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @return the checksum of this sync d l object
 	*/
+	@Override
 	public java.lang.String getChecksum() {
 		return _syncDLObject.getChecksum();
 	}
@@ -382,6 +409,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @param checksum the checksum of this sync d l object
 	*/
+	@Override
 	public void setChecksum(java.lang.String checksum) {
 		_syncDLObject.setChecksum(checksum);
 	}
@@ -391,6 +419,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @return the event of this sync d l object
 	*/
+	@Override
 	public java.lang.String getEvent() {
 		return _syncDLObject.getEvent();
 	}
@@ -400,6 +429,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @param event the event of this sync d l object
 	*/
+	@Override
 	public void setEvent(java.lang.String event) {
 		_syncDLObject.setEvent(event);
 	}
@@ -409,6 +439,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @return the lock user ID of this sync d l object
 	*/
+	@Override
 	public long getLockUserId() {
 		return _syncDLObject.getLockUserId();
 	}
@@ -418,6 +449,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @param lockUserId the lock user ID of this sync d l object
 	*/
+	@Override
 	public void setLockUserId(long lockUserId) {
 		_syncDLObject.setLockUserId(lockUserId);
 	}
@@ -428,6 +460,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	* @return the lock user uuid of this sync d l object
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.lang.String getLockUserUuid()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _syncDLObject.getLockUserUuid();
@@ -438,6 +471,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @param lockUserUuid the lock user uuid of this sync d l object
 	*/
+	@Override
 	public void setLockUserUuid(java.lang.String lockUserUuid) {
 		_syncDLObject.setLockUserUuid(lockUserUuid);
 	}
@@ -447,6 +481,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @return the lock user name of this sync d l object
 	*/
+	@Override
 	public java.lang.String getLockUserName() {
 		return _syncDLObject.getLockUserName();
 	}
@@ -456,6 +491,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @param lockUserName the lock user name of this sync d l object
 	*/
+	@Override
 	public void setLockUserName(java.lang.String lockUserName) {
 		_syncDLObject.setLockUserName(lockUserName);
 	}
@@ -465,6 +501,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @return the size of this sync d l object
 	*/
+	@Override
 	public long getSize() {
 		return _syncDLObject.getSize();
 	}
@@ -474,6 +511,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @param size the size of this sync d l object
 	*/
+	@Override
 	public void setSize(long size) {
 		_syncDLObject.setSize(size);
 	}
@@ -483,6 +521,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @return the type of this sync d l object
 	*/
+	@Override
 	public java.lang.String getType() {
 		return _syncDLObject.getType();
 	}
@@ -492,6 +531,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @param type the type of this sync d l object
 	*/
+	@Override
 	public void setType(java.lang.String type) {
 		_syncDLObject.setType(type);
 	}
@@ -501,6 +541,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @return the version of this sync d l object
 	*/
+	@Override
 	public java.lang.String getVersion() {
 		return _syncDLObject.getVersion();
 	}
@@ -510,52 +551,64 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	*
 	* @param version the version of this sync d l object
 	*/
+	@Override
 	public void setVersion(java.lang.String version) {
 		_syncDLObject.setVersion(version);
 	}
 
+	@Override
 	public boolean isNew() {
 		return _syncDLObject.isNew();
 	}
 
+	@Override
 	public void setNew(boolean n) {
 		_syncDLObject.setNew(n);
 	}
 
+	@Override
 	public boolean isCachedModel() {
 		return _syncDLObject.isCachedModel();
 	}
 
+	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_syncDLObject.setCachedModel(cachedModel);
 	}
 
+	@Override
 	public boolean isEscapedModel() {
 		return _syncDLObject.isEscapedModel();
 	}
 
+	@Override
 	public java.io.Serializable getPrimaryKeyObj() {
 		return _syncDLObject.getPrimaryKeyObj();
 	}
 
+	@Override
 	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
 		_syncDLObject.setPrimaryKeyObj(primaryKeyObj);
 	}
 
+	@Override
 	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
 		return _syncDLObject.getExpandoBridge();
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.model.BaseModel<?> baseModel) {
 		_syncDLObject.setExpandoBridgeAttributes(baseModel);
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
 		_syncDLObject.setExpandoBridgeAttributes(expandoBridge);
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.service.ServiceContext serviceContext) {
 		_syncDLObject.setExpandoBridgeAttributes(serviceContext);
@@ -566,6 +619,7 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 		return new SyncDLObjectWrapper((SyncDLObject)_syncDLObject.clone());
 	}
 
+	@Override
 	public int compareTo(com.liferay.sync.model.SyncDLObject syncDLObject) {
 		return _syncDLObject.compareTo(syncDLObject);
 	}
@@ -575,14 +629,17 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 		return _syncDLObject.hashCode();
 	}
 
+	@Override
 	public com.liferay.portal.model.CacheModel<com.liferay.sync.model.SyncDLObject> toCacheModel() {
 		return _syncDLObject.toCacheModel();
 	}
 
+	@Override
 	public com.liferay.sync.model.SyncDLObject toEscapedModel() {
 		return new SyncDLObjectWrapper(_syncDLObject.toEscapedModel());
 	}
 
+	@Override
 	public com.liferay.sync.model.SyncDLObject toUnescapedModel() {
 		return new SyncDLObjectWrapper(_syncDLObject.toUnescapedModel());
 	}
@@ -592,10 +649,12 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 		return _syncDLObject.toString();
 	}
 
+	@Override
 	public java.lang.String toXmlString() {
 		return _syncDLObject.toXmlString();
 	}
 
+	@Override
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_syncDLObject.persist();
@@ -608,10 +667,12 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 		return _syncDLObject;
 	}
 
+	@Override
 	public SyncDLObject getWrappedModel() {
 		return _syncDLObject;
 	}
 
+	@Override
 	public void resetOriginalValues() {
 		_syncDLObject.resetOriginalValues();
 	}

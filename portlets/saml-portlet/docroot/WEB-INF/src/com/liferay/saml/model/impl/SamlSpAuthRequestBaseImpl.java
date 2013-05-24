@@ -38,6 +38,7 @@ public abstract class SamlSpAuthRequestBaseImpl
 	 *
 	 * Never modify or reference this class directly. All methods that expect a saml sp auth request model instance should use the {@link SamlSpAuthRequest} interface instead.
 	 */
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			SamlSpAuthRequestLocalServiceUtil.addSamlSpAuthRequest(this);

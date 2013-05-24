@@ -71,6 +71,7 @@ public class DefinitionCacheModel implements CacheModel<Definition>,
 		return sb.toString();
 	}
 
+	@Override
 	public Definition toEntityModel() {
 		DefinitionImpl definitionImpl = new DefinitionImpl();
 
@@ -142,6 +143,7 @@ public class DefinitionCacheModel implements CacheModel<Definition>,
 		return definitionImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		uuid = objectInput.readUTF();
 		definitionId = objectInput.readLong();
@@ -158,6 +160,7 @@ public class DefinitionCacheModel implements CacheModel<Definition>,
 		reportParameters = objectInput.readUTF();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		if (uuid == null) {

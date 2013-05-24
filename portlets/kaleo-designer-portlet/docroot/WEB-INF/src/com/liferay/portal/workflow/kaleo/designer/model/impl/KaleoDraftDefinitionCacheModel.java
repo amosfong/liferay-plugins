@@ -68,6 +68,7 @@ public class KaleoDraftDefinitionCacheModel implements CacheModel<KaleoDraftDefi
 		return sb.toString();
 	}
 
+	@Override
 	public KaleoDraftDefinition toEntityModel() {
 		KaleoDraftDefinitionImpl kaleoDraftDefinitionImpl = new KaleoDraftDefinitionImpl();
 
@@ -126,6 +127,7 @@ public class KaleoDraftDefinitionCacheModel implements CacheModel<KaleoDraftDefi
 		return kaleoDraftDefinitionImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		kaleoDraftDefinitionId = objectInput.readLong();
 		groupId = objectInput.readLong();
@@ -141,6 +143,7 @@ public class KaleoDraftDefinitionCacheModel implements CacheModel<KaleoDraftDefi
 		draftVersion = objectInput.readInt();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(kaleoDraftDefinitionId);

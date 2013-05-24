@@ -41,26 +41,32 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 	public SamlIdpSpSessionClp() {
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return SamlIdpSpSession.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return SamlIdpSpSession.class.getName();
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _samlIdpSpSessionId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setSamlIdpSpSessionId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _samlIdpSpSessionId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
@@ -146,10 +152,12 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 		}
 	}
 
+	@Override
 	public long getSamlIdpSpSessionId() {
 		return _samlIdpSpSessionId;
 	}
 
+	@Override
 	public void setSamlIdpSpSessionId(long samlIdpSpSessionId) {
 		_samlIdpSpSessionId = samlIdpSpSessionId;
 
@@ -168,10 +176,12 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 		}
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 
@@ -189,10 +199,12 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 		}
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 
@@ -210,18 +222,22 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 		}
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	public String getUserName() {
 		return _userName;
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 
@@ -239,10 +255,12 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 		}
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 
@@ -260,10 +278,12 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 		}
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 
@@ -281,10 +301,12 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 		}
 	}
 
+	@Override
 	public long getSamlIdpSsoSessionId() {
 		return _samlIdpSsoSessionId;
 	}
 
+	@Override
 	public void setSamlIdpSsoSessionId(long samlIdpSsoSessionId) {
 		_samlIdpSsoSessionId = samlIdpSsoSessionId;
 
@@ -303,10 +325,12 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 		}
 	}
 
+	@Override
 	public String getSamlSpEntityId() {
 		return _samlSpEntityId;
 	}
 
+	@Override
 	public void setSamlSpEntityId(String samlSpEntityId) {
 		_samlSpEntityId = samlSpEntityId;
 
@@ -325,10 +349,12 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 		}
 	}
 
+	@Override
 	public String getNameIdFormat() {
 		return _nameIdFormat;
 	}
 
+	@Override
 	public void setNameIdFormat(String nameIdFormat) {
 		_nameIdFormat = nameIdFormat;
 
@@ -346,10 +372,12 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 		}
 	}
 
+	@Override
 	public String getNameIdValue() {
 		return _nameIdValue;
 	}
 
+	@Override
 	public void setNameIdValue(String nameIdValue) {
 		_nameIdValue = nameIdValue;
 
@@ -417,6 +445,7 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 		return returnValue;
 	}
 
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			SamlIdpSpSessionLocalServiceUtil.addSamlIdpSpSession(this);
@@ -451,6 +480,7 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 		return clone;
 	}
 
+	@Override
 	public int compareTo(SamlIdpSpSession samlIdpSpSession) {
 		long primaryKey = samlIdpSpSession.getPrimaryKey();
 
@@ -521,6 +551,7 @@ public class SamlIdpSpSessionClp extends BaseModelImpl<SamlIdpSpSession>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(34);
 

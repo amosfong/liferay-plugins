@@ -55,6 +55,7 @@ public class SamlSpAuthRequestCacheModel implements CacheModel<SamlSpAuthRequest
 		return sb.toString();
 	}
 
+	@Override
 	public SamlSpAuthRequest toEntityModel() {
 		SamlSpAuthRequestImpl samlSpAuthRequestImpl = new SamlSpAuthRequestImpl();
 
@@ -87,6 +88,7 @@ public class SamlSpAuthRequestCacheModel implements CacheModel<SamlSpAuthRequest
 		return samlSpAuthRequestImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		samlSpAuthnRequestId = objectInput.readLong();
 		companyId = objectInput.readLong();
@@ -95,6 +97,7 @@ public class SamlSpAuthRequestCacheModel implements CacheModel<SamlSpAuthRequest
 		samlSpAuthRequestKey = objectInput.readUTF();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(samlSpAuthnRequestId);

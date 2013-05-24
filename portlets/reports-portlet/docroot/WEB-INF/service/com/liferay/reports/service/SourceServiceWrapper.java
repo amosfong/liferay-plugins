@@ -34,6 +34,7 @@ public class SourceServiceWrapper implements SourceService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _sourceService.getBeanIdentifier();
 	}
@@ -43,16 +44,19 @@ public class SourceServiceWrapper implements SourceService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_sourceService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		return _sourceService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	@Override
 	public com.liferay.reports.model.Source addSource(long groupId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.lang.String driverClassName, java.lang.String driverUrl,
@@ -64,18 +68,21 @@ public class SourceServiceWrapper implements SourceService,
 			driverUrl, driverUserName, driverPassword, serviceContext);
 	}
 
+	@Override
 	public com.liferay.reports.model.Source deleteSource(long sourceId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _sourceService.deleteSource(sourceId);
 	}
 
+	@Override
 	public com.liferay.reports.model.Source getSource(long sourceId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _sourceService.getSource(sourceId);
 	}
 
+	@Override
 	public java.util.List<com.liferay.reports.model.Source> getSources(
 		long groupId, java.lang.String name, java.lang.String driverUrl,
 		boolean andSearch, int start, int end,
@@ -86,6 +93,7 @@ public class SourceServiceWrapper implements SourceService,
 			start, end, orderByComparator);
 	}
 
+	@Override
 	public int getSourcesCount(long groupId, java.lang.String name,
 		java.lang.String driverUrl, boolean andSearch)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -93,6 +101,7 @@ public class SourceServiceWrapper implements SourceService,
 			andSearch);
 	}
 
+	@Override
 	public com.liferay.reports.model.Source updateSource(long sourceId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.lang.String driverClassName, java.lang.String driverUrl,
@@ -118,10 +127,12 @@ public class SourceServiceWrapper implements SourceService,
 		_sourceService = sourceService;
 	}
 
+	@Override
 	public SourceService getWrappedService() {
 		return _sourceService;
 	}
 
+	@Override
 	public void setWrappedService(SourceService sourceService) {
 		_sourceService = sourceService;
 	}

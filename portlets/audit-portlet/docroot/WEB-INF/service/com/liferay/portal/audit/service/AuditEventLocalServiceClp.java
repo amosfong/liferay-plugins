@@ -144,6 +144,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 			};
 	}
 
+	@Override
 	public com.liferay.portal.audit.model.AuditEvent addAuditEvent(
 		com.liferay.portal.audit.model.AuditEvent auditEvent)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -173,6 +174,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		return (com.liferay.portal.audit.model.AuditEvent)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.audit.model.AuditEvent createAuditEvent(
 		long auditEventId) {
 		Object returnObj = null;
@@ -196,6 +198,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		return (com.liferay.portal.audit.model.AuditEvent)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.audit.model.AuditEvent deleteAuditEvent(
 		long auditEventId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -229,6 +232,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		return (com.liferay.portal.audit.model.AuditEvent)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.audit.model.AuditEvent deleteAuditEvent(
 		com.liferay.portal.audit.model.AuditEvent auditEvent)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -258,6 +262,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		return (com.liferay.portal.audit.model.AuditEvent)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		Object returnObj = null;
 
@@ -280,6 +285,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		return (com.liferay.portal.kernel.dao.orm.DynamicQuery)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -310,6 +316,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -346,6 +353,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -386,6 +394,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -415,6 +424,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		return ((Long)returnObj).longValue();
 	}
 
+	@Override
 	public com.liferay.portal.audit.model.AuditEvent fetchAuditEvent(
 		long auditEventId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -443,6 +453,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		return (com.liferay.portal.audit.model.AuditEvent)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.audit.model.AuditEvent getAuditEvent(
 		long auditEventId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -476,6 +487,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		return (com.liferay.portal.audit.model.AuditEvent)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -510,6 +522,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portal.audit.model.AuditEvent> getAuditEvents(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -538,6 +551,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		return (java.util.List<com.liferay.portal.audit.model.AuditEvent>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getAuditEventsCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -565,6 +579,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public com.liferay.portal.audit.model.AuditEvent updateAuditEvent(
 		com.liferay.portal.audit.model.AuditEvent auditEvent)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -594,6 +609,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		return (com.liferay.portal.audit.model.AuditEvent)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -616,6 +632,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableLocalService.invokeMethod(_methodName16,
@@ -635,12 +652,14 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public com.liferay.portal.audit.model.AuditEvent addAuditEvent(
 		com.liferay.portal.kernel.audit.AuditMessage auditMessage)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -670,6 +689,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		return (com.liferay.portal.audit.model.AuditEvent)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portal.audit.model.AuditEvent> getAuditEvents(
 		long companyId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
@@ -708,6 +728,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		return (java.util.List<com.liferay.portal.audit.model.AuditEvent>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portal.audit.model.AuditEvent> getAuditEvents(
 		long companyId, long userId, java.lang.String userName,
 		java.util.Date createDateGT, java.util.Date createDateLT,
@@ -777,6 +798,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		return (java.util.List<com.liferay.portal.audit.model.AuditEvent>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getAuditEventsCount(long companyId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -804,6 +826,7 @@ public class AuditEventLocalServiceClp implements AuditEventLocalService {
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public int getAuditEventsCount(long companyId, long userId,
 		java.lang.String userName, java.util.Date createDateGT,
 		java.util.Date createDateLT, java.lang.String eventType,

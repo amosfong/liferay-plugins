@@ -35,14 +35,17 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 		_samlSpMessage = samlSpMessage;
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return SamlSpMessage.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return SamlSpMessage.class.getName();
 	}
 
+	@Override
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
@@ -56,6 +59,7 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 		return attributes;
 	}
 
+	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		Long samlSpMessageId = (Long)attributes.get("samlSpMessageId");
 
@@ -99,6 +103,7 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 	*
 	* @return the primary key of this saml sp message
 	*/
+	@Override
 	public long getPrimaryKey() {
 		return _samlSpMessage.getPrimaryKey();
 	}
@@ -108,6 +113,7 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 	*
 	* @param primaryKey the primary key of this saml sp message
 	*/
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_samlSpMessage.setPrimaryKey(primaryKey);
 	}
@@ -117,6 +123,7 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 	*
 	* @return the saml sp message ID of this saml sp message
 	*/
+	@Override
 	public long getSamlSpMessageId() {
 		return _samlSpMessage.getSamlSpMessageId();
 	}
@@ -126,6 +133,7 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 	*
 	* @param samlSpMessageId the saml sp message ID of this saml sp message
 	*/
+	@Override
 	public void setSamlSpMessageId(long samlSpMessageId) {
 		_samlSpMessage.setSamlSpMessageId(samlSpMessageId);
 	}
@@ -135,6 +143,7 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 	*
 	* @return the company ID of this saml sp message
 	*/
+	@Override
 	public long getCompanyId() {
 		return _samlSpMessage.getCompanyId();
 	}
@@ -144,6 +153,7 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 	*
 	* @param companyId the company ID of this saml sp message
 	*/
+	@Override
 	public void setCompanyId(long companyId) {
 		_samlSpMessage.setCompanyId(companyId);
 	}
@@ -153,6 +163,7 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 	*
 	* @return the create date of this saml sp message
 	*/
+	@Override
 	public java.util.Date getCreateDate() {
 		return _samlSpMessage.getCreateDate();
 	}
@@ -162,6 +173,7 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 	*
 	* @param createDate the create date of this saml sp message
 	*/
+	@Override
 	public void setCreateDate(java.util.Date createDate) {
 		_samlSpMessage.setCreateDate(createDate);
 	}
@@ -171,6 +183,7 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 	*
 	* @return the saml idp entity ID of this saml sp message
 	*/
+	@Override
 	public java.lang.String getSamlIdpEntityId() {
 		return _samlSpMessage.getSamlIdpEntityId();
 	}
@@ -180,6 +193,7 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 	*
 	* @param samlIdpEntityId the saml idp entity ID of this saml sp message
 	*/
+	@Override
 	public void setSamlIdpEntityId(java.lang.String samlIdpEntityId) {
 		_samlSpMessage.setSamlIdpEntityId(samlIdpEntityId);
 	}
@@ -189,6 +203,7 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 	*
 	* @return the saml idp response key of this saml sp message
 	*/
+	@Override
 	public java.lang.String getSamlIdpResponseKey() {
 		return _samlSpMessage.getSamlIdpResponseKey();
 	}
@@ -198,6 +213,7 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 	*
 	* @param samlIdpResponseKey the saml idp response key of this saml sp message
 	*/
+	@Override
 	public void setSamlIdpResponseKey(java.lang.String samlIdpResponseKey) {
 		_samlSpMessage.setSamlIdpResponseKey(samlIdpResponseKey);
 	}
@@ -207,6 +223,7 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 	*
 	* @return the expiration date of this saml sp message
 	*/
+	@Override
 	public java.util.Date getExpirationDate() {
 		return _samlSpMessage.getExpirationDate();
 	}
@@ -216,52 +233,64 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 	*
 	* @param expirationDate the expiration date of this saml sp message
 	*/
+	@Override
 	public void setExpirationDate(java.util.Date expirationDate) {
 		_samlSpMessage.setExpirationDate(expirationDate);
 	}
 
+	@Override
 	public boolean isNew() {
 		return _samlSpMessage.isNew();
 	}
 
+	@Override
 	public void setNew(boolean n) {
 		_samlSpMessage.setNew(n);
 	}
 
+	@Override
 	public boolean isCachedModel() {
 		return _samlSpMessage.isCachedModel();
 	}
 
+	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_samlSpMessage.setCachedModel(cachedModel);
 	}
 
+	@Override
 	public boolean isEscapedModel() {
 		return _samlSpMessage.isEscapedModel();
 	}
 
+	@Override
 	public java.io.Serializable getPrimaryKeyObj() {
 		return _samlSpMessage.getPrimaryKeyObj();
 	}
 
+	@Override
 	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
 		_samlSpMessage.setPrimaryKeyObj(primaryKeyObj);
 	}
 
+	@Override
 	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
 		return _samlSpMessage.getExpandoBridge();
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.model.BaseModel<?> baseModel) {
 		_samlSpMessage.setExpandoBridgeAttributes(baseModel);
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
 		_samlSpMessage.setExpandoBridgeAttributes(expandoBridge);
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.service.ServiceContext serviceContext) {
 		_samlSpMessage.setExpandoBridgeAttributes(serviceContext);
@@ -272,6 +301,7 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 		return new SamlSpMessageWrapper((SamlSpMessage)_samlSpMessage.clone());
 	}
 
+	@Override
 	public int compareTo(com.liferay.saml.model.SamlSpMessage samlSpMessage) {
 		return _samlSpMessage.compareTo(samlSpMessage);
 	}
@@ -281,14 +311,17 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 		return _samlSpMessage.hashCode();
 	}
 
+	@Override
 	public com.liferay.portal.model.CacheModel<com.liferay.saml.model.SamlSpMessage> toCacheModel() {
 		return _samlSpMessage.toCacheModel();
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlSpMessage toEscapedModel() {
 		return new SamlSpMessageWrapper(_samlSpMessage.toEscapedModel());
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlSpMessage toUnescapedModel() {
 		return new SamlSpMessageWrapper(_samlSpMessage.toUnescapedModel());
 	}
@@ -298,15 +331,18 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 		return _samlSpMessage.toString();
 	}
 
+	@Override
 	public java.lang.String toXmlString() {
 		return _samlSpMessage.toXmlString();
 	}
 
+	@Override
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_samlSpMessage.persist();
 	}
 
+	@Override
 	public boolean isExpired() {
 		return _samlSpMessage.isExpired();
 	}
@@ -318,10 +354,12 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 		return _samlSpMessage;
 	}
 
+	@Override
 	public SamlSpMessage getWrappedModel() {
 		return _samlSpMessage;
 	}
 
+	@Override
 	public void resetOriginalValues() {
 		_samlSpMessage.resetOriginalValues();
 	}

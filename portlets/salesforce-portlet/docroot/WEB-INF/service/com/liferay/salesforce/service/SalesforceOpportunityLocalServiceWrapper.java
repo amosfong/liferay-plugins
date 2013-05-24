@@ -36,6 +36,7 @@ public class SalesforceOpportunityLocalServiceWrapper
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _salesforceOpportunityLocalService.getBeanIdentifier();
 	}
@@ -45,10 +46,12 @@ public class SalesforceOpportunityLocalServiceWrapper
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_salesforceOpportunityLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
@@ -56,6 +59,7 @@ public class SalesforceOpportunityLocalServiceWrapper
 			parameterTypes, arguments);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch getOpportunitiesByAccountId(
 		long companyId, java.lang.String accountId,
 		java.util.List<java.lang.String> fieldNames)
@@ -65,6 +69,7 @@ public class SalesforceOpportunityLocalServiceWrapper
 			accountId, fieldNames);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch getOpportunitiesByUserId(
 		long companyId, java.lang.String userId,
 		java.util.List<java.lang.String> fieldNames)
@@ -74,6 +79,7 @@ public class SalesforceOpportunityLocalServiceWrapper
 			userId, fieldNames);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch getOpportunitiesByUserName(
 		long companyId, java.lang.String userName,
 		java.util.List<java.lang.String> fieldNames)
@@ -98,10 +104,12 @@ public class SalesforceOpportunityLocalServiceWrapper
 		_salesforceOpportunityLocalService = salesforceOpportunityLocalService;
 	}
 
+	@Override
 	public SalesforceOpportunityLocalService getWrappedService() {
 		return _salesforceOpportunityLocalService;
 	}
 
+	@Override
 	public void setWrappedService(
 		SalesforceOpportunityLocalService salesforceOpportunityLocalService) {
 		_salesforceOpportunityLocalService = salesforceOpportunityLocalService;

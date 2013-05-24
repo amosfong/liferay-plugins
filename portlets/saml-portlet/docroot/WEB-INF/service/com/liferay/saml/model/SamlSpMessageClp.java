@@ -40,26 +40,32 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 	public SamlSpMessageClp() {
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return SamlSpMessage.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return SamlSpMessage.class.getName();
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _samlSpMessageId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setSamlSpMessageId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _samlSpMessageId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
@@ -117,10 +123,12 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 		}
 	}
 
+	@Override
 	public long getSamlSpMessageId() {
 		return _samlSpMessageId;
 	}
 
+	@Override
 	public void setSamlSpMessageId(long samlSpMessageId) {
 		_samlSpMessageId = samlSpMessageId;
 
@@ -138,10 +146,12 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 		}
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 
@@ -159,10 +169,12 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 		}
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 
@@ -180,10 +192,12 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 		}
 	}
 
+	@Override
 	public String getSamlIdpEntityId() {
 		return _samlIdpEntityId;
 	}
 
+	@Override
 	public void setSamlIdpEntityId(String samlIdpEntityId) {
 		_samlIdpEntityId = samlIdpEntityId;
 
@@ -202,10 +216,12 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 		}
 	}
 
+	@Override
 	public String getSamlIdpResponseKey() {
 		return _samlIdpResponseKey;
 	}
 
+	@Override
 	public void setSamlIdpResponseKey(String samlIdpResponseKey) {
 		_samlIdpResponseKey = samlIdpResponseKey;
 
@@ -224,10 +240,12 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 		}
 	}
 
+	@Override
 	public Date getExpirationDate() {
 		return _expirationDate;
 	}
 
+	@Override
 	public void setExpirationDate(Date expirationDate) {
 		_expirationDate = expirationDate;
 
@@ -245,6 +263,7 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 		}
 	}
 
+	@Override
 	public boolean isExpired() {
 		try {
 			String methodName = "isExpired";
@@ -313,6 +332,7 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 		return returnValue;
 	}
 
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			SamlSpMessageLocalServiceUtil.addSamlSpMessage(this);
@@ -342,6 +362,7 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 		return clone;
 	}
 
+	@Override
 	public int compareTo(SamlSpMessage samlSpMessage) {
 		long primaryKey = samlSpMessage.getPrimaryKey();
 
@@ -404,6 +425,7 @@ public class SamlSpMessageClp extends BaseModelImpl<SamlSpMessage>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(22);
 

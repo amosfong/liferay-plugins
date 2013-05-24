@@ -35,14 +35,17 @@ public class KaleoProcessWrapper implements KaleoProcess,
 		_kaleoProcess = kaleoProcess;
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return KaleoProcess.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return KaleoProcess.class.getName();
 	}
 
+	@Override
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
@@ -59,6 +62,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 		return attributes;
 	}
 
+	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		Long kaleoProcessId = (Long)attributes.get("kaleoProcessId");
 
@@ -120,6 +124,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @return the primary key of this kaleo process
 	*/
+	@Override
 	public long getPrimaryKey() {
 		return _kaleoProcess.getPrimaryKey();
 	}
@@ -129,6 +134,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @param primaryKey the primary key of this kaleo process
 	*/
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_kaleoProcess.setPrimaryKey(primaryKey);
 	}
@@ -138,6 +144,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @return the kaleo process ID of this kaleo process
 	*/
+	@Override
 	public long getKaleoProcessId() {
 		return _kaleoProcess.getKaleoProcessId();
 	}
@@ -147,6 +154,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @param kaleoProcessId the kaleo process ID of this kaleo process
 	*/
+	@Override
 	public void setKaleoProcessId(long kaleoProcessId) {
 		_kaleoProcess.setKaleoProcessId(kaleoProcessId);
 	}
@@ -156,6 +164,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @return the group ID of this kaleo process
 	*/
+	@Override
 	public long getGroupId() {
 		return _kaleoProcess.getGroupId();
 	}
@@ -165,6 +174,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @param groupId the group ID of this kaleo process
 	*/
+	@Override
 	public void setGroupId(long groupId) {
 		_kaleoProcess.setGroupId(groupId);
 	}
@@ -174,6 +184,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @return the company ID of this kaleo process
 	*/
+	@Override
 	public long getCompanyId() {
 		return _kaleoProcess.getCompanyId();
 	}
@@ -183,6 +194,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @param companyId the company ID of this kaleo process
 	*/
+	@Override
 	public void setCompanyId(long companyId) {
 		_kaleoProcess.setCompanyId(companyId);
 	}
@@ -192,6 +204,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @return the user ID of this kaleo process
 	*/
+	@Override
 	public long getUserId() {
 		return _kaleoProcess.getUserId();
 	}
@@ -201,6 +214,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @param userId the user ID of this kaleo process
 	*/
+	@Override
 	public void setUserId(long userId) {
 		_kaleoProcess.setUserId(userId);
 	}
@@ -211,6 +225,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	* @return the user uuid of this kaleo process
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.lang.String getUserUuid()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _kaleoProcess.getUserUuid();
@@ -221,6 +236,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @param userUuid the user uuid of this kaleo process
 	*/
+	@Override
 	public void setUserUuid(java.lang.String userUuid) {
 		_kaleoProcess.setUserUuid(userUuid);
 	}
@@ -230,6 +246,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @return the user name of this kaleo process
 	*/
+	@Override
 	public java.lang.String getUserName() {
 		return _kaleoProcess.getUserName();
 	}
@@ -239,6 +256,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @param userName the user name of this kaleo process
 	*/
+	@Override
 	public void setUserName(java.lang.String userName) {
 		_kaleoProcess.setUserName(userName);
 	}
@@ -248,6 +266,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @return the create date of this kaleo process
 	*/
+	@Override
 	public java.util.Date getCreateDate() {
 		return _kaleoProcess.getCreateDate();
 	}
@@ -257,6 +276,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @param createDate the create date of this kaleo process
 	*/
+	@Override
 	public void setCreateDate(java.util.Date createDate) {
 		_kaleoProcess.setCreateDate(createDate);
 	}
@@ -266,6 +286,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @return the modified date of this kaleo process
 	*/
+	@Override
 	public java.util.Date getModifiedDate() {
 		return _kaleoProcess.getModifiedDate();
 	}
@@ -275,6 +296,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @param modifiedDate the modified date of this kaleo process
 	*/
+	@Override
 	public void setModifiedDate(java.util.Date modifiedDate) {
 		_kaleoProcess.setModifiedDate(modifiedDate);
 	}
@@ -284,6 +306,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @return the d d l record set ID of this kaleo process
 	*/
+	@Override
 	public long getDDLRecordSetId() {
 		return _kaleoProcess.getDDLRecordSetId();
 	}
@@ -293,6 +316,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @param DDLRecordSetId the d d l record set ID of this kaleo process
 	*/
+	@Override
 	public void setDDLRecordSetId(long DDLRecordSetId) {
 		_kaleoProcess.setDDLRecordSetId(DDLRecordSetId);
 	}
@@ -302,6 +326,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @return the d d m template ID of this kaleo process
 	*/
+	@Override
 	public long getDDMTemplateId() {
 		return _kaleoProcess.getDDMTemplateId();
 	}
@@ -311,52 +336,64 @@ public class KaleoProcessWrapper implements KaleoProcess,
 	*
 	* @param DDMTemplateId the d d m template ID of this kaleo process
 	*/
+	@Override
 	public void setDDMTemplateId(long DDMTemplateId) {
 		_kaleoProcess.setDDMTemplateId(DDMTemplateId);
 	}
 
+	@Override
 	public boolean isNew() {
 		return _kaleoProcess.isNew();
 	}
 
+	@Override
 	public void setNew(boolean n) {
 		_kaleoProcess.setNew(n);
 	}
 
+	@Override
 	public boolean isCachedModel() {
 		return _kaleoProcess.isCachedModel();
 	}
 
+	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_kaleoProcess.setCachedModel(cachedModel);
 	}
 
+	@Override
 	public boolean isEscapedModel() {
 		return _kaleoProcess.isEscapedModel();
 	}
 
+	@Override
 	public java.io.Serializable getPrimaryKeyObj() {
 		return _kaleoProcess.getPrimaryKeyObj();
 	}
 
+	@Override
 	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
 		_kaleoProcess.setPrimaryKeyObj(primaryKeyObj);
 	}
 
+	@Override
 	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
 		return _kaleoProcess.getExpandoBridge();
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.model.BaseModel<?> baseModel) {
 		_kaleoProcess.setExpandoBridgeAttributes(baseModel);
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
 		_kaleoProcess.setExpandoBridgeAttributes(expandoBridge);
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.service.ServiceContext serviceContext) {
 		_kaleoProcess.setExpandoBridgeAttributes(serviceContext);
@@ -367,6 +404,7 @@ public class KaleoProcessWrapper implements KaleoProcess,
 		return new KaleoProcessWrapper((KaleoProcess)_kaleoProcess.clone());
 	}
 
+	@Override
 	public int compareTo(
 		com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess kaleoProcess) {
 		return _kaleoProcess.compareTo(kaleoProcess);
@@ -377,14 +415,17 @@ public class KaleoProcessWrapper implements KaleoProcess,
 		return _kaleoProcess.hashCode();
 	}
 
+	@Override
 	public com.liferay.portal.model.CacheModel<com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess> toCacheModel() {
 		return _kaleoProcess.toCacheModel();
 	}
 
+	@Override
 	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess toEscapedModel() {
 		return new KaleoProcessWrapper(_kaleoProcess.toEscapedModel());
 	}
 
+	@Override
 	public com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess toUnescapedModel() {
 		return new KaleoProcessWrapper(_kaleoProcess.toUnescapedModel());
 	}
@@ -394,38 +435,45 @@ public class KaleoProcessWrapper implements KaleoProcess,
 		return _kaleoProcess.toString();
 	}
 
+	@Override
 	public java.lang.String toXmlString() {
 		return _kaleoProcess.toXmlString();
 	}
 
+	@Override
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_kaleoProcess.persist();
 	}
 
+	@Override
 	public com.liferay.portlet.dynamicdatalists.model.DDLRecordSet getDDLRecordSet()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _kaleoProcess.getDDLRecordSet();
 	}
 
+	@Override
 	public com.liferay.portlet.dynamicdatamapping.model.DDMTemplate getDDMTemplate()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _kaleoProcess.getDDMTemplate();
 	}
 
+	@Override
 	public java.lang.String getDescription(java.util.Locale locale)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _kaleoProcess.getDescription(locale);
 	}
 
+	@Override
 	public java.util.List<com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessLink> getKaleoProcessLinks()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _kaleoProcess.getKaleoProcessLinks();
 	}
 
+	@Override
 	public java.lang.String getName(java.util.Locale locale)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -439,10 +487,12 @@ public class KaleoProcessWrapper implements KaleoProcess,
 		return _kaleoProcess;
 	}
 
+	@Override
 	public KaleoProcess getWrappedModel() {
 		return _kaleoProcess;
 	}
 
+	@Override
 	public void resetOriginalValues() {
 		_kaleoProcess.resetOriginalValues();
 	}

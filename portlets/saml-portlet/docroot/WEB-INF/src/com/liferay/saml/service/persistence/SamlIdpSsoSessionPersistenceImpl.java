@@ -105,6 +105,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	 * @throws com.liferay.saml.NoSuchIdpSsoSessionException if a matching saml idp sso session could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlIdpSsoSession findBySamlIdpSsoSessionKey(
 		String samlIdpSsoSessionKey)
 		throws NoSuchIdpSsoSessionException, SystemException {
@@ -137,6 +138,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	 * @return the matching saml idp sso session, or <code>null</code> if a matching saml idp sso session could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlIdpSsoSession fetchBySamlIdpSsoSessionKey(
 		String samlIdpSsoSessionKey) throws SystemException {
 		return fetchBySamlIdpSsoSessionKey(samlIdpSsoSessionKey, true);
@@ -150,6 +152,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	 * @return the matching saml idp sso session, or <code>null</code> if a matching saml idp sso session could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlIdpSsoSession fetchBySamlIdpSsoSessionKey(
 		String samlIdpSsoSessionKey, boolean retrieveFromCache)
 		throws SystemException {
@@ -259,6 +262,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	 * @return the saml idp sso session that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlIdpSsoSession removeBySamlIdpSsoSessionKey(
 		String samlIdpSsoSessionKey)
 		throws NoSuchIdpSsoSessionException, SystemException {
@@ -274,6 +278,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	 * @return the number of matching saml idp sso sessions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countBySamlIdpSsoSessionKey(String samlIdpSsoSessionKey)
 		throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_SAMLIDPSSOSESSIONKEY;
@@ -346,6 +351,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	 *
 	 * @param samlIdpSsoSession the saml idp sso session
 	 */
+	@Override
 	public void cacheResult(SamlIdpSsoSession samlIdpSsoSession) {
 		EntityCacheUtil.putResult(SamlIdpSsoSessionModelImpl.ENTITY_CACHE_ENABLED,
 			SamlIdpSsoSessionImpl.class, samlIdpSsoSession.getPrimaryKey(),
@@ -363,6 +369,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	 *
 	 * @param samlIdpSsoSessions the saml idp sso sessions
 	 */
+	@Override
 	public void cacheResult(List<SamlIdpSsoSession> samlIdpSsoSessions) {
 		for (SamlIdpSsoSession samlIdpSsoSession : samlIdpSsoSessions) {
 			if (EntityCacheUtil.getResult(
@@ -485,6 +492,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	 * @param samlIdpSsoSessionId the primary key for the new saml idp sso session
 	 * @return the new saml idp sso session
 	 */
+	@Override
 	public SamlIdpSsoSession create(long samlIdpSsoSessionId) {
 		SamlIdpSsoSession samlIdpSsoSession = new SamlIdpSsoSessionImpl();
 
@@ -502,6 +510,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	 * @throws com.liferay.saml.NoSuchIdpSsoSessionException if a saml idp sso session with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlIdpSsoSession remove(long samlIdpSsoSessionId)
 		throws NoSuchIdpSsoSessionException, SystemException {
 		return remove((Serializable)samlIdpSsoSessionId);
@@ -681,6 +690,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	 * @throws com.liferay.saml.NoSuchIdpSsoSessionException if a saml idp sso session with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlIdpSsoSession findByPrimaryKey(long samlIdpSsoSessionId)
 		throws NoSuchIdpSsoSessionException, SystemException {
 		return findByPrimaryKey((Serializable)samlIdpSsoSessionId);
@@ -742,6 +752,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	 * @return the saml idp sso session, or <code>null</code> if a saml idp sso session with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlIdpSsoSession fetchByPrimaryKey(long samlIdpSsoSessionId)
 		throws SystemException {
 		return fetchByPrimaryKey((Serializable)samlIdpSsoSessionId);
@@ -753,6 +764,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	 * @return the saml idp sso sessions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SamlIdpSsoSession> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -769,6 +781,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	 * @return the range of saml idp sso sessions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SamlIdpSsoSession> findAll(int start, int end)
 		throws SystemException {
 		return findAll(start, end, null);
@@ -787,6 +800,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	 * @return the ordered range of saml idp sso sessions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SamlIdpSsoSession> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -872,6 +886,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (SamlIdpSsoSession samlIdpSsoSession : findAll()) {
 			remove(samlIdpSsoSession);
@@ -884,6 +899,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	 * @return the number of saml idp sso sessions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -971,6 +987,7 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 
 	private static CacheModel<SamlIdpSsoSession> _nullSamlIdpSsoSessionCacheModel =
 		new CacheModel<SamlIdpSsoSession>() {
+			@Override
 			public SamlIdpSsoSession toEntityModel() {
 				return _nullSamlIdpSsoSession;
 			}

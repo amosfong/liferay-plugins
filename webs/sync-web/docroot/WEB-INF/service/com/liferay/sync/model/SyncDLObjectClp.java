@@ -40,26 +40,32 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 	public SyncDLObjectClp() {
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return SyncDLObject.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return SyncDLObject.class.getName();
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _objectId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setObjectId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _objectId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
@@ -194,10 +200,12 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		}
 	}
 
+	@Override
 	public long getObjectId() {
 		return _objectId;
 	}
 
+	@Override
 	public void setObjectId(long objectId) {
 		_objectId = objectId;
 
@@ -215,10 +223,12 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		}
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 
@@ -236,10 +246,12 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		}
 	}
 
+	@Override
 	public long getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(long createDate) {
 		_createDate = createDate;
 
@@ -257,10 +269,12 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		}
 	}
 
+	@Override
 	public long getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(long modifiedDate) {
 		_modifiedDate = modifiedDate;
 
@@ -278,10 +292,12 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		}
 	}
 
+	@Override
 	public long getFileId() {
 		return _fileId;
 	}
 
+	@Override
 	public void setFileId(long fileId) {
 		_fileId = fileId;
 
@@ -299,10 +315,12 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		}
 	}
 
+	@Override
 	public String getFileUuid() {
 		return _fileUuid;
 	}
 
+	@Override
 	public void setFileUuid(String fileUuid) {
 		_fileUuid = fileUuid;
 
@@ -320,10 +338,12 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		}
 	}
 
+	@Override
 	public long getRepositoryId() {
 		return _repositoryId;
 	}
 
+	@Override
 	public void setRepositoryId(long repositoryId) {
 		_repositoryId = repositoryId;
 
@@ -341,10 +361,12 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		}
 	}
 
+	@Override
 	public long getParentFolderId() {
 		return _parentFolderId;
 	}
 
+	@Override
 	public void setParentFolderId(long parentFolderId) {
 		_parentFolderId = parentFolderId;
 
@@ -362,10 +384,12 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		}
 	}
 
+	@Override
 	public String getName() {
 		return _name;
 	}
 
+	@Override
 	public void setName(String name) {
 		_name = name;
 
@@ -383,10 +407,12 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		}
 	}
 
+	@Override
 	public String getDescription() {
 		return _description;
 	}
 
+	@Override
 	public void setDescription(String description) {
 		_description = description;
 
@@ -404,10 +430,12 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		}
 	}
 
+	@Override
 	public String getChecksum() {
 		return _checksum;
 	}
 
+	@Override
 	public void setChecksum(String checksum) {
 		_checksum = checksum;
 
@@ -425,10 +453,12 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		}
 	}
 
+	@Override
 	public String getEvent() {
 		return _event;
 	}
 
+	@Override
 	public void setEvent(String event) {
 		_event = event;
 
@@ -446,10 +476,12 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		}
 	}
 
+	@Override
 	public long getLockUserId() {
 		return _lockUserId;
 	}
 
+	@Override
 	public void setLockUserId(long lockUserId) {
 		_lockUserId = lockUserId;
 
@@ -467,18 +499,22 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		}
 	}
 
+	@Override
 	public String getLockUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getLockUserId(), "uuid", _lockUserUuid);
 	}
 
+	@Override
 	public void setLockUserUuid(String lockUserUuid) {
 		_lockUserUuid = lockUserUuid;
 	}
 
+	@Override
 	public String getLockUserName() {
 		return _lockUserName;
 	}
 
+	@Override
 	public void setLockUserName(String lockUserName) {
 		_lockUserName = lockUserName;
 
@@ -496,10 +532,12 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		}
 	}
 
+	@Override
 	public long getSize() {
 		return _size;
 	}
 
+	@Override
 	public void setSize(long size) {
 		_size = size;
 
@@ -517,10 +555,12 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		}
 	}
 
+	@Override
 	public String getType() {
 		return _type;
 	}
 
+	@Override
 	public void setType(String type) {
 		_type = type;
 
@@ -538,10 +578,12 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		}
 	}
 
+	@Override
 	public String getVersion() {
 		return _version;
 	}
 
+	@Override
 	public void setVersion(String version) {
 		_version = version;
 
@@ -608,6 +650,7 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		return returnValue;
 	}
 
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			SyncDLObjectLocalServiceUtil.addSyncDLObject(this);
@@ -648,6 +691,7 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		return clone;
 	}
 
+	@Override
 	public int compareTo(SyncDLObject syncDLObject) {
 		int value = 0;
 
@@ -766,6 +810,7 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(55);
 

@@ -38,6 +38,7 @@ public abstract class SamlIdpSpSessionBaseImpl extends SamlIdpSpSessionModelImpl
 	 *
 	 * Never modify or reference this class directly. All methods that expect a saml idp sp session model instance should use the {@link SamlIdpSpSession} interface instead.
 	 */
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			SamlIdpSpSessionLocalServiceUtil.addSamlIdpSpSession(this);

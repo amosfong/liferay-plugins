@@ -41,26 +41,32 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 	public EntryClp() {
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return Entry.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return Entry.class.getName();
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _entryId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setEntryId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _entryId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
@@ -223,10 +229,12 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public long getEntryId() {
 		return _entryId;
 	}
 
+	@Override
 	public void setEntryId(long entryId) {
 		_entryId = entryId;
 
@@ -244,10 +252,12 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public long getGroupId() {
 		return _groupId;
 	}
 
+	@Override
 	public void setGroupId(long groupId) {
 		_groupId = groupId;
 
@@ -265,10 +275,12 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 
@@ -286,10 +298,12 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 
@@ -307,18 +321,22 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	public String getUserName() {
 		return _userName;
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 
@@ -336,10 +354,12 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 
@@ -357,10 +377,12 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 
@@ -378,10 +400,12 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public long getDefinitionId() {
 		return _definitionId;
 	}
 
+	@Override
 	public void setDefinitionId(long definitionId) {
 		_definitionId = definitionId;
 
@@ -399,10 +423,12 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public String getFormat() {
 		return _format;
 	}
 
+	@Override
 	public void setFormat(String format) {
 		_format = format;
 
@@ -420,14 +446,17 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public boolean getScheduleRequest() {
 		return _scheduleRequest;
 	}
 
+	@Override
 	public boolean isScheduleRequest() {
 		return _scheduleRequest;
 	}
 
+	@Override
 	public void setScheduleRequest(boolean scheduleRequest) {
 		_scheduleRequest = scheduleRequest;
 
@@ -446,10 +475,12 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public Date getStartDate() {
 		return _startDate;
 	}
 
+	@Override
 	public void setStartDate(Date startDate) {
 		_startDate = startDate;
 
@@ -467,10 +498,12 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public Date getEndDate() {
 		return _endDate;
 	}
 
+	@Override
 	public void setEndDate(Date endDate) {
 		_endDate = endDate;
 
@@ -488,14 +521,17 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public boolean getRepeating() {
 		return _repeating;
 	}
 
+	@Override
 	public boolean isRepeating() {
 		return _repeating;
 	}
 
+	@Override
 	public void setRepeating(boolean repeating) {
 		_repeating = repeating;
 
@@ -513,10 +549,12 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public String getRecurrence() {
 		return _recurrence;
 	}
 
+	@Override
 	public void setRecurrence(String recurrence) {
 		_recurrence = recurrence;
 
@@ -534,10 +572,12 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public String getEmailNotifications() {
 		return _emailNotifications;
 	}
 
+	@Override
 	public void setEmailNotifications(String emailNotifications) {
 		_emailNotifications = emailNotifications;
 
@@ -556,10 +596,12 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public String getEmailDelivery() {
 		return _emailDelivery;
 	}
 
+	@Override
 	public void setEmailDelivery(String emailDelivery) {
 		_emailDelivery = emailDelivery;
 
@@ -577,10 +619,12 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public String getPortletId() {
 		return _portletId;
 	}
 
+	@Override
 	public void setPortletId(String portletId) {
 		_portletId = portletId;
 
@@ -598,10 +642,12 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public String getPageURL() {
 		return _pageURL;
 	}
 
+	@Override
 	public void setPageURL(String pageURL) {
 		_pageURL = pageURL;
 
@@ -619,10 +665,12 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public String getReportParameters() {
 		return _reportParameters;
 	}
 
+	@Override
 	public void setReportParameters(String reportParameters) {
 		_reportParameters = reportParameters;
 
@@ -641,10 +689,12 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public String getStatus() {
 		return _status;
 	}
 
+	@Override
 	public void setStatus(String status) {
 		_status = status;
 
@@ -662,10 +712,12 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public String getErrorMessage() {
 		return _errorMessage;
 	}
 
+	@Override
 	public void setErrorMessage(String errorMessage) {
 		_errorMessage = errorMessage;
 
@@ -683,6 +735,7 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public java.lang.String getSchedulerRequestName() {
 		try {
 			String methodName = "getSchedulerRequestName";
@@ -701,6 +754,7 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public java.lang.String getJobName() {
 		try {
 			String methodName = "getJobName";
@@ -719,6 +773,7 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public java.lang.String[] getAttachmentsFiles() {
 		try {
 			String methodName = "getAttachmentsFiles";
@@ -737,6 +792,7 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public java.lang.String getAttachmentsDir() {
 		try {
 			String methodName = "getAttachmentsDir";
@@ -755,6 +811,7 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		}
 	}
 
+	@Override
 	public com.liferay.portal.kernel.cal.TZSRecurrence getRecurrenceObj() {
 		try {
 			String methodName = "getRecurrenceObj";
@@ -822,6 +879,7 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		return returnValue;
 	}
 
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			EntryLocalServiceUtil.addEntry(this);
@@ -866,6 +924,7 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		return clone;
 	}
 
+	@Override
 	public int compareTo(Entry entry) {
 		int value = 0;
 
@@ -956,6 +1015,7 @@ public class EntryClp extends BaseModelImpl<Entry> implements Entry {
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(67);
 

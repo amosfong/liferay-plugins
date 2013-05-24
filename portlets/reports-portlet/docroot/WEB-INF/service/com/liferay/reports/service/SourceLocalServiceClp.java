@@ -136,6 +136,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 			};
 	}
 
+	@Override
 	public com.liferay.reports.model.Source addSource(
 		com.liferay.reports.model.Source source)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -165,6 +166,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		return (com.liferay.reports.model.Source)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.reports.model.Source createSource(long sourceId) {
 		Object returnObj = null;
 
@@ -187,6 +189,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		return (com.liferay.reports.model.Source)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.reports.model.Source deleteSource(long sourceId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -219,6 +222,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		return (com.liferay.reports.model.Source)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.reports.model.Source deleteSource(
 		com.liferay.reports.model.Source source)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -253,6 +257,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		return (com.liferay.reports.model.Source)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		Object returnObj = null;
 
@@ -275,6 +280,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		return (com.liferay.portal.kernel.dao.orm.DynamicQuery)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -305,6 +311,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -341,6 +348,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -381,6 +389,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -410,6 +419,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		return ((Long)returnObj).longValue();
 	}
 
+	@Override
 	public com.liferay.reports.model.Source fetchSource(long sourceId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -437,6 +447,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		return (com.liferay.reports.model.Source)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.reports.model.Source getSource(long sourceId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -469,6 +480,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		return (com.liferay.reports.model.Source)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -503,6 +515,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.reports.model.Source getSourceByUuidAndGroupId(
 		java.lang.String uuid, long groupId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -537,6 +550,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		return (com.liferay.reports.model.Source)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.reports.model.Source> getSources(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -565,6 +579,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		return (java.util.List<com.liferay.reports.model.Source>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getSourcesCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -592,6 +607,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public com.liferay.reports.model.Source updateSource(
 		com.liferay.reports.model.Source source)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -621,6 +637,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		return (com.liferay.reports.model.Source)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -643,6 +660,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableLocalService.invokeMethod(_methodName17,
@@ -662,12 +680,14 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public com.liferay.reports.model.Source addSource(long userId,
 		long groupId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
@@ -722,6 +742,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		return (com.liferay.reports.model.Source)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.reports.model.Source> getSources(
 		long groupId, java.lang.String name, java.lang.String driverUrl,
 		boolean andSearch, int start, int end,
@@ -767,6 +788,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		return (java.util.List<com.liferay.reports.model.Source>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getSourcesCount(long groupId, java.lang.String name,
 		java.lang.String driverUrl, boolean andSearch)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -804,6 +826,7 @@ public class SourceLocalServiceClp implements SourceLocalService {
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public com.liferay.reports.model.Source updateSource(long sourceId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.lang.String driverClassName, java.lang.String driverUrl,

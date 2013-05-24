@@ -106,6 +106,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @throws com.liferay.saml.NoSuchSpAuthRequestException if a matching saml sp auth request could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlSpAuthRequest findBySIEI_SSARK(String samlIdpEntityId,
 		String samlSpAuthRequestKey)
 		throws NoSuchSpAuthRequestException, SystemException {
@@ -143,6 +144,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @return the matching saml sp auth request, or <code>null</code> if a matching saml sp auth request could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlSpAuthRequest fetchBySIEI_SSARK(String samlIdpEntityId,
 		String samlSpAuthRequestKey) throws SystemException {
 		return fetchBySIEI_SSARK(samlIdpEntityId, samlSpAuthRequestKey, true);
@@ -157,6 +159,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @return the matching saml sp auth request, or <code>null</code> if a matching saml sp auth request could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlSpAuthRequest fetchBySIEI_SSARK(String samlIdpEntityId,
 		String samlSpAuthRequestKey, boolean retrieveFromCache)
 		throws SystemException {
@@ -290,6 +293,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @return the saml sp auth request that was removed
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlSpAuthRequest removeBySIEI_SSARK(String samlIdpEntityId,
 		String samlSpAuthRequestKey)
 		throws NoSuchSpAuthRequestException, SystemException {
@@ -307,6 +311,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @return the number of matching saml sp auth requests
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countBySIEI_SSARK(String samlIdpEntityId,
 		String samlSpAuthRequestKey) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_SIEI_SSARK;
@@ -400,6 +405,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 *
 	 * @param samlSpAuthRequest the saml sp auth request
 	 */
+	@Override
 	public void cacheResult(SamlSpAuthRequest samlSpAuthRequest) {
 		EntityCacheUtil.putResult(SamlSpAuthRequestModelImpl.ENTITY_CACHE_ENABLED,
 			SamlSpAuthRequestImpl.class, samlSpAuthRequest.getPrimaryKey(),
@@ -419,6 +425,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 *
 	 * @param samlSpAuthRequests the saml sp auth requests
 	 */
+	@Override
 	public void cacheResult(List<SamlSpAuthRequest> samlSpAuthRequests) {
 		for (SamlSpAuthRequest samlSpAuthRequest : samlSpAuthRequests) {
 			if (EntityCacheUtil.getResult(
@@ -543,6 +550,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @param samlSpAuthnRequestId the primary key for the new saml sp auth request
 	 * @return the new saml sp auth request
 	 */
+	@Override
 	public SamlSpAuthRequest create(long samlSpAuthnRequestId) {
 		SamlSpAuthRequest samlSpAuthRequest = new SamlSpAuthRequestImpl();
 
@@ -560,6 +568,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @throws com.liferay.saml.NoSuchSpAuthRequestException if a saml sp auth request with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlSpAuthRequest remove(long samlSpAuthnRequestId)
 		throws NoSuchSpAuthRequestException, SystemException {
 		return remove((Serializable)samlSpAuthnRequestId);
@@ -737,6 +746,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @throws com.liferay.saml.NoSuchSpAuthRequestException if a saml sp auth request with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlSpAuthRequest findByPrimaryKey(long samlSpAuthnRequestId)
 		throws NoSuchSpAuthRequestException, SystemException {
 		return findByPrimaryKey((Serializable)samlSpAuthnRequestId);
@@ -798,6 +808,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @return the saml sp auth request, or <code>null</code> if a saml sp auth request with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public SamlSpAuthRequest fetchByPrimaryKey(long samlSpAuthnRequestId)
 		throws SystemException {
 		return fetchByPrimaryKey((Serializable)samlSpAuthnRequestId);
@@ -809,6 +820,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @return the saml sp auth requests
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SamlSpAuthRequest> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -825,6 +837,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @return the range of saml sp auth requests
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SamlSpAuthRequest> findAll(int start, int end)
 		throws SystemException {
 		return findAll(start, end, null);
@@ -843,6 +856,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @return the ordered range of saml sp auth requests
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<SamlSpAuthRequest> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -928,6 +942,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (SamlSpAuthRequest samlSpAuthRequest : findAll()) {
 			remove(samlSpAuthRequest);
@@ -940,6 +955,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	 * @return the number of saml sp auth requests
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -1027,6 +1043,7 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 
 	private static CacheModel<SamlSpAuthRequest> _nullSamlSpAuthRequestCacheModel =
 		new CacheModel<SamlSpAuthRequest>() {
+			@Override
 			public SamlSpAuthRequest toEntityModel() {
 				return _nullSamlSpAuthRequest;
 			}

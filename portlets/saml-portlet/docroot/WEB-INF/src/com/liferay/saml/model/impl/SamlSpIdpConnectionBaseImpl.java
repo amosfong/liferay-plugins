@@ -38,6 +38,7 @@ public abstract class SamlSpIdpConnectionBaseImpl
 	 *
 	 * Never modify or reference this class directly. All methods that expect a saml sp idp connection model instance should use the {@link SamlSpIdpConnection} interface instead.
 	 */
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			SamlSpIdpConnectionLocalServiceUtil.addSamlSpIdpConnection(this);

@@ -69,6 +69,7 @@ public class SourceServiceClp implements SourceService {
 			};
 	}
 
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -91,6 +92,7 @@ public class SourceServiceClp implements SourceService {
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableService.invokeMethod(_methodName1,
@@ -110,12 +112,14 @@ public class SourceServiceClp implements SourceService {
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public com.liferay.reports.model.Source addSource(long groupId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.lang.String driverClassName, java.lang.String driverUrl,
@@ -167,6 +171,7 @@ public class SourceServiceClp implements SourceService {
 		return (com.liferay.reports.model.Source)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.reports.model.Source deleteSource(long sourceId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -199,6 +204,7 @@ public class SourceServiceClp implements SourceService {
 		return (com.liferay.reports.model.Source)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.reports.model.Source getSource(long sourceId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -231,6 +237,7 @@ public class SourceServiceClp implements SourceService {
 		return (com.liferay.reports.model.Source)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.reports.model.Source> getSources(
 		long groupId, java.lang.String name, java.lang.String driverUrl,
 		boolean andSearch, int start, int end,
@@ -281,6 +288,7 @@ public class SourceServiceClp implements SourceService {
 		return (java.util.List<com.liferay.reports.model.Source>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getSourcesCount(long groupId, java.lang.String name,
 		java.lang.String driverUrl, boolean andSearch)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -318,6 +326,7 @@ public class SourceServiceClp implements SourceService {
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public com.liferay.reports.model.Source updateSource(long sourceId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.lang.String driverClassName, java.lang.String driverUrl,

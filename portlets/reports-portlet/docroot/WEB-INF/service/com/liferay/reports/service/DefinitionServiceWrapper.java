@@ -34,6 +34,7 @@ public class DefinitionServiceWrapper implements DefinitionService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _definitionService.getBeanIdentifier();
 	}
@@ -43,16 +44,19 @@ public class DefinitionServiceWrapper implements DefinitionService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_definitionService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		return _definitionService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	@Override
 	public com.liferay.reports.model.Definition addDefinition(long groupId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
 		java.util.Map<java.util.Locale, java.lang.String> descriptionMap,
@@ -66,6 +70,7 @@ public class DefinitionServiceWrapper implements DefinitionService,
 			serviceContext);
 	}
 
+	@Override
 	public com.liferay.reports.model.Definition deleteDefinition(
 		long definitionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -73,12 +78,14 @@ public class DefinitionServiceWrapper implements DefinitionService,
 		return _definitionService.deleteDefinition(definitionId);
 	}
 
+	@Override
 	public com.liferay.reports.model.Definition getDefinition(long definitionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _definitionService.getDefinition(definitionId);
 	}
 
+	@Override
 	public java.util.List<com.liferay.reports.model.Definition> getDefinitions(
 		long groupId, java.lang.String definitionName,
 		java.lang.String description, java.lang.String sourceId,
@@ -91,6 +98,7 @@ public class DefinitionServiceWrapper implements DefinitionService,
 			orderByComparator);
 	}
 
+	@Override
 	public int getDefinitionsCount(long groupId,
 		java.lang.String definitionName, java.lang.String description,
 		java.lang.String sourceId, java.lang.String reportName,
@@ -100,6 +108,7 @@ public class DefinitionServiceWrapper implements DefinitionService,
 			description, sourceId, reportName, andSearch);
 	}
 
+	@Override
 	public com.liferay.reports.model.Definition updateDefinition(
 		long definitionId,
 		java.util.Map<java.util.Locale, java.lang.String> nameMap,
@@ -128,10 +137,12 @@ public class DefinitionServiceWrapper implements DefinitionService,
 		_definitionService = definitionService;
 	}
 
+	@Override
 	public DefinitionService getWrappedService() {
 		return _definitionService;
 	}
 
+	@Override
 	public void setWrappedService(DefinitionService definitionService) {
 		_definitionService = definitionService;
 	}

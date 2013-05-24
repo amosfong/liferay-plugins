@@ -57,6 +57,7 @@ public class SamlSpMessageCacheModel implements CacheModel<SamlSpMessage>,
 		return sb.toString();
 	}
 
+	@Override
 	public SamlSpMessage toEntityModel() {
 		SamlSpMessageImpl samlSpMessageImpl = new SamlSpMessageImpl();
 
@@ -96,6 +97,7 @@ public class SamlSpMessageCacheModel implements CacheModel<SamlSpMessage>,
 		return samlSpMessageImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		samlSpMessageId = objectInput.readLong();
 		companyId = objectInput.readLong();
@@ -105,6 +107,7 @@ public class SamlSpMessageCacheModel implements CacheModel<SamlSpMessage>,
 		expirationDate = objectInput.readLong();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(samlSpMessageId);

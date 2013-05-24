@@ -135,26 +135,32 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 	public KaleoProcessLinkModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _kaleoProcessLinkId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setKaleoProcessLinkId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _kaleoProcessLinkId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return KaleoProcessLink.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return KaleoProcessLink.class.getName();
 	}
@@ -198,20 +204,24 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 		}
 	}
 
+	@Override
 	@JSON
 	public long getKaleoProcessLinkId() {
 		return _kaleoProcessLinkId;
 	}
 
+	@Override
 	public void setKaleoProcessLinkId(long kaleoProcessLinkId) {
 		_kaleoProcessLinkId = kaleoProcessLinkId;
 	}
 
+	@Override
 	@JSON
 	public long getKaleoProcessId() {
 		return _kaleoProcessId;
 	}
 
+	@Override
 	public void setKaleoProcessId(long kaleoProcessId) {
 		_columnBitmask |= KALEOPROCESSID_COLUMN_BITMASK;
 
@@ -228,6 +238,7 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 		return _originalKaleoProcessId;
 	}
 
+	@Override
 	@JSON
 	public String getWorkflowTaskName() {
 		if (_workflowTaskName == null) {
@@ -238,6 +249,7 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 		}
 	}
 
+	@Override
 	public void setWorkflowTaskName(String workflowTaskName) {
 		_columnBitmask |= WORKFLOWTASKNAME_COLUMN_BITMASK;
 
@@ -252,11 +264,13 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 		return GetterUtil.getString(_originalWorkflowTaskName);
 	}
 
+	@Override
 	@JSON
 	public long getDDMTemplateId() {
 		return _DDMTemplateId;
 	}
 
+	@Override
 	public void setDDMTemplateId(long DDMTemplateId) {
 		_DDMTemplateId = DDMTemplateId;
 	}
@@ -302,6 +316,7 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 		return kaleoProcessLinkImpl;
 	}
 
+	@Override
 	public int compareTo(KaleoProcessLink kaleoProcessLink) {
 		long primaryKey = kaleoProcessLink.getPrimaryKey();
 
@@ -394,6 +409,7 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(16);
 

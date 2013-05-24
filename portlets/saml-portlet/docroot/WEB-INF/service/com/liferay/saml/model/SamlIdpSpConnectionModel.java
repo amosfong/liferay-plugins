@@ -81,6 +81,7 @@ public interface SamlIdpSpConnectionModel extends AuditedModel,
 	 *
 	 * @return the company ID of this saml idp sp connection
 	 */
+	@Override
 	public long getCompanyId();
 
 	/**
@@ -88,6 +89,7 @@ public interface SamlIdpSpConnectionModel extends AuditedModel,
 	 *
 	 * @param companyId the company ID of this saml idp sp connection
 	 */
+	@Override
 	public void setCompanyId(long companyId);
 
 	/**
@@ -95,6 +97,7 @@ public interface SamlIdpSpConnectionModel extends AuditedModel,
 	 *
 	 * @return the user ID of this saml idp sp connection
 	 */
+	@Override
 	public long getUserId();
 
 	/**
@@ -102,6 +105,7 @@ public interface SamlIdpSpConnectionModel extends AuditedModel,
 	 *
 	 * @param userId the user ID of this saml idp sp connection
 	 */
+	@Override
 	public void setUserId(long userId);
 
 	/**
@@ -110,6 +114,7 @@ public interface SamlIdpSpConnectionModel extends AuditedModel,
 	 * @return the user uuid of this saml idp sp connection
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public String getUserUuid() throws SystemException;
 
 	/**
@@ -117,6 +122,7 @@ public interface SamlIdpSpConnectionModel extends AuditedModel,
 	 *
 	 * @param userUuid the user uuid of this saml idp sp connection
 	 */
+	@Override
 	public void setUserUuid(String userUuid);
 
 	/**
@@ -125,6 +131,7 @@ public interface SamlIdpSpConnectionModel extends AuditedModel,
 	 * @return the user name of this saml idp sp connection
 	 */
 	@AutoEscape
+	@Override
 	public String getUserName();
 
 	/**
@@ -132,6 +139,7 @@ public interface SamlIdpSpConnectionModel extends AuditedModel,
 	 *
 	 * @param userName the user name of this saml idp sp connection
 	 */
+	@Override
 	public void setUserName(String userName);
 
 	/**
@@ -139,6 +147,7 @@ public interface SamlIdpSpConnectionModel extends AuditedModel,
 	 *
 	 * @return the create date of this saml idp sp connection
 	 */
+	@Override
 	public Date getCreateDate();
 
 	/**
@@ -146,6 +155,7 @@ public interface SamlIdpSpConnectionModel extends AuditedModel,
 	 *
 	 * @param createDate the create date of this saml idp sp connection
 	 */
+	@Override
 	public void setCreateDate(Date createDate);
 
 	/**
@@ -153,6 +163,7 @@ public interface SamlIdpSpConnectionModel extends AuditedModel,
 	 *
 	 * @return the modified date of this saml idp sp connection
 	 */
+	@Override
 	public Date getModifiedDate();
 
 	/**
@@ -160,6 +171,7 @@ public interface SamlIdpSpConnectionModel extends AuditedModel,
 	 *
 	 * @param modifiedDate the modified date of this saml idp sp connection
 	 */
+	@Override
 	public void setModifiedDate(Date modifiedDate);
 
 	/**
@@ -359,41 +371,60 @@ public interface SamlIdpSpConnectionModel extends AuditedModel,
 	 */
 	public void setNameIdFormat(String nameIdFormat);
 
+	@Override
 	public boolean isNew();
 
+	@Override
 	public void setNew(boolean n);
 
+	@Override
 	public boolean isCachedModel();
 
+	@Override
 	public void setCachedModel(boolean cachedModel);
 
+	@Override
 	public boolean isEscapedModel();
 
+	@Override
 	public Serializable getPrimaryKeyObj();
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj);
 
+	@Override
 	public ExpandoBridge getExpandoBridge();
 
+	@Override
 	public void setExpandoBridgeAttributes(BaseModel<?> baseModel);
 
+	@Override
 	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge);
 
+	@Override
 	public void setExpandoBridgeAttributes(ServiceContext serviceContext);
 
+	@Override
 	public Object clone();
 
+	@Override
 	public int compareTo(SamlIdpSpConnection samlIdpSpConnection);
 
+	@Override
 	public int hashCode();
 
+	@Override
 	public CacheModel<SamlIdpSpConnection> toCacheModel();
 
+	@Override
 	public SamlIdpSpConnection toEscapedModel();
 
+	@Override
 	public SamlIdpSpConnection toUnescapedModel();
 
+	@Override
 	public String toString();
 
+	@Override
 	public String toXmlString();
 }

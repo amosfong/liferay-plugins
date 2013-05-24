@@ -101,26 +101,32 @@ public class AuditEventModelImpl extends BaseModelImpl<AuditEvent>
 	public AuditEventModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _auditEventId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setAuditEventId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _auditEventId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return AuditEvent.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return AuditEvent.class.getName();
 	}
@@ -241,18 +247,22 @@ public class AuditEventModelImpl extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public long getAuditEventId() {
 		return _auditEventId;
 	}
 
+	@Override
 	public void setAuditEventId(long auditEventId) {
 		_auditEventId = auditEventId;
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
 
@@ -269,22 +279,27 @@ public class AuditEventModelImpl extends BaseModelImpl<AuditEvent>
 		return _originalCompanyId;
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	public String getUserName() {
 		if (_userName == null) {
 			return StringPool.BLANK;
@@ -294,20 +309,24 @@ public class AuditEventModelImpl extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_columnBitmask = -1L;
 
 		_createDate = createDate;
 	}
 
+	@Override
 	public String getEventType() {
 		if (_eventType == null) {
 			return StringPool.BLANK;
@@ -317,10 +336,12 @@ public class AuditEventModelImpl extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public void setEventType(String eventType) {
 		_eventType = eventType;
 	}
 
+	@Override
 	public String getClassName() {
 		if (_className == null) {
 			return StringPool.BLANK;
@@ -330,10 +351,12 @@ public class AuditEventModelImpl extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public void setClassName(String className) {
 		_className = className;
 	}
 
+	@Override
 	public String getClassPK() {
 		if (_classPK == null) {
 			return StringPool.BLANK;
@@ -343,10 +366,12 @@ public class AuditEventModelImpl extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public void setClassPK(String classPK) {
 		_classPK = classPK;
 	}
 
+	@Override
 	public String getMessage() {
 		if (_message == null) {
 			return StringPool.BLANK;
@@ -356,10 +381,12 @@ public class AuditEventModelImpl extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public void setMessage(String message) {
 		_message = message;
 	}
 
+	@Override
 	public String getClientHost() {
 		if (_clientHost == null) {
 			return StringPool.BLANK;
@@ -369,10 +396,12 @@ public class AuditEventModelImpl extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public void setClientHost(String clientHost) {
 		_clientHost = clientHost;
 	}
 
+	@Override
 	public String getClientIP() {
 		if (_clientIP == null) {
 			return StringPool.BLANK;
@@ -382,10 +411,12 @@ public class AuditEventModelImpl extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public void setClientIP(String clientIP) {
 		_clientIP = clientIP;
 	}
 
+	@Override
 	public String getServerName() {
 		if (_serverName == null) {
 			return StringPool.BLANK;
@@ -395,18 +426,22 @@ public class AuditEventModelImpl extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public void setServerName(String serverName) {
 		_serverName = serverName;
 	}
 
+	@Override
 	public int getServerPort() {
 		return _serverPort;
 	}
 
+	@Override
 	public void setServerPort(int serverPort) {
 		_serverPort = serverPort;
 	}
 
+	@Override
 	public String getSessionID() {
 		if (_sessionID == null) {
 			return StringPool.BLANK;
@@ -416,10 +451,12 @@ public class AuditEventModelImpl extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public void setSessionID(String sessionID) {
 		_sessionID = sessionID;
 	}
 
+	@Override
 	public String getAdditionalInfo() {
 		if (_additionalInfo == null) {
 			return StringPool.BLANK;
@@ -429,6 +466,7 @@ public class AuditEventModelImpl extends BaseModelImpl<AuditEvent>
 		}
 	}
 
+	@Override
 	public void setAdditionalInfo(String additionalInfo) {
 		_additionalInfo = additionalInfo;
 	}
@@ -485,6 +523,7 @@ public class AuditEventModelImpl extends BaseModelImpl<AuditEvent>
 		return auditEventImpl;
 	}
 
+	@Override
 	public int compareTo(AuditEvent auditEvent) {
 		int value = 0;
 
@@ -680,6 +719,7 @@ public class AuditEventModelImpl extends BaseModelImpl<AuditEvent>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(49);
 

@@ -147,26 +147,32 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 	public KaleoProcessModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _kaleoProcessId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setKaleoProcessId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _kaleoProcessId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return KaleoProcess.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return KaleoProcess.class.getName();
 	}
@@ -245,20 +251,24 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 		}
 	}
 
+	@Override
 	@JSON
 	public long getKaleoProcessId() {
 		return _kaleoProcessId;
 	}
 
+	@Override
 	public void setKaleoProcessId(long kaleoProcessId) {
 		_kaleoProcessId = kaleoProcessId;
 	}
 
+	@Override
 	@JSON
 	public long getGroupId() {
 		return _groupId;
 	}
 
+	@Override
 	public void setGroupId(long groupId) {
 		_columnBitmask |= GROUPID_COLUMN_BITMASK;
 
@@ -275,32 +285,39 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 		return _originalGroupId;
 	}
 
+	@Override
 	@JSON
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 	}
 
+	@Override
 	@JSON
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	@JSON
 	public String getUserName() {
 		if (_userName == null) {
@@ -311,33 +328,40 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 		}
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 	}
 
+	@Override
 	@JSON
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 	}
 
+	@Override
 	@JSON
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 	}
 
+	@Override
 	@JSON
 	public long getDDLRecordSetId() {
 		return _DDLRecordSetId;
 	}
 
+	@Override
 	public void setDDLRecordSetId(long DDLRecordSetId) {
 		_columnBitmask |= DDLRECORDSETID_COLUMN_BITMASK;
 
@@ -354,11 +378,13 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 		return _originalDDLRecordSetId;
 	}
 
+	@Override
 	@JSON
 	public long getDDMTemplateId() {
 		return _DDMTemplateId;
 	}
 
+	@Override
 	public void setDDMTemplateId(long DDMTemplateId) {
 		_DDMTemplateId = DDMTemplateId;
 	}
@@ -409,6 +435,7 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 		return kaleoProcessImpl;
 	}
 
+	@Override
 	public int compareTo(KaleoProcess kaleoProcess) {
 		long primaryKey = kaleoProcess.getPrimaryKey();
 
@@ -537,6 +564,7 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(31);
 

@@ -36,6 +36,7 @@ public class SalesforceEventLocalServiceWrapper
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _salesforceEventLocalService.getBeanIdentifier();
 	}
@@ -45,10 +46,12 @@ public class SalesforceEventLocalServiceWrapper
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_salesforceEventLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
@@ -56,6 +59,7 @@ public class SalesforceEventLocalServiceWrapper
 			arguments);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch getEventsByAccountId(
 		long companyId, java.lang.String accountId,
 		java.util.List<java.lang.String> fieldNames)
@@ -65,6 +69,7 @@ public class SalesforceEventLocalServiceWrapper
 			accountId, fieldNames);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch getEventsByUser(
 		long companyId, java.lang.String userId,
 		java.util.List<java.lang.String> fieldNames)
@@ -74,6 +79,7 @@ public class SalesforceEventLocalServiceWrapper
 			fieldNames);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch getEventsByUserName(
 		long companyId, java.lang.String userName,
 		java.util.List<java.lang.String> fieldNames)
@@ -98,10 +104,12 @@ public class SalesforceEventLocalServiceWrapper
 		_salesforceEventLocalService = salesforceEventLocalService;
 	}
 
+	@Override
 	public SalesforceEventLocalService getWrappedService() {
 		return _salesforceEventLocalService;
 	}
 
+	@Override
 	public void setWrappedService(
 		SalesforceEventLocalService salesforceEventLocalService) {
 		_salesforceEventLocalService = salesforceEventLocalService;

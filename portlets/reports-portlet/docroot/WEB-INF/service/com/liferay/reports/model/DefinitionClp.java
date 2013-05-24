@@ -48,26 +48,32 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 	public DefinitionClp() {
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return Definition.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return Definition.class.getName();
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _definitionId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setDefinitionId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
 		return _definitionId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
@@ -174,10 +180,12 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		}
 	}
 
+	@Override
 	public String getUuid() {
 		return _uuid;
 	}
 
+	@Override
 	public void setUuid(String uuid) {
 		_uuid = uuid;
 
@@ -195,10 +203,12 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		}
 	}
 
+	@Override
 	public long getDefinitionId() {
 		return _definitionId;
 	}
 
+	@Override
 	public void setDefinitionId(long definitionId) {
 		_definitionId = definitionId;
 
@@ -216,10 +226,12 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		}
 	}
 
+	@Override
 	public long getGroupId() {
 		return _groupId;
 	}
 
+	@Override
 	public void setGroupId(long groupId) {
 		_groupId = groupId;
 
@@ -237,10 +249,12 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		}
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 
@@ -258,10 +272,12 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		}
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 
@@ -279,18 +295,22 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		}
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	public String getUserName() {
 		return _userName;
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 
@@ -308,10 +328,12 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		}
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 
@@ -329,10 +351,12 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		}
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 
@@ -350,45 +374,54 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		}
 	}
 
+	@Override
 	public String getName() {
 		return _name;
 	}
 
+	@Override
 	public String getName(Locale locale) {
 		String languageId = LocaleUtil.toLanguageId(locale);
 
 		return getName(languageId);
 	}
 
+	@Override
 	public String getName(Locale locale, boolean useDefault) {
 		String languageId = LocaleUtil.toLanguageId(locale);
 
 		return getName(languageId, useDefault);
 	}
 
+	@Override
 	public String getName(String languageId) {
 		return LocalizationUtil.getLocalization(getName(), languageId);
 	}
 
+	@Override
 	public String getName(String languageId, boolean useDefault) {
 		return LocalizationUtil.getLocalization(getName(), languageId,
 			useDefault);
 	}
 
+	@Override
 	public String getNameCurrentLanguageId() {
 		return _nameCurrentLanguageId;
 	}
 
+	@Override
 	public String getNameCurrentValue() {
 		Locale locale = getLocale(_nameCurrentLanguageId);
 
 		return getName(locale);
 	}
 
+	@Override
 	public Map<Locale, String> getNameMap() {
 		return LocalizationUtil.getLocalizationMap(getName());
 	}
 
+	@Override
 	public void setName(String name) {
 		_name = name;
 
@@ -406,10 +439,12 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		}
 	}
 
+	@Override
 	public void setName(String name, Locale locale) {
 		setName(name, locale, LocaleUtil.getDefault());
 	}
 
+	@Override
 	public void setName(String name, Locale locale, Locale defaultLocale) {
 		String languageId = LocaleUtil.toLanguageId(locale);
 		String defaultLanguageId = LocaleUtil.toLanguageId(defaultLocale);
@@ -424,14 +459,17 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		}
 	}
 
+	@Override
 	public void setNameCurrentLanguageId(String languageId) {
 		_nameCurrentLanguageId = languageId;
 	}
 
+	@Override
 	public void setNameMap(Map<Locale, String> nameMap) {
 		setNameMap(nameMap, LocaleUtil.getDefault());
 	}
 
+	@Override
 	public void setNameMap(Map<Locale, String> nameMap, Locale defaultLocale) {
 		if (nameMap == null) {
 			return;
@@ -458,45 +496,54 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		}
 	}
 
+	@Override
 	public String getDescription() {
 		return _description;
 	}
 
+	@Override
 	public String getDescription(Locale locale) {
 		String languageId = LocaleUtil.toLanguageId(locale);
 
 		return getDescription(languageId);
 	}
 
+	@Override
 	public String getDescription(Locale locale, boolean useDefault) {
 		String languageId = LocaleUtil.toLanguageId(locale);
 
 		return getDescription(languageId, useDefault);
 	}
 
+	@Override
 	public String getDescription(String languageId) {
 		return LocalizationUtil.getLocalization(getDescription(), languageId);
 	}
 
+	@Override
 	public String getDescription(String languageId, boolean useDefault) {
 		return LocalizationUtil.getLocalization(getDescription(), languageId,
 			useDefault);
 	}
 
+	@Override
 	public String getDescriptionCurrentLanguageId() {
 		return _descriptionCurrentLanguageId;
 	}
 
+	@Override
 	public String getDescriptionCurrentValue() {
 		Locale locale = getLocale(_descriptionCurrentLanguageId);
 
 		return getDescription(locale);
 	}
 
+	@Override
 	public Map<Locale, String> getDescriptionMap() {
 		return LocalizationUtil.getLocalizationMap(getDescription());
 	}
 
+	@Override
 	public void setDescription(String description) {
 		_description = description;
 
@@ -514,10 +561,12 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		}
 	}
 
+	@Override
 	public void setDescription(String description, Locale locale) {
 		setDescription(description, locale, LocaleUtil.getDefault());
 	}
 
+	@Override
 	public void setDescription(String description, Locale locale,
 		Locale defaultLocale) {
 		String languageId = LocaleUtil.toLanguageId(locale);
@@ -534,14 +583,17 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		}
 	}
 
+	@Override
 	public void setDescriptionCurrentLanguageId(String languageId) {
 		_descriptionCurrentLanguageId = languageId;
 	}
 
+	@Override
 	public void setDescriptionMap(Map<Locale, String> descriptionMap) {
 		setDescriptionMap(descriptionMap, LocaleUtil.getDefault());
 	}
 
+	@Override
 	public void setDescriptionMap(Map<Locale, String> descriptionMap,
 		Locale defaultLocale) {
 		if (descriptionMap == null) {
@@ -570,10 +622,12 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		}
 	}
 
+	@Override
 	public long getSourceId() {
 		return _sourceId;
 	}
 
+	@Override
 	public void setSourceId(long sourceId) {
 		_sourceId = sourceId;
 
@@ -591,10 +645,12 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		}
 	}
 
+	@Override
 	public String getReportName() {
 		return _reportName;
 	}
 
+	@Override
 	public void setReportName(String reportName) {
 		_reportName = reportName;
 
@@ -612,10 +668,12 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		}
 	}
 
+	@Override
 	public String getReportParameters() {
 		return _reportParameters;
 	}
 
+	@Override
 	public void setReportParameters(String reportParameters) {
 		_reportParameters = reportParameters;
 
@@ -634,6 +692,7 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		}
 	}
 
+	@Override
 	public java.lang.String[] getAttachmentsFiles() {
 		try {
 			String methodName = "getAttachmentsFiles";
@@ -652,6 +711,7 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		}
 	}
 
+	@Override
 	public java.lang.String getAttachmentsDir() {
 		try {
 			String methodName = "getAttachmentsDir";
@@ -719,6 +779,7 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		return returnValue;
 	}
 
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			DefinitionLocalServiceUtil.addDefinition(this);
@@ -728,6 +789,7 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		}
 	}
 
+	@Override
 	@SuppressWarnings("unused")
 	public void prepareLocalizedFieldsForImport(Locale defaultImportLocale)
 		throws LocaleException {
@@ -764,6 +826,7 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		return clone;
 	}
 
+	@Override
 	public int compareTo(Definition definition) {
 		int value = 0;
 
@@ -839,6 +902,7 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(43);
 

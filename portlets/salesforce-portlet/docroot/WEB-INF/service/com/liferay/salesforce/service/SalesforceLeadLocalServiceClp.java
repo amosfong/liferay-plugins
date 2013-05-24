@@ -63,6 +63,7 @@ public class SalesforceLeadLocalServiceClp implements SalesforceLeadLocalService
 			};
 	}
 
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -85,6 +86,7 @@ public class SalesforceLeadLocalServiceClp implements SalesforceLeadLocalService
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableLocalService.invokeMethod(_methodName1,
@@ -104,12 +106,14 @@ public class SalesforceLeadLocalServiceClp implements SalesforceLeadLocalService
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch getLeadsByCountry(
 		long companyId, java.lang.String country,
 		java.util.List<java.lang.String> fieldNames)
@@ -146,6 +150,7 @@ public class SalesforceLeadLocalServiceClp implements SalesforceLeadLocalService
 		return (com.liferay.portal.kernel.messaging.MessageBatch)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch getLeadsBySource(
 		long companyId, java.lang.String source,
 		java.util.List<java.lang.String> fieldNames)
@@ -182,6 +187,7 @@ public class SalesforceLeadLocalServiceClp implements SalesforceLeadLocalService
 		return (com.liferay.portal.kernel.messaging.MessageBatch)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch getLeadsByStatus(
 		long companyId, java.lang.String status,
 		java.util.List<java.lang.String> fieldNames)
@@ -218,6 +224,7 @@ public class SalesforceLeadLocalServiceClp implements SalesforceLeadLocalService
 		return (com.liferay.portal.kernel.messaging.MessageBatch)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch getLeadsByUserId(
 		long companyId, java.lang.String userId,
 		java.util.List<java.lang.String> fieldNames)
@@ -259,6 +266,7 @@ public class SalesforceLeadLocalServiceClp implements SalesforceLeadLocalService
 		return (com.liferay.portal.kernel.messaging.MessageBatch)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch getLeadsByUserName(
 		long companyId, java.lang.String userName,
 		java.util.List<java.lang.String> fieldNames)

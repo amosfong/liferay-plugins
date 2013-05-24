@@ -81,6 +81,7 @@ public abstract class DefinitionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Definition addDefinition(Definition definition)
 		throws SystemException {
 		definition.setNew(true);
@@ -94,6 +95,7 @@ public abstract class DefinitionLocalServiceBaseImpl
 	 * @param definitionId the primary key for the new definition
 	 * @return the new definition
 	 */
+	@Override
 	public Definition createDefinition(long definitionId) {
 		return definitionPersistence.create(definitionId);
 	}
@@ -107,6 +109,7 @@ public abstract class DefinitionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Definition deleteDefinition(long definitionId)
 		throws PortalException, SystemException {
 		return definitionPersistence.remove(definitionId);
@@ -121,11 +124,13 @@ public abstract class DefinitionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public Definition deleteDefinition(Definition definition)
 		throws PortalException, SystemException {
 		return definitionPersistence.remove(definition);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -140,6 +145,7 @@ public abstract class DefinitionLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -159,6 +165,7 @@ public abstract class DefinitionLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -180,6 +187,7 @@ public abstract class DefinitionLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -194,11 +202,13 @@ public abstract class DefinitionLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return definitionPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public Definition fetchDefinition(long definitionId)
 		throws SystemException {
 		return definitionPersistence.fetchByPrimaryKey(definitionId);
@@ -212,11 +222,13 @@ public abstract class DefinitionLocalServiceBaseImpl
 	 * @throws PortalException if a definition with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Definition getDefinition(long definitionId)
 		throws PortalException, SystemException {
 		return definitionPersistence.findByPrimaryKey(definitionId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return definitionPersistence.findByPrimaryKey(primaryKeyObj);
@@ -231,6 +243,7 @@ public abstract class DefinitionLocalServiceBaseImpl
 	 * @throws PortalException if a matching definition could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Definition getDefinitionByUuidAndGroupId(String uuid, long groupId)
 		throws PortalException, SystemException {
 		return definitionPersistence.findByUUID_G(uuid, groupId);
@@ -248,6 +261,7 @@ public abstract class DefinitionLocalServiceBaseImpl
 	 * @return the range of definitions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Definition> getDefinitions(int start, int end)
 		throws SystemException {
 		return definitionPersistence.findAll(start, end);
@@ -259,6 +273,7 @@ public abstract class DefinitionLocalServiceBaseImpl
 	 * @return the number of definitions
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getDefinitionsCount() throws SystemException {
 		return definitionPersistence.countAll();
 	}
@@ -271,6 +286,7 @@ public abstract class DefinitionLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public Definition updateDefinition(Definition definition)
 		throws SystemException {
 		return definitionPersistence.update(definition);
@@ -550,6 +566,7 @@ public abstract class DefinitionLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -559,10 +576,12 @@ public abstract class DefinitionLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}
 
+	@Override
 	public Object invokeMethod(String name, String[] parameterTypes,
 		Object[] arguments) throws Throwable {
 		Thread currentThread = Thread.currentThread();

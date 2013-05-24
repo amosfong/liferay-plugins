@@ -65,6 +65,7 @@ public class SamlIdpSpSessionCacheModel implements CacheModel<SamlIdpSpSession>,
 		return sb.toString();
 	}
 
+	@Override
 	public SamlIdpSpSession toEntityModel() {
 		SamlIdpSpSessionImpl samlIdpSpSessionImpl = new SamlIdpSpSessionImpl();
 
@@ -121,6 +122,7 @@ public class SamlIdpSpSessionCacheModel implements CacheModel<SamlIdpSpSession>,
 		return samlIdpSpSessionImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		samlIdpSpSessionId = objectInput.readLong();
 		companyId = objectInput.readLong();
@@ -134,6 +136,7 @@ public class SamlIdpSpSessionCacheModel implements CacheModel<SamlIdpSpSession>,
 		nameIdValue = objectInput.readUTF();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(samlIdpSpSessionId);

@@ -73,6 +73,7 @@ public abstract class AuditEventLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public AuditEvent addAuditEvent(AuditEvent auditEvent)
 		throws SystemException {
 		auditEvent.setNew(true);
@@ -86,6 +87,7 @@ public abstract class AuditEventLocalServiceBaseImpl
 	 * @param auditEventId the primary key for the new audit event
 	 * @return the new audit event
 	 */
+	@Override
 	public AuditEvent createAuditEvent(long auditEventId) {
 		return auditEventPersistence.create(auditEventId);
 	}
@@ -99,6 +101,7 @@ public abstract class AuditEventLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public AuditEvent deleteAuditEvent(long auditEventId)
 		throws PortalException, SystemException {
 		return auditEventPersistence.remove(auditEventId);
@@ -112,11 +115,13 @@ public abstract class AuditEventLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
+	@Override
 	public AuditEvent deleteAuditEvent(AuditEvent auditEvent)
 		throws SystemException {
 		return auditEventPersistence.remove(auditEvent);
 	}
 
+	@Override
 	public DynamicQuery dynamicQuery() {
 		Class<?> clazz = getClass();
 
@@ -131,6 +136,7 @@ public abstract class AuditEventLocalServiceBaseImpl
 	 * @return the matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery)
 		throws SystemException {
@@ -150,6 +156,7 @@ public abstract class AuditEventLocalServiceBaseImpl
 	 * @return the range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end)
 		throws SystemException {
@@ -171,6 +178,7 @@ public abstract class AuditEventLocalServiceBaseImpl
 	 * @return the ordered range of matching rows
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	@SuppressWarnings("rawtypes")
 	public List dynamicQuery(DynamicQuery dynamicQuery, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -185,11 +193,13 @@ public abstract class AuditEventLocalServiceBaseImpl
 	 * @return the number of rows that match the dynamic query
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public long dynamicQueryCount(DynamicQuery dynamicQuery)
 		throws SystemException {
 		return auditEventPersistence.countWithDynamicQuery(dynamicQuery);
 	}
 
+	@Override
 	public AuditEvent fetchAuditEvent(long auditEventId)
 		throws SystemException {
 		return auditEventPersistence.fetchByPrimaryKey(auditEventId);
@@ -203,11 +213,13 @@ public abstract class AuditEventLocalServiceBaseImpl
 	 * @throws PortalException if a audit event with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public AuditEvent getAuditEvent(long auditEventId)
 		throws PortalException, SystemException {
 		return auditEventPersistence.findByPrimaryKey(auditEventId);
 	}
 
+	@Override
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return auditEventPersistence.findByPrimaryKey(primaryKeyObj);
@@ -225,6 +237,7 @@ public abstract class AuditEventLocalServiceBaseImpl
 	 * @return the range of audit events
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<AuditEvent> getAuditEvents(int start, int end)
 		throws SystemException {
 		return auditEventPersistence.findAll(start, end);
@@ -236,6 +249,7 @@ public abstract class AuditEventLocalServiceBaseImpl
 	 * @return the number of audit events
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int getAuditEventsCount() throws SystemException {
 		return auditEventPersistence.countAll();
 	}
@@ -248,6 +262,7 @@ public abstract class AuditEventLocalServiceBaseImpl
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.REINDEX)
+	@Override
 	public AuditEvent updateAuditEvent(AuditEvent auditEvent)
 		throws SystemException {
 		return auditEventPersistence.update(auditEvent);
@@ -401,6 +416,7 @@ public abstract class AuditEventLocalServiceBaseImpl
 	 *
 	 * @return the Spring bean ID for this bean
 	 */
+	@Override
 	public String getBeanIdentifier() {
 		return _beanIdentifier;
 	}
@@ -410,10 +426,12 @@ public abstract class AuditEventLocalServiceBaseImpl
 	 *
 	 * @param beanIdentifier the Spring bean ID for this bean
 	 */
+	@Override
 	public void setBeanIdentifier(String beanIdentifier) {
 		_beanIdentifier = beanIdentifier;
 	}
 
+	@Override
 	public Object invokeMethod(String name, String[] parameterTypes,
 		Object[] arguments) throws Throwable {
 		Thread currentThread = Thread.currentThread();

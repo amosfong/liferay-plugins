@@ -38,6 +38,7 @@ public abstract class SamlSpMessageBaseImpl extends SamlSpMessageModelImpl
 	 *
 	 * Never modify or reference this class directly. All methods that expect a saml sp message model instance should use the {@link SamlSpMessage} interface instead.
 	 */
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			SamlSpMessageLocalServiceUtil.addSamlSpMessage(this);

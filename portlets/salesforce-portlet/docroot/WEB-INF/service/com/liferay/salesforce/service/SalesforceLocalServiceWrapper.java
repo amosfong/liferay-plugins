@@ -35,6 +35,7 @@ public class SalesforceLocalServiceWrapper implements SalesforceLocalService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _salesforceLocalService.getBeanIdentifier();
 	}
@@ -44,10 +45,12 @@ public class SalesforceLocalServiceWrapper implements SalesforceLocalService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_salesforceLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
@@ -55,6 +58,7 @@ public class SalesforceLocalServiceWrapper implements SalesforceLocalService,
 			arguments);
 	}
 
+	@Override
 	public void executeAdd(long companyId,
 		java.util.List<com.liferay.portal.kernel.messaging.Message> messages)
 		throws com.liferay.portal.kernel.exception.SystemException,
@@ -62,6 +66,7 @@ public class SalesforceLocalServiceWrapper implements SalesforceLocalService,
 		_salesforceLocalService.executeAdd(companyId, messages);
 	}
 
+	@Override
 	public java.lang.String executeAdd(long companyId,
 		com.liferay.portal.kernel.messaging.Message message)
 		throws com.liferay.portal.kernel.exception.SystemException,
@@ -69,6 +74,7 @@ public class SalesforceLocalServiceWrapper implements SalesforceLocalService,
 		return _salesforceLocalService.executeAdd(companyId, message);
 	}
 
+	@Override
 	public void executeAddOrUpdate(long companyId, java.lang.String externalId,
 		java.util.List<com.liferay.portal.kernel.messaging.Message> messages)
 		throws com.liferay.portal.kernel.exception.SystemException,
@@ -77,6 +83,7 @@ public class SalesforceLocalServiceWrapper implements SalesforceLocalService,
 			messages);
 	}
 
+	@Override
 	public void executeAddOrUpdate(long companyId, java.lang.String externalId,
 		com.liferay.portal.kernel.messaging.Message message)
 		throws com.liferay.portal.kernel.exception.SystemException,
@@ -85,6 +92,7 @@ public class SalesforceLocalServiceWrapper implements SalesforceLocalService,
 			message);
 	}
 
+	@Override
 	public void executeDelete(long companyId,
 		java.util.List<java.lang.String> objectIds)
 		throws com.liferay.portal.kernel.exception.SystemException,
@@ -92,18 +100,21 @@ public class SalesforceLocalServiceWrapper implements SalesforceLocalService,
 		_salesforceLocalService.executeDelete(companyId, objectIds);
 	}
 
+	@Override
 	public boolean executeDelete(long companyId, java.lang.String objectId)
 		throws com.liferay.portal.kernel.exception.SystemException,
 			com.liferay.salesforce.service.SalesforceException {
 		return _salesforceLocalService.executeDelete(companyId, objectId);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch executeQuery(
 		long companyId, java.lang.String queryString)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _salesforceLocalService.executeQuery(companyId, queryString);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.Message executeQuery(
 		long companyId, java.lang.String objectId, java.lang.String objectType,
 		java.util.List<java.lang.String> fieldNames)
@@ -113,18 +124,21 @@ public class SalesforceLocalServiceWrapper implements SalesforceLocalService,
 			objectType, fieldNames);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch executeQueryMore(
 		long companyId, java.lang.String queryLocator)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _salesforceLocalService.executeQueryMore(companyId, queryLocator);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.messaging.MessageBatch executeSearch(
 		long companyId, java.lang.String searchString)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _salesforceLocalService.executeSearch(companyId, searchString);
 	}
 
+	@Override
 	public void executeUpdate(long companyId,
 		java.util.List<com.liferay.portal.kernel.messaging.Message> messages)
 		throws com.liferay.portal.kernel.exception.SystemException,
@@ -132,6 +146,7 @@ public class SalesforceLocalServiceWrapper implements SalesforceLocalService,
 		_salesforceLocalService.executeUpdate(companyId, messages);
 	}
 
+	@Override
 	public void executeUpdate(long companyId,
 		com.liferay.portal.kernel.messaging.Message message)
 		throws com.liferay.portal.kernel.exception.SystemException,
@@ -154,10 +169,12 @@ public class SalesforceLocalServiceWrapper implements SalesforceLocalService,
 		_salesforceLocalService = salesforceLocalService;
 	}
 
+	@Override
 	public SalesforceLocalService getWrappedService() {
 		return _salesforceLocalService;
 	}
 
+	@Override
 	public void setWrappedService(SalesforceLocalService salesforceLocalService) {
 		_salesforceLocalService = salesforceLocalService;
 	}

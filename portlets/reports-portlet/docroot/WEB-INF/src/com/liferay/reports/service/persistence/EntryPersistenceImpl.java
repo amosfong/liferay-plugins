@@ -86,6 +86,7 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	 *
 	 * @param entry the entry
 	 */
+	@Override
 	public void cacheResult(Entry entry) {
 		EntityCacheUtil.putResult(EntryModelImpl.ENTITY_CACHE_ENABLED,
 			EntryImpl.class, entry.getPrimaryKey(), entry);
@@ -98,6 +99,7 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	 *
 	 * @param entries the entries
 	 */
+	@Override
 	public void cacheResult(List<Entry> entries) {
 		for (Entry entry : entries) {
 			if (EntityCacheUtil.getResult(EntryModelImpl.ENTITY_CACHE_ENABLED,
@@ -163,6 +165,7 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	 * @param entryId the primary key for the new entry
 	 * @return the new entry
 	 */
+	@Override
 	public Entry create(long entryId) {
 		Entry entry = new EntryImpl();
 
@@ -180,6 +183,7 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	 * @throws com.liferay.reports.NoSuchEntryException if a entry with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Entry remove(long entryId)
 		throws NoSuchEntryException, SystemException {
 		return remove((Serializable)entryId);
@@ -365,6 +369,7 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	 * @throws com.liferay.reports.NoSuchEntryException if a entry with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Entry findByPrimaryKey(long entryId)
 		throws NoSuchEntryException, SystemException {
 		return findByPrimaryKey((Serializable)entryId);
@@ -424,6 +429,7 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	 * @return the entry, or <code>null</code> if a entry with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public Entry fetchByPrimaryKey(long entryId) throws SystemException {
 		return fetchByPrimaryKey((Serializable)entryId);
 	}
@@ -434,6 +440,7 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	 * @return the entries
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Entry> findAll() throws SystemException {
 		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -450,6 +457,7 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	 * @return the range of entries
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Entry> findAll(int start, int end) throws SystemException {
 		return findAll(start, end, null);
 	}
@@ -467,6 +475,7 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	 * @return the ordered range of entries
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<Entry> findAll(int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		boolean pagination = true;
@@ -552,6 +561,7 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	 *
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeAll() throws SystemException {
 		for (Entry entry : findAll()) {
 			remove(entry);
@@ -564,6 +574,7 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 	 * @return the number of entries
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -647,6 +658,7 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 		};
 
 	private static CacheModel<Entry> _nullEntryCacheModel = new CacheModel<Entry>() {
+			@Override
 			public Entry toEntityModel() {
 				return _nullEntry;
 			}

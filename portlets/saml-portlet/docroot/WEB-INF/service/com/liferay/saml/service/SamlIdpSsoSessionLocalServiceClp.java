@@ -127,6 +127,7 @@ public class SamlIdpSsoSessionLocalServiceClp
 		_methodParameterTypes21 = new String[] { "java.lang.String" };
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSsoSession addSamlIdpSsoSession(
 		com.liferay.saml.model.SamlIdpSsoSession samlIdpSsoSession)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -157,6 +158,7 @@ public class SamlIdpSsoSessionLocalServiceClp
 		return (com.liferay.saml.model.SamlIdpSsoSession)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSsoSession createSamlIdpSsoSession(
 		long samlIdpSsoSessionId) {
 		Object returnObj = null;
@@ -180,6 +182,7 @@ public class SamlIdpSsoSessionLocalServiceClp
 		return (com.liferay.saml.model.SamlIdpSsoSession)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSsoSession deleteSamlIdpSsoSession(
 		long samlIdpSsoSessionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -213,6 +216,7 @@ public class SamlIdpSsoSessionLocalServiceClp
 		return (com.liferay.saml.model.SamlIdpSsoSession)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSsoSession deleteSamlIdpSsoSession(
 		com.liferay.saml.model.SamlIdpSsoSession samlIdpSsoSession)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -243,6 +247,7 @@ public class SamlIdpSsoSessionLocalServiceClp
 		return (com.liferay.saml.model.SamlIdpSsoSession)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		Object returnObj = null;
 
@@ -265,6 +270,7 @@ public class SamlIdpSsoSessionLocalServiceClp
 		return (com.liferay.portal.kernel.dao.orm.DynamicQuery)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -295,6 +301,7 @@ public class SamlIdpSsoSessionLocalServiceClp
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -331,6 +338,7 @@ public class SamlIdpSsoSessionLocalServiceClp
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -371,6 +379,7 @@ public class SamlIdpSsoSessionLocalServiceClp
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -400,6 +409,7 @@ public class SamlIdpSsoSessionLocalServiceClp
 		return ((Long)returnObj).longValue();
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSsoSession fetchSamlIdpSsoSession(
 		long samlIdpSsoSessionId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -428,6 +438,7 @@ public class SamlIdpSsoSessionLocalServiceClp
 		return (com.liferay.saml.model.SamlIdpSsoSession)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSsoSession getSamlIdpSsoSession(
 		long samlIdpSsoSessionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -462,6 +473,7 @@ public class SamlIdpSsoSessionLocalServiceClp
 		return (com.liferay.saml.model.SamlIdpSsoSession)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -496,6 +508,7 @@ public class SamlIdpSsoSessionLocalServiceClp
 		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.saml.model.SamlIdpSsoSession> getSamlIdpSsoSessions(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -524,6 +537,7 @@ public class SamlIdpSsoSessionLocalServiceClp
 		return (java.util.List<com.liferay.saml.model.SamlIdpSsoSession>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getSamlIdpSsoSessionsCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -551,6 +565,7 @@ public class SamlIdpSsoSessionLocalServiceClp
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSsoSession updateSamlIdpSsoSession(
 		com.liferay.saml.model.SamlIdpSsoSession samlIdpSsoSession)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -581,6 +596,7 @@ public class SamlIdpSsoSessionLocalServiceClp
 		return (com.liferay.saml.model.SamlIdpSsoSession)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -603,6 +619,7 @@ public class SamlIdpSsoSessionLocalServiceClp
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableLocalService.invokeMethod(_methodName16,
@@ -622,12 +639,14 @@ public class SamlIdpSsoSessionLocalServiceClp
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSsoSession addSamlIdpSsoSession(
 		java.lang.String samlIdpSsoSessionKey,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -667,6 +686,7 @@ public class SamlIdpSsoSessionLocalServiceClp
 		return (com.liferay.saml.model.SamlIdpSsoSession)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSsoSession fetchSamlIdpSso(
 		java.lang.String samlIdpSsoSessionKey)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -698,6 +718,7 @@ public class SamlIdpSsoSessionLocalServiceClp
 		return (com.liferay.saml.model.SamlIdpSsoSession)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSsoSession getSamlIdpSso(
 		java.lang.String samlIdpSsoSessionKey)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -734,6 +755,7 @@ public class SamlIdpSsoSessionLocalServiceClp
 		return (com.liferay.saml.model.SamlIdpSsoSession)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.saml.model.SamlIdpSsoSession updateModifiedDate(
 		java.lang.String samlIdpSsoSessionKey)
 		throws com.liferay.portal.kernel.exception.PortalException,

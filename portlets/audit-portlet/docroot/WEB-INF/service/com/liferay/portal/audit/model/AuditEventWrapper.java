@@ -34,14 +34,17 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 		_auditEvent = auditEvent;
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return AuditEvent.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return AuditEvent.class.getName();
 	}
 
+	@Override
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
@@ -64,6 +67,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 		return attributes;
 	}
 
+	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		Long auditEventId = (Long)attributes.get("auditEventId");
 
@@ -161,6 +165,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @return the primary key of this audit event
 	*/
+	@Override
 	public long getPrimaryKey() {
 		return _auditEvent.getPrimaryKey();
 	}
@@ -170,6 +175,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @param primaryKey the primary key of this audit event
 	*/
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_auditEvent.setPrimaryKey(primaryKey);
 	}
@@ -179,6 +185,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @return the audit event ID of this audit event
 	*/
+	@Override
 	public long getAuditEventId() {
 		return _auditEvent.getAuditEventId();
 	}
@@ -188,6 +195,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @param auditEventId the audit event ID of this audit event
 	*/
+	@Override
 	public void setAuditEventId(long auditEventId) {
 		_auditEvent.setAuditEventId(auditEventId);
 	}
@@ -197,6 +205,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @return the company ID of this audit event
 	*/
+	@Override
 	public long getCompanyId() {
 		return _auditEvent.getCompanyId();
 	}
@@ -206,6 +215,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @param companyId the company ID of this audit event
 	*/
+	@Override
 	public void setCompanyId(long companyId) {
 		_auditEvent.setCompanyId(companyId);
 	}
@@ -215,6 +225,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @return the user ID of this audit event
 	*/
+	@Override
 	public long getUserId() {
 		return _auditEvent.getUserId();
 	}
@@ -224,6 +235,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @param userId the user ID of this audit event
 	*/
+	@Override
 	public void setUserId(long userId) {
 		_auditEvent.setUserId(userId);
 	}
@@ -234,6 +246,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	* @return the user uuid of this audit event
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.lang.String getUserUuid()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _auditEvent.getUserUuid();
@@ -244,6 +257,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @param userUuid the user uuid of this audit event
 	*/
+	@Override
 	public void setUserUuid(java.lang.String userUuid) {
 		_auditEvent.setUserUuid(userUuid);
 	}
@@ -253,6 +267,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @return the user name of this audit event
 	*/
+	@Override
 	public java.lang.String getUserName() {
 		return _auditEvent.getUserName();
 	}
@@ -262,6 +277,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @param userName the user name of this audit event
 	*/
+	@Override
 	public void setUserName(java.lang.String userName) {
 		_auditEvent.setUserName(userName);
 	}
@@ -271,6 +287,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @return the create date of this audit event
 	*/
+	@Override
 	public java.util.Date getCreateDate() {
 		return _auditEvent.getCreateDate();
 	}
@@ -280,6 +297,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @param createDate the create date of this audit event
 	*/
+	@Override
 	public void setCreateDate(java.util.Date createDate) {
 		_auditEvent.setCreateDate(createDate);
 	}
@@ -289,6 +307,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @return the event type of this audit event
 	*/
+	@Override
 	public java.lang.String getEventType() {
 		return _auditEvent.getEventType();
 	}
@@ -298,6 +317,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @param eventType the event type of this audit event
 	*/
+	@Override
 	public void setEventType(java.lang.String eventType) {
 		_auditEvent.setEventType(eventType);
 	}
@@ -307,6 +327,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @return the class name of this audit event
 	*/
+	@Override
 	public java.lang.String getClassName() {
 		return _auditEvent.getClassName();
 	}
@@ -316,6 +337,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @param className the class name of this audit event
 	*/
+	@Override
 	public void setClassName(java.lang.String className) {
 		_auditEvent.setClassName(className);
 	}
@@ -325,6 +347,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @return the class p k of this audit event
 	*/
+	@Override
 	public java.lang.String getClassPK() {
 		return _auditEvent.getClassPK();
 	}
@@ -334,6 +357,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @param classPK the class p k of this audit event
 	*/
+	@Override
 	public void setClassPK(java.lang.String classPK) {
 		_auditEvent.setClassPK(classPK);
 	}
@@ -343,6 +367,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @return the message of this audit event
 	*/
+	@Override
 	public java.lang.String getMessage() {
 		return _auditEvent.getMessage();
 	}
@@ -352,6 +377,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @param message the message of this audit event
 	*/
+	@Override
 	public void setMessage(java.lang.String message) {
 		_auditEvent.setMessage(message);
 	}
@@ -361,6 +387,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @return the client host of this audit event
 	*/
+	@Override
 	public java.lang.String getClientHost() {
 		return _auditEvent.getClientHost();
 	}
@@ -370,6 +397,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @param clientHost the client host of this audit event
 	*/
+	@Override
 	public void setClientHost(java.lang.String clientHost) {
 		_auditEvent.setClientHost(clientHost);
 	}
@@ -379,6 +407,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @return the client i p of this audit event
 	*/
+	@Override
 	public java.lang.String getClientIP() {
 		return _auditEvent.getClientIP();
 	}
@@ -388,6 +417,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @param clientIP the client i p of this audit event
 	*/
+	@Override
 	public void setClientIP(java.lang.String clientIP) {
 		_auditEvent.setClientIP(clientIP);
 	}
@@ -397,6 +427,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @return the server name of this audit event
 	*/
+	@Override
 	public java.lang.String getServerName() {
 		return _auditEvent.getServerName();
 	}
@@ -406,6 +437,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @param serverName the server name of this audit event
 	*/
+	@Override
 	public void setServerName(java.lang.String serverName) {
 		_auditEvent.setServerName(serverName);
 	}
@@ -415,6 +447,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @return the server port of this audit event
 	*/
+	@Override
 	public int getServerPort() {
 		return _auditEvent.getServerPort();
 	}
@@ -424,6 +457,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @param serverPort the server port of this audit event
 	*/
+	@Override
 	public void setServerPort(int serverPort) {
 		_auditEvent.setServerPort(serverPort);
 	}
@@ -433,6 +467,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @return the session i d of this audit event
 	*/
+	@Override
 	public java.lang.String getSessionID() {
 		return _auditEvent.getSessionID();
 	}
@@ -442,6 +477,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @param sessionID the session i d of this audit event
 	*/
+	@Override
 	public void setSessionID(java.lang.String sessionID) {
 		_auditEvent.setSessionID(sessionID);
 	}
@@ -451,6 +487,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @return the additional info of this audit event
 	*/
+	@Override
 	public java.lang.String getAdditionalInfo() {
 		return _auditEvent.getAdditionalInfo();
 	}
@@ -460,52 +497,64 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	*
 	* @param additionalInfo the additional info of this audit event
 	*/
+	@Override
 	public void setAdditionalInfo(java.lang.String additionalInfo) {
 		_auditEvent.setAdditionalInfo(additionalInfo);
 	}
 
+	@Override
 	public boolean isNew() {
 		return _auditEvent.isNew();
 	}
 
+	@Override
 	public void setNew(boolean n) {
 		_auditEvent.setNew(n);
 	}
 
+	@Override
 	public boolean isCachedModel() {
 		return _auditEvent.isCachedModel();
 	}
 
+	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_auditEvent.setCachedModel(cachedModel);
 	}
 
+	@Override
 	public boolean isEscapedModel() {
 		return _auditEvent.isEscapedModel();
 	}
 
+	@Override
 	public java.io.Serializable getPrimaryKeyObj() {
 		return _auditEvent.getPrimaryKeyObj();
 	}
 
+	@Override
 	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
 		_auditEvent.setPrimaryKeyObj(primaryKeyObj);
 	}
 
+	@Override
 	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
 		return _auditEvent.getExpandoBridge();
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.model.BaseModel<?> baseModel) {
 		_auditEvent.setExpandoBridgeAttributes(baseModel);
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
 		_auditEvent.setExpandoBridgeAttributes(expandoBridge);
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.service.ServiceContext serviceContext) {
 		_auditEvent.setExpandoBridgeAttributes(serviceContext);
@@ -516,6 +565,7 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 		return new AuditEventWrapper((AuditEvent)_auditEvent.clone());
 	}
 
+	@Override
 	public int compareTo(com.liferay.portal.audit.model.AuditEvent auditEvent) {
 		return _auditEvent.compareTo(auditEvent);
 	}
@@ -525,14 +575,17 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 		return _auditEvent.hashCode();
 	}
 
+	@Override
 	public com.liferay.portal.model.CacheModel<com.liferay.portal.audit.model.AuditEvent> toCacheModel() {
 		return _auditEvent.toCacheModel();
 	}
 
+	@Override
 	public com.liferay.portal.audit.model.AuditEvent toEscapedModel() {
 		return new AuditEventWrapper(_auditEvent.toEscapedModel());
 	}
 
+	@Override
 	public com.liferay.portal.audit.model.AuditEvent toUnescapedModel() {
 		return new AuditEventWrapper(_auditEvent.toUnescapedModel());
 	}
@@ -542,10 +595,12 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 		return _auditEvent.toString();
 	}
 
+	@Override
 	public java.lang.String toXmlString() {
 		return _auditEvent.toXmlString();
 	}
 
+	@Override
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_auditEvent.persist();
@@ -558,10 +613,12 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 		return _auditEvent;
 	}
 
+	@Override
 	public AuditEvent getWrappedModel() {
 		return _auditEvent;
 	}
 
+	@Override
 	public void resetOriginalValues() {
 		_auditEvent.resetOriginalValues();
 	}

@@ -50,6 +50,7 @@ public class KaleoProcessLinkCacheModel implements CacheModel<KaleoProcessLink>,
 		return sb.toString();
 	}
 
+	@Override
 	public KaleoProcessLink toEntityModel() {
 		KaleoProcessLinkImpl kaleoProcessLinkImpl = new KaleoProcessLinkImpl();
 
@@ -70,6 +71,7 @@ public class KaleoProcessLinkCacheModel implements CacheModel<KaleoProcessLink>,
 		return kaleoProcessLinkImpl;
 	}
 
+	@Override
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		kaleoProcessLinkId = objectInput.readLong();
 		kaleoProcessId = objectInput.readLong();
@@ -77,6 +79,7 @@ public class KaleoProcessLinkCacheModel implements CacheModel<KaleoProcessLink>,
 		DDMTemplateId = objectInput.readLong();
 	}
 
+	@Override
 	public void writeExternal(ObjectOutput objectOutput)
 		throws IOException {
 		objectOutput.writeLong(kaleoProcessLinkId);
