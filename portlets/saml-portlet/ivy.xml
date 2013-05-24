@@ -3,7 +3,7 @@
 <ivy-module version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
 	<info module="saml-portlet" organisation="com.liferay" />
 
-	<dependencies>
+	<dependencies defaultconf="default">
 		<dependency name="bcpkix-jdk15on" org="org.bouncycastle" rev="1.47" />
 		<dependency name="bcprov-jdk15on" org="org.bouncycastle" rev="1.47" />
 		<dependency name="esapi" org="org.owasp.esapi" rev="2.0.1" />
