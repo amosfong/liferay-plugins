@@ -868,14 +868,16 @@ AUI.add(
 										buffer.push(XMLUtil.create('notificationType', notificationType[index]));
 									}
 
-									instance._appendXMLAssignments(
-										buffer,
-										{
-											recipients: recipients[index]
-										},
-										'recipients',
-										'recipients'
-									);
+									if (executionType[index] != "onAssignment") {
+										instance._appendXMLAssignments(
+											buffer,
+											{
+												recipients: recipients[index]
+											},
+											'recipients',
+											'recipients'
+										);
+									}
 
 									if (executionType) {
 										buffer.push(XMLUtil.create('executionType', executionType[index]));
