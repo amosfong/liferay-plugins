@@ -15,20 +15,19 @@
 package com.liferay.sync.model.impl;
 
 /**
- * The extended model implementation for the SyncDLObject service. Represents a row in the &quot;Sync_SyncDLObject&quot; database table, with each column mapped to a property of this class.
+ * The extended model implementation for the SyncDLObject service. Represents a
+ * row in the &quot;Sync_SyncDLObject&quot; database table, with each column
+ * mapped to a property of this class.
  *
  * <p>
- * Helper methods and all application logic should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.sync.model.SyncDLObject} interface.
+ * Helper methods and all application logic should be put in this class.
+ * Whenever methods are added, rerun ServiceBuilder to copy their definitions
+ * into the {@link com.liferay.sync.model.SyncDLObject} interface.
  * </p>
  *
  * @author Brian Wing Shun Chan
  */
 public class SyncDLObjectImpl extends SyncDLObjectBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this class directly. All methods that expect a sync d l object model instance should use the {@link com.liferay.sync.model.SyncDLObject} interface instead.
-	 */
 	public SyncDLObjectImpl() {
 	}
 }

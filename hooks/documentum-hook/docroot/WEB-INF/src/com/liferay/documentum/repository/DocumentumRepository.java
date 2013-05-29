@@ -130,6 +130,7 @@ import javax.servlet.http.HttpSession;
  */
 public class DocumentumRepository extends BaseRepositoryImpl {
 
+	@Override
 	public FileEntry addFileEntry(
 			long folderId, String sourceFileName, String mimeType, String title,
 			String description, String changeLog, InputStream is, long size,
@@ -216,6 +217,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		}
 	}
 
+	@Override
 	public Folder addFolder(
 			long parentFolderId, String title, String description,
 			ServiceContext serviceContext)
@@ -254,6 +256,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		}
 	}
 
+	@Override
 	public FileVersion cancelCheckOut(long fileEntryId)
 		throws PortalException, SystemException {
 
@@ -280,6 +283,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		}
 	}
 
+	@Override
 	public void checkInFileEntry(
 			long fileEntryId, boolean major, String changeLog,
 			ServiceContext serviceContext)
@@ -308,6 +312,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		}
 	}
 
+	@Override
 	public void checkInFileEntry(
 			long fileEntryId, String lockUuid, ServiceContext serviceContext)
 		throws PortalException, SystemException {
@@ -315,6 +320,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public FileEntry checkOutFileEntry(
 			long fileEntryId, ServiceContext serviceContext)
 		throws PortalException, SystemException {
@@ -344,6 +350,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		}
 	}
 
+	@Override
 	public FileEntry checkOutFileEntry(
 		long fileEntryId, String owner, long expirationTime,
 		ServiceContext serviceContext) {
@@ -351,6 +358,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public FileEntry copyFileEntry(
 			long groupId, long fileEntryId, long destFolderId,
 			ServiceContext serviceContext)
@@ -403,6 +411,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		}
 	}
 
+	@Override
 	public void deleteFileEntry(long fileEntryId)
 		throws PortalException, SystemException {
 
@@ -429,6 +438,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		}
 	}
 
+	@Override
 	public void deleteFolder(long folderId)
 		throws PortalException, SystemException {
 
@@ -545,6 +555,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		}
 	}
 
+	@Override
 	public List<FileEntry> getFileEntries(
 			long folderId, int start, int end, OrderByComparator obc)
 		throws SystemException {
@@ -552,6 +563,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		return getFileEntries(folderId, null, start, end, obc);
 	}
 
+	@Override
 	public List<FileEntry> getFileEntries(
 		long folderId, long documentTypeId, int start, int end,
 		OrderByComparator obc) {
@@ -559,6 +571,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		return new ArrayList<FileEntry>();
 	}
 
+	@Override
 	public List<FileEntry> getFileEntries(
 			long folderId, String[] mimeTypes, int start, int end,
 			OrderByComparator obc)
@@ -590,14 +603,17 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		}
 	}
 
+	@Override
 	public int getFileEntriesCount(long folderId) throws SystemException {
 		return getFileEntriesCount(folderId, null);
 	}
 
+	@Override
 	public int getFileEntriesCount(long folderId, long documentTypeId) {
 		return 0;
 	}
 
+	@Override
 	public int getFileEntriesCount(long folderId, String[] mimeTypes)
 		throws SystemException {
 
@@ -625,6 +641,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		}
 	}
 
+	@Override
 	public FileEntry getFileEntry(long fileEntryId)
 		throws PortalException, SystemException {
 
@@ -640,6 +657,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		}
 	}
 
+	@Override
 	public FileEntry getFileEntry(long folderId, String title)
 		throws PortalException, SystemException {
 
@@ -671,6 +689,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 				title + "}");
 	}
 
+	@Override
 	public FileEntry getFileEntryByUuid(String uuid)
 		throws PortalException, SystemException {
 
@@ -685,6 +704,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		return getFileEntry(repositoryEntry.getRepositoryEntryId());
 	}
 
+	@Override
 	public FileVersion getFileVersion(long fileVersionId)
 		throws PortalException, SystemException {
 
@@ -693,6 +713,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		return fileEntry.getFileVersion();
 	}
 
+	@Override
 	public Folder getFolder(long folderId)
 		throws PortalException, SystemException {
 
@@ -708,6 +729,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		}
 	}
 
+	@Override
 	public Folder getFolder(long parentFolderId, String title)
 		throws PortalException, SystemException {
 
@@ -738,6 +760,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 				", title=" + title + "}");
 	}
 
+	@Override
 	public List<Folder> getFolders(
 			long parentFolderId, boolean includeMountFolders, int start,
 			int end, OrderByComparator obc)
@@ -839,6 +862,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		}
 	}
 
+	@Override
 	public int getFoldersCount(long parentFolderId, boolean includeMountfolders)
 		throws SystemException {
 
@@ -863,6 +887,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		}
 	}
 
+	@Override
 	public int getFoldersFileEntriesCount(List<Long> folderIds, int status)
 		throws SystemException {
 
@@ -875,16 +900,19 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		return count;
 	}
 
+	@Override
 	public List<Folder> getMountFolders(
 		long parentFolderId, int start, int end, OrderByComparator obc) {
 
 		return new ArrayList<Folder>();
 	}
 
+	@Override
 	public int getMountFoldersCount(long parentFolderId) {
 		return 0;
 	}
 
+	@Override
 	public void getSubfolderIds(List<Long> folderIds, long folderId)
 		throws SystemException {
 
@@ -894,6 +922,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		getSubfolderIds(folderIds, subfolders, true);
 	}
 
+	@Override
 	public List<Long> getSubfolderIds(long folderId, boolean recurse)
 		throws SystemException {
 
@@ -907,10 +936,12 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		return subfolderIds;
 	}
 
+	@Override
 	public String[] getSupportedConfigurations() {
 		return _SUPPORTED_CONFIGURATIONS;
 	}
 
+	@Override
 	public String[][] getSupportedParameters() {
 		return _SUPPORTED_PARAMETERS;
 	}
@@ -936,16 +967,19 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		getIdfSessionManager();
 	}
 
+	@Override
 	public Lock lockFolder(long folderId) {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Lock lockFolder(
 		long folderId, String owner, boolean inheritable, long expirationTime) {
 
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public FileEntry moveFileEntry(
 			long fileEntryId, long newFolderId, ServiceContext serviceContext)
 		throws PortalException, SystemException {
@@ -988,6 +1022,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		}
 	}
 
+	@Override
 	public Folder moveFolder(
 			long folderId, long newParentFolderId,
 			ServiceContext serviceContext)
@@ -1039,6 +1074,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Lock refreshFileEntryLock(
 		String lockUuid, long companyId, long expirationTime) {
 
@@ -1049,12 +1085,14 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public Lock refreshFolderLock(
 		String lockUuid, long companyId, long expirationTime) {
 
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public void revertFileEntry(
 			long fileEntryId, String version, ServiceContext serviceContext)
 		throws PortalException, SystemException {
@@ -1134,6 +1172,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		}
 	}
 
+	@Override
 	public Hits search(SearchContext searchContext, Query query)
 		throws SearchException {
 
@@ -1297,10 +1336,12 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		}
 	}
 
+	@Override
 	public void unlockFolder(long folderId, String lockUuid) {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public FileEntry updateFileEntry(
 			long fileEntryId, String sourceFileName, String mimeType,
 			String title, String description, String changeLog,
@@ -1401,6 +1442,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		}
 	}
 
+	@Override
 	public Folder updateFolder(
 			long folderId, String title, String description,
 			ServiceContext serviceContext)
@@ -1432,10 +1474,12 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 		}
 	}
 
+	@Override
 	public boolean verifyFileEntryCheckOut(long fileEntryId, String lockUuid) {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public boolean verifyInheritableLock(long folderId, String lockUuid) {
 		throw new UnsupportedOperationException();
 	}

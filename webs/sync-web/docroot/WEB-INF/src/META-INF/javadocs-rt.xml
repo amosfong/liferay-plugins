@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<javadocs><javadoc><name>SyncDLObjectLocalServiceImpl</name><type>com.liferay.sync.service.impl.SyncDLObjectLocalServiceImpl</type><comment><![CDATA[The implementation of the sync d l object local service.
+
+<p>
+All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.sync.service.SyncDLObjectLocalService} interface.  <p> This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
+</p>]]></comment><author><![CDATA[Brian Wing Shun Chan]]></author><see><![CDATA[com.liferay.sync.service.base.SyncDLObjectLocalServiceBaseImpl]]></see><see><![CDATA[com.liferay.sync.service.SyncDLObjectLocalServiceUtil]]></see></javadoc><javadoc><name>SyncDLObjectServiceImpl</name><type>com.liferay.sync.service.impl.SyncDLObjectServiceImpl</type><comment><![CDATA[The implementation of the sync d l object remote service.
+
+<p>
+All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.sync.service.SyncDLObjectService} interface.  <p> This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
+</p>]]></comment><author><![CDATA[Brian Wing Shun Chan]]></author><see><![CDATA[com.liferay.sync.service.base.SyncDLObjectServiceBaseImpl]]></see><see><![CDATA[com.liferay.sync.service.SyncDLObjectServiceUtil]]></see></javadoc></javadocs>

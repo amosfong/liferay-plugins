@@ -12,18 +12,22 @@
 			<param>
 				<name>domainName</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>rulesResourceRetriever</name>
 				<type>com.liferay.portal.kernel.bi.rules.RulesResourceRetriever</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>classloaders</name>
 				<type>java.lang.ClassLoader</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
 				<name>RulesEngineException</name>
 				<type>com.liferay.portal.kernel.bi.rules.RulesEngineException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -31,25 +35,33 @@
 			<param>
 				<name>domainName</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>execute</name>
 			<param>
 				<name>rulesResourceRetriever</name>
 				<type>com.liferay.portal.kernel.bi.rules.RulesResourceRetriever</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>facts</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>classloaders</name>
 				<type>java.lang.ClassLoader</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
 				<name>RulesEngineException</name>
 				<type>com.liferay.portal.kernel.bi.rules.RulesEngineException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -57,22 +69,30 @@
 			<param>
 				<name>rulesResourceRetriever</name>
 				<type>com.liferay.portal.kernel.bi.rules.RulesResourceRetriever</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>facts</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>query</name>
 				<type>com.liferay.portal.kernel.bi.rules.Query</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>classloaders</name>
 				<type>java.lang.ClassLoader</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>RulesEngineException</name>
 				<type>com.liferay.portal.kernel.bi.rules.RulesEngineException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -80,18 +100,22 @@
 			<param>
 				<name>domainName</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>facts</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>classloaders</name>
 				<type>java.lang.ClassLoader</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
 				<name>RulesEngineException</name>
 				<type>com.liferay.portal.kernel.bi.rules.RulesEngineException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -99,22 +123,30 @@
 			<param>
 				<name>domainName</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>facts</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>query</name>
 				<type>com.liferay.portal.kernel.bi.rules.Query</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>classloaders</name>
 				<type>java.lang.ClassLoader</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>RulesEngineException</name>
 				<type>com.liferay.portal.kernel.bi.rules.RulesEngineException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -122,6 +154,7 @@
 			<param>
 				<name>domainName</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -129,6 +162,7 @@
 			<param>
 				<name>defaultRulesLanguage</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -136,6 +170,7 @@
 			<param>
 				<name>rulesLanguageMap</name>
 				<type>java.util.Map</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -143,18 +178,22 @@
 			<param>
 				<name>domainName</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>rulesResourceRetriever</name>
 				<type>com.liferay.portal.kernel.bi.rules.RulesResourceRetriever</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>classloaders</name>
 				<type>java.lang.ClassLoader</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
 				<name>RulesEngineException</name>
 				<type>com.liferay.portal.kernel.bi.rules.RulesEngineException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -162,21 +201,31 @@
 			<param>
 				<name>rulesLanguage</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>createKnowledgeBase</name>
 			<param>
 				<name>retriever</name>
 				<type>com.liferay.portal.kernel.bi.rules.RulesResourceRetriever</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>classloaders</name>
 				<type>java.lang.ClassLoader</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>RulesEngineException</name>
 				<type>com.liferay.portal.kernel.bi.rules.RulesEngineException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -184,10 +233,12 @@
 			<param>
 				<name>facts</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>knowledgeBase</name>
 				<type>org.drools.KnowledgeBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -195,37 +246,53 @@
 			<param>
 				<name>facts</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>knowledgeBase</name>
 				<type>org.drools.KnowledgeBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>query</name>
 				<type>com.liferay.portal.kernel.bi.rules.Query</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>processQueryResults</name>
 			<param>
 				<name>query</name>
 				<type>com.liferay.portal.kernel.bi.rules.Query</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>identifiers</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>executionResults</name>
 				<type>org.drools.runtime.ExecutionResults</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>resolveClassLoaders</name>
 			<param>
 				<name>classloaders</name>
 				<type>java.lang.ClassLoader</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<field>
 			<name>_defaultResourceType</name>
@@ -236,5 +303,26 @@
 		<field>
 			<name>_resourceTypeMap</name>
 		</field>
+	</javadoc>
+	<javadoc>
+		<name>DroolsServletContextListener</name>
+		<type>com.liferay.portal.bi.rules.drools.servlet.DroolsServletContextListener</type>
+		<author><![CDATA[Michael C. Han]]></author>
+		<method>
+			<name>contextDestroyed</name>
+			<param>
+				<name>servletContextEvent</name>
+				<type>javax.servlet.ServletContextEvent</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+		</method>
+		<method>
+			<name>contextInitialized</name>
+			<param>
+				<name>servletContextEvent</name>
+				<type>javax.servlet.ServletContextEvent</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+		</method>
 	</javadoc>
 </javadocs>

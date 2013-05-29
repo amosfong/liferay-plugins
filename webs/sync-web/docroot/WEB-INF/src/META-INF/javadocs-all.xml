@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+
+<javadocs>
+	<javadoc>
+		<name>SyncDLObjectImpl</name>
+		<type>com.liferay.sync.model.impl.SyncDLObjectImpl</type>
+		<comment><![CDATA[The extended model implementation for the SyncDLObject service. Represents a row in the &quot;Sync_SyncDLObject&quot; database table, with each column mapped to a property of this class.
+
+<p>
+Helper methods and all application logic should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.sync.model.SyncDLObject} interface.
+</p>]]></comment>
+		<author><![CDATA[Brian Wing Shun Chan]]></author>
+		<method>
+			<name>SyncDLObjectImpl</name>
+		</method>
+	</javadoc>
+	<javadoc>
+		<name>SyncDLObjectLocalServiceClpInvoker</name>
+		<type>com.liferay.sync.service.base.SyncDLObjectLocalServiceClpInvoker</type>
+		<author><![CDATA[Brian Wing Shun Chan]]></author>
+		<method>
+			<name>SyncDLObjectLocalServiceClpInvoker</name>
+		</method>
+		<method>
+			<name>invokeMethod</name>
+			<param>
+				<name>name</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>parameterTypes</name>
+				<type>java.lang.String[]</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>arguments</name>
+				<type>java.lang.Object[]</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+			<throws>
+				<name>Throwable</name>
+				<type>java.lang.Throwable</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<field>
+			<name>_methodName0</name>
+		</field>
+		<field>
+			<name>_methodParameterTypes0</name>
+		</field>
+		<field>
+			<name>_methodName1</name>
+		</field>
+		<field>
+			<name>_methodParameterTypes1</name>
+		</field>
+		<field>
+			<name>_methodName2</name>
+		</field>
+		<field>
+			<name>_methodParameterTypes2</name>
+		</field>
+		<field>
+			<name>_methodName3</name>
+		</field>
+		<field>
+			<name>_methodParameterTypes3</name>
+		</field>
+		<field>
+			<name>_methodName4</name>
+		</field>
+		<field>
+			<name>_methodParameterTypes4</name>
+		</field>
+		<field>
+			<name>_methodName5</name>
+		</field>
+		<field>
+			<name>_methodParameterTypes5</name>
+		</field>
+		<field>
+			<name>_methodName6</name>
+		</field>
+		<field>
+			<name>_methodParameterTypes6</name>
+		</field>
+		<field>
+			<name>_methodName7</name>
+		</field>
+		<field>
+			<name>_methodParameterTypes7</name>
+		</field>
+		<field>
+			<name>_methodName8</name>
+		</field>
+		<field>
+			<name>_methodParameterTypes8</name>
+		</field>
+		<field>
+			<name>_methodName9</name>
+		</field>
+		<field>
+			<name>_methodParameterTypes9</name>
+		</field>
+		<field>
+			<name>_methodName10</name>
+		</field>
+		<field>
+			<name>_methodParameterTypes10</name>
+		</field>
+		<field>
+			<name>_methodName11</name>
+		</field>
+		<field>
+			<name>_methodParameterTypes11</name>
+		</field>
+		<field>
+			<name>_methodName12</name>
+		</field>
+		<field>
+			<name>_methodParameterTypes12</name>
+		</field>
+		<field>
+			<name>_methodName13</name>
+		</field>
+		<field>
+			<name>_methodParameterTypes13</name>
+		</field>
+		<field>
+			<name>_methodName14</name>
+		</field>
+		<field>
+			<name>_methodParameterTypes14</name>
+		</field>
+		<field>
+			<name>_methodName49</name>
+		</field>
+		<field>
+			<name>_methodParameterTypes49</name>
+		</field>
+		<field>
+			<name>_methodName50</name>
+		</field>
+		<field>
+			<name>_methodParameterTypes50</name>
+		</field>
+	</javadoc>
+	<javadoc>
+		<name>SyncDLObjectServiceClpInvoker</name>
+		<type>com.liferay.sync.service.base.SyncDLObjectServiceClpInvoker</type>
+		<author><![CDATA[Brian Wing Shun Chan]]></author>
+		<method>
+			<name>SyncDLObjectServiceClpInvoker</name>
+		</method>
+		<method>
+			<name>invokeMethod</name>
+			<param>
+				<name>name</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>parameterTypes</name>
+				<type>java.lang.String[]</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>arguments</name>
+				<type>java.lang.Object[]</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+			<throws>
+				<name>Throwable</name>
+				<type>java.lang.Throwable</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<field>
+			<name>_methodName34</name>
+		</field>
+		<field>
+			<name>_methodParameterTypes34</name>
+		</field>
+		<field>
+			<name>_methodName35</name>
+		</field>
+		<field>
+			<name>_methodParameterTypes35</name>
+		</field>
+	</javadoc>
+	<javadoc>
+		<name>SyncDLObjectLocalServiceImpl</name>
+		<type>com.liferay.sync.service.impl.SyncDLObjectLocalServiceImpl</type>
+		<comment><![CDATA[The implementation of the sync d l object local service.
+
+<p>
+All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.sync.service.SyncDLObjectLocalService} interface.  <p> This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
+</p>]]></comment>
+		<author><![CDATA[Brian Wing Shun Chan]]></author>
+		<see><![CDATA[com.liferay.sync.service.base.SyncDLObjectLocalServiceBaseImpl]]></see>
+		<see><![CDATA[com.liferay.sync.service.SyncDLObjectLocalServiceUtil]]></see>
+	</javadoc>
+	<javadoc>
+		<name>SyncDLObjectServiceImpl</name>
+		<type>com.liferay.sync.service.impl.SyncDLObjectServiceImpl</type>
+		<comment><![CDATA[The implementation of the sync d l object remote service.
+
+<p>
+All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.sync.service.SyncDLObjectService} interface.  <p> This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
+</p>]]></comment>
+		<author><![CDATA[Brian Wing Shun Chan]]></author>
+		<see><![CDATA[com.liferay.sync.service.base.SyncDLObjectServiceBaseImpl]]></see>
+		<see><![CDATA[com.liferay.sync.service.SyncDLObjectServiceUtil]]></see>
+	</javadoc>
+</javadocs>

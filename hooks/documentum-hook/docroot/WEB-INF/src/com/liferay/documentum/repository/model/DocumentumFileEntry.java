@@ -93,12 +93,14 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		_versionLabel = idfDocument.getVersionLabel(0);
 	}
 
+	@Override
 	public boolean containsPermission(
 		PermissionChecker permissionChecker, String actionId) {
 
 		return containsPermission(_permit, actionId);
 	}
 
+	@Override
 	public Map<String, Serializable> getAttributes() {
 		if (_attributes != null) {
 			return _attributes;
@@ -123,6 +125,7 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return _documentumRepository.getCompanyId();
 	}
 
+	@Override
 	public InputStream getContentStream() throws SystemException {
 		InputStream inputStream = _documentumRepository.getContentStream(
 			_fileEntryId);
@@ -138,6 +141,7 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return inputStream;
 	}
 
+	@Override
 	public InputStream getContentStream(String version)
 		throws PortalException, SystemException {
 
@@ -154,6 +158,7 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return fileEntry.getContentStream();
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -166,18 +171,22 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return 0;
 	}
 
+	@Override
 	public String getExtension() {
 		return FileUtil.getExtension(getTitle());
 	}
 
+	@Override
 	public long getFileEntryId() {
 		return _fileEntryId;
 	}
 
+	@Override
 	public FileVersion getFileVersion() {
 		return new DocumentumFileVersion(_documentumRepository, this);
 	}
 
+	@Override
 	public FileVersion getFileVersion(String version)
 		throws PortalException, SystemException {
 
@@ -190,6 +199,7 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return new DocumentumFileVersion(_documentumRepository, fileEntry);
 	}
 
+	@Override
 	public List<FileVersion> getFileVersions(int status)
 		throws SystemException {
 
@@ -215,6 +225,7 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return fileVersions;
 	}
 
+	@Override
 	public Folder getFolder() {
 		Folder parentFolder = null;
 
@@ -236,14 +247,17 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return parentFolder;
 	}
 
+	@Override
 	public long getFolderId() {
 		return getParentFolderId();
 	}
 
+	@Override
 	public long getGroupId() {
 		return _documentumRepository.getGroupId();
 	}
 
+	@Override
 	public String getIcon() {
 		return DLUtil.getFileIcon(getExtension());
 	}
@@ -256,6 +270,7 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return 0;
 	}
 
+	@Override
 	public FileVersion getLatestFileVersion()
 		throws PortalException, SystemException {
 
@@ -265,14 +280,17 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return getFileVersion(documentumVersionLabel.getVersionLabel());
 	}
 
+	@Override
 	public Lock getLock() {
 		return _lock;
 	}
 
+	@Override
 	public String getMimeType() {
 		return MimeTypesUtil.getContentType(getTitle());
 	}
 
+	@Override
 	public String getMimeType(String version) {
 		try {
 			DocumentumVersionLabel documentumVersionLabel = getVersionLabel(
@@ -290,6 +308,7 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return StringPool.BLANK;
 	}
 
+	@Override
 	public Object getModel() {
 		return this;
 	}
@@ -299,6 +318,7 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return DLFileEntry.class;
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
@@ -312,14 +332,17 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return _fileEntryId;
 	}
 
+	@Override
 	public int getReadCount() {
 		return 0;
 	}
 
+	@Override
 	public long getRepositoryId() {
 		return _documentumRepository.getRepositoryId();
 	}
 
+	@Override
 	public long getSize() {
 		return _size;
 	}
@@ -328,10 +351,12 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return 0;
 	}
 
+	@Override
 	public String getTitle() {
 		return _objectName;
 	}
 
+	@Override
 	public long getUserId() {
 		User user = getUser(_creatorName);
 
@@ -342,6 +367,7 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return 0;
 	}
 
+	@Override
 	public String getUserName() {
 		User user = getUser(_creatorName);
 
@@ -352,6 +378,7 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return StringPool.BLANK;
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		User user = getUser(_creatorName);
 
@@ -362,14 +389,17 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return StringPool.BLANK;
 	}
 
+	@Override
 	public String getUuid() {
 		return _uuid;
 	}
 
+	@Override
 	public String getVersion() {
 		return _versionLabel;
 	}
 
+	@Override
 	public long getVersionUserId() {
 		User user = getUser(_modifier);
 
@@ -380,6 +410,7 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return 0;
 	}
 
+	@Override
 	public String getVersionUserName() {
 		User user = getUser(_modifier);
 
@@ -390,6 +421,7 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return StringPool.BLANK;
 	}
 
+	@Override
 	public String getVersionUserUuid() throws SystemException {
 		User user = getUser(_modifier);
 
@@ -400,6 +432,7 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return StringPool.BLANK;
 	}
 
+	@Override
 	public boolean hasLock() {
 		if (!isLocked()) {
 			return false;
@@ -424,18 +457,22 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		return false;
 	}
 
+	@Override
 	public boolean isCheckedOut() {
 		return isLocked();
 	}
 
+	@Override
 	public boolean isDefaultRepository() {
 		return false;
 	}
 
+	@Override
 	public boolean isEscapedModel() {
 		return false;
 	}
 
+	@Override
 	public boolean isManualCheckInRequired() {
 		try {
 			RepositoryEntry repositoryEntry =
@@ -453,14 +490,17 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		}
 	}
 
+	@Override
 	public boolean isSupportsLocking() {
 		return true;
 	}
 
+	@Override
 	public boolean isSupportsMetadata() {
 		return true;
 	}
 
+	@Override
 	public boolean isSupportsSocial() {
 		return true;
 	}
@@ -468,13 +508,16 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 	public void prepare() {
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 	}
 
+	@Override
 	public FileEntry toEscapedModel() {
 		return this;
 	}
 
+	@Override
 	public FileEntry toUnescapedModel() {
 		return this;
 	}

@@ -36,6 +36,7 @@ public class TomcatSPIProvider extends BaseSPIProvider {
 		return SPIClassPathContextListener.SPI_CLASS_PATH;
 	}
 
+	@Override
 	public String getName() {
 		return NAME;
 	}

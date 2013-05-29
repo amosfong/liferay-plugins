@@ -58,6 +58,7 @@ public class DocumentumLock
 		return this;
 	}
 
+	@Override
 	public int compareTo(Lock lock) {
 		long primaryKey = lock.getPrimaryKey();
 
@@ -91,6 +92,7 @@ public class DocumentumLock
 		return false;
 	}
 
+	@Override
 	public String getClassName() {
 		return null;
 	}
@@ -100,6 +102,7 @@ public class DocumentumLock
 		return _companyId;
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -109,26 +112,32 @@ public class DocumentumLock
 		return null;
 	}
 
+	@Override
 	public Date getExpirationDate() {
 		return null;
 	}
 
+	@Override
 	public long getExpirationTime() {
 		return 0;
 	}
 
+	@Override
 	public boolean getInheritable() {
 		return false;
 	}
 
+	@Override
 	public String getKey() {
 		return null;
 	}
 
+	@Override
 	public long getLockId() {
 		return 0;
 	}
 
+	@Override
 	public Map<String, Object> getModelAttributes() {
 		return Collections.emptyMap();
 	}
@@ -143,6 +152,7 @@ public class DocumentumLock
 		return Lock.class.getName();
 	}
 
+	@Override
 	public String getOwner() {
 		return getUserName();
 	}
@@ -157,50 +167,62 @@ public class DocumentumLock
 		return null;
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public String getUserName() {
 		return _userName;
 	}
 
+	@Override
 	public String getUserUuid() {
 		return null;
 	}
 
+	@Override
 	public String getUuid() {
 		return null;
 	}
 
+	@Override
 	public boolean isCachedModel() {
 		return false;
 	}
 
+	@Override
 	public boolean isEscapedModel() {
 		return false;
 	}
 
+	@Override
 	public boolean isExpired() {
 		return false;
 	}
 
+	@Override
 	public boolean isInheritable() {
 		return false;
 	}
 
+	@Override
 	public boolean isNeverExpires() {
 		return true;
 	}
 
+	@Override
 	public boolean isNew() {
 		return false;
 	}
 
+	@Override
 	public void persist() {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public void resetOriginalValues() {
 	}
 
@@ -208,9 +230,11 @@ public class DocumentumLock
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public void setCachedModel(boolean cachedModel) {
 	}
 
+	@Override
 	public void setClassName(String className) {
 	}
 
@@ -227,30 +251,39 @@ public class DocumentumLock
 	public void setEscapedModel(boolean escapedModel) {
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(ServiceContext serviceContext) {
 	}
 
+	@Override
 	public void setExpirationDate(Date expirationDate) {
 	}
 
+	@Override
 	public void setInheritable(boolean inheritable) {
 	}
 
+	@Override
 	public void setKey(String key) {
 	}
 
+	@Override
 	public void setLockId(long lockId) {
 	}
 
+	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 	}
 
+	@Override
 	public void setNew(boolean n) {
 	}
 
+	@Override
 	public void setOwner(String owner) {
 	}
 
+	@Override
 	public void setPrimaryKey(long pk) {
 	}
 
@@ -264,28 +297,35 @@ public class DocumentumLock
 		_userName = userName;
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 	}
 
+	@Override
 	public void setUuid(String uuid) {
 	}
 
+	@Override
 	public CacheModel<Lock> toCacheModel() {
 		return this;
 	}
 
+	@Override
 	public Lock toEntityModel() {
 		return this;
 	}
 
+	@Override
 	public Lock toEscapedModel() {
 		return this;
 	}
 
+	@Override
 	public Lock toUnescapedModel() {
 		return this;
 	}
 
+	@Override
 	public String toXmlString() {
 		return StringPool.BLANK;
 	}

@@ -38,18 +38,22 @@ public class OutputStreamRequestEntity implements RequestEntity {
 		_contentType = contentType;
 	}
 
+	@Override
 	public long getContentLength() {
 		return _byteArrayOutputStream.size();
 	}
 
+	@Override
 	public String getContentType() {
 		return _contentType;
 	}
 
+	@Override
 	public boolean isRepeatable() {
 		return true;
 	}
 
+	@Override
 	public void writeRequest(OutputStream outputStream) throws IOException {
 		_byteArrayOutputStream.writeTo(outputStream);
 	}

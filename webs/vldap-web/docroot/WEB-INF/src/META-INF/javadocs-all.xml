@@ -11,10 +11,12 @@
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>cause</name>
 				<type>java.lang.Throwable</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -22,10 +24,12 @@
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>message</name>
 				<type>java.lang.Object</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -33,10 +37,12 @@
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>message</name>
 				<type>java.lang.Object</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -44,6 +50,7 @@
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -51,6 +58,7 @@
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -58,10 +66,12 @@
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>idleStatus</name>
 				<type>org.apache.mina.core.session.IdleStatus</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -69,6 +79,7 @@
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -76,17 +87,26 @@
 			<param>
 				<name>request</name>
 				<type>org.apache.directory.shared.ldap.model.message.Request</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getLdapHandlerContext</name>
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -94,17 +114,23 @@
 			<param>
 				<name>socketAddress</name>
 				<type>java.net.SocketAddress</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>setSessionAttributes</name>
 			<param>
 				<name>response</name>
 				<type>org.apache.directory.shared.ldap.model.message.Response</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -112,10 +138,12 @@
 			<param>
 				<name>responses</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<field>
@@ -154,6 +182,7 @@
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -161,6 +190,7 @@
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -174,6 +204,7 @@
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -201,29 +232,41 @@
 			<param>
 				<name>searchBase</name>
 				<type>SearchBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>exprNode</name>
 				<type>org.apache.directory.shared.ldap.model.filter.ExprNode</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>searchScope</name>
 				<type>org.apache.directory.shared.ldap.model.message.SearchScope</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getSearchBase</name>
 			<param>
 				<name>dn</name>
 				<type>org.apache.directory.shared.ldap.model.name.Dn</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>sizeLimit</name>
 				<type>long</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -231,21 +274,33 @@
 			<param>
 				<name>exprNode</name>
 				<type>org.apache.directory.shared.ldap.model.filter.ExprNode</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>toFilterConstraintsFromBranchNode</name>
 			<param>
 				<name>branchNode</name>
 				<type>org.apache.directory.shared.ldap.model.filter.BranchNode</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>toFilterConstraintsFromLeafNode</name>
 			<param>
 				<name>leafNode</name>
 				<type>org.apache.directory.shared.ldap.model.filter.LeafNode</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<field>
 			<name>_log</name>
@@ -302,22 +357,32 @@
 			<param>
 				<name>leftFilterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>rightFilterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>merge</name>
 			<param>
 				<name>leftFilterConstraint</name>
 				<type>com.liferay.vldap.server.directory.FilterConstraint</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>rightFilterConstraint</name>
 				<type>com.liferay.vldap.server.directory.FilterConstraint</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>FilterConstraint</name>
@@ -327,6 +392,7 @@
 			<param>
 				<name>filterConstraint</name>
 				<type>com.liferay.vldap.server.directory.FilterConstraint</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -334,10 +400,12 @@
 			<param>
 				<name>attributeId</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>value</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -345,34 +413,56 @@
 			<param>
 				<name>attributeId</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>equals</name>
 			<param>
 				<name>obj</name>
 				<type>java.lang.Object</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getMap</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getValue</name>
 			<param>
 				<name>attributeId</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>isEmpty</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>merge</name>
 			<param>
 				<name>rightFilterConstraint</name>
 				<type>com.liferay.vldap.server.directory.FilterConstraint</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<field>
 			<name>_map</name>
@@ -387,10 +477,12 @@
 			<param>
 				<name>directory</name>
 				<type>com.liferay.vldap.server.directory.ldap.Directory</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>directoryBuilder</name>
 				<type>com.liferay.vldap.server.directory.builder.DirectoryBuilder</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -398,14 +490,17 @@
 			<param>
 				<name>directory</name>
 				<type>com.liferay.vldap.server.directory.ldap.Directory</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>directoryBuilder</name>
 				<type>com.liferay.vldap.server.directory.builder.DirectoryBuilder</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -413,18 +508,22 @@
 			<param>
 				<name>directory</name>
 				<type>com.liferay.vldap.server.directory.ldap.Directory</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>directoryBuilder</name>
 				<type>com.liferay.vldap.server.directory.builder.DirectoryBuilder</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -432,22 +531,27 @@
 			<param>
 				<name>directory</name>
 				<type>com.liferay.vldap.server.directory.ldap.Directory</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>directoryBuilder</name>
 				<type>com.liferay.vldap.server.directory.builder.DirectoryBuilder</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>community</name>
 				<type>com.liferay.portal.model.Group</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -455,22 +559,27 @@
 			<param>
 				<name>directory</name>
 				<type>com.liferay.vldap.server.directory.ldap.Directory</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>directoryBuilder</name>
 				<type>com.liferay.vldap.server.directory.builder.DirectoryBuilder</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>organization</name>
 				<type>com.liferay.portal.model.Organization</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -478,22 +587,27 @@
 			<param>
 				<name>directory</name>
 				<type>com.liferay.vldap.server.directory.ldap.Directory</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>directoryBuilder</name>
 				<type>com.liferay.vldap.server.directory.builder.DirectoryBuilder</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>role</name>
 				<type>com.liferay.portal.model.Role</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -501,22 +615,27 @@
 			<param>
 				<name>directory</name>
 				<type>com.liferay.vldap.server.directory.ldap.Directory</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>directoryBuilder</name>
 				<type>com.liferay.vldap.server.directory.builder.DirectoryBuilder</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>user</name>
 				<type>com.liferay.portal.model.User</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -524,65 +643,107 @@
 			<param>
 				<name>directory</name>
 				<type>com.liferay.vldap.server.directory.ldap.Directory</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>directoryBuilder</name>
 				<type>com.liferay.vldap.server.directory.builder.DirectoryBuilder</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>userGroup</name>
 				<type>com.liferay.portal.model.UserGroup</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
 			<name>getCommunity</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getCompanies</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getCompany</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getCompanyId</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getDirectory</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getDirectoryBuilder</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getOrganization</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getRole</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getSizeLimit</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getTop</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getUser</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getUserGroup</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>setSizeLimit</name>
 			<param>
 				<name>sizeLimit</name>
 				<type>long</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<field>
@@ -629,25 +790,36 @@
 			<param>
 				<name>attributeId</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>value</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>buildDirectories</name>
 			<param>
 				<name>searchBase</name>
 				<type>com.liferay.vldap.server.directory.SearchBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -661,25 +833,36 @@
 			<param>
 				<name>attributeId</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>value</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>buildDirectories</name>
 			<param>
 				<name>searchBase</name>
 				<type>com.liferay.vldap.server.directory.SearchBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -687,18 +870,25 @@
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>sizeLimit</name>
 				<type>int</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -712,25 +902,36 @@
 			<param>
 				<name>attributeId</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>value</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>buildDirectories</name>
 			<param>
 				<name>searchBase</name>
 				<type>com.liferay.vldap.server.directory.SearchBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -738,14 +939,20 @@
 			<param>
 				<name>searchBase</name>
 				<type>com.liferay.vldap.server.directory.SearchBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -759,6 +966,7 @@
 			<param>
 				<name>directoryBuilder</name>
 				<type>com.liferay.vldap.server.directory.builder.DirectoryBuilder</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -766,50 +974,74 @@
 			<param>
 				<name>searchBase</name>
 				<type>com.liferay.vldap.server.directory.SearchBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>subtree</name>
 				<type>boolean</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getDirectoryBuilders</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>isValidAttribute</name>
 			<param>
 				<name>attributeId</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>value</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>isValidFilterConstraint</name>
 			<param>
 				<name>filterConstraint</name>
 				<type>com.liferay.vldap.server.directory.FilterConstraint</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>buildDirectories</name>
 			<param>
 				<name>searchBase</name>
 				<type>com.liferay.vldap.server.directory.SearchBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<field>
@@ -832,25 +1064,36 @@
 			<param>
 				<name>attributeId</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>value</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>buildDirectories</name>
 			<param>
 				<name>searchBase</name>
 				<type>com.liferay.vldap.server.directory.SearchBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -858,18 +1101,25 @@
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>sizeLimit</name>
 				<type>int</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -877,18 +1127,25 @@
 			<param>
 				<name>companyId</name>
 				<type>long</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>name</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>sizeLimit</name>
 				<type>int</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -902,25 +1159,36 @@
 			<param>
 				<name>attributeId</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>value</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>buildDirectories</name>
 			<param>
 				<name>searchBase</name>
 				<type>com.liferay.vldap.server.directory.SearchBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -934,25 +1202,36 @@
 			<param>
 				<name>attributeId</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>value</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>buildDirectories</name>
 			<param>
 				<name>searchBase</name>
 				<type>com.liferay.vldap.server.directory.SearchBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -960,18 +1239,25 @@
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>sizeLimit</name>
 				<type>int</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -979,22 +1265,30 @@
 			<param>
 				<name>companyId</name>
 				<type>long</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>name</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>description</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>sizeLimit</name>
 				<type>int</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -1008,25 +1302,36 @@
 			<param>
 				<name>attributeId</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>value</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>buildDirectories</name>
 			<param>
 				<name>searchBase</name>
 				<type>com.liferay.vldap.server.directory.SearchBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -1040,11 +1345,16 @@
 			<param>
 				<name>searchBase</name>
 				<type>com.liferay.vldap.server.directory.SearchBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 	</javadoc>
 	<javadoc>
@@ -1056,11 +1366,16 @@
 			<param>
 				<name>searchBase</name>
 				<type>com.liferay.vldap.server.directory.SearchBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 	</javadoc>
 	<javadoc>
@@ -1073,11 +1388,16 @@
 			<param>
 				<name>searchBase</name>
 				<type>com.liferay.vldap.server.directory.SearchBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 	</javadoc>
 	<javadoc>
@@ -1090,25 +1410,36 @@
 			<param>
 				<name>attributeId</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>value</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>buildDirectories</name>
 			<param>
 				<name>searchBase</name>
 				<type>com.liferay.vldap.server.directory.SearchBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -1116,18 +1447,25 @@
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>searchBase</name>
 				<type>com.liferay.vldap.server.directory.SearchBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -1135,14 +1473,20 @@
 			<param>
 				<name>params</name>
 				<type>java.util.Map</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>member</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -1156,25 +1500,36 @@
 			<param>
 				<name>attributeId</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>value</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>buildDirectories</name>
 			<param>
 				<name>searchBase</name>
 				<type>com.liferay.vldap.server.directory.SearchBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -1182,18 +1537,25 @@
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>sizeLimit</name>
 				<type>int</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -1201,22 +1563,30 @@
 			<param>
 				<name>companyId</name>
 				<type>long</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>name</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>description</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>sizeLimit</name>
 				<type>int</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -1230,25 +1600,36 @@
 			<param>
 				<name>attributeId</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>value</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>buildDirectories</name>
 			<param>
 				<name>searchBase</name>
 				<type>com.liferay.vldap.server.directory.SearchBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -1262,25 +1643,36 @@
 			<param>
 				<name>attributeId</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>value</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>buildDirectories</name>
 			<param>
 				<name>searchBase</name>
 				<type>com.liferay.vldap.server.directory.SearchBase</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>filterConstraints</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -1294,23 +1686,32 @@
 			<param>
 				<name>name</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>value</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
 			<name>getAttributeId</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getValue</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>setAttributeId</name>
 			<param>
 				<name>attributeId</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -1318,6 +1719,7 @@
 			<param>
 				<name>value</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<field>
@@ -1337,10 +1739,12 @@
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 	</javadoc>
@@ -1354,18 +1758,22 @@
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>community</name>
 				<type>com.liferay.portal.model.Group</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -1379,10 +1787,12 @@
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 	</javadoc>
@@ -1396,28 +1806,42 @@
 			<param>
 				<name>attributeId</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>hasAttribute</name>
 			<param>
 				<name>attributeId</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>value</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>toEntry</name>
 			<param>
 				<name>searchRequestAttributes</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -1425,10 +1849,12 @@
 			<param>
 				<name>attributeId</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>value</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -1436,18 +1862,22 @@
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>params</name>
 				<type>java.util.LinkedHashMap</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -1455,38 +1885,56 @@
 			<param>
 				<name>list</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>value</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getAttributes</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getDn</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
 			<name>getName</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>setName</name>
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>organizationUnits</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<field>
@@ -1509,18 +1957,22 @@
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>organization</name>
 				<type>com.liferay.portal.model.Organization</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -1534,10 +1986,12 @@
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 	</javadoc>
@@ -1551,18 +2005,22 @@
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>role</name>
 				<type>com.liferay.portal.model.Role</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -1576,10 +2034,12 @@
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 	</javadoc>
@@ -1593,6 +2053,9 @@
 		</method>
 		<method>
 			<name>getName</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 	</javadoc>
 	<javadoc>
@@ -1607,10 +2070,14 @@
 			<param>
 				<name>commonName</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
 			<name>getName</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<field>
 			<name>COMMON_NAME</name>
@@ -1629,10 +2096,14 @@
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
 			<name>getName</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<field>
 			<name>NAME</name>
@@ -1651,18 +2122,22 @@
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>user</name>
 				<type>com.liferay.portal.model.User</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<field>
@@ -1680,18 +2155,22 @@
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>userGroup</name>
 				<type>com.liferay.portal.model.UserGroup</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -1706,10 +2185,12 @@
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 	</javadoc>
@@ -1723,14 +2204,17 @@
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -1744,15 +2228,21 @@
 			<param>
 				<name>request</name>
 				<type>org.apache.directory.shared.ldap.model.message.Request</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ldapHandlerContext</name>
 				<type>com.liferay.vldap.server.handler.util.LdapHandlerContext</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 	</javadoc>
 	<javadoc>
@@ -1765,25 +2255,38 @@
 			<param>
 				<name>request</name>
 				<type>T</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getResponse</name>
 			<param>
 				<name>request</name>
 				<type>T</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>resultCode</name>
 				<type>org.apache.directory.shared.ldap.model.message.ResultCodeEnum</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>toList</name>
 			<param>
 				<name>response</name>
 				<type>org.apache.directory.shared.ldap.model.message.Response</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 	</javadoc>
 	<javadoc>
@@ -1796,18 +2299,25 @@
 			<param>
 				<name>request</name>
 				<type>org.apache.directory.shared.ldap.model.message.Request</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ldapHandlerContext</name>
 				<type>com.liferay.vldap.server.handler.util.LdapHandlerContext</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -1815,25 +2325,36 @@
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getSaslResponse</name>
 			<param>
 				<name>bindRequest</name>
 				<type>org.apache.directory.shared.ldap.model.message.BindRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ldapHandlerContext</name>
 				<type>com.liferay.vldap.server.handler.util.LdapHandlerContext</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -1841,18 +2362,25 @@
 			<param>
 				<name>bindRequest</name>
 				<type>org.apache.directory.shared.ldap.model.message.BindRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ldapHandlerContext</name>
 				<type>com.liferay.vldap.server.handler.util.LdapHandlerContext</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -1860,32 +2388,47 @@
 			<param>
 				<name>bindRequest</name>
 				<type>org.apache.directory.shared.ldap.model.message.BindRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getValue</name>
 			<param>
 				<name>dn</name>
 				<type>org.apache.directory.shared.ldap.model.name.Dn</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>normType</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>setCompany</name>
 			<param>
 				<name>ldapHandlerContext</name>
 				<type>com.liferay.vldap.server.handler.util.LdapHandlerContext</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>name</name>
 				<type>org.apache.directory.shared.ldap.model.name.Dn</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -1893,14 +2436,20 @@
 			<param>
 				<name>ldapHandlerContext</name>
 				<type>com.liferay.vldap.server.handler.util.LdapHandlerContext</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>name</name>
 				<type>org.apache.directory.shared.ldap.model.name.Dn</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<field>
@@ -1923,18 +2472,25 @@
 			<param>
 				<name>request</name>
 				<type>org.apache.directory.shared.ldap.model.message.Request</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ldapHandlerContext</name>
 				<type>com.liferay.vldap.server.handler.util.LdapHandlerContext</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -1948,29 +2504,41 @@
 			<param>
 				<name>request</name>
 				<type>org.apache.directory.shared.ldap.model.message.Request</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ldapHandlerContext</name>
 				<type>com.liferay.vldap.server.handler.util.LdapHandlerContext</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>handleStartTLS</name>
 			<param>
 				<name>extendedRequest</name>
 				<type>org.apache.directory.shared.ldap.model.message.ExtendedRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<field>
@@ -1987,18 +2555,25 @@
 			<param>
 				<name>request</name>
 				<type>org.apache.directory.shared.ldap.model.message.Request</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ldapHandlerContext</name>
 				<type>com.liferay.vldap.server.handler.util.LdapHandlerContext</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -2012,33 +2587,43 @@
 			<param>
 				<name>request</name>
 				<type>org.apache.directory.shared.ldap.model.message.Request</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ldapHandlerContext</name>
 				<type>com.liferay.vldap.server.handler.util.LdapHandlerContext</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>addObjectEntries</name>
 			<param>
 				<name>searchRequest</name>
 				<type>org.apache.directory.shared.ldap.model.message.SearchRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>responses</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ldapHandlerContext</name>
 				<type>com.liferay.vldap.server.handler.util.LdapHandlerContext</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -2046,26 +2631,32 @@
 			<param>
 				<name>searchRequest</name>
 				<type>org.apache.directory.shared.ldap.model.message.SearchRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>responses</name>
 				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ldapHandlerContext</name>
 				<type>com.liferay.vldap.server.handler.util.LdapHandlerContext</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>directory</name>
 				<type>com.liferay.vldap.server.directory.ldap.Directory</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>stopWatch</name>
 				<type>org.apache.commons.lang.time.StopWatch</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -2073,47 +2664,70 @@
 			<param>
 				<name>searchRequest</name>
 				<type>org.apache.directory.shared.ldap.model.message.SearchRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getTimeLimit</name>
 			<param>
 				<name>searchRequest</name>
 				<type>org.apache.directory.shared.ldap.model.message.SearchRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>isMatch</name>
 			<param>
 				<name>directory</name>
 				<type>com.liferay.vldap.server.directory.ldap.Directory</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>exprNode</name>
 				<type>org.apache.directory.shared.ldap.model.filter.ExprNode</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>isMatchBranchNode</name>
 			<param>
 				<name>directory</name>
 				<type>com.liferay.vldap.server.directory.ldap.Directory</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>branchNode</name>
 				<type>org.apache.directory.shared.ldap.model.filter.BranchNode</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>isMatchLeafNode</name>
 			<param>
 				<name>directory</name>
 				<type>com.liferay.vldap.server.directory.ldap.Directory</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>leafNode</name>
 				<type>org.apache.directory.shared.ldap.model.filter.LeafNode</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<field>
 			<name>_log</name>
@@ -2132,6 +2746,7 @@
 			<param>
 				<name>msg</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -2139,10 +2754,12 @@
 			<param>
 				<name>msg</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>cause</name>
 				<type>java.lang.Throwable</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -2150,6 +2767,7 @@
 			<param>
 				<name>cause</name>
 				<type>java.lang.Throwable</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 	</javadoc>
@@ -2166,6 +2784,7 @@
 			<param>
 				<name>msg</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -2173,10 +2792,12 @@
 			<param>
 				<name>msg</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>cause</name>
 				<type>java.lang.Throwable</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -2184,6 +2805,7 @@
 			<param>
 				<name>cause</name>
 				<type>java.lang.Throwable</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 	</javadoc>
@@ -2197,15 +2819,21 @@
 			<param>
 				<name>request</name>
 				<type>org.apache.directory.shared.ldap.model.message.Request</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ioSession</name>
 				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>ldapHandlerContext</name>
 				<type>com.liferay.vldap.server.handler.util.LdapHandlerContext</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 	</javadoc>
 	<javadoc>
@@ -2215,21 +2843,34 @@
 		<author><![CDATA[Brian Wing Shun Chan]]></author>
 		<method>
 			<name>getCompany</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getSaslCallbackHandler</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getSaslServer</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getUser</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>setCompany</name>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -2237,6 +2878,7 @@
 			<param>
 				<name>saslCallbackHandler</name>
 				<type>SaslCallbackHandler</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -2244,6 +2886,7 @@
 			<param>
 				<name>saslServer</name>
 				<type>javax.security.sasl.SaslServer</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -2251,6 +2894,7 @@
 			<param>
 				<name>user</name>
 				<type>com.liferay.portal.model.User</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<field>
@@ -2276,23 +2920,35 @@
 			<param>
 				<name>server</name>
 				<type>boolean</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>LdapSslContextFactory</name>
 		</method>
 		<method>
 			<name>_createClientSSLContext</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
 			<name>_createServerSSLContext</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -2300,7 +2956,11 @@
 			<param>
 				<name>server</name>
 				<type>boolean</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<field>
 			<name>_log</name>
@@ -2325,10 +2985,12 @@
 			<param>
 				<name>x509Certificates</name>
 				<type>java.security.cert.X509Certificate[]</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>authType</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -2336,14 +2998,19 @@
 			<param>
 				<name>x509Certificates</name>
 				<type>java.security.cert.X509Certificate[]</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>authType</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
 			<name>getAcceptedIssuers</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 	</javadoc>
 	<javadoc>
@@ -2356,12 +3023,16 @@
 		</method>
 		<method>
 			<name>engineGetTrustManagers</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>engineInit</name>
 			<param>
 				<name>keyStore</name>
 				<type>java.security.KeyStore</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -2369,6 +3040,7 @@
 			<param>
 				<name>managerFactoryParameters</name>
 				<type>javax.net.ssl.ManagerFactoryParameters</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<field>
@@ -2382,23 +3054,32 @@
 		<author><![CDATA[Brian Wing Shun Chan]]></author>
 		<method>
 			<name>getName</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getRealm</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>handle</name>
 			<param>
 				<name>callbacks</name>
 				<type>javax.security.auth.callback.Callback[]</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
 				<name>IOException</name>
 				<type>java.io.IOException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 			<throws>
 				<name>UnsupportedCallbackException</name>
 				<type>javax.security.auth.callback.UnsupportedCallbackException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -2406,10 +3087,12 @@
 			<param>
 				<name>callback</name>
 				<type>javax.security.auth.callback.Callback</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -2417,6 +3100,7 @@
 			<param>
 				<name>authorizeCallback</name>
 				<type>javax.security.sasl.AuthorizeCallback</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -2424,10 +3108,12 @@
 			<param>
 				<name>nameCallback</name>
 				<type>javax.security.auth.callback.NameCallback</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -2435,6 +3121,7 @@
 			<param>
 				<name>passwordCallback</name>
 				<type>javax.security.auth.callback.PasswordCallback</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -2442,6 +3129,7 @@
 			<param>
 				<name>realmCallback</name>
 				<type>javax.security.sasl.RealmCallback</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<field>
@@ -2461,6 +3149,7 @@
 			<param>
 				<name>servletContextEvent</name>
 				<type>javax.servlet.ServletContextEvent</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -2468,6 +3157,7 @@
 			<param>
 				<name>servletContextEvent</name>
 				<type>javax.servlet.ServletContextEvent</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -2475,6 +3165,7 @@
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -2482,6 +3173,7 @@
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<field>
@@ -2498,33 +3190,48 @@
 			<param>
 				<name>top</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>company</name>
 				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>organizationUnits</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>escape</name>
 			<param>
 				<name>name</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getRdnValue</name>
 			<param>
 				<name>dn</name>
 				<type>org.apache.directory.shared.ldap.model.name.Dn</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>index</name>
 				<type>int</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<field>
 			<name>_ESCAPE_CHARS</name>
@@ -2557,6 +3264,9 @@
 			<name>HOSTS_ALLOWED</name>
 		</field>
 		<field>
+			<name>POSIX_GROUP_ID</name>
+		</field>
+		<field>
 			<name>SEARCH_MAX_SIZE</name>
 		</field>
 		<field>
@@ -2584,6 +3294,9 @@
 		</field>
 		<field>
 			<name>HOSTS_ALLOWED</name>
+		</field>
+		<field>
+			<name>POSIX_GROUP_ID</name>
 		</field>
 		<field>
 			<name>SEARCH_MAX_SIZE</name>

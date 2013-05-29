@@ -35,6 +35,7 @@ import java.util.Map;
  */
 public class LoginFailure implements AuthFailure {
 
+	@Override
 	public void onFailureByEmailAddress(
 		long companyId, String emailAddress, Map<String, String[]> headerMap,
 		Map<String, String[]> parameterMap) {
@@ -57,6 +58,7 @@ public class LoginFailure implements AuthFailure {
 		}
 	}
 
+	@Override
 	public void onFailureByScreenName(
 		long companyId, String screenName, Map<String, String[]> headerMap,
 		Map<String, String[]> parameterMap) {
@@ -79,6 +81,7 @@ public class LoginFailure implements AuthFailure {
 		}
 	}
 
+	@Override
 	public void onFailureByUserId(
 		long companyId, long userId, Map<String, String[]> headerMap,
 		Map<String, String[]> parameterMap) {

@@ -325,8 +325,18 @@
 				<comment><![CDATA[]]></comment>
 			</return>
 			<throws>
-				<name>Exception</name>
-				<type>java.lang.Exception</type>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>org.jivesoftware.smack.XMPPException</name>
+				<type>org.jivesoftware.smack.XMPPException</type>
 				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
@@ -346,8 +356,18 @@
 				<comment><![CDATA[]]></comment>
 			</return>
 			<throws>
-				<name>Exception</name>
-				<type>java.lang.Exception</type>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>org.jivesoftware.smack.XMPPException</name>
+				<type>org.jivesoftware.smack.XMPPException</type>
 				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
@@ -367,11 +387,6 @@
 			<return>
 				<comment><![CDATA[]]></comment>
 			</return>
-			<throws>
-				<name>UnknownHostException</name>
-				<type>java.net.UnknownHostException</type>
-				<comment><![CDATA[]]></comment>
-			</throws>
 		</method>
 		<method>
 			<name>getFullJabberId</name>
@@ -408,8 +423,18 @@
 				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
-				<name>Exception</name>
-				<type>java.lang.Exception</type>
+				<name>PortalException</name>
+				<type>com.liferay.portal.kernel.exception.PortalException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>SystemException</name>
+				<type>com.liferay.portal.kernel.exception.SystemException</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+			<throws>
+				<name>org.jivesoftware.smack.XMPPException</name>
+				<type>org.jivesoftware.smack.XMPPException</type>
 				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>

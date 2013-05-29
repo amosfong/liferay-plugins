@@ -67,12 +67,14 @@ public class DocumentumFolder extends DocumentumModel implements Folder {
 		_permit = idfFolder.getPermit();
 	}
 
+	@Override
 	public boolean containsPermission(
 		PermissionChecker permissionChecker, String actionId) {
 
 		return containsPermission(_permit, actionId);
 	}
 
+	@Override
 	public List<Long> getAncestorFolderIds()
 		throws PortalException, SystemException {
 
@@ -89,6 +91,7 @@ public class DocumentumFolder extends DocumentumModel implements Folder {
 		return folderIds;
 	}
 
+	@Override
 	public List<Folder> getAncestors() throws PortalException, SystemException {
 		List<Folder> folders = new ArrayList<Folder>();
 
@@ -103,6 +106,7 @@ public class DocumentumFolder extends DocumentumModel implements Folder {
 		return folders;
 	}
 
+	@Override
 	public Map<String, Serializable> getAttributes() {
 		return null;
 	}
@@ -112,6 +116,7 @@ public class DocumentumFolder extends DocumentumModel implements Folder {
 		return _documentumRepository.getCompanyId();
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -121,18 +126,22 @@ public class DocumentumFolder extends DocumentumModel implements Folder {
 		return _description;
 	}
 
+	@Override
 	public long getFolderId() {
 		return _folderId;
 	}
 
+	@Override
 	public long getGroupId() {
 		return _documentumRepository.getGroupId();
 	}
 
+	@Override
 	public Date getLastPostDate() {
 		return getModifiedDate();
 	}
 
+	@Override
 	public Object getModel() {
 		return this;
 	}
@@ -142,10 +151,12 @@ public class DocumentumFolder extends DocumentumModel implements Folder {
 		return DLFolder.class;
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public String getName() {
 		if (isRoot()) {
 			try {
@@ -189,10 +200,12 @@ public class DocumentumFolder extends DocumentumModel implements Folder {
 		return _folderId;
 	}
 
+	@Override
 	public long getRepositoryId() {
 		return _documentumRepository.getRepositoryId();
 	}
 
+	@Override
 	public long getUserId() {
 		User user = getUser(_creatorName);
 
@@ -203,6 +216,7 @@ public class DocumentumFolder extends DocumentumModel implements Folder {
 		return 0;
 	}
 
+	@Override
 	public String getUserName() {
 		User user = getUser(_creatorName);
 
@@ -213,6 +227,7 @@ public class DocumentumFolder extends DocumentumModel implements Folder {
 		return StringPool.BLANK;
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		User user = getUser(_creatorName);
 
@@ -223,34 +238,42 @@ public class DocumentumFolder extends DocumentumModel implements Folder {
 		return StringPool.BLANK;
 	}
 
+	@Override
 	public String getUuid() {
 		return _uuid;
 	}
 
+	@Override
 	public boolean hasInheritableLock() {
 		return false;
 	}
 
+	@Override
 	public boolean hasLock() {
 		return false;
 	}
 
+	@Override
 	public boolean isDefaultRepository() {
 		return false;
 	}
 
+	@Override
 	public boolean isEscapedModel() {
 		return false;
 	}
 
+	@Override
 	public boolean isLocked() {
 		return false;
 	}
 
+	@Override
 	public boolean isMountPoint() {
 		return false;
 	}
 
+	@Override
 	public boolean isRoot() {
 		if (getParentFolderId() == DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
 			return true;
@@ -260,26 +283,32 @@ public class DocumentumFolder extends DocumentumModel implements Folder {
 		}
 	}
 
+	@Override
 	public boolean isSupportsLocking() {
 		return false;
 	}
 
+	@Override
 	public boolean isSupportsMetadata() {
 		return false;
 	}
 
+	@Override
 	public boolean isSupportsMultipleUpload() {
 		return false;
 	}
 
+	@Override
 	public boolean isSupportsShortcuts() {
 		return false;
 	}
 
+	@Override
 	public boolean isSupportsSocial() {
 		return false;
 	}
 
+	@Override
 	public boolean isSupportsSubscribing() {
 		return false;
 	}
@@ -287,13 +316,16 @@ public class DocumentumFolder extends DocumentumModel implements Folder {
 	public void prepare() {
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 	}
 
+	@Override
 	public Folder toEscapedModel() {
 		return this;
 	}
 
+	@Override
 	public Folder toUnescapedModel() {
 		return this;
 	}

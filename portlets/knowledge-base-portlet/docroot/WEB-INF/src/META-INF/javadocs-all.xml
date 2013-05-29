@@ -4302,9 +4302,6 @@
 				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
-		<field>
-			<name>_ARTICLE_CLASS_NAME</name>
-		</field>
 	</javadoc>
 	<javadoc>
 		<name>UpgradeRatingsStats</name>
@@ -4342,9 +4339,6 @@
 				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
-		<field>
-			<name>_ARTICLE_CLASS_NAME</name>
-		</field>
 	</javadoc>
 	<javadoc>
 		<name>UpgradeClassName</name>

@@ -46,10 +46,12 @@ public class DocumentumFileVersion
 		_fileEntry = fileEntry;
 	}
 
+	@Override
 	public Map<String, Serializable> getAttributes() {
 		return _fileEntry.getAttributes();
 	}
 
+	@Override
 	public String getChangeLog() {
 		if (!(_fileEntry instanceof DocumentumFileEntry)) {
 			return StringPool.BLANK;
@@ -66,6 +68,7 @@ public class DocumentumFileVersion
 		return _fileEntry.getCompanyId();
 	}
 
+	@Override
 	public InputStream getContentStream(boolean incrementCounter)
 		throws SystemException {
 
@@ -84,6 +87,7 @@ public class DocumentumFileVersion
 		return inputStream;
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _fileEntry.getCreateDate();
 	}
@@ -101,18 +105,22 @@ public class DocumentumFileVersion
 		return null;
 	}
 
+	@Override
 	public String getExtension() {
 		return FileUtil.getExtension(getTitle());
 	}
 
+	@Override
 	public String getExtraSettings() {
 		return null;
 	}
 
+	@Override
 	public FileEntry getFileEntry() {
 		return _fileEntry;
 	}
 
+	@Override
 	public long getFileEntryId() {
 		try {
 			return getFileEntry().getFileEntryId();
@@ -124,14 +132,17 @@ public class DocumentumFileVersion
 		return 0;
 	}
 
+	@Override
 	public long getFileVersionId() {
 		return _fileEntry.getFileEntryId();
 	}
 
+	@Override
 	public long getGroupId() {
 		return _fileEntry.getGroupId();
 	}
 
+	@Override
 	public String getIcon() {
 		return _fileEntry.getIcon();
 	}
@@ -144,10 +155,12 @@ public class DocumentumFileVersion
 		return 0;
 	}
 
+	@Override
 	public String getMimeType() {
 		return _fileEntry.getMimeType();
 	}
 
+	@Override
 	public Object getModel() {
 		return _fileEntry.getModel();
 	}
@@ -157,6 +170,7 @@ public class DocumentumFileVersion
 		return DLFileVersion.class;
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _fileEntry.getModifiedDate();
 	}
@@ -166,10 +180,12 @@ public class DocumentumFileVersion
 		return _fileEntry.getPrimaryKey();
 	}
 
+	@Override
 	public long getRepositoryId() {
 		return _fileEntry.getRepositoryId();
 	}
 
+	@Override
 	public long getSize() {
 		return _fileEntry.getSize();
 	}
@@ -178,78 +194,97 @@ public class DocumentumFileVersion
 		return 0;
 	}
 
+	@Override
 	public int getStatus() {
 		return 0;
 	}
 
+	@Override
 	public long getStatusByUserId() {
 		return _fileEntry.getVersionUserId();
 	}
 
+	@Override
 	public String getStatusByUserName() {
 		return _fileEntry.getVersionUserName();
 	}
 
+	@Override
 	public String getStatusByUserUuid() throws SystemException {
 		return _fileEntry.getVersionUserUuid();
 	}
 
+	@Override
 	public Date getStatusDate() {
 		return _fileEntry.getModifiedDate();
 	}
 
+	@Override
 	public String getTitle() {
 		return _fileEntry.getTitle();
 	}
 
+	@Override
 	public long getUserId() {
 		return _fileEntry.getUserId();
 	}
 
+	@Override
 	public String getUserName() {
 		return _fileEntry.getUserName();
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return _fileEntry.getUserUuid();
 	}
 
+	@Override
 	public String getUuid() {
 		return _fileEntry.getUuid();
 	}
 
+	@Override
 	public String getVersion() {
 		return _fileEntry.getVersion();
 	}
 
+	@Override
 	public boolean isApproved() {
 		return false;
 	}
 
+	@Override
 	public boolean isDefaultRepository() {
 		return false;
 	}
 
+	@Override
 	public boolean isDraft() {
 		return false;
 	}
 
+	@Override
 	public boolean isEscapedModel() {
 		return false;
 	}
 
+	@Override
 	public boolean isExpired() {
 		return false;
 	}
 
+	@Override
 	public boolean isInTrash() {
 		return false;
 	}
 
+	@Override
 	public boolean isInTrashContainer() {
 		return false;
 	}
 
+	@Override
 	public boolean isPending() {
 		return false;
 	}
@@ -257,13 +292,16 @@ public class DocumentumFileVersion
 	public void prepare() {
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 	}
 
+	@Override
 	public FileVersion toEscapedModel() {
 		return this;
 	}
 
+	@Override
 	public FileVersion toUnescapedModel() {
 		return this;
 	}

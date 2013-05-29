@@ -24,10 +24,12 @@ import org.mvel2.MVELRuntime;
  */
 public class DroolsServletContextListener implements ServletContextListener {
 
+	@Override
 	public void contextDestroyed(ServletContextEvent servletContextEvent) {
 		MVELRuntime.resetDebugger();
 	}
 
+	@Override
 	public void contextInitialized(ServletContextEvent servletContextEvent) {
 	}
 

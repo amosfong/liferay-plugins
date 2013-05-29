@@ -37,6 +37,7 @@ public class UserProfile {
 		_ageGroup = ageGroup;
 	}
 
+	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(5);
 

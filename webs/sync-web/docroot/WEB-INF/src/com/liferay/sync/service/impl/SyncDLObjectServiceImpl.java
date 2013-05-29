@@ -20,15 +20,17 @@ import com.liferay.sync.service.base.SyncDLObjectServiceBaseImpl;
  * The implementation of the sync d l object remote service.
  *
  * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.sync.service.SyncDLObjectService} interface.
- *
- * <p>
- * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
+ * All custom service methods should be put in this class. Whenever methods are
+ * added, rerun ServiceBuilder to copy their definitions into the {@link
+ * com.liferay.sync.service.SyncDLObjectService} interface.  <p> This is a
+ * remote service. Methods of this service are expected to have security checks
+ * based on the propagated JAAS credentials because this service can be accessed
+ * remotely.
  * </p>
  *
  * @author Brian Wing Shun Chan
- * @see com.liferay.sync.service.base.SyncDLObjectServiceBaseImpl
- * @see com.liferay.sync.service.SyncDLObjectServiceUtil
+ * @see    com.liferay.sync.service.base.SyncDLObjectServiceBaseImpl
+ * @see    com.liferay.sync.service.SyncDLObjectServiceUtil
  */
 public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	/*

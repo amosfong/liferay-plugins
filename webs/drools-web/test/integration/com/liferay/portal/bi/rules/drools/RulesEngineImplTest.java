@@ -34,6 +34,7 @@ import org.apache.commons.io.FileUtils;
  */
 public class RulesEngineImplTest extends TestCase {
 
+	@Override
 	public void setUp() throws Exception {
 		_rulesEngineImpl = new RulesEngineImpl();
 

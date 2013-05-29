@@ -32,6 +32,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class DefaultAuditRouter implements AuditRouter {
 
+	@Override
 	public void route(AuditMessage auditMessage) throws AuditException {
 		for (AuditMessageProcessor globalAuditMessageProcessor :
 				_globalAuditMessageProcessors) {

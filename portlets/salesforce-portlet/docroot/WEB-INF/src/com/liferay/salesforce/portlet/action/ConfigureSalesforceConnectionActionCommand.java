@@ -38,6 +38,7 @@ import javax.portlet.PortletResponse;
 public class ConfigureSalesforceConnectionActionCommand
 	extends BaseActionCommand {
 
+	@Override
 	protected void doProcessCommand(
 			PortletRequest portletRequest, PortletResponse portletResponse)
 		throws Exception {

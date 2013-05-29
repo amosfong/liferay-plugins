@@ -71,6 +71,7 @@ public class RulesEngineImpl implements RulesEngine {
 		}
 	}
 
+	@Override
 	public boolean containsRuleDomain(String domainName) {
 		return _knowledgeBaseMap.containsKey(domainName);
 	}
@@ -126,6 +127,7 @@ public class RulesEngineImpl implements RulesEngine {
 		return execute(facts, knowledgeBase, query);
 	}
 
+	@Override
 	public void remove(String domainName) {
 		_knowledgeBaseMap.remove(domainName);
 	}

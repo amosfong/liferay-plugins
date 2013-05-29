@@ -11,10 +11,12 @@
 			<param>
 				<name>reportRequest</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
 				<name>ReportGenerationException</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportGenerationException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -25,24 +27,31 @@
 			<param>
 				<name>reportRequest</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>resultContainer</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportResultContainer</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
 				<name>ReportGenerationException</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportGenerationException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
 			<name>getEngineParameters</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>init</name>
 			<param>
 				<name>servletContext</name>
 				<type>javax.servlet.ServletContext</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -50,6 +59,7 @@
 			<param>
 				<name>engineParameters</name>
 				<type>java.util.Map</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -57,6 +67,7 @@
 			<param>
 				<name>reportCompiler</name>
 				<type>com.liferay.portal.bi.reporting.jasperreports.compiler.ReportCompiler</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -64,6 +75,7 @@
 			<param>
 				<name>reportFillManagerRegistry</name>
 				<type>com.liferay.portal.bi.reporting.jasperreports.fillmanager.ReportFillManagerRegistry</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -71,6 +83,7 @@
 			<param>
 				<name>reportFormatExporterRegistry</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportFormatExporterRegistry</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<field>
@@ -96,6 +109,7 @@
 			<param>
 				<name>reportCompiler</name>
 				<type>ReportCompiler</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -103,10 +117,12 @@
 			<param>
 				<name>reportCompiler</name>
 				<type>ReportCompiler</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>maxSize</name>
 				<type>int</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<method>
@@ -114,10 +130,15 @@
 			<param>
 				<name>reportDesignRetriever</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportDesignRetriever</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>net.sf.jasperreports.engine.JRException</name>
 				<type>net.sf.jasperreports.engine.JRException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -125,14 +146,20 @@
 			<param>
 				<name>reportDesignRetriever</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportDesignRetriever</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>force</name>
 				<type>boolean</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>net.sf.jasperreports.engine.JRException</name>
 				<type>net.sf.jasperreports.engine.JRException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -158,10 +185,15 @@
 			<param>
 				<name>reportDesignRetriever</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportDesignRetriever</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>net.sf.jasperreports.engine.JRException</name>
 				<type>net.sf.jasperreports.engine.JRException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -169,14 +201,20 @@
 			<param>
 				<name>reportDesignRetriever</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportDesignRetriever</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>force</name>
 				<type>boolean</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>net.sf.jasperreports.engine.JRException</name>
 				<type>net.sf.jasperreports.engine.JRException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -193,10 +231,15 @@
 			<param>
 				<name>reportDesignRetriever</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportDesignRetriever</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>net.sf.jasperreports.engine.JRException</name>
 				<type>net.sf.jasperreports.engine.JRException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -204,14 +247,20 @@
 			<param>
 				<name>reportDesignRetriever</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportDesignRetriever</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>force</name>
 				<type>boolean</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>net.sf.jasperreports.engine.JRException</name>
 				<type>net.sf.jasperreports.engine.JRException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -228,22 +277,29 @@
 			<param>
 				<name>report</name>
 				<type>java.lang.Object</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>request</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>container</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportResultContainer</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
 				<name>ReportExportException</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportExportException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
 			<name>getJRExporter</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 	</javadoc>
 	<javadoc>
@@ -253,6 +309,9 @@
 		<author><![CDATA[Brian Wing Shun Chan]]></author>
 		<method>
 			<name>getJRExporter</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 	</javadoc>
 	<javadoc>
@@ -262,6 +321,9 @@
 		<author><![CDATA[Brian Wing Shun Chan]]></author>
 		<method>
 			<name>getJRExporter</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 	</javadoc>
 	<javadoc>
@@ -271,6 +333,9 @@
 		<author><![CDATA[Brian Wing Shun Chan]]></author>
 		<method>
 			<name>getJRExporter</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 	</javadoc>
 	<javadoc>
@@ -280,6 +345,9 @@
 		<author><![CDATA[Brian Wing Shun Chan]]></author>
 		<method>
 			<name>getJRExporter</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 	</javadoc>
 	<javadoc>
@@ -292,22 +360,29 @@
 			<param>
 				<name>report</name>
 				<type>java.lang.Object</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>reportRequest</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>reportResultContainer</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportResultContainer</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<throws>
 				<name>ReportExportException</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportExportException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
 			<name>getJRExporter</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 	</javadoc>
 	<javadoc>
@@ -317,6 +392,9 @@
 		<author><![CDATA[Brian Wing Shun Chan]]></author>
 		<method>
 			<name>getJRExporter</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 	</javadoc>
 	<javadoc>
@@ -326,6 +404,9 @@
 		<author><![CDATA[Brian Wing Shun Chan]]></author>
 		<method>
 			<name>getJRExporter</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 	</javadoc>
 	<javadoc>
@@ -338,14 +419,20 @@
 			<param>
 				<name>jasperReport</name>
 				<type>net.sf.jasperreports.engine.JasperReport</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>reportRequest</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>net.sf.jasperreports.engine.JRException</name>
 				<type>net.sf.jasperreports.engine.JRException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -353,10 +440,15 @@
 			<param>
 				<name>reportRequest</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -364,31 +456,48 @@
 			<param>
 				<name>reportRequest</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getDataSourceCharSet</name>
 			<param>
 				<name>reportRequest</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getDataSourceColumnNames</name>
 			<param>
 				<name>reportRequest</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>getJRDataSource</name>
 			<param>
 				<name>reportRequest</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -396,11 +505,16 @@
 			<param>
 				<name>jasperReport</name>
 				<type>net.sf.jasperreports.engine.JasperReport</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>reportRequest</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<field>
 			<name>_log</name>
@@ -416,10 +530,15 @@
 			<param>
 				<name>reportRequest</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -439,10 +558,15 @@
 			<param>
 				<name>reportRequest</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 		<method>
@@ -450,18 +574,22 @@
 			<param>
 				<name>properties</name>
 				<type>java.util.Properties</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>propertyKey</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>reportRequestContext</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportRequestContext</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>attributeKey</name>
 				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 	</javadoc>
@@ -475,10 +603,15 @@
 			<param>
 				<name>reportRequest</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -492,14 +625,20 @@
 			<param>
 				<name>jasperReport</name>
 				<type>net.sf.jasperreports.engine.JasperReport</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 			<param>
 				<name>reportRequest</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>net.sf.jasperreports.engine.JRException</name>
 				<type>net.sf.jasperreports.engine.JRException</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -513,13 +652,18 @@
 			<param>
 				<name>reportDataSourceType</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportDataSourceType</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 		</method>
 		<method>
 			<name>setReportFillManagers</name>
 			<param>
 				<name>reportFillManagers</name>
 				<type>java.util.Map</type>
+				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
 		<field>
@@ -536,10 +680,15 @@
 			<param>
 				<name>reportRequest</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>
@@ -553,10 +702,15 @@
 			<param>
 				<name>reportRequest</name>
 				<type>com.liferay.portal.kernel.bi.reporting.ReportRequest</type>
+				<comment><![CDATA[]]></comment>
 			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
 			<throws>
 				<name>Exception</name>
 				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
 	</javadoc>

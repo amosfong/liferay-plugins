@@ -41,6 +41,7 @@ public class TomcatRemoteSPI extends RemoteSPI {
 		super(spiConfiguration);
 	}
 
+	@Override
 	public void addServlet(
 			String contextPath, String docBasePath, String mappingPattern,
 			String servletClassName)
@@ -75,6 +76,7 @@ public class TomcatRemoteSPI extends RemoteSPI {
 		}
 	}
 
+	@Override
 	public void addWebapp(String contextPath, String docBasePath)
 		throws RemoteException {
 
@@ -88,6 +90,7 @@ public class TomcatRemoteSPI extends RemoteSPI {
 		}
 	}
 
+	@Override
 	public void destroy() throws RemoteException {
 		try {
 			_tomcat.destroy();
@@ -100,10 +103,12 @@ public class TomcatRemoteSPI extends RemoteSPI {
 		}
 	}
 
+	@Override
 	public String getSPIProviderName() {
 		return TomcatSPIProvider.NAME;
 	}
 
+	@Override
 	public void init() throws RemoteException {
 		try {
 			_tomcat.init();
@@ -113,6 +118,7 @@ public class TomcatRemoteSPI extends RemoteSPI {
 		}
 	}
 
+	@Override
 	public void start() throws RemoteException {
 		try {
 			_tomcat.start();
@@ -122,6 +128,7 @@ public class TomcatRemoteSPI extends RemoteSPI {
 		}
 	}
 
+	@Override
 	public void stop() throws RemoteException {
 		try {
 			_tomcat.stop();

@@ -41,10 +41,12 @@ public class KaleoProcessWorkflowHandler extends BaseWorkflowHandler {
 
 	public static final String CLASS_NAME = KaleoProcess.class.getName();
 
+	@Override
 	public String getClassName() {
 		return CLASS_NAME;
 	}
 
+	@Override
 	public String getType(Locale locale) {
 		return ResourceActionsUtil.getModelResource(locale, CLASS_NAME);
 	}
@@ -75,6 +77,7 @@ public class KaleoProcessWorkflowHandler extends BaseWorkflowHandler {
 		return false;
 	}
 
+	@Override
 	public DDLRecord updateStatus(
 			int status, Map<String, Serializable> workflowContext)
 		throws PortalException, SystemException {

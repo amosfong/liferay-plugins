@@ -28,6 +28,7 @@ import net.sf.jasperreports.engine.JRExporterParameter;
  */
 public abstract class BaseReportFormatExporter implements ReportFormatExporter {
 
+	@Override
 	public void format(
 			Object report, ReportRequest request,
 			ReportResultContainer container)

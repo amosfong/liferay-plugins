@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
  */
 public class LogAuditRouterProcessor implements AuditMessageProcessor {
 
+	@Override
 	public void process(AuditMessage auditMessage) {
 		try {
 			doProcess(auditMessage);

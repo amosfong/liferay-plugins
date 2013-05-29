@@ -57,6 +57,7 @@ import org.apache.commons.io.FileUtils;
  */
 public class ReportEngineImplTest extends TestCase {
 
+	@Override
 	public void setUp() throws Exception {
 		_reportEngineImpl = new ReportEngineImpl();
 
