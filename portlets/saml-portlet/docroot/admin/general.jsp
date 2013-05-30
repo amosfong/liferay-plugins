@@ -40,6 +40,8 @@ try {
 }
 catch (Exception e) {
 }
+
+String entityId = properties.getProperty(PortletPropsKeys.SAML_ENTITY_ID, MetadataManagerUtil.getLocalEntityId());
 %>
 
 <portlet:actionURL name="updateGeneral" var="updateGeneralURL">
@@ -51,7 +53,9 @@ catch (Exception e) {
 	<liferay-ui:error key="identityProviderInvalid" message="please-configure-identity-provider-before-enabling" />
 
 	<aui:fieldset>
-		<aui:input label="enabled" name='<%= "settings--" + PortletPropsKeys.SAML_ENABLED + "--" %>' type="checkbox" value="<%= SamlUtil.isEnabled() %>" />
+		<c:if test="<%= x509Certificate != null %>">
+			<aui:input label="enabled" name='<%= "settings--" + PortletPropsKeys.SAML_ENABLED + "--" %>' type="checkbox" value="<%= SamlUtil.isEnabled() %>" />
+		</c:if>
 
 		<aui:select label="saml-role" name='<%= "settings--" + PortletPropsKeys.SAML_ROLE + "--" %>' required="true" showEmptyOption="<%= true %>">
 
@@ -63,7 +67,7 @@ catch (Exception e) {
 			<aui:option label="service-provider" selected='<%= samlRole.equals("sp") %>' value="sp" />
 		</aui:select>
 
-		<aui:input helpMessage="entity-id-help" label="entity-id" name='<%= "settings--" + PortletPropsKeys.SAML_ENTITY_ID + "--" %>' required="true" value="<%= properties.getProperty(PortletPropsKeys.SAML_ENTITY_ID, MetadataManagerUtil.getLocalEntityId()) %>" />
+		<aui:input helpMessage="entity-id-help" label="entity-id" name='<%= "settings--" + PortletPropsKeys.SAML_ENTITY_ID + "--" %>' required="true" value="<%= entityId %>" />
 	</aui:fieldset>
 
 	<aui:button-row>
@@ -75,107 +79,112 @@ catch (Exception e) {
 	<portlet:param name="tabs1" value="general" />
 </portlet:actionURL>
 
-<aui:fieldset label="certificate-and-private-key">
-	<c:choose>
-		<c:when test="<%= x509Certificate != null %>">
-			<dl class="property-list">
-				<dt>
-					<liferay-ui:message key="subject-dn" />
-				</dt>
-				<dd>
-					<%= CertificateUtil.getSubjectName(x509Certificate) %>
-				</dd>
-				<dt>
-					<liferay-ui:message key="serial-number" />
-				</dt>
-				<dd>
-					<%= CertificateUtil.getSerial(x509Certificate) %>
+<c:if test="<%= Validator.isNotNull(entityId) %>">
+	<aui:fieldset label="certificate-and-private-key">
+		<c:choose>
+			<c:when test="<%= (x509Certificate != null) %>">
+				<c:if test="<%= x509Certificate.getNotAfter().before(new Date()) %>">
+					<div class="portlet-msg-alert"><liferay-ui:message arguments="<%= new Object[] {x509Certificate.getNotAfter()} %>" key="certificate-expired-on-x" /></div>
+				</c:if>
+				<dl class="property-list">
+					<dt>
+						<liferay-ui:message key="subject-dn" />
+					</dt>
+					<dd>
+						<%= CertificateUtil.getSubjectName(x509Certificate) %>
+					</dd>
+					<dt>
+						<liferay-ui:message key="serial-number" />
+					</dt>
+					<dd>
+						<%= CertificateUtil.getSerial(x509Certificate) %>
 
-					<div class="portlet-msg-info-label">
-						<liferay-ui:message arguments="<%= new Object[] {x509Certificate.getNotBefore(), x509Certificate.getNotAfter()} %>" key="valid-from-x-until-x" />
-					</div>
-				</dd>
-				<dt>
-					<liferay-ui:message key="certificate-fingerprints" />
-				</dt>
-				<dd class="property-list">
-					<dl>
-						<dt>
-							MD5
-						</dt>
-						<dd>
-							<%= CertificateUtil.getFingerprint("MD5", x509Certificate) %>
-						</dd>
-						<dt>
-							SHA1
-						</dt>
-						<dd>
-							<%= CertificateUtil.getFingerprint("SHA1", x509Certificate) %>
-						</dd>
-					</dl>
-				</dd>
-				<dt>
-					<liferay-ui:message key="signature-algorithm" />
-				</dt>
-				<dd>
-					<%= x509Certificate.getSigAlgName() %>
-				</dd>
-			</dl>
+						<div class="portlet-msg-info-label">
+							<liferay-ui:message arguments="<%= new Object[] {x509Certificate.getNotBefore(), x509Certificate.getNotAfter()} %>" key="valid-from-x-until-x" />
+						</div>
+					</dd>
+					<dt>
+						<liferay-ui:message key="certificate-fingerprints" />
+					</dt>
+					<dd class="property-list">
+						<dl>
+							<dt>
+								MD5
+							</dt>
+							<dd>
+								<%= CertificateUtil.getFingerprint("MD5", x509Certificate) %>
+							</dd>
+							<dt>
+								SHA1
+							</dt>
+							<dd>
+								<%= CertificateUtil.getFingerprint("SHA1", x509Certificate) %>
+							</dd>
+						</dl>
+					</dd>
+					<dt>
+						<liferay-ui:message key="signature-algorithm" />
+					</dt>
+					<dd>
+						<%= x509Certificate.getSigAlgName() %>
+					</dd>
+				</dl>
 
-			<portlet:resourceURL var="downloadCertificateURL" />
+				<portlet:resourceURL var="downloadCertificateURL" />
 
-			<aui:button-row>
-				<aui:button onClick='<%= renderResponse.getNamespace() + "toggleCertificateForm(true);" %>' value="replace-certificate" /> <aui:button href="<%= downloadCertificateURL %>" value="download-certificate" />
-			</aui:button-row>
-		</c:when>
-		<c:when test="<%= (x509Certificate == null) && Validator.isNull(MetadataManagerUtil.getLocalEntityId()) %>">
-			<div class="portlet-msg-info">
-				<liferay-ui:message key="entity-id-must-be-set-before-private-key-and-certificate-can-be-generated" />
+				<aui:button-row>
+					<aui:button onClick='<%= renderResponse.getNamespace() + "toggleCertificateForm(true);" %>' value="replace-certificate" /> <aui:button href="<%= downloadCertificateURL %>" value="download-certificate" />
+				</aui:button-row>
+			</c:when>
+			<c:when test="<%= (x509Certificate == null) && Validator.isNull(MetadataManagerUtil.getLocalEntityId()) %>">
+				<div class="portlet-msg-info">
+					<liferay-ui:message key="entity-id-must-be-set-before-private-key-and-certificate-can-be-generated" />
+				</div>
+			</c:when>
+		</c:choose>
+
+		<aui:form action="<%= updateCertificateURL %>">
+			<div class="<%= ((x509Certificate == null) && Validator.isNotNull(MetadataManagerUtil.getLocalEntityId())) ? "" : "aui-helper-hidden hide" %>" id="<portlet:namespace />certificateForm">
+				<liferay-ui:error exception="<%= CertificateKeyPasswordException.class %>" message="please-enter-a-valid-key-password" />
+				<liferay-ui:error exception="<%= InvalidParameterException.class %>" message="please-enter-a-valid-key-length-and-algorithm" />
+
+				<aui:input label="common-name" name="certificateCommonName" required="true" value="<%= certificateCommonName %>" />
+
+				<aui:input label="organization" name="certificateOrganization" required="true" value="<%= certificateOrganization %>" />
+
+				<aui:input label="organization-unit" name="certificateOrganizationUnit" value="<%= certificateOrganizationUnit %>" />
+
+				<aui:input label="locality" name="certificateLocality" value="<%= certificateLocality %>" />
+
+				<aui:input label="state" name="certificateState" value="<%= certificateState %>" />
+
+				<aui:input label="country" name="certificateCountry" required="true" value="<%= certificateCountry %>" />
+
+				<aui:input label="validity-days" name="certificateValidityDays" required="true" value="<%= certificateValidityDays %>" />
+
+				<aui:select label="key-algorithm" name="certificateKeyAlgorithm" required="true">
+					<aui:option label="rsa" selected='<%= certificateKeyAlgorithm.equals("RSA") %>' value="RSA" />
+					<aui:option label="dsa" selected='<%= certificateKeyAlgorithm.equals("DSA") %>' value="DSA" />
+				</aui:select>
+
+				<aui:select label="key-length-bits" name="certificateKeyLength" required="true">
+					<aui:option label="4096" selected='<%= certificateKeyLength.equals("4096") %>' value="4096" />
+					<aui:option label="2048" selected='<%= certificateKeyLength.equals("2048") %>' value="2048" />
+					<aui:option label="1024" selected='<%= certificateKeyLength.equals("1024") %>' value="1024" />
+					<aui:option label="512" selected='<%= certificateKeyLength.equals("512") %>' value="512" />
+				</aui:select>
+
+				<aui:input label="key-password" name='<%= "settings--" + PortletPropsKeys.SAML_KEYSTORE_CREDENTIAL_PASSWORD + "[" + MetadataManagerUtil.getLocalEntityId() + "]--" %>' required="true" type="password" value="" />
+
+				<aui:button-row>
+					<aui:button type="submit" value="save" />
+
+					<aui:button onClick='<%= renderResponse.getNamespace() + "toggleCertificateForm(false);" %>' value="cancel" />
+				</aui:button-row>
 			</div>
-		</c:when>
-	</c:choose>
-
-	<aui:form action="<%= updateCertificateURL %>">
-		<div class="<%= ((x509Certificate == null) && Validator.isNotNull(MetadataManagerUtil.getLocalEntityId())) ? "" : "aui-helper-hidden" %>" id="<portlet:namespace />certificateForm">
-			<liferay-ui:error exception="<%= CertificateKeyPasswordException.class %>" message="please-enter-a-valid-key-password" />
-			<liferay-ui:error exception="<%= InvalidParameterException.class %>" message="please-enter-a-valid-key-length-and-algorithm" />
-
-			<aui:input label="common-name" name="certificateCommonName" required="true" value="<%= certificateCommonName %>" />
-
-			<aui:input label="organization" name="certificateOrganization" required="true" value="<%= certificateOrganization %>" />
-
-			<aui:input label="organization-unit" name="certificateOrganizationUnit" value="<%= certificateOrganizationUnit %>" />
-
-			<aui:input label="locality" name="certificateLocality" value="<%= certificateLocality %>" />
-
-			<aui:input label="state" name="certificateState" value="<%= certificateState %>" />
-
-			<aui:input label="country" name="certificateCountry" required="true" value="<%= certificateCountry %>" />
-
-			<aui:input label="validity-days" name="certificateValidityDays" required="true" value="<%= certificateValidityDays %>" />
-
-			<aui:select label="key-algorithm" name="certificateKeyAlgorithm" required="true">
-				<aui:option label="rsa" selected='<%= certificateKeyAlgorithm.equals("RSA") %>' value="RSA" />
-				<aui:option label="dsa" selected='<%= certificateKeyAlgorithm.equals("DSA") %>' value="DSA" />
-			</aui:select>
-
-			<aui:select label="key-length-bits" name="certificateKeyLength" required="true">
-				<aui:option label="4096" selected='<%= certificateKeyLength.equals("4096") %>' value="4096" />
-				<aui:option label="2048" selected='<%= certificateKeyLength.equals("2048") %>' value="2048" />
-				<aui:option label="1024" selected='<%= certificateKeyLength.equals("1024") %>' value="1024" />
-				<aui:option label="512" selected='<%= certificateKeyLength.equals("512") %>' value="512" />
-			</aui:select>
-
-			<aui:input label="key-password" name='<%= "settings--" + PortletPropsKeys.SAML_KEYSTORE_CREDENTIAL_PASSWORD + "[" + MetadataManagerUtil.getLocalEntityId() + "]--" %>' required="true" type="password" value="" />
-
-			<aui:button-row>
-				<aui:button type="submit" value="save" />
-
-				<aui:button onClick='<%= renderResponse.getNamespace() + "toggleCertificateForm(false);" %>' value="cancel" />
-			</aui:button-row>
-		</div>
-	</aui:form>
-</aui:fieldset>
+		</aui:form>
+	</aui:fieldset>
+</c:if>
 
 <aui:script>
 	Liferay.provide(

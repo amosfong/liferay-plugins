@@ -55,12 +55,12 @@ String userAttributeMappings = ParamUtil.getString(request, "userAttributeMappin
 	<aui:fieldset label="general">
 		<aui:input name="name" required="true" />
 
-		<aui:input label="entity-id" name="samlIdpEntityId" required="true" value="<%= samlIdpEntityId %>" />
+		<aui:input label="entity-id" helpMessage="identity-provider-connection-entity-id-help" name="samlIdpEntityId" required="true" value="<%= samlIdpEntityId %>" />
 
-		<aui:input name="clockSkew" value="<%= String.valueOf(clockSkew) %>" />
+		<aui:input helpMessage="clock-skew-help" name="clockSkew" value="<%= String.valueOf(clockSkew) %>" />
 	</aui:fieldset>
 
-	<aui:fieldset label="metadata">
+	<aui:fieldset label="metadata" helpMessage="identity-provider-metadata-help">
 		<aui:input name="metadataUrl" />
 
 		<aui:button-row>
@@ -68,7 +68,7 @@ String userAttributeMappings = ParamUtil.getString(request, "userAttributeMappin
 		</aui:button-row>
 
 
-		<div class="aui-helper-hidden" id="<portlet:namespace />uploadMetadataXmlForm">
+		<div class="aui-helper-hidden hide" id="<portlet:namespace />uploadMetadataXmlForm">
 			<aui:fieldset label="upload-metadata">
 				<aui:input name="metadataXml" type="file" />
 			</aui:fieldset>
@@ -90,7 +90,7 @@ String userAttributeMappings = ParamUtil.getString(request, "userAttributeMappin
 	</aui:fieldset>
 
 	<aui:fieldset label="attributes">
-		<aui:input label="attribute-mapping" name="userAttributeMappings" value="<%= userAttributeMappings %>" />
+		<aui:input label="attribute-mapping" helpMessage="attribute-mapping-help" name="userAttributeMappings" value="<%= userAttributeMappings %>" />
 	</aui:fieldset>
 
 	<aui:button-row>

@@ -67,14 +67,14 @@ String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsP
 		<aui:input helpMessage="assertion-lifetime-help" name="assertionLifetime" required="true" value="<%= String.valueOf(assertionLifetime) %>" />
 	</aui:fieldset>
 
-	<aui:fieldset label="metadata">
+	<aui:fieldset label="metadata" helpMessage="service-provider-metadata-help">
 		<aui:input name="metadataUrl" />
 
 		<aui:button-row>
 			<aui:button onClick='<%= renderResponse.getNamespace() + "uploadMetadataXml();" %>' value="upload-metadata-xml" />
 		</aui:button-row>
 
-		<aui:fieldset cssClass="aui-helper-hidden" id="uploadMetadataXmlForm" label="upload-metadata">
+		<aui:fieldset cssClass="aui-helper-hidden hide" id="uploadMetadataXmlForm" label="upload-metadata">
 			<aui:input name="metadataXml" type="file" />
 		</aui:fieldset>
 	</aui:fieldset>
