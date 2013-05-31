@@ -275,6 +275,6 @@ public class SamlSpIdpConnectionLocalServiceImpl
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(
-		SamlIdpSpConnectionLocalServiceImpl.class);
+		SamlSpIdpConnectionLocalServiceImpl.class);
 
 }

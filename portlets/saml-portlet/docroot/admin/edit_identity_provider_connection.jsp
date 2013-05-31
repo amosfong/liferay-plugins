@@ -55,12 +55,12 @@ String userAttributeMappings = ParamUtil.getString(request, "userAttributeMappin
 	<aui:fieldset label="general">
 		<aui:input name="name" required="true" />
 
-		<aui:input label="entity-id" helpMessage="identity-provider-connection-entity-id-help" name="samlIdpEntityId" required="true" value="<%= samlIdpEntityId %>" />
+		<aui:input helpMessage="identity-provider-connection-entity-id-help" label="entity-id" name="samlIdpEntityId" required="true" value="<%= samlIdpEntityId %>" />
 
 		<aui:input helpMessage="clock-skew-help" name="clockSkew" value="<%= String.valueOf(clockSkew) %>" />
 	</aui:fieldset>
 
-	<aui:fieldset label="metadata" helpMessage="identity-provider-metadata-help">
+	<aui:fieldset helpMessage="identity-provider-metadata-help" label="metadata">
 		<aui:input name="metadataUrl" />
 
 		<aui:button-row>
@@ -90,7 +90,7 @@ String userAttributeMappings = ParamUtil.getString(request, "userAttributeMappin
 	</aui:fieldset>
 
 	<aui:fieldset label="attributes">
-		<aui:input label="attribute-mapping" helpMessage="attribute-mapping-help" name="userAttributeMappings" value="<%= userAttributeMappings %>" />
+		<aui:input helpMessage="attribute-mapping-help" label="attribute-mapping" name="userAttributeMappings" value="<%= userAttributeMappings %>" />
 	</aui:fieldset>
 
 	<aui:button-row>

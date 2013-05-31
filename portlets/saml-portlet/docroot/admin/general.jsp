@@ -40,8 +40,6 @@ try {
 }
 catch (Exception e) {
 }
-
-String entityId = properties.getProperty(PortletPropsKeys.SAML_ENTITY_ID, MetadataManagerUtil.getLocalEntityId());
 %>
 
 <portlet:actionURL name="updateGeneral" var="updateGeneralURL">
@@ -67,6 +65,10 @@ String entityId = properties.getProperty(PortletPropsKeys.SAML_ENTITY_ID, Metada
 			<aui:option label="service-provider" selected='<%= samlRole.equals("sp") %>' value="sp" />
 		</aui:select>
 
+		<%
+		String entityId = properties.getProperty(PortletPropsKeys.SAML_ENTITY_ID, MetadataManagerUtil.getLocalEntityId());
+		%>
+
 		<aui:input helpMessage="entity-id-help" label="entity-id" name='<%= "settings--" + PortletPropsKeys.SAML_ENTITY_ID + "--" %>' required="true" value="<%= entityId %>" />
 	</aui:fieldset>
 
@@ -82,10 +84,16 @@ String entityId = properties.getProperty(PortletPropsKeys.SAML_ENTITY_ID, Metada
 <c:if test="<%= Validator.isNotNull(entityId) %>">
 	<aui:fieldset label="certificate-and-private-key">
 		<c:choose>
-			<c:when test="<%= (x509Certificate != null) %>">
-				<c:if test="<%= x509Certificate.getNotAfter().before(new Date()) %>">
+			<c:when test="<%= x509Certificate != null %>">
+
+				<%
+				Date now = new Date();
+				%>
+
+				<c:if test="<%= now.after(x509Certificate.getNotAfter()) %>">
 					<div class="portlet-msg-alert"><liferay-ui:message arguments="<%= new Object[] {x509Certificate.getNotAfter()} %>" key="certificate-expired-on-x" /></div>
 				</c:if>
+
 				<dl class="property-list">
 					<dt>
 						<liferay-ui:message key="subject-dn" />

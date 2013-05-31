@@ -40,6 +40,7 @@
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/not-yet-commons-ssl.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/opensaml.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/openws.jar" />
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/portal-compat-shared.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/xml-resolver.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/xmltooling.jar" />
 	<classpathentry kind="output" path="bin" />

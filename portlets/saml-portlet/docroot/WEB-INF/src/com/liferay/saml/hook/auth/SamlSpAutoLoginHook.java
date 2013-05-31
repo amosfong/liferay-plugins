@@ -51,7 +51,6 @@ public class SamlSpAutoLoginHook extends BaseAutoLogin {
 				PortletWebKeys.SAML_SP_SESSION_KEY);
 
 			if (Validator.isNull(samlSpSessionKey)) {
-
 				return null;
 			}
 

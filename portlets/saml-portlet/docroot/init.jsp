@@ -53,10 +53,10 @@ page import="com.liferay.saml.util.PortletPrefsPropsUtil" %><%@
 page import="com.liferay.saml.util.PortletPropsKeys" %><%@
 page import="com.liferay.saml.util.SamlUtil" %>
 
-<%@ page import="java.util.Date" %>
-
 <%@ page import="java.security.InvalidParameterException" %><%@
 page import="java.security.cert.X509Certificate" %>
+
+<%@ page import="java.util.Date" %>
 
 <%@ page import="javax.portlet.PortletURL" %>
 

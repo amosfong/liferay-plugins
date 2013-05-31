@@ -67,7 +67,7 @@ String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsP
 		<aui:input helpMessage="assertion-lifetime-help" name="assertionLifetime" required="true" value="<%= String.valueOf(assertionLifetime) %>" />
 	</aui:fieldset>
 
-	<aui:fieldset label="metadata" helpMessage="service-provider-metadata-help">
+	<aui:fieldset helpMessage="service-provider-metadata-help" label="metadata">
 		<aui:input name="metadataUrl" />
 
 		<aui:button-row>
