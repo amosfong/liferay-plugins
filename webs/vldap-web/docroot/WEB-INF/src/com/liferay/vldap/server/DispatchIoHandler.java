@@ -25,6 +25,7 @@ import com.liferay.vldap.server.handler.ExtendedLdapHandler;
 import com.liferay.vldap.server.handler.LdapHandler;
 import com.liferay.vldap.server.handler.SearchLdapHandler;
 import com.liferay.vldap.server.handler.UnbindLdapHandler;
+import com.liferay.vldap.server.handler.UnwillingToPerformLdapHandler;
 import com.liferay.vldap.server.handler.util.LdapHandlerContext;
 import com.liferay.vldap.util.PortletPropsValues;
 import com.liferay.vldap.util.VLDAPConstants;
@@ -70,7 +71,7 @@ public class DispatchIoHandler implements IoHandler {
 				_log.warn(request.getType() + " is not supported");
 			}
 
-			return;
+			ldapHandler = _unwillingToPerformLdapHandler;
 		}
 
 		try {
@@ -250,5 +251,7 @@ public class DispatchIoHandler implements IoHandler {
 	private LdapHandler _extendedLdapHandler = new ExtendedLdapHandler();
 	private LdapHandler _searchLdapHandler = new SearchLdapHandler();
 	private LdapHandler _unbindLdapHandler = new UnbindLdapHandler();
+	private LdapHandler _unwillingToPerformLdapHandler =
+		new UnwillingToPerformLdapHandler();
 
 }
