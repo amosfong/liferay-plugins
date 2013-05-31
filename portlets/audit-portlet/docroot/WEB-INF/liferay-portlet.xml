@@ -5,7 +5,7 @@
 	<portlet>
 		<portlet-name>1</portlet-name>
 		<icon>/icon.png</icon>
-		<control-panel-entry-category>portal</control-panel-entry-category>
+		<control-panel-entry-category>configuration</control-panel-entry-category>
 		<control-panel-entry-weight>12.0</control-panel-entry-weight>
 		<css-class-wrapper>audit-portlet</css-class-wrapper>
 	</portlet>

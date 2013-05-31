@@ -4,7 +4,7 @@
 <liferay-portlet-app>
 	<portlet>
 		<portlet-name>1</portlet-name>
-		<control-panel-entry-category>portal</control-panel-entry-category>
+		<control-panel-entry-category>configuration</control-panel-entry-category>
 		<control-panel-entry-weight>12.0</control-panel-entry-weight>
 		<preferences-unique-per-layout>false</preferences-unique-per-layout>
 		<css-class-wrapper>salesforce-portlet</css-class-wrapper>

@@ -18,7 +18,7 @@
 				</simple>
 			</trigger>
 		</scheduler-entry>
-		<control-panel-entry-category>portal</control-panel-entry-category>
+		<control-panel-entry-category>configuration</control-panel-entry-category>
 		<control-panel-entry-class>com.liferay.portlet.AdministratorControlPanelEntry</control-panel-entry-class>
 		<header-portlet-css>/admin/css/main.css</header-portlet-css>
 		<css-class-wrapper>saml-portlet-admin</css-class-wrapper>
