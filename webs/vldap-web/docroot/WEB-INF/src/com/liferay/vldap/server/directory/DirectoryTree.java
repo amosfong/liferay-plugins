@@ -17,6 +17,8 @@ package com.liferay.vldap.server.directory;
 import com.liferay.portal.NoSuchUserException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.ArrayUtil;
+import com.liferay.portal.kernel.util.KeyValuePair;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
@@ -144,7 +146,19 @@ public class DirectoryTree {
 		String companyWebId = LdapUtil.getRdnValue(dn, 1);
 		String type = LdapUtil.getRdnValue(dn, 2);
 		String typeValue = LdapUtil.getRdnValue(dn, 3);
-		String screenName = LdapUtil.getRdnValue(dn, 4);
+
+		List<KeyValuePair> identifiers = new ArrayList<KeyValuePair>();
+
+		for (int i = 4; i < dn.size(); i++) {
+			String key = LdapUtil.getRdnType(dn, i);
+			String value = LdapUtil.getRdnValue(dn, i);
+
+			if ((key == null) || (value == null)) {
+				break;
+			}
+
+			identifiers.add(new KeyValuePair(key, value));
+		}
 
 		if (Validator.isNull(top)) {
 			return new SearchBase(
@@ -227,7 +241,7 @@ public class DirectoryTree {
 				company.getCompanyId(), typeValue);
 		}
 
-		if (screenName == null) {
+		if (identifiers.isEmpty()) {
 			if (type.equalsIgnoreCase("Communities")) {
 				return new SearchBase(
 					new CommunityDirectory(top, company, community),
@@ -279,20 +293,38 @@ public class DirectoryTree {
 			params.put("usersUserGroups", userGroup.getUserGroupId());
 		}
 
-		OrderByComparator orderByComparator = new UserScreenNameComparator();
-
-		List<User> users = UserLocalServiceUtil.search(
-			company.getCompanyId(), null, null, null, screenName, null,
-			WorkflowConstants.STATUS_APPROVED, params, true, 0, (int)sizeLimit,
-			orderByComparator);
-
-		if (users.isEmpty()) {
+		if (identifiers.isEmpty()) {
 			return null;
 		}
 
-		return new SearchBase(
-			new UserDirectory(top, company, users.get(0)), _userBuilder, top,
-			company, users.get(0));
+		KeyValuePair identifier = identifiers.get(0);
+		String key = identifier.getKey();
+		String value = identifier.getValue();
+
+		if (identifiers.size() == 1) {
+			if (!key.equalsIgnoreCase("cn") && !key.equalsIgnoreCase("uid")) {
+				return null;
+			}
+
+			String screenName = value;
+
+			List<User> users = UserLocalServiceUtil.search(
+				company.getCompanyId(), null, null, null, screenName, null,
+				WorkflowConstants.STATUS_APPROVED, params, true, 0, (int)sizeLimit,
+				new UserScreenNameComparator());
+
+			if (users.isEmpty()) {
+				return null;
+			}
+
+			return new SearchBase(
+				new UserDirectory(top, company, users.get(0)), _userBuilder, top,
+				company, users.get(0));
+		}
+
+		}
+
+		return null;
 	}
 
 	protected List<FilterConstraint> toFilterConstraints(ExprNode exprNode) {

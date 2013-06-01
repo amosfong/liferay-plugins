@@ -78,6 +78,22 @@ public class LdapUtil {
 		return name.substring(0, pos + 1) + escapedSuffix;
 	}
 
+	public static String getRdnType(Dn dn, int index) {
+		try {
+			index = dn.size() - 1 - index;
+
+			if (index < dn.size()) {
+				Rdn rdn = dn.getRdn(index);
+
+				return rdn.getNormType();
+			}
+		}
+		catch (Exception e) {
+		}
+
+		return null;
+	}
+
 	public static String getRdnValue(Dn dn, int index) {
 		try {
 			index = dn.size() - 1 - index;
