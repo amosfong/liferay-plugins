@@ -598,7 +598,6 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 			throw new RepositoryException(e);
 		}
 		finally {
-
 			releaseSession(idfSession);
 		}
 	}

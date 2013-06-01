@@ -404,7 +404,7 @@ public class DirectoryTree {
 		return null;
 	}
 
-	private static Log _log = LogFactoryUtil.getLog(DirectoryBuilder.class);
+	private static Log _log = LogFactoryUtil.getLog(DirectoryTree.class);
 
 	private CommunitiesBuilder _communitiesBuilder = new CommunitiesBuilder();
 	private CommunityBuilder _communityBuilder = new CommunityBuilder();
