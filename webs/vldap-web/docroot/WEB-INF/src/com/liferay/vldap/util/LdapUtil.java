@@ -36,9 +36,7 @@ public class LdapUtil {
 		for (int i = organizationUnits.length - 1; i >= 0; --i) {
 			String organizationUnit = organizationUnits[i];
 
-			if (!organizationUnit.startsWith("cn=") &&
-				!organizationUnit.startsWith("ou=")) {
-
+			if (!organizationUnit.contains("=")) {
 				sb.append("ou=");
 			}
 
