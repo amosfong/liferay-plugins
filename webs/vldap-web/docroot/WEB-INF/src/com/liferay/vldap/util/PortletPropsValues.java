@@ -34,6 +34,9 @@ public class PortletPropsValues {
 	public static final String POSIX_GROUP_ID = GetterUtil.getString(
 		PortletProps.get(PortletPropsKeys.POSIX_GROUP_ID));
 
+	public static final String[] SAMBA_DOMAINS = PortletProps.getArray(
+		PortletPropsKeys.SAMBA_DOMAINS);
+
 	public static final int SEARCH_MAX_SIZE = GetterUtil.getInteger(
 		PortletProps.get(PortletPropsKeys.SEARCH_MAX_SIZE));
 

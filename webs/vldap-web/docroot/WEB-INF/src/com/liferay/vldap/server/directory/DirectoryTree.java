@@ -44,6 +44,7 @@ import com.liferay.vldap.server.directory.builder.OrganizationsBuilder;
 import com.liferay.vldap.server.directory.builder.RoleBuilder;
 import com.liferay.vldap.server.directory.builder.RolesBuilder;
 import com.liferay.vldap.server.directory.builder.RootBuilder;
+import com.liferay.vldap.server.directory.builder.SambaMachineBuilder;
 import com.liferay.vldap.server.directory.builder.SchemaBuilder;
 import com.liferay.vldap.server.directory.builder.TopBuilder;
 import com.liferay.vldap.server.directory.builder.UserBuilder;
@@ -109,6 +110,7 @@ public class DirectoryTree {
 
 		_communityBuilder.addDirectoryBuilder(_userBuilder);
 		_organizationBuilder.addDirectoryBuilder(_userBuilder);
+		_organizationBuilder.addDirectoryBuilder(_sambaMachineBuilder);
 		_roleBuilder.addDirectoryBuilder(_userBuilder);
 		_userGroupBuilder.addDirectoryBuilder(_userBuilder);
 	}
@@ -125,6 +127,10 @@ public class DirectoryTree {
 
 		DirectoryBuilder searchBaseDirectoryBuilder =
 			searchBase.getDirectoryBuilder();
+
+		if (searchBaseDirectoryBuilder == null) {
+			return directories;
+		}
 
 		for (DirectoryBuilder directoryBuilder :
 				searchBaseDirectoryBuilder.getDirectoryBuilders()) {
@@ -322,6 +328,32 @@ public class DirectoryTree {
 				company, users.get(0));
 		}
 
+		if (key.equalsIgnoreCase("ou") &&
+			value.equalsIgnoreCase("Samba Machines")) {
+
+			if ((identifiers.size() > 2) || organization == null) {
+				return null;
+			}
+
+			KeyValuePair subidentifier = identifiers.get(1);
+
+			key = subidentifier.getKey();
+			value = subidentifier.getValue();
+
+			if (!key.equalsIgnoreCase("sambaDomainName")) {
+				return null;
+			}
+
+			String domain = value;
+
+			List<Directory> directories = _sambaMachineBuilder.buildDirectories(
+				top, company, organization, domain);
+
+			if (directories.isEmpty()) {
+				return null;
+			}
+
+			return new SearchBase(directories.get(0), null);
 		}
 
 		return null;
@@ -448,6 +480,8 @@ public class DirectoryTree {
 	private RoleBuilder _roleBuilder = new RoleBuilder();
 	private RolesBuilder _rolesBuilder = new RolesBuilder();
 	private RootBuilder _rootBuilder = new RootBuilder();
+	private SambaMachineBuilder _sambaMachineBuilder =
+		new SambaMachineBuilder();
 	private SchemaBuilder _schemaBuilder = new SchemaBuilder();
 	private TopBuilder _topBuilder = new TopBuilder();
 	private UserBuilder _userBuilder = new UserBuilder();

@@ -27,6 +27,8 @@ public class PortletPropsKeys {
 
 	public static final String POSIX_GROUP_ID = "posix.group.id";
 
+	public static final String SAMBA_DOMAINS = "samba.domains";
+
 	public static final String SEARCH_MAX_SIZE = "search.max.size";
 
 	public static final String SEARCH_MAX_TIME = "search.max.time";
