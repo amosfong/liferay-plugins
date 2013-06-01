@@ -45,6 +45,7 @@ import com.liferay.vldap.server.directory.builder.RoleBuilder;
 import com.liferay.vldap.server.directory.builder.RolesBuilder;
 import com.liferay.vldap.server.directory.builder.RootBuilder;
 import com.liferay.vldap.server.directory.builder.SambaMachineBuilder;
+import com.liferay.vldap.server.directory.builder.SambaGroupBuilder;
 import com.liferay.vldap.server.directory.builder.SchemaBuilder;
 import com.liferay.vldap.server.directory.builder.TopBuilder;
 import com.liferay.vldap.server.directory.builder.UserBuilder;
@@ -111,6 +112,7 @@ public class DirectoryTree {
 		_communityBuilder.addDirectoryBuilder(_userBuilder);
 		_organizationBuilder.addDirectoryBuilder(_userBuilder);
 		_organizationBuilder.addDirectoryBuilder(_sambaMachineBuilder);
+		_organizationBuilder.addDirectoryBuilder(_SambaGroupBuilder);
 		_roleBuilder.addDirectoryBuilder(_userBuilder);
 		_userGroupBuilder.addDirectoryBuilder(_userBuilder);
 	}
@@ -482,6 +484,7 @@ public class DirectoryTree {
 	private RootBuilder _rootBuilder = new RootBuilder();
 	private SambaMachineBuilder _sambaMachineBuilder =
 		new SambaMachineBuilder();
+	private SambaGroupBuilder _SambaGroupBuilder = new SambaGroupBuilder();
 	private SchemaBuilder _schemaBuilder = new SchemaBuilder();
 	private TopBuilder _topBuilder = new TopBuilder();
 	private UserBuilder _userBuilder = new UserBuilder();
