@@ -32,6 +32,7 @@ public class RootDirectory extends Directory {
 		addAttribute("subschemasubentry", "cn=" + SchemaDirectory.COMMON_NAME);
 		addAttribute(
 			"supportedfeatures", OIDConstants.ALL_OPERATIONAL_ATTRIBUTES);
+		addAttribute("supportedcontrol", "1.2.840.113556.1.4.319");
 		addAttribute("supportedldapversion", "3");
 		addAttribute("supportedsaslmechanisms", BindLdapHandler.DIGEST_MD5);
 		addAttribute("vendorname", "Liferay, Inc.");
