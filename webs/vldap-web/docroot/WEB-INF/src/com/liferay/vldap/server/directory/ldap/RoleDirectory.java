@@ -14,8 +14,12 @@
 
 package com.liferay.vldap.server.directory.ldap;
 
+import com.liferay.portal.kernel.util.KeyValuePair;
+import com.liferay.portal.kernel.util.Tuple;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Role;
+import com.liferay.portal.model.RoleConstants;
+import com.liferay.vldap.util.PortletPropsValues;
 
 import java.util.LinkedHashMap;
 
@@ -28,23 +32,36 @@ public class RoleDirectory extends Directory {
 	public RoleDirectory(String top, Company company, Role role)
 		throws Exception {
 
-		addAttribute("cn", role.getName());
+		this(top, company, role.getName());
+
 		addAttribute("description", role.getDescription());
+
+		addRoleMembers(top, company, role.getRoleId());
+
+		setName(top, company, "Roles", role.getName());
+	}
+
+	public RoleDirectory(String top, Company company, String roleName)
+		throws Exception {
+
+		addAttribute("cn", roleName);
 		addAttribute("objectclass", "groupOfNames");
 		addAttribute("objectclass", "liferayRole");
 		addAttribute("objectclass", "organizationalRole");
 		addAttribute("objectclass", "organizationalUnit");
 		addAttribute("objectclass", "top");
-		addAttribute("ou", role.getName());
+		addAttribute("ou", roleName);
+	}
+
+	public void addRoleMembers(String top, Company company, long roleId)
+		throws Exception {
 
 		LinkedHashMap<String, Object> params =
 			new LinkedHashMap<String, Object>();
 
-		params.put("usersRoles", role.getRoleId());
+		params.put("usersRoles", roleId);
 
 		addMemberAttributes(top, company, params);
-
-		setName(top, company, "Roles", role.getName());
 	}
 
 }
