@@ -71,7 +71,8 @@ public class UserDirectory extends Directory {
 		addAttribute("objectclass", "liferayPerson");
 		addAttribute("objectclass", "top");
 		addAttribute("sn", user.getLastName());
-		addAttribute("uid", String.valueOf(user.getUserId()));
+		addAttribute("uid", user.getScreenName());
+		addAttribute("uidNumber", String.valueOf(user.getUserId()));
 		addAttribute("uuid", user.getUuid());
 
 		String name = LdapUtil.buildName(top, company);

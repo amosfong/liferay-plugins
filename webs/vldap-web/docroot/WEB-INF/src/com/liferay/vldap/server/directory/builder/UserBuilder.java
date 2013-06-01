@@ -56,6 +56,7 @@ public class UserBuilder extends DirectoryBuilder {
 			attributeId.equalsIgnoreCase("member") ||
 			attributeId.equalsIgnoreCase("sn") ||
 			attributeId.equalsIgnoreCase("uid") ||
+			attributeId.equalsIgnoreCase("uidNumber") ||
 			attributeId.equalsIgnoreCase("uuid")) {
 
 			return true;
@@ -171,13 +172,41 @@ public class UserBuilder extends DirectoryBuilder {
 			String firstName = filterConstraint.getValue("givenName");
 			String lastName = filterConstraint.getValue("sn");
 			String screenName = filterConstraint.getValue("cn");
+
+			if (screenName == null) {
+				screenName = filterConstraint.getValue("uid");
+			}
+
+			if ((screenName != null) && screenName.equals(StringPool.STAR)) {
+				screenName = null;
+			}
+
 			String emailAddress = filterConstraint.getValue("mail");
 
-			List<User> searchUsers = UserLocalServiceUtil.search(
-				company.getCompanyId(), firstName, null, lastName, screenName,
-				emailAddress, WorkflowConstants.STATUS_APPROVED, params, true,
-				0, (int)searchBase.getSizeLimit(),
-				new UserScreenNameComparator());
+			String uidNumber = filterConstraint.getValue("uidNumber");
+
+			List<User> searchUsers = null;
+
+			if (uidNumber != null) {
+				searchUsers = new ArrayList<User>();
+
+				long userId = GetterUtil.getLong(uidNumber);
+
+				User user = UserLocalServiceUtil.fetchUser(userId);
+
+				if (user == null) {
+					continue;
+				}
+
+				searchUsers.add(user);
+			}
+			else {
+				searchUsers = UserLocalServiceUtil.search(
+					company.getCompanyId(), firstName, null, lastName,
+					screenName, emailAddress, WorkflowConstants.STATUS_APPROVED,
+					params, true, 0, (int)searchBase.getSizeLimit(),
+					new UserScreenNameComparator());
+			}
 
 			for (User user : searchUsers) {
 				if ((screenName != null) &&
