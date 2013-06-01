@@ -182,22 +182,34 @@ public class BindLdapHandler extends BaseLdapHandler {
 			return getResponse(bindRequest, ResultCodeEnum.SUCCESS);
 		}
 
+		String password = new String(bindRequest.getCredentials());
+
 		Company company = setCompany(ldapHandlerContext, name);
 
 		String screenName = getValue(name, "cn");
 
 		if (Validator.isNull(screenName)) {
-			return getResponse(bindRequest, ResultCodeEnum.INVALID_CREDENTIALS);
+			screenName = getValue(name, "uid");
 		}
 
-		String password = new String(bindRequest.getCredentials());
+		String emailAddress = getValue(name, "mail");
+
 		Map<String, String[]> headerMap = new HashMap<String, String[]>();
 		Map<String, String[]> parameterMap = new HashMap<String, String[]>();
 		Map<String, Object> resultsMap = new HashMap<String, Object>();
 
-		int authResult = UserLocalServiceUtil.authenticateByScreenName(
-			company.getCompanyId(), screenName, password, headerMap,
-			parameterMap, resultsMap);
+		int authResult = Authenticator.FAILURE;
+
+		if (Validator.isNotNull(screenName)) {
+			authResult = UserLocalServiceUtil.authenticateByScreenName(
+				company.getCompanyId(), screenName, password, headerMap,
+				parameterMap, resultsMap);
+		}
+		else if (Validator.isNotNull(emailAddress)) {
+			authResult = UserLocalServiceUtil.authenticateByEmailAddress(
+				company.getCompanyId(), screenName, password, headerMap,
+				parameterMap, resultsMap);
+		}
 
 		if (authResult != Authenticator.SUCCESS) {
 			return getResponse(bindRequest, ResultCodeEnum.INVALID_CREDENTIALS);
@@ -206,6 +218,7 @@ public class BindLdapHandler extends BaseLdapHandler {
 		setUser(ldapHandlerContext, name);
 
 		return getResponse(bindRequest, ResultCodeEnum.SUCCESS);
+
 	}
 
 	protected Response getUnsupportedResponse(BindRequest bindRequest) {
@@ -252,12 +265,26 @@ public class BindLdapHandler extends BaseLdapHandler {
 
 		String screenName = getValue(name, "cn");
 
+		if (Validator.isNull(screenName)) {
+			screenName = getValue(name, "uid");
+		}
+
+		String emailAddress = getValue(name, "mail");
+
+		User user = null;
+
 		Company company = ldapHandlerContext.getCompany();
 
-		User user = UserLocalServiceUtil.getUserByScreenName(
-			company.getCompanyId(), screenName);
+		if (Validator.isNotNull(screenName)) {
+			user = UserLocalServiceUtil.fetchUserByScreenName(
+				company.getCompanyId(), screenName);
+		}
+		else if (Validator.isNotNull(emailAddress)) {
+			user = UserLocalServiceUtil.fetchUserByEmailAddress(
+				company.getCompanyId(), emailAddress);
+		}
 
-		if (!user.isDefaultUser()) {
+		if ((user != null) && !user.isDefaultUser()) {
 			ldapHandlerContext.setUser(user);
 		}
 
