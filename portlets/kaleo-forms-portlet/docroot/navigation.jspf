@@ -17,7 +17,6 @@
 <ul class="lfr-navigation">
 	<li class="lfr-navigation-submit">
 		<liferay-ui:icon-menu
-			align="auto"
 			direction="right"
 			message="submit-new"
 			showWhenSingleIcon="<%= true %>"
