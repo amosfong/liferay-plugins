@@ -55,12 +55,12 @@ String reportName = ParamUtil.getString(request, "reportName");
 			DisplayTerms displayTerms = searchContainer.getDisplayTerms();
 
 			if (displayTerms.isAdvancedSearch()) {
-				results = DefinitionServiceUtil.getDefinitions(themeDisplay.getParentGroupId(), definitionName, description, sourceId, reportName, displayTerms.isAndOperator(), searchContainer.getStart(), searchContainer.getEnd(), null);
-				total = DefinitionServiceUtil.getDefinitionsCount(themeDisplay.getParentGroupId(), definitionName, description, sourceId, reportName, displayTerms.isAndOperator());
+				results = DefinitionServiceUtil.getDefinitions(themeDisplay.getSiteGroupId(), definitionName, description, sourceId, reportName, displayTerms.isAndOperator(), searchContainer.getStart(), searchContainer.getEnd(), null);
+				total = DefinitionServiceUtil.getDefinitionsCount(themeDisplay.getSiteGroupId(), definitionName, description, sourceId, reportName, displayTerms.isAndOperator());
 			}
 			else {
-				results = DefinitionServiceUtil.getDefinitions(themeDisplay.getParentGroupId(), displayTerms.getKeywords(), displayTerms.getKeywords(), null, displayTerms.getKeywords(), false, searchContainer.getStart(), searchContainer.getEnd(), null);
-				total = DefinitionServiceUtil.getDefinitionsCount(themeDisplay.getParentGroupId(), displayTerms.getKeywords(), displayTerms.getKeywords(), null, displayTerms.getKeywords(), false);
+				results = DefinitionServiceUtil.getDefinitions(themeDisplay.getSiteGroupId(), displayTerms.getKeywords(), displayTerms.getKeywords(), null, displayTerms.getKeywords(), false, searchContainer.getStart(), searchContainer.getEnd(), null);
+				total = DefinitionServiceUtil.getDefinitionsCount(themeDisplay.getSiteGroupId(), displayTerms.getKeywords(), displayTerms.getKeywords(), null, displayTerms.getKeywords(), false);
 			}
 
 			pageContext.setAttribute("results", results);

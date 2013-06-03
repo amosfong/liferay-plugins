@@ -51,12 +51,12 @@ String driverUrl = ParamUtil.getString(request, "driverUrl");
 			DisplayTerms displayTerms = searchContainer.getDisplayTerms();
 
 			if (displayTerms.isAdvancedSearch()) {
-				results = SourceServiceUtil.getSources(themeDisplay.getParentGroupId(), name, driverUrl, displayTerms.isAndOperator(), searchContainer.getStart(), searchContainer.getEnd(), null);
-				total = SourceServiceUtil.getSourcesCount(themeDisplay.getParentGroupId(), name, driverUrl, displayTerms.isAndOperator());
+				results = SourceServiceUtil.getSources(themeDisplay.getSiteGroupId(), name, driverUrl, displayTerms.isAndOperator(), searchContainer.getStart(), searchContainer.getEnd(), null);
+				total = SourceServiceUtil.getSourcesCount(themeDisplay.getSiteGroupId(), name, driverUrl, displayTerms.isAndOperator());
 			}
 			else {
-				results = SourceServiceUtil.getSources(themeDisplay.getParentGroupId(), displayTerms.getKeywords(), displayTerms.getKeywords(), false, searchContainer.getStart(), searchContainer.getEnd(), null);
-				total = SourceServiceUtil.getSourcesCount(themeDisplay.getParentGroupId(), displayTerms.getKeywords(), displayTerms.getKeywords(), false);
+				results = SourceServiceUtil.getSources(themeDisplay.getSiteGroupId(), displayTerms.getKeywords(), displayTerms.getKeywords(), false, searchContainer.getStart(), searchContainer.getEnd(), null);
+				total = SourceServiceUtil.getSourcesCount(themeDisplay.getSiteGroupId(), displayTerms.getKeywords(), displayTerms.getKeywords(), false);
 			}
 
 			pageContext.setAttribute("results", results);

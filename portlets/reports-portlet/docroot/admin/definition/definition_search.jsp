@@ -39,7 +39,7 @@ String reportName = ParamUtil.getString(request, "reportName");
 			<aui:option label="<%= ReportDataSourceType.PORTAL %>" value="0" />
 
 			<%
-			List<Source> sources = SourceServiceUtil.getSources(themeDisplay.getParentGroupId(), null, null, false, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+			List<Source> sources = SourceServiceUtil.getSources(themeDisplay.getSiteGroupId(), null, null, false, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 
 			for (Source source : sources) {
 			%>

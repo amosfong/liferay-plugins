@@ -72,12 +72,12 @@
 			Date endDate = PortalUtil.getDate(endDateMonth, endDateDay + 1, endDateYear, timeZone, null);
 
 			if (displayTerms.isAdvancedSearch()) {
-				results = EntryServiceUtil.getEntries(themeDisplay.getParentGroupId(), definitionName, null, startDate, endDate, displayTerms.isAndOperator(), searchContainer.getStart(), searchContainer.getEnd(), null);
-				total = EntryServiceUtil.getEntriesCount(themeDisplay.getParentGroupId(), definitionName, null, startDate, endDate, displayTerms.isAndOperator());
+				results = EntryServiceUtil.getEntries(themeDisplay.getSiteGroupId(), definitionName, null, startDate, endDate, displayTerms.isAndOperator(), searchContainer.getStart(), searchContainer.getEnd(), null);
+				total = EntryServiceUtil.getEntriesCount(themeDisplay.getSiteGroupId(), definitionName, null, startDate, endDate, displayTerms.isAndOperator());
 			}
 			else {
-				results = EntryServiceUtil.getEntries(themeDisplay.getParentGroupId(), displayTerms.getKeywords(), null, null, null, false, searchContainer.getStart(), searchContainer.getEnd(), null);
-				total = EntryServiceUtil.getEntriesCount(themeDisplay.getParentGroupId(), displayTerms.getKeywords(), null, null, null, false);
+				results = EntryServiceUtil.getEntries(themeDisplay.getSiteGroupId(), displayTerms.getKeywords(), null, null, null, false, searchContainer.getStart(), searchContainer.getEnd(), null);
+				total = EntryServiceUtil.getEntriesCount(themeDisplay.getSiteGroupId(), displayTerms.getKeywords(), null, null, null, false);
 			}
 
 			pageContext.setAttribute("results", results);
