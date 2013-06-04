@@ -207,7 +207,7 @@ public class BindLdapHandler extends BaseLdapHandler {
 		}
 		else if (Validator.isNotNull(emailAddress)) {
 			authResult = UserLocalServiceUtil.authenticateByEmailAddress(
-				company.getCompanyId(), screenName, password, headerMap,
+				company.getCompanyId(), emailAddress, password, headerMap,
 				parameterMap, resultsMap);
 		}
 

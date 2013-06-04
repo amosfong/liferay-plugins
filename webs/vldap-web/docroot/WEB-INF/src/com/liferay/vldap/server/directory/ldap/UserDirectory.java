@@ -15,14 +15,18 @@
 package com.liferay.vldap.server.directory.ldap;
 
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.FastDateFormatFactoryUtil;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.Organization;
+import com.liferay.portal.model.PasswordPolicy;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.UserGroup;
+import com.liferay.portal.security.samba.PortalSambaUtil;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.vldap.util.LdapUtil;
@@ -69,11 +73,14 @@ public class UserDirectory extends Directory {
 		addAttribute("objectclass", "groupOfNames");
 		addAttribute("objectclass", "inetOrgPerson");
 		addAttribute("objectclass", "liferayPerson");
+		addAttribute("objectclass", "sambaSamAccount");
 		addAttribute("objectclass", "top");
 		addAttribute("sn", user.getLastName());
 		addAttribute("uid", user.getScreenName());
 		addAttribute("uidNumber", String.valueOf(user.getUserId()));
 		addAttribute("uuid", user.getUuid());
+
+		addSambaAttributes(company, user);
 
 		String name = LdapUtil.buildName(top, company);
 
@@ -142,6 +149,81 @@ public class UserDirectory extends Directory {
 
 			addAttribute("member", sb.toString());
 		}
+	}
+
+	protected void addSambaAttributes(Company company, User user)
+		throws Exception {
+
+		StringBundler sambaSID = new StringBundler();
+		sambaSID.append("S-1-5-21-");
+		sambaSID.append(company.getCompanyId());
+		sambaSID.append("-");
+		sambaSID.append(user.getUserId());
+
+		addAttribute("sambaSID", sambaSID.toString());
+
+		PasswordPolicy passwordPolicy = user.getPasswordPolicy();
+
+		int graceLimit = passwordPolicy.getGraceLimit();
+		int historyCount = passwordPolicy.getHistoryCount();
+		int minLength = passwordPolicy.getMinLength();
+		long lockoutDuration =
+			passwordPolicy.getLockoutDuration() / Time.MINUTE;
+		long maxAge = passwordPolicy.getMaxAge() / Time.MINUTE;
+		long minAge = passwordPolicy.getMinAge() / Time.MINUTE;
+		long resetFailureCount =
+			passwordPolicy.getResetFailureCount() / Time.MINUTE;
+
+		StringBuilder accountFlags = new StringBuilder(13);
+		accountFlags.append(CharPool.OPEN_BRACKET);
+		accountFlags.append('U');
+
+		if (!user.isActive()) {
+			accountFlags.append('D');
+		}
+
+		if (!passwordPolicy.isHistory()) {
+			historyCount = 0;
+		}
+
+		if (!passwordPolicy.isLockout()) {
+			lockoutDuration = 0;
+		}
+
+		if (!passwordPolicy.isExpireable()) {
+			maxAge = -1;
+			accountFlags.append('X');
+		}
+
+		if (passwordPolicy.isRequireUnlock()) {
+			resetFailureCount = Integer.MAX_VALUE;
+		}
+
+		for (int i = accountFlags.length(); i < 12; i++) {
+			accountFlags.append(CharPool.SPACE);
+		}
+
+		accountFlags.append(CharPool.CLOSE_BRACKET);
+
+		addAttribute("sambaAcctFlags", accountFlags.toString());
+
+		addAttribute("sambaMinPwdLength", String.valueOf(minLength));
+		addAttribute("sambaPwdHistoryLength", String.valueOf(historyCount));
+		addAttribute("sambaLogonToChgPwd", "2");
+		addAttribute("sambaMaxPwdAge", String.valueOf(maxAge));
+		addAttribute("sambaMinPwdAge", String.valueOf(minAge));
+		addAttribute("sambaLockoutDuration", String.valueOf(lockoutDuration));
+		addAttribute(
+			"sambaLockoutObservationWindow", String.valueOf(resetFailureCount));
+		addAttribute("sambaLockoutThreshold", String.valueOf(graceLimit));
+		addAttribute("sambaForceLogoff", "-1");
+		addAttribute("sambaRefuseMachinePwdChange", "0");
+
+		String lmPassword = PortalSambaUtil.getLMPassword(user);
+		addAttribute("sambaLMPassword", lmPassword);
+
+		String ntPassword = PortalSambaUtil.getNTPassword(user);
+		addAttribute("sambaNTPassword", ntPassword);
 	}
 
 	private static Format _simpleDateFormat =

@@ -14,7 +14,11 @@
 
 package com.liferay.vldap.server.directory.builder;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Group;
@@ -34,6 +38,7 @@ import com.liferay.vldap.server.directory.SearchBase;
 import com.liferay.vldap.server.directory.ldap.Directory;
 import com.liferay.vldap.server.directory.ldap.UserDirectory;
 import com.liferay.vldap.util.LdapUtil;
+import com.liferay.vldap.util.PortletPropsValues;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -52,8 +57,10 @@ public class UserBuilder extends DirectoryBuilder {
 	public boolean isValidAttribute(String attributeId, String value) {
 		if (attributeId.equalsIgnoreCase("cn") ||
 			attributeId.equalsIgnoreCase("givenName") ||
+			attributeId.equalsIgnoreCase("gidNumber") ||
 			attributeId.equalsIgnoreCase("mail") ||
 			attributeId.equalsIgnoreCase("member") ||
+			attributeId.equalsIgnoreCase("sambaSID") ||
 			attributeId.equalsIgnoreCase("sn") ||
 			attributeId.equalsIgnoreCase("uid") ||
 			attributeId.equalsIgnoreCase("uidNumber") ||
@@ -73,6 +80,7 @@ public class UserBuilder extends DirectoryBuilder {
 			if (value.equalsIgnoreCase("groupOfNames") ||
 				value.equalsIgnoreCase("inetOrgPerson") ||
 				value.equalsIgnoreCase("liferayPerson") ||
+				value.equalsIgnoreCase("sambaSamAccount") ||
 				value.equalsIgnoreCase("top") || value.equalsIgnoreCase("*")) {
 
 				return true;
@@ -153,10 +161,11 @@ public class UserBuilder extends DirectoryBuilder {
 				continue;
 			}
 
-			long userId = GetterUtil.getLong(filterConstraint.getValue("uid"));
+			String gidNumber = filterConstraint.getValue("gidNumber");
 
-			if (userId > 0) {
-				users.add(UserLocalServiceUtil.getUser(userId));
+			if ((gidNumber != null) &&
+				!gidNumber.equals(StringPool.STAR) &&
+				!gidNumber.equals(PortletPropsValues.POSIX_GROUP_ID)) {
 
 				continue;
 			}
@@ -185,6 +194,8 @@ public class UserBuilder extends DirectoryBuilder {
 
 			String uidNumber = filterConstraint.getValue("uidNumber");
 
+			String sambaSID = filterConstraint.getValue("sambaSID");
+
 			List<User> searchUsers = null;
 
 			if (uidNumber != null) {
@@ -195,6 +206,38 @@ public class UserBuilder extends DirectoryBuilder {
 				User user = UserLocalServiceUtil.fetchUser(userId);
 
 				if (user == null) {
+					continue;
+				}
+
+				searchUsers.add(user);
+			}
+			else if (sambaSID != null) {
+				searchUsers = new ArrayList<User>();
+
+				int x = sambaSID.lastIndexOf(CharPool.DASH);
+
+				if (x == -1) {
+					continue;
+				}
+
+				int y = sambaSID.lastIndexOf(CharPool.DASH, x - 1);
+
+				if (y == -1) {
+					continue;
+				}
+
+				long userId = GetterUtil.getLong(sambaSID.substring(x + 1));
+
+				User user = UserLocalServiceUtil.fetchUser(userId);
+
+				if (user == null) {
+					continue;
+				}
+
+				long companyId = GetterUtil.getLong(
+					sambaSID.substring(y + 1, x));
+
+				if (companyId != user.getCompanyId()) {
 					continue;
 				}
 
@@ -275,5 +318,7 @@ public class UserBuilder extends DirectoryBuilder {
 
 		return true;
 	}
+
+	private static final Log _log = LogFactoryUtil.getLog(UserBuilder.class);
 
 }
