@@ -16,8 +16,6 @@ package com.liferay.vldap.server;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.ArrayUtil;
-import com.liferay.portal.util.PortalUtil;
 import com.liferay.vldap.server.handler.AbandonLdapHandler;
 import com.liferay.vldap.server.handler.BindLdapHandler;
 import com.liferay.vldap.server.handler.CompareLdapHandler;
@@ -27,12 +25,9 @@ import com.liferay.vldap.server.handler.SearchLdapHandler;
 import com.liferay.vldap.server.handler.UnbindLdapHandler;
 import com.liferay.vldap.server.handler.UnwillingToPerformLdapHandler;
 import com.liferay.vldap.server.handler.util.LdapHandlerContext;
+import com.liferay.vldap.server.handler.util.LdapHandlerThreadLocal;
 import com.liferay.vldap.util.PortletPropsValues;
 import com.liferay.vldap.util.VLDAPConstants;
-
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.SocketAddress;
 
 import java.util.List;
 import java.util.Map;
@@ -92,6 +87,7 @@ public class DispatchIoHandler implements IoHandler {
 	}
 
 	public void sessionClosed(IoSession ioSession) {
+		LdapHandlerThreadLocal.clearSocketAddress();
 	}
 
 	public void sessionCreated(IoSession ioSession) {
@@ -102,7 +98,11 @@ public class DispatchIoHandler implements IoHandler {
 
 	public void sessionOpened(IoSession ioSession) {
 		try {
-			if (!isAccessAllowed(ioSession.getRemoteAddress())) {
+			LdapHandlerThreadLocal.setSocketAddress(
+				ioSession.getRemoteAddress());
+
+			if (!LdapHandlerThreadLocal.isHostAllowed(
+				PortletPropsValues.HOSTS_ALLOWED)) {
 				if (_log.isWarnEnabled()) {
 					_log.warn(
 						"Access denied for " + ioSession.getRemoteAddress());
@@ -178,36 +178,6 @@ public class DispatchIoHandler implements IoHandler {
 		return ldapHandlerContext;
 	}
 
-	protected boolean isAccessAllowed(SocketAddress socketAddress) {
-		if (PortletPropsValues.HOSTS_ALLOWED.length == 0) {
-			return true;
-		}
-
-		if (!(socketAddress instanceof InetSocketAddress)) {
-			return false;
-		}
-
-		InetSocketAddress inetSocketAddress = (InetSocketAddress)socketAddress;
-
-		InetAddress inetAddress = inetSocketAddress.getAddress();
-
-		String hostAddress = inetAddress.getHostAddress();
-
-		String computerAddress = PortalUtil.getComputerAddress();
-
-		if (ArrayUtil.contains(PortletPropsValues.HOSTS_ALLOWED, hostAddress)) {
-			return true;
-		}
-
-		if (computerAddress.equals(hostAddress) &&
-			ArrayUtil.contains(PortletPropsValues.HOSTS_ALLOWED, _SERVER_IP)) {
-
-			return true;
-		}
-
-		return false;
-	}
-
 	protected void setSessionAttributes(
 		Response response, IoSession ioSession) {
 
@@ -240,8 +210,6 @@ public class DispatchIoHandler implements IoHandler {
 			ioSession.write(response);
 		}
 	}
-
-	private static final String _SERVER_IP = "SERVER_IP";
 
 	private static Log _log = LogFactoryUtil.getLog(DispatchIoHandler.class);
 
