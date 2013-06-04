@@ -29,6 +29,7 @@ import org.apache.mina.core.session.IoSession;
  */
 public class AbandonLdapHandler extends BaseLdapHandler {
 
+	@Override
 	public List<Response> messageReceived(
 		Request request, IoSession ioSession,
 		LdapHandlerContext ldapHandlerContext) {

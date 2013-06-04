@@ -35,6 +35,7 @@ import org.apache.mina.core.session.IoSession;
  */
 public class CompareLdapHandler extends BaseLdapHandler {
 
+	@Override
 	public List<Response> messageReceived(
 			Request request, IoSession ioSession,
 			LdapHandlerContext ldapHandlerContext)

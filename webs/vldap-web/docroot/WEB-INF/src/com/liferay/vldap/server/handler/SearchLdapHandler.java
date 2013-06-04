@@ -54,6 +54,7 @@ import org.apache.mina.core.session.IoSession;
  */
 public class SearchLdapHandler extends BaseLdapHandler {
 
+	@Override
 	public List<Response> messageReceived(
 		Request request, IoSession ioSession,
 		LdapHandlerContext ldapHandlerContext) {

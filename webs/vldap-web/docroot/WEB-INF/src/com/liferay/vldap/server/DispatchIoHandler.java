@@ -50,12 +50,14 @@ import org.apache.mina.core.session.IoSession;
  */
 public class DispatchIoHandler implements IoHandler {
 
+	@Override
 	public void exceptionCaught(IoSession ioSession, Throwable cause) {
 		if (_log.isDebugEnabled()) {
 			_log.debug(cause, cause);
 		}
 	}
 
+	@Override
 	public void messageReceived(IoSession ioSession, Object message) {
 		Request request = (Request)message;
 
@@ -83,19 +85,24 @@ public class DispatchIoHandler implements IoHandler {
 		}
 	}
 
+	@Override
 	public void messageSent(IoSession ioSession, Object message) {
 	}
 
+	@Override
 	public void sessionClosed(IoSession ioSession) {
 		LdapHandlerThreadLocal.clearSocketAddress();
 	}
 
+	@Override
 	public void sessionCreated(IoSession ioSession) {
 	}
 
+	@Override
 	public void sessionIdle(IoSession ioSession, IdleStatus idleStatus) {
 	}
 
+	@Override
 	public void sessionOpened(IoSession ioSession) {
 		try {
 			LdapHandlerThreadLocal.setSocketAddress(

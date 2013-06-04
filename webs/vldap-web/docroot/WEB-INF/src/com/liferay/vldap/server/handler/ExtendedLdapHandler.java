@@ -41,6 +41,7 @@ import org.apache.mina.filter.ssl.SslFilter;
  */
 public class ExtendedLdapHandler extends BaseLdapHandler {
 
+	@Override
 	public List<Response> messageReceived(
 		Request request, IoSession ioSession,
 		LdapHandlerContext ldapHandlerContext) {

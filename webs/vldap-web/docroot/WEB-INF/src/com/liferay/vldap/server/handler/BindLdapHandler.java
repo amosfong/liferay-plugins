@@ -59,6 +59,7 @@ public class BindLdapHandler extends BaseLdapHandler {
 
 	public static final String DIGEST_MD5 = "DIGEST-MD5";
 
+	@Override
 	public List<Response> messageReceived(
 			Request request, IoSession ioSession,
 			LdapHandlerContext ldapHandlerContext)
