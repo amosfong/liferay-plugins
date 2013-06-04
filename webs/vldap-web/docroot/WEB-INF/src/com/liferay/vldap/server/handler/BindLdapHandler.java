@@ -182,8 +182,6 @@ public class BindLdapHandler extends BaseLdapHandler {
 			return getResponse(bindRequest, ResultCodeEnum.SUCCESS);
 		}
 
-		String password = new String(bindRequest.getCredentials());
-
 		Company company = setCompany(ldapHandlerContext, name);
 
 		String screenName = getValue(name, "cn");
@@ -193,7 +191,7 @@ public class BindLdapHandler extends BaseLdapHandler {
 		}
 
 		String emailAddress = getValue(name, "mail");
-
+		String password = new String(bindRequest.getCredentials());
 		Map<String, String[]> headerMap = new HashMap<String, String[]>();
 		Map<String, String[]> parameterMap = new HashMap<String, String[]>();
 		Map<String, Object> resultsMap = new HashMap<String, Object>();
@@ -218,7 +216,6 @@ public class BindLdapHandler extends BaseLdapHandler {
 		setUser(ldapHandlerContext, name);
 
 		return getResponse(bindRequest, ResultCodeEnum.SUCCESS);
-
 	}
 
 	protected Response getUnsupportedResponse(BindRequest bindRequest) {
@@ -263,6 +260,8 @@ public class BindLdapHandler extends BaseLdapHandler {
 	protected User setUser(LdapHandlerContext ldapHandlerContext, Dn name)
 		throws Exception {
 
+		User user = null;
+
 		String screenName = getValue(name, "cn");
 
 		if (Validator.isNull(screenName)) {
@@ -271,17 +270,13 @@ public class BindLdapHandler extends BaseLdapHandler {
 
 		String emailAddress = getValue(name, "mail");
 
-		User user = null;
-
-		Company company = ldapHandlerContext.getCompany();
-
 		if (Validator.isNotNull(screenName)) {
 			user = UserLocalServiceUtil.fetchUserByScreenName(
-				company.getCompanyId(), screenName);
+				ldapHandlerContext.getCompanyId(), screenName);
 		}
 		else if (Validator.isNotNull(emailAddress)) {
 			user = UserLocalServiceUtil.fetchUserByEmailAddress(
-				company.getCompanyId(), emailAddress);
+				ldapHandlerContext.getCompanyId(), emailAddress);
 		}
 
 		if ((user != null) && !user.isDefaultUser()) {

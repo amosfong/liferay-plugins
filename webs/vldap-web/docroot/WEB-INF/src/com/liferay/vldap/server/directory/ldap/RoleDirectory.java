@@ -14,12 +14,8 @@
 
 package com.liferay.vldap.server.directory.ldap;
 
-import com.liferay.portal.kernel.util.KeyValuePair;
-import com.liferay.portal.kernel.util.Tuple;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Role;
-import com.liferay.portal.model.RoleConstants;
-import com.liferay.vldap.util.PortletPropsValues;
 
 import java.util.LinkedHashMap;
 
@@ -35,22 +31,20 @@ public class RoleDirectory extends Directory {
 		this(top, company, role.getName());
 
 		addAttribute("description", role.getDescription());
-
 		addRoleMembers(top, company, role.getRoleId());
-
 		setName(top, company, "Roles", role.getName());
 	}
 
-	public RoleDirectory(String top, Company company, String roleName)
+	public RoleDirectory(String top, Company company, String name)
 		throws Exception {
 
-		addAttribute("cn", roleName);
+		addAttribute("cn", name);
 		addAttribute("objectclass", "groupOfNames");
 		addAttribute("objectclass", "liferayRole");
 		addAttribute("objectclass", "organizationalRole");
 		addAttribute("objectclass", "organizationalUnit");
 		addAttribute("objectclass", "top");
-		addAttribute("ou", roleName);
+		addAttribute("ou", name);
 	}
 
 	public void addRoleMembers(String top, Company company, long roleId)

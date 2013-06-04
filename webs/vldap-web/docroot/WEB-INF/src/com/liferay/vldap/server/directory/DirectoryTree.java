@@ -17,9 +17,6 @@ package com.liferay.vldap.server.directory;
 import com.liferay.portal.NoSuchUserException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.ArrayUtil;
-import com.liferay.portal.kernel.util.KeyValuePair;
-import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.Company;
@@ -44,8 +41,8 @@ import com.liferay.vldap.server.directory.builder.OrganizationsBuilder;
 import com.liferay.vldap.server.directory.builder.RoleBuilder;
 import com.liferay.vldap.server.directory.builder.RolesBuilder;
 import com.liferay.vldap.server.directory.builder.RootBuilder;
-import com.liferay.vldap.server.directory.builder.SambaMachineBuilder;
 import com.liferay.vldap.server.directory.builder.SambaGroupBuilder;
+import com.liferay.vldap.server.directory.builder.SambaMachineBuilder;
 import com.liferay.vldap.server.directory.builder.SchemaBuilder;
 import com.liferay.vldap.server.directory.builder.TopBuilder;
 import com.liferay.vldap.server.directory.builder.UserBuilder;
@@ -112,7 +109,7 @@ public class DirectoryTree {
 		_communityBuilder.addDirectoryBuilder(_userBuilder);
 		_organizationBuilder.addDirectoryBuilder(_userBuilder);
 		_organizationBuilder.addDirectoryBuilder(_sambaMachineBuilder);
-		_organizationBuilder.addDirectoryBuilder(_SambaGroupBuilder);
+		_organizationBuilder.addDirectoryBuilder(_sambaGroupBuilder);
 		_roleBuilder.addDirectoryBuilder(_userBuilder);
 		_userGroupBuilder.addDirectoryBuilder(_userBuilder);
 	}
@@ -155,17 +152,19 @@ public class DirectoryTree {
 		String type = LdapUtil.getRdnValue(dn, 2);
 		String typeValue = LdapUtil.getRdnValue(dn, 3);
 
-		List<KeyValuePair> identifiers = new ArrayList<KeyValuePair>();
+		List<Identifier> identifiers = new ArrayList<Identifier>();
 
 		for (int i = 4; i < dn.size(); i++) {
-			String key = LdapUtil.getRdnType(dn, i);
-			String value = LdapUtil.getRdnValue(dn, i);
+			String rdnType = LdapUtil.getRdnType(dn, i);
+			String rdnValue = LdapUtil.getRdnValue(dn, i);
 
-			if ((key == null) || (value == null)) {
+			if ((rdnType == null) || (rdnValue == null)) {
 				break;
 			}
 
-			identifiers.add(new KeyValuePair(key, value));
+			Identifier identifier = new Identifier(rdnType, rdnValue);
+
+			identifiers.add(identifier);
 		}
 
 		if (Validator.isNull(top)) {
@@ -283,6 +282,9 @@ public class DirectoryTree {
 					return null;
 				}
 			}
+			else {
+				return null;
+			}
 		}
 
 		LinkedHashMap<String, Object> params =
@@ -301,55 +303,53 @@ public class DirectoryTree {
 			params.put("usersUserGroups", userGroup.getUserGroupId());
 		}
 
-		if (identifiers.isEmpty()) {
-			return null;
-		}
+		Identifier identifier = identifiers.get(0);
 
-		KeyValuePair identifier = identifiers.get(0);
-		String key = identifier.getKey();
-		String value = identifier.getValue();
+		String rdnType = identifier.getRdnType();
+		String rdnValue = identifier.getRdnValue();
 
 		if (identifiers.size() == 1) {
-			if (!key.equalsIgnoreCase("cn") && !key.equalsIgnoreCase("uid")) {
+			if (!rdnType.equalsIgnoreCase("cn") &&
+				!rdnType.equalsIgnoreCase("uid")) {
+
 				return null;
 			}
 
-			String screenName = value;
+			String screenName = rdnValue;
 
 			List<User> users = UserLocalServiceUtil.search(
 				company.getCompanyId(), null, null, null, screenName, null,
-				WorkflowConstants.STATUS_APPROVED, params, true, 0, (int)sizeLimit,
-				new UserScreenNameComparator());
+				WorkflowConstants.STATUS_APPROVED, params, true, 0,
+				(int)sizeLimit, new UserScreenNameComparator());
 
 			if (users.isEmpty()) {
 				return null;
 			}
 
 			return new SearchBase(
-				new UserDirectory(top, company, users.get(0)), _userBuilder, top,
-				company, users.get(0));
+				new UserDirectory(top, company, users.get(0)), _userBuilder,
+				top, company, users.get(0));
 		}
 
-		if (key.equalsIgnoreCase("ou") &&
-			value.equalsIgnoreCase("Samba Machines")) {
+		if (rdnType.equalsIgnoreCase("ou") &&
+			rdnValue.equalsIgnoreCase("Samba Machines")) {
 
-			if ((identifiers.size() > 2) || organization == null) {
+			if ((identifiers.size() > 2) || (organization == null)) {
 				return null;
 			}
 
-			KeyValuePair subidentifier = identifiers.get(1);
+			Identifier subidentifier = identifiers.get(1);
 
-			key = subidentifier.getKey();
-			value = subidentifier.getValue();
+			String subidentifierRdnType = subidentifier.getRdnType();
 
-			if (!key.equalsIgnoreCase("sambaDomainName")) {
+			if (!subidentifierRdnType.equalsIgnoreCase("sambaDomainName")) {
 				return null;
 			}
 
-			String domain = value;
+			String sambaDomainName = subidentifier.getRdnValue();
 
 			List<Directory> directories = _sambaMachineBuilder.buildDirectories(
-				top, company, organization, domain);
+				top, company, organization, sambaDomainName);
 
 			if (directories.isEmpty()) {
 				return null;
@@ -482,14 +482,34 @@ public class DirectoryTree {
 	private RoleBuilder _roleBuilder = new RoleBuilder();
 	private RolesBuilder _rolesBuilder = new RolesBuilder();
 	private RootBuilder _rootBuilder = new RootBuilder();
+	private SambaGroupBuilder _sambaGroupBuilder = new SambaGroupBuilder();
 	private SambaMachineBuilder _sambaMachineBuilder =
 		new SambaMachineBuilder();
-	private SambaGroupBuilder _SambaGroupBuilder = new SambaGroupBuilder();
 	private SchemaBuilder _schemaBuilder = new SchemaBuilder();
 	private TopBuilder _topBuilder = new TopBuilder();
 	private UserBuilder _userBuilder = new UserBuilder();
 	private UserGroupBuilder _userGroupBuilder = new UserGroupBuilder();
 	private UserGroupsBuilder _userGroupsBuilder = new UserGroupsBuilder();
 	private UsersBuilder _usersBuilder = new UsersBuilder();
+
+	private class Identifier {
+
+		public Identifier(String rdnType, String rdnValue) {
+			_rdnType = rdnType;
+			_rdnValue = rdnValue;
+		}
+
+		public String getRdnType() {
+			return _rdnType;
+		}
+
+		public String getRdnValue() {
+			return _rdnValue;
+		}
+
+		private String _rdnType;
+		private String _rdnValue;
+
+	}
 
 }

@@ -1,8 +1,19 @@
+/**
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 package com.liferay.vldap.server.directory.builder;
 
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Organization;
@@ -15,7 +26,36 @@ import com.liferay.vldap.util.PortletPropsValues;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Minhchau Dang
+ */
 public class SambaMachineBuilder extends DirectoryBuilder {
+
+	public List<Directory> buildDirectories(
+			String top, Company company, Organization organization,
+			String sambaDomainName)
+		throws Exception {
+
+		List<Directory> directories = new ArrayList<Directory>();
+
+		for (String curSambaDomainName :
+				PortletPropsValues.SAMBA_DOMAIN_NAMES) {
+
+			if (Validator.isNotNull(sambaDomainName) &&
+				!curSambaDomainName.equals(sambaDomainName)) {
+
+				continue;
+			}
+
+			SambaMachineDirectory sambaMachineDirectory =
+				new SambaMachineDirectory(
+					top, company, organization, curSambaDomainName);
+
+			directories.add(sambaMachineDirectory);
+		}
+
+		return directories;
+	}
 
 	@Override
 	public boolean isValidAttribute(String attributeId, String value) {
@@ -31,28 +71,7 @@ public class SambaMachineBuilder extends DirectoryBuilder {
 		return false;
 	}
 
-	public List<Directory> buildDirectories(
-			String top, Company company, Organization organization,
-			String domain)
-		throws Exception {
-
-		List<Directory> directories = new ArrayList<Directory>();
-
-		for (String sambaDomain : PortletPropsValues.SAMBA_DOMAINS) {
-			if (Validator.isNotNull(domain) && !sambaDomain.equals(domain)) {
-				continue;
-			}
-
-			SambaMachineDirectory sambaMachine =
-				new SambaMachineDirectory(
-					top, company, organization, sambaDomain);
-
-			directories.add(sambaMachine);
-		}
-
-		return directories;
-	}
-
+	@Override
 	protected List<Directory> buildDirectories(
 			SearchBase searchBase, List<FilterConstraint> filterConstraints)
 		throws Exception {
@@ -64,13 +83,13 @@ public class SambaMachineBuilder extends DirectoryBuilder {
 				continue;
 			}
 
-			String domain = filterConstraint.getValue(
+			String sambaDomainName = filterConstraint.getValue(
 				"sambaDomainName");
 
 			for (Company company : searchBase.getCompanies()) {
 				List<Directory> subdirectories = buildDirectories(
 					searchBase.getTop(), company, searchBase.getOrganization(),
-					domain);
+					sambaDomainName);
 
 				directories.addAll(subdirectories);
 			}
@@ -78,8 +97,5 @@ public class SambaMachineBuilder extends DirectoryBuilder {
 
 		return directories;
 	}
-
-	private static final Log _log = LogFactoryUtil.getLog(
-		SambaMachineBuilder.class);
 
 }

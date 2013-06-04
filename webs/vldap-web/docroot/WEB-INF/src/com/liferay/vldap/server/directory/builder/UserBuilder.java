@@ -14,8 +14,6 @@
 
 package com.liferay.vldap.server.directory.builder;
 
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringPool;
@@ -56,8 +54,8 @@ public class UserBuilder extends DirectoryBuilder {
 	@Override
 	public boolean isValidAttribute(String attributeId, String value) {
 		if (attributeId.equalsIgnoreCase("cn") ||
-			attributeId.equalsIgnoreCase("givenName") ||
 			attributeId.equalsIgnoreCase("gidNumber") ||
+			attributeId.equalsIgnoreCase("givenName") ||
 			attributeId.equalsIgnoreCase("mail") ||
 			attributeId.equalsIgnoreCase("member") ||
 			attributeId.equalsIgnoreCase("sambaSID") ||
@@ -180,6 +178,7 @@ public class UserBuilder extends DirectoryBuilder {
 
 			String firstName = filterConstraint.getValue("givenName");
 			String lastName = filterConstraint.getValue("sn");
+
 			String screenName = filterConstraint.getValue("cn");
 
 			if (screenName == null) {
@@ -193,7 +192,6 @@ public class UserBuilder extends DirectoryBuilder {
 			String emailAddress = filterConstraint.getValue("mail");
 
 			String uidNumber = filterConstraint.getValue("uidNumber");
-
 			String sambaSID = filterConstraint.getValue("sambaSID");
 
 			List<User> searchUsers = null;
@@ -318,7 +316,5 @@ public class UserBuilder extends DirectoryBuilder {
 
 		return true;
 	}
-
-	private static final Log _log = LogFactoryUtil.getLog(UserBuilder.class);
 
 }

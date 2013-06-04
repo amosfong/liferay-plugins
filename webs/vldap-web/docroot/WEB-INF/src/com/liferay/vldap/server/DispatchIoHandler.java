@@ -102,7 +102,8 @@ public class DispatchIoHandler implements IoHandler {
 				ioSession.getRemoteAddress());
 
 			if (!LdapHandlerThreadLocal.isHostAllowed(
-				PortletPropsValues.HOSTS_ALLOWED)) {
+					PortletPropsValues.HOSTS_ALLOWED)) {
+
 				if (_log.isWarnEnabled()) {
 					_log.warn(
 						"Access denied for " + ioSession.getRemoteAddress());

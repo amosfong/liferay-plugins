@@ -34,8 +34,8 @@ public class PortletPropsValues {
 	public static final String POSIX_GROUP_ID = GetterUtil.getString(
 		PortletProps.get(PortletPropsKeys.POSIX_GROUP_ID));
 
-	public static final String[] SAMBA_DOMAINS = PortletProps.getArray(
-		PortletPropsKeys.SAMBA_DOMAINS);
+	public static final String[] SAMBA_DOMAIN_NAMES = PortletProps.getArray(
+		PortletPropsKeys.SAMBA_DOMAIN_NAMES);
 
 	public static final String[] SAMBA_HOSTS_ALLOWED = PortletProps.getArray(
 		PortletPropsKeys.SAMBA_HOSTS_ALLOWED);

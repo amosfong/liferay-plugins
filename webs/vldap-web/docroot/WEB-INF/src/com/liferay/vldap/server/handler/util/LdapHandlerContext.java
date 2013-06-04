@@ -29,6 +29,10 @@ public class LdapHandlerContext {
 		return _company;
 	}
 
+	public long getCompanyId() {
+		return _company.getCompanyId();
+	}
+
 	public SaslCallbackHandler getSaslCallbackHandler() {
 		return _saslCallbackHandler;
 	}

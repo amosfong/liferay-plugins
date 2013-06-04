@@ -1,7 +1,20 @@
+/**
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 package com.liferay.vldap.server.directory.builder;
 
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.Tuple;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Organization;
@@ -9,16 +22,17 @@ import com.liferay.portal.model.RoleConstants;
 import com.liferay.vldap.server.directory.FilterConstraint;
 import com.liferay.vldap.server.directory.SearchBase;
 import com.liferay.vldap.server.directory.ldap.Directory;
-import com.liferay.vldap.server.directory.ldap.SambaMachineDirectory;
+import com.liferay.vldap.server.directory.ldap.SambaGroup;
 import com.liferay.vldap.server.directory.ldap.SambaGroupDirectory;
 import com.liferay.vldap.util.PortletPropsValues;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
+/**
+ * @author Minhchau Dang
+ */
 public class SambaGroupBuilder extends DirectoryBuilder {
 
 	@Override
@@ -45,9 +59,19 @@ public class SambaGroupBuilder extends DirectoryBuilder {
 		return false;
 	}
 
+	protected void addSambaGroups(
+		List<SambaGroup> sambaGroups, String name, String sambaSID,
+		String gidNumber, String... membershipRoleNames) {
+
+		SambaGroup sambaGroup = new SambaGroup(
+			name, sambaSID, gidNumber, membershipRoleNames);
+
+		sambaGroups.add(sambaGroup);
+	}
+
 	@Override
 	protected List<Directory> buildDirectories(
-		SearchBase searchBase, List<FilterConstraint> filterConstraints)
+			SearchBase searchBase, List<FilterConstraint> filterConstraints)
 		throws Exception {
 
 		List<Directory> directories = new ArrayList<Directory>();
@@ -72,7 +96,7 @@ public class SambaGroupBuilder extends DirectoryBuilder {
 			String gidNumber = filterConstraint.getValue("gidNumber");
 
 			for (Company company : searchBase.getCompanies()) {
-				List<Directory> subdirectories = getSambaRoles(
+				List<Directory> subdirectories = getSambaGroupDirectories(
 					searchBase.getTop(), company, searchBase.getOrganization(),
 					name, sambaSID, gidNumber);
 
@@ -83,102 +107,52 @@ public class SambaGroupBuilder extends DirectoryBuilder {
 		return directories;
 	}
 
-	protected void filterTuples(
-		List<Tuple> matchingTuples, int fieldIndex, String value) {
+	protected void filterSambaGroups(
+		List<SambaGroup> sambaGroups, String fieldName, String value) {
 
 		if ((value == null) || value.equals(StringPool.STAR)) {
 			return;
 		}
 
-		Iterator<Tuple> iterator = matchingTuples.iterator();
+		Iterator<SambaGroup> iterator = sambaGroups.iterator();
 
 		while (iterator.hasNext()) {
-			Tuple tuple = iterator.next();
+			SambaGroup sambaGroup = iterator.next();
 
-			Object tupleValue = tuple.getObject(fieldIndex);
+			String sambaGroupValue = null;
 
-			if (tupleValue == null) {
+			if (fieldName.equals("gidNumber")) {
+				sambaGroupValue = sambaGroup.getName();
+			}
+			else if (fieldName.equals("name")) {
+				sambaGroupValue = sambaGroup.getName();
+			}
+			else if (fieldName.equals("sambaSID")) {
+				sambaGroupValue = sambaGroup.getSambaSID();
+			}
+
+			if ((sambaGroupValue == null) || !value.equals(sambaGroupValue)) {
 				iterator.remove();
-			}
-			else if (tupleValue instanceof Pattern) {
-				Pattern pattern = (Pattern) tupleValue;
-
-				Matcher matcher = pattern.matcher(value);
-
-				if (!matcher.matches()) {
-					iterator.remove();
-				}
-			}
-			else if (tupleValue instanceof String) {
-				if (!value.equals(tupleValue)) {
-					iterator.remove();
-				}
 			}
 		}
 	}
-	protected List<Tuple> getDefaultTuples(Company company) {
-		List<Tuple> matchingTuples = new ArrayList<Tuple>();
 
-		String domainPrefix = "S-1-5-21-" + company.getCompanyId();
-
-		matchingTuples.add(
-			new Tuple(
-				"nobody", "S-1-0-0", _NOBODY_POSIX_GROUP_ID,
-				new String[] {}));
-		matchingTuples.add(
-			new Tuple(
-				"everyone", "S-1-1-0", _USER_POSIX_GROUP_ID,
-				new String[] { RoleConstants.USER }));
-		matchingTuples.add(
-			new Tuple(
-				"network", "S-1-5-2", null, new String[] {}));
-		matchingTuples.add(
-			new Tuple(
-				"authenticated", "S-1-5-11", null, new String[] {}));
-		matchingTuples.add(
-			new Tuple(
-				"domain admins", domainPrefix + "-512", _ADMIN_POSIX_GROUP_ID,
-				new String[] { RoleConstants.ADMINISTRATOR }));
-		matchingTuples.add(
-			new Tuple(
-				"domain users", domainPrefix + "-513", _USER_POSIX_GROUP_ID,
-				new String[] { RoleConstants.USER }));
-		matchingTuples.add(
-			new Tuple(
-				"domain guests", domainPrefix + "-514", _GUEST_POSIX_GROUP_ID,
-				new String[] { RoleConstants.GUEST }));
-		matchingTuples.add(
-			new Tuple(
-				"root", "S-1-5-32-544", _ADMIN_POSIX_GROUP_ID,
-				new String[] { RoleConstants.ADMINISTRATOR }));
-		matchingTuples.add(
-			new Tuple(
-				"users", "S-1-5-32-545", _USER_POSIX_GROUP_ID,
-				new String[] { RoleConstants.USER }));
-		matchingTuples.add(
-			new Tuple(
-				"nogroup", "S-1-5-32-546", _GUEST_POSIX_GROUP_ID,
-				new String[] { RoleConstants.GUEST }));
-
-		return matchingTuples;
-	}
-
-	protected List<Directory> getSambaRoles(
-		String top, Company company, Organization organization,
-		String displayName, String sambaSID, String gidNumber)
+	protected List<Directory> getSambaGroupDirectories(
+			String top, Company company, Organization organization, String name,
+			String sambaSID, String gidNumber)
 		throws Exception {
 
 		List<Directory> directories = new ArrayList<Directory>();
 
-		List<Tuple> matchingTuples = getDefaultTuples(company);
+		List<SambaGroup> sambaGroups = getSambaGroups(company);
 
-		filterTuples(matchingTuples, 0, displayName);
-		filterTuples(matchingTuples, 2, gidNumber);
-		filterTuples(matchingTuples, 1, sambaSID);
+		filterSambaGroups(sambaGroups, "name", name);
+		filterSambaGroups(sambaGroups, "gidNumber", gidNumber);
+		filterSambaGroups(sambaGroups, "sambaSID", sambaSID);
 
-		for (Tuple tuple : matchingTuples) {
+		for (SambaGroup sambaGroup : sambaGroups) {
 			Directory directory = new SambaGroupDirectory(
-				top, company, organization, tuple);
+				top, company, organization, sambaGroup);
 
 			directories.add(directory);
 		}
@@ -186,9 +160,48 @@ public class SambaGroupBuilder extends DirectoryBuilder {
 		return directories;
 	}
 
+	protected List<SambaGroup> getSambaGroups(Company company) {
+		List<SambaGroup> sambaGroups = new ArrayList<SambaGroup>();
+
+		addSambaGroups(sambaGroups, "authenticated", "S-1-5-11", null);
+
+		String domainPrefix = "S-1-5-21-" + company.getCompanyId();
+
+		addSambaGroups(
+			sambaGroups, "domain admins", domainPrefix + "-512",
+			_ADMIN_POSIX_GROUP_ID, RoleConstants.ADMINISTRATOR);
+		addSambaGroups(
+			sambaGroups, "domain guests", domainPrefix + "-514",
+			_GUEST_POSIX_GROUP_ID, RoleConstants.GUEST);
+		addSambaGroups(
+			sambaGroups, "domain users", domainPrefix + "-513",
+			_USER_POSIX_GROUP_ID, RoleConstants.USER);
+
+		addSambaGroups(
+			sambaGroups, "everyone", "S-1-1-0", _USER_POSIX_GROUP_ID,
+			RoleConstants.USER);
+		addSambaGroups(sambaGroups, "network", "S-1-5-2", null);
+		addSambaGroups(
+			sambaGroups, "nobody", "S-1-0-0", _NOBODY_POSIX_GROUP_ID);
+		addSambaGroups(
+			sambaGroups, "nogroup", "S-1-5-32-546", _GUEST_POSIX_GROUP_ID,
+			RoleConstants.GUEST);
+		addSambaGroups(
+			sambaGroups, "root", "S-1-5-32-544", _ADMIN_POSIX_GROUP_ID,
+			RoleConstants.ADMINISTRATOR);
+		addSambaGroups(
+			sambaGroups, "users", "S-1-5-32-545", _USER_POSIX_GROUP_ID,
+			RoleConstants.USER);
+
+		return sambaGroups;
+	}
+
 	private static final String _ADMIN_POSIX_GROUP_ID = "0";
+
 	private static final String _GUEST_POSIX_GROUP_ID = "65534";
+
 	private static final String _NOBODY_POSIX_GROUP_ID = "99";
+
 	private static final String _USER_POSIX_GROUP_ID =
 		PortletPropsValues.POSIX_GROUP_ID;
 

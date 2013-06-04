@@ -56,7 +56,7 @@ public class UserDirectory extends Directory {
 			createDate = new Date();
 		}
 
-		addAttribute("createTimestamp", _simpleDateFormat.format(createDate));
+		addAttribute("createTimestamp", _format.format(createDate));
 
 		addAttribute("displayName", user.getFullName());
 		addAttribute("gidNumber", PortletPropsValues.POSIX_GROUP_ID);
@@ -69,12 +69,11 @@ public class UserDirectory extends Directory {
 			modifyDate = new Date();
 		}
 
-		addAttribute("modifyTimestamp", _simpleDateFormat.format(modifyDate));
+		addAttribute("modifyTimestamp", _format.format(modifyDate));
 
 		addAttribute("objectclass", "groupOfNames");
 		addAttribute("objectclass", "inetOrgPerson");
 		addAttribute("objectclass", "liferayPerson");
-		addAttribute("objectclass", "sambaSamAccount");
 		addAttribute("objectclass", "top");
 		addAttribute("sn", user.getLastName());
 		addAttribute("uid", user.getScreenName());
@@ -159,79 +158,93 @@ public class UserDirectory extends Directory {
 	protected void addSambaAttributes(Company company, User user)
 		throws Exception {
 
-		StringBundler sambaSID = new StringBundler();
-		sambaSID.append("S-1-5-21-");
-		sambaSID.append(company.getCompanyId());
-		sambaSID.append("-");
-		sambaSID.append(user.getUserId());
-
-		addAttribute("sambaSID", sambaSID.toString());
+		addAttribute("objectclass", "sambaSamAccount");
 
 		PasswordPolicy passwordPolicy = user.getPasswordPolicy();
 
-		int graceLimit = passwordPolicy.getGraceLimit();
-		int historyCount = passwordPolicy.getHistoryCount();
-		int minLength = passwordPolicy.getMinLength();
-		long lockoutDuration =
-			passwordPolicy.getLockoutDuration() / Time.MINUTE;
-		long maxAge = passwordPolicy.getMaxAge() / Time.MINUTE;
-		long minAge = passwordPolicy.getMinAge() / Time.MINUTE;
-		long resetFailureCount =
-			passwordPolicy.getResetFailureCount() / Time.MINUTE;
+		StringBundler sb = new StringBundler(13);
 
-		StringBuilder accountFlags = new StringBuilder(13);
-		accountFlags.append(CharPool.OPEN_BRACKET);
-		accountFlags.append('U');
+		sb.append(CharPool.OPEN_BRACKET);
+		sb.append('U');
 
 		if (!user.isActive()) {
-			accountFlags.append('D');
-		}
-
-		if (!passwordPolicy.isHistory()) {
-			historyCount = 0;
-		}
-
-		if (!passwordPolicy.isLockout()) {
-			lockoutDuration = 0;
+			sb.append('D');
 		}
 
 		if (!passwordPolicy.isExpireable()) {
-			maxAge = -1;
-			accountFlags.append('X');
+			sb.append('X');
 		}
+
+		for (int i = sb.length(); i < 12; i++) {
+			sb.append(CharPool.SPACE);
+		}
+
+		sb.append(CharPool.CLOSE_BRACKET);
+
+		addAttribute("sambaAcctFlags", sb.toString());
+
+		addAttribute("sambaForceLogoff", "-1");
+		addAttribute(
+			"sambaLMPassword", PortalSambaUtil.getSambaLMPassword(user));
+
+		long sambaLockoutDuration =
+			passwordPolicy.getLockoutDuration() / Time.MINUTE;
+
+		if (!passwordPolicy.isLockout()) {
+			sambaLockoutDuration = 0;
+		}
+
+		addAttribute(
+			"sambaLockoutDuration", String.valueOf(sambaLockoutDuration));
+
+		long sambaLockoutObservationWindow =
+			passwordPolicy.getResetFailureCount() / Time.MINUTE;
 
 		if (passwordPolicy.isRequireUnlock()) {
-			resetFailureCount = Integer.MAX_VALUE;
+			sambaLockoutObservationWindow = Integer.MAX_VALUE;
 		}
 
-		for (int i = accountFlags.length(); i < 12; i++) {
-			accountFlags.append(CharPool.SPACE);
-		}
-
-		accountFlags.append(CharPool.CLOSE_BRACKET);
-
-		addAttribute("sambaAcctFlags", accountFlags.toString());
-
-		addAttribute("sambaMinPwdLength", String.valueOf(minLength));
-		addAttribute("sambaPwdHistoryLength", String.valueOf(historyCount));
-		addAttribute("sambaLogonToChgPwd", "2");
-		addAttribute("sambaMaxPwdAge", String.valueOf(maxAge));
-		addAttribute("sambaMinPwdAge", String.valueOf(minAge));
-		addAttribute("sambaLockoutDuration", String.valueOf(lockoutDuration));
 		addAttribute(
-			"sambaLockoutObservationWindow", String.valueOf(resetFailureCount));
-		addAttribute("sambaLockoutThreshold", String.valueOf(graceLimit));
-		addAttribute("sambaForceLogoff", "-1");
+			"sambaLockoutObservationWindow",
+			String.valueOf(sambaLockoutObservationWindow));
+
+		addAttribute(
+			"sambaLockoutThreshold",
+			String.valueOf(passwordPolicy.getGraceLimit()));
+		addAttribute("sambaLogonToChgPwd", "2");
+
+		long sambaMaxPwdAge = passwordPolicy.getMaxAge() / Time.MINUTE;
+
+		if (!passwordPolicy.isExpireable()) {
+			sambaMaxPwdAge = -1;
+		}
+
+		addAttribute("sambaMaxPwdAge", String.valueOf(sambaMaxPwdAge));
+
+		addAttribute(
+			"sambaMinPwdAge",
+			String.valueOf(passwordPolicy.getMinAge() / Time.MINUTE));
+		addAttribute(
+			"sambaMinPwdLength", String.valueOf(passwordPolicy.getMinLength()));
+		addAttribute(
+			"sambaNTPassword", PortalSambaUtil.getSambaNTPassword(user));
+
+		int sambaPwdHistoryLength = passwordPolicy.getHistoryCount();
+
+		if (!passwordPolicy.isHistory()) {
+			sambaPwdHistoryLength = 0;
+		}
+
+		addAttribute(
+			"sambaPwdHistoryLength", String.valueOf(sambaPwdHistoryLength));
+
 		addAttribute("sambaRefuseMachinePwdChange", "0");
-
-		String lmPassword = PortalSambaUtil.getLMPassword(user);
-		addAttribute("sambaLMPassword", lmPassword);
-
-		String ntPassword = PortalSambaUtil.getNTPassword(user);
-		addAttribute("sambaNTPassword", ntPassword);
+		addAttribute(
+			"sambaSID",
+			"S-1-5-21-" + company.getCompanyId() + "-" + user.getUserId());
 	}
 
-	private static Format _simpleDateFormat =
+	private static Format _format =
 		FastDateFormatFactoryUtil.getSimpleDateFormat("yyyyMMddHHmmss.SZ");
 
 }

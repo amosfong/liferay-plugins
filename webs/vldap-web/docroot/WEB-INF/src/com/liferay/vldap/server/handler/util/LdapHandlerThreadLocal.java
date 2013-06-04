@@ -17,7 +17,6 @@ package com.liferay.vldap.server.handler.util;
 import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.AutoResetThreadLocal;
 import com.liferay.portal.util.PortalUtil;
-import com.liferay.vldap.util.PortletPropsValues;
 
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -27,10 +26,6 @@ import java.net.SocketAddress;
  * @author Brian Wing Shun Chan
  */
 public class LdapHandlerThreadLocal {
-
-	public static void setSocketAddress(SocketAddress socketAddress) {
-		_socketAddress.set(socketAddress);
-	}
 
 	public static void clearSocketAddress() {
 		_socketAddress.remove();
@@ -66,6 +61,10 @@ public class LdapHandlerThreadLocal {
 		}
 
 		return false;
+	}
+
+	public static void setSocketAddress(SocketAddress socketAddress) {
+		_socketAddress.set(socketAddress);
 	}
 
 	private static final String _SERVER_IP = "SERVER_IP";

@@ -27,7 +27,7 @@ public class PortletPropsKeys {
 
 	public static final String POSIX_GROUP_ID = "posix.group.id";
 
-	public static final String SAMBA_DOMAINS = "samba.domains";
+	public static final String SAMBA_DOMAIN_NAMES = "samba.domain.names";
 
 	public static final String SAMBA_HOSTS_ALLOWED = "samba.hosts.allowed";
 

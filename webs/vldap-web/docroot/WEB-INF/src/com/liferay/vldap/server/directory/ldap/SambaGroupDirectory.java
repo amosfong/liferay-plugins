@@ -1,50 +1,53 @@
+/**
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
 package com.liferay.vldap.server.directory.ldap;
 
-import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.Tuple;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.Role;
-import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.service.RoleLocalServiceUtil;
-import com.liferay.vldap.util.PortletPropsValues;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+/**
+ * @author Minhchau Dang
+ */
 public class SambaGroupDirectory extends RoleDirectory {
 
 	public SambaGroupDirectory(
-			String top, Company company, Organization organization, Tuple tuple)
+			String top, Company company, Organization organization,
+			SambaGroup sambaGroup)
 		throws Exception {
 
-		super(top, company, (String) tuple.getObject(0));
+		super(top, company, sambaGroup.getName());
 
-		String roleName = (String) tuple.getObject(0);
-
-		addAttribute("displayName", roleName);
+		addAttribute("displayName", sambaGroup.getName());
 		addAttribute("objectclass", "sambaGroupMapping");
-
-		String sambaSID = (String) tuple.getObject(1);
-
-		addAttribute("sambaSID", sambaSID);
 		addAttribute("sambaGroupType", "4");
+		addAttribute("sambaSID", sambaGroup.getSambaSID());
 
-		String gidNumber = (String) tuple.getObject(2);
+		String gidNumber = sambaGroup.getGIDNumber();
 
 		if (gidNumber != null) {
 			addAttribute("objectclass", "posixGroup");
 			addAttribute("gidNumber", gidNumber);
 		}
 
-		String[] membershipRoles = (String[]) tuple.getObject(3);
+		String[] membershipRoleNames = sambaGroup.getMembershipRoleNames();
 
-		for (String membershipRole : membershipRoles) {
+		for (String membershipRoleName : membershipRoleNames) {
 			Role role = RoleLocalServiceUtil.fetchRole(
-				company.getCompanyId(), membershipRole);
+				company.getCompanyId(), membershipRoleName);
 
 			if (role != null) {
 				addRoleMembers(top, company, role.getRoleId());
@@ -53,7 +56,7 @@ public class SambaGroupDirectory extends RoleDirectory {
 
 		setName(
 			top, company, "Organizations", organization.getName(),
-			"Samba Groups", "cn=" + roleName);
+			"Samba Groups", "cn=" + sambaGroup.getName());
 	}
 
 }
