@@ -2,6 +2,7 @@
 /commons-collections.jar
 /commons-lang.jar
 /commons-logging.jar
+/jcifs.jar
 /log4j.jar
 /slf4j-api.jar
 /util-bridges.jar
