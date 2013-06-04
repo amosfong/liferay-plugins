@@ -30,6 +30,7 @@ import org.apache.mina.core.session.IoSession;
  */
 public class UnwillingToPerformLdapHandler extends BaseLdapHandler {
 
+	@Override
 	public List<Response> messageReceived(
 		Request request, IoSession ioSession,
 		LdapHandlerContext ldapHandlerContext) {
@@ -37,8 +38,8 @@ public class UnwillingToPerformLdapHandler extends BaseLdapHandler {
 		List<Response> responses = new ArrayList<Response>();
 
 		if (request instanceof ResultResponseRequest) {
-			ResultResponseRequest resultResponseRequest =
-				(ResultResponseRequest)request;
+			ResultResponseRequest<?> resultResponseRequest =
+				(ResultResponseRequest<?>)request;
 
 			Response response = getResponse(
 				resultResponseRequest, ResultCodeEnum.UNWILLING_TO_PERFORM);
