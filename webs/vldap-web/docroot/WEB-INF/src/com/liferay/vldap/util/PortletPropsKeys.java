@@ -29,6 +29,8 @@ public class PortletPropsKeys {
 
 	public static final String SAMBA_DOMAINS = "samba.domains";
 
+	public static final String SAMBA_HOSTS_ALLOWED = "samba.hosts.allowed";
+
 	public static final String SEARCH_MAX_SIZE = "search.max.size";
 
 	public static final String SEARCH_MAX_TIME = "search.max.time";

@@ -29,6 +29,7 @@ import com.liferay.portal.model.UserGroup;
 import com.liferay.portal.security.samba.PortalSambaUtil;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.util.PortalUtil;
+import com.liferay.vldap.server.handler.util.LdapHandlerThreadLocal;
 import com.liferay.vldap.util.LdapUtil;
 import com.liferay.vldap.util.PortletPropsValues;
 
@@ -80,7 +81,11 @@ public class UserDirectory extends Directory {
 		addAttribute("uidNumber", String.valueOf(user.getUserId()));
 		addAttribute("uuid", user.getUuid());
 
-		addSambaAttributes(company, user);
+		if (LdapHandlerThreadLocal.isHostAllowed(
+				PortletPropsValues.SAMBA_HOSTS_ALLOWED)) {
+
+			addSambaAttributes(company, user);
+		}
 
 		String name = LdapUtil.buildName(top, company);
 

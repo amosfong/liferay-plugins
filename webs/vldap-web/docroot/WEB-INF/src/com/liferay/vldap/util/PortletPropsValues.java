@@ -37,6 +37,9 @@ public class PortletPropsValues {
 	public static final String[] SAMBA_DOMAINS = PortletProps.getArray(
 		PortletPropsKeys.SAMBA_DOMAINS);
 
+	public static final String[] SAMBA_HOSTS_ALLOWED = PortletProps.getArray(
+		PortletPropsKeys.SAMBA_HOSTS_ALLOWED);
+
 	public static final int SEARCH_MAX_SIZE = GetterUtil.getInteger(
 		PortletProps.get(PortletPropsKeys.SEARCH_MAX_SIZE));
 
