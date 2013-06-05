@@ -59,7 +59,7 @@ public class SambaGroupBuilder extends DirectoryBuilder {
 		return false;
 	}
 
-	protected void addSambaGroups(
+	protected void addSambaGroup(
 		List<SambaGroup> sambaGroups, String name, String sambaSID,
 		String gidNumber, String... membershipRoleNames) {
 
@@ -163,33 +163,33 @@ public class SambaGroupBuilder extends DirectoryBuilder {
 	protected List<SambaGroup> getSambaGroups(Company company) {
 		List<SambaGroup> sambaGroups = new ArrayList<SambaGroup>();
 
-		addSambaGroups(sambaGroups, "authenticated", "S-1-5-11", null);
+		addSambaGroup(sambaGroups, "authenticated", "S-1-5-11", null);
 
 		String domainPrefix = "S-1-5-21-" + company.getCompanyId();
 
-		addSambaGroups(
+		addSambaGroup(
 			sambaGroups, "domain admins", domainPrefix + "-512",
 			_ADMIN_POSIX_GROUP_ID, RoleConstants.ADMINISTRATOR);
-		addSambaGroups(
+		addSambaGroup(
 			sambaGroups, "domain guests", domainPrefix + "-514",
 			_GUEST_POSIX_GROUP_ID, RoleConstants.GUEST);
-		addSambaGroups(
+		addSambaGroup(
 			sambaGroups, "domain users", domainPrefix + "-513",
 			_USER_POSIX_GROUP_ID, RoleConstants.USER);
 
-		addSambaGroups(
+		addSambaGroup(
 			sambaGroups, "everyone", "S-1-1-0", _USER_POSIX_GROUP_ID,
 			RoleConstants.USER);
-		addSambaGroups(sambaGroups, "network", "S-1-5-2", null);
-		addSambaGroups(
+		addSambaGroup(sambaGroups, "network", "S-1-5-2", null);
+		addSambaGroup(
 			sambaGroups, "nobody", "S-1-0-0", _NOBODY_POSIX_GROUP_ID);
-		addSambaGroups(
+		addSambaGroup(
 			sambaGroups, "nogroup", "S-1-5-32-546", _GUEST_POSIX_GROUP_ID,
 			RoleConstants.GUEST);
-		addSambaGroups(
+		addSambaGroup(
 			sambaGroups, "root", "S-1-5-32-544", _ADMIN_POSIX_GROUP_ID,
 			RoleConstants.ADMINISTRATOR);
-		addSambaGroups(
+		addSambaGroup(
 			sambaGroups, "users", "S-1-5-32-545", _USER_POSIX_GROUP_ID,
 			RoleConstants.USER);
 
