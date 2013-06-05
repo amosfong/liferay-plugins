@@ -181,8 +181,7 @@ public class SambaGroupBuilder extends DirectoryBuilder {
 			sambaGroups, "everyone", "S-1-1-0", _USER_POSIX_GROUP_ID,
 			RoleConstants.USER);
 		addSambaGroup(sambaGroups, "network", "S-1-5-2", null);
-		addSambaGroup(
-			sambaGroups, "nobody", "S-1-0-0", _NOBODY_POSIX_GROUP_ID);
+		addSambaGroup(sambaGroups, "nobody", "S-1-0-0", _NOBODY_POSIX_GROUP_ID);
 		addSambaGroup(
 			sambaGroups, "nogroup", "S-1-5-32-546", _GUEST_POSIX_GROUP_ID,
 			RoleConstants.GUEST);
