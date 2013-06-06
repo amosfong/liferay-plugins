@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link SamlSpIdpConnectionLocalService}.
  *
- * @author    Mika Koivisto
- * @see       SamlSpIdpConnectionLocalService
+ * @author Mika Koivisto
+ * @see SamlSpIdpConnectionLocalService
  * @generated
  */
 public class SamlSpIdpConnectionLocalServiceWrapper

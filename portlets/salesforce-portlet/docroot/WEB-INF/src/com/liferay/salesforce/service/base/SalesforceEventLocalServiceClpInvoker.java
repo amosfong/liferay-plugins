@@ -19,7 +19,8 @@ import com.liferay.salesforce.service.SalesforceEventLocalServiceUtil;
 import java.util.Arrays;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Michael C. Han
+ * @generated
  */
 public class SalesforceEventLocalServiceClpInvoker {
 	public SalesforceEventLocalServiceClpInvoker() {

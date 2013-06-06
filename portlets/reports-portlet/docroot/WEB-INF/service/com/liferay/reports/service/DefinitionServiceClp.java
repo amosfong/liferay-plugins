@@ -18,6 +18,7 @@ import com.liferay.portal.service.InvokableService;
 
 /**
  * @author Brian Wing Shun Chan
+ * @generated
  */
 public class DefinitionServiceClp implements DefinitionService {
 	public DefinitionServiceClp(InvokableService invokableService) {

@@ -18,6 +18,7 @@ import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * @author Michael C. Han
+ * @generated
  */
 public class SalesforceLocalServiceClp implements SalesforceLocalService {
 	public SalesforceLocalServiceClp(

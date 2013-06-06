@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link SalesforceLeadLocalService}.
  *
- * @author    Michael C. Han
- * @see       SalesforceLeadLocalService
+ * @author Michael C. Han
+ * @see SalesforceLeadLocalService
  * @generated
  */
 public class SalesforceLeadLocalServiceWrapper

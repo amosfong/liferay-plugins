@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link KaleoDraftDefinitionService}.
  *
- * @author    Eduardo Lundgren
- * @see       KaleoDraftDefinitionService
+ * @author Eduardo Lundgren
+ * @see KaleoDraftDefinitionService
  * @generated
  */
 public class KaleoDraftDefinitionServiceWrapper

@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link KaleoProcessLinkLocalService}.
  *
- * @author    Marcellus Tavares
- * @see       KaleoProcessLinkLocalService
+ * @author Marcellus Tavares
+ * @see KaleoProcessLinkLocalService
  * @generated
  */
 public class KaleoProcessLinkLocalServiceWrapper

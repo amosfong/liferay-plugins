@@ -54,10 +54,10 @@ import java.rmi.RemoteException;
  * The SOAP utility is only generated for remote services.
  * </p>
  *
- * @author    Marcellus Tavares
- * @see       KaleoProcessServiceHttp
- * @see       com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessSoap
- * @see       com.liferay.portal.workflow.kaleo.forms.service.KaleoProcessServiceUtil
+ * @author Marcellus Tavares
+ * @see KaleoProcessServiceHttp
+ * @see com.liferay.portal.workflow.kaleo.forms.model.KaleoProcessSoap
+ * @see com.liferay.portal.workflow.kaleo.forms.service.KaleoProcessServiceUtil
  * @generated
  */
 public class KaleoProcessServiceSoap {

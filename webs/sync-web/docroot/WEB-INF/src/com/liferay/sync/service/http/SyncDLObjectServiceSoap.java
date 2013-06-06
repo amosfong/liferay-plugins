@@ -48,10 +48,10 @@ package com.liferay.sync.service.http;
  * The SOAP utility is only generated for remote services.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       SyncDLObjectServiceHttp
- * @see       com.liferay.sync.model.SyncDLObjectSoap
- * @see       com.liferay.sync.service.SyncDLObjectServiceUtil
+ * @author Brian Wing Shun Chan
+ * @see SyncDLObjectServiceHttp
+ * @see com.liferay.sync.model.SyncDLObjectSoap
+ * @see com.liferay.sync.service.SyncDLObjectServiceUtil
  * @generated
  */
 public class SyncDLObjectServiceSoap {

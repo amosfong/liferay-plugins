@@ -19,7 +19,8 @@ import com.liferay.portal.workflow.kaleo.forms.service.KaleoProcessLinkLocalServ
 import java.util.Arrays;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Marcellus Tavares
+ * @generated
  */
 public class KaleoProcessLinkLocalServiceClpInvoker {
 	public KaleoProcessLinkLocalServiceClpInvoker() {

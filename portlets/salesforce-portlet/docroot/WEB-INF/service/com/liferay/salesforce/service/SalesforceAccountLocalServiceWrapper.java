@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link SalesforceAccountLocalService}.
  *
- * @author    Michael C. Han
- * @see       SalesforceAccountLocalService
+ * @author Michael C. Han
+ * @see SalesforceAccountLocalService
  * @generated
  */
 public class SalesforceAccountLocalServiceWrapper

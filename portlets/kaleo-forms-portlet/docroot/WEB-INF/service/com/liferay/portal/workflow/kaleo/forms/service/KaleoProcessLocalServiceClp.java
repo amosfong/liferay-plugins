@@ -18,6 +18,7 @@ import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * @author Marcellus Tavares
+ * @generated
  */
 public class KaleoProcessLocalServiceClp implements KaleoProcessLocalService {
 	public KaleoProcessLocalServiceClp(

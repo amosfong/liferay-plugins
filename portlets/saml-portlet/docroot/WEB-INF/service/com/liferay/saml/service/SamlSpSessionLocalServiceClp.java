@@ -18,6 +18,7 @@ import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * @author Mika Koivisto
+ * @generated
  */
 public class SamlSpSessionLocalServiceClp implements SamlSpSessionLocalService {
 	public SamlSpSessionLocalServiceClp(

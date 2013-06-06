@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link SalesforceOpportunityLocalService}.
  *
- * @author    Michael C. Han
- * @see       SalesforceOpportunityLocalService
+ * @author Michael C. Han
+ * @see SalesforceOpportunityLocalService
  * @generated
  */
 public class SalesforceOpportunityLocalServiceWrapper

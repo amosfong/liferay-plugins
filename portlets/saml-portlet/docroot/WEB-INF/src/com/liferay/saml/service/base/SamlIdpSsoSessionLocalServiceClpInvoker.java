@@ -19,7 +19,8 @@ import com.liferay.saml.service.SamlIdpSsoSessionLocalServiceUtil;
 import java.util.Arrays;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Mika Koivisto
+ * @generated
  */
 public class SamlIdpSsoSessionLocalServiceClpInvoker {
 	public SamlIdpSsoSessionLocalServiceClpInvoker() {

@@ -19,7 +19,8 @@ import com.liferay.saml.service.SamlSpAuthRequestLocalServiceUtil;
 import java.util.Arrays;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Mika Koivisto
+ * @generated
  */
 public class SamlSpAuthRequestLocalServiceClpInvoker {
 	public SamlSpAuthRequestLocalServiceClpInvoker() {

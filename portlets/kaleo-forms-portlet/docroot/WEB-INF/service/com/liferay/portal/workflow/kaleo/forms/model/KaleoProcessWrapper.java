@@ -25,8 +25,8 @@ import java.util.Map;
  * This class is a wrapper for {@link KaleoProcess}.
  * </p>
  *
- * @author    Marcellus Tavares
- * @see       KaleoProcess
+ * @author Marcellus Tavares
+ * @see KaleoProcess
  * @generated
  */
 public class KaleoProcessWrapper implements KaleoProcess,

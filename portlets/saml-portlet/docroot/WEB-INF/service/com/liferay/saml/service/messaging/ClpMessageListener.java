@@ -27,7 +27,7 @@ import com.liferay.saml.service.SamlSpMessageLocalServiceUtil;
 import com.liferay.saml.service.SamlSpSessionLocalServiceUtil;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Mika Koivisto
  */
 public class ClpMessageListener extends BaseMessageListener {
 	public static String getServletContextName() {

@@ -23,7 +23,7 @@ import com.liferay.portal.workflow.kaleo.forms.service.KaleoProcessLocalServiceU
 import com.liferay.portal.workflow.kaleo.forms.service.KaleoProcessServiceUtil;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Marcellus Tavares
  */
 public class ClpMessageListener extends BaseMessageListener {
 	public static String getServletContextName() {

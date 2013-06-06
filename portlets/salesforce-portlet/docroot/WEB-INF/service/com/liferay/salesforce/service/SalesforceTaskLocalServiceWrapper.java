@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link SalesforceTaskLocalService}.
  *
- * @author    Michael C. Han
- * @see       SalesforceTaskLocalService
+ * @author Michael C. Han
+ * @see SalesforceTaskLocalService
  * @generated
  */
 public class SalesforceTaskLocalServiceWrapper

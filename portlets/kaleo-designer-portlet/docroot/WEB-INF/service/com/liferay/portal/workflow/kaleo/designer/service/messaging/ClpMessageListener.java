@@ -21,7 +21,7 @@ import com.liferay.portal.workflow.kaleo.designer.service.KaleoDraftDefinitionLo
 import com.liferay.portal.workflow.kaleo.designer.service.KaleoDraftDefinitionServiceUtil;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Eduardo Lundgren
  */
 public class ClpMessageListener extends BaseMessageListener {
 	public static String getServletContextName() {

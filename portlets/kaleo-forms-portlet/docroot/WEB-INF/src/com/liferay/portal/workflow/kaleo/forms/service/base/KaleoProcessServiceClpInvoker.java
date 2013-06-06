@@ -19,7 +19,8 @@ import com.liferay.portal.workflow.kaleo.forms.service.KaleoProcessServiceUtil;
 import java.util.Arrays;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Marcellus Tavares
+ * @generated
  */
 public class KaleoProcessServiceClpInvoker {
 	public KaleoProcessServiceClpInvoker() {

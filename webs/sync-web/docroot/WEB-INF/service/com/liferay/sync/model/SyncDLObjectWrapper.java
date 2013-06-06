@@ -24,8 +24,8 @@ import java.util.Map;
  * This class is a wrapper for {@link SyncDLObject}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       SyncDLObject
+ * @author Brian Wing Shun Chan
+ * @see SyncDLObject
  * @generated
  */
 public class SyncDLObjectWrapper implements SyncDLObject,

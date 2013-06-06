@@ -19,7 +19,8 @@ import com.liferay.salesforce.service.SalesforceOpportunityLocalServiceUtil;
 import java.util.Arrays;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Michael C. Han
+ * @generated
  */
 public class SalesforceOpportunityLocalServiceClpInvoker {
 	public SalesforceOpportunityLocalServiceClpInvoker() {

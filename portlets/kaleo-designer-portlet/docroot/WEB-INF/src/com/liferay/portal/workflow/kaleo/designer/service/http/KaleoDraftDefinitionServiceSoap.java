@@ -58,10 +58,10 @@ import java.util.Map;
  * The SOAP utility is only generated for remote services.
  * </p>
  *
- * @author    Eduardo Lundgren
- * @see       KaleoDraftDefinitionServiceHttp
- * @see       com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinitionSoap
- * @see       com.liferay.portal.workflow.kaleo.designer.service.KaleoDraftDefinitionServiceUtil
+ * @author Eduardo Lundgren
+ * @see KaleoDraftDefinitionServiceHttp
+ * @see com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinitionSoap
+ * @see com.liferay.portal.workflow.kaleo.designer.service.KaleoDraftDefinitionServiceUtil
  * @generated
  */
 public class KaleoDraftDefinitionServiceSoap {

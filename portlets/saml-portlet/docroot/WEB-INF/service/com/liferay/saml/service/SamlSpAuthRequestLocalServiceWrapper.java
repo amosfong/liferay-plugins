@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link SamlSpAuthRequestLocalService}.
  *
- * @author    Mika Koivisto
- * @see       SamlSpAuthRequestLocalService
+ * @author Mika Koivisto
+ * @see SamlSpAuthRequestLocalService
  * @generated
  */
 public class SamlSpAuthRequestLocalServiceWrapper

@@ -25,8 +25,8 @@ import java.util.Map;
  * This class is a wrapper for {@link Source}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       Source
+ * @author Brian Wing Shun Chan
+ * @see Source
  * @generated
  */
 public class SourceWrapper implements Source, ModelWrapper<Source> {

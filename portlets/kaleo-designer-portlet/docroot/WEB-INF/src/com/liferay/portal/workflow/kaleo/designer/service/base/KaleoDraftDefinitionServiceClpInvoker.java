@@ -19,7 +19,8 @@ import com.liferay.portal.workflow.kaleo.designer.service.KaleoDraftDefinitionSe
 import java.util.Arrays;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Eduardo Lundgren
+ * @generated
  */
 public class KaleoDraftDefinitionServiceClpInvoker {
 	public KaleoDraftDefinitionServiceClpInvoker() {

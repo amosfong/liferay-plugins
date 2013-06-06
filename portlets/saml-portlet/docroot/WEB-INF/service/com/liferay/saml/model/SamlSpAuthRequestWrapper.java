@@ -25,8 +25,8 @@ import java.util.Map;
  * This class is a wrapper for {@link SamlSpAuthRequest}.
  * </p>
  *
- * @author    Mika Koivisto
- * @see       SamlSpAuthRequest
+ * @author Mika Koivisto
+ * @see SamlSpAuthRequest
  * @generated
  */
 public class SamlSpAuthRequestWrapper implements SamlSpAuthRequest,

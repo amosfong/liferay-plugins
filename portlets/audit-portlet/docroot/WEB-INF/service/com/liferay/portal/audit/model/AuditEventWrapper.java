@@ -25,8 +25,8 @@ import java.util.Map;
  * This class is a wrapper for {@link AuditEvent}.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       AuditEvent
+ * @author Brian Wing Shun Chan
+ * @see AuditEvent
  * @generated
  */
 public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {

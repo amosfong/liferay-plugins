@@ -59,10 +59,10 @@ import java.util.Map;
  * The SOAP utility is only generated for remote services.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       SourceServiceHttp
- * @see       com.liferay.reports.model.SourceSoap
- * @see       com.liferay.reports.service.SourceServiceUtil
+ * @author Brian Wing Shun Chan
+ * @see SourceServiceHttp
+ * @see com.liferay.reports.model.SourceSoap
+ * @see com.liferay.reports.service.SourceServiceUtil
  * @generated
  */
 public class SourceServiceSoap {

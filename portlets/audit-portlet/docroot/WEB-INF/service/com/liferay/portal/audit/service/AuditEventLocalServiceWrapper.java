@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link AuditEventLocalService}.
  *
- * @author    Brian Wing Shun Chan
- * @see       AuditEventLocalService
+ * @author Brian Wing Shun Chan
+ * @see AuditEventLocalService
  * @generated
  */
 public class AuditEventLocalServiceWrapper implements AuditEventLocalService,

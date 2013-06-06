@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link SyncDLObjectLocalService}.
  *
- * @author    Brian Wing Shun Chan
- * @see       SyncDLObjectLocalService
+ * @author Brian Wing Shun Chan
+ * @see SyncDLObjectLocalService
  * @generated
  */
 public class SyncDLObjectLocalServiceWrapper implements SyncDLObjectLocalService,

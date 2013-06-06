@@ -25,8 +25,8 @@ import java.util.Map;
  * This class is a wrapper for {@link SamlSpMessage}.
  * </p>
  *
- * @author    Mika Koivisto
- * @see       SamlSpMessage
+ * @author Mika Koivisto
+ * @see SamlSpMessage
  * @generated
  */
 public class SamlSpMessageWrapper implements SamlSpMessage,

@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link SourceService}.
  *
- * @author    Brian Wing Shun Chan
- * @see       SourceService
+ * @author Brian Wing Shun Chan
+ * @see SourceService
  * @generated
  */
 public class SourceServiceWrapper implements SourceService,

@@ -19,8 +19,8 @@ import com.liferay.portal.service.ServiceWrapper;
 /**
  * Provides a wrapper for {@link EntryService}.
  *
- * @author    Brian Wing Shun Chan
- * @see       EntryService
+ * @author Brian Wing Shun Chan
+ * @see EntryService
  * @generated
  */
 public class EntryServiceWrapper implements EntryService,

@@ -25,8 +25,8 @@ import java.util.Map;
  * This class is a wrapper for {@link SamlIdpSsoSession}.
  * </p>
  *
- * @author    Mika Koivisto
- * @see       SamlIdpSsoSession
+ * @author Mika Koivisto
+ * @see SamlIdpSsoSession
  * @generated
  */
 public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,

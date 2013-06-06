@@ -27,7 +27,7 @@ import com.liferay.salesforce.service.SalesforceOpportunityLocalServiceUtil;
 import com.liferay.salesforce.service.SalesforceTaskLocalServiceUtil;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Michael C. Han
  */
 public class ClpMessageListener extends BaseMessageListener {
 	public static String getServletContextName() {
