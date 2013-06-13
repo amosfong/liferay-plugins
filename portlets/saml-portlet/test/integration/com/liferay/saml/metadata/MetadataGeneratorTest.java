@@ -36,14 +36,15 @@ public class MetadataGeneratorTest extends BaseSamlTestCase {
 	@Test
 	public void testMetadataGenerator() throws Exception {
 		when(
-			props.get(PortletPropsKeys.SAML_ROLE)
-		).thenReturn(
-			"sp"
-		);
-		when(
 			props.get(PortletPropsKeys.SAML_ENTITY_ID)
 		).thenReturn(
 			SP_ENTITY_ID
+		);
+
+		when(
+			props.get(PortletPropsKeys.SAML_ROLE)
+		).thenReturn(
+			"sp"
 		);
 
 		MockHttpServletRequest mockHttpServletRequest =

@@ -40,24 +40,22 @@ public class CredentialResolverTest extends BaseSamlTestCase {
 
 		criteriaSet.add(entityIdCriteria);
 
-		Credential idpSigningCredential = credentialResolver.resolveSingle(
-			criteriaSet);
+		Credential credential = credentialResolver.resolveSingle(criteriaSet);
 
-		Assert.assertNotNull(idpSigningCredential);
+		Assert.assertNotNull(credential);
 	}
 
 	@Test
-	public void testResolveNonExistingCredential() throws Exception {
+	public void testResolveNonexistingCredential() throws Exception {
 		EntityIDCriteria entityIdCriteria = new EntityIDCriteria("na");
 
 		CriteriaSet criteriaSet = new CriteriaSet();
 
 		criteriaSet.add(entityIdCriteria);
 
-		Credential naSigningCredential = credentialResolver.resolveSingle(
-			criteriaSet);
+		Credential credential = credentialResolver.resolveSingle(criteriaSet);
 
-		Assert.assertNull(naSigningCredential);
+		Assert.assertNull(credential);
 	}
 
 	@Test
@@ -68,10 +66,9 @@ public class CredentialResolverTest extends BaseSamlTestCase {
 
 		criteriaSet.add(entityIdCriteria);
 
-		Credential spSigningCredential = credentialResolver.resolveSingle(
-			criteriaSet);
+		Credential credential = credentialResolver.resolveSingle(criteriaSet);
 
-		Assert.assertNotNull(spSigningCredential);
+		Assert.assertNotNull(credential);
 	}
 
 }

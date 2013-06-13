@@ -58,13 +58,12 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 			_samlSpAuthRequestLocalService
 		);
 
-		_webSsoProfileImpl.setSamlBindings(samlBindings);
 		_webSsoProfileImpl.setIdentifierGenerator(identifierGenerator);
+		_webSsoProfileImpl.setSamlBindings(samlBindings);
 	}
 
 	@Test
 	public void testDecodeAuthnRequest() throws Exception {
-
 		prepareServiceProvider(SP_ENTITY_ID);
 
 		MockHttpServletRequest mockHttpServletRequest =
@@ -93,13 +92,6 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 		SAMLMessageContext<AuthnRequest, Response, NameID> samlMessageContext =
 			samlSsoRequestContext.getSAMLMessageContext();
 
-		Assert.assertEquals(SP_ENTITY_ID, samlMessageContext.getPeerEntityId());
-		Assert.assertNotNull(samlMessageContext.getPeerEntityMetadata());
-		Assert.assertNotNull(samlMessageContext.getPeerEntityRoleMetadata());
-		Assert.assertTrue(
-			samlMessageContext.getPeerEntityRoleMetadata() instanceof
-				SPSSODescriptor);
-
 		Assert.assertEquals(
 			IDP_ENTITY_ID, samlMessageContext.getLocalEntityId());
 		Assert.assertNotNull(samlMessageContext.getLocalEntityMetadata());
@@ -107,13 +99,17 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 		Assert.assertTrue(
 			samlMessageContext.getLocalEntityRoleMetadata() instanceof
 				IDPSSODescriptor);
-
+		Assert.assertEquals(SP_ENTITY_ID, samlMessageContext.getPeerEntityId());
+		Assert.assertNotNull(samlMessageContext.getPeerEntityMetadata());
+		Assert.assertNotNull(samlMessageContext.getPeerEntityRoleMetadata());
+		Assert.assertTrue(
+			samlMessageContext.getPeerEntityRoleMetadata() instanceof
+				SPSSODescriptor);
 		Assert.assertEquals(RELAY_STATE, samlMessageContext.getRelayState());
 
 		AuthnRequest authnRequest = samlMessageContext.getInboundSAMLMessage();
 
 		Assert.assertEquals(identifiers.get(0), authnRequest.getID());
-
 		Assert.assertEquals(2, identifiers.size());
 	}
 

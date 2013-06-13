@@ -45,7 +45,6 @@ import com.liferay.saml.util.OpenSamlBootstrap;
 import com.liferay.saml.util.PortletPropsKeys;
 import com.liferay.saml.util.SamlIdentifierGenerator;
 import com.liferay.saml.util.VelocityEngineFactory;
-import com.liferay.util.portlet.PortletProps;
 
 import java.io.UnsupportedEncodingException;
 
@@ -87,176 +86,15 @@ public class BaseSamlTestCase extends PowerMockito {
 
 	@Before
 	public void setUp() throws Exception {
+		setupProps();
+
+		setupConfiguration();
+		setupIdentifiers();
+		setupMetadata();
+		setupPortal();
+		setupSamlBindings();
+
 		OpenSamlBootstrap.bootstrap();
-
-		portal = mock(Portal.class);
-
-		new PortalUtil().setPortal(portal);
-
-		when(
-			portal.getPortalURL(
-				Mockito.any(MockHttpServletRequest.class), Mockito.eq(false))
-		).thenReturn(
-			PORTAL_URL
-		);
-		when(
-			portal.getPortalURL(
-				Mockito.any(MockHttpServletRequest.class), Mockito.eq(true))
-		).thenReturn(
-			PORTAL_URL.replaceFirst(
-				"http://", "https://").replaceFirst("8080", "8443")
-		);
-
-		props = mock(Props.class);
-
-		PropsUtil.setProps(props);
-
-		when(
-			props.get(PropsKeys.LIFERAY_HOME)
-		).thenReturn(
-			System.getProperty("java.io.tmpdir")
-		);
-		when(
-			props.get(PortletPropsKeys.SAML_KEYSTORE_CREDENTIAL_PASSWORD)
-		).thenReturn(
-			"liferay"
-		);
-		when(
-			props.get(PortletPropsKeys.SAML_KEYSTORE_PASSWORD)
-		).thenReturn(
-			"liferay"
-		);
-		when(
-			props.get(PortletPropsKeys.SAML_KEYSTORE_PATH)
-		).thenReturn(
-			"classpath:/com/liferay/saml/credential/dependencies/keystore.jks"
-		);
-		when(
-			props.get(PortletPropsKeys.SAML_KEYSTORE_TYPE)
-		).thenReturn(
-			"jks"
-		);
-		when(
-			props.get(
-				PortletPropsKeys.SAML_KEYSTORE_CREDENTIAL_PASSWORD.concat(
-					"[" + IDP_ENTITY_ID + "]"))
-		).thenReturn(
-			"liferay"
-		);
-		when(
-			props.get(
-				PortletPropsKeys.SAML_KEYSTORE_CREDENTIAL_PASSWORD.concat(
-					"[" + SP_ENTITY_ID + "]"))
-		).thenReturn(
-			"liferay"
-		);
-		when(
-			props.getArray(PortletPropsKeys.SAML_METADATA_PATHS)
-		).thenReturn(
-			new String[0]
-		);
-
-		Thread currentThread = Thread.currentThread();
-
-		PortletClassLoaderUtil.setClassLoader(
-			currentThread.getContextClassLoader());
-
-		ConfigurationFactory configurationFactory = mock(
-			ConfigurationFactory.class);
-
-		ConfigurationFactoryUtil.setConfigurationFactory(configurationFactory);
-
-		Configuration configuration = mock(Configuration.class);
-
-		when(
-			configurationFactory.getConfiguration(
-				Mockito.any(ClassLoader.class), Mockito.eq("portlet"))
-		).thenReturn(
-			configuration
-		);
-		when(
-			configuration.get(PortletPropsKeys.SAML_KEYSTORE_MANAGER_IMPL)
-		).thenReturn(
-			FileSystemKeyStoreManagerImpl.class.getName()
-		);
-
-		// Must have this line otherwise will cause NoClassDefFoundError
-
-		PortletProps.get(PortletPropsKeys.SAML_KEYSTORE_MANAGER_IMPL);
-
-		credentialResolver = new KeyStoreCredentialResolver();
-
-		MetadataManagerImpl metadataManagerImpl = new MetadataManagerImpl();
-
-		metadataManagerImpl.setCredentialResolver(credentialResolver);
-		metadataManagerImpl.setParserPool(new BasicParserPool());
-
-		new MetadataManagerUtil().setMetadataManager(metadataManagerImpl);
-
-		CachingChainingMetadataProvider metadataProvider =
-			(CachingChainingMetadataProvider)
-				metadataManagerImpl.getMetadataProvider();
-
-		for (MetadataProvider provider : metadataProvider.getProviders()) {
-			metadataProvider.removeMetadataProvider(provider);
-		}
-
-		metadataProvider.addMetadataProvider(new TestMetadataProvider());
-
-		portalBeanLocator = mock(BeanLocator.class);
-
-		PortalBeanLocatorUtil.setBeanLocator(portalBeanLocator);
-
-		portletBeanLocator = mock(BeanLocator.class);
-
-		PortletBeanLocatorUtil.setBeanLocator(
-			"saml-portlet", portletBeanLocator);
-
-		httpClient = mock(HttpClient.class);
-
-		when(
-			props.get(PropsKeys.VELOCITY_ENGINE_LOGGER)
-		).thenReturn(
-			"org.apache.velocity.runtime.log.SimpleLog4JLogSystem"
-		);
-		when(
-			props.get(PropsKeys.VELOCITY_ENGINE_LOGGER_CATEGORY)
-		).thenReturn(
-			"org.apache.velocity"
-		);
-
-		samlBindings = new ArrayList<SamlBinding>();
-
-		samlBindings.add(new HttpRedirectBinding(new BasicParserPool()));
-		samlBindings.add(
-			new HttpPostBinding(
-				new BasicParserPool(),
-				VelocityEngineFactory.getVelocityEngine()));
-		samlBindings.add(
-			new HttpSoap11Binding(new BasicParserPool(), httpClient));
-
-		identifierGenerator = mock(IdentifierGenerator.class);
-
-		when(
-			identifierGenerator.generateIdentifier(Mockito.anyInt())
-		).thenAnswer(
-			new Answer<String>() {
-				@Override
-				public String answer(InvocationOnMock invocationOnMock)
-					throws Throwable {
-
-					int length = GetterUtil.getInteger(
-						invocationOnMock.getArguments()[0]);
-					String identifier =
-						samlIdentifierGenerator.generateIdentifier(length);
-
-					identifiers.add(identifier);
-
-					return identifier;
-				}
-			}
-		);
-
 	}
 
 	@After
@@ -333,28 +171,31 @@ public class BaseSamlTestCase extends PowerMockito {
 
 	protected void prepareIdentityProvider(String entityId) {
 		when(
-			props.get(PortletPropsKeys.SAML_ROLE)
-		).thenReturn(
-			"idp"
-		);
-		when(
 			props.get(PortletPropsKeys.SAML_ENTITY_ID)
 		).thenReturn(
 			entityId
+		);
+
+		when(
+			props.get(PortletPropsKeys.SAML_ROLE)
+		).thenReturn(
+			"idp"
 		);
 	}
 
 	protected void prepareServiceProvider(String entityId) {
 		when(
-			props.get(PortletPropsKeys.SAML_ROLE)
-		).thenReturn(
-			"sp"
-		);
-		when(
 			props.get(PortletPropsKeys.SAML_ENTITY_ID)
 		).thenReturn(
 			entityId
 		);
+
+		when(
+			props.get(PortletPropsKeys.SAML_ROLE)
+		).thenReturn(
+			"sp"
+		);
+
 		when(
 			props.get(PortletPropsKeys.SAML_SP_DEFAULT_IDP_ENTITY_ID)
 		).thenReturn(
@@ -362,14 +203,218 @@ public class BaseSamlTestCase extends PowerMockito {
 		);
 	}
 
+	protected void setupConfiguration() {
+		Thread currentThread = Thread.currentThread();
+
+		PortletClassLoaderUtil.setClassLoader(
+			currentThread.getContextClassLoader());
+
+		ConfigurationFactory configurationFactory = mock(
+			ConfigurationFactory.class);
+
+		ConfigurationFactoryUtil.setConfigurationFactory(configurationFactory);
+
+		Configuration configuration = mock(Configuration.class);
+
+		when(
+			configurationFactory.getConfiguration(
+				Mockito.any(ClassLoader.class), Mockito.eq("portlet"))
+		).thenReturn(
+			configuration
+		);
+
+		when(
+			configuration.get(PortletPropsKeys.SAML_KEYSTORE_MANAGER_IMPL)
+		).thenReturn(
+			FileSystemKeyStoreManagerImpl.class.getName()
+		);
+	}
+
+	protected void setupIdentifiers() {
+		identifierGenerator = mock(IdentifierGenerator.class);
+
+		when(
+			identifierGenerator.generateIdentifier(Mockito.anyInt())
+		).thenAnswer(
+			new Answer<String>() {
+
+				@Override
+				public String answer(InvocationOnMock invocationOnMock)
+					throws Throwable {
+
+					int length = GetterUtil.getInteger(
+						invocationOnMock.getArguments()[0]);
+
+					String identifier =
+						samlIdentifierGenerator.generateIdentifier(length);
+
+					identifiers.add(identifier);
+
+					return identifier;
+				}
+
+			}
+		);
+	}
+
+	protected void setupMetadata() throws Exception {
+		MetadataManagerImpl metadataManagerImpl = new MetadataManagerImpl();
+
+		credentialResolver = new KeyStoreCredentialResolver();
+
+		metadataManagerImpl.setCredentialResolver(credentialResolver);
+
+		metadataManagerImpl.setParserPool(new BasicParserPool());
+
+		MetadataManagerUtil metadataManagerUtil = new MetadataManagerUtil();
+
+		metadataManagerUtil.setMetadataManager(metadataManagerImpl);
+
+		CachingChainingMetadataProvider cachingChainingMetadataProvider =
+			(CachingChainingMetadataProvider)
+				metadataManagerImpl.getMetadataProvider();
+
+		for (MetadataProvider metadataProvider :
+				cachingChainingMetadataProvider.getProviders()) {
+
+			cachingChainingMetadataProvider.removeMetadataProvider(
+				metadataProvider);
+		}
+
+		cachingChainingMetadataProvider.addMetadataProvider(
+			new MockMetadataProvider());
+	}
+
+	protected void setupPortal() {
+		httpClient = mock(HttpClient.class);
+
+		when(
+			props.get(PropsKeys.VELOCITY_ENGINE_LOGGER)
+		).thenReturn(
+			"org.apache.velocity.runtime.log.SimpleLog4JLogSystem"
+		);
+
+		when(
+			props.get(PropsKeys.VELOCITY_ENGINE_LOGGER_CATEGORY)
+		).thenReturn(
+			"org.apache.velocity"
+		);
+
+		PortalUtil portalUtil = new PortalUtil();
+
+		portal = mock(Portal.class);
+
+		portalUtil.setPortal(portal);
+
+		when(
+			portal.getPortalURL(
+				Mockito.any(MockHttpServletRequest.class), Mockito.eq(false))
+		).thenReturn(
+			PORTAL_URL
+		);
+
+		when(
+			portal.getPortalURL(
+				Mockito.any(MockHttpServletRequest.class), Mockito.eq(true))
+		).thenReturn(
+			StringUtil.replace(
+				PORTAL_URL, new String[] {"http://", "https://"},
+				new String[] {"8080", "8443"})
+		);
+
+		portalBeanLocator = mock(BeanLocator.class);
+
+		PortalBeanLocatorUtil.setBeanLocator(portalBeanLocator);
+
+		portletBeanLocator = mock(BeanLocator.class);
+
+		PortletBeanLocatorUtil.setBeanLocator(
+			"saml-portlet", portletBeanLocator);
+	}
+
+	protected void setupProps() {
+		props = mock(Props.class);
+
+		PropsUtil.setProps(props);
+
+		when(
+			props.get(PropsKeys.LIFERAY_HOME)
+		).thenReturn(
+			System.getProperty("java.io.tmpdir")
+		);
+
+		when(
+			props.get(PortletPropsKeys.SAML_KEYSTORE_CREDENTIAL_PASSWORD)
+		).thenReturn(
+			"liferay"
+		);
+
+		when(
+			props.get(
+				PortletPropsKeys.SAML_KEYSTORE_CREDENTIAL_PASSWORD + "[" +
+					IDP_ENTITY_ID + "]")
+		).thenReturn(
+			"liferay"
+		);
+
+		when(
+			props.get(
+				PortletPropsKeys.SAML_KEYSTORE_CREDENTIAL_PASSWORD + "[" +
+					SP_ENTITY_ID + "]")
+		).thenReturn(
+			"liferay"
+		);
+
+		when(
+			props.get(PortletPropsKeys.SAML_KEYSTORE_PASSWORD)
+		).thenReturn(
+			"liferay"
+		);
+
+		when(
+			props.get(PortletPropsKeys.SAML_KEYSTORE_PATH)
+		).thenReturn(
+			"classpath:/com/liferay/saml/credential/dependencies/keystore.jks"
+		);
+
+		when(
+			props.get(PortletPropsKeys.SAML_KEYSTORE_TYPE)
+		).thenReturn(
+			"jks"
+		);
+
+		when(
+			props.getArray(PortletPropsKeys.SAML_METADATA_PATHS)
+		).thenReturn(
+			new String[0]
+		);
+	}
+
+	protected void setupSamlBindings() {
+		samlBindings = new ArrayList<SamlBinding>();
+
+		samlBindings.add(
+			new HttpPostBinding(
+				new BasicParserPool(),
+				VelocityEngineFactory.getVelocityEngine()));
+		samlBindings.add(new HttpRedirectBinding(new BasicParserPool()));
+		samlBindings.add(
+			new HttpSoap11Binding(new BasicParserPool(), httpClient));
+	}
+
 	protected static final String IDP_ENTITY_ID = "testidp";
+
 	protected static final String LOGIN_URL =
 		"http://localhost:8080/c/portal/login";
+
 	protected static final String METADATA_URL =
 		"http://localhost:8080/c/portal/saml/metadata";
+
 	protected static final String PORTAL_URL = "http://localhost:8080";
+
 	protected static final String RELAY_STATE =
 		"http://localhost:8080/relaystate";
+
 	protected static final String SP_ENTITY_ID = "testsp";
 
 	protected CredentialResolver credentialResolver;
@@ -384,7 +429,7 @@ public class BaseSamlTestCase extends PowerMockito {
 	protected IdentifierGenerator samlIdentifierGenerator =
 		new SamlIdentifierGenerator();
 
-	private class TestMetadataProvider extends DBMetadataProvider {
+	private class MockMetadataProvider extends DBMetadataProvider {
 
 		@Override
 		public EntityDescriptor getEntityDescriptor(String entityId)
@@ -407,7 +452,7 @@ public class BaseSamlTestCase extends PowerMockito {
 
 			criteriaSet.add(entityIdCriteria);
 
-			Credential signingCredential = credentialResolver.resolveSingle(
+			Credential credential = credentialResolver.resolveSingle(
 				criteriaSet);
 
 			MockHttpServletRequest mockHttpServletRequest =
@@ -417,12 +462,12 @@ public class BaseSamlTestCase extends PowerMockito {
 			if (entityId.equals(IDP_ENTITY_ID)) {
 				return MetadataGeneratorUtil.buildIdpEntityDescriptor(
 					mockHttpServletRequest, entityId, true, true, false,
-					signingCredential);
+					credential);
 			}
 			else if (entityId.equals(SP_ENTITY_ID)) {
 				return MetadataGeneratorUtil.buildSpEntityDescriptor(
 					mockHttpServletRequest, entityId, true, true, false, false,
-					signingCredential);
+					credential);
 			}
 
 			return null;
