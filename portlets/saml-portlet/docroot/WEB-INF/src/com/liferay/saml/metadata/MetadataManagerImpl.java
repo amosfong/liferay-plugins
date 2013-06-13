@@ -88,6 +88,7 @@ public class MetadataManagerImpl implements MetadataManager {
 
 	public static final int SAML_IDP_ASSERTION_LIFETIME_DEFAULT = 1800;
 
+	@Override
 	public int getAssertionLifetime(String entityId) {
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -108,6 +109,7 @@ public class MetadataManagerImpl implements MetadataManager {
 			samlIdpAssertionLifetime, SAML_IDP_ASSERTION_LIFETIME_DEFAULT);
 	}
 
+	@Override
 	public String[] getAttributeNames(String entityId) {
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -142,16 +144,19 @@ public class MetadataManagerImpl implements MetadataManager {
 			PortletPropsKeys.SAML_IDP_METADATA_ATTRIBUTE_NAMES);
 	}
 
+	@Override
 	public long getClockSkew() {
 		return PortletPrefsPropsUtil.getInteger(
 			PortletPropsKeys.SAML_SP_CLOCK_SKEW, 3000);
 	}
 
+	@Override
 	public String getDefaultIdpEntityId() {
 		return PortletPrefsPropsUtil.getString(
 			PortletPropsKeys.SAML_SP_DEFAULT_IDP_ENTITY_ID);
 	}
 
+	@Override
 	public EntityDescriptor getEntityDescriptor(HttpServletRequest request)
 		throws MetadataProviderException {
 
@@ -175,10 +180,12 @@ public class MetadataManagerImpl implements MetadataManager {
 		}
 	}
 
+	@Override
 	public String getLocalEntityId() {
 		return PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_ENTITY_ID);
 	}
 
+	@Override
 	public MetadataProvider getMetadataProvider()
 		throws MetadataProviderException {
 
@@ -274,6 +281,7 @@ public class MetadataManagerImpl implements MetadataManager {
 		}
 	}
 
+	@Override
 	public String getNameIdAttribute(String entityId) {
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -304,11 +312,13 @@ public class MetadataManagerImpl implements MetadataManager {
 		return nameIdAttributeName;
 	}
 
+	@Override
 	public String getNameIdFormat() {
 		return PortletPrefsPropsUtil.getString(
 			PortletPropsKeys.SAML_SP_NAME_ID_FORMAT, NameIDType.EMAIL);
 	}
 
+	@Override
 	public String getNameIdFormat(String entityId) {
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -339,6 +349,7 @@ public class MetadataManagerImpl implements MetadataManager {
 		return nameIdFormat;
 	}
 
+	@Override
 	public SecurityPolicyResolver getSecurityPolicyResolver(
 			String communicationProfileId, boolean requireSignature)
 		throws MetadataProviderException {
@@ -407,22 +418,26 @@ public class MetadataManagerImpl implements MetadataManager {
 		return securityPolicyResolver;
 	}
 
+	@Override
 	public String getSessionKeepAliveURL(String entityId) {
 		return PropsUtil.get(
 			PortletPropsKeys.SAML_IDP_METADATA_SESSION_KEEP_ALIVE_URL,
 			new Filter(entityId));
 	}
 
+	@Override
 	public long getSessionMaximumAge() {
 		return PortletPrefsPropsUtil.getLong(
 			PortletPropsKeys.SAML_IDP_SESSION_MAXIMUM_AGE);
 	}
 
+	@Override
 	public long getSessionTimeout() {
 		return PortletPrefsPropsUtil.getLong(
 			PortletPropsKeys.SAML_IDP_SESSION_TIMEOUT);
 	}
 
+	@Override
 	public SignatureTrustEngine getSignatureTrustEngine()
 		throws MetadataProviderException {
 
@@ -455,6 +470,7 @@ public class MetadataManagerImpl implements MetadataManager {
 		return chainingSignatureTrustEngine;
 	}
 
+	@Override
 	public Credential getSigningCredential() throws SecurityException {
 		CriteriaSet criteriaSet = new CriteriaSet();
 
@@ -471,6 +487,7 @@ public class MetadataManagerImpl implements MetadataManager {
 		return _credentialResolver.resolveSingle(criteriaSet);
 	}
 
+	@Override
 	public String getUserAttributeMappings(String entityId) {
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -487,6 +504,7 @@ public class MetadataManagerImpl implements MetadataManager {
 		return PropsUtil.get(PortletPropsKeys.SAML_SP_USER_ATTRIBUTE_MAPPINGS);
 	}
 
+	@Override
 	public boolean isAttributesEnabled(String entityId) {
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -507,6 +525,7 @@ public class MetadataManagerImpl implements MetadataManager {
 		return GetterUtil.getBoolean(attributesEnabled);
 	}
 
+	@Override
 	public boolean isAttributesNamespaceEnabled(String entityId) {
 		long companyId = CompanyThreadLocal.getCompanyId();
 
@@ -527,26 +546,31 @@ public class MetadataManagerImpl implements MetadataManager {
 		return GetterUtil.getBoolean(attributesNamespaceEnabled);
 	}
 
+	@Override
 	public boolean isSignAuthnRequests() {
 		return PortletPrefsPropsUtil.getBoolean(
 			PortletPropsKeys.SAML_SP_SIGN_AUTHN_REQUEST);
 	}
 
+	@Override
 	public boolean isSignMetadata() {
 		return PortletPrefsPropsUtil.getBoolean(
 			PortletPropsKeys.SAML_SIGN_METADATA);
 	}
 
+	@Override
 	public boolean isSSLRequired() {
 		return PortletPrefsPropsUtil.getBoolean(
 			PortletPropsKeys.SAML_SSL_REQUIRED);
 	}
 
+	@Override
 	public boolean isWantAssertionsSigned() {
 		return PortletPrefsPropsUtil.getBoolean(
 			PortletPropsKeys.SAML_SP_ASSERTION_SIGNATURE_REQUIRED);
 	}
 
+	@Override
 	public boolean isWantAuthnRequestSigned() {
 		return PortletPrefsPropsUtil.getBoolean(
 				PortletPropsKeys.SAML_IDP_AUTHN_REQUEST_SIGNATURE_REQUIRED);

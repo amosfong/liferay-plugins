@@ -31,10 +31,12 @@ public abstract class BaseSamlBinding implements SamlBinding {
 		_messageEncoder = messageEncoder;
 	}
 
+	@Override
 	public MessageDecoder getMessageDecoder() {
 		return _messageDecoder;
 	}
 
+	@Override
 	public MessageEncoder getMessageEncoder() {
 		return _messageEncoder;
 	}

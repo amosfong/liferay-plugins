@@ -24,6 +24,7 @@ public class SamlSpMessageImpl extends SamlSpMessageBaseImpl {
 	public SamlSpMessageImpl() {
 	}
 
+	@Override
 	public boolean isExpired() {
 		Date now = new Date();
 

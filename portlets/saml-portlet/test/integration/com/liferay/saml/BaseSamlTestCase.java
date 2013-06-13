@@ -241,6 +241,7 @@ public class BaseSamlTestCase extends PowerMockito {
 			identifierGenerator.generateIdentifier(Mockito.anyInt())
 		).thenAnswer(
 			new Answer<String>() {
+				@Override
 				public String answer(InvocationOnMock invocationOnMock)
 					throws Throwable {
 
@@ -385,6 +386,7 @@ public class BaseSamlTestCase extends PowerMockito {
 
 	private class TestMetadataProvider extends DBMetadataProvider {
 
+		@Override
 		public EntityDescriptor getEntityDescriptor(String entityId)
 			throws MetadataProviderException {
 

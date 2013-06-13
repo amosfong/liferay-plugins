@@ -29,6 +29,7 @@ import org.opensaml.saml2.core.NameIDPolicy;
  */
 public class DefaultNameIdResolver implements NameIdResolver {
 
+	@Override
 	public NameID resolve(
 		User user, String entityId, NameIDPolicy nameIdPolicy) {
 

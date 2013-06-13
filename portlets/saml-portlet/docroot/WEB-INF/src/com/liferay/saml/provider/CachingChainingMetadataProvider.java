@@ -73,6 +73,7 @@ public class CachingChainingMetadataProvider extends BaseMetadataProvider {
 		}
 	}
 
+	@Override
 	public EntitiesDescriptor getEntitiesDescriptor(String name) {
 		Lock lock = _readWriteLock.readLock();
 
@@ -105,6 +106,7 @@ public class CachingChainingMetadataProvider extends BaseMetadataProvider {
 		}
 	}
 
+	@Override
 	public EntityDescriptor getEntityDescriptor(String entityId) {
 		Lock lock = _readWriteLock.readLock();
 
@@ -159,6 +161,7 @@ public class CachingChainingMetadataProvider extends BaseMetadataProvider {
 		}
 	}
 
+	@Override
 	public XMLObject getMetadata() {
 		return new ChainingEntitiesDescriptor();
 	}
@@ -167,6 +170,7 @@ public class CachingChainingMetadataProvider extends BaseMetadataProvider {
 		return Collections.unmodifiableList(_metadataProviders);
 	}
 
+	@Override
 	public List<RoleDescriptor> getRole(String entityId, QName qName) {
 		Lock lock = _readWriteLock.readLock();
 
@@ -223,6 +227,7 @@ public class CachingChainingMetadataProvider extends BaseMetadataProvider {
 		}
 	}
 
+	@Override
 	public RoleDescriptor getRole(
 		String entityId, QName qName, String supportedProtocol) {
 
@@ -344,28 +349,35 @@ public class CachingChainingMetadataProvider extends BaseMetadataProvider {
 			}
 		}
 
+		@Override
 		public void addNamespace(Namespace namespace) {
 		}
 
+		@Override
 		@SuppressWarnings("rawtypes")
 		public void deregisterValidator(Validator validator) {
 		}
 
+		@Override
 		public void detach() {
 		}
 
+		@Override
 		public Long getCacheDuration() {
 			return null;
 		}
 
+		@Override
 		public Element getDOM() {
 			return null;
 		}
 
+		@Override
 		public QName getElementQName() {
 			return EntitiesDescriptor.DEFAULT_ELEMENT_NAME;
 		}
 
+		@Override
 		public List<EntitiesDescriptor> getEntitiesDescriptors() {
 			List<EntitiesDescriptor> entitiesDescriptors =
 				new ArrayList<EntitiesDescriptor>();
@@ -382,6 +394,7 @@ public class CachingChainingMetadataProvider extends BaseMetadataProvider {
 			return entitiesDescriptors;
 		}
 
+		@Override
 		public List<EntityDescriptor> getEntityDescriptors() {
 			List<EntityDescriptor> entityDescriptors =
 				new ArrayList<EntityDescriptor>();
@@ -398,34 +411,42 @@ public class CachingChainingMetadataProvider extends BaseMetadataProvider {
 			return entityDescriptors;
 		}
 
+		@Override
 		public Extensions getExtensions() {
 			return null;
 		}
 
+		@Override
 		public String getID() {
 			return null;
 		}
 
+		@Override
 		public IDIndex getIDIndex() {
 			return null;
 		}
 
+		@Override
 		public String getName() {
 			return null;
 		}
 
+		@Override
 		public NamespaceManager getNamespaceManager() {
 			return null;
 		}
 
+		@Override
 		public Set<Namespace> getNamespaces() {
 			return new LazySet<Namespace>();
 		}
 
+		@Override
 		public String getNoNamespaceSchemaLocation() {
 			return null;
 		}
 
+		@Override
 		public List<XMLObject> getOrderedChildren() {
 			List<XMLObject> xmlObjects = new ArrayList<XMLObject>();
 
@@ -444,121 +465,154 @@ public class CachingChainingMetadataProvider extends BaseMetadataProvider {
 			return xmlObjects;
 		}
 
+		@Override
 		public XMLObject getParent() {
 			return null;
 		}
 
+		@Override
 		public String getSchemaLocation() {
 			return null;
 		}
 
+		@Override
 		public QName getSchemaType() {
 			return EntitiesDescriptor.TYPE_NAME;
 		}
 
+		@Override
 		public Signature getSignature() {
 			return null;
 		}
 
+		@Override
 		public String getSignatureReferenceID() {
 			return null;
 		}
 
+		@Override
 		@SuppressWarnings("rawtypes")
 		public List<Validator> getValidators() {
 			return new ArrayList<Validator>();
 		}
 
+		@Override
 		public DateTime getValidUntil() {
 			return null;
 		}
 
+		@Override
 		public boolean hasChildren() {
 			List<XMLObject> xmlObjects = getOrderedChildren();
 
 			return !xmlObjects.isEmpty();
 		}
 
+		@Override
 		public boolean hasParent() {
 			return false;
 		}
 
+		@Override
 		public Boolean isNil() {
 			return Boolean.FALSE;
 		}
 
+		@Override
 		public XSBooleanValue isNilXSBoolean() {
 			return new XSBooleanValue(Boolean.FALSE, false);
 		}
 
+		@Override
 		public boolean isSigned() {
 			return false;
 		}
 
+		@Override
 		public boolean isValid() {
 			return true;
 		}
 
+		@Override
 		@SuppressWarnings("rawtypes")
 		public void registerValidator(Validator validator) {
 		}
 
+		@Override
 		public void releaseChildrenDOM(boolean propagateRelease) {
 		}
 
+		@Override
 		public void releaseDOM() {
 		}
 
+		@Override
 		public void releaseParentDOM(boolean propagateRelease) {
 		}
 
+		@Override
 		public void removeNamespace(Namespace namespace) {
 		}
 
+		@Override
 		public XMLObject resolveID(String id) {
 			return null;
 		}
 
+		@Override
 		public XMLObject resolveIDFromRoot(String id) {
 			return null;
 		}
 
+		@Override
 		public void setCacheDuration(Long duration) {
 		}
 
+		@Override
 		public void setDOM(Element element) {
 		}
 
+		@Override
 		public void setExtensions(Extensions extensions) {
 		}
 
+		@Override
 		public void setID(String id) {
 		}
 
+		@Override
 		public void setName(String name) {
 		}
 
+		@Override
 		public void setNil(Boolean value) {
 		}
 
+		@Override
 		public void setNil(XSBooleanValue value) {
 		}
 
+		@Override
 		public void setNoNamespaceSchemaLocation(String location) {
 		}
 
+		@Override
 		public void setParent(XMLObject xmlObject) {
 		}
 
+		@Override
 		public void setSchemaLocation(String location) {
 		}
 
+		@Override
 		public void setSignature(Signature signature) {
 		}
 
+		@Override
 		public void setValidUntil(DateTime validUntil) {
 		}
 
+		@Override
 		public void validate(boolean validateDescendants) {
 		}
 

@@ -90,6 +90,7 @@ import org.opensaml.xml.security.credential.Credential;
 public class SingleLogoutProfileImpl
 	extends BaseProfile implements SingleLogoutProfile {
 
+	@Override
 	public boolean isSingleLogoutSupported(HttpServletRequest request) {
 		try {
 			MetadataProvider metadataProvider =
@@ -122,6 +123,7 @@ public class SingleLogoutProfileImpl
 		return false;
 	}
 
+	@Override
 	public void processIdpLogout(
 			HttpServletRequest request, HttpServletResponse response)
 		throws PortalException, SystemException {
@@ -181,6 +183,7 @@ public class SingleLogoutProfileImpl
 		}
 	}
 
+	@Override
 	public void processSingleLogout(
 			HttpServletRequest request, HttpServletResponse response)
 		throws PortalException, SystemException {
@@ -242,6 +245,7 @@ public class SingleLogoutProfileImpl
 		}
 	}
 
+	@Override
 	public void processSpLogout(
 			HttpServletRequest request, HttpServletResponse response)
 		throws PortalException, SystemException {

@@ -35,6 +35,7 @@ public class FileSystemKeyStoreManagerImpl extends BaseKeyStoreManagerImpl {
 		init();
 	}
 
+	@Override
 	public KeyStore getKeyStore() {
 		if (_keyStore == null) {
 			init();
@@ -43,6 +44,7 @@ public class FileSystemKeyStoreManagerImpl extends BaseKeyStoreManagerImpl {
 		return _keyStore;
 	}
 
+	@Override
 	public void saveKeyStore(KeyStore keyStore) throws Exception {
 		String samlKeyStorePath = getSamlKeyStorePath();
 		String samlKeyStorePassword = getSamlKeyStorePassword();

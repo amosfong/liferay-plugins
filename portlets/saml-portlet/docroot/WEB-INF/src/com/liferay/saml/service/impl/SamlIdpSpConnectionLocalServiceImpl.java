@@ -42,6 +42,7 @@ import java.util.List;
 public class SamlIdpSpConnectionLocalServiceImpl
 	extends SamlIdpSpConnectionLocalServiceBaseImpl {
 
+	@Override
 	public SamlIdpSpConnection addSamlIdpSpConnection(
 			String samlSpEntityId, int assertionLifetime, String attributeNames,
 			boolean attributesEnabled, boolean attributesNamespaceEnabled,
@@ -108,6 +109,7 @@ public class SamlIdpSpConnectionLocalServiceImpl
 		return samlIdpSpConnection;
 	}
 
+	@Override
 	public SamlIdpSpConnection getSamlIdpSpConnection(
 			long companyId, String samlSpEntityId)
 		throws PortalException, SystemException {
@@ -116,12 +118,14 @@ public class SamlIdpSpConnectionLocalServiceImpl
 			companyId, samlSpEntityId);
 	}
 
+	@Override
 	public List<SamlIdpSpConnection> getSamlIdpSpConnections(long companyId)
 		throws SystemException {
 
 		return samlIdpSpConnectionPersistence.findByCompanyId(companyId);
 	}
 
+	@Override
 	public List<SamlIdpSpConnection> getSamlIdpSpConnections(
 			long companyId, int start, int end)
 		throws SystemException {
@@ -130,6 +134,7 @@ public class SamlIdpSpConnectionLocalServiceImpl
 			companyId, start, end);
 	}
 
+	@Override
 	public List<SamlIdpSpConnection> getSamlIdpSpConnections(
 			long companyId, int start, int end,
 			OrderByComparator orderByComparator)
@@ -139,12 +144,14 @@ public class SamlIdpSpConnectionLocalServiceImpl
 			companyId, start, end, orderByComparator);
 	}
 
+	@Override
 	public int getSamlIdpSpConnectionsCount(long companyId)
 		throws SystemException {
 
 		return samlIdpSpConnectionPersistence.countByCompanyId(companyId);
 	}
 
+	@Override
 	public void updateMetadata(long samlIdpSpConnectionId)
 		throws PortalException, SystemException {
 
@@ -188,6 +195,7 @@ public class SamlIdpSpConnectionLocalServiceImpl
 		}
 	}
 
+	@Override
 	public SamlIdpSpConnection updateSamlIdpSpConnection(
 			long samlIdpSpConnectionId, String samlSpEntityId,
 			int assertionLifetime, String attributeNames,

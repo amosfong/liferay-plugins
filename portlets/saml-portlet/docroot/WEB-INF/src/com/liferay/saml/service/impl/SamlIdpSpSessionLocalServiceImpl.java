@@ -31,6 +31,7 @@ import java.util.List;
 public class SamlIdpSpSessionLocalServiceImpl
 	extends SamlIdpSpSessionLocalServiceBaseImpl {
 
+	@Override
 	public SamlIdpSpSession addSamlIdpSpSession(
 			long samlIdpSsoSessionId, String samlSpEntityId,
 			String nameIdFormat, String nameIdValue,
@@ -69,6 +70,7 @@ public class SamlIdpSpSessionLocalServiceImpl
 		return samlIdpSpSession;
 	}
 
+	@Override
 	public SamlIdpSpSession getSamlIdpSpSession(
 			long samlIdpSsoSessionId, String samlSpEntityId)
 		throws PortalException, SystemException {
@@ -77,6 +79,7 @@ public class SamlIdpSpSessionLocalServiceImpl
 			samlIdpSsoSessionId, samlSpEntityId);
 	}
 
+	@Override
 	public List<SamlIdpSpSession> getSamlIdpSpSessions(long samlIdpSsoSessionId)
 		throws SystemException {
 
@@ -84,6 +87,7 @@ public class SamlIdpSpSessionLocalServiceImpl
 			samlIdpSsoSessionId);
 	}
 
+	@Override
 	public SamlIdpSpSession updateModifiedDate(
 			long samlIdpSsoSessionId, String samlSpEntityId)
 		throws PortalException, SystemException {

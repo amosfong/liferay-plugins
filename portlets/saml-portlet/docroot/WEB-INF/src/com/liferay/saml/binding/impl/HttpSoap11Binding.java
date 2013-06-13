@@ -31,6 +31,7 @@ public class HttpSoap11Binding extends BaseSamlBinding {
 			new HttpSoap11Encoder(httpClient));
 	}
 
+	@Override
 	public String getCommunicationProfileId() {
 		return SAMLConstants.SAML2_SOAP11_BINDING_URI;
 	}

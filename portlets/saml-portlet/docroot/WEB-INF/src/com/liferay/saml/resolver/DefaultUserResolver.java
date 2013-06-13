@@ -51,6 +51,7 @@ import org.opensaml.saml2.core.Response;
  */
 public class DefaultUserResolver implements UserResolver {
 
+	@Override
 	public User resolveUser(
 			Assertion assertion,
 			SAMLMessageContext<Response, SAMLObject, NameID> samlMessageContext,

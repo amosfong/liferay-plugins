@@ -31,6 +31,7 @@ public class HttpRedirectBinding extends BaseSamlBinding {
 			new HTTPRedirectDeflateEncoder());
 	}
 
+	@Override
 	public String getCommunicationProfileId() {
 		return SAMLConstants.SAML2_REDIRECT_BINDING_URI;
 	}

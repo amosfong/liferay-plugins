@@ -36,22 +36,27 @@ public class HttpClientInTransport implements HTTPInTransport {
 		_location = location;
 	}
 
+	@Override
 	public Object getAttribute(String name) {
 		return null;
 	}
 
+	@Override
 	public String getCharacterEncoding() {
 		return _postMethod.getResponseCharSet();
 	}
 
+	@Override
 	public String getHeaderValue(String name) {
 		return null;
 	}
 
+	@Override
 	public String getHTTPMethod() {
 		return _postMethod.getName();
 	}
 
+	@Override
 	public InputStream getIncomingStream() {
 		try {
 			return _postMethod.getResponseBodyAsStream();
@@ -65,42 +70,52 @@ public class HttpClientInTransport implements HTTPInTransport {
 		return _location;
 	}
 
+	@Override
 	public Credential getLocalCredential() {
 		return null;
 	}
 
+	@Override
 	public String getParameterValue(String name) {
 		return null;
 	}
 
+	@Override
 	public List<String> getParameterValues(String name) {
 		return null;
 	}
 
+	@Override
 	public String getPeerAddress() {
 		return null;
 	}
 
+	@Override
 	public Credential getPeerCredential() {
 		return null;
 	}
 
+	@Override
 	public String getPeerDomainName() {
 		return null;
 	}
 
+	@Override
 	public int getStatusCode() {
 		return _postMethod.getStatusCode();
 	}
 
+	@Override
 	public HTTP_VERSION getVersion() {
 		return null;
 	}
 
+	@Override
 	public boolean isAuthenticated() {
 		return false;
 	}
 
+	@Override
 	public boolean isConfidential() {
 		try {
 			URI uri = _postMethod.getURI();
@@ -117,16 +132,20 @@ public class HttpClientInTransport implements HTTPInTransport {
 		return false;
 	}
 
+	@Override
 	public boolean isIntegrityProtected() {
 		return false;
 	}
 
+	@Override
 	public void setAuthenticated(boolean authenticated) {
 	}
 
+	@Override
 	public void setConfidential(boolean confidential) {
 	}
 
+	@Override
 	public void setIntegrityProtected(boolean integrityProtected) {
 	}
 

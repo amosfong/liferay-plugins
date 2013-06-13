@@ -54,6 +54,7 @@ import org.opensaml.xml.XMLObject;
  */
 public class DefaultAttributeResolver implements AttributeResolver {
 
+	@Override
 	public List<Attribute> resolve(
 		User user, SAMLMessageContext<?, ?, ?> samlMessageContext) {
 

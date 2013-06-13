@@ -28,6 +28,7 @@ import java.util.Date;
 public class SamlSpMessageLocalServiceImpl
 	extends SamlSpMessageLocalServiceBaseImpl {
 
+	@Override
 	public SamlSpMessage addSamlSpMessage(
 			String samlIdpEntityId, String samlIdpResponseKey,
 			Date expirationDate, ServiceContext serviceContext)
@@ -50,6 +51,7 @@ public class SamlSpMessageLocalServiceImpl
 		return samlSpMessage;
 	}
 
+	@Override
 	public SamlSpMessage fetchSamlSpMessage(
 			String samlIdpEntityId, String samlIdpResponseKey)
 		throws SystemException {
@@ -58,6 +60,7 @@ public class SamlSpMessageLocalServiceImpl
 			samlIdpEntityId, samlIdpResponseKey);
 	}
 
+	@Override
 	public SamlSpMessage getSamlSpMessage(
 			String samlIdpEntityId, String samlIdpResponseKey)
 		throws PortalException, SystemException {

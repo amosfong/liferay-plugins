@@ -41,13 +41,16 @@ public class HttpClientOutTransport implements HTTPOutTransport {
 		_postMethod = postMethod;
 	}
 
+	@Override
 	public void addParameter(String name, String value) {
 	}
 
+	@Override
 	public Object getAttribute(String name) {
 		return null;
 	}
 
+	@Override
 	public String getCharacterEncoding() {
 		NameValuePair nameValuePair = _postMethod.getParameter(
 			"http.protocol.content-charset");
@@ -55,12 +58,14 @@ public class HttpClientOutTransport implements HTTPOutTransport {
 		return nameValuePair.getValue();
 	}
 
+	@Override
 	public String getHeaderValue(String name) {
 		Header header =_postMethod.getRequestHeader(name);
 
 		return header.getValue();
 	}
 
+	@Override
 	public String getHTTPMethod() {
 		NameValuePair nameValuePair = _postMethod.getParameter(
 			"http.protocol.version");
@@ -68,10 +73,12 @@ public class HttpClientOutTransport implements HTTPOutTransport {
 		return nameValuePair.getValue();
 	}
 
+	@Override
 	public Credential getLocalCredential() {
 		return null;
 	}
 
+	@Override
 	public OutputStream getOutgoingStream() {
 		ByteArrayOutputStream byteArrayOutputStream =
 			new ByteArrayOutputStream();
@@ -84,14 +91,17 @@ public class HttpClientOutTransport implements HTTPOutTransport {
 		return byteArrayOutputStream;
 	}
 
+	@Override
 	public String getParameterValue(String name) {
 		return null;
 	}
 
+	@Override
 	public List<String> getParameterValues(String name) {
 		return null;
 	}
 
+	@Override
 	public Credential getPeerCredential() {
 		return null;
 	}
@@ -100,10 +110,12 @@ public class HttpClientOutTransport implements HTTPOutTransport {
 		return _postMethod;
 	}
 
+	@Override
 	public int getStatusCode() {
 		return -1;
 	}
 
+	@Override
 	public HTTP_VERSION getVersion() {
 		HttpMethodParams httpMethodParams = _postMethod.getParams();
 
@@ -117,10 +129,12 @@ public class HttpClientOutTransport implements HTTPOutTransport {
 		return HTTP_VERSION.HTTP1_0;
 	}
 
+	@Override
 	public boolean isAuthenticated() {
 		return false;
 	}
 
+	@Override
 	public boolean isConfidential() {
 		try {
 			URI uri = _postMethod.getURI();
@@ -137,19 +151,24 @@ public class HttpClientOutTransport implements HTTPOutTransport {
 		return false;
 	}
 
+	@Override
 	public boolean isIntegrityProtected() {
 		return false;
 	}
 
+	@Override
 	public void sendRedirect(String redirect) {
 	}
 
+	@Override
 	public void setAttribute(String name, Object value) {
 	}
 
+	@Override
 	public void setAuthenticated(boolean uthenticated) {
 	}
 
+	@Override
 	public void setCharacterEncoding(String characterEncoding) {
 		HttpMethodParams httpMethodParams = _postMethod.getParams();
 
@@ -157,19 +176,24 @@ public class HttpClientOutTransport implements HTTPOutTransport {
 			"http.protocol.content-charset", characterEncoding);
 	}
 
+	@Override
 	public void setConfidential(boolean confidential) {
 	}
 
+	@Override
 	public void setHeader(String name, String value) {
 		_postMethod.setRequestHeader(name, value);
 	}
 
+	@Override
 	public void setIntegrityProtected(boolean integrityProtected) {
 	}
 
+	@Override
 	public void setStatusCode(int statusCode) {
 	}
 
+	@Override
 	public void setVersion(HTTP_VERSION http_version) {
 		HttpParams httpParams = _postMethod.getParams();
 

@@ -114,6 +114,7 @@ import org.opensaml.xml.signature.SignatureTrustEngine;
  */
 public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 
+	@Override
 	public void processAuthnRequest(
 			HttpServletRequest request, HttpServletResponse response)
 		throws PortalException, SystemException {
@@ -134,6 +135,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 		}
 	}
 
+	@Override
 	public void processResponse(
 			HttpServletRequest request, HttpServletResponse response)
 		throws PortalException, SystemException {
@@ -154,6 +156,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 		}
 	}
 
+	@Override
 	public void sendAuthnRequest(
 			HttpServletRequest request, HttpServletResponse response,
 			String relayState)

@@ -35,6 +35,7 @@ public class HttpPostBinding extends BaseSamlBinding {
 				velocityEngine, "/templates/saml2-post-binding.vm"));
 	}
 
+	@Override
 	public String getCommunicationProfileId() {
 		return SAMLConstants.SAML2_POST_BINDING_URI;
 	}

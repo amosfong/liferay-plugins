@@ -28,6 +28,7 @@ import java.util.Date;
 public class SamlSpAuthRequestLocalServiceImpl
 	extends SamlSpAuthRequestLocalServiceBaseImpl {
 
+	@Override
 	public SamlSpAuthRequest addSamlSpAuthRequest(
 			String samlIdpEntityId, String samlSpAuthRequestKey,
 			ServiceContext serviceContext)
@@ -49,6 +50,7 @@ public class SamlSpAuthRequestLocalServiceImpl
 		return samlSpAuthRequest;
 	}
 
+	@Override
 	public SamlSpAuthRequest fetchSamlSpAuthRequest(
 			String samlIdpEntityId, String samlSpAuthRequestKey)
 		throws SystemException {
@@ -57,6 +59,7 @@ public class SamlSpAuthRequestLocalServiceImpl
 			samlIdpEntityId, samlSpAuthRequestKey);
 	}
 
+	@Override
 	public SamlSpAuthRequest getSamlSpAuthRequest(
 			String samlIdpEntityId, String samlSpAuthRequestKey)
 		throws PortalException, SystemException {

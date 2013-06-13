@@ -32,6 +32,7 @@ import java.util.List;
 public class SamlSpSessionLocalServiceImpl
 	extends SamlSpSessionLocalServiceBaseImpl {
 
+	@Override
 	public SamlSpSession addSamlSpSession(
 			String samlSpSessionKey, String assertionXml, String jSessionId,
 			String nameIdFormat, String nameIdValue, String sessionIndex,
@@ -65,12 +66,14 @@ public class SamlSpSessionLocalServiceImpl
 		return samlSpSession;
 	}
 
+	@Override
 	public SamlSpSession fetchSamlSpSessionByJSessionId(String jSessionId)
 		throws SystemException {
 
 		return samlSpSessionPersistence.fetchByJSessionId(jSessionId);
 	}
 
+	@Override
 	public SamlSpSession fetchSamlSpSessionBySamlSpSessionKey(
 			String samlSpSessionKey)
 		throws SystemException {
@@ -79,6 +82,7 @@ public class SamlSpSessionLocalServiceImpl
 			samlSpSessionKey);
 	}
 
+	@Override
 	public SamlSpSession fetchSamlSpSessionBySessionIndex(String sessionIndex)
 		throws SystemException {
 
@@ -89,12 +93,14 @@ public class SamlSpSessionLocalServiceImpl
 		return samlSpSessionPersistence.fetchBySessionIndex(sessionIndex);
 	}
 
+	@Override
 	public SamlSpSession getSamlSpSessionByJSessionId(String jSessionId)
 		throws PortalException, SystemException {
 
 		return samlSpSessionPersistence.findByJSessionId(jSessionId);
 	}
 
+	@Override
 	public SamlSpSession getSamlSpSessionBySamlSpSessionKey(
 			String samlSpSessionKey)
 		throws PortalException, SystemException {
@@ -103,6 +109,7 @@ public class SamlSpSessionLocalServiceImpl
 			samlSpSessionKey);
 	}
 
+	@Override
 	public SamlSpSession getSamlSpSessionBySessionIndex(String sessionIndex)
 		throws PortalException, SystemException {
 
@@ -113,12 +120,14 @@ public class SamlSpSessionLocalServiceImpl
 		return samlSpSessionPersistence.findBySessionIndex(sessionIndex);
 	}
 
+	@Override
 	public List<SamlSpSession> getSamlSpSessions(String nameIdValue)
 		throws SystemException {
 
 		return samlSpSessionPersistence.findByNameIdValue(nameIdValue);
 	}
 
+	@Override
 	public SamlSpSession updateSamlSpSession(
 			long samlSpSessionId, String samlSpSessionKey, String assertionXml,
 			String jSessionId, String nameIdFormat, String nameIdValue,

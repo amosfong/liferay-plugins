@@ -30,6 +30,7 @@ import java.util.Date;
 public class SamlIdpSsoSessionLocalServiceImpl
 	extends SamlIdpSsoSessionLocalServiceBaseImpl {
 
+	@Override
 	public SamlIdpSsoSession addSamlIdpSsoSession(
 			String samlIdpSsoSessionKey, ServiceContext serviceContext)
 		throws PortalException, SystemException {
@@ -63,6 +64,7 @@ public class SamlIdpSsoSessionLocalServiceImpl
 		return samlIdpSsoSession;
 	}
 
+	@Override
 	public SamlIdpSsoSession fetchSamlIdpSso(String samlIdpSsoSessionKey)
 		throws SystemException {
 
@@ -70,6 +72,7 @@ public class SamlIdpSsoSessionLocalServiceImpl
 			samlIdpSsoSessionKey);
 	}
 
+	@Override
 	public SamlIdpSsoSession getSamlIdpSso(String samlIdpSsoSessionKey)
 		throws PortalException, SystemException {
 
@@ -77,6 +80,7 @@ public class SamlIdpSsoSessionLocalServiceImpl
 			samlIdpSsoSessionKey);
 	}
 
+	@Override
 	public SamlIdpSsoSession updateModifiedDate(String samlIdpSsoSessionKey)
 		throws PortalException, SystemException {
 

@@ -29,6 +29,7 @@ public class SamlIdpSsoSessionImpl extends SamlIdpSsoSessionBaseImpl {
 	public SamlIdpSsoSessionImpl() {
 	}
 
+	@Override
 	public boolean isExpired() {
 		long samlIdpSessionMaximumAge = GetterUtil.getLong(
 			PropsUtil.get(PortletPropsKeys.SAML_IDP_SESSION_MAXIMUM_AGE));

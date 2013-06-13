@@ -26,10 +26,12 @@ import org.opensaml.common.IdentifierGenerator;
  */
 public class SamlIdentifierGenerator implements IdentifierGenerator {
 
+	@Override
 	public String generateIdentifier() {
 		return generateIdentifier(16);
 	}
 
+	@Override
 	public String generateIdentifier(int size) {
 		byte[] bytes = new byte[size];
 
