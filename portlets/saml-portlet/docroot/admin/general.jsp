@@ -29,6 +29,8 @@ String certificateValidityDays = ParamUtil.getString(request, "certificateValidi
 
 UnicodeProperties properties = PropertiesParamUtil.getProperties(request, "settings--");
 
+String entityId = properties.getProperty(PortletPropsKeys.SAML_ENTITY_ID, MetadataManagerUtil.getLocalEntityId());
+
 X509Certificate x509Certificate = null;
 
 try {
@@ -64,10 +66,6 @@ catch (Exception e) {
 			<aui:option label="identity-provider" selected='<%= samlRole.equals("idp") %>' value="idp" />
 			<aui:option label="service-provider" selected='<%= samlRole.equals("sp") %>' value="sp" />
 		</aui:select>
-
-		<%
-		String entityId = properties.getProperty(PortletPropsKeys.SAML_ENTITY_ID, MetadataManagerUtil.getLocalEntityId());
-		%>
 
 		<aui:input helpMessage="entity-id-help" label="entity-id" name='<%= "settings--" + PortletPropsKeys.SAML_ENTITY_ID + "--" %>' required="true" value="<%= entityId %>" />
 	</aui:fieldset>
@@ -141,7 +139,7 @@ catch (Exception e) {
 				<portlet:resourceURL var="downloadCertificateURL" />
 
 				<aui:button-row>
-					<aui:button onClick='<%= renderResponse.getNamespace() + "toggleCertificateForm(true);" %>' value="replace-certificate" /> <aui:button href="<%= downloadCertificateURL %>" value="download-certificate" />
+					<aui:button onClick='<%= renderResponse.getNamespace() + "toggleCertificateForm(true);" %>' value="replace-certificate" /><aui:spacer /><aui:button href="<%= downloadCertificateURL %>" value="download-certificate" />
 				</aui:button-row>
 			</c:when>
 			<c:when test="<%= (x509Certificate == null) && Validator.isNull(MetadataManagerUtil.getLocalEntityId()) %>">
