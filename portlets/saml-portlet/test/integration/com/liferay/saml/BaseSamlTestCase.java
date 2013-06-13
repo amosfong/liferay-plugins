@@ -30,6 +30,10 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.util.Portal;
 import com.liferay.portal.util.PortalUtil;
+import com.liferay.saml.binding.SamlBinding;
+import com.liferay.saml.binding.impl.HttpPostBinding;
+import com.liferay.saml.binding.impl.HttpRedirectBinding;
+import com.liferay.saml.binding.impl.HttpSoap11Binding;
 import com.liferay.saml.credential.FileSystemKeyStoreManagerImpl;
 import com.liferay.saml.credential.KeyStoreCredentialResolver;
 import com.liferay.saml.metadata.MetadataGeneratorUtil;
@@ -39,17 +43,28 @@ import com.liferay.saml.provider.CachingChainingMetadataProvider;
 import com.liferay.saml.provider.DBMetadataProvider;
 import com.liferay.saml.util.OpenSamlBootstrap;
 import com.liferay.saml.util.PortletPropsKeys;
+import com.liferay.saml.util.SamlIdentifierGenerator;
+import com.liferay.saml.util.VelocityEngineFactory;
 import com.liferay.util.portlet.PortletProps;
 
 import java.io.UnsupportedEncodingException;
 
 import java.net.URLDecoder;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.httpclient.HttpClient;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 
 import org.mockito.Mockito;
+import org.mockito.invocation.InvocationOnMock;
+import org.mockito.stubbing.Answer;
 
+import org.opensaml.common.IdentifierGenerator;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
@@ -70,9 +85,6 @@ import org.springframework.mock.web.MockHttpServletRequest;
 @RunWith(PowerMockRunner.class)
 public class BaseSamlTestCase extends PowerMockito {
 
-	public static final String IDP_ENTITY_ID = "testidp";
-	public static final String SP_ENTITY_ID = "testsp";
-
 	@Before
 	public void setUp() throws Exception {
 		OpenSamlBootstrap.bootstrap();
@@ -85,13 +97,14 @@ public class BaseSamlTestCase extends PowerMockito {
 			portal.getPortalURL(
 				Mockito.any(MockHttpServletRequest.class), Mockito.eq(false))
 		).thenReturn(
-			"http://localhost:8080"
+			PORTAL_URL
 		);
 		when(
 			portal.getPortalURL(
 				Mockito.any(MockHttpServletRequest.class), Mockito.eq(true))
 		).thenReturn(
-			"https://localhost:8443"
+			PORTAL_URL.replaceFirst(
+				"http://", "https://").replaceFirst("8080", "8443")
 		);
 
 		props = mock(Props.class);
@@ -198,6 +211,56 @@ public class BaseSamlTestCase extends PowerMockito {
 
 		PortletBeanLocatorUtil.setBeanLocator(
 			"saml-portlet", portletBeanLocator);
+
+		httpClient = mock(HttpClient.class);
+
+		when(
+			props.get(PropsKeys.VELOCITY_ENGINE_LOGGER)
+		).thenReturn(
+			"org.apache.velocity.runtime.log.SimpleLog4JLogSystem"
+		);
+		when(
+			props.get(PropsKeys.VELOCITY_ENGINE_LOGGER_CATEGORY)
+		).thenReturn(
+			"org.apache.velocity"
+		);
+
+		samlBindings = new ArrayList<SamlBinding>();
+
+		samlBindings.add(new HttpRedirectBinding(new BasicParserPool()));
+		samlBindings.add(
+			new HttpPostBinding(
+				new BasicParserPool(),
+				VelocityEngineFactory.getVelocityEngine()));
+		samlBindings.add(
+			new HttpSoap11Binding(new BasicParserPool(), httpClient));
+
+		identifierGenerator = mock(IdentifierGenerator.class);
+
+		when(
+			identifierGenerator.generateIdentifier(Mockito.anyInt())
+		).thenAnswer(
+			new Answer<String>() {
+				public String answer(InvocationOnMock invocationOnMock)
+					throws Throwable {
+
+					int length = GetterUtil.getInteger(
+						invocationOnMock.getArguments()[0]);
+					String identifier =
+						samlIdentifierGenerator.generateIdentifier(length);
+
+					identifiers.add(identifier);
+
+					return identifier;
+				}
+			}
+		);
+
+	}
+
+	@After
+	public void tearDown() {
+		identifiers.clear();
 	}
 
 	protected MockHttpServletRequest getMockHttpServletRequest(
@@ -241,6 +304,7 @@ public class BaseSamlTestCase extends PowerMockito {
 
 		mockHttpServletRequest.setQueryString(queryString);
 		mockHttpServletRequest.setContextPath(StringPool.SLASH);
+		mockHttpServletRequest.setSecure(protocol.equals("https"));
 		mockHttpServletRequest.setServerPort(serverPort);
 		mockHttpServletRequest.setServerName(serverName);
 
@@ -266,11 +330,58 @@ public class BaseSamlTestCase extends PowerMockito {
 		return mockHttpServletRequest;
 	}
 
+	protected void prepareIdentityProvider(String entityId) {
+		when(
+			props.get(PortletPropsKeys.SAML_ROLE)
+		).thenReturn(
+			"idp"
+		);
+		when(
+			props.get(PortletPropsKeys.SAML_ENTITY_ID)
+		).thenReturn(
+			entityId
+		);
+	}
+
+	protected void prepareServiceProvider(String entityId) {
+		when(
+			props.get(PortletPropsKeys.SAML_ROLE)
+		).thenReturn(
+			"sp"
+		);
+		when(
+			props.get(PortletPropsKeys.SAML_ENTITY_ID)
+		).thenReturn(
+			entityId
+		);
+		when(
+			props.get(PortletPropsKeys.SAML_SP_DEFAULT_IDP_ENTITY_ID)
+		).thenReturn(
+			IDP_ENTITY_ID
+		);
+	}
+
+	protected static final String IDP_ENTITY_ID = "testidp";
+	protected static final String LOGIN_URL =
+		"http://localhost:8080/c/portal/login";
+	protected static final String METADATA_URL =
+		"http://localhost:8080/c/portal/saml/metadata";
+	protected static final String PORTAL_URL = "http://localhost:8080";
+	protected static final String RELAY_STATE =
+		"http://localhost:8080/relaystate";
+	protected static final String SP_ENTITY_ID = "testsp";
+
 	protected CredentialResolver credentialResolver;
+	protected HttpClient httpClient;
+	protected IdentifierGenerator identifierGenerator;
+	protected List<String> identifiers = new ArrayList<String>();
 	protected Portal portal;
 	protected BeanLocator portalBeanLocator;
 	protected BeanLocator portletBeanLocator;
 	protected Props props;
+	protected List<SamlBinding> samlBindings;
+	protected IdentifierGenerator samlIdentifierGenerator =
+		new SamlIdentifierGenerator();
 
 	private class TestMetadataProvider extends DBMetadataProvider {
 

@@ -77,6 +77,12 @@ public abstract class BaseProfile {
 		EntityDescriptor entityDescriptor =
 			samlMessageContext.getPeerEntityMetadata();
 
+		if (entityDescriptor == null) {
+			throw new SamlException(
+				"Unable to resolve metadata for issuer " +
+					samlMessageContext.getInboundMessageIssuer());
+		}
+
 		samlMessageContext.setPeerEntityId(entityDescriptor.getEntityID());
 
 		RoleDescriptor roleDescriptor = null;
@@ -137,6 +143,8 @@ public abstract class BaseProfile {
 
 		EntityDescriptor entityDescriptor =
 			MetadataManagerUtil.getEntityDescriptor(request);
+
+		samlMessageContext.setLocalEntityMetadata(entityDescriptor);
 
 		if (SamlUtil.isRoleIdp()) {
 			roleDescriptor = entityDescriptor.getIDPSSODescriptor(
