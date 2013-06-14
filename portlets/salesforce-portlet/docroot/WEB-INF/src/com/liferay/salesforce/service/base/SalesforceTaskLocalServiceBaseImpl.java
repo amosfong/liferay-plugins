@@ -14,8 +14,6 @@
 
 package com.liferay.salesforce.service.base;
 
-import com.liferay.counter.service.CounterLocalService;
-
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.bean.IdentifiableBean;
 import com.liferay.portal.kernel.dao.jdbc.SqlUpdate;
@@ -23,17 +21,8 @@ import com.liferay.portal.kernel.dao.jdbc.SqlUpdateFactoryUtil;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.InfrastructureUtil;
 import com.liferay.portal.service.BaseLocalServiceImpl;
-import com.liferay.portal.service.ResourceLocalService;
-import com.liferay.portal.service.UserLocalService;
-import com.liferay.portal.service.UserService;
 import com.liferay.portal.service.persistence.UserPersistence;
 
-import com.liferay.salesforce.service.SalesforceAccountLocalService;
-import com.liferay.salesforce.service.SalesforceContactLocalService;
-import com.liferay.salesforce.service.SalesforceEventLocalService;
-import com.liferay.salesforce.service.SalesforceLeadLocalService;
-import com.liferay.salesforce.service.SalesforceLocalService;
-import com.liferay.salesforce.service.SalesforceOpportunityLocalService;
 import com.liferay.salesforce.service.SalesforceTaskLocalService;
 
 import javax.sql.DataSource;
@@ -64,7 +53,7 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 *
 	 * @return the salesforce local service
 	 */
-	public SalesforceLocalService getSalesforceLocalService() {
+	public com.liferay.salesforce.service.SalesforceLocalService getSalesforceLocalService() {
 		return salesforceLocalService;
 	}
 
@@ -74,7 +63,7 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 * @param salesforceLocalService the salesforce local service
 	 */
 	public void setSalesforceLocalService(
-		SalesforceLocalService salesforceLocalService) {
+		com.liferay.salesforce.service.SalesforceLocalService salesforceLocalService) {
 		this.salesforceLocalService = salesforceLocalService;
 	}
 
@@ -83,7 +72,7 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 *
 	 * @return the salesforce account local service
 	 */
-	public SalesforceAccountLocalService getSalesforceAccountLocalService() {
+	public com.liferay.salesforce.service.SalesforceAccountLocalService getSalesforceAccountLocalService() {
 		return salesforceAccountLocalService;
 	}
 
@@ -93,7 +82,7 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 * @param salesforceAccountLocalService the salesforce account local service
 	 */
 	public void setSalesforceAccountLocalService(
-		SalesforceAccountLocalService salesforceAccountLocalService) {
+		com.liferay.salesforce.service.SalesforceAccountLocalService salesforceAccountLocalService) {
 		this.salesforceAccountLocalService = salesforceAccountLocalService;
 	}
 
@@ -102,7 +91,7 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 *
 	 * @return the salesforce contact local service
 	 */
-	public SalesforceContactLocalService getSalesforceContactLocalService() {
+	public com.liferay.salesforce.service.SalesforceContactLocalService getSalesforceContactLocalService() {
 		return salesforceContactLocalService;
 	}
 
@@ -112,7 +101,7 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 * @param salesforceContactLocalService the salesforce contact local service
 	 */
 	public void setSalesforceContactLocalService(
-		SalesforceContactLocalService salesforceContactLocalService) {
+		com.liferay.salesforce.service.SalesforceContactLocalService salesforceContactLocalService) {
 		this.salesforceContactLocalService = salesforceContactLocalService;
 	}
 
@@ -121,7 +110,7 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 *
 	 * @return the salesforce event local service
 	 */
-	public SalesforceEventLocalService getSalesforceEventLocalService() {
+	public com.liferay.salesforce.service.SalesforceEventLocalService getSalesforceEventLocalService() {
 		return salesforceEventLocalService;
 	}
 
@@ -131,7 +120,7 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 * @param salesforceEventLocalService the salesforce event local service
 	 */
 	public void setSalesforceEventLocalService(
-		SalesforceEventLocalService salesforceEventLocalService) {
+		com.liferay.salesforce.service.SalesforceEventLocalService salesforceEventLocalService) {
 		this.salesforceEventLocalService = salesforceEventLocalService;
 	}
 
@@ -140,7 +129,7 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 *
 	 * @return the salesforce lead local service
 	 */
-	public SalesforceLeadLocalService getSalesforceLeadLocalService() {
+	public com.liferay.salesforce.service.SalesforceLeadLocalService getSalesforceLeadLocalService() {
 		return salesforceLeadLocalService;
 	}
 
@@ -150,7 +139,7 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 * @param salesforceLeadLocalService the salesforce lead local service
 	 */
 	public void setSalesforceLeadLocalService(
-		SalesforceLeadLocalService salesforceLeadLocalService) {
+		com.liferay.salesforce.service.SalesforceLeadLocalService salesforceLeadLocalService) {
 		this.salesforceLeadLocalService = salesforceLeadLocalService;
 	}
 
@@ -159,7 +148,7 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 *
 	 * @return the salesforce opportunity local service
 	 */
-	public SalesforceOpportunityLocalService getSalesforceOpportunityLocalService() {
+	public com.liferay.salesforce.service.SalesforceOpportunityLocalService getSalesforceOpportunityLocalService() {
 		return salesforceOpportunityLocalService;
 	}
 
@@ -169,7 +158,7 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 * @param salesforceOpportunityLocalService the salesforce opportunity local service
 	 */
 	public void setSalesforceOpportunityLocalService(
-		SalesforceOpportunityLocalService salesforceOpportunityLocalService) {
+		com.liferay.salesforce.service.SalesforceOpportunityLocalService salesforceOpportunityLocalService) {
 		this.salesforceOpportunityLocalService = salesforceOpportunityLocalService;
 	}
 
@@ -178,7 +167,7 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 *
 	 * @return the salesforce task local service
 	 */
-	public SalesforceTaskLocalService getSalesforceTaskLocalService() {
+	public com.liferay.salesforce.service.SalesforceTaskLocalService getSalesforceTaskLocalService() {
 		return salesforceTaskLocalService;
 	}
 
@@ -188,7 +177,7 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 * @param salesforceTaskLocalService the salesforce task local service
 	 */
 	public void setSalesforceTaskLocalService(
-		SalesforceTaskLocalService salesforceTaskLocalService) {
+		com.liferay.salesforce.service.SalesforceTaskLocalService salesforceTaskLocalService) {
 		this.salesforceTaskLocalService = salesforceTaskLocalService;
 	}
 
@@ -197,7 +186,7 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 *
 	 * @return the counter local service
 	 */
-	public CounterLocalService getCounterLocalService() {
+	public com.liferay.counter.service.CounterLocalService getCounterLocalService() {
 		return counterLocalService;
 	}
 
@@ -206,7 +195,8 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 *
 	 * @param counterLocalService the counter local service
 	 */
-	public void setCounterLocalService(CounterLocalService counterLocalService) {
+	public void setCounterLocalService(
+		com.liferay.counter.service.CounterLocalService counterLocalService) {
 		this.counterLocalService = counterLocalService;
 	}
 
@@ -215,7 +205,7 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 *
 	 * @return the resource local service
 	 */
-	public ResourceLocalService getResourceLocalService() {
+	public com.liferay.portal.service.ResourceLocalService getResourceLocalService() {
 		return resourceLocalService;
 	}
 
@@ -225,7 +215,7 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 * @param resourceLocalService the resource local service
 	 */
 	public void setResourceLocalService(
-		ResourceLocalService resourceLocalService) {
+		com.liferay.portal.service.ResourceLocalService resourceLocalService) {
 		this.resourceLocalService = resourceLocalService;
 	}
 
@@ -234,7 +224,7 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 *
 	 * @return the user local service
 	 */
-	public UserLocalService getUserLocalService() {
+	public com.liferay.portal.service.UserLocalService getUserLocalService() {
 		return userLocalService;
 	}
 
@@ -243,7 +233,8 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 *
 	 * @param userLocalService the user local service
 	 */
-	public void setUserLocalService(UserLocalService userLocalService) {
+	public void setUserLocalService(
+		com.liferay.portal.service.UserLocalService userLocalService) {
 		this.userLocalService = userLocalService;
 	}
 
@@ -252,7 +243,7 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 *
 	 * @return the user remote service
 	 */
-	public UserService getUserService() {
+	public com.liferay.portal.service.UserService getUserService() {
 		return userService;
 	}
 
@@ -261,7 +252,8 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 	 *
 	 * @param userService the user remote service
 	 */
-	public void setUserService(UserService userService) {
+	public void setUserService(
+		com.liferay.portal.service.UserService userService) {
 		this.userService = userService;
 	}
 
@@ -352,28 +344,28 @@ public abstract class SalesforceTaskLocalServiceBaseImpl
 		}
 	}
 
-	@BeanReference(type = SalesforceLocalService.class)
-	protected SalesforceLocalService salesforceLocalService;
-	@BeanReference(type = SalesforceAccountLocalService.class)
-	protected SalesforceAccountLocalService salesforceAccountLocalService;
-	@BeanReference(type = SalesforceContactLocalService.class)
-	protected SalesforceContactLocalService salesforceContactLocalService;
-	@BeanReference(type = SalesforceEventLocalService.class)
-	protected SalesforceEventLocalService salesforceEventLocalService;
-	@BeanReference(type = SalesforceLeadLocalService.class)
-	protected SalesforceLeadLocalService salesforceLeadLocalService;
-	@BeanReference(type = SalesforceOpportunityLocalService.class)
-	protected SalesforceOpportunityLocalService salesforceOpportunityLocalService;
-	@BeanReference(type = SalesforceTaskLocalService.class)
-	protected SalesforceTaskLocalService salesforceTaskLocalService;
-	@BeanReference(type = CounterLocalService.class)
-	protected CounterLocalService counterLocalService;
-	@BeanReference(type = ResourceLocalService.class)
-	protected ResourceLocalService resourceLocalService;
-	@BeanReference(type = UserLocalService.class)
-	protected UserLocalService userLocalService;
-	@BeanReference(type = UserService.class)
-	protected UserService userService;
+	@BeanReference(type = com.liferay.salesforce.service.SalesforceLocalService.class)
+	protected com.liferay.salesforce.service.SalesforceLocalService salesforceLocalService;
+	@BeanReference(type = com.liferay.salesforce.service.SalesforceAccountLocalService.class)
+	protected com.liferay.salesforce.service.SalesforceAccountLocalService salesforceAccountLocalService;
+	@BeanReference(type = com.liferay.salesforce.service.SalesforceContactLocalService.class)
+	protected com.liferay.salesforce.service.SalesforceContactLocalService salesforceContactLocalService;
+	@BeanReference(type = com.liferay.salesforce.service.SalesforceEventLocalService.class)
+	protected com.liferay.salesforce.service.SalesforceEventLocalService salesforceEventLocalService;
+	@BeanReference(type = com.liferay.salesforce.service.SalesforceLeadLocalService.class)
+	protected com.liferay.salesforce.service.SalesforceLeadLocalService salesforceLeadLocalService;
+	@BeanReference(type = com.liferay.salesforce.service.SalesforceOpportunityLocalService.class)
+	protected com.liferay.salesforce.service.SalesforceOpportunityLocalService salesforceOpportunityLocalService;
+	@BeanReference(type = com.liferay.salesforce.service.SalesforceTaskLocalService.class)
+	protected com.liferay.salesforce.service.SalesforceTaskLocalService salesforceTaskLocalService;
+	@BeanReference(type = com.liferay.counter.service.CounterLocalService.class)
+	protected com.liferay.counter.service.CounterLocalService counterLocalService;
+	@BeanReference(type = com.liferay.portal.service.ResourceLocalService.class)
+	protected com.liferay.portal.service.ResourceLocalService resourceLocalService;
+	@BeanReference(type = com.liferay.portal.service.UserLocalService.class)
+	protected com.liferay.portal.service.UserLocalService userLocalService;
+	@BeanReference(type = com.liferay.portal.service.UserService.class)
+	protected com.liferay.portal.service.UserService userService;
 	@BeanReference(type = UserPersistence.class)
 	protected UserPersistence userPersistence;
 	private String _beanIdentifier;

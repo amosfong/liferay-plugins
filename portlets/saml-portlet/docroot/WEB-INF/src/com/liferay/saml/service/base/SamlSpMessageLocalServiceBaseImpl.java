@@ -14,8 +14,6 @@
 
 package com.liferay.saml.service.base;
 
-import com.liferay.counter.service.CounterLocalService;
-
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.bean.IdentifiableBean;
 import com.liferay.portal.kernel.dao.jdbc.SqlUpdate;
@@ -30,19 +28,10 @@ import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.model.PersistedModel;
 import com.liferay.portal.service.BaseLocalServiceImpl;
 import com.liferay.portal.service.PersistedModelLocalServiceRegistryUtil;
-import com.liferay.portal.service.ResourceLocalService;
-import com.liferay.portal.service.UserLocalService;
-import com.liferay.portal.service.UserService;
 import com.liferay.portal.service.persistence.UserPersistence;
 
 import com.liferay.saml.model.SamlSpMessage;
-import com.liferay.saml.service.SamlIdpSpConnectionLocalService;
-import com.liferay.saml.service.SamlIdpSpSessionLocalService;
-import com.liferay.saml.service.SamlIdpSsoSessionLocalService;
-import com.liferay.saml.service.SamlSpAuthRequestLocalService;
-import com.liferay.saml.service.SamlSpIdpConnectionLocalService;
 import com.liferay.saml.service.SamlSpMessageLocalService;
-import com.liferay.saml.service.SamlSpSessionLocalService;
 import com.liferay.saml.service.persistence.SamlIdpSpConnectionPersistence;
 import com.liferay.saml.service.persistence.SamlIdpSpSessionPersistence;
 import com.liferay.saml.service.persistence.SamlIdpSsoSessionPersistence;
@@ -286,7 +275,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 *
 	 * @return the saml idp sp connection local service
 	 */
-	public SamlIdpSpConnectionLocalService getSamlIdpSpConnectionLocalService() {
+	public com.liferay.saml.service.SamlIdpSpConnectionLocalService getSamlIdpSpConnectionLocalService() {
 		return samlIdpSpConnectionLocalService;
 	}
 
@@ -296,7 +285,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 * @param samlIdpSpConnectionLocalService the saml idp sp connection local service
 	 */
 	public void setSamlIdpSpConnectionLocalService(
-		SamlIdpSpConnectionLocalService samlIdpSpConnectionLocalService) {
+		com.liferay.saml.service.SamlIdpSpConnectionLocalService samlIdpSpConnectionLocalService) {
 		this.samlIdpSpConnectionLocalService = samlIdpSpConnectionLocalService;
 	}
 
@@ -324,7 +313,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 *
 	 * @return the saml idp sp session local service
 	 */
-	public SamlIdpSpSessionLocalService getSamlIdpSpSessionLocalService() {
+	public com.liferay.saml.service.SamlIdpSpSessionLocalService getSamlIdpSpSessionLocalService() {
 		return samlIdpSpSessionLocalService;
 	}
 
@@ -334,7 +323,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 * @param samlIdpSpSessionLocalService the saml idp sp session local service
 	 */
 	public void setSamlIdpSpSessionLocalService(
-		SamlIdpSpSessionLocalService samlIdpSpSessionLocalService) {
+		com.liferay.saml.service.SamlIdpSpSessionLocalService samlIdpSpSessionLocalService) {
 		this.samlIdpSpSessionLocalService = samlIdpSpSessionLocalService;
 	}
 
@@ -362,7 +351,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 *
 	 * @return the saml idp sso session local service
 	 */
-	public SamlIdpSsoSessionLocalService getSamlIdpSsoSessionLocalService() {
+	public com.liferay.saml.service.SamlIdpSsoSessionLocalService getSamlIdpSsoSessionLocalService() {
 		return samlIdpSsoSessionLocalService;
 	}
 
@@ -372,7 +361,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 * @param samlIdpSsoSessionLocalService the saml idp sso session local service
 	 */
 	public void setSamlIdpSsoSessionLocalService(
-		SamlIdpSsoSessionLocalService samlIdpSsoSessionLocalService) {
+		com.liferay.saml.service.SamlIdpSsoSessionLocalService samlIdpSsoSessionLocalService) {
 		this.samlIdpSsoSessionLocalService = samlIdpSsoSessionLocalService;
 	}
 
@@ -400,7 +389,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 *
 	 * @return the saml sp auth request local service
 	 */
-	public SamlSpAuthRequestLocalService getSamlSpAuthRequestLocalService() {
+	public com.liferay.saml.service.SamlSpAuthRequestLocalService getSamlSpAuthRequestLocalService() {
 		return samlSpAuthRequestLocalService;
 	}
 
@@ -410,7 +399,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 * @param samlSpAuthRequestLocalService the saml sp auth request local service
 	 */
 	public void setSamlSpAuthRequestLocalService(
-		SamlSpAuthRequestLocalService samlSpAuthRequestLocalService) {
+		com.liferay.saml.service.SamlSpAuthRequestLocalService samlSpAuthRequestLocalService) {
 		this.samlSpAuthRequestLocalService = samlSpAuthRequestLocalService;
 	}
 
@@ -438,7 +427,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 *
 	 * @return the saml sp idp connection local service
 	 */
-	public SamlSpIdpConnectionLocalService getSamlSpIdpConnectionLocalService() {
+	public com.liferay.saml.service.SamlSpIdpConnectionLocalService getSamlSpIdpConnectionLocalService() {
 		return samlSpIdpConnectionLocalService;
 	}
 
@@ -448,7 +437,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 * @param samlSpIdpConnectionLocalService the saml sp idp connection local service
 	 */
 	public void setSamlSpIdpConnectionLocalService(
-		SamlSpIdpConnectionLocalService samlSpIdpConnectionLocalService) {
+		com.liferay.saml.service.SamlSpIdpConnectionLocalService samlSpIdpConnectionLocalService) {
 		this.samlSpIdpConnectionLocalService = samlSpIdpConnectionLocalService;
 	}
 
@@ -476,7 +465,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 *
 	 * @return the saml sp message local service
 	 */
-	public SamlSpMessageLocalService getSamlSpMessageLocalService() {
+	public com.liferay.saml.service.SamlSpMessageLocalService getSamlSpMessageLocalService() {
 		return samlSpMessageLocalService;
 	}
 
@@ -486,7 +475,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 * @param samlSpMessageLocalService the saml sp message local service
 	 */
 	public void setSamlSpMessageLocalService(
-		SamlSpMessageLocalService samlSpMessageLocalService) {
+		com.liferay.saml.service.SamlSpMessageLocalService samlSpMessageLocalService) {
 		this.samlSpMessageLocalService = samlSpMessageLocalService;
 	}
 
@@ -514,7 +503,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 *
 	 * @return the saml sp session local service
 	 */
-	public SamlSpSessionLocalService getSamlSpSessionLocalService() {
+	public com.liferay.saml.service.SamlSpSessionLocalService getSamlSpSessionLocalService() {
 		return samlSpSessionLocalService;
 	}
 
@@ -524,7 +513,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 * @param samlSpSessionLocalService the saml sp session local service
 	 */
 	public void setSamlSpSessionLocalService(
-		SamlSpSessionLocalService samlSpSessionLocalService) {
+		com.liferay.saml.service.SamlSpSessionLocalService samlSpSessionLocalService) {
 		this.samlSpSessionLocalService = samlSpSessionLocalService;
 	}
 
@@ -552,7 +541,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 *
 	 * @return the counter local service
 	 */
-	public CounterLocalService getCounterLocalService() {
+	public com.liferay.counter.service.CounterLocalService getCounterLocalService() {
 		return counterLocalService;
 	}
 
@@ -561,7 +550,8 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 *
 	 * @param counterLocalService the counter local service
 	 */
-	public void setCounterLocalService(CounterLocalService counterLocalService) {
+	public void setCounterLocalService(
+		com.liferay.counter.service.CounterLocalService counterLocalService) {
 		this.counterLocalService = counterLocalService;
 	}
 
@@ -570,7 +560,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 *
 	 * @return the resource local service
 	 */
-	public ResourceLocalService getResourceLocalService() {
+	public com.liferay.portal.service.ResourceLocalService getResourceLocalService() {
 		return resourceLocalService;
 	}
 
@@ -580,7 +570,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 * @param resourceLocalService the resource local service
 	 */
 	public void setResourceLocalService(
-		ResourceLocalService resourceLocalService) {
+		com.liferay.portal.service.ResourceLocalService resourceLocalService) {
 		this.resourceLocalService = resourceLocalService;
 	}
 
@@ -589,7 +579,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 *
 	 * @return the user local service
 	 */
-	public UserLocalService getUserLocalService() {
+	public com.liferay.portal.service.UserLocalService getUserLocalService() {
 		return userLocalService;
 	}
 
@@ -598,7 +588,8 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 *
 	 * @param userLocalService the user local service
 	 */
-	public void setUserLocalService(UserLocalService userLocalService) {
+	public void setUserLocalService(
+		com.liferay.portal.service.UserLocalService userLocalService) {
 		this.userLocalService = userLocalService;
 	}
 
@@ -607,7 +598,7 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 *
 	 * @return the user remote service
 	 */
-	public UserService getUserService() {
+	public com.liferay.portal.service.UserService getUserService() {
 		return userService;
 	}
 
@@ -616,7 +607,8 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 	 *
 	 * @param userService the user remote service
 	 */
-	public void setUserService(UserService userService) {
+	public void setUserService(
+		com.liferay.portal.service.UserService userService) {
 		this.userService = userService;
 	}
 
@@ -720,42 +712,42 @@ public abstract class SamlSpMessageLocalServiceBaseImpl
 		}
 	}
 
-	@BeanReference(type = SamlIdpSpConnectionLocalService.class)
-	protected SamlIdpSpConnectionLocalService samlIdpSpConnectionLocalService;
+	@BeanReference(type = com.liferay.saml.service.SamlIdpSpConnectionLocalService.class)
+	protected com.liferay.saml.service.SamlIdpSpConnectionLocalService samlIdpSpConnectionLocalService;
 	@BeanReference(type = SamlIdpSpConnectionPersistence.class)
 	protected SamlIdpSpConnectionPersistence samlIdpSpConnectionPersistence;
-	@BeanReference(type = SamlIdpSpSessionLocalService.class)
-	protected SamlIdpSpSessionLocalService samlIdpSpSessionLocalService;
+	@BeanReference(type = com.liferay.saml.service.SamlIdpSpSessionLocalService.class)
+	protected com.liferay.saml.service.SamlIdpSpSessionLocalService samlIdpSpSessionLocalService;
 	@BeanReference(type = SamlIdpSpSessionPersistence.class)
 	protected SamlIdpSpSessionPersistence samlIdpSpSessionPersistence;
-	@BeanReference(type = SamlIdpSsoSessionLocalService.class)
-	protected SamlIdpSsoSessionLocalService samlIdpSsoSessionLocalService;
+	@BeanReference(type = com.liferay.saml.service.SamlIdpSsoSessionLocalService.class)
+	protected com.liferay.saml.service.SamlIdpSsoSessionLocalService samlIdpSsoSessionLocalService;
 	@BeanReference(type = SamlIdpSsoSessionPersistence.class)
 	protected SamlIdpSsoSessionPersistence samlIdpSsoSessionPersistence;
-	@BeanReference(type = SamlSpAuthRequestLocalService.class)
-	protected SamlSpAuthRequestLocalService samlSpAuthRequestLocalService;
+	@BeanReference(type = com.liferay.saml.service.SamlSpAuthRequestLocalService.class)
+	protected com.liferay.saml.service.SamlSpAuthRequestLocalService samlSpAuthRequestLocalService;
 	@BeanReference(type = SamlSpAuthRequestPersistence.class)
 	protected SamlSpAuthRequestPersistence samlSpAuthRequestPersistence;
-	@BeanReference(type = SamlSpIdpConnectionLocalService.class)
-	protected SamlSpIdpConnectionLocalService samlSpIdpConnectionLocalService;
+	@BeanReference(type = com.liferay.saml.service.SamlSpIdpConnectionLocalService.class)
+	protected com.liferay.saml.service.SamlSpIdpConnectionLocalService samlSpIdpConnectionLocalService;
 	@BeanReference(type = SamlSpIdpConnectionPersistence.class)
 	protected SamlSpIdpConnectionPersistence samlSpIdpConnectionPersistence;
-	@BeanReference(type = SamlSpMessageLocalService.class)
-	protected SamlSpMessageLocalService samlSpMessageLocalService;
+	@BeanReference(type = com.liferay.saml.service.SamlSpMessageLocalService.class)
+	protected com.liferay.saml.service.SamlSpMessageLocalService samlSpMessageLocalService;
 	@BeanReference(type = SamlSpMessagePersistence.class)
 	protected SamlSpMessagePersistence samlSpMessagePersistence;
-	@BeanReference(type = SamlSpSessionLocalService.class)
-	protected SamlSpSessionLocalService samlSpSessionLocalService;
+	@BeanReference(type = com.liferay.saml.service.SamlSpSessionLocalService.class)
+	protected com.liferay.saml.service.SamlSpSessionLocalService samlSpSessionLocalService;
 	@BeanReference(type = SamlSpSessionPersistence.class)
 	protected SamlSpSessionPersistence samlSpSessionPersistence;
-	@BeanReference(type = CounterLocalService.class)
-	protected CounterLocalService counterLocalService;
-	@BeanReference(type = ResourceLocalService.class)
-	protected ResourceLocalService resourceLocalService;
-	@BeanReference(type = UserLocalService.class)
-	protected UserLocalService userLocalService;
-	@BeanReference(type = UserService.class)
-	protected UserService userService;
+	@BeanReference(type = com.liferay.counter.service.CounterLocalService.class)
+	protected com.liferay.counter.service.CounterLocalService counterLocalService;
+	@BeanReference(type = com.liferay.portal.service.ResourceLocalService.class)
+	protected com.liferay.portal.service.ResourceLocalService resourceLocalService;
+	@BeanReference(type = com.liferay.portal.service.UserLocalService.class)
+	protected com.liferay.portal.service.UserLocalService userLocalService;
+	@BeanReference(type = com.liferay.portal.service.UserService.class)
+	protected com.liferay.portal.service.UserService userService;
 	@BeanReference(type = UserPersistence.class)
 	protected UserPersistence userPersistence;
 	private String _beanIdentifier;
