@@ -73,92 +73,99 @@ public class DefinitionLocalServiceClpInvoker {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
 			};
 
-		_methodName9 = "fetchDefinition";
+		_methodName9 = "dynamicQueryCount";
 
-		_methodParameterTypes9 = new String[] { "long" };
+		_methodParameterTypes9 = new String[] {
+				"com.liferay.portal.kernel.dao.orm.DynamicQuery",
+				"com.liferay.portal.kernel.dao.orm.Projection"
+			};
 
-		_methodName10 = "getDefinition";
+		_methodName10 = "fetchDefinition";
 
 		_methodParameterTypes10 = new String[] { "long" };
 
-		_methodName11 = "getPersistedModel";
+		_methodName11 = "getDefinition";
 
-		_methodParameterTypes11 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes11 = new String[] { "long" };
 
-		_methodName12 = "getDefinitionByUuidAndGroupId";
+		_methodName12 = "getPersistedModel";
 
-		_methodParameterTypes12 = new String[] { "java.lang.String", "long" };
+		_methodParameterTypes12 = new String[] { "java.io.Serializable" };
 
-		_methodName13 = "getDefinitions";
+		_methodName13 = "getDefinitionByUuidAndGroupId";
 
-		_methodParameterTypes13 = new String[] { "int", "int" };
+		_methodParameterTypes13 = new String[] { "java.lang.String", "long" };
 
-		_methodName14 = "getDefinitionsCount";
+		_methodName14 = "getDefinitions";
 
-		_methodParameterTypes14 = new String[] {  };
+		_methodParameterTypes14 = new String[] { "int", "int" };
 
-		_methodName15 = "updateDefinition";
+		_methodName15 = "getDefinitionsCount";
 
-		_methodParameterTypes15 = new String[] {
+		_methodParameterTypes15 = new String[] {  };
+
+		_methodName16 = "updateDefinition";
+
+		_methodParameterTypes16 = new String[] {
 				"com.liferay.reports.model.Definition"
 			};
 
-		_methodName46 = "getBeanIdentifier";
+		_methodName47 = "getBeanIdentifier";
 
-		_methodParameterTypes46 = new String[] {  };
+		_methodParameterTypes47 = new String[] {  };
 
-		_methodName47 = "setBeanIdentifier";
+		_methodName48 = "setBeanIdentifier";
 
-		_methodParameterTypes47 = new String[] { "java.lang.String" };
+		_methodParameterTypes48 = new String[] { "java.lang.String" };
 
-		_methodName52 = "addDefinition";
+		_methodName53 = "addDefinition";
 
-		_methodParameterTypes52 = new String[] {
+		_methodParameterTypes53 = new String[] {
 				"long", "long", "java.util.Map", "java.util.Map", "long",
 				"java.lang.String", "java.lang.String", "java.io.InputStream",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName53 = "deleteDefinition";
+		_methodName54 = "deleteDefinition";
 
-		_methodParameterTypes53 = new String[] {
+		_methodParameterTypes54 = new String[] {
 				"com.liferay.reports.model.Definition"
 			};
 
-		_methodName54 = "deleteDefinition";
+		_methodName55 = "deleteDefinition";
 
-		_methodParameterTypes54 = new String[] { "long" };
+		_methodParameterTypes55 = new String[] { "long" };
 
-		_methodName55 = "deleteDefinitionTemplates";
+		_methodName56 = "deleteDefinitionTemplates";
 
-		_methodParameterTypes55 = new String[] { "long", "java.lang.String" };
+		_methodParameterTypes56 = new String[] { "long", "java.lang.String" };
 
-		_methodName56 = "getDefinitions";
+		_methodName57 = "getDefinitions";
 
-		_methodParameterTypes56 = new String[] {
+		_methodParameterTypes57 = new String[] {
 				"long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "boolean", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName57 = "getDefinitionsCount";
+		_methodName58 = "getDefinitionsCount";
 
-		_methodParameterTypes57 = new String[] {
+		_methodParameterTypes58 = new String[] {
 				"long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "boolean"
 			};
 
-		_methodName58 = "updateDefinition";
+		_methodName59 = "updateDefinition";
 
-		_methodParameterTypes58 = new String[] {
+		_methodParameterTypes59 = new String[] {
 				"long", "java.util.Map", "java.util.Map", "long",
 				"java.lang.String", "java.lang.String", "java.io.InputStream",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName59 = "updateDefinitionResources";
+		_methodName60 = "updateDefinitionResources";
 
-		_methodParameterTypes59 = new String[] {
+		_methodParameterTypes60 = new String[] {
 				"com.liferay.reports.model.Definition", "java.lang.String[][]",
 				"java.lang.String[][]"
 			};
@@ -218,55 +225,61 @@ public class DefinitionLocalServiceClpInvoker {
 
 		if (_methodName9.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes9, parameterTypes)) {
-			return DefinitionLocalServiceUtil.fetchDefinition(((Long)arguments[0]).longValue());
+			return DefinitionLocalServiceUtil.dynamicQueryCount((com.liferay.portal.kernel.dao.orm.DynamicQuery)arguments[0],
+				(com.liferay.portal.kernel.dao.orm.Projection)arguments[1]);
 		}
 
 		if (_methodName10.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes10, parameterTypes)) {
-			return DefinitionLocalServiceUtil.getDefinition(((Long)arguments[0]).longValue());
+			return DefinitionLocalServiceUtil.fetchDefinition(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName11.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes11, parameterTypes)) {
-			return DefinitionLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
+			return DefinitionLocalServiceUtil.getDefinition(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName12.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes12, parameterTypes)) {
-			return DefinitionLocalServiceUtil.getDefinitionByUuidAndGroupId((java.lang.String)arguments[0],
-				((Long)arguments[1]).longValue());
+			return DefinitionLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
 		}
 
 		if (_methodName13.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes13, parameterTypes)) {
-			return DefinitionLocalServiceUtil.getDefinitions(((Integer)arguments[0]).intValue(),
-				((Integer)arguments[1]).intValue());
+			return DefinitionLocalServiceUtil.getDefinitionByUuidAndGroupId((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName14.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes14, parameterTypes)) {
-			return DefinitionLocalServiceUtil.getDefinitionsCount();
+			return DefinitionLocalServiceUtil.getDefinitions(((Integer)arguments[0]).intValue(),
+				((Integer)arguments[1]).intValue());
 		}
 
 		if (_methodName15.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes15, parameterTypes)) {
-			return DefinitionLocalServiceUtil.updateDefinition((com.liferay.reports.model.Definition)arguments[0]);
+			return DefinitionLocalServiceUtil.getDefinitionsCount();
 		}
 
-		if (_methodName46.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
-			return DefinitionLocalServiceUtil.getBeanIdentifier();
+		if (_methodName16.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes16, parameterTypes)) {
+			return DefinitionLocalServiceUtil.updateDefinition((com.liferay.reports.model.Definition)arguments[0]);
 		}
 
 		if (_methodName47.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
+			return DefinitionLocalServiceUtil.getBeanIdentifier();
+		}
+
+		if (_methodName48.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
 			DefinitionLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName52.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
+		if (_methodName53.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
 			return DefinitionLocalServiceUtil.addDefinition(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				(java.util.Map<java.util.Locale, java.lang.String>)arguments[2],
@@ -277,26 +290,26 @@ public class DefinitionLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[8]);
 		}
 
-		if (_methodName53.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
-			return DefinitionLocalServiceUtil.deleteDefinition((com.liferay.reports.model.Definition)arguments[0]);
-		}
-
 		if (_methodName54.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
-			return DefinitionLocalServiceUtil.deleteDefinition(((Long)arguments[0]).longValue());
+			return DefinitionLocalServiceUtil.deleteDefinition((com.liferay.reports.model.Definition)arguments[0]);
 		}
 
 		if (_methodName55.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+			return DefinitionLocalServiceUtil.deleteDefinition(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName56.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
 			DefinitionLocalServiceUtil.deleteDefinitionTemplates(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1]);
 
 			return null;
 		}
 
-		if (_methodName56.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+		if (_methodName57.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
 			return DefinitionLocalServiceUtil.getDefinitions(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
 				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
@@ -306,16 +319,16 @@ public class DefinitionLocalServiceClpInvoker {
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[8]);
 		}
 
-		if (_methodName57.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+		if (_methodName58.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
 			return DefinitionLocalServiceUtil.getDefinitionsCount(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
 				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
 				((Boolean)arguments[5]).booleanValue());
 		}
 
-		if (_methodName58.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
+		if (_methodName59.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
 			return DefinitionLocalServiceUtil.updateDefinition(((Long)arguments[0]).longValue(),
 				(java.util.Map<java.util.Locale, java.lang.String>)arguments[1],
 				(java.util.Map<java.util.Locale, java.lang.String>)arguments[2],
@@ -325,8 +338,8 @@ public class DefinitionLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[7]);
 		}
 
-		if (_methodName59.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
+		if (_methodName60.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
 			DefinitionLocalServiceUtil.updateDefinitionResources((com.liferay.reports.model.Definition)arguments[0],
 				(java.lang.String[])arguments[1],
 				(java.lang.String[])arguments[2]);
@@ -369,12 +382,12 @@ public class DefinitionLocalServiceClpInvoker {
 	private String[] _methodParameterTypes14;
 	private String _methodName15;
 	private String[] _methodParameterTypes15;
-	private String _methodName46;
-	private String[] _methodParameterTypes46;
+	private String _methodName16;
+	private String[] _methodParameterTypes16;
 	private String _methodName47;
 	private String[] _methodParameterTypes47;
-	private String _methodName52;
-	private String[] _methodParameterTypes52;
+	private String _methodName48;
+	private String[] _methodParameterTypes48;
 	private String _methodName53;
 	private String[] _methodParameterTypes53;
 	private String _methodName54;
@@ -389,4 +402,6 @@ public class DefinitionLocalServiceClpInvoker {
 	private String[] _methodParameterTypes58;
 	private String _methodName59;
 	private String[] _methodParameterTypes59;
+	private String _methodName60;
+	private String[] _methodParameterTypes60;
 }

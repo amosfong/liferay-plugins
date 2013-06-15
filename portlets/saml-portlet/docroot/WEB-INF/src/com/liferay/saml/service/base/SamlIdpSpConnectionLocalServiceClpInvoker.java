@@ -73,79 +73,86 @@ public class SamlIdpSpConnectionLocalServiceClpInvoker {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
 			};
 
-		_methodName9 = "fetchSamlIdpSpConnection";
+		_methodName9 = "dynamicQueryCount";
 
-		_methodParameterTypes9 = new String[] { "long" };
+		_methodParameterTypes9 = new String[] {
+				"com.liferay.portal.kernel.dao.orm.DynamicQuery",
+				"com.liferay.portal.kernel.dao.orm.Projection"
+			};
 
-		_methodName10 = "getSamlIdpSpConnection";
+		_methodName10 = "fetchSamlIdpSpConnection";
 
 		_methodParameterTypes10 = new String[] { "long" };
 
-		_methodName11 = "getPersistedModel";
+		_methodName11 = "getSamlIdpSpConnection";
 
-		_methodParameterTypes11 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes11 = new String[] { "long" };
 
-		_methodName12 = "getSamlIdpSpConnections";
+		_methodName12 = "getPersistedModel";
 
-		_methodParameterTypes12 = new String[] { "int", "int" };
+		_methodParameterTypes12 = new String[] { "java.io.Serializable" };
 
-		_methodName13 = "getSamlIdpSpConnectionsCount";
+		_methodName13 = "getSamlIdpSpConnections";
 
-		_methodParameterTypes13 = new String[] {  };
+		_methodParameterTypes13 = new String[] { "int", "int" };
 
-		_methodName14 = "updateSamlIdpSpConnection";
+		_methodName14 = "getSamlIdpSpConnectionsCount";
 
-		_methodParameterTypes14 = new String[] {
+		_methodParameterTypes14 = new String[] {  };
+
+		_methodName15 = "updateSamlIdpSpConnection";
+
+		_methodParameterTypes15 = new String[] {
 				"com.liferay.saml.model.SamlIdpSpConnection"
 			};
 
-		_methodName55 = "getBeanIdentifier";
+		_methodName56 = "getBeanIdentifier";
 
-		_methodParameterTypes55 = new String[] {  };
+		_methodParameterTypes56 = new String[] {  };
 
-		_methodName56 = "setBeanIdentifier";
+		_methodName57 = "setBeanIdentifier";
 
-		_methodParameterTypes56 = new String[] { "java.lang.String" };
+		_methodParameterTypes57 = new String[] { "java.lang.String" };
 
-		_methodName61 = "addSamlIdpSpConnection";
+		_methodName62 = "addSamlIdpSpConnection";
 
-		_methodParameterTypes61 = new String[] {
+		_methodParameterTypes62 = new String[] {
 				"java.lang.String", "int", "java.lang.String", "boolean",
 				"boolean", "boolean", "java.lang.String", "java.io.InputStream",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName62 = "getSamlIdpSpConnection";
+		_methodName63 = "getSamlIdpSpConnection";
 
-		_methodParameterTypes62 = new String[] { "long", "java.lang.String" };
-
-		_methodName63 = "getSamlIdpSpConnections";
-
-		_methodParameterTypes63 = new String[] { "long" };
+		_methodParameterTypes63 = new String[] { "long", "java.lang.String" };
 
 		_methodName64 = "getSamlIdpSpConnections";
 
-		_methodParameterTypes64 = new String[] { "long", "int", "int" };
+		_methodParameterTypes64 = new String[] { "long" };
 
 		_methodName65 = "getSamlIdpSpConnections";
 
-		_methodParameterTypes65 = new String[] {
+		_methodParameterTypes65 = new String[] { "long", "int", "int" };
+
+		_methodName66 = "getSamlIdpSpConnections";
+
+		_methodParameterTypes66 = new String[] {
 				"long", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName66 = "getSamlIdpSpConnectionsCount";
-
-		_methodParameterTypes66 = new String[] { "long" };
-
-		_methodName67 = "updateMetadata";
+		_methodName67 = "getSamlIdpSpConnectionsCount";
 
 		_methodParameterTypes67 = new String[] { "long" };
 
-		_methodName68 = "updateSamlIdpSpConnection";
+		_methodName68 = "updateMetadata";
 
-		_methodParameterTypes68 = new String[] {
+		_methodParameterTypes68 = new String[] { "long" };
+
+		_methodName69 = "updateSamlIdpSpConnection";
+
+		_methodParameterTypes69 = new String[] {
 				"long", "java.lang.String", "int", "java.lang.String", "boolean",
 				"boolean", "boolean", "java.lang.String", "java.io.InputStream",
 				"java.lang.String", "java.lang.String", "java.lang.String",
@@ -207,49 +214,55 @@ public class SamlIdpSpConnectionLocalServiceClpInvoker {
 
 		if (_methodName9.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes9, parameterTypes)) {
-			return SamlIdpSpConnectionLocalServiceUtil.fetchSamlIdpSpConnection(((Long)arguments[0]).longValue());
+			return SamlIdpSpConnectionLocalServiceUtil.dynamicQueryCount((com.liferay.portal.kernel.dao.orm.DynamicQuery)arguments[0],
+				(com.liferay.portal.kernel.dao.orm.Projection)arguments[1]);
 		}
 
 		if (_methodName10.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes10, parameterTypes)) {
-			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnection(((Long)arguments[0]).longValue());
+			return SamlIdpSpConnectionLocalServiceUtil.fetchSamlIdpSpConnection(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName11.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes11, parameterTypes)) {
-			return SamlIdpSpConnectionLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
+			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnection(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName12.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes12, parameterTypes)) {
-			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnections(((Integer)arguments[0]).intValue(),
-				((Integer)arguments[1]).intValue());
+			return SamlIdpSpConnectionLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
 		}
 
 		if (_methodName13.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes13, parameterTypes)) {
-			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnectionsCount();
+			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnections(((Integer)arguments[0]).intValue(),
+				((Integer)arguments[1]).intValue());
 		}
 
 		if (_methodName14.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes14, parameterTypes)) {
-			return SamlIdpSpConnectionLocalServiceUtil.updateSamlIdpSpConnection((com.liferay.saml.model.SamlIdpSpConnection)arguments[0]);
+			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnectionsCount();
 		}
 
-		if (_methodName55.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
-			return SamlIdpSpConnectionLocalServiceUtil.getBeanIdentifier();
+		if (_methodName15.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes15, parameterTypes)) {
+			return SamlIdpSpConnectionLocalServiceUtil.updateSamlIdpSpConnection((com.liferay.saml.model.SamlIdpSpConnection)arguments[0]);
 		}
 
 		if (_methodName56.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+			return SamlIdpSpConnectionLocalServiceUtil.getBeanIdentifier();
+		}
+
+		if (_methodName57.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
 			SamlIdpSpConnectionLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName61.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+		if (_methodName62.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
 			return SamlIdpSpConnectionLocalServiceUtil.addSamlIdpSpConnection((java.lang.String)arguments[0],
 				((Integer)arguments[1]).intValue(),
 				(java.lang.String)arguments[2],
@@ -263,46 +276,46 @@ public class SamlIdpSpConnectionLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[11]);
 		}
 
-		if (_methodName62.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
+		if (_methodName63.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
 			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnection(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1]);
 		}
 
-		if (_methodName63.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
-			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnections(((Long)arguments[0]).longValue());
-		}
-
 		if (_methodName64.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
-			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnections(((Long)arguments[0]).longValue(),
-				((Integer)arguments[1]).intValue(),
-				((Integer)arguments[2]).intValue());
+			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnections(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName65.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
 			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnections(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
-				((Integer)arguments[2]).intValue(),
-				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
+				((Integer)arguments[2]).intValue());
 		}
 
 		if (_methodName66.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
-			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnectionsCount(((Long)arguments[0]).longValue());
+			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnections(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue(),
+				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
 		}
 
 		if (_methodName67.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
+			return SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnectionsCount(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName68.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
 			SamlIdpSpConnectionLocalServiceUtil.updateMetadata(((Long)arguments[0]).longValue());
 
 			return null;
 		}
 
-		if (_methodName68.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
+		if (_methodName69.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
 			return SamlIdpSpConnectionLocalServiceUtil.updateSamlIdpSpConnection(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1],
 				((Integer)arguments[2]).intValue(),
@@ -351,12 +364,12 @@ public class SamlIdpSpConnectionLocalServiceClpInvoker {
 	private String[] _methodParameterTypes13;
 	private String _methodName14;
 	private String[] _methodParameterTypes14;
-	private String _methodName55;
-	private String[] _methodParameterTypes55;
+	private String _methodName15;
+	private String[] _methodParameterTypes15;
 	private String _methodName56;
 	private String[] _methodParameterTypes56;
-	private String _methodName61;
-	private String[] _methodParameterTypes61;
+	private String _methodName57;
+	private String[] _methodParameterTypes57;
 	private String _methodName62;
 	private String[] _methodParameterTypes62;
 	private String _methodName63;
@@ -371,4 +384,6 @@ public class SamlIdpSpConnectionLocalServiceClpInvoker {
 	private String[] _methodParameterTypes67;
 	private String _methodName68;
 	private String[] _methodParameterTypes68;
+	private String _methodName69;
+	private String[] _methodParameterTypes69;
 }

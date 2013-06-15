@@ -75,57 +75,64 @@ public class SamlIdpSsoSessionLocalServiceClp
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
 			};
 
-		_methodName9 = "fetchSamlIdpSsoSession";
+		_methodName9 = "dynamicQueryCount";
 
-		_methodParameterTypes9 = new String[] { "long" };
+		_methodParameterTypes9 = new String[] {
+				"com.liferay.portal.kernel.dao.orm.DynamicQuery",
+				"com.liferay.portal.kernel.dao.orm.Projection"
+			};
 
-		_methodName10 = "getSamlIdpSsoSession";
+		_methodName10 = "fetchSamlIdpSsoSession";
 
 		_methodParameterTypes10 = new String[] { "long" };
 
-		_methodName11 = "getPersistedModel";
+		_methodName11 = "getSamlIdpSsoSession";
 
-		_methodParameterTypes11 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes11 = new String[] { "long" };
 
-		_methodName12 = "getSamlIdpSsoSessions";
+		_methodName12 = "getPersistedModel";
 
-		_methodParameterTypes12 = new String[] { "int", "int" };
+		_methodParameterTypes12 = new String[] { "java.io.Serializable" };
 
-		_methodName13 = "getSamlIdpSsoSessionsCount";
+		_methodName13 = "getSamlIdpSsoSessions";
 
-		_methodParameterTypes13 = new String[] {  };
+		_methodParameterTypes13 = new String[] { "int", "int" };
 
-		_methodName14 = "updateSamlIdpSsoSession";
+		_methodName14 = "getSamlIdpSsoSessionsCount";
 
-		_methodParameterTypes14 = new String[] {
+		_methodParameterTypes14 = new String[] {  };
+
+		_methodName15 = "updateSamlIdpSsoSession";
+
+		_methodParameterTypes15 = new String[] {
 				"com.liferay.saml.model.SamlIdpSsoSession"
 			};
 
-		_methodName15 = "getBeanIdentifier";
+		_methodName16 = "getBeanIdentifier";
 
-		_methodParameterTypes15 = new String[] {  };
+		_methodParameterTypes16 = new String[] {  };
 
-		_methodName16 = "setBeanIdentifier";
+		_methodName17 = "setBeanIdentifier";
 
-		_methodParameterTypes16 = new String[] { "java.lang.String" };
+		_methodParameterTypes17 = new String[] { "java.lang.String" };
 
-		_methodName18 = "addSamlIdpSsoSession";
+		_methodName19 = "addSamlIdpSsoSession";
 
-		_methodParameterTypes18 = new String[] {
+		_methodParameterTypes19 = new String[] {
 				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName19 = "fetchSamlIdpSso";
-
-		_methodParameterTypes19 = new String[] { "java.lang.String" };
-
-		_methodName20 = "getSamlIdpSso";
+		_methodName20 = "fetchSamlIdpSso";
 
 		_methodParameterTypes20 = new String[] { "java.lang.String" };
 
-		_methodName21 = "updateModifiedDate";
+		_methodName21 = "getSamlIdpSso";
 
 		_methodParameterTypes21 = new String[] { "java.lang.String" };
+
+		_methodName22 = "updateModifiedDate";
+
+		_methodParameterTypes22 = new String[] { "java.lang.String" };
 	}
 
 	@Override
@@ -411,14 +418,50 @@ public class SamlIdpSsoSessionLocalServiceClp
 	}
 
 	@Override
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName9,
+					_methodParameterTypes9,
+					new Object[] {
+						ClpSerializer.translateInput(dynamicQuery),
+						
+					ClpSerializer.translateInput(projection)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Long)returnObj).longValue();
+	}
+
+	@Override
 	public com.liferay.saml.model.SamlIdpSsoSession fetchSamlIdpSsoSession(
 		long samlIdpSsoSessionId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName9,
-					_methodParameterTypes9, new Object[] { samlIdpSsoSessionId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName10,
+					_methodParameterTypes10,
+					new Object[] { samlIdpSsoSessionId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -447,8 +490,8 @@ public class SamlIdpSsoSessionLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName10,
-					_methodParameterTypes10,
+			returnObj = _invokableLocalService.invokeMethod(_methodName11,
+					_methodParameterTypes11,
 					new Object[] { samlIdpSsoSessionId });
 		}
 		catch (Throwable t) {
@@ -482,8 +525,8 @@ public class SamlIdpSsoSessionLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName11,
-					_methodParameterTypes11,
+			returnObj = _invokableLocalService.invokeMethod(_methodName12,
+					_methodParameterTypes12,
 					new Object[] { ClpSerializer.translateInput(primaryKeyObj) });
 		}
 		catch (Throwable t) {
@@ -516,8 +559,8 @@ public class SamlIdpSsoSessionLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName12,
-					_methodParameterTypes12, new Object[] { start, end });
+			returnObj = _invokableLocalService.invokeMethod(_methodName13,
+					_methodParameterTypes13, new Object[] { start, end });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -544,8 +587,8 @@ public class SamlIdpSsoSessionLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName13,
-					_methodParameterTypes13, new Object[] {  });
+			returnObj = _invokableLocalService.invokeMethod(_methodName14,
+					_methodParameterTypes14, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -573,8 +616,8 @@ public class SamlIdpSsoSessionLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName14,
-					_methodParameterTypes14,
+			returnObj = _invokableLocalService.invokeMethod(_methodName15,
+					_methodParameterTypes15,
 					new Object[] { ClpSerializer.translateInput(
 							samlIdpSsoSession) });
 		}
@@ -602,8 +645,8 @@ public class SamlIdpSsoSessionLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName15,
-					_methodParameterTypes15, new Object[] {  });
+			returnObj = _invokableLocalService.invokeMethod(_methodName16,
+					_methodParameterTypes16, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -623,8 +666,8 @@ public class SamlIdpSsoSessionLocalServiceClp
 	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
-			_invokableLocalService.invokeMethod(_methodName16,
-				_methodParameterTypes16,
+			_invokableLocalService.invokeMethod(_methodName17,
+				_methodParameterTypes17,
 				new Object[] { ClpSerializer.translateInput(beanIdentifier) });
 		}
 		catch (Throwable t) {
@@ -656,8 +699,8 @@ public class SamlIdpSsoSessionLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName18,
-					_methodParameterTypes18,
+			returnObj = _invokableLocalService.invokeMethod(_methodName19,
+					_methodParameterTypes19,
 					new Object[] {
 						ClpSerializer.translateInput(samlIdpSsoSessionKey),
 						
@@ -694,8 +737,8 @@ public class SamlIdpSsoSessionLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName19,
-					_methodParameterTypes19,
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20,
 					new Object[] {
 						ClpSerializer.translateInput(samlIdpSsoSessionKey)
 					});
@@ -727,8 +770,8 @@ public class SamlIdpSsoSessionLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName20,
-					_methodParameterTypes20,
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
 					new Object[] {
 						ClpSerializer.translateInput(samlIdpSsoSessionKey)
 					});
@@ -764,8 +807,8 @@ public class SamlIdpSsoSessionLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21,
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22,
 					new Object[] {
 						ClpSerializer.translateInput(samlIdpSsoSessionKey)
 					});
@@ -828,12 +871,14 @@ public class SamlIdpSsoSessionLocalServiceClp
 	private String[] _methodParameterTypes15;
 	private String _methodName16;
 	private String[] _methodParameterTypes16;
-	private String _methodName18;
-	private String[] _methodParameterTypes18;
+	private String _methodName17;
+	private String[] _methodParameterTypes17;
 	private String _methodName19;
 	private String[] _methodParameterTypes19;
 	private String _methodName20;
 	private String[] _methodParameterTypes20;
 	private String _methodName21;
 	private String[] _methodParameterTypes21;
+	private String _methodName22;
+	private String[] _methodParameterTypes22;
 }
