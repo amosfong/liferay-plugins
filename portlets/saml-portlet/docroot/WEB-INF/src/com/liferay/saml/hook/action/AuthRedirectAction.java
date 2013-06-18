@@ -29,29 +29,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Tomas Polesovsky
  */
-public class AuthRedirectAction extends BaseStrutsAction {
+public class AuthRedirectAction extends BaseSamlStrutsAction {
 
 	@Override
-	public String execute(
-			HttpServletRequest request, HttpServletResponse response)
-		throws Exception {
-
-		if (!SamlUtil.isEnabled() || !SamlUtil.isRoleSp()) {
-			return "/common/referer_js.jsp";
-		}
-
-		try {
-			return doExecute(request, response);
-		}
-		catch (Exception e) {
-			PortalUtil.sendError(
-				HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e, request,
-				response);
-		}
-
-		return null;
+	public boolean isEnabled() {
+		return SamlUtil.isEnabled() && SamlUtil.isRoleSp();
 	}
 
+	@Override
 	protected String doExecute(
 			HttpServletRequest request, HttpServletResponse response)
 		throws Exception {

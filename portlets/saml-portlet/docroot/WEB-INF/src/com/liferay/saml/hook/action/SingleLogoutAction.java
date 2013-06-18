@@ -14,8 +14,6 @@
 
 package com.liferay.saml.hook.action;
 
-import com.liferay.portal.kernel.struts.BaseStrutsAction;
-import com.liferay.portal.util.PortalUtil;
 import com.liferay.saml.profile.SingleLogoutProfileUtil;
 import com.liferay.saml.util.SamlUtil;
 
@@ -25,31 +23,20 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Mika Koivisto
  */
-public class SingleLogoutAction extends BaseStrutsAction {
+public class SingleLogoutAction extends BaseSamlStrutsAction {
 
 	@Override
-	public String execute(
+	protected String doExecute(
 			HttpServletRequest request, HttpServletResponse response)
 		throws Exception {
 
-		if (!SamlUtil.isEnabled()) {
-			return "/common/referer_js.jsp";
-		}
+		String requestURI = request.getRequestURI();
 
-		try {
-			String requestURI = request.getRequestURI();
-
-			if (SamlUtil.isRoleIdp() && requestURI.endsWith("/slo_logout")) {
+		if (SamlUtil.isRoleIdp() && requestURI.endsWith("/slo_logout")) {
 				SingleLogoutProfileUtil.processIdpLogout(request, response);
-			}
-			else {
-				SingleLogoutProfileUtil.processSingleLogout(request, response);
-			}
 		}
-		catch (Exception e) {
-			PortalUtil.sendError(
-				HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e, request,
-				response);
+		else {
+			SingleLogoutProfileUtil.processSingleLogout(request, response);
 		}
 
 		return null;

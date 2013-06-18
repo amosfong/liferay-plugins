@@ -15,12 +15,10 @@
 package com.liferay.saml.hook.action;
 
 import com.liferay.portal.kernel.servlet.HttpHeaders;
-import com.liferay.portal.kernel.struts.BaseStrutsAction;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.CookieKeys;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.util.PortalUtil;
 import com.liferay.saml.metadata.MetadataManagerUtil;
 import com.liferay.saml.model.SamlIdpSpSession;
 import com.liferay.saml.model.SamlIdpSsoSession;
@@ -40,29 +38,18 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Mika Koivisto
  */
-public class SessionKeepAliveAction extends BaseStrutsAction {
+public class SessionKeepAliveAction extends BaseSamlStrutsAction {
 
 	@Override
-	public String execute(
+	protected String doExecute(
 			HttpServletRequest request, HttpServletResponse response)
 		throws Exception {
 
-		if (!SamlUtil.isEnabled()) {
-			return "/common/referer_js.jsp";
+		if (SamlUtil.isRoleIdp()) {
+			executeIdpSessionKeepAlive(request, response);
 		}
-
-		try {
-			if (SamlUtil.isRoleIdp()) {
-				executeIdpSessionKeepAlive(request, response);
-			}
-			else if (SamlUtil.isRoleSp()) {
-				executeSpSessionKeepAlive(request, response);
-			}
-		}
-		catch (Exception e) {
-			PortalUtil.sendError(
-				HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e, request,
-				response);
+		else if (SamlUtil.isRoleSp()) {
+			executeSpSessionKeepAlive(request, response);
 		}
 
 		return null;

@@ -14,8 +14,6 @@
 
 package com.liferay.saml.hook.action;
 
-import com.liferay.portal.kernel.struts.BaseStrutsAction;
-import com.liferay.portal.util.PortalUtil;
 import com.liferay.saml.profile.WebSsoProfileUtil;
 import com.liferay.saml.util.SamlUtil;
 
@@ -25,25 +23,19 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Mika Koivisto
  */
-public class WebSsoAction extends BaseStrutsAction {
+public class WebSsoAction extends BaseSamlStrutsAction {
 
 	@Override
-	public String execute(
+	public boolean isEnabled() {
+		return SamlUtil.isEnabled() && SamlUtil.isRoleIdp();
+	}
+
+	@Override
+	protected String doExecute(
 			HttpServletRequest request, HttpServletResponse response)
 		throws Exception {
 
-		if (!SamlUtil.isEnabled() || !SamlUtil.isRoleIdp()) {
-			return "/common/referer_js.jsp";
-		}
-
-		try {
-			WebSsoProfileUtil.processAuthnRequest(request, response);
-		}
-		catch (Exception e) {
-			PortalUtil.sendError(
-				HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e, request,
-				response);
-		}
+		WebSsoProfileUtil.processAuthnRequest(request, response);
 
 		return null;
 	}

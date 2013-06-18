@@ -14,7 +14,11 @@
 
 package com.liferay.saml.hook.action;
 
-import com.liferay.saml.profile.WebSsoProfileUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.struts.BaseStrutsAction;
+import com.liferay.saml.util.JspUtil;
 import com.liferay.saml.util.SamlUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -23,21 +27,42 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Mika Koivisto
  */
-public class AssertionConsumerServiceAction extends BaseSamlStrutsAction {
+public abstract class BaseSamlStrutsAction extends BaseStrutsAction {
 
-	@Override
 	public boolean isEnabled() {
-		return SamlUtil.isEnabled() && SamlUtil.isRoleSp();
+		return SamlUtil.isEnabled();
 	}
 
 	@Override
-	protected String doExecute(
+	public String execute(
 			HttpServletRequest request, HttpServletResponse response)
 		throws Exception {
 
-		WebSsoProfileUtil.processResponse(request, response);
+		if (!isEnabled()) {
+			return "/common/referer_js.jsp";
+		}
+
+		try {
+			return doExecute(request, response);
+		}
+		catch (Exception e) {
+			if (_log.isErrorEnabled()) {
+				_log.error(e,  e);
+			}
+
+			SessionErrors.add(request, e.getClass().getName());
+
+			JspUtil.dispatch(
+				request, response, JspUtil.PATH_PORTAL_SAML_ERROR, "status");
+		}
 
 		return null;
 	}
+
+	protected abstract String doExecute(
+			HttpServletRequest request, HttpServletResponse response)
+		throws Exception;
+
+	private static Log _log = LogFactoryUtil.getLog(BaseSamlStrutsAction.class);
 
 }
