@@ -14,6 +14,8 @@
  */
 --%>
 
+<%@ taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles" %>
+
 <%@ include file="/html/portal/init.jsp" %>
 
 <%

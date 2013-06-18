@@ -26,6 +26,11 @@ public class JspUtil {
 	public static final String PATH_PORTAL_SAML_ERROR =
 		"/portal/saml/error.jsp";
 
+	public static final String PATH_PORTAL_SAML_SLO = "/portal/saml/slo.jsp";
+
+	public static final String PATH_PORTAL_SAML_SLO_SP_STATUS =
+		"/portal/saml/slo_sp_status.jsp";
+
 	public static void dispatch(
 			HttpServletRequest request, HttpServletResponse response,
 			String path, String title)
@@ -51,4 +56,5 @@ public class JspUtil {
 
 	private static final String _PATH_HTML_PORTAL_SAML_SAML_PORTAL =
 		"/html/portal/saml/saml_portal.jsp";
+
 }
