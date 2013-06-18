@@ -216,6 +216,34 @@ public abstract class SourceLocalServiceBaseImpl extends BaseLocalServiceImpl
 	}
 
 	/**
+	 * Returns the source with the matching UUID and company.
+	 *
+	 * @param uuid the source's UUID
+	 * @param  companyId the primary key of the company
+	 * @return the matching source, or <code>null</code> if a matching source could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Source fetchSourceByUuidAndCompanyId(String uuid, long companyId)
+		throws SystemException {
+		return sourcePersistence.fetchByUuid_C_First(uuid, companyId, null);
+	}
+
+	/**
+	 * Returns the source matching the UUID and group.
+	 *
+	 * @param uuid the source's UUID
+	 * @param groupId the primary key of the group
+	 * @return the matching source, or <code>null</code> if a matching source could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Source fetchSourceByUuidAndGroupId(String uuid, long groupId)
+		throws SystemException {
+		return sourcePersistence.fetchByUUID_G(uuid, groupId);
+	}
+
+	/**
 	 * Returns the source with the primary key.
 	 *
 	 * @param sourceId the primary key of the source
@@ -233,6 +261,21 @@ public abstract class SourceLocalServiceBaseImpl extends BaseLocalServiceImpl
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return sourcePersistence.findByPrimaryKey(primaryKeyObj);
+	}
+
+	/**
+	 * Returns the source with the matching UUID and company.
+	 *
+	 * @param uuid the source's UUID
+	 * @param  companyId the primary key of the company
+	 * @return the matching source
+	 * @throws PortalException if a matching source could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Source getSourceByUuidAndCompanyId(String uuid, long companyId)
+		throws PortalException, SystemException {
+		return sourcePersistence.findByUuid_C_First(uuid, companyId, null);
 	}
 
 	/**

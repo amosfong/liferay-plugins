@@ -188,6 +188,36 @@ public class SourceLocalServiceWrapper implements SourceLocalService,
 	}
 
 	/**
+	* Returns the source with the matching UUID and company.
+	*
+	* @param uuid the source's UUID
+	* @param companyId the primary key of the company
+	* @return the matching source, or <code>null</code> if a matching source could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.liferay.reports.model.Source fetchSourceByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _sourceLocalService.fetchSourceByUuidAndCompanyId(uuid, companyId);
+	}
+
+	/**
+	* Returns the source matching the UUID and group.
+	*
+	* @param uuid the source's UUID
+	* @param groupId the primary key of the group
+	* @return the matching source, or <code>null</code> if a matching source could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.liferay.reports.model.Source fetchSourceByUuidAndGroupId(
+		java.lang.String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _sourceLocalService.fetchSourceByUuidAndGroupId(uuid, groupId);
+	}
+
+	/**
 	* Returns the source with the primary key.
 	*
 	* @param sourceId the primary key of the source
@@ -208,6 +238,23 @@ public class SourceLocalServiceWrapper implements SourceLocalService,
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _sourceLocalService.getPersistedModel(primaryKeyObj);
+	}
+
+	/**
+	* Returns the source with the matching UUID and company.
+	*
+	* @param uuid the source's UUID
+	* @param companyId the primary key of the company
+	* @return the matching source
+	* @throws PortalException if a matching source could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public com.liferay.reports.model.Source getSourceByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _sourceLocalService.getSourceByUuidAndCompanyId(uuid, companyId);
 	}
 
 	/**

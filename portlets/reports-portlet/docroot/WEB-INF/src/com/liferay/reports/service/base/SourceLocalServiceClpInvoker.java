@@ -80,78 +80,90 @@ public class SourceLocalServiceClpInvoker {
 
 		_methodParameterTypes10 = new String[] { "long" };
 
-		_methodName11 = "getSource";
+		_methodName11 = "fetchSourceByUuidAndCompanyId";
 
-		_methodParameterTypes11 = new String[] { "long" };
+		_methodParameterTypes11 = new String[] { "java.lang.String", "long" };
 
-		_methodName12 = "getPersistedModel";
+		_methodName12 = "fetchSourceByUuidAndGroupId";
 
-		_methodParameterTypes12 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes12 = new String[] { "java.lang.String", "long" };
 
-		_methodName13 = "getSourceByUuidAndGroupId";
+		_methodName13 = "getSource";
 
-		_methodParameterTypes13 = new String[] { "java.lang.String", "long" };
+		_methodParameterTypes13 = new String[] { "long" };
 
-		_methodName14 = "getSources";
+		_methodName14 = "getPersistedModel";
 
-		_methodParameterTypes14 = new String[] { "int", "int" };
+		_methodParameterTypes14 = new String[] { "java.io.Serializable" };
 
-		_methodName15 = "getSourcesCount";
+		_methodName15 = "getSourceByUuidAndCompanyId";
 
-		_methodParameterTypes15 = new String[] {  };
+		_methodParameterTypes15 = new String[] { "java.lang.String", "long" };
 
-		_methodName16 = "updateSource";
+		_methodName16 = "getSourceByUuidAndGroupId";
 
-		_methodParameterTypes16 = new String[] {
+		_methodParameterTypes16 = new String[] { "java.lang.String", "long" };
+
+		_methodName17 = "getSources";
+
+		_methodParameterTypes17 = new String[] { "int", "int" };
+
+		_methodName18 = "getSourcesCount";
+
+		_methodParameterTypes18 = new String[] {  };
+
+		_methodName19 = "updateSource";
+
+		_methodParameterTypes19 = new String[] {
 				"com.liferay.reports.model.Source"
 			};
 
-		_methodName47 = "getBeanIdentifier";
+		_methodName50 = "getBeanIdentifier";
 
-		_methodParameterTypes47 = new String[] {  };
+		_methodParameterTypes50 = new String[] {  };
 
-		_methodName48 = "setBeanIdentifier";
+		_methodName51 = "setBeanIdentifier";
 
-		_methodParameterTypes48 = new String[] { "java.lang.String" };
+		_methodParameterTypes51 = new String[] { "java.lang.String" };
 
-		_methodName53 = "addSource";
+		_methodName56 = "addSource";
 
-		_methodParameterTypes53 = new String[] {
+		_methodParameterTypes56 = new String[] {
 				"long", "long", "java.util.Map", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName54 = "deleteSource";
+		_methodName57 = "deleteSource";
 
-		_methodParameterTypes54 = new String[] { "long" };
+		_methodParameterTypes57 = new String[] { "long" };
 
-		_methodName55 = "deleteSource";
+		_methodName58 = "deleteSource";
 
-		_methodParameterTypes55 = new String[] {
+		_methodParameterTypes58 = new String[] {
 				"com.liferay.reports.model.Source"
 			};
 
-		_methodName56 = "getSource";
+		_methodName59 = "getSource";
 
-		_methodParameterTypes56 = new String[] { "long" };
+		_methodParameterTypes59 = new String[] { "long" };
 
-		_methodName57 = "getSources";
+		_methodName60 = "getSources";
 
-		_methodParameterTypes57 = new String[] {
+		_methodParameterTypes60 = new String[] {
 				"long", "java.lang.String", "java.lang.String", "boolean", "int",
 				"int", "com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName58 = "getSourcesCount";
+		_methodName61 = "getSourcesCount";
 
-		_methodParameterTypes58 = new String[] {
+		_methodParameterTypes61 = new String[] {
 				"long", "java.lang.String", "java.lang.String", "boolean"
 			};
 
-		_methodName59 = "updateSource";
+		_methodName62 = "updateSource";
 
-		_methodParameterTypes59 = new String[] {
+		_methodParameterTypes62 = new String[] {
 				"long", "java.util.Map", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
@@ -223,50 +235,68 @@ public class SourceLocalServiceClpInvoker {
 
 		if (_methodName11.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes11, parameterTypes)) {
-			return SourceLocalServiceUtil.getSource(((Long)arguments[0]).longValue());
+			return SourceLocalServiceUtil.fetchSourceByUuidAndCompanyId((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName12.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes12, parameterTypes)) {
-			return SourceLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
+			return SourceLocalServiceUtil.fetchSourceByUuidAndGroupId((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName13.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes13, parameterTypes)) {
-			return SourceLocalServiceUtil.getSourceByUuidAndGroupId((java.lang.String)arguments[0],
-				((Long)arguments[1]).longValue());
+			return SourceLocalServiceUtil.getSource(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName14.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes14, parameterTypes)) {
-			return SourceLocalServiceUtil.getSources(((Integer)arguments[0]).intValue(),
-				((Integer)arguments[1]).intValue());
+			return SourceLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
 		}
 
 		if (_methodName15.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes15, parameterTypes)) {
-			return SourceLocalServiceUtil.getSourcesCount();
+			return SourceLocalServiceUtil.getSourceByUuidAndCompanyId((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName16.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes16, parameterTypes)) {
+			return SourceLocalServiceUtil.getSourceByUuidAndGroupId((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
+		}
+
+		if (_methodName17.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes17, parameterTypes)) {
+			return SourceLocalServiceUtil.getSources(((Integer)arguments[0]).intValue(),
+				((Integer)arguments[1]).intValue());
+		}
+
+		if (_methodName18.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes18, parameterTypes)) {
+			return SourceLocalServiceUtil.getSourcesCount();
+		}
+
+		if (_methodName19.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes19, parameterTypes)) {
 			return SourceLocalServiceUtil.updateSource((com.liferay.reports.model.Source)arguments[0]);
 		}
 
-		if (_methodName47.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
+		if (_methodName50.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
 			return SourceLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName48.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
+		if (_methodName51.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
 			SourceLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName53.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
+		if (_methodName56.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
 			return SourceLocalServiceUtil.addSource(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				(java.util.Map<java.util.Locale, java.lang.String>)arguments[2],
@@ -275,23 +305,23 @@ public class SourceLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[7]);
 		}
 
-		if (_methodName54.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
+		if (_methodName57.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
 			return SourceLocalServiceUtil.deleteSource(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName55.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+		if (_methodName58.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
 			return SourceLocalServiceUtil.deleteSource((com.liferay.reports.model.Source)arguments[0]);
 		}
 
-		if (_methodName56.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+		if (_methodName59.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
 			return SourceLocalServiceUtil.getSource(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName57.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+		if (_methodName60.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
 			return SourceLocalServiceUtil.getSources(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
 				((Boolean)arguments[3]).booleanValue(),
@@ -300,15 +330,15 @@ public class SourceLocalServiceClpInvoker {
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[6]);
 		}
 
-		if (_methodName58.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
+		if (_methodName61.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
 			return SourceLocalServiceUtil.getSourcesCount(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
 				((Boolean)arguments[3]).booleanValue());
 		}
 
-		if (_methodName59.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
+		if (_methodName62.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
 			return SourceLocalServiceUtil.updateSource(((Long)arguments[0]).longValue(),
 				(java.util.Map<java.util.Locale, java.lang.String>)arguments[1],
 				(java.lang.String)arguments[2], (java.lang.String)arguments[3],
@@ -353,16 +383,16 @@ public class SourceLocalServiceClpInvoker {
 	private String[] _methodParameterTypes15;
 	private String _methodName16;
 	private String[] _methodParameterTypes16;
-	private String _methodName47;
-	private String[] _methodParameterTypes47;
-	private String _methodName48;
-	private String[] _methodParameterTypes48;
-	private String _methodName53;
-	private String[] _methodParameterTypes53;
-	private String _methodName54;
-	private String[] _methodParameterTypes54;
-	private String _methodName55;
-	private String[] _methodParameterTypes55;
+	private String _methodName17;
+	private String[] _methodParameterTypes17;
+	private String _methodName18;
+	private String[] _methodParameterTypes18;
+	private String _methodName19;
+	private String[] _methodParameterTypes19;
+	private String _methodName50;
+	private String[] _methodParameterTypes50;
+	private String _methodName51;
+	private String[] _methodParameterTypes51;
 	private String _methodName56;
 	private String[] _methodParameterTypes56;
 	private String _methodName57;
@@ -371,4 +401,10 @@ public class SourceLocalServiceClpInvoker {
 	private String[] _methodParameterTypes58;
 	private String _methodName59;
 	private String[] _methodParameterTypes59;
+	private String _methodName60;
+	private String[] _methodParameterTypes60;
+	private String _methodName61;
+	private String[] _methodParameterTypes61;
+	private String _methodName62;
+	private String[] _methodParameterTypes62;
 }

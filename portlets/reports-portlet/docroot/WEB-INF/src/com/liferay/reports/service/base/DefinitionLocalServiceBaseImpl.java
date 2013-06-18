@@ -221,6 +221,34 @@ public abstract class DefinitionLocalServiceBaseImpl
 	}
 
 	/**
+	 * Returns the definition with the matching UUID and company.
+	 *
+	 * @param uuid the definition's UUID
+	 * @param  companyId the primary key of the company
+	 * @return the matching definition, or <code>null</code> if a matching definition could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Definition fetchDefinitionByUuidAndCompanyId(String uuid,
+		long companyId) throws SystemException {
+		return definitionPersistence.fetchByUuid_C_First(uuid, companyId, null);
+	}
+
+	/**
+	 * Returns the definition matching the UUID and group.
+	 *
+	 * @param uuid the definition's UUID
+	 * @param groupId the primary key of the group
+	 * @return the matching definition, or <code>null</code> if a matching definition could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Definition fetchDefinitionByUuidAndGroupId(String uuid, long groupId)
+		throws SystemException {
+		return definitionPersistence.fetchByUUID_G(uuid, groupId);
+	}
+
+	/**
 	 * Returns the definition with the primary key.
 	 *
 	 * @param definitionId the primary key of the definition
@@ -238,6 +266,21 @@ public abstract class DefinitionLocalServiceBaseImpl
 	public PersistedModel getPersistedModel(Serializable primaryKeyObj)
 		throws PortalException, SystemException {
 		return definitionPersistence.findByPrimaryKey(primaryKeyObj);
+	}
+
+	/**
+	 * Returns the definition with the matching UUID and company.
+	 *
+	 * @param uuid the definition's UUID
+	 * @param  companyId the primary key of the company
+	 * @return the matching definition
+	 * @throws PortalException if a matching definition could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public Definition getDefinitionByUuidAndCompanyId(String uuid,
+		long companyId) throws PortalException, SystemException {
+		return definitionPersistence.findByUuid_C_First(uuid, companyId, null);
 	}
 
 	/**
