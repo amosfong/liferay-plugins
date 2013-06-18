@@ -13,15 +13,20 @@
 		<dependency name="esapi" org="org.owasp.esapi" rev="2.0.1" />
 		<dependency name="joda-time" org="joda-time" rev="2.0" />
 		<dependency name="xml-resolver" org="xml-resolver" rev="1.2" />
-		<!-- Must use the bundled version of not-yet-commons-ssl as the one from repository does not work even though they are the same version -->
+
 		<!--
-		<dependency name="not-yet-commons-ssl" org="ca.juliusdavies" rev="0.3.9" />
+		Use the bundled version of Not-Yet-Commons-SSL because the one from the
+		repository does not work.
 		-->
-		<!-- These versions are not found in repository -->
+
+		<!--<dependency name="not-yet-commons-ssl" org="ca.juliusdavies" rev="0.3.9" />-->
+
 		<!--
-		<dependency name="opensaml" org="org.opensaml" rev="2.6.0" />
+		The following should, but do not, exist in any public repositories.
+		-->
+
+		<!--<dependency name="opensaml" org="org.opensaml" rev="2.6.0" />
 		<dependency name="openws" org="org.opensaml" rev="1.5.0" />
-		<dependency name="xmltooling" org="org.opensaml" rev="1.4.0" />
-		-->
+		<dependency name="xmltooling" org="org.opensaml" rev="1.4.0" />-->
 	</dependencies>
 </ivy-module>
