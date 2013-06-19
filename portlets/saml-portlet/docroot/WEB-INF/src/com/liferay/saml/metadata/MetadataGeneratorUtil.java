@@ -14,7 +14,10 @@
 
 package com.liferay.saml.metadata;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.util.PortalUtil;
+import com.liferay.saml.CredentialException;
+import com.liferay.saml.EntityIdException;
 import com.liferay.saml.util.OpenSamlUtil;
 
 import java.util.List;
@@ -43,6 +46,14 @@ public class MetadataGeneratorUtil {
 			boolean wantAuthnRequestSigned, boolean signMetadata,
 			boolean requireSSL, Credential credential)
 		throws Exception {
+
+		if (Validator.isNull(entityId)) {
+			throw new EntityIdException("EntityId required");
+		}
+
+		if (credential == null) {
+			throw new CredentialException("Credential required");
+		}
 
 		EntityDescriptor entityDescriptor =
 			OpenSamlUtil.buildEntityDescriptor();

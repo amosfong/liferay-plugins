@@ -222,10 +222,12 @@
 	</entity>
 	<exceptions>
 		<exception>CertificateKeyPassword</exception>
+		<exception>Credential</exception>
 		<exception>DuplicateSamlIdpSpConnectionSamlSpEntityId</exception>
 		<exception>DuplicateSamlIdpSpSession</exception>
 		<exception>DuplicateSamlIdpSsoSession</exception>
 		<exception>DuplicateSamlSpIdpConnectionSamlIdpEntityId</exception>
+		<exception>EntityId</exception>
 		<exception>SamlIdpSpConnectionMetadataUrl</exception>
 		<exception>SamlIdpSpConnectionMetadataXml</exception>
 		<exception>SamlIdpSpConnectionName</exception>
