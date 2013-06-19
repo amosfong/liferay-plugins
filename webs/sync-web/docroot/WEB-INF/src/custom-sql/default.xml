@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<custom-sql>
+	<sql id="com.liferay.sync.service.persistence.SyncDLObjectFinder.findByC_M_R_T">
+		<![CDATA[
+			SELECT
+				{SyncDLObject.*}
+			FROM
+				SyncDLObject
+			WHERE
+				(SyncDLObject.companyId = ?) AND
+				(SyncDLObject.modifiedDate > ?) AND
+				(SyncDLObject.repositoryId = ?) AND
+				(SyncDLObject.type_ = ?)
+		]]>
+	</sql>
+</custom-sql>

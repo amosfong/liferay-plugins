@@ -14,7 +14,15 @@
 
 package com.liferay.sync.service.impl;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.repository.model.Folder;
+import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
+import com.liferay.portlet.documentlibrary.model.DLSyncConstants;
+import com.liferay.sync.model.SyncDLObject;
 import com.liferay.sync.service.base.SyncDLObjectLocalServiceBaseImpl;
+
+import java.util.Date;
 
 /**
  * The implementation of the sync d l object local service.
@@ -28,15 +36,98 @@ import com.liferay.sync.service.base.SyncDLObjectLocalServiceBaseImpl;
  * from within the same VM.
  * </p>
  *
- * @author Brian Wing Shun Chan
+ * @author Michael Young
+ * @author Dennis Ju
  * @see    com.liferay.sync.service.base.SyncDLObjectLocalServiceBaseImpl
  * @see    com.liferay.sync.service.SyncDLObjectLocalServiceUtil
  */
 public class SyncDLObjectLocalServiceImpl
 	extends SyncDLObjectLocalServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this interface directly. Always use {@link com.liferay.sync.service.SyncDLObjectLocalServiceUtil} to access the sync d l object local service.
-	 */
+
+	public SyncDLObject addSyncDLObject(
+			long fileId, String fileUuid, long companyId, long repositoryId,
+			long lockUserId, long parentFolderId, String name,
+			String description, String checksum, long size, String type,
+			String lockUserName, String version)
+		throws PortalException, SystemException {
+
+		if (!isDefaultRepository(parentFolderId)) {
+			return null;
+		}
+
+		Date now = new Date();
+
+		long syncId = counterLocalService.increment();
+
+		SyncDLObject syncDLObject = syncDLObjectPersistence.create(syncId);
+
+		syncDLObject.setCompanyId(companyId);
+		syncDLObject.setCreateDate(now.getTime());
+		syncDLObject.setModifiedDate(now.getTime());
+		syncDLObject.setFileId(fileId);
+		syncDLObject.setFileUuid(fileUuid);
+		syncDLObject.setRepositoryId(repositoryId);
+		syncDLObject.setParentFolderId(parentFolderId);
+		syncDLObject.setName(name);
+		syncDLObject.setChecksum(checksum);
+		syncDLObject.setDescription(description);
+		syncDLObject.setEvent(DLSyncConstants.EVENT_ADD);
+		syncDLObject.setLockUserId(lockUserId);
+		syncDLObject.setLockUserName(lockUserName);
+		syncDLObject.setSize(size);
+		syncDLObject.setType(type);
+		syncDLObject.setVersion(version);
+
+		return syncDLObjectPersistence.update(syncDLObject);
+	}
+
+	public SyncDLObject updateSyncDLObject(
+			long fileId, long lockUserId, long parentFolderId, String name,
+			String description, String checksum, String event,
+			String lockUserName, long size, String version)
+		throws PortalException, SystemException {
+
+		if (!isDefaultRepository(parentFolderId)) {
+			return null;
+		}
+
+		SyncDLObject SyncDLObject = null;
+
+		if (event == DLSyncConstants.EVENT_DELETE) {
+			SyncDLObject = syncDLObjectPersistence.fetchByFileId(fileId);
+
+			if (SyncDLObject == null) {
+				return null;
+			}
+		}
+		else {
+			SyncDLObject = syncDLObjectPersistence.findByFileId(fileId);
+		}
+
+		SyncDLObject.setModifiedDate(System.currentTimeMillis());
+		SyncDLObject.setParentFolderId(parentFolderId);
+		SyncDLObject.setName(name);
+		SyncDLObject.setChecksum(checksum);
+		SyncDLObject.setDescription(description);
+		SyncDLObject.setEvent(event);
+		SyncDLObject.setLockUserId(lockUserId);
+		SyncDLObject.setLockUserName(lockUserName);
+		SyncDLObject.setSize(size);
+		SyncDLObject.setVersion(version);
+
+		return syncDLObjectPersistence.update(SyncDLObject);
+	}
+
+	protected boolean isDefaultRepository(long folderId)
+		throws PortalException, SystemException {
+
+		if (folderId == DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
+			return true;
+		}
+
+		Folder folder = dlAppLocalService.getFolder(folderId);
+
+		return folder.isDefaultRepository();
+	}
+
 }
