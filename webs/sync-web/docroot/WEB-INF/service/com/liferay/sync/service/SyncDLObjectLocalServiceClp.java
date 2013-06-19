@@ -114,6 +114,23 @@ public class SyncDLObjectLocalServiceClp implements SyncDLObjectLocalService {
 		_methodName17 = "setBeanIdentifier";
 
 		_methodParameterTypes17 = new String[] { "java.lang.String" };
+
+		_methodName19 = "addSyncDLObject";
+
+		_methodParameterTypes19 = new String[] {
+				"long", "java.lang.String", "long", "long", "long",
+				"java.lang.String", "java.lang.String", "java.lang.String",
+				"long", "java.lang.String", "long", "java.lang.String",
+				"java.lang.String"
+			};
+
+		_methodName20 = "updateSyncDLObject";
+
+		_methodParameterTypes20 = new String[] {
+				"long", "long", "java.lang.String", "java.lang.String",
+				"java.lang.String", "java.lang.String", "long",
+				"java.lang.String", "long", "java.lang.String"
+			};
 	}
 
 	@Override
@@ -662,6 +679,129 @@ public class SyncDLObjectLocalServiceClp implements SyncDLObjectLocalService {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public com.liferay.sync.model.SyncDLObject addSyncDLObject(long fileId,
+		java.lang.String fileUuid, long companyId, long repositoryId,
+		long parentFolderId, java.lang.String name,
+		java.lang.String description, java.lang.String checksum,
+		long lockUserId, java.lang.String lockUserName, long size,
+		java.lang.String type, java.lang.String version)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName19,
+					_methodParameterTypes19,
+					new Object[] {
+						fileId,
+						
+					ClpSerializer.translateInput(fileUuid),
+						
+					companyId,
+						
+					repositoryId,
+						
+					parentFolderId,
+						
+					ClpSerializer.translateInput(name),
+						
+					ClpSerializer.translateInput(description),
+						
+					ClpSerializer.translateInput(checksum),
+						
+					lockUserId,
+						
+					ClpSerializer.translateInput(lockUserName),
+						
+					size,
+						
+					ClpSerializer.translateInput(type),
+						
+					ClpSerializer.translateInput(version)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.sync.model.SyncDLObject)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public com.liferay.sync.model.SyncDLObject updateSyncDLObject(long fileId,
+		long parentFolderId, java.lang.String name,
+		java.lang.String description, java.lang.String checksum,
+		java.lang.String event, long lockUserId, java.lang.String lockUserName,
+		long size, java.lang.String version)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName20,
+					_methodParameterTypes20,
+					new Object[] {
+						fileId,
+						
+					parentFolderId,
+						
+					ClpSerializer.translateInput(name),
+						
+					ClpSerializer.translateInput(description),
+						
+					ClpSerializer.translateInput(checksum),
+						
+					ClpSerializer.translateInput(event),
+						
+					lockUserId,
+						
+					ClpSerializer.translateInput(lockUserName),
+						
+					size,
+						
+					ClpSerializer.translateInput(version)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.sync.model.SyncDLObject)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableLocalService _invokableLocalService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -699,4 +839,8 @@ public class SyncDLObjectLocalServiceClp implements SyncDLObjectLocalService {
 	private String[] _methodParameterTypes16;
 	private String _methodName17;
 	private String[] _methodParameterTypes17;
+	private String _methodName19;
+	private String[] _methodParameterTypes19;
+	private String _methodName20;
+	private String[] _methodParameterTypes20;
 }

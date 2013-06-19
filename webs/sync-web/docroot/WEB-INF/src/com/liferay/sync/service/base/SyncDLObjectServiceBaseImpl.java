@@ -26,6 +26,7 @@ import com.liferay.portal.service.persistence.UserPersistence;
 
 import com.liferay.sync.model.SyncDLObject;
 import com.liferay.sync.service.SyncDLObjectService;
+import com.liferay.sync.service.persistence.SyncDLObjectFinder;
 import com.liferay.sync.service.persistence.SyncDLObjectPersistence;
 
 import javax.sql.DataSource;
@@ -105,6 +106,24 @@ public abstract class SyncDLObjectServiceBaseImpl extends BaseServiceImpl
 	public void setSyncDLObjectPersistence(
 		SyncDLObjectPersistence syncDLObjectPersistence) {
 		this.syncDLObjectPersistence = syncDLObjectPersistence;
+	}
+
+	/**
+	 * Returns the sync d l object finder.
+	 *
+	 * @return the sync d l object finder
+	 */
+	public SyncDLObjectFinder getSyncDLObjectFinder() {
+		return syncDLObjectFinder;
+	}
+
+	/**
+	 * Sets the sync d l object finder.
+	 *
+	 * @param syncDLObjectFinder the sync d l object finder
+	 */
+	public void setSyncDLObjectFinder(SyncDLObjectFinder syncDLObjectFinder) {
+		this.syncDLObjectFinder = syncDLObjectFinder;
 	}
 
 	/**
@@ -435,6 +454,8 @@ public abstract class SyncDLObjectServiceBaseImpl extends BaseServiceImpl
 	protected com.liferay.sync.service.SyncDLObjectService syncDLObjectService;
 	@BeanReference(type = SyncDLObjectPersistence.class)
 	protected SyncDLObjectPersistence syncDLObjectPersistence;
+	@BeanReference(type = SyncDLObjectFinder.class)
+	protected SyncDLObjectFinder syncDLObjectFinder;
 	@BeanReference(type = com.liferay.counter.service.CounterLocalService.class)
 	protected com.liferay.counter.service.CounterLocalService counterLocalService;
 	@BeanReference(type = com.liferay.portal.service.GroupLocalService.class)

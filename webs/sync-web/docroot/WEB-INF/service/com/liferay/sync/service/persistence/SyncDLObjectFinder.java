@@ -12,14 +12,13 @@
  * details.
  */
 
-package com.liferay.sync.model.impl;
+package com.liferay.sync.service.persistence;
 
 /**
  * @author Brian Wing Shun Chan
  */
-public class SyncDLObjectImpl extends SyncDLObjectBaseImpl {
-
-	public SyncDLObjectImpl() {
-	}
-
+public interface SyncDLObjectFinder {
+	public java.util.List<com.liferay.sync.model.SyncDLObject> filterFindByC_M_R(
+		long companyId, long modifiedDate, long repositoryId)
+		throws com.liferay.portal.kernel.exception.SystemException;
 }

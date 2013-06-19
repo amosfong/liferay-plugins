@@ -83,7 +83,7 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 			{ "type_", Types.VARCHAR },
 			{ "version", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table SyncDLObject (objectId LONG not null primary key,companyId LONG,createDate LONG,modifiedDate LONG,fileId LONG,fileUuid VARCHAR(75) null,repositoryId LONG,parentFolderId LONG,name VARCHAR(75) null,description VARCHAR(75) null,checksum VARCHAR(75) null,event VARCHAR(75) null,lockUserId LONG,lockUserName VARCHAR(75) null,size_ LONG,type_ VARCHAR(75) null,version VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table SyncDLObject (objectId LONG not null primary key,companyId LONG,createDate LONG,modifiedDate LONG,fileId LONG,fileUuid VARCHAR(75) null,repositoryId LONG,parentFolderId LONG,name VARCHAR(255) null,description STRING null,checksum VARCHAR(75) null,event VARCHAR(75) null,lockUserId LONG,lockUserName VARCHAR(75) null,size_ LONG,type_ VARCHAR(75) null,version VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table SyncDLObject";
 	public static final String ORDER_BY_JPQL = " ORDER BY syncDLObject.companyId ASC, syncDLObject.modifiedDate ASC, syncDLObject.repositoryId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY SyncDLObject.companyId ASC, SyncDLObject.modifiedDate ASC, SyncDLObject.repositoryId ASC";
