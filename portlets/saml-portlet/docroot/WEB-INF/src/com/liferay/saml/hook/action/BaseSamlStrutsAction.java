@@ -29,10 +29,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public abstract class BaseSamlStrutsAction extends BaseStrutsAction {
 
-	public boolean isEnabled() {
-		return SamlUtil.isEnabled();
-	}
-
 	@Override
 	public String execute(
 			HttpServletRequest request, HttpServletResponse response)
@@ -47,7 +43,7 @@ public abstract class BaseSamlStrutsAction extends BaseStrutsAction {
 		}
 		catch (Exception e) {
 			if (_log.isErrorEnabled()) {
-				_log.error(e,  e);
+				_log.error(e, e);
 			}
 
 			SessionErrors.add(request, e.getClass().getName());
@@ -57,6 +53,10 @@ public abstract class BaseSamlStrutsAction extends BaseStrutsAction {
 		}
 
 		return null;
+	}
+
+	public boolean isEnabled() {
+		return SamlUtil.isEnabled();
 	}
 
 	protected abstract String doExecute(
