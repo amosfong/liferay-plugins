@@ -213,7 +213,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	}
 
 	@Override
-	public List<SyncDLObject> getSyncDLObjectFileEntries(
+	public List<SyncDLObject> getFileEntrySyncDLObjects(
 			long repositoryId, long folderId)
 		throws PortalException, SystemException {
 
@@ -233,7 +233,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	}
 
 	@Override
-	public SyncDLObject getSyncDLObjectFileEntry(
+	public SyncDLObject getFileEntrySyncDLObject(
 			long groupId, long folderId, String title)
 		throws PortalException, SystemException {
 
@@ -244,7 +244,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	}
 
 	@Override
-	public SyncDLObject getSyncDLObjectFolder(long folderId)
+	public SyncDLObject getFolderSyncDLObject(long folderId)
 		throws PortalException, SystemException {
 
 		Folder folder = dlAppService.getFolder(folderId);
@@ -253,7 +253,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	}
 
 	@Override
-	public List<SyncDLObject> getSyncDLObjectFolders(
+	public List<SyncDLObject> getFolderSyncDLObjects(
 			long repositoryId, long parentFolderId)
 		throws PortalException, SystemException {
 
@@ -261,7 +261,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 			repositoryId, parentFolderId);
 
 		List<SyncDLObject> syncDLObjects = new ArrayList<SyncDLObject>(
-				folders.size());
+			folders.size());
 
 		for (Folder folder : folders) {
 			SyncDLObject syncDLObject = SyncUtil.toSyncDLObject(folder);
@@ -283,9 +283,6 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 			companyId, lastAccessDate, repositoryId);
 
 		for (SyncDLObject syncDLObject : syncDLObjects) {
-
-			// Use the newest object's modified date
-
 			if (syncDLObject.getModifiedDate() > lastAccessDate) {
 				lastAccessDate = syncDLObject.getModifiedDate();
 			}
