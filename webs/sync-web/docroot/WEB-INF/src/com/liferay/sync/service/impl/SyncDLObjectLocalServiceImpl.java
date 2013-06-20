@@ -25,21 +25,8 @@ import com.liferay.sync.service.base.SyncDLObjectLocalServiceBaseImpl;
 import java.util.Date;
 
 /**
- * The implementation of the sync d l object local service.
- *
- * <p>
- * All custom service methods should be put in this class. Whenever methods are
- * added, rerun ServiceBuilder to copy their definitions into the {@link
- * com.liferay.sync.service.SyncDLObjectLocalService} interface.  <p> This is a
- * local service. Methods of this service will not have security checks based on
- * the propagated JAAS credentials because this service can only be accessed
- * from within the same VM.
- * </p>
- *
  * @author Michael Young
  * @author Dennis Ju
- * @see    com.liferay.sync.service.base.SyncDLObjectLocalServiceBaseImpl
- * @see    com.liferay.sync.service.SyncDLObjectLocalServiceUtil
  */
 public class SyncDLObjectLocalServiceImpl
 	extends SyncDLObjectLocalServiceBaseImpl {
