@@ -89,9 +89,9 @@ public class SyncMessageListener extends BaseMessageListener {
 			SyncDLObjectLocalServiceUtil.addSyncDLObject(
 				fileEntry.getFileEntryId(), fileEntry.getUuid(),
 				fileEntry.getCompanyId(), fileEntry.getRepositoryId(),
-				lockUserId, fileEntry.getFolderId(), fileEntry.getTitle(),
-				fileEntry.getDescription(), checksum, fileEntry.getSize(),
-				DLSyncConstants.TYPE_FILE, lockUserName,
+				fileEntry.getFolderId(), fileEntry.getTitle(),
+				fileEntry.getDescription(), checksum, lockUserId, lockUserName,
+				fileEntry.getSize(), DLSyncConstants.TYPE_FILE,
 				fileEntry.getVersion());
 		}
 		else if (type.equals(DLSyncConstants.TYPE_FOLDER)) {
@@ -99,9 +99,9 @@ public class SyncMessageListener extends BaseMessageListener {
 
 			SyncDLObjectLocalServiceUtil.addSyncDLObject(
 				folder.getFolderId(), folder.getUuid(), folder.getCompanyId(),
-				folder.getRepositoryId(), -1, folder.getParentFolderId(),
-				folder.getName(), folder.getDescription(), StringPool.BLANK, 0,
-				DLSyncConstants.TYPE_FOLDER, StringPool.BLANK, "-1");
+				folder.getRepositoryId(), folder.getParentFolderId(),
+				folder.getName(), folder.getDescription(), StringPool.BLANK, -1,
+				StringPool.BLANK, 0, DLSyncConstants.TYPE_FOLDER, "-1");
 		}
 	}
 
@@ -115,18 +115,18 @@ public class SyncMessageListener extends BaseMessageListener {
 			FileEntry fileEntry = DLAppLocalServiceUtil.getFileEntry(typeId);
 
 			SyncDLObjectLocalServiceUtil.updateSyncDLObject(
-				fileEntry.getFileEntryId(), 0, fileEntry.getFolderId(),
+				fileEntry.getFileEntryId(), fileEntry.getFolderId(),
 				fileEntry.getTitle(), StringPool.BLANK,
-				fileEntry.getDescription(), DLSyncConstants.EVENT_DELETE,
+				fileEntry.getDescription(), DLSyncConstants.EVENT_DELETE, 0,
 				StringPool.BLANK, fileEntry.getSize(), fileEntry.getVersion());
 		}
 		else if (type.equals(DLSyncConstants.TYPE_FOLDER)) {
 			Folder folder = DLAppLocalServiceUtil.getFolder(typeId);
 
 			SyncDLObjectLocalServiceUtil.updateSyncDLObject(
-				folder.getFolderId(), -1, folder.getParentFolderId(),
+				folder.getFolderId(), folder.getParentFolderId(),
 				folder.getName(), StringPool.BLANK, folder.getDescription(),
-				DLSyncConstants.EVENT_DELETE, StringPool.BLANK, 0, "-1");
+				DLSyncConstants.EVENT_DELETE, -1, StringPool.BLANK, 0, "-1");
 		}
 	}
 
@@ -161,18 +161,18 @@ public class SyncMessageListener extends BaseMessageListener {
 			}
 
 			SyncDLObjectLocalServiceUtil.updateSyncDLObject(
-				fileEntry.getFileEntryId(), lockUserId, fileEntry.getFolderId(),
+				fileEntry.getFileEntryId(), fileEntry.getFolderId(),
 				fileEntry.getTitle(), fileEntry.getDescription(), checksum,
-				DLSyncConstants.EVENT_UPDATE, lockUserName, fileEntry.getSize(),
-				fileEntry.getVersion());
+				DLSyncConstants.EVENT_UPDATE, lockUserId, lockUserName,
+				fileEntry.getSize(), fileEntry.getVersion());
 		}
 		else if (type.equals(DLSyncConstants.TYPE_FOLDER)) {
 			Folder folder = DLAppLocalServiceUtil.getFolder(typeId);
 
 			SyncDLObjectLocalServiceUtil.updateSyncDLObject(
-				folder.getFolderId(), -1, folder.getParentFolderId(),
+				folder.getFolderId(), folder.getParentFolderId(),
 				folder.getName(), folder.getDescription(), StringPool.BLANK,
-				DLSyncConstants.EVENT_UPDATE, StringPool.BLANK, 0, "-1");
+				DLSyncConstants.EVENT_UPDATE, -1, StringPool.BLANK, 0, "-1");
 		}
 	}
 

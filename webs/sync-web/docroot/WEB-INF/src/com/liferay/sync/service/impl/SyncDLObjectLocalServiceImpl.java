@@ -34,9 +34,9 @@ public class SyncDLObjectLocalServiceImpl
 	@Override
 	public SyncDLObject addSyncDLObject(
 			long fileId, String fileUuid, long companyId, long repositoryId,
-			long lockUserId, long parentFolderId, String name,
-			String description, String checksum, long size, String type,
-			String lockUserName, String version)
+			long parentFolderId, String name, String description,
+			String checksum, long lockUserId, String lockUserName, long size,
+			String type, String version)
 		throws PortalException, SystemException {
 
 		if (!isDefaultRepository(parentFolderId)) {
@@ -71,9 +71,9 @@ public class SyncDLObjectLocalServiceImpl
 
 	@Override
 	public SyncDLObject updateSyncDLObject(
-			long fileId, long lockUserId, long parentFolderId, String name,
-			String description, String checksum, String event,
-			String lockUserName, long size, String version)
+			long fileId, long parentFolderId, String name, String description,
+			String checksum, String event, long lockUserId, String lockUserName,
+			long size, String version)
 		throws PortalException, SystemException {
 
 		if (!isDefaultRepository(parentFolderId)) {
