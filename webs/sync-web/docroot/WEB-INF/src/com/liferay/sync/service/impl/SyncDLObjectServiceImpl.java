@@ -200,16 +200,14 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	}
 
 	@Override
-	public SyncContext getSyncContext()
+	public SyncDLObject getFileEntrySyncDLObject(
+			long groupId, long folderId, String title)
 		throws PortalException, SystemException {
 
-		SyncContext syncContext = new SyncContext();
+		FileEntry fileEntry = dlAppService.getFileEntry(
+			groupId, folderId, title);
 
-		syncContext.setPortalBuildNumber(ReleaseInfo.getBuildNumber());
-		syncContext.setUserId(getUserId());
-		syncContext.setUserSites(syncDLObjectService.getUserSites());
-
-		return syncContext;
+		return SyncUtil.toSyncDLObject(fileEntry);
 	}
 
 	@Override
@@ -230,17 +228,6 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		}
 
 		return syncDLObjects;
-	}
-
-	@Override
-	public SyncDLObject getFileEntrySyncDLObject(
-			long groupId, long folderId, String title)
-		throws PortalException, SystemException {
-
-		FileEntry fileEntry = dlAppService.getFileEntry(
-			groupId, folderId, title);
-
-		return SyncUtil.toSyncDLObject(fileEntry);
 	}
 
 	@Override
@@ -270,6 +257,19 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		}
 
 		return syncDLObjects;
+	}
+
+	@Override
+	public SyncContext getSyncContext()
+		throws PortalException, SystemException {
+
+		SyncContext syncContext = new SyncContext();
+
+		syncContext.setPortalBuildNumber(ReleaseInfo.getBuildNumber());
+		syncContext.setUserId(getUserId());
+		syncContext.setUserSites(syncDLObjectService.getUserSites());
+
+		return syncContext;
 	}
 
 	@Override
