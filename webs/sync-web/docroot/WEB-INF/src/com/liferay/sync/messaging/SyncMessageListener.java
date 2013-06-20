@@ -41,15 +41,13 @@ public class SyncMessageListener extends BaseMessageListener {
 		if (type.equals(DLSyncConstants.TYPE_FILE)) {
 			FileEntry fileEntry = DLAppLocalServiceUtil.getFileEntry(typeId);
 
-			String checksum = StringPool.BLANK;
-
 			DLFileEntry dlFileEntry = (DLFileEntry)fileEntry.getModel();
 
 			InputStream inputStream = DLStoreUtil.getFileAsStream(
 				dlFileEntry.getCompanyId(), dlFileEntry.getRepositoryId(),
 				dlFileEntry.getName(), dlFileEntry.getVersion());
 
-			checksum = DigesterUtil.digestBase64(inputStream);
+			String checksum = DigesterUtil.digestBase64(inputStream);
 
 			long lockUserId = 0;
 
@@ -131,15 +129,13 @@ public class SyncMessageListener extends BaseMessageListener {
 		if (type.equals(DLSyncConstants.TYPE_FILE)) {
 			FileEntry fileEntry = DLAppLocalServiceUtil.getFileEntry(typeId);
 
-			String checksum = StringPool.BLANK;
-
 			DLFileEntry dlFileEntry = (DLFileEntry)fileEntry.getModel();
 
 			InputStream inputStream = DLStoreUtil.getFileAsStream(
 				dlFileEntry.getCompanyId(), dlFileEntry.getRepositoryId(),
 				dlFileEntry.getName(), dlFileEntry.getVersion());
 
-			checksum = DigesterUtil.digestBase64(inputStream);
+			String checksum = DigesterUtil.digestBase64(inputStream);
 
 			long lockUserId = 0;
 
