@@ -14,8 +14,6 @@
 
 package com.liferay.sync.messaging;
 
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.repository.model.FileEntry;
@@ -36,24 +34,7 @@ import java.io.InputStream;
  */
 public class SyncMessageListener extends BaseMessageListener {
 
-	@Override
-	protected void doReceive(Message message)
-		throws PortalException, SystemException {
-
-		String event = message.getString("event");
-
-		if (event.equals(DLSyncConstants.EVENT_ADD)) {
-			_add(message);
-		}
-		else if (event.equals(DLSyncConstants.EVENT_DELETE)) {
-			_delete(message);
-		}
-		else if (event.equals(DLSyncConstants.EVENT_UPDATE)) {
-			_update(message);
-		}
-	}
-
-	private void _add(Message message) throws PortalException, SystemException {
+	protected void addSyncDLObject(Message message) throws Exception {
 		String type = message.getString("type");
 		long typeId = message.getLong("typeId");
 
@@ -105,9 +86,7 @@ public class SyncMessageListener extends BaseMessageListener {
 		}
 	}
 
-	private void _delete(Message message)
-		throws PortalException, SystemException {
-
+	protected void deleteSyncDLObject(Message message) throws Exception {
 		String type = message.getString("type");
 		long typeId = message.getLong("typeId");
 
@@ -130,9 +109,22 @@ public class SyncMessageListener extends BaseMessageListener {
 		}
 	}
 
-	private void _update(Message message)
-		throws PortalException, SystemException {
+	@Override
+	protected void doReceive(Message message) throws Exception {
+		String event = message.getString("event");
 
+		if (event.equals(DLSyncConstants.EVENT_ADD)) {
+			addSyncDLObject(message);
+		}
+		else if (event.equals(DLSyncConstants.EVENT_DELETE)) {
+			deleteSyncDLObject(message);
+		}
+		else if (event.equals(DLSyncConstants.EVENT_UPDATE)) {
+			updateSyncDLObject(message);
+		}
+	}
+
+	protected void updateSyncDLObject(Message message) throws Exception {
 		String type = message.getString("type");
 		long typeId = message.getLong("typeId");
 
