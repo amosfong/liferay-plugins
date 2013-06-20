@@ -50,7 +50,6 @@ public class SyncMessageListener extends BaseMessageListener {
 			String checksum = DigesterUtil.digestBase64(inputStream);
 
 			long lockUserId = 0;
-
 			String lockUserName = StringPool.BLANK;
 
 			Lock lock = fileEntry.getLock();
@@ -138,7 +137,6 @@ public class SyncMessageListener extends BaseMessageListener {
 			String checksum = DigesterUtil.digestBase64(inputStream);
 
 			long lockUserId = 0;
-
 			String lockUserName = StringPool.BLANK;
 
 			Lock lock = fileEntry.getLock();
