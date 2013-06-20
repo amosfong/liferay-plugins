@@ -4,17 +4,4 @@
 	<listener>
 		<listener-class>com.liferay.sync.servlet.SyncServletContextListener</listener-class>
 	</listener>
-	<servlet>
-		<servlet-name>JSON Web Service Servlet</servlet-name>
-			<servlet-class>com.liferay.portal.kernel.servlet.PortalClassLoaderServlet</servlet-class>
-			<init-param>
-				<param-name>servlet-class</param-name>
-				<param-value>com.liferay.portal.jsonwebservice.JSONWebServiceServlet</param-value>
-			</init-param>
-		<load-on-startup>0</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>JSON Web Service Servlet</servlet-name>
-		<url-pattern>/api/jsonws/*</url-pattern>
-	</servlet-mapping>
 </web-app>
