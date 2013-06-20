@@ -99,7 +99,7 @@ public class SyncUtil {
 		syncDLObject.setName(folder.getName());
 		syncDLObject.setDescription(folder.getDescription());
 		syncDLObject.setChecksum(StringPool.BLANK);
-		syncDLObject.setLockUserId(-1);
+		syncDLObject.setLockUserId(0);
 		syncDLObject.setLockUserName(StringPool.BLANK);
 		syncDLObject.setSize(-1);
 		syncDLObject.setType("folder");

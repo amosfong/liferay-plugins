@@ -100,7 +100,7 @@ public class SyncMessageListener extends BaseMessageListener {
 			SyncDLObjectLocalServiceUtil.addSyncDLObject(
 				folder.getFolderId(), folder.getUuid(), folder.getCompanyId(),
 				folder.getRepositoryId(), folder.getParentFolderId(),
-				folder.getName(), folder.getDescription(), StringPool.BLANK, -1,
+				folder.getName(), folder.getDescription(), StringPool.BLANK, 0,
 				StringPool.BLANK, 0, DLSyncConstants.TYPE_FOLDER, "-1");
 		}
 	}
@@ -126,7 +126,7 @@ public class SyncMessageListener extends BaseMessageListener {
 			SyncDLObjectLocalServiceUtil.updateSyncDLObject(
 				folder.getFolderId(), folder.getParentFolderId(),
 				folder.getName(), StringPool.BLANK, folder.getDescription(),
-				DLSyncConstants.EVENT_DELETE, -1, StringPool.BLANK, 0, "-1");
+				DLSyncConstants.EVENT_DELETE, 0, StringPool.BLANK, 0, "-1");
 		}
 	}
 
@@ -172,7 +172,7 @@ public class SyncMessageListener extends BaseMessageListener {
 			SyncDLObjectLocalServiceUtil.updateSyncDLObject(
 				folder.getFolderId(), folder.getParentFolderId(),
 				folder.getName(), folder.getDescription(), StringPool.BLANK,
-				DLSyncConstants.EVENT_UPDATE, -1, StringPool.BLANK, 0, "-1");
+				DLSyncConstants.EVENT_UPDATE, 0, StringPool.BLANK, 0, "-1");
 		}
 	}
 
