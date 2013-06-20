@@ -44,6 +44,7 @@ import java.util.Date;
 public class SyncDLObjectLocalServiceImpl
 	extends SyncDLObjectLocalServiceBaseImpl {
 
+	@Override
 	public SyncDLObject addSyncDLObject(
 			long fileId, String fileUuid, long companyId, long repositoryId,
 			long lockUserId, long parentFolderId, String name,
@@ -81,6 +82,7 @@ public class SyncDLObjectLocalServiceImpl
 		return syncDLObjectPersistence.update(syncDLObject);
 	}
 
+	@Override
 	public SyncDLObject updateSyncDLObject(
 			long fileId, long lockUserId, long parentFolderId, String name,
 			String description, String checksum, String event,

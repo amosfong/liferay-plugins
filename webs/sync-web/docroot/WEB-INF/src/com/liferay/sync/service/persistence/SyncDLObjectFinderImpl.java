@@ -39,6 +39,7 @@ public class SyncDLObjectFinderImpl
 	public static final String FIND_BY_C_M_R_T =
 		SyncDLObjectFinder.class.getName() + ".findByC_M_R_T";
 
+	@Override
 	public List<SyncDLObject> filterFindByC_M_R(
 			long companyId, long modifiedDate, long repositoryId)
 		throws SystemException {

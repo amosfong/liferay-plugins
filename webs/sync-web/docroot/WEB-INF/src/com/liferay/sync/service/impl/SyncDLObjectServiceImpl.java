@@ -65,6 +65,7 @@ import java.util.List;
  */
 public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 
+	@Override
 	public SyncDLObject addFileEntry(
 			long repositoryId, long folderId, String sourceFileName,
 			String mimeType, String title, String description, String changeLog,
@@ -78,6 +79,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		return SyncUtil.toSyncDLObject(fileEntry);
 	}
 
+	@Override
 	public SyncDLObject addFolder(
 			long repositoryId, long parentFolderId, String name,
 			String description, ServiceContext serviceContext)
@@ -89,18 +91,21 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		return SyncUtil.toSyncDLObject(folder);
 	}
 
+	@Override
 	public void deleteFileEntry(long fileEntryId)
 		throws PortalException, SystemException {
 
 		dlAppService.deleteFileEntry(fileEntryId);
 	}
 
+	@Override
 	public void deleteFolder(long folderId)
 		throws PortalException, SystemException {
 
 		dlAppService.deleteFolder(folderId);
 	}
 
+	@Override
 	public InputStream getFileDeltaAsStream(
 			long fileEntryId, String sourceVersion, String destinationVersion)
 		throws PortalException, SystemException {
@@ -207,6 +212,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		return deltaInputStream;
 	}
 
+	@Override
 	public SyncContext getSyncContext()
 		throws PortalException, SystemException {
 
@@ -219,6 +225,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		return syncContext;
 	}
 
+	@Override
 	public List<SyncDLObject> getSyncDLObjectFileEntries(
 			long repositoryId, long folderId)
 		throws PortalException, SystemException {
@@ -238,6 +245,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		return syncDLObjects;
 	}
 
+	@Override
 	public SyncDLObject getSyncDLObjectFileEntry(
 			long groupId, long folderId, String title)
 		throws PortalException, SystemException {
@@ -248,6 +256,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		return SyncUtil.toSyncDLObject(fileEntry);
 	}
 
+	@Override
 	public SyncDLObject getSyncDLObjectFolder(long folderId)
 		throws PortalException, SystemException {
 
@@ -256,6 +265,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		return SyncUtil.toSyncDLObject(folder);
 	}
 
+	@Override
 	public List<SyncDLObject> getSyncDLObjectFolders(
 			long repositoryId, long parentFolderId)
 		throws PortalException, SystemException {
@@ -275,6 +285,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		return syncDLObjects;
 	}
 
+	@Override
 	public SyncDLObjectUpdate getSyncDLObjectUpdate(
 			long companyId, long repositoryId, long lastAccessDate)
 		throws PortalException, SystemException {
@@ -296,10 +307,12 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		return new SyncDLObjectUpdate(syncDLObjects, lastAccessDate);
 	}
 
+	@Override
 	public List<Group> getUserSites() throws PortalException, SystemException {
 		return groupService.getUserSites();
 	}
 
+	@Override
 	public SyncDLObject moveFileEntry(
 			long fileEntryId, long newFolderId, ServiceContext serviceContext)
 		throws PortalException, SystemException {
@@ -310,6 +323,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		return SyncUtil.toSyncDLObject(fileEntry);
 	}
 
+	@Override
 	public SyncDLObject moveFolder(
 			long folderId, long parentFolderId, ServiceContext serviceContext)
 		throws PortalException, SystemException {
@@ -320,6 +334,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		return SyncUtil.toSyncDLObject(folder);
 	}
 
+	@Override
 	public SyncDLObject updateFileEntry(
 			long fileEntryId, String sourceFileName, String mimeType,
 			String title, String description, String changeLog,
@@ -333,6 +348,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		return SyncUtil.toSyncDLObject(fileEntry);
 	}
 
+	@Override
 	public SyncDLObject updateFileEntry(
 			long fileEntryId, String sourceFileName, String mimeType,
 			String title, String description, String changeLog,
@@ -373,6 +389,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		}
 	}
 
+	@Override
 	public SyncDLObject updateFolder(
 			long folderId, String name, String description,
 			ServiceContext serviceContext)
