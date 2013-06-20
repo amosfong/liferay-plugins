@@ -49,6 +49,8 @@ public class SyncDLObjectFinderImpl
 		try {
 			session = openSession();
 
+			StringBundler sb = new StringBundler(3);
+
 			String sql = CustomSQLUtil.get(FIND_BY_C_M_R_T);
 
 			sql = InlineSQLHelperUtil.replacePermissionCheck(
@@ -56,9 +58,8 @@ public class SyncDLObjectFinderImpl
 				"SyncDLObject.repositoryId", new long[] {repositoryId},
 				null);
 
-			StringBundler sb = new StringBundler(3);
-
 			sb.append(sql);
+
 			sb.append(" UNION ALL ");
 
 			sql = CustomSQLUtil.get(FIND_BY_C_M_R_T);
