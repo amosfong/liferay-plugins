@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Lock;
 import com.liferay.portlet.documentlibrary.model.DLFileEntry;
 import com.liferay.portlet.documentlibrary.model.DLFileVersion;
+import com.liferay.portlet.documentlibrary.model.DLSyncConstants;
 import com.liferay.portlet.documentlibrary.store.DLStoreUtil;
 import com.liferay.sync.model.SyncDLObject;
 import com.liferay.sync.model.impl.SyncDLObjectImpl;
@@ -83,7 +84,7 @@ public class SyncUtil {
 		}
 
 		syncDLObject.setSize(fileEntry.getSize());
-		syncDLObject.setType("file");
+		syncDLObject.setType(DLSyncConstants.TYPE_FILE);
 		syncDLObject.setVersion(fileEntry.getVersion());
 
 		return syncDLObject;
@@ -102,7 +103,7 @@ public class SyncUtil {
 		syncDLObject.setLockUserId(0);
 		syncDLObject.setLockUserName(StringPool.BLANK);
 		syncDLObject.setSize(-1);
-		syncDLObject.setType("folder");
+		syncDLObject.setType(DLSyncConstants.TYPE_FOLDER);
 		syncDLObject.setVersion(StringPool.BLANK);
 
 		return syncDLObject;
