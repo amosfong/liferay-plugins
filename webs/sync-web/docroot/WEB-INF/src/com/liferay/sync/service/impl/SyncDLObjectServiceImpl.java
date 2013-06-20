@@ -26,7 +26,7 @@ import com.liferay.portal.kernel.util.ReleaseInfo;
 import com.liferay.portal.kernel.util.StreamUtil;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.service.ServiceContext;
-import com.liferay.sync.model.ServerInfo;
+import com.liferay.sync.model.SyncContext;
 import com.liferay.sync.model.SyncDLObject;
 import com.liferay.sync.model.SyncDLObjectUpdate;
 import com.liferay.sync.service.base.SyncDLObjectServiceBaseImpl;
@@ -207,14 +207,16 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		return deltaInputStream;
 	}
 
-	public ServerInfo getServerInfo() throws PortalException, SystemException {
-		ServerInfo syncServerInfo = new ServerInfo();
+	public SyncContext getSyncContext()
+		throws PortalException, SystemException {
 
-		syncServerInfo.setPortalBuildNumber(ReleaseInfo.getBuildNumber());
-		syncServerInfo.setUserId(getUserId());
-		syncServerInfo.setUserSites(getUserSites());
+		SyncContext syncContext = new SyncContext();
 
-		return syncServerInfo;
+		syncContext.setPortalBuildNumber(ReleaseInfo.getBuildNumber());
+		syncContext.setUserId(getUserId());
+		syncContext.setUserSites(syncDLObjectService.getUserSites());
+
+		return syncContext;
 	}
 
 	public List<SyncDLObject> getSyncDLObjectFileEntries(
@@ -222,7 +224,6 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		throws PortalException, SystemException {
 
 		List<FileEntry> fileEntries = dlAppService.getFileEntries(
-
 			repositoryId, folderId);
 
 		List<SyncDLObject> syncDLObjects = new ArrayList<SyncDLObject>(
@@ -284,6 +285,9 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 			companyId, lastAccessDate, repositoryId);
 
 		for (SyncDLObject syncDLObject : syncDLObjects) {
+
+			// Use the newest object's modified date
+
 			if (syncDLObject.getModifiedDate() > lastAccessDate) {
 				lastAccessDate = syncDLObject.getModifiedDate();
 			}

@@ -34,7 +34,7 @@ import java.io.InputStream;
 /**
  * @author Dennis Ju
  */
-public class SyncDLObjectProcessorMessageListener extends BaseMessageListener {
+public class SyncMessageListener extends BaseMessageListener {
 
 	@Override
 	protected void doReceive(Message message)
@@ -62,21 +62,16 @@ public class SyncDLObjectProcessorMessageListener extends BaseMessageListener {
 
 			String checksum = StringPool.BLANK;
 
-			try {
-				DLFileEntry dlFileEntry = (DLFileEntry)fileEntry.getModel();
+			DLFileEntry dlFileEntry = (DLFileEntry)fileEntry.getModel();
 
-				InputStream inputStream = DLStoreUtil.getFileAsStream(
-					dlFileEntry.getCompanyId(), dlFileEntry.getRepositoryId(),
-					dlFileEntry.getName(), dlFileEntry.getVersion());
+			InputStream inputStream = DLStoreUtil.getFileAsStream(
+				dlFileEntry.getCompanyId(), dlFileEntry.getRepositoryId(),
+				dlFileEntry.getName(), dlFileEntry.getVersion());
 
-				checksum = DigesterUtil.digestBase64(inputStream);
-			}
-			catch (PortalException pe) {
-			}
-			catch (SystemException e) {
-			}
+			checksum = DigesterUtil.digestBase64(inputStream);
 
 			long lockUserId = 0;
+
 			String lockUserName = StringPool.BLANK;
 
 			Lock lock = fileEntry.getLock();
@@ -146,27 +141,19 @@ public class SyncDLObjectProcessorMessageListener extends BaseMessageListener {
 
 			String checksum = StringPool.BLANK;
 
-			try {
-				DLFileEntry dlFileEntry = (DLFileEntry)fileEntry.getModel();
+			DLFileEntry dlFileEntry = (DLFileEntry)fileEntry.getModel();
 
-				InputStream inputStream = DLStoreUtil.getFileAsStream(
-					dlFileEntry.getCompanyId(), dlFileEntry.getRepositoryId(),
-					dlFileEntry.getName(), dlFileEntry.getVersion());
+			InputStream inputStream = DLStoreUtil.getFileAsStream(
+				dlFileEntry.getCompanyId(), dlFileEntry.getRepositoryId(),
+				dlFileEntry.getName(), dlFileEntry.getVersion());
 
-				checksum = DigesterUtil.digestBase64(inputStream);
-			}
-			catch (PortalException pe) {
-			}
+			checksum = DigesterUtil.digestBase64(inputStream);
 
 			long lockUserId = 0;
+
 			String lockUserName = StringPool.BLANK;
 
 			Lock lock = fileEntry.getLock();
-
-			if (lock != null) {
-				lockUserId = lock.getUserId();
-				lockUserName = lock.getUserName();
-			}
 
 			if (lock != null) {
 				lockUserId = lock.getUserId();

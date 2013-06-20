@@ -19,7 +19,7 @@ import com.liferay.portal.kernel.messaging.MessageBusUtil;
 import com.liferay.portal.kernel.messaging.MessageListener;
 import com.liferay.portal.kernel.messaging.SerialDestination;
 import com.liferay.portal.kernel.util.BasePortalLifecycle;
-import com.liferay.sync.messaging.SyncDLObjectProcessorMessageListener;
+import com.liferay.sync.messaging.SyncMessageListener;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -47,7 +47,7 @@ public class SyncServletContextListener
 
 	@Override
 	protected void doPortalInit() {
-		_messageListener = new SyncDLObjectProcessorMessageListener();
+		_messageListener = new SyncMessageListener();
 
 		SerialDestination serialDestination = new SerialDestination();
 

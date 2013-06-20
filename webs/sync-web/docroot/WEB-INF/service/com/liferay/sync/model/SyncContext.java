@@ -21,7 +21,7 @@ import java.util.List;
 /**
  * @author Dennis Ju
  */
-public class ServerInfo {
+public class SyncContext {
 
 	public int getPortalBuildNumber() {
 		return _portalBuildNumber;
