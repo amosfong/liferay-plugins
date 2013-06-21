@@ -14,12 +14,15 @@
 
 package com.liferay.salesforce.service.impl;
 
+import org.junit.Test;
+
 /**
  * @author Michael C. Han
  */
 public class SalesforceContactLocalServiceTest
 	extends BaseSalesforceServiceTestCase {
 
+	@Test
 	public void testAddContact() throws Exception {
 	}
 

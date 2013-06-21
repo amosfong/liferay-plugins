@@ -16,11 +16,14 @@ package com.liferay.salesforce.query;
 
 import com.liferay.portal.kernel.test.TestCase;
 
+import org.junit.Test;
+
 /**
  * @author Michael C. Han
  */
 public class ConditionGroupTest extends TestCase {
 
+	@Test
 	public void testAnd() {
 		Condition condition = ConditionImpl.EQUALS("Name", "Test");
 
@@ -45,6 +48,7 @@ public class ConditionGroupTest extends TestCase {
 			conditionGroup2.toString());
 	}
 
+	@Test
 	public void testOr() {
 		Condition condition = ConditionImpl.EQUALS("Name", "Test");
 

@@ -28,12 +28,16 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author Michael C. Han
  * @author Brian Wing Shun Chan
  */
 public class RulesEngineImplTest extends TestCase {
 
+	@Before
 	@Override
 	public void setUp() throws Exception {
 		_rulesEngineImpl = new RulesEngineImpl();
@@ -50,12 +54,14 @@ public class RulesEngineImplTest extends TestCase {
 			new StringResourceRetriever(rules));
 	}
 
+	@Test
 	public void testAdd() throws Exception {
 		_rulesEngineImpl.add("testDomainName", _rulesResourceRetriever);
 
 		assertTrue(_rulesEngineImpl.containsRuleDomain("testDomainName"));
 	}
 
+	@Test
 	public void testExecuteWithPrecompiledRuleAge30() throws Exception {
 		UserProfile userProfile = new UserProfile();
 
@@ -72,6 +78,7 @@ public class RulesEngineImplTest extends TestCase {
 		assertEquals(30, userProfile.getAge());
 	}
 
+	@Test
 	public void testExecuteWithPrecompiledRuleAge50() throws Exception {
 		_rulesEngineImpl.add("testDomainName", _rulesResourceRetriever);
 
@@ -88,6 +95,7 @@ public class RulesEngineImplTest extends TestCase {
 		assertEquals(50, userProfile.getAge());
 	}
 
+	@Test
 	public void testExecuteWithResultsWithTemporaryRuleAge30()
 		throws Exception {
 
@@ -109,6 +117,7 @@ public class RulesEngineImplTest extends TestCase {
 		assertEquals(30, userProfile.getAge());
 	}
 
+	@Test
 	public void testExecuteWithResultsWithTemporaryRuleAge50()
 		throws Exception {
 
@@ -130,6 +139,7 @@ public class RulesEngineImplTest extends TestCase {
 		assertEquals(50, userProfile.getAge());
 	}
 
+	@Test
 	public void testExecuteWithTemporaryRuleAge30() throws Exception {
 		UserProfile userProfile = new UserProfile();
 
@@ -144,6 +154,7 @@ public class RulesEngineImplTest extends TestCase {
 		assertEquals(30, userProfile.getAge());
 	}
 
+	@Test
 	public void testExecuteWithTemporaryRuleAge50() throws Exception {
 		UserProfile userProfile = new UserProfile();
 

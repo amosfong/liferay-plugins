@@ -14,12 +14,15 @@
 
 package com.liferay.salesforce.service.impl;
 
+import org.junit.Test;
+
 /**
  * @author Michael C. Han
  */
 public class SalesforceTaskLocalServiceTest
 	extends BaseSalesforceServiceTestCase {
 
+	@Test
 	public void testAddTask() throws Exception {
 	}
 

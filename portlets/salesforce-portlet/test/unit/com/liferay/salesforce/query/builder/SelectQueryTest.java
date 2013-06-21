@@ -22,11 +22,14 @@ import com.liferay.salesforce.query.ConditionImpl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Test;
+
 /**
  * @author Michael C. Han
  */
 public class SelectQueryTest extends TestCase {
 
+	@Test
 	public void testBuild() {
 		List<String> fieldNames = new ArrayList<String>();
 

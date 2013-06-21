@@ -52,11 +52,15 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 
+import org.junit.Before;
+import org.junit.Test;
+
 /**
  * @author Michael C. Han
  */
 public class ReportEngineImplTest extends TestCase {
 
+	@Before
 	@Override
 	public void setUp() throws Exception {
 		_reportEngineImpl = new ReportEngineImpl();
@@ -68,44 +72,53 @@ public class ReportEngineImplTest extends TestCase {
 			getReportFillManagerRegistry());
 	}
 
+	@Test
 	public void testCompileCsv() throws Exception {
 		compile(
 			ReportDataSourceType.CSV, "CsvDataSource.txt",
 			"CsvDataSourceReport.jrxml", ReportFormat.CSV);
 	}
 
+	@Test
 	public void testCompileXls() throws Exception {
 		compile(
 			ReportDataSourceType.XLS, "XlsDataSource.data.xls",
 			"XlsDataSourceReport.jrxml", ReportFormat.CSV);
 	}
 
+	@Test
 	public void testCompileXml() throws Exception {
 		compile(
 			ReportDataSourceType.XML, "northwind.xml", "OrdersReport.jrxml",
 			ReportFormat.CSV);
 	}
 
+	@Test
 	public void testExportCsv() throws Exception {
 		export(ReportFormat.CSV);
 	}
 
+	@Test
 	public void testExportPdf() throws Exception {
 		export(ReportFormat.PDF);
 	}
 
+	@Test
 	public void testExportRtf() throws Exception {
 		export(ReportFormat.RTF);
 	}
 
+	@Test
 	public void testExportTxt() throws Exception {
 		export(ReportFormat.TXT);
 	}
 
+	@Test
 	public void testExportXls() throws Exception {
 		export(ReportFormat.XLS);
 	}
 
+	@Test
 	public void testExportXml() throws Exception {
 		export(ReportFormat.XML);
 	}

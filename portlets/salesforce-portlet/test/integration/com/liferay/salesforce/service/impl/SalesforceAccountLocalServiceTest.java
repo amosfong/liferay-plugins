@@ -30,12 +30,15 @@ import java.util.Map;
 
 import junit.framework.Assert;
 
+import org.junit.Test;
+
 /**
  * @author Michael C. Han
  */
 public class SalesforceAccountLocalServiceTest
 	extends BaseSalesforceServiceTestCase {
 
+	@Test
 	public void testAddAccount() throws Exception {
 		Message newAccountMessage = _addAccount();
 
@@ -71,6 +74,7 @@ public class SalesforceAccountLocalServiceTest
 		_deleteAccount(newAccountMessage);
 	}
 
+	@Test
 	public void testDeleteAccount() throws Exception {
 		Message newAccountMessage = _addAccount();
 
@@ -98,6 +102,7 @@ public class SalesforceAccountLocalServiceTest
 		}
 	}
 
+	@Test
 	public void testFindAccountException() throws Exception {
 		List<String> fieldNames = new ArrayList<String>();
 
@@ -120,6 +125,7 @@ public class SalesforceAccountLocalServiceTest
 		}
 	}
 
+	@Test
 	public void testFindAccounts() throws Exception {
 		Message accountMessage1 = _addAccount();
 		Message accountMessage2 = _addAccount();
@@ -148,6 +154,7 @@ public class SalesforceAccountLocalServiceTest
 		_deleteAccount(accountMessage2);
 	}
 
+	@Test
 	public void testUpdateAccount() throws Exception {
 		Message newAccountMessage = _addAccount();
 
@@ -199,6 +206,7 @@ public class SalesforceAccountLocalServiceTest
 		_deleteAccount(existingAccountMessage);
 	}
 
+	@Test
 	public void testUpdateAccountException() throws Exception {
 		Message newAccountMessage = _addAccount();
 
