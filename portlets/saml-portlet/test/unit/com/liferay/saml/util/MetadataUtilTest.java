@@ -28,7 +28,7 @@ import org.opensaml.xml.parse.BasicParserPool;
 public class MetadataUtilTest {
 
 	@BeforeClass
-	public static void setUp() throws Exception {
+	public static void setUpClass() throws Exception {
 		OpenSamlBootstrap.bootstrap();
 
 		MetadataUtil metadataUtil = new MetadataUtil();
