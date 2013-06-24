@@ -51,6 +51,7 @@
 		</portlet-ref>
 		<permissions>
 			<supports>
+				<action-key>COMPLETE_FORM</action-key>
 				<action-key>DELETE</action-key>
 				<action-key>PERMISSIONS</action-key>
 				<action-key>UPDATE</action-key>
@@ -62,6 +63,7 @@
 			</site-member-defaults>
 			<guest-defaults />
 			<guest-unsupported>
+				<action-key>COMPLETE_FORM</action-key>
 				<action-key>DELETE</action-key>
 				<action-key>PERMISSIONS</action-key>
 				<action-key>UPDATE</action-key>

@@ -22,4 +22,6 @@ public class ActionKeys
 
 	public static final String ADD_PROCESS = "ADD_PROCESS";
 
+	public static final String COMPLETE_FORM = "COMPLETE_FORM";
+
 }
