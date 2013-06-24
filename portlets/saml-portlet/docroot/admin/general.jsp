@@ -139,7 +139,7 @@ catch (Exception e) {
 				<portlet:resourceURL var="downloadCertificateURL" />
 
 				<aui:button-row>
-					<aui:button onClick='<%= renderResponse.getNamespace() + "toggleCertificateForm(true);" %>' value="replace-certificate" /><aui:spacer /><aui:button href="<%= downloadCertificateURL %>" value="download-certificate" />
+					<aui:button onClick='<%= renderResponse.getNamespace() + "toggleCertificateForm(true);" %>' value="replace-certificate" /> <aui:button href="<%= downloadCertificateURL %>" value="download-certificate" />
 				</aui:button-row>
 			</c:when>
 			<c:when test="<%= (x509Certificate == null) && Validator.isNull(MetadataManagerUtil.getLocalEntityId()) %>">
