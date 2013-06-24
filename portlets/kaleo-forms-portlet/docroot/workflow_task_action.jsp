@@ -56,7 +56,7 @@ List<String> transitionNames = WorkflowTaskManagerUtil.getNextTransitionNames(co
 
 boolean showCompleteFormButton = false;
 
-if ((kaleoProcessLinkId > 0) && !workflowTask.isCompleted() && _isAssignedToUser(workflowTask, user)) {
+if ((kaleoProcessLinkId > 0) && !workflowTask.isCompleted() && _isAssignedToUser(workflowTask, user) && KaleoProcessPermission.contains(permissionChecker, kaleoProcessId, ActionKeys.COMPLETE_FORM)) {
 	showCompleteFormButton = true;
 }
 

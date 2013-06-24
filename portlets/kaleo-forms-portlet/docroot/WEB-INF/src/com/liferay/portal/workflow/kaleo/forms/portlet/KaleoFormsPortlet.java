@@ -32,7 +32,6 @@ import com.liferay.portal.kernel.workflow.WorkflowTask;
 import com.liferay.portal.kernel.workflow.WorkflowTaskDueDateException;
 import com.liferay.portal.kernel.workflow.WorkflowTaskManagerUtil;
 import com.liferay.portal.security.auth.PrincipalException;
-import com.liferay.portal.security.permission.ActionKeys;
 import com.liferay.portal.security.permission.PermissionChecker;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
@@ -45,6 +44,7 @@ import com.liferay.portal.workflow.kaleo.forms.model.KaleoProcess;
 import com.liferay.portal.workflow.kaleo.forms.service.KaleoProcessLocalServiceUtil;
 import com.liferay.portal.workflow.kaleo.forms.service.KaleoProcessServiceUtil;
 import com.liferay.portal.workflow.kaleo.forms.service.permission.KaleoProcessPermission;
+import com.liferay.portal.workflow.kaleo.forms.util.ActionKeys;
 import com.liferay.portal.workflow.kaleo.forms.util.WebKeys;
 import com.liferay.portlet.dynamicdatalists.RecordSetDDMStructureIdException;
 import com.liferay.portlet.dynamicdatalists.RecordSetNameException;
@@ -109,6 +109,20 @@ public class KaleoFormsPortlet extends MVCPortlet {
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			DDLRecord.class.getName(), uploadPortletRequest);
+
+		HttpServletRequest request = serviceContext.getRequest();
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		PermissionChecker permissionChecker =
+			themeDisplay.getPermissionChecker();
+
+		long kaleoProcessId = ParamUtil.getLong(
+			serviceContext, "kaleoProcessId");
+
+		KaleoProcessPermission.check(
+			permissionChecker, kaleoProcessId, ActionKeys.COMPLETE_FORM);
 
 		updateDDLRecord(serviceContext);
 
@@ -221,6 +235,20 @@ public class KaleoFormsPortlet extends MVCPortlet {
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			DDLRecord.class.getName(), uploadPortletRequest);
+
+		HttpServletRequest request = serviceContext.getRequest();
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		PermissionChecker permissionChecker =
+			themeDisplay.getPermissionChecker();
+
+		long kaleoProcessId = ParamUtil.getLong(
+			serviceContext, "kaleoProcessId");
+
+		KaleoProcessPermission.check(
+			permissionChecker, kaleoProcessId, ActionKeys.SUBMIT);
 
 		DDLRecord ddlRecord = updateDDLRecord(serviceContext);
 
@@ -436,20 +464,6 @@ public class KaleoFormsPortlet extends MVCPortlet {
 
 	protected DDLRecord updateDDLRecord(ServiceContext serviceContext)
 		throws Exception {
-
-		HttpServletRequest request = serviceContext.getRequest();
-
-		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
-		PermissionChecker permissionChecker =
-			themeDisplay.getPermissionChecker();
-
-		long kaleoProcessId = ParamUtil.getLong(
-			serviceContext, "kaleoProcessId");
-
-		KaleoProcessPermission.check(
-			permissionChecker, kaleoProcessId, ActionKeys.SUBMIT);
 
 		long ddlRecordId = ParamUtil.getLong(serviceContext, "ddlRecordId");
 
