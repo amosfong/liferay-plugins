@@ -110,19 +110,7 @@ public class KaleoFormsPortlet extends MVCPortlet {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			DDLRecord.class.getName(), uploadPortletRequest);
 
-		HttpServletRequest request = serviceContext.getRequest();
-
-		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
-		PermissionChecker permissionChecker =
-			themeDisplay.getPermissionChecker();
-
-		long kaleoProcessId = ParamUtil.getLong(
-			serviceContext, "kaleoProcessId");
-
-		KaleoProcessPermission.check(
-			permissionChecker, kaleoProcessId, ActionKeys.COMPLETE_FORM);
+		checkKaleoProcessPermission(serviceContext, ActionKeys.COMPLETE_FORM);
 
 		updateDDLRecord(serviceContext);
 
@@ -236,19 +224,7 @@ public class KaleoFormsPortlet extends MVCPortlet {
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			DDLRecord.class.getName(), uploadPortletRequest);
 
-		HttpServletRequest request = serviceContext.getRequest();
-
-		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
-			WebKeys.THEME_DISPLAY);
-
-		PermissionChecker permissionChecker =
-			themeDisplay.getPermissionChecker();
-
-		long kaleoProcessId = ParamUtil.getLong(
-			serviceContext, "kaleoProcessId");
-
-		KaleoProcessPermission.check(
-			permissionChecker, kaleoProcessId, ActionKeys.SUBMIT);
+		checkKaleoProcessPermission(serviceContext, ActionKeys.SUBMIT);
 
 		DDLRecord ddlRecord = updateDDLRecord(serviceContext);
 
@@ -330,6 +306,25 @@ public class KaleoFormsPortlet extends MVCPortlet {
 		WorkflowTaskManagerUtil.updateDueDate(
 			themeDisplay.getCompanyId(), themeDisplay.getUserId(),
 			workflowTaskId, comment, dueDate);
+	}
+
+	protected void checkKaleoProcessPermission(
+			ServiceContext serviceContext, String actionId)
+		throws Exception {
+
+		HttpServletRequest request = serviceContext.getRequest();
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		PermissionChecker permissionChecker =
+			themeDisplay.getPermissionChecker();
+
+		long kaleoProcessId = ParamUtil.getLong(
+			serviceContext, "kaleoProcessId");
+
+		KaleoProcessPermission.check(
+			permissionChecker, kaleoProcessId, actionId);
 	}
 
 	protected void deleteKaleoProcessData(
