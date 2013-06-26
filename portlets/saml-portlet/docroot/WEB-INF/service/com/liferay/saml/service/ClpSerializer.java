@@ -355,8 +355,24 @@ public class ClpSerializer {
 			return new SystemException();
 		}
 
+		if (className.equals("com.liferay.saml.AssertionException")) {
+			return new com.liferay.saml.AssertionException();
+		}
+
+		if (className.equals("com.liferay.saml.AudienceException")) {
+			return new com.liferay.saml.AudienceException();
+		}
+
 		if (className.equals("com.liferay.saml.CertificateKeyPasswordException")) {
 			return new com.liferay.saml.CertificateKeyPasswordException();
+		}
+
+		if (className.equals("com.liferay.saml.CredentialException")) {
+			return new com.liferay.saml.CredentialException();
+		}
+
+		if (className.equals("com.liferay.saml.DestinationException")) {
+			return new com.liferay.saml.DestinationException();
 		}
 
 		if (className.equals(
@@ -377,6 +393,26 @@ public class ClpSerializer {
 		if (className.equals(
 					"com.liferay.saml.DuplicateSamlSpIdpConnectionSamlIdpEntityIdException")) {
 			return new com.liferay.saml.DuplicateSamlSpIdpConnectionSamlIdpEntityIdException();
+		}
+
+		if (className.equals("com.liferay.saml.EntityIdException")) {
+			return new com.liferay.saml.EntityIdException();
+		}
+
+		if (className.equals("com.liferay.saml.ExpiredException")) {
+			return new com.liferay.saml.ExpiredException();
+		}
+
+		if (className.equals("com.liferay.saml.InResponseToException")) {
+			return new com.liferay.saml.InResponseToException();
+		}
+
+		if (className.equals("com.liferay.saml.IssuerException")) {
+			return new com.liferay.saml.IssuerException();
+		}
+
+		if (className.equals("com.liferay.saml.ReplayException")) {
+			return new com.liferay.saml.ReplayException();
 		}
 
 		if (className.equals(
@@ -417,6 +453,27 @@ public class ClpSerializer {
 		if (className.equals(
 					"com.liferay.saml.SamlSpIdpConnectionSamlIdpEntityIdException")) {
 			return new com.liferay.saml.SamlSpIdpConnectionSamlIdpEntityIdException();
+		}
+
+		if (className.equals("com.liferay.saml.SignatureException")) {
+			return new com.liferay.saml.SignatureException();
+		}
+
+		if (className.equals("com.liferay.saml.StatusException")) {
+			return new com.liferay.saml.StatusException();
+		}
+
+		if (className.equals("com.liferay.saml.SubjectException")) {
+			return new com.liferay.saml.SubjectException();
+		}
+
+		if (className.equals(
+					"com.liferay.saml.UnsolicitedLogoutResponseException")) {
+			return new com.liferay.saml.UnsolicitedLogoutResponseException();
+		}
+
+		if (className.equals("com.liferay.saml.UnsupportedBindingException")) {
+			return new com.liferay.saml.UnsupportedBindingException();
 		}
 
 		if (className.equals("com.liferay.saml.NoSuchIdpSpConnectionException")) {
