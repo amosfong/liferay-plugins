@@ -246,5 +246,7 @@
 		<exception>Signature</exception>
 		<exception>Status</exception>
 		<exception>Subject</exception>
+		<exception>UnsolicitedLogoutResponse</exception>
+		<exception>UnsupportedBinding</exception>
 	</exceptions>
 </service-builder>
