@@ -31,6 +31,8 @@ import com.liferay.portal.util.PortalUtil;
 import com.liferay.saml.SamlException;
 import com.liferay.saml.SamlSloContext;
 import com.liferay.saml.SamlSloRequestInfo;
+import com.liferay.saml.UnsolicitedLogoutResponseException;
+import com.liferay.saml.UnsupportedBindingException;
 import com.liferay.saml.binding.SamlBinding;
 import com.liferay.saml.metadata.MetadataManagerUtil;
 import com.liferay.saml.model.SamlIdpSpSession;
@@ -50,7 +52,6 @@ import java.io.Writer;
 
 import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -209,7 +210,7 @@ public class SingleLogoutProfileImpl
 				SAMLConstants.SAML2_SOAP11_BINDING_URI);
 		}
 		else {
-			throw new SamlException("Invalid SAML request");
+			throw new UnsupportedBindingException();
 		}
 
 		try {
@@ -232,7 +233,10 @@ public class SingleLogoutProfileImpl
 						samlMessageContext);
 			}
 			else {
-				throw new SamlException("Unrecognized SAML message");
+				throw new SamlException(
+					"Unrecognized SAML message. Expected LogoutRequest or " +
+						"LogoutResponse but got " + 
+							inboundSamlMessage.getClass().getName());
 			}
 		}
 		catch (Exception e) {
@@ -551,18 +555,10 @@ public class SingleLogoutProfileImpl
 		SamlSloContext samlSloContext = getSamlSloContext(request, null);
 
 		if (samlSloContext == null) {
-			if (_log.isDebugEnabled()) {
-				_log.debug(
-					"Received logout response from " +
-						samlMessageContext.getPeerEntityId() +
-							" without an active SSO session");
-			}
-
-			JspUtil.dispatch(
-				request, response, JspUtil.PATH_PORTAL_SAML_ERROR,
-				"single-sign-on");
-
-			return;
+			throw new UnsolicitedLogoutResponseException(
+				"Received logout response from " +
+					samlMessageContext.getPeerEntityId() +
+						" without an active SSO session");
 		}
 
 		String entityId = samlMessageContext.getInboundMessageIssuer();
@@ -571,17 +567,9 @@ public class SingleLogoutProfileImpl
 			samlSloContext.getSamlSloRequestInfo(entityId);
 
 		if (samlSloRequestInfo == null) {
-			if (_log.isDebugEnabled()) {
-				_log.debug(
-					"Received unsolicited logout response from " +
-						samlMessageContext.getPeerEntityId());
-			}
-
-			JspUtil.dispatch(
-				request, response, JspUtil.PATH_PORTAL_SAML_ERROR,
-				"single-sign-on");
-
-			return;
+			throw new UnsolicitedLogoutResponseException(
+				"Received unsolicited logout response from " +
+					samlMessageContext.getPeerEntityId());
 		}
 
 		LogoutResponse logoutResponse =
