@@ -31,9 +31,19 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
+import com.liferay.saml.AssertionException;
+import com.liferay.saml.AudienceException;
+import com.liferay.saml.DestinationException;
+import com.liferay.saml.ExpiredException;
+import com.liferay.saml.InResponseToException;
+import com.liferay.saml.IssuerException;
 import com.liferay.saml.NoSuchIdpSpSessionException;
+import com.liferay.saml.ReplayException;
 import com.liferay.saml.SamlException;
 import com.liferay.saml.SamlSsoRequestContext;
+import com.liferay.saml.SignatureException;
+import com.liferay.saml.StatusException;
+import com.liferay.saml.SubjectException;
 import com.liferay.saml.binding.SamlBinding;
 import com.liferay.saml.metadata.MetadataManagerUtil;
 import com.liferay.saml.model.SamlIdpSsoSession;
@@ -420,8 +430,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 		String statusCodeURI = statusCode.getValue();
 
 		if (!statusCodeURI.equals(StatusCode.SUCCESS_URI)) {
-			throw new SamlException(
-				"Assertion failed " + statusCode.getValue());
+			throw new StatusException(statusCode.getValue());
 		}
 
 		verifyInResponseTo(samlResponse);
@@ -488,7 +497,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 		}
 
 		if (assertion == null) {
-			throw new SamlException(
+			throw new AssertionException(
 				"Response does not contain any acceptable assertions");
 		}
 
@@ -1105,7 +1114,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 		else if (spSsoDescriptor.getWantAssertionsSigned() &&
 				 (signature == null)) {
 
-			throw new SamlException("SAML assertion is not signed");
+			throw new SignatureException("SAML assertion is not signed");
 		}
 	}
 
@@ -1128,7 +1137,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 			}
 		}
 
-		throw new SamlException("Unable verify audience");
+		throw new AudienceException("Unable verify audience");
 	}
 
 	protected void verifyConditions(
@@ -1165,7 +1174,10 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 			}
 		}
 
-		throw new SamlException("Unable to verify destination");
+		throw new DestinationException(
+			"Destination " + destination + " does not match any assertion " +
+				"consumer location with binding " +
+					samlMessageContext.getCommunicationProfileId());
 	}
 
 	protected void verifyInResponseTo(Response samlResponse)
@@ -1188,8 +1200,9 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 				samlSpAuthRequest);
 		}
 		else {
-			throw new SamlException(
-				"Response does not match an authentication request");
+			throw new InResponseToException(
+				"Response in response to " + inResponseTo + " does not match " +
+					"any authentication requests");
 		}
 	}
 
@@ -1200,14 +1213,15 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 		String issuerFormat = issuer.getFormat();
 
 		if ((issuerFormat != null) && !issuerFormat.equals(NameIDType.ENTITY)) {
-			throw new SamlException("Invalid issuer format");
+			throw new IssuerException("Invalid issuer format " + issuerFormat);
 		}
 
 		String peerEntityId = samlMessageContext.getPeerEntityId();
 
 		if (!peerEntityId.equals(issuer.getValue())) {
-			throw new SamlException(
-				"Issuer does not match expected peer entity ID");
+			throw new IssuerException(
+				"Issuer does not match expected peer entity ID " + 
+					peerEntityId);
 		}
 	}
 
@@ -1219,7 +1233,9 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 		DateTime upperBoundDateTime = dateTime.plusMillis((int)clockSkew);
 
 		if (upperBoundDateTime.isBefore(nowDateTime)) {
-			throw new SamlException("Unable to verify date");
+			throw new ExpiredException(
+				"Date " + upperBoundDateTime.toString() + " is before " +
+					nowDateTime.toString());
 		}
 	}
 
@@ -1239,7 +1255,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 					idpEntityId, messageKey);
 
 			if ((samlSpMessage != null) && !samlSpMessage.isExpired()) {
-				throw new SamlException(
+				throw new ReplayException(
 					"SAML assertion " + messageKey + " replayed from IdP " +
 						idpEntityId);
 			}
@@ -1292,7 +1308,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 				throw (PortalException)e;
 			}
 
-			throw new SamlException("Unable to verify signature", e);
+			throw new SignatureException("Unable to verify signature", e);
 		}
 
 	}
@@ -1337,7 +1353,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 			}
 		}
 
-		throw new SamlException("Unable to verify subject");
+		throw new SubjectException("Unable to verify subject");
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(WebSsoProfileImpl.class);
