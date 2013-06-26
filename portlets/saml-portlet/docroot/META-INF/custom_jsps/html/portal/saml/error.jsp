@@ -17,5 +17,5 @@
 <%@ include file="/html/portal/init.jsp" %>
 
 <h3 class="portlet-msg-error">
-	<liferay-ui:message key="internal-server-error" />
+	<liferay-ui:message key="unable-to-process-saml-request" />
 </h3>
