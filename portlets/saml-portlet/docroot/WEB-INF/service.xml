@@ -221,13 +221,20 @@
 		</finder>
 	</entity>
 	<exceptions>
+		<exception>Assertion</exception>
+		<exception>Audience</exception>
 		<exception>CertificateKeyPassword</exception>
 		<exception>Credential</exception>
+		<exception>Destination</exception>
 		<exception>DuplicateSamlIdpSpConnectionSamlSpEntityId</exception>
 		<exception>DuplicateSamlIdpSpSession</exception>
 		<exception>DuplicateSamlIdpSsoSession</exception>
 		<exception>DuplicateSamlSpIdpConnectionSamlIdpEntityId</exception>
 		<exception>EntityId</exception>
+		<exception>Expired</exception>
+		<exception>InResponseTo</exception>
+		<exception>Issuer</exception>
+		<exception>Replay</exception>
 		<exception>SamlIdpSpConnectionMetadataUrl</exception>
 		<exception>SamlIdpSpConnectionMetadataXml</exception>
 		<exception>SamlIdpSpConnectionName</exception>
@@ -236,5 +243,8 @@
 		<exception>SamlSpIdpConnectionMetadataXml</exception>
 		<exception>SamlSpIdpConnectionName</exception>
 		<exception>SamlSpIdpConnectionSamlIdpEntityId</exception>
+		<exception>Signature</exception>
+		<exception>Status</exception>
+		<exception>Subject</exception>
 	</exceptions>
 </service-builder>
