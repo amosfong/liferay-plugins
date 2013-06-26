@@ -15,7 +15,6 @@
 package com.liferay.saml.hook.action;
 
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.struts.BaseStrutsAction;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.util.PortalUtil;

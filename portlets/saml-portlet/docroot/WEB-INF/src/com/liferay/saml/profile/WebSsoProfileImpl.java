@@ -1220,7 +1220,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 
 		if (!peerEntityId.equals(issuer.getValue())) {
 			throw new IssuerException(
-				"Issuer does not match expected peer entity ID " + 
+				"Issuer does not match expected peer entity ID " +
 					peerEntityId);
 		}
 	}
