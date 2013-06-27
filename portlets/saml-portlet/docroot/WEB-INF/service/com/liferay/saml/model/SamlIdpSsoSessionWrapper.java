@@ -14,6 +14,7 @@
 
 package com.liferay.saml.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -396,6 +397,26 @@ public class SamlIdpSsoSessionWrapper implements SamlIdpSsoSession,
 	@Override
 	public boolean isExpired() {
 		return _samlIdpSsoSession.isExpired();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof SamlIdpSsoSessionWrapper)) {
+			return false;
+		}
+
+		SamlIdpSsoSessionWrapper samlIdpSsoSessionWrapper = (SamlIdpSsoSessionWrapper)obj;
+
+		if (Validator.equals(_samlIdpSsoSession,
+					samlIdpSsoSessionWrapper._samlIdpSsoSession)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

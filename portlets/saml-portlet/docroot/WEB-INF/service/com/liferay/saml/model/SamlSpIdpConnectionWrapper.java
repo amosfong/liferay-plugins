@@ -14,6 +14,7 @@
 
 package com.liferay.saml.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -732,6 +733,26 @@ public class SamlSpIdpConnectionWrapper implements SamlSpIdpConnection,
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_samlSpIdpConnection.persist();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof SamlSpIdpConnectionWrapper)) {
+			return false;
+		}
+
+		SamlSpIdpConnectionWrapper samlSpIdpConnectionWrapper = (SamlSpIdpConnectionWrapper)obj;
+
+		if (Validator.equals(_samlSpIdpConnection,
+					samlSpIdpConnectionWrapper._samlSpIdpConnection)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

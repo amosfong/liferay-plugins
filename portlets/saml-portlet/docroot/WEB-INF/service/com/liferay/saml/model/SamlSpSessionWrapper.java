@@ -14,6 +14,7 @@
 
 package com.liferay.saml.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -561,6 +562,25 @@ public class SamlSpSessionWrapper implements SamlSpSession,
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_samlSpSession.persist();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof SamlSpSessionWrapper)) {
+			return false;
+		}
+
+		SamlSpSessionWrapper samlSpSessionWrapper = (SamlSpSessionWrapper)obj;
+
+		if (Validator.equals(_samlSpSession, samlSpSessionWrapper._samlSpSession)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

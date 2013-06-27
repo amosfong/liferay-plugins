@@ -14,6 +14,7 @@
 
 package com.liferay.saml.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -345,6 +346,25 @@ public class SamlSpMessageWrapper implements SamlSpMessage,
 	@Override
 	public boolean isExpired() {
 		return _samlSpMessage.isExpired();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof SamlSpMessageWrapper)) {
+			return false;
+		}
+
+		SamlSpMessageWrapper samlSpMessageWrapper = (SamlSpMessageWrapper)obj;
+
+		if (Validator.equals(_samlSpMessage, samlSpMessageWrapper._samlSpMessage)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

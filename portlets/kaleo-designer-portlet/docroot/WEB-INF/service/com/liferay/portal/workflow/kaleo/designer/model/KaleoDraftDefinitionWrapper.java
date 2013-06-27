@@ -14,6 +14,7 @@
 
 package com.liferay.portal.workflow.kaleo.designer.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -654,6 +655,26 @@ public class KaleoDraftDefinitionWrapper implements KaleoDraftDefinition,
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_kaleoDraftDefinition.persist();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof KaleoDraftDefinitionWrapper)) {
+			return false;
+		}
+
+		KaleoDraftDefinitionWrapper kaleoDraftDefinitionWrapper = (KaleoDraftDefinitionWrapper)obj;
+
+		if (Validator.equals(_kaleoDraftDefinition,
+					kaleoDraftDefinitionWrapper._kaleoDraftDefinition)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

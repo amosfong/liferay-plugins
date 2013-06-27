@@ -14,6 +14,7 @@
 
 package com.liferay.portal.workflow.kaleo.forms.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -478,6 +479,25 @@ public class KaleoProcessWrapper implements KaleoProcess,
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _kaleoProcess.getName(locale);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof KaleoProcessWrapper)) {
+			return false;
+		}
+
+		KaleoProcessWrapper kaleoProcessWrapper = (KaleoProcessWrapper)obj;
+
+		if (Validator.equals(_kaleoProcess, kaleoProcessWrapper._kaleoProcess)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

@@ -14,6 +14,7 @@
 
 package com.liferay.reports.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -689,6 +690,25 @@ public class SourceWrapper implements Source, ModelWrapper<Source> {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _source.getAttachmentsFiles();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof SourceWrapper)) {
+			return false;
+		}
+
+		SourceWrapper sourceWrapper = (SourceWrapper)obj;
+
+		if (Validator.equals(_source, sourceWrapper._source)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

@@ -14,6 +14,7 @@
 
 package com.liferay.reports.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -811,6 +812,25 @@ public class DefinitionWrapper implements Definition, ModelWrapper<Definition> {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _definition.getAttachmentsFiles();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof DefinitionWrapper)) {
+			return false;
+		}
+
+		DefinitionWrapper definitionWrapper = (DefinitionWrapper)obj;
+
+		if (Validator.equals(_definition, definitionWrapper._definition)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

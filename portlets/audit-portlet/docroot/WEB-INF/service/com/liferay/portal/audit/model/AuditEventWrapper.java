@@ -14,6 +14,7 @@
 
 package com.liferay.portal.audit.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.Date;
@@ -604,6 +605,25 @@ public class AuditEventWrapper implements AuditEvent, ModelWrapper<AuditEvent> {
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_auditEvent.persist();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof AuditEventWrapper)) {
+			return false;
+		}
+
+		AuditEventWrapper auditEventWrapper = (AuditEventWrapper)obj;
+
+		if (Validator.equals(_auditEvent, auditEventWrapper._auditEvent)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

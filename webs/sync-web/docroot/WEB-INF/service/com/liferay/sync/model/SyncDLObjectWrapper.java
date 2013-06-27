@@ -14,6 +14,7 @@
 
 package com.liferay.sync.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.HashMap;
@@ -658,6 +659,25 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_syncDLObject.persist();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof SyncDLObjectWrapper)) {
+			return false;
+		}
+
+		SyncDLObjectWrapper syncDLObjectWrapper = (SyncDLObjectWrapper)obj;
+
+		if (Validator.equals(_syncDLObject, syncDLObjectWrapper._syncDLObject)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**

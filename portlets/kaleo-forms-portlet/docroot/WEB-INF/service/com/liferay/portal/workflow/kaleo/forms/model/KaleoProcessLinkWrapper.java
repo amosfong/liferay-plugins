@@ -14,6 +14,7 @@
 
 package com.liferay.portal.workflow.kaleo.forms.model;
 
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
 import java.util.HashMap;
@@ -293,6 +294,26 @@ public class KaleoProcessLinkWrapper implements KaleoProcessLink,
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _kaleoProcessLink.getKaleoProcess();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+
+		if (!(obj instanceof KaleoProcessLinkWrapper)) {
+			return false;
+		}
+
+		KaleoProcessLinkWrapper kaleoProcessLinkWrapper = (KaleoProcessLinkWrapper)obj;
+
+		if (Validator.equals(_kaleoProcessLink,
+					kaleoProcessLinkWrapper._kaleoProcessLink)) {
+			return true;
+		}
+
+		return false;
 	}
 
 	/**
