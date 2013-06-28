@@ -67,7 +67,6 @@ String userAttributeMappings = ParamUtil.getString(request, "userAttributeMappin
 			<aui:button onClick='<%= renderResponse.getNamespace() + "uploadMetadataXml();" %>' value="upload-metadata-xml" />
 		</aui:button-row>
 
-
 		<div class="aui-helper-hidden hide" id="<portlet:namespace />uploadMetadataXmlForm">
 			<aui:fieldset label="upload-metadata">
 				<aui:input name="metadataXml" type="file" />

@@ -133,7 +133,6 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 							curExtension.equalsIgnoreCase("xls") ||
 							curExtension.equalsIgnoreCase("xlsx")) {
 
-
 							StringBuilder sb = new StringBuilder();
 
 							if (fileEntry.getFolder() != null) {

@@ -57,7 +57,7 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 	<aui:select label="report-format" name="format">
 
 		<%
-		for (ReportFormat reportFormat : ReportFormat.values()){
+		for (ReportFormat reportFormat : ReportFormat.values()) {
 		%>
 
 			<aui:option label="<%= reportFormat.getValue() %>" value="<%= reportFormat.getValue() %>" />

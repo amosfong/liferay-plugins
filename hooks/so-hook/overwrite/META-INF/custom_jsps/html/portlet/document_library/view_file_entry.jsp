@@ -1038,7 +1038,6 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 			);
 		</c:if>
 
-
 		<%
 		String curExtension = fileEntry.getExtension();
 		%>
