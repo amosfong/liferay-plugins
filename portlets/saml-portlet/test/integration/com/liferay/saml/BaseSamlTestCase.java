@@ -102,6 +102,16 @@ public class BaseSamlTestCase extends PowerMockito {
 		identifiers.clear();
 	}
 
+	protected Credential getCredential(String entityId) throws Exception {
+		EntityIDCriteria entityIdCriteria = new EntityIDCriteria(entityId);
+
+		CriteriaSet criteriaSet = new CriteriaSet();
+
+		criteriaSet.add(entityIdCriteria);
+
+		return credentialResolver.resolveSingle(criteriaSet);
+	}
+
 	protected MockHttpServletRequest getMockHttpServletRequest(
 		String method, String url) {
 
@@ -402,6 +412,9 @@ public class BaseSamlTestCase extends PowerMockito {
 			new HttpSoap11Binding(new BasicParserPool(), httpClient));
 	}
 
+	protected static final String ACS_URL =
+		"http://localhost:8080/c/portal/saml/acs";
+
 	protected static final String IDP_ENTITY_ID = "testidp";
 
 	protected static final String LOGIN_URL =
@@ -416,6 +429,9 @@ public class BaseSamlTestCase extends PowerMockito {
 		"http://localhost:8080/relaystate";
 
 	protected static final String SP_ENTITY_ID = "testsp";
+
+	protected static final String SSO_URL =
+		"http://localhost:8080/c/portal/saml/sso";
 
 	protected CredentialResolver credentialResolver;
 	protected HttpClient httpClient;
