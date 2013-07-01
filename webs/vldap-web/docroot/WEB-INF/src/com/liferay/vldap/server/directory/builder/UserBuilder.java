@@ -16,6 +16,7 @@ package com.liferay.vldap.server.directory.builder;
 
 import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.Company;
@@ -245,7 +246,7 @@ public class UserBuilder extends DirectoryBuilder {
 				searchUsers = UserLocalServiceUtil.search(
 					company.getCompanyId(), firstName, null, lastName,
 					screenName, emailAddress, WorkflowConstants.STATUS_APPROVED,
-					params, true, 0, (int)searchBase.getSizeLimit(),
+					params, true, 0, PortletPropsValues.SEARCH_MAX_SIZE,
 					new UserScreenNameComparator());
 			}
 
@@ -263,6 +264,11 @@ public class UserBuilder extends DirectoryBuilder {
 				}
 
 				users.add(user);
+			}
+
+			if (users.size() > searchBase.getSizeLimit()) {
+				users = ListUtil.subList(
+					users, 0, (int)searchBase.getSizeLimit());
 			}
 		}
 
