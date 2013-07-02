@@ -203,7 +203,14 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 			samlSsoRequestContext.getSamlSsoSessionId());
 
 		cookie.setMaxAge(-1);
-		cookie.setPath(StringPool.SLASH);
+
+		if (Validator.isNull(PortalUtil.getPathContext())) {
+			cookie.setPath(StringPool.SLASH);
+		}
+		else {
+			cookie.setPath(PortalUtil.getPathContext());
+		}
+
 		cookie.setSecure(request.isSecure());
 
 		response.addCookie(cookie);
@@ -513,9 +520,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 
 		HttpSession session = request.getSession();
 
-		SamlSpSession samlSpSession =
-			SamlSpSessionLocalServiceUtil.fetchSamlSpSessionByJSessionId(
-				session.getId());
+		SamlSpSession samlSpSession = getSamlSpSession(request);
 
 		if (samlSpSession != null) {
 			SamlSpSessionLocalServiceUtil.updateSamlSpSession(
@@ -536,6 +541,23 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 		session.setAttribute(
 			PortletWebKeys.SAML_SP_SESSION_KEY,
 			samlSpSession.getSamlSpSessionKey());
+
+		Cookie cookie = new Cookie(
+			PortletWebKeys.SAML_SP_SESSION_KEY,
+			samlSpSession.getSamlSpSessionKey());
+
+		cookie.setMaxAge(-1);
+
+		if (Validator.isNull(PortalUtil.getPathContext())) {
+			cookie.setPath(StringPool.SLASH);
+		}
+		else {
+			cookie.setPath(PortalUtil.getPathContext());
+		}
+
+		cookie.setSecure(request.isSecure());
+
+		response.addCookie(cookie);
 
 		StringBundler sb = new StringBundler(3);
 

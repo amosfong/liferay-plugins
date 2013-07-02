@@ -15,10 +15,14 @@
 package com.liferay.saml.profile;
 
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.CookieKeys;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.saml.SamlException;
 import com.liferay.saml.binding.SamlBinding;
 import com.liferay.saml.metadata.MetadataManagerUtil;
+import com.liferay.saml.model.SamlSpSession;
+import com.liferay.saml.service.SamlSpSessionLocalServiceUtil;
 import com.liferay.saml.util.PortletWebKeys;
 import com.liferay.saml.util.SamlUtil;
 
@@ -26,6 +30,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.opensaml.common.IdentifierGenerator;
 import org.opensaml.common.SAMLObject;
@@ -227,6 +232,35 @@ public abstract class BaseProfile {
 		samlMessageContext.setPeerEntityRoleMetadata(roleDescriptor);
 
 		return samlMessageContext;
+	}
+
+	public SamlSpSession getSamlSpSession(HttpServletRequest request)
+		throws SystemException {
+
+		String samlSpSessionKey = getSamlSpSessionKey(request);
+
+		if (Validator.isNotNull(samlSpSessionKey)) {
+			SamlSpSession samlSpSession =
+				SamlSpSessionLocalServiceUtil.
+					fetchSamlSpSessionBySamlSpSessionKey(samlSpSessionKey);
+
+			if (samlSpSession != null) {
+				return samlSpSession;
+			}
+		}
+
+		HttpSession session = request.getSession();
+
+		SamlSpSession samlSpSession =
+			SamlSpSessionLocalServiceUtil.fetchSamlSpSessionByJSessionId(
+				session.getId());
+
+		return samlSpSession;
+	}
+
+	public String getSamlSpSessionKey(HttpServletRequest request) {
+		return CookieKeys.getCookie(
+			request, PortletWebKeys.SAML_SP_SESSION_KEY);
 	}
 
 	public String getSamlSsoSessionId(HttpServletRequest request) {
