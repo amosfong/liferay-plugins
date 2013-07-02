@@ -16,19 +16,16 @@ package com.liferay.saml.hook.auth;
 
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.auth.AutoLoginException;
 import com.liferay.portal.security.auth.BaseAutoLogin;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.saml.model.SamlSpSession;
-import com.liferay.saml.service.SamlSpSessionLocalServiceUtil;
-import com.liferay.saml.util.PortletWebKeys;
+import com.liferay.saml.profile.WebSsoProfileUtil;
 import com.liferay.saml.util.SamlUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * @author Mika Koivisto
@@ -45,18 +42,8 @@ public class SamlSpAutoLoginHook extends BaseAutoLogin {
 				return null;
 			}
 
-			HttpSession session = request.getSession();
-
-			String samlSpSessionKey = (String)session.getAttribute(
-				PortletWebKeys.SAML_SP_SESSION_KEY);
-
-			if (Validator.isNull(samlSpSessionKey)) {
-				return null;
-			}
-
-			SamlSpSession samlSpSession =
-				SamlSpSessionLocalServiceUtil.
-					fetchSamlSpSessionBySamlSpSessionKey(samlSpSessionKey);
+			SamlSpSession samlSpSession = WebSsoProfileUtil.getSamlSpSession(
+				request);
 
 			if (samlSpSession == null) {
 				return null;

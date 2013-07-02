@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.User;
@@ -34,9 +35,11 @@ import com.liferay.saml.model.SamlSpSession;
 import com.liferay.saml.profile.SingleLogoutProfileUtil;
 import com.liferay.saml.profile.WebSsoProfileUtil;
 import com.liferay.saml.service.SamlSpSessionLocalServiceUtil;
+import com.liferay.saml.util.PortletWebKeys;
 import com.liferay.saml.util.SamlUtil;
 
 import javax.servlet.FilterChain;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -142,11 +145,8 @@ public class SamlSpSsoFilter extends BaseFilter {
 		else if (requestPath.equals("/c/portal/logout") &&
 				 SingleLogoutProfileUtil.isSingleLogoutSupported(request)) {
 
-			HttpSession session = request.getSession();
-
 			SamlSpSession samlSpSession =
-				SamlSpSessionLocalServiceUtil.fetchSamlSpSessionByJSessionId(
-					session.getId());
+				SingleLogoutProfileUtil.getSamlSpSession(request);
 
 			if (samlSpSession != null) {
 				SingleLogoutProfileUtil.processSpLogout(request, response);
@@ -156,17 +156,32 @@ public class SamlSpSsoFilter extends BaseFilter {
 			}
 		}
 		else {
-			HttpSession session = request.getSession();
-
 			SamlSpSession samlSpSession =
-				SamlSpSessionLocalServiceUtil.fetchSamlSpSessionByJSessionId(
-					session.getId());
+				SingleLogoutProfileUtil.getSamlSpSession(request);
 
 			if ((samlSpSession != null) && samlSpSession.isTerminated()) {
 				SamlSpSessionLocalServiceUtil.deleteSamlSpSession(
 					samlSpSession);
 
+				HttpSession session = request.getSession();
+
 				session.invalidate();
+
+				Cookie cookie = new Cookie(
+					PortletWebKeys.SAML_SP_SESSION_KEY, StringPool.BLANK);
+
+				cookie.setMaxAge(0);
+
+				if (Validator.isNull(PortalUtil.getPathContext())) {
+					cookie.setPath(StringPool.SLASH);
+				}
+				else {
+					cookie.setPath(PortalUtil.getPathContext());
+				}
+
+				cookie.setSecure(request.isSecure());
+
+				response.addCookie(cookie);
 
 				response.sendRedirect(
 					PortalUtil.getCurrentCompleteURL(request));

@@ -741,16 +741,6 @@ public class SingleLogoutProfileImpl
 			SAMLMessageContext<LogoutResponse, ?, ?> samlMessageContext)
 		throws Exception {
 
-		HttpSession session = request.getSession();
-
-		SamlSpSession samlSpSession =
-			SamlSpSessionLocalServiceUtil.fetchSamlSpSessionByJSessionId(
-				session.getId());
-
-		if (samlSpSession != null) {
-			SamlSpSessionLocalServiceUtil.deleteSamlSpSession(samlSpSession);
-		}
-
 		redirectToLogout(request, response);
 	}
 
@@ -760,6 +750,9 @@ public class SingleLogoutProfileImpl
 
 		if (SamlUtil.isRoleIdp()) {
 			terminateSsoSession(request, response);
+		}
+		else if (SamlUtil.isRoleSp()) {
+			terminateSpSession(request, response);
 		}
 
 		String portalURL = PortalUtil.getPortalURL(request);
@@ -948,6 +941,14 @@ public class SingleLogoutProfileImpl
 			HttpServletRequest request, HttpServletResponse response)
 		throws Exception {
 
+		SamlSpSession samlSpSession = getSamlSpSession(request);
+
+		if ((samlSpSession == null) || samlSpSession.isTerminated()) {
+			redirectToLogout(request, response);
+
+			return;
+		}
+
 		LogoutRequest logoutRequest = OpenSamlUtil.buildLogoutRequest();
 
 		String entityId = MetadataManagerUtil.getDefaultIdpEntityId();
@@ -976,18 +977,6 @@ public class SingleLogoutProfileImpl
 			samlMessageContext.getLocalEntityId());
 
 		logoutRequest.setIssuer(issuer);
-
-		HttpSession session = request.getSession();
-
-		SamlSpSession samlSpSession =
-			SamlSpSessionLocalServiceUtil.fetchSamlSpSessionByJSessionId(
-				session.getId());
-
-		if (samlSpSession == null) {
-			redirectToLogout(request, response);
-
-			return;
-		}
 
 		String nameIdFormat = samlSpSession.getNameIdFormat();
 		String nameIdValue = samlSpSession.getNameIdValue();
@@ -1085,6 +1074,38 @@ public class SingleLogoutProfileImpl
 		return statusCode.getValue();
 	}
 
+	protected void terminateSpSession(
+		HttpServletRequest request, HttpServletResponse response) {
+
+		try {
+			SamlSpSession samlSpSession = getSamlSpSession(request);
+
+			if (samlSpSession != null) {
+				SamlSpSessionLocalServiceUtil.deleteSamlSpSession(
+					samlSpSession);
+
+				Cookie cookie = new Cookie(
+					PortletWebKeys.SAML_SP_SESSION_KEY, StringPool.BLANK);
+
+				cookie.setMaxAge(0);
+
+				if (Validator.isNull(PortalUtil.getPathContext())) {
+					cookie.setPath(StringPool.SLASH);
+				}
+				else {
+					cookie.setPath(PortalUtil.getPathContext());
+				}
+
+				cookie.setSecure(request.isSecure());
+
+				response.addCookie(cookie);
+			}
+		}
+		catch (SystemException se) {
+			_log.error(se, se);
+		}
+	}
+
 	protected void terminateSsoSession(
 		HttpServletRequest request, HttpServletResponse response) {
 
@@ -1121,7 +1142,14 @@ public class SingleLogoutProfileImpl
 			PortletWebKeys.SAML_SSO_SESSION_ID, StringPool.BLANK);
 
 		cookie.setMaxAge(0);
-		cookie.setPath(StringPool.SLASH);
+
+		if (Validator.isNull(PortalUtil.getPathContext())) {
+			cookie.setPath(StringPool.SLASH);
+		}
+		else {
+			cookie.setPath(PortalUtil.getPathContext());
+		}
+
 		cookie.setSecure(request.isSecure());
 
 		response.addCookie(cookie);
