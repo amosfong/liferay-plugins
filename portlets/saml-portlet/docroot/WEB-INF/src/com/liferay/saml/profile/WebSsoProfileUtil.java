@@ -16,6 +16,7 @@ package com.liferay.saml.profile;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.saml.model.SamlSpSession;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,12 @@ import javax.servlet.http.HttpServletResponse;
  * @author Mika Koivisto
  */
 public class WebSsoProfileUtil {
+
+	public static SamlSpSession getSamlSpSession(HttpServletRequest request)
+		throws SystemException {
+
+		return getWebSsoProfile().getSamlSpSession(request);
+	}
 
 	public static WebSsoProfile getWebSsoProfile() {
 		return _webSsoProfile;
