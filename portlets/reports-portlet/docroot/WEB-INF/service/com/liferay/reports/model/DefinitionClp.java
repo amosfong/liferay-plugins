@@ -17,6 +17,7 @@ package com.liferay.reports.model;
 import com.liferay.portal.LocaleException;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
@@ -728,6 +729,12 @@ public class DefinitionClp extends BaseModelImpl<Definition>
 		catch (Exception e) {
 			throw new UnsupportedOperationException(e);
 		}
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return new StagedModelType(PortalUtil.getClassNameId(
+				Definition.class.getName()));
 	}
 
 	public BaseModel<?> getDefinitionRemoteModel() {
