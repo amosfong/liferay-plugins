@@ -42,9 +42,7 @@ public abstract class BaseSamlStrutsAction extends BaseStrutsAction {
 			return doExecute(request, response);
 		}
 		catch (Exception e) {
-			if (_log.isErrorEnabled()) {
-				_log.error(e, e);
-			}
+			_log.error(e, e);
 
 			SessionErrors.add(request, e.getClass().getName());
 

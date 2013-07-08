@@ -48,11 +48,11 @@ public class MetadataGeneratorUtil {
 		throws Exception {
 
 		if (Validator.isNull(entityId)) {
-			throw new EntityIdException("EntityId required");
+			throw new EntityIdException("Entity ID is required");
 		}
 
 		if (credential == null) {
-			throw new CredentialException("Credential required");
+			throw new CredentialException("Credential is required");
 		}
 
 		EntityDescriptor entityDescriptor =

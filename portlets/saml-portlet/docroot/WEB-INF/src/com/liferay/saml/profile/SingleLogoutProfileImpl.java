@@ -234,9 +234,8 @@ public class SingleLogoutProfileImpl
 			}
 			else {
 				throw new SamlException(
-					"Unrecognized SAML message. Expected LogoutRequest or " +
-						"LogoutResponse but got " +
-							inboundSamlMessage.getClass().getName());
+					"Unrecognized inbound SAML message " +
+						inboundSamlMessage.getClass());
 			}
 		}
 		catch (Exception e) {
