@@ -390,6 +390,14 @@ public class BaseSamlTestCase extends PowerMockito {
 		);
 
 		when(
+			props.get(
+				PortletPropsKeys.SAML_KEYSTORE_CREDENTIAL_PASSWORD + "[" +
+					UNKNOWN_ENTITY_ID + "]")
+		).thenReturn(
+			"liferay"
+		);
+
+		when(
 			props.get(PortletPropsKeys.SAML_KEYSTORE_PASSWORD)
 		).thenReturn(
 			"liferay"
@@ -446,6 +454,8 @@ public class BaseSamlTestCase extends PowerMockito {
 
 	protected static final String SSO_URL =
 		"http://localhost:8080/c/portal/saml/sso";
+
+	protected static final String UNKNOWN_ENTITY_ID = "testunknown";
 
 	protected CredentialResolver credentialResolver;
 	protected HttpClient httpClient;
