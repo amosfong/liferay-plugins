@@ -48,6 +48,8 @@ import com.liferay.saml.util.VelocityEngineFactory;
 
 import java.io.UnsupportedEncodingException;
 
+import java.lang.reflect.Method;
+
 import java.net.URLDecoder;
 
 import java.util.ArrayList;
@@ -93,6 +95,7 @@ public class BaseSamlTestCase extends PowerMockito {
 		setupMetadata();
 		setupPortal();
 		setupSamlBindings();
+		setupServiceMocks();
 
 		OpenSamlBootstrap.bootstrap();
 	}
@@ -100,6 +103,17 @@ public class BaseSamlTestCase extends PowerMockito {
 	@After
 	public void tearDown() {
 		identifiers.clear();
+
+		for (Class<?> utilClass : serviceUtils) {
+			try {
+				Method method = utilClass.getDeclaredMethod(
+					"clearService", null);
+
+				method.invoke(null, null);
+			}
+			catch (Exception e) {
+			}
+		}
 	}
 
 	protected Credential getCredential(String entityId) throws Exception {
@@ -177,6 +191,12 @@ public class BaseSamlTestCase extends PowerMockito {
 		}
 
 		return mockHttpServletRequest;
+	}
+
+	protected <T> T mockService(Class<?> utilType, Class<T> serviceType) {
+		serviceUtils.add(utilType);
+
+		return mock(serviceType);
 	}
 
 	protected void prepareIdentityProvider(String entityId) {
@@ -434,6 +454,10 @@ public class BaseSamlTestCase extends PowerMockito {
 			new HttpSoap11Binding(new BasicParserPool(), httpClient));
 	}
 
+	protected void setupServiceMocks() {
+		serviceUtils = new ArrayList<Class<?>>();
+	}
+
 	protected static final String ACS_URL =
 		"http://localhost:8080/c/portal/saml/acs";
 
@@ -468,6 +492,7 @@ public class BaseSamlTestCase extends PowerMockito {
 	protected List<SamlBinding> samlBindings;
 	protected IdentifierGenerator samlIdentifierGenerator =
 		new SamlIdentifierGenerator();
+	protected List<Class<?>> serviceUtils;
 
 	private class MockMetadataProvider extends DBMetadataProvider {
 
