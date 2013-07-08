@@ -248,14 +248,14 @@ public class BaseSamlTestCase extends PowerMockito {
 
 		when(
 			configurationFactory.getConfiguration(
-				Mockito.any(ClassLoader.class), Mockito.eq("service"))
+				Mockito.any(ClassLoader.class), Mockito.eq("portlet"))
 		).thenReturn(
 			configuration
 		);
 
 		when(
 			configurationFactory.getConfiguration(
-				Mockito.any(ClassLoader.class), Mockito.eq("portlet"))
+				Mockito.any(ClassLoader.class), Mockito.eq("service"))
 		).thenReturn(
 			configuration
 		);
