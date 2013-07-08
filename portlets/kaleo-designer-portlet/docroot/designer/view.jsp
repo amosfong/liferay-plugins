@@ -617,7 +617,7 @@
 								description: [Liferay.KaleoDesignerStrings.approve],
 								executionType: ['onEntry'],
 								name: [Liferay.KaleoDesignerStrings.approve],
-								script: ['Packages.com.liferay.portal.kernel.workflow.WorkflowStatusManagerUtil.updateStatus(Packages.com.liferay.portal.kernel.workflow.WorkflowConstants.toStatus("approved"), workflowContext);'],
+								script: ['Packages.com.liferay.portal.kernel.workflow.WorkflowStatusManagerUtil.updateStatus(Packages.com.liferay.portal.kernel.workflow.WorkflowConstants.getLabelStatus("approved"), workflowContext);'],
 								scriptLanguage: ['javascript']
 							},
 							name: 'EndNode',

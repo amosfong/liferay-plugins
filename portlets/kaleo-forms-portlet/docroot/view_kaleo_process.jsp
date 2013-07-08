@@ -92,7 +92,7 @@ for (int i = 0; i < results.size(); i++) {
 		row.addText(value);
 	}
 
-	row.addText(LanguageUtil.get(pageContext, WorkflowConstants.toLabel(ddlRecord.getStatus())));
+	row.addText(LanguageUtil.get(pageContext, WorkflowConstants.getStatusLabel(ddlRecord.getStatus())));
 	row.addText(dateFormatDateTime.format(ddlRecord.getModifiedDate()));
 	row.addText(HtmlUtil.escape(PortalUtil.getUserName(ddlRecord.getUserId(), ddlRecord.getUserName())));
 
