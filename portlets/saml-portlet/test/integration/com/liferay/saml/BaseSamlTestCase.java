@@ -228,6 +228,13 @@ public class BaseSamlTestCase extends PowerMockito {
 
 		when(
 			configurationFactory.getConfiguration(
+				Mockito.any(ClassLoader.class), Mockito.eq("service"))
+		).thenReturn(
+			configuration
+		);
+
+		when(
+			configurationFactory.getConfiguration(
 				Mockito.any(ClassLoader.class), Mockito.eq("portlet"))
 		).thenReturn(
 			configuration
@@ -315,6 +322,13 @@ public class BaseSamlTestCase extends PowerMockito {
 		portal = mock(Portal.class);
 
 		portalUtil.setPortal(portal);
+
+		when(
+			portal.getPortalURL(
+				Mockito.any(MockHttpServletRequest.class))
+		).thenReturn(
+			PORTAL_URL
+		);
 
 		when(
 			portal.getPortalURL(
