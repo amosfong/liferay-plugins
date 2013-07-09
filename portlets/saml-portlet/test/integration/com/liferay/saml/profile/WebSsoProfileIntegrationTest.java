@@ -469,7 +469,7 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 				mockHttpServletRequest, new MockHttpServletResponse());
 
 		samlMessageContext.setCommunicationProfileId("location");
-		samlMessageContext.setLocalEntityId("testidp");
+		samlMessageContext.setLocalEntityId(IDP_ENTITY_ID);
 
 		AssertionConsumerService assertionConsumerService=
 			OpenSamlUtil.buildAssertionConsumerService(
@@ -505,7 +505,7 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 				mockHttpServletRequest, new MockHttpServletResponse());
 
 		samlMessageContext.setCommunicationProfileId("location");
-		samlMessageContext.setLocalEntityId("testidp");
+		samlMessageContext.setLocalEntityId(IDP_ENTITY_ID);
 
 		AssertionConsumerService assertionConsumerService=
 			OpenSamlUtil.buildAssertionConsumerService(
@@ -683,7 +683,7 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 			samlSsoRequestContext.getSAMLMessageContext();
 
 		samlMessageContext.setCommunicationProfileId("location");
-		samlMessageContext.setLocalEntityId("testidp");
+		samlMessageContext.setLocalEntityId(IDP_ENTITY_ID);
 
 		AssertionConsumerService assertionConsumerService =
 			OpenSamlUtil.buildAssertionConsumerService(
@@ -741,7 +741,7 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 			samlSsoRequestContext.getSAMLMessageContext();
 
 		samlMessageContext.setCommunicationProfileId("location");
-		samlMessageContext.setLocalEntityId("testidp");
+		samlMessageContext.setLocalEntityId(IDP_ENTITY_ID);
 
 		AssertionConsumerService assertionConsumerService=
 			OpenSamlUtil.buildAssertionConsumerService(
@@ -795,7 +795,7 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 			samlSsoRequestContext.getSAMLMessageContext();
 
 		samlMessageContext.setCommunicationProfileId("location");
-		samlMessageContext.setLocalEntityId("testidp");
+		samlMessageContext.setLocalEntityId(IDP_ENTITY_ID);
 
 		AssertionConsumerService assertionConsumerService=
 			OpenSamlUtil.buildAssertionConsumerService(
