@@ -339,7 +339,7 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 			MetadataManagerUtil.getSignatureTrustEngine());
 	}
 
-	@Test(expected=PortalException.class)
+	@Test(expected=SignatureException.class)
 	public void testVerifyAssertionSignatureWrongSignature() throws Exception {
 		prepareServiceProvider(SP_ENTITY_ID);
 

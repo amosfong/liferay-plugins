@@ -1304,7 +1304,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 			criteriaSet.add(new UsageCriteria(UsageType.SIGNING));
 
 			if (!trustEngine.validate(signature, criteriaSet)) {
-				throw new SamlException("Unable validate signature trust");
+				throw new SignatureException("Unable validate signature trust");
 			}
 		}
 		catch (Exception e) {
@@ -1314,7 +1314,6 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 
 			throw new SignatureException("Unable to verify signature", e);
 		}
-
 	}
 
 	protected void verifySubject(
