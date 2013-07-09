@@ -60,7 +60,6 @@ import org.opensaml.saml2.metadata.SPSSODescriptor;
 import org.opensaml.saml2.metadata.SingleSignOnService;
 import org.opensaml.ws.transport.http.HttpServletRequestAdapter;
 import org.opensaml.ws.transport.http.HttpServletResponseAdapter;
-import org.opensaml.xml.security.credential.Credential;
 import org.opensaml.xml.signature.Signature;
 
 import org.powermock.modules.junit4.PowerMockRunner;
@@ -123,59 +122,6 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 		Assert.assertNotNull(samlMessageContext.getPeerEntityMetadata());
 		Assert.assertNull(samlMessageContext.getPeerEntityRoleMetadata());
 		Assert.assertEquals(RELAY_STATE, samlMessageContext.getRelayState());
-		Assert.assertTrue(samlSsoRequestContext.isNewSession());
-	}
-
-	@Test
-	public void testDecodeAuthnRequestStageInitial() throws Exception {
-		prepareServiceProvider(SP_ENTITY_ID);
-
-		MockHttpServletRequest mockHttpServletRequest =
-			getMockHttpServletRequest("GET", LOGIN_URL);
-
-		MockHttpServletResponse mockHttpServletResponse =
-			new MockHttpServletResponse();
-
-		_webSsoProfileImpl.doSendAuthnRequest(
-			mockHttpServletRequest, mockHttpServletResponse, RELAY_STATE);
-
-		String redirect = mockHttpServletResponse.getRedirectedUrl();
-
-		Assert.assertNotNull(redirect);
-
-		prepareIdentityProvider(IDP_ENTITY_ID);
-
-		mockHttpServletRequest = getMockHttpServletRequest("GET", redirect);
-
-		mockHttpServletResponse = new MockHttpServletResponse();
-
-		SamlSsoRequestContext samlSsoRequestContext =
-			_webSsoProfileImpl.decodeAuthnRequest(
-				mockHttpServletRequest, mockHttpServletResponse);
-
-		SAMLMessageContext<AuthnRequest, Response, NameID> samlMessageContext =
-			samlSsoRequestContext.getSAMLMessageContext();
-
-		Assert.assertEquals(
-			IDP_ENTITY_ID, samlMessageContext.getLocalEntityId());
-		Assert.assertNotNull(samlMessageContext.getLocalEntityMetadata());
-		Assert.assertNotNull(samlMessageContext.getLocalEntityRoleMetadata());
-		Assert.assertTrue(
-			samlMessageContext.getLocalEntityRoleMetadata() instanceof
-				IDPSSODescriptor);
-		Assert.assertEquals(SP_ENTITY_ID, samlMessageContext.getPeerEntityId());
-		Assert.assertNotNull(samlMessageContext.getPeerEntityMetadata());
-		Assert.assertNotNull(samlMessageContext.getPeerEntityRoleMetadata());
-		Assert.assertTrue(
-			samlMessageContext.getPeerEntityRoleMetadata() instanceof
-				SPSSODescriptor);
-		Assert.assertEquals(RELAY_STATE, samlMessageContext.getRelayState());
-
-		AuthnRequest authnRequest = samlMessageContext.getInboundSAMLMessage();
-
-		Assert.assertEquals(identifiers.get(0), authnRequest.getID());
-
-		Assert.assertEquals(2, identifiers.size());
 		Assert.assertTrue(samlSsoRequestContext.isNewSession());
 	}
 
@@ -250,6 +196,57 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 	}
 
 	@Test
+	public void testDecodeAuthnRequestStageInitial() throws Exception {
+		prepareServiceProvider(SP_ENTITY_ID);
+
+		MockHttpServletRequest mockHttpServletRequest =
+			getMockHttpServletRequest("GET", LOGIN_URL);
+
+		MockHttpServletResponse mockHttpServletResponse =
+			new MockHttpServletResponse();
+
+		_webSsoProfileImpl.doSendAuthnRequest(
+			mockHttpServletRequest, mockHttpServletResponse, RELAY_STATE);
+
+		String redirect = mockHttpServletResponse.getRedirectedUrl();
+
+		Assert.assertNotNull(redirect);
+
+		prepareIdentityProvider(IDP_ENTITY_ID);
+
+		mockHttpServletRequest = getMockHttpServletRequest("GET", redirect);
+
+		mockHttpServletResponse = new MockHttpServletResponse();
+
+		SamlSsoRequestContext samlSsoRequestContext =
+			_webSsoProfileImpl.decodeAuthnRequest(
+				mockHttpServletRequest, mockHttpServletResponse);
+
+		SAMLMessageContext<AuthnRequest, Response, NameID> samlMessageContext =
+			samlSsoRequestContext.getSAMLMessageContext();
+
+		Assert.assertEquals(
+			IDP_ENTITY_ID, samlMessageContext.getLocalEntityId());
+		Assert.assertNotNull(samlMessageContext.getLocalEntityMetadata());
+		Assert.assertNotNull(samlMessageContext.getLocalEntityRoleMetadata());
+		Assert.assertTrue(
+			samlMessageContext.getLocalEntityRoleMetadata() instanceof
+				IDPSSODescriptor);
+		Assert.assertEquals(SP_ENTITY_ID, samlMessageContext.getPeerEntityId());
+		Assert.assertNotNull(samlMessageContext.getPeerEntityMetadata());
+		Assert.assertNotNull(samlMessageContext.getPeerEntityRoleMetadata());
+		Assert.assertTrue(
+			samlMessageContext.getPeerEntityRoleMetadata() instanceof
+				SPSSODescriptor);
+		Assert.assertEquals(RELAY_STATE, samlMessageContext.getRelayState());
+		AuthnRequest authnRequest = samlMessageContext.getInboundSAMLMessage();
+		Assert.assertEquals(identifiers.get(0), authnRequest.getID());
+
+		Assert.assertEquals(2, identifiers.size());
+		Assert.assertTrue(samlSsoRequestContext.isNewSession());
+	}
+
+	@Test
 	public void testVerifyAssertionSignatureNoSignatureDontWant()
 		throws Exception {
 		MockHttpServletRequest mockHttpServletRequest =
@@ -310,8 +307,7 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 	}
 
 	@Test
-	public void testVerifyAssertionSignatureValid()
-		throws Exception {
+	public void testVerifyAssertionSignatureValid() throws Exception {
 		prepareServiceProvider(SP_ENTITY_ID);
 
 		MockHttpServletResponse mockHttpServletResponse =
@@ -774,7 +770,8 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 	}
 
 	@Test(expected=PortalException.class)
-	public void testVerifySubjectNoBearerSubjectConf() throws Exception {
+	public void testVerifySubjectNoBearerSubjectConfirmation()
+		throws Exception {
 		prepareServiceProvider(SP_ENTITY_ID);
 
 		MockHttpServletResponse mockHttpServletResponse =
