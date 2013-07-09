@@ -252,7 +252,6 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 	@Test
 	public void testVerifyAssertionSignatureNoSignatureDontWant()
 		throws Exception {
-
 		MockHttpServletRequest mockHttpServletRequest =
 			getMockHttpServletRequest("GET", ACS_URL);
 
@@ -281,24 +280,29 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 	}
 
 	@Test(expected = PortalException.class)
-	public void testVerifyAssertionSigNoSigWant() throws Exception {
-		Object[] data = setupMock();
-
+	public void testVerifyAssertionSignatureNoSignatureDoWant()
+		throws Exception {
 		MockHttpServletRequest mockHttpServletRequest =
-			(MockHttpServletRequest)data[0];
-		SAMLMessageContext<AuthnRequest, Response, NameID> samlMessageContext =
-			(SAMLMessageContext<AuthnRequest, Response, NameID>)data[2];
+			getMockHttpServletRequest("GET", ACS_URL);
+
+		prepareServiceProvider(SP_ENTITY_ID);
+
+		SAMLMessageContext<?, ?, ?> samlMessageContext =
+			_webSsoProfileImpl.getSamlMessageContext(
+				mockHttpServletRequest, new MockHttpServletResponse());
+
+		EntityDescriptor entityDescriptor =
+			samlMessageContext.getLocalEntityMetadata();
 
 		SPSSODescriptor spSsoDescriptor =
-			MetadataGeneratorUtil.buildSpSsoDescriptor(
-				mockHttpServletRequest, "testid", false, false, false,
-				MetadataManagerUtil.getSigningCredential());
+			(SPSSODescriptor)entityDescriptor.getSPSSODescriptor(
+				SAMLConstants.SAML20P_NS);
 
 		spSsoDescriptor.setWantAssertionsSigned(true);
 
 		samlMessageContext.setLocalEntityRoleMetadata(spSsoDescriptor);
 
-		samlMessageContext.setPeerEntityId("testidp");
+		samlMessageContext.setPeerEntityId(IDP_ENTITY_ID);
 
 		_webSsoProfileImpl.verifyAssertionSignature(
 			null, samlMessageContext,
@@ -306,37 +310,46 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 	}
 
 	@Test
-	public void testVerifyAssertionSigValid() throws Exception {
-		Object[] data = setupMock();
+	public void testVerifyAssertionSignatureValid()
+		throws Exception {
+		prepareServiceProvider(SP_ENTITY_ID);
 
-		MockHttpServletRequest mockHttpServletRequest =
-			(MockHttpServletRequest)data[0];
+		MockHttpServletResponse mockHttpServletResponse =
+			new MockHttpServletResponse();
+
+		_webSsoProfileImpl.doSendAuthnRequest(
+			getMockHttpServletRequest("GET", LOGIN_URL),
+			mockHttpServletResponse, RELAY_STATE);
+
+		prepareIdentityProvider(IDP_ENTITY_ID);
+
+		HttpServletRequest mockHttpServletRequest =
+			getMockHttpServletRequest(
+				"GET", mockHttpServletResponse.getRedirectedUrl());
+
 		SamlSsoRequestContext samlSsoRequestContext =
-			(SamlSsoRequestContext)data[1];
+			_webSsoProfileImpl.decodeAuthnRequest(
+				mockHttpServletRequest, new MockHttpServletResponse());
+
 		SAMLMessageContext<AuthnRequest, Response, NameID> samlMessageContext =
-			(SAMLMessageContext<AuthnRequest, Response, NameID>)data[2];
+			samlSsoRequestContext.getSAMLMessageContext();
 
 		Assertion assertion = OpenSamlUtil.buildAssertion();
 
-		Credential credential = getCredential(IDP_ENTITY_ID);
-
-		OpenSamlUtil.signObject(assertion, credential);
+		OpenSamlUtil.signObject(assertion, getCredential(IDP_ENTITY_ID));
 
 		SPSSODescriptor spSsoDescriptor =
 			MetadataGeneratorUtil.buildSpSsoDescriptor(
-				mockHttpServletRequest, SP_ENTITY_ID, false, false, false,
-				credential);
+				mockHttpServletRequest, "testid", false, false, false,
+				getCredential(IDP_ENTITY_ID));
 
 		samlMessageContext.setLocalEntityRoleMetadata(spSsoDescriptor);
 
 		List<AssertionConsumerService> assertionConsumerServices =
 			spSsoDescriptor.getAssertionConsumerServices();
 
-		AssertionConsumerService assertionConsumerService =
-			assertionConsumerServices.get(0);
-
 		Response samlResponse = _webSsoProfileImpl.getSuccessResponse(
-			samlSsoRequestContext, assertionConsumerService, assertion);
+			samlSsoRequestContext, assertionConsumerServices.get(0), assertion);
 
 		samlMessageContext.setOutboundSAMLMessage(samlResponse);
 
@@ -348,41 +361,49 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 	}
 
 	@Test(expected=PortalException.class)
-	public void testVerifyAssertionSigWrongSig() throws Exception {
-		Object[] data = setupMock();
+	public void testVerifyAssertionSignatureWrongSignature() throws Exception {
+		prepareServiceProvider(SP_ENTITY_ID);
 
-		MockHttpServletRequest mockHttpServletRequest =
-			(MockHttpServletRequest)data[0];
+		MockHttpServletResponse mockHttpServletResponse =
+			new MockHttpServletResponse();
+
+		_webSsoProfileImpl.doSendAuthnRequest(
+			getMockHttpServletRequest("GET", LOGIN_URL),
+			mockHttpServletResponse, RELAY_STATE);
+
+		prepareIdentityProvider(IDP_ENTITY_ID);
+
+		HttpServletRequest mockHttpServletRequest =
+			getMockHttpServletRequest(
+				"GET", mockHttpServletResponse.getRedirectedUrl());
+
 		SamlSsoRequestContext samlSsoRequestContext =
-			(SamlSsoRequestContext)data[1];
+			_webSsoProfileImpl.decodeAuthnRequest(
+				mockHttpServletRequest, new MockHttpServletResponse());
+
 		SAMLMessageContext<AuthnRequest, Response, NameID> samlMessageContext =
-			(SAMLMessageContext<AuthnRequest, Response, NameID>)data[2];
+			samlSsoRequestContext.getSAMLMessageContext();
 
 		Assertion assertion = OpenSamlUtil.buildAssertion();
 
-		Credential credential = MetadataManagerUtil.getSigningCredential();
-
-		OpenSamlUtil.signObject(assertion, credential);
+		OpenSamlUtil.signObject(assertion, getCredential(IDP_ENTITY_ID));
 
 		SPSSODescriptor spSsoDescriptor =
 			MetadataGeneratorUtil.buildSpSsoDescriptor(
 				mockHttpServletRequest, "testid", false, false, false,
-				credential);
+				getCredential(IDP_ENTITY_ID));
 
 		samlMessageContext.setLocalEntityRoleMetadata(spSsoDescriptor);
 
 		List<AssertionConsumerService> assertionConsumerServices =
 			spSsoDescriptor.getAssertionConsumerServices();
 
-		AssertionConsumerService assertionConsumerService =
-			assertionConsumerServices.get(0);
-
 		Response samlResponse = _webSsoProfileImpl.getSuccessResponse(
-			samlSsoRequestContext, assertionConsumerService, assertion);
+			samlSsoRequestContext, assertionConsumerServices.get(0), assertion);
 
 		samlMessageContext.setOutboundSAMLMessage(samlResponse);
 
-		samlMessageContext.setPeerEntityId("testidp");
+		samlMessageContext.setPeerEntityId(IDP_ENTITY_ID);
 
 		Signature signature = assertion.getSignature();
 
@@ -395,10 +416,14 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 
 	@Test
 	public void testVerifyAudienceRestrictionsAllow() throws Exception {
-		Object[] data = setupMock();
+		MockHttpServletRequest mockHttpServletRequest =
+			getMockHttpServletRequest("GET", ACS_URL);
 
-		SAMLMessageContext<AuthnRequest, Response, NameID> samlMessageContext =
-			(SAMLMessageContext<AuthnRequest, Response, NameID>)data[2];
+		prepareServiceProvider(SP_ENTITY_ID);
+
+		SAMLMessageContext<?, ?, ?> samlMessageContext =
+			_webSsoProfileImpl.getSamlMessageContext(
+				mockHttpServletRequest, new MockHttpServletResponse());
 
 		List<AudienceRestriction> audienceRestrictions =
 			new ArrayList<AudienceRestriction>();
@@ -415,10 +440,14 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 
 	@Test(expected=PortalException.class)
 	public void testVerifyAudienceRestrictionsDeny() throws Exception {
-		Object[] data = setupMock();
+		MockHttpServletRequest mockHttpServletRequest =
+			getMockHttpServletRequest("GET", ACS_URL);
 
-		SAMLMessageContext<AuthnRequest, Response, NameID> samlMessageContext =
-			(SAMLMessageContext<AuthnRequest, Response, NameID>)data[2];
+		prepareServiceProvider(SP_ENTITY_ID);
+
+		SAMLMessageContext<?, ?, ?> samlMessageContext =
+			_webSsoProfileImpl.getSamlMessageContext(
+				mockHttpServletRequest, new MockHttpServletResponse());
 
 		List<AudienceRestriction> audienceRestrictions =
 			new ArrayList<AudienceRestriction>();
@@ -434,12 +463,14 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 
 	@Test
 	public void testVerifyDestinationAllow() throws Exception {
-		Object[] data = setupMock();
-
 		MockHttpServletRequest mockHttpServletRequest =
-			(MockHttpServletRequest)data[0];
-		SAMLMessageContext<AuthnRequest, Response, NameID> samlMessageContext =
-			(SAMLMessageContext<AuthnRequest, Response, NameID>)data[2];
+			getMockHttpServletRequest("GET", ACS_URL);
+
+		prepareServiceProvider(SP_ENTITY_ID);
+
+		SAMLMessageContext<?, ?, ?> samlMessageContext =
+			_webSsoProfileImpl.getSamlMessageContext(
+				mockHttpServletRequest, new MockHttpServletResponse());
 
 		samlMessageContext.setCommunicationProfileId("location");
 		samlMessageContext.setLocalEntityId("testidp");
@@ -448,11 +479,12 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 			OpenSamlUtil.buildAssertionConsumerService(
 				"location", 2, false, "target");
 
+		EntityDescriptor entityDescriptor =
+			samlMessageContext.getLocalEntityMetadata();
+
 		SPSSODescriptor spSsoDescriptor =
-			MetadataGeneratorUtil.buildSpSsoDescriptor(
-				mockHttpServletRequest, samlMessageContext.getLocalEntityId(),
-				false, false, false,
-				MetadataManagerUtil.getSigningCredential());
+			(SPSSODescriptor)entityDescriptor.getSPSSODescriptor(
+				SAMLConstants.SAML20P_NS);
 
 		samlMessageContext.setLocalEntityRoleMetadata(spSsoDescriptor);
 
@@ -467,12 +499,14 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 
 	@Test(expected=PortalException.class)
 	public void testVerifyDestinationDeny() throws Exception {
-		Object[] data = setupMock();
-
 		MockHttpServletRequest mockHttpServletRequest =
-			(MockHttpServletRequest)data[0];
-		SAMLMessageContext<AuthnRequest, Response, NameID> samlMessageContext =
-			(SAMLMessageContext<AuthnRequest, Response, NameID>)data[2];
+			getMockHttpServletRequest("GET", ACS_URL);
+
+		prepareServiceProvider(SP_ENTITY_ID);
+
+		SAMLMessageContext<?, ?, ?> samlMessageContext =
+			_webSsoProfileImpl.getSamlMessageContext(
+				mockHttpServletRequest, new MockHttpServletResponse());
 
 		samlMessageContext.setCommunicationProfileId("location");
 		samlMessageContext.setLocalEntityId("testidp");
@@ -481,11 +515,12 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 			OpenSamlUtil.buildAssertionConsumerService(
 				"location", 2, false, "target");
 
+		EntityDescriptor entityDescriptor =
+			samlMessageContext.getLocalEntityMetadata();
+
 		SPSSODescriptor spSsoDescriptor =
-			MetadataGeneratorUtil.buildSpSsoDescriptor(
-				mockHttpServletRequest, samlMessageContext.getLocalEntityId(),
-				false, false, false,
-				MetadataManagerUtil.getSigningCredential());
+			(SPSSODescriptor)entityDescriptor.getSPSSODescriptor(
+				SAMLConstants.SAML20P_NS);
 
 		samlMessageContext.setLocalEntityRoleMetadata(spSsoDescriptor);
 
@@ -519,19 +554,21 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 
 	@Test
 	public void testVerifyInResponseToValid() throws Exception {
-		Object[] data = setupMock();
-
 		MockHttpServletRequest mockHttpServletRequest =
-			(MockHttpServletRequest)data[0];
-		SAMLMessageContext<AuthnRequest, Response, NameID> samlMessageContext =
-			(SAMLMessageContext<AuthnRequest, Response, NameID>)data[2];
+			getMockHttpServletRequest("GET", ACS_URL);
 
-		Credential credential = MetadataManagerUtil.getSigningCredential();
+		prepareServiceProvider(SP_ENTITY_ID);
+
+		SAMLMessageContext<?, ?, ?> samlMessageContext =
+			_webSsoProfileImpl.getSamlMessageContext(
+				mockHttpServletRequest, new MockHttpServletResponse());
+
+		EntityDescriptor entityDescriptor =
+			samlMessageContext.getLocalEntityMetadata();
 
 		SPSSODescriptor spSsoDescriptor =
-			MetadataGeneratorUtil.buildSpSsoDescriptor(
-				mockHttpServletRequest, samlMessageContext.getLocalEntityId(),
-				false, false, false, credential);
+			(SPSSODescriptor)entityDescriptor.getSPSSODescriptor(
+				SAMLConstants.SAML20P_NS);
 
 		AssertionConsumerService assertionConsumerService =
 			SamlUtil.getAssertionConsumerServiceForBinding(
@@ -540,7 +577,7 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 		IDPSSODescriptor idpSsoDescriptor =
 			MetadataGeneratorUtil.buildIdpSsoDescriptor(
 				mockHttpServletRequest, samlMessageContext.getPeerEntityId(),
-				false, false, credential);
+				false, false, getCredential(IDP_ENTITY_ID));
 
 		SingleSignOnService singleSignOnService =
 			SamlUtil.getSingleSignOnServiceForBinding(
@@ -573,10 +610,14 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 
 	@Test
 	public void testVerifyIssuerAllow() throws Exception {
-		Object[] data = setupMock();
+		MockHttpServletRequest mockHttpServletRequest =
+			getMockHttpServletRequest("GET", ACS_URL);
 
-		SAMLMessageContext<AuthnRequest, Response, NameID> samlMessageContext =
-			(SAMLMessageContext<AuthnRequest, Response, NameID>)data[2];
+		prepareServiceProvider(SP_ENTITY_ID);
+
+		SAMLMessageContext<?, ?, ?> samlMessageContext =
+			_webSsoProfileImpl.getSamlMessageContext(
+				mockHttpServletRequest, new MockHttpServletResponse());
 
 		samlMessageContext.setPeerEntityId("value");
 
@@ -586,10 +627,14 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 
 	@Test(expected=PortalException.class)
 	public void testVerifyIssuerInvalidFormat() throws Exception {
-		Object[] data = setupMock();
+		MockHttpServletRequest mockHttpServletRequest =
+			getMockHttpServletRequest("GET", ACS_URL);
 
-		SAMLMessageContext<AuthnRequest, Response, NameID> samlMessageContext =
-			(SAMLMessageContext<AuthnRequest, Response, NameID>)data[2];
+		prepareServiceProvider(SP_ENTITY_ID);
+
+		SAMLMessageContext<?, ?, ?> samlMessageContext =
+			_webSsoProfileImpl.getSamlMessageContext(
+				mockHttpServletRequest, new MockHttpServletResponse());
 
 		samlMessageContext.setPeerEntityId("value");
 
@@ -602,10 +647,14 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 
 	@Test(expected=PortalException.class)
 	public void testVerifyIssuerInvalidIssuer() throws Exception {
-		Object[] data = setupMock();
+		MockHttpServletRequest mockHttpServletRequest =
+			getMockHttpServletRequest("GET", ACS_URL);
 
-		SAMLMessageContext<AuthnRequest, Response, NameID> samlMessageContext =
-			(SAMLMessageContext<AuthnRequest, Response, NameID>)data[2];
+		prepareServiceProvider(SP_ENTITY_ID);
+
+		SAMLMessageContext<?, ?, ?> samlMessageContext =
+			_webSsoProfileImpl.getSamlMessageContext(
+				mockHttpServletRequest, new MockHttpServletResponse());
 
 		samlMessageContext.setPeerEntityId("value");
 
@@ -615,14 +664,27 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 
 	@Test
 	public void testVerifySubjectAllow() throws Exception {
-		Object[] data = setupMock();
+		prepareServiceProvider(SP_ENTITY_ID);
 
-		MockHttpServletRequest mockHttpServletRequest =
-			(MockHttpServletRequest)data[0];
+		MockHttpServletResponse mockHttpServletResponse =
+			new MockHttpServletResponse();
+
+		_webSsoProfileImpl.doSendAuthnRequest(
+			getMockHttpServletRequest("GET", LOGIN_URL),
+			mockHttpServletResponse, RELAY_STATE);
+
+		prepareIdentityProvider(IDP_ENTITY_ID);
+
+		HttpServletRequest mockHttpServletRequest =
+			getMockHttpServletRequest(
+				"GET", mockHttpServletResponse.getRedirectedUrl());
+
 		SamlSsoRequestContext samlSsoRequestContext =
-			(SamlSsoRequestContext)data[1];
+			_webSsoProfileImpl.decodeAuthnRequest(
+				mockHttpServletRequest, new MockHttpServletResponse());
+
 		SAMLMessageContext<AuthnRequest, Response, NameID> samlMessageContext =
-			(SAMLMessageContext<AuthnRequest, Response, NameID>)data[2];
+			samlSsoRequestContext.getSAMLMessageContext();
 
 		samlMessageContext.setCommunicationProfileId("location");
 		samlMessageContext.setLocalEntityId("testidp");
@@ -660,14 +722,27 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 
 	@Test(expected=PortalException.class)
 	public void testVerifySubjectExpired() throws Exception {
-		Object[] data = setupMock();
+		prepareServiceProvider(SP_ENTITY_ID);
 
-		MockHttpServletRequest mockHttpServletRequest =
-			(MockHttpServletRequest)data[0];
+		MockHttpServletResponse mockHttpServletResponse =
+			new MockHttpServletResponse();
+
+		_webSsoProfileImpl.doSendAuthnRequest(
+			getMockHttpServletRequest("GET", LOGIN_URL),
+			mockHttpServletResponse, RELAY_STATE);
+
+		prepareIdentityProvider(IDP_ENTITY_ID);
+
+		HttpServletRequest mockHttpServletRequest =
+			getMockHttpServletRequest(
+				"GET", mockHttpServletResponse.getRedirectedUrl());
+
 		SamlSsoRequestContext samlSsoRequestContext =
-			(SamlSsoRequestContext)data[1];
+			_webSsoProfileImpl.decodeAuthnRequest(
+				mockHttpServletRequest, new MockHttpServletResponse());
+
 		SAMLMessageContext<AuthnRequest, Response, NameID> samlMessageContext =
-			(SAMLMessageContext<AuthnRequest, Response, NameID>)data[2];
+			samlSsoRequestContext.getSAMLMessageContext();
 
 		samlMessageContext.setCommunicationProfileId("location");
 		samlMessageContext.setLocalEntityId("testidp");
@@ -700,14 +775,27 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 
 	@Test(expected=PortalException.class)
 	public void testVerifySubjectNoBearerSubjectConf() throws Exception {
-		Object[] data = setupMock();
+		prepareServiceProvider(SP_ENTITY_ID);
 
-		MockHttpServletRequest mockHttpServletRequest =
-			(MockHttpServletRequest)data[0];
+		MockHttpServletResponse mockHttpServletResponse =
+			new MockHttpServletResponse();
+
+		_webSsoProfileImpl.doSendAuthnRequest(
+			getMockHttpServletRequest("GET", LOGIN_URL),
+			mockHttpServletResponse, RELAY_STATE);
+
+		prepareIdentityProvider(IDP_ENTITY_ID);
+
+		HttpServletRequest mockHttpServletRequest =
+			getMockHttpServletRequest(
+				"GET", mockHttpServletResponse.getRedirectedUrl());
+
 		SamlSsoRequestContext samlSsoRequestContext =
-			(SamlSsoRequestContext)data[1];
+			_webSsoProfileImpl.decodeAuthnRequest(
+				mockHttpServletRequest, new MockHttpServletResponse());
+
 		SAMLMessageContext<AuthnRequest, Response, NameID> samlMessageContext =
-			(SAMLMessageContext<AuthnRequest, Response, NameID>)data[2];
+			samlSsoRequestContext.getSAMLMessageContext();
 
 		samlMessageContext.setCommunicationProfileId("location");
 		samlMessageContext.setLocalEntityId("testidp");
@@ -741,32 +829,6 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 			subjectConfirmationData);
 
 		_webSsoProfileImpl.verifySubject(samlMessageContext, subject);
-	}
-
-	private Object[] setupMock() throws Exception {
-		prepareServiceProvider(SP_ENTITY_ID);
-
-		MockHttpServletResponse mockHttpServletResponse =
-			new MockHttpServletResponse();
-
-		_webSsoProfileImpl.doSendAuthnRequest(
-			getMockHttpServletRequest("GET", LOGIN_URL),
-			mockHttpServletResponse, RELAY_STATE);
-
-		prepareIdentityProvider(IDP_ENTITY_ID);
-
-		HttpServletRequest mockHttpServletRequest =
-			getMockHttpServletRequest(
-				"GET", mockHttpServletResponse.getRedirectedUrl());
-
-		SamlSsoRequestContext samlSsoRequestContext =
-			_webSsoProfileImpl.decodeAuthnRequest(
-				mockHttpServletRequest, new MockHttpServletResponse());
-
-		return new Object[] {
-			mockHttpServletRequest, samlSsoRequestContext,
-			samlSsoRequestContext.getSAMLMessageContext()
-		};
 	}
 
 	private SamlSpAuthRequestLocalService _samlSpAuthRequestLocalService;
