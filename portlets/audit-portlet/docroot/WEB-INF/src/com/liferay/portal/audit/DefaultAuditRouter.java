@@ -33,6 +33,23 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class DefaultAuditRouter implements AuditRouter {
 
 	@Override
+	public boolean isDeployed() {
+		int auditMessageProcessorsCount = 0;
+
+		if (_auditMessageProcessors != null) {
+			auditMessageProcessorsCount = _auditMessageProcessors.size();
+		}
+
+		if (auditMessageProcessorsCount > 0 ||
+			(_globalAuditMessageProcessors.size() > 0)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	@Override
 	public void route(AuditMessage auditMessage) throws AuditException {
 		for (AuditMessageProcessor globalAuditMessageProcessor :
 				_globalAuditMessageProcessors) {
