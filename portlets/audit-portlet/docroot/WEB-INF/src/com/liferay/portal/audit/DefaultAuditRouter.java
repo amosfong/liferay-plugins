@@ -40,8 +40,9 @@ public class DefaultAuditRouter implements AuditRouter {
 			auditMessageProcessorsCount = _auditMessageProcessors.size();
 		}
 
-		if (auditMessageProcessorsCount > 0 ||
-			(_globalAuditMessageProcessors.size() > 0)) {
+		if ((auditMessageProcessorsCount > 0) ||
+			!_globalAuditMessageProcessors.isEmpty()) {
+
 			return true;
 		}
 		else {
