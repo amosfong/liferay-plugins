@@ -1491,8 +1491,6 @@ AUI.add(
 
 					addDynamicViews: emptyFn,
 
-					addInitialView: emptyFn,
-
 					addStaticViews: emptyFn,
 
 					customizeToolbar: function() {
@@ -1611,7 +1609,6 @@ AUI.add(
 						var contentBox = instance.get('contentBox');
 
 						instance.addDynamicViews(val);
-						instance.addInitialView(val);
 
 						A.each(
 							val,
@@ -1778,10 +1775,6 @@ AUI.add(
 						instance.removeAllViews('user');
 
 						instance.addViewUser(instance._countUserViews(val));
-					},
-
-					addInitialView: function(val) {
-						var instance = this;
 
 						if (val) {
 							instance.showView(val.assignmentType);
