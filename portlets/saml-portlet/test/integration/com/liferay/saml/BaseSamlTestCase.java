@@ -48,7 +48,7 @@ import com.liferay.saml.util.VelocityEngineFactory;
 
 import java.io.UnsupportedEncodingException;
 
-import java.lang.reflect.Method;
+import java.lang.reflect.Field;
 
 import java.net.URLDecoder;
 
@@ -106,10 +106,11 @@ public class BaseSamlTestCase extends PowerMockito {
 
 		for (Class<?> utilClass : serviceUtils) {
 			try {
-				Method method = utilClass.getDeclaredMethod(
-					"clearService", null);
+				Field field = utilClass.getDeclaredField("_service");
 
-				method.invoke(null, null);
+				field.setAccessible(true);
+
+				field.set(utilClass, null);
 			}
 			catch (Exception e) {
 			}
@@ -193,10 +194,36 @@ public class BaseSamlTestCase extends PowerMockito {
 		return mockHttpServletRequest;
 	}
 
-	protected <T> T mockService(Class<?> utilType, Class<T> serviceType) {
+	protected <T> T mockPortalService(Class<?> utilType, Class<T> serviceType) {
 		serviceUtils.add(utilType);
 
-		return mock(serviceType);
+		T serviceMock = mock(serviceType);
+
+		when(
+			portalBeanLocator.locate(
+				Mockito.eq(serviceType.getName()))
+		).thenReturn(
+			serviceMock
+		);
+
+		return serviceMock;
+	}
+
+	protected <T> T mockPortletService(
+		Class<?> utilType, Class<T> serviceType) {
+
+		serviceUtils.add(utilType);
+
+		T serviceMock = mock(serviceType);
+
+		when(
+			portletBeanLocator.locate(
+				Mockito.eq(serviceType.getName()))
+		).thenReturn(
+			serviceMock
+		);
+
+		return serviceMock;
 	}
 
 	protected void prepareIdentityProvider(String entityId) {

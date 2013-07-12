@@ -14,7 +14,6 @@
 
 package com.liferay.saml.profile;
 
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.saml.AudienceException;
 import com.liferay.saml.BaseSamlTestCase;
 import com.liferay.saml.DestinationException;
@@ -85,16 +84,9 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 
-		_samlSpAuthRequestLocalService = mockService(
+		_samlSpAuthRequestLocalService = mockPortletService(
 			SamlSpAuthRequestLocalServiceUtil.class,
 			SamlSpAuthRequestLocalService.class);
-
-		when(
-			portletBeanLocator.locate(
-				Mockito.eq(SamlSpAuthRequestLocalService.class.getName()))
-		).thenReturn(
-			_samlSpAuthRequestLocalService
-		);
 
 		_webSsoProfileImpl.setIdentifierGenerator(identifierGenerator);
 		_webSsoProfileImpl.setSamlBindings(samlBindings);
