@@ -50,8 +50,8 @@
 	value='<%= Validator.isNotNull(event.getClientIP()) ? event.getClientIP() : LanguageUtil.get(pageContext, "none") %>'
 />
 
-<liferay-ui:search-container-column-text
+<liferay-ui:search-container-column-date
 	href="<%= rowURL %>"
 	name="create-date"
-	value="<%= dateFormatDateTime.format(event.getCreateDate()) %>"
+	value="<%= event.getCreateDate() %>"
 />

@@ -116,10 +116,10 @@
 				value="<%= (user2 == null) ? StringPool.BLANK : user2.getScreenName() %>"
 			/>
 
-			<liferay-ui:search-container-column-text
+			<liferay-ui:search-container-column-date
 				href="<%= rowURL %>"
 				name="report-generation-date"
-				value="<%= dateFormatDateTime.format(entry.getCreateDate()) %>"
+				value="<%= entry.getCreateDate() %>"
 			/>
 
 			<liferay-ui:search-container-column-jsp

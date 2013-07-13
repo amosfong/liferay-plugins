@@ -132,21 +132,20 @@ headerTitle = headerTitle.concat(StringPool.COLON + StringPool.SPACE + ddlRecord
 
 							</liferay-ui:search-container-column-text>
 
-							<liferay-ui:search-container-column-text
-								buffer="buffer"
-								name="due-date"
-							>
-
-								<%
-								if (workflowTask.getDueDate() == null) {
-									buffer.append(LanguageUtil.get(pageContext, "never"));
-								}
-								else {
-									buffer.append(dateFormatDateTime.format(workflowTask.getDueDate()));
-								}
-								%>
-
-							</liferay-ui:search-container-column-text>
+							<c:choose>
+								<c:when test="<%= workflowTask.getDueDate() == null %>">
+									<liferay-ui:search-container-column-text
+										name="due-date"
+										value="<%= LanguageUtil.get(pageContext, "never") %>"
+									/>
+								</c:when>
+								<c:otherwise>
+									<liferay-ui:search-container-column-date
+										name="due-date"
+										value="<%= workflowTask.getDueDate() %>"
+									/>
+								</c:otherwise>
+							</c:choose>
 
 							<liferay-ui:search-container-column-text
 								name="completed"

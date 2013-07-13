@@ -96,10 +96,10 @@ String reportName = ParamUtil.getString(request, "reportName");
 				value="<%= (source == null) ? ReportDataSourceType.PORTAL.getValue() : source.getName(locale) %>"
 			/>
 
-			<liferay-ui:search-container-column-text
+			<liferay-ui:search-container-column-date
 				href="<%= rowURL %>"
 				name="create-date"
-				value="<%= dateFormatDateTime.format(definition.getCreateDate()) %>"
+				value="<%= definition.getCreateDate() %>"
 			/>
 
 			<liferay-ui:search-container-column-jsp

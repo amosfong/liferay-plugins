@@ -68,43 +68,47 @@ portletURL.setParameter("tabs2", tabs2);
 
 		</liferay-ui:search-container-column-text>
 
-		<liferay-ui:search-container-column-text
-			buffer="buffer"
-			href="<%= rowURL %>"
-			name="last-activity-date"
-		>
+		<%
+		List<WorkflowLog> workflowLogs = WorkflowLogManagerUtil.getWorkflowLogsByWorkflowInstance(company.getCompanyId(), workflowInstance.getWorkflowInstanceId(), null, 0, 1, WorkflowComparatorFactoryUtil.getLogCreateDateComparator());
+		%>
 
-			<%
-			List<WorkflowLog> workflowLogs = WorkflowLogManagerUtil.getWorkflowLogsByWorkflowInstance(company.getCompanyId(), workflowInstance.getWorkflowInstanceId(), null, 0, 1, WorkflowComparatorFactoryUtil.getLogCreateDateComparator());
 
-			if (workflowLogs.isEmpty()) {
-				buffer.append(LanguageUtil.get(pageContext, "never"));
-			}
-			else {
+		<c:choose>
+			<c:when test="<%= workflowLogs.isEmpty() %>">
+				<liferay-ui:search-container-column-text
+					href="<%= rowURL %>"
+					name="last-activity-date"
+					value="<%= LanguageUtil.get(pageContext, "never") %>"
+				/>
+			</c:when>
+			<c:otherwise>
+
+				<%
 				WorkflowLog workflowLog = workflowLogs.get(0);
+				%>
 
-				buffer.append(dateFormatDateTime.format(workflowLog.getCreateDate()));
-			}
-			%>
+				<liferay-ui:search-container-column-date
+					href="<%= rowURL %>"
+					name="last-activity-date"
+					value="<%= workflowLog.getCreateDate() %>"
+				/>
+			</c:otherwise>
+		</c:choose>
 
-		</liferay-ui:search-container-column-text>
-
-		<liferay-ui:search-container-column-text
-			buffer="buffer"
-			href="<%= rowURL %>"
-			name="end-date"
-		>
-
-			<%
-			if (workflowInstance.getEndDate() == null) {
-				buffer.append(LanguageUtil.get(pageContext, "never"));
-			}
-			else {
-				buffer.append(dateFormatDateTime.format(workflowInstance.getEndDate()));
-			}
-			%>
-
-		</liferay-ui:search-container-column-text>
+		<c:choose>
+			<c:when test="<%= workflowInstance.getEndDate() == null %>">
+				<liferay-ui:search-container-column-text
+					name="end-date"
+					value="<%= LanguageUtil.get(pageContext, "never") %>"
+				/>
+			</c:when>
+			<c:otherwise>
+				<liferay-ui:search-container-column-date
+					name="end-date"
+					value="<%= workflowInstance.getEndDate() %>"
+				/>
+			</c:otherwise>
+		</c:choose>
 
 		<liferay-ui:search-container-column-jsp
 			align="right"
