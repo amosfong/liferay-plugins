@@ -96,6 +96,14 @@ public class SyncDLObjectServiceWrapper implements SyncDLObjectService,
 	}
 
 	@Override
+	public java.util.List<com.liferay.sync.model.SyncDLObject> getAllSyncDLObjects(
+		long repositoryId, long folderId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _syncDLObjectService.getAllSyncDLObjects(repositoryId, folderId);
+	}
+
+	@Override
 	public java.io.InputStream getFileDeltaAsStream(long fileEntryId,
 		java.lang.String sourceVersion, java.lang.String destinationVersion)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -140,10 +148,11 @@ public class SyncDLObjectServiceWrapper implements SyncDLObjectService,
 	}
 
 	@Override
-	public com.liferay.sync.model.SyncContext getSyncContext()
+	public com.liferay.sync.model.SyncContext getSyncContext(
+		java.lang.String uuid)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _syncDLObjectService.getSyncContext();
+		return _syncDLObjectService.getSyncContext(uuid);
 	}
 
 	@Override

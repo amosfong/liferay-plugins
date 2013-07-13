@@ -103,6 +103,21 @@ public class SyncDLObjectServiceSoap {
 		}
 	}
 
+	public static com.liferay.sync.model.SyncDLObjectSoap[] getAllSyncDLObjects(
+		long repositoryId, long folderId) throws RemoteException {
+		try {
+			java.util.List<com.liferay.sync.model.SyncDLObject> returnValue = SyncDLObjectServiceUtil.getAllSyncDLObjects(repositoryId,
+					folderId);
+
+			return com.liferay.sync.model.SyncDLObjectSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.sync.model.SyncDLObjectSoap getFileEntrySyncDLObject(
 		long groupId, long folderId, java.lang.String title)
 		throws RemoteException {
@@ -163,10 +178,10 @@ public class SyncDLObjectServiceSoap {
 		}
 	}
 
-	public static com.liferay.sync.model.SyncContext getSyncContext()
-		throws RemoteException {
+	public static com.liferay.sync.model.SyncContext getSyncContext(
+		java.lang.String uuid) throws RemoteException {
 		try {
-			com.liferay.sync.model.SyncContext returnValue = SyncDLObjectServiceUtil.getSyncContext();
+			com.liferay.sync.model.SyncContext returnValue = SyncDLObjectServiceUtil.getSyncContext(uuid);
 
 			return returnValue;
 		}

@@ -99,6 +99,13 @@ public class SyncDLObjectServiceUtil {
 		getService().deleteFolder(folderId);
 	}
 
+	public static java.util.List<com.liferay.sync.model.SyncDLObject> getAllSyncDLObjects(
+		long repositoryId, long folderId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getAllSyncDLObjects(repositoryId, folderId);
+	}
+
 	public static java.io.InputStream getFileDeltaAsStream(long fileEntryId,
 		java.lang.String sourceVersion, java.lang.String destinationVersion)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -136,10 +143,11 @@ public class SyncDLObjectServiceUtil {
 		return getService().getFolderSyncDLObjects(repositoryId, parentFolderId);
 	}
 
-	public static com.liferay.sync.model.SyncContext getSyncContext()
+	public static com.liferay.sync.model.SyncContext getSyncContext(
+		java.lang.String uuid)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().getSyncContext();
+		return getService().getSyncContext(uuid);
 	}
 
 	public static com.liferay.sync.model.SyncDLObjectUpdate getSyncDLObjectUpdate(
