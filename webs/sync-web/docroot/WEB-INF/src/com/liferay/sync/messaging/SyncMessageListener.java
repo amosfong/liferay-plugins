@@ -18,16 +18,15 @@ import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
-import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.Lock;
-import com.liferay.portlet.documentlibrary.model.DLFileEntry;
+import com.liferay.portlet.documentlibrary.NoSuchFileEntryException;
+import com.liferay.portlet.documentlibrary.model.DLFileVersion;
 import com.liferay.portlet.documentlibrary.model.DLSyncConstants;
 import com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil;
-import com.liferay.portlet.documentlibrary.store.DLStoreUtil;
+import com.liferay.portlet.documentlibrary.service.DLFileVersionLocalServiceUtil;
 import com.liferay.sync.service.SyncDLObjectLocalServiceUtil;
-
-import java.io.InputStream;
+import com.liferay.sync.util.SyncUtil;
 
 /**
  * @author Dennis Ju
@@ -39,25 +38,21 @@ public class SyncMessageListener extends BaseMessageListener {
 		long typeId = message.getLong("typeId");
 
 		if (type.equals(DLSyncConstants.TYPE_FILE)) {
-			FileEntry fileEntry = DLAppLocalServiceUtil.getFileEntry(typeId);
+			FileEntry fileEntry = null;
 
-			DLFileEntry dlFileEntry = (DLFileEntry)fileEntry.getModel();
+			try {
+				fileEntry = DLAppLocalServiceUtil.getFileEntry(typeId);
+			}
+			catch (NoSuchFileEntryException nsfee) {
+				return;
+			}
 
-			InputStream inputStream = DLStoreUtil.getFileAsStream(
-				dlFileEntry.getCompanyId(), dlFileEntry.getRepositoryId(),
-				dlFileEntry.getName(), dlFileEntry.getVersion());
-
-			String checksum = DigesterUtil.digestBase64(inputStream);
+			String checksum = SyncUtil.getChecksum(fileEntry);
 
 			long lockUserId = 0;
 			String lockUserName = StringPool.BLANK;
 
 			Lock lock = fileEntry.getLock();
-
-			if (lock != null) {
-				lockUserId = lock.getUserId();
-				lockUserName = lock.getUserName();
-			}
 
 			if (lock != null) {
 				lockUserId = lock.getUserId();
@@ -88,7 +83,14 @@ public class SyncMessageListener extends BaseMessageListener {
 		long typeId = message.getLong("typeId");
 
 		if (type.equals(DLSyncConstants.TYPE_FILE)) {
-			FileEntry fileEntry = DLAppLocalServiceUtil.getFileEntry(typeId);
+			FileEntry fileEntry = null;
+
+			try {
+				fileEntry = DLAppLocalServiceUtil.getFileEntry(typeId);
+			}
+			catch (NoSuchFileEntryException nsfee) {
+				return;
+			}
 
 			SyncDLObjectLocalServiceUtil.updateSyncDLObject(
 				fileEntry.getFileEntryId(), fileEntry.getFolderId(),
@@ -101,7 +103,7 @@ public class SyncMessageListener extends BaseMessageListener {
 
 			SyncDLObjectLocalServiceUtil.updateSyncDLObject(
 				folder.getFolderId(), folder.getParentFolderId(),
-				folder.getName(), StringPool.BLANK, folder.getDescription(),
+				folder.getName(), folder.getDescription(), StringPool.BLANK,
 				DLSyncConstants.EVENT_DELETE, 0, StringPool.BLANK, 0, "-1");
 		}
 	}
@@ -126,15 +128,14 @@ public class SyncMessageListener extends BaseMessageListener {
 		long typeId = message.getLong("typeId");
 
 		if (type.equals(DLSyncConstants.TYPE_FILE)) {
-			FileEntry fileEntry = DLAppLocalServiceUtil.getFileEntry(typeId);
+			FileEntry fileEntry = null;
 
-			DLFileEntry dlFileEntry = (DLFileEntry)fileEntry.getModel();
-
-			InputStream inputStream = DLStoreUtil.getFileAsStream(
-				dlFileEntry.getCompanyId(), dlFileEntry.getRepositoryId(),
-				dlFileEntry.getName(), dlFileEntry.getVersion());
-
-			String checksum = DigesterUtil.digestBase64(inputStream);
+			try {
+				fileEntry = DLAppLocalServiceUtil.getFileEntry(typeId);
+			}
+			catch (NoSuchFileEntryException nsfee) {
+				return;
+			}
 
 			long lockUserId = 0;
 			String lockUserName = StringPool.BLANK;
@@ -146,11 +147,30 @@ public class SyncMessageListener extends BaseMessageListener {
 				lockUserName = lock.getUserName();
 			}
 
-			SyncDLObjectLocalServiceUtil.updateSyncDLObject(
-				fileEntry.getFileEntryId(), fileEntry.getFolderId(),
-				fileEntry.getTitle(), fileEntry.getDescription(), checksum,
-				DLSyncConstants.EVENT_UPDATE, lockUserId, lockUserName,
-				fileEntry.getSize(), fileEntry.getVersion());
+			if (fileEntry.isCheckedOut()) {
+				DLFileVersion dlFileVersion =
+					DLFileVersionLocalServiceUtil.getLatestFileVersion(
+						fileEntry.getFileEntryId(), false);
+
+				String checksum = SyncUtil.getChecksum(
+					dlFileVersion.getContentStream(false));
+
+				SyncDLObjectLocalServiceUtil.updateSyncDLObject(
+					dlFileVersion.getFileEntryId(), dlFileVersion.getFolderId(),
+					dlFileVersion.getTitle(), dlFileVersion.getDescription(),
+					checksum, DLSyncConstants.EVENT_UPDATE, lockUserId,
+					lockUserName, dlFileVersion.getSize(),
+					dlFileVersion.getVersion());
+			}
+			else {
+				String checksum = SyncUtil.getChecksum(fileEntry);
+
+				SyncDLObjectLocalServiceUtil.updateSyncDLObject(
+					fileEntry.getFileEntryId(), fileEntry.getFolderId(),
+					fileEntry.getTitle(), fileEntry.getDescription(), checksum,
+					DLSyncConstants.EVENT_UPDATE, lockUserId, lockUserName,
+					fileEntry.getSize(), fileEntry.getVersion());
+			}
 		}
 		else if (type.equals(DLSyncConstants.TYPE_FOLDER)) {
 			Folder folder = DLAppLocalServiceUtil.getFolder(typeId);

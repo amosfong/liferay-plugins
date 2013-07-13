@@ -80,31 +80,31 @@ public class SyncDLObjectLocalServiceImpl
 			return null;
 		}
 
-		SyncDLObject SyncDLObject = null;
+		SyncDLObject syncDLObject = null;
 
 		if (event == DLSyncConstants.EVENT_DELETE) {
-			SyncDLObject = syncDLObjectPersistence.fetchByFileId(fileId);
+			syncDLObject = syncDLObjectPersistence.fetchByFileId(fileId);
 
-			if (SyncDLObject == null) {
+			if (syncDLObject == null) {
 				return null;
 			}
 		}
 		else {
-			SyncDLObject = syncDLObjectPersistence.findByFileId(fileId);
+			syncDLObject = syncDLObjectPersistence.findByFileId(fileId);
 		}
 
-		SyncDLObject.setModifiedDate(System.currentTimeMillis());
-		SyncDLObject.setParentFolderId(parentFolderId);
-		SyncDLObject.setName(name);
-		SyncDLObject.setChecksum(checksum);
-		SyncDLObject.setDescription(description);
-		SyncDLObject.setEvent(event);
-		SyncDLObject.setLockUserId(lockUserId);
-		SyncDLObject.setLockUserName(lockUserName);
-		SyncDLObject.setSize(size);
-		SyncDLObject.setVersion(version);
+		syncDLObject.setModifiedDate(System.currentTimeMillis());
+		syncDLObject.setParentFolderId(parentFolderId);
+		syncDLObject.setName(name);
+		syncDLObject.setChecksum(checksum);
+		syncDLObject.setDescription(description);
+		syncDLObject.setEvent(event);
+		syncDLObject.setLockUserId(lockUserId);
+		syncDLObject.setLockUserName(lockUserName);
+		syncDLObject.setSize(size);
+		syncDLObject.setVersion(version);
 
-		return syncDLObjectPersistence.update(SyncDLObject);
+		return syncDLObjectPersistence.update(syncDLObject);
 	}
 
 	protected boolean isDefaultRepository(long folderId)

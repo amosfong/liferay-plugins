@@ -14,14 +14,15 @@
 
 package com.liferay.sync.util;
 
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Lock;
 import com.liferay.portlet.documentlibrary.model.DLFileEntry;
-import com.liferay.portlet.documentlibrary.model.DLFileVersion;
+import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
 import com.liferay.portlet.documentlibrary.model.DLSyncConstants;
 import com.liferay.portlet.documentlibrary.store.DLStoreUtil;
 import com.liferay.sync.model.SyncDLObject;
@@ -34,34 +35,31 @@ import java.io.InputStream;
  */
 public class SyncUtil {
 
-	public static String getChecksum(FileEntry fileEntry) {
-		String checksum = StringPool.BLANK;
+	public static String getChecksum(FileEntry fileEntry)
+		throws PortalException, SystemException {
 
-		try {
-			DLFileVersion dlFileVersion =
-				(DLFileVersion)fileEntry.getLatestFileVersion();
+		DLFileEntry dlFileEntry = (DLFileEntry)fileEntry.getModel();
 
-			checksum = dlFileVersion.getChecksum();
+		long folderId = dlFileEntry.getFolderId();
 
-			if (Validator.isNotNull(checksum)) {
-				return checksum;
-			}
-
-			DLFileEntry dlFileEntry = (DLFileEntry)fileEntry.getModel();
-
-			InputStream inputStream = DLStoreUtil.getFileAsStream(
-				dlFileEntry.getCompanyId(), dlFileEntry.getRepositoryId(),
-				dlFileEntry.getName(), dlFileEntry.getVersion());
-
-			checksum = DigesterUtil.digestBase64(inputStream);
-		}
-		catch (Exception e) {
+		if (folderId == DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
+			folderId = dlFileEntry.getRepositoryId();
 		}
 
-		return checksum;
+		InputStream inputStream = DLStoreUtil.getFileAsStream(
+			dlFileEntry.getCompanyId(), folderId, dlFileEntry.getName(),
+			dlFileEntry.getVersion());
+
+		return DigesterUtil.digestBase64(inputStream);
 	}
 
-	public static SyncDLObject toSyncDLObject(FileEntry fileEntry) {
+	public static String getChecksum(InputStream is) {
+		return DigesterUtil.digestBase64(is);
+	}
+
+	public static SyncDLObject toSyncDLObject(FileEntry fileEntry)
+		throws PortalException, SystemException {
+
 		SyncDLObject syncDLObject = new SyncDLObjectImpl();
 
 		syncDLObject.setFileId(fileEntry.getFileEntryId());

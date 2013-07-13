@@ -14,18 +14,28 @@
 
 package com.liferay.sync.service.impl;
 
+import com.liferay.portal.kernel.bean.BeanLocatorException;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
+import com.liferay.portal.kernel.deploy.DeployManagerUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.io.delta.ByteChannelReader;
 import com.liferay.portal.kernel.io.delta.ByteChannelWriter;
 import com.liferay.portal.kernel.io.delta.DeltaUtil;
+import com.liferay.portal.kernel.plugin.PluginPackage;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.util.FileUtil;
+import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
+import com.liferay.portal.kernel.util.ReflectionUtil;
 import com.liferay.portal.kernel.util.ReleaseInfo;
 import com.liferay.portal.kernel.util.StreamUtil;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.license.util.LicenseManager;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.so.service.SocialOfficeServiceUtil;
 import com.liferay.sync.model.SyncContext;
 import com.liferay.sync.model.SyncDLObject;
 import com.liferay.sync.model.SyncDLObjectUpdate;
@@ -37,6 +47,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import java.lang.reflect.Method;
 
 import java.nio.channels.Channels;
 import java.nio.channels.FileChannel;
@@ -90,6 +102,19 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		throws PortalException, SystemException {
 
 		dlAppService.deleteFolder(folderId);
+	}
+
+	@Override
+	public List<SyncDLObject> getAllFolderAndFileEntrySyncDLObjects(
+			long repositoryId, long folderId)
+		throws PortalException, SystemException {
+
+		List<SyncDLObject> syncDLObjects = new ArrayList<SyncDLObject>();
+
+		_getAllFolderAndFileEntrySyncDLObjects(
+			repositoryId, folderId, syncDLObjects);
+
+		return syncDLObjects;
 	}
 
 	@Override
@@ -260,14 +285,48 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	}
 
 	@Override
-	public SyncContext getSyncContext()
+	public SyncContext getSyncContext(String uuid)
 		throws PortalException, SystemException {
 
 		SyncContext syncContext = new SyncContext();
 
+		PluginPackage pluginPackage =
+			DeployManagerUtil.getInstalledPluginPackage("sync-web");
+
+		syncContext.setPluginVersion(pluginPackage.getVersion());
 		syncContext.setPortalBuildNumber(ReleaseInfo.getBuildNumber());
+
+		try {
+			String digest = _getLicenseDigest(
+				"Portal", uuid, LicenseManager.STATE_GOOD);
+
+			syncContext.setPortalEELicenseDigest(digest);
+		}
+		catch (Exception e) {
+			syncContext.setPortalEELicenseDigest(StringPool.BLANK);
+		}
+
+		try {
+			SocialOfficeServiceUtil.getService();
+
+			syncContext.setSocialOfficeInstalled(true);
+
+			try {
+				String digest = _getLicenseDigest(
+					"Social Office EE", uuid, LicenseManager.STATE_GOOD);
+
+				syncContext.setSocialOfficeEELicenseDigest(digest);
+			}
+			catch (Exception e) {
+				syncContext.setSocialOfficeEELicenseDigest(StringPool.BLANK);
+			}
+		}
+		catch (BeanLocatorException ble) {
+			syncContext.setSocialOfficeInstalled(false);
+		}
+
 		syncContext.setUserId(getUserId());
-		syncContext.setUserSites(syncDLObjectService.getUserSites());
+		syncContext.setUserSites(getUserSites());
 
 		return syncContext;
 	}
@@ -293,7 +352,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 
 	@Override
 	public List<Group> getUserSites() throws PortalException, SystemException {
-		return groupService.getUserSites();
+		return groupService.getUserPlacesGroups();
 	}
 
 	@Override
@@ -432,6 +491,54 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 
 			FileUtil.delete(originalFile);
 		}
+	}
+
+	private void _getAllFolderAndFileEntrySyncDLObjects(
+			long repositoryId, long folderId, List<SyncDLObject> syncDLObjects)
+		throws PortalException, SystemException {
+
+		List<Object> foldersAndFileEntriesAndFileShortcuts =
+			dlAppService.getFoldersAndFileEntriesAndFileShortcuts(
+				repositoryId, folderId, WorkflowConstants.STATUS_ANY, false,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+		for (Object folderAndFileEntryAndFileShortcut :
+				foldersAndFileEntriesAndFileShortcuts) {
+
+			if (folderAndFileEntryAndFileShortcut instanceof FileEntry) {
+				FileEntry fileEntry =
+					(FileEntry)folderAndFileEntryAndFileShortcut;
+
+				syncDLObjects.add(SyncUtil.toSyncDLObject(fileEntry));
+			}
+			else if (folderAndFileEntryAndFileShortcut instanceof Folder) {
+				Folder folder = (Folder)folderAndFileEntryAndFileShortcut;
+
+				syncDLObjects.add(SyncUtil.toSyncDLObject(folder));
+
+				_getAllFolderAndFileEntrySyncDLObjects(
+					repositoryId, folder.getFolderId(), syncDLObjects);
+			}
+		}
+	}
+
+	private String _getLicenseDigest(
+			String productId, String uuid, int licenseState)
+		throws Exception {
+
+		ClassLoader portalClassLoader = PortalClassLoaderUtil.getClassLoader();
+
+		Class<LicenseManager> licenseManagerClass =
+			(Class<LicenseManager>)portalClassLoader.loadClass(
+				LicenseManager.class.getName());
+
+		Method method = ReflectionUtil.getDeclaredMethod(
+			licenseManagerClass, "_digest", String.class, String.class,
+			int.class);
+
+		method.setAccessible(true);
+
+		return (String)method.invoke(null, productId, uuid, licenseState);
 	}
 
 }
