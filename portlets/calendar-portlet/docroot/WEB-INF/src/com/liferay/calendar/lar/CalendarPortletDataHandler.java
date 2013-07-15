@@ -560,7 +560,7 @@ public class CalendarPortletDataHandler extends BasePortletDataHandler {
 				importedCalendarResource =
 					CalendarResourceLocalServiceUtil.addCalendarResource(
 						userId, portletDataContext.getScopeGroupId(),
-						calendarResource.getClassName(), 0,
+						calendarResource.getClassNameId(), 0,
 						calendarResource.getClassUuid(),
 						calendarResource.getCode(),
 						calendarResource.getNameMap(),
@@ -580,7 +580,7 @@ public class CalendarPortletDataHandler extends BasePortletDataHandler {
 			importedCalendarResource =
 				CalendarResourceLocalServiceUtil.addCalendarResource(
 					userId, portletDataContext.getScopeGroupId(),
-					calendarResource.getClassName(), 0,
+					calendarResource.getClassNameId(), 0,
 					calendarResource.getClassUuid(), calendarResource.getCode(),
 					calendarResource.getNameMap(),
 					calendarResource.getDescriptionMap(),
