@@ -54,7 +54,7 @@ String tabs1 = ParamUtil.getString(request, "tabs1");
 		>
 
 			<%
-			buffer.append(process.getName(locale));
+			buffer.append(HtmlUtil.escape(process.getName(locale)));
 			%>
 
 		</liferay-ui:search-container-column-text>

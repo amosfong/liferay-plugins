@@ -38,7 +38,7 @@
 
 					<liferay-ui:icon
 						image="add"
-						message="<%= kaleoProcess.getName(locale) %>"
+						message="<%= HtmlUtil.escape(kaleoProcess.getName(locale)) %>"
 						url="<%= submitURL %>"
 					/>
 				</c:if>
