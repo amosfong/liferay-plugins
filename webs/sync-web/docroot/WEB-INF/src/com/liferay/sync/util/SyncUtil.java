@@ -46,11 +46,11 @@ public class SyncUtil {
 			folderId = dlFileEntry.getRepositoryId();
 		}
 
-		InputStream inputStream = DLStoreUtil.getFileAsStream(
+		InputStream is = DLStoreUtil.getFileAsStream(
 			dlFileEntry.getCompanyId(), folderId, dlFileEntry.getName(),
 			dlFileEntry.getVersion());
 
-		return DigesterUtil.digestBase64(inputStream);
+		return getChecksum(is);
 	}
 
 	public static String getChecksum(InputStream is) {

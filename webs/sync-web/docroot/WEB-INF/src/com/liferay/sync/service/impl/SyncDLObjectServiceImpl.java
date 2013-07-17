@@ -105,14 +105,13 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	}
 
 	@Override
-	public List<SyncDLObject> getAllFolderAndFileEntrySyncDLObjects(
+	public List<SyncDLObject> getAllSyncDLObjects(
 			long repositoryId, long folderId)
 		throws PortalException, SystemException {
 
 		List<SyncDLObject> syncDLObjects = new ArrayList<SyncDLObject>();
 
-		_getAllFolderAndFileEntrySyncDLObjects(
-			repositoryId, folderId, syncDLObjects);
+		_getAllSyncDLObjects(repositoryId, folderId, syncDLObjects);
 
 		return syncDLObjects;
 	}
@@ -493,7 +492,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		}
 	}
 
-	private void _getAllFolderAndFileEntrySyncDLObjects(
+	private void _getAllSyncDLObjects(
 			long repositoryId, long folderId, List<SyncDLObject> syncDLObjects)
 		throws PortalException, SystemException {
 
@@ -516,7 +515,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 
 				syncDLObjects.add(SyncUtil.toSyncDLObject(folder));
 
-				_getAllFolderAndFileEntrySyncDLObjects(
+				_getAllSyncDLObjects(
 					repositoryId, folder.getFolderId(), syncDLObjects);
 			}
 		}
