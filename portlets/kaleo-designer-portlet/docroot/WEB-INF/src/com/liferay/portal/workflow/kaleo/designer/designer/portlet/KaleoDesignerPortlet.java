@@ -100,6 +100,10 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 		}
 		catch (Exception e) {
 			if (isSessionErrorException(e)) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(e, e);
+				}
+
 				SessionErrors.add(actionRequest, e.getClass(), e);
 
 				actionRequest.setAttribute(
@@ -140,7 +144,9 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 		}
 		catch (Exception e) {
 			if (isSessionErrorException(e)) {
-				_log.error(e, e);
+				if (_log.isDebugEnabled()) {
+					_log.debug(e, e);
+				}
 
 				SessionErrors.add(actionRequest, e.getClass(), e);
 
@@ -235,6 +241,10 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 		}
 		catch (Exception e) {
 			if (isSessionErrorException(e)) {
+				if (_log.isDebugEnabled()) {
+					_log.debug(e, e);
+				}
+
 				SessionErrors.add(actionRequest, e.getClass(), e);
 
 				actionRequest.setAttribute(
