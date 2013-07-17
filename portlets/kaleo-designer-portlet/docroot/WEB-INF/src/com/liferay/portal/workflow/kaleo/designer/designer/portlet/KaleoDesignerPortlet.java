@@ -140,6 +140,8 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 		}
 		catch (Exception e) {
 			if (isSessionErrorException(e)) {
+				_log.error(e, e);
+
 				SessionErrors.add(actionRequest, e.getClass(), e);
 
 				actionRequest.setAttribute(
