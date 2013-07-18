@@ -122,7 +122,7 @@ public class SambaGroupBuilder extends DirectoryBuilder {
 			String sambaGroupValue = null;
 
 			if (fieldName.equals("gidNumber")) {
-				sambaGroupValue = sambaGroup.getName();
+				sambaGroupValue = sambaGroup.getGIDNumber();
 			}
 			else if (fieldName.equals("name")) {
 				sambaGroupValue = sambaGroup.getName();
