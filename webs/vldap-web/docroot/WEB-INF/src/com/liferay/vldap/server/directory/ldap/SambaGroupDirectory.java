@@ -43,17 +43,6 @@ public class SambaGroupDirectory extends RoleDirectory {
 			addAttribute("gidNumber", gidNumber);
 		}
 
-		String[] membershipRoleNames = sambaGroup.getMembershipRoleNames();
-
-		for (String membershipRoleName : membershipRoleNames) {
-			Role role = RoleLocalServiceUtil.fetchRole(
-				company.getCompanyId(), membershipRoleName);
-
-			if (role != null) {
-				addRoleMembers(top, company, role.getRoleId());
-			}
-		}
-
 		setName(
 			top, company, "Organizations", organization.getName(),
 			"Samba Groups", "cn=" + sambaGroup.getName());

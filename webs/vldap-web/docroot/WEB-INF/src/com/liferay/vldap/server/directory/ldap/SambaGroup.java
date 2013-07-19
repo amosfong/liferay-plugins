@@ -20,21 +20,15 @@ package com.liferay.vldap.server.directory.ldap;
 public class SambaGroup {
 
 	public SambaGroup(
-		String name, String sambaSID, String gidNumber,
-		String[] membershipRoleNames) {
+		String name, String sambaSID, String gidNumber) {
 
 		_name = name;
 		_sambaSID = sambaSID;
 		_gidNumber = gidNumber;
-		_membershipRoleNames = membershipRoleNames;
 	}
 
 	public String getGIDNumber() {
 		return _gidNumber;
-	}
-
-	public String[] getMembershipRoleNames() {
-		return _membershipRoleNames;
 	}
 
 	public String getName() {
@@ -46,7 +40,6 @@ public class SambaGroup {
 	}
 
 	private String _gidNumber;
-	private String[] _membershipRoleNames;
 	private String _name;
 	private String _sambaSID;
 
