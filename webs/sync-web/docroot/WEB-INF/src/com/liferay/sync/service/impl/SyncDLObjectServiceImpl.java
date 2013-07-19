@@ -111,7 +111,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 
 		List<SyncDLObject> syncDLObjects = new ArrayList<SyncDLObject>();
 
-		_getAllSyncDLObjects(repositoryId, folderId, syncDLObjects);
+		getAllSyncDLObjects(repositoryId, folderId, syncDLObjects);
 
 		return syncDLObjects;
 	}
@@ -296,7 +296,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		syncContext.setPortalBuildNumber(ReleaseInfo.getBuildNumber());
 
 		try {
-			String digest = _getLicenseDigest(
+			String digest = getLicenseDigest(
 				"Portal", uuid, LicenseManager.STATE_GOOD);
 
 			syncContext.setPortalEELicenseDigest(digest);
@@ -311,7 +311,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 			syncContext.setSocialOfficeInstalled(true);
 
 			try {
-				String digest = _getLicenseDigest(
+				String digest = getLicenseDigest(
 					"Social Office EE", uuid, LicenseManager.STATE_GOOD);
 
 				syncContext.setSocialOfficeEELicenseDigest(digest);
@@ -492,7 +492,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		}
 	}
 
-	private void _getAllSyncDLObjects(
+	protected void getAllSyncDLObjects(
 			long repositoryId, long folderId, List<SyncDLObject> syncDLObjects)
 		throws PortalException, SystemException {
 
@@ -515,13 +515,13 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 
 				syncDLObjects.add(SyncUtil.toSyncDLObject(folder));
 
-				_getAllSyncDLObjects(
+				getAllSyncDLObjects(
 					repositoryId, folder.getFolderId(), syncDLObjects);
 			}
 		}
 	}
 
-	private String _getLicenseDigest(
+	protected String getLicenseDigest(
 			String productId, String uuid, int licenseState)
 		throws Exception {
 
