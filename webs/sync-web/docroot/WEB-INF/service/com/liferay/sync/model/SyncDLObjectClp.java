@@ -76,10 +76,8 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 
 		attributes.put("objectId", getObjectId());
 		attributes.put("companyId", getCompanyId());
-		attributes.put("createDate", getCreateDate());
-		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("fileId", getFileId());
-		attributes.put("fileUuid", getFileUuid());
+		attributes.put("createTime", getCreateTime());
+		attributes.put("modifiedTime", getModifiedTime());
 		attributes.put("repositoryId", getRepositoryId());
 		attributes.put("parentFolderId", getParentFolderId());
 		attributes.put("name", getName());
@@ -90,6 +88,8 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		attributes.put("lockUserName", getLockUserName());
 		attributes.put("size", getSize());
 		attributes.put("type", getType());
+		attributes.put("typePK", getTypePK());
+		attributes.put("typeUuid", getTypeUuid());
 		attributes.put("version", getVersion());
 
 		return attributes;
@@ -109,28 +109,16 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 			setCompanyId(companyId);
 		}
 
-		Long createDate = (Long)attributes.get("createDate");
+		Long createTime = (Long)attributes.get("createTime");
 
-		if (createDate != null) {
-			setCreateDate(createDate);
+		if (createTime != null) {
+			setCreateTime(createTime);
 		}
 
-		Long modifiedDate = (Long)attributes.get("modifiedDate");
+		Long modifiedTime = (Long)attributes.get("modifiedTime");
 
-		if (modifiedDate != null) {
-			setModifiedDate(modifiedDate);
-		}
-
-		Long fileId = (Long)attributes.get("fileId");
-
-		if (fileId != null) {
-			setFileId(fileId);
-		}
-
-		String fileUuid = (String)attributes.get("fileUuid");
-
-		if (fileUuid != null) {
-			setFileUuid(fileUuid);
+		if (modifiedTime != null) {
+			setModifiedTime(modifiedTime);
 		}
 
 		Long repositoryId = (Long)attributes.get("repositoryId");
@@ -193,6 +181,18 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 			setType(type);
 		}
 
+		Long typePK = (Long)attributes.get("typePK");
+
+		if (typePK != null) {
+			setTypePK(typePK);
+		}
+
+		String typeUuid = (String)attributes.get("typeUuid");
+
+		if (typeUuid != null) {
+			setTypeUuid(typeUuid);
+		}
+
 		String version = (String)attributes.get("version");
 
 		if (version != null) {
@@ -247,21 +247,21 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 	}
 
 	@Override
-	public long getCreateDate() {
-		return _createDate;
+	public long getCreateTime() {
+		return _createTime;
 	}
 
 	@Override
-	public void setCreateDate(long createDate) {
-		_createDate = createDate;
+	public void setCreateTime(long createTime) {
+		_createTime = createTime;
 
 		if (_syncDLObjectRemoteModel != null) {
 			try {
 				Class<?> clazz = _syncDLObjectRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setCreateDate", long.class);
+				Method method = clazz.getMethod("setCreateTime", long.class);
 
-				method.invoke(_syncDLObjectRemoteModel, createDate);
+				method.invoke(_syncDLObjectRemoteModel, createTime);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -270,67 +270,21 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 	}
 
 	@Override
-	public long getModifiedDate() {
-		return _modifiedDate;
+	public long getModifiedTime() {
+		return _modifiedTime;
 	}
 
 	@Override
-	public void setModifiedDate(long modifiedDate) {
-		_modifiedDate = modifiedDate;
+	public void setModifiedTime(long modifiedTime) {
+		_modifiedTime = modifiedTime;
 
 		if (_syncDLObjectRemoteModel != null) {
 			try {
 				Class<?> clazz = _syncDLObjectRemoteModel.getClass();
 
-				Method method = clazz.getMethod("setModifiedDate", long.class);
+				Method method = clazz.getMethod("setModifiedTime", long.class);
 
-				method.invoke(_syncDLObjectRemoteModel, modifiedDate);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public long getFileId() {
-		return _fileId;
-	}
-
-	@Override
-	public void setFileId(long fileId) {
-		_fileId = fileId;
-
-		if (_syncDLObjectRemoteModel != null) {
-			try {
-				Class<?> clazz = _syncDLObjectRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setFileId", long.class);
-
-				method.invoke(_syncDLObjectRemoteModel, fileId);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public String getFileUuid() {
-		return _fileUuid;
-	}
-
-	@Override
-	public void setFileUuid(String fileUuid) {
-		_fileUuid = fileUuid;
-
-		if (_syncDLObjectRemoteModel != null) {
-			try {
-				Class<?> clazz = _syncDLObjectRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setFileUuid", String.class);
-
-				method.invoke(_syncDLObjectRemoteModel, fileUuid);
+				method.invoke(_syncDLObjectRemoteModel, modifiedTime);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -579,6 +533,52 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 	}
 
 	@Override
+	public long getTypePK() {
+		return _typePK;
+	}
+
+	@Override
+	public void setTypePK(long typePK) {
+		_typePK = typePK;
+
+		if (_syncDLObjectRemoteModel != null) {
+			try {
+				Class<?> clazz = _syncDLObjectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setTypePK", long.class);
+
+				method.invoke(_syncDLObjectRemoteModel, typePK);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getTypeUuid() {
+		return _typeUuid;
+	}
+
+	@Override
+	public void setTypeUuid(String typeUuid) {
+		_typeUuid = typeUuid;
+
+		if (_syncDLObjectRemoteModel != null) {
+			try {
+				Class<?> clazz = _syncDLObjectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setTypeUuid", String.class);
+
+				method.invoke(_syncDLObjectRemoteModel, typeUuid);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public String getVersion() {
 		return _version;
 	}
@@ -598,6 +598,38 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
 			}
+		}
+	}
+
+	@Override
+	public void setCreateTime(java.util.Date createDate) {
+		try {
+			String methodName = "setCreateTime";
+
+			Class<?>[] parameterTypes = new Class<?>[] { java.util.Date.class };
+
+			Object[] parameterValues = new Object[] { createDate };
+
+			invokeOnRemoteModel(methodName, parameterTypes, parameterValues);
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public void setModifiedTime(java.util.Date modifiedDate) {
+		try {
+			String methodName = "setModifiedTime";
+
+			Class<?>[] parameterTypes = new Class<?>[] { java.util.Date.class };
+
+			Object[] parameterValues = new Object[] { modifiedDate };
+
+			invokeOnRemoteModel(methodName, parameterTypes, parameterValues);
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
 		}
 	}
 
@@ -672,10 +704,8 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 
 		clone.setObjectId(getObjectId());
 		clone.setCompanyId(getCompanyId());
-		clone.setCreateDate(getCreateDate());
-		clone.setModifiedDate(getModifiedDate());
-		clone.setFileId(getFileId());
-		clone.setFileUuid(getFileUuid());
+		clone.setCreateTime(getCreateTime());
+		clone.setModifiedTime(getModifiedTime());
 		clone.setRepositoryId(getRepositoryId());
 		clone.setParentFolderId(getParentFolderId());
 		clone.setName(getName());
@@ -686,6 +716,8 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		clone.setLockUserName(getLockUserName());
 		clone.setSize(getSize());
 		clone.setType(getType());
+		clone.setTypePK(getTypePK());
+		clone.setTypeUuid(getTypeUuid());
 		clone.setVersion(getVersion());
 
 		return clone;
@@ -709,10 +741,10 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 			return value;
 		}
 
-		if (getModifiedDate() < syncDLObject.getModifiedDate()) {
+		if (getModifiedTime() < syncDLObject.getModifiedTime()) {
 			value = -1;
 		}
-		else if (getModifiedDate() > syncDLObject.getModifiedDate()) {
+		else if (getModifiedTime() > syncDLObject.getModifiedTime()) {
 			value = 1;
 		}
 		else {
@@ -775,14 +807,10 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		sb.append(getObjectId());
 		sb.append(", companyId=");
 		sb.append(getCompanyId());
-		sb.append(", createDate=");
-		sb.append(getCreateDate());
-		sb.append(", modifiedDate=");
-		sb.append(getModifiedDate());
-		sb.append(", fileId=");
-		sb.append(getFileId());
-		sb.append(", fileUuid=");
-		sb.append(getFileUuid());
+		sb.append(", createTime=");
+		sb.append(getCreateTime());
+		sb.append(", modifiedTime=");
+		sb.append(getModifiedTime());
 		sb.append(", repositoryId=");
 		sb.append(getRepositoryId());
 		sb.append(", parentFolderId=");
@@ -803,6 +831,10 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		sb.append(getSize());
 		sb.append(", type=");
 		sb.append(getType());
+		sb.append(", typePK=");
+		sb.append(getTypePK());
+		sb.append(", typeUuid=");
+		sb.append(getTypeUuid());
 		sb.append(", version=");
 		sb.append(getVersion());
 		sb.append("}");
@@ -827,20 +859,12 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		sb.append(getCompanyId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>createDate</column-name><column-value><![CDATA[");
-		sb.append(getCreateDate());
+			"<column><column-name>createTime</column-name><column-value><![CDATA[");
+		sb.append(getCreateTime());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
-		sb.append(getModifiedDate());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>fileId</column-name><column-value><![CDATA[");
-		sb.append(getFileId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>fileUuid</column-name><column-value><![CDATA[");
-		sb.append(getFileUuid());
+			"<column><column-name>modifiedTime</column-name><column-value><![CDATA[");
+		sb.append(getModifiedTime());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>repositoryId</column-name><column-value><![CDATA[");
@@ -883,6 +907,14 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		sb.append(getType());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>typePK</column-name><column-value><![CDATA[");
+		sb.append(getTypePK());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>typeUuid</column-name><column-value><![CDATA[");
+		sb.append(getTypeUuid());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>version</column-name><column-value><![CDATA[");
 		sb.append(getVersion());
 		sb.append("]]></column-value></column>");
@@ -894,10 +926,8 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 
 	private long _objectId;
 	private long _companyId;
-	private long _createDate;
-	private long _modifiedDate;
-	private long _fileId;
-	private String _fileUuid;
+	private long _createTime;
+	private long _modifiedTime;
 	private long _repositoryId;
 	private long _parentFolderId;
 	private String _name;
@@ -909,6 +939,8 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 	private String _lockUserName;
 	private long _size;
 	private String _type;
+	private long _typePK;
+	private String _typeUuid;
 	private String _version;
 	private BaseModel<?> _syncDLObjectRemoteModel;
 }

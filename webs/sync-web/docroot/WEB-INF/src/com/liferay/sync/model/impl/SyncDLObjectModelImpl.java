@@ -67,10 +67,8 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 	public static final Object[][] TABLE_COLUMNS = {
 			{ "objectId", Types.BIGINT },
 			{ "companyId", Types.BIGINT },
-			{ "createDate", Types.BIGINT },
-			{ "modifiedDate", Types.BIGINT },
-			{ "fileId", Types.BIGINT },
-			{ "fileUuid", Types.VARCHAR },
+			{ "createTime", Types.BIGINT },
+			{ "modifiedTime", Types.BIGINT },
 			{ "repositoryId", Types.BIGINT },
 			{ "parentFolderId", Types.BIGINT },
 			{ "name", Types.VARCHAR },
@@ -81,12 +79,14 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 			{ "lockUserName", Types.VARCHAR },
 			{ "size_", Types.BIGINT },
 			{ "type_", Types.VARCHAR },
+			{ "typePK", Types.BIGINT },
+			{ "typeUuid", Types.VARCHAR },
 			{ "version", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table SyncDLObject (objectId LONG not null primary key,companyId LONG,createDate LONG,modifiedDate LONG,fileId LONG,fileUuid VARCHAR(75) null,repositoryId LONG,parentFolderId LONG,name VARCHAR(255) null,description STRING null,checksum VARCHAR(75) null,event VARCHAR(75) null,lockUserId LONG,lockUserName VARCHAR(75) null,size_ LONG,type_ VARCHAR(75) null,version VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table SyncDLObject (objectId LONG not null primary key,companyId LONG,createTime LONG,modifiedTime LONG,repositoryId LONG,parentFolderId LONG,name VARCHAR(255) null,description STRING null,checksum VARCHAR(75) null,event VARCHAR(75) null,lockUserId LONG,lockUserName VARCHAR(75) null,size_ LONG,type_ VARCHAR(75) null,typePK LONG,typeUuid VARCHAR(75) null,version VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table SyncDLObject";
-	public static final String ORDER_BY_JPQL = " ORDER BY syncDLObject.companyId ASC, syncDLObject.modifiedDate ASC, syncDLObject.repositoryId ASC";
-	public static final String ORDER_BY_SQL = " ORDER BY SyncDLObject.companyId ASC, SyncDLObject.modifiedDate ASC, SyncDLObject.repositoryId ASC";
+	public static final String ORDER_BY_JPQL = " ORDER BY syncDLObject.companyId ASC, syncDLObject.modifiedTime ASC, syncDLObject.repositoryId ASC";
+	public static final String ORDER_BY_SQL = " ORDER BY SyncDLObject.companyId ASC, SyncDLObject.modifiedTime ASC, SyncDLObject.repositoryId ASC";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
@@ -100,9 +100,9 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 				"value.object.column.bitmask.enabled.com.liferay.sync.model.SyncDLObject"),
 			true);
 	public static long COMPANYID_COLUMN_BITMASK = 1L;
-	public static long FILEID_COLUMN_BITMASK = 2L;
-	public static long MODIFIEDDATE_COLUMN_BITMASK = 4L;
-	public static long REPOSITORYID_COLUMN_BITMASK = 8L;
+	public static long MODIFIEDTIME_COLUMN_BITMASK = 2L;
+	public static long REPOSITORYID_COLUMN_BITMASK = 4L;
+	public static long TYPEPK_COLUMN_BITMASK = 8L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -119,10 +119,8 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 
 		model.setObjectId(soapModel.getObjectId());
 		model.setCompanyId(soapModel.getCompanyId());
-		model.setCreateDate(soapModel.getCreateDate());
-		model.setModifiedDate(soapModel.getModifiedDate());
-		model.setFileId(soapModel.getFileId());
-		model.setFileUuid(soapModel.getFileUuid());
+		model.setCreateTime(soapModel.getCreateTime());
+		model.setModifiedTime(soapModel.getModifiedTime());
 		model.setRepositoryId(soapModel.getRepositoryId());
 		model.setParentFolderId(soapModel.getParentFolderId());
 		model.setName(soapModel.getName());
@@ -133,6 +131,8 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		model.setLockUserName(soapModel.getLockUserName());
 		model.setSize(soapModel.getSize());
 		model.setType(soapModel.getType());
+		model.setTypePK(soapModel.getTypePK());
+		model.setTypeUuid(soapModel.getTypeUuid());
 		model.setVersion(soapModel.getVersion());
 
 		return model;
@@ -200,10 +200,8 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 
 		attributes.put("objectId", getObjectId());
 		attributes.put("companyId", getCompanyId());
-		attributes.put("createDate", getCreateDate());
-		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("fileId", getFileId());
-		attributes.put("fileUuid", getFileUuid());
+		attributes.put("createTime", getCreateTime());
+		attributes.put("modifiedTime", getModifiedTime());
 		attributes.put("repositoryId", getRepositoryId());
 		attributes.put("parentFolderId", getParentFolderId());
 		attributes.put("name", getName());
@@ -214,6 +212,8 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		attributes.put("lockUserName", getLockUserName());
 		attributes.put("size", getSize());
 		attributes.put("type", getType());
+		attributes.put("typePK", getTypePK());
+		attributes.put("typeUuid", getTypeUuid());
 		attributes.put("version", getVersion());
 
 		return attributes;
@@ -233,28 +233,16 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 			setCompanyId(companyId);
 		}
 
-		Long createDate = (Long)attributes.get("createDate");
+		Long createTime = (Long)attributes.get("createTime");
 
-		if (createDate != null) {
-			setCreateDate(createDate);
+		if (createTime != null) {
+			setCreateTime(createTime);
 		}
 
-		Long modifiedDate = (Long)attributes.get("modifiedDate");
+		Long modifiedTime = (Long)attributes.get("modifiedTime");
 
-		if (modifiedDate != null) {
-			setModifiedDate(modifiedDate);
-		}
-
-		Long fileId = (Long)attributes.get("fileId");
-
-		if (fileId != null) {
-			setFileId(fileId);
-		}
-
-		String fileUuid = (String)attributes.get("fileUuid");
-
-		if (fileUuid != null) {
-			setFileUuid(fileUuid);
+		if (modifiedTime != null) {
+			setModifiedTime(modifiedTime);
 		}
 
 		Long repositoryId = (Long)attributes.get("repositoryId");
@@ -317,6 +305,18 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 			setType(type);
 		}
 
+		Long typePK = (Long)attributes.get("typePK");
+
+		if (typePK != null) {
+			setTypePK(typePK);
+		}
+
+		String typeUuid = (String)attributes.get("typeUuid");
+
+		if (typeUuid != null) {
+			setTypeUuid(typeUuid);
+		}
+
 		String version = (String)attributes.get("version");
 
 		if (version != null) {
@@ -324,8 +324,8 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		}
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getObjectId() {
 		return _objectId;
 	}
@@ -335,8 +335,8 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		_objectId = objectId;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
@@ -358,81 +358,42 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		return _originalCompanyId;
 	}
 
-	@Override
 	@JSON
-	public long getCreateDate() {
-		return _createDate;
+	@Override
+	public long getCreateTime() {
+		return _createTime;
 	}
 
 	@Override
-	public void setCreateDate(long createDate) {
-		_createDate = createDate;
+	public void setCreateTime(long createTime) {
+		_createTime = createTime;
 	}
 
-	@Override
 	@JSON
-	public long getModifiedDate() {
-		return _modifiedDate;
+	@Override
+	public long getModifiedTime() {
+		return _modifiedTime;
 	}
 
 	@Override
-	public void setModifiedDate(long modifiedDate) {
+	public void setModifiedTime(long modifiedTime) {
 		_columnBitmask = -1L;
 
-		if (!_setOriginalModifiedDate) {
-			_setOriginalModifiedDate = true;
+		if (!_setOriginalModifiedTime) {
+			_setOriginalModifiedTime = true;
 
-			_originalModifiedDate = _modifiedDate;
+			_originalModifiedTime = _modifiedTime;
 		}
 
-		_modifiedDate = modifiedDate;
+		_modifiedTime = modifiedTime;
 	}
 
-	public long getOriginalModifiedDate() {
-		return _originalModifiedDate;
+	public long getOriginalModifiedTime() {
+		return _originalModifiedTime;
 	}
 
-	@Override
 	@JSON
-	public long getFileId() {
-		return _fileId;
-	}
-
 	@Override
-	public void setFileId(long fileId) {
-		_columnBitmask |= FILEID_COLUMN_BITMASK;
-
-		if (!_setOriginalFileId) {
-			_setOriginalFileId = true;
-
-			_originalFileId = _fileId;
-		}
-
-		_fileId = fileId;
-	}
-
-	public long getOriginalFileId() {
-		return _originalFileId;
-	}
-
-	@Override
-	@JSON
-	public String getFileUuid() {
-		if (_fileUuid == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _fileUuid;
-		}
-	}
-
-	@Override
-	public void setFileUuid(String fileUuid) {
-		_fileUuid = fileUuid;
-	}
-
-	@Override
-	@JSON
 	public long getRepositoryId() {
 		return _repositoryId;
 	}
@@ -454,8 +415,8 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		return _originalRepositoryId;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getParentFolderId() {
 		return _parentFolderId;
 	}
@@ -465,8 +426,8 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		_parentFolderId = parentFolderId;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getName() {
 		if (_name == null) {
 			return StringPool.BLANK;
@@ -481,8 +442,8 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		_name = name;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getDescription() {
 		if (_description == null) {
 			return StringPool.BLANK;
@@ -497,8 +458,8 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		_description = description;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getChecksum() {
 		if (_checksum == null) {
 			return StringPool.BLANK;
@@ -513,8 +474,8 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		_checksum = checksum;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getEvent() {
 		if (_event == null) {
 			return StringPool.BLANK;
@@ -529,8 +490,8 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		_event = event;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getLockUserId() {
 		return _lockUserId;
 	}
@@ -550,8 +511,8 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		_lockUserUuid = lockUserUuid;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getLockUserName() {
 		if (_lockUserName == null) {
 			return StringPool.BLANK;
@@ -566,8 +527,8 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		_lockUserName = lockUserName;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getSize() {
 		return _size;
 	}
@@ -577,8 +538,8 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		_size = size;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getType() {
 		if (_type == null) {
 			return StringPool.BLANK;
@@ -593,8 +554,47 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		_type = type;
 	}
 
-	@Override
 	@JSON
+	@Override
+	public long getTypePK() {
+		return _typePK;
+	}
+
+	@Override
+	public void setTypePK(long typePK) {
+		_columnBitmask |= TYPEPK_COLUMN_BITMASK;
+
+		if (!_setOriginalTypePK) {
+			_setOriginalTypePK = true;
+
+			_originalTypePK = _typePK;
+		}
+
+		_typePK = typePK;
+	}
+
+	public long getOriginalTypePK() {
+		return _originalTypePK;
+	}
+
+	@JSON
+	@Override
+	public String getTypeUuid() {
+		if (_typeUuid == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _typeUuid;
+		}
+	}
+
+	@Override
+	public void setTypeUuid(String typeUuid) {
+		_typeUuid = typeUuid;
+	}
+
+	@JSON
+	@Override
 	public String getVersion() {
 		if (_version == null) {
 			return StringPool.BLANK;
@@ -642,10 +642,8 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 
 		syncDLObjectImpl.setObjectId(getObjectId());
 		syncDLObjectImpl.setCompanyId(getCompanyId());
-		syncDLObjectImpl.setCreateDate(getCreateDate());
-		syncDLObjectImpl.setModifiedDate(getModifiedDate());
-		syncDLObjectImpl.setFileId(getFileId());
-		syncDLObjectImpl.setFileUuid(getFileUuid());
+		syncDLObjectImpl.setCreateTime(getCreateTime());
+		syncDLObjectImpl.setModifiedTime(getModifiedTime());
 		syncDLObjectImpl.setRepositoryId(getRepositoryId());
 		syncDLObjectImpl.setParentFolderId(getParentFolderId());
 		syncDLObjectImpl.setName(getName());
@@ -656,6 +654,8 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		syncDLObjectImpl.setLockUserName(getLockUserName());
 		syncDLObjectImpl.setSize(getSize());
 		syncDLObjectImpl.setType(getType());
+		syncDLObjectImpl.setTypePK(getTypePK());
+		syncDLObjectImpl.setTypeUuid(getTypeUuid());
 		syncDLObjectImpl.setVersion(getVersion());
 
 		syncDLObjectImpl.resetOriginalValues();
@@ -681,10 +681,10 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 			return value;
 		}
 
-		if (getModifiedDate() < syncDLObject.getModifiedDate()) {
+		if (getModifiedTime() < syncDLObject.getModifiedTime()) {
 			value = -1;
 		}
-		else if (getModifiedDate() > syncDLObject.getModifiedDate()) {
+		else if (getModifiedTime() > syncDLObject.getModifiedTime()) {
 			value = 1;
 		}
 		else {
@@ -747,17 +747,17 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 
 		syncDLObjectModelImpl._setOriginalCompanyId = false;
 
-		syncDLObjectModelImpl._originalModifiedDate = syncDLObjectModelImpl._modifiedDate;
+		syncDLObjectModelImpl._originalModifiedTime = syncDLObjectModelImpl._modifiedTime;
 
-		syncDLObjectModelImpl._setOriginalModifiedDate = false;
-
-		syncDLObjectModelImpl._originalFileId = syncDLObjectModelImpl._fileId;
-
-		syncDLObjectModelImpl._setOriginalFileId = false;
+		syncDLObjectModelImpl._setOriginalModifiedTime = false;
 
 		syncDLObjectModelImpl._originalRepositoryId = syncDLObjectModelImpl._repositoryId;
 
 		syncDLObjectModelImpl._setOriginalRepositoryId = false;
+
+		syncDLObjectModelImpl._originalTypePK = syncDLObjectModelImpl._typePK;
+
+		syncDLObjectModelImpl._setOriginalTypePK = false;
 
 		syncDLObjectModelImpl._columnBitmask = 0;
 	}
@@ -770,19 +770,9 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 
 		syncDLObjectCacheModel.companyId = getCompanyId();
 
-		syncDLObjectCacheModel.createDate = getCreateDate();
+		syncDLObjectCacheModel.createTime = getCreateTime();
 
-		syncDLObjectCacheModel.modifiedDate = getModifiedDate();
-
-		syncDLObjectCacheModel.fileId = getFileId();
-
-		syncDLObjectCacheModel.fileUuid = getFileUuid();
-
-		String fileUuid = syncDLObjectCacheModel.fileUuid;
-
-		if ((fileUuid != null) && (fileUuid.length() == 0)) {
-			syncDLObjectCacheModel.fileUuid = null;
-		}
+		syncDLObjectCacheModel.modifiedTime = getModifiedTime();
 
 		syncDLObjectCacheModel.repositoryId = getRepositoryId();
 
@@ -840,6 +830,16 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 			syncDLObjectCacheModel.type = null;
 		}
 
+		syncDLObjectCacheModel.typePK = getTypePK();
+
+		syncDLObjectCacheModel.typeUuid = getTypeUuid();
+
+		String typeUuid = syncDLObjectCacheModel.typeUuid;
+
+		if ((typeUuid != null) && (typeUuid.length() == 0)) {
+			syncDLObjectCacheModel.typeUuid = null;
+		}
+
 		syncDLObjectCacheModel.version = getVersion();
 
 		String version = syncDLObjectCacheModel.version;
@@ -859,14 +859,10 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		sb.append(getObjectId());
 		sb.append(", companyId=");
 		sb.append(getCompanyId());
-		sb.append(", createDate=");
-		sb.append(getCreateDate());
-		sb.append(", modifiedDate=");
-		sb.append(getModifiedDate());
-		sb.append(", fileId=");
-		sb.append(getFileId());
-		sb.append(", fileUuid=");
-		sb.append(getFileUuid());
+		sb.append(", createTime=");
+		sb.append(getCreateTime());
+		sb.append(", modifiedTime=");
+		sb.append(getModifiedTime());
 		sb.append(", repositoryId=");
 		sb.append(getRepositoryId());
 		sb.append(", parentFolderId=");
@@ -887,6 +883,10 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		sb.append(getSize());
 		sb.append(", type=");
 		sb.append(getType());
+		sb.append(", typePK=");
+		sb.append(getTypePK());
+		sb.append(", typeUuid=");
+		sb.append(getTypeUuid());
 		sb.append(", version=");
 		sb.append(getVersion());
 		sb.append("}");
@@ -911,20 +911,12 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		sb.append(getCompanyId());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>createDate</column-name><column-value><![CDATA[");
-		sb.append(getCreateDate());
+			"<column><column-name>createTime</column-name><column-value><![CDATA[");
+		sb.append(getCreateTime());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>modifiedDate</column-name><column-value><![CDATA[");
-		sb.append(getModifiedDate());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>fileId</column-name><column-value><![CDATA[");
-		sb.append(getFileId());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>fileUuid</column-name><column-value><![CDATA[");
-		sb.append(getFileUuid());
+			"<column><column-name>modifiedTime</column-name><column-value><![CDATA[");
+		sb.append(getModifiedTime());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>repositoryId</column-name><column-value><![CDATA[");
@@ -967,6 +959,14 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		sb.append(getType());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>typePK</column-name><column-value><![CDATA[");
+		sb.append(getTypePK());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>typeUuid</column-name><column-value><![CDATA[");
+		sb.append(getTypeUuid());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>version</column-name><column-value><![CDATA[");
 		sb.append(getVersion());
 		sb.append("]]></column-value></column>");
@@ -984,14 +984,10 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 	private long _companyId;
 	private long _originalCompanyId;
 	private boolean _setOriginalCompanyId;
-	private long _createDate;
-	private long _modifiedDate;
-	private long _originalModifiedDate;
-	private boolean _setOriginalModifiedDate;
-	private long _fileId;
-	private long _originalFileId;
-	private boolean _setOriginalFileId;
-	private String _fileUuid;
+	private long _createTime;
+	private long _modifiedTime;
+	private long _originalModifiedTime;
+	private boolean _setOriginalModifiedTime;
 	private long _repositoryId;
 	private long _originalRepositoryId;
 	private boolean _setOriginalRepositoryId;
@@ -1005,6 +1001,10 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 	private String _lockUserName;
 	private long _size;
 	private String _type;
+	private long _typePK;
+	private long _originalTypePK;
+	private boolean _setOriginalTypePK;
+	private String _typeUuid;
 	private String _version;
 	private long _columnBitmask;
 	private SyncDLObject _escapedModel;

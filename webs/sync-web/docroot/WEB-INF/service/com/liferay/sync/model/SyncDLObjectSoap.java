@@ -32,10 +32,8 @@ public class SyncDLObjectSoap implements Serializable {
 
 		soapModel.setObjectId(model.getObjectId());
 		soapModel.setCompanyId(model.getCompanyId());
-		soapModel.setCreateDate(model.getCreateDate());
-		soapModel.setModifiedDate(model.getModifiedDate());
-		soapModel.setFileId(model.getFileId());
-		soapModel.setFileUuid(model.getFileUuid());
+		soapModel.setCreateTime(model.getCreateTime());
+		soapModel.setModifiedTime(model.getModifiedTime());
 		soapModel.setRepositoryId(model.getRepositoryId());
 		soapModel.setParentFolderId(model.getParentFolderId());
 		soapModel.setName(model.getName());
@@ -46,6 +44,8 @@ public class SyncDLObjectSoap implements Serializable {
 		soapModel.setLockUserName(model.getLockUserName());
 		soapModel.setSize(model.getSize());
 		soapModel.setType(model.getType());
+		soapModel.setTypePK(model.getTypePK());
+		soapModel.setTypeUuid(model.getTypeUuid());
 		soapModel.setVersion(model.getVersion());
 
 		return soapModel;
@@ -115,36 +115,20 @@ public class SyncDLObjectSoap implements Serializable {
 		_companyId = companyId;
 	}
 
-	public long getCreateDate() {
-		return _createDate;
+	public long getCreateTime() {
+		return _createTime;
 	}
 
-	public void setCreateDate(long createDate) {
-		_createDate = createDate;
+	public void setCreateTime(long createTime) {
+		_createTime = createTime;
 	}
 
-	public long getModifiedDate() {
-		return _modifiedDate;
+	public long getModifiedTime() {
+		return _modifiedTime;
 	}
 
-	public void setModifiedDate(long modifiedDate) {
-		_modifiedDate = modifiedDate;
-	}
-
-	public long getFileId() {
-		return _fileId;
-	}
-
-	public void setFileId(long fileId) {
-		_fileId = fileId;
-	}
-
-	public String getFileUuid() {
-		return _fileUuid;
-	}
-
-	public void setFileUuid(String fileUuid) {
-		_fileUuid = fileUuid;
+	public void setModifiedTime(long modifiedTime) {
+		_modifiedTime = modifiedTime;
 	}
 
 	public long getRepositoryId() {
@@ -227,6 +211,22 @@ public class SyncDLObjectSoap implements Serializable {
 		_type = type;
 	}
 
+	public long getTypePK() {
+		return _typePK;
+	}
+
+	public void setTypePK(long typePK) {
+		_typePK = typePK;
+	}
+
+	public String getTypeUuid() {
+		return _typeUuid;
+	}
+
+	public void setTypeUuid(String typeUuid) {
+		_typeUuid = typeUuid;
+	}
+
 	public String getVersion() {
 		return _version;
 	}
@@ -237,10 +237,8 @@ public class SyncDLObjectSoap implements Serializable {
 
 	private long _objectId;
 	private long _companyId;
-	private long _createDate;
-	private long _modifiedDate;
-	private long _fileId;
-	private String _fileUuid;
+	private long _createTime;
+	private long _modifiedTime;
 	private long _repositoryId;
 	private long _parentFolderId;
 	private String _name;
@@ -251,5 +249,7 @@ public class SyncDLObjectSoap implements Serializable {
 	private String _lockUserName;
 	private long _size;
 	private String _type;
+	private long _typePK;
+	private String _typeUuid;
 	private String _version;
 }

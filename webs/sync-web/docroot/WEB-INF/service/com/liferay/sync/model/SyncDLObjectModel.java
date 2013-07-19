@@ -87,61 +87,32 @@ public interface SyncDLObjectModel extends BaseModel<SyncDLObject> {
 	public void setCompanyId(long companyId);
 
 	/**
-	 * Returns the create date of this sync d l object.
+	 * Returns the create time of this sync d l object.
 	 *
-	 * @return the create date of this sync d l object
+	 * @return the create time of this sync d l object
 	 */
-	public long getCreateDate();
+	public long getCreateTime();
 
 	/**
-	 * Sets the create date of this sync d l object.
+	 * Sets the create time of this sync d l object.
 	 *
-	 * @param createDate the create date of this sync d l object
+	 * @param createTime the create time of this sync d l object
 	 */
-	public void setCreateDate(long createDate);
+	public void setCreateTime(long createTime);
 
 	/**
-	 * Returns the modified date of this sync d l object.
+	 * Returns the modified time of this sync d l object.
 	 *
-	 * @return the modified date of this sync d l object
+	 * @return the modified time of this sync d l object
 	 */
-	public long getModifiedDate();
+	public long getModifiedTime();
 
 	/**
-	 * Sets the modified date of this sync d l object.
+	 * Sets the modified time of this sync d l object.
 	 *
-	 * @param modifiedDate the modified date of this sync d l object
+	 * @param modifiedTime the modified time of this sync d l object
 	 */
-	public void setModifiedDate(long modifiedDate);
-
-	/**
-	 * Returns the file ID of this sync d l object.
-	 *
-	 * @return the file ID of this sync d l object
-	 */
-	public long getFileId();
-
-	/**
-	 * Sets the file ID of this sync d l object.
-	 *
-	 * @param fileId the file ID of this sync d l object
-	 */
-	public void setFileId(long fileId);
-
-	/**
-	 * Returns the file uuid of this sync d l object.
-	 *
-	 * @return the file uuid of this sync d l object
-	 */
-	@AutoEscape
-	public String getFileUuid();
-
-	/**
-	 * Sets the file uuid of this sync d l object.
-	 *
-	 * @param fileUuid the file uuid of this sync d l object
-	 */
-	public void setFileUuid(String fileUuid);
+	public void setModifiedTime(long modifiedTime);
 
 	/**
 	 * Returns the repository ID of this sync d l object.
@@ -303,6 +274,35 @@ public interface SyncDLObjectModel extends BaseModel<SyncDLObject> {
 	 * @param type the type of this sync d l object
 	 */
 	public void setType(String type);
+
+	/**
+	 * Returns the type p k of this sync d l object.
+	 *
+	 * @return the type p k of this sync d l object
+	 */
+	public long getTypePK();
+
+	/**
+	 * Sets the type p k of this sync d l object.
+	 *
+	 * @param typePK the type p k of this sync d l object
+	 */
+	public void setTypePK(long typePK);
+
+	/**
+	 * Returns the type uuid of this sync d l object.
+	 *
+	 * @return the type uuid of this sync d l object
+	 */
+	@AutoEscape
+	public String getTypeUuid();
+
+	/**
+	 * Sets the type uuid of this sync d l object.
+	 *
+	 * @param typeUuid the type uuid of this sync d l object
+	 */
+	public void setTypeUuid(String typeUuid);
 
 	/**
 	 * Returns the version of this sync d l object.

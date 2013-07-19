@@ -42,14 +42,10 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 		sb.append(objectId);
 		sb.append(", companyId=");
 		sb.append(companyId);
-		sb.append(", createDate=");
-		sb.append(createDate);
-		sb.append(", modifiedDate=");
-		sb.append(modifiedDate);
-		sb.append(", fileId=");
-		sb.append(fileId);
-		sb.append(", fileUuid=");
-		sb.append(fileUuid);
+		sb.append(", createTime=");
+		sb.append(createTime);
+		sb.append(", modifiedTime=");
+		sb.append(modifiedTime);
 		sb.append(", repositoryId=");
 		sb.append(repositoryId);
 		sb.append(", parentFolderId=");
@@ -70,6 +66,10 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 		sb.append(size);
 		sb.append(", type=");
 		sb.append(type);
+		sb.append(", typePK=");
+		sb.append(typePK);
+		sb.append(", typeUuid=");
+		sb.append(typeUuid);
 		sb.append(", version=");
 		sb.append(version);
 		sb.append("}");
@@ -83,17 +83,8 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 
 		syncDLObjectImpl.setObjectId(objectId);
 		syncDLObjectImpl.setCompanyId(companyId);
-		syncDLObjectImpl.setCreateDate(createDate);
-		syncDLObjectImpl.setModifiedDate(modifiedDate);
-		syncDLObjectImpl.setFileId(fileId);
-
-		if (fileUuid == null) {
-			syncDLObjectImpl.setFileUuid(StringPool.BLANK);
-		}
-		else {
-			syncDLObjectImpl.setFileUuid(fileUuid);
-		}
-
+		syncDLObjectImpl.setCreateTime(createTime);
+		syncDLObjectImpl.setModifiedTime(modifiedTime);
 		syncDLObjectImpl.setRepositoryId(repositoryId);
 		syncDLObjectImpl.setParentFolderId(parentFolderId);
 
@@ -143,6 +134,15 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 			syncDLObjectImpl.setType(type);
 		}
 
+		syncDLObjectImpl.setTypePK(typePK);
+
+		if (typeUuid == null) {
+			syncDLObjectImpl.setTypeUuid(StringPool.BLANK);
+		}
+		else {
+			syncDLObjectImpl.setTypeUuid(typeUuid);
+		}
+
 		if (version == null) {
 			syncDLObjectImpl.setVersion(StringPool.BLANK);
 		}
@@ -159,10 +159,8 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 	public void readExternal(ObjectInput objectInput) throws IOException {
 		objectId = objectInput.readLong();
 		companyId = objectInput.readLong();
-		createDate = objectInput.readLong();
-		modifiedDate = objectInput.readLong();
-		fileId = objectInput.readLong();
-		fileUuid = objectInput.readUTF();
+		createTime = objectInput.readLong();
+		modifiedTime = objectInput.readLong();
 		repositoryId = objectInput.readLong();
 		parentFolderId = objectInput.readLong();
 		name = objectInput.readUTF();
@@ -173,6 +171,8 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 		lockUserName = objectInput.readUTF();
 		size = objectInput.readLong();
 		type = objectInput.readUTF();
+		typePK = objectInput.readLong();
+		typeUuid = objectInput.readUTF();
 		version = objectInput.readUTF();
 	}
 
@@ -181,17 +181,8 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 		throws IOException {
 		objectOutput.writeLong(objectId);
 		objectOutput.writeLong(companyId);
-		objectOutput.writeLong(createDate);
-		objectOutput.writeLong(modifiedDate);
-		objectOutput.writeLong(fileId);
-
-		if (fileUuid == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(fileUuid);
-		}
-
+		objectOutput.writeLong(createTime);
+		objectOutput.writeLong(modifiedTime);
 		objectOutput.writeLong(repositoryId);
 		objectOutput.writeLong(parentFolderId);
 
@@ -241,6 +232,15 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 			objectOutput.writeUTF(type);
 		}
 
+		objectOutput.writeLong(typePK);
+
+		if (typeUuid == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(typeUuid);
+		}
+
 		if (version == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
@@ -251,10 +251,8 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 
 	public long objectId;
 	public long companyId;
-	public long createDate;
-	public long modifiedDate;
-	public long fileId;
-	public String fileUuid;
+	public long createTime;
+	public long modifiedTime;
 	public long repositoryId;
 	public long parentFolderId;
 	public String name;
@@ -265,5 +263,7 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 	public String lockUserName;
 	public long size;
 	public String type;
+	public long typePK;
+	public String typeUuid;
 	public String version;
 }

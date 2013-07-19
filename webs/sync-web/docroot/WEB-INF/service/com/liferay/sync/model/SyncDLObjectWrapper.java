@@ -51,10 +51,8 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 
 		attributes.put("objectId", getObjectId());
 		attributes.put("companyId", getCompanyId());
-		attributes.put("createDate", getCreateDate());
-		attributes.put("modifiedDate", getModifiedDate());
-		attributes.put("fileId", getFileId());
-		attributes.put("fileUuid", getFileUuid());
+		attributes.put("createTime", getCreateTime());
+		attributes.put("modifiedTime", getModifiedTime());
 		attributes.put("repositoryId", getRepositoryId());
 		attributes.put("parentFolderId", getParentFolderId());
 		attributes.put("name", getName());
@@ -65,6 +63,8 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 		attributes.put("lockUserName", getLockUserName());
 		attributes.put("size", getSize());
 		attributes.put("type", getType());
+		attributes.put("typePK", getTypePK());
+		attributes.put("typeUuid", getTypeUuid());
 		attributes.put("version", getVersion());
 
 		return attributes;
@@ -84,28 +84,16 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 			setCompanyId(companyId);
 		}
 
-		Long createDate = (Long)attributes.get("createDate");
+		Long createTime = (Long)attributes.get("createTime");
 
-		if (createDate != null) {
-			setCreateDate(createDate);
+		if (createTime != null) {
+			setCreateTime(createTime);
 		}
 
-		Long modifiedDate = (Long)attributes.get("modifiedDate");
+		Long modifiedTime = (Long)attributes.get("modifiedTime");
 
-		if (modifiedDate != null) {
-			setModifiedDate(modifiedDate);
-		}
-
-		Long fileId = (Long)attributes.get("fileId");
-
-		if (fileId != null) {
-			setFileId(fileId);
-		}
-
-		String fileUuid = (String)attributes.get("fileUuid");
-
-		if (fileUuid != null) {
-			setFileUuid(fileUuid);
+		if (modifiedTime != null) {
+			setModifiedTime(modifiedTime);
 		}
 
 		Long repositoryId = (Long)attributes.get("repositoryId");
@@ -166,6 +154,18 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 
 		if (type != null) {
 			setType(type);
+		}
+
+		Long typePK = (Long)attributes.get("typePK");
+
+		if (typePK != null) {
+			setTypePK(typePK);
+		}
+
+		String typeUuid = (String)attributes.get("typeUuid");
+
+		if (typeUuid != null) {
+			setTypeUuid(typeUuid);
 		}
 
 		String version = (String)attributes.get("version");
@@ -236,83 +236,43 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	}
 
 	/**
-	* Returns the create date of this sync d l object.
+	* Returns the create time of this sync d l object.
 	*
-	* @return the create date of this sync d l object
+	* @return the create time of this sync d l object
 	*/
 	@Override
-	public long getCreateDate() {
-		return _syncDLObject.getCreateDate();
+	public long getCreateTime() {
+		return _syncDLObject.getCreateTime();
 	}
 
 	/**
-	* Sets the create date of this sync d l object.
+	* Sets the create time of this sync d l object.
 	*
-	* @param createDate the create date of this sync d l object
+	* @param createTime the create time of this sync d l object
 	*/
 	@Override
-	public void setCreateDate(long createDate) {
-		_syncDLObject.setCreateDate(createDate);
+	public void setCreateTime(long createTime) {
+		_syncDLObject.setCreateTime(createTime);
 	}
 
 	/**
-	* Returns the modified date of this sync d l object.
+	* Returns the modified time of this sync d l object.
 	*
-	* @return the modified date of this sync d l object
+	* @return the modified time of this sync d l object
 	*/
 	@Override
-	public long getModifiedDate() {
-		return _syncDLObject.getModifiedDate();
+	public long getModifiedTime() {
+		return _syncDLObject.getModifiedTime();
 	}
 
 	/**
-	* Sets the modified date of this sync d l object.
+	* Sets the modified time of this sync d l object.
 	*
-	* @param modifiedDate the modified date of this sync d l object
+	* @param modifiedTime the modified time of this sync d l object
 	*/
 	@Override
-	public void setModifiedDate(long modifiedDate) {
-		_syncDLObject.setModifiedDate(modifiedDate);
-	}
-
-	/**
-	* Returns the file ID of this sync d l object.
-	*
-	* @return the file ID of this sync d l object
-	*/
-	@Override
-	public long getFileId() {
-		return _syncDLObject.getFileId();
-	}
-
-	/**
-	* Sets the file ID of this sync d l object.
-	*
-	* @param fileId the file ID of this sync d l object
-	*/
-	@Override
-	public void setFileId(long fileId) {
-		_syncDLObject.setFileId(fileId);
-	}
-
-	/**
-	* Returns the file uuid of this sync d l object.
-	*
-	* @return the file uuid of this sync d l object
-	*/
-	@Override
-	public java.lang.String getFileUuid() {
-		return _syncDLObject.getFileUuid();
-	}
-
-	/**
-	* Sets the file uuid of this sync d l object.
-	*
-	* @param fileUuid the file uuid of this sync d l object
-	*/
-	@Override
-	public void setFileUuid(java.lang.String fileUuid) {
-		_syncDLObject.setFileUuid(fileUuid);
+	public void setModifiedTime(long modifiedTime) {
+		_syncDLObject.setModifiedTime(modifiedTime);
 	}
 
 	/**
@@ -538,6 +498,46 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	}
 
 	/**
+	* Returns the type p k of this sync d l object.
+	*
+	* @return the type p k of this sync d l object
+	*/
+	@Override
+	public long getTypePK() {
+		return _syncDLObject.getTypePK();
+	}
+
+	/**
+	* Sets the type p k of this sync d l object.
+	*
+	* @param typePK the type p k of this sync d l object
+	*/
+	@Override
+	public void setTypePK(long typePK) {
+		_syncDLObject.setTypePK(typePK);
+	}
+
+	/**
+	* Returns the type uuid of this sync d l object.
+	*
+	* @return the type uuid of this sync d l object
+	*/
+	@Override
+	public java.lang.String getTypeUuid() {
+		return _syncDLObject.getTypeUuid();
+	}
+
+	/**
+	* Sets the type uuid of this sync d l object.
+	*
+	* @param typeUuid the type uuid of this sync d l object
+	*/
+	@Override
+	public void setTypeUuid(java.lang.String typeUuid) {
+		_syncDLObject.setTypeUuid(typeUuid);
+	}
+
+	/**
 	* Returns the version of this sync d l object.
 	*
 	* @return the version of this sync d l object
@@ -659,6 +659,16 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_syncDLObject.persist();
+	}
+
+	@Override
+	public void setCreateTime(java.util.Date createDate) {
+		_syncDLObject.setCreateTime(createDate);
+	}
+
+	@Override
+	public void setModifiedTime(java.util.Date modifiedDate) {
+		_syncDLObject.setModifiedTime(modifiedDate);
 	}
 
 	@Override

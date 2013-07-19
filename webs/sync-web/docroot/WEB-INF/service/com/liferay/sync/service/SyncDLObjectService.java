@@ -81,16 +81,29 @@ public interface SyncDLObjectService extends BaseService, InvokableService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
-	public void deleteFileEntry(long fileEntryId)
+	public void cancelCheckOut(long fileEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
-	public void deleteFolder(long folderId)
+	public void checkInFileEntry(long fileEntryId, boolean majorVersion,
+		java.lang.String changeLog,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void checkOutFileEntry(long fileEntryId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public com.liferay.sync.model.SyncDLObject checkOutFileEntry(
+		long fileEntryId, java.lang.String owner, long expirationTime,
+		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.sync.model.SyncDLObject> getAllSyncDLObjects(
+	public com.liferay.sync.model.SyncDLObjectUpdate getAllSyncDLObjects(
 		long repositoryId, long folderId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
@@ -125,6 +138,11 @@ public interface SyncDLObjectService extends BaseService, InvokableService {
 			com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public com.liferay.portal.model.Group getGroup(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.sync.model.SyncContext getSyncContext(
 		java.lang.String uuid)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -132,12 +150,12 @@ public interface SyncDLObjectService extends BaseService, InvokableService {
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public com.liferay.sync.model.SyncDLObjectUpdate getSyncDLObjectUpdate(
-		long companyId, long repositoryId, long lastAccessDate)
+		long companyId, long repositoryId, long lastAccessTime)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public java.util.List<com.liferay.portal.model.Group> getUserSites()
+	public java.util.List<com.liferay.portal.model.Group> getUserSiteGroups()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
@@ -147,9 +165,26 @@ public interface SyncDLObjectService extends BaseService, InvokableService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
+	public com.liferay.sync.model.SyncDLObject moveFileEntryToTrash(
+		long fileEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
 	public com.liferay.sync.model.SyncDLObject moveFolder(long folderId,
 		long parentFolderId,
 		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public com.liferay.sync.model.SyncDLObject moveFolderToTrash(long folderId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void restoreFileEntryFromTrash(long fileEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public void restoreFolderFromTrash(long folderId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 

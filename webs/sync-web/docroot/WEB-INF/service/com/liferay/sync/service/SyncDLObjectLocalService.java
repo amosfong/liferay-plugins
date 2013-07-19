@@ -245,20 +245,16 @@ public interface SyncDLObjectLocalService extends BaseLocalService,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
 
-	public com.liferay.sync.model.SyncDLObject addSyncDLObject(long fileId,
-		java.lang.String fileUuid, long companyId, long repositoryId,
-		long parentFolderId, java.lang.String name,
-		java.lang.String description, java.lang.String checksum,
-		long lockUserId, java.lang.String lockUserName, long size,
-		java.lang.String type, java.lang.String version)
+	public com.liferay.sync.model.SyncDLObject addSyncDLObject(long companyId,
+		long modifiedTime, long repositoryId, long parentFolderId,
+		java.lang.String name, java.lang.String description,
+		java.lang.String checksum, java.lang.String event, long lockUserId,
+		java.lang.String lockUserName, long size, java.lang.String type,
+		long typePK, java.lang.String typeUuid, java.lang.String version)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
 
-	public com.liferay.sync.model.SyncDLObject updateSyncDLObject(long fileId,
-		long parentFolderId, java.lang.String name,
-		java.lang.String description, java.lang.String checksum,
-		java.lang.String event, long lockUserId, java.lang.String lockUserName,
-		long size, java.lang.String version)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException;
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public long getLatestModifiedDate()
+		throws com.liferay.portal.kernel.exception.SystemException;
 }

@@ -1,2 +1,2 @@
-create index IX_F8261C04 on SyncDLObject (companyId, modifiedDate, repositoryId);
-create unique index IX_66239253 on SyncDLObject (fileId);
+create index IX_7F996123 on SyncDLObject (companyId, modifiedTime, repositoryId);
+create unique index IX_69ADEDD1 on SyncDLObject (typePK);

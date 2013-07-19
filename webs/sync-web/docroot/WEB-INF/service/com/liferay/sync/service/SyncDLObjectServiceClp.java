@@ -47,85 +47,123 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName5 = "deleteFileEntry";
+		_methodName5 = "cancelCheckOut";
 
 		_methodParameterTypes5 = new String[] { "long" };
 
-		_methodName6 = "deleteFolder";
+		_methodName6 = "checkInFileEntry";
 
-		_methodParameterTypes6 = new String[] { "long" };
+		_methodParameterTypes6 = new String[] {
+				"long", "boolean", "java.lang.String",
+				"com.liferay.portal.service.ServiceContext"
+			};
 
-		_methodName7 = "getAllSyncDLObjects";
+		_methodName7 = "checkOutFileEntry";
 
-		_methodParameterTypes7 = new String[] { "long", "long" };
+		_methodParameterTypes7 = new String[] {
+				"long", "com.liferay.portal.service.ServiceContext"
+			};
 
-		_methodName8 = "getFileDeltaAsStream";
+		_methodName8 = "checkOutFileEntry";
 
 		_methodParameterTypes8 = new String[] {
+				"long", "java.lang.String", "long",
+				"com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName9 = "getAllSyncDLObjects";
+
+		_methodParameterTypes9 = new String[] { "long", "long" };
+
+		_methodName10 = "getFileDeltaAsStream";
+
+		_methodParameterTypes10 = new String[] {
 				"long", "java.lang.String", "java.lang.String"
 			};
 
-		_methodName9 = "getFileEntrySyncDLObject";
+		_methodName11 = "getFileEntrySyncDLObject";
 
-		_methodParameterTypes9 = new String[] { "long", "long", "java.lang.String" };
+		_methodParameterTypes11 = new String[] {
+				"long", "long", "java.lang.String"
+			};
 
-		_methodName10 = "getFileEntrySyncDLObjects";
-
-		_methodParameterTypes10 = new String[] { "long", "long" };
-
-		_methodName11 = "getFolderSyncDLObject";
-
-		_methodParameterTypes11 = new String[] { "long" };
-
-		_methodName12 = "getFolderSyncDLObjects";
+		_methodName12 = "getFileEntrySyncDLObjects";
 
 		_methodParameterTypes12 = new String[] { "long", "long" };
 
-		_methodName13 = "getSyncContext";
+		_methodName13 = "getFolderSyncDLObject";
 
-		_methodParameterTypes13 = new String[] { "java.lang.String" };
+		_methodParameterTypes13 = new String[] { "long" };
 
-		_methodName14 = "getSyncDLObjectUpdate";
+		_methodName14 = "getFolderSyncDLObjects";
 
-		_methodParameterTypes14 = new String[] { "long", "long", "long" };
+		_methodParameterTypes14 = new String[] { "long", "long" };
 
-		_methodName15 = "getUserSites";
+		_methodName15 = "getGroup";
 
-		_methodParameterTypes15 = new String[] {  };
+		_methodParameterTypes15 = new String[] { "long" };
 
-		_methodName16 = "moveFileEntry";
+		_methodName16 = "getSyncContext";
 
-		_methodParameterTypes16 = new String[] {
+		_methodParameterTypes16 = new String[] { "java.lang.String" };
+
+		_methodName17 = "getSyncDLObjectUpdate";
+
+		_methodParameterTypes17 = new String[] { "long", "long", "long" };
+
+		_methodName18 = "getUserSiteGroups";
+
+		_methodParameterTypes18 = new String[] {  };
+
+		_methodName19 = "moveFileEntry";
+
+		_methodParameterTypes19 = new String[] {
 				"long", "long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName17 = "moveFolder";
+		_methodName20 = "moveFileEntryToTrash";
 
-		_methodParameterTypes17 = new String[] {
+		_methodParameterTypes20 = new String[] { "long" };
+
+		_methodName21 = "moveFolder";
+
+		_methodParameterTypes21 = new String[] {
 				"long", "long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName18 = "updateFileEntry";
+		_methodName22 = "moveFolderToTrash";
 
-		_methodParameterTypes18 = new String[] {
+		_methodParameterTypes22 = new String[] { "long" };
+
+		_methodName23 = "restoreFileEntryFromTrash";
+
+		_methodParameterTypes23 = new String[] { "long" };
+
+		_methodName24 = "restoreFolderFromTrash";
+
+		_methodParameterTypes24 = new String[] { "long" };
+
+		_methodName25 = "updateFileEntry";
+
+		_methodParameterTypes25 = new String[] {
 				"long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"boolean", "java.io.File",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName19 = "updateFileEntry";
+		_methodName26 = "updateFileEntry";
 
-		_methodParameterTypes19 = new String[] {
+		_methodParameterTypes26 = new String[] {
 				"long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"boolean", "java.io.InputStream", "long",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName20 = "updateFolder";
+		_methodName27 = "updateFolder";
 
-		_methodParameterTypes20 = new String[] {
+		_methodParameterTypes27 = new String[] {
 				"long", "java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -286,7 +324,7 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 	}
 
 	@Override
-	public void deleteFileEntry(long fileEntryId)
+	public void cancelCheckOut(long fileEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		try {
@@ -315,12 +353,23 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 	}
 
 	@Override
-	public void deleteFolder(long folderId)
+	public void checkInFileEntry(long fileEntryId, boolean majorVersion,
+		java.lang.String changeLog,
+		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		try {
 			_invokableService.invokeMethod(_methodName6,
-				_methodParameterTypes6, new Object[] { folderId });
+				_methodParameterTypes6,
+				new Object[] {
+					fileEntryId,
+					
+				majorVersion,
+					
+				ClpSerializer.translateInput(changeLog),
+					
+				ClpSerializer.translateInput(serviceContext)
+				});
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -344,15 +393,94 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 	}
 
 	@Override
-	public java.util.List<com.liferay.sync.model.SyncDLObject> getAllSyncDLObjects(
+	public void checkOutFileEntry(long fileEntryId,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		try {
+			_invokableService.invokeMethod(_methodName7,
+				_methodParameterTypes7,
+				new Object[] {
+					fileEntryId,
+					
+				ClpSerializer.translateInput(serviceContext)
+				});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	@Override
+	public com.liferay.sync.model.SyncDLObject checkOutFileEntry(
+		long fileEntryId, java.lang.String owner, long expirationTime,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName8,
+					_methodParameterTypes8,
+					new Object[] {
+						fileEntryId,
+						
+					ClpSerializer.translateInput(owner),
+						
+					expirationTime,
+						
+					ClpSerializer.translateInput(serviceContext)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.sync.model.SyncDLObject)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public com.liferay.sync.model.SyncDLObjectUpdate getAllSyncDLObjects(
 		long repositoryId, long folderId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName7,
-					_methodParameterTypes7,
+			returnObj = _invokableService.invokeMethod(_methodName9,
+					_methodParameterTypes9,
 					new Object[] { repositoryId, folderId });
 		}
 		catch (Throwable t) {
@@ -375,7 +503,7 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 			}
 		}
 
-		return (java.util.List<com.liferay.sync.model.SyncDLObject>)ClpSerializer.translateOutput(returnObj);
+		return (com.liferay.sync.model.SyncDLObjectUpdate)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
@@ -386,8 +514,8 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName8,
-					_methodParameterTypes8,
+			returnObj = _invokableService.invokeMethod(_methodName10,
+					_methodParameterTypes10,
 					new Object[] {
 						fileEntryId,
 						
@@ -427,8 +555,8 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName9,
-					_methodParameterTypes9,
+			returnObj = _invokableService.invokeMethod(_methodName11,
+					_methodParameterTypes11,
 					new Object[] {
 						groupId,
 						
@@ -468,8 +596,8 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName10,
-					_methodParameterTypes10,
+			returnObj = _invokableService.invokeMethod(_methodName12,
+					_methodParameterTypes12,
 					new Object[] { repositoryId, folderId });
 		}
 		catch (Throwable t) {
@@ -503,8 +631,8 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName11,
-					_methodParameterTypes11, new Object[] { folderId });
+			returnObj = _invokableService.invokeMethod(_methodName13,
+					_methodParameterTypes13, new Object[] { folderId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -537,8 +665,8 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName12,
-					_methodParameterTypes12,
+			returnObj = _invokableService.invokeMethod(_methodName14,
+					_methodParameterTypes14,
 					new Object[] { repositoryId, parentFolderId });
 		}
 		catch (Throwable t) {
@@ -565,6 +693,39 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 	}
 
 	@Override
+	public com.liferay.portal.model.Group getGroup(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName15,
+					_methodParameterTypes15, new Object[] { groupId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.portal.model.Group)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
 	public com.liferay.sync.model.SyncContext getSyncContext(
 		java.lang.String uuid)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -572,8 +733,8 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName13,
-					_methodParameterTypes13,
+			returnObj = _invokableService.invokeMethod(_methodName16,
+					_methodParameterTypes16,
 					new Object[] { ClpSerializer.translateInput(uuid) });
 		}
 		catch (Throwable t) {
@@ -601,15 +762,15 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 
 	@Override
 	public com.liferay.sync.model.SyncDLObjectUpdate getSyncDLObjectUpdate(
-		long companyId, long repositoryId, long lastAccessDate)
+		long companyId, long repositoryId, long lastAccessTime)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName14,
-					_methodParameterTypes14,
-					new Object[] { companyId, repositoryId, lastAccessDate });
+			returnObj = _invokableService.invokeMethod(_methodName17,
+					_methodParameterTypes17,
+					new Object[] { companyId, repositoryId, lastAccessTime });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -635,14 +796,14 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 	}
 
 	@Override
-	public java.util.List<com.liferay.portal.model.Group> getUserSites()
+	public java.util.List<com.liferay.portal.model.Group> getUserSiteGroups()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName15,
-					_methodParameterTypes15, new Object[] {  });
+			returnObj = _invokableService.invokeMethod(_methodName18,
+					_methodParameterTypes18, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -676,8 +837,8 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName16,
-					_methodParameterTypes16,
+			returnObj = _invokableService.invokeMethod(_methodName19,
+					_methodParameterTypes19,
 					new Object[] {
 						fileEntryId,
 						
@@ -685,6 +846,40 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 						
 					ClpSerializer.translateInput(serviceContext)
 					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.sync.model.SyncDLObject)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public com.liferay.sync.model.SyncDLObject moveFileEntryToTrash(
+		long fileEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName20,
+					_methodParameterTypes20, new Object[] { fileEntryId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -718,8 +913,8 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName17,
-					_methodParameterTypes17,
+			returnObj = _invokableService.invokeMethod(_methodName21,
+					_methodParameterTypes21,
 					new Object[] {
 						folderId,
 						
@@ -752,6 +947,97 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 	}
 
 	@Override
+	public com.liferay.sync.model.SyncDLObject moveFolderToTrash(long folderId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName22,
+					_methodParameterTypes22, new Object[] { folderId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.sync.model.SyncDLObject)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public void restoreFileEntryFromTrash(long fileEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		try {
+			_invokableService.invokeMethod(_methodName23,
+				_methodParameterTypes23, new Object[] { fileEntryId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	@Override
+	public void restoreFolderFromTrash(long folderId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		try {
+			_invokableService.invokeMethod(_methodName24,
+				_methodParameterTypes24, new Object[] { folderId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	@Override
 	public com.liferay.sync.model.SyncDLObject updateFileEntry(
 		long fileEntryId, java.lang.String sourceFileName,
 		java.lang.String mimeType, java.lang.String title,
@@ -763,8 +1049,8 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName18,
-					_methodParameterTypes18,
+			returnObj = _invokableService.invokeMethod(_methodName25,
+					_methodParameterTypes25,
 					new Object[] {
 						fileEntryId,
 						
@@ -820,8 +1106,8 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName19,
-					_methodParameterTypes19,
+			returnObj = _invokableService.invokeMethod(_methodName26,
+					_methodParameterTypes26,
 					new Object[] {
 						fileEntryId,
 						
@@ -876,8 +1162,8 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName20,
-					_methodParameterTypes20,
+			returnObj = _invokableService.invokeMethod(_methodName27,
+					_methodParameterTypes27,
 					new Object[] {
 						folderId,
 						
@@ -952,4 +1238,18 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 	private String[] _methodParameterTypes19;
 	private String _methodName20;
 	private String[] _methodParameterTypes20;
+	private String _methodName21;
+	private String[] _methodParameterTypes21;
+	private String _methodName22;
+	private String[] _methodParameterTypes22;
+	private String _methodName23;
+	private String[] _methodParameterTypes23;
+	private String _methodName24;
+	private String[] _methodParameterTypes24;
+	private String _methodName25;
+	private String[] _methodParameterTypes25;
+	private String _methodName26;
+	private String[] _methodParameterTypes26;
+	private String _methodName27;
+	private String[] _methodParameterTypes27;
 }

@@ -11,10 +11,8 @@
 		<attributes>
 			<id name="objectId" />
 			<basic name="companyId" />
-			<basic name="createDate" />
-			<basic name="modifiedDate" />
-			<basic name="fileId" />
-			<basic name="fileUuid" />
+			<basic name="createTime" />
+			<basic name="modifiedTime" />
 			<basic name="repositoryId" />
 			<basic name="parentFolderId" />
 			<basic name="name" />
@@ -29,6 +27,8 @@
 			<basic name="type">
 				<column name="TYPE_" />
 			</basic>
+			<basic name="typePK" />
+			<basic name="typeUuid" />
 			<basic name="version" />
 			<transient name="lockUserUuid" />
 			<transient name="modelAttributes" />

@@ -31,4 +31,7 @@ public interface SyncDLObject extends SyncDLObjectModel, PersistedModel {
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.sync.model.impl.SyncDLObjectImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public void setCreateTime(java.util.Date createDate);
+
+	public void setModifiedTime(java.util.Date modifiedDate);
 }

@@ -276,30 +276,23 @@ public class SyncDLObjectLocalServiceUtil {
 	}
 
 	public static com.liferay.sync.model.SyncDLObject addSyncDLObject(
-		long fileId, java.lang.String fileUuid, long companyId,
-		long repositoryId, long parentFolderId, java.lang.String name,
-		java.lang.String description, java.lang.String checksum,
-		long lockUserId, java.lang.String lockUserName, long size,
-		java.lang.String type, java.lang.String version)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return getService()
-				   .addSyncDLObject(fileId, fileUuid, companyId, repositoryId,
-			parentFolderId, name, description, checksum, lockUserId,
-			lockUserName, size, type, version);
-	}
-
-	public static com.liferay.sync.model.SyncDLObject updateSyncDLObject(
-		long fileId, long parentFolderId, java.lang.String name,
+		long companyId, long modifiedTime, long repositoryId,
+		long parentFolderId, java.lang.String name,
 		java.lang.String description, java.lang.String checksum,
 		java.lang.String event, long lockUserId, java.lang.String lockUserName,
-		long size, java.lang.String version)
+		long size, java.lang.String type, long typePK,
+		java.lang.String typeUuid, java.lang.String version)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .updateSyncDLObject(fileId, parentFolderId, name,
-			description, checksum, event, lockUserId, lockUserName, size,
-			version);
+				   .addSyncDLObject(companyId, modifiedTime, repositoryId,
+			parentFolderId, name, description, checksum, event, lockUserId,
+			lockUserName, size, type, typePK, typeUuid, version);
+	}
+
+	public static long getLatestModifiedDate()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getLatestModifiedDate();
 	}
 
 	public static void clearService() {

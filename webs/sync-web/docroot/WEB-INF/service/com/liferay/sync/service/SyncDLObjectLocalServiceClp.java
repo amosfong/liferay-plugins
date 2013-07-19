@@ -118,19 +118,15 @@ public class SyncDLObjectLocalServiceClp implements SyncDLObjectLocalService {
 		_methodName19 = "addSyncDLObject";
 
 		_methodParameterTypes19 = new String[] {
-				"long", "java.lang.String", "long", "long", "long",
+				"long", "long", "long", "long", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String",
-				"long", "java.lang.String", "long", "java.lang.String",
-				"java.lang.String"
+				"long", "java.lang.String", "long", "java.lang.String", "long",
+				"java.lang.String", "java.lang.String"
 			};
 
-		_methodName20 = "updateSyncDLObject";
+		_methodName20 = "getLatestModifiedDate";
 
-		_methodParameterTypes20 = new String[] {
-				"long", "long", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.lang.String", "long",
-				"java.lang.String", "long", "java.lang.String"
-			};
+		_methodParameterTypes20 = new String[] {  };
 	}
 
 	@Override
@@ -680,12 +676,12 @@ public class SyncDLObjectLocalServiceClp implements SyncDLObjectLocalService {
 	}
 
 	@Override
-	public com.liferay.sync.model.SyncDLObject addSyncDLObject(long fileId,
-		java.lang.String fileUuid, long companyId, long repositoryId,
-		long parentFolderId, java.lang.String name,
-		java.lang.String description, java.lang.String checksum,
-		long lockUserId, java.lang.String lockUserName, long size,
-		java.lang.String type, java.lang.String version)
+	public com.liferay.sync.model.SyncDLObject addSyncDLObject(long companyId,
+		long modifiedTime, long repositoryId, long parentFolderId,
+		java.lang.String name, java.lang.String description,
+		java.lang.String checksum, java.lang.String event, long lockUserId,
+		java.lang.String lockUserName, long size, java.lang.String type,
+		long typePK, java.lang.String typeUuid, java.lang.String version)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -694,11 +690,9 @@ public class SyncDLObjectLocalServiceClp implements SyncDLObjectLocalService {
 			returnObj = _invokableLocalService.invokeMethod(_methodName19,
 					_methodParameterTypes19,
 					new Object[] {
-						fileId,
+						companyId,
 						
-					ClpSerializer.translateInput(fileUuid),
-						
-					companyId,
+					modifiedTime,
 						
 					repositoryId,
 						
@@ -710,6 +704,8 @@ public class SyncDLObjectLocalServiceClp implements SyncDLObjectLocalService {
 						
 					ClpSerializer.translateInput(checksum),
 						
+					ClpSerializer.translateInput(event),
+						
 					lockUserId,
 						
 					ClpSerializer.translateInput(lockUserName),
@@ -717,6 +713,10 @@ public class SyncDLObjectLocalServiceClp implements SyncDLObjectLocalService {
 					size,
 						
 					ClpSerializer.translateInput(type),
+						
+					typePK,
+						
+					ClpSerializer.translateInput(typeUuid),
 						
 					ClpSerializer.translateInput(version)
 					});
@@ -745,46 +745,16 @@ public class SyncDLObjectLocalServiceClp implements SyncDLObjectLocalService {
 	}
 
 	@Override
-	public com.liferay.sync.model.SyncDLObject updateSyncDLObject(long fileId,
-		long parentFolderId, java.lang.String name,
-		java.lang.String description, java.lang.String checksum,
-		java.lang.String event, long lockUserId, java.lang.String lockUserName,
-		long size, java.lang.String version)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
+	public long getLatestModifiedDate()
+		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableLocalService.invokeMethod(_methodName20,
-					_methodParameterTypes20,
-					new Object[] {
-						fileId,
-						
-					parentFolderId,
-						
-					ClpSerializer.translateInput(name),
-						
-					ClpSerializer.translateInput(description),
-						
-					ClpSerializer.translateInput(checksum),
-						
-					ClpSerializer.translateInput(event),
-						
-					lockUserId,
-						
-					ClpSerializer.translateInput(lockUserName),
-						
-					size,
-						
-					ClpSerializer.translateInput(version)
-					});
+					_methodParameterTypes20, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
-				throw (com.liferay.portal.kernel.exception.PortalException)t;
-			}
 
 			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
 				throw (com.liferay.portal.kernel.exception.SystemException)t;
@@ -799,7 +769,7 @@ public class SyncDLObjectLocalServiceClp implements SyncDLObjectLocalService {
 			}
 		}
 
-		return (com.liferay.sync.model.SyncDLObject)ClpSerializer.translateOutput(returnObj);
+		return ((Long)returnObj).longValue();
 	}
 
 	private InvokableLocalService _invokableLocalService;
