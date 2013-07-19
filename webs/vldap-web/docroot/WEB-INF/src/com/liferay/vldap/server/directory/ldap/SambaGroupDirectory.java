@@ -16,8 +16,6 @@ package com.liferay.vldap.server.directory.ldap;
 
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Organization;
-import com.liferay.portal.model.Role;
-import com.liferay.portal.service.RoleLocalServiceUtil;
 
 /**
  * @author Minhchau Dang

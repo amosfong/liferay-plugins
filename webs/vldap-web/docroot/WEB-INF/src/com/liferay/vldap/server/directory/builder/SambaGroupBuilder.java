@@ -18,7 +18,6 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Organization;
-import com.liferay.portal.model.RoleConstants;
 import com.liferay.vldap.server.directory.FilterConstraint;
 import com.liferay.vldap.server.directory.SearchBase;
 import com.liferay.vldap.server.directory.ldap.Directory;
@@ -63,8 +62,7 @@ public class SambaGroupBuilder extends DirectoryBuilder {
 		List<SambaGroup> sambaGroups, String name, String sambaSID,
 		String gidNumber) {
 
-		SambaGroup sambaGroup = new SambaGroup(
-			name, sambaSID, gidNumber);
+		SambaGroup sambaGroup = new SambaGroup(name, sambaSID, gidNumber);
 
 		sambaGroups.add(sambaGroup);
 	}
@@ -177,8 +175,7 @@ public class SambaGroupBuilder extends DirectoryBuilder {
 			sambaGroups, "domain users", domainPrefix + "-513",
 			_USER_POSIX_GROUP_ID);
 
-		addSambaGroup(
-			sambaGroups, "everyone", "S-1-1-0", _USER_POSIX_GROUP_ID);
+		addSambaGroup(sambaGroups, "everyone", "S-1-1-0", _USER_POSIX_GROUP_ID);
 		addSambaGroup(sambaGroups, "network", "S-1-5-2", null);
 		addSambaGroup(sambaGroups, "nobody", "S-1-0-0", _NOBODY_POSIX_GROUP_ID);
 		addSambaGroup(

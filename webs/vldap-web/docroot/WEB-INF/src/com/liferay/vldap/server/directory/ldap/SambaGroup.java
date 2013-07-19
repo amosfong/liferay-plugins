@@ -19,9 +19,7 @@ package com.liferay.vldap.server.directory.ldap;
  */
 public class SambaGroup {
 
-	public SambaGroup(
-		String name, String sambaSID, String gidNumber) {
-
+	public SambaGroup(String name, String sambaSID, String gidNumber) {
 		_name = name;
 		_sambaSID = sambaSID;
 		_gidNumber = gidNumber;
