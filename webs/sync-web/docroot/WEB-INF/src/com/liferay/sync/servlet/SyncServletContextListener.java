@@ -14,12 +14,22 @@
 
 package com.liferay.sync.servlet;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.DestinationNames;
+import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.messaging.MessageBusUtil;
 import com.liferay.portal.kernel.messaging.MessageListener;
 import com.liferay.portal.kernel.messaging.SerialDestination;
 import com.liferay.portal.kernel.util.BasePortalLifecycle;
+import com.liferay.portlet.documentlibrary.model.DLSyncEvent;
+import com.liferay.portlet.documentlibrary.service.DLSyncEventLocalServiceUtil;
 import com.liferay.sync.messaging.SyncMessageListener;
+import com.liferay.sync.service.SyncDLObjectLocalServiceUtil;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -43,6 +53,8 @@ public class SyncServletContextListener
 
 	@Override
 	protected void doPortalDestroy() throws Exception {
+		DLSyncEventLocalServiceUtil.deleteDLSyncEvents();
+
 		MessageBusUtil.unregisterMessageListener(
 			DestinationNames.DOCUMENT_LIBRARY_SYNC_EVENT_PROCESSOR,
 			_messageListener);
@@ -64,7 +76,48 @@ public class SyncServletContextListener
 		MessageBusUtil.registerMessageListener(
 			DestinationNames.DOCUMENT_LIBRARY_SYNC_EVENT_PROCESSOR,
 			_messageListener);
+
+		try {
+			long lastModifiedDate =
+				SyncDLObjectLocalServiceUtil.getLastModifiedDate();
+
+			List<DLSyncEvent> dlSyncEvents;
+
+			if (lastModifiedDate == 0) {
+				dlSyncEvents =
+					DLSyncEventLocalServiceUtil.getLastDLSyncEvents();
+			}
+			else {
+				dlSyncEvents = DLSyncEventLocalServiceUtil.getDLSyncEvents(
+					lastModifiedDate);
+			}
+
+			for (DLSyncEvent dlSyncEvent : dlSyncEvents) {
+				Message message = new Message();
+
+				Map<String, Object> values = new HashMap<String, Object>(4);
+
+				values.put("event", dlSyncEvent.getEvent());
+				values.put("modifiedDate", dlSyncEvent.getModifiedDate());
+				values.put("type", dlSyncEvent.getType());
+				values.put("typePK", dlSyncEvent.getTypePK());
+
+				message.setValues(values);
+
+				MessageBusUtil.sendMessage(
+					DestinationNames.DOCUMENT_LIBRARY_SYNC_EVENT_PROCESSOR,
+					message);
+			}
+
+			DLSyncEventLocalServiceUtil.deleteDLSyncEvents();
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+		}
 	}
+
+	private static Log _log = LogFactoryUtil.getLog(
+		SyncServletContextListener.class);
 
 	private MessageListener _messageListener;
 

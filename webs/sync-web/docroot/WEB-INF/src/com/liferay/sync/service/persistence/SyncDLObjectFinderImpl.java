@@ -54,7 +54,7 @@ public class SyncDLObjectFinderImpl
 			String sql = CustomSQLUtil.get(FIND_BY_C_M_R_T);
 
 			sql = InlineSQLHelperUtil.replacePermissionCheck(
-				sql, DLFolder.class.getName(), "SyncDLObject.fileId", null,
+				sql, DLFolder.class.getName(), "SyncDLObject.typePK", null,
 				"SyncDLObject.repositoryId", new long[] {repositoryId},
 				null);
 
@@ -65,7 +65,7 @@ public class SyncDLObjectFinderImpl
 			sql = CustomSQLUtil.get(FIND_BY_C_M_R_T);
 
 			sql = InlineSQLHelperUtil.replacePermissionCheck(
-				sql, DLFileEntry.class.getName(), "SyncDLObject.fileId", null,
+				sql, DLFileEntry.class.getName(), "SyncDLObject.typePK", null,
 				"SyncDLObject.repositoryId", new long[] {repositoryId},
 				null);
 

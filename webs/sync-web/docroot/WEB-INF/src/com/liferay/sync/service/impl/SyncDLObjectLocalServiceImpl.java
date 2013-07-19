@@ -14,15 +14,17 @@
 
 package com.liferay.sync.service.impl;
 
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.ProjectionFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
-import com.liferay.portlet.documentlibrary.model.DLSyncConstants;
 import com.liferay.sync.model.SyncDLObject;
 import com.liferay.sync.service.base.SyncDLObjectLocalServiceBaseImpl;
 
-import java.util.Date;
+import java.util.List;
 
 /**
  * @author Michael Young
@@ -31,73 +33,42 @@ import java.util.Date;
 public class SyncDLObjectLocalServiceImpl
 	extends SyncDLObjectLocalServiceBaseImpl {
 
-	@Override
 	public SyncDLObject addSyncDLObject(
-			long fileId, String fileUuid, long companyId, long repositoryId,
+			long companyId, long modifiedDate, long repositoryId,
 			long parentFolderId, String name, String description,
-			String checksum, long lockUserId, String lockUserName, long size,
-			String type, String version)
-		throws PortalException, SystemException {
-
-		if (!isDefaultRepository(parentFolderId)) {
-			return null;
-		}
-
-		Date now = new Date();
-
-		long syncId = counterLocalService.increment();
-
-		SyncDLObject syncDLObject = syncDLObjectPersistence.create(syncId);
-
-		syncDLObject.setCompanyId(companyId);
-		syncDLObject.setCreateDate(now.getTime());
-		syncDLObject.setModifiedDate(now.getTime());
-		syncDLObject.setFileId(fileId);
-		syncDLObject.setFileUuid(fileUuid);
-		syncDLObject.setRepositoryId(repositoryId);
-		syncDLObject.setParentFolderId(parentFolderId);
-		syncDLObject.setName(name);
-		syncDLObject.setChecksum(checksum);
-		syncDLObject.setDescription(description);
-		syncDLObject.setEvent(DLSyncConstants.EVENT_ADD);
-		syncDLObject.setLockUserId(lockUserId);
-		syncDLObject.setLockUserName(lockUserName);
-		syncDLObject.setSize(size);
-		syncDLObject.setType(type);
-		syncDLObject.setVersion(version);
-
-		return syncDLObjectPersistence.update(syncDLObject);
-	}
-
-	@Override
-	public SyncDLObject updateSyncDLObject(
-			long fileId, long parentFolderId, String name, String description,
 			String checksum, String event, long lockUserId, String lockUserName,
-			long size, String version)
+			long size, String type, long typePK, String typeUuid,
+			String version)
 		throws PortalException, SystemException {
 
 		if (!isDefaultRepository(parentFolderId)) {
 			return null;
 		}
 
-		SyncDLObject syncDLObject = null;
+		SyncDLObject syncDLObject = syncDLObjectPersistence.fetchByTypePK(
+			typePK);
 
-		if (event == DLSyncConstants.EVENT_DELETE) {
-			syncDLObject = syncDLObjectPersistence.fetchByFileId(fileId);
+		if (syncDLObject == null) {
+			long syncId = counterLocalService.increment();
 
-			if (syncDLObject == null) {
-				return null;
-			}
+			syncDLObject = syncDLObjectPersistence.create(syncId);
+
+			syncDLObject.setCompanyId(companyId);
+			syncDLObject.setCreateDate(modifiedDate);
+			syncDLObject.setRepositoryId(repositoryId);
+			syncDLObject.setType(type);
+			syncDLObject.setTypePK(typePK);
+			syncDLObject.setTypeUuid(typeUuid);
 		}
-		else {
-			syncDLObject = syncDLObjectPersistence.findByFileId(fileId);
+		else if (syncDLObject.getModifiedDate() > modifiedDate) {
+			return null;
 		}
 
-		syncDLObject.setModifiedDate(System.currentTimeMillis());
+		syncDLObject.setModifiedDate(modifiedDate);
 		syncDLObject.setParentFolderId(parentFolderId);
 		syncDLObject.setName(name);
-		syncDLObject.setChecksum(checksum);
 		syncDLObject.setDescription(description);
+		syncDLObject.setChecksum(checksum);
 		syncDLObject.setEvent(event);
 		syncDLObject.setLockUserId(lockUserId);
 		syncDLObject.setLockUserName(lockUserName);
@@ -105,6 +76,29 @@ public class SyncDLObjectLocalServiceImpl
 		syncDLObject.setVersion(version);
 
 		return syncDLObjectPersistence.update(syncDLObject);
+	}
+
+	@Override
+	public SyncDLObject fetchSyncDLObject(long typePK) throws SystemException {
+		return syncDLObjectPersistence.fetchByTypePK(typePK);
+	}
+
+	@Override
+	public long getLastModifiedDate() throws PortalException, SystemException {
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+			SyncDLObject.class);
+
+		dynamicQuery.setProjection(ProjectionFactoryUtil.max("modifiedDate"));
+
+		List<Long> modifiedDates =
+			(List<Long>)syncDLObjectPersistence.findWithDynamicQuery(
+				dynamicQuery);
+
+		if (modifiedDates.isEmpty()) {
+			return 0;
+		}
+
+		return modifiedDates.get(0);
 	}
 
 	protected boolean isDefaultRepository(long folderId)

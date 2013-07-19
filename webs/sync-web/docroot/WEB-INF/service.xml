@@ -17,8 +17,6 @@
 
 		<!-- Other fields -->
 
-		<column name="fileId" type="long" />
-		<column name="fileUuid" type="String" />
 		<column name="repositoryId" type="long" />
 		<column name="parentFolderId" type="long" />
 		<column name="name" type="String" />
@@ -29,6 +27,8 @@
 		<column name="lockUserName" type="String" />
 		<column name="size" type="long" />
 		<column name="type" type="String" />
+		<column name="typePK" type="long" />
+		<column name="typeUuid" type="String" />
 		<column name="version" type="String" />
 
 		<!-- Order -->
@@ -46,8 +46,8 @@
 			<finder-column name="modifiedDate" comparator="&gt;" />
 			<finder-column name="repositoryId" />
 		</finder>
-		<finder name="FileId" return-type="SyncDLObject" unique="true">
-			<finder-column name="fileId" />
+		<finder name="TypePK" return-type="SyncDLObject" unique="true">
+			<finder-column name="typePK" />
 		</finder>
 
 		<!-- References -->

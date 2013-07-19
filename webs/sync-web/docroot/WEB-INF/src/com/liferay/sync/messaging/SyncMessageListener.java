@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.Lock;
 import com.liferay.portlet.documentlibrary.NoSuchFileEntryException;
+import com.liferay.portlet.documentlibrary.NoSuchFolderException;
 import com.liferay.portlet.documentlibrary.model.DLFileVersion;
 import com.liferay.portlet.documentlibrary.model.DLSyncConstants;
 import com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil;
@@ -33,105 +34,21 @@ import com.liferay.sync.util.SyncUtil;
  */
 public class SyncMessageListener extends BaseMessageListener {
 
-	protected void addSyncDLObject(Message message) throws Exception {
-		String type = message.getString("type");
-		long typeId = message.getLong("typeId");
+	protected void addSyncDLObject(
+			long typePK, String type, long modifiedDate, String event)
+		throws Exception {
 
-		if (type.equals(DLSyncConstants.TYPE_FILE)) {
-			FileEntry fileEntry = null;
-
-			try {
-				fileEntry = DLAppLocalServiceUtil.getFileEntry(typeId);
-			}
-			catch (NoSuchFileEntryException nsfee) {
-				return;
-			}
-
-			String checksum = SyncUtil.getChecksum(fileEntry);
-
-			long lockUserId = 0;
-			String lockUserName = StringPool.BLANK;
-
-			Lock lock = fileEntry.getLock();
-
-			if (lock != null) {
-				lockUserId = lock.getUserId();
-				lockUserName = lock.getUserName();
-			}
-
+		if (event.equals(DLSyncConstants.EVENT_DELETE)) {
 			SyncDLObjectLocalServiceUtil.addSyncDLObject(
-				fileEntry.getFileEntryId(), fileEntry.getUuid(),
-				fileEntry.getCompanyId(), fileEntry.getRepositoryId(),
-				fileEntry.getFolderId(), fileEntry.getTitle(),
-				fileEntry.getDescription(), checksum, lockUserId, lockUserName,
-				fileEntry.getSize(), DLSyncConstants.TYPE_FILE,
-				fileEntry.getVersion());
+				0, modifiedDate, 0, 0, StringPool.BLANK, StringPool.BLANK,
+				StringPool.BLANK, event, 0, StringPool.BLANK, 0, type, typePK,
+				StringPool.BLANK, StringPool.BLANK);
 		}
-		else if (type.equals(DLSyncConstants.TYPE_FOLDER)) {
-			Folder folder = DLAppLocalServiceUtil.getFolder(typeId);
-
-			SyncDLObjectLocalServiceUtil.addSyncDLObject(
-				folder.getFolderId(), folder.getUuid(), folder.getCompanyId(),
-				folder.getRepositoryId(), folder.getParentFolderId(),
-				folder.getName(), folder.getDescription(), StringPool.BLANK, 0,
-				StringPool.BLANK, 0, DLSyncConstants.TYPE_FOLDER, "-1");
-		}
-	}
-
-	protected void deleteSyncDLObject(Message message) throws Exception {
-		String type = message.getString("type");
-		long typeId = message.getLong("typeId");
-
-		if (type.equals(DLSyncConstants.TYPE_FILE)) {
+		else if (type.equals(DLSyncConstants.TYPE_FILE)) {
 			FileEntry fileEntry = null;
 
 			try {
-				fileEntry = DLAppLocalServiceUtil.getFileEntry(typeId);
-			}
-			catch (NoSuchFileEntryException nsfee) {
-				return;
-			}
-
-			SyncDLObjectLocalServiceUtil.updateSyncDLObject(
-				fileEntry.getFileEntryId(), fileEntry.getFolderId(),
-				fileEntry.getTitle(), StringPool.BLANK,
-				fileEntry.getDescription(), DLSyncConstants.EVENT_DELETE, 0,
-				StringPool.BLANK, fileEntry.getSize(), fileEntry.getVersion());
-		}
-		else if (type.equals(DLSyncConstants.TYPE_FOLDER)) {
-			Folder folder = DLAppLocalServiceUtil.getFolder(typeId);
-
-			SyncDLObjectLocalServiceUtil.updateSyncDLObject(
-				folder.getFolderId(), folder.getParentFolderId(),
-				folder.getName(), folder.getDescription(), StringPool.BLANK,
-				DLSyncConstants.EVENT_DELETE, 0, StringPool.BLANK, 0, "-1");
-		}
-	}
-
-	@Override
-	protected void doReceive(Message message) throws Exception {
-		String event = message.getString("event");
-
-		if (event.equals(DLSyncConstants.EVENT_ADD)) {
-			addSyncDLObject(message);
-		}
-		else if (event.equals(DLSyncConstants.EVENT_DELETE)) {
-			deleteSyncDLObject(message);
-		}
-		else if (event.equals(DLSyncConstants.EVENT_UPDATE)) {
-			updateSyncDLObject(message);
-		}
-	}
-
-	protected void updateSyncDLObject(Message message) throws Exception {
-		String type = message.getString("type");
-		long typeId = message.getLong("typeId");
-
-		if (type.equals(DLSyncConstants.TYPE_FILE)) {
-			FileEntry fileEntry = null;
-
-			try {
-				fileEntry = DLAppLocalServiceUtil.getFileEntry(typeId);
+				fileEntry = DLAppLocalServiceUtil.getFileEntry(typePK);
 			}
 			catch (NoSuchFileEntryException nsfee) {
 				return;
@@ -155,31 +72,54 @@ public class SyncMessageListener extends BaseMessageListener {
 				String checksum = SyncUtil.getChecksum(
 					dlFileVersion.getContentStream(false));
 
-				SyncDLObjectLocalServiceUtil.updateSyncDLObject(
-					dlFileVersion.getFileEntryId(), dlFileVersion.getFolderId(),
-					dlFileVersion.getTitle(), dlFileVersion.getDescription(),
-					checksum, DLSyncConstants.EVENT_UPDATE, lockUserId,
-					lockUserName, dlFileVersion.getSize(),
+				SyncDLObjectLocalServiceUtil.addSyncDLObject(
+					dlFileVersion.getCompanyId(), modifiedDate,
+					dlFileVersion.getRepositoryId(),
+					dlFileVersion.getFolderId(), dlFileVersion.getTitle(),
+					dlFileVersion.getDescription(), checksum, event, lockUserId,
+					lockUserName, dlFileVersion.getSize(), type,
+					fileEntry.getFileEntryId(), fileEntry.getUuid(),
 					dlFileVersion.getVersion());
 			}
 			else {
 				String checksum = SyncUtil.getChecksum(fileEntry);
 
-				SyncDLObjectLocalServiceUtil.updateSyncDLObject(
-					fileEntry.getFileEntryId(), fileEntry.getFolderId(),
+				SyncDLObjectLocalServiceUtil.addSyncDLObject(
+					fileEntry.getCompanyId(), modifiedDate,
+					fileEntry.getRepositoryId(), fileEntry.getFolderId(),
 					fileEntry.getTitle(), fileEntry.getDescription(), checksum,
-					DLSyncConstants.EVENT_UPDATE, lockUserId, lockUserName,
-					fileEntry.getSize(), fileEntry.getVersion());
+					event, lockUserId, lockUserName, fileEntry.getSize(), type,
+					fileEntry.getFileEntryId(), fileEntry.getUuid(),
+					fileEntry.getVersion());
 			}
 		}
-		else if (type.equals(DLSyncConstants.TYPE_FOLDER)) {
-			Folder folder = DLAppLocalServiceUtil.getFolder(typeId);
+		else {
+			Folder folder = null;
 
-			SyncDLObjectLocalServiceUtil.updateSyncDLObject(
-				folder.getFolderId(), folder.getParentFolderId(),
-				folder.getName(), folder.getDescription(), StringPool.BLANK,
-				DLSyncConstants.EVENT_UPDATE, 0, StringPool.BLANK, 0, "-1");
+			try {
+				folder = DLAppLocalServiceUtil.getFolder(typePK);
+			}
+			catch (NoSuchFolderException nsfe) {
+				return;
+			}
+
+			SyncDLObjectLocalServiceUtil.addSyncDLObject(
+				folder.getCompanyId(), modifiedDate, folder.getRepositoryId(),
+				folder.getParentFolderId(), folder.getName(),
+				folder.getDescription(), StringPool.BLANK, event, 0,
+				StringPool.BLANK, 0, type, folder.getFolderId(),
+				folder.getUuid(), "-1");
 		}
+	}
+
+	@Override
+	protected void doReceive(Message message) throws Exception {
+		String event = message.getString("event");
+		long modifiedDate = message.getLong("modifiedDate");
+		String type = message.getString("type");
+		long typePK = message.getLong("typePK");
+
+		addSyncDLObject(typePK, type, modifiedDate, event);
 	}
 
 }

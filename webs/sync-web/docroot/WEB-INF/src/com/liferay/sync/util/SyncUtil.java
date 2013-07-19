@@ -57,15 +57,16 @@ public class SyncUtil {
 		return DigesterUtil.digestBase64(inputStream);
 	}
 
-	public static SyncDLObject toSyncDLObject(FileEntry fileEntry)
+	public static SyncDLObject toSyncDLObject(FileEntry fileEntry, String event)
 		throws PortalException, SystemException {
 
 		SyncDLObject syncDLObject = new SyncDLObjectImpl();
 
-		syncDLObject.setFileId(fileEntry.getFileEntryId());
-		syncDLObject.setFileUuid(fileEntry.getUuid());
-		syncDLObject.setParentFolderId(fileEntry.getFolderId());
+		syncDLObject.setCompanyId(fileEntry.getCompanyId());
+		syncDLObject.setCreateDate(fileEntry.getCreateDate().getTime());
+		syncDLObject.setModifiedDate(fileEntry.getModifiedDate().getTime());
 		syncDLObject.setRepositoryId(fileEntry.getRepositoryId());
+		syncDLObject.setParentFolderId(fileEntry.getFolderId());
 		syncDLObject.setName(fileEntry.getTitle());
 		syncDLObject.setDescription(fileEntry.getDescription());
 		syncDLObject.setChecksum(getChecksum(fileEntry));
@@ -83,18 +84,21 @@ public class SyncUtil {
 
 		syncDLObject.setSize(fileEntry.getSize());
 		syncDLObject.setType(DLSyncConstants.TYPE_FILE);
+		syncDLObject.setTypePK(fileEntry.getFileEntryId());
+		syncDLObject.setTypeUuid(fileEntry.getUuid());
 		syncDLObject.setVersion(fileEntry.getVersion());
 
 		return syncDLObject;
 	}
 
-	public static SyncDLObject toSyncDLObject(Folder folder) {
+	public static SyncDLObject toSyncDLObject(Folder folder, String event) {
 		SyncDLObject syncDLObject = new SyncDLObjectImpl();
 
-		syncDLObject.setFileId(folder.getFolderId());
-		syncDLObject.setFileUuid(folder.getUuid());
-		syncDLObject.setParentFolderId(folder.getParentFolderId());
+		syncDLObject.setCompanyId(folder.getCompanyId());
+		syncDLObject.setCreateDate(folder.getCreateDate().getTime());
+		syncDLObject.setModifiedDate(folder.getModifiedDate().getTime());
 		syncDLObject.setRepositoryId(folder.getRepositoryId());
+		syncDLObject.setParentFolderId(folder.getParentFolderId());
 		syncDLObject.setName(folder.getName());
 		syncDLObject.setDescription(folder.getDescription());
 		syncDLObject.setChecksum(StringPool.BLANK);
@@ -102,6 +106,8 @@ public class SyncUtil {
 		syncDLObject.setLockUserName(StringPool.BLANK);
 		syncDLObject.setSize(-1);
 		syncDLObject.setType(DLSyncConstants.TYPE_FOLDER);
+		syncDLObject.setTypePK(folder.getFolderId());
+		syncDLObject.setTypeUuid(folder.getUuid());
 		syncDLObject.setVersion(StringPool.BLANK);
 
 		return syncDLObject;
