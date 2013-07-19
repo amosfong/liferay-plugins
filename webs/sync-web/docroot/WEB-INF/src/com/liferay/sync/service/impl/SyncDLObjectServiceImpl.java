@@ -293,6 +293,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 			DeployManagerUtil.getInstalledPluginPackage("sync-web");
 
 		syncContext.setPluginVersion(pluginPackage.getVersion());
+
 		syncContext.setPortalBuildNumber(ReleaseInfo.getBuildNumber());
 
 		try {
