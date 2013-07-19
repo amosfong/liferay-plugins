@@ -443,6 +443,54 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		return SyncUtil.toSyncDLObject(folder);
 	}
 
+	protected void getAllSyncDLObjects(
+			long repositoryId, long folderId, List<SyncDLObject> syncDLObjects)
+		throws PortalException, SystemException {
+
+		List<Object> foldersAndFileEntriesAndFileShortcuts =
+			dlAppService.getFoldersAndFileEntriesAndFileShortcuts(
+				repositoryId, folderId, WorkflowConstants.STATUS_ANY, false,
+				QueryUtil.ALL_POS, QueryUtil.ALL_POS);
+
+		for (Object folderAndFileEntryAndFileShortcut :
+				foldersAndFileEntriesAndFileShortcuts) {
+
+			if (folderAndFileEntryAndFileShortcut instanceof FileEntry) {
+				FileEntry fileEntry =
+					(FileEntry)folderAndFileEntryAndFileShortcut;
+
+				syncDLObjects.add(SyncUtil.toSyncDLObject(fileEntry));
+			}
+			else if (folderAndFileEntryAndFileShortcut instanceof Folder) {
+				Folder folder = (Folder)folderAndFileEntryAndFileShortcut;
+
+				syncDLObjects.add(SyncUtil.toSyncDLObject(folder));
+
+				getAllSyncDLObjects(
+					repositoryId, folder.getFolderId(), syncDLObjects);
+			}
+		}
+	}
+
+	protected String getLicenseDigest(
+			String productId, String uuid, int licenseState)
+		throws Exception {
+
+		ClassLoader portalClassLoader = PortalClassLoaderUtil.getClassLoader();
+
+		Class<LicenseManager> licenseManagerClass =
+			(Class<LicenseManager>)portalClassLoader.loadClass(
+				LicenseManager.class.getName());
+
+		Method method = ReflectionUtil.getDeclaredMethod(
+			licenseManagerClass, "_digest", String.class, String.class,
+			int.class);
+
+		method.setAccessible(true);
+
+		return (String)method.invoke(null, productId, uuid, licenseState);
+	}
+
 	protected void patchFile(
 			InputStream originalInputStream, InputStream deltaInputStream,
 			File patchedFile)
@@ -490,54 +538,6 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 
 			FileUtil.delete(originalFile);
 		}
-	}
-
-	protected void getAllSyncDLObjects(
-			long repositoryId, long folderId, List<SyncDLObject> syncDLObjects)
-		throws PortalException, SystemException {
-
-		List<Object> foldersAndFileEntriesAndFileShortcuts =
-			dlAppService.getFoldersAndFileEntriesAndFileShortcuts(
-				repositoryId, folderId, WorkflowConstants.STATUS_ANY, false,
-				QueryUtil.ALL_POS, QueryUtil.ALL_POS);
-
-		for (Object folderAndFileEntryAndFileShortcut :
-				foldersAndFileEntriesAndFileShortcuts) {
-
-			if (folderAndFileEntryAndFileShortcut instanceof FileEntry) {
-				FileEntry fileEntry =
-					(FileEntry)folderAndFileEntryAndFileShortcut;
-
-				syncDLObjects.add(SyncUtil.toSyncDLObject(fileEntry));
-			}
-			else if (folderAndFileEntryAndFileShortcut instanceof Folder) {
-				Folder folder = (Folder)folderAndFileEntryAndFileShortcut;
-
-				syncDLObjects.add(SyncUtil.toSyncDLObject(folder));
-
-				getAllSyncDLObjects(
-					repositoryId, folder.getFolderId(), syncDLObjects);
-			}
-		}
-	}
-
-	protected String getLicenseDigest(
-			String productId, String uuid, int licenseState)
-		throws Exception {
-
-		ClassLoader portalClassLoader = PortalClassLoaderUtil.getClassLoader();
-
-		Class<LicenseManager> licenseManagerClass =
-			(Class<LicenseManager>)portalClassLoader.loadClass(
-				LicenseManager.class.getName());
-
-		Method method = ReflectionUtil.getDeclaredMethod(
-			licenseManagerClass, "_digest", String.class, String.class,
-			int.class);
-
-		method.setAccessible(true);
-
-		return (String)method.invoke(null, productId, uuid, licenseState);
 	}
 
 }
