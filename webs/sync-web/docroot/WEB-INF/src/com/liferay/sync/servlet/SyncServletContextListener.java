@@ -44,7 +44,8 @@ public class SyncServletContextListener
 	@Override
 	protected void doPortalDestroy() throws Exception {
 		MessageBusUtil.unregisterMessageListener(
-			DestinationNames.DOCUMENT_LIBRARY_SYNC_PROCESSOR, _messageListener);
+			DestinationNames.DOCUMENT_LIBRARY_SYNC_EVENT_PROCESSOR,
+			_messageListener);
 	}
 
 	@Override
@@ -54,14 +55,15 @@ public class SyncServletContextListener
 		SerialDestination serialDestination = new SerialDestination();
 
 		serialDestination.setName(
-			DestinationNames.DOCUMENT_LIBRARY_SYNC_PROCESSOR);
+			DestinationNames.DOCUMENT_LIBRARY_SYNC_EVENT_PROCESSOR);
 
 		serialDestination.afterPropertiesSet();
 
 		MessageBusUtil.addDestination(serialDestination);
 
 		MessageBusUtil.registerMessageListener(
-			DestinationNames.DOCUMENT_LIBRARY_SYNC_PROCESSOR, _messageListener);
+			DestinationNames.DOCUMENT_LIBRARY_SYNC_EVENT_PROCESSOR,
+			_messageListener);
 	}
 
 	private MessageListener _messageListener;
