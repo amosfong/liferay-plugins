@@ -2,6 +2,232 @@
 
 <javadocs>
 	<javadoc>
+		<name>SambaAuth</name>
+		<type>com.liferay.portal.security.auth.SambaAuth</type>
+		<author><![CDATA[Minhchau Dang]]></author>
+		<method>
+			<name>SambaAuth</name>
+		</method>
+		<method>
+			<name>authenticateByEmailAddress</name>
+			<param>
+				<name>companyId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>emailAddress</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>password</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>headerMap</name>
+				<type>java.util.Map</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>parameterMap</name>
+				<type>java.util.Map</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
+			<name>authenticateByScreenName</name>
+			<param>
+				<name>companyId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>screenName</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>password</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>headerMap</name>
+				<type>java.util.Map</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>parameterMap</name>
+				<type>java.util.Map</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
+			<name>authenticateByUserId</name>
+			<param>
+				<name>companyId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>userId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>password</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>headerMap</name>
+				<type>java.util.Map</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>parameterMap</name>
+				<type>java.util.Map</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<field>
+			<name>_log</name>
+		</field>
+	</javadoc>
+	<javadoc>
+		<name>PortalSambaUtil</name>
+		<type>com.liferay.portal.security.samba.PortalSambaUtil</type>
+		<author><![CDATA[Minhchau Dang]]></author>
+		<method>
+			<name>checkAttributes</name>
+		</method>
+		<method>
+			<name>getSambaLMPassword</name>
+			<param>
+				<name>user</name>
+				<type>com.liferay.portal.model.User</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+			<throws>
+				<name>Exception</name>
+				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>getSambaNTPassword</name>
+			<param>
+				<name>user</name>
+				<type>com.liferay.portal.model.User</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+			<throws>
+				<name>Exception</name>
+				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>setSambaLMPassword</name>
+			<param>
+				<name>user</name>
+				<type>com.liferay.portal.model.User</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>password</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>Exception</name>
+				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>setSambaNTPassword</name>
+			<param>
+				<name>user</name>
+				<type>com.liferay.portal.model.User</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>password</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>Exception</name>
+				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>_checkAttribute</name>
+			<param>
+				<name>attributeName</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+		</method>
+		<method>
+			<name>_getSambaLMPassword</name>
+			<param>
+				<name>password</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+			<throws>
+				<name>Exception</name>
+				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>_getSambaNTPassword</name>
+			<param>
+				<name>password</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+			<throws>
+				<name>Exception</name>
+				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<field>
+			<name>_SAMBA_LM_CONSTANT</name>
+		</field>
+		<field>
+			<name>_log</name>
+		</field>
+	</javadoc>
+	<javadoc>
 		<name>DispatchIoHandler</name>
 		<type>com.liferay.vldap.server.DispatchIoHandler</type>
 		<author><![CDATA[Jonathan Potter]]></author>
@@ -110,17 +336,6 @@
 			</throws>
 		</method>
 		<method>
-			<name>isAccessAllowed</name>
-			<param>
-				<name>socketAddress</name>
-				<type>java.net.SocketAddress</type>
-				<comment><![CDATA[]]></comment>
-			</param>
-			<return>
-				<comment><![CDATA[]]></comment>
-			</return>
-		</method>
-		<method>
 			<name>setSessionAttributes</name>
 			<param>
 				<name>response</name>
@@ -147,9 +362,6 @@
 			</param>
 		</method>
 		<field>
-			<name>_SERVER_IP</name>
-		</field>
-		<field>
 			<name>_log</name>
 		</field>
 		<field>
@@ -169,6 +381,9 @@
 		</field>
 		<field>
 			<name>_unbindLdapHandler</name>
+		</field>
+		<field>
+			<name>_unwillingToPerformLdapHandler</name>
 		</field>
 	</javadoc>
 	<javadoc>
@@ -328,6 +543,12 @@
 		</field>
 		<field>
 			<name>_rootBuilder</name>
+		</field>
+		<field>
+			<name>_sambaGroupBuilder</name>
+		</field>
+		<field>
+			<name>_sambaMachineBuilder</name>
 		</field>
 		<field>
 			<name>_schemaBuilder</name>
@@ -1358,6 +1579,231 @@
 		</method>
 	</javadoc>
 	<javadoc>
+		<name>SambaGroupBuilder</name>
+		<type>com.liferay.vldap.server.directory.builder.SambaGroupBuilder</type>
+		<author><![CDATA[Minhchau Dang]]></author>
+		<method>
+			<name>isValidAttribute</name>
+			<param>
+				<name>attributeId</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>value</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
+			<name>addSambaGroup</name>
+			<param>
+				<name>sambaGroups</name>
+				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>name</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>sambaSID</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>gidNumber</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>membershipRoleNames</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+		</method>
+		<method>
+			<name>buildDirectories</name>
+			<param>
+				<name>searchBase</name>
+				<type>com.liferay.vldap.server.directory.SearchBase</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>filterConstraints</name>
+				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+			<throws>
+				<name>Exception</name>
+				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>filterSambaGroups</name>
+			<param>
+				<name>sambaGroups</name>
+				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>fieldName</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>value</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+		</method>
+		<method>
+			<name>getSambaGroupDirectories</name>
+			<param>
+				<name>top</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>company</name>
+				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>organization</name>
+				<type>com.liferay.portal.model.Organization</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>name</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>sambaSID</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>gidNumber</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+			<throws>
+				<name>Exception</name>
+				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>getSambaGroups</name>
+			<param>
+				<name>company</name>
+				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<field>
+			<name>_ADMIN_POSIX_GROUP_ID</name>
+		</field>
+		<field>
+			<name>_GUEST_POSIX_GROUP_ID</name>
+		</field>
+		<field>
+			<name>_NOBODY_POSIX_GROUP_ID</name>
+		</field>
+		<field>
+			<name>_USER_POSIX_GROUP_ID</name>
+		</field>
+	</javadoc>
+	<javadoc>
+		<name>SambaMachineBuilder</name>
+		<type>com.liferay.vldap.server.directory.builder.SambaMachineBuilder</type>
+		<author><![CDATA[Minhchau Dang]]></author>
+		<method>
+			<name>buildDirectories</name>
+			<param>
+				<name>top</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>company</name>
+				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>organization</name>
+				<type>com.liferay.portal.model.Organization</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>sambaDomainName</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+			<throws>
+				<name>Exception</name>
+				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>isValidAttribute</name>
+			<param>
+				<name>attributeId</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>value</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
+			<name>buildDirectories</name>
+			<param>
+				<name>searchBase</name>
+				<type>com.liferay.vldap.server.directory.SearchBase</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>filterConstraints</name>
+				<type>java.util.List</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+			<throws>
+				<name>Exception</name>
+				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+	</javadoc>
+	<javadoc>
 		<name>SchemaBuilder</name>
 		<type>com.liferay.vldap.server.directory.builder.SchemaBuilder</type>
 		<author><![CDATA[Jonathan Potter]]></author>
@@ -2023,6 +2469,52 @@
 				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
+		<method>
+			<name>RoleDirectory</name>
+			<param>
+				<name>top</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>company</name>
+				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>name</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>Exception</name>
+				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
+			<name>addRoleMembers</name>
+			<param>
+				<name>top</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>company</name>
+				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>roleId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>Exception</name>
+				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
 	</javadoc>
 	<javadoc>
 		<name>RolesDirectory</name>
@@ -2056,6 +2548,131 @@
 			<return>
 				<comment><![CDATA[]]></comment>
 			</return>
+		</method>
+	</javadoc>
+	<javadoc>
+		<name>SambaGroup</name>
+		<type>com.liferay.vldap.server.directory.ldap.SambaGroup</type>
+		<author><![CDATA[Minhchau Dang]]></author>
+		<method>
+			<name>SambaGroup</name>
+			<param>
+				<name>name</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>sambaSID</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>gidNumber</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>membershipRoleNames</name>
+				<type>java.lang.String[]</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+		</method>
+		<method>
+			<name>getGIDNumber</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
+			<name>getMembershipRoleNames</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
+			<name>getName</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
+			<name>getSambaSID</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<field>
+			<name>_gidNumber</name>
+		</field>
+		<field>
+			<name>_membershipRoleNames</name>
+		</field>
+		<field>
+			<name>_name</name>
+		</field>
+		<field>
+			<name>_sambaSID</name>
+		</field>
+	</javadoc>
+	<javadoc>
+		<name>SambaGroupDirectory</name>
+		<type>com.liferay.vldap.server.directory.ldap.SambaGroupDirectory</type>
+		<author><![CDATA[Minhchau Dang]]></author>
+		<method>
+			<name>SambaGroupDirectory</name>
+			<param>
+				<name>top</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>company</name>
+				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>organization</name>
+				<type>com.liferay.portal.model.Organization</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>sambaGroup</name>
+				<type>SambaGroup</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>Exception</name>
+				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+	</javadoc>
+	<javadoc>
+		<name>SambaMachineDirectory</name>
+		<type>com.liferay.vldap.server.directory.ldap.SambaMachineDirectory</type>
+		<author><![CDATA[Minhchau Dang]]></author>
+		<method>
+			<name>SambaMachineDirectory</name>
+			<param>
+				<name>top</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>company</name>
+				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>organization</name>
+				<type>com.liferay.portal.model.Organization</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>sambaDomainName</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
 		</method>
 	</javadoc>
 	<javadoc>
@@ -2140,8 +2757,26 @@
 				<comment><![CDATA[]]></comment>
 			</throws>
 		</method>
+		<method>
+			<name>addSambaAttributes</name>
+			<param>
+				<name>company</name>
+				<type>com.liferay.portal.model.Company</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>user</name>
+				<type>com.liferay.portal.model.User</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<throws>
+				<name>Exception</name>
+				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
 		<field>
-			<name>_simpleDateFormat</name>
+			<name>_format</name>
 		</field>
 	</javadoc>
 	<javadoc>
@@ -2837,12 +3472,44 @@
 		</method>
 	</javadoc>
 	<javadoc>
+		<name>UnwillingToPerformLdapHandler</name>
+		<type>com.liferay.vldap.server.handler.UnwillingToPerformLdapHandler</type>
+		<author><![CDATA[Brian Wing Shun Chan]]></author>
+		<method>
+			<name>messageReceived</name>
+			<param>
+				<name>request</name>
+				<type>org.apache.directory.shared.ldap.model.message.Request</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>ioSession</name>
+				<type>org.apache.mina.core.session.IoSession</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>ldapHandlerContext</name>
+				<type>com.liferay.vldap.server.handler.util.LdapHandlerContext</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+	</javadoc>
+	<javadoc>
 		<name>LdapHandlerContext</name>
 		<type>com.liferay.vldap.server.handler.util.LdapHandlerContext</type>
 		<author><![CDATA[Jonathan Potter]]></author>
 		<author><![CDATA[Brian Wing Shun Chan]]></author>
 		<method>
 			<name>getCompany</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
+			<name>getCompanyId</name>
 			<return>
 				<comment><![CDATA[]]></comment>
 			</return>
@@ -2908,6 +3575,39 @@
 		</field>
 		<field>
 			<name>_user</name>
+		</field>
+	</javadoc>
+	<javadoc>
+		<name>LdapHandlerThreadLocal</name>
+		<type>com.liferay.vldap.server.handler.util.LdapHandlerThreadLocal</type>
+		<author><![CDATA[Brian Wing Shun Chan]]></author>
+		<method>
+			<name>clearSocketAddress</name>
+		</method>
+		<method>
+			<name>isHostAllowed</name>
+			<param>
+				<name>allowList</name>
+				<type>java.lang.String[]</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
+			<name>setSocketAddress</name>
+			<param>
+				<name>socketAddress</name>
+				<type>java.net.SocketAddress</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+		</method>
+		<field>
+			<name>_SERVER_IP</name>
+		</field>
+		<field>
+			<name>_socketAddress</name>
 		</field>
 	</javadoc>
 	<javadoc>
@@ -3218,6 +3918,22 @@
 			</return>
 		</method>
 		<method>
+			<name>getRdnType</name>
+			<param>
+				<name>dn</name>
+				<type>org.apache.directory.shared.ldap.model.name.Dn</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>index</name>
+				<type>int</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
 			<name>getRdnValue</name>
 			<param>
 				<name>dn</name>
@@ -3267,6 +3983,12 @@
 			<name>POSIX_GROUP_ID</name>
 		</field>
 		<field>
+			<name>SAMBA_DOMAIN_NAMES</name>
+		</field>
+		<field>
+			<name>SAMBA_HOSTS_ALLOWED</name>
+		</field>
+		<field>
 			<name>SEARCH_MAX_SIZE</name>
 		</field>
 		<field>
@@ -3297,6 +4019,12 @@
 		</field>
 		<field>
 			<name>POSIX_GROUP_ID</name>
+		</field>
+		<field>
+			<name>SAMBA_DOMAIN_NAMES</name>
+		</field>
+		<field>
+			<name>SAMBA_HOSTS_ALLOWED</name>
 		</field>
 		<field>
 			<name>SEARCH_MAX_SIZE</name>
