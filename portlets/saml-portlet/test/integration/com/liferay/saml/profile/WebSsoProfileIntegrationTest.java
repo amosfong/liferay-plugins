@@ -75,7 +75,6 @@ import org.springframework.mock.web.MockHttpServletResponse;
 /**
  * @author Mika Koivisto
  */
-
 @RunWith(PowerMockRunner.class)
 public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 
@@ -172,10 +171,10 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 
 		Assert.assertNull(
 			mockSession.getAttribute(PortletWebKeys.SAML_SSO_REQUEST_CONTEXT));
-		Assert.assertEquals(1000, samlSsoRequestContext.getUserId());
 		Assert.assertEquals(
 			SamlSsoRequestContext.STAGE_AUTHENTICATED,
 			samlSsoRequestContext.getStage());
+		Assert.assertEquals(1000, samlSsoRequestContext.getUserId());
 
 		HttpServletResponseAdapter httpServletResponseAdapter =
 			(HttpServletResponseAdapter)
@@ -238,9 +237,10 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 			samlMessageContext.getPeerEntityRoleMetadata() instanceof
 				SPSSODescriptor);
 		Assert.assertEquals(RELAY_STATE, samlMessageContext.getRelayState());
-		AuthnRequest authnRequest = samlMessageContext.getInboundSAMLMessage();
-		Assert.assertEquals(identifiers.get(0), authnRequest.getID());
 
+		AuthnRequest authnRequest = samlMessageContext.getInboundSAMLMessage();
+
+		Assert.assertEquals(identifiers.get(0), authnRequest.getID());
 		Assert.assertEquals(2, identifiers.size());
 		Assert.assertTrue(samlSsoRequestContext.isNewSession());
 	}
@@ -309,18 +309,18 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 	public void testVerifyAssertionSignatureValid() throws Exception {
 		prepareServiceProvider(SP_ENTITY_ID);
 
+		Assertion assertion = OpenSamlUtil.buildAssertion();
+
+		Credential credential = getCredential(IDP_ENTITY_ID);
+
+		OpenSamlUtil.signObject(assertion, credential);
+
 		MockHttpServletRequest mockHttpServletRequest =
 			getMockHttpServletRequest("GET", ACS_URL);
 
 		SAMLMessageContext<?, ?, ?> samlMessageContext =
 			_webSsoProfileImpl.getSamlMessageContext(
 				mockHttpServletRequest, new MockHttpServletResponse());
-
-		Assertion assertion = OpenSamlUtil.buildAssertion();
-
-		Credential credential = getCredential(IDP_ENTITY_ID);
-
-		OpenSamlUtil.signObject(assertion, credential);
 
 		samlMessageContext.setPeerEntityId(IDP_ENTITY_ID);
 
@@ -333,18 +333,18 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 	public void testVerifyAssertionSignatureWrongSignature() throws Exception {
 		prepareServiceProvider(SP_ENTITY_ID);
 
+		Assertion assertion = OpenSamlUtil.buildAssertion();
+
+		Credential credential = getCredential(UNKNOWN_ENTITY_ID);
+
+		OpenSamlUtil.signObject(assertion, credential);
+
 		MockHttpServletRequest mockHttpServletRequest =
 			getMockHttpServletRequest("GET", ACS_URL);
 
 		SAMLMessageContext<?, ?, ?> samlMessageContext =
 			_webSsoProfileImpl.getSamlMessageContext(
 				mockHttpServletRequest, new MockHttpServletResponse());
-
-		Assertion assertion = OpenSamlUtil.buildAssertion();
-
-		Credential credential = getCredential(UNKNOWN_ENTITY_ID);
-
-		OpenSamlUtil.signObject(assertion, credential);
 
 		samlMessageContext.setPeerEntityId(IDP_ENTITY_ID);
 
@@ -357,15 +357,15 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 	public void testVerifyAudienceRestrictionsAllow() throws Exception {
 		prepareServiceProvider(SP_ENTITY_ID);
 
+		List<AudienceRestriction> audienceRestrictions =
+			new ArrayList<AudienceRestriction>();
+
 		MockHttpServletRequest mockHttpServletRequest =
 			getMockHttpServletRequest("GET", ACS_URL);
 
 		SAMLMessageContext<?, ?, ?> samlMessageContext =
 			_webSsoProfileImpl.getSamlMessageContext(
 				mockHttpServletRequest, new MockHttpServletResponse());
-
-		List<AudienceRestriction> audienceRestrictions =
-			new ArrayList<AudienceRestriction>();
 
 		AudienceRestriction audienceRestriction =
 			_webSsoProfileImpl.getSuccessAudienceRestriction(
@@ -381,13 +381,6 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 	public void testVerifyAudienceRestrictionsDeny() throws Exception {
 		prepareServiceProvider(SP_ENTITY_ID);
 
-		MockHttpServletRequest mockHttpServletRequest =
-			getMockHttpServletRequest("GET", ACS_URL);
-
-		SAMLMessageContext<?, ?, ?> samlMessageContext =
-			_webSsoProfileImpl.getSamlMessageContext(
-				mockHttpServletRequest, new MockHttpServletResponse());
-
 		List<AudienceRestriction> audienceRestrictions =
 			new ArrayList<AudienceRestriction>();
 
@@ -395,6 +388,13 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 			_webSsoProfileImpl.getSuccessAudienceRestriction(UNKNOWN_ENTITY_ID);
 
 		audienceRestrictions.add(audienceRestriction);
+
+		MockHttpServletRequest mockHttpServletRequest =
+			getMockHttpServletRequest("GET", ACS_URL);
+
+		SAMLMessageContext<?, ?, ?> samlMessageContext =
+			_webSsoProfileImpl.getSamlMessageContext(
+				mockHttpServletRequest, new MockHttpServletResponse());
 
 		_webSsoProfileImpl.verifyAudienceRestrictions(
 			audienceRestrictions, samlMessageContext);
