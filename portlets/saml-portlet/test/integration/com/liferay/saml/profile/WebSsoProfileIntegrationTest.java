@@ -261,9 +261,8 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 		EntityDescriptor entityDescriptor =
 			samlMessageContext.getLocalEntityMetadata();
 
-		SPSSODescriptor spSsoDescriptor =
-			(SPSSODescriptor)entityDescriptor.getSPSSODescriptor(
-				SAMLConstants.SAML20P_NS);
+		SPSSODescriptor spSsoDescriptor = entityDescriptor.getSPSSODescriptor(
+			SAMLConstants.SAML20P_NS);
 
 		spSsoDescriptor.setWantAssertionsSigned(false);
 
@@ -292,9 +291,8 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 		EntityDescriptor entityDescriptor =
 			samlMessageContext.getLocalEntityMetadata();
 
-		SPSSODescriptor spSsoDescriptor =
-			(SPSSODescriptor)entityDescriptor.getSPSSODescriptor(
-				SAMLConstants.SAML20P_NS);
+		SPSSODescriptor spSsoDescriptor = entityDescriptor.getSPSSODescriptor(
+			SAMLConstants.SAML20P_NS);
 
 		spSsoDescriptor.setWantAssertionsSigned(true);
 
