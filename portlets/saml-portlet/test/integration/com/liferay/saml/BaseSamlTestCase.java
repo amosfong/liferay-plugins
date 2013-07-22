@@ -95,7 +95,7 @@ public class BaseSamlTestCase extends PowerMockito {
 		setupMetadata();
 		setupPortal();
 		setupSamlBindings();
-		setupServiceMocks();
+		setupServices();
 
 		OpenSamlBootstrap.bootstrap();
 	}
@@ -104,13 +104,13 @@ public class BaseSamlTestCase extends PowerMockito {
 	public void tearDown() {
 		identifiers.clear();
 
-		for (Class<?> utilClass : serviceUtils) {
+		for (Class<?> serviceUtilClass : serviceUtilClasses) {
 			try {
-				Field field = utilClass.getDeclaredField("_service");
+				Field field = serviceUtilClass.getDeclaredField("_service");
 
 				field.setAccessible(true);
 
-				field.set(utilClass, null);
+				field.set(serviceUtilClass, null);
 			}
 			catch (Exception e) {
 			}
@@ -194,21 +194,21 @@ public class BaseSamlTestCase extends PowerMockito {
 		return mockHttpServletRequest;
 	}
 
-	protected <T> T mockPortletService(
-		Class<?> utilType, Class<T> serviceType) {
+	protected <T> T getMockService(
+		Class<?> serviceUtilClass, Class<T> serviceClass) {
 
-		serviceUtils.add(utilType);
+		serviceUtilClasses.add(serviceUtilClass);
 
-		T serviceMock = mock(serviceType);
+		T service = mock(serviceClass);
 
 		when(
 			portletBeanLocator.locate(
-				Mockito.eq(serviceType.getName()))
+				Mockito.eq(serviceClass.getName()))
 		).thenReturn(
-			serviceMock
+			service
 		);
 
-		return serviceMock;
+		return service;
 	}
 
 	protected void prepareIdentityProvider(String entityId) {
@@ -466,8 +466,8 @@ public class BaseSamlTestCase extends PowerMockito {
 			new HttpSoap11Binding(new BasicParserPool(), httpClient));
 	}
 
-	protected void setupServiceMocks() {
-		serviceUtils = new ArrayList<Class<?>>();
+	protected void setupServices() {
+		serviceUtilClasses = new ArrayList<Class<?>>();
 	}
 
 	protected static final String ACS_URL =
@@ -504,7 +504,7 @@ public class BaseSamlTestCase extends PowerMockito {
 	protected List<SamlBinding> samlBindings;
 	protected IdentifierGenerator samlIdentifierGenerator =
 		new SamlIdentifierGenerator();
-	protected List<Class<?>> serviceUtils;
+	protected List<Class<?>> serviceUtilClasses;
 
 	private class MockMetadataProvider extends DBMetadataProvider {
 

@@ -84,7 +84,7 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 
-		_samlSpAuthRequestLocalService = mockPortletService(
+		_samlSpAuthRequestLocalService = getMockService(
 			SamlSpAuthRequestLocalServiceUtil.class,
 			SamlSpAuthRequestLocalService.class);
 
