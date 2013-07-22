@@ -194,21 +194,6 @@ public class BaseSamlTestCase extends PowerMockito {
 		return mockHttpServletRequest;
 	}
 
-	protected <T> T mockPortalService(Class<?> utilType, Class<T> serviceType) {
-		serviceUtils.add(utilType);
-
-		T serviceMock = mock(serviceType);
-
-		when(
-			portalBeanLocator.locate(
-				Mockito.eq(serviceType.getName()))
-		).thenReturn(
-			serviceMock
-		);
-
-		return serviceMock;
-	}
-
 	protected <T> T mockPortletService(
 		Class<?> utilType, Class<T> serviceType) {
 
