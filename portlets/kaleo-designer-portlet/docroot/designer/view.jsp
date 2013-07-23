@@ -132,8 +132,7 @@
 				</c:if>
 
 				<aui:button-row>
-					<c:choose>
-					<c:when test="<%= editable %>">
+					<c:if test="<%= editable %>">
 						<c:choose>
 							<c:when test="<%= kaleoDraftDefinition == null %>">
 								<aui:button onClick='<%= renderResponse.getNamespace() + "addKaleoDraftDefinition();" %>' value="add-draft" />
@@ -146,80 +145,59 @@
 								</c:if>
 							</c:otherwise>
 						</c:choose>
-					</c:when>
-					<c:otherwise>
-						<aui:button onClick="Liferay.Util.getWindow().close();" value="close" />
-					</c:otherwise>
-				</c:choose>
+					</c:if>
 
 					<span class="lfr-portlet-workflowdesigner-message" id="<portlet:namespace />toolbarMessage"></span>
 				</aui:button-row>
 			</aui:fieldset>
 		</aui:form>
 
-		<div class="aui-diagram-builder" id="<portlet:namespace />diagramBuilder">
-			<div class="aui-diagram-builder-content aui-helper-clearfix" id="<portlet:namespace />diagramBuilderContent">
-				<div class="aui-diagram-builder-tabs">
-					<div class="aui-diagram-builder-tabs-content">
-						<ul class="aui-tabview-list aui-widget-hd">
-							<li class="aui-state-active aui-state-default aui-tab aui-tab-active">
-								<span class="aui-tab-content">
-									<a class="aui-tab-label" href="javascript:;">
-										<liferay-ui:message key="nodes" />
-									</a>
-								</span>
+		<div class="diagram-builder" id="<portlet:namespace />diagramBuilder">
+			<div class="diagram-builder-content" id="<portlet:namespace />diagramBuilderContent">
+				<div class="tabbable">
+					<div class="tabbable-content">
+						<ul class="nav nav-tabs">
+							<li class="active">
+								<a href="javascript:;">
+									<liferay-ui:message key="nodes" />
+								</a>
 							</li>
-							<li class="aui-state-default aui-tab">
-								<span class="aui-tab-content">
-									<a class="aui-tab-label" href="javascript:;">
-										<liferay-ui:message key="settings" />
-									</a>
-								</span>
+							<li>
+								<a href="javascript:;">
+									<liferay-ui:message key="settings" />
+								</a>
 							</li>
 						</ul>
 
-						<c:if test="<%= !editable %>">
-							<div class="portlet-msg-info">
-								<liferay-ui:message key="inspect-the-task-nodes-to-assign-a-form-template" />
-							</div>
-						</c:if>
-
-						<div class="aui-tabview-content aui-widget-bd">
-							<div class="aui-tabview-content-item"></div>
-
-							<div class="aui-helper-hidden aui-tabview-content-item"></div>
+						<div class="tab-content">
+							<div class="tab-pane"></div>
+							<div class="tab-pane"></div>
 						</div>
 					</div>
 				</div>
-
-				<div class="aui-diagram-builder-content-container">
-					<div class="aui-diagram-builder-content-tabs-container">
-						<div class="aui-diagram-builder-content-tabs-container-content">
-							<ul class="aui-tabview-list aui-widget-hd">
-								<li class="aui-state-active aui-state-default aui-tab aui-tab-active">
-									<span class="aui-tab-content">
-										<a class="aui-tab-label" href="javascript:;">
-											<liferay-ui:message key="view" />
-										</a>
-									</span>
+				<div class="diagram-builder-content-container">
+					<div class="tabbable">
+						<div class="tabbable-content">
+							<ul class="nav nav-tabs">
+								<li class="active">
+									<a href="javascript:;">
+										<liferay-ui:message key="view" />
+									</a>
 								</li>
-								<li class="aui-state-default aui-tab">
-									<span class="aui-tab-content">
-										<a class="aui-tab-label" href="javascript:;">
-											<liferay-ui:message key="source" /> (Kaleo <liferay-ui:message key="xml" />)
-										</a>
-									</span>
+								<li>
+									<a href="javascript:;">
+										<liferay-ui:message key="source" /> (Kaleo <liferay-ui:message key="xml" />)
+									</a>
 								</li>
 							</ul>
 
-							<div class="aui-tabview-content aui-widget-bd">
-								<div class="aui-tabview-content-item">
-									<div class="aui-diagram-builder-canvas">
-										<div class="aui-diagram-builder-drop-container"></div>
+							<div class="tab-content">
+								<div class="tab-pane">
+									<div class="diagram-builder-canvas">
+										<div class="diagram-builder-drop-container"></div>
 									</div>
 								</div>
-
-								<div class="aui-helper-hidden aui-tabview-content-item">
+								<div class="tab-pane">
 									<div class="lfr-template-editor-wrapper" id="<portlet:namespace/>editorWrapper"></div>
 								</div>
 							</div>
@@ -251,7 +229,7 @@
 				function(event) {
 					var A = AUI();
 
-					var tabContentNode = event.newVal.get('contentNode');
+					var tabContentNode = event.newVal.get('boundingBox');
 
 					var kaleoDesigner = <portlet:namespace />kaleoDesigner;
 
@@ -304,6 +282,8 @@
 				function(event, button) {
 					var A = AUI();
 
+					var button = event.target;
+
 					if (!button.get('disabled')) {
 						<portlet:namespace />navigateKaleoDraftDefinition(Infinity);
 					}
@@ -323,22 +303,28 @@
 							boundingBox: '#<portlet:namespace />kaleoDesignerToolbarContainer',
 							children: [
 								{
-									handler: <portlet:namespace />undoKaleoDraftDefinition,
-									icon: 'arrowreturn-1-l',
+									icon: 'icon-arrow-left',
 									id: '<portlet:namespace />undoButton',
-									label: '<liferay-ui:message key="undo" />'
+									label: '<liferay-ui:message key="undo" />',
+									on: {
+										click: <portlet:namespace />undoKaleoDraftDefinition
+									}
 								},
 								{
-									handler: <portlet:namespace />redoKaleoDraftDefinition,
-									icon: 'arrowreturn-1-r',
+									icon: 'icon-arrow-right',
 									id: '<portlet:namespace />redoButton',
-									label: '<liferay-ui:message key="redo" />'
+									label: '<liferay-ui:message key="redo" />',
+									on: {
+										click: <portlet:namespace />redoKaleoDraftDefinition
+									}
 								},
 								{
-									handler: <portlet:namespace />getLatestKaleoDraftDefinition,
-									icon: 'clock',
+									icon: 'icon-forward',
 									id: '<portlet:namespace />latestButton',
-									label: '<liferay-ui:message key="latest-version" />'
+									label: '<liferay-ui:message key="latest-version" />',
+									on: {
+										click: <portlet:namespace />getLatestKaleoDraftDefinition
+									}
 								},
 							]
 						}
@@ -424,8 +410,10 @@
 			Liferay.provide(
 				window,
 				'<portlet:namespace />redoKaleoDraftDefinition',
-				function(event, button) {
+				function(event) {
 					var A = AUI();
+
+					var button = event.target;
 
 					if (!button.get('disabled')) {
 						<portlet:namespace />navigateKaleoDraftDefinition(1);
@@ -452,8 +440,10 @@
 			Liferay.provide(
 				window,
 				'<portlet:namespace />undoKaleoDraftDefinition',
-				function(event, button) {
+				function(event) {
 					var A = AUI();
+
+					var button = event.target;
 
 					if (!button.get('disabled')) {
 						<portlet:namespace />navigateKaleoDraftDefinition(-1);
@@ -483,7 +473,7 @@
 
 					var content = A.one('#<portlet:namespace />content');
 
-					var activeTab = <portlet:namespace />kaleoDesigner.contentTabView.get('activeTab');
+					var activeTab = <portlet:namespace />kaleoDesigner.contentTabView.get('selection');
 
 					if (activeTab.get('contentNode') === <portlet:namespace />kaleoDesigner.sourceNode) {
 						content.val(<portlet:namespace />kaleoDesigner.editor.get('value'));
@@ -504,9 +494,9 @@
 					var draftVersion = Liferay.Util.toNumber(A.one('#<portlet:namespace />draftVersion').val());
 					var latestDraftVersion = Liferay.Util.toNumber(A.one('#<portlet:namespace />latestDraftVersion').val());
 
-					var latestButton = <portlet:namespace />kaleoDesignerToolbar.item('<portlet:namespace />latestButton');
-					var redoButton = <portlet:namespace />kaleoDesignerToolbar.item('<portlet:namespace />redoButton');
-					var undoButton = <portlet:namespace />kaleoDesignerToolbar.item('<portlet:namespace />undoButton');
+					var latestButton = <portlet:namespace />kaleoDesignerToolbar.item(2);
+					var redoButton = <portlet:namespace />kaleoDesignerToolbar.item(1);
+					var undoButton = <portlet:namespace />kaleoDesignerToolbar.item(0);
 
 					latestButton.set('disabled', (draftVersion === latestDraftVersion));
 
@@ -596,7 +586,7 @@
 
 			<portlet:namespace />kaleoDesigner.contentTabView.after(
 				{
-					activeTabChange: <portlet:namespace />afterTabViewChange
+					selectionChange: <portlet:namespace />afterTabViewChange
 				}
 			);
 
@@ -676,7 +666,7 @@
 
 					var inputName = inputNode.attr('name');
 
-					if (inputNode.hasClass('aui-forms-cell-editor-input')) {
+					if (inputNode.hasClass('forms-cell-editor-input')) {
 						if (inputName == 'templateName') {
 							createFormsAutocomplete(
 								inputNode,
@@ -684,7 +674,7 @@
 								function(event) {
 									var data = event.result.raw;
 
-									var formsEditor = A.Widget.getByNode(inputNode.ancestor('.aui-basecelleditor'));
+									var formsEditor = A.Widget.getByNode(inputNode.ancestor('.basecelleditor'));
 
 									var value = {
 										templateId: [data.templateId],
@@ -735,7 +725,7 @@
 						}
 					}
 				},
-				'.aui-forms-cell-editor-input, .aui-assignments-cell-editor-input'
+				'.forms-cell-editor-input, .assignments-cell-editor-input'
 			);
 
 			<c:choose>
@@ -837,43 +827,43 @@
 			var dialog = Liferay.Util.getWindow();
 
 			if (dialog) {
-				dialog.detach('close');
-
 				dialog.on(
-					'close',
+					'visibleChange',
 					function(event) {
-						<c:choose>
-							<c:when test="<%= (workflowDefinition != null) && !workflowDefinition.isActive() %>">
-								if (confirm('<liferay-ui:message key="do-you-want-to-publish-this-draft" />')) {
-									event.halt();
+						if (!event.newVal) {
+							<c:choose>
+								<c:when test="<%= (workflowDefinition != null) && !workflowDefinition.isActive() %>">
+									if (confirm('<liferay-ui:message key="do-you-want-to-publish-this-draft" />')) {
+										event.halt();
 
-									<portlet:namespace />publishKaleoDraftDefinition();
-								}
-							</c:when>
-							<c:otherwise>
-
-								<%
-								boolean refreshOpenerOnClose = ParamUtil.getBoolean(request, "refreshOpenerOnClose");
-								%>
-
-								<c:if test="<%= Validator.isNotNull(portletResourceNamespace) && refreshOpenerOnClose %>">
+										<portlet:namespace />publishKaleoDraftDefinition();
+									}
+								</c:when>
+								<c:otherwise>
 
 									<%
-									String openerWindowName = ParamUtil.getString(request, "openerWindowName");
+									boolean refreshOpenerOnClose = ParamUtil.getBoolean(request, "refreshOpenerOnClose");
 									%>
 
-									var openerWindow = Liferay.Util.getTop();
+									<c:if test="<%= Validator.isNotNull(portletResourceNamespace) && refreshOpenerOnClose %>">
 
-									<c:if test="<%= Validator.isNotNull(openerWindowName) %>">
-										var openerDialog = Liferay.Util.getWindow('<%= HtmlUtil.escapeJS(openerWindowName) %>');
+										<%
+										String openerWindowName = ParamUtil.getString(request, "openerWindowName");
+										%>
 
-										openerWindow = openerDialog.iframe.node.get('contentWindow').getDOM();
+										var openerWindow = Liferay.Util.getTop();
+
+										<c:if test="<%= Validator.isNotNull(openerWindowName) %>">
+											var openerDialog = Liferay.Util.getWindow('<%= HtmlUtil.escapeJS(openerWindowName) %>');
+
+											openerWindow = openerDialog.iframe.node.get('contentWindow').getDOM();
+										</c:if>
+
+										openerWindow.Liferay.Portlet.refresh('#p_p_id<%= HtmlUtil.escapeJS(portletResourceNamespace) %>');
 									</c:if>
-
-									openerWindow.Liferay.Portlet.refresh('#p_p_id<%= HtmlUtil.escapeJS(portletResourceNamespace) %>');
-								</c:if>
-							</c:otherwise>
-						</c:choose>
+								</c:otherwise>
+							</c:choose>
+						}
 					}
 				);
 			}

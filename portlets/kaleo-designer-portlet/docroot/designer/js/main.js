@@ -161,6 +161,7 @@ AUI.add(
 			freemarker: Liferay.Language.get('freemarker'),
 			groovy: Liferay.Language.get('groovy'),
 			im: Liferay.Language.get('instant-messenger'),
+			inspectTaskMessage: Liferay.Language.get('inspect-the-task-nodes-to-assign-a-form-template'),
 			initial: Liferay.Language.get('Initial'),
 			javascript: Liferay.Language.get('javascript'),
 			language: Liferay.Language.get('language'),
@@ -640,30 +641,25 @@ AUI.add(
 						return buffer.join(STR_BLANK);
 					},
 
-					_afterActiveContentTabChange: function(event) {
+					_afterRenderKaleoDesigner: function() {
 						var instance = this;
-						var tabContentNode = event.newVal.get('contentNode');
+
+						instance.connectDefinitionFields();
+
+						instance.canvasRegion = instance.canvas.get('region');
+					},
+
+					_afterSelectionChangeKaleoDesigner: function(event) {
+						var instance = this;
+						var tabContentNode = event.newVal.get('boundingBox');
 
 						if (instance.get('rendered')) {
 							instance.stopEditing();
 
 							if (tabContentNode === instance.sourceNode) {
-								instance.canvasRegion = instance.canvas.get('region');
-
-								setTimeout(
-									function() {
-										instance.showEditor();
-									},
-									0
-								);
+								instance.showEditor();
 							}
 						}
-					},
-
-					_afterRenderKaleoDesigner: function() {
-						var instance = this;
-
-						instance.connectDefinitionFields();
 					},
 
 					_appendXMLActions: function(buffer, data) {
@@ -1292,8 +1288,8 @@ AUI.add(
 
 							contentTabView.render();
 
-							instance.viewNode = contentTabView.getTab(0).get('contentNode');
-							instance.sourceNode = contentTabView.getTab(1).get('contentNode');
+							instance.viewNode = contentTabView.item(0).get('boundingBox');
+							instance.sourceNode = contentTabView.item(1).get('boundingBox');
 
 							instance.contentTabView = contentTabView;
 						}
@@ -1322,17 +1318,17 @@ AUI.add(
 
 						var boundingBox = instance.get('boundingBox');
 
-						var contentTabListNode = boundingBox.one('.aui-diagram-builder-content-tabs-container .aui-tabview-list');
+						var contentTabListNode = boundingBox.one('.tabbable .nav-tabs');
 
 						var defaultValue = {
 							after: {
-								activeTabChange: A.bind(instance._afterActiveContentTabChange, instance)
+								selectionChange: A.bind(instance._afterSelectionChangeKaleoDesigner, instance)
 							},
-							boundingBox: boundingBox.one('.aui-diagram-builder-content-tabs-container'),
+							boundingBox: boundingBox.one('.tabbable'),
 							bubbleTargets: instance,
-							contentBox: boundingBox.one('.aui-diagram-builder-content-tabs-container-content'),
-							contentNode: boundingBox.one('.aui-diagram-builder-content-tabs-container-content .aui-tabview-content'),
-							cssClass: 'aui-diagram-builder-content-tabs-container',
+							contentBox: boundingBox.one('.tabbable .tabbable-content'),
+							contentNode: boundingBox.one('.tabbable .tabbable-content .tabview-content'),
+							cssClass: 'tabbable',
 							listNode: contentTabListNode
 						};
 
@@ -1444,6 +1440,21 @@ AUI.add(
 						return fields;
 					},
 
+					_uiSetAvailableFields: function(val) {
+						var instance = this;
+						var disabled = instance.get('disabled');
+						var fieldsNode = instance.fieldsNode;
+
+						if (fieldsNode) {
+							if (disabled) {
+								fieldsNode.html('<div class="alert alert-info">' + KaleoDesignerStrings.inspectTaskMessage + '</div>');
+							}
+							else {
+								KaleoDesigner.superclass._uiSetAvailableFields.apply(this, arguments);
+							}
+						}
+					},
+
 					_uiSetDefinition: function(val) {
 						var instance = this;
 
@@ -1484,7 +1495,7 @@ AUI.add(
 					initializer: function() {
 						var instance = this;
 
-						instance.get('boundingBox').delegate('click', A.bind(instance._onClickViewMenu, instance), '.aui-celleditor-view-menu a');
+						instance.get('boundingBox').delegate('click', A.bind(instance._onClickViewMenu, instance), '.celleditor-view-menu a');
 
 						instance.after('visibleChange', instance._afterEditorVisibleChange);
 					},
@@ -1498,17 +1509,19 @@ AUI.add(
 
 						var strings = instance.getStrings();
 
-						instance.toolbar.add(
+						instance.addSectionButton = new A.Button(
 							{
 								disabled: true,
-								handler: A.bind(instance.handleAddViewSection, instance),
-								icon: 'circle-plus',
+								icon: 'icon-plus-sign',
 								id: 'addSectionButton',
-								label: strings.addSection
+								label: strings.addSection,
+								on: {
+									click: A.bind(instance.handleAddViewSection, instance)
+								}
 							}
-						);
+						).render();
 
-						instance.addSectionButton = instance.toolbar.item('addSectionButton');
+						instance.toolbar.add([instance.addSectionButton]);
 					},
 
 					getValue: function() {
@@ -1584,8 +1597,8 @@ AUI.add(
 					_onClickViewMenu: function(event) {
 						var anchor = event.currentTarget;
 
-						if (anchor.hasClass('aui-celleditor-view-menu-remove')) {
-							anchor.ancestor('.aui-celleditor-view').remove();
+						if (anchor.hasClass('celleditor-view-menu-remove')) {
+							anchor.ancestor('.celleditor-view').remove();
 						}
 
 						event.halt();
@@ -2049,8 +2062,10 @@ AUI.add(
 						instance.setStdModContent(WidgetStdMod.BODY, buffer.join(STR_BLANK), WidgetStdMod.AFTER);
 					},
 
-					handleAddViewSection: function(event, button) {
+					handleAddViewSection: function(event) {
 						var instance = this;
+
+						var button = event.target;
 
 						if (!button.get('disabled')) {
 							var viewId = instance.viewId;
@@ -2422,7 +2437,7 @@ AUI.add(
 					getEditRecipientsLinks: function() {
 						var instance = this;
 
-						return instance.get('boundingBox').all('.aui-celleditor-view-menu-edit-recipients');
+						return instance.get('boundingBox').all('.celleditor-view-menu-edit-recipients');
 					},
 
 					getRecipientsEditor: function(anchor) {
@@ -2443,7 +2458,7 @@ AUI.add(
 											editor.set('value', editor.getValue());
 										}
 									},
-									render: anchor.ancestor('.aui-basecelleditor'),
+									render: anchor.ancestor('.basecelleditor'),
 									visible: false
 								}
 							);
@@ -2482,8 +2497,10 @@ AUI.add(
 						);
 					},
 
-					handleAddViewSection: function(event, button) {
+					handleAddViewSection: function(event) {
 						var instance = this;
+
+						var button = event.target;
 
 						if (!button.get('disabled')) {
 							var viewId = instance.viewId;
@@ -2537,7 +2554,7 @@ AUI.add(
 
 						NotificationsEditor.superclass._onClickViewMenu.apply(this, arguments);
 
-						if (event.currentTarget.test('.aui-celleditor-view-menu-edit-recipients')) {
+						if (event.currentTarget.test('.celleditor-view-menu-edit-recipients')) {
 							instance._onClickEditRecipientsMenu(event);
 						}
 
@@ -2715,8 +2732,10 @@ AUI.add(
 						instance.addActionView(instance._countActionViews(val));
 					},
 
-					handleAddViewSection: function(event, button) {
+					handleAddViewSection: function(event) {
 						var instance = this;
+
+						var button = event.target;
 
 						if (!button.get('disabled')) {
 							var viewId = instance.viewId;
@@ -3318,37 +3337,37 @@ AUI.add(
 		KaleoDesigner.AVAILABLE_FIELDS = {
 			DEFAULT: [
 				{
-					iconClass: 'aui-diagram-node-condition-icon',
+					iconClass: 'diagram-node-condition-icon',
 					label: Liferay.Language.get('condition'),
 					type: 'condition'
 				},
 				{
-					iconClass: 'aui-diagram-node-end-icon',
+					iconClass: 'diagram-node-end-icon',
 					label: Liferay.Language.get('end'),
 					type: 'end'
 				},
 				{
-					iconClass: 'aui-diagram-node-fork-icon',
+					iconClass: 'diagram-node-fork-icon',
 					label: Liferay.Language.get('fork'),
 					type: 'fork'
 				},
 				{
-					iconClass: 'aui-diagram-node-join-icon',
+					iconClass: 'diagram-node-join-icon',
 					label: Liferay.Language.get('join'),
 					type: 'join'
 				},
 				{
-					iconClass: 'aui-diagram-node-start-icon',
+					iconClass: 'diagram-node-start-icon',
 					label: Liferay.Language.get('start'),
 					type: 'start'
 				},
 				{
-					iconClass: 'aui-diagram-node-state-icon',
+					iconClass: 'diagram-node-state-icon',
 					label: Liferay.Language.get('state'),
 					type: 'state'
 				},
 				{
-					iconClass: 'aui-diagram-node-task-icon',
+					iconClass: 'diagram-node-task-icon',
 					label: Liferay.Language.get('task'),
 					type: 'task'
 				}
@@ -3491,6 +3510,6 @@ AUI.add(
 	},
 	'',
 	{
-		requires: ['aui-ace-editor', 'aui-ace-editor-mode-xml', 'aui-diagram-builder', 'aui-tpl-snippets', 'autocomplete', 'autocomplete-highlighters', 'datasource', 'datatype-xml', 'dataschema-xml', 'event-valuechange', 'io-form']
+		requires: ['aui-ace-editor', 'aui-ace-editor-mode-xml', 'aui-diagram-builder', 'aui-tpl-snippets-deprecated', 'autocomplete', 'autocomplete-highlighters', 'datasource', 'datatype-xml', 'dataschema-xml', 'event-valuechange', 'io-form', 'liferay-util-window']
 	}
 );

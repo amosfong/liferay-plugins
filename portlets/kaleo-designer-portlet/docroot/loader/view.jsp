@@ -50,9 +50,7 @@
 				var region = A.one(Liferay.Util.getOpener()).get('region');
 
 				dialogConfig = {
-					modal: true,
-					title: config.name,
-					width: region.width * 0.85
+					destroyOnHide: true
 				};
 
 				config.dialog = dialogConfig;
