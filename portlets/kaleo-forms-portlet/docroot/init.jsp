@@ -55,15 +55,18 @@ page import="com.liferay.portal.kernel.workflow.WorkflowTask" %><%@
 page import="com.liferay.portal.kernel.workflow.WorkflowTaskDueDateException" %><%@
 page import="com.liferay.portal.kernel.workflow.WorkflowTaskManagerUtil" %><%@
 page import="com.liferay.portal.kernel.workflow.comparator.WorkflowComparatorFactoryUtil" %><%@
+page import="com.liferay.portal.model.Portlet" %><%@
 page import="com.liferay.portal.model.Role" %><%@
 page import="com.liferay.portal.model.User" %><%@
 page import="com.liferay.portal.model.WorkflowDefinitionLink" %><%@
 page import="com.liferay.portal.security.auth.PrincipalException" %><%@
+page import="com.liferay.portal.service.PortletLocalServiceUtil" %><%@
 page import="com.liferay.portal.service.RoleLocalServiceUtil" %><%@
 page import="com.liferay.portal.service.UserLocalServiceUtil" %><%@
 page import="com.liferay.portal.service.WorkflowDefinitionLinkLocalServiceUtil" %><%@
 page import="com.liferay.portal.service.WorkflowInstanceLinkLocalServiceUtil" %><%@
 page import="com.liferay.portal.util.PortalUtil" %><%@
+page import="com.liferay.portal.util.PortletKeys" %><%@
 page import="com.liferay.portal.workflow.kaleo.designer.service.KaleoDraftDefinitionLocalServiceUtil" %><%@
 page import="com.liferay.portal.workflow.kaleo.forms.KaleoProcessDDMTemplateIdException" %><%@
 page import="com.liferay.portal.workflow.kaleo.forms.NoSuchKaleoProcessException" %><%@
@@ -77,6 +80,7 @@ page import="com.liferay.portal.workflow.kaleo.forms.service.permission.KaleoFor
 page import="com.liferay.portal.workflow.kaleo.forms.service.permission.KaleoProcessPermission" %><%@
 page import="com.liferay.portal.workflow.kaleo.forms.util.ActionKeys" %><%@
 page import="com.liferay.portal.workflow.kaleo.forms.util.WebKeys" %><%@
+page import="com.liferay.portlet.PortletURLFactoryUtil" %><%@
 page import="com.liferay.portlet.dynamicdatalists.RecordSetDDMStructureIdException" %><%@
 page import="com.liferay.portlet.dynamicdatalists.RecordSetNameException" %><%@
 page import="com.liferay.portlet.dynamicdatalists.model.DDLRecord" %><%@
@@ -101,7 +105,8 @@ page import="com.liferay.util.PwdGenerator" %>
 page import="java.util.List" %><%@
 page import="java.util.Map" %>
 
-<%@ page import="javax.portlet.PortletURL" %>
+<%@ page import="javax.portlet.PortletRequest" %><%@
+page import="javax.portlet.PortletURL" %>
 
 <portlet:defineObjects />
 

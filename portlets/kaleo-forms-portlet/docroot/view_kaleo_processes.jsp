@@ -68,7 +68,7 @@ String tabs1 = ParamUtil.getString(request, "tabs1");
 	<liferay-ui:search-iterator />
 </liferay-ui:search-container>
 
-<div class="aui-helper-hidden" id="<portlet:namespace />export-process">
+<div class="hide" id="<portlet:namespace />export-process">
 	<aui:select label="file-extension" name="fileExtension">
 		<aui:option value="csv">CSV</aui:option>
 		<aui:option value="xml">XML</aui:option>

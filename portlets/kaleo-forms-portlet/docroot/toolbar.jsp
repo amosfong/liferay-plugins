@@ -20,24 +20,22 @@
 String toolbarItem = ParamUtil.getString(request, "toolbarItem", "view-all");
 %>
 
-<div class="lfr-portlet-toolbar">
-	<portlet:renderURL var="viewProcessURL">
-		<portlet:param name="tabs1" value="processes" />
-	</portlet:renderURL>
-
-	<span class="lfr-toolbar-button view-button <%= toolbarItem.equals("view-all") ? "current" : StringPool.BLANK %>">
-		<a href="<%= viewProcessURL %>"><liferay-ui:message key="view-all" /></a>
-	</span>
-
-	<c:if test="<%= KaleoFormsPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_PROCESS) %>">
-		<portlet:renderURL var="addProcessURL">
-			<portlet:param name="mvcPath" value="/edit_kaleo_process.jsp" />
-			<portlet:param name="redirect" value="<%= currentURL %>" />
-			<portlet:param name="backURL" value="<%= currentURL %>" />
+<aui:nav-bar>
+	<aui:nav>
+		<portlet:renderURL var="viewProcessURL">
+			<portlet:param name="tabs1" value="processes" />
 		</portlet:renderURL>
 
-		<span class="lfr-toolbar-button add-button <%= toolbarItem.equals("add") ? "current" : StringPool.BLANK %>">
-			<a href="<%= addProcessURL %>"><liferay-ui:message key="add" /></a>
-		</span>
-	</c:if>
-</div>
+		<aui:nav-item href="<%= viewProcessURL %>" label="view-all" selected='<%= toolbarItem.equals("view-all") %>' />
+
+		<c:if test="<%= KaleoFormsPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_PROCESS) %>">
+			<portlet:renderURL var="addProcessURL">
+				<portlet:param name="mvcPath" value="/edit_kaleo_process.jsp" />
+				<portlet:param name="redirect" value="<%= currentURL %>" />
+				<portlet:param name="backURL" value="<%= currentURL %>" />
+			</portlet:renderURL>
+
+			<aui:nav-item href="<%= addProcessURL %>" iconClass="icon-plus" label="add" selected='<%= toolbarItem.equals("add") %>' />
+		</c:if>
+	</aui:nav>
+</aui:nav-bar>

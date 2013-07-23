@@ -10,10 +10,6 @@
 			<value>true</value>
 		</init-param>
 		<init-param>
-			<name>ddm-resource</name>
-			<value>com.liferay.portal.workflow.kaleo.forms</value>
-		</init-param>
-		<init-param>
 			<name>view-template</name>
 			<value>/view.jsp</value>
 		</init-param>

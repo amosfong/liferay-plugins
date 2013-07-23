@@ -136,7 +136,7 @@ headerTitle = headerTitle.concat(StringPool.COLON + StringPool.SPACE + ddlRecord
 								<c:when test="<%= workflowTask.getDueDate() == null %>">
 									<liferay-ui:search-container-column-text
 										name="due-date"
-										value="<%= LanguageUtil.get(pageContext, "never") %>"
+										value='<%= LanguageUtil.get(pageContext, "never") %>'
 									/>
 								</c:when>
 								<c:otherwise>

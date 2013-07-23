@@ -193,28 +193,22 @@ if (kaleoProcess != null) {
 		<portlet:namespace />selectWorkflowDefinition(workflowDefinitionName, workflowDefinitionVersion);
 	}
 
-	function <portlet:namespace />openDDMPortlet(strutsAction, ddmStructureId, ddmTemplateId, chooseCallback, saveCallback) {
+	function <portlet:namespace />openDDMPortlet(strutsAction, ddmStructureId, ddmTemplateId, eventName, saveCallback) {
 		Liferay.Util.openDDMPortlet(
 			{
+				basePortletURL: '<%= PortletURLFactoryUtil.create(request, PortletKeys.DYNAMIC_DATA_MAPPING, themeDisplay.getPlid(), PortletRequest.RENDER_PHASE) %>',
 				classNameId: <%= PortalUtil.getClassNameId(DDMStructure.class) %>,
 				classPK: ddmStructureId,
-				chooseCallback: chooseCallback,
-				ddmResource: '<%= portletConfig.getInitParameter("ddm-resource") %>',
 				dialog: {
-					width:820
+					destroyOnHide: true
 				},
-				saveCallback: saveCallback,
-				showManageTemplates: 'false',
-				storageType: 'xml',
-				structureName: 'entry-definition',
-				structureType: 'com.liferay.portlet.dynamicdatalists.model.DDLRecordSet',
+				eventName: eventName,
+				refererPortletName: '<%= portletDisplay.getId() %>',
 				struts_action: strutsAction,
-				templateHeaderTitle: 'forms-for-entry-x',
 				templateId: ddmTemplateId,
-				templateMode: 'create',
-				templateType: 'detail',
 				title: '<liferay-ui:message key="entry-definitions" />'
-			}
+			},
+			saveCallback
 		);
 	}
 
@@ -350,12 +344,12 @@ if (kaleoProcess != null) {
 	Liferay.provide(
 		window,
 		'<portlet:namespace />selectDDMStructure',
-		function(ddmStructureId, ddmStructureName, dialog) {
+		function(event, dialog) {
 			var A = AUI();
 
-			A.one('#<portlet:namespace />ddmStructureId').val(ddmStructureId);
-			A.one('#<portlet:namespace />ddmStructureName').val(ddmStructureName);
-			A.one('#<portlet:namespace />selectDDMStructureDisplay').html(ddmStructureName);
+			A.one('#<portlet:namespace />ddmStructureId').val(event.ddmstructureid);
+			A.one('#<portlet:namespace />ddmStructureName').val(event.name);
+			A.one('#<portlet:namespace />selectDDMStructureDisplay').html(event.name);
 
 			A.one('#<portlet:namespace />workflowDefinition').val('');
 			A.one('#<portlet:namespace />workflowDefinitionName').val('');
@@ -380,15 +374,15 @@ if (kaleoProcess != null) {
 	Liferay.provide(
 		window,
 		'<portlet:namespace />selectDDMTemplate',
-		function(ddmTemplateId, ddmTemplateName, dialog) {
+		function(event, dialog) {
 			var A = AUI();
 
-			A.one('#<portlet:namespace />ddmTemplateId').val(ddmTemplateId);
-			A.one('#<portlet:namespace />ddmTemplateName').val(ddmTemplateName);
-			A.one('#<portlet:namespace />selectDDMTemplateDisplay').html(ddmTemplateName);
+			A.one('#<portlet:namespace />ddmTemplateId').val(event.ddmtemplateid);
+			A.one('#<portlet:namespace />ddmTemplateName').val(event.name);
+			A.one('#<portlet:namespace />selectDDMTemplateDisplay').html(event.name);
 
 			if (dialog) {
-				dialog.close();
+				dialog.hide();
 			}
 		},
 		['aui-base']
@@ -416,7 +410,7 @@ if (kaleoProcess != null) {
 			);
 
 			if (dialog) {
-				dialog.close();
+				dialog.hide();
 			}
 		},
 		['aui-base']
@@ -426,14 +420,14 @@ if (kaleoProcess != null) {
 <aui:script use="aui-base">
 	var SelectionClickActions = {
 		'<portlet:namespace />selectDDMStructure': function(event) {
-			<portlet:namespace />openDDMPortlet('', '', '', '<portlet:namespace />selectDDMStructure', '<portlet:namespace />selectDDMStructure');
+			<portlet:namespace />openDDMPortlet('/dynamic_data_mapping/select_structure', '', '', 'selectStructure', <portlet:namespace />selectDDMStructure);
 		},
 
 		'<portlet:namespace />selectDDMStructureDisplay': function(event) {
 			var ddmStructureId = Liferay.Util.toNumber(A.one('#<portlet:namespace />ddmStructureId').val());
 
 			if (ddmStructureId) {
-				<portlet:namespace />openDDMPortlet('/dynamic_data_mapping/edit_structure', ddmStructureId, '', '<portlet:namespace />selectDDMStructure', '<portlet:namespace />selectDDMStructure');
+				<portlet:namespace />openDDMPortlet('/dynamic_data_mapping/edit_structure', ddmStructureId, '', 'selectStructure', <portlet:namespace />selectDDMStructure);
 			}
 		},
 
@@ -441,7 +435,7 @@ if (kaleoProcess != null) {
 			var ddmStructureId = Liferay.Util.toNumber(A.one('#<portlet:namespace />ddmStructureId').val());
 
 			if (ddmStructureId) {
-				<portlet:namespace />openDDMPortlet('/dynamic_data_mapping/view_template', ddmStructureId, '', '<portlet:namespace />selectDDMTemplate');
+				<portlet:namespace />openDDMPortlet('/dynamic_data_mapping/select_template', ddmStructureId, '', 'selectTemplate', <portlet:namespace />selectDDMTemplate);
 			}
 		},
 
@@ -450,7 +444,7 @@ if (kaleoProcess != null) {
 			var ddmTemplateId = Liferay.Util.toNumber(A.one('#<portlet:namespace />ddmTemplateId').val());
 
 			if (ddmStructureId && ddmTemplateId) {
-				<portlet:namespace />openDDMPortlet('/dynamic_data_mapping/edit_template', ddmStructureId, ddmTemplateId, '<portlet:namespace />selectDDMTemplate');
+				<portlet:namespace />openDDMPortlet('/dynamic_data_mapping/edit_template', ddmStructureId, ddmTemplateId, 'selectTemplate', <portlet:namespace />selectDDMTemplate);
 			}
 		},
 
@@ -466,9 +460,8 @@ if (kaleoProcess != null) {
 				Liferay.Util.openWindow(
 					{
 						dialog: {
-							width: 600
+							destroyOnHide: true
 						},
-						modal: true,
 						title: '<liferay-ui:message key="workflow-definitions" />',
 						uri: '<%= workflowDefinitionURL %>&ddmStructureId='+ddmStructureId
 					}

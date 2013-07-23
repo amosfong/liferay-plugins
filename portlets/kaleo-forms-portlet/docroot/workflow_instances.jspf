@@ -72,13 +72,12 @@ portletURL.setParameter("tabs2", tabs2);
 		List<WorkflowLog> workflowLogs = WorkflowLogManagerUtil.getWorkflowLogsByWorkflowInstance(company.getCompanyId(), workflowInstance.getWorkflowInstanceId(), null, 0, 1, WorkflowComparatorFactoryUtil.getLogCreateDateComparator());
 		%>
 
-
 		<c:choose>
 			<c:when test="<%= workflowLogs.isEmpty() %>">
 				<liferay-ui:search-container-column-text
 					href="<%= rowURL %>"
 					name="last-activity-date"
-					value="<%= LanguageUtil.get(pageContext, "never") %>"
+					value='<%= LanguageUtil.get(pageContext, "never") %>'
 				/>
 			</c:when>
 			<c:otherwise>
@@ -99,7 +98,7 @@ portletURL.setParameter("tabs2", tabs2);
 			<c:when test="<%= workflowInstance.getEndDate() == null %>">
 				<liferay-ui:search-container-column-text
 					name="end-date"
-					value="<%= LanguageUtil.get(pageContext, "never") %>"
+					value='<%= LanguageUtil.get(pageContext, "never") %>'
 				/>
 			</c:when>
 			<c:otherwise>

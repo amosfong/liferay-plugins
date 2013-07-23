@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
-<!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 6.1.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_6_1_0.dtd">
+<!DOCTYPE liferay-portlet-app PUBLIC "-//Liferay//DTD Portlet Application 6.2.0//EN" "http://www.liferay.com/dtd/liferay-portlet-app_6_2_0.dtd">
 
 <liferay-portlet-app>
 	<portlet>
 		<portlet-name>1</portlet-name>
+		<ddm-display>com.liferay.portal.workflow.kaleo.forms.ddm.KaleoFormsDDMDisplay</ddm-display>
 		<workflow-handler>com.liferay.portal.workflow.kaleo.forms.workflow.KaleoProcessWorkflowHandler</workflow-handler>
 		<instanceable>false</instanceable>
 		<header-portal-css>/html/portlet/workflow_definitions/css/main.css</header-portal-css>
