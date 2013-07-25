@@ -40,8 +40,8 @@ public class SyncMessageListener extends BaseMessageListener {
 
 		if (event.equals(DLSyncConstants.EVENT_DELETE)) {
 			SyncDLObjectLocalServiceUtil.addSyncDLObject(
-				0, modifiedDate, typePK, StringPool.BLANK, type, 0, 0, 
-				StringPool.BLANK, StringPool.BLANK, StringPool.BLANK, event, 0, 
+				0, modifiedDate, typePK, StringPool.BLANK, type, 0, 0,
+				StringPool.BLANK, StringPool.BLANK, StringPool.BLANK, event, 0,
 				StringPool.BLANK, 0, StringPool.BLANK);
 		}
 		else if (type.equals(DLSyncConstants.TYPE_FILE)) {
@@ -74,11 +74,11 @@ public class SyncMessageListener extends BaseMessageListener {
 
 				SyncDLObjectLocalServiceUtil.addSyncDLObject(
 					dlFileVersion.getCompanyId(), modifiedDate,
-					fileEntry.getFileEntryId(), fileEntry.getUuid(), type, 
-					dlFileVersion.getRepositoryId(), 
+					fileEntry.getFileEntryId(), fileEntry.getUuid(), type,
+					dlFileVersion.getRepositoryId(),
 					dlFileVersion.getFolderId(), dlFileVersion.getTitle(),
 					dlFileVersion.getDescription(), checksum, event, lockUserId,
-					lockUserName, dlFileVersion.getSize(), 
+					lockUserName, dlFileVersion.getSize(),
 					dlFileVersion.getVersion());
 			}
 			else {
@@ -86,10 +86,10 @@ public class SyncMessageListener extends BaseMessageListener {
 
 				SyncDLObjectLocalServiceUtil.addSyncDLObject(
 					fileEntry.getCompanyId(), modifiedDate,
-					fileEntry.getFileEntryId(), fileEntry.getUuid(), type, 
+					fileEntry.getFileEntryId(), fileEntry.getUuid(), type,
 					fileEntry.getRepositoryId(), fileEntry.getFolderId(),
 					fileEntry.getTitle(), fileEntry.getDescription(), checksum,
-					event, lockUserId, lockUserName, fileEntry.getSize(), 
+					event, lockUserId, lockUserName, fileEntry.getSize(),
 					fileEntry.getVersion());
 			}
 		}

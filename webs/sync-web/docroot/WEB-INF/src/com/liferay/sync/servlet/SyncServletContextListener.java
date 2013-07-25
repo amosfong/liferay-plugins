@@ -81,7 +81,7 @@ public class SyncServletContextListener
 			long latestModifiedDate =
 				SyncDLObjectLocalServiceUtil.getLatestModifiedDate();
 
-			List<DLSyncEvent> dlSyncEvents;
+			List<DLSyncEvent> dlSyncEvents = null;
 
 			if (latestModifiedDate == 0) {
 				dlSyncEvents =

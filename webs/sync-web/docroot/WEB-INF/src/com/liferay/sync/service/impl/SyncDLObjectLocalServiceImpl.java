@@ -14,8 +14,6 @@
 
 package com.liferay.sync.service.impl;
 
-import java.util.List;
-
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.Projection;
@@ -27,6 +25,8 @@ import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
 import com.liferay.sync.model.SyncDLObject;
 import com.liferay.sync.service.base.SyncDLObjectLocalServiceBaseImpl;
 
+import java.util.List;
+
 /**
  * @author Michael Young
  * @author Dennis Ju
@@ -35,9 +35,9 @@ public class SyncDLObjectLocalServiceImpl
 	extends SyncDLObjectLocalServiceBaseImpl {
 
 	public SyncDLObject addSyncDLObject(
-			long companyId, long modifiedDate, long typePK, String typeUuid, 
+			long companyId, long modifiedDate, long typePK, String typeUuid,
 			String type, long repositoryId, long parentFolderId, String name,
-			String description, String checksum, String event, long lockUserId, 
+			String description, String checksum, String event, long lockUserId,
 			String lockUserName, long size, String version)
 		throws PortalException, SystemException {
 
@@ -84,14 +84,14 @@ public class SyncDLObjectLocalServiceImpl
 	}
 
 	@Override
-	public long getLatestModifiedDate() 
+	public long getLatestModifiedDate()
 		throws PortalException, SystemException {
-		
+
 		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 			SyncDLObject.class);
 
 		Projection projection = ProjectionFactoryUtil.max("modifiedDate");
-		
+
 		dynamicQuery.setProjection(projection);
 
 		List<Long> modifiedDates =
