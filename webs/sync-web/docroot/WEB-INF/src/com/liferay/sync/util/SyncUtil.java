@@ -65,11 +65,15 @@ public class SyncUtil {
 		syncDLObject.setCompanyId(fileEntry.getCompanyId());
 		syncDLObject.setCreateDate(fileEntry.getCreateDate().getTime());
 		syncDLObject.setModifiedDate(fileEntry.getModifiedDate().getTime());
+		syncDLObject.setTypePK(fileEntry.getFileEntryId());
+		syncDLObject.setTypeUuid(fileEntry.getUuid());
+		syncDLObject.setType(DLSyncConstants.TYPE_FILE);
 		syncDLObject.setRepositoryId(fileEntry.getRepositoryId());
 		syncDLObject.setParentFolderId(fileEntry.getFolderId());
 		syncDLObject.setName(fileEntry.getTitle());
 		syncDLObject.setDescription(fileEntry.getDescription());
 		syncDLObject.setChecksum(getChecksum(fileEntry));
+		syncDLObject.setEvent(event);
 
 		Lock lock = fileEntry.getLock();
 
@@ -83,9 +87,6 @@ public class SyncUtil {
 		}
 
 		syncDLObject.setSize(fileEntry.getSize());
-		syncDLObject.setType(DLSyncConstants.TYPE_FILE);
-		syncDLObject.setTypePK(fileEntry.getFileEntryId());
-		syncDLObject.setTypeUuid(fileEntry.getUuid());
 		syncDLObject.setVersion(fileEntry.getVersion());
 
 		return syncDLObject;
@@ -97,17 +98,18 @@ public class SyncUtil {
 		syncDLObject.setCompanyId(folder.getCompanyId());
 		syncDLObject.setCreateDate(folder.getCreateDate().getTime());
 		syncDLObject.setModifiedDate(folder.getModifiedDate().getTime());
+		syncDLObject.setTypePK(folder.getFolderId());
+		syncDLObject.setTypeUuid(folder.getUuid());
+		syncDLObject.setType(DLSyncConstants.TYPE_FOLDER);
 		syncDLObject.setRepositoryId(folder.getRepositoryId());
 		syncDLObject.setParentFolderId(folder.getParentFolderId());
 		syncDLObject.setName(folder.getName());
 		syncDLObject.setDescription(folder.getDescription());
 		syncDLObject.setChecksum(StringPool.BLANK);
+		syncDLObject.setEvent(event);
 		syncDLObject.setLockUserId(0);
 		syncDLObject.setLockUserName(StringPool.BLANK);
 		syncDLObject.setSize(-1);
-		syncDLObject.setType(DLSyncConstants.TYPE_FOLDER);
-		syncDLObject.setTypePK(folder.getFolderId());
-		syncDLObject.setTypeUuid(folder.getUuid());
 		syncDLObject.setVersion(StringPool.BLANK);
 
 		return syncDLObject;

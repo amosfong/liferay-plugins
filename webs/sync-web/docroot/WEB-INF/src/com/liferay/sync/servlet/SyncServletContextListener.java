@@ -78,18 +78,18 @@ public class SyncServletContextListener
 			_messageListener);
 
 		try {
-			long lastModifiedDate =
-				SyncDLObjectLocalServiceUtil.getLastModifiedDate();
+			long latestModifiedDate =
+				SyncDLObjectLocalServiceUtil.getLatestModifiedDate();
 
 			List<DLSyncEvent> dlSyncEvents;
 
-			if (lastModifiedDate == 0) {
+			if (latestModifiedDate == 0) {
 				dlSyncEvents =
 					DLSyncEventLocalServiceUtil.getLatestDLSyncEvents();
 			}
 			else {
 				dlSyncEvents = DLSyncEventLocalServiceUtil.getDLSyncEvents(
-					lastModifiedDate);
+					latestModifiedDate);
 			}
 
 			for (DLSyncEvent dlSyncEvent : dlSyncEvents) {

@@ -40,9 +40,9 @@ public class SyncMessageListener extends BaseMessageListener {
 
 		if (event.equals(DLSyncConstants.EVENT_DELETE)) {
 			SyncDLObjectLocalServiceUtil.addSyncDLObject(
-				0, modifiedDate, 0, 0, StringPool.BLANK, StringPool.BLANK,
-				StringPool.BLANK, event, 0, StringPool.BLANK, 0, type, typePK,
-				StringPool.BLANK, StringPool.BLANK);
+				0, modifiedDate, typePK, StringPool.BLANK, type, 0, 0, 
+				StringPool.BLANK, StringPool.BLANK, StringPool.BLANK, event, 0, 
+				StringPool.BLANK, 0, StringPool.BLANK);
 		}
 		else if (type.equals(DLSyncConstants.TYPE_FILE)) {
 			FileEntry fileEntry = null;
@@ -74,11 +74,11 @@ public class SyncMessageListener extends BaseMessageListener {
 
 				SyncDLObjectLocalServiceUtil.addSyncDLObject(
 					dlFileVersion.getCompanyId(), modifiedDate,
-					dlFileVersion.getRepositoryId(),
+					fileEntry.getFileEntryId(), fileEntry.getUuid(), type, 
+					dlFileVersion.getRepositoryId(), 
 					dlFileVersion.getFolderId(), dlFileVersion.getTitle(),
 					dlFileVersion.getDescription(), checksum, event, lockUserId,
-					lockUserName, dlFileVersion.getSize(), type,
-					fileEntry.getFileEntryId(), fileEntry.getUuid(),
+					lockUserName, dlFileVersion.getSize(), 
 					dlFileVersion.getVersion());
 			}
 			else {
@@ -86,10 +86,10 @@ public class SyncMessageListener extends BaseMessageListener {
 
 				SyncDLObjectLocalServiceUtil.addSyncDLObject(
 					fileEntry.getCompanyId(), modifiedDate,
+					fileEntry.getFileEntryId(), fileEntry.getUuid(), type, 
 					fileEntry.getRepositoryId(), fileEntry.getFolderId(),
 					fileEntry.getTitle(), fileEntry.getDescription(), checksum,
-					event, lockUserId, lockUserName, fileEntry.getSize(), type,
-					fileEntry.getFileEntryId(), fileEntry.getUuid(),
+					event, lockUserId, lockUserName, fileEntry.getSize(), 
 					fileEntry.getVersion());
 			}
 		}
@@ -104,11 +104,11 @@ public class SyncMessageListener extends BaseMessageListener {
 			}
 
 			SyncDLObjectLocalServiceUtil.addSyncDLObject(
-				folder.getCompanyId(), modifiedDate, folder.getRepositoryId(),
+				folder.getCompanyId(), modifiedDate, folder.getFolderId(),
+				folder.getUuid(), type, folder.getRepositoryId(),
 				folder.getParentFolderId(), folder.getName(),
 				folder.getDescription(), StringPool.BLANK, event, 0,
-				StringPool.BLANK, 0, type, folder.getFolderId(),
-				folder.getUuid(), "-1");
+				StringPool.BLANK, 0, "-1");
 		}
 	}
 
