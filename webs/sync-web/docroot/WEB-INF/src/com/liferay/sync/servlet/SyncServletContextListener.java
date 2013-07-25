@@ -85,7 +85,7 @@ public class SyncServletContextListener
 
 			if (lastModifiedDate == 0) {
 				dlSyncEvents =
-					DLSyncEventLocalServiceUtil.getLastDLSyncEvents();
+					DLSyncEventLocalServiceUtil.getLatestDLSyncEvents();
 			}
 			else {
 				dlSyncEvents = DLSyncEventLocalServiceUtil.getDLSyncEvents(

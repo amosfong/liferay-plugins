@@ -35,6 +35,8 @@ import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.license.util.LicenseManager;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portlet.documentlibrary.DuplicateFileException;
+import com.liferay.portlet.documentlibrary.DuplicateFolderNameException;
 import com.liferay.portlet.documentlibrary.model.DLSyncConstants;
 import com.liferay.so.service.SocialOfficeServiceUtil;
 import com.liferay.sync.model.SyncContext;
@@ -72,11 +74,42 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 			File file, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		FileEntry fileEntry = dlAppService.addFileEntry(
+		return addFileEntry(
 			repositoryId, folderId, sourceFileName, mimeType, title,
-			description, changeLog, file, serviceContext);
+			description, changeLog, file, serviceContext, false);
+	}
 
-		return SyncUtil.toSyncDLObject(fileEntry, DLSyncConstants.EVENT_ADD);
+	@Override
+	public SyncDLObject addFileEntry(
+			long repositoryId, long folderId, String sourceFileName,
+			String mimeType, String title, String description, String changeLog,
+			File file, ServiceContext serviceContext, boolean overwrite)
+		throws PortalException, SystemException {
+
+		try {
+			FileEntry fileEntry = dlAppService.addFileEntry(
+				repositoryId, folderId, sourceFileName, mimeType, title,
+				description, changeLog, file, serviceContext);
+
+			return SyncUtil.toSyncDLObject(
+				fileEntry, DLSyncConstants.EVENT_ADD);
+		}
+		catch (DuplicateFileException dfe) {
+			if (overwrite) {
+				FileEntry fileEntry = dlAppService.getFileEntry(
+					repositoryId, folderId, title);
+
+				fileEntry = dlAppService.updateFileEntry(
+					fileEntry.getFileEntryId(), sourceFileName, mimeType, title,
+					description, changeLog, true, file, serviceContext);
+
+				return SyncUtil.toSyncDLObject(
+					fileEntry, DLSyncConstants.EVENT_UPDATE);
+			}
+			else {
+				throw dfe;
+			}
+		}
 	}
 
 	@Override
@@ -85,10 +118,40 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 			String description, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		Folder folder = dlAppService.addFolder(
-			repositoryId, parentFolderId, name, description, serviceContext);
+		return addFolder(
+			repositoryId, parentFolderId, name, description, serviceContext,
+			false);
+	}
 
-		return SyncUtil.toSyncDLObject(folder, DLSyncConstants.EVENT_ADD);
+	@Override
+	public SyncDLObject addFolder(
+			long repositoryId, long parentFolderId, String name,
+			String description, ServiceContext serviceContext,
+			boolean overwrite)
+		throws PortalException, SystemException {
+
+		try {
+			Folder folder = dlAppService.addFolder(
+				repositoryId, parentFolderId, name, description,
+				serviceContext);
+
+			return SyncUtil.toSyncDLObject(folder, DLSyncConstants.EVENT_ADD);
+		}
+		catch (DuplicateFolderNameException dfne) {
+			if (overwrite) {
+				Folder folder = dlAppService.getFolder(
+					repositoryId, parentFolderId, name);
+
+				folder = dlAppService.updateFolder(
+					folder.getFolderId(), name, description, serviceContext);
+
+				return SyncUtil.toSyncDLObject(
+					folder, DLSyncConstants.EVENT_UPDATE);
+			}
+			else {
+				throw dfne;
+			}
+		}
 	}
 
 	@Override
@@ -129,15 +192,17 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	}
 
 	@Override
-	public List<SyncDLObject> getAllSyncDLObjects(
+	public SyncDLObjectUpdate getAllSyncDLObjects(
 			long repositoryId, long folderId)
 		throws PortalException, SystemException {
+
+		long lastAccessDate = System.currentTimeMillis();
 
 		List<SyncDLObject> syncDLObjects = new ArrayList<SyncDLObject>();
 
 		getAllSyncDLObjects(repositoryId, folderId, syncDLObjects);
 
-		return syncDLObjects;
+		return new SyncDLObjectUpdate(syncDLObjects, lastAccessDate);
 	}
 
 	@Override
@@ -374,6 +439,13 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		}
 
 		return new SyncDLObjectUpdate(syncDLObjects, lastAccessDate);
+	}
+
+	@Override
+	public Group getUserSite(long groupId)
+		throws PortalException, SystemException {
+
+		return groupService.getGroup(groupId);
 	}
 
 	@Override
