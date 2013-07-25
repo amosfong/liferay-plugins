@@ -41,6 +41,8 @@ import com.liferay.saml.util.PortletWebKeys;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
