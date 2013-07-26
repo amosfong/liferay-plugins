@@ -160,7 +160,7 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 							<%= key %>
 						</td>
 						<td colspan="3">
-							<span class="aui-field aui-field-text" id="aui_3_2_0_1428">
+							<span class="field field-text" id="aui_3_2_0_1428">
 								<input name="<portlet:namespace /><%= "parameterValue" + key %>" type="text" value="<%= value %>" /><br />
 							</span>
 						</td>

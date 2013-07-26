@@ -124,7 +124,7 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 							<%= key %>
 						</td>
 						<td>
-							<span class="aui-field aui-field-text">
+							<span class="field field-text">
 								<input name="<portlet:namespace /><%= "parameterValue" + key %>" type="text" value="<%= value %>" /><br />
 							</span>
 						</td>
