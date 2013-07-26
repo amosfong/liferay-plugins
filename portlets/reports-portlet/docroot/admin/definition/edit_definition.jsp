@@ -103,20 +103,20 @@ if (definition != null) {
 				<aui:input name="reportName" type="hidden" value="<%= reportName %>" />
 			</span>
 
-			<aui:input inputCssClass="template-report" name="templateReport" style='<%= Validator.isNull(reportName) ? "display: block;" : "display: none;" %>' type="file" />
+			<aui:input cssClass="template-report" name="templateReport" style='<%= Validator.isNull(reportName) ? "display: block;" : "display: none;" %>' type="file" />
 
-			<aui:button inputCssClass="cancel-update-template-report" style="display:none;" value="cancel" />
+			<aui:button cssClass="cancel-update-template-report" style="display:none;" value="cancel" />
 		</aui:field-wrapper>
 
 		<aui:field-wrapper helpMessage="definition-report-parameters-help" label="report-parameters">
-			<aui:input inputCssClass="report-parameters" name="reportParameters" type="hidden" />
+			<aui:input cssClass="report-parameters" name="reportParameters" type="hidden" />
 
 			<aui:column>
-				<aui:input inlineLabel="key" inputCssClass="parameters-key" name="key" size="20" type="text" />
+				<aui:input cssClass="parameters-key" inlineLabel="key" name="key" size="20" type="text" />
 			</aui:column>
 
 			<aui:column>
-				<aui:input cssClass="parameters-value-field-set" inlineLabel="default-value" inputCssClass="parameters-value" name="value" size="20" type="text" />
+				<aui:input cssClass="parameters-value-field-set parameters-value" inlineLabel="default-value" name="value" size="20" type="text" />
 
 				<%
 				Calendar calendar = CalendarFactoryUtil.getCalendar(timeZone, locale);
@@ -139,7 +139,7 @@ if (definition != null) {
 			</aui:column>
 
 			<aui:column>
-				<aui:select inlineLabel="type" inputCssClass="parameters-input-type" name="type">
+				<aui:select cssClass="parameters-input-type" inlineLabel="type" name="type">
 					<aui:option label="text" value="text" />
 					<aui:option label="date" value="date" />
 				</aui:select>
