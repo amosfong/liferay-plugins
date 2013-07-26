@@ -23,7 +23,6 @@
 String tabs1 = ParamUtil.getString(request, "tabs1", "user-groups");
 
 String searchFilter = ParamUtil.getString(request, "searchFilter");
-String searchKeywords = DAOParamUtil.getLike(request, "keywords");
 
 Role role = RoleLocalServiceUtil.getRole(user.getCompanyId(), RoleConstants.SOCIAL_OFFICE_USER);
 
@@ -52,12 +51,12 @@ RowChecker userGroupRoleChecker = (RowChecker)InstanceFactory.newInstance(Portal
 			params.put("userGroupsRoles", role.getRoleId());
 		}
 
-		userGroups = UserGroupLocalServiceUtil.search(user.getCompanyId(), searchKeywords, params, searchContainer.getStart(), searchContainer.getEnd(), (OrderByComparator)null);
-		userGroupsCount = UserGroupLocalServiceUtil.searchCount(user.getCompanyId(), searchKeywords, params);
+		userGroups = UserGroupLocalServiceUtil.search(user.getCompanyId(), keywords, params, searchContainer.getStart(), searchContainer.getEnd(), (OrderByComparator)null);
+		userGroupsCount = UserGroupLocalServiceUtil.searchCount(user.getCompanyId(), keywords, params);
 	}
 	else {
-		userGroups = UserGroupLocalServiceUtil.search(user.getCompanyId(), searchKeywords, null, searchContainer.getStart(), searchContainer.getEnd(), (OrderByComparator)null);
-		userGroupsCount = UserGroupLocalServiceUtil.searchCount(user.getCompanyId(), searchKeywords, null);
+		userGroups = UserGroupLocalServiceUtil.search(user.getCompanyId(), keywords, null, searchContainer.getStart(), searchContainer.getEnd(), (OrderByComparator)null);
+		userGroupsCount = UserGroupLocalServiceUtil.searchCount(user.getCompanyId(), keywords, null);
 	}
 	%>
 

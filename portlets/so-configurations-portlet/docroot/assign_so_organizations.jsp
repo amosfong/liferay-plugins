@@ -23,7 +23,6 @@
 String tabs1 = ParamUtil.getString(request, "tabs1", "organizations");
 
 String searchFilter = ParamUtil.getString(request, "searchFilter");
-String searchKeywords = DAOParamUtil.getLike(request, "keywords");
 
 Role role = RoleLocalServiceUtil.getRole(user.getCompanyId(), RoleConstants.SOCIAL_OFFICE_USER);
 
@@ -52,12 +51,12 @@ RowChecker organizationRoleChecker = (RowChecker)InstanceFactory.newInstance(Por
 			params.put("organizationsRoles", role.getRoleId());
 		}
 
-		organizations = OrganizationLocalServiceUtil.search(user.getCompanyId(), OrganizationConstants.ANY_PARENT_ORGANIZATION_ID, searchKeywords, null, null, null, params, searchContainer.getStart(), searchContainer.getEnd());
-		organizationsCount = OrganizationLocalServiceUtil.searchCount(user.getCompanyId(), OrganizationConstants.ANY_PARENT_ORGANIZATION_ID, searchKeywords, null, null, null, params);
+		organizations = OrganizationLocalServiceUtil.search(user.getCompanyId(), OrganizationConstants.ANY_PARENT_ORGANIZATION_ID, keywords, null, null, null, params, searchContainer.getStart(), searchContainer.getEnd());
+		organizationsCount = OrganizationLocalServiceUtil.searchCount(user.getCompanyId(), OrganizationConstants.ANY_PARENT_ORGANIZATION_ID, keywords, null, null, null, params);
 	}
 	else {
-		organizations = OrganizationLocalServiceUtil.search(user.getCompanyId(), OrganizationConstants.ANY_PARENT_ORGANIZATION_ID, searchKeywords, null, null, null, null, searchContainer.getStart(), searchContainer.getEnd());
-		organizationsCount = OrganizationLocalServiceUtil.searchCount(user.getCompanyId(), OrganizationConstants.ANY_PARENT_ORGANIZATION_ID, searchKeywords, null, null, null, null);
+		organizations = OrganizationLocalServiceUtil.search(user.getCompanyId(), OrganizationConstants.ANY_PARENT_ORGANIZATION_ID, keywords, null, null, null, null, searchContainer.getStart(), searchContainer.getEnd());
+		organizationsCount = OrganizationLocalServiceUtil.searchCount(user.getCompanyId(), OrganizationConstants.ANY_PARENT_ORGANIZATION_ID, keywords, null, null, null, null);
 	}
 	%>
 

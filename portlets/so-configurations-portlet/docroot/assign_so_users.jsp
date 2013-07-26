@@ -23,7 +23,6 @@
 String tabs1 = ParamUtil.getString(request, "tabs1", "users");
 
 String searchFilter = ParamUtil.getString(request, "searchFilter");
-String searchKeywords = DAOParamUtil.getLike(request, "keywords");
 
 Role role = RoleLocalServiceUtil.fetchRole(user.getCompanyId(), RoleConstants.SOCIAL_OFFICE_USER);
 
@@ -52,12 +51,12 @@ RowChecker userRoleChecker = (RowChecker)InstanceFactory.newInstance(PortalClass
 			params.put("usersRoles", role.getRoleId());
 		}
 
-		users = UserLocalServiceUtil.search(user.getCompanyId(), searchKeywords, WorkflowConstants.STATUS_APPROVED, params, searchContainer.getStart(), searchContainer.getEnd(), (OrderByComparator)null);
-		usersCount = UserLocalServiceUtil.searchCount(user.getCompanyId(), searchKeywords, WorkflowConstants.STATUS_APPROVED, params);
+		users = UserLocalServiceUtil.search(user.getCompanyId(), keywords, WorkflowConstants.STATUS_APPROVED, params, searchContainer.getStart(), searchContainer.getEnd(), (OrderByComparator)null);
+		usersCount = UserLocalServiceUtil.searchCount(user.getCompanyId(), keywords, WorkflowConstants.STATUS_APPROVED, params);
 	}
 	else {
-		users = UserLocalServiceUtil.search(user.getCompanyId(), searchKeywords, WorkflowConstants.STATUS_APPROVED, null, searchContainer.getStart(), searchContainer.getEnd(), (OrderByComparator)null);
-		usersCount = UserLocalServiceUtil.searchCount(user.getCompanyId(), searchKeywords, WorkflowConstants.STATUS_APPROVED, null);
+		users = UserLocalServiceUtil.search(user.getCompanyId(), keywords, WorkflowConstants.STATUS_APPROVED, null, searchContainer.getStart(), searchContainer.getEnd(), (OrderByComparator)null);
+		usersCount = UserLocalServiceUtil.searchCount(user.getCompanyId(), keywords, WorkflowConstants.STATUS_APPROVED, null);
 	}
 	%>
 
