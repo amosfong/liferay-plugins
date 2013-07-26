@@ -283,6 +283,25 @@ public class SamlUtil {
 		return null;
 	}
 
+	public static SingleSignOnService resolveSingleSignOnService(
+		IDPSSODescriptor idpSsoDescriptor, String preferredBinding) {
+
+		List<SingleSignOnService> singleSignOnServices =
+			idpSsoDescriptor.getSingleSignOnServices();
+
+		for (SingleSignOnService singleSignOnService : singleSignOnServices) {
+			if (preferredBinding.equals(singleSignOnService.getBinding())) {
+				return singleSignOnService;
+			}
+		}
+
+		if (!singleSignOnServices.isEmpty()) {
+			return singleSignOnServices.get(0);
+		}
+
+		return null;
+	}
+
 	private static String _getAttributeValue(
 		List<Attribute> attributes, String name) {
 

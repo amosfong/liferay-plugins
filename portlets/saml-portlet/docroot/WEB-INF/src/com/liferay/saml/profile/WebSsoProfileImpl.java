@@ -611,8 +611,8 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 			(IDPSSODescriptor)samlMessageContext.getPeerEntityRoleMetadata();
 
 		SingleSignOnService singleSignOnService =
-			SamlUtil.getSingleSignOnServiceForBinding(
-				idpSsoDescriptor, SAMLConstants.SAML2_REDIRECT_BINDING_URI);
+			SamlUtil.resolveSingleSignOnService(
+				idpSsoDescriptor, SAMLConstants.SAML2_POST_BINDING_URI);
 
 		NameIDPolicy nameIdPolicy = OpenSamlUtil.buildNameIdPolicy();
 
@@ -630,8 +630,12 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 		if (spSsoDescriptor.isAuthnRequestsSigned() ||
 			idpSsoDescriptor.getWantAuthnRequestsSigned()) {
 
+			Credential credential = MetadataManagerUtil.getSigningCredential();
+
 			samlMessageContext.setOutboundSAMLMessageSigningCredential(
-				MetadataManagerUtil.getSigningCredential());
+				credential);
+
+			OpenSamlUtil.signObject(authnRequest, credential);
 		}
 
 		samlMessageContext.setPeerEntityEndpoint(singleSignOnService);
