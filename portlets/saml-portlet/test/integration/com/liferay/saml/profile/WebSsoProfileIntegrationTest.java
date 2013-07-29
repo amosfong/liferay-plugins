@@ -39,6 +39,7 @@ import javax.servlet.http.HttpSession;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -65,6 +66,7 @@ import org.opensaml.saml2.metadata.SPSSODescriptor;
 import org.opensaml.ws.transport.http.HttpServletRequestAdapter;
 import org.opensaml.ws.transport.http.HttpServletResponseAdapter;
 import org.opensaml.xml.security.credential.Credential;
+
 import org.powermock.modules.junit4.PowerMockRunner;
 
 import org.springframework.mock.web.MockHttpServletRequest;
