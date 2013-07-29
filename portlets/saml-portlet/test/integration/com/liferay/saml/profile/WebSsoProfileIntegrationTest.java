@@ -248,6 +248,7 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 	@Test
 	public void testVerifyAssertionSignatureNoSignatureDontWant()
 		throws Exception {
+
 		MockHttpServletRequest mockHttpServletRequest =
 			getMockHttpServletRequest("GET", ACS_URL);
 
@@ -275,6 +276,7 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 	@Test(expected = SignatureException.class)
 	public void testVerifyAssertionSignatureNoSignatureDoWant()
 		throws Exception {
+
 		MockHttpServletRequest mockHttpServletRequest =
 			getMockHttpServletRequest("GET", ACS_URL);
 
@@ -566,6 +568,7 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 	@Test(expected=SubjectException.class)
 	public void testVerifySubjectNoBearerSubjectConfirmation()
 		throws Exception {
+
 		MockHttpServletRequest mockHttpServletRequest =
 			getMockHttpServletRequest("GET", ACS_URL);
 
@@ -597,8 +600,10 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 
 	protected Subject getSubject(
 			SAMLMessageContext<AuthnRequest, Response, NameID>
-				samlMessageContext, NameID nameId, DateTime issueDate)
+				samlMessageContext,
+			NameID nameId, DateTime issueDate)
 		throws Exception {
+
 		SamlSsoRequestContext samlSsoRequestContext = new SamlSsoRequestContext(
 			samlMessageContext);
 
