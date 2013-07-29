@@ -447,9 +447,10 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 
 		samlSpAuthRequest.setSamlIdpEntityId(IDP_ENTITY_ID);
 
-		String authnRequestId = identifierGenerator.generateIdentifier(30);
+		String samlSpAuthRequestKey =
+			identifierGenerator.generateIdentifier(30);
 
-		samlSpAuthRequest.setSamlSpAuthRequestKey(authnRequestId);
+		samlSpAuthRequest.setSamlSpAuthRequestKey(samlSpAuthRequestKey);
 
 		when(
 			_samlSpAuthRequestLocalService.fetchSamlSpAuthRequest(
@@ -458,7 +459,7 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 			samlSpAuthRequest
 		);
 
-		response.setInResponseTo(authnRequestId);
+		response.setInResponseTo(samlSpAuthRequestKey);
 		response.setIssuer(OpenSamlUtil.buildIssuer(IDP_ENTITY_ID));
 
 		_webSsoProfileImpl.verifyInResponseTo(response);
