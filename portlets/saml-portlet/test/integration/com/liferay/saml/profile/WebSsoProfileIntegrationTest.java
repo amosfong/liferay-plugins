@@ -74,10 +74,9 @@ import org.springframework.mock.web.MockHttpServletResponse;
 
 /**
  * @author Mika Koivisto
- * @author Matt Tambara
- * @author Will Newbury
+ * @author Matthew Tambara
+ * @author William Newbury
  */
-
 @RunWith(PowerMockRunner.class)
 public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 
@@ -238,9 +237,10 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 			samlMessageContext.getPeerEntityRoleMetadata() instanceof
 				SPSSODescriptor);
 		Assert.assertEquals(RELAY_STATE, samlMessageContext.getRelayState());
-		AuthnRequest authnRequest = samlMessageContext.getInboundSAMLMessage();
-		Assert.assertEquals(identifiers.get(0), authnRequest.getID());
 
+		AuthnRequest authnRequest = samlMessageContext.getInboundSAMLMessage();
+
+		Assert.assertEquals(identifiers.get(0), authnRequest.getID());
 		Assert.assertEquals(2, identifiers.size());
 		Assert.assertTrue(samlSsoRequestContext.isNewSession());
 	}
@@ -558,7 +558,9 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 		NameID nameId = OpenSamlUtil.buildNameId(
 			NameIDType.UNSPECIFIED, "test");
 
-		DateTime issueDate = (new DateTime(DateTimeZone.UTC)).minusYears(1);
+		DateTime issueDate = new DateTime(DateTimeZone.UTC);
+
+		issueDate = issueDate.minusYears(1);
 
 		Subject subject = getSubject(samlMessageContext, nameId, issueDate);
 
