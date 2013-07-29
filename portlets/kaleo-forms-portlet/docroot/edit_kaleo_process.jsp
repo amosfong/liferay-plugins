@@ -96,7 +96,7 @@ if (kaleoProcess != null) {
 />
 
 <c:if test="<%= kaleoProcessStarted %>">
-	<div class="portlet-msg-info">
+	<div class="alert alert-info">
 		<liferay-ui:message key="updating-an-entry-definition,-initial-form,-or-workflow-will-cause-loss-of-data" />
 	</div>
 </c:if>

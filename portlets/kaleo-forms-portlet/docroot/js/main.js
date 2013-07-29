@@ -24,15 +24,17 @@ AUI.add(
 
 				content.show();
 
-				var dialog = new A.Dialog(
+				var dialog = Liferay.Util.Window.getWindow(
 					{
-						bodyContent: content,
-						centered: true,
-						constrain: true,
-						constrain2view: true,
-						modal: true,
-						title: icon.text(),
-						width: 400
+						dialog: {
+							bodyContent: content,
+							centered: true,
+							constrain: true,
+							constrain2view: true,
+							modal: true,
+							title: icon.text(),
+							width: 400
+						}
 					}
 				).render();
 			}
@@ -42,6 +44,6 @@ AUI.add(
 	},
 	'',
 	{
-		requires: ['aui-dialog']
+		requires: ['liferay-util-window']
 	}
 );
