@@ -186,8 +186,8 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 
 	private CommunityBuilder _communityBuilder;
 	private GroupLocalService _groupLocalService;
-	private User _user;
 	private List<Group> _groups;
+	private User _user;
 	private UserLocalService _userLocalService;
 
 }

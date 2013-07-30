@@ -89,7 +89,7 @@ public class SambaMachineBuilderTest extends BaseVLDAPTestCase {
 			returnedDirectory.hasAttribute("sambaNextUserRid", "1000"));
 	}
 
-	private SambaMachineBuilder _sambaMachineBuilder;
 	private Organization _organization;
+	private SambaMachineBuilder _sambaMachineBuilder;
 
 }

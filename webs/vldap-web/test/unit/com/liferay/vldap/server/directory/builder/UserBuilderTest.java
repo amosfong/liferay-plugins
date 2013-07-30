@@ -440,9 +440,9 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 			returnedDirectory.hasAttribute("sambaLockoutDuration", "120"));
 	}
 
-	private UserBuilder _userBuilder;
 	private GroupLocalService _groupLocalService;
 	private User _user;
+	private UserBuilder _userBuilder;
 	private UserLocalService _userLocalService;
 	private List<User> _users;
 

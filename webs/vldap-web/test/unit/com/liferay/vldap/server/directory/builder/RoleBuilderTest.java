@@ -69,13 +69,11 @@ public class RoleBuilderTest extends BaseVLDAPTestCase {
 
 		DynamicQueryFactoryUtil dynamicQueryFactoryUtil =
 			new DynamicQueryFactoryUtil();
-		dynamicQueryFactoryUtil.setDynamicQueryFactory(
-			dynamicQueryFactory);
+		dynamicQueryFactoryUtil.setDynamicQueryFactory(dynamicQueryFactory);
 
 		RestrictionsFactoryUtil restrictionsFactoryUtil =
 			new RestrictionsFactoryUtil();
-		restrictionsFactoryUtil.setRestrictionsFactory(
-			restrictionsFactory);
+		restrictionsFactoryUtil.setRestrictionsFactory(restrictionsFactory);
 		when(
 			restrictionsFactory.eq(
 				Mockito.anyString(), Mockito.any(Object.class))
@@ -176,9 +174,9 @@ public class RoleBuilderTest extends BaseVLDAPTestCase {
 	private DynamicQuery _dynamicQuery;
 	private DynamicQueryFactory _dynamicQueryFactory;
 	private RoleBuilder _roleBuilder;
-	private User _user;
-	private List<Role> _roles;
 	private RoleLocalService _roleLocalService;
+	private List<Role> _roles;
+	private User _user;
 	private UserLocalService _userLocalService;
 
 }

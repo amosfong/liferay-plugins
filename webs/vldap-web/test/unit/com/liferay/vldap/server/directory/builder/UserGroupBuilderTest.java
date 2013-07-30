@@ -69,13 +69,11 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 
 		DynamicQueryFactoryUtil dynamicQueryFactoryUtil =
 			new DynamicQueryFactoryUtil();
-		dynamicQueryFactoryUtil.setDynamicQueryFactory(
-			dynamicQueryFactory);
+		dynamicQueryFactoryUtil.setDynamicQueryFactory(dynamicQueryFactory);
 
 		RestrictionsFactoryUtil restrictionsFactoryUtil =
 			new RestrictionsFactoryUtil();
-		restrictionsFactoryUtil.setRestrictionsFactory(
-			restrictionsFactory);
+		restrictionsFactoryUtil.setRestrictionsFactory(restrictionsFactory);
 		when(
 			restrictionsFactory.eq(
 				Mockito.anyString(), Mockito.any(Object.class))
@@ -197,10 +195,10 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 
 	private DynamicQuery _dynamicQuery;
 	private DynamicQueryFactory _dynamicQueryFactory;
-	private UserGroupBuilder _userGroupBuilder;
 	private User _user;
-	private List<UserGroup> _userGroups;
+	private UserGroupBuilder _userGroupBuilder;
 	private UserGroupLocalService _userGroupLocalService;
+	private List<UserGroup> _userGroups;
 	private UserLocalService _userLocalService;
 
 }

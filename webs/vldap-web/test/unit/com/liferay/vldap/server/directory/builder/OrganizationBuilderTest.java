@@ -105,13 +105,11 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 
 		DynamicQueryFactoryUtil dynamicQueryFactoryUtil =
 			new DynamicQueryFactoryUtil();
-		dynamicQueryFactoryUtil.setDynamicQueryFactory(
-			dynamicQueryFactory);
+		dynamicQueryFactoryUtil.setDynamicQueryFactory(dynamicQueryFactory);
 
 		RestrictionsFactoryUtil restrictionsFactoryUtil =
 			new RestrictionsFactoryUtil();
-		restrictionsFactoryUtil.setRestrictionsFactory(
-			_restrictionsFactory);
+		restrictionsFactoryUtil.setRestrictionsFactory(_restrictionsFactory);
 
 		_criterion = mock(Criterion.class);
 		when(
@@ -197,8 +195,8 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 				"member", "cn=testScreenName,ou=Users,ou=42,o=42"));
 	}
 
-	private OrganizationBuilder _organizationBuilder;
 	private Criterion _criterion;
+	private OrganizationBuilder _organizationBuilder;
 	private OrganizationLocalService _organizationLocalService;
 	private List<Organization> _organizations;
 	private RestrictionsFactory _restrictionsFactory;
