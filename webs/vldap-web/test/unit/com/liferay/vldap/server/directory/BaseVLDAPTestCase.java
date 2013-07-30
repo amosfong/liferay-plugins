@@ -44,7 +44,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 * @author Matthew Tambara
 * @author William Newbury
 */
-
 @RunWith(PowerMockRunner.class)
 public class BaseVLDAPTestCase extends PowerMockito {
 
@@ -59,7 +58,7 @@ public class BaseVLDAPTestCase extends PowerMockito {
 
 	@After
 	public void tearDown() {
-		for (Class<?> utilClass : serviceUtils) {
+		for (Class<?> utilClass : serviceUtilClasses) {
 			try {
 				Field field = utilClass.getDeclaredField("_service");
 
@@ -72,8 +71,8 @@ public class BaseVLDAPTestCase extends PowerMockito {
 		}
 	}
 
-	protected <T> T mockService(Class<?> utilType, Class<T> serviceType) {
-		serviceUtils.add(utilType);
+	protected <T> T getMockService(Class<?> utilType, Class<T> serviceType) {
+		serviceUtilClasses.add(utilType);
 
 		T serviceMock = mock(serviceType);
 
@@ -91,7 +90,6 @@ public class BaseVLDAPTestCase extends PowerMockito {
 		_searchBase = mock(SearchBase.class);
 		_company = mock(Company.class);
 		_companies = new ArrayList<Company>();
-
 		_companies.add(_company);
 
 		Long testLong = new Long("42");
@@ -110,18 +108,14 @@ public class BaseVLDAPTestCase extends PowerMockito {
 
 		ConfigurationFactory configurationFactory = mock(
 			ConfigurationFactory.class);
-
 		ConfigurationFactoryUtil.setConfigurationFactory(configurationFactory);
-
 		Configuration configuration = mock(Configuration.class);
-
 		when(
 			configurationFactory.getConfiguration(
 				Mockito.any(ClassLoader.class), Mockito.eq("portlet"))
 		).thenReturn(
 			configuration
 		);
-
 		when(
 			configurationFactory.getConfiguration(
 				Mockito.any(ClassLoader.class), Mockito.eq("service"))
@@ -141,20 +135,17 @@ public class BaseVLDAPTestCase extends PowerMockito {
 	}
 
 	protected void setupPortal() {
-
 		portalBeanLocator = mock(BeanLocator.class);
 		PortalBeanLocatorUtil.setBeanLocator(portalBeanLocator);
-
 	}
 
 	protected void setupProps() {
 		props = mock(Props.class);
-
 		PropsUtil.setProps(props);
 	}
 
 	protected void setupServiceMocks() {
-		serviceUtils = new ArrayList<Class<?>>();
+		serviceUtilClasses = new ArrayList<Class<?>>();
 	}
 
 	protected List<Company> _companies;
@@ -162,6 +153,6 @@ public class BaseVLDAPTestCase extends PowerMockito {
 	protected SearchBase _searchBase;
 	protected BeanLocator portalBeanLocator;
 	protected Props props;
-	protected List<Class<?>> serviceUtils;
+	protected List<Class<?>> serviceUtilClasses;
 
 }

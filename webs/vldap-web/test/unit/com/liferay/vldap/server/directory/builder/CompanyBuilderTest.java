@@ -36,7 +36,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
  * @author William Newbury
  * @author Matthew Tambara
  */
-
 @RunWith(PowerMockRunner.class)
 public class CompanyBuilderTest extends BaseVLDAPTestCase {
 
@@ -46,10 +45,7 @@ public class CompanyBuilderTest extends BaseVLDAPTestCase {
 		super.setUp();
 
 		_companyBuilder = new CompanyBuilder();
-
-		Long testLong = new Long("42");
-
-		_companyLocalService = mockService(
+		_companyLocalService = getMockService(
 			CompanyLocalServiceUtil.class, CompanyLocalService.class);
 
 		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");

@@ -32,7 +32,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
  * @author William Newbury
  * @author Matthew Tambara
  */
-
 @RunWith(PowerMockRunner.class)
 public class SambaMachineBuilderTest extends BaseVLDAPTestCase {
 
@@ -44,7 +43,6 @@ public class SambaMachineBuilderTest extends BaseVLDAPTestCase {
 		_sambaMachineBuilder = new SambaMachineBuilder();
 
 		_organization = mock(Organization.class);
-
 		when(_organization.getName()).thenReturn("testName");
 
 		when(_searchBase.getOrganization()).thenReturn(_organization);
@@ -74,7 +72,6 @@ public class SambaMachineBuilderTest extends BaseVLDAPTestCase {
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
-
 		filterConstraint.addAttribute("sambaDomainName", "testDomainName");
 
 		List<Directory> directory = _sambaMachineBuilder.buildDirectories(

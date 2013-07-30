@@ -33,7 +33,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
  * @author William Newbury
  * @author Matthew Tambara
  */
-
 @RunWith(PowerMockRunner.class)
 public class SambaGroupBuilderTest extends BaseVLDAPTestCase {
 
@@ -43,22 +42,22 @@ public class SambaGroupBuilderTest extends BaseVLDAPTestCase {
 		super.setUp();
 
 		_organization = mock(Organization.class);
+		when(_organization.getName()).thenReturn("testName");
 
 		when(_searchBase.getOrganization()).thenReturn(_organization);
-		when(_organization.getName()).thenReturn("testName");
+
 		_sambaGroupBuilder = new SambaGroupBuilder();
+
 		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
 
 	}
 
 	@Test
 	public void testBuildDirectoriesGIDNumber() throws Exception {
-
 		FilterConstraint filterConstraint = new FilterConstraint();
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
-
 		filterConstraint.addAttribute("cn", "root");
 		filterConstraint.addAttribute("sambaSID", "S-1-5-32-544");
 		filterConstraint.addAttribute("gidNumber", "0");
@@ -67,6 +66,7 @@ public class SambaGroupBuilderTest extends BaseVLDAPTestCase {
 			_searchBase, filterConstraints);
 
 		Directory returnedDirectory = directory.get(0);
+
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute("sambaGroupType", "4"));
 		Assert.assertTrue(
@@ -82,12 +82,10 @@ public class SambaGroupBuilderTest extends BaseVLDAPTestCase {
 
 	@Test
 	public void testBuildDirectoriesNullGIDNumber() throws Exception {
-
 		FilterConstraint filterConstraint = new FilterConstraint();
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
-
 		filterConstraint.addAttribute("cn", "network");
 		filterConstraint.addAttribute("sambaSID", "S-1-5-2");
 
@@ -95,6 +93,7 @@ public class SambaGroupBuilderTest extends BaseVLDAPTestCase {
 			_searchBase, filterConstraints);
 
 		Directory returnedDirectory = directory.get(0);
+
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute("sambaGroupType", "4"));
 		Assert.assertTrue(

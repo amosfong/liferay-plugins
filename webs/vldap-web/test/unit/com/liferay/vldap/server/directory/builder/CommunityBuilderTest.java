@@ -42,7 +42,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
  * @author William Newbury
  * @author Matthew Tambara
  */
-
 @RunWith(PowerMockRunner.class)
 public class CommunityBuilderTest extends BaseVLDAPTestCase {
 
@@ -55,14 +54,13 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 
 		Long testLong = new Long("42");
 
-		_groupLocalService = mockService(
+		_groupLocalService = getMockService(
 			GroupLocalServiceUtil.class, GroupLocalService.class);
 
-		_userLocalService = mockService(
+		_userLocalService = getMockService(
 			UserLocalServiceUtil.class, UserLocalService.class);
 
 		Group group = mock(Group.class);
-
 		when(group.getName()).thenReturn("testName");
 		when(group.getGroupId()).thenReturn(testLong);
 		when(group.getDescription()).thenReturn("testDescription");
@@ -73,6 +71,7 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 		List<User> users = new ArrayList<User>();
 		_user = mock(User.class);
 		users.add(_user);
+		when(_user.getScreenName()).thenReturn("testScreenName");
 
 		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
 
@@ -87,9 +86,6 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 		).thenReturn(
 			users
 		);
-
-		when(_user.getScreenName()).thenReturn("testScreenName");
-
 	}
 
 	@Test

@@ -46,7 +46,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
  * @author William Newbury
  * @author Matthew Tambara
  */
-
 @RunWith(PowerMockRunner.class)
 public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 
@@ -55,51 +54,42 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 
+		Criterion criterion = mock(Criterion.class);
+
 		DynamicQueryFactory dynamicQueryFactory = mock(
 			DynamicQueryFactory.class);
-
 		DynamicQuery dynamicQuery = mock(DynamicQuery.class);
-
 		when(
 			dynamicQueryFactory.forClass(
 				Mockito.any(Class.class), Mockito.any(ClassLoader.class))
-			).thenReturn(dynamicQuery);
-
-		(new DynamicQueryFactoryUtil()).setDynamicQueryFactory(
-			dynamicQueryFactory);
+		).thenReturn(dynamicQuery);
 
 		RestrictionsFactory restrictionsFactory = mock(
 			RestrictionsFactory.class);
 
-		(new RestrictionsFactoryUtil()).setRestrictionsFactory(
+		DynamicQueryFactoryUtil dynamicQueryFactoryUtil =
+			new DynamicQueryFactoryUtil();
+		dynamicQueryFactoryUtil.setDynamicQueryFactory(
+			dynamicQueryFactory);
+
+		RestrictionsFactoryUtil restrictionsFactoryUtil =
+			new RestrictionsFactoryUtil();
+		restrictionsFactoryUtil.setRestrictionsFactory(
 			restrictionsFactory);
-
-		Criterion criterion = mock(Criterion.class);
-
 		when(
 			restrictionsFactory.eq(
 				Mockito.anyString(), Mockito.any(Object.class))
-			).thenReturn(criterion);
-
+		).thenReturn(criterion);
 		when(
 			restrictionsFactory.ilike(
 				Mockito.anyString(), Mockito.any(Object.class))
-			).thenReturn(criterion);
+		).thenReturn(criterion);
 
 		_userGroupBuilder = new UserGroupBuilder();
 
-		Long testLong = new Long("42");
-
-		_userGroupLocalService = mockService(
-			UserGroupLocalServiceUtil.class, UserGroupLocalService.class);
-
-		_userLocalService = mockService(
-			UserLocalServiceUtil.class, UserLocalService.class);
-
 		UserGroup userGroup = mock(UserGroup.class);
-
 		when(userGroup.getName()).thenReturn("testName");
-		when(userGroup.getUserGroupId()).thenReturn(testLong);
+		when(userGroup.getUserGroupId()).thenReturn(new Long("42"));
 		when(userGroup.getDescription()).thenReturn("testDescription");
 
 		_userGroups = new ArrayList<UserGroup>();
@@ -108,20 +98,22 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 		List<User> users = new ArrayList<User>();
 		_user = mock(User.class);
 		users.add(_user);
-
-		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
-
 		when(_user.getScreenName()).thenReturn("testScreenName");
 
+		_userGroupLocalService = getMockService(
+			UserGroupLocalServiceUtil.class, UserGroupLocalService.class);
+		when(
+			_userGroupLocalService.dynamicQuery(Mockito.any(DynamicQuery.class))
+		).thenReturn(_userGroups);
+
+		_userLocalService = getMockService(
+			UserLocalServiceUtil.class, UserLocalService.class);
+
+		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
 	}
 
 	@Test
 	public void testBuildDirectoriesFilterNullFilter() throws Exception {
-
-		when(
-			_userGroupLocalService.dynamicQuery(Mockito.any(DynamicQuery.class))
-			).thenReturn(_userGroups);
-
 		List<Directory> directory = _userGroupBuilder.buildDirectories(
 			_searchBase, null);
 
@@ -146,13 +138,8 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
-
 		filterConstraint.addAttribute("ou", "testName");
 		filterConstraint.addAttribute("description", "testDescription");
-
-		when(
-			_userGroupLocalService.dynamicQuery(Mockito.any(DynamicQuery.class))
-		).thenReturn(_userGroups);
 
 		List<Directory> directory = _userGroupBuilder.buildDirectories(
 			_searchBase, filterConstraints);
@@ -178,7 +165,6 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
-
 		filterConstraint.addAttribute("ou", "testName");
 		filterConstraint.addAttribute("description", "testDescription");
 		filterConstraint.addAttribute(

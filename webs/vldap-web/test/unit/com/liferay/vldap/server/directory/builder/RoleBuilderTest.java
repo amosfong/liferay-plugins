@@ -54,73 +54,65 @@ public class RoleBuilderTest extends BaseVLDAPTestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 
+		Criterion criterion = mock(Criterion.class);
+
 		DynamicQueryFactory dynamicQueryFactory = mock(
 			DynamicQueryFactory.class);
-
 		DynamicQuery dynamicQuery = mock(DynamicQuery.class);
-
 		when(
 			dynamicQueryFactory.forClass(
 				Mockito.any(Class.class), Mockito.any(ClassLoader.class))
-			).thenReturn(dynamicQuery);
-
-		(new DynamicQueryFactoryUtil()).setDynamicQueryFactory(
-			dynamicQueryFactory);
+		).thenReturn(dynamicQuery);
 
 		RestrictionsFactory restrictionsFactory = mock(
 			RestrictionsFactory.class);
 
-		(new RestrictionsFactoryUtil()).setRestrictionsFactory(
+		DynamicQueryFactoryUtil dynamicQueryFactoryUtil =
+			new DynamicQueryFactoryUtil();
+		dynamicQueryFactoryUtil.setDynamicQueryFactory(
+			dynamicQueryFactory);
+
+		RestrictionsFactoryUtil restrictionsFactoryUtil =
+			new RestrictionsFactoryUtil();
+		restrictionsFactoryUtil.setRestrictionsFactory(
 			restrictionsFactory);
-
-		Criterion criterion = mock(Criterion.class);
-
 		when(
 			restrictionsFactory.eq(
 				Mockito.anyString(), Mockito.any(Object.class))
-			).thenReturn(criterion);
-
+		).thenReturn(criterion);
 		when(
 			restrictionsFactory.ilike(
 				Mockito.anyString(), Mockito.any(Object.class))
-			).thenReturn(criterion);
+		).thenReturn(criterion);
 
-		_roleBuilder = new RoleBuilder();
-
-		Long testLong = new Long("42");
-
-		_roleLocalService = mockService(
-			RoleLocalServiceUtil.class, RoleLocalService.class);
-
-		_userLocalService = mockService(
+		_userLocalService = getMockService(
 			UserLocalServiceUtil.class, UserLocalService.class);
 
 		Role role = mock(Role.class);
-
 		when(role.getName()).thenReturn("testName");
-		when(role.getRoleId()).thenReturn(testLong);
+		when(role.getRoleId()).thenReturn(new Long("42"));
 		when(role.getDescription()).thenReturn("testDescription");
 
+		_roleBuilder = new RoleBuilder();
 		_roles = new ArrayList<Role>();
 		_roles.add(role);
+
+		_roleLocalService = getMockService(
+			RoleLocalServiceUtil.class, RoleLocalService.class);
+		when(
+			_roleLocalService.dynamicQuery(Mockito.any(DynamicQuery.class))
+		).thenReturn(_roles);
 
 		List<User> users = new ArrayList<User>();
 		_user = mock(User.class);
 		users.add(_user);
-
-		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
-
 		when(_user.getScreenName()).thenReturn("testScreenName");
 
+		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
 	}
 
 	@Test
 	public void testBuildDirectoriesFilterNullFilter() throws Exception {
-
-		when(
-			_roleLocalService.dynamicQuery(Mockito.any(DynamicQuery.class))
-			).thenReturn(_roles);
-
 		List<Directory> directory = _roleBuilder.buildDirectories(
 			_searchBase, null);
 
@@ -138,13 +130,8 @@ public class RoleBuilderTest extends BaseVLDAPTestCase {
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
-
 		filterConstraint.addAttribute("ou", "testName");
 		filterConstraint.addAttribute("description", "testDescription");
-
-		when(
-			_roleLocalService.dynamicQuery(Mockito.any(DynamicQuery.class))
-		).thenReturn(_roles);
 
 		List<Directory> directory = _roleBuilder.buildDirectories(
 			_searchBase, filterConstraints);
@@ -163,7 +150,6 @@ public class RoleBuilderTest extends BaseVLDAPTestCase {
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
-
 		filterConstraint.addAttribute("ou", "testName");
 		filterConstraint.addAttribute("description", "testDescription");
 		filterConstraint.addAttribute(

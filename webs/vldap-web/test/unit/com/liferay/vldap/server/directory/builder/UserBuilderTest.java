@@ -68,20 +68,20 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 
 		_userBuilder = new UserBuilder();
 
-		_groupLocalService = mockService(
+		_groupLocalService = getMockService(
 			GroupLocalServiceUtil.class, GroupLocalService.class);
 
-		_userLocalService = mockService(
+		_userLocalService = getMockService(
 			UserLocalServiceUtil.class, UserLocalService.class);
 
 		_users = new ArrayList<User>();
-		_user = mock(User.class);
-		_users.add(_user);
-
 		when(
 			_userLocalService.getCompanyUsers(
 				Mockito.anyLong(), Mockito.anyInt(), Mockito.anyInt())
 		).thenReturn(_users);
+
+		_user = mock(User.class);
+		_users.add(_user);
 
 		Long testLong = new Long("42");
 		when(_user.getScreenName()).thenReturn("testScreenName");
@@ -118,6 +118,10 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		when(group.getName()).thenReturn("testGroupName");
 		when(role.getName()).thenReturn("testRoleName");
 		when(userGroup.getName()).thenReturn("testUserGroupName");
+		when(organization.getOrganizationId()).thenReturn(testLong);
+		when(group.getGroupId()).thenReturn(testLong);
+		when(role.getRoleId()).thenReturn(testLong);
+		when(userGroup.getUserGroupId()).thenReturn(testLong);
 
 		when(
 			_groupLocalService.search(
@@ -126,6 +130,9 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 				Mockito.any(LinkedHashMap.class), Mockito.anyBoolean(),
 				Mockito.anyInt(), Mockito.anyInt())
 		).thenReturn(groups);
+		when(
+			_groupLocalService.getGroup(Mockito.anyLong(), Mockito.anyString())
+		).thenReturn(group);
 
 		FastDateFormat fastFormat = FastDateFormat.getInstance(
 			"yyyyMMddHHmmss.SZ",  (TimeZone)null, LocaleUtil.getDefault());
@@ -136,7 +143,9 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 			fastDateFormatFactory.getSimpleDateFormat(Mockito.anyString())
 		).thenReturn(fastFormat);
 
-		(new FastDateFormatFactoryUtil()).setFastDateFormatFactory(
+		FastDateFormatFactoryUtil fastDateFormatFactoryUtil =
+			new FastDateFormatFactoryUtil();
+		fastDateFormatFactoryUtil.setFastDateFormatFactory(
 			fastDateFormatFactory);
 
 		PortalUtil portalUtil = new PortalUtil();
@@ -186,21 +195,11 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		when(_searchBase.getRole()).thenReturn(role);
 		when(_searchBase.getUserGroup()).thenReturn(userGroup);
 
-		when(organization.getOrganizationId()).thenReturn(testLong);
-		when(group.getGroupId()).thenReturn(testLong);
-		when(role.getRoleId()).thenReturn(testLong);
-		when(userGroup.getUserGroupId()).thenReturn(testLong);
-
-		CompanyLocalService companyLocalService = mockService(
+		CompanyLocalService companyLocalService = getMockService(
 			CompanyLocalServiceUtil.class, CompanyLocalService.class);
-
 		when(
 			companyLocalService.getCompanyByWebId(Mockito.anyString())
 		).thenReturn(_company);
-
-		when(
-			_groupLocalService.getGroup(Mockito.anyLong(), Mockito.anyString())
-		).thenReturn(group);
 	}
 
 	@Test
@@ -209,7 +208,6 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
-
 		filterConstraint.addAttribute(
 			"member", "ou=testWebId,ou=Communities," +
 			"ou=testTypeValue,cn=test");
@@ -233,6 +231,7 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		).thenReturn(
 			_users
 		);
+
 		List<Directory> directory = _userBuilder.buildDirectories(
 			_searchBase, filterConstraints);
 
@@ -301,7 +300,6 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
-
 		filterConstraint.addAttribute(
 			"member", "ou=testWebId,ou=Communities," +
 			"ou=testTypeValue,cn=test");
@@ -353,7 +351,6 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
-
 		filterConstraint.addAttribute(
 			"member", "ou=testWebId,ou=Communities," +
 			"ou=testTypeValue,cn=test");
@@ -404,7 +401,6 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
-
 		filterConstraint.addAttribute(
 			"member", "ou=testWebId,ou=Communities," +
 			"ou=testTypeValue,cn=test");
