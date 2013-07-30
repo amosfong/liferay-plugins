@@ -52,7 +52,7 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 /**
- * @author Matthew Tambara W
+ * @author Matthew Tambara
  * @author William Newbury
  */
 @RunWith(PowerMockRunner.class)
@@ -63,21 +63,21 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 
-		SamlIdpSpSessionLocalService _samlIdpSpSessionLocalService =
+		SamlIdpSpSessionLocalService samlIdpSpSessionLocalService =
 			getMockPortletService(
 				SamlIdpSpSessionLocalServiceUtil.class,
 				SamlIdpSpSessionLocalService.class);
 
-		SamlIdpSpConnectionLocalService _samlIdpSpConnectionLocalService =
+		SamlIdpSpConnectionLocalService samlIdpSpConnectionLocalService =
 			getMockPortletService(
 				SamlIdpSpConnectionLocalServiceUtil.class,
 				SamlIdpSpConnectionLocalService.class);
 
-		SamlSpSessionLocalService _samlSpSessionLocalService =
-			getMockPortletService(
-				SamlSpSessionLocalServiceUtil.class,
-				SamlSpSessionLocalService.class);
+		_samlSpSessionLocalService = getMockPortletService(
+			SamlSpSessionLocalServiceUtil.class,
+			SamlSpSessionLocalService.class);
 
+		_singleLogoutProfileImpl = new SingleLogoutProfileImpl();
 		_singleLogoutProfileImpl.setIdentifierGenerator(identifierGenerator);
 		_singleLogoutProfileImpl.setSamlBindings(samlBindings);
 
@@ -152,7 +152,6 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 
 		SamlIdpSsoSessionImpl samlIdpSsoSessionImpl =
 			new SamlIdpSsoSessionImpl();
-
 		SamlSloContext samlSloContext = new SamlSloContext(
 			samlIdpSsoSessionImpl);
 
@@ -204,19 +203,17 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 
 		SamlSpSession samlSpSession = new SamlSpSessionImpl();
 		when(
-			SamlSpSessionLocalServiceUtil.fetchSamlSpSessionByJSessionId(
+			_samlSpSessionLocalService.fetchSamlSpSessionByJSessionId(
 				Mockito.anyString())
 		).thenReturn(
 			samlSpSession
 		);
 
-		HttpSession session = request.getSession(true);
-
 		_singleLogoutProfileImpl.sendSpLogoutRequest(
 			request, new MockHttpServletResponse());
 	}
 
-	private SingleLogoutProfileImpl _singleLogoutProfileImpl =
-		new SingleLogoutProfileImpl();
+	private SamlSpSessionLocalService _samlSpSessionLocalService;
+	private SingleLogoutProfileImpl _singleLogoutProfileImpl;
 
 }
