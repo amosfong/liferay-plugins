@@ -52,188 +52,171 @@ import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
 
 /**
- * @author Matt Tambara and Will Newbury
+ * @author Matthew Tambara W
+ * @author William Newbury
  */
-
 @RunWith(PowerMockRunner.class)
 public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 
-    @Before
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
+	@Before
+	@Override
+	public void setUp() throws Exception {
+		super.setUp();
 
-        _samlIdpSpSessionLocalService = getMockPortletService(
-            SamlIdpSpSessionLocalServiceUtil.class,
-            SamlIdpSpSessionLocalService.class);
+		SamlIdpSpSessionLocalService _samlIdpSpSessionLocalService =
+			getMockPortletService(
+				SamlIdpSpSessionLocalServiceUtil.class,
+				SamlIdpSpSessionLocalService.class);
 
-        _samlIdpSpConnectionLocalService = getMockPortletService(
-            SamlIdpSpConnectionLocalServiceUtil.class,
-            SamlIdpSpConnectionLocalService.class);
+		SamlIdpSpConnectionLocalService _samlIdpSpConnectionLocalService =
+			getMockPortletService(
+				SamlIdpSpConnectionLocalServiceUtil.class,
+				SamlIdpSpConnectionLocalService.class);
 
-        _jsonFactory = mock(JSONFactory.class);
+		SamlSpSessionLocalService _samlSpSessionLocalService =
+			getMockPortletService(
+				SamlSpSessionLocalServiceUtil.class,
+				SamlSpSessionLocalService.class);
 
-        _jsonObject = mock(JSONObject.class);
+		_singleLogoutProfileImpl.setIdentifierGenerator(identifierGenerator);
+		_singleLogoutProfileImpl.setSamlBindings(samlBindings);
 
-        JSONFactoryUtil jsonFactoryUtil = new JSONFactoryUtil();
-        jsonFactoryUtil.setJSONFactory(_jsonFactory);
+		prepareServiceProvider(SP_ENTITY_ID);
+	}
 
+	@Test
+	public void testPerformIdpSpLogoutHasSloRequestInfo() throws Exception {
+		JSONObject jsonObject = mock(JSONObject.class);
+		JSONFactory jsonFactory = mock(JSONFactory.class);
 
-        _samlSpSessionLocalService = mock(SamlSpSessionLocalService.class);
-        when(
-            portletBeanLocator.locate(
-                Mockito.eq(SamlSpSessionLocalService.class.getName()))
-        ).thenReturn(
-            _samlSpSessionLocalService
-        );
+		JSONFactoryUtil jsonFactoryUtil = new JSONFactoryUtil();
+		jsonFactoryUtil.setJSONFactory(jsonFactory);
 
-        SamlSpSession samlSpSession = new SamlSpSessionImpl();
-        when(
-            SamlSpSessionLocalServiceUtil.fetchSamlSpSessionByJSessionId(
-                Mockito.anyString())
-        ).thenReturn(
-            samlSpSession
-        );
+		when(
+			JSONFactoryUtil.createJSONObject()
+		).thenReturn(
+			jsonObject
+		);
 
-        _singleLogoutProfileImpl.setIdentifierGenerator(identifierGenerator);
-        _singleLogoutProfileImpl.setSamlBindings(samlBindings);
+		MockHttpServletRequest request = getMockHttpServletRequest(
+			"GET", ACS_URL);
+		request.setParameter("entityId", SP_ENTITY_ID);
 
-        prepareServiceProvider(SP_ENTITY_ID);
-    }
+		SamlIdpSpSessionImpl samlIdpSpSessionImpl = new SamlIdpSpSessionImpl();
+		samlIdpSpSessionImpl.setSamlSpEntityId(SP_ENTITY_ID);
+		samlIdpSpSessionImpl.setCompanyId(COMPANY_ID);
 
-    @Test
-    public void testPerformIdpSpLogoutHasSloRequestInfo() throws Exception {
-        when(
-            JSONFactoryUtil.createJSONObject()
-        ).thenReturn(
-            _jsonObject
-        );
+		List<SamlIdpSpSession> samlIdpSpSessions =
+			new ArrayList<SamlIdpSpSession>();
+		samlIdpSpSessions.add(samlIdpSpSessionImpl);
+		when(
+			SamlIdpSpSessionLocalServiceUtil.getSamlIdpSpSessions(SESSION_ID)
+		).thenReturn(
+			samlIdpSpSessions
+		);
 
-        MockHttpServletRequest request = getMockHttpServletRequest(
-            "GET", ACS_URL);
-        request.setParameter("entityId", SP_ENTITY_ID);
+		SamlIdpSpConnection samlIdpSpConnection = new SamlIdpSpConnectionImpl();
+		when(
+			SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnection(
+				COMPANY_ID, SP_ENTITY_ID)
+		).thenReturn(
+			samlIdpSpConnection
+		);
 
-        List<SamlIdpSpSession> samlIdpSpSessions =
-            new ArrayList<SamlIdpSpSession>();
+		SamlIdpSsoSessionImpl samlIdpSsoSessionImpl =
+			new SamlIdpSsoSessionImpl();
+		samlIdpSsoSessionImpl.setSamlIdpSsoSessionId(SESSION_ID);
 
-        SamlIdpSpSessionImpl samlIdpSpSessionImpl = new SamlIdpSpSessionImpl();
-        samlIdpSpSessionImpl.setSamlSpEntityId(SP_ENTITY_ID);
-        samlIdpSpSessionImpl.setCompanyId(COMPANY_ID);
+		SamlSloContext samlSloContext = new SamlSloContext(
+			samlIdpSsoSessionImpl);
+		SamlSloRequestInfo samlSloRequestInfo =
+			samlSloContext.getSamlSloRequestInfo(SP_ENTITY_ID);
+		samlSloRequestInfo.setStatus(SamlSloRequestInfo.REQUEST_STATUS_SUCCESS);
 
-        samlIdpSpSessions.add(samlIdpSpSessionImpl);
+		_singleLogoutProfileImpl.performIdpSpLogout(
+			request, new MockHttpServletResponse(), samlSloContext);
 
-        SamlIdpSpConnectionImpl samlIdpSpConnectionImpl =
-            new SamlIdpSpConnectionImpl();
+		Assert.assertEquals(
+			"/portal/saml/slo_sp_status.jsp", request.getAttribute(
+				"tilesContent"));
+		Assert.assertTrue(
+			Boolean.valueOf((String)request.getAttribute("tilesPopUp")));
+		Assert.assertEquals(
+			"single-sign-on", request.getAttribute("tilesTitle"));
+	}
 
-        SamlIdpSpConnection samlIdpSpConnection = (
-            SamlIdpSpConnection)samlIdpSpConnectionImpl;
+	@Test
+	public void testPerformIdpSpLogoutNoSloRequestInfo() throws Exception {
+		MockHttpServletRequest request = getMockHttpServletRequest(
+			"GET", ACS_URL);
 
-        SamlIdpSsoSessionImpl samlIdpSsoSessionImpl =
-            new SamlIdpSsoSessionImpl();
-        samlIdpSsoSessionImpl.setSamlIdpSsoSessionId(SESSION_ID);
+		SamlIdpSsoSessionImpl samlIdpSsoSessionImpl =
+			new SamlIdpSsoSessionImpl();
 
-        when(
-            SamlIdpSpSessionLocalServiceUtil.getSamlIdpSpSessions(
-                SESSION_ID)
-            ).thenReturn(
-                samlIdpSpSessions
-            );
+		SamlSloContext samlSloContext = new SamlSloContext(
+			samlIdpSsoSessionImpl);
 
-        when(
-            SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnection(
-                COMPANY_ID, SP_ENTITY_ID)
-            ).thenReturn(
-                samlIdpSpConnection
-            );
+		_singleLogoutProfileImpl.performIdpSpLogout(
+			request, new MockHttpServletResponse(), samlSloContext);
 
-        SamlSloContext samlSloContext = new SamlSloContext(
-            samlIdpSsoSessionImpl);
-        SamlSloRequestInfo samlSloRequestInfo =
-            samlSloContext.getSamlSloRequestInfo(SP_ENTITY_ID);
-        samlSloRequestInfo.setStatus(SamlSloRequestInfo.REQUEST_STATUS_SUCCESS);
+		Assert.assertEquals(
+			"/portal/saml/error.jsp", request.getAttribute("tilesContent"));
+		Assert.assertTrue(
+			Boolean.valueOf((String)request.getAttribute("tilesPopUp")));
+		Assert.assertEquals(
+			"single-sign-on", request.getAttribute("tilesTitle"));
+	}
 
-        _singleLogoutProfileImpl.performIdpSpLogout(
-            request, new MockHttpServletResponse(), samlSloContext);
+	@Test
+	public void testSendIdpLogoutRequestSoapRedirect() throws Exception {
+		prepareIdentityProvider(IDP_ENTITY_ID);
 
-        Assert.assertEquals(
-            "/portal/saml/slo_sp_status.jsp", request.getAttribute(
-                "tilesContent"));
-        Assert.assertTrue(
-            Boolean.valueOf((String)request.getAttribute("tilesPopUp")));
-        Assert.assertEquals(
-            request.getAttribute("tilesTitle"), "single-sign-on");
-    }
+		MockHttpServletRequest request = getMockHttpServletRequest(
+			"GET", ACS_URL);
+		SamlIdpSsoSessionImpl samlIdpSsoSessionImpl =
+			new SamlIdpSsoSessionImpl();
+		SamlSloContext samlSloContext = new SamlSloContext(
+			samlIdpSsoSessionImpl);
 
-    @Test
-    public void testPerformIdpSpLogoutNoSloRequestInfo() throws Exception {
-        MockHttpServletRequest request = getMockHttpServletRequest(
-            "GET", ACS_URL);
+		SamlSloRequestInfo samlSloRequestInfo = new SamlSloRequestInfo();
+		SamlIdpSpSessionImpl samlIdpSpSessionImpl = new SamlIdpSpSessionImpl();
+		samlIdpSpSessionImpl.setSamlSpEntityId(SP_ENTITY_ID);
+		samlSloRequestInfo.setSamlIdpSpSession(samlIdpSpSessionImpl);
 
-        SamlIdpSsoSessionImpl samlIdpSsoSessionImpl =
-            new SamlIdpSsoSessionImpl();
+		_singleLogoutProfileImpl.sendIdpLogoutRequest(
+			request, new MockHttpServletResponse(), samlSloContext,
+			samlSloRequestInfo);
+	}
 
-        SamlSloContext samlSloContext = new SamlSloContext(
-            samlIdpSsoSessionImpl);
+	@Test
+	public void testSendSpLogoutRequestNoSpSession() throws Exception {
+		MockHttpServletRequest request = getMockHttpServletRequest(
+			"GET", LOGIN_URL);
 
-        _singleLogoutProfileImpl.performIdpSpLogout(
-            request, new MockHttpServletResponse(), samlSloContext);
-        Assert.assertEquals(
-            "/portal/saml/error.jsp", request.getAttribute("tilesContent"));
-        Assert.assertTrue(
-            Boolean.valueOf((String)request.getAttribute("tilesPopUp")));
-        Assert.assertEquals(
-            request.getAttribute("tilesTitle"), "single-sign-on");
-    }
+		_singleLogoutProfileImpl.sendSpLogoutRequest(
+			request, new MockHttpServletResponse());
+	}
 
-    @Test
-    public void testSendIdpLogoutRequestSoapRedirect() throws Exception {
-        prepareIdentityProvider(IDP_ENTITY_ID);
+	@Test
+	public void testSendSpLogoutRequestValidSpSession() throws Exception {
+		MockHttpServletRequest request = getMockHttpServletRequest(
+			"GET", LOGIN_URL);
 
-        MockHttpServletRequest request = getMockHttpServletRequest(
-            "GET", ACS_URL);
+		SamlSpSession samlSpSession = new SamlSpSessionImpl();
+		when(
+			SamlSpSessionLocalServiceUtil.fetchSamlSpSessionByJSessionId(
+				Mockito.anyString())
+		).thenReturn(
+			samlSpSession
+		);
 
-        MockHttpServletResponse response = new MockHttpServletResponse();
+		HttpSession session = request.getSession(true);
 
-        SamlIdpSsoSessionImpl samlIdpSsoSessionImpl =
-            new SamlIdpSsoSessionImpl();
-        SamlSloContext samlSloContext = new SamlSloContext(
-            samlIdpSsoSessionImpl);
+		_singleLogoutProfileImpl.sendSpLogoutRequest(
+			request, new MockHttpServletResponse());
+	}
 
-        SamlSloRequestInfo samlSloRequestInfo = new SamlSloRequestInfo();
-        SamlIdpSpSessionImpl samlIdpSpSessionImpl = new SamlIdpSpSessionImpl();
-        samlIdpSpSessionImpl.setSamlSpEntityId(SP_ENTITY_ID);
-        samlSloRequestInfo.setSamlIdpSpSession(samlIdpSpSessionImpl);
-
-        _singleLogoutProfileImpl.sendIdpLogoutRequest(
-            request, new MockHttpServletResponse(), samlSloContext,
-            samlSloRequestInfo);
-    }
-
-    @Test
-    public void testSendSpLogoutRequestNoSpSession() throws Exception {
-        MockHttpServletRequest request = getMockHttpServletRequest(
-            "GET", LOGIN_URL);
-
-        _singleLogoutProfileImpl.sendSpLogoutRequest(
-            request, new MockHttpServletResponse());
-    }
-
-    @Test
-    public void testSendSpLogoutRequestValidSpSession() throws Exception {
-        MockHttpServletRequest request = getMockHttpServletRequest(
-            "GET", LOGIN_URL);
-        HttpSession session = request.getSession(true);
-
-        _singleLogoutProfileImpl.sendSpLogoutRequest(
-            request, new MockHttpServletResponse());
-    }
-
-    private JSONFactory _jsonFactory;
-    private JSONObject _jsonObject;
-    private SamlIdpSpConnectionLocalService _samlIdpSpConnectionLocalService;
-    private SamlIdpSpSessionLocalService _samlIdpSpSessionLocalService;
-    private SamlSpSessionLocalService _samlSpSessionLocalService;
-    private SingleLogoutProfileImpl _singleLogoutProfileImpl =
-        new SingleLogoutProfileImpl();
+	private SingleLogoutProfileImpl _singleLogoutProfileImpl =
+		new SingleLogoutProfileImpl();
 
 }
