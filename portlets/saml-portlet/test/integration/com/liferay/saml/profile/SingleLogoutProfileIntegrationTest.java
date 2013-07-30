@@ -165,7 +165,6 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 				"GET", SLO_LOGOUT_URL.concat("?cmd=logout"));
 
 		SamlSloContext samlSloContext = new SamlSloContext(null);
-
 		_singleLogoutProfileImpl.performIdpSpLogout(
 			mockHttpServletRequest, new MockHttpServletResponse(),
 			samlSloContext);
