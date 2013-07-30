@@ -197,23 +197,6 @@ public class BaseSamlTestCase extends PowerMockito {
 		return mockHttpServletRequest;
 	}
 
-	protected <T> T getMockPortletService(
-		Class<?> serviceUtilClass, Class<T> serviceClass) {
-
-		serviceUtilClasses.add(serviceUtilClass);
-
-		T service = mock(serviceClass);
-
-		when(
-			portletBeanLocator.locate(
-				Mockito.eq(serviceClass.getName()))
-		).thenReturn(
-			service
-		);
-
-		return service;
-	}
-
 	protected <T> T getMockPortalService(
 		Class<?> serviceUtilClass, Class<T> serviceClass) {
 
@@ -223,6 +206,23 @@ public class BaseSamlTestCase extends PowerMockito {
 
 		when(
 			portalBeanLocator.locate(
+				Mockito.eq(serviceClass.getName()))
+		).thenReturn(
+			service
+		);
+
+		return service;
+	}
+
+	protected <T> T getMockPortletService(
+		Class<?> serviceUtilClass, Class<T> serviceClass) {
+
+		serviceUtilClasses.add(serviceUtilClass);
+
+		T service = mock(serviceClass);
+
+		when(
+			portletBeanLocator.locate(
 				Mockito.eq(serviceClass.getName()))
 		).thenReturn(
 			service
