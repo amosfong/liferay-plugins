@@ -23,6 +23,7 @@
 String tabs1 = ParamUtil.getString(request, "tabs1", "organizations");
 
 String searchFilter = ParamUtil.getString(request, "searchFilter");
+String keywords = ParamUtil.getString(request, "keywords");
 
 Role role = RoleLocalServiceUtil.getRole(user.getCompanyId(), RoleConstants.SOCIAL_OFFICE_USER);
 
