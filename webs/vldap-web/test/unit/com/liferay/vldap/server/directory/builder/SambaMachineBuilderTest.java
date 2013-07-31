@@ -60,7 +60,7 @@ public class SambaMachineBuilderTest extends BaseVLDAPTestCase {
 				"sambaDomainName", "testDomainName"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
-				"sambaSID", "S-1-5-21-" + new Long("42")));
+				"sambaSID", "S-1-5-21-" + 42l));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute("sambaNextUserRid", "1000"));
 
@@ -84,7 +84,7 @@ public class SambaMachineBuilderTest extends BaseVLDAPTestCase {
 				"sambaDomainName", "testDomainName"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
-				"sambaSID", "S-1-5-21-" + new Long("42")));
+				"sambaSID", "S-1-5-21-" + 42l));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute("sambaNextUserRid", "1000"));
 	}
