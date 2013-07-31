@@ -87,7 +87,7 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 
 		UserGroup userGroup = mock(UserGroup.class);
 		when(userGroup.getName()).thenReturn("testName");
-		when(userGroup.getUserGroupId()).thenReturn(new Long("42"));
+		when(userGroup.getUserGroupId()).thenReturn(42l);
 		when(userGroup.getDescription()).thenReturn("testDescription");
 
 		_userGroups = new ArrayList<UserGroup>();

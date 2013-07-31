@@ -83,7 +83,7 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		_user = mock(User.class);
 		_users.add(_user);
 
-		Long testLong = new Long("42");
+		Long testLong = 42l;
 		when(_user.getScreenName()).thenReturn("testScreenName");
 		when(_user.getCreateDate()).thenReturn(null);
 		when(_user.getFullName()).thenReturn("testFullName");

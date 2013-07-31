@@ -92,7 +92,7 @@ public class BaseVLDAPTestCase extends PowerMockito {
 		_companies = new ArrayList<Company>();
 		_companies.add(_company);
 
-		Long testLong = new Long("42");
+		Long testLong = 42l;
 		when(_searchBase.getCompanies()).thenReturn(_companies);
 		when(_company.getWebId()).thenReturn("42");
 		when(_company.getCompanyId()).thenReturn(testLong);

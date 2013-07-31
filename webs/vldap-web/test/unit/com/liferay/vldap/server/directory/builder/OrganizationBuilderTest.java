@@ -48,7 +48,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
  * @author William Newbury
  * @author Matthew Tambara
  */
-
 @RunWith(PowerMockRunner.class)
 public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 
@@ -63,7 +62,7 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 		Organization organization = mock(Organization.class);
 		_organizations.add(organization);
 		when(organization.getName()).thenReturn("testName");
-		when(organization.getOrganizationId()).thenReturn(new Long("42"));
+		when(organization.getOrganizationId()).thenReturn(42l);
 
 		_organizationLocalService = getMockService(
 			OrganizationLocalServiceUtil.class, OrganizationLocalService.class);

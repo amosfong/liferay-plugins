@@ -88,7 +88,7 @@ public class RoleBuilderTest extends BaseVLDAPTestCase {
 
 		Role role = mock(Role.class);
 		when(role.getName()).thenReturn("testName");
-		when(role.getRoleId()).thenReturn(new Long("42"));
+		when(role.getRoleId()).thenReturn(42l);
 		when(role.getDescription()).thenReturn("testDescription");
 
 		_roleBuilder = new RoleBuilder();
