@@ -66,7 +66,10 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import org.opensaml.common.IdentifierGenerator;
+import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.metadata.EntityDescriptor;
+import org.opensaml.saml2.metadata.IDPSSODescriptor;
+import org.opensaml.saml2.metadata.SingleSignOnService;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
 import org.opensaml.xml.parse.BasicParserPool;
@@ -558,9 +561,29 @@ public class BaseSamlTestCase extends PowerMockito {
 					"GET", "http://localhost:8080/c/portal/saml/metadata");
 
 			if (entityId.equals(IDP_ENTITY_ID)) {
-				return MetadataGeneratorUtil.buildIdpEntityDescriptor(
-					mockHttpServletRequest, entityId, true, true, false,
-					credential);
+				EntityDescriptor entityDescriptor =
+					MetadataGeneratorUtil.buildIdpEntityDescriptor(
+						mockHttpServletRequest, entityId, true, true, false,
+						credential);
+
+				IDPSSODescriptor idpSsoDescriptor =
+					entityDescriptor.getIDPSSODescriptor(
+						SAMLConstants.SAML20P_NS);
+
+				List<SingleSignOnService> singleSignOnServices =
+					idpSsoDescriptor.getSingleSignOnServices();
+
+				for (SingleSignOnService sso : singleSignOnServices) {
+					if (sso.getBinding().equals(
+						SAMLConstants.SAML2_POST_BINDING_URI)) {
+
+						singleSignOnServices.remove(sso);
+
+						break;
+					}
+				}
+
+				return entityDescriptor;
 			}
 			else if (entityId.equals(SP_ENTITY_ID)) {
 				return MetadataGeneratorUtil.buildSpEntityDescriptor(
