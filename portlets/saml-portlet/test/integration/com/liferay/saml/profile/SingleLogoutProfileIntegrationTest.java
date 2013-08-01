@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.saml.BaseSamlTestCase;
 import com.liferay.saml.SamlSloContext;
 import com.liferay.saml.SamlSloRequestInfo;
+import com.liferay.saml.binding.SamlBinding;
 import com.liferay.saml.model.SamlIdpSpConnection;
 import com.liferay.saml.model.SamlIdpSpSession;
 import com.liferay.saml.model.SamlSpSession;
@@ -44,6 +45,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import org.mockito.Mockito;
+
+import org.opensaml.common.binding.SAMLMessageContext;
+import org.opensaml.common.xml.SAMLConstants;
+import org.opensaml.saml2.core.LogoutRequest;
+import org.opensaml.saml2.core.NameID;
 
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -181,14 +187,38 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 		SamlIdpSpSessionImpl samlIdpSpSessionImpl = new SamlIdpSpSessionImpl();
 
 		samlIdpSpSessionImpl.setSamlSpEntityId(SP_ENTITY_ID);
+		samlIdpSpSessionImpl.setNameIdFormat(NameID.EMAIL);
+		samlIdpSpSessionImpl.setNameIdValue("test@liferay.com");
 
 		SamlSloRequestInfo samlSloRequestInfo = new SamlSloRequestInfo();
 
 		samlSloRequestInfo.setSamlIdpSpSession(samlIdpSpSessionImpl);
 
+		MockHttpServletResponse response = new MockHttpServletResponse();
+
 		_singleLogoutProfileImpl.sendIdpLogoutRequest(
-			request, new MockHttpServletResponse(), samlSloContext,
-			samlSloRequestInfo);
+			request, response, samlSloContext, samlSloRequestInfo);
+
+		String redirect = response.getRedirectedUrl();
+
+		Assert.assertNotNull(redirect);
+
+		request = getMockHttpServletRequest("GET", redirect);
+
+		SamlBinding samlBinding = _singleLogoutProfileImpl.getSamlBinding(
+			SAMLConstants.SAML2_REDIRECT_BINDING_URI);
+
+		SAMLMessageContext<?, ?, ?> samlMessageContext =
+			_singleLogoutProfileImpl.decodeSamlMessage(
+				request, response, samlBinding, true);
+
+		LogoutRequest logoutRequest =
+			(LogoutRequest)samlMessageContext.getInboundSAMLMessage();
+
+		NameID nameId = logoutRequest.getNameID();
+
+		Assert.assertEquals(NameID.EMAIL, nameId.getFormat());
+		Assert.assertEquals("test@liferay.com", nameId.getValue());
 	}
 
 	@Test
@@ -196,8 +226,14 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 		MockHttpServletRequest request = getMockHttpServletRequest(
 			"GET", LOGOUT_URL);
 
-		_singleLogoutProfileImpl.sendSpLogoutRequest(
-			request, new MockHttpServletResponse());
+		MockHttpServletResponse response = new MockHttpServletResponse();
+
+		_singleLogoutProfileImpl.sendSpLogoutRequest(request, response);
+
+		String redirect = response.getRedirectedUrl();
+
+		Assert.assertNotNull(redirect);
+		Assert.assertEquals(LOGOUT_URL, redirect);
 	}
 
 	@Test
@@ -206,6 +242,10 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 			"GET", LOGOUT_URL);
 
 		SamlSpSession samlSpSession = new SamlSpSessionImpl();
+
+		samlSpSession.setNameIdFormat(NameID.EMAIL);
+		samlSpSession.setNameIdValue("test@liferay.com");
+
 		when(
 			_samlSpSessionLocalService.fetchSamlSpSessionByJSessionId(
 				Mockito.anyString())
@@ -213,8 +253,30 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 			samlSpSession
 		);
 
-		_singleLogoutProfileImpl.sendSpLogoutRequest(
-			request, new MockHttpServletResponse());
+		MockHttpServletResponse response = new MockHttpServletResponse();
+
+		_singleLogoutProfileImpl.sendSpLogoutRequest(request, response);
+
+		String redirect = response.getRedirectedUrl();
+
+		Assert.assertNotNull(redirect);
+
+		request = getMockHttpServletRequest("GET", redirect);
+
+		SamlBinding samlBinding = _singleLogoutProfileImpl.getSamlBinding(
+			SAMLConstants.SAML2_REDIRECT_BINDING_URI);
+
+		SAMLMessageContext<?, ?, ?> samlMessageContext =
+			_singleLogoutProfileImpl.decodeSamlMessage(
+				request, response, samlBinding, true);
+
+		LogoutRequest logoutRequest =
+			(LogoutRequest)samlMessageContext.getInboundSAMLMessage();
+
+		NameID nameId = logoutRequest.getNameID();
+
+		Assert.assertEquals(NameID.EMAIL, nameId.getFormat());
+		Assert.assertEquals("test@liferay.com", nameId.getValue());
 	}
 
 	private SamlSpSessionLocalService _samlSpSessionLocalService;
