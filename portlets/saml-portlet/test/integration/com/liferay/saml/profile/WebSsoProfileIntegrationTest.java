@@ -447,8 +447,8 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 
 		samlSpAuthRequest.setSamlIdpEntityId(IDP_ENTITY_ID);
 
-		String samlSpAuthRequestKey =
-			identifierGenerator.generateIdentifier(30);
+		String samlSpAuthRequestKey = identifierGenerator.generateIdentifier(
+			30);
 
 		samlSpAuthRequest.setSamlSpAuthRequestKey(samlSpAuthRequestKey);
 
