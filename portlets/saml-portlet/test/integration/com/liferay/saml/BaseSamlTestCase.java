@@ -573,11 +573,13 @@ public class BaseSamlTestCase extends PowerMockito {
 				List<SingleSignOnService> singleSignOnServices =
 					idpSsoDescriptor.getSingleSignOnServices();
 
-				for (SingleSignOnService sso : singleSignOnServices) {
-					if (sso.getBinding().equals(
-						SAMLConstants.SAML2_POST_BINDING_URI)) {
+				for (SingleSignOnService singleSignOnService :
+						singleSignOnServices) {
 
-						singleSignOnServices.remove(sso);
+					String binding = singleSignOnService.getBinding();
+
+					if (binding.equals(SAMLConstants.SAML2_POST_BINDING_URI)) {
+						singleSignOnServices.remove(singleSignOnService);
 
 						break;
 					}
