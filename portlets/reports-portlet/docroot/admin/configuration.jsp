@@ -19,14 +19,14 @@
 <%
 String tabs2 = ParamUtil.getString(request, "tabs2", "email-from");
 
-String emailFromName = ParamUtil.getString(request, "emailFromName", AdminUtil.getEmailFromName(preferences));
-String emailFromAddress = ParamUtil.getString(request, "emailFromAddress", AdminUtil.getEmailFromAddress(preferences));
+String emailFromName = ParamUtil.getString(request, "emailFromName", AdminUtil.getEmailFromName(portletPreferences));
+String emailFromAddress = ParamUtil.getString(request, "emailFromAddress", AdminUtil.getEmailFromAddress(portletPreferences));
 
-String emailDeliverySubject = ParamUtil.getString(request, "emailDeliverySubject", AdminUtil.getEmailDeliverySubject(preferences));
-String emailDeliveryBody = ParamUtil.getString(request, "emailDeliveryBody", AdminUtil.getEmailDeliveryBody(preferences));
+String emailDeliverySubject = ParamUtil.getString(request, "emailDeliverySubject", AdminUtil.getEmailDeliverySubject(portletPreferences));
+String emailDeliveryBody = ParamUtil.getString(request, "emailDeliveryBody", AdminUtil.getEmailDeliveryBody(portletPreferences));
 
-String emailNotificationsSubject = ParamUtil.getString(request, "emailNotificationsSubject", AdminUtil.getEmailNotificationsSubject(preferences));
-String emailNotificationsBody = ParamUtil.getString(request, "emailNotificationsBody", AdminUtil.getEmailNotificationsBody(preferences));
+String emailNotificationsSubject = ParamUtil.getString(request, "emailNotificationsSubject", AdminUtil.getEmailNotificationsSubject(portletPreferences));
+String emailNotificationsBody = ParamUtil.getString(request, "emailNotificationsBody", AdminUtil.getEmailNotificationsBody(portletPreferences));
 
 String editorParam = StringPool.BLANK;
 String editorBody = StringPool.BLANK;

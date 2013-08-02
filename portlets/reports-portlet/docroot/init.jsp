@@ -51,10 +51,8 @@ page import="com.liferay.portal.kernel.util.StringUtil" %><%@
 page import="com.liferay.portal.kernel.util.Validator" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %><%@
 page import="com.liferay.portal.model.User" %><%@
-page import="com.liferay.portal.service.PortletPreferencesLocalServiceUtil" %><%@
 page import="com.liferay.portal.service.UserLocalServiceUtil" %><%@
 page import="com.liferay.portal.util.PortalUtil" %><%@
-page import="com.liferay.portlet.PortletPreferencesFactoryUtil" %><%@
 page import="com.liferay.portlet.calendar.EventDurationException" %><%@
 page import="com.liferay.portlet.calendar.EventStartDateException" %><%@
 page import="com.liferay.portlet.calendar.EventTitleException" %><%@
@@ -95,8 +93,7 @@ page import="java.util.Calendar" %><%@
 page import="java.util.Date" %><%@
 page import="java.util.List" %>
 
-<%@ page import="javax.portlet.PortletPreferences" %><%@
-page import="javax.portlet.PortletURL" %><%@
+<%@ page import="javax.portlet.PortletURL" %><%@
 page import="javax.portlet.WindowState" %>
 
 <portlet:defineObjects />
@@ -117,14 +114,6 @@ else if (resourceRequest != null) {
 
 Format dateFormatDate = FastDateFormatFactoryUtil.getDate(locale, timeZone);
 Format dateFormatDateTime = FastDateFormatFactoryUtil.getDateTime(locale, timeZone);
-
-PortletPreferences preferences = PortletPreferencesLocalServiceUtil.getPreferences(0, themeDisplay.getScopeGroupId(), PortletKeys.PREFS_OWNER_TYPE_GROUP, PortletKeys.PREFS_PLID_SHARED, PortalUtil.getPortletId(request));
-
-String portletResource = ParamUtil.getString(request, "portletResource");
-
-if (Validator.isNotNull(portletResource)) {
-	preferences = PortletPreferencesFactoryUtil.getPortletSetup(request, portletResource);
-}
 
 String languageId = LanguageUtil.getLanguageId(request);
 %>
