@@ -68,15 +68,13 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 
-		SamlIdpSpSessionLocalService samlIdpSpSessionLocalService =
-			getMockPortletService(
-				SamlIdpSpSessionLocalServiceUtil.class,
-				SamlIdpSpSessionLocalService.class);
+		_samlIdpSpSessionLocalService = getMockPortletService(
+			SamlIdpSpSessionLocalServiceUtil.class,
+			SamlIdpSpSessionLocalService.class);
 
-		SamlIdpSpConnectionLocalService samlIdpSpConnectionLocalService =
-			getMockPortletService(
-				SamlIdpSpConnectionLocalServiceUtil.class,
-				SamlIdpSpConnectionLocalService.class);
+		_samlIdpSpConnectionLocalService = getMockPortletService(
+			SamlIdpSpConnectionLocalServiceUtil.class,
+			SamlIdpSpConnectionLocalService.class);
 
 		_samlSpSessionLocalService = getMockPortletService(
 			SamlSpSessionLocalServiceUtil.class,
@@ -118,7 +116,7 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 		samlIdpSpSessions.add(samlIdpSpSessionImpl);
 
 		when(
-			SamlIdpSpSessionLocalServiceUtil.getSamlIdpSpSessions(SESSION_ID)
+			_samlIdpSpSessionLocalService.getSamlIdpSpSessions(SESSION_ID)
 		).thenReturn(
 			samlIdpSpSessions
 		);
@@ -126,7 +124,7 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 		SamlIdpSpConnection samlIdpSpConnection = new SamlIdpSpConnectionImpl();
 
 		when(
-			SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnection(
+			_samlIdpSpConnectionLocalService.getSamlIdpSpConnection(
 				COMPANY_ID, SP_ENTITY_ID)
 		).thenReturn(
 			samlIdpSpConnection
@@ -279,6 +277,8 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 		Assert.assertEquals("test@liferay.com", nameId.getValue());
 	}
 
+	private SamlIdpSpConnectionLocalService _samlIdpSpConnectionLocalService;
+	private SamlIdpSpSessionLocalService _samlIdpSpSessionLocalService;
 	private SamlSpSessionLocalService _samlSpSessionLocalService;
 	private SingleLogoutProfileImpl _singleLogoutProfileImpl;
 
