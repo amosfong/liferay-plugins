@@ -17,6 +17,7 @@ package com.liferay.saml.profile;
 import com.liferay.portal.json.JSONFactoryImpl;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
+import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.saml.BaseSamlTestCase;
 import com.liferay.saml.SamlSloContext;
 import com.liferay.saml.SamlSloRequestInfo;
@@ -35,6 +36,7 @@ import com.liferay.saml.service.SamlIdpSpSessionLocalServiceUtil;
 import com.liferay.saml.service.SamlSpSessionLocalService;
 import com.liferay.saml.service.SamlSpSessionLocalServiceUtil;
 import com.liferay.saml.util.JspUtil;
+import com.liferay.saml.util.PortletWebKeys;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -143,6 +145,15 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 			request.getAttribute("tilesContent"));
 		Assert.assertTrue(
 			Boolean.valueOf((String)request.getAttribute("tilesPopUp")));
+
+		JSONObject jsonObject = (JSONObject)request.getAttribute(
+			PortletWebKeys.SAML_SLO_REQUEST_INFO);
+
+		Assert.assertNotNull(jsonObject);
+		Assert.assertEquals(SP_ENTITY_ID, jsonObject.getString("entityId"));
+		Assert.assertEquals(
+			SamlSloRequestInfo.REQUEST_STATUS_SUCCESS,
+			jsonObject.getInt("status"));
 	}
 
 	@Test
