@@ -14,9 +14,9 @@
 
 package com.liferay.saml.profile;
 
+import com.liferay.portal.json.JSONFactoryImpl;
 import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
-import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.saml.BaseSamlTestCase;
 import com.liferay.saml.SamlSloContext;
 import com.liferay.saml.SamlSloRequestInfo;
@@ -68,6 +68,11 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 
+		JSONFactory jsonFactory = new JSONFactoryImpl();
+
+		JSONFactoryUtil jsonFactoryUtil = new JSONFactoryUtil();
+		jsonFactoryUtil.setJSONFactory(jsonFactory);
+
 		_samlIdpSpSessionLocalService = getMockPortletService(
 			SamlIdpSpSessionLocalServiceUtil.class,
 			SamlIdpSpSessionLocalService.class);
@@ -89,18 +94,6 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 
 	@Test
 	public void testPerformIdpSpLogoutHasSloRequestInfo() throws Exception {
-		JSONObject jsonObject = mock(JSONObject.class);
-		JSONFactory jsonFactory = mock(JSONFactory.class);
-
-		JSONFactoryUtil jsonFactoryUtil = new JSONFactoryUtil();
-		jsonFactoryUtil.setJSONFactory(jsonFactory);
-
-		when(
-			jsonFactory.createJSONObject()
-		).thenReturn(
-			jsonObject
-		);
-
 		MockHttpServletRequest request = getMockHttpServletRequest(
 			"GET", SLO_LOGOUT_URL.concat("?cmd=logout"));
 
