@@ -14,6 +14,7 @@
 
 package com.liferay.portal.resiliency.spi.provider.tomcat;
 
+import com.liferay.portal.kernel.io.unsync.UnsyncStringReader;
 import com.liferay.portal.kernel.resiliency.spi.SPIConfiguration;
 import com.liferay.portal.kernel.resiliency.spi.remote.RemoteSPI;
 
@@ -22,6 +23,8 @@ import java.io.ObjectInputStream;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+
+import java.util.Properties;
 
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
@@ -155,8 +158,18 @@ public class TomcatRemoteSPI extends RemoteSPI {
 
 		Connector connector = _tomcat.getConnector();
 
-		connector.setProperty("keepAliveTimeout", "-1");
-		connector.setProperty("maxKeepAliveRequests", "-1");
+		String extraSettings = spiConfiguration.getExtraSettings();
+
+		Properties properties = new Properties();
+
+		properties.load(new UnsyncStringReader(extraSettings));
+
+		properties.put("keepAliveTimeout", "-1");
+		properties.put("maxKeepAliveRequests", "-1");
+
+		for (String name : properties.stringPropertyNames()) {
+			connector.setProperty(name, properties.getProperty(name));
+		}
 	}
 
 	private static final long serialVersionUID = 1L;
