@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_2_0.dtd">
+
+<service-builder package-path="com.liferay.portal.resiliency" auto-namespace-tables="false">
+	<author>Michael C. Han</author>
+	<namespace>PortalResiliency</namespace>
+	<entity name="PortalResiliencyDefinition" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="portalResiliencyDefinitionId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+		<column name="name" type="String" />
+		<column name="description" type="String" />
+		<column name="applications" type="String" />
+		<column name="jvmArguments" type="String" />
+		<column name="typeSettings" type="String" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="portalResiliencyDefinitionId" />
+		</order>
+
+		<!-- Finder methods -->
+
+		<finder name="CompanyId" return-type="Collection">
+			<finder-column name="companyId" />
+		</finder>
+		<finder name="C_N" return-type="PortalResiliencyDefinition">
+			<finder-column name="companyId" />
+			<finder-column name="name" />
+		</finder>
+
+		<reference package-path="com.liferay.portlet.expando" entity="ExpandoRow" />
+	</entity>
+	<exceptions>
+		<exception>DuplicatePortalResiliencyDefinition</exception>
+	</exceptions>
+</service-builder>
