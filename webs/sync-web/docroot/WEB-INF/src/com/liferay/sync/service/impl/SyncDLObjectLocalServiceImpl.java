@@ -34,6 +34,7 @@ import java.util.List;
 public class SyncDLObjectLocalServiceImpl
 	extends SyncDLObjectLocalServiceBaseImpl {
 
+	@Override
 	public SyncDLObject addSyncDLObject(
 			long companyId, long modifiedDate, long repositoryId,
 			long parentFolderId, String name, String description,
@@ -85,9 +86,7 @@ public class SyncDLObjectLocalServiceImpl
 	}
 
 	@Override
-	public long getLatestModifiedDate()
-		throws PortalException, SystemException {
-
+	public long getLatestModifiedDate() throws SystemException {
 		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 			SyncDLObject.class);
 
@@ -95,9 +94,8 @@ public class SyncDLObjectLocalServiceImpl
 
 		dynamicQuery.setProjection(projection);
 
-		List<Long> modifiedDates =
-			(List<Long>)syncDLObjectPersistence.findWithDynamicQuery(
-				dynamicQuery);
+		List<Long> modifiedDates = syncDLObjectPersistence.findWithDynamicQuery(
+			dynamicQuery);
 
 		if (modifiedDates.isEmpty()) {
 			return 0;
