@@ -35,10 +35,11 @@ public class SyncDLObjectLocalServiceImpl
 	extends SyncDLObjectLocalServiceBaseImpl {
 
 	public SyncDLObject addSyncDLObject(
-			long companyId, long modifiedDate, long typePK, String typeUuid,
-			String type, long repositoryId, long parentFolderId, String name,
-			String description, String checksum, String event, long lockUserId,
-			String lockUserName, long size, String version)
+			long companyId, long modifiedDate, long repositoryId,
+			long parentFolderId, String name, String description,
+			String checksum, String event, long lockUserId, String lockUserName,
+			long size, String type, long typePK, String typeUuid,
+			String version)
 		throws PortalException, SystemException {
 
 		if (!isDefaultRepository(parentFolderId)) {
@@ -55,10 +56,10 @@ public class SyncDLObjectLocalServiceImpl
 
 			syncDLObject.setCompanyId(companyId);
 			syncDLObject.setCreateDate(modifiedDate);
+			syncDLObject.setRepositoryId(repositoryId);
+			syncDLObject.setType(type);
 			syncDLObject.setTypePK(typePK);
 			syncDLObject.setTypeUuid(typeUuid);
-			syncDLObject.setType(type);
-			syncDLObject.setRepositoryId(repositoryId);
 		}
 		else if (syncDLObject.getModifiedDate() > modifiedDate) {
 			return null;

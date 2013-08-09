@@ -35,14 +35,14 @@ import com.liferay.sync.util.SyncUtil;
 public class SyncMessageListener extends BaseMessageListener {
 
 	protected void addSyncDLObject(
-			long typePK, String type, long modifiedDate, String event)
+			long modifiedDate, String event, String type, long typePK)
 		throws Exception {
 
 		if (event.equals(DLSyncConstants.EVENT_DELETE)) {
 			SyncDLObjectLocalServiceUtil.addSyncDLObject(
-				0, modifiedDate, typePK, StringPool.BLANK, type, 0, 0,
-				StringPool.BLANK, StringPool.BLANK, StringPool.BLANK, event, 0,
-				StringPool.BLANK, 0, StringPool.BLANK);
+				0, modifiedDate, 0, 0, StringPool.BLANK, StringPool.BLANK,
+				StringPool.BLANK, event, 0, StringPool.BLANK, 0, type, typePK,
+				StringPool.BLANK, StringPool.BLANK);
 		}
 		else if (type.equals(DLSyncConstants.TYPE_FILE)) {
 			FileEntry fileEntry = null;
@@ -74,11 +74,11 @@ public class SyncMessageListener extends BaseMessageListener {
 
 				SyncDLObjectLocalServiceUtil.addSyncDLObject(
 					dlFileVersion.getCompanyId(), modifiedDate,
-					fileEntry.getFileEntryId(), fileEntry.getUuid(), type,
 					dlFileVersion.getRepositoryId(),
 					dlFileVersion.getFolderId(), dlFileVersion.getTitle(),
 					dlFileVersion.getDescription(), checksum, event, lockUserId,
-					lockUserName, dlFileVersion.getSize(),
+					lockUserName, dlFileVersion.getSize(), type,
+					fileEntry.getFileEntryId(), fileEntry.getUuid(),
 					dlFileVersion.getVersion());
 			}
 			else {
@@ -86,10 +86,10 @@ public class SyncMessageListener extends BaseMessageListener {
 
 				SyncDLObjectLocalServiceUtil.addSyncDLObject(
 					fileEntry.getCompanyId(), modifiedDate,
-					fileEntry.getFileEntryId(), fileEntry.getUuid(), type,
 					fileEntry.getRepositoryId(), fileEntry.getFolderId(),
 					fileEntry.getTitle(), fileEntry.getDescription(), checksum,
-					event, lockUserId, lockUserName, fileEntry.getSize(),
+					event, lockUserId, lockUserName, fileEntry.getSize(), type,
+					fileEntry.getFileEntryId(), fileEntry.getUuid(),
 					fileEntry.getVersion());
 			}
 		}
@@ -105,10 +105,10 @@ public class SyncMessageListener extends BaseMessageListener {
 
 			SyncDLObjectLocalServiceUtil.addSyncDLObject(
 				folder.getCompanyId(), modifiedDate, folder.getFolderId(),
-				folder.getUuid(), type, folder.getRepositoryId(),
 				folder.getParentFolderId(), folder.getName(),
 				folder.getDescription(), StringPool.BLANK, event, 0,
-				StringPool.BLANK, 0, "-1");
+				StringPool.BLANK, 0, type, folder.getRepositoryId(),
+				folder.getUuid(), "-1");
 		}
 	}
 
@@ -119,7 +119,7 @@ public class SyncMessageListener extends BaseMessageListener {
 		String type = message.getString("type");
 		long typePK = message.getLong("typePK");
 
-		addSyncDLObject(typePK, type, modifiedDate, event);
+		addSyncDLObject(modifiedDate, event, type, typePK);
 	}
 
 }
