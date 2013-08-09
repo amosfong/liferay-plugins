@@ -450,7 +450,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 
 	@Override
 	public List<Group> getUserSites() throws PortalException, SystemException {
-		return groupService.getUserPlacesGroups();
+		return groupService.getUserSitesGroups();
 	}
 
 	@Override
