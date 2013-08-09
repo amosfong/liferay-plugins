@@ -417,7 +417,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		}
 
 		syncContext.setUserId(getUserId());
-		syncContext.setUserSites(getUserSites());
+		syncContext.setUserSiteGroups(getUserSiteGroups());
 
 		return syncContext;
 	}
@@ -442,14 +442,16 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	}
 
 	@Override
-	public Group getUserSite(long groupId)
+	public Group getGroup(long groupId)
 		throws PortalException, SystemException {
 
 		return groupService.getGroup(groupId);
 	}
 
 	@Override
-	public List<Group> getUserSites() throws PortalException, SystemException {
+	public List<Group> getUserSiteGroups()
+		throws PortalException, SystemException {
+
 		return groupService.getUserSitesGroups();
 	}
 

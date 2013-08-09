@@ -43,8 +43,8 @@ public class SyncContext {
 		return _userId;
 	}
 
-	public List<Group> getUserSites() {
-		return _userSites;
+	public List<Group> getUserSiteGroups() {
+		return _userSiteGroups;
 	}
 
 	public boolean isSocialOfficeInstalled() {
@@ -77,8 +77,8 @@ public class SyncContext {
 		_userId = userId;
 	}
 
-	public void setUserSites(List<Group> userSites) {
-		_userSites = userSites;
+	public void setUserSiteGroups(List<Group> userSiteGroups) {
+		_userSiteGroups = userSiteGroups;
 	}
 
 	private String _pluginVersion;
@@ -87,6 +87,6 @@ public class SyncContext {
 	private String _socialOfficeEELicenseDigest;
 	private boolean _socialOfficeInstalled;
 	private long _userId;
-	private List<Group> _userSites;
+	private List<Group> _userSiteGroups;
 
 }
