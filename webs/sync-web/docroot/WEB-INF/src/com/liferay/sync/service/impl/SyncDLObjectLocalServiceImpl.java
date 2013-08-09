@@ -86,22 +86,22 @@ public class SyncDLObjectLocalServiceImpl
 	}
 
 	@Override
-	public long getLatestModifiedDate() throws SystemException {
+	public long getLatestModifiedTime() throws SystemException {
 		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 			SyncDLObject.class);
 
-		Projection projection = ProjectionFactoryUtil.max("modifiedDate");
+		Projection projection = ProjectionFactoryUtil.max("modifiedTime");
 
 		dynamicQuery.setProjection(projection);
 
-		List<Long> modifiedDates = syncDLObjectPersistence.findWithDynamicQuery(
+		List<Long> modifiedTimes = syncDLObjectPersistence.findWithDynamicQuery(
 			dynamicQuery);
 
-		if (modifiedDates.isEmpty()) {
+		if (modifiedTimes.isEmpty()) {
 			return 0;
 		}
 
-		return modifiedDates.get(0);
+		return modifiedTimes.get(0);
 	}
 
 	protected boolean isDefaultRepository(long folderId)

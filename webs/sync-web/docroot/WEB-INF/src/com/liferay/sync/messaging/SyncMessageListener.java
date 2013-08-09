@@ -35,12 +35,12 @@ import com.liferay.sync.util.SyncUtil;
 public class SyncMessageListener extends BaseMessageListener {
 
 	protected void addSyncDLObject(
-			long modifiedDate, String event, String type, long typePK)
+			long modifiedTime, String event, String type, long typePK)
 		throws Exception {
 
 		if (event.equals(DLSyncConstants.EVENT_DELETE)) {
 			SyncDLObjectLocalServiceUtil.addSyncDLObject(
-				0, modifiedDate, 0, 0, StringPool.BLANK, StringPool.BLANK,
+				0, modifiedTime, 0, 0, StringPool.BLANK, StringPool.BLANK,
 				StringPool.BLANK, event, 0, StringPool.BLANK, 0, type, typePK,
 				StringPool.BLANK, StringPool.BLANK);
 		}
@@ -73,7 +73,7 @@ public class SyncMessageListener extends BaseMessageListener {
 					dlFileVersion.getContentStream(false));
 
 				SyncDLObjectLocalServiceUtil.addSyncDLObject(
-					dlFileVersion.getCompanyId(), modifiedDate,
+					dlFileVersion.getCompanyId(), modifiedTime,
 					dlFileVersion.getRepositoryId(),
 					dlFileVersion.getFolderId(), dlFileVersion.getTitle(),
 					dlFileVersion.getDescription(), checksum, event, lockUserId,
@@ -85,7 +85,7 @@ public class SyncMessageListener extends BaseMessageListener {
 				String checksum = SyncUtil.getChecksum(fileEntry);
 
 				SyncDLObjectLocalServiceUtil.addSyncDLObject(
-					fileEntry.getCompanyId(), modifiedDate,
+					fileEntry.getCompanyId(), modifiedTime,
 					fileEntry.getRepositoryId(), fileEntry.getFolderId(),
 					fileEntry.getTitle(), fileEntry.getDescription(), checksum,
 					event, lockUserId, lockUserName, fileEntry.getSize(), type,
@@ -104,7 +104,7 @@ public class SyncMessageListener extends BaseMessageListener {
 			}
 
 			SyncDLObjectLocalServiceUtil.addSyncDLObject(
-				folder.getCompanyId(), modifiedDate, folder.getFolderId(),
+				folder.getCompanyId(), modifiedTime, folder.getFolderId(),
 				folder.getParentFolderId(), folder.getName(),
 				folder.getDescription(), StringPool.BLANK, event, 0,
 				StringPool.BLANK, 0, type, folder.getRepositoryId(),
@@ -115,11 +115,11 @@ public class SyncMessageListener extends BaseMessageListener {
 	@Override
 	protected void doReceive(Message message) throws Exception {
 		String event = message.getString("event");
-		long modifiedDate = message.getLong("modifiedDate");
+		long modifiedTime = message.getLong("modifiedTime");
 		String type = message.getString("type");
 		long typePK = message.getLong("typePK");
 
-		addSyncDLObject(modifiedDate, event, type, typePK);
+		addSyncDLObject(modifiedTime, event, type, typePK);
 	}
 
 }

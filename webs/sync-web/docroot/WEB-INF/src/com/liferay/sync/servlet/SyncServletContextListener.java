@@ -78,18 +78,18 @@ public class SyncServletContextListener
 			_messageListener);
 
 		try {
-			long latestModifiedDate =
-				SyncDLObjectLocalServiceUtil.getLatestModifiedDate();
+			long latestModifiedTime =
+				SyncDLObjectLocalServiceUtil.getLatestModifiedTime();
 
 			List<DLSyncEvent> dlSyncEvents = null;
 
-			if (latestModifiedDate == 0) {
+			if (latestModifiedTime == 0) {
 				dlSyncEvents =
 					DLSyncEventLocalServiceUtil.getLatestDLSyncEvents();
 			}
 			else {
 				dlSyncEvents = DLSyncEventLocalServiceUtil.getDLSyncEvents(
-					latestModifiedDate);
+					latestModifiedTime);
 			}
 
 			for (DLSyncEvent dlSyncEvent : dlSyncEvents) {
@@ -98,7 +98,7 @@ public class SyncServletContextListener
 				Map<String, Object> values = new HashMap<String, Object>(4);
 
 				values.put("event", dlSyncEvent.getEvent());
-				values.put("modifiedDate", dlSyncEvent.getModifiedDate());
+				values.put("modifiedTime", dlSyncEvent.getModifiedTime());
 				values.put("type", dlSyncEvent.getType());
 				values.put("typePK", dlSyncEvent.getTypePK());
 
