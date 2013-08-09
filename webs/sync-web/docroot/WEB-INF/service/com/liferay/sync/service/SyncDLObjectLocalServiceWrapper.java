@@ -299,9 +299,9 @@ public class SyncDLObjectLocalServiceWrapper implements SyncDLObjectLocalService
 	}
 
 	@Override
-	public long getLatestModifiedDate()
+	public long getLatestModifiedTime()
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _syncDLObjectLocalService.getLatestModifiedDate();
+		return _syncDLObjectLocalService.getLatestModifiedTime();
 	}
 
 	/**

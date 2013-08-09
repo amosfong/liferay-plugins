@@ -127,7 +127,7 @@ public class SyncDLObjectLocalServiceClpInvoker {
 
 		_methodParameterTypes59 = new String[] { "long" };
 
-		_methodName60 = "getLatestModifiedDate";
+		_methodName60 = "getLatestModifiedTime";
 
 		_methodParameterTypes60 = new String[] {  };
 	}
@@ -256,7 +256,7 @@ public class SyncDLObjectLocalServiceClpInvoker {
 
 		if (_methodName60.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
-			return SyncDLObjectLocalServiceUtil.getLatestModifiedDate();
+			return SyncDLObjectLocalServiceUtil.getLatestModifiedTime();
 		}
 
 		throw new UnsupportedOperationException();

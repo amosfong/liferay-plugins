@@ -124,7 +124,7 @@ public class SyncDLObjectLocalServiceClp implements SyncDLObjectLocalService {
 				"java.lang.String", "java.lang.String"
 			};
 
-		_methodName20 = "getLatestModifiedDate";
+		_methodName20 = "getLatestModifiedTime";
 
 		_methodParameterTypes20 = new String[] {  };
 	}
@@ -745,7 +745,7 @@ public class SyncDLObjectLocalServiceClp implements SyncDLObjectLocalService {
 	}
 
 	@Override
-	public long getLatestModifiedDate()
+	public long getLatestModifiedTime()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 

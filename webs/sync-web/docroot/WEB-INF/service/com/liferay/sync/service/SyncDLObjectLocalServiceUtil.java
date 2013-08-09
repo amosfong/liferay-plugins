@@ -290,9 +290,9 @@ public class SyncDLObjectLocalServiceUtil {
 			lockUserName, size, type, typePK, typeUuid, version);
 	}
 
-	public static long getLatestModifiedDate()
+	public static long getLatestModifiedTime()
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().getLatestModifiedDate();
+		return getService().getLatestModifiedTime();
 	}
 
 	public static void clearService() {
