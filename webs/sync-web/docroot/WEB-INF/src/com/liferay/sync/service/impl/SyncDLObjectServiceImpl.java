@@ -375,6 +375,13 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	}
 
 	@Override
+	public Group getGroup(long groupId)
+		throws PortalException, SystemException {
+
+		return groupService.getGroup(groupId);
+	}
+
+	@Override
 	public SyncContext getSyncContext(String uuid)
 		throws PortalException, SystemException {
 
@@ -439,13 +446,6 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		}
 
 		return new SyncDLObjectUpdate(syncDLObjects, lastAccessDate);
-	}
-
-	@Override
-	public Group getGroup(long groupId)
-		throws PortalException, SystemException {
-
-		return groupService.getGroup(groupId);
 	}
 
 	@Override
