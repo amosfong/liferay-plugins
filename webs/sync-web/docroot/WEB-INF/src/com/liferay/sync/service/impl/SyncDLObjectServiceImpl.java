@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.plugin.PluginPackage;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.util.FileUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.ReflectionUtil;
 import com.liferay.portal.kernel.util.ReleaseInfo;
@@ -74,18 +75,6 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 			File file, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		return addFileEntry(
-			repositoryId, folderId, sourceFileName, mimeType, title,
-			description, changeLog, file, serviceContext, false);
-	}
-
-	@Override
-	public SyncDLObject addFileEntry(
-			long repositoryId, long folderId, String sourceFileName,
-			String mimeType, String title, String description, String changeLog,
-			File file, ServiceContext serviceContext, boolean overwrite)
-		throws PortalException, SystemException {
-
 		try {
 			FileEntry fileEntry = dlAppService.addFileEntry(
 				repositoryId, folderId, sourceFileName, mimeType, title,
@@ -95,7 +84,9 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 				fileEntry, DLSyncConstants.EVENT_ADD);
 		}
 		catch (DuplicateFileException dfe) {
-			if (overwrite) {
+			if (GetterUtil.getBoolean(
+					serviceContext.getAttribute("overwrite"))) {
+
 				FileEntry fileEntry = dlAppService.getFileEntry(
 					repositoryId, folderId, title);
 
@@ -118,18 +109,6 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 			String description, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		return addFolder(
-			repositoryId, parentFolderId, name, description, serviceContext,
-			false);
-	}
-
-	@Override
-	public SyncDLObject addFolder(
-			long repositoryId, long parentFolderId, String name,
-			String description, ServiceContext serviceContext,
-			boolean overwrite)
-		throws PortalException, SystemException {
-
 		try {
 			Folder folder = dlAppService.addFolder(
 				repositoryId, parentFolderId, name, description,
@@ -138,7 +117,9 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 			return SyncUtil.toSyncDLObject(folder, DLSyncConstants.EVENT_ADD);
 		}
 		catch (DuplicateFolderNameException dfne) {
-			if (overwrite) {
+			if (GetterUtil.getBoolean(
+					serviceContext.getAttribute("overwrite"))) {
+
 				Folder folder = dlAppService.getFolder(
 					repositoryId, parentFolderId, name);
 
