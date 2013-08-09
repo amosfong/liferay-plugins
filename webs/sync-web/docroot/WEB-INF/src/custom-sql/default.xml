@@ -9,7 +9,7 @@
 				SyncDLObject
 			WHERE
 				(SyncDLObject.companyId = ?) AND
-				(SyncDLObject.modifiedDate > ?) AND
+				(SyncDLObject.modifiedTime > ?) AND
 				(SyncDLObject.repositoryId = ?) AND
 				(SyncDLObject.type_ = ?)
 		]]>

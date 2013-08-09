@@ -177,13 +177,13 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 			long repositoryId, long folderId)
 		throws PortalException, SystemException {
 
-		long lastAccessDate = System.currentTimeMillis();
+		long lastAccessTime = System.currentTimeMillis();
 
 		List<SyncDLObject> syncDLObjects = new ArrayList<SyncDLObject>();
 
 		getAllSyncDLObjects(repositoryId, folderId, syncDLObjects);
 
-		return new SyncDLObjectUpdate(syncDLObjects, lastAccessDate);
+		return new SyncDLObjectUpdate(syncDLObjects, lastAccessTime);
 	}
 
 	@Override
@@ -412,21 +412,21 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 
 	@Override
 	public SyncDLObjectUpdate getSyncDLObjectUpdate(
-			long companyId, long repositoryId, long lastAccessDate)
+			long companyId, long repositoryId, long lastAccessTime)
 		throws PortalException, SystemException {
 
 		repositoryService.checkRepository(repositoryId);
 
 		List<SyncDLObject> syncDLObjects = syncDLObjectFinder.filterFindByC_M_R(
-			companyId, lastAccessDate, repositoryId);
+			companyId, lastAccessTime, repositoryId);
 
 		for (SyncDLObject syncDLObject : syncDLObjects) {
-			if (syncDLObject.getModifiedDate() > lastAccessDate) {
-				lastAccessDate = syncDLObject.getModifiedDate();
+			if (syncDLObject.getModifiedTime() > lastAccessTime) {
+				lastAccessTime = syncDLObject.getModifiedTime();
 			}
 		}
 
-		return new SyncDLObjectUpdate(syncDLObjects, lastAccessDate);
+		return new SyncDLObjectUpdate(syncDLObjects, lastAccessTime);
 	}
 
 	@Override

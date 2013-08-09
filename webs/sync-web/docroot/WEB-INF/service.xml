@@ -12,8 +12,8 @@
 		<!-- Audit fields -->
 
 		<column name="companyId" type="long" />
-		<column name="createDate" type="long" />
-		<column name="modifiedDate" type="long" />
+		<column name="createTime" type="long" />
+		<column name="modifiedTime" type="long" />
 
 		<!-- Other fields -->
 
@@ -35,7 +35,7 @@
 
 		<order by="asc">
 			<order-column name="companyId" />
-			<order-column name="modifiedDate" />
+			<order-column name="modifiedTime" />
 			<order-column name="repositoryId" />
 		</order>
 
@@ -46,7 +46,7 @@
 		</finder>
 		<finder name="C_M_R" return-type="Collection">
 			<finder-column name="companyId" />
-			<finder-column name="modifiedDate" comparator="&gt;" />
+			<finder-column name="modifiedTime" comparator="&gt;" />
 			<finder-column name="repositoryId" />
 		</finder>
 

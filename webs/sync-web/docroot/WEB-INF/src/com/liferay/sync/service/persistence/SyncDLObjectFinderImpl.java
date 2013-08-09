@@ -41,7 +41,7 @@ public class SyncDLObjectFinderImpl
 
 	@Override
 	public List<SyncDLObject> filterFindByC_M_R(
-			long companyId, long modifiedDate, long repositoryId)
+			long companyId, long modifiedTime, long repositoryId)
 		throws SystemException {
 
 		Session session = null;
@@ -80,11 +80,11 @@ public class SyncDLObjectFinderImpl
 			QueryPos qPos = QueryPos.getInstance(q);
 
 			qPos.add(companyId);
-			qPos.add(modifiedDate);
+			qPos.add(modifiedTime);
 			qPos.add(repositoryId);
 			qPos.add(DLSyncConstants.TYPE_FOLDER);
 			qPos.add(companyId);
-			qPos.add(modifiedDate);
+			qPos.add(modifiedTime);
 			qPos.add(repositoryId);
 			qPos.add(DLSyncConstants.TYPE_FILE);
 

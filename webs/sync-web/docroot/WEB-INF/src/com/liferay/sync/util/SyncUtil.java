@@ -63,8 +63,8 @@ public class SyncUtil {
 		SyncDLObject syncDLObject = new SyncDLObjectImpl();
 
 		syncDLObject.setCompanyId(fileEntry.getCompanyId());
-		syncDLObject.setCreateDate(fileEntry.getCreateDate().getTime());
-		syncDLObject.setModifiedDate(fileEntry.getModifiedDate().getTime());
+		syncDLObject.setCreateTime(fileEntry.getCreateDate());
+		syncDLObject.setModifiedTime(fileEntry.getModifiedDate());
 		syncDLObject.setRepositoryId(fileEntry.getRepositoryId());
 		syncDLObject.setParentFolderId(fileEntry.getFolderId());
 		syncDLObject.setName(fileEntry.getTitle());
@@ -96,8 +96,8 @@ public class SyncUtil {
 		SyncDLObject syncDLObject = new SyncDLObjectImpl();
 
 		syncDLObject.setCompanyId(folder.getCompanyId());
-		syncDLObject.setCreateDate(folder.getCreateDate().getTime());
-		syncDLObject.setModifiedDate(folder.getModifiedDate().getTime());
+		syncDLObject.setCreateTime(folder.getCreateDate());
+		syncDLObject.setModifiedTime(folder.getModifiedDate());
 		syncDLObject.setRepositoryId(folder.getRepositoryId());
 		syncDLObject.setParentFolderId(folder.getParentFolderId());
 		syncDLObject.setName(folder.getName());

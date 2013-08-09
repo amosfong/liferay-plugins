@@ -14,12 +14,24 @@
 
 package com.liferay.sync.model.impl;
 
+import java.util.Date;
+
 /**
  * @author Brian Wing Shun Chan
  */
 public class SyncDLObjectImpl extends SyncDLObjectBaseImpl {
 
 	public SyncDLObjectImpl() {
+	}
+
+	@Override
+	public void setCreateTime(Date createDate) {
+		setCreateTime(createDate.getTime());
+	}
+
+	@Override
+	public void setModifiedTime(Date modifiedDate) {
+		setModifiedTime(modifiedDate.getTime());
 	}
 
 }

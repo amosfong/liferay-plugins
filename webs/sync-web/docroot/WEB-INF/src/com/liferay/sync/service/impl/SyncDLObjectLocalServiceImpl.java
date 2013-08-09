@@ -36,7 +36,7 @@ public class SyncDLObjectLocalServiceImpl
 
 	@Override
 	public SyncDLObject addSyncDLObject(
-			long companyId, long modifiedDate, long repositoryId,
+			long companyId, long modifiedTime, long repositoryId,
 			long parentFolderId, String name, String description,
 			String checksum, String event, long lockUserId, String lockUserName,
 			long size, String type, long typePK, String typeUuid,
@@ -56,17 +56,17 @@ public class SyncDLObjectLocalServiceImpl
 			syncDLObject = syncDLObjectPersistence.create(syncId);
 
 			syncDLObject.setCompanyId(companyId);
-			syncDLObject.setCreateDate(modifiedDate);
+			syncDLObject.setCreateTime(modifiedTime);
 			syncDLObject.setRepositoryId(repositoryId);
 			syncDLObject.setType(type);
 			syncDLObject.setTypePK(typePK);
 			syncDLObject.setTypeUuid(typeUuid);
 		}
-		else if (syncDLObject.getModifiedDate() > modifiedDate) {
+		else if (syncDLObject.getModifiedTime() > modifiedTime) {
 			return null;
 		}
 
-		syncDLObject.setModifiedDate(modifiedDate);
+		syncDLObject.setModifiedTime(modifiedTime);
 		syncDLObject.setParentFolderId(parentFolderId);
 		syncDLObject.setName(name);
 		syncDLObject.setDescription(description);
