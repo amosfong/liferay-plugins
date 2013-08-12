@@ -67,9 +67,7 @@ public class DeltaUtil {
 		byteBuffer.putInt(blockLength);
 		byteBuffer.putInt(blocksCount);
 
-		while (rollingChecksum.hasNext()) {
-			rollingChecksum.nextBlock();
-
+		for (; rollingChecksum.hasNext(); rollingChecksum.nextBlock()) {
 			checksumsByteChannelWriter.ensureSpace(20);
 
 			byteBuffer.putInt(rollingChecksum.weakChecksum());
