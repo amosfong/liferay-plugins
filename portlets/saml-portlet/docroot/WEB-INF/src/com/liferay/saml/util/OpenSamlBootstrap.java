@@ -33,26 +33,21 @@ public class OpenSamlBootstrap extends DefaultBootstrap {
 			currentThread.setContextClassLoader(
 				PortletClassLoaderUtil.getClassLoader());
 
-			doBootstrap();
+			initializeXMLSecurity();
+
+			initializeXMLTooling(_xmlToolingConfigs);
+
+			initializeArtifactBuilderFactories();
+
+			initializeGlobalSecurityConfiguration();
+
+			initializeParserPool();
+
+			initializeESAPI();
 		}
 		finally {
 			currentThread.setContextClassLoader(classLoader);
 		}
-	}
-
-	protected static void doBootstrap() throws ConfigurationException {
-
-		initializeXMLSecurity();
-
-		initializeXMLTooling(_xmlToolingConfigs);
-
-		initializeArtifactBuilderFactories();
-
-		initializeGlobalSecurityConfiguration();
-
-		initializeParserPool();
-
-		initializeESAPI();
 	}
 
 	private static String[] _xmlToolingConfigs = {
