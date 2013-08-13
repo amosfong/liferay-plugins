@@ -14,6 +14,8 @@
 
 package com.liferay.saml.util;
 
+import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
+
 import org.opensaml.DefaultBootstrap;
 import org.opensaml.xml.ConfigurationException;
 
@@ -23,6 +25,23 @@ import org.opensaml.xml.ConfigurationException;
 public class OpenSamlBootstrap extends DefaultBootstrap {
 
 	public static synchronized void bootstrap() throws ConfigurationException {
+		Thread currentThread = Thread.currentThread();
+
+		ClassLoader classLoader = currentThread.getContextClassLoader();
+
+		try {
+			currentThread.setContextClassLoader(
+				PortletClassLoaderUtil.getClassLoader());
+
+			doBootstrap();
+		}
+		finally {
+			currentThread.setContextClassLoader(classLoader);
+		}
+	}
+
+	protected static void doBootstrap() throws ConfigurationException {
+
 		initializeXMLSecurity();
 
 		initializeXMLTooling(_xmlToolingConfigs);
