@@ -3,13 +3,6 @@
 $gray-dark: #C7D0DA;
 $red: #8F0920;
 
-/* Dockbar */
-
-.portlet-dockbar {
-	position: relative;
-	z-index: 1000;
-}
-
 /* Documents and Images Library */
 
 .portlet-document-library, .portlet-document-library-display {
