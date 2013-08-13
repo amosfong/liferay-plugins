@@ -194,6 +194,10 @@ catch (Exception e) {
 					width: 650
 				}
 			).render();
+
+			var userBar = A.one('#so-portlet-user-bar');
+
+			userBar.setStyle('z-index', '1001');
 		</aui:script>
 	</c:if>
 </c:if>
