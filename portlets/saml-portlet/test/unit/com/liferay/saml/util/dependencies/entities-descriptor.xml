@@ -44,15 +44,15 @@
 					</ds:X509Data>
 				</ds:KeyInfo>
 			</KeyDescriptor>
-			<SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://saml.liferay.com/Shibboleth.sso/SLO/SOAP"/>
+			<SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:SOAP" Location="https://saml.liferay.com/Shibboleth.sso/SLO/SOAP" />
 			<NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</NameIDFormat>
 			<NameIDFormat>urn:mace:shibboleth:1.0:nameIdentifier</NameIDFormat>
-			<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://saml.liferay.com/Shibboleth.sso/SAML2/POST" index="1" isDefault="true"/>
-			<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign" Location="https://saml.liferay.com/Shibboleth.sso/SAML2/POST-SimpleSign" index="2"/>
-			<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://saml.liferay.com/Shibboleth.sso/SAML2/Artifact" index="3"/>
-			<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://saml.liferay.com/Shibboleth.sso/SAML/POST" index="4"/>
-			<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://saml.liferay.com/Shibboleth.sso/SAML/Artifact" index="5"/>
-			<AssertionConsumerService Binding="http://schemas.xmlsoap.org/ws/2003/07/secext" Location="https://saml.liferay.com/Shibboleth.sso/ADFS" index="6"/>
+			<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" Location="https://saml.liferay.com/Shibboleth.sso/SAML2/POST" index="1" isDefault="true" />
+			<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST-SimpleSign" Location="https://saml.liferay.com/Shibboleth.sso/SAML2/POST-SimpleSign" index="2" />
+			<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Artifact" Location="https://saml.liferay.com/Shibboleth.sso/SAML2/Artifact" index="3" />
+			<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:browser-post" Location="https://saml.liferay.com/Shibboleth.sso/SAML/POST" index="4" />
+			<AssertionConsumerService Binding="urn:oasis:names:tc:SAML:1.0:profiles:artifact-01" Location="https://saml.liferay.com/Shibboleth.sso/SAML/Artifact" index="5" />
+			<AssertionConsumerService Binding="http://schemas.xmlsoap.org/ws/2003/07/secext" Location="https://saml.liferay.com/Shibboleth.sso/ADFS" index="6" />
 		</SPSSODescriptor>
 	</EntityDescriptor>
 </EntitiesDescriptor>
