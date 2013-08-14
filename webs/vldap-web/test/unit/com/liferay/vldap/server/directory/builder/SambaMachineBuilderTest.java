@@ -43,13 +43,14 @@ public class SambaMachineBuilderTest extends BaseVLDAPTestCase {
 		_sambaMachineBuilder = new SambaMachineBuilder();
 
 		_organization = mock(Organization.class);
+
 		when(_organization.getName()).thenReturn("testName");
 
 		when(_searchBase.getOrganization()).thenReturn(_organization);
 	}
 
 	@Test
-	public void testBuildDirectorieOrganizationDomain() throws Exception {
+	public void testBuildDirectoriesOrganizationDomain() throws Exception {
 		List<Directory> directory = _sambaMachineBuilder.buildDirectories(
 			_searchBase.getTop(), _company, _organization, "testDomainName");
 
@@ -59,20 +60,21 @@ public class SambaMachineBuilderTest extends BaseVLDAPTestCase {
 			returnedDirectory.hasAttribute(
 				"sambaDomainName", "testDomainName"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-				"sambaSID", "S-1-5-21-" + 42l));
+			returnedDirectory.hasAttribute("sambaSID", "S-1-5-21-" + 42l));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute("sambaNextUserRid", "1000"));
 
 	}
 
 	@Test
-	public void testBuildDirectoriesFilterConstraint() throws Exception {
+	public void testBuildDirectoriesValidFilterConstraint() throws Exception {
 		FilterConstraint filterConstraint = new FilterConstraint();
+
+		filterConstraint.addAttribute("sambaDomainName", "testDomainName");
+
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
-		filterConstraint.addAttribute("sambaDomainName", "testDomainName");
 
 		List<Directory> directory = _sambaMachineBuilder.buildDirectories(
 			_searchBase, filterConstraints);
@@ -83,8 +85,7 @@ public class SambaMachineBuilderTest extends BaseVLDAPTestCase {
 			returnedDirectory.hasAttribute(
 				"sambaDomainName", "testDomainName"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-				"sambaSID", "S-1-5-21-" + 42l));
+			returnedDirectory.hasAttribute("sambaSID", "S-1-5-21-" + 42l));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute("sambaNextUserRid", "1000"));
 	}

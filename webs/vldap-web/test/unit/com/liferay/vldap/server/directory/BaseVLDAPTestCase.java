@@ -58,7 +58,7 @@ public class BaseVLDAPTestCase extends PowerMockito {
 
 	@After
 	public void tearDown() {
-		for (Class<?> utilClass : serviceUtilClasses) {
+		for (Class<?> utilClass : _serviceUtilClasses) {
 			try {
 				Field field = utilClass.getDeclaredField("_service");
 
@@ -72,12 +72,12 @@ public class BaseVLDAPTestCase extends PowerMockito {
 	}
 
 	protected <T> T getMockService(Class<?> utilType, Class<T> serviceType) {
-		serviceUtilClasses.add(utilType);
+		_serviceUtilClasses.add(utilType);
 
 		T serviceMock = mock(serviceType);
 
 		when(
-			portalBeanLocator.locate(
+			_portalBeanLocator.locate(
 				Mockito.eq(serviceType.getName()))
 		).thenReturn(
 			serviceMock
@@ -89,6 +89,7 @@ public class BaseVLDAPTestCase extends PowerMockito {
 	protected void setupBuilderBase() {
 		_searchBase = mock(SearchBase.class);
 		_company = mock(Company.class);
+
 		_companies = new ArrayList<Company>();
 		_companies.add(_company);
 
@@ -106,10 +107,12 @@ public class BaseVLDAPTestCase extends PowerMockito {
 		PortletClassLoaderUtil.setClassLoader(
 			currentThread.getContextClassLoader());
 
+		Configuration configuration = mock(Configuration.class);
 		ConfigurationFactory configurationFactory = mock(
 			ConfigurationFactory.class);
+
 		ConfigurationFactoryUtil.setConfigurationFactory(configurationFactory);
-		Configuration configuration = mock(Configuration.class);
+
 		when(
 			configurationFactory.getConfiguration(
 				Mockito.any(ClassLoader.class), Mockito.eq("portlet"))
@@ -125,34 +128,39 @@ public class BaseVLDAPTestCase extends PowerMockito {
 
 		String[] sambaNames = new String[1];
 		sambaNames[0] = "testDomainName";
+
 		when(
 			configuration.getArray(PortletPropsKeys.SAMBA_DOMAIN_NAMES)
-		).thenReturn(sambaNames);
+			).thenReturn(sambaNames);
+
 		String[] sambaHosts = new String[0];
+
 		when(
 			configuration.getArray(PortletPropsKeys.SAMBA_HOSTS_ALLOWED)
-		).thenReturn(sambaHosts);
+			).thenReturn(sambaHosts);
 	}
 
 	protected void setupPortal() {
-		portalBeanLocator = mock(BeanLocator.class);
-		PortalBeanLocatorUtil.setBeanLocator(portalBeanLocator);
+		_portalBeanLocator = mock(BeanLocator.class);
+
+		PortalBeanLocatorUtil.setBeanLocator(_portalBeanLocator);
 	}
 
 	protected void setupProps() {
 		props = mock(Props.class);
+
 		PropsUtil.setProps(props);
 	}
 
 	protected void setupServiceMocks() {
-		serviceUtilClasses = new ArrayList<Class<?>>();
+		_serviceUtilClasses = new ArrayList<Class<?>>();
 	}
 
 	protected List<Company> _companies;
 	protected Company _company;
+	protected BeanLocator _portalBeanLocator;
 	protected SearchBase _searchBase;
-	protected BeanLocator portalBeanLocator;
+	protected List<Class<?>> _serviceUtilClasses;
 	protected Props props;
-	protected List<Class<?>> serviceUtilClasses;
 
 }

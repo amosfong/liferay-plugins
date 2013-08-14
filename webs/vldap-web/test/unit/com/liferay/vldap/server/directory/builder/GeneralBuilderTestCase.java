@@ -33,9 +33,10 @@ import org.powermock.modules.junit4.PowerMockRunner;
 public class GeneralBuilderTestCase extends BaseVLDAPTestCase {
 
 	public void testBuildDirectoriesValidFilter() throws Exception {
+		FilterConstraint filterConstraint = new FilterConstraint();
+
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
-		FilterConstraint filterConstraint = new FilterConstraint();
 		filterConstraints.add(filterConstraint);
 
 		List<Directory> directories = _builder.buildDirectories(

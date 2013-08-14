@@ -74,71 +74,49 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		_userLocalService = getMockService(
 			UserLocalServiceUtil.class, UserLocalService.class);
 
-		_users = new ArrayList<User>();
-		when(
-			_userLocalService.getCompanyUsers(
-				Mockito.anyLong(), Mockito.anyInt(), Mockito.anyInt())
-		).thenReturn(_users);
+		setupUsers();
+		setupGroups();
+		setupOrganizations();
+		setupRoles();
+		setupUserGroups();
+		setupFastDateFormat();
+		setupPortalUtil();
+		setupPasswordPolicy();
+		setupExpando();
+		setupCompanyLocalService();
+	}
 
-		_user = mock(User.class);
-		_users.add(_user);
-
-		Long testLong = 42l;
-		when(_user.getScreenName()).thenReturn("testScreenName");
-		when(_user.getCreateDate()).thenReturn(null);
-		when(_user.getFullName()).thenReturn("testFullName");
-		when(props.get(PortletPropsValues.POSIX_GROUP_ID)
-			).thenReturn("testGroupId");
-		when(_user.getFirstName()).thenReturn("testFirstName");
-		when(_user.getEmailAddress()).thenReturn("test@email");
-		when(_user.getModifiedDate()).thenReturn(null);
-		when(_user.getLastName()).thenReturn("testLastName");
-		when(_user.getUserId()).thenReturn(testLong);
-		when(_user.getUuid()).thenReturn("testUuid");
-		when(_user.getCompanyId()).thenReturn(testLong);
-
-		List<Group> groups = new ArrayList<Group>();
-		List<Organization> organizations = new ArrayList<Organization>();
-		List<Role> roles = new ArrayList<Role>();
-		List<UserGroup> userGroups = new ArrayList<UserGroup>();
-		Organization organization = mock(Organization.class);
-		Role role = mock(Role.class);
-		UserGroup userGroup = mock(UserGroup.class);
-		Group group = mock(Group.class);
-		organizations.add(organization);
-		roles.add(role);
-		userGroups.add(userGroup);
-		groups.add(group);
-
-		when(_user.getOrganizations()).thenReturn(organizations);
-		when(_user.getRoles()).thenReturn(roles);
-		when(_user.getUserGroups()).thenReturn(userGroups);
-
-		when(organization.getName()).thenReturn("testOrganizationName");
-		when(group.getName()).thenReturn("testGroupName");
-		when(role.getName()).thenReturn("testRoleName");
-		when(userGroup.getName()).thenReturn("testUserGroupName");
-		when(organization.getOrganizationId()).thenReturn(testLong);
-		when(group.getGroupId()).thenReturn(testLong);
-		when(role.getRoleId()).thenReturn(testLong);
-		when(userGroup.getUserGroupId()).thenReturn(testLong);
+	public void setupCompanyLocalService() throws Exception {
+		CompanyLocalService companyLocalService = getMockService(
+			CompanyLocalServiceUtil.class, CompanyLocalService.class);
 
 		when(
-			_groupLocalService.search(
-				Mockito.anyLong(), Mockito.any(long[].class),
-				Mockito.anyString(), Mockito.anyString(),
-				Mockito.any(LinkedHashMap.class), Mockito.anyBoolean(),
-				Mockito.anyInt(), Mockito.anyInt())
-		).thenReturn(groups);
-		when(
-			_groupLocalService.getGroup(Mockito.anyLong(), Mockito.anyString())
-		).thenReturn(group);
+			companyLocalService.getCompanyByWebId(Mockito.anyString())
+		).thenReturn(_company);
+	}
 
+	public void setupExpando() throws Exception {
+		ExpandoBridge expandBridge = mock(ExpandoBridge.class);
+
+		when(
+			expandBridge.getAttribute(
+				Mockito.eq("sambaLMPassword"), Mockito.eq(false))
+		).thenReturn("testLMPassword");
+		when(
+			expandBridge.getAttribute(
+				Mockito.eq("sambaNTPassword"), Mockito.eq(false))
+		).thenReturn("testNTPassword");
+
+		when(_user.getExpandoBridge()).thenReturn(expandBridge);
+	}
+
+	public void setupFastDateFormat() throws Exception {
 		FastDateFormat fastFormat = FastDateFormat.getInstance(
 			"yyyyMMddHHmmss.SZ",  (TimeZone)null, LocaleUtil.getDefault());
 
 		FastDateFormatFactory fastDateFormatFactory = mock(
 			FastDateFormatFactory.class);
+
 		when(
 			fastDateFormatFactory.getSimpleDateFormat(Mockito.anyString())
 		).thenReturn(fastFormat);
@@ -147,16 +125,50 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 			new FastDateFormatFactoryUtil();
 		fastDateFormatFactoryUtil.setFastDateFormatFactory(
 			fastDateFormatFactory);
+	}
 
-		PortalUtil portalUtil = new PortalUtil();
-		Portal portal = mock(Portal.class);
-		portalUtil.setPortal(portal);
+	public void setupGroups() throws Exception {
+		Group group = mock(Group.class);
+
+		when(group.getGroupId()).thenReturn(42l);
+		when(group.getName()).thenReturn("testGroupName");
+
 		when(
-			portal.getClassNameId(Mockito.any(Class.class))
-		).thenReturn(testLong);
+			_groupLocalService.getGroup(Mockito.anyLong(), Mockito.anyString())
+		).thenReturn(group);
 
+		when(_searchBase.getCommunity()).thenReturn(group);
+
+		List<Group> groups = new ArrayList<Group>();
+		groups.add(group);
+
+		when(
+			_groupLocalService.search(
+				Mockito.anyLong(), Mockito.any(long[].class),
+				Mockito.anyString(), Mockito.anyString(),
+				Mockito.any(LinkedHashMap.class), Mockito.anyBoolean(),
+				Mockito.anyInt(), Mockito.anyInt())
+		).thenReturn(groups);
+
+	}
+
+	public void setupOrganizations() throws Exception {
+		Organization organization = mock(Organization.class);
+
+		when(organization.getName()).thenReturn("testOrganizationName");
+		when(organization.getOrganizationId()).thenReturn(42l);
+
+		List<Organization> organizations = new ArrayList<Organization>();
+		organizations.add(organization);
+
+		when(_user.getOrganizations()).thenReturn(organizations);
+
+		when(_searchBase.getOrganization()).thenReturn(organization);
+	}
+
+	public void setupPasswordPolicy() throws Exception {
 		PasswordPolicy passwordPolicy = mock(PasswordPolicy.class);
-		when(_user.getPasswordPolicy()).thenReturn(passwordPolicy);
+
 		when(passwordPolicy.isExpireable()).thenReturn(false);
 		when(passwordPolicy.isLockout()).thenReturn(true);
 		when(
@@ -179,35 +191,90 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 			passwordPolicy.getHistoryCount()
 		).thenReturn(3600000);
 
-		ExpandoBridge expandBridge = mock(ExpandoBridge.class);
-		when(_user.getExpandoBridge()).thenReturn(expandBridge);
-		when(
-			expandBridge.getAttribute(
-				Mockito.eq("sambaLMPassword"), Mockito.eq(false))
-		).thenReturn("testLMPassword");
-		when(
-			expandBridge.getAttribute(
-				Mockito.eq("sambaNTPassword"), Mockito.eq(false))
-		).thenReturn("testNTPassword");
+		when(_user.getPasswordPolicy()).thenReturn(passwordPolicy);
+	}
 
-		when(_searchBase.getCommunity()).thenReturn(group);
-		when(_searchBase.getOrganization()).thenReturn(organization);
+	public void setupPortalUtil() throws Exception {
+		Portal portal = mock(Portal.class);
+
+		when(
+			portal.getClassNameId(Mockito.any(Class.class))
+		).thenReturn(42l);
+
+		PortalUtil portalUtil = new PortalUtil();
+		portalUtil.setPortal(portal);
+	}
+
+	public void setupRoles() throws Exception {
+		Role role = mock(Role.class);
+
+		when(role.getName()).thenReturn("testRoleName");
+		when(role.getRoleId()).thenReturn(42l);
+
+		List<Role> roles = new ArrayList<Role>();
+		roles.add(role);
+
+		when(_user.getRoles()).thenReturn(roles);
+
 		when(_searchBase.getRole()).thenReturn(role);
-		when(_searchBase.getUserGroup()).thenReturn(userGroup);
+	}
 
-		CompanyLocalService companyLocalService = getMockService(
-			CompanyLocalServiceUtil.class, CompanyLocalService.class);
+	public void setupUserGroups() throws Exception {
+		UserGroup userGroup = mock(UserGroup.class);
+
+		when(userGroup.getName()).thenReturn("testUserGroupName");
+		when(userGroup.getUserGroupId()).thenReturn(42l);
+
+		List<UserGroup> userGroups = new ArrayList<UserGroup>();
+		userGroups.add(userGroup);
+
+		when(_user.getUserGroups()).thenReturn(userGroups);
+
+		when(_searchBase.getUserGroup()).thenReturn(userGroup);
+	}
+
+	public void setupUsers() throws Exception {
+		_user = mock(User.class);
+
+		Long testLong = 42l;
+		when(_user.getScreenName()).thenReturn("testScreenName");
+		when(_user.getCreateDate()).thenReturn(null);
+		when(_user.getFullName()).thenReturn("testFullName");
+		when(props.get(PortletPropsValues.POSIX_GROUP_ID)
+			).thenReturn("testGroupId");
+		when(_user.getFirstName()).thenReturn("testFirstName");
+		when(_user.getEmailAddress()).thenReturn("test@email");
+		when(_user.getModifiedDate()).thenReturn(null);
+		when(_user.getLastName()).thenReturn("testLastName");
+		when(_user.getUserId()).thenReturn(testLong);
+		when(_user.getUuid()).thenReturn("testUuid");
+		when(_user.getCompanyId()).thenReturn(testLong);
+
+		_users = new ArrayList<User>();
+		_users.add(_user);
+
 		when(
-			companyLocalService.getCompanyByWebId(Mockito.anyString())
-		).thenReturn(_company);
+			_userLocalService.getCompanyUsers(
+				Mockito.anyLong(), Mockito.anyInt(), Mockito.anyInt())
+		).thenReturn(_users);
 	}
 
 	@Test
 	public void testBuildDirectories() throws Exception {
+		when(
+			_userLocalService.search(
+				Mockito.anyLong(), Mockito.anyString(), Mockito.anyString(),
+				Mockito.anyString(), Mockito.anyString(), Mockito.anyString(),
+				Mockito.anyInt(), Mockito.any(LinkedHashMap.class),
+				Mockito.anyBoolean(), Mockito.anyInt(), Mockito.anyInt(),
+				Mockito.any(UserScreenNameComparator.class)
+				)
+		).thenReturn(
+			_users
+		);
+
 		FilterConstraint filterConstraint = new FilterConstraint();
-		List<FilterConstraint> filterConstraints =
-			new ArrayList<FilterConstraint>();
-		filterConstraints.add(filterConstraint);
+
 		filterConstraint.addAttribute(
 			"member", "ou=testWebId,ou=Communities," +
 			"ou=testTypeValue,cn=test");
@@ -220,17 +287,9 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		filterConstraint.addAttribute("uidNumber", null);
 		filterConstraint.addAttribute("sambaSID", null);
 
-		when(
-			_userLocalService.search(
-				Mockito.anyLong(), Mockito.anyString(), Mockito.anyString(),
-				Mockito.anyString(), Mockito.anyString(), Mockito.anyString(),
-				Mockito.anyInt(), Mockito.any(LinkedHashMap.class),
-				Mockito.anyBoolean(), Mockito.anyInt(), Mockito.anyInt(),
-				Mockito.any(UserScreenNameComparator.class)
-				)
-		).thenReturn(
-			_users
-		);
+		List<FilterConstraint> filterConstraints =
+			new ArrayList<FilterConstraint>();
+		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _userBuilder.buildDirectories(
 			_searchBase, filterConstraints);
@@ -295,11 +354,11 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	@Test
-	public void testBuildDirectoriesSambaSID() throws Exception {
+	public void testBuildDirectoriesValidSambaSID() throws Exception {
+		when(_userLocalService.fetchUser(Mockito.anyLong())).thenReturn(_user);
+
 		FilterConstraint filterConstraint = new FilterConstraint();
-		List<FilterConstraint> filterConstraints =
-			new ArrayList<FilterConstraint>();
-		filterConstraints.add(filterConstraint);
+
 		filterConstraint.addAttribute(
 			"member", "ou=testWebId,ou=Communities," +
 			"ou=testTypeValue,cn=test");
@@ -312,7 +371,9 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		filterConstraint.addAttribute("uidNumber", null);
 		filterConstraint.addAttribute("sambaSID", "42-42-42");
 
-		when(_userLocalService.fetchUser(Mockito.anyLong())).thenReturn(_user);
+		List<FilterConstraint> filterConstraints =
+			new ArrayList<FilterConstraint>();
+		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _userBuilder.buildDirectories(
 			_searchBase, filterConstraints);
@@ -346,11 +407,11 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	@Test
-	public void testBuildDirectoriesUidNumber() throws Exception {
+	public void testBuildDirectoriesValidUidNumber() throws Exception {
+		when(_userLocalService.fetchUser(Mockito.anyLong())).thenReturn(_user);
+
 		FilterConstraint filterConstraint = new FilterConstraint();
-		List<FilterConstraint> filterConstraints =
-			new ArrayList<FilterConstraint>();
-		filterConstraints.add(filterConstraint);
+
 		filterConstraint.addAttribute(
 			"member", "ou=testWebId,ou=Communities," +
 			"ou=testTypeValue,cn=test");
@@ -363,7 +424,9 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		filterConstraint.addAttribute("uidNumber", "42");
 		filterConstraint.addAttribute("sambaSID", null);
 
-		when(_userLocalService.fetchUser(Mockito.anyLong())).thenReturn(_user);
+		List<FilterConstraint> filterConstraints =
+			new ArrayList<FilterConstraint>();
+		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _userBuilder.buildDirectories(
 			_searchBase, filterConstraints);
@@ -396,19 +459,21 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	@Test
-	public void testBuildDirectoriesUuidNotNull() throws Exception {
+	public void testBuildDirectoriesValidUuid() throws Exception {
+		when(_userLocalService.getUserByUuid(Mockito.anyString())
+			).thenReturn(_user);
+
 		FilterConstraint filterConstraint = new FilterConstraint();
-		List<FilterConstraint> filterConstraints =
-			new ArrayList<FilterConstraint>();
-		filterConstraints.add(filterConstraint);
+
 		filterConstraint.addAttribute(
 			"member", "ou=testWebId,ou=Communities," +
 			"ou=testTypeValue,cn=test");
 		filterConstraint.addAttribute("gidNumber", StringPool.STAR);
 		filterConstraint.addAttribute("uuid", "testUuid");
 
-		when(_userLocalService.getUserByUuid(Mockito.anyString())
-			).thenReturn(_user);
+		List<FilterConstraint> filterConstraints =
+			new ArrayList<FilterConstraint>();
+		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _userBuilder.buildDirectories(
 			_searchBase, filterConstraints);

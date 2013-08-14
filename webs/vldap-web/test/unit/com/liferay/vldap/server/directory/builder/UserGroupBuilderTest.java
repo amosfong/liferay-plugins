@@ -53,27 +53,39 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
+		setupFactories();
+		setupUserGroup();
+		setupUsers();
+		setupUserGroupLocalService();
 
+		_userGroupBuilder = new UserGroupBuilder();
+
+		_userLocalService = getMockService(
+			UserLocalServiceUtil.class, UserLocalService.class);
+
+		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
+	}
+
+	public void setupFactories() throws Exception {
 		Criterion criterion = mock(Criterion.class);
+
+		DynamicQuery dynamicQuery = mock(DynamicQuery.class);
 
 		DynamicQueryFactory dynamicQueryFactory = mock(
 			DynamicQueryFactory.class);
-		DynamicQuery dynamicQuery = mock(DynamicQuery.class);
+
 		when(
 			dynamicQueryFactory.forClass(
 				Mockito.any(Class.class), Mockito.any(ClassLoader.class))
 		).thenReturn(dynamicQuery);
 
-		RestrictionsFactory restrictionsFactory = mock(
-			RestrictionsFactory.class);
-
 		DynamicQueryFactoryUtil dynamicQueryFactoryUtil =
 			new DynamicQueryFactoryUtil();
 		dynamicQueryFactoryUtil.setDynamicQueryFactory(dynamicQueryFactory);
 
-		RestrictionsFactoryUtil restrictionsFactoryUtil =
-			new RestrictionsFactoryUtil();
-		restrictionsFactoryUtil.setRestrictionsFactory(restrictionsFactory);
+		RestrictionsFactory restrictionsFactory = mock(
+			RestrictionsFactory.class);
+
 		when(
 			restrictionsFactory.eq(
 				Mockito.anyString(), Mockito.any(Object.class))
@@ -83,31 +95,38 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 				Mockito.anyString(), Mockito.any(Object.class))
 		).thenReturn(criterion);
 
-		_userGroupBuilder = new UserGroupBuilder();
+		RestrictionsFactoryUtil restrictionsFactoryUtil =
+			new RestrictionsFactoryUtil();
+		restrictionsFactoryUtil.setRestrictionsFactory(restrictionsFactory);
+	}
 
+	public void setupUserGroup() throws Exception {
 		UserGroup userGroup = mock(UserGroup.class);
+
 		when(userGroup.getName()).thenReturn("testName");
 		when(userGroup.getUserGroupId()).thenReturn(42l);
 		when(userGroup.getDescription()).thenReturn("testDescription");
 
 		_userGroups = new ArrayList<UserGroup>();
 		_userGroups.add(userGroup);
+	}
 
-		List<User> users = new ArrayList<User>();
+	public void setupUserGroupLocalService() throws Exception {
+		UserGroupLocalService userGroupLocalService = getMockService(
+			UserGroupLocalServiceUtil.class, UserGroupLocalService.class);
+
+		when(
+			userGroupLocalService.dynamicQuery(Mockito.any(DynamicQuery.class))
+		).thenReturn(_userGroups);
+	}
+
+	public void setupUsers() throws Exception {
 		_user = mock(User.class);
-		users.add(_user);
+
 		when(_user.getScreenName()).thenReturn("testScreenName");
 
-		_userGroupLocalService = getMockService(
-			UserGroupLocalServiceUtil.class, UserGroupLocalService.class);
-		when(
-			_userGroupLocalService.dynamicQuery(Mockito.any(DynamicQuery.class))
-		).thenReturn(_userGroups);
-
-		_userLocalService = getMockService(
-			UserLocalServiceUtil.class, UserLocalService.class);
-
-		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
+		List<User> users = new ArrayList<User>();
+		users.add(_user);
 	}
 
 	@Test
@@ -133,11 +152,14 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 	@Test
 	public void testBuildDirectoriesFilterNullScreenName() throws Exception {
 		FilterConstraint filterConstraint = new FilterConstraint();
-		List<FilterConstraint> filterConstraints =
-			new ArrayList<FilterConstraint>();
-		filterConstraints.add(filterConstraint);
+
 		filterConstraint.addAttribute("ou", "testName");
 		filterConstraint.addAttribute("description", "testDescription");
+
+		List<FilterConstraint> filterConstraints =
+			new ArrayList<FilterConstraint>();
+
+		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _userGroupBuilder.buildDirectories(
 			_searchBase, filterConstraints);
@@ -159,21 +181,24 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 
 	@Test
 	public void testBuildDirectoriestFilterValidScreenName() throws Exception {
-		FilterConstraint filterConstraint = new FilterConstraint();
-		List<FilterConstraint> filterConstraints =
-			new ArrayList<FilterConstraint>();
-		filterConstraints.add(filterConstraint);
-		filterConstraint.addAttribute("ou", "testName");
-		filterConstraint.addAttribute("description", "testDescription");
-		filterConstraint.addAttribute(
-			"member", "screenName=testScreenName,ou=test,cn=test,blah=test");
-
 		when(
 			_userLocalService.getUserByScreenName(
 				Mockito.anyLong(), Mockito.anyString())
 		).thenReturn(_user);
 
 		when(_user.getUserGroups()).thenReturn(_userGroups);
+
+		FilterConstraint filterConstraint = new FilterConstraint();
+
+		filterConstraint.addAttribute("ou", "testName");
+		filterConstraint.addAttribute("description", "testDescription");
+		filterConstraint.addAttribute(
+			"member", "screenName=testScreenName,ou=test,cn=test,test=test");
+
+		List<FilterConstraint> filterConstraints =
+			new ArrayList<FilterConstraint>();
+
+		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _userGroupBuilder.buildDirectories(
 			_searchBase, filterConstraints);
@@ -193,11 +218,8 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 				"objectclass", "organizationalUnit"));
 	}
 
-	private DynamicQuery _dynamicQuery;
-	private DynamicQueryFactory _dynamicQueryFactory;
 	private User _user;
 	private UserGroupBuilder _userGroupBuilder;
-	private UserGroupLocalService _userGroupLocalService;
 	private List<UserGroup> _userGroups;
 	private UserLocalService _userLocalService;
 

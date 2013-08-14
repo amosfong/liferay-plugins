@@ -41,53 +41,28 @@ public class SambaGroupBuilderTest extends BaseVLDAPTestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 
+		_sambaGroupBuilder = new SambaGroupBuilder();
+
 		_organization = mock(Organization.class);
+
 		when(_organization.getName()).thenReturn("testName");
 
 		when(_searchBase.getOrganization()).thenReturn(_organization);
-
-		_sambaGroupBuilder = new SambaGroupBuilder();
 
 		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
 
 	}
 
 	@Test
-	public void testBuildDirectoriesGIDNumber() throws Exception {
-		FilterConstraint filterConstraint = new FilterConstraint();
-		List<FilterConstraint> filterConstraints =
-			new ArrayList<FilterConstraint>();
-		filterConstraints.add(filterConstraint);
-		filterConstraint.addAttribute("cn", "root");
-		filterConstraint.addAttribute("sambaSID", "S-1-5-32-544");
-		filterConstraint.addAttribute("gidNumber", "0");
-
-		List<Directory> directory = _sambaGroupBuilder.buildDirectories(
-			_searchBase, filterConstraints);
-
-		Directory returnedDirectory = directory.get(0);
-
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute("sambaGroupType", "4"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute("objectclass", "sambaGroupMapping"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("gidNumber", "0"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute("displayName", "root"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute("objectclass", "posixGroup"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute("sambaSID", "S-1-5-32-544"));
-	}
-
-	@Test
 	public void testBuildDirectoriesNullGIDNumber() throws Exception {
 		FilterConstraint filterConstraint = new FilterConstraint();
+
+		filterConstraint.addAttribute("cn", "network");
+		filterConstraint.addAttribute("sambaSID", "S-1-5-2");
+
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
-		filterConstraint.addAttribute("cn", "network");
-		filterConstraint.addAttribute("sambaSID", "S-1-5-2");
 
 		List<Directory> directory = _sambaGroupBuilder.buildDirectories(
 			_searchBase, filterConstraints);
@@ -107,6 +82,37 @@ public class SambaGroupBuilderTest extends BaseVLDAPTestCase {
 			returnedDirectory.hasAttribute("sambaSID", "S-1-5-2"));
 	}
 
+	@Test
+	public void testBuildDirectoriesValidGIDNumber() throws Exception {
+		FilterConstraint filterConstraint = new FilterConstraint();
+
+		filterConstraint.addAttribute("cn", "root");
+		filterConstraint.addAttribute("sambaSID", "S-1-5-32-544");
+		filterConstraint.addAttribute("gidNumber", "0");
+
+		List<FilterConstraint> filterConstraints =
+			new ArrayList<FilterConstraint>();
+		filterConstraints.add(filterConstraint);
+
+		List<Directory> directory = _sambaGroupBuilder.buildDirectories(
+			_searchBase, filterConstraints);
+
+		Directory returnedDirectory = directory.get(0);
+
+		Assert.assertTrue(
+			returnedDirectory.hasAttribute("sambaGroupType", "4"));
+		Assert.assertTrue(
+			returnedDirectory.hasAttribute("objectclass", "sambaGroupMapping"));
+		Assert.assertTrue(returnedDirectory.hasAttribute("gidNumber", "0"));
+		Assert.assertTrue(
+			returnedDirectory.hasAttribute("displayName", "root"));
+		Assert.assertTrue(
+			returnedDirectory.hasAttribute("objectclass", "posixGroup"));
+		Assert.assertTrue(
+			returnedDirectory.hasAttribute("sambaSID", "S-1-5-32-544"));
+	}
+
 	private Organization _organization;
 	private SambaGroupBuilder _sambaGroupBuilder;
+
 }

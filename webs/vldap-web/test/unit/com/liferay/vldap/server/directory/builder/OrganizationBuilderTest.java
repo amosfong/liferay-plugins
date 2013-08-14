@@ -55,29 +55,79 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
+		setupUsers();
+		setupOrganizations();
+		setupFactories();
 
 		_organizationBuilder = new OrganizationBuilder();
 
-		_organizations = new ArrayList<Organization>();
+		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
+	}
+
+	public void setupFactories() throws Exception {
+		Criterion criterion = mock(Criterion.class);
+
+		DynamicQuery dynamicQuery = mock(DynamicQuery.class);
+
+		DynamicQueryFactory dynamicQueryFactory = mock(
+			DynamicQueryFactory.class);
+
+		when(
+			dynamicQueryFactory.forClass(
+				Mockito.any(Class.class), Mockito.any(ClassLoader.class))
+		).thenReturn(dynamicQuery);
+
+		DynamicQueryFactoryUtil dynamicQueryFactoryUtil =
+			new DynamicQueryFactoryUtil();
+		dynamicQueryFactoryUtil.setDynamicQueryFactory(dynamicQueryFactory);
+
+		RestrictionsFactory restrictionsFactory = mock(
+			RestrictionsFactory.class);
+
+		when(
+			restrictionsFactory.eq(
+				Mockito.anyString(), Mockito.any(Object.class))
+		).thenReturn(criterion);
+		when(
+			restrictionsFactory.ilike(
+				Mockito.anyString(), Mockito.any(Object.class))
+		).thenReturn(criterion);
+
+		RestrictionsFactoryUtil restrictionsFactoryUtil =
+			new RestrictionsFactoryUtil();
+		restrictionsFactoryUtil.setRestrictionsFactory(restrictionsFactory);
+	}
+
+	public void setupOrganizations() throws Exception {
 		Organization organization = mock(Organization.class);
-		_organizations.add(organization);
+
 		when(organization.getName()).thenReturn("testName");
 		when(organization.getOrganizationId()).thenReturn(42l);
 
-		_organizationLocalService = getMockService(
+		List<Organization> organizations = new ArrayList<Organization>();
+		organizations.add(organization);
+
+		when(_user.getOrganizations()).thenReturn(organizations);
+
+		OrganizationLocalService organizationLocalService = getMockService(
 			OrganizationLocalServiceUtil.class, OrganizationLocalService.class);
 		when(
-			_organizationLocalService.dynamicQuery(
+			organizationLocalService.dynamicQuery(
 				Mockito.any(DynamicQuery.class))
-		).thenReturn(_organizations);
+		).thenReturn(organizations);
+	}
+
+	public void setupUsers() throws Exception {
+		_user = mock(User.class);
+
+		when(_user.getScreenName()).thenReturn("testScreenName");
 
 		List<User> users = new ArrayList<User>();
-		_user = mock(User.class);
 		users.add(_user);
-		when(_user.getScreenName()).thenReturn("testScreenName");
 
 		_userLocalService = getMockService(
 			UserLocalServiceUtil.class, UserLocalService.class);
+
 		when(
 			_userLocalService.search(
 				Mockito.anyLong(), Mockito.anyString(), Mockito.anyString(),
@@ -89,32 +139,6 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 		).thenReturn(
 			users
 		);
-
-		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
-
-		DynamicQueryFactory dynamicQueryFactory = mock(
-			DynamicQueryFactory.class);
-		DynamicQuery dynamicQuery = mock(DynamicQuery.class);
-		when(
-			dynamicQueryFactory.forClass(
-				Mockito.any(Class.class), Mockito.any(ClassLoader.class))
-		).thenReturn(dynamicQuery);
-
-		_restrictionsFactory = mock(RestrictionsFactory.class);
-
-		DynamicQueryFactoryUtil dynamicQueryFactoryUtil =
-			new DynamicQueryFactoryUtil();
-		dynamicQueryFactoryUtil.setDynamicQueryFactory(dynamicQueryFactory);
-
-		RestrictionsFactoryUtil restrictionsFactoryUtil =
-			new RestrictionsFactoryUtil();
-		restrictionsFactoryUtil.setRestrictionsFactory(_restrictionsFactory);
-
-		_criterion = mock(Criterion.class);
-		when(
-			_restrictionsFactory.eq(
-				Mockito.anyString(), Mockito.any(Object.class))
-		).thenReturn(_criterion);
 	}
 
 	@Test
@@ -141,11 +165,6 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
 		filterConstraint.addAttribute("ou", "testName");
-
-		when(
-			_restrictionsFactory.ilike(
-				Mockito.anyString(), Mockito.any(Object.class))
-		).thenReturn(_criterion);
 
 		List<Directory> directory = _organizationBuilder.buildDirectories(
 			_searchBase, null);
@@ -177,8 +196,6 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 				Mockito.anyLong(), Mockito.anyString())
 		).thenReturn(_user);
 
-		when(_user.getOrganizations()).thenReturn(_organizations);
-
 		List<Directory> directory = _organizationBuilder.buildDirectories(
 			_searchBase, null);
 
@@ -194,11 +211,7 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 				"member", "cn=testScreenName,ou=Users,ou=42,o=42"));
 	}
 
-	private Criterion _criterion;
 	private OrganizationBuilder _organizationBuilder;
-	private OrganizationLocalService _organizationLocalService;
-	private List<Organization> _organizations;
-	private RestrictionsFactory _restrictionsFactory;
 	private User _user;
 	private UserLocalService _userLocalService;
 

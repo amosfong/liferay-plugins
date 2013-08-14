@@ -49,31 +49,37 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
+		setupGroups();
+		setupUsers();
 
 		_communityBuilder = new CommunityBuilder();
-
-		Long testLong = new Long("42");
 
 		_groupLocalService = getMockService(
 			GroupLocalServiceUtil.class, GroupLocalService.class);
 
-		_userLocalService = getMockService(
-			UserLocalServiceUtil.class, UserLocalService.class);
+		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
+	}
 
+	public void setupGroups() throws Exception {
 		Group group = mock(Group.class);
+
 		when(group.getName()).thenReturn("testName");
-		when(group.getGroupId()).thenReturn(testLong);
+		when(group.getGroupId()).thenReturn(42l);
 		when(group.getDescription()).thenReturn("testDescription");
 
 		_groups = new ArrayList<Group>();
 		_groups.add(group);
+	}
 
-		List<User> users = new ArrayList<User>();
+	public void setupUsers() throws Exception {
+		_userLocalService = getMockService(
+			UserLocalServiceUtil.class, UserLocalService.class);
+
 		_user = mock(User.class);
-		users.add(_user);
 		when(_user.getScreenName()).thenReturn("testScreenName");
 
-		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
+		List<User> users = new ArrayList<User>();
+		users.add(_user);
 
 		when(
 			_userLocalService.search(
@@ -90,14 +96,6 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 
 	@Test
 	public void testBuildDirectoriesFilterNullScreenName() throws Exception {
-		FilterConstraint filterConstraint = new FilterConstraint();
-		List<FilterConstraint> filterConstraints =
-			new ArrayList<FilterConstraint>();
-		filterConstraints.add(filterConstraint);
-
-		filterConstraint.addAttribute("ou", "testName");
-		filterConstraint.addAttribute("description", "testDescription");
-
 		when(
 			_groupLocalService.search(
 				Mockito.anyLong(), Mockito.anyString(), Mockito.anyString(),
@@ -106,6 +104,15 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 		).thenReturn(
 			_groups
 		);
+
+		FilterConstraint filterConstraint = new FilterConstraint();
+
+		filterConstraint.addAttribute("ou", "testName");
+		filterConstraint.addAttribute("description", "testDescription");
+
+		List<FilterConstraint> filterConstraints =
+			new ArrayList<FilterConstraint>();
+		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _communityBuilder.buildDirectories(
 			_searchBase, filterConstraints);
@@ -125,22 +132,23 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 
 	@Test
 	public void testBuildDirectoriesFilterValidScreenName() throws Exception {
-		FilterConstraint filterConstraint = new FilterConstraint();
-		List<FilterConstraint> filterConstraints =
-			new ArrayList<FilterConstraint>();
-		filterConstraints.add(filterConstraint);
-
-		filterConstraint.addAttribute("ou", "testName");
-		filterConstraint.addAttribute("description", "testDescription");
-		filterConstraint.addAttribute(
-			"member", "screenName=testScreenName,ou=test,cn=test,blah=test");
-
 		when(
 			_userLocalService.getUserByScreenName(
 				Mockito.anyLong(), Mockito.anyString())
 		).thenReturn(_user);
 
 		when(_user.getGroups()).thenReturn(_groups);
+
+		FilterConstraint filterConstraint = new FilterConstraint();
+
+		filterConstraint.addAttribute("ou", "testName");
+		filterConstraint.addAttribute("description", "testDescription");
+		filterConstraint.addAttribute(
+			"member", "screenName=testScreenName,ou=test,cn=test,blah=test");
+
+		List<FilterConstraint> filterConstraints =
+			new ArrayList<FilterConstraint>();
+		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _communityBuilder.buildDirectories(
 			_searchBase, filterConstraints);
@@ -181,7 +189,6 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testScreenName,ou=Users,ou=42,o=42"));
-
 	}
 
 	private CommunityBuilder _communityBuilder;

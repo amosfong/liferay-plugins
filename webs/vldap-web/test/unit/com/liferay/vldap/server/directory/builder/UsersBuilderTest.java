@@ -48,15 +48,18 @@ public class UsersBuilderTest extends GeneralBuilderTestCase {
 
 	@Test
 	public void testBuildDirectories() throws Exception {
-		List<User> users = new ArrayList<User>();
 		User user = mock(User.class);
-		users.add(user);
+
 		when(user.getScreenName()).thenReturn("testScreenName");
+
+		List<User> users = new ArrayList<User>();
+		users.add(user);
 
 		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
 
 		UserLocalService userLocalService = getMockService(
 			UserLocalServiceUtil.class, UserLocalService.class);
+
 		when(
 			userLocalService.search(
 				Mockito.anyLong(), Mockito.anyString(), Mockito.anyString(),
