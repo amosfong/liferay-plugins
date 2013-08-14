@@ -41,9 +41,8 @@ import org.powermock.api.mockito.PowerMockito;
 import org.powermock.modules.junit4.PowerMockRunner;
 
 /**
-* @author Matthew Tambara
-* @author William Newbury
-*/
+ * @author William Newbury
+ */
 @RunWith(PowerMockRunner.class)
 public class BaseVLDAPTestCase extends PowerMockito {
 
@@ -108,10 +107,9 @@ public class BaseVLDAPTestCase extends PowerMockito {
 			currentThread.getContextClassLoader());
 
 		Configuration configuration = mock(Configuration.class);
+
 		ConfigurationFactory configurationFactory = mock(
 			ConfigurationFactory.class);
-
-		ConfigurationFactoryUtil.setConfigurationFactory(configurationFactory);
 
 		when(
 			configurationFactory.getConfiguration(
@@ -125,6 +123,8 @@ public class BaseVLDAPTestCase extends PowerMockito {
 		).thenReturn(
 			configuration
 		);
+
+		ConfigurationFactoryUtil.setConfigurationFactory(configurationFactory);
 
 		String[] sambaNames = new String[1];
 		sambaNames[0] = "testDomainName";

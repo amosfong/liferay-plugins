@@ -33,7 +33,6 @@ import org.powermock.modules.junit4.PowerMockRunner;
 
 /**
  * @author William Newbury
- * @author Matthew Tambara
  */
 @RunWith(PowerMockRunner.class)
 public class UsersBuilderTest extends GeneralBuilderTestCase {

@@ -19,7 +19,6 @@ import org.junit.runner.RunWith;
 
 /**
  * @author William Newbury
- * @author Matthew Tambara
  */
 import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
