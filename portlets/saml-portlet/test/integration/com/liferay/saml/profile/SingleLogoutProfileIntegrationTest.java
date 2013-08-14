@@ -92,7 +92,26 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 	}
 
 	@Test
-	public void testPerformIdpSpLogoutHasSloRequestInfo() throws Exception {
+	public void testPerformIdpSpLogoutInvalidSloRequestInfo() throws Exception {
+		MockHttpServletRequest mockHttpServletRequest =
+			getMockHttpServletRequest(SLO_LOGOUT_URL + "?cmd=logout");
+
+		SamlSloContext samlSloContext = new SamlSloContext(null);
+
+		_singleLogoutProfileImpl.performIdpSpLogout(
+			mockHttpServletRequest, new MockHttpServletResponse(),
+			samlSloContext);
+
+		Assert.assertEquals(
+			JspUtil.PATH_PORTAL_SAML_ERROR,
+			mockHttpServletRequest.getAttribute("tilesContent"));
+		Assert.assertTrue(
+			Boolean.valueOf(
+				(String)mockHttpServletRequest.getAttribute("tilesPopUp")));
+	}
+
+	@Test
+	public void testPerformIdpSpLogoutValidSloRequestInfo() throws Exception {
 		SamlIdpSpConnection samlIdpSpConnection = new SamlIdpSpConnectionImpl();
 
 		when(
@@ -158,25 +177,6 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 	}
 
 	@Test
-	public void testPerformIdpSpLogoutNoSloRequestInfo() throws Exception {
-		MockHttpServletRequest mockHttpServletRequest =
-			getMockHttpServletRequest(SLO_LOGOUT_URL + "?cmd=logout");
-
-		SamlSloContext samlSloContext = new SamlSloContext(null);
-
-		_singleLogoutProfileImpl.performIdpSpLogout(
-			mockHttpServletRequest, new MockHttpServletResponse(),
-			samlSloContext);
-
-		Assert.assertEquals(
-			JspUtil.PATH_PORTAL_SAML_ERROR,
-			mockHttpServletRequest.getAttribute("tilesContent"));
-		Assert.assertTrue(
-			Boolean.valueOf(
-				(String)mockHttpServletRequest.getAttribute("tilesPopUp")));
-	}
-
-	@Test
 	public void testSendIdpLogoutRequestHttpRedirect() throws Exception {
 		prepareIdentityProvider(IDP_ENTITY_ID);
 
@@ -192,11 +192,13 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 			samlIdpSsoSessionImpl);
 
 		SamlIdpSpSessionImpl samlIdpSpSessionImpl = new SamlIdpSpSessionImpl();
+
 		samlIdpSpSessionImpl.setSamlSpEntityId(SP_ENTITY_ID);
 		samlIdpSpSessionImpl.setNameIdFormat(NameID.EMAIL);
 		samlIdpSpSessionImpl.setNameIdValue("test@liferay.com");
 
 		SamlSloRequestInfo samlSloRequestInfo = new SamlSloRequestInfo();
+
 		samlSloRequestInfo.setSamlIdpSpSession(samlIdpSpSessionImpl);
 
 		_singleLogoutProfileImpl.sendIdpLogoutRequest(
@@ -227,10 +229,9 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 	}
 
 	@Test
-	public void testSendSpLogoutRequestNoSpSession() throws Exception {
+	public void testSendSpLogoutRequestInvalidSpSession() throws Exception {
 		MockHttpServletRequest mockHttpServletRequest =
 			getMockHttpServletRequest(LOGOUT_URL);
-
 		MockHttpServletResponse mockHttpServletResponse =
 			new MockHttpServletResponse();
 
@@ -246,6 +247,7 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 	@Test
 	public void testSendSpLogoutRequestValidSpSession() throws Exception {
 		SamlSpSession samlSpSession = new SamlSpSessionImpl();
+
 		samlSpSession.setNameIdFormat(NameID.EMAIL);
 		samlSpSession.setNameIdValue("test@liferay.com");
 
@@ -258,7 +260,6 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 
 		MockHttpServletRequest mockHttpServletRequest =
 			getMockHttpServletRequest(LOGOUT_URL);
-
 		MockHttpServletResponse mockHttpServletResponse =
 			new MockHttpServletResponse();
 

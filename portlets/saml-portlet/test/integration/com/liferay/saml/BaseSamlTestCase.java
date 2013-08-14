@@ -130,9 +130,7 @@ public class BaseSamlTestCase extends PowerMockito {
 		return credentialResolver.resolveSingle(criteriaSet);
 	}
 
-	protected MockHttpServletRequest getMockHttpServletRequest(
-		String method, String url) {
-
+	protected MockHttpServletRequest getMockHttpServletRequest(String url) {
 		String protocol = url.substring(0, url.indexOf(":"));
 		String queryString = StringPool.BLANK;
 		String requestURI = StringPool.BLANK;
@@ -564,7 +562,7 @@ public class BaseSamlTestCase extends PowerMockito {
 
 			MockHttpServletRequest mockHttpServletRequest =
 				getMockHttpServletRequest(
-					"GET", "http://localhost:8080/c/portal/saml/metadata");
+					"http://localhost:8080/c/portal/saml/metadata");
 
 			if (entityId.equals(IDP_ENTITY_ID)) {
 				EntityDescriptor entityDescriptor =
