@@ -15,7 +15,6 @@
 package com.liferay.saml.profile;
 
 import com.liferay.portal.json.JSONFactoryImpl;
-import com.liferay.portal.kernel.json.JSONFactory;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.saml.BaseSamlTestCase;
@@ -70,24 +69,22 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 
-		JSONFactory jsonFactory = new JSONFactoryImpl();
-
 		JSONFactoryUtil jsonFactoryUtil = new JSONFactoryUtil();
-		jsonFactoryUtil.setJSONFactory(jsonFactory);
 
-		_samlIdpSpSessionLocalService = getMockPortletService(
-			SamlIdpSpSessionLocalServiceUtil.class,
-			SamlIdpSpSessionLocalService.class);
+		jsonFactoryUtil.setJSONFactory(new JSONFactoryImpl());
 
 		_samlIdpSpConnectionLocalService = getMockPortletService(
 			SamlIdpSpConnectionLocalServiceUtil.class,
 			SamlIdpSpConnectionLocalService.class);
-
+		_samlIdpSpSessionLocalService = getMockPortletService(
+			SamlIdpSpSessionLocalServiceUtil.class,
+			SamlIdpSpSessionLocalService.class);
 		_samlSpSessionLocalService = getMockPortletService(
 			SamlSpSessionLocalServiceUtil.class,
 			SamlSpSessionLocalService.class);
 
 		_singleLogoutProfileImpl = new SingleLogoutProfileImpl();
+
 		_singleLogoutProfileImpl.setIdentifierGenerator(identifierGenerator);
 		_singleLogoutProfileImpl.setSamlBindings(samlBindings);
 
@@ -96,18 +93,23 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 
 	@Test
 	public void testPerformIdpSpLogoutHasSloRequestInfo() throws Exception {
-		MockHttpServletRequest mockHttpServletRequest =
-			getMockHttpServletRequest(
-				"GET", SLO_LOGOUT_URL.concat("?cmd=logout"));
+		SamlIdpSpConnection samlIdpSpConnection = new SamlIdpSpConnectionImpl();
 
-		mockHttpServletRequest.setParameter("entityId", SP_ENTITY_ID);
-
-		SamlIdpSpSessionImpl samlIdpSpSessionImpl = new SamlIdpSpSessionImpl();
-		samlIdpSpSessionImpl.setSamlSpEntityId(SP_ENTITY_ID);
-		samlIdpSpSessionImpl.setCompanyId(COMPANY_ID);
+		when(
+			_samlIdpSpConnectionLocalService.getSamlIdpSpConnection(
+				COMPANY_ID, SP_ENTITY_ID)
+		).thenReturn(
+			samlIdpSpConnection
+		);
 
 		List<SamlIdpSpSession> samlIdpSpSessions =
 			new ArrayList<SamlIdpSpSession>();
+
+		SamlIdpSpSessionImpl samlIdpSpSessionImpl = new SamlIdpSpSessionImpl();
+
+		samlIdpSpSessionImpl.setCompanyId(COMPANY_ID);
+		samlIdpSpSessionImpl.setSamlSpEntityId(SP_ENTITY_ID);
+
 		samlIdpSpSessions.add(samlIdpSpSessionImpl);
 
 		when(
@@ -116,16 +118,14 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 			samlIdpSpSessions
 		);
 
-		SamlIdpSpConnection samlIdpSpConnection = new SamlIdpSpConnectionImpl();
-		when(
-			_samlIdpSpConnectionLocalService.getSamlIdpSpConnection(
-				COMPANY_ID, SP_ENTITY_ID)
-		).thenReturn(
-			samlIdpSpConnection
-		);
+		MockHttpServletRequest mockHttpServletRequest =
+			getMockHttpServletRequest(SLO_LOGOUT_URL + "?cmd=logout");
+
+		mockHttpServletRequest.setParameter("entityId", SP_ENTITY_ID);
 
 		SamlIdpSsoSessionImpl samlIdpSsoSessionImpl =
 			new SamlIdpSsoSessionImpl();
+
 		samlIdpSsoSessionImpl.setSamlIdpSsoSessionId(SESSION_ID);
 
 		SamlSloContext samlSloContext = new SamlSloContext(
@@ -133,6 +133,7 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 
 		SamlSloRequestInfo samlSloRequestInfo =
 			samlSloContext.getSamlSloRequestInfo(SP_ENTITY_ID);
+
 		samlSloRequestInfo.setStatus(SamlSloRequestInfo.REQUEST_STATUS_SUCCESS);
 
 		_singleLogoutProfileImpl.performIdpSpLogout(
@@ -159,10 +160,10 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 	@Test
 	public void testPerformIdpSpLogoutNoSloRequestInfo() throws Exception {
 		MockHttpServletRequest mockHttpServletRequest =
-			getMockHttpServletRequest(
-				"GET", SLO_LOGOUT_URL.concat("?cmd=logout"));
+			getMockHttpServletRequest(SLO_LOGOUT_URL + "?cmd=logout");
 
 		SamlSloContext samlSloContext = new SamlSloContext(null);
+
 		_singleLogoutProfileImpl.performIdpSpLogout(
 			mockHttpServletRequest, new MockHttpServletResponse(),
 			samlSloContext);
@@ -180,9 +181,7 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 		prepareIdentityProvider(IDP_ENTITY_ID);
 
 		MockHttpServletRequest mockHttpServletRequest =
-			getMockHttpServletRequest(
-				"GET", SLO_LOGOUT_URL.concat("?cmd=logout"));
-
+			getMockHttpServletRequest(SLO_LOGOUT_URL + "?cmd=logout");
 		MockHttpServletResponse mockHttpServletResponse =
 			new MockHttpServletResponse();
 
@@ -208,7 +207,7 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 
 		Assert.assertNotNull(redirect);
 
-		mockHttpServletRequest = getMockHttpServletRequest("GET", redirect);
+		mockHttpServletRequest = getMockHttpServletRequest(redirect);
 
 		SamlBinding samlBinding = _singleLogoutProfileImpl.getSamlBinding(
 			SAMLConstants.SAML2_REDIRECT_BINDING_URI);
@@ -230,7 +229,7 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 	@Test
 	public void testSendSpLogoutRequestNoSpSession() throws Exception {
 		MockHttpServletRequest mockHttpServletRequest =
-			getMockHttpServletRequest("GET", LOGOUT_URL);
+			getMockHttpServletRequest(LOGOUT_URL);
 
 		MockHttpServletResponse mockHttpServletResponse =
 			new MockHttpServletResponse();
@@ -258,7 +257,7 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 		);
 
 		MockHttpServletRequest mockHttpServletRequest =
-			getMockHttpServletRequest("GET", LOGOUT_URL);
+			getMockHttpServletRequest(LOGOUT_URL);
 
 		MockHttpServletResponse mockHttpServletResponse =
 			new MockHttpServletResponse();
@@ -270,7 +269,7 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 
 		Assert.assertNotNull(redirect);
 
-		mockHttpServletRequest = getMockHttpServletRequest("GET", redirect);
+		mockHttpServletRequest = getMockHttpServletRequest(redirect);
 
 		SamlBinding samlBinding = _singleLogoutProfileImpl.getSamlBinding(
 			SAMLConstants.SAML2_REDIRECT_BINDING_URI);
