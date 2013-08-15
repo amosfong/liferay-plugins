@@ -223,6 +223,10 @@ $red: #8F0920;
 						left: -0.5em;
 					}
 				}
+
+				.lfr-discussion-form-edit {
+					display: block;
+				}
 			}
 
 			.add-comment {
