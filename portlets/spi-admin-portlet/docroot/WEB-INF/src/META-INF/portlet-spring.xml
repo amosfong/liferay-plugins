@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="com.liferay.portal.resiliency.spi.service.SPIDefinitionLocalService" class="com.liferay.portal.resiliency.spi.service.impl.SPIDefinitionLocalServiceImpl" />
+	<bean id="com.liferay.portal.resiliency.spi.service.SPIDefinitionService" class="com.liferay.portal.resiliency.spi.service.impl.SPIDefinitionServiceImpl" />
+	<bean id="com.liferay.portal.resiliency.spi.service.persistence.SPIDefinitionPersistence" class="com.liferay.portal.resiliency.spi.service.persistence.SPIDefinitionPersistenceImpl" parent="basePersistence" />
+</beans>
