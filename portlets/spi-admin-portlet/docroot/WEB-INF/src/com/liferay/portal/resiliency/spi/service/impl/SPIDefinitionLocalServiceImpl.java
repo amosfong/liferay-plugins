@@ -17,24 +17,8 @@ package com.liferay.portal.resiliency.spi.service.impl;
 import com.liferay.portal.resiliency.spi.service.base.SPIDefinitionLocalServiceBaseImpl;
 
 /**
- * The implementation of the s p i definition local service.
- *
- * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.portal.resiliency.spi.service.SPIDefinitionLocalService} interface.
- *
- * <p>
- * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
- * </p>
- *
  * @author Michael C. Han
- * @see com.liferay.portal.resiliency.spi.service.base.SPIDefinitionLocalServiceBaseImpl
- * @see com.liferay.portal.resiliency.spi.service.SPIDefinitionLocalServiceUtil
  */
 public class SPIDefinitionLocalServiceImpl
 	extends SPIDefinitionLocalServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this interface directly. Always use {@link com.liferay.portal.resiliency.spi.service.SPIDefinitionLocalServiceUtil} to access the s p i definition local service.
-	 */
 }
