@@ -662,13 +662,13 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	}
 
 	@Override
-	public void setCreateTime(java.util.Date createDate) {
-		_syncDLObject.setCreateTime(createDate);
+	public void setCreateDate(java.util.Date createDate) {
+		_syncDLObject.setCreateDate(createDate);
 	}
 
 	@Override
-	public void setModifiedTime(java.util.Date modifiedDate) {
-		_syncDLObject.setModifiedTime(modifiedDate);
+	public void setModifiedDate(java.util.Date modifiedDate) {
+		_syncDLObject.setModifiedDate(modifiedDate);
 	}
 
 	@Override

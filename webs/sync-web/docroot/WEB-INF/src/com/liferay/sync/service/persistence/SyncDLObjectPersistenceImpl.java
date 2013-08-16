@@ -589,6 +589,10 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 		throws SystemException {
 		int count = countByC_M_R(companyId, modifiedTime, repositoryId);
 
+		if (count == 0) {
+			return null;
+		}
+
 		List<SyncDLObject> list = findByC_M_R(companyId, modifiedTime,
 				repositoryId, count - 1, count, orderByComparator);
 

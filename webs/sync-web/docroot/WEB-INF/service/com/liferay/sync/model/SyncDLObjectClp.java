@@ -602,9 +602,9 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 	}
 
 	@Override
-	public void setCreateTime(java.util.Date createDate) {
+	public void setCreateDate(java.util.Date createDate) {
 		try {
-			String methodName = "setCreateTime";
+			String methodName = "setCreateDate";
 
 			Class<?>[] parameterTypes = new Class<?>[] { java.util.Date.class };
 
@@ -618,9 +618,9 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 	}
 
 	@Override
-	public void setModifiedTime(java.util.Date modifiedDate) {
+	public void setModifiedDate(java.util.Date modifiedDate) {
 		try {
-			String methodName = "setModifiedTime";
+			String methodName = "setModifiedDate";
 
 			Class<?>[] parameterTypes = new Class<?>[] { java.util.Date.class };
 
