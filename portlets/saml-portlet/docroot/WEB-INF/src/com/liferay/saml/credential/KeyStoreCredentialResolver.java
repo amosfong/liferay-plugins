@@ -18,11 +18,11 @@ import com.liferay.portal.kernel.configuration.Filter;
 import com.liferay.saml.util.PortletPrefsPropsUtil;
 import com.liferay.saml.util.PortletPropsKeys;
 
+import java.security.KeyStore;
 import java.security.KeyStore.Entry;
 import java.security.KeyStore.PrivateKeyEntry;
 import java.security.KeyStore.SecretKeyEntry;
 import java.security.KeyStore.TrustedCertificateEntry;
-import java.security.KeyStore;
 import java.security.cert.X509Certificate;
 
 import java.util.ArrayList;
