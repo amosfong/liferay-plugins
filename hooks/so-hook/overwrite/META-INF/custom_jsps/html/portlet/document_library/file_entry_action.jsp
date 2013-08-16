@@ -261,18 +261,14 @@ viewFolderURL.setParameter("folderId", String.valueOf(folderId));
 					<liferay-security:permissionsURL
 						modelResource="<%= DLFileEntryConstants.getClassName() %>"
 						modelResourceDescription="<%= HtmlUtil.unescape(fileEntry.getTitle()) %>"
+						redirect="<%= currentURL %>"
 						resourcePrimKey="<%= String.valueOf(fileEntry.getFileEntryId()) %>"
 						var="permissionsURL"
-						windowState="<%= LiferayWindowState.POP_UP.toString() %>"
 					/>
-
-					<%
-					String taglibURLPermissions = "javascript:Liferay.Util.openWindow({dialog: {align: {node: null, points: ['tc', 'tc']}, constrain2view: true, modal: true, resizable: false, width: 960}, id: 'permissions" + fileEntry.getFileEntryId() + "', title: '" + LanguageUtil.get(pageContext, "permissions") + "', uri:'" + HtmlUtil.escapeURL(permissionsURL.toString()) + "'});";
-					%>
 
 					<liferay-ui:icon
 						image="permissions"
-						url="<%= taglibURLPermissions %>"
+						url="<%= permissionsURL %>"
 					/>
 				</c:if>
 
