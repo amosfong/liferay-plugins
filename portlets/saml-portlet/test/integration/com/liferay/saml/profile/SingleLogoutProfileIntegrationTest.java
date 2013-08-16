@@ -193,9 +193,9 @@ public class SingleLogoutProfileIntegrationTest extends BaseSamlTestCase {
 
 		SamlIdpSpSessionImpl samlIdpSpSessionImpl = new SamlIdpSpSessionImpl();
 
-		samlIdpSpSessionImpl.setSamlSpEntityId(SP_ENTITY_ID);
 		samlIdpSpSessionImpl.setNameIdFormat(NameID.EMAIL);
 		samlIdpSpSessionImpl.setNameIdValue("test@liferay.com");
+		samlIdpSpSessionImpl.setSamlSpEntityId(SP_ENTITY_ID);
 
 		SamlSloRequestInfo samlSloRequestInfo = new SamlSloRequestInfo();
 
