@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_2_0.dtd">
 
-<service-builder package-path="com.liferay.portal.resiliency" auto-namespace-tables="false">
+<service-builder package-path="com.liferay.portal.resiliency.spi" auto-namespace-tables="false">
 	<author>Michael C. Han</author>
-	<namespace>PortalResiliency</namespace>
-	<entity name="PortalResiliencyDefinition" local-service="true" remote-service="true">
+	<namespace>SPI</namespace>
+	<entity name="SPIDefinition" local-service="true" remote-service="true">
 
 		<!-- PK fields -->
 
-		<column name="portalResiliencyDefinitionId" type="long" primary="true" />
+		<column name="spiDefinitionId" type="long" primary="true" />
 
 		<!-- Audit fields -->
 
@@ -19,6 +19,7 @@
 		<column name="modifiedDate" type="Date" />
 
 		<!-- Other fields -->
+
 		<column name="name" type="String" />
 		<column name="description" type="String" />
 		<column name="applications" type="String" />
@@ -28,7 +29,7 @@
 		<!-- Order -->
 
 		<order by="asc">
-			<order-column name="portalResiliencyDefinitionId" />
+			<order-column name="spiDefinitionId" />
 		</order>
 
 		<!-- Finder methods -->
@@ -36,14 +37,16 @@
 		<finder name="CompanyId" return-type="Collection">
 			<finder-column name="companyId" />
 		</finder>
-		<finder name="C_N" return-type="PortalResiliencyDefinition">
+		<finder name="C_N" return-type="SPIDefinition">
 			<finder-column name="companyId" />
 			<finder-column name="name" />
 		</finder>
 
+		<!-- References -->
+
 		<reference package-path="com.liferay.portlet.expando" entity="ExpandoRow" />
 	</entity>
 	<exceptions>
-		<exception>DuplicatePortalResiliencyDefinition</exception>
+		<exception>DuplicateSPIDefinition</exception>
 	</exceptions>
 </service-builder>
