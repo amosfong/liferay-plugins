@@ -25,12 +25,12 @@ public class SyncDLObjectImpl extends SyncDLObjectBaseImpl {
 	}
 
 	@Override
-	public void setCreateTime(Date createDate) {
+	public void setCreateDate(Date createDate) {
 		setCreateTime(createDate.getTime());
 	}
 
 	@Override
-	public void setModifiedTime(Date modifiedDate) {
+	public void setModifiedDate(Date modifiedDate) {
 		setModifiedTime(modifiedDate.getTime());
 	}
 
