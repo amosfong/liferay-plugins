@@ -61,6 +61,6 @@
 		<tx-required>getFileDeltaAsStream</tx-required>
 	</entity>
 	<exceptions>
-		<exception>ChecksumMismatch</exception>
+		<exception>SyncDLObjectChecksum</exception>
 	</exceptions>
 </service-builder>

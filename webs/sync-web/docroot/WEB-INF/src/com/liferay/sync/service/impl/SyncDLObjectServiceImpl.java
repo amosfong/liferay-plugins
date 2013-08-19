@@ -38,7 +38,7 @@ import com.liferay.portlet.documentlibrary.DuplicateFolderNameException;
 import com.liferay.portlet.documentlibrary.model.DLSyncConstants;
 import com.liferay.portlet.documentlibrary.service.DLFileEntryLocalServiceUtil;
 import com.liferay.so.service.SocialOfficeServiceUtil;
-import com.liferay.sync.ChecksumMismatchException;
+import com.liferay.sync.SyncDLObjectChecksumException;
 import com.liferay.sync.model.SyncContext;
 import com.liferay.sync.model.SyncDLObject;
 import com.liferay.sync.model.SyncDLObjectUpdate;
@@ -497,7 +497,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 			sb.append(", Actual checksum: ");
 			sb.append(fileChecksum);
 
-			throw new ChecksumMismatchException(sb.toString());
+			throw new SyncDLObjectChecksumException(sb.toString());
 		}
 	}
 
