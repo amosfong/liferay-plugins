@@ -72,7 +72,7 @@ public class DownloadServlet extends HttpServlet {
 			long groupId = GetterUtil.getLong(pathArray[0]);
 			String uuid = pathArray[1];
 
-			boolean patch = ParamUtil.getBoolean(request, "patch", false);
+			boolean patch = ParamUtil.getBoolean(request, "patch");
 
 			if (patch) {
 				sendPatch(request, response, user, groupId, uuid);
