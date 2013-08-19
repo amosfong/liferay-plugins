@@ -14,6 +14,7 @@
 
 package com.liferay.sync.model;
 
+import com.liferay.portal.kernel.json.JSON;
 import com.liferay.portal.model.Group;
 
 import java.util.List;
@@ -21,6 +22,7 @@ import java.util.List;
 /**
  * @author Dennis Ju
  */
+@JSON
 public class SyncContext {
 
 	public String getPluginVersion() {
@@ -43,6 +45,7 @@ public class SyncContext {
 		return _userId;
 	}
 
+	@JSON
 	public List<Group> getUserSiteGroups() {
 		return _userSiteGroups;
 	}
