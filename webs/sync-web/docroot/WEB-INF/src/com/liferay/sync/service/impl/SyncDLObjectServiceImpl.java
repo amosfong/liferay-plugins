@@ -62,12 +62,11 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	public SyncDLObject addFileEntry(
 			long repositoryId, long folderId, String sourceFileName,
 			String mimeType, String title, String description, String changeLog,
-			File file, String destinationChecksum,
-			ServiceContext serviceContext)
+			File file, String checksum, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		try {
-			validateChecksum(file, destinationChecksum);
+			validateChecksum(file, checksum);
 
 			FileEntry fileEntry = dlAppService.addFileEntry(
 				repositoryId, folderId, sourceFileName, mimeType, title,
@@ -492,9 +491,9 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		if (!fileChecksum.equals(checksum)) {
 			StringBundler sb = new StringBundler(4);
 
-			sb.append("Expected checksum: ");
+			sb.append("Expected checksum ");
 			sb.append(checksum);
-			sb.append(", Actual checksum: ");
+			sb.append(" does not match actual checksum ");
 			sb.append(fileChecksum);
 
 			throw new SyncDLObjectChecksumException(sb.toString());
