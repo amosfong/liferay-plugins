@@ -845,6 +845,10 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 	private static final String _FINDER_COLUMN_C_M_R_MODIFIEDTIME_2 = "syncDLObject.modifiedTime > ? AND ";
 	private static final String _FINDER_COLUMN_C_M_R_REPOSITORYID_2 = "syncDLObject.repositoryId = ?";
 
+	public SyncDLObjectPersistenceImpl() {
+		setModelClass(SyncDLObject.class);
+	}
+
 	/**
 	 * Caches the sync d l object in the entity cache if it is enabled.
 	 *

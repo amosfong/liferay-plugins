@@ -61,13 +61,13 @@ public class SyncDLObjectServiceWrapper implements SyncDLObjectService,
 		long folderId, java.lang.String sourceFileName,
 		java.lang.String mimeType, java.lang.String title,
 		java.lang.String description, java.lang.String changeLog,
-		java.io.File file,
+		java.io.File file, java.lang.String checksum,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _syncDLObjectService.addFileEntry(repositoryId, folderId,
 			sourceFileName, mimeType, title, description, changeLog, file,
-			serviceContext);
+			checksum, serviceContext);
 	}
 
 	@Override
@@ -122,15 +122,6 @@ public class SyncDLObjectServiceWrapper implements SyncDLObjectService,
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _syncDLObjectService.getAllSyncDLObjects(repositoryId, folderId);
-	}
-
-	@Override
-	public java.io.InputStream getFileDeltaAsStream(long fileEntryId,
-		java.lang.String sourceVersion, java.lang.String destinationVersion)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _syncDLObjectService.getFileDeltaAsStream(fileEntryId,
-			sourceVersion, destinationVersion);
 	}
 
 	@Override
@@ -235,6 +226,21 @@ public class SyncDLObjectServiceWrapper implements SyncDLObjectService,
 	}
 
 	@Override
+	public com.liferay.sync.model.SyncDLObject patchFileEntry(
+		long fileEntryId, java.lang.String sourceVersion,
+		java.lang.String sourceFileName, java.lang.String mimeType,
+		java.lang.String title, java.lang.String description,
+		java.lang.String changeLog, boolean majorVersion,
+		java.io.File deltaFile, java.lang.String destinationChecksum,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _syncDLObjectService.patchFileEntry(fileEntryId, sourceVersion,
+			sourceFileName, mimeType, title, description, changeLog,
+			majorVersion, deltaFile, destinationChecksum, serviceContext);
+	}
+
+	@Override
 	public void restoreFileEntryFromTrash(long fileEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -254,26 +260,13 @@ public class SyncDLObjectServiceWrapper implements SyncDLObjectService,
 		java.lang.String mimeType, java.lang.String title,
 		java.lang.String description, java.lang.String changeLog,
 		boolean majorVersion, java.io.File file,
+		java.lang.String destinationChecksum,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _syncDLObjectService.updateFileEntry(fileEntryId,
 			sourceFileName, mimeType, title, description, changeLog,
-			majorVersion, file, serviceContext);
-	}
-
-	@Override
-	public com.liferay.sync.model.SyncDLObject updateFileEntry(
-		long fileEntryId, java.lang.String sourceFileName,
-		java.lang.String mimeType, java.lang.String title,
-		java.lang.String description, java.lang.String changeLog,
-		boolean majorVersion, java.io.InputStream deltaInputStream, long size,
-		com.liferay.portal.service.ServiceContext serviceContext)
-		throws com.liferay.portal.kernel.exception.PortalException,
-			com.liferay.portal.kernel.exception.SystemException {
-		return _syncDLObjectService.updateFileEntry(fileEntryId,
-			sourceFileName, mimeType, title, description, changeLog,
-			majorVersion, deltaInputStream, size, serviceContext);
+			majorVersion, file, destinationChecksum, serviceContext);
 	}
 
 	@Override

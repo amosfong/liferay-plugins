@@ -233,6 +233,10 @@ public class ClpSerializer {
 			return new SystemException();
 		}
 
+		if (className.equals("com.liferay.sync.SyncDLObjectChecksumException")) {
+			return new com.liferay.sync.SyncDLObjectChecksumException();
+		}
+
 		if (className.equals("com.liferay.sync.NoSuchDLObjectException")) {
 			return new com.liferay.sync.NoSuchDLObjectException();
 		}
