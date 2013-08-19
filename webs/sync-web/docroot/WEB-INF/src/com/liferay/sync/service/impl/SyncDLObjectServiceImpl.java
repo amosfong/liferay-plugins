@@ -128,28 +128,43 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	}
 
 	@Override
-	public void cancelCheckOut(long fileEntryId)
+	public SyncDLObject cancelCheckOut(long fileEntryId)
 		throws PortalException, SystemException {
 
 		dlAppService.cancelCheckOut(fileEntryId);
+
+		FileEntry fileEntry = dlAppLocalService.getFileEntry(fileEntryId);
+
+		return SyncUtil.toSyncDLObject(
+			fileEntry, DLSyncConstants.EVENT_CANCEL_CHECK_OUT);
 	}
 
 	@Override
-	public void checkInFileEntry(
+	public SyncDLObject checkInFileEntry(
 			long fileEntryId, boolean majorVersion, String changeLog,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		dlAppService.checkInFileEntry(
 			fileEntryId, majorVersion, changeLog, serviceContext);
+
+		FileEntry fileEntry = dlAppLocalService.getFileEntry(fileEntryId);
+
+		return SyncUtil.toSyncDLObject(
+			fileEntry, DLSyncConstants.EVENT_CHECK_IN);
 	}
 
 	@Override
-	public void checkOutFileEntry(
+	public SyncDLObject checkOutFileEntry(
 			long fileEntryId, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		dlAppService.checkOutFileEntry(fileEntryId, serviceContext);
+
+		FileEntry fileEntry = dlAppLocalService.getFileEntry(fileEntryId);
+
+		return SyncUtil.toSyncDLObject(
+			fileEntry, DLSyncConstants.EVENT_CHECK_OUT);
 	}
 
 	@Override
@@ -161,7 +176,8 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		FileEntry fileEntry = dlAppService.checkOutFileEntry(
 			fileEntryId, owner, expirationTime, serviceContext);
 
-		return SyncUtil.toSyncDLObject(fileEntry, DLSyncConstants.EVENT_UPDATE);
+		return SyncUtil.toSyncDLObject(
+			fileEntry, DLSyncConstants.EVENT_CHECK_OUT);
 	}
 
 	@Override
@@ -390,17 +406,26 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	}
 
 	@Override
-	public void restoreFileEntryFromTrash(long fileEntryId)
+	public SyncDLObject restoreFileEntryFromTrash(long fileEntryId)
 		throws PortalException, SystemException {
 
 		dlAppService.restoreFileEntryFromTrash(fileEntryId);
+
+		FileEntry fileEntry = dlAppLocalService.getFileEntry(fileEntryId);
+
+		return SyncUtil.toSyncDLObject(
+			fileEntry, DLSyncConstants.EVENT_RESTORE);
 	}
 
 	@Override
-	public void restoreFolderFromTrash(long folderId)
+	public SyncDLObject restoreFolderFromTrash(long folderId)
 		throws PortalException, SystemException {
 
 		dlAppService.restoreFolderFromTrash(folderId);
+
+		Folder folder = dlAppLocalService.getFolder(folderId);
+
+		return SyncUtil.toSyncDLObject(folder, DLSyncConstants.EVENT_RESTORE);
 	}
 
 	@Override
