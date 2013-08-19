@@ -122,14 +122,16 @@ public class DownloadServlet extends HttpServlet {
 			uuid, groupId);
 
 		String sourceVersion = ParamUtil.getString(request, "sourceVersion");
+
+		if (Validator.isNull(sourceVersion)) {
+			throw new IllegalArgumentException("Missing source version");
+		}
+
 		String destinationVersion = ParamUtil.getString(
 			request, "destinationVersion");
 
-		if (Validator.isNull(sourceVersion) ||
-			Validator.isNull(destinationVersion)) {
-
-			throw new IllegalArgumentException(
-				"Missing source or destination version parameter");
+		if (Validator.isNull(destinationVersion)) {
+			throw new IllegalArgumentException("Missing destination version");
 		}
 
 		InputStream is = SyncUtil.getFileDeltaAsStream(
