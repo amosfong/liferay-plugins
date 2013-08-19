@@ -60,4 +60,7 @@
 
 		<tx-required>getFileDeltaAsStream</tx-required>
 	</entity>
+	<exceptions>
+		<exception>ChecksumMismatch</exception>
+	</exceptions>
 </service-builder>

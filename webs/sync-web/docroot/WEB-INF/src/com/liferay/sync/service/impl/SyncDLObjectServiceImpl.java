@@ -19,9 +19,6 @@ import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.deploy.DeployManagerUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.io.delta.ByteChannelReader;
-import com.liferay.portal.kernel.io.delta.ByteChannelWriter;
-import com.liferay.portal.kernel.io.delta.DeltaUtil;
 import com.liferay.portal.kernel.plugin.PluginPackage;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
@@ -30,7 +27,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.ReflectionUtil;
 import com.liferay.portal.kernel.util.ReleaseInfo;
-import com.liferay.portal.kernel.util.StreamUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.license.util.LicenseManager;
@@ -39,7 +36,9 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portlet.documentlibrary.DuplicateFileException;
 import com.liferay.portlet.documentlibrary.DuplicateFolderNameException;
 import com.liferay.portlet.documentlibrary.model.DLSyncConstants;
+import com.liferay.portlet.documentlibrary.service.DLFileEntryLocalServiceUtil;
 import com.liferay.so.service.SocialOfficeServiceUtil;
+import com.liferay.sync.ChecksumMismatchException;
 import com.liferay.sync.model.SyncContext;
 import com.liferay.sync.model.SyncDLObject;
 import com.liferay.sync.model.SyncDLObjectUpdate;
@@ -47,17 +46,8 @@ import com.liferay.sync.service.base.SyncDLObjectServiceBaseImpl;
 import com.liferay.sync.util.SyncUtil;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 import java.lang.reflect.Method;
-
-import java.nio.channels.Channels;
-import java.nio.channels.FileChannel;
-import java.nio.channels.ReadableByteChannel;
-import java.nio.channels.WritableByteChannel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,10 +62,13 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	public SyncDLObject addFileEntry(
 			long repositoryId, long folderId, String sourceFileName,
 			String mimeType, String title, String description, String changeLog,
-			File file, ServiceContext serviceContext)
+			File file, String destinationChecksum,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		try {
+			validateChecksum(file, destinationChecksum);
+
 			FileEntry fileEntry = dlAppService.addFileEntry(
 				repositoryId, folderId, sourceFileName, mimeType, title,
 				description, changeLog, file, serviceContext);
@@ -184,113 +177,6 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		getAllSyncDLObjects(repositoryId, folderId, syncDLObjects);
 
 		return new SyncDLObjectUpdate(syncDLObjects, lastAccessTime);
-	}
-
-	@Override
-	public InputStream getFileDeltaAsStream(
-			long fileEntryId, String sourceVersion, String destinationVersion)
-		throws PortalException, SystemException {
-
-		InputStream deltaInputStream = null;
-
-		FileEntry fileEntry = dlAppLocalService.getFileEntry(fileEntryId);
-
-		InputStream sourceInputStream = null;
-		File sourceFile = FileUtil.createTempFile();
-		FileInputStream sourceFileInputStream = null;
-		FileChannel sourceFileChannel = null;
-		File checksumsFile = FileUtil.createTempFile();
-		OutputStream checksumsOutputStream = null;
-		WritableByteChannel checksumsWritableByteChannel = null;
-
-		try {
-			sourceInputStream = fileEntry.getContentStream(sourceVersion);
-
-			FileUtil.write(sourceFile, sourceInputStream);
-
-			sourceFileInputStream = new FileInputStream(sourceFile);
-
-			sourceFileChannel = sourceFileInputStream.getChannel();
-
-			checksumsOutputStream = new FileOutputStream(checksumsFile);
-
-			checksumsWritableByteChannel = Channels.newChannel(
-				checksumsOutputStream);
-
-			ByteChannelWriter checksumsByteChannelWriter =
-				new ByteChannelWriter(checksumsWritableByteChannel);
-
-			DeltaUtil.checksums(sourceFileChannel, checksumsByteChannelWriter);
-
-			checksumsByteChannelWriter.finish();
-		}
-		catch (Exception e) {
-			throw new PortalException(e);
-		}
-		finally {
-			StreamUtil.cleanUp(sourceFileInputStream);
-			StreamUtil.cleanUp(sourceFileChannel);
-			StreamUtil.cleanUp(checksumsOutputStream);
-			StreamUtil.cleanUp(checksumsWritableByteChannel);
-
-			FileUtil.delete(sourceFile);
-		}
-
-		InputStream destinationInputStream = null;
-		ReadableByteChannel destinationReadableByteChannel = null;
-		InputStream checksumsInputStream = null;
-		ReadableByteChannel checksumsReadableByteChannel = null;
-		OutputStream deltaOutputStream = null;
-		WritableByteChannel deltaOutputStreamWritableByteChannel = null;
-
-		try {
-			destinationInputStream = fileEntry.getContentStream(
-				destinationVersion);
-
-			destinationReadableByteChannel = Channels.newChannel(
-				destinationInputStream);
-
-			checksumsInputStream = new FileInputStream(checksumsFile);
-
-			checksumsReadableByteChannel = Channels.newChannel(
-				checksumsInputStream);
-
-			ByteChannelReader checksumsByteChannelReader =
-				new ByteChannelReader(checksumsReadableByteChannel);
-
-			File deltaFile = FileUtil.createTempFile();
-
-			deltaOutputStream = new FileOutputStream(deltaFile);
-
-			deltaOutputStreamWritableByteChannel = Channels.newChannel(
-				deltaOutputStream);
-
-			ByteChannelWriter deltaByteChannelWriter = new ByteChannelWriter(
-				deltaOutputStreamWritableByteChannel);
-
-			DeltaUtil.delta(
-				destinationReadableByteChannel, checksumsByteChannelReader,
-				deltaByteChannelWriter);
-
-			deltaByteChannelWriter.finish();
-
-			deltaInputStream = new FileInputStream(deltaFile);
-		}
-		catch (Exception e) {
-			throw new PortalException(e);
-		}
-		finally {
-			StreamUtil.cleanUp(destinationInputStream);
-			StreamUtil.cleanUp(destinationReadableByteChannel);
-			StreamUtil.cleanUp(checksumsInputStream);
-			StreamUtil.cleanUp(checksumsReadableByteChannel);
-			StreamUtil.cleanUp(deltaOutputStream);
-			StreamUtil.cleanUp(deltaOutputStreamWritableByteChannel);
-
-			FileUtil.delete(checksumsFile);
-		}
-
-		return deltaInputStream;
 	}
 
 	@Override
@@ -477,6 +363,34 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	}
 
 	@Override
+	public SyncDLObject patchFileEntry(
+			long fileEntryId, String sourceVersion, String sourceFileName,
+			String mimeType, String title, String description, String changeLog,
+			boolean majorVersion, File deltaFile, String destinationChecksum,
+			ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		File patchedFile = null;
+
+		try {
+			File sourceFile = DLFileEntryLocalServiceUtil.getFile(
+				getUserId(), fileEntryId, sourceVersion, false);
+
+			patchedFile = FileUtil.createTempFile();
+
+			SyncUtil.patchFile(sourceFile, deltaFile, patchedFile);
+
+			return updateFileEntry(
+				fileEntryId, sourceFileName, mimeType, title, description,
+				changeLog, majorVersion, patchedFile, destinationChecksum,
+				serviceContext);
+		}
+		finally {
+			FileUtil.delete(patchedFile);
+		}
+	}
+
+	@Override
 	public void restoreFileEntryFromTrash(long fileEntryId)
 		throws PortalException, SystemException {
 
@@ -494,56 +408,17 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	public SyncDLObject updateFileEntry(
 			long fileEntryId, String sourceFileName, String mimeType,
 			String title, String description, String changeLog,
-			boolean majorVersion, File file, ServiceContext serviceContext)
+			boolean majorVersion, File file, String destinationChecksum,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
+
+		validateChecksum(file, destinationChecksum);
 
 		FileEntry fileEntry = dlAppService.updateFileEntry(
 			fileEntryId, sourceFileName, mimeType, title, description,
 			changeLog, majorVersion, file, serviceContext);
 
 		return SyncUtil.toSyncDLObject(fileEntry, DLSyncConstants.EVENT_UPDATE);
-	}
-
-	@Override
-	public SyncDLObject updateFileEntry(
-			long fileEntryId, String sourceFileName, String mimeType,
-			String title, String description, String changeLog,
-			boolean majorVersion, InputStream deltaInputStream, long size,
-			ServiceContext serviceContext)
-		throws PortalException, SystemException {
-
-		FileEntry fileEntry = dlAppLocalService.getFileEntry(fileEntryId);
-
-		InputStream originalInputStream = null;
-		File patchedFile = null;
-		InputStream patchedInputStream = null;
-
-		try {
-			originalInputStream = fileEntry.getContentStream();
-
-			patchedFile = FileUtil.createTempFile();
-
-			patchFile(originalInputStream, deltaInputStream, patchedFile);
-
-			patchedInputStream = new FileInputStream(patchedFile);
-
-			fileEntry = dlAppService.updateFileEntry(
-				fileEntryId, sourceFileName, mimeType, title, description,
-				changeLog, majorVersion, patchedInputStream, size,
-				serviceContext);
-
-			return SyncUtil.toSyncDLObject(
-				fileEntry, DLSyncConstants.EVENT_UPDATE);
-		}
-		catch (Exception e) {
-			throw new PortalException(e);
-		}
-		finally {
-			StreamUtil.cleanUp(originalInputStream);
-			StreamUtil.cleanUp(patchedInputStream);
-
-			FileUtil.delete(patchedFile);
-		}
 	}
 
 	@Override
@@ -609,52 +484,20 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		return (String)method.invoke(null, productId, uuid, licenseState);
 	}
 
-	protected void patchFile(
-			InputStream originalInputStream, InputStream deltaInputStream,
-			File patchedFile)
+	protected void validateChecksum(File file, String checksum)
 		throws PortalException {
 
-		File originalFile = null;
-		FileInputStream originalFileInputStream = null;
-		FileChannel originalFileChannel = null;
-		FileOutputStream patchedFileOutputStream = null;
-		WritableByteChannel patchedWritableByteChannel = null;
-		ReadableByteChannel deltaReadableByteChannel = null;
+		String fileChecksum = SyncUtil.getChecksum(file);
 
-		try {
-			originalFile = FileUtil.createTempFile();
+		if (!fileChecksum.equals(checksum)) {
+			StringBundler sb = new StringBundler(4);
 
-			FileUtil.write(originalFile, originalInputStream);
+			sb.append("Expected checksum: ");
+			sb.append(checksum);
+			sb.append(", Actual checksum: ");
+			sb.append(fileChecksum);
 
-			originalFileInputStream = new FileInputStream(originalFile);
-
-			originalFileChannel = originalFileInputStream.getChannel();
-
-			patchedFileOutputStream = new FileOutputStream(patchedFile);
-
-			patchedWritableByteChannel = Channels.newChannel(
-				patchedFileOutputStream);
-
-			deltaReadableByteChannel = Channels.newChannel(deltaInputStream);
-
-			ByteChannelReader deltaByteChannelReader = new ByteChannelReader(
-				deltaReadableByteChannel);
-
-			DeltaUtil.patch(
-				originalFileChannel, patchedWritableByteChannel,
-				deltaByteChannelReader);
-		}
-		catch (Exception e) {
-			throw new PortalException(e);
-		}
-		finally {
-			StreamUtil.cleanUp(originalFileInputStream);
-			StreamUtil.cleanUp(originalFileChannel);
-			StreamUtil.cleanUp(patchedFileOutputStream);
-			StreamUtil.cleanUp(patchedWritableByteChannel);
-			StreamUtil.cleanUp(deltaReadableByteChannel);
-
-			FileUtil.delete(originalFile);
+			throw new ChecksumMismatchException(sb.toString());
 		}
 	}
 

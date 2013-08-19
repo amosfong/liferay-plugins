@@ -31,6 +31,7 @@ import com.liferay.portal.security.permission.PermissionThreadLocal;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portlet.documentlibrary.NoSuchFileEntryException;
 import com.liferay.portlet.documentlibrary.service.DLAppServiceUtil;
+import com.liferay.sync.util.SyncUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -71,7 +72,14 @@ public class DownloadServlet extends HttpServlet {
 			long groupId = GetterUtil.getLong(pathArray[0]);
 			String uuid = pathArray[1];
 
-			sendFile(request, response, user, groupId, uuid);
+			boolean patch = ParamUtil.getBoolean(request, "patch", false);
+
+			if (patch) {
+				sendPatch(request, response, user, groupId, uuid);
+			}
+			else {
+				sendFile(request, response, user, groupId, uuid);
+			}
 		}
 		catch (NoSuchFileEntryException nsfee) {
 			PortalUtil.sendError(
@@ -103,6 +111,32 @@ public class DownloadServlet extends HttpServlet {
 		InputStream inputStream = fileVersion.getContentStream(false);
 
 		ServletResponseUtil.write(response, inputStream, fileVersion.getSize());
+	}
+
+	protected void sendPatch(
+			HttpServletRequest request, HttpServletResponse response, User user,
+			long groupId, String uuid)
+		throws Exception {
+
+		FileEntry fileEntry = DLAppServiceUtil.getFileEntryByUuidAndGroupId(
+			uuid, groupId);
+
+		String sourceVersion = ParamUtil.getString(request, "sourceVersion");
+		String destinationVersion = ParamUtil.getString(
+			request, "destinationVersion");
+
+		if (Validator.isNull(sourceVersion) ||
+			Validator.isNull(destinationVersion)) {
+
+			throw new IllegalArgumentException(
+				"Missing source or destination version parameter");
+		}
+
+		InputStream is = SyncUtil.getFileDeltaAsStream(
+			user.getUserId(), fileEntry.getFileEntryId(), sourceVersion,
+			destinationVersion);
+
+		ServletResponseUtil.write(response, is);
 	}
 
 }
