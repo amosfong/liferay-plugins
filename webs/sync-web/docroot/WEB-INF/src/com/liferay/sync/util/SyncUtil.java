@@ -92,7 +92,7 @@ public class SyncUtil {
 	public static InputStream getFileDeltaAsStream(
 			long userId, long fileEntryId, String sourceVersion,
 			String destinationVersion)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		InputStream deltaInputStream = null;
 
