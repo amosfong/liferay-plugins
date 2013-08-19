@@ -134,11 +134,11 @@ public class DownloadServlet extends HttpServlet {
 			throw new IllegalArgumentException("Missing destination version");
 		}
 
-		InputStream is = SyncUtil.getFileDeltaAsStream(
+		InputStream inputStream = SyncUtil.getFileDeltaAsStream(
 			user.getUserId(), fileEntry.getFileEntryId(), sourceVersion,
 			destinationVersion);
 
-		ServletResponseUtil.write(response, is);
+		ServletResponseUtil.write(response, inputStream);
 	}
 
 }
