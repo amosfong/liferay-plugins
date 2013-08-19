@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.vldap;
+package com.liferay.vldap.server.directory;
 
 import com.liferay.portal.kernel.bean.BeanLocator;
 import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
@@ -23,7 +23,6 @@ import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
 import com.liferay.portal.kernel.util.Props;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.model.Company;
-import com.liferay.vldap.server.directory.SearchBase;
 import com.liferay.vldap.util.PortletPropsKeys;
 
 import java.lang.reflect.Field;
@@ -86,16 +85,19 @@ public class BaseVLDAPTestCase extends PowerMockito {
 	}
 
 	protected void setupBuilderBase() {
-		_searchBase = mock(SearchBase.class);
+		Long testLong = 42l;
+
 		_company = mock(Company.class);
+
+		when(_company.getWebId()).thenReturn("42");
+		when(_company.getCompanyId()).thenReturn(testLong);
 
 		_companies = new ArrayList<Company>();
 		_companies.add(_company);
 
-		Long testLong = 42l;
+		_searchBase = mock(SearchBase.class);
+
 		when(_searchBase.getCompanies()).thenReturn(_companies);
-		when(_company.getWebId()).thenReturn("42");
-		when(_company.getCompanyId()).thenReturn(testLong);
 		when(_searchBase.getSizeLimit()).thenReturn(testLong);
 		when(_searchBase.getTop()).thenReturn("42");
 	}
@@ -107,6 +109,19 @@ public class BaseVLDAPTestCase extends PowerMockito {
 			currentThread.getContextClassLoader());
 
 		Configuration configuration = mock(Configuration.class);
+
+		String[] sambaNames = new String[1];
+		sambaNames[0] = "testDomainName";
+
+		when(
+			configuration.getArray(PortletPropsKeys.SAMBA_DOMAIN_NAMES)
+			).thenReturn(sambaNames);
+
+		String[] sambaHosts = new String[0];
+
+		when(
+			configuration.getArray(PortletPropsKeys.SAMBA_HOSTS_ALLOWED)
+			).thenReturn(sambaHosts);
 
 		ConfigurationFactory configurationFactory = mock(
 			ConfigurationFactory.class);
@@ -125,19 +140,6 @@ public class BaseVLDAPTestCase extends PowerMockito {
 		);
 
 		ConfigurationFactoryUtil.setConfigurationFactory(configurationFactory);
-
-		String[] sambaNames = new String[1];
-		sambaNames[0] = "testDomainName";
-
-		when(
-			configuration.getArray(PortletPropsKeys.SAMBA_DOMAIN_NAMES)
-			).thenReturn(sambaNames);
-
-		String[] sambaHosts = new String[0];
-
-		when(
-			configuration.getArray(PortletPropsKeys.SAMBA_HOSTS_ALLOWED)
-			).thenReturn(sambaHosts);
 	}
 
 	protected void setupPortal() {

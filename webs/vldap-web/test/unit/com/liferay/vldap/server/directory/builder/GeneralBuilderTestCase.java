@@ -11,9 +11,10 @@
  * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
  * details.
  */
+
 package com.liferay.vldap.server.directory.builder;
 
-import com.liferay.vldap.BaseVLDAPTestCase;
+import com.liferay.vldap.server.directory.BaseVLDAPTestCase;
 import com.liferay.vldap.server.directory.FilterConstraint;
 import com.liferay.vldap.server.directory.ldap.Directory;
 
