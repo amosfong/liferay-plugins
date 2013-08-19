@@ -106,7 +106,7 @@ public class SyncDLObjectServiceClpInvoker {
 
 		_methodParameterTypes55 = new String[] { "long", "long", "long" };
 
-		_methodName56 = "getUserSiteGroups";
+		_methodName56 = "getUserSitesGroups";
 
 		_methodParameterTypes56 = new String[] {  };
 
@@ -199,27 +199,21 @@ public class SyncDLObjectServiceClpInvoker {
 
 		if (_methodName44.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
-			SyncDLObjectServiceUtil.cancelCheckOut(((Long)arguments[0]).longValue());
-
-			return null;
+			return SyncDLObjectServiceUtil.cancelCheckOut(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName45.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
-			SyncDLObjectServiceUtil.checkInFileEntry(((Long)arguments[0]).longValue(),
+			return SyncDLObjectServiceUtil.checkInFileEntry(((Long)arguments[0]).longValue(),
 				((Boolean)arguments[1]).booleanValue(),
 				(java.lang.String)arguments[2],
 				(com.liferay.portal.service.ServiceContext)arguments[3]);
-
-			return null;
 		}
 
 		if (_methodName46.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
-			SyncDLObjectServiceUtil.checkOutFileEntry(((Long)arguments[0]).longValue(),
+			return SyncDLObjectServiceUtil.checkOutFileEntry(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.service.ServiceContext)arguments[1]);
-
-			return null;
 		}
 
 		if (_methodName47.equals(name) &&
@@ -278,7 +272,7 @@ public class SyncDLObjectServiceClpInvoker {
 
 		if (_methodName56.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
-			return SyncDLObjectServiceUtil.getUserSiteGroups();
+			return SyncDLObjectServiceUtil.getUserSitesGroups();
 		}
 
 		if (_methodName57.equals(name) &&
@@ -318,16 +312,12 @@ public class SyncDLObjectServiceClpInvoker {
 
 		if (_methodName62.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
-			SyncDLObjectServiceUtil.restoreFileEntryFromTrash(((Long)arguments[0]).longValue());
-
-			return null;
+			return SyncDLObjectServiceUtil.restoreFileEntryFromTrash(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName63.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
-			SyncDLObjectServiceUtil.restoreFolderFromTrash(((Long)arguments[0]).longValue());
-
-			return null;
+			return SyncDLObjectServiceUtil.restoreFolderFromTrash(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName64.equals(name) &&

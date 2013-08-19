@@ -82,28 +82,30 @@ public class SyncDLObjectServiceWrapper implements SyncDLObjectService,
 	}
 
 	@Override
-	public void cancelCheckOut(long fileEntryId)
+	public com.liferay.sync.model.SyncDLObject cancelCheckOut(long fileEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		_syncDLObjectService.cancelCheckOut(fileEntryId);
+		return _syncDLObjectService.cancelCheckOut(fileEntryId);
 	}
 
 	@Override
-	public void checkInFileEntry(long fileEntryId, boolean majorVersion,
-		java.lang.String changeLog,
+	public com.liferay.sync.model.SyncDLObject checkInFileEntry(
+		long fileEntryId, boolean majorVersion, java.lang.String changeLog,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		_syncDLObjectService.checkInFileEntry(fileEntryId, majorVersion,
+		return _syncDLObjectService.checkInFileEntry(fileEntryId, majorVersion,
 			changeLog, serviceContext);
 	}
 
 	@Override
-	public void checkOutFileEntry(long fileEntryId,
+	public com.liferay.sync.model.SyncDLObject checkOutFileEntry(
+		long fileEntryId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		_syncDLObjectService.checkOutFileEntry(fileEntryId, serviceContext);
+		return _syncDLObjectService.checkOutFileEntry(fileEntryId,
+			serviceContext);
 	}
 
 	@Override
@@ -184,10 +186,10 @@ public class SyncDLObjectServiceWrapper implements SyncDLObjectService,
 	}
 
 	@Override
-	public java.util.List<com.liferay.portal.model.Group> getUserSiteGroups()
+	public java.util.List<com.liferay.portal.model.Group> getUserSitesGroups()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _syncDLObjectService.getUserSiteGroups();
+		return _syncDLObjectService.getUserSitesGroups();
 	}
 
 	@Override
@@ -241,17 +243,19 @@ public class SyncDLObjectServiceWrapper implements SyncDLObjectService,
 	}
 
 	@Override
-	public void restoreFileEntryFromTrash(long fileEntryId)
+	public com.liferay.sync.model.SyncDLObject restoreFileEntryFromTrash(
+		long fileEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		_syncDLObjectService.restoreFileEntryFromTrash(fileEntryId);
+		return _syncDLObjectService.restoreFileEntryFromTrash(fileEntryId);
 	}
 
 	@Override
-	public void restoreFolderFromTrash(long folderId)
+	public com.liferay.sync.model.SyncDLObject restoreFolderFromTrash(
+		long folderId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		_syncDLObjectService.restoreFolderFromTrash(folderId);
+		return _syncDLObjectService.restoreFolderFromTrash(folderId);
 	}
 
 	@Override

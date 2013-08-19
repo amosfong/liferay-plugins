@@ -106,7 +106,7 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 
 		_methodParameterTypes16 = new String[] { "long", "long", "long" };
 
-		_methodName17 = "getUserSiteGroups";
+		_methodName17 = "getUserSitesGroups";
 
 		_methodParameterTypes17 = new String[] {  };
 
@@ -321,12 +321,14 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 	}
 
 	@Override
-	public void cancelCheckOut(long fileEntryId)
+	public com.liferay.sync.model.SyncDLObject cancelCheckOut(long fileEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
 		try {
-			_invokableService.invokeMethod(_methodName5,
-				_methodParameterTypes5, new Object[] { fileEntryId });
+			returnObj = _invokableService.invokeMethod(_methodName5,
+					_methodParameterTypes5, new Object[] { fileEntryId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -347,26 +349,30 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 					" is not a valid exception");
 			}
 		}
+
+		return (com.liferay.sync.model.SyncDLObject)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
-	public void checkInFileEntry(long fileEntryId, boolean majorVersion,
-		java.lang.String changeLog,
+	public com.liferay.sync.model.SyncDLObject checkInFileEntry(
+		long fileEntryId, boolean majorVersion, java.lang.String changeLog,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
 		try {
-			_invokableService.invokeMethod(_methodName6,
-				_methodParameterTypes6,
-				new Object[] {
-					fileEntryId,
-					
-				majorVersion,
-					
-				ClpSerializer.translateInput(changeLog),
-					
-				ClpSerializer.translateInput(serviceContext)
-				});
+			returnObj = _invokableService.invokeMethod(_methodName6,
+					_methodParameterTypes6,
+					new Object[] {
+						fileEntryId,
+						
+					majorVersion,
+						
+					ClpSerializer.translateInput(changeLog),
+						
+					ClpSerializer.translateInput(serviceContext)
+					});
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -387,21 +393,26 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 					" is not a valid exception");
 			}
 		}
+
+		return (com.liferay.sync.model.SyncDLObject)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
-	public void checkOutFileEntry(long fileEntryId,
+	public com.liferay.sync.model.SyncDLObject checkOutFileEntry(
+		long fileEntryId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
 		try {
-			_invokableService.invokeMethod(_methodName7,
-				_methodParameterTypes7,
-				new Object[] {
-					fileEntryId,
-					
-				ClpSerializer.translateInput(serviceContext)
-				});
+			returnObj = _invokableService.invokeMethod(_methodName7,
+					_methodParameterTypes7,
+					new Object[] {
+						fileEntryId,
+						
+					ClpSerializer.translateInput(serviceContext)
+					});
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -422,6 +433,8 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 					" is not a valid exception");
 			}
 		}
+
+		return (com.liferay.sync.model.SyncDLObject)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
@@ -752,7 +765,7 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 	}
 
 	@Override
-	public java.util.List<com.liferay.portal.model.Group> getUserSiteGroups()
+	public java.util.List<com.liferay.portal.model.Group> getUserSitesGroups()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -998,12 +1011,15 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 	}
 
 	@Override
-	public void restoreFileEntryFromTrash(long fileEntryId)
+	public com.liferay.sync.model.SyncDLObject restoreFileEntryFromTrash(
+		long fileEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
 		try {
-			_invokableService.invokeMethod(_methodName23,
-				_methodParameterTypes23, new Object[] { fileEntryId });
+			returnObj = _invokableService.invokeMethod(_methodName23,
+					_methodParameterTypes23, new Object[] { fileEntryId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -1024,15 +1040,20 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 					" is not a valid exception");
 			}
 		}
+
+		return (com.liferay.sync.model.SyncDLObject)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override
-	public void restoreFolderFromTrash(long folderId)
+	public com.liferay.sync.model.SyncDLObject restoreFolderFromTrash(
+		long folderId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
 		try {
-			_invokableService.invokeMethod(_methodName24,
-				_methodParameterTypes24, new Object[] { folderId });
+			returnObj = _invokableService.invokeMethod(_methodName24,
+					_methodParameterTypes24, new Object[] { folderId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -1053,6 +1074,8 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 					" is not a valid exception");
 			}
 		}
+
+		return (com.liferay.sync.model.SyncDLObject)ClpSerializer.translateOutput(returnObj);
 	}
 
 	@Override

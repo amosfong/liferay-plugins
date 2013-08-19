@@ -88,27 +88,29 @@ public class SyncDLObjectServiceUtil {
 			serviceContext);
 	}
 
-	public static void cancelCheckOut(long fileEntryId)
+	public static com.liferay.sync.model.SyncDLObject cancelCheckOut(
+		long fileEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		getService().cancelCheckOut(fileEntryId);
+		return getService().cancelCheckOut(fileEntryId);
 	}
 
-	public static void checkInFileEntry(long fileEntryId, boolean majorVersion,
-		java.lang.String changeLog,
+	public static com.liferay.sync.model.SyncDLObject checkInFileEntry(
+		long fileEntryId, boolean majorVersion, java.lang.String changeLog,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		getService()
-			.checkInFileEntry(fileEntryId, majorVersion, changeLog,
+		return getService()
+				   .checkInFileEntry(fileEntryId, majorVersion, changeLog,
 			serviceContext);
 	}
 
-	public static void checkOutFileEntry(long fileEntryId,
+	public static com.liferay.sync.model.SyncDLObject checkOutFileEntry(
+		long fileEntryId,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		getService().checkOutFileEntry(fileEntryId, serviceContext);
+		return getService().checkOutFileEntry(fileEntryId, serviceContext);
 	}
 
 	public static com.liferay.sync.model.SyncDLObject checkOutFileEntry(
@@ -178,10 +180,10 @@ public class SyncDLObjectServiceUtil {
 			lastAccessTime);
 	}
 
-	public static java.util.List<com.liferay.portal.model.Group> getUserSiteGroups()
+	public static java.util.List<com.liferay.portal.model.Group> getUserSitesGroups()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().getUserSiteGroups();
+		return getService().getUserSitesGroups();
 	}
 
 	public static com.liferay.sync.model.SyncDLObject moveFileEntry(
@@ -230,16 +232,18 @@ public class SyncDLObjectServiceUtil {
 			destinationChecksum, serviceContext);
 	}
 
-	public static void restoreFileEntryFromTrash(long fileEntryId)
+	public static com.liferay.sync.model.SyncDLObject restoreFileEntryFromTrash(
+		long fileEntryId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		getService().restoreFileEntryFromTrash(fileEntryId);
+		return getService().restoreFileEntryFromTrash(fileEntryId);
 	}
 
-	public static void restoreFolderFromTrash(long folderId)
+	public static com.liferay.sync.model.SyncDLObject restoreFolderFromTrash(
+		long folderId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		getService().restoreFolderFromTrash(folderId);
+		return getService().restoreFolderFromTrash(folderId);
 	}
 
 	public static com.liferay.sync.model.SyncDLObject updateFileEntry(
