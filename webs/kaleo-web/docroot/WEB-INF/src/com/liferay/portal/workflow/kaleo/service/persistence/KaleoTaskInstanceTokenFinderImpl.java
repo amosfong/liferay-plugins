@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.dao.orm.SQLQuery;
 import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.dao.orm.Type;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.ArrayUtil;
 import com.liferay.portal.kernel.util.CalendarUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -316,7 +317,7 @@ public class KaleoTaskInstanceTokenFinderImpl
 		Long[] assetPrimaryKeys =
 			kaleoTaskInstanceTokenQuery.getAssetPrimaryKeys();
 
-		if (Validator.isNull(assetPrimaryKeys)) {
+		if (ArrayUtil.isEmpty(assetPrimaryKeys)) {
 			return StringPool.BLANK;
 		}
 
@@ -345,7 +346,7 @@ public class KaleoTaskInstanceTokenFinderImpl
 		String[] assetTypes = CustomSQLUtil.keywords(
 			kaleoTaskInstanceTokenQuery.getAssetTypes());
 
-		if (Validator.isNull(assetTypes)) {
+		if (ArrayUtil.isEmpty(assetTypes)) {
 			return StringPool.BLANK;
 		}
 
@@ -619,7 +620,7 @@ public class KaleoTaskInstanceTokenFinderImpl
 
 		String[] taskNames = CustomSQLUtil.keywords(taskName, false);
 
-		if (Validator.isNull(taskNames)) {
+		if (ArrayUtil.isEmpty(taskNames)) {
 			return StringPool.BLANK;
 		}
 
@@ -672,7 +673,7 @@ public class KaleoTaskInstanceTokenFinderImpl
 		Long[] assetPrimaryKeys =
 			kaleoTaskInstanceTokenQuery.getAssetPrimaryKeys();
 
-		if (Validator.isNull(assetPrimaryKeys)) {
+		if (ArrayUtil.isEmpty(assetPrimaryKeys)) {
 			return;
 		}
 
@@ -685,7 +686,7 @@ public class KaleoTaskInstanceTokenFinderImpl
 
 		String[] assetTypes = kaleoTaskInstanceTokenQuery.getAssetTypes();
 
-		if (Validator.isNull(assetTypes)) {
+		if (ArrayUtil.isEmpty(assetTypes)) {
 			return;
 		}
 
