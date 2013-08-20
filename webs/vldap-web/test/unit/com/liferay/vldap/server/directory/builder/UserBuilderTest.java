@@ -24,8 +24,6 @@ import com.liferay.portal.model.PasswordPolicy;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.UserGroup;
-import com.liferay.portal.service.CompanyLocalService;
-import com.liferay.portal.service.CompanyLocalServiceUtil;
 import com.liferay.portal.service.GroupLocalService;
 import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.portal.service.UserLocalService;
@@ -83,16 +81,6 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		setupPortalUtil();
 		setupPasswordPolicy();
 		setupExpando();
-		setupCompanyLocalService();
-	}
-
-	public void setupCompanyLocalService() throws Exception {
-		CompanyLocalService companyLocalService = getMockService(
-			CompanyLocalServiceUtil.class, CompanyLocalService.class);
-
-		when(
-			companyLocalService.getCompanyByWebId(Mockito.anyString())
-		).thenReturn(_company);
 	}
 
 	public void setupExpando() throws Exception {
@@ -112,14 +100,16 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 
 	public void setupFastDateFormat() throws Exception {
 		FastDateFormat fastFormat = FastDateFormat.getInstance(
-			"yyyyMMddHHmmss.SZ",  (TimeZone)null, LocaleUtil.getDefault());
+			"yyyyMMddHHmmss.SZ", (TimeZone)null, LocaleUtil.getDefault());
 
 		FastDateFormatFactory fastDateFormatFactory = mock(
 			FastDateFormatFactory.class);
 
 		when(
 			fastDateFormatFactory.getSimpleDateFormat(Mockito.anyString())
-		).thenReturn(fastFormat);
+		).thenReturn(
+			fastFormat
+		);
 
 		FastDateFormatFactoryUtil fastDateFormatFactoryUtil =
 			new FastDateFormatFactoryUtil();
@@ -134,8 +124,11 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		when(group.getName()).thenReturn("testGroupName");
 
 		when(
-			_groupLocalService.getGroup(Mockito.anyLong(), Mockito.anyString())
-		).thenReturn(group);
+			_groupLocalService.getGroup(
+				Mockito.eq(42l), Mockito.eq("testGroupName"))
+		).thenReturn(
+			group
+		);
 
 		when(_searchBase.getCommunity()).thenReturn(group);
 
@@ -149,7 +142,6 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 				Mockito.any(LinkedHashMap.class), Mockito.anyBoolean(),
 				Mockito.anyInt(), Mockito.anyInt())
 		).thenReturn(groups);
-
 	}
 
 	public void setupOrganizations() throws Exception {
@@ -240,8 +232,11 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		when(_user.getScreenName()).thenReturn("testScreenName");
 		when(_user.getCreateDate()).thenReturn(null);
 		when(_user.getFullName()).thenReturn("testFullName");
-		when(props.get(PortletPropsValues.POSIX_GROUP_ID)
-			).thenReturn("testGroupId");
+		when(
+			props.get(PortletPropsValues.POSIX_GROUP_ID)
+		).thenReturn(
+			"testGroupId"
+		);
 		when(_user.getFirstName()).thenReturn("testFirstName");
 		when(_user.getEmailAddress()).thenReturn("test@email");
 		when(_user.getModifiedDate()).thenReturn(null);
@@ -267,8 +262,7 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 				Mockito.anyString(), Mockito.anyString(), Mockito.anyString(),
 				Mockito.anyInt(), Mockito.any(LinkedHashMap.class),
 				Mockito.anyBoolean(), Mockito.anyInt(), Mockito.anyInt(),
-				Mockito.any(UserScreenNameComparator.class)
-				)
+				Mockito.any(UserScreenNameComparator.class))
 		).thenReturn(
 			_users
 		);
@@ -276,8 +270,8 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		FilterConstraint filterConstraint = new FilterConstraint();
 
 		filterConstraint.addAttribute(
-			"member", "ou=testWebId,ou=Communities," +
-			"ou=testTypeValue,cn=test");
+			"member",
+			"ou=testGroupName,ou=Communities,ou=liferay.com,cn=test");
 		filterConstraint.addAttribute("gidNumber", StringPool.STAR);
 		filterConstraint.addAttribute("uuid", null);
 		filterConstraint.addAttribute("givenName", "testFirstName");
@@ -302,19 +296,19 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 			"member", "cn=testOrganizationName,ou=testOrganizationName," +
-			"ou=Organizations,ou=42,o=42"));
+				"ou=Organizations,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testRoleName,ou=testRoleName," +
-				"ou=Roles,ou=42,o=42"));
+					"ou=Roles,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testUserGroupName,ou=testUserGroupName," +
-				"ou=User Groups,ou=42,o=42"));
+					"ou=User Groups,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testGroupName,ou=testGroupName," +
-				"ou=Communities,ou=42,o=42"));
+					"ou=Communities,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute("sambaMaxPwdAge", "-1"));
 		Assert.assertTrue(
@@ -334,19 +328,19 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testOrganizationName,ou=testOrganizationName," +
-				"ou=Organizations,ou=42,o=42"));
+					"ou=Organizations,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testRoleName,ou=testRoleName," +
-				"ou=Roles,ou=42,o=42"));
+					"ou=Roles,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testUserGroupName,ou=testUserGroupName," +
-				"ou=User Groups,ou=42,o=42"));
+					"ou=User Groups,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testGroupName,ou=testGroupName," +
-				"ou=Communities,ou=42,o=42"));
+					"ou=Communities,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute("sambaMaxPwdAge", "-1"));
 		Assert.assertTrue(
@@ -360,8 +354,8 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		FilterConstraint filterConstraint = new FilterConstraint();
 
 		filterConstraint.addAttribute(
-			"member", "ou=testWebId,ou=Communities," +
-			"ou=testTypeValue,cn=test");
+			"member",
+			"ou=testGroupName,ou=Communities,ou=liferay.com,cn=test");
 		filterConstraint.addAttribute("gidNumber", StringPool.STAR);
 		filterConstraint.addAttribute("uuid", null);
 		filterConstraint.addAttribute("givenName", "testFirstName");
@@ -386,19 +380,19 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testOrganizationName,ou=testOrganizationName," +
-				"ou=Organizations,ou=42,o=42"));
+					"ou=Organizations,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testRoleName,ou=testRoleName," +
-				"ou=Roles,ou=42,o=42"));
+				"ou=Roles,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testUserGroupName,ou=testUserGroupName," +
-				"ou=User Groups,ou=42,o=42"));
+					"ou=User Groups,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testGroupName,ou=testGroupName," +
-				"ou=Communities,ou=42,o=42"));
+					"ou=Communities,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute("sambaMaxPwdAge", "-1"));
 		Assert.assertTrue(
@@ -413,8 +407,8 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		FilterConstraint filterConstraint = new FilterConstraint();
 
 		filterConstraint.addAttribute(
-			"member", "ou=testWebId,ou=Communities," +
-			"ou=testTypeValue,cn=test");
+			"member",
+			"ou=testGroupName,ou=Communities,ou=liferay.com,cn=test");
 		filterConstraint.addAttribute("gidNumber", StringPool.STAR);
 		filterConstraint.addAttribute("uuid", null);
 		filterConstraint.addAttribute("givenName", "testFirstName");
@@ -439,19 +433,19 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testOrganizationName,ou=testOrganizationName," +
-				"ou=Organizations,ou=42,o=42"));
+					"ou=Organizations,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testRoleName,ou=testRoleName," +
-				"ou=Roles,ou=42,o=42"));
+					"ou=Roles,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testUserGroupName,ou=testUserGroupName," +
-				"ou=User Groups,ou=42,o=42"));
+					"ou=User Groups,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testGroupName,ou=testGroupName," +
-				"ou=Communities,ou=42,o=42"));
+					"ou=Communities,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute("sambaMaxPwdAge", "-1"));
 		Assert.assertTrue(
@@ -460,14 +454,17 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 
 	@Test
 	public void testBuildDirectoriesValidUuid() throws Exception {
-		when(_userLocalService.getUserByUuid(Mockito.anyString())
-			).thenReturn(_user);
+		when(
+			_userLocalService.getUserByUuid(Mockito.anyString())
+		).thenReturn(
+			_user
+		);
 
 		FilterConstraint filterConstraint = new FilterConstraint();
 
 		filterConstraint.addAttribute(
-			"member", "ou=testWebId,ou=Communities," +
-			"ou=testTypeValue,cn=test");
+			"member",
+			"ou=testGroupName,ou=Communities,ou=liferay.com,cn=test");
 		filterConstraint.addAttribute("gidNumber", StringPool.STAR);
 		filterConstraint.addAttribute("uuid", "testUuid");
 
@@ -486,19 +483,19 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testOrganizationName,ou=testOrganizationName," +
-				"ou=Organizations,ou=42,o=42"));
+					"ou=Organizations,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testRoleName,ou=testRoleName," +
-				"ou=Roles,ou=42,o=42"));
+					"ou=Roles,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testUserGroupName,ou=testUserGroupName," +
-				"ou=User Groups,ou=42,o=42"));
+					"ou=User Groups,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testGroupName,ou=testGroupName," +
-				"ou=Communities,ou=42,o=42"));
+					"ou=Communities,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute("sambaMaxPwdAge", "-1"));
 		Assert.assertTrue(

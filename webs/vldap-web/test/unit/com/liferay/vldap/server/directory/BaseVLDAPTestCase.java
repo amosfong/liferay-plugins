@@ -19,10 +19,18 @@ import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
 import com.liferay.portal.kernel.configuration.Configuration;
 import com.liferay.portal.kernel.configuration.ConfigurationFactory;
 import com.liferay.portal.kernel.configuration.ConfigurationFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.Criterion;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactory;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactory;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
 import com.liferay.portal.kernel.util.Props;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.model.Company;
+import com.liferay.portal.service.CompanyLocalService;
+import com.liferay.portal.service.CompanyLocalServiceUtil;
 import com.liferay.vldap.util.PortletPropsKeys;
 
 import java.lang.reflect.Field;
@@ -50,7 +58,9 @@ public class BaseVLDAPTestCase extends PowerMockito {
 		setupServiceMocks();
 		setupPortal();
 		setupProps();
+		setupCompany();
 		setupConfiguration();
+		setupFactories();
 		setupBuilderBase();
 	}
 
@@ -87,19 +97,44 @@ public class BaseVLDAPTestCase extends PowerMockito {
 	protected void setupBuilderBase() {
 		Long testLong = 42l;
 
+		_searchBase = mock(SearchBase.class);
+
+		when(_searchBase.getCompanies()).thenReturn(_companies);
+		when(_searchBase.getSizeLimit()).thenReturn(testLong);
+		when(_searchBase.getTop()).thenReturn("Liferay");
+	}
+
+	protected void setupCompany() throws Exception {
+		Long testLong = 42l;
+
 		_company = mock(Company.class);
 
-		when(_company.getWebId()).thenReturn("42");
+		when(_company.getWebId()).thenReturn("liferay.com");
 		when(_company.getCompanyId()).thenReturn(testLong);
 
 		_companies = new ArrayList<Company>();
 		_companies.add(_company);
 
-		_searchBase = mock(SearchBase.class);
+		CompanyLocalService companyLocalService = getMockService(
+			CompanyLocalServiceUtil.class, CompanyLocalService.class);
 
-		when(_searchBase.getCompanies()).thenReturn(_companies);
-		when(_searchBase.getSizeLimit()).thenReturn(testLong);
-		when(_searchBase.getTop()).thenReturn("42");
+		when(
+			companyLocalService.getCompanies()
+		).thenReturn(
+			_companies
+		);
+
+		when(
+			companyLocalService.getCompanies(Mockito.anyBoolean())
+		).thenReturn(
+			_companies
+		);
+
+		when(
+			companyLocalService.getCompanyByWebId(Mockito.eq("liferay.com"))
+		).thenReturn(
+			_company
+		);
 	}
 
 	protected void setupConfiguration() {
@@ -142,6 +177,46 @@ public class BaseVLDAPTestCase extends PowerMockito {
 		ConfigurationFactoryUtil.setConfigurationFactory(configurationFactory);
 	}
 
+	protected void setupFactories() throws Exception {
+		Criterion criterion = mock(Criterion.class);
+
+		DynamicQuery dynamicQuery = mock(DynamicQuery.class);
+
+		DynamicQueryFactory dynamicQueryFactory = mock(
+			DynamicQueryFactory.class);
+
+		when(
+			dynamicQueryFactory.forClass(
+				Mockito.any(Class.class), Mockito.any(ClassLoader.class))
+		).thenReturn(
+			dynamicQuery
+		);
+
+		DynamicQueryFactoryUtil dynamicQueryFactoryUtil =
+			new DynamicQueryFactoryUtil();
+		dynamicQueryFactoryUtil.setDynamicQueryFactory(dynamicQueryFactory);
+
+		RestrictionsFactory restrictionsFactory = mock(
+			RestrictionsFactory.class);
+
+		when(
+			restrictionsFactory.eq(
+				Mockito.anyString(), Mockito.any(Object.class))
+		).thenReturn(
+			criterion
+		);
+		when(
+			restrictionsFactory.ilike(
+				Mockito.anyString(), Mockito.any(Object.class))
+		).thenReturn(
+			criterion
+		);
+
+		RestrictionsFactoryUtil restrictionsFactoryUtil =
+			new RestrictionsFactoryUtil();
+		restrictionsFactoryUtil.setRestrictionsFactory(restrictionsFactory);
+	}
+
 	protected void setupPortal() {
 		_portalBeanLocator = mock(BeanLocator.class);
 
@@ -152,6 +227,8 @@ public class BaseVLDAPTestCase extends PowerMockito {
 		props = mock(Props.class);
 
 		PropsUtil.setProps(props);
+
+		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
 	}
 
 	protected void setupServiceMocks() {

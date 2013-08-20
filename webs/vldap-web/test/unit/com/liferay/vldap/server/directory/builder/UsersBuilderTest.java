@@ -18,7 +18,6 @@ import com.liferay.portal.model.User;
 import com.liferay.portal.service.UserLocalService;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.util.comparator.UserScreenNameComparator;
-import com.liferay.vldap.util.PortletPropsKeys;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -54,8 +53,6 @@ public class UsersBuilderTest extends GeneralBuilderTestCase {
 
 		List<User> users = new ArrayList<User>();
 		users.add(user);
-
-		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
 
 		UserLocalService userLocalService = getMockService(
 			UserLocalServiceUtil.class, UserLocalService.class);

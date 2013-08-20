@@ -14,12 +14,7 @@
 
 package com.liferay.vldap.server.directory.builder;
 
-import com.liferay.portal.kernel.dao.orm.Criterion;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
-import com.liferay.portal.kernel.dao.orm.DynamicQueryFactory;
-import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.RestrictionsFactory;
-import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.OrganizationLocalService;
@@ -30,7 +25,6 @@ import com.liferay.portal.util.comparator.UserScreenNameComparator;
 import com.liferay.vldap.server.directory.BaseVLDAPTestCase;
 import com.liferay.vldap.server.directory.FilterConstraint;
 import com.liferay.vldap.server.directory.ldap.Directory;
-import com.liferay.vldap.util.PortletPropsKeys;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -56,90 +50,11 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
+
 		setupUsers();
 		setupOrganizations();
-		setupFactories();
 
 		_organizationBuilder = new OrganizationBuilder();
-
-		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
-	}
-
-	public void setupFactories() throws Exception {
-		Criterion criterion = mock(Criterion.class);
-
-		DynamicQuery dynamicQuery = mock(DynamicQuery.class);
-
-		DynamicQueryFactory dynamicQueryFactory = mock(
-			DynamicQueryFactory.class);
-
-		when(
-			dynamicQueryFactory.forClass(
-				Mockito.any(Class.class), Mockito.any(ClassLoader.class))
-		).thenReturn(dynamicQuery);
-
-		DynamicQueryFactoryUtil dynamicQueryFactoryUtil =
-			new DynamicQueryFactoryUtil();
-		dynamicQueryFactoryUtil.setDynamicQueryFactory(dynamicQueryFactory);
-
-		RestrictionsFactory restrictionsFactory = mock(
-			RestrictionsFactory.class);
-
-		when(
-			restrictionsFactory.eq(
-				Mockito.anyString(), Mockito.any(Object.class))
-		).thenReturn(criterion);
-		when(
-			restrictionsFactory.ilike(
-				Mockito.anyString(), Mockito.any(Object.class))
-		).thenReturn(criterion);
-
-		RestrictionsFactoryUtil restrictionsFactoryUtil =
-			new RestrictionsFactoryUtil();
-		restrictionsFactoryUtil.setRestrictionsFactory(restrictionsFactory);
-	}
-
-	public void setupOrganizations() throws Exception {
-		Organization organization = mock(Organization.class);
-
-		when(organization.getName()).thenReturn("testName");
-		when(organization.getOrganizationId()).thenReturn(42l);
-
-		List<Organization> organizations = new ArrayList<Organization>();
-		organizations.add(organization);
-
-		when(_user.getOrganizations()).thenReturn(organizations);
-
-		OrganizationLocalService organizationLocalService = getMockService(
-			OrganizationLocalServiceUtil.class, OrganizationLocalService.class);
-		when(
-			organizationLocalService.dynamicQuery(
-				Mockito.any(DynamicQuery.class))
-		).thenReturn(organizations);
-	}
-
-	public void setupUsers() throws Exception {
-		_user = mock(User.class);
-
-		when(_user.getScreenName()).thenReturn("testScreenName");
-
-		List<User> users = new ArrayList<User>();
-		users.add(_user);
-
-		_userLocalService = getMockService(
-			UserLocalServiceUtil.class, UserLocalService.class);
-
-		when(
-			_userLocalService.search(
-				Mockito.anyLong(), Mockito.anyString(), Mockito.anyString(),
-				Mockito.anyString(), Mockito.anyString(), Mockito.anyString(),
-				Mockito.anyInt(), Mockito.any(LinkedHashMap.class),
-				Mockito.anyBoolean(), Mockito.anyInt(), Mockito.anyInt(),
-				Mockito.any(UserScreenNameComparator.class)
-				)
-		).thenReturn(
-			users
-		);
 	}
 
 	@Test
@@ -156,7 +71,8 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 				"objectclass", "liferayOrganization"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
-				"member", "cn=testScreenName,ou=Users,ou=42,o=42"));
+				"member",
+				"cn=testScreenName,ou=Users,ou=liferay.com,o=Liferay"));
 	}
 
 	@Test
@@ -179,7 +95,8 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 				"objectclass", "liferayOrganization"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
-				"member", "cn=testScreenName,ou=Users,ou=42,o=42"));
+				"member",
+				"cn=testScreenName,ou=Users,ou=liferay.com,o=Liferay"));
 	}
 
 	@Test
@@ -209,7 +126,54 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 				"objectclass", "liferayOrganization"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
-				"member", "cn=testScreenName,ou=Users,ou=42,o=42"));
+				"member",
+				"cn=testScreenName,ou=Users,ou=liferay.com,o=Liferay"));
+	}
+
+	protected void setupOrganizations() throws Exception {
+		Organization organization = mock(Organization.class);
+
+		when(organization.getName()).thenReturn("testName");
+		when(organization.getOrganizationId()).thenReturn(42l);
+
+		List<Organization> organizations = new ArrayList<Organization>();
+		organizations.add(organization);
+
+		when(_user.getOrganizations()).thenReturn(organizations);
+
+		OrganizationLocalService organizationLocalService = getMockService(
+			OrganizationLocalServiceUtil.class, OrganizationLocalService.class);
+
+		when(
+			organizationLocalService.dynamicQuery(
+				Mockito.any(DynamicQuery.class))
+		).thenReturn(
+			organizations
+		);
+	}
+
+	protected void setupUsers() throws Exception {
+		_user = mock(User.class);
+
+		when(_user.getScreenName()).thenReturn("testScreenName");
+
+		List<User> users = new ArrayList<User>();
+		users.add(_user);
+
+		_userLocalService = getMockService(
+			UserLocalServiceUtil.class, UserLocalService.class);
+
+		when(
+			_userLocalService.search(
+				Mockito.anyLong(), Mockito.anyString(), Mockito.anyString(),
+				Mockito.anyString(), Mockito.anyString(), Mockito.anyString(),
+				Mockito.anyInt(), Mockito.any(LinkedHashMap.class),
+				Mockito.anyBoolean(), Mockito.anyInt(), Mockito.anyInt(),
+				Mockito.any(UserScreenNameComparator.class)
+				)
+		).thenReturn(
+			users
+		);
 	}
 
 	private OrganizationBuilder _organizationBuilder;

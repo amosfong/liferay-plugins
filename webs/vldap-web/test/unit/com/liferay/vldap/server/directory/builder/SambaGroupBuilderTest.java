@@ -18,7 +18,6 @@ import com.liferay.portal.model.Organization;
 import com.liferay.vldap.server.directory.BaseVLDAPTestCase;
 import com.liferay.vldap.server.directory.FilterConstraint;
 import com.liferay.vldap.server.directory.ldap.Directory;
-import com.liferay.vldap.util.PortletPropsKeys;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,9 +48,6 @@ public class SambaGroupBuilderTest extends BaseVLDAPTestCase {
 		when(_organization.getName()).thenReturn("testName");
 
 		when(_searchBase.getOrganization()).thenReturn(_organization);
-
-		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
-
 	}
 
 	@Test

@@ -14,12 +14,9 @@
 
 package com.liferay.vldap.server.directory.builder;
 
-import com.liferay.portal.service.CompanyLocalService;
-import com.liferay.portal.service.CompanyLocalServiceUtil;
 import com.liferay.vldap.server.directory.BaseVLDAPTestCase;
 import com.liferay.vldap.server.directory.FilterConstraint;
 import com.liferay.vldap.server.directory.ldap.Directory;
-import com.liferay.vldap.util.PortletPropsKeys;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,8 +25,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import org.mockito.Mockito;
 
 import org.powermock.modules.junit4.PowerMockRunner;
 
@@ -46,21 +41,10 @@ public class CompanyBuilderTest extends BaseVLDAPTestCase {
 		super.setUp();
 
 		_companyBuilder = new CompanyBuilder();
-		_companyLocalService = getMockService(
-			CompanyLocalServiceUtil.class, CompanyLocalService.class);
-
-		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
-
 	}
 
 	@Test
 	public void testBuildDirectoriesNullCompanyWebId() throws Exception {
-		when(
-			_companyLocalService.getCompanies(Mockito.anyBoolean())
-		).thenReturn(
-			_companies
-		);
-
 		FilterConstraint filterConstraint = new FilterConstraint();
 		filterConstraint.addAttribute("ou", null);
 		List<FilterConstraint> filterConstraints =
@@ -76,18 +60,12 @@ public class CompanyBuilderTest extends BaseVLDAPTestCase {
 			returnedDirectory.hasAttribute(
 				"objectclass", "organizationalUnit"));
 		Assert.assertTrue(returnedDirectory.hasAttribute("objectclass", "top"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "42"));
+		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "liferay.com"));
 
 	}
 
 	@Test
 	public void testBuildDirectoriesNullFilter() throws Exception {
-		when(
-			_companyLocalService.getCompanies()
-		).thenReturn(
-			_companies
-		);
-
 		List<Directory> directory = _companyBuilder.buildDirectories(
 			_searchBase, null);
 
@@ -97,20 +75,14 @@ public class CompanyBuilderTest extends BaseVLDAPTestCase {
 			returnedDirectory.hasAttribute(
 				"objectclass", "organizationalUnit"));
 		Assert.assertTrue(returnedDirectory.hasAttribute("objectclass", "top"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "42"));
+		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "liferay.com"));
 
 	}
 
 	@Test
 	public void testBuildDirectoriesValidCompanyWebId() throws Exception {
-		when(
-			_companyLocalService.getCompanyByWebId(Mockito.anyString())
-		).thenReturn(
-			_company
-		);
-
 		FilterConstraint filterConstraint = new FilterConstraint();
-		filterConstraint.addAttribute("ou", "42");
+		filterConstraint.addAttribute("ou", "liferay.com");
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
@@ -124,11 +96,10 @@ public class CompanyBuilderTest extends BaseVLDAPTestCase {
 			returnedDirectory.hasAttribute(
 				"objectclass", "organizationalUnit"));
 		Assert.assertTrue(returnedDirectory.hasAttribute("objectclass", "top"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "42"));
+		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "liferay.com"));
 
 	}
 
 	private CompanyBuilder _companyBuilder;
-	private CompanyLocalService _companyLocalService;
 
 }

@@ -24,7 +24,6 @@ import com.liferay.portal.util.comparator.UserScreenNameComparator;
 import com.liferay.vldap.server.directory.BaseVLDAPTestCase;
 import com.liferay.vldap.server.directory.FilterConstraint;
 import com.liferay.vldap.server.directory.ldap.Directory;
-import com.liferay.vldap.util.PortletPropsKeys;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -49,6 +48,7 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
+
 		setupGroups();
 		setupUsers();
 
@@ -56,42 +56,6 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 
 		_groupLocalService = getMockService(
 			GroupLocalServiceUtil.class, GroupLocalService.class);
-
-		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
-	}
-
-	public void setupGroups() throws Exception {
-		Group group = mock(Group.class);
-
-		when(group.getName()).thenReturn("testName");
-		when(group.getGroupId()).thenReturn(42l);
-		when(group.getDescription()).thenReturn("testDescription");
-
-		_groups = new ArrayList<Group>();
-		_groups.add(group);
-	}
-
-	public void setupUsers() throws Exception {
-		_userLocalService = getMockService(
-			UserLocalServiceUtil.class, UserLocalService.class);
-
-		_user = mock(User.class);
-		when(_user.getScreenName()).thenReturn("testScreenName");
-
-		List<User> users = new ArrayList<User>();
-		users.add(_user);
-
-		when(
-			_userLocalService.search(
-				Mockito.anyLong(), Mockito.anyString(), Mockito.anyString(),
-				Mockito.anyString(), Mockito.anyString(), Mockito.anyString(),
-				Mockito.anyInt(), Mockito.any(LinkedHashMap.class),
-				Mockito.anyBoolean(), Mockito.anyInt(), Mockito.anyInt(),
-				Mockito.any(UserScreenNameComparator.class)
-				)
-		).thenReturn(
-			users
-		);
 	}
 
 	@Test
@@ -127,7 +91,8 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 			returnedDirectory.hasAttribute("objectclass", "liferayCommunity"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
-				"member", "cn=testScreenName,ou=Users,ou=42,o=42"));
+				"member",
+				"cn=testScreenName,ou=Users,ou=liferay.com,o=Liferay"));
 	}
 
 	@Test
@@ -163,7 +128,8 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 			returnedDirectory.hasAttribute("objectclass", "liferayCommunity"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
-				"member", "cn=testScreenName,ou=Users,ou=42,o=42"));
+				"member",
+				"cn=testScreenName,ou=Users,ou=liferay.com,o=Liferay"));
 	}
 
 	@Test
@@ -188,7 +154,42 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 			returnedDirectory.hasAttribute("objectclass", "liferayCommunity"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
-				"member", "cn=testScreenName,ou=Users,ou=42,o=42"));
+				"member",
+				"cn=testScreenName,ou=Users,ou=liferay.com,o=Liferay"));
+	}
+
+	protected void setupGroups() throws Exception {
+		Group group = mock(Group.class);
+
+		when(group.getName()).thenReturn("testName");
+		when(group.getGroupId()).thenReturn(42l);
+		when(group.getDescription()).thenReturn("testDescription");
+
+		_groups = new ArrayList<Group>();
+		_groups.add(group);
+	}
+
+	protected void setupUsers() throws Exception {
+		_userLocalService = getMockService(
+			UserLocalServiceUtil.class, UserLocalService.class);
+
+		_user = mock(User.class);
+		when(_user.getScreenName()).thenReturn("testScreenName");
+
+		List<User> users = new ArrayList<User>();
+		users.add(_user);
+
+		when(
+			_userLocalService.search(
+				Mockito.anyLong(), Mockito.anyString(), Mockito.anyString(),
+				Mockito.anyString(), Mockito.anyString(), Mockito.anyString(),
+				Mockito.anyInt(), Mockito.any(LinkedHashMap.class),
+				Mockito.anyBoolean(), Mockito.anyInt(), Mockito.anyInt(),
+				Mockito.any(UserScreenNameComparator.class)
+				)
+		).thenReturn(
+			users
+		);
 	}
 
 	private CommunityBuilder _communityBuilder;

@@ -14,12 +14,7 @@
 
 package com.liferay.vldap.server.directory.builder;
 
-import com.liferay.portal.kernel.dao.orm.Criterion;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
-import com.liferay.portal.kernel.dao.orm.DynamicQueryFactory;
-import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
-import com.liferay.portal.kernel.dao.orm.RestrictionsFactory;
-import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.RoleLocalService;
@@ -29,7 +24,6 @@ import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.vldap.server.directory.BaseVLDAPTestCase;
 import com.liferay.vldap.server.directory.FilterConstraint;
 import com.liferay.vldap.server.directory.ldap.Directory;
-import com.liferay.vldap.util.PortletPropsKeys;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,50 +47,14 @@ public class RoleBuilderTest extends BaseVLDAPTestCase {
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
+
 		setupUsers();
-		setupFactories();
 		setupRoles();
 
 		_roleBuilder = new RoleBuilder();
 
 		_userLocalService = getMockService(
 			UserLocalServiceUtil.class, UserLocalService.class);
-
-		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
-	}
-
-	public void setupFactories() throws Exception {
-		Criterion criterion = mock(Criterion.class);
-
-		DynamicQuery dynamicQuery = mock(DynamicQuery.class);
-
-		DynamicQueryFactory dynamicQueryFactory = mock(
-			DynamicQueryFactory.class);
-
-		when(
-			dynamicQueryFactory.forClass(
-				Mockito.any(Class.class), Mockito.any(ClassLoader.class))
-		).thenReturn(dynamicQuery);
-
-		DynamicQueryFactoryUtil dynamicQueryFactoryUtil =
-			new DynamicQueryFactoryUtil();
-		dynamicQueryFactoryUtil.setDynamicQueryFactory(dynamicQueryFactory);
-
-		RestrictionsFactory restrictionsFactory = mock(
-			RestrictionsFactory.class);
-
-		when(
-			restrictionsFactory.eq(
-				Mockito.anyString(), Mockito.any(Object.class))
-		).thenReturn(criterion);
-		when(
-			restrictionsFactory.ilike(
-				Mockito.anyString(), Mockito.any(Object.class))
-		).thenReturn(criterion);
-
-		RestrictionsFactoryUtil restrictionsFactoryUtil =
-			new RestrictionsFactoryUtil();
-		restrictionsFactoryUtil.setRestrictionsFactory(restrictionsFactory);
 	}
 
 	public void setupRoles() throws Exception {
