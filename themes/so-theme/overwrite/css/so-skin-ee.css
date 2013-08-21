@@ -388,3 +388,9 @@ $red: #8F0920;
 		@include border-radius(0);
 	}
 }
+
+.ie7 {
+	.asset-details .version {
+		zoom: 1;
+	}
+}
