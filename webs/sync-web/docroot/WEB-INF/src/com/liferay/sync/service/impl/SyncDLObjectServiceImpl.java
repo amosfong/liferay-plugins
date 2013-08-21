@@ -381,7 +381,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	public SyncDLObject patchFileEntry(
 			long fileEntryId, String sourceVersion, String sourceFileName,
 			String mimeType, String title, String description, String changeLog,
-			boolean majorVersion, File deltaFile, String destinationChecksum,
+			boolean majorVersion, File deltaFile, String checksum,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
@@ -397,8 +397,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 
 			return updateFileEntry(
 				fileEntryId, sourceFileName, mimeType, title, description,
-				changeLog, majorVersion, patchedFile, destinationChecksum,
-				serviceContext);
+				changeLog, majorVersion, patchedFile, checksum, serviceContext);
 		}
 		finally {
 			FileUtil.delete(patchedFile);
@@ -432,11 +431,11 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	public SyncDLObject updateFileEntry(
 			long fileEntryId, String sourceFileName, String mimeType,
 			String title, String description, String changeLog,
-			boolean majorVersion, File file, String destinationChecksum,
+			boolean majorVersion, File file, String checksum,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		validateChecksum(file, destinationChecksum);
+		validateChecksum(file, checksum);
 
 		FileEntry fileEntry = dlAppService.updateFileEntry(
 			fileEntryId, sourceFileName, mimeType, title, description,
