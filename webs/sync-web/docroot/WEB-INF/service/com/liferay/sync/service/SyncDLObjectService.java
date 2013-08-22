@@ -181,7 +181,7 @@ public interface SyncDLObjectService extends BaseService, InvokableService {
 		java.lang.String sourceFileName, java.lang.String mimeType,
 		java.lang.String title, java.lang.String description,
 		java.lang.String changeLog, boolean majorVersion,
-		java.io.File deltaFile, java.lang.String destinationChecksum,
+		java.io.File deltaFile, java.lang.String checksum,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
@@ -200,8 +200,7 @@ public interface SyncDLObjectService extends BaseService, InvokableService {
 		long fileEntryId, java.lang.String sourceFileName,
 		java.lang.String mimeType, java.lang.String title,
 		java.lang.String description, java.lang.String changeLog,
-		boolean majorVersion, java.io.File file,
-		java.lang.String destinationChecksum,
+		boolean majorVersion, java.io.File file, java.lang.String checksum,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;

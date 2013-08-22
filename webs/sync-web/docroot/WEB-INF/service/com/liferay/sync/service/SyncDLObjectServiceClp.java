@@ -954,7 +954,7 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 		java.lang.String sourceFileName, java.lang.String mimeType,
 		java.lang.String title, java.lang.String description,
 		java.lang.String changeLog, boolean majorVersion,
-		java.io.File deltaFile, java.lang.String destinationChecksum,
+		java.io.File deltaFile, java.lang.String checksum,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -982,7 +982,7 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 						
 					ClpSerializer.translateInput(deltaFile),
 						
-					ClpSerializer.translateInput(destinationChecksum),
+					ClpSerializer.translateInput(checksum),
 						
 					ClpSerializer.translateInput(serviceContext)
 					});
@@ -1083,8 +1083,7 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 		long fileEntryId, java.lang.String sourceFileName,
 		java.lang.String mimeType, java.lang.String title,
 		java.lang.String description, java.lang.String changeLog,
-		boolean majorVersion, java.io.File file,
-		java.lang.String destinationChecksum,
+		boolean majorVersion, java.io.File file, java.lang.String checksum,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -1110,7 +1109,7 @@ public class SyncDLObjectServiceClp implements SyncDLObjectService {
 						
 					ClpSerializer.translateInput(file),
 						
-					ClpSerializer.translateInput(destinationChecksum),
+					ClpSerializer.translateInput(checksum),
 						
 					ClpSerializer.translateInput(serviceContext)
 					});

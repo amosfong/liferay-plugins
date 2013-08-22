@@ -222,14 +222,14 @@ public class SyncDLObjectServiceUtil {
 		java.lang.String sourceFileName, java.lang.String mimeType,
 		java.lang.String title, java.lang.String description,
 		java.lang.String changeLog, boolean majorVersion,
-		java.io.File deltaFile, java.lang.String destinationChecksum,
+		java.io.File deltaFile, java.lang.String checksum,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
 				   .patchFileEntry(fileEntryId, sourceVersion, sourceFileName,
 			mimeType, title, description, changeLog, majorVersion, deltaFile,
-			destinationChecksum, serviceContext);
+			checksum, serviceContext);
 	}
 
 	public static com.liferay.sync.model.SyncDLObject restoreFileEntryFromTrash(
@@ -250,15 +250,14 @@ public class SyncDLObjectServiceUtil {
 		long fileEntryId, java.lang.String sourceFileName,
 		java.lang.String mimeType, java.lang.String title,
 		java.lang.String description, java.lang.String changeLog,
-		boolean majorVersion, java.io.File file,
-		java.lang.String destinationChecksum,
+		boolean majorVersion, java.io.File file, java.lang.String checksum,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
 				   .updateFileEntry(fileEntryId, sourceFileName, mimeType,
-			title, description, changeLog, majorVersion, file,
-			destinationChecksum, serviceContext);
+			title, description, changeLog, majorVersion, file, checksum,
+			serviceContext);
 	}
 
 	public static com.liferay.sync.model.SyncDLObject updateFolder(
