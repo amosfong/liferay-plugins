@@ -125,8 +125,6 @@ DisplayTerms displayTerms = searchContainer.getDisplayTerms();
 				monthParam='<%= "startDateMonth" %>'
 				monthValue="<%= startDateMonth %>"
 				yearParam='<%= "startDateYear" %>'
-				yearRangeEnd="<%= startDateYearRangeEnd %>"
-				yearRangeStart="<%= startDateYearRangeStart %>"
 				yearValue="<%= startDateYear %>"
 			/>
 
@@ -146,8 +144,6 @@ DisplayTerms displayTerms = searchContainer.getDisplayTerms();
 				monthParam='<%= "endDateMonth" %>'
 				monthValue="<%= endDateMonth %>"
 				yearParam='<%= "endDateYear" %>'
-				yearRangeEnd="<%= endDateYearRangeEnd %>"
-				yearRangeStart="<%= endDateYearRangeStart %>"
 				yearValue="<%= endDateYear %>"
 			/>
 

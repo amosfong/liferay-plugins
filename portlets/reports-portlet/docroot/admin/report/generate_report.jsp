@@ -113,8 +113,6 @@ Definition definition = DefinitionLocalServiceUtil.getDefinition(definitionId);
 								monthParam='<%= key + "Month" %>'
 								monthValue="<%= calendar.get(Calendar.MONTH) %>"
 								yearParam='<%= key +"Year" %>'
-								yearRangeEnd="<%= calendar.get(Calendar.YEAR) + 100 %>"
-								yearRangeStart="<%= calendar.get(Calendar.YEAR) - 100 %>"
 								yearValue="<%= calendar.get(Calendar.YEAR) %>"
 							/>
 						</td>

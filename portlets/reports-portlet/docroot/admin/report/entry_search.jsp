@@ -61,8 +61,6 @@ int startDateYearRangeStart = calendar.get(Calendar.YEAR) - 50;
 					monthParam='<%= "startDateMonth" %>'
 					monthValue="<%= startDateMonth %>"
 					yearParam='<%= "startDateYear" %>'
-					yearRangeEnd="<%= startDateYearRangeEnd %>"
-					yearRangeStart="<%= startDateYearRangeStart %>"
 					yearValue="<%= startDateYear %>"
 				/>
 			</aui:field-wrapper>
@@ -74,8 +72,6 @@ int startDateYearRangeStart = calendar.get(Calendar.YEAR) - 50;
 					monthParam='<%= "endDateMonth" %>'
 					monthValue="<%= endDateMonth %>"
 					yearParam='<%= "endDateYear" %>'
-					yearRangeEnd="<%= endDateYearRangeEnd %>"
-					yearRangeStart="<%= endDateYearRangeStart %>"
 					yearValue="<%= endDateYear %>"
 				/>
 			</aui:field-wrapper>

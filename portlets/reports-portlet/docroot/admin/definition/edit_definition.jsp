@@ -131,8 +131,6 @@ if (definition != null) {
 						monthParam="parameterDateMonth"
 						monthValue="<%= calendar.get(Calendar.MONTH) %>"
 						yearParam="parameterDateYear"
-						yearRangeEnd="<%= calendar.get(Calendar.YEAR) + 100 %>"
-						yearRangeStart="<%= calendar.get(Calendar.YEAR) - 100 %>"
 						yearValue="<%= calendar.get(Calendar.YEAR) %>"
 					/>
 				</aui:field-wrapper>
