@@ -21,6 +21,7 @@ import com.documentum.fc.common.IDfTime;
 import com.liferay.documentum.repository.DocumentumRepository;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.repository.model.Folder;
@@ -203,6 +204,11 @@ public class DocumentumFolder extends DocumentumModel implements Folder {
 	@Override
 	public long getRepositoryId() {
 		return _documentumRepository.getRepositoryId();
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return new StagedModelType(Folder.class);
 	}
 
 	@Override

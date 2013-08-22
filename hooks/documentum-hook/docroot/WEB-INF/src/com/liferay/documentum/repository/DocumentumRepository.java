@@ -1172,6 +1172,19 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 	}
 
 	@Override
+	public Hits search(long creatorUserId, int status, int start, int end) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Hits search(
+		long creatorUserId, long folderId, String[] mimeTypes, int status,
+		int start, int end) {
+
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
 	public Hits search(SearchContext searchContext, Query query)
 		throws SearchException {
 

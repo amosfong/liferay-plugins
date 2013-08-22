@@ -39,6 +39,10 @@ import java.util.Set;
  */
 public abstract class DocumentumModel {
 
+	public Object clone() {
+		return this;
+	}
+
 	public boolean containsPermission(int permit, String actionId) {
 		if (_unsupportedActionKeys.contains(actionId)) {
 			return false;
@@ -125,6 +129,9 @@ public abstract class DocumentumModel {
 	}
 
 	public void setUserName(String userName) {
+	}
+
+	public void setUuid(String uuid) {
 	}
 
 	@SuppressWarnings("unused")

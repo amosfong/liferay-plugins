@@ -20,6 +20,7 @@ import com.documentum.fc.common.IDfTime;
 
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.Lock;
 import com.liferay.portal.model.User;
@@ -249,6 +250,12 @@ public class DocumentumLock
 	}
 
 	public void setEscapedModel(boolean escapedModel) {
+	}
+
+	public void setExpandoBridgeAttributes(BaseModel<?> baseModel) {
+	}
+
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 	}
 
 	@Override

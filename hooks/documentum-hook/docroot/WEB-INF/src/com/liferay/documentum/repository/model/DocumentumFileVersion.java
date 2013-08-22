@@ -16,6 +16,7 @@ package com.liferay.documentum.repository.model;
 
 import com.liferay.documentum.repository.DocumentumRepository;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.repository.model.FileEntry;
@@ -192,6 +193,11 @@ public class DocumentumFileVersion
 
 	public long getSmallImageId() {
 		return 0;
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return new StagedModelType(FileVersion.class);
 	}
 
 	@Override

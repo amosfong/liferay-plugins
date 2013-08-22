@@ -21,6 +21,7 @@ import com.documentum.fc.common.IDfTime;
 import com.liferay.documentum.repository.DocumentumRepository;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.repository.RepositoryException;
@@ -91,6 +92,10 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		_permit = idfDocument.getPermit();
 		_size = idfDocument.getContentSize();
 		_versionLabel = idfDocument.getVersionLabel(0);
+	}
+
+	public Object clone() {
+		return this;
 	}
 
 	@Override
@@ -349,6 +354,11 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 
 	public long getSmallImageId() {
 		return 0;
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return new StagedModelType(FileEntry.class);
 	}
 
 	@Override
