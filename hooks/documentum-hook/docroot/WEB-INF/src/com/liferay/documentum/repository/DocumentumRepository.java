@@ -2072,13 +2072,13 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 			sb.append("SELECT r_object_id FROM ");
 
 			if (fileEntry) {
-				sb.append(Constants.DM_DOCUMENT + " ");
+				sb.append(Constants.DM_DOCUMENT);
 			}
 			else {
-				sb.append(Constants.DM_FOLDER + " ");
+				sb.append(Constants.DM_FOLDER);
 			}
 
-			sb.append("WHERE object_name = '");
+			sb.append(" WHERE object_name = '");
 			sb.append(name);
 			sb.append("' AND FOLDER (ID('");
 			sb.append(idfId.getId());
