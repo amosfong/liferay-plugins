@@ -6,14 +6,19 @@ create table SyncDLObject (
 	repositoryId LONG,
 	parentFolderId LONG,
 	name VARCHAR(255) null,
+	extension VARCHAR(75) null,
+	mimeType VARCHAR(75) null,
 	description STRING null,
+	changeLog VARCHAR(75) null,
+	extraSettings TEXT null,
+	version VARCHAR(75) null,
+	size_ LONG,
 	checksum VARCHAR(75) null,
 	event VARCHAR(75) null,
+	lockExpirationDate DATE null,
 	lockUserId LONG,
 	lockUserName VARCHAR(75) null,
-	size_ LONG,
 	type_ VARCHAR(75) null,
 	typePK LONG,
-	typeUuid VARCHAR(75) null,
-	version VARCHAR(75) null
+	typeUuid VARCHAR(75) null
 );

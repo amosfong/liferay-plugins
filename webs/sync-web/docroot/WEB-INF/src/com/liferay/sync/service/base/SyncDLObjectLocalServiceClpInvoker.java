@@ -119,8 +119,10 @@ public class SyncDLObjectLocalServiceClpInvoker {
 		_methodParameterTypes58 = new String[] {
 				"long", "long", "long", "long", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String",
-				"long", "java.lang.String", "long", "java.lang.String", "long",
-				"java.lang.String", "java.lang.String"
+				"java.lang.String", "java.lang.String", "java.lang.String",
+				"long", "java.lang.String", "java.lang.String", "java.util.Date",
+				"long", "java.lang.String", "java.lang.String", "long",
+				"java.lang.String"
 			};
 
 		_methodName59 = "fetchSyncDLObject";
@@ -241,12 +243,16 @@ public class SyncDLObjectLocalServiceClpInvoker {
 				((Long)arguments[3]).longValue(),
 				(java.lang.String)arguments[4], (java.lang.String)arguments[5],
 				(java.lang.String)arguments[6], (java.lang.String)arguments[7],
-				((Long)arguments[8]).longValue(),
-				(java.lang.String)arguments[9],
-				((Long)arguments[10]).longValue(),
-				(java.lang.String)arguments[11],
-				((Long)arguments[12]).longValue(),
-				(java.lang.String)arguments[13], (java.lang.String)arguments[14]);
+				(java.lang.String)arguments[8], (java.lang.String)arguments[9],
+				(java.lang.String)arguments[10],
+				((Long)arguments[11]).longValue(),
+				(java.lang.String)arguments[12],
+				(java.lang.String)arguments[13], (java.util.Date)arguments[14],
+				((Long)arguments[15]).longValue(),
+				(java.lang.String)arguments[16],
+				(java.lang.String)arguments[17],
+				((Long)arguments[18]).longValue(),
+				(java.lang.String)arguments[19]);
 		}
 
 		if (_methodName59.equals(name) &&

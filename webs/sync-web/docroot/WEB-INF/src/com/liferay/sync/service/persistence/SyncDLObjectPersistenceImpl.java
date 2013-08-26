@@ -1141,16 +1141,21 @@ public class SyncDLObjectPersistenceImpl extends BasePersistenceImpl<SyncDLObjec
 		syncDLObjectImpl.setRepositoryId(syncDLObject.getRepositoryId());
 		syncDLObjectImpl.setParentFolderId(syncDLObject.getParentFolderId());
 		syncDLObjectImpl.setName(syncDLObject.getName());
+		syncDLObjectImpl.setExtension(syncDLObject.getExtension());
+		syncDLObjectImpl.setMimeType(syncDLObject.getMimeType());
 		syncDLObjectImpl.setDescription(syncDLObject.getDescription());
+		syncDLObjectImpl.setChangeLog(syncDLObject.getChangeLog());
+		syncDLObjectImpl.setExtraSettings(syncDLObject.getExtraSettings());
+		syncDLObjectImpl.setVersion(syncDLObject.getVersion());
+		syncDLObjectImpl.setSize(syncDLObject.getSize());
 		syncDLObjectImpl.setChecksum(syncDLObject.getChecksum());
 		syncDLObjectImpl.setEvent(syncDLObject.getEvent());
+		syncDLObjectImpl.setLockExpirationDate(syncDLObject.getLockExpirationDate());
 		syncDLObjectImpl.setLockUserId(syncDLObject.getLockUserId());
 		syncDLObjectImpl.setLockUserName(syncDLObject.getLockUserName());
-		syncDLObjectImpl.setSize(syncDLObject.getSize());
 		syncDLObjectImpl.setType(syncDLObject.getType());
 		syncDLObjectImpl.setTypePK(syncDLObject.getTypePK());
 		syncDLObjectImpl.setTypeUuid(syncDLObject.getTypeUuid());
-		syncDLObjectImpl.setVersion(syncDLObject.getVersion());
 
 		return syncDLObjectImpl;
 	}

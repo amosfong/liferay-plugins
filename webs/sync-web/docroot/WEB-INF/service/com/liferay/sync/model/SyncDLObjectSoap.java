@@ -17,6 +17,7 @@ package com.liferay.sync.model;
 import java.io.Serializable;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,16 +38,21 @@ public class SyncDLObjectSoap implements Serializable {
 		soapModel.setRepositoryId(model.getRepositoryId());
 		soapModel.setParentFolderId(model.getParentFolderId());
 		soapModel.setName(model.getName());
+		soapModel.setExtension(model.getExtension());
+		soapModel.setMimeType(model.getMimeType());
 		soapModel.setDescription(model.getDescription());
+		soapModel.setChangeLog(model.getChangeLog());
+		soapModel.setExtraSettings(model.getExtraSettings());
+		soapModel.setVersion(model.getVersion());
+		soapModel.setSize(model.getSize());
 		soapModel.setChecksum(model.getChecksum());
 		soapModel.setEvent(model.getEvent());
+		soapModel.setLockExpirationDate(model.getLockExpirationDate());
 		soapModel.setLockUserId(model.getLockUserId());
 		soapModel.setLockUserName(model.getLockUserName());
-		soapModel.setSize(model.getSize());
 		soapModel.setType(model.getType());
 		soapModel.setTypePK(model.getTypePK());
 		soapModel.setTypeUuid(model.getTypeUuid());
-		soapModel.setVersion(model.getVersion());
 
 		return soapModel;
 	}
@@ -155,12 +161,60 @@ public class SyncDLObjectSoap implements Serializable {
 		_name = name;
 	}
 
+	public String getExtension() {
+		return _extension;
+	}
+
+	public void setExtension(String extension) {
+		_extension = extension;
+	}
+
+	public String getMimeType() {
+		return _mimeType;
+	}
+
+	public void setMimeType(String mimeType) {
+		_mimeType = mimeType;
+	}
+
 	public String getDescription() {
 		return _description;
 	}
 
 	public void setDescription(String description) {
 		_description = description;
+	}
+
+	public String getChangeLog() {
+		return _changeLog;
+	}
+
+	public void setChangeLog(String changeLog) {
+		_changeLog = changeLog;
+	}
+
+	public String getExtraSettings() {
+		return _extraSettings;
+	}
+
+	public void setExtraSettings(String extraSettings) {
+		_extraSettings = extraSettings;
+	}
+
+	public String getVersion() {
+		return _version;
+	}
+
+	public void setVersion(String version) {
+		_version = version;
+	}
+
+	public long getSize() {
+		return _size;
+	}
+
+	public void setSize(long size) {
+		_size = size;
 	}
 
 	public String getChecksum() {
@@ -179,6 +233,14 @@ public class SyncDLObjectSoap implements Serializable {
 		_event = event;
 	}
 
+	public Date getLockExpirationDate() {
+		return _lockExpirationDate;
+	}
+
+	public void setLockExpirationDate(Date lockExpirationDate) {
+		_lockExpirationDate = lockExpirationDate;
+	}
+
 	public long getLockUserId() {
 		return _lockUserId;
 	}
@@ -193,14 +255,6 @@ public class SyncDLObjectSoap implements Serializable {
 
 	public void setLockUserName(String lockUserName) {
 		_lockUserName = lockUserName;
-	}
-
-	public long getSize() {
-		return _size;
-	}
-
-	public void setSize(long size) {
-		_size = size;
 	}
 
 	public String getType() {
@@ -227,14 +281,6 @@ public class SyncDLObjectSoap implements Serializable {
 		_typeUuid = typeUuid;
 	}
 
-	public String getVersion() {
-		return _version;
-	}
-
-	public void setVersion(String version) {
-		_version = version;
-	}
-
 	private long _objectId;
 	private long _companyId;
 	private long _createTime;
@@ -242,14 +288,19 @@ public class SyncDLObjectSoap implements Serializable {
 	private long _repositoryId;
 	private long _parentFolderId;
 	private String _name;
+	private String _extension;
+	private String _mimeType;
 	private String _description;
+	private String _changeLog;
+	private String _extraSettings;
+	private String _version;
+	private long _size;
 	private String _checksum;
 	private String _event;
+	private Date _lockExpirationDate;
 	private long _lockUserId;
 	private String _lockUserName;
-	private long _size;
 	private String _type;
 	private long _typePK;
 	private String _typeUuid;
-	private String _version;
 }

@@ -120,8 +120,10 @@ public class SyncDLObjectLocalServiceClp implements SyncDLObjectLocalService {
 		_methodParameterTypes19 = new String[] {
 				"long", "long", "long", "long", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String",
-				"long", "java.lang.String", "long", "java.lang.String", "long",
-				"java.lang.String", "java.lang.String"
+				"java.lang.String", "java.lang.String", "java.lang.String",
+				"long", "java.lang.String", "java.lang.String", "java.util.Date",
+				"long", "java.lang.String", "java.lang.String", "long",
+				"java.lang.String"
 			};
 
 		_methodName20 = "getLatestModifiedTime";
@@ -678,10 +680,13 @@ public class SyncDLObjectLocalServiceClp implements SyncDLObjectLocalService {
 	@Override
 	public com.liferay.sync.model.SyncDLObject addSyncDLObject(long companyId,
 		long modifiedTime, long repositoryId, long parentFolderId,
-		java.lang.String name, java.lang.String description,
-		java.lang.String checksum, java.lang.String event, long lockUserId,
-		java.lang.String lockUserName, long size, java.lang.String type,
-		long typePK, java.lang.String typeUuid, java.lang.String version)
+		java.lang.String name, java.lang.String extension,
+		java.lang.String mimeType, java.lang.String description,
+		java.lang.String changeLog, java.lang.String extraSettings,
+		java.lang.String version, long size, java.lang.String checksum,
+		java.lang.String event, java.util.Date lockExpirationDate,
+		long lockUserId, java.lang.String lockUserName, java.lang.String type,
+		long typePK, java.lang.String typeUuid)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -700,25 +705,35 @@ public class SyncDLObjectLocalServiceClp implements SyncDLObjectLocalService {
 						
 					ClpSerializer.translateInput(name),
 						
+					ClpSerializer.translateInput(extension),
+						
+					ClpSerializer.translateInput(mimeType),
+						
 					ClpSerializer.translateInput(description),
+						
+					ClpSerializer.translateInput(changeLog),
+						
+					ClpSerializer.translateInput(extraSettings),
+						
+					ClpSerializer.translateInput(version),
+						
+					size,
 						
 					ClpSerializer.translateInput(checksum),
 						
 					ClpSerializer.translateInput(event),
 						
+					ClpSerializer.translateInput(lockExpirationDate),
+						
 					lockUserId,
 						
 					ClpSerializer.translateInput(lockUserName),
-						
-					size,
 						
 					ClpSerializer.translateInput(type),
 						
 					typePK,
 						
-					ClpSerializer.translateInput(typeUuid),
-						
-					ClpSerializer.translateInput(version)
+					ClpSerializer.translateInput(typeUuid)
 					});
 		}
 		catch (Throwable t) {

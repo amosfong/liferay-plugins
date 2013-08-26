@@ -14,15 +14,20 @@
 		<property name="repositoryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="parentFolderId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="extension" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="mimeType" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="changeLog" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="extraSettings" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="version" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="size" type="com.liferay.portal.dao.orm.hibernate.LongType" column="size_" />
 		<property name="checksum" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="event" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="lockExpirationDate" type="org.hibernate.type.TimestampType" />
 		<property name="lockUserId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="lockUserName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="size" type="com.liferay.portal.dao.orm.hibernate.LongType" column="size_" />
 		<property name="type" type="com.liferay.portal.dao.orm.hibernate.StringType" column="type_" />
 		<property name="typePK" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="typeUuid" type="com.liferay.portal.dao.orm.hibernate.StringType" />
-		<property name="version" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
 </hibernate-mapping>

@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
 
+import java.util.Date;
+
 /**
  * The cache model class for representing SyncDLObject in entity cache.
  *
@@ -36,7 +38,7 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(35);
+		StringBundler sb = new StringBundler(45);
 
 		sb.append("{objectId=");
 		sb.append(objectId);
@@ -52,26 +54,36 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 		sb.append(parentFolderId);
 		sb.append(", name=");
 		sb.append(name);
+		sb.append(", extension=");
+		sb.append(extension);
+		sb.append(", mimeType=");
+		sb.append(mimeType);
 		sb.append(", description=");
 		sb.append(description);
+		sb.append(", changeLog=");
+		sb.append(changeLog);
+		sb.append(", extraSettings=");
+		sb.append(extraSettings);
+		sb.append(", version=");
+		sb.append(version);
+		sb.append(", size=");
+		sb.append(size);
 		sb.append(", checksum=");
 		sb.append(checksum);
 		sb.append(", event=");
 		sb.append(event);
+		sb.append(", lockExpirationDate=");
+		sb.append(lockExpirationDate);
 		sb.append(", lockUserId=");
 		sb.append(lockUserId);
 		sb.append(", lockUserName=");
 		sb.append(lockUserName);
-		sb.append(", size=");
-		sb.append(size);
 		sb.append(", type=");
 		sb.append(type);
 		sb.append(", typePK=");
 		sb.append(typePK);
 		sb.append(", typeUuid=");
 		sb.append(typeUuid);
-		sb.append(", version=");
-		sb.append(version);
 		sb.append("}");
 
 		return sb.toString();
@@ -95,12 +107,49 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 			syncDLObjectImpl.setName(name);
 		}
 
+		if (extension == null) {
+			syncDLObjectImpl.setExtension(StringPool.BLANK);
+		}
+		else {
+			syncDLObjectImpl.setExtension(extension);
+		}
+
+		if (mimeType == null) {
+			syncDLObjectImpl.setMimeType(StringPool.BLANK);
+		}
+		else {
+			syncDLObjectImpl.setMimeType(mimeType);
+		}
+
 		if (description == null) {
 			syncDLObjectImpl.setDescription(StringPool.BLANK);
 		}
 		else {
 			syncDLObjectImpl.setDescription(description);
 		}
+
+		if (changeLog == null) {
+			syncDLObjectImpl.setChangeLog(StringPool.BLANK);
+		}
+		else {
+			syncDLObjectImpl.setChangeLog(changeLog);
+		}
+
+		if (extraSettings == null) {
+			syncDLObjectImpl.setExtraSettings(StringPool.BLANK);
+		}
+		else {
+			syncDLObjectImpl.setExtraSettings(extraSettings);
+		}
+
+		if (version == null) {
+			syncDLObjectImpl.setVersion(StringPool.BLANK);
+		}
+		else {
+			syncDLObjectImpl.setVersion(version);
+		}
+
+		syncDLObjectImpl.setSize(size);
 
 		if (checksum == null) {
 			syncDLObjectImpl.setChecksum(StringPool.BLANK);
@@ -116,6 +165,13 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 			syncDLObjectImpl.setEvent(event);
 		}
 
+		if (lockExpirationDate == Long.MIN_VALUE) {
+			syncDLObjectImpl.setLockExpirationDate(null);
+		}
+		else {
+			syncDLObjectImpl.setLockExpirationDate(new Date(lockExpirationDate));
+		}
+
 		syncDLObjectImpl.setLockUserId(lockUserId);
 
 		if (lockUserName == null) {
@@ -124,8 +180,6 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 		else {
 			syncDLObjectImpl.setLockUserName(lockUserName);
 		}
-
-		syncDLObjectImpl.setSize(size);
 
 		if (type == null) {
 			syncDLObjectImpl.setType(StringPool.BLANK);
@@ -143,13 +197,6 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 			syncDLObjectImpl.setTypeUuid(typeUuid);
 		}
 
-		if (version == null) {
-			syncDLObjectImpl.setVersion(StringPool.BLANK);
-		}
-		else {
-			syncDLObjectImpl.setVersion(version);
-		}
-
 		syncDLObjectImpl.resetOriginalValues();
 
 		return syncDLObjectImpl;
@@ -164,16 +211,21 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 		repositoryId = objectInput.readLong();
 		parentFolderId = objectInput.readLong();
 		name = objectInput.readUTF();
+		extension = objectInput.readUTF();
+		mimeType = objectInput.readUTF();
 		description = objectInput.readUTF();
+		changeLog = objectInput.readUTF();
+		extraSettings = objectInput.readUTF();
+		version = objectInput.readUTF();
+		size = objectInput.readLong();
 		checksum = objectInput.readUTF();
 		event = objectInput.readUTF();
+		lockExpirationDate = objectInput.readLong();
 		lockUserId = objectInput.readLong();
 		lockUserName = objectInput.readUTF();
-		size = objectInput.readLong();
 		type = objectInput.readUTF();
 		typePK = objectInput.readLong();
 		typeUuid = objectInput.readUTF();
-		version = objectInput.readUTF();
 	}
 
 	@Override
@@ -193,12 +245,49 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 			objectOutput.writeUTF(name);
 		}
 
+		if (extension == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(extension);
+		}
+
+		if (mimeType == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(mimeType);
+		}
+
 		if (description == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
 		else {
 			objectOutput.writeUTF(description);
 		}
+
+		if (changeLog == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(changeLog);
+		}
+
+		if (extraSettings == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(extraSettings);
+		}
+
+		if (version == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(version);
+		}
+
+		objectOutput.writeLong(size);
 
 		if (checksum == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
@@ -214,6 +303,7 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 			objectOutput.writeUTF(event);
 		}
 
+		objectOutput.writeLong(lockExpirationDate);
 		objectOutput.writeLong(lockUserId);
 
 		if (lockUserName == null) {
@@ -222,8 +312,6 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 		else {
 			objectOutput.writeUTF(lockUserName);
 		}
-
-		objectOutput.writeLong(size);
 
 		if (type == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
@@ -240,13 +328,6 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 		else {
 			objectOutput.writeUTF(typeUuid);
 		}
-
-		if (version == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(version);
-		}
 	}
 
 	public long objectId;
@@ -256,14 +337,19 @@ public class SyncDLObjectCacheModel implements CacheModel<SyncDLObject>,
 	public long repositoryId;
 	public long parentFolderId;
 	public String name;
+	public String extension;
+	public String mimeType;
 	public String description;
+	public String changeLog;
+	public String extraSettings;
+	public String version;
+	public long size;
 	public String checksum;
 	public String event;
+	public long lockExpirationDate;
 	public long lockUserId;
 	public String lockUserName;
-	public long size;
 	public String type;
 	public long typePK;
 	public String typeUuid;
-	public String version;
 }

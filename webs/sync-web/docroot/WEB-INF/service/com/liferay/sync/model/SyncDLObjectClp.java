@@ -29,6 +29,7 @@ import java.io.Serializable;
 
 import java.lang.reflect.Method;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -81,16 +82,21 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		attributes.put("repositoryId", getRepositoryId());
 		attributes.put("parentFolderId", getParentFolderId());
 		attributes.put("name", getName());
+		attributes.put("extension", getExtension());
+		attributes.put("mimeType", getMimeType());
 		attributes.put("description", getDescription());
+		attributes.put("changeLog", getChangeLog());
+		attributes.put("extraSettings", getExtraSettings());
+		attributes.put("version", getVersion());
+		attributes.put("size", getSize());
 		attributes.put("checksum", getChecksum());
 		attributes.put("event", getEvent());
+		attributes.put("lockExpirationDate", getLockExpirationDate());
 		attributes.put("lockUserId", getLockUserId());
 		attributes.put("lockUserName", getLockUserName());
-		attributes.put("size", getSize());
 		attributes.put("type", getType());
 		attributes.put("typePK", getTypePK());
 		attributes.put("typeUuid", getTypeUuid());
-		attributes.put("version", getVersion());
 
 		return attributes;
 	}
@@ -139,10 +145,46 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 			setName(name);
 		}
 
+		String extension = (String)attributes.get("extension");
+
+		if (extension != null) {
+			setExtension(extension);
+		}
+
+		String mimeType = (String)attributes.get("mimeType");
+
+		if (mimeType != null) {
+			setMimeType(mimeType);
+		}
+
 		String description = (String)attributes.get("description");
 
 		if (description != null) {
 			setDescription(description);
+		}
+
+		String changeLog = (String)attributes.get("changeLog");
+
+		if (changeLog != null) {
+			setChangeLog(changeLog);
+		}
+
+		String extraSettings = (String)attributes.get("extraSettings");
+
+		if (extraSettings != null) {
+			setExtraSettings(extraSettings);
+		}
+
+		String version = (String)attributes.get("version");
+
+		if (version != null) {
+			setVersion(version);
+		}
+
+		Long size = (Long)attributes.get("size");
+
+		if (size != null) {
+			setSize(size);
 		}
 
 		String checksum = (String)attributes.get("checksum");
@@ -157,6 +199,12 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 			setEvent(event);
 		}
 
+		Date lockExpirationDate = (Date)attributes.get("lockExpirationDate");
+
+		if (lockExpirationDate != null) {
+			setLockExpirationDate(lockExpirationDate);
+		}
+
 		Long lockUserId = (Long)attributes.get("lockUserId");
 
 		if (lockUserId != null) {
@@ -167,12 +215,6 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 
 		if (lockUserName != null) {
 			setLockUserName(lockUserName);
-		}
-
-		Long size = (Long)attributes.get("size");
-
-		if (size != null) {
-			setSize(size);
 		}
 
 		String type = (String)attributes.get("type");
@@ -191,12 +233,6 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 
 		if (typeUuid != null) {
 			setTypeUuid(typeUuid);
-		}
-
-		String version = (String)attributes.get("version");
-
-		if (version != null) {
-			setVersion(version);
 		}
 	}
 
@@ -362,6 +398,52 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 	}
 
 	@Override
+	public String getExtension() {
+		return _extension;
+	}
+
+	@Override
+	public void setExtension(String extension) {
+		_extension = extension;
+
+		if (_syncDLObjectRemoteModel != null) {
+			try {
+				Class<?> clazz = _syncDLObjectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setExtension", String.class);
+
+				method.invoke(_syncDLObjectRemoteModel, extension);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getMimeType() {
+		return _mimeType;
+	}
+
+	@Override
+	public void setMimeType(String mimeType) {
+		_mimeType = mimeType;
+
+		if (_syncDLObjectRemoteModel != null) {
+			try {
+				Class<?> clazz = _syncDLObjectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setMimeType", String.class);
+
+				method.invoke(_syncDLObjectRemoteModel, mimeType);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public String getDescription() {
 		return _description;
 	}
@@ -377,6 +459,98 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 				Method method = clazz.getMethod("setDescription", String.class);
 
 				method.invoke(_syncDLObjectRemoteModel, description);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getChangeLog() {
+		return _changeLog;
+	}
+
+	@Override
+	public void setChangeLog(String changeLog) {
+		_changeLog = changeLog;
+
+		if (_syncDLObjectRemoteModel != null) {
+			try {
+				Class<?> clazz = _syncDLObjectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setChangeLog", String.class);
+
+				method.invoke(_syncDLObjectRemoteModel, changeLog);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getExtraSettings() {
+		return _extraSettings;
+	}
+
+	@Override
+	public void setExtraSettings(String extraSettings) {
+		_extraSettings = extraSettings;
+
+		if (_syncDLObjectRemoteModel != null) {
+			try {
+				Class<?> clazz = _syncDLObjectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setExtraSettings", String.class);
+
+				method.invoke(_syncDLObjectRemoteModel, extraSettings);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getVersion() {
+		return _version;
+	}
+
+	@Override
+	public void setVersion(String version) {
+		_version = version;
+
+		if (_syncDLObjectRemoteModel != null) {
+			try {
+				Class<?> clazz = _syncDLObjectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setVersion", String.class);
+
+				method.invoke(_syncDLObjectRemoteModel, version);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public long getSize() {
+		return _size;
+	}
+
+	@Override
+	public void setSize(long size) {
+		_size = size;
+
+		if (_syncDLObjectRemoteModel != null) {
+			try {
+				Class<?> clazz = _syncDLObjectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setSize", long.class);
+
+				method.invoke(_syncDLObjectRemoteModel, size);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -423,6 +597,30 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 				Method method = clazz.getMethod("setEvent", String.class);
 
 				method.invoke(_syncDLObjectRemoteModel, event);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public Date getLockExpirationDate() {
+		return _lockExpirationDate;
+	}
+
+	@Override
+	public void setLockExpirationDate(Date lockExpirationDate) {
+		_lockExpirationDate = lockExpirationDate;
+
+		if (_syncDLObjectRemoteModel != null) {
+			try {
+				Class<?> clazz = _syncDLObjectRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setLockExpirationDate",
+						Date.class);
+
+				method.invoke(_syncDLObjectRemoteModel, lockExpirationDate);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -479,29 +677,6 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 				Method method = clazz.getMethod("setLockUserName", String.class);
 
 				method.invoke(_syncDLObjectRemoteModel, lockUserName);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public long getSize() {
-		return _size;
-	}
-
-	@Override
-	public void setSize(long size) {
-		_size = size;
-
-		if (_syncDLObjectRemoteModel != null) {
-			try {
-				Class<?> clazz = _syncDLObjectRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setSize", long.class);
-
-				method.invoke(_syncDLObjectRemoteModel, size);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -571,29 +746,6 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 				Method method = clazz.getMethod("setTypeUuid", String.class);
 
 				method.invoke(_syncDLObjectRemoteModel, typeUuid);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public String getVersion() {
-		return _version;
-	}
-
-	@Override
-	public void setVersion(String version) {
-		_version = version;
-
-		if (_syncDLObjectRemoteModel != null) {
-			try {
-				Class<?> clazz = _syncDLObjectRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setVersion", String.class);
-
-				method.invoke(_syncDLObjectRemoteModel, version);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -709,16 +861,21 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		clone.setRepositoryId(getRepositoryId());
 		clone.setParentFolderId(getParentFolderId());
 		clone.setName(getName());
+		clone.setExtension(getExtension());
+		clone.setMimeType(getMimeType());
 		clone.setDescription(getDescription());
+		clone.setChangeLog(getChangeLog());
+		clone.setExtraSettings(getExtraSettings());
+		clone.setVersion(getVersion());
+		clone.setSize(getSize());
 		clone.setChecksum(getChecksum());
 		clone.setEvent(getEvent());
+		clone.setLockExpirationDate(getLockExpirationDate());
 		clone.setLockUserId(getLockUserId());
 		clone.setLockUserName(getLockUserName());
-		clone.setSize(getSize());
 		clone.setType(getType());
 		clone.setTypePK(getTypePK());
 		clone.setTypeUuid(getTypeUuid());
-		clone.setVersion(getVersion());
 
 		return clone;
 	}
@@ -801,7 +958,7 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(35);
+		StringBundler sb = new StringBundler(45);
 
 		sb.append("{objectId=");
 		sb.append(getObjectId());
@@ -817,26 +974,36 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		sb.append(getParentFolderId());
 		sb.append(", name=");
 		sb.append(getName());
+		sb.append(", extension=");
+		sb.append(getExtension());
+		sb.append(", mimeType=");
+		sb.append(getMimeType());
 		sb.append(", description=");
 		sb.append(getDescription());
+		sb.append(", changeLog=");
+		sb.append(getChangeLog());
+		sb.append(", extraSettings=");
+		sb.append(getExtraSettings());
+		sb.append(", version=");
+		sb.append(getVersion());
+		sb.append(", size=");
+		sb.append(getSize());
 		sb.append(", checksum=");
 		sb.append(getChecksum());
 		sb.append(", event=");
 		sb.append(getEvent());
+		sb.append(", lockExpirationDate=");
+		sb.append(getLockExpirationDate());
 		sb.append(", lockUserId=");
 		sb.append(getLockUserId());
 		sb.append(", lockUserName=");
 		sb.append(getLockUserName());
-		sb.append(", size=");
-		sb.append(getSize());
 		sb.append(", type=");
 		sb.append(getType());
 		sb.append(", typePK=");
 		sb.append(getTypePK());
 		sb.append(", typeUuid=");
 		sb.append(getTypeUuid());
-		sb.append(", version=");
-		sb.append(getVersion());
 		sb.append("}");
 
 		return sb.toString();
@@ -844,7 +1011,7 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(55);
+		StringBundler sb = new StringBundler(70);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.sync.model.SyncDLObject");
@@ -879,8 +1046,32 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		sb.append(getName());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>extension</column-name><column-value><![CDATA[");
+		sb.append(getExtension());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>mimeType</column-name><column-value><![CDATA[");
+		sb.append(getMimeType());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>description</column-name><column-value><![CDATA[");
 		sb.append(getDescription());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>changeLog</column-name><column-value><![CDATA[");
+		sb.append(getChangeLog());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>extraSettings</column-name><column-value><![CDATA[");
+		sb.append(getExtraSettings());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>version</column-name><column-value><![CDATA[");
+		sb.append(getVersion());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>size</column-name><column-value><![CDATA[");
+		sb.append(getSize());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>checksum</column-name><column-value><![CDATA[");
@@ -891,16 +1082,16 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		sb.append(getEvent());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>lockExpirationDate</column-name><column-value><![CDATA[");
+		sb.append(getLockExpirationDate());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>lockUserId</column-name><column-value><![CDATA[");
 		sb.append(getLockUserId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>lockUserName</column-name><column-value><![CDATA[");
 		sb.append(getLockUserName());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>size</column-name><column-value><![CDATA[");
-		sb.append(getSize());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>type</column-name><column-value><![CDATA[");
@@ -913,10 +1104,6 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 		sb.append(
 			"<column><column-name>typeUuid</column-name><column-value><![CDATA[");
 		sb.append(getTypeUuid());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>version</column-name><column-value><![CDATA[");
-		sb.append(getVersion());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -931,16 +1118,21 @@ public class SyncDLObjectClp extends BaseModelImpl<SyncDLObject>
 	private long _repositoryId;
 	private long _parentFolderId;
 	private String _name;
+	private String _extension;
+	private String _mimeType;
 	private String _description;
+	private String _changeLog;
+	private String _extraSettings;
+	private String _version;
+	private long _size;
 	private String _checksum;
 	private String _event;
+	private Date _lockExpirationDate;
 	private long _lockUserId;
 	private String _lockUserUuid;
 	private String _lockUserName;
-	private long _size;
 	private String _type;
 	private long _typePK;
 	private String _typeUuid;
-	private String _version;
 	private BaseModel<?> _syncDLObjectRemoteModel;
 }

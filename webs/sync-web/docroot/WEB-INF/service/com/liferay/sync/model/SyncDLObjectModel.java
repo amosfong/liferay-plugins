@@ -24,6 +24,8 @@ import com.liferay.portlet.expando.model.ExpandoBridge;
 
 import java.io.Serializable;
 
+import java.util.Date;
+
 /**
  * The base model interface for the SyncDLObject service. Represents a row in the &quot;SyncDLObject&quot; database table, with each column mapped to a property of this class.
  *
@@ -158,6 +160,36 @@ public interface SyncDLObjectModel extends BaseModel<SyncDLObject> {
 	public void setName(String name);
 
 	/**
+	 * Returns the extension of this sync d l object.
+	 *
+	 * @return the extension of this sync d l object
+	 */
+	@AutoEscape
+	public String getExtension();
+
+	/**
+	 * Sets the extension of this sync d l object.
+	 *
+	 * @param extension the extension of this sync d l object
+	 */
+	public void setExtension(String extension);
+
+	/**
+	 * Returns the mime type of this sync d l object.
+	 *
+	 * @return the mime type of this sync d l object
+	 */
+	@AutoEscape
+	public String getMimeType();
+
+	/**
+	 * Sets the mime type of this sync d l object.
+	 *
+	 * @param mimeType the mime type of this sync d l object
+	 */
+	public void setMimeType(String mimeType);
+
+	/**
 	 * Returns the description of this sync d l object.
 	 *
 	 * @return the description of this sync d l object
@@ -171,6 +203,65 @@ public interface SyncDLObjectModel extends BaseModel<SyncDLObject> {
 	 * @param description the description of this sync d l object
 	 */
 	public void setDescription(String description);
+
+	/**
+	 * Returns the change log of this sync d l object.
+	 *
+	 * @return the change log of this sync d l object
+	 */
+	@AutoEscape
+	public String getChangeLog();
+
+	/**
+	 * Sets the change log of this sync d l object.
+	 *
+	 * @param changeLog the change log of this sync d l object
+	 */
+	public void setChangeLog(String changeLog);
+
+	/**
+	 * Returns the extra settings of this sync d l object.
+	 *
+	 * @return the extra settings of this sync d l object
+	 */
+	@AutoEscape
+	public String getExtraSettings();
+
+	/**
+	 * Sets the extra settings of this sync d l object.
+	 *
+	 * @param extraSettings the extra settings of this sync d l object
+	 */
+	public void setExtraSettings(String extraSettings);
+
+	/**
+	 * Returns the version of this sync d l object.
+	 *
+	 * @return the version of this sync d l object
+	 */
+	@AutoEscape
+	public String getVersion();
+
+	/**
+	 * Sets the version of this sync d l object.
+	 *
+	 * @param version the version of this sync d l object
+	 */
+	public void setVersion(String version);
+
+	/**
+	 * Returns the size of this sync d l object.
+	 *
+	 * @return the size of this sync d l object
+	 */
+	public long getSize();
+
+	/**
+	 * Sets the size of this sync d l object.
+	 *
+	 * @param size the size of this sync d l object
+	 */
+	public void setSize(long size);
 
 	/**
 	 * Returns the checksum of this sync d l object.
@@ -201,6 +292,20 @@ public interface SyncDLObjectModel extends BaseModel<SyncDLObject> {
 	 * @param event the event of this sync d l object
 	 */
 	public void setEvent(String event);
+
+	/**
+	 * Returns the lock expiration date of this sync d l object.
+	 *
+	 * @return the lock expiration date of this sync d l object
+	 */
+	public Date getLockExpirationDate();
+
+	/**
+	 * Sets the lock expiration date of this sync d l object.
+	 *
+	 * @param lockExpirationDate the lock expiration date of this sync d l object
+	 */
+	public void setLockExpirationDate(Date lockExpirationDate);
 
 	/**
 	 * Returns the lock user ID of this sync d l object.
@@ -247,20 +352,6 @@ public interface SyncDLObjectModel extends BaseModel<SyncDLObject> {
 	public void setLockUserName(String lockUserName);
 
 	/**
-	 * Returns the size of this sync d l object.
-	 *
-	 * @return the size of this sync d l object
-	 */
-	public long getSize();
-
-	/**
-	 * Sets the size of this sync d l object.
-	 *
-	 * @param size the size of this sync d l object
-	 */
-	public void setSize(long size);
-
-	/**
 	 * Returns the type of this sync d l object.
 	 *
 	 * @return the type of this sync d l object
@@ -303,21 +394,6 @@ public interface SyncDLObjectModel extends BaseModel<SyncDLObject> {
 	 * @param typeUuid the type uuid of this sync d l object
 	 */
 	public void setTypeUuid(String typeUuid);
-
-	/**
-	 * Returns the version of this sync d l object.
-	 *
-	 * @return the version of this sync d l object
-	 */
-	@AutoEscape
-	public String getVersion();
-
-	/**
-	 * Sets the version of this sync d l object.
-	 *
-	 * @param version the version of this sync d l object
-	 */
-	public void setVersion(String version);
 
 	@Override
 	public boolean isNew();

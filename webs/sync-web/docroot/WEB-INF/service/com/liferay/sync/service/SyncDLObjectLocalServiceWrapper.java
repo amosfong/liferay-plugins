@@ -286,16 +286,20 @@ public class SyncDLObjectLocalServiceWrapper implements SyncDLObjectLocalService
 	@Override
 	public com.liferay.sync.model.SyncDLObject addSyncDLObject(long companyId,
 		long modifiedTime, long repositoryId, long parentFolderId,
-		java.lang.String name, java.lang.String description,
-		java.lang.String checksum, java.lang.String event, long lockUserId,
-		java.lang.String lockUserName, long size, java.lang.String type,
-		long typePK, java.lang.String typeUuid, java.lang.String version)
+		java.lang.String name, java.lang.String extension,
+		java.lang.String mimeType, java.lang.String description,
+		java.lang.String changeLog, java.lang.String extraSettings,
+		java.lang.String version, long size, java.lang.String checksum,
+		java.lang.String event, java.util.Date lockExpirationDate,
+		long lockUserId, java.lang.String lockUserName, java.lang.String type,
+		long typePK, java.lang.String typeUuid)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _syncDLObjectLocalService.addSyncDLObject(companyId,
-			modifiedTime, repositoryId, parentFolderId, name, description,
-			checksum, event, lockUserId, lockUserName, size, type, typePK,
-			typeUuid, version);
+			modifiedTime, repositoryId, parentFolderId, name, extension,
+			mimeType, description, changeLog, extraSettings, version, size,
+			checksum, event, lockExpirationDate, lockUserId, lockUserName,
+			type, typePK, typeUuid);
 	}
 
 	@Override

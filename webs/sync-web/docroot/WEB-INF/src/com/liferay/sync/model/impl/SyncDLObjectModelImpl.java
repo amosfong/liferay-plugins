@@ -38,6 +38,7 @@ import java.io.Serializable;
 import java.sql.Types;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,18 +73,23 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 			{ "repositoryId", Types.BIGINT },
 			{ "parentFolderId", Types.BIGINT },
 			{ "name", Types.VARCHAR },
+			{ "extension", Types.VARCHAR },
+			{ "mimeType", Types.VARCHAR },
 			{ "description", Types.VARCHAR },
+			{ "changeLog", Types.VARCHAR },
+			{ "extraSettings", Types.CLOB },
+			{ "version", Types.VARCHAR },
+			{ "size_", Types.BIGINT },
 			{ "checksum", Types.VARCHAR },
 			{ "event", Types.VARCHAR },
+			{ "lockExpirationDate", Types.TIMESTAMP },
 			{ "lockUserId", Types.BIGINT },
 			{ "lockUserName", Types.VARCHAR },
-			{ "size_", Types.BIGINT },
 			{ "type_", Types.VARCHAR },
 			{ "typePK", Types.BIGINT },
-			{ "typeUuid", Types.VARCHAR },
-			{ "version", Types.VARCHAR }
+			{ "typeUuid", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table SyncDLObject (objectId LONG not null primary key,companyId LONG,createTime LONG,modifiedTime LONG,repositoryId LONG,parentFolderId LONG,name VARCHAR(255) null,description STRING null,checksum VARCHAR(75) null,event VARCHAR(75) null,lockUserId LONG,lockUserName VARCHAR(75) null,size_ LONG,type_ VARCHAR(75) null,typePK LONG,typeUuid VARCHAR(75) null,version VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table SyncDLObject (objectId LONG not null primary key,companyId LONG,createTime LONG,modifiedTime LONG,repositoryId LONG,parentFolderId LONG,name VARCHAR(255) null,extension VARCHAR(75) null,mimeType VARCHAR(75) null,description STRING null,changeLog VARCHAR(75) null,extraSettings TEXT null,version VARCHAR(75) null,size_ LONG,checksum VARCHAR(75) null,event VARCHAR(75) null,lockExpirationDate DATE null,lockUserId LONG,lockUserName VARCHAR(75) null,type_ VARCHAR(75) null,typePK LONG,typeUuid VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table SyncDLObject";
 	public static final String ORDER_BY_JPQL = " ORDER BY syncDLObject.companyId ASC, syncDLObject.modifiedTime ASC, syncDLObject.repositoryId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY SyncDLObject.companyId ASC, SyncDLObject.modifiedTime ASC, SyncDLObject.repositoryId ASC";
@@ -124,16 +130,21 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		model.setRepositoryId(soapModel.getRepositoryId());
 		model.setParentFolderId(soapModel.getParentFolderId());
 		model.setName(soapModel.getName());
+		model.setExtension(soapModel.getExtension());
+		model.setMimeType(soapModel.getMimeType());
 		model.setDescription(soapModel.getDescription());
+		model.setChangeLog(soapModel.getChangeLog());
+		model.setExtraSettings(soapModel.getExtraSettings());
+		model.setVersion(soapModel.getVersion());
+		model.setSize(soapModel.getSize());
 		model.setChecksum(soapModel.getChecksum());
 		model.setEvent(soapModel.getEvent());
+		model.setLockExpirationDate(soapModel.getLockExpirationDate());
 		model.setLockUserId(soapModel.getLockUserId());
 		model.setLockUserName(soapModel.getLockUserName());
-		model.setSize(soapModel.getSize());
 		model.setType(soapModel.getType());
 		model.setTypePK(soapModel.getTypePK());
 		model.setTypeUuid(soapModel.getTypeUuid());
-		model.setVersion(soapModel.getVersion());
 
 		return model;
 	}
@@ -205,16 +216,21 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		attributes.put("repositoryId", getRepositoryId());
 		attributes.put("parentFolderId", getParentFolderId());
 		attributes.put("name", getName());
+		attributes.put("extension", getExtension());
+		attributes.put("mimeType", getMimeType());
 		attributes.put("description", getDescription());
+		attributes.put("changeLog", getChangeLog());
+		attributes.put("extraSettings", getExtraSettings());
+		attributes.put("version", getVersion());
+		attributes.put("size", getSize());
 		attributes.put("checksum", getChecksum());
 		attributes.put("event", getEvent());
+		attributes.put("lockExpirationDate", getLockExpirationDate());
 		attributes.put("lockUserId", getLockUserId());
 		attributes.put("lockUserName", getLockUserName());
-		attributes.put("size", getSize());
 		attributes.put("type", getType());
 		attributes.put("typePK", getTypePK());
 		attributes.put("typeUuid", getTypeUuid());
-		attributes.put("version", getVersion());
 
 		return attributes;
 	}
@@ -263,10 +279,46 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 			setName(name);
 		}
 
+		String extension = (String)attributes.get("extension");
+
+		if (extension != null) {
+			setExtension(extension);
+		}
+
+		String mimeType = (String)attributes.get("mimeType");
+
+		if (mimeType != null) {
+			setMimeType(mimeType);
+		}
+
 		String description = (String)attributes.get("description");
 
 		if (description != null) {
 			setDescription(description);
+		}
+
+		String changeLog = (String)attributes.get("changeLog");
+
+		if (changeLog != null) {
+			setChangeLog(changeLog);
+		}
+
+		String extraSettings = (String)attributes.get("extraSettings");
+
+		if (extraSettings != null) {
+			setExtraSettings(extraSettings);
+		}
+
+		String version = (String)attributes.get("version");
+
+		if (version != null) {
+			setVersion(version);
+		}
+
+		Long size = (Long)attributes.get("size");
+
+		if (size != null) {
+			setSize(size);
 		}
 
 		String checksum = (String)attributes.get("checksum");
@@ -281,6 +333,12 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 			setEvent(event);
 		}
 
+		Date lockExpirationDate = (Date)attributes.get("lockExpirationDate");
+
+		if (lockExpirationDate != null) {
+			setLockExpirationDate(lockExpirationDate);
+		}
+
 		Long lockUserId = (Long)attributes.get("lockUserId");
 
 		if (lockUserId != null) {
@@ -291,12 +349,6 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 
 		if (lockUserName != null) {
 			setLockUserName(lockUserName);
-		}
-
-		Long size = (Long)attributes.get("size");
-
-		if (size != null) {
-			setSize(size);
 		}
 
 		String type = (String)attributes.get("type");
@@ -315,12 +367,6 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 
 		if (typeUuid != null) {
 			setTypeUuid(typeUuid);
-		}
-
-		String version = (String)attributes.get("version");
-
-		if (version != null) {
-			setVersion(version);
 		}
 	}
 
@@ -444,6 +490,38 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 
 	@JSON
 	@Override
+	public String getExtension() {
+		if (_extension == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _extension;
+		}
+	}
+
+	@Override
+	public void setExtension(String extension) {
+		_extension = extension;
+	}
+
+	@JSON
+	@Override
+	public String getMimeType() {
+		if (_mimeType == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _mimeType;
+		}
+	}
+
+	@Override
+	public void setMimeType(String mimeType) {
+		_mimeType = mimeType;
+	}
+
+	@JSON
+	@Override
 	public String getDescription() {
 		if (_description == null) {
 			return StringPool.BLANK;
@@ -456,6 +534,65 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 	@Override
 	public void setDescription(String description) {
 		_description = description;
+	}
+
+	@JSON
+	@Override
+	public String getChangeLog() {
+		if (_changeLog == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _changeLog;
+		}
+	}
+
+	@Override
+	public void setChangeLog(String changeLog) {
+		_changeLog = changeLog;
+	}
+
+	@JSON
+	@Override
+	public String getExtraSettings() {
+		if (_extraSettings == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _extraSettings;
+		}
+	}
+
+	@Override
+	public void setExtraSettings(String extraSettings) {
+		_extraSettings = extraSettings;
+	}
+
+	@JSON
+	@Override
+	public String getVersion() {
+		if (_version == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _version;
+		}
+	}
+
+	@Override
+	public void setVersion(String version) {
+		_version = version;
+	}
+
+	@JSON
+	@Override
+	public long getSize() {
+		return _size;
+	}
+
+	@Override
+	public void setSize(long size) {
+		_size = size;
 	}
 
 	@JSON
@@ -488,6 +625,17 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 	@Override
 	public void setEvent(String event) {
 		_event = event;
+	}
+
+	@JSON
+	@Override
+	public Date getLockExpirationDate() {
+		return _lockExpirationDate;
+	}
+
+	@Override
+	public void setLockExpirationDate(Date lockExpirationDate) {
+		_lockExpirationDate = lockExpirationDate;
 	}
 
 	@JSON
@@ -525,17 +673,6 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 	@Override
 	public void setLockUserName(String lockUserName) {
 		_lockUserName = lockUserName;
-	}
-
-	@JSON
-	@Override
-	public long getSize() {
-		return _size;
-	}
-
-	@Override
-	public void setSize(long size) {
-		_size = size;
 	}
 
 	@JSON
@@ -593,22 +730,6 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		_typeUuid = typeUuid;
 	}
 
-	@JSON
-	@Override
-	public String getVersion() {
-		if (_version == null) {
-			return StringPool.BLANK;
-		}
-		else {
-			return _version;
-		}
-	}
-
-	@Override
-	public void setVersion(String version) {
-		_version = version;
-	}
-
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -647,16 +768,21 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		syncDLObjectImpl.setRepositoryId(getRepositoryId());
 		syncDLObjectImpl.setParentFolderId(getParentFolderId());
 		syncDLObjectImpl.setName(getName());
+		syncDLObjectImpl.setExtension(getExtension());
+		syncDLObjectImpl.setMimeType(getMimeType());
 		syncDLObjectImpl.setDescription(getDescription());
+		syncDLObjectImpl.setChangeLog(getChangeLog());
+		syncDLObjectImpl.setExtraSettings(getExtraSettings());
+		syncDLObjectImpl.setVersion(getVersion());
+		syncDLObjectImpl.setSize(getSize());
 		syncDLObjectImpl.setChecksum(getChecksum());
 		syncDLObjectImpl.setEvent(getEvent());
+		syncDLObjectImpl.setLockExpirationDate(getLockExpirationDate());
 		syncDLObjectImpl.setLockUserId(getLockUserId());
 		syncDLObjectImpl.setLockUserName(getLockUserName());
-		syncDLObjectImpl.setSize(getSize());
 		syncDLObjectImpl.setType(getType());
 		syncDLObjectImpl.setTypePK(getTypePK());
 		syncDLObjectImpl.setTypeUuid(getTypeUuid());
-		syncDLObjectImpl.setVersion(getVersion());
 
 		syncDLObjectImpl.resetOriginalValues();
 
@@ -786,6 +912,22 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 			syncDLObjectCacheModel.name = null;
 		}
 
+		syncDLObjectCacheModel.extension = getExtension();
+
+		String extension = syncDLObjectCacheModel.extension;
+
+		if ((extension != null) && (extension.length() == 0)) {
+			syncDLObjectCacheModel.extension = null;
+		}
+
+		syncDLObjectCacheModel.mimeType = getMimeType();
+
+		String mimeType = syncDLObjectCacheModel.mimeType;
+
+		if ((mimeType != null) && (mimeType.length() == 0)) {
+			syncDLObjectCacheModel.mimeType = null;
+		}
+
 		syncDLObjectCacheModel.description = getDescription();
 
 		String description = syncDLObjectCacheModel.description;
@@ -793,6 +935,32 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		if ((description != null) && (description.length() == 0)) {
 			syncDLObjectCacheModel.description = null;
 		}
+
+		syncDLObjectCacheModel.changeLog = getChangeLog();
+
+		String changeLog = syncDLObjectCacheModel.changeLog;
+
+		if ((changeLog != null) && (changeLog.length() == 0)) {
+			syncDLObjectCacheModel.changeLog = null;
+		}
+
+		syncDLObjectCacheModel.extraSettings = getExtraSettings();
+
+		String extraSettings = syncDLObjectCacheModel.extraSettings;
+
+		if ((extraSettings != null) && (extraSettings.length() == 0)) {
+			syncDLObjectCacheModel.extraSettings = null;
+		}
+
+		syncDLObjectCacheModel.version = getVersion();
+
+		String version = syncDLObjectCacheModel.version;
+
+		if ((version != null) && (version.length() == 0)) {
+			syncDLObjectCacheModel.version = null;
+		}
+
+		syncDLObjectCacheModel.size = getSize();
 
 		syncDLObjectCacheModel.checksum = getChecksum();
 
@@ -810,6 +978,15 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 			syncDLObjectCacheModel.event = null;
 		}
 
+		Date lockExpirationDate = getLockExpirationDate();
+
+		if (lockExpirationDate != null) {
+			syncDLObjectCacheModel.lockExpirationDate = lockExpirationDate.getTime();
+		}
+		else {
+			syncDLObjectCacheModel.lockExpirationDate = Long.MIN_VALUE;
+		}
+
 		syncDLObjectCacheModel.lockUserId = getLockUserId();
 
 		syncDLObjectCacheModel.lockUserName = getLockUserName();
@@ -819,8 +996,6 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		if ((lockUserName != null) && (lockUserName.length() == 0)) {
 			syncDLObjectCacheModel.lockUserName = null;
 		}
-
-		syncDLObjectCacheModel.size = getSize();
 
 		syncDLObjectCacheModel.type = getType();
 
@@ -840,20 +1015,12 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 			syncDLObjectCacheModel.typeUuid = null;
 		}
 
-		syncDLObjectCacheModel.version = getVersion();
-
-		String version = syncDLObjectCacheModel.version;
-
-		if ((version != null) && (version.length() == 0)) {
-			syncDLObjectCacheModel.version = null;
-		}
-
 		return syncDLObjectCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(35);
+		StringBundler sb = new StringBundler(45);
 
 		sb.append("{objectId=");
 		sb.append(getObjectId());
@@ -869,26 +1036,36 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		sb.append(getParentFolderId());
 		sb.append(", name=");
 		sb.append(getName());
+		sb.append(", extension=");
+		sb.append(getExtension());
+		sb.append(", mimeType=");
+		sb.append(getMimeType());
 		sb.append(", description=");
 		sb.append(getDescription());
+		sb.append(", changeLog=");
+		sb.append(getChangeLog());
+		sb.append(", extraSettings=");
+		sb.append(getExtraSettings());
+		sb.append(", version=");
+		sb.append(getVersion());
+		sb.append(", size=");
+		sb.append(getSize());
 		sb.append(", checksum=");
 		sb.append(getChecksum());
 		sb.append(", event=");
 		sb.append(getEvent());
+		sb.append(", lockExpirationDate=");
+		sb.append(getLockExpirationDate());
 		sb.append(", lockUserId=");
 		sb.append(getLockUserId());
 		sb.append(", lockUserName=");
 		sb.append(getLockUserName());
-		sb.append(", size=");
-		sb.append(getSize());
 		sb.append(", type=");
 		sb.append(getType());
 		sb.append(", typePK=");
 		sb.append(getTypePK());
 		sb.append(", typeUuid=");
 		sb.append(getTypeUuid());
-		sb.append(", version=");
-		sb.append(getVersion());
 		sb.append("}");
 
 		return sb.toString();
@@ -896,7 +1073,7 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(55);
+		StringBundler sb = new StringBundler(70);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.sync.model.SyncDLObject");
@@ -931,8 +1108,32 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		sb.append(getName());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>extension</column-name><column-value><![CDATA[");
+		sb.append(getExtension());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>mimeType</column-name><column-value><![CDATA[");
+		sb.append(getMimeType());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>description</column-name><column-value><![CDATA[");
 		sb.append(getDescription());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>changeLog</column-name><column-value><![CDATA[");
+		sb.append(getChangeLog());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>extraSettings</column-name><column-value><![CDATA[");
+		sb.append(getExtraSettings());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>version</column-name><column-value><![CDATA[");
+		sb.append(getVersion());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>size</column-name><column-value><![CDATA[");
+		sb.append(getSize());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>checksum</column-name><column-value><![CDATA[");
@@ -943,16 +1144,16 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		sb.append(getEvent());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>lockExpirationDate</column-name><column-value><![CDATA[");
+		sb.append(getLockExpirationDate());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>lockUserId</column-name><column-value><![CDATA[");
 		sb.append(getLockUserId());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>lockUserName</column-name><column-value><![CDATA[");
 		sb.append(getLockUserName());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>size</column-name><column-value><![CDATA[");
-		sb.append(getSize());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>type</column-name><column-value><![CDATA[");
@@ -965,10 +1166,6 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 		sb.append(
 			"<column><column-name>typeUuid</column-name><column-value><![CDATA[");
 		sb.append(getTypeUuid());
-		sb.append("]]></column-value></column>");
-		sb.append(
-			"<column><column-name>version</column-name><column-value><![CDATA[");
-		sb.append(getVersion());
 		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
@@ -993,19 +1190,24 @@ public class SyncDLObjectModelImpl extends BaseModelImpl<SyncDLObject>
 	private boolean _setOriginalRepositoryId;
 	private long _parentFolderId;
 	private String _name;
+	private String _extension;
+	private String _mimeType;
 	private String _description;
+	private String _changeLog;
+	private String _extraSettings;
+	private String _version;
+	private long _size;
 	private String _checksum;
 	private String _event;
+	private Date _lockExpirationDate;
 	private long _lockUserId;
 	private String _lockUserUuid;
 	private String _lockUserName;
-	private long _size;
 	private String _type;
 	private long _typePK;
 	private long _originalTypePK;
 	private boolean _setOriginalTypePK;
 	private String _typeUuid;
-	private String _version;
 	private long _columnBitmask;
 	private SyncDLObject _escapedModel;
 }

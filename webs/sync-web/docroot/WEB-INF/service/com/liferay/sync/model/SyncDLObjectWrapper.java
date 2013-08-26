@@ -17,6 +17,7 @@ package com.liferay.sync.model;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -56,16 +57,21 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 		attributes.put("repositoryId", getRepositoryId());
 		attributes.put("parentFolderId", getParentFolderId());
 		attributes.put("name", getName());
+		attributes.put("extension", getExtension());
+		attributes.put("mimeType", getMimeType());
 		attributes.put("description", getDescription());
+		attributes.put("changeLog", getChangeLog());
+		attributes.put("extraSettings", getExtraSettings());
+		attributes.put("version", getVersion());
+		attributes.put("size", getSize());
 		attributes.put("checksum", getChecksum());
 		attributes.put("event", getEvent());
+		attributes.put("lockExpirationDate", getLockExpirationDate());
 		attributes.put("lockUserId", getLockUserId());
 		attributes.put("lockUserName", getLockUserName());
-		attributes.put("size", getSize());
 		attributes.put("type", getType());
 		attributes.put("typePK", getTypePK());
 		attributes.put("typeUuid", getTypeUuid());
-		attributes.put("version", getVersion());
 
 		return attributes;
 	}
@@ -114,10 +120,46 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 			setName(name);
 		}
 
+		String extension = (String)attributes.get("extension");
+
+		if (extension != null) {
+			setExtension(extension);
+		}
+
+		String mimeType = (String)attributes.get("mimeType");
+
+		if (mimeType != null) {
+			setMimeType(mimeType);
+		}
+
 		String description = (String)attributes.get("description");
 
 		if (description != null) {
 			setDescription(description);
+		}
+
+		String changeLog = (String)attributes.get("changeLog");
+
+		if (changeLog != null) {
+			setChangeLog(changeLog);
+		}
+
+		String extraSettings = (String)attributes.get("extraSettings");
+
+		if (extraSettings != null) {
+			setExtraSettings(extraSettings);
+		}
+
+		String version = (String)attributes.get("version");
+
+		if (version != null) {
+			setVersion(version);
+		}
+
+		Long size = (Long)attributes.get("size");
+
+		if (size != null) {
+			setSize(size);
 		}
 
 		String checksum = (String)attributes.get("checksum");
@@ -132,6 +174,12 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 			setEvent(event);
 		}
 
+		Date lockExpirationDate = (Date)attributes.get("lockExpirationDate");
+
+		if (lockExpirationDate != null) {
+			setLockExpirationDate(lockExpirationDate);
+		}
+
 		Long lockUserId = (Long)attributes.get("lockUserId");
 
 		if (lockUserId != null) {
@@ -142,12 +190,6 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 
 		if (lockUserName != null) {
 			setLockUserName(lockUserName);
-		}
-
-		Long size = (Long)attributes.get("size");
-
-		if (size != null) {
-			setSize(size);
 		}
 
 		String type = (String)attributes.get("type");
@@ -166,12 +208,6 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 
 		if (typeUuid != null) {
 			setTypeUuid(typeUuid);
-		}
-
-		String version = (String)attributes.get("version");
-
-		if (version != null) {
-			setVersion(version);
 		}
 	}
 
@@ -336,6 +372,46 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	}
 
 	/**
+	* Returns the extension of this sync d l object.
+	*
+	* @return the extension of this sync d l object
+	*/
+	@Override
+	public java.lang.String getExtension() {
+		return _syncDLObject.getExtension();
+	}
+
+	/**
+	* Sets the extension of this sync d l object.
+	*
+	* @param extension the extension of this sync d l object
+	*/
+	@Override
+	public void setExtension(java.lang.String extension) {
+		_syncDLObject.setExtension(extension);
+	}
+
+	/**
+	* Returns the mime type of this sync d l object.
+	*
+	* @return the mime type of this sync d l object
+	*/
+	@Override
+	public java.lang.String getMimeType() {
+		return _syncDLObject.getMimeType();
+	}
+
+	/**
+	* Sets the mime type of this sync d l object.
+	*
+	* @param mimeType the mime type of this sync d l object
+	*/
+	@Override
+	public void setMimeType(java.lang.String mimeType) {
+		_syncDLObject.setMimeType(mimeType);
+	}
+
+	/**
 	* Returns the description of this sync d l object.
 	*
 	* @return the description of this sync d l object
@@ -353,6 +429,86 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	@Override
 	public void setDescription(java.lang.String description) {
 		_syncDLObject.setDescription(description);
+	}
+
+	/**
+	* Returns the change log of this sync d l object.
+	*
+	* @return the change log of this sync d l object
+	*/
+	@Override
+	public java.lang.String getChangeLog() {
+		return _syncDLObject.getChangeLog();
+	}
+
+	/**
+	* Sets the change log of this sync d l object.
+	*
+	* @param changeLog the change log of this sync d l object
+	*/
+	@Override
+	public void setChangeLog(java.lang.String changeLog) {
+		_syncDLObject.setChangeLog(changeLog);
+	}
+
+	/**
+	* Returns the extra settings of this sync d l object.
+	*
+	* @return the extra settings of this sync d l object
+	*/
+	@Override
+	public java.lang.String getExtraSettings() {
+		return _syncDLObject.getExtraSettings();
+	}
+
+	/**
+	* Sets the extra settings of this sync d l object.
+	*
+	* @param extraSettings the extra settings of this sync d l object
+	*/
+	@Override
+	public void setExtraSettings(java.lang.String extraSettings) {
+		_syncDLObject.setExtraSettings(extraSettings);
+	}
+
+	/**
+	* Returns the version of this sync d l object.
+	*
+	* @return the version of this sync d l object
+	*/
+	@Override
+	public java.lang.String getVersion() {
+		return _syncDLObject.getVersion();
+	}
+
+	/**
+	* Sets the version of this sync d l object.
+	*
+	* @param version the version of this sync d l object
+	*/
+	@Override
+	public void setVersion(java.lang.String version) {
+		_syncDLObject.setVersion(version);
+	}
+
+	/**
+	* Returns the size of this sync d l object.
+	*
+	* @return the size of this sync d l object
+	*/
+	@Override
+	public long getSize() {
+		return _syncDLObject.getSize();
+	}
+
+	/**
+	* Sets the size of this sync d l object.
+	*
+	* @param size the size of this sync d l object
+	*/
+	@Override
+	public void setSize(long size) {
+		_syncDLObject.setSize(size);
 	}
 
 	/**
@@ -393,6 +549,26 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	@Override
 	public void setEvent(java.lang.String event) {
 		_syncDLObject.setEvent(event);
+	}
+
+	/**
+	* Returns the lock expiration date of this sync d l object.
+	*
+	* @return the lock expiration date of this sync d l object
+	*/
+	@Override
+	public java.util.Date getLockExpirationDate() {
+		return _syncDLObject.getLockExpirationDate();
+	}
+
+	/**
+	* Sets the lock expiration date of this sync d l object.
+	*
+	* @param lockExpirationDate the lock expiration date of this sync d l object
+	*/
+	@Override
+	public void setLockExpirationDate(java.util.Date lockExpirationDate) {
+		_syncDLObject.setLockExpirationDate(lockExpirationDate);
 	}
 
 	/**
@@ -458,26 +634,6 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	}
 
 	/**
-	* Returns the size of this sync d l object.
-	*
-	* @return the size of this sync d l object
-	*/
-	@Override
-	public long getSize() {
-		return _syncDLObject.getSize();
-	}
-
-	/**
-	* Sets the size of this sync d l object.
-	*
-	* @param size the size of this sync d l object
-	*/
-	@Override
-	public void setSize(long size) {
-		_syncDLObject.setSize(size);
-	}
-
-	/**
 	* Returns the type of this sync d l object.
 	*
 	* @return the type of this sync d l object
@@ -535,26 +691,6 @@ public class SyncDLObjectWrapper implements SyncDLObject,
 	@Override
 	public void setTypeUuid(java.lang.String typeUuid) {
 		_syncDLObject.setTypeUuid(typeUuid);
-	}
-
-	/**
-	* Returns the version of this sync d l object.
-	*
-	* @return the version of this sync d l object
-	*/
-	@Override
-	public java.lang.String getVersion() {
-		return _syncDLObject.getVersion();
-	}
-
-	/**
-	* Sets the version of this sync d l object.
-	*
-	* @param version the version of this sync d l object
-	*/
-	@Override
-	public void setVersion(java.lang.String version) {
-		_syncDLObject.setVersion(version);
 	}
 
 	@Override
