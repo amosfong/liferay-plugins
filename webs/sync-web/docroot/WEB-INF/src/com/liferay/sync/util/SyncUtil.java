@@ -240,9 +240,11 @@ public class SyncUtil {
 
 		syncDLObject.setChangeLog(fileVersion.getChangeLog());
 		syncDLObject.setExtraSettings(fileVersion.getExtraSettings());
+
 		syncDLObject.setVersion(fileEntry.getVersion());
 		syncDLObject.setSize(fileEntry.getSize());
 		syncDLObject.setChecksum(getChecksum(fileVersion));
+		syncDLObject.setEvent(event);
 
 		Lock lock = fileEntry.getLock();
 
@@ -257,7 +259,6 @@ public class SyncUtil {
 			syncDLObject.setLockUserName(StringPool.BLANK);
 		}
 
-		syncDLObject.setEvent(event);
 		syncDLObject.setType(DLSyncConstants.TYPE_FILE);
 		syncDLObject.setTypePK(fileEntry.getFileEntryId());
 		syncDLObject.setTypeUuid(fileEntry.getUuid());
