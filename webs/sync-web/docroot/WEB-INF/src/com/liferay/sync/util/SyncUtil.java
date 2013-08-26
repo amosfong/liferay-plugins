@@ -17,18 +17,16 @@ package com.liferay.sync.util;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.repository.model.FileVersion;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.StreamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.Lock;
-import com.liferay.portlet.documentlibrary.model.DLFileEntry;
-import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
 import com.liferay.portlet.documentlibrary.model.DLSyncConstants;
 import com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil;
 import com.liferay.portlet.documentlibrary.service.DLFileEntryLocalServiceUtil;
-import com.liferay.portlet.documentlibrary.store.DLStoreUtil;
 import com.liferay.sync.io.delta.ByteChannelReader;
 import com.liferay.sync.io.delta.ByteChannelWriter;
 import com.liferay.sync.io.delta.DeltaUtil;
@@ -67,22 +65,10 @@ public class SyncUtil {
 		}
 	}
 
-	public static String getChecksum(FileEntry fileEntry)
+	public static String getChecksum(FileVersion fileVersion)
 		throws PortalException, SystemException {
 
-		DLFileEntry dlFileEntry = (DLFileEntry)fileEntry.getModel();
-
-		long folderId = dlFileEntry.getFolderId();
-
-		if (folderId == DLFolderConstants.DEFAULT_PARENT_FOLDER_ID) {
-			folderId = dlFileEntry.getRepositoryId();
-		}
-
-		InputStream inputStream = DLStoreUtil.getFileAsStream(
-			dlFileEntry.getCompanyId(), folderId, dlFileEntry.getName(),
-			dlFileEntry.getVersion());
-
-		return getChecksum(inputStream);
+		return getChecksum(fileVersion.getContentStream(false));
 	}
 
 	public static String getChecksum(InputStream inputStream) {
@@ -246,26 +232,35 @@ public class SyncUtil {
 		syncDLObject.setRepositoryId(fileEntry.getRepositoryId());
 		syncDLObject.setParentFolderId(fileEntry.getFolderId());
 		syncDLObject.setName(fileEntry.getTitle());
+		syncDLObject.setExtension(fileEntry.getExtension());
+		syncDLObject.setMimeType(fileEntry.getMimeType());
 		syncDLObject.setDescription(fileEntry.getDescription());
-		syncDLObject.setChecksum(getChecksum(fileEntry));
-		syncDLObject.setEvent(event);
+
+		FileVersion fileVersion = fileEntry.getLatestFileVersion();
+
+		syncDLObject.setChangeLog(fileVersion.getChangeLog());
+		syncDLObject.setExtraSettings(fileVersion.getExtraSettings());
+		syncDLObject.setVersion(fileEntry.getVersion());
+		syncDLObject.setSize(fileEntry.getSize());
+		syncDLObject.setChecksum(getChecksum(fileVersion));
 
 		Lock lock = fileEntry.getLock();
 
 		if (lock != null) {
+			syncDLObject.setLockExpirationDate(lock.getExpirationDate());
 			syncDLObject.setLockUserId(lock.getUserId());
 			syncDLObject.setLockUserName(lock.getUserName());
 		}
 		else {
+			syncDLObject.setLockExpirationDate(null);
 			syncDLObject.setLockUserId(0);
 			syncDLObject.setLockUserName(StringPool.BLANK);
 		}
 
-		syncDLObject.setSize(fileEntry.getSize());
+		syncDLObject.setEvent(event);
 		syncDLObject.setType(DLSyncConstants.TYPE_FILE);
 		syncDLObject.setTypePK(fileEntry.getFileEntryId());
 		syncDLObject.setTypeUuid(fileEntry.getUuid());
-		syncDLObject.setVersion(fileEntry.getVersion());
 
 		return syncDLObject;
 	}
@@ -279,16 +274,21 @@ public class SyncUtil {
 		syncDLObject.setRepositoryId(folder.getRepositoryId());
 		syncDLObject.setParentFolderId(folder.getParentFolderId());
 		syncDLObject.setName(folder.getName());
+		syncDLObject.setExtension(StringPool.BLANK);
+		syncDLObject.setMimeType(StringPool.BLANK);
 		syncDLObject.setDescription(folder.getDescription());
+		syncDLObject.setChangeLog(StringPool.BLANK);
+		syncDLObject.setExtraSettings(StringPool.BLANK);
+		syncDLObject.setVersion(StringPool.BLANK);
+		syncDLObject.setSize(-1);
 		syncDLObject.setChecksum(StringPool.BLANK);
 		syncDLObject.setEvent(event);
+		syncDLObject.setLockExpirationDate(null);
 		syncDLObject.setLockUserId(0);
 		syncDLObject.setLockUserName(StringPool.BLANK);
-		syncDLObject.setSize(-1);
 		syncDLObject.setType(DLSyncConstants.TYPE_FOLDER);
 		syncDLObject.setTypePK(folder.getFolderId());
 		syncDLObject.setTypeUuid(folder.getUuid());
-		syncDLObject.setVersion(StringPool.BLANK);
 
 		return syncDLObject;
 	}

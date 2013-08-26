@@ -20,16 +20,21 @@
 		<column name="repositoryId" type="long" />
 		<column name="parentFolderId" type="long" />
 		<column name="name" type="String" />
+		<column name="extension" type="String" />
+		<column name="mimeType" type="String" />
 		<column name="description" type="String" />
+		<column name="changeLog" type="String" />
+		<column name="extraSettings" type="String" />
+		<column name="version" type="String" />
+		<column name="size" type="long" />
 		<column name="checksum" type="String" />
 		<column name="event" type="String" />
+		<column name="lockExpirationDate" type="Date" />
 		<column name="lockUserId" type="long" />
 		<column name="lockUserName" type="String" />
-		<column name="size" type="long" />
 		<column name="type" type="String" />
 		<column name="typePK" type="long" />
 		<column name="typeUuid" type="String" />
-		<column name="version" type="String" />
 
 		<!-- Order -->
 

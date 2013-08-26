@@ -17,17 +17,18 @@ package com.liferay.sync.messaging;
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.repository.model.FileEntry;
+import com.liferay.portal.kernel.repository.model.FileVersion;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.Lock;
 import com.liferay.portlet.documentlibrary.NoSuchFileEntryException;
 import com.liferay.portlet.documentlibrary.NoSuchFolderException;
-import com.liferay.portlet.documentlibrary.model.DLFileVersion;
 import com.liferay.portlet.documentlibrary.model.DLSyncConstants;
 import com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil;
-import com.liferay.portlet.documentlibrary.service.DLFileVersionLocalServiceUtil;
 import com.liferay.sync.service.SyncDLObjectLocalServiceUtil;
 import com.liferay.sync.util.SyncUtil;
+
+import java.util.Date;
 
 /**
  * @author Dennis Ju
@@ -41,8 +42,9 @@ public class SyncMessageListener extends BaseMessageListener {
 		if (event.equals(DLSyncConstants.EVENT_DELETE)) {
 			SyncDLObjectLocalServiceUtil.addSyncDLObject(
 				0, modifiedTime, 0, 0, StringPool.BLANK, StringPool.BLANK,
-				StringPool.BLANK, event, 0, StringPool.BLANK, 0, type, typePK,
-				StringPool.BLANK, StringPool.BLANK);
+				StringPool.BLANK, StringPool.BLANK, StringPool.BLANK,
+				StringPool.BLANK, StringPool.BLANK, 0, StringPool.BLANK, event,
+				null, 0, StringPool.BLANK, type, typePK, StringPool.BLANK);
 		}
 		else if (type.equals(DLSyncConstants.TYPE_FILE)) {
 			FileEntry fileEntry = null;
@@ -54,44 +56,30 @@ public class SyncMessageListener extends BaseMessageListener {
 				return;
 			}
 
+			Date lockExpirationDate = null;
 			long lockUserId = 0;
 			String lockUserName = StringPool.BLANK;
 
 			Lock lock = fileEntry.getLock();
 
 			if (lock != null) {
+				lockExpirationDate = lock.getExpirationDate();
 				lockUserId = lock.getUserId();
 				lockUserName = lock.getUserName();
 			}
 
-			if (fileEntry.isCheckedOut()) {
-				DLFileVersion dlFileVersion =
-					DLFileVersionLocalServiceUtil.getLatestFileVersion(
-						fileEntry.getFileEntryId(), false);
+			FileVersion fileVersion = fileEntry.getLatestFileVersion();
 
-				String checksum = SyncUtil.getChecksum(
-					dlFileVersion.getContentStream(false));
-
-				SyncDLObjectLocalServiceUtil.addSyncDLObject(
-					dlFileVersion.getCompanyId(), modifiedTime,
-					dlFileVersion.getRepositoryId(),
-					dlFileVersion.getFolderId(), dlFileVersion.getTitle(),
-					dlFileVersion.getDescription(), checksum, event, lockUserId,
-					lockUserName, dlFileVersion.getSize(), type,
-					fileEntry.getFileEntryId(), fileEntry.getUuid(),
-					dlFileVersion.getVersion());
-			}
-			else {
-				String checksum = SyncUtil.getChecksum(fileEntry);
-
-				SyncDLObjectLocalServiceUtil.addSyncDLObject(
-					fileEntry.getCompanyId(), modifiedTime,
-					fileEntry.getRepositoryId(), fileEntry.getFolderId(),
-					fileEntry.getTitle(), fileEntry.getDescription(), checksum,
-					event, lockUserId, lockUserName, fileEntry.getSize(), type,
-					fileEntry.getFileEntryId(), fileEntry.getUuid(),
-					fileEntry.getVersion());
-			}
+			SyncDLObjectLocalServiceUtil.addSyncDLObject(
+				fileVersion.getCompanyId(), modifiedTime,
+				fileVersion.getRepositoryId(), fileEntry.getFolderId(),
+				fileVersion.getTitle(), fileVersion.getExtension(),
+				fileVersion.getMimeType(), fileVersion.getDescription(),
+				fileVersion.getChangeLog(), fileVersion.getExtraSettings(),
+				fileVersion.getVersion(), fileVersion.getSize(),
+				SyncUtil.getChecksum(fileVersion), event, lockExpirationDate,
+				lockUserId, lockUserName, type, fileEntry.getFileEntryId(),
+				fileEntry.getUuid());
 		}
 		else {
 			Folder folder = null;
@@ -104,11 +92,11 @@ public class SyncMessageListener extends BaseMessageListener {
 			}
 
 			SyncDLObjectLocalServiceUtil.addSyncDLObject(
-				folder.getCompanyId(), modifiedTime, folder.getFolderId(),
-				folder.getParentFolderId(), folder.getName(),
-				folder.getDescription(), StringPool.BLANK, event, 0,
-				StringPool.BLANK, 0, type, folder.getRepositoryId(),
-				folder.getUuid(), "-1");
+				folder.getCompanyId(), modifiedTime, folder.getRepositoryId(),
+				folder.getParentFolderId(), folder.getName(), StringPool.BLANK,
+				StringPool.BLANK, folder.getDescription(), StringPool.BLANK,
+				StringPool.BLANK, "-1", 0, StringPool.BLANK, event, null, 0,
+				StringPool.BLANK, type, folder.getFolderId(), folder.getUuid());
 		}
 	}
 

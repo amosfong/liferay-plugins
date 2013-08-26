@@ -25,6 +25,7 @@ import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
 import com.liferay.sync.model.SyncDLObject;
 import com.liferay.sync.service.base.SyncDLObjectLocalServiceBaseImpl;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,10 +38,11 @@ public class SyncDLObjectLocalServiceImpl
 	@Override
 	public SyncDLObject addSyncDLObject(
 			long companyId, long modifiedTime, long repositoryId,
-			long parentFolderId, String name, String description,
-			String checksum, String event, long lockUserId, String lockUserName,
-			long size, String type, long typePK, String typeUuid,
-			String version)
+			long parentFolderId, String name, String extension, String mimeType,
+			String description, String changeLog, String extraSettings,
+			String version, long size, String checksum, String event,
+			Date lockExpirationDate, long lockUserId, String lockUserName,
+			String type, long typePK, String typeUuid)
 		throws PortalException, SystemException {
 
 		if (!isDefaultRepository(parentFolderId)) {
@@ -69,13 +71,18 @@ public class SyncDLObjectLocalServiceImpl
 		syncDLObject.setModifiedTime(modifiedTime);
 		syncDLObject.setParentFolderId(parentFolderId);
 		syncDLObject.setName(name);
+		syncDLObject.setExtension(extension);
+		syncDLObject.setMimeType(mimeType);
 		syncDLObject.setDescription(description);
+		syncDLObject.setChangeLog(changeLog);
+		syncDLObject.setExtraSettings(extraSettings);
+		syncDLObject.setVersion(version);
+		syncDLObject.setSize(size);
 		syncDLObject.setChecksum(checksum);
 		syncDLObject.setEvent(event);
+		syncDLObject.setLockExpirationDate(lockExpirationDate);
 		syncDLObject.setLockUserId(lockUserId);
 		syncDLObject.setLockUserName(lockUserName);
-		syncDLObject.setSize(size);
-		syncDLObject.setVersion(version);
 
 		return syncDLObjectPersistence.update(syncDLObject);
 	}

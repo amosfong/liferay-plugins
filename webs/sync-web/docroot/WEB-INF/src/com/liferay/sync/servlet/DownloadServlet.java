@@ -101,9 +101,7 @@ public class DownloadServlet extends HttpServlet {
 		String version = ParamUtil.getString(request, "version");
 
 		if (Validator.isNull(version)) {
-			if (Validator.isNotNull(fileEntry.getVersion())) {
-				version = fileEntry.getVersion();
-			}
+			version = fileEntry.getVersion();
 		}
 
 		FileVersion fileVersion = fileEntry.getFileVersion(version);
