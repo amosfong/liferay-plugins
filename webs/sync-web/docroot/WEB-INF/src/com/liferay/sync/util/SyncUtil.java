@@ -17,16 +17,17 @@ package com.liferay.sync.util;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.repository.model.FileEntry;
-import com.liferay.portal.kernel.repository.model.FileVersion;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.StreamUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.Lock;
+import com.liferay.portlet.documentlibrary.model.DLFileVersion;
 import com.liferay.portlet.documentlibrary.model.DLSyncConstants;
 import com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil;
 import com.liferay.portlet.documentlibrary.service.DLFileEntryLocalServiceUtil;
+import com.liferay.portlet.documentlibrary.service.DLFileVersionLocalServiceUtil;
 import com.liferay.sync.io.delta.ByteChannelReader;
 import com.liferay.sync.io.delta.ByteChannelWriter;
 import com.liferay.sync.io.delta.DeltaUtil;
@@ -49,6 +50,12 @@ import java.nio.channels.WritableByteChannel;
  */
 public class SyncUtil {
 
+	public static String getChecksum(DLFileVersion dlFileVersion)
+		throws PortalException, SystemException {
+
+		return getChecksum(dlFileVersion.getContentStream(false));
+	}
+
 	public static String getChecksum(File file) throws PortalException {
 		FileInputStream fileInputStream = null;
 
@@ -63,12 +70,6 @@ public class SyncUtil {
 		finally {
 			StreamUtil.cleanUp(fileInputStream);
 		}
-	}
-
-	public static String getChecksum(FileVersion fileVersion)
-		throws PortalException, SystemException {
-
-		return getChecksum(fileVersion.getContentStream(false));
 	}
 
 	public static String getChecksum(InputStream inputStream) {
@@ -236,14 +237,16 @@ public class SyncUtil {
 		syncDLObject.setMimeType(fileEntry.getMimeType());
 		syncDLObject.setDescription(fileEntry.getDescription());
 
-		FileVersion fileVersion = fileEntry.getLatestFileVersion();
+		DLFileVersion dlFileVersion =
+			DLFileVersionLocalServiceUtil.getLatestFileVersion(
+				fileEntry.getFileEntryId(), false);
 
-		syncDLObject.setChangeLog(fileVersion.getChangeLog());
-		syncDLObject.setExtraSettings(fileVersion.getExtraSettings());
+		syncDLObject.setChangeLog(dlFileVersion.getChangeLog());
+		syncDLObject.setExtraSettings(dlFileVersion.getExtraSettings());
 
 		syncDLObject.setVersion(fileEntry.getVersion());
 		syncDLObject.setSize(fileEntry.getSize());
-		syncDLObject.setChecksum(getChecksum(fileVersion));
+		syncDLObject.setChecksum(getChecksum(dlFileVersion));
 		syncDLObject.setEvent(event);
 
 		Lock lock = fileEntry.getLock();

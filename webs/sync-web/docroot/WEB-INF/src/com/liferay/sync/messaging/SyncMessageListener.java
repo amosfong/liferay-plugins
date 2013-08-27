@@ -17,14 +17,15 @@ package com.liferay.sync.messaging;
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.repository.model.FileEntry;
-import com.liferay.portal.kernel.repository.model.FileVersion;
 import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.Lock;
 import com.liferay.portlet.documentlibrary.NoSuchFileEntryException;
 import com.liferay.portlet.documentlibrary.NoSuchFolderException;
+import com.liferay.portlet.documentlibrary.model.DLFileVersion;
 import com.liferay.portlet.documentlibrary.model.DLSyncConstants;
 import com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil;
+import com.liferay.portlet.documentlibrary.service.DLFileVersionLocalServiceUtil;
 import com.liferay.sync.service.SyncDLObjectLocalServiceUtil;
 import com.liferay.sync.util.SyncUtil;
 
@@ -68,16 +69,18 @@ public class SyncMessageListener extends BaseMessageListener {
 				lockUserName = lock.getUserName();
 			}
 
-			FileVersion fileVersion = fileEntry.getLatestFileVersion();
+			DLFileVersion dlFileVersion =
+				DLFileVersionLocalServiceUtil.getLatestFileVersion(
+					fileEntry.getFileEntryId(), false);
 
 			SyncDLObjectLocalServiceUtil.addSyncDLObject(
-				fileVersion.getCompanyId(), modifiedTime,
-				fileVersion.getRepositoryId(), fileEntry.getFolderId(),
-				fileVersion.getTitle(), fileVersion.getExtension(),
-				fileVersion.getMimeType(), fileVersion.getDescription(),
-				fileVersion.getChangeLog(), fileVersion.getExtraSettings(),
-				fileVersion.getVersion(), fileVersion.getSize(),
-				SyncUtil.getChecksum(fileVersion), event, lockExpirationDate,
+				dlFileVersion.getCompanyId(), modifiedTime,
+				dlFileVersion.getRepositoryId(), fileEntry.getFolderId(),
+				dlFileVersion.getTitle(), dlFileVersion.getExtension(),
+				dlFileVersion.getMimeType(), dlFileVersion.getDescription(),
+				dlFileVersion.getChangeLog(), dlFileVersion.getExtraSettings(),
+				dlFileVersion.getVersion(), dlFileVersion.getSize(),
+				SyncUtil.getChecksum(dlFileVersion), event, lockExpirationDate,
 				lockUserId, lockUserName, type, fileEntry.getFileEntryId(),
 				fileEntry.getUuid());
 		}
