@@ -92,30 +92,35 @@ String tabs1 = ParamUtil.getString(request, "tabs1");
 				content.show();
 			}
 
-			var dialog = new A.Dialog(
+			var dialog = Liferay.Util.Window.getWindow(
 				{
-					bodyContent: form,
-					buttons: [
-						{
-							handler: function() {
-								submitForm(form, url, false);
-							},
-							label: Liferay.Language.get('ok')
-						},
-						{
-							handler: function() {
-								this.close();
-							},
-							label: Liferay.Language.get('cancel')
+					dialog: {
+						bodyContent: form,
+						toolbars: {
+							footer: [
+								{
+									label: '<%= UnicodeLanguageUtil.get(pageContext, "ok") %>',
+									on: {
+										click: function() {
+											submitForm(form);
+										}
+									}
+								},
+								{
+									label: '<%= UnicodeLanguageUtil.get(pageContext, "cancel") %>',
+									on: {
+										click: function() {
+											dialog.hide();
+										}
+									}
+								}
+							]
 						}
-					],
-					centered: true,
-					modal: true,
-					title: '<liferay-ui:message key="export" />',
-					width: 400
+					},
+					title: '<%= UnicodeLanguageUtil.get(pageContext, "export") %>'
 				}
-			).render();
+			)
 		},
-		['aui-dialog']
+		['liferay-util-window']
 	);
 </aui:script>

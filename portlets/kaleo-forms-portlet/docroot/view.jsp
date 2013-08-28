@@ -41,7 +41,7 @@ portletURL.setParameter("tabs1", tabs1);
 		</c:choose>
 	</c:when>
 	<c:otherwise>
-		<div class="portlet-msg-info">
+		<div class="alert alert-info">
 			<liferay-ui:message key="no-workflow-engine-is-deployed" />
 		</div>
 	</c:otherwise>
