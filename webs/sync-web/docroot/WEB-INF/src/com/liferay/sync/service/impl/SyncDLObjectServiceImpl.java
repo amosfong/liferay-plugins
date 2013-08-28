@@ -264,6 +264,13 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 	}
 
 	@Override
+	public long getLatestModifiedTime()
+		throws PortalException, SystemException {
+
+		return syncDLObjectLocalService.getLatestModifiedTime();
+	}
+
+	@Override
 	public SyncContext getSyncContext(String uuid)
 		throws PortalException, SystemException {
 

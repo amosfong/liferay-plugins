@@ -95,7 +95,7 @@ public class SyncDLObjectLocalServiceImpl
 	@Override
 	public long getLatestModifiedTime() throws SystemException {
 		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
-			SyncDLObject.class);
+			SyncDLObject.class, SyncDLObject.class.getClassLoader());
 
 		Projection projection = ProjectionFactoryUtil.max("modifiedTime");
 
