@@ -164,6 +164,12 @@ public class SyncDLObjectServiceUtil {
 		return getService().getGroup(groupId);
 	}
 
+	public static long getLatestModifiedTime()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getLatestModifiedTime();
+	}
+
 	public static com.liferay.sync.model.SyncContext getSyncContext(
 		java.lang.String uuid)
 		throws com.liferay.portal.kernel.exception.PortalException,

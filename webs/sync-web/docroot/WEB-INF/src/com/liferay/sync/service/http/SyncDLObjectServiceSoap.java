@@ -234,6 +234,19 @@ public class SyncDLObjectServiceSoap {
 		}
 	}
 
+	public static long getLatestModifiedTime() throws RemoteException {
+		try {
+			long returnValue = SyncDLObjectServiceUtil.getLatestModifiedTime();
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.sync.model.SyncContext getSyncContext(
 		java.lang.String uuid) throws RemoteException {
 		try {
