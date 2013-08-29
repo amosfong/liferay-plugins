@@ -102,7 +102,7 @@ String tabs1 = ParamUtil.getString(request, "tabs1");
 									label: '<%= UnicodeLanguageUtil.get(pageContext, "ok") %>',
 									on: {
 										click: function() {
-											submitForm(form);
+											submitForm(form, url, false);
 										}
 									}
 								},
