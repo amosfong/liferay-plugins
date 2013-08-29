@@ -62,9 +62,10 @@ public class KaleoProcessWorkflowHandler extends BaseWorkflowHandler {
 			KaleoProcessLocalServiceUtil.getDDLRecordSetKaleoProcess(
 				ddlRecord.getRecordSetId());
 
-		return WorkflowDefinitionLinkLocalServiceUtil.getWorkflowDefinitionLink(
-			companyId, groupId, getClassName(),
-			kaleoProcess.getKaleoProcessId(), 0);
+		return WorkflowDefinitionLinkLocalServiceUtil.
+			fetchWorkflowDefinitionLink(
+				companyId, groupId, getClassName(),
+				kaleoProcess.getKaleoProcessId(), 0);
 	}
 
 	@Override
