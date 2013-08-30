@@ -76,7 +76,7 @@ PortletURL portletURL = renderResponse.createRenderURL();
 		<liferay-ui:search-container-column-text
 			href="<%= rowURL %>"
 			name="name"
-			value="<%= kaleoProcess.getName(locale) %>"
+			value="<%= HtmlUtil.escape(kaleoProcess.getName(locale)) %>"
 		/>
 
 		<liferay-ui:search-container-column-date
