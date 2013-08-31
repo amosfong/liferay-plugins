@@ -204,7 +204,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 				getPortletPath(portletDataContext) + "/kbarticles/" +
 					kbArticle.getResourcePrimKey() + ".xml";
 
-			if (!portletDataContext.isPathNotProcessed(path)) {
+			if (portletDataContext.hasPrimaryKey(String.class, path)) {
 				continue;
 			}
 
@@ -271,7 +271,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 				getPortletPath(portletDataContext) + "/kbcomments/" +
 					kbComment.getKbCommentId() + ".xml";
 
-			if (!portletDataContext.isPathNotProcessed(path)) {
+			if (portletDataContext.hasPrimaryKey(String.class, path)) {
 				continue;
 			}
 
@@ -308,7 +308,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 				getPortletPath(portletDataContext) + "/kbtemplates/" +
 					kbTemplate.getKbTemplateId() + ".xml";
 
-			if (!portletDataContext.isPathNotProcessed(path)) {
+			if (portletDataContext.hasPrimaryKey(String.class, path)) {
 				continue;
 			}
 
@@ -478,7 +478,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 		for (Element kbArticleElement : kbArticleElements) {
 			String path = kbArticleElement.attributeValue("path");
 
-			if (!portletDataContext.isPathNotProcessed(path)) {
+			if (portletDataContext.hasPrimaryKey(String.class, path)) {
 				continue;
 			}
 
@@ -599,7 +599,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 		for (Element kbCommentElement : kbCommentElements) {
 			String path = kbCommentElement.attributeValue("path");
 
-			if (!portletDataContext.isPathNotProcessed(path)) {
+			if (portletDataContext.hasPrimaryKey(String.class, path)) {
 				continue;
 			}
 
@@ -658,7 +658,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 		for (Element kbTemplateElement : rootElement.elements("kb-template")) {
 			String path = kbTemplateElement.attributeValue("path");
 
-			if (!portletDataContext.isPathNotProcessed(path)) {
+			if (portletDataContext.hasPrimaryKey(String.class, path)) {
 				continue;
 			}
 
