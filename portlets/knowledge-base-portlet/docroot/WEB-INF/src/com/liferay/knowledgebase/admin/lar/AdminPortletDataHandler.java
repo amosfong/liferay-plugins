@@ -46,7 +46,6 @@ import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.kernel.xml.Element;
-import com.liferay.portal.model.StagedModel;
 import com.liferay.portal.portletfilerepository.PortletFileRepositoryUtil;
 import com.liferay.portal.service.ServiceContext;
 
@@ -175,7 +174,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 			kbArticle.getAttachmentsFileEntries();
 
 		for (FileEntry fileEntry : attachmentsFileEntries) {
-			String path = getModelPath(
+			String path = ExportImportPathUtil.getModelPath(
 				kbArticle, "kbarticles/attachments/" + fileEntry.getTitle());
 
 			Element fileElement = kbArticleAttachmentsElement.addElement(
@@ -199,7 +198,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 				continue;
 			}
 
-			String path = getModelPath(kbArticle, null);
+			String path = ExportImportPathUtil.getModelPath(kbArticle);
 
 			if (portletDataContext.hasPrimaryKey(String.class, path)) {
 				continue;
@@ -225,10 +224,9 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 			Element curKBArticleElement = versionsElement.addElement(
 				"kb-article");
 
-			String fileName = kbArticle.getKbArticleId() + ".xml";
-
-			String path = getModelPath(
-				kbArticle, "kbarticles/versions/" + fileName);
+			String path = ExportImportPathUtil.getModelPath(
+				kbArticle,
+				"kbarticles/versions/" + kbArticle.getKbArticleId() + ".xml");
 
 			curKBArticleElement.addAttribute("path", path);
 
@@ -261,7 +259,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 				continue;
 			}
 
-			String path = getModelPath(kbComment, null);
+			String path = ExportImportPathUtil.getModelPath(kbComment);
 
 			if (portletDataContext.hasPrimaryKey(String.class, path)) {
 				continue;
@@ -296,7 +294,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 				continue;
 			}
 
-			String path = getModelPath(kbTemplate, null);
+			String path = ExportImportPathUtil.getModelPath(kbTemplate);
 
 			if (portletDataContext.hasPrimaryKey(String.class, path)) {
 				continue;
@@ -343,13 +341,6 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 		}
 
 		return kbArticles;
-	}
-
-	protected String getModelPath(
-		StagedModel stagedModel, String dependentFileName) {
-
-		return ExportImportPathUtil.getModelPath(
-			stagedModel, dependentFileName);
 	}
 
 	protected void importKBArticle(
