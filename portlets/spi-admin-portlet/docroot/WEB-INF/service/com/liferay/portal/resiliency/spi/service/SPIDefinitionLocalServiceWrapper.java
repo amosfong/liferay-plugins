@@ -78,12 +78,14 @@ public class SPIDefinitionLocalServiceWrapper
 	*
 	* @param spiDefinition the s p i definition
 	* @return the s p i definition that was removed
+	* @throws PortalException
 	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.portal.resiliency.spi.model.SPIDefinition deleteSPIDefinition(
 		com.liferay.portal.resiliency.spi.model.SPIDefinition spiDefinition)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		return _spiDefinitionLocalService.deleteSPIDefinition(spiDefinition);
 	}
 
@@ -286,6 +288,46 @@ public class SPIDefinitionLocalServiceWrapper
 		throws java.lang.Throwable {
 		return _spiDefinitionLocalService.invokeMethod(name, parameterTypes,
 			arguments);
+	}
+
+	@Override
+	public com.liferay.portal.resiliency.spi.model.SPIDefinition addSPIDefinition(
+		long userId, java.lang.String name, java.lang.String description,
+		java.lang.String applications, java.lang.String jvmArguments,
+		java.lang.String typeSettings,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _spiDefinitionLocalService.addSPIDefinition(userId, name,
+			description, applications, jvmArguments, typeSettings,
+			serviceContext);
+	}
+
+	@Override
+	public com.liferay.portal.resiliency.spi.model.SPIDefinition getSPIDefinition(
+		long companyId, java.lang.String name)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _spiDefinitionLocalService.getSPIDefinition(companyId, name);
+	}
+
+	@Override
+	public java.util.Collection<com.liferay.portal.resiliency.spi.model.SPIDefinition> getSPIDefinitions()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _spiDefinitionLocalService.getSPIDefinitions();
+	}
+
+	@Override
+	public com.liferay.portal.resiliency.spi.model.SPIDefinition updateSPIDefinition(
+		long userId, long spiDefinitionId, java.lang.String description,
+		java.lang.String applications, java.lang.String jvmArguments,
+		java.lang.String typeSettings,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _spiDefinitionLocalService.updateSPIDefinition(userId,
+			spiDefinitionId, description, applications, jvmArguments,
+			typeSettings, serviceContext);
 	}
 
 	/**

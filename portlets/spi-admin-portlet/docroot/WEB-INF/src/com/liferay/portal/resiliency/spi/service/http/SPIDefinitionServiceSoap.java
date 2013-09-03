@@ -14,6 +14,12 @@
 
 package com.liferay.portal.resiliency.spi.service.http;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.resiliency.spi.service.SPIDefinitionServiceUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
  * {@link com.liferay.portal.resiliency.spi.service.SPIDefinitionServiceUtil} service utility. The
@@ -55,4 +61,103 @@ package com.liferay.portal.resiliency.spi.service.http;
  * @generated
  */
 public class SPIDefinitionServiceSoap {
+	public static com.liferay.portal.resiliency.spi.model.SPIDefinitionSoap addSPIDefinition(
+		java.lang.String name, java.lang.String description,
+		java.lang.String applications, java.lang.String jvmArguments,
+		java.lang.String typeSettings,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			com.liferay.portal.resiliency.spi.model.SPIDefinition returnValue = SPIDefinitionServiceUtil.addSPIDefinition(name,
+					description, applications, jvmArguments, typeSettings,
+					serviceContext);
+
+			return com.liferay.portal.resiliency.spi.model.SPIDefinitionSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.portal.resiliency.spi.model.SPIDefinitionSoap deleteSPIDefinition(
+		long spiDefinitionId) throws RemoteException {
+		try {
+			com.liferay.portal.resiliency.spi.model.SPIDefinition returnValue = SPIDefinitionServiceUtil.deleteSPIDefinition(spiDefinitionId);
+
+			return com.liferay.portal.resiliency.spi.model.SPIDefinitionSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.portal.resiliency.spi.model.SPIDefinitionSoap getSPIDefinition(
+		long spiDefinitionId) throws RemoteException {
+		try {
+			com.liferay.portal.resiliency.spi.model.SPIDefinition returnValue = SPIDefinitionServiceUtil.getSPIDefinition(spiDefinitionId);
+
+			return com.liferay.portal.resiliency.spi.model.SPIDefinitionSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.portal.resiliency.spi.model.SPIDefinitionSoap getSPIDefinition(
+		long companyId, java.lang.String name) throws RemoteException {
+		try {
+			com.liferay.portal.resiliency.spi.model.SPIDefinition returnValue = SPIDefinitionServiceUtil.getSPIDefinition(companyId,
+					name);
+
+			return com.liferay.portal.resiliency.spi.model.SPIDefinitionSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static java.util.Collection<com.liferay.portal.resiliency.spi.model.SPIDefinition> getSPIDefinitions()
+		throws RemoteException {
+		try {
+			java.util.Collection<com.liferay.portal.resiliency.spi.model.SPIDefinition> returnValue =
+				SPIDefinitionServiceUtil.getSPIDefinitions();
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.portal.resiliency.spi.model.SPIDefinitionSoap updateSPIDefinition(
+		long spiDefinitionId, java.lang.String description,
+		java.lang.String applications, java.lang.String jvmArguments,
+		java.lang.String typeSettings,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			com.liferay.portal.resiliency.spi.model.SPIDefinition returnValue = SPIDefinitionServiceUtil.updateSPIDefinition(spiDefinitionId,
+					description, applications, jvmArguments, typeSettings,
+					serviceContext);
+
+			return com.liferay.portal.resiliency.spi.model.SPIDefinitionSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(SPIDefinitionServiceSoap.class);
 }

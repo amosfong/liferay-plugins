@@ -113,6 +113,44 @@ public class SPIDefinitionLocalServiceClpInvoker {
 		_methodName39 = "setBeanIdentifier";
 
 		_methodParameterTypes39 = new String[] { "java.lang.String" };
+
+		_methodName44 = "addSPIDefinition";
+
+		_methodParameterTypes44 = new String[] {
+				"long", "java.lang.String", "java.lang.String",
+				"java.lang.String", "java.lang.String", "java.lang.String",
+				"com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName45 = "deleteSPIDefinition";
+
+		_methodParameterTypes45 = new String[] { "long" };
+
+		_methodName46 = "deleteSPIDefinition";
+
+		_methodParameterTypes46 = new String[] {
+				"com.liferay.portal.resiliency.spi.model.SPIDefinition"
+			};
+
+		_methodName47 = "getSPIDefinition";
+
+		_methodParameterTypes47 = new String[] { "long" };
+
+		_methodName48 = "getSPIDefinition";
+
+		_methodParameterTypes48 = new String[] { "long", "java.lang.String" };
+
+		_methodName49 = "getSPIDefinitions";
+
+		_methodParameterTypes49 = new String[] {  };
+
+		_methodName50 = "updateSPIDefinition";
+
+		_methodParameterTypes50 = new String[] {
+				"long", "long", "java.lang.String", "java.lang.String",
+				"java.lang.String", "java.lang.String",
+				"com.liferay.portal.service.ServiceContext"
+			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -216,6 +254,50 @@ public class SPIDefinitionLocalServiceClpInvoker {
 			return null;
 		}
 
+		if (_methodName44.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
+			return SPIDefinitionLocalServiceUtil.addSPIDefinition(((Long)arguments[0]).longValue(),
+				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
+				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
+				(java.lang.String)arguments[5],
+				(com.liferay.portal.service.ServiceContext)arguments[6]);
+		}
+
+		if (_methodName45.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
+			return SPIDefinitionLocalServiceUtil.deleteSPIDefinition(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName46.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
+			return SPIDefinitionLocalServiceUtil.deleteSPIDefinition((com.liferay.portal.resiliency.spi.model.SPIDefinition)arguments[0]);
+		}
+
+		if (_methodName47.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
+			return SPIDefinitionLocalServiceUtil.getSPIDefinition(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName48.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
+			return SPIDefinitionLocalServiceUtil.getSPIDefinition(((Long)arguments[0]).longValue(),
+				(java.lang.String)arguments[1]);
+		}
+
+		if (_methodName49.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes49, parameterTypes)) {
+			return SPIDefinitionLocalServiceUtil.getSPIDefinitions();
+		}
+
+		if (_methodName50.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
+			return SPIDefinitionLocalServiceUtil.updateSPIDefinition(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				(java.lang.String)arguments[2], (java.lang.String)arguments[3],
+				(java.lang.String)arguments[4], (java.lang.String)arguments[5],
+				(com.liferay.portal.service.ServiceContext)arguments[6]);
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -255,4 +337,18 @@ public class SPIDefinitionLocalServiceClpInvoker {
 	private String[] _methodParameterTypes38;
 	private String _methodName39;
 	private String[] _methodParameterTypes39;
+	private String _methodName44;
+	private String[] _methodParameterTypes44;
+	private String _methodName45;
+	private String[] _methodParameterTypes45;
+	private String _methodName46;
+	private String[] _methodParameterTypes46;
+	private String _methodName47;
+	private String[] _methodParameterTypes47;
+	private String _methodName48;
+	private String[] _methodParameterTypes48;
+	private String _methodName49;
+	private String[] _methodParameterTypes49;
+	private String _methodName50;
+	private String[] _methodParameterTypes50;
 }

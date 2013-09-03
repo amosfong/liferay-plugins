@@ -73,11 +73,11 @@ public class SPIDefinitionModelImpl extends BaseModelImpl<SPIDefinition>
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "name", Types.VARCHAR },
 			{ "description", Types.VARCHAR },
-			{ "applications", Types.VARCHAR },
-			{ "jvmArguments", Types.VARCHAR },
-			{ "typeSettings", Types.VARCHAR }
+			{ "applications", Types.CLOB },
+			{ "jvmArguments", Types.CLOB },
+			{ "typeSettings", Types.CLOB }
 		};
-	public static final String TABLE_SQL_CREATE = "create table SPIDefinition (spiDefinitionId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,description VARCHAR(75) null,applications VARCHAR(75) null,jvmArguments VARCHAR(75) null,typeSettings VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table SPIDefinition (spiDefinitionId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(200) null,description VARCHAR(500) null,applications TEXT null,jvmArguments TEXT null,typeSettings TEXT null)";
 	public static final String TABLE_SQL_DROP = "drop table SPIDefinition";
 	public static final String ORDER_BY_JPQL = " ORDER BY spiDefinition.spiDefinitionId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY SPIDefinition.spiDefinitionId ASC";

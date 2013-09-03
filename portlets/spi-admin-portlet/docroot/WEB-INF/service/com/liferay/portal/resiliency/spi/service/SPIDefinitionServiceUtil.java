@@ -63,6 +63,57 @@ public class SPIDefinitionServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static com.liferay.portal.resiliency.spi.model.SPIDefinition addSPIDefinition(
+		java.lang.String name, java.lang.String description,
+		java.lang.String applications, java.lang.String jvmArguments,
+		java.lang.String typeSettings,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addSPIDefinition(name, description, applications,
+			jvmArguments, typeSettings, serviceContext);
+	}
+
+	public static com.liferay.portal.resiliency.spi.model.SPIDefinition deleteSPIDefinition(
+		long spiDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().deleteSPIDefinition(spiDefinitionId);
+	}
+
+	public static com.liferay.portal.resiliency.spi.model.SPIDefinition getSPIDefinition(
+		long spiDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getSPIDefinition(spiDefinitionId);
+	}
+
+	public static com.liferay.portal.resiliency.spi.model.SPIDefinition getSPIDefinition(
+		long companyId, java.lang.String name)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getSPIDefinition(companyId, name);
+	}
+
+	public static java.util.Collection<com.liferay.portal.resiliency.spi.model.SPIDefinition> getSPIDefinitions()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getSPIDefinitions();
+	}
+
+	public static com.liferay.portal.resiliency.spi.model.SPIDefinition updateSPIDefinition(
+		long spiDefinitionId, java.lang.String description,
+		java.lang.String applications, java.lang.String jvmArguments,
+		java.lang.String typeSettings,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateSPIDefinition(spiDefinitionId, description,
+			applications, jvmArguments, typeSettings, serviceContext);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

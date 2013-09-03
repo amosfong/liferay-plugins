@@ -110,12 +110,13 @@ public abstract class SPIDefinitionLocalServiceBaseImpl
 	 *
 	 * @param spiDefinition the s p i definition
 	 * @return the s p i definition that was removed
+	 * @throws PortalException
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public SPIDefinition deleteSPIDefinition(SPIDefinition spiDefinition)
-		throws SystemException {
+		throws PortalException, SystemException {
 		return spiDefinitionPersistence.remove(spiDefinition);
 	}
 
