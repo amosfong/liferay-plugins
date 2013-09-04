@@ -14,7 +14,11 @@
  */
 --%>
 
-<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
+<%@ include file="/loader/init.jsp" %>
+
+<%
+String baseRenderURL = PortletURLFactoryUtil.create(request, "2_WAR_kaleodesignerportlet", themeDisplay.getPlid(), PortletRequest.RENDER_PHASE).toString();
+%>
 
 <aui:script>
 	Liferay.provide(
@@ -23,7 +27,7 @@
 		function(config) {
 			var A = AUI();
 
-			var kaleoURL = Liferay.PortletURL.createRenderURL();
+			var kaleoURL = Liferay.PortletURL.createURL('<%= baseRenderURL %>');
 
 			kaleoURL.setParameter('availableFields', config.availableFields);
 			kaleoURL.setParameter('availablePropertyModels', config.availablePropertyModels);
@@ -39,7 +43,6 @@
 			kaleoURL.setParameter('uiScope', config.uiScope);
 			kaleoURL.setParameter('version', config.version);
 
-			kaleoURL.setPortletId('2_WAR_kaleodesignerportlet');
 			kaleoURL.setWindowState('pop_up');
 
 			config.uri = kaleoURL.toString();
