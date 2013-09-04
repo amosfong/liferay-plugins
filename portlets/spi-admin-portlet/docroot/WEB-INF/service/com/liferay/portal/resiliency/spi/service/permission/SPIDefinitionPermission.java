@@ -32,7 +32,7 @@ public interface SPIDefinitionPermission {
 	public void check(
 			PermissionChecker permissionChecker, SPIDefinition spiDefinition,
 			String actionId)
-		throws PortalException, SystemException;
+		throws PortalException;
 
 	public void check(PermissionChecker permissionChecker, String actionId)
 		throws PortalException;
@@ -43,9 +43,8 @@ public interface SPIDefinitionPermission {
 		throws PortalException, SystemException;
 
 	public boolean contains(
-			PermissionChecker permissionChecker, SPIDefinition spiDefinition,
-			String actionId)
-		throws PortalException, SystemException;
+		PermissionChecker permissionChecker, SPIDefinition spiDefinition,
+		String actionId);
 
 	public boolean contains(
 		PermissionChecker permissionChecker, String actionId);

@@ -44,7 +44,7 @@ public class SPIDefinitionPermissionImpl implements SPIDefinitionPermission {
 	public void check(
 			PermissionChecker permissionChecker, SPIDefinition spiDefinition,
 			String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		if (!contains(permissionChecker, spiDefinition, actionId)) {
 			throw new PrincipalException();
@@ -74,9 +74,8 @@ public class SPIDefinitionPermissionImpl implements SPIDefinitionPermission {
 
 	@Override
 	public boolean contains(
-			PermissionChecker permissionChecker, SPIDefinition spiDefinition,
-			String actionId)
-		throws PortalException, SystemException {
+		PermissionChecker permissionChecker, SPIDefinition spiDefinition,
+		String actionId) {
 
 		return permissionChecker.hasPermission(
 			0, SPIDefinition.class.getName(),
