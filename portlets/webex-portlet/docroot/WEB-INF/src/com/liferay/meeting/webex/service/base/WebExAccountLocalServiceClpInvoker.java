@@ -19,7 +19,8 @@ import com.liferay.meeting.webex.service.WebExAccountLocalServiceUtil;
 import java.util.Arrays;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Anant Singh
+ * @generated
  */
 public class WebExAccountLocalServiceClpInvoker {
 	public WebExAccountLocalServiceClpInvoker() {
@@ -72,93 +73,106 @@ public class WebExAccountLocalServiceClpInvoker {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
 			};
 
-		_methodName9 = "fetchWebExAccount";
+		_methodName9 = "dynamicQueryCount";
 
-		_methodParameterTypes9 = new String[] { "long" };
+		_methodParameterTypes9 = new String[] {
+				"com.liferay.portal.kernel.dao.orm.DynamicQuery",
+				"com.liferay.portal.kernel.dao.orm.Projection"
+			};
 
-		_methodName10 = "getWebExAccount";
+		_methodName10 = "fetchWebExAccount";
 
 		_methodParameterTypes10 = new String[] { "long" };
 
-		_methodName11 = "getPersistedModel";
+		_methodName11 = "fetchWebExAccountByUuidAndCompanyId";
 
-		_methodParameterTypes11 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes11 = new String[] { "java.lang.String", "long" };
 
-		_methodName12 = "getWebExAccountByUuidAndGroupId";
+		_methodName12 = "fetchWebExAccountByUuidAndGroupId";
 
 		_methodParameterTypes12 = new String[] { "java.lang.String", "long" };
 
-		_methodName13 = "getWebExAccounts";
+		_methodName13 = "getWebExAccount";
 
-		_methodParameterTypes13 = new String[] { "int", "int" };
+		_methodParameterTypes13 = new String[] { "long" };
 
-		_methodName14 = "getWebExAccountsCount";
+		_methodName14 = "getPersistedModel";
 
-		_methodParameterTypes14 = new String[] {  };
+		_methodParameterTypes14 = new String[] { "java.io.Serializable" };
 
-		_methodName15 = "updateWebExAccount";
+		_methodName15 = "getWebExAccountByUuidAndCompanyId";
 
-		_methodParameterTypes15 = new String[] {
+		_methodParameterTypes15 = new String[] { "java.lang.String", "long" };
+
+		_methodName16 = "getWebExAccountByUuidAndGroupId";
+
+		_methodParameterTypes16 = new String[] { "java.lang.String", "long" };
+
+		_methodName17 = "getWebExAccounts";
+
+		_methodParameterTypes17 = new String[] { "int", "int" };
+
+		_methodName18 = "getWebExAccountsCount";
+
+		_methodParameterTypes18 = new String[] {  };
+
+		_methodName19 = "updateWebExAccount";
+
+		_methodParameterTypes19 = new String[] {
 				"com.liferay.meeting.webex.model.WebExAccount"
 			};
 
-		_methodName16 = "updateWebExAccount";
+		_methodName50 = "getBeanIdentifier";
 
-		_methodParameterTypes16 = new String[] {
-				"com.liferay.meeting.webex.model.WebExAccount", "boolean"
-			};
+		_methodParameterTypes50 = new String[] {  };
 
-		_methodName51 = "getBeanIdentifier";
+		_methodName51 = "setBeanIdentifier";
 
-		_methodParameterTypes51 = new String[] {  };
+		_methodParameterTypes51 = new String[] { "java.lang.String" };
 
-		_methodName52 = "setBeanIdentifier";
+		_methodName56 = "addWebExAccount";
 
-		_methodParameterTypes52 = new String[] { "java.lang.String" };
-
-		_methodName57 = "addWebExAccount";
-
-		_methodParameterTypes57 = new String[] {
+		_methodParameterTypes56 = new String[] {
 				"long", "long", "long", "java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
+		_methodName57 = "deleteWebExAccount";
+
+		_methodParameterTypes57 = new String[] { "long" };
+
 		_methodName58 = "deleteWebExAccount";
 
-		_methodParameterTypes58 = new String[] { "long" };
-
-		_methodName59 = "deleteWebExAccount";
-
-		_methodParameterTypes59 = new String[] {
+		_methodParameterTypes58 = new String[] {
 				"com.liferay.meeting.webex.model.WebExAccount"
 			};
 
-		_methodName60 = "deleteWebExSiteWebExAccounts";
+		_methodName59 = "deleteWebExSiteWebExAccounts";
+
+		_methodParameterTypes59 = new String[] { "long", "long" };
+
+		_methodName60 = "getWebExSiteWebExAccounts";
 
 		_methodParameterTypes60 = new String[] { "long", "long" };
 
 		_methodName61 = "getWebExSiteWebExAccounts";
 
-		_methodParameterTypes61 = new String[] { "long", "long" };
+		_methodParameterTypes61 = new String[] { "long", "long", "int", "int" };
 
 		_methodName62 = "getWebExSiteWebExAccounts";
 
-		_methodParameterTypes62 = new String[] { "long", "long", "int", "int" };
-
-		_methodName63 = "getWebExSiteWebExAccounts";
-
-		_methodParameterTypes63 = new String[] {
+		_methodParameterTypes62 = new String[] {
 				"long", "long", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName64 = "getWebExSiteWebExAccountsCount";
+		_methodName63 = "getWebExSiteWebExAccountsCount";
 
-		_methodParameterTypes64 = new String[] { "long", "long" };
+		_methodParameterTypes63 = new String[] { "long", "long" };
 
-		_methodName65 = "updateWebExAccount";
+		_methodName64 = "updateWebExAccount";
 
-		_methodParameterTypes65 = new String[] {
+		_methodParameterTypes64 = new String[] {
 				"long", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -218,61 +232,79 @@ public class WebExAccountLocalServiceClpInvoker {
 
 		if (_methodName9.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes9, parameterTypes)) {
-			return WebExAccountLocalServiceUtil.fetchWebExAccount(((Long)arguments[0]).longValue());
+			return WebExAccountLocalServiceUtil.dynamicQueryCount((com.liferay.portal.kernel.dao.orm.DynamicQuery)arguments[0],
+				(com.liferay.portal.kernel.dao.orm.Projection)arguments[1]);
 		}
 
 		if (_methodName10.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes10, parameterTypes)) {
-			return WebExAccountLocalServiceUtil.getWebExAccount(((Long)arguments[0]).longValue());
+			return WebExAccountLocalServiceUtil.fetchWebExAccount(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName11.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes11, parameterTypes)) {
-			return WebExAccountLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
+			return WebExAccountLocalServiceUtil.fetchWebExAccountByUuidAndCompanyId((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName12.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes12, parameterTypes)) {
-			return WebExAccountLocalServiceUtil.getWebExAccountByUuidAndGroupId((java.lang.String)arguments[0],
+			return WebExAccountLocalServiceUtil.fetchWebExAccountByUuidAndGroupId((java.lang.String)arguments[0],
 				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName13.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes13, parameterTypes)) {
-			return WebExAccountLocalServiceUtil.getWebExAccounts(((Integer)arguments[0]).intValue(),
-				((Integer)arguments[1]).intValue());
+			return WebExAccountLocalServiceUtil.getWebExAccount(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName14.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes14, parameterTypes)) {
-			return WebExAccountLocalServiceUtil.getWebExAccountsCount();
+			return WebExAccountLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
 		}
 
 		if (_methodName15.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes15, parameterTypes)) {
-			return WebExAccountLocalServiceUtil.updateWebExAccount((com.liferay.meeting.webex.model.WebExAccount)arguments[0]);
+			return WebExAccountLocalServiceUtil.getWebExAccountByUuidAndCompanyId((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName16.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes16, parameterTypes)) {
-			return WebExAccountLocalServiceUtil.updateWebExAccount((com.liferay.meeting.webex.model.WebExAccount)arguments[0],
-				((Boolean)arguments[1]).booleanValue());
+			return WebExAccountLocalServiceUtil.getWebExAccountByUuidAndGroupId((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
+		}
+
+		if (_methodName17.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes17, parameterTypes)) {
+			return WebExAccountLocalServiceUtil.getWebExAccounts(((Integer)arguments[0]).intValue(),
+				((Integer)arguments[1]).intValue());
+		}
+
+		if (_methodName18.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes18, parameterTypes)) {
+			return WebExAccountLocalServiceUtil.getWebExAccountsCount();
+		}
+
+		if (_methodName19.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes19, parameterTypes)) {
+			return WebExAccountLocalServiceUtil.updateWebExAccount((com.liferay.meeting.webex.model.WebExAccount)arguments[0]);
+		}
+
+		if (_methodName50.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
+			return WebExAccountLocalServiceUtil.getBeanIdentifier();
 		}
 
 		if (_methodName51.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
-			return WebExAccountLocalServiceUtil.getBeanIdentifier();
-		}
-
-		if (_methodName52.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
 			WebExAccountLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName57.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+		if (_methodName56.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
 			WebExAccountLocalServiceUtil.addWebExAccount(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				((Long)arguments[2]).longValue(),
@@ -282,28 +314,36 @@ public class WebExAccountLocalServiceClpInvoker {
 			return null;
 		}
 
+		if (_methodName57.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+			return WebExAccountLocalServiceUtil.deleteWebExAccount(((Long)arguments[0]).longValue());
+		}
+
 		if (_methodName58.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
-			return WebExAccountLocalServiceUtil.deleteWebExAccount(((Long)arguments[0]).longValue());
+			return WebExAccountLocalServiceUtil.deleteWebExAccount((com.liferay.meeting.webex.model.WebExAccount)arguments[0]);
 		}
 
 		if (_methodName59.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
-			return WebExAccountLocalServiceUtil.deleteWebExAccount((com.liferay.meeting.webex.model.WebExAccount)arguments[0]);
-		}
-
-		if (_methodName60.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
 			WebExAccountLocalServiceUtil.deleteWebExSiteWebExAccounts(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue());
 
 			return null;
 		}
 
+		if (_methodName60.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+			return WebExAccountLocalServiceUtil.getWebExSiteWebExAccounts(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue());
+		}
+
 		if (_methodName61.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
 			return WebExAccountLocalServiceUtil.getWebExSiteWebExAccounts(((Long)arguments[0]).longValue(),
-				((Long)arguments[1]).longValue());
+				((Long)arguments[1]).longValue(),
+				((Integer)arguments[2]).intValue(),
+				((Integer)arguments[3]).intValue());
 		}
 
 		if (_methodName62.equals(name) &&
@@ -311,26 +351,18 @@ public class WebExAccountLocalServiceClpInvoker {
 			return WebExAccountLocalServiceUtil.getWebExSiteWebExAccounts(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				((Integer)arguments[2]).intValue(),
-				((Integer)arguments[3]).intValue());
-		}
-
-		if (_methodName63.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
-			return WebExAccountLocalServiceUtil.getWebExSiteWebExAccounts(((Long)arguments[0]).longValue(),
-				((Long)arguments[1]).longValue(),
-				((Integer)arguments[2]).intValue(),
 				((Integer)arguments[3]).intValue(),
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[4]);
 		}
 
-		if (_methodName64.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+		if (_methodName63.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
 			return WebExAccountLocalServiceUtil.getWebExSiteWebExAccountsCount(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue());
 		}
 
-		if (_methodName65.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
+		if (_methodName64.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
 			WebExAccountLocalServiceUtil.updateWebExAccount(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1],
 				(com.liferay.portal.service.ServiceContext)arguments[2]);
@@ -375,10 +407,18 @@ public class WebExAccountLocalServiceClpInvoker {
 	private String[] _methodParameterTypes15;
 	private String _methodName16;
 	private String[] _methodParameterTypes16;
+	private String _methodName17;
+	private String[] _methodParameterTypes17;
+	private String _methodName18;
+	private String[] _methodParameterTypes18;
+	private String _methodName19;
+	private String[] _methodParameterTypes19;
+	private String _methodName50;
+	private String[] _methodParameterTypes50;
 	private String _methodName51;
 	private String[] _methodParameterTypes51;
-	private String _methodName52;
-	private String[] _methodParameterTypes52;
+	private String _methodName56;
+	private String[] _methodParameterTypes56;
 	private String _methodName57;
 	private String[] _methodParameterTypes57;
 	private String _methodName58;
@@ -395,6 +435,4 @@ public class WebExAccountLocalServiceClpInvoker {
 	private String[] _methodParameterTypes63;
 	private String _methodName64;
 	private String[] _methodParameterTypes64;
-	private String _methodName65;
-	private String[] _methodParameterTypes65;
 }

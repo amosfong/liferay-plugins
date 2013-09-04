@@ -23,8 +23,8 @@ import java.util.List;
 /**
  * This class is used by SOAP remote services, specifically {@link com.liferay.meeting.webex.service.http.WebExAccountServiceSoap}.
  *
- * @author    Anant Singh
- * @see       com.liferay.meeting.webex.service.http.WebExAccountServiceSoap
+ * @author Anant Singh
+ * @see com.liferay.meeting.webex.service.http.WebExAccountServiceSoap
  * @generated
  */
 public class WebExAccountSoap implements Serializable {

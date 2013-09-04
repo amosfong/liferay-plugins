@@ -14,6 +14,7 @@
 
 package com.liferay.meeting.webex.model;
 
+import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
@@ -26,8 +27,8 @@ import java.util.Map;
  * This class is a wrapper for {@link WebExAccount}.
  * </p>
  *
- * @author    Anant Singh
- * @see       WebExAccount
+ * @author Anant Singh
+ * @see WebExAccount
  * @generated
  */
 public class WebExAccountWrapper implements WebExAccount,
@@ -36,14 +37,17 @@ public class WebExAccountWrapper implements WebExAccount,
 		_webExAccount = webExAccount;
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return WebExAccount.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return WebExAccount.class.getName();
 	}
 
+	@Override
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
@@ -62,6 +66,7 @@ public class WebExAccountWrapper implements WebExAccount,
 		return attributes;
 	}
 
+	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		String uuid = (String)attributes.get("uuid");
 
@@ -135,6 +140,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @return the primary key of this web ex account
 	*/
+	@Override
 	public long getPrimaryKey() {
 		return _webExAccount.getPrimaryKey();
 	}
@@ -144,6 +150,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @param primaryKey the primary key of this web ex account
 	*/
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_webExAccount.setPrimaryKey(primaryKey);
 	}
@@ -153,6 +160,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @return the uuid of this web ex account
 	*/
+	@Override
 	public java.lang.String getUuid() {
 		return _webExAccount.getUuid();
 	}
@@ -162,6 +170,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @param uuid the uuid of this web ex account
 	*/
+	@Override
 	public void setUuid(java.lang.String uuid) {
 		_webExAccount.setUuid(uuid);
 	}
@@ -171,6 +180,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @return the web ex account ID of this web ex account
 	*/
+	@Override
 	public long getWebExAccountId() {
 		return _webExAccount.getWebExAccountId();
 	}
@@ -180,6 +190,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @param webExAccountId the web ex account ID of this web ex account
 	*/
+	@Override
 	public void setWebExAccountId(long webExAccountId) {
 		_webExAccount.setWebExAccountId(webExAccountId);
 	}
@@ -189,6 +200,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @return the group ID of this web ex account
 	*/
+	@Override
 	public long getGroupId() {
 		return _webExAccount.getGroupId();
 	}
@@ -198,6 +210,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @param groupId the group ID of this web ex account
 	*/
+	@Override
 	public void setGroupId(long groupId) {
 		_webExAccount.setGroupId(groupId);
 	}
@@ -207,6 +220,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @return the company ID of this web ex account
 	*/
+	@Override
 	public long getCompanyId() {
 		return _webExAccount.getCompanyId();
 	}
@@ -216,6 +230,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @param companyId the company ID of this web ex account
 	*/
+	@Override
 	public void setCompanyId(long companyId) {
 		_webExAccount.setCompanyId(companyId);
 	}
@@ -225,6 +240,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @return the user ID of this web ex account
 	*/
+	@Override
 	public long getUserId() {
 		return _webExAccount.getUserId();
 	}
@@ -234,6 +250,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @param userId the user ID of this web ex account
 	*/
+	@Override
 	public void setUserId(long userId) {
 		_webExAccount.setUserId(userId);
 	}
@@ -244,6 +261,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	* @return the user uuid of this web ex account
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.lang.String getUserUuid()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _webExAccount.getUserUuid();
@@ -254,6 +272,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @param userUuid the user uuid of this web ex account
 	*/
+	@Override
 	public void setUserUuid(java.lang.String userUuid) {
 		_webExAccount.setUserUuid(userUuid);
 	}
@@ -263,6 +282,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @return the user name of this web ex account
 	*/
+	@Override
 	public java.lang.String getUserName() {
 		return _webExAccount.getUserName();
 	}
@@ -272,6 +292,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @param userName the user name of this web ex account
 	*/
+	@Override
 	public void setUserName(java.lang.String userName) {
 		_webExAccount.setUserName(userName);
 	}
@@ -281,6 +302,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @return the create date of this web ex account
 	*/
+	@Override
 	public java.util.Date getCreateDate() {
 		return _webExAccount.getCreateDate();
 	}
@@ -290,6 +312,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @param createDate the create date of this web ex account
 	*/
+	@Override
 	public void setCreateDate(java.util.Date createDate) {
 		_webExAccount.setCreateDate(createDate);
 	}
@@ -299,6 +322,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @return the modified date of this web ex account
 	*/
+	@Override
 	public java.util.Date getModifiedDate() {
 		return _webExAccount.getModifiedDate();
 	}
@@ -308,6 +332,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @param modifiedDate the modified date of this web ex account
 	*/
+	@Override
 	public void setModifiedDate(java.util.Date modifiedDate) {
 		_webExAccount.setModifiedDate(modifiedDate);
 	}
@@ -317,6 +342,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @return the web ex site ID of this web ex account
 	*/
+	@Override
 	public long getWebExSiteId() {
 		return _webExAccount.getWebExSiteId();
 	}
@@ -326,6 +352,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @param webExSiteId the web ex site ID of this web ex account
 	*/
+	@Override
 	public void setWebExSiteId(long webExSiteId) {
 		_webExAccount.setWebExSiteId(webExSiteId);
 	}
@@ -335,6 +362,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @return the login of this web ex account
 	*/
+	@Override
 	public java.lang.String getLogin() {
 		return _webExAccount.getLogin();
 	}
@@ -344,6 +372,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @param login the login of this web ex account
 	*/
+	@Override
 	public void setLogin(java.lang.String login) {
 		_webExAccount.setLogin(login);
 	}
@@ -353,6 +382,7 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @return the password of this web ex account
 	*/
+	@Override
 	public java.lang.String getPassword() {
 		return _webExAccount.getPassword();
 	}
@@ -362,42 +392,64 @@ public class WebExAccountWrapper implements WebExAccount,
 	*
 	* @param password the password of this web ex account
 	*/
+	@Override
 	public void setPassword(java.lang.String password) {
 		_webExAccount.setPassword(password);
 	}
 
+	@Override
 	public boolean isNew() {
 		return _webExAccount.isNew();
 	}
 
+	@Override
 	public void setNew(boolean n) {
 		_webExAccount.setNew(n);
 	}
 
+	@Override
 	public boolean isCachedModel() {
 		return _webExAccount.isCachedModel();
 	}
 
+	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_webExAccount.setCachedModel(cachedModel);
 	}
 
+	@Override
 	public boolean isEscapedModel() {
 		return _webExAccount.isEscapedModel();
 	}
 
+	@Override
 	public java.io.Serializable getPrimaryKeyObj() {
 		return _webExAccount.getPrimaryKeyObj();
 	}
 
+	@Override
 	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
 		_webExAccount.setPrimaryKeyObj(primaryKeyObj);
 	}
 
+	@Override
 	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
 		return _webExAccount.getExpandoBridge();
 	}
 
+	@Override
+	public void setExpandoBridgeAttributes(
+		com.liferay.portal.model.BaseModel<?> baseModel) {
+		_webExAccount.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(
+		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+		_webExAccount.setExpandoBridgeAttributes(expandoBridge);
+	}
+
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.service.ServiceContext serviceContext) {
 		_webExAccount.setExpandoBridgeAttributes(serviceContext);
@@ -408,6 +460,7 @@ public class WebExAccountWrapper implements WebExAccount,
 		return new WebExAccountWrapper((WebExAccount)_webExAccount.clone());
 	}
 
+	@Override
 	public int compareTo(
 		com.liferay.meeting.webex.model.WebExAccount webExAccount) {
 		return _webExAccount.compareTo(webExAccount);
@@ -418,14 +471,17 @@ public class WebExAccountWrapper implements WebExAccount,
 		return _webExAccount.hashCode();
 	}
 
+	@Override
 	public com.liferay.portal.model.CacheModel<com.liferay.meeting.webex.model.WebExAccount> toCacheModel() {
 		return _webExAccount.toCacheModel();
 	}
 
+	@Override
 	public com.liferay.meeting.webex.model.WebExAccount toEscapedModel() {
 		return new WebExAccountWrapper(_webExAccount.toEscapedModel());
 	}
 
+	@Override
 	public com.liferay.meeting.webex.model.WebExAccount toUnescapedModel() {
 		return new WebExAccountWrapper(_webExAccount.toUnescapedModel());
 	}
@@ -435,21 +491,25 @@ public class WebExAccountWrapper implements WebExAccount,
 		return _webExAccount.toString();
 	}
 
+	@Override
 	public java.lang.String toXmlString() {
 		return _webExAccount.toXmlString();
 	}
 
+	@Override
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_webExAccount.persist();
 	}
 
+	@Override
 	public com.liferay.meeting.MeetingContext getMeetingContext()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _webExAccount.getMeetingContext();
 	}
 
+	@Override
 	public com.liferay.meeting.webex.model.WebExSite getWebExSite()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -475,17 +535,24 @@ public class WebExAccountWrapper implements WebExAccount,
 		return false;
 	}
 
+	@Override
+	public StagedModelType getStagedModelType() {
+		return _webExAccount.getStagedModelType();
+	}
+
 	/**
-	 * @deprecated Renamed to {@link #getWrappedModel}
+	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
 	 */
 	public WebExAccount getWrappedWebExAccount() {
 		return _webExAccount;
 	}
 
+	@Override
 	public WebExAccount getWrappedModel() {
 		return _webExAccount;
 	}
 
+	@Override
 	public void resetOriginalValues() {
 		_webExAccount.resetOriginalValues();
 	}

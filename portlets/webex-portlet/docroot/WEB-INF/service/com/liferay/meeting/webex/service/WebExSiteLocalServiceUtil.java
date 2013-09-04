@@ -19,11 +19,12 @@ import com.liferay.portal.kernel.util.ReferenceRegistry;
 import com.liferay.portal.service.InvokableLocalService;
 
 /**
- * The utility for the web ex site local service. This utility wraps {@link com.liferay.meeting.webex.service.impl.WebExSiteLocalServiceImpl} and is the primary access point for service operations in application layer code running on the local server.
- *
- * <p>
- * This is a local service. Methods of this service will not have security checks based on the propagated JAAS credentials because this service can only be accessed from within the same VM.
- * </p>
+ * Provides the local service utility for WebExSite. This utility wraps
+ * {@link com.liferay.meeting.webex.service.impl.WebExSiteLocalServiceImpl} and is the
+ * primary access point for service operations in application layer code running
+ * on the local server. Methods of this service will not have security checks
+ * based on the propagated JAAS credentials because this service can only be
+ * accessed from within the same VM.
  *
  * @author Anant Singh
  * @see WebExSiteLocalService
@@ -114,7 +115,7 @@ public class WebExSiteLocalServiceUtil {
 	* Performs a dynamic query on the database and returns a range of the matching rows.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.meeting.webex.model.impl.WebExSiteModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param dynamicQuery the dynamic query
@@ -134,7 +135,7 @@ public class WebExSiteLocalServiceUtil {
 	* Performs a dynamic query on the database and returns an ordered range of the matching rows.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.meeting.webex.model.impl.WebExSiteModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param dynamicQuery the dynamic query
@@ -167,10 +168,53 @@ public class WebExSiteLocalServiceUtil {
 		return getService().dynamicQueryCount(dynamicQuery);
 	}
 
+	/**
+	* Returns the number of rows that match the dynamic query.
+	*
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows that match the dynamic query
+	* @throws SystemException if a system exception occurred
+	*/
+	public static long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().dynamicQueryCount(dynamicQuery, projection);
+	}
+
 	public static com.liferay.meeting.webex.model.WebExSite fetchWebExSite(
 		long webExSiteId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService().fetchWebExSite(webExSiteId);
+	}
+
+	/**
+	* Returns the web ex site with the matching UUID and company.
+	*
+	* @param uuid the web ex site's UUID
+	* @param companyId the primary key of the company
+	* @return the matching web ex site, or <code>null</code> if a matching web ex site could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.meeting.webex.model.WebExSite fetchWebExSiteByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().fetchWebExSiteByUuidAndCompanyId(uuid, companyId);
+	}
+
+	/**
+	* Returns the web ex site matching the UUID and group.
+	*
+	* @param uuid the web ex site's UUID
+	* @param groupId the primary key of the group
+	* @return the matching web ex site, or <code>null</code> if a matching web ex site could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.meeting.webex.model.WebExSite fetchWebExSiteByUuidAndGroupId(
+		java.lang.String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().fetchWebExSiteByUuidAndGroupId(uuid, groupId);
 	}
 
 	/**
@@ -196,12 +240,28 @@ public class WebExSiteLocalServiceUtil {
 	}
 
 	/**
-	* Returns the web ex site with the UUID in the group.
+	* Returns the web ex site with the matching UUID and company.
 	*
-	* @param uuid the UUID of web ex site
-	* @param groupId the group id of the web ex site
-	* @return the web ex site
-	* @throws PortalException if a web ex site with the UUID in the group could not be found
+	* @param uuid the web ex site's UUID
+	* @param companyId the primary key of the company
+	* @return the matching web ex site
+	* @throws PortalException if a matching web ex site could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.meeting.webex.model.WebExSite getWebExSiteByUuidAndCompanyId(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getWebExSiteByUuidAndCompanyId(uuid, companyId);
+	}
+
+	/**
+	* Returns the web ex site matching the UUID and group.
+	*
+	* @param uuid the web ex site's UUID
+	* @param groupId the primary key of the group
+	* @return the matching web ex site
+	* @throws PortalException if a matching web ex site could not be found
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.meeting.webex.model.WebExSite getWebExSiteByUuidAndGroupId(
@@ -215,7 +275,7 @@ public class WebExSiteLocalServiceUtil {
 	* Returns a range of all the web ex sites.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.meeting.webex.model.impl.WebExSiteModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param start the lower bound of the range of web ex sites
@@ -251,20 +311,6 @@ public class WebExSiteLocalServiceUtil {
 		com.liferay.meeting.webex.model.WebExSite webExSite)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService().updateWebExSite(webExSite);
-	}
-
-	/**
-	* Updates the web ex site in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param webExSite the web ex site
-	* @param merge whether to merge the web ex site with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
-	* @return the web ex site that was updated
-	* @throws SystemException if a system exception occurred
-	*/
-	public static com.liferay.meeting.webex.model.WebExSite updateWebExSite(
-		com.liferay.meeting.webex.model.WebExSite webExSite, boolean merge)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return getService().updateWebExSite(webExSite, merge);
 	}
 
 	/**
@@ -363,7 +409,7 @@ public class WebExSiteLocalServiceUtil {
 	}
 
 	/**
-	 * @deprecated
+	 * @deprecated As of 6.2.0
 	 */
 	public void setService(WebExSiteLocalService service) {
 	}

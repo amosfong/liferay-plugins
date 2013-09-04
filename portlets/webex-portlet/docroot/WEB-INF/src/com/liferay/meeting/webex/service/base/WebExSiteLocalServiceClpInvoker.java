@@ -19,7 +19,8 @@ import com.liferay.meeting.webex.service.WebExSiteLocalServiceUtil;
 import java.util.Arrays;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Anant Singh
+ * @generated
  */
 public class WebExSiteLocalServiceClpInvoker {
 	public WebExSiteLocalServiceClpInvoker() {
@@ -72,90 +73,103 @@ public class WebExSiteLocalServiceClpInvoker {
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
 			};
 
-		_methodName9 = "fetchWebExSite";
+		_methodName9 = "dynamicQueryCount";
 
-		_methodParameterTypes9 = new String[] { "long" };
+		_methodParameterTypes9 = new String[] {
+				"com.liferay.portal.kernel.dao.orm.DynamicQuery",
+				"com.liferay.portal.kernel.dao.orm.Projection"
+			};
 
-		_methodName10 = "getWebExSite";
+		_methodName10 = "fetchWebExSite";
 
 		_methodParameterTypes10 = new String[] { "long" };
 
-		_methodName11 = "getPersistedModel";
+		_methodName11 = "fetchWebExSiteByUuidAndCompanyId";
 
-		_methodParameterTypes11 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes11 = new String[] { "java.lang.String", "long" };
 
-		_methodName12 = "getWebExSiteByUuidAndGroupId";
+		_methodName12 = "fetchWebExSiteByUuidAndGroupId";
 
 		_methodParameterTypes12 = new String[] { "java.lang.String", "long" };
 
-		_methodName13 = "getWebExSites";
+		_methodName13 = "getWebExSite";
 
-		_methodParameterTypes13 = new String[] { "int", "int" };
+		_methodParameterTypes13 = new String[] { "long" };
 
-		_methodName14 = "getWebExSitesCount";
+		_methodName14 = "getPersistedModel";
 
-		_methodParameterTypes14 = new String[] {  };
+		_methodParameterTypes14 = new String[] { "java.io.Serializable" };
 
-		_methodName15 = "updateWebExSite";
+		_methodName15 = "getWebExSiteByUuidAndCompanyId";
 
-		_methodParameterTypes15 = new String[] {
+		_methodParameterTypes15 = new String[] { "java.lang.String", "long" };
+
+		_methodName16 = "getWebExSiteByUuidAndGroupId";
+
+		_methodParameterTypes16 = new String[] { "java.lang.String", "long" };
+
+		_methodName17 = "getWebExSites";
+
+		_methodParameterTypes17 = new String[] { "int", "int" };
+
+		_methodName18 = "getWebExSitesCount";
+
+		_methodParameterTypes18 = new String[] {  };
+
+		_methodName19 = "updateWebExSite";
+
+		_methodParameterTypes19 = new String[] {
 				"com.liferay.meeting.webex.model.WebExSite"
 			};
 
-		_methodName16 = "updateWebExSite";
+		_methodName50 = "getBeanIdentifier";
 
-		_methodParameterTypes16 = new String[] {
-				"com.liferay.meeting.webex.model.WebExSite", "boolean"
-			};
+		_methodParameterTypes50 = new String[] {  };
 
-		_methodName51 = "getBeanIdentifier";
+		_methodName51 = "setBeanIdentifier";
 
-		_methodParameterTypes51 = new String[] {  };
+		_methodParameterTypes51 = new String[] { "java.lang.String" };
 
-		_methodName52 = "setBeanIdentifier";
+		_methodName56 = "addWebExSite";
 
-		_methodParameterTypes52 = new String[] { "java.lang.String" };
-
-		_methodName57 = "addWebExSite";
-
-		_methodParameterTypes57 = new String[] {
+		_methodParameterTypes56 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
+		_methodName57 = "deleteWebExSite";
+
+		_methodParameterTypes57 = new String[] { "long" };
+
 		_methodName58 = "deleteWebExSite";
 
-		_methodParameterTypes58 = new String[] { "long" };
-
-		_methodName59 = "deleteWebExSite";
-
-		_methodParameterTypes59 = new String[] {
+		_methodParameterTypes58 = new String[] {
 				"com.liferay.meeting.webex.model.WebExSite"
 			};
 
-		_methodName60 = "fetchSiteKeyWebExSite";
+		_methodName59 = "fetchSiteKeyWebExSite";
+
+		_methodParameterTypes59 = new String[] { "long" };
+
+		_methodName60 = "getSiteKeyWebExSite";
 
 		_methodParameterTypes60 = new String[] { "long" };
 
-		_methodName61 = "getSiteKeyWebExSite";
+		_methodName61 = "getWebExSites";
 
-		_methodParameterTypes61 = new String[] { "long" };
+		_methodParameterTypes61 = new String[] { "long", "int", "int" };
 
 		_methodName62 = "getWebExSites";
 
-		_methodParameterTypes62 = new String[] { "long", "int", "int" };
-
-		_methodName63 = "getWebExSites";
-
-		_methodParameterTypes63 = new String[] {
+		_methodParameterTypes62 = new String[] {
 				"long", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName64 = "updateWebExSite";
+		_methodName63 = "updateWebExSite";
 
-		_methodParameterTypes64 = new String[] {
+		_methodParameterTypes63 = new String[] {
 				"long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
@@ -215,61 +229,79 @@ public class WebExSiteLocalServiceClpInvoker {
 
 		if (_methodName9.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes9, parameterTypes)) {
-			return WebExSiteLocalServiceUtil.fetchWebExSite(((Long)arguments[0]).longValue());
+			return WebExSiteLocalServiceUtil.dynamicQueryCount((com.liferay.portal.kernel.dao.orm.DynamicQuery)arguments[0],
+				(com.liferay.portal.kernel.dao.orm.Projection)arguments[1]);
 		}
 
 		if (_methodName10.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes10, parameterTypes)) {
-			return WebExSiteLocalServiceUtil.getWebExSite(((Long)arguments[0]).longValue());
+			return WebExSiteLocalServiceUtil.fetchWebExSite(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName11.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes11, parameterTypes)) {
-			return WebExSiteLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
+			return WebExSiteLocalServiceUtil.fetchWebExSiteByUuidAndCompanyId((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName12.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes12, parameterTypes)) {
-			return WebExSiteLocalServiceUtil.getWebExSiteByUuidAndGroupId((java.lang.String)arguments[0],
+			return WebExSiteLocalServiceUtil.fetchWebExSiteByUuidAndGroupId((java.lang.String)arguments[0],
 				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName13.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes13, parameterTypes)) {
-			return WebExSiteLocalServiceUtil.getWebExSites(((Integer)arguments[0]).intValue(),
-				((Integer)arguments[1]).intValue());
+			return WebExSiteLocalServiceUtil.getWebExSite(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName14.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes14, parameterTypes)) {
-			return WebExSiteLocalServiceUtil.getWebExSitesCount();
+			return WebExSiteLocalServiceUtil.getPersistedModel((java.io.Serializable)arguments[0]);
 		}
 
 		if (_methodName15.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes15, parameterTypes)) {
-			return WebExSiteLocalServiceUtil.updateWebExSite((com.liferay.meeting.webex.model.WebExSite)arguments[0]);
+			return WebExSiteLocalServiceUtil.getWebExSiteByUuidAndCompanyId((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
 		}
 
 		if (_methodName16.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes16, parameterTypes)) {
-			return WebExSiteLocalServiceUtil.updateWebExSite((com.liferay.meeting.webex.model.WebExSite)arguments[0],
-				((Boolean)arguments[1]).booleanValue());
+			return WebExSiteLocalServiceUtil.getWebExSiteByUuidAndGroupId((java.lang.String)arguments[0],
+				((Long)arguments[1]).longValue());
+		}
+
+		if (_methodName17.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes17, parameterTypes)) {
+			return WebExSiteLocalServiceUtil.getWebExSites(((Integer)arguments[0]).intValue(),
+				((Integer)arguments[1]).intValue());
+		}
+
+		if (_methodName18.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes18, parameterTypes)) {
+			return WebExSiteLocalServiceUtil.getWebExSitesCount();
+		}
+
+		if (_methodName19.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes19, parameterTypes)) {
+			return WebExSiteLocalServiceUtil.updateWebExSite((com.liferay.meeting.webex.model.WebExSite)arguments[0]);
+		}
+
+		if (_methodName50.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
+			return WebExSiteLocalServiceUtil.getBeanIdentifier();
 		}
 
 		if (_methodName51.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes51, parameterTypes)) {
-			return WebExSiteLocalServiceUtil.getBeanIdentifier();
-		}
-
-		if (_methodName52.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
 			WebExSiteLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName57.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+		if (_methodName56.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
 			WebExSiteLocalServiceUtil.addWebExSite(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], (java.lang.String)arguments[3],
@@ -281,43 +313,43 @@ public class WebExSiteLocalServiceClpInvoker {
 			return null;
 		}
 
+		if (_methodName57.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+			return WebExSiteLocalServiceUtil.deleteWebExSite(((Long)arguments[0]).longValue());
+		}
+
 		if (_methodName58.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
-			return WebExSiteLocalServiceUtil.deleteWebExSite(((Long)arguments[0]).longValue());
+			return WebExSiteLocalServiceUtil.deleteWebExSite((com.liferay.meeting.webex.model.WebExSite)arguments[0]);
 		}
 
 		if (_methodName59.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
-			return WebExSiteLocalServiceUtil.deleteWebExSite((com.liferay.meeting.webex.model.WebExSite)arguments[0]);
+			return WebExSiteLocalServiceUtil.fetchSiteKeyWebExSite(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName60.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
-			return WebExSiteLocalServiceUtil.fetchSiteKeyWebExSite(((Long)arguments[0]).longValue());
+			return WebExSiteLocalServiceUtil.getSiteKeyWebExSite(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName61.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
-			return WebExSiteLocalServiceUtil.getSiteKeyWebExSite(((Long)arguments[0]).longValue());
+			return WebExSiteLocalServiceUtil.getWebExSites(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue());
 		}
 
 		if (_methodName62.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
 			return WebExSiteLocalServiceUtil.getWebExSites(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
-				((Integer)arguments[2]).intValue());
-		}
-
-		if (_methodName63.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
-			return WebExSiteLocalServiceUtil.getWebExSites(((Long)arguments[0]).longValue(),
-				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
 		}
 
-		if (_methodName64.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes64, parameterTypes)) {
+		if (_methodName63.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
 			WebExSiteLocalServiceUtil.updateWebExSite(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
 				(java.lang.String)arguments[3],
@@ -363,10 +395,18 @@ public class WebExSiteLocalServiceClpInvoker {
 	private String[] _methodParameterTypes15;
 	private String _methodName16;
 	private String[] _methodParameterTypes16;
+	private String _methodName17;
+	private String[] _methodParameterTypes17;
+	private String _methodName18;
+	private String[] _methodParameterTypes18;
+	private String _methodName19;
+	private String[] _methodParameterTypes19;
+	private String _methodName50;
+	private String[] _methodParameterTypes50;
 	private String _methodName51;
 	private String[] _methodParameterTypes51;
-	private String _methodName52;
-	private String[] _methodParameterTypes52;
+	private String _methodName56;
+	private String[] _methodParameterTypes56;
 	private String _methodName57;
 	private String[] _methodParameterTypes57;
 	private String _methodName58;
@@ -381,6 +421,4 @@ public class WebExSiteLocalServiceClpInvoker {
 	private String[] _methodParameterTypes62;
 	private String _methodName63;
 	private String[] _methodParameterTypes63;
-	private String _methodName64;
-	private String[] _methodParameterTypes64;
 }

@@ -38,6 +38,7 @@ public abstract class WebExSiteBaseImpl extends WebExSiteModelImpl
 	 *
 	 * Never modify or reference this class directly. All methods that expect a web ex site model instance should use the {@link WebExSite} interface instead.
 	 */
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			WebExSiteLocalServiceUtil.addWebExSite(this);

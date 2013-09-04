@@ -19,11 +19,12 @@ import com.liferay.portal.kernel.util.ReferenceRegistry;
 import com.liferay.portal.service.InvokableService;
 
 /**
- * The utility for the web ex account remote service. This utility wraps {@link com.liferay.meeting.webex.service.impl.WebExAccountServiceImpl} and is the primary access point for service operations in application layer code running on a remote server.
- *
- * <p>
- * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
- * </p>
+ * Provides the remote service utility for WebExAccount. This utility wraps
+ * {@link com.liferay.meeting.webex.service.impl.WebExAccountServiceImpl} and is the
+ * primary access point for service operations in application layer code running
+ * on a remote server. Methods of this service are expected to have security
+ * checks based on the propagated JAAS credentials because this service can be
+ * accessed remotely.
  *
  * @author Anant Singh
  * @see WebExAccountService
@@ -132,7 +133,7 @@ public class WebExAccountServiceUtil {
 	}
 
 	/**
-	 * @deprecated
+	 * @deprecated As of 6.2.0
 	 */
 	public void setService(WebExAccountService service) {
 	}

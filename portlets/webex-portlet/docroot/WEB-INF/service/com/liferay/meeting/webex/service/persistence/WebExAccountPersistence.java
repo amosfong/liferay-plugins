@@ -38,72 +38,6 @@ public interface WebExAccountPersistence extends BasePersistence<WebExAccount> {
 	 */
 
 	/**
-	* Caches the web ex account in the entity cache if it is enabled.
-	*
-	* @param webExAccount the web ex account
-	*/
-	public void cacheResult(
-		com.liferay.meeting.webex.model.WebExAccount webExAccount);
-
-	/**
-	* Caches the web ex accounts in the entity cache if it is enabled.
-	*
-	* @param webExAccounts the web ex accounts
-	*/
-	public void cacheResult(
-		java.util.List<com.liferay.meeting.webex.model.WebExAccount> webExAccounts);
-
-	/**
-	* Creates a new web ex account with the primary key. Does not add the web ex account to the database.
-	*
-	* @param webExAccountId the primary key for the new web ex account
-	* @return the new web ex account
-	*/
-	public com.liferay.meeting.webex.model.WebExAccount create(
-		long webExAccountId);
-
-	/**
-	* Removes the web ex account with the primary key from the database. Also notifies the appropriate model listeners.
-	*
-	* @param webExAccountId the primary key of the web ex account
-	* @return the web ex account that was removed
-	* @throws com.liferay.meeting.webex.NoSuchAccountException if a web ex account with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.meeting.webex.model.WebExAccount remove(
-		long webExAccountId)
-		throws com.liferay.meeting.webex.NoSuchAccountException,
-			com.liferay.portal.kernel.exception.SystemException;
-
-	public com.liferay.meeting.webex.model.WebExAccount updateImpl(
-		com.liferay.meeting.webex.model.WebExAccount webExAccount, boolean merge)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the web ex account with the primary key or throws a {@link com.liferay.meeting.webex.NoSuchAccountException} if it could not be found.
-	*
-	* @param webExAccountId the primary key of the web ex account
-	* @return the web ex account
-	* @throws com.liferay.meeting.webex.NoSuchAccountException if a web ex account with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.meeting.webex.model.WebExAccount findByPrimaryKey(
-		long webExAccountId)
-		throws com.liferay.meeting.webex.NoSuchAccountException,
-			com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the web ex account with the primary key or returns <code>null</code> if it could not be found.
-	*
-	* @param webExAccountId the primary key of the web ex account
-	* @return the web ex account, or <code>null</code> if a web ex account with the primary key could not be found
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.meeting.webex.model.WebExAccount fetchByPrimaryKey(
-		long webExAccountId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
 	* Returns all the web ex accounts where uuid = &#63;.
 	*
 	* @param uuid the uuid
@@ -118,7 +52,7 @@ public interface WebExAccountPersistence extends BasePersistence<WebExAccount> {
 	* Returns a range of all the web ex accounts where uuid = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.meeting.webex.model.impl.WebExAccountModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param uuid the uuid
@@ -135,7 +69,7 @@ public interface WebExAccountPersistence extends BasePersistence<WebExAccount> {
 	* Returns an ordered range of all the web ex accounts where uuid = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.meeting.webex.model.impl.WebExAccountModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param uuid the uuid
@@ -223,6 +157,25 @@ public interface WebExAccountPersistence extends BasePersistence<WebExAccount> {
 			com.liferay.portal.kernel.exception.SystemException;
 
 	/**
+	* Removes all the web ex accounts where uuid = &#63; from the database.
+	*
+	* @param uuid the uuid
+	* @throws SystemException if a system exception occurred
+	*/
+	public void removeByUuid(java.lang.String uuid)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the number of web ex accounts where uuid = &#63;.
+	*
+	* @param uuid the uuid
+	* @return the number of matching web ex accounts
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByUuid(java.lang.String uuid)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Returns the web ex account where uuid = &#63; and groupId = &#63; or throws a {@link com.liferay.meeting.webex.NoSuchAccountException} if it could not be found.
 	*
 	* @param uuid the uuid
@@ -262,6 +215,178 @@ public interface WebExAccountPersistence extends BasePersistence<WebExAccount> {
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
+	* Removes the web ex account where uuid = &#63; and groupId = &#63; from the database.
+	*
+	* @param uuid the uuid
+	* @param groupId the group ID
+	* @return the web ex account that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.meeting.webex.model.WebExAccount removeByUUID_G(
+		java.lang.String uuid, long groupId)
+		throws com.liferay.meeting.webex.NoSuchAccountException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the number of web ex accounts where uuid = &#63; and groupId = &#63;.
+	*
+	* @param uuid the uuid
+	* @param groupId the group ID
+	* @return the number of matching web ex accounts
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByUUID_G(java.lang.String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns all the web ex accounts where uuid = &#63; and companyId = &#63;.
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @return the matching web ex accounts
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<com.liferay.meeting.webex.model.WebExAccount> findByUuid_C(
+		java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns a range of all the web ex accounts where uuid = &#63; and companyId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.meeting.webex.model.impl.WebExAccountModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @param start the lower bound of the range of web ex accounts
+	* @param end the upper bound of the range of web ex accounts (not inclusive)
+	* @return the range of matching web ex accounts
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<com.liferay.meeting.webex.model.WebExAccount> findByUuid_C(
+		java.lang.String uuid, long companyId, int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns an ordered range of all the web ex accounts where uuid = &#63; and companyId = &#63;.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.meeting.webex.model.impl.WebExAccountModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @param start the lower bound of the range of web ex accounts
+	* @param end the upper bound of the range of web ex accounts (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of matching web ex accounts
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<com.liferay.meeting.webex.model.WebExAccount> findByUuid_C(
+		java.lang.String uuid, long companyId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the first web ex account in the ordered set where uuid = &#63; and companyId = &#63;.
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching web ex account
+	* @throws com.liferay.meeting.webex.NoSuchAccountException if a matching web ex account could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.meeting.webex.model.WebExAccount findByUuid_C_First(
+		java.lang.String uuid, long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.meeting.webex.NoSuchAccountException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the first web ex account in the ordered set where uuid = &#63; and companyId = &#63;.
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the first matching web ex account, or <code>null</code> if a matching web ex account could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.meeting.webex.model.WebExAccount fetchByUuid_C_First(
+		java.lang.String uuid, long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the last web ex account in the ordered set where uuid = &#63; and companyId = &#63;.
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching web ex account
+	* @throws com.liferay.meeting.webex.NoSuchAccountException if a matching web ex account could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.meeting.webex.model.WebExAccount findByUuid_C_Last(
+		java.lang.String uuid, long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.meeting.webex.NoSuchAccountException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the last web ex account in the ordered set where uuid = &#63; and companyId = &#63;.
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the last matching web ex account, or <code>null</code> if a matching web ex account could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.meeting.webex.model.WebExAccount fetchByUuid_C_Last(
+		java.lang.String uuid, long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the web ex accounts before and after the current web ex account in the ordered set where uuid = &#63; and companyId = &#63;.
+	*
+	* @param webExAccountId the primary key of the current web ex account
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @param orderByComparator the comparator to order the set by (optionally <code>null</code>)
+	* @return the previous, current, and next web ex account
+	* @throws com.liferay.meeting.webex.NoSuchAccountException if a web ex account with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.meeting.webex.model.WebExAccount[] findByUuid_C_PrevAndNext(
+		long webExAccountId, java.lang.String uuid, long companyId,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.meeting.webex.NoSuchAccountException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Removes all the web ex accounts where uuid = &#63; and companyId = &#63; from the database.
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @throws SystemException if a system exception occurred
+	*/
+	public void removeByUuid_C(java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the number of web ex accounts where uuid = &#63; and companyId = &#63;.
+	*
+	* @param uuid the uuid
+	* @param companyId the company ID
+	* @return the number of matching web ex accounts
+	* @throws SystemException if a system exception occurred
+	*/
+	public int countByUuid_C(java.lang.String uuid, long companyId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
 	* Returns all the web ex accounts where groupId = &#63; and webExSiteId = &#63;.
 	*
 	* @param groupId the group ID
@@ -277,7 +402,7 @@ public interface WebExAccountPersistence extends BasePersistence<WebExAccount> {
 	* Returns a range of all the web ex accounts where groupId = &#63; and webExSiteId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.meeting.webex.model.impl.WebExAccountModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param groupId the group ID
@@ -295,7 +420,7 @@ public interface WebExAccountPersistence extends BasePersistence<WebExAccount> {
 	* Returns an ordered range of all the web ex accounts where groupId = &#63; and webExSiteId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.meeting.webex.model.impl.WebExAccountModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param groupId the group ID
@@ -404,7 +529,7 @@ public interface WebExAccountPersistence extends BasePersistence<WebExAccount> {
 	* Returns a range of all the web ex accounts that the user has permission to view where groupId = &#63; and webExSiteId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.meeting.webex.model.impl.WebExAccountModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param groupId the group ID
@@ -422,7 +547,7 @@ public interface WebExAccountPersistence extends BasePersistence<WebExAccount> {
 	* Returns an ordered range of all the web ex accounts that the user has permissions to view where groupId = &#63; and webExSiteId = &#63;.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.meeting.webex.model.impl.WebExAccountModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param groupId the group ID
@@ -456,71 +581,6 @@ public interface WebExAccountPersistence extends BasePersistence<WebExAccount> {
 			com.liferay.portal.kernel.exception.SystemException;
 
 	/**
-	* Returns all the web ex accounts.
-	*
-	* @return the web ex accounts
-	* @throws SystemException if a system exception occurred
-	*/
-	public java.util.List<com.liferay.meeting.webex.model.WebExAccount> findAll()
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns a range of all the web ex accounts.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param start the lower bound of the range of web ex accounts
-	* @param end the upper bound of the range of web ex accounts (not inclusive)
-	* @return the range of web ex accounts
-	* @throws SystemException if a system exception occurred
-	*/
-	public java.util.List<com.liferay.meeting.webex.model.WebExAccount> findAll(
-		int start, int end)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns an ordered range of all the web ex accounts.
-	*
-	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	* </p>
-	*
-	* @param start the lower bound of the range of web ex accounts
-	* @param end the upper bound of the range of web ex accounts (not inclusive)
-	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	* @return the ordered range of web ex accounts
-	* @throws SystemException if a system exception occurred
-	*/
-	public java.util.List<com.liferay.meeting.webex.model.WebExAccount> findAll(
-		int start, int end,
-		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Removes all the web ex accounts where uuid = &#63; from the database.
-	*
-	* @param uuid the uuid
-	* @throws SystemException if a system exception occurred
-	*/
-	public void removeByUuid(java.lang.String uuid)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Removes the web ex account where uuid = &#63; and groupId = &#63; from the database.
-	*
-	* @param uuid the uuid
-	* @param groupId the group ID
-	* @return the web ex account that was removed
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.meeting.webex.model.WebExAccount removeByUUID_G(
-		java.lang.String uuid, long groupId)
-		throws com.liferay.meeting.webex.NoSuchAccountException,
-			com.liferay.portal.kernel.exception.SystemException;
-
-	/**
 	* Removes all the web ex accounts where groupId = &#63; and webExSiteId = &#63; from the database.
 	*
 	* @param groupId the group ID
@@ -528,35 +588,6 @@ public interface WebExAccountPersistence extends BasePersistence<WebExAccount> {
 	* @throws SystemException if a system exception occurred
 	*/
 	public void removeByG_W(long groupId, long webExSiteId)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Removes all the web ex accounts from the database.
-	*
-	* @throws SystemException if a system exception occurred
-	*/
-	public void removeAll()
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of web ex accounts where uuid = &#63;.
-	*
-	* @param uuid the uuid
-	* @return the number of matching web ex accounts
-	* @throws SystemException if a system exception occurred
-	*/
-	public int countByUuid(java.lang.String uuid)
-		throws com.liferay.portal.kernel.exception.SystemException;
-
-	/**
-	* Returns the number of web ex accounts where uuid = &#63; and groupId = &#63;.
-	*
-	* @param uuid the uuid
-	* @param groupId the group ID
-	* @return the number of matching web ex accounts
-	* @throws SystemException if a system exception occurred
-	*/
-	public int countByUUID_G(java.lang.String uuid, long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**
@@ -579,6 +610,123 @@ public interface WebExAccountPersistence extends BasePersistence<WebExAccount> {
 	* @throws SystemException if a system exception occurred
 	*/
 	public int filterCountByG_W(long groupId, long webExSiteId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Caches the web ex account in the entity cache if it is enabled.
+	*
+	* @param webExAccount the web ex account
+	*/
+	public void cacheResult(
+		com.liferay.meeting.webex.model.WebExAccount webExAccount);
+
+	/**
+	* Caches the web ex accounts in the entity cache if it is enabled.
+	*
+	* @param webExAccounts the web ex accounts
+	*/
+	public void cacheResult(
+		java.util.List<com.liferay.meeting.webex.model.WebExAccount> webExAccounts);
+
+	/**
+	* Creates a new web ex account with the primary key. Does not add the web ex account to the database.
+	*
+	* @param webExAccountId the primary key for the new web ex account
+	* @return the new web ex account
+	*/
+	public com.liferay.meeting.webex.model.WebExAccount create(
+		long webExAccountId);
+
+	/**
+	* Removes the web ex account with the primary key from the database. Also notifies the appropriate model listeners.
+	*
+	* @param webExAccountId the primary key of the web ex account
+	* @return the web ex account that was removed
+	* @throws com.liferay.meeting.webex.NoSuchAccountException if a web ex account with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.meeting.webex.model.WebExAccount remove(
+		long webExAccountId)
+		throws com.liferay.meeting.webex.NoSuchAccountException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public com.liferay.meeting.webex.model.WebExAccount updateImpl(
+		com.liferay.meeting.webex.model.WebExAccount webExAccount)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the web ex account with the primary key or throws a {@link com.liferay.meeting.webex.NoSuchAccountException} if it could not be found.
+	*
+	* @param webExAccountId the primary key of the web ex account
+	* @return the web ex account
+	* @throws com.liferay.meeting.webex.NoSuchAccountException if a web ex account with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.meeting.webex.model.WebExAccount findByPrimaryKey(
+		long webExAccountId)
+		throws com.liferay.meeting.webex.NoSuchAccountException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns the web ex account with the primary key or returns <code>null</code> if it could not be found.
+	*
+	* @param webExAccountId the primary key of the web ex account
+	* @return the web ex account, or <code>null</code> if a web ex account with the primary key could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public com.liferay.meeting.webex.model.WebExAccount fetchByPrimaryKey(
+		long webExAccountId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns all the web ex accounts.
+	*
+	* @return the web ex accounts
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<com.liferay.meeting.webex.model.WebExAccount> findAll()
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns a range of all the web ex accounts.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.meeting.webex.model.impl.WebExAccountModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param start the lower bound of the range of web ex accounts
+	* @param end the upper bound of the range of web ex accounts (not inclusive)
+	* @return the range of web ex accounts
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<com.liferay.meeting.webex.model.WebExAccount> findAll(
+		int start, int end)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Returns an ordered range of all the web ex accounts.
+	*
+	* <p>
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.meeting.webex.model.impl.WebExAccountModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	* </p>
+	*
+	* @param start the lower bound of the range of web ex accounts
+	* @param end the upper bound of the range of web ex accounts (not inclusive)
+	* @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	* @return the ordered range of web ex accounts
+	* @throws SystemException if a system exception occurred
+	*/
+	public java.util.List<com.liferay.meeting.webex.model.WebExAccount> findAll(
+		int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	/**
+	* Removes all the web ex accounts from the database.
+	*
+	* @throws SystemException if a system exception occurred
+	*/
+	public void removeAll()
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	/**

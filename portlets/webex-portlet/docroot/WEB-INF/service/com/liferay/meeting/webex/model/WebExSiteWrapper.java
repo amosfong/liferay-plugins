@@ -14,6 +14,7 @@
 
 package com.liferay.meeting.webex.model;
 
+import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ModelWrapper;
 
@@ -26,8 +27,8 @@ import java.util.Map;
  * This class is a wrapper for {@link WebExSite}.
  * </p>
  *
- * @author    Anant Singh
- * @see       WebExSite
+ * @author Anant Singh
+ * @see WebExSite
  * @generated
  */
 public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
@@ -35,14 +36,17 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 		_webExSite = webExSite;
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return WebExSite.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return WebExSite.class.getName();
 	}
 
+	@Override
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
@@ -64,6 +68,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 		return attributes;
 	}
 
+	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		String uuid = (String)attributes.get("uuid");
 
@@ -155,6 +160,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @return the primary key of this web ex site
 	*/
+	@Override
 	public long getPrimaryKey() {
 		return _webExSite.getPrimaryKey();
 	}
@@ -164,6 +170,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @param primaryKey the primary key of this web ex site
 	*/
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_webExSite.setPrimaryKey(primaryKey);
 	}
@@ -173,6 +180,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @return the uuid of this web ex site
 	*/
+	@Override
 	public java.lang.String getUuid() {
 		return _webExSite.getUuid();
 	}
@@ -182,6 +190,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @param uuid the uuid of this web ex site
 	*/
+	@Override
 	public void setUuid(java.lang.String uuid) {
 		_webExSite.setUuid(uuid);
 	}
@@ -191,6 +200,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @return the web ex site ID of this web ex site
 	*/
+	@Override
 	public long getWebExSiteId() {
 		return _webExSite.getWebExSiteId();
 	}
@@ -200,6 +210,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @param webExSiteId the web ex site ID of this web ex site
 	*/
+	@Override
 	public void setWebExSiteId(long webExSiteId) {
 		_webExSite.setWebExSiteId(webExSiteId);
 	}
@@ -209,6 +220,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @return the group ID of this web ex site
 	*/
+	@Override
 	public long getGroupId() {
 		return _webExSite.getGroupId();
 	}
@@ -218,6 +230,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @param groupId the group ID of this web ex site
 	*/
+	@Override
 	public void setGroupId(long groupId) {
 		_webExSite.setGroupId(groupId);
 	}
@@ -227,6 +240,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @return the company ID of this web ex site
 	*/
+	@Override
 	public long getCompanyId() {
 		return _webExSite.getCompanyId();
 	}
@@ -236,6 +250,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @param companyId the company ID of this web ex site
 	*/
+	@Override
 	public void setCompanyId(long companyId) {
 		_webExSite.setCompanyId(companyId);
 	}
@@ -245,6 +260,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @return the user ID of this web ex site
 	*/
+	@Override
 	public long getUserId() {
 		return _webExSite.getUserId();
 	}
@@ -254,6 +270,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @param userId the user ID of this web ex site
 	*/
+	@Override
 	public void setUserId(long userId) {
 		_webExSite.setUserId(userId);
 	}
@@ -264,6 +281,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	* @return the user uuid of this web ex site
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.lang.String getUserUuid()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _webExSite.getUserUuid();
@@ -274,6 +292,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @param userUuid the user uuid of this web ex site
 	*/
+	@Override
 	public void setUserUuid(java.lang.String userUuid) {
 		_webExSite.setUserUuid(userUuid);
 	}
@@ -283,6 +302,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @return the user name of this web ex site
 	*/
+	@Override
 	public java.lang.String getUserName() {
 		return _webExSite.getUserName();
 	}
@@ -292,6 +312,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @param userName the user name of this web ex site
 	*/
+	@Override
 	public void setUserName(java.lang.String userName) {
 		_webExSite.setUserName(userName);
 	}
@@ -301,6 +322,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @return the create date of this web ex site
 	*/
+	@Override
 	public java.util.Date getCreateDate() {
 		return _webExSite.getCreateDate();
 	}
@@ -310,6 +332,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @param createDate the create date of this web ex site
 	*/
+	@Override
 	public void setCreateDate(java.util.Date createDate) {
 		_webExSite.setCreateDate(createDate);
 	}
@@ -319,6 +342,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @return the modified date of this web ex site
 	*/
+	@Override
 	public java.util.Date getModifiedDate() {
 		return _webExSite.getModifiedDate();
 	}
@@ -328,6 +352,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @param modifiedDate the modified date of this web ex site
 	*/
+	@Override
 	public void setModifiedDate(java.util.Date modifiedDate) {
 		_webExSite.setModifiedDate(modifiedDate);
 	}
@@ -337,6 +362,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @return the name of this web ex site
 	*/
+	@Override
 	public java.lang.String getName() {
 		return _webExSite.getName();
 	}
@@ -346,6 +372,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @param name the name of this web ex site
 	*/
+	@Override
 	public void setName(java.lang.String name) {
 		_webExSite.setName(name);
 	}
@@ -355,6 +382,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @return the api u r l of this web ex site
 	*/
+	@Override
 	public java.lang.String getApiURL() {
 		return _webExSite.getApiURL();
 	}
@@ -364,6 +392,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @param apiURL the api u r l of this web ex site
 	*/
+	@Override
 	public void setApiURL(java.lang.String apiURL) {
 		_webExSite.setApiURL(apiURL);
 	}
@@ -373,6 +402,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @return the login of this web ex site
 	*/
+	@Override
 	public java.lang.String getLogin() {
 		return _webExSite.getLogin();
 	}
@@ -382,6 +412,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @param login the login of this web ex site
 	*/
+	@Override
 	public void setLogin(java.lang.String login) {
 		_webExSite.setLogin(login);
 	}
@@ -391,6 +422,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @return the password of this web ex site
 	*/
+	@Override
 	public java.lang.String getPassword() {
 		return _webExSite.getPassword();
 	}
@@ -400,6 +432,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @param password the password of this web ex site
 	*/
+	@Override
 	public void setPassword(java.lang.String password) {
 		_webExSite.setPassword(password);
 	}
@@ -409,6 +442,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @return the partner key of this web ex site
 	*/
+	@Override
 	public java.lang.String getPartnerKey() {
 		return _webExSite.getPartnerKey();
 	}
@@ -418,6 +452,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @param partnerKey the partner key of this web ex site
 	*/
+	@Override
 	public void setPartnerKey(java.lang.String partnerKey) {
 		_webExSite.setPartnerKey(partnerKey);
 	}
@@ -427,6 +462,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @return the site key of this web ex site
 	*/
+	@Override
 	public long getSiteKey() {
 		return _webExSite.getSiteKey();
 	}
@@ -436,42 +472,64 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 	*
 	* @param siteKey the site key of this web ex site
 	*/
+	@Override
 	public void setSiteKey(long siteKey) {
 		_webExSite.setSiteKey(siteKey);
 	}
 
+	@Override
 	public boolean isNew() {
 		return _webExSite.isNew();
 	}
 
+	@Override
 	public void setNew(boolean n) {
 		_webExSite.setNew(n);
 	}
 
+	@Override
 	public boolean isCachedModel() {
 		return _webExSite.isCachedModel();
 	}
 
+	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_webExSite.setCachedModel(cachedModel);
 	}
 
+	@Override
 	public boolean isEscapedModel() {
 		return _webExSite.isEscapedModel();
 	}
 
+	@Override
 	public java.io.Serializable getPrimaryKeyObj() {
 		return _webExSite.getPrimaryKeyObj();
 	}
 
+	@Override
 	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
 		_webExSite.setPrimaryKeyObj(primaryKeyObj);
 	}
 
+	@Override
 	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
 		return _webExSite.getExpandoBridge();
 	}
 
+	@Override
+	public void setExpandoBridgeAttributes(
+		com.liferay.portal.model.BaseModel<?> baseModel) {
+		_webExSite.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(
+		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+		_webExSite.setExpandoBridgeAttributes(expandoBridge);
+	}
+
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.service.ServiceContext serviceContext) {
 		_webExSite.setExpandoBridgeAttributes(serviceContext);
@@ -482,6 +540,7 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 		return new WebExSiteWrapper((WebExSite)_webExSite.clone());
 	}
 
+	@Override
 	public int compareTo(com.liferay.meeting.webex.model.WebExSite webExSite) {
 		return _webExSite.compareTo(webExSite);
 	}
@@ -491,14 +550,17 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 		return _webExSite.hashCode();
 	}
 
+	@Override
 	public com.liferay.portal.model.CacheModel<com.liferay.meeting.webex.model.WebExSite> toCacheModel() {
 		return _webExSite.toCacheModel();
 	}
 
+	@Override
 	public com.liferay.meeting.webex.model.WebExSite toEscapedModel() {
 		return new WebExSiteWrapper(_webExSite.toEscapedModel());
 	}
 
+	@Override
 	public com.liferay.meeting.webex.model.WebExSite toUnescapedModel() {
 		return new WebExSiteWrapper(_webExSite.toUnescapedModel());
 	}
@@ -508,15 +570,18 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 		return _webExSite.toString();
 	}
 
+	@Override
 	public java.lang.String toXmlString() {
 		return _webExSite.toXmlString();
 	}
 
+	@Override
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_webExSite.persist();
 	}
 
+	@Override
 	public java.util.List<com.liferay.meeting.webex.model.WebExAccount> getWebExAccounts()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _webExSite.getWebExAccounts();
@@ -541,17 +606,24 @@ public class WebExSiteWrapper implements WebExSite, ModelWrapper<WebExSite> {
 		return false;
 	}
 
+	@Override
+	public StagedModelType getStagedModelType() {
+		return _webExSite.getStagedModelType();
+	}
+
 	/**
-	 * @deprecated Renamed to {@link #getWrappedModel}
+	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
 	 */
 	public WebExSite getWrappedWebExSite() {
 		return _webExSite;
 	}
 
+	@Override
 	public WebExSite getWrappedModel() {
 		return _webExSite;
 	}
 
+	@Override
 	public void resetOriginalValues() {
 		_webExSite.resetOriginalValues();
 	}

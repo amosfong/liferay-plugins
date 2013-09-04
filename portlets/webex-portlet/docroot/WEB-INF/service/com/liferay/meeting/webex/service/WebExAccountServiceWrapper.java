@@ -17,12 +17,10 @@ package com.liferay.meeting.webex.service;
 import com.liferay.portal.service.ServiceWrapper;
 
 /**
- * <p>
- * This class is a wrapper for {@link WebExAccountService}.
- * </p>
+ * Provides a wrapper for {@link WebExAccountService}.
  *
- * @author    Anant Singh
- * @see       WebExAccountService
+ * @author Anant Singh
+ * @see WebExAccountService
  * @generated
  */
 public class WebExAccountServiceWrapper implements WebExAccountService,
@@ -36,6 +34,7 @@ public class WebExAccountServiceWrapper implements WebExAccountService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _webExAccountService.getBeanIdentifier();
 	}
@@ -45,16 +44,19 @@ public class WebExAccountServiceWrapper implements WebExAccountService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_webExAccountService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		return _webExAccountService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	@Override
 	public void addWebExAccount(long groupId, long webExSiteId,
 		java.lang.String login, java.lang.String password,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -64,12 +66,14 @@ public class WebExAccountServiceWrapper implements WebExAccountService,
 			password, serviceContext);
 	}
 
+	@Override
 	public void deleteWebExAccount(long webExAccountId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_webExAccountService.deleteWebExAccount(webExAccountId);
 	}
 
+	@Override
 	public com.liferay.meeting.webex.model.WebExAccount getWebExAccount(
 		long webExAccountId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -77,6 +81,7 @@ public class WebExAccountServiceWrapper implements WebExAccountService,
 		return _webExAccountService.getWebExAccount(webExAccountId);
 	}
 
+	@Override
 	public java.util.List<com.liferay.meeting.webex.model.WebExAccount> getWebExSiteWebExAccounts(
 		long groupId, long webExSiteId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator obc)
@@ -85,12 +90,14 @@ public class WebExAccountServiceWrapper implements WebExAccountService,
 			webExSiteId, start, end, obc);
 	}
 
+	@Override
 	public int getWebExSiteWebExAccountsCount(long groupId, long webExSiteId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _webExAccountService.getWebExSiteWebExAccountsCount(groupId,
 			webExSiteId);
 	}
 
+	@Override
 	public void updateWebExAccount(long webExAccountId,
 		java.lang.String password,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -101,24 +108,26 @@ public class WebExAccountServiceWrapper implements WebExAccountService,
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #getWrappedService}
+	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
 	public WebExAccountService getWrappedWebExAccountService() {
 		return _webExAccountService;
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #setWrappedService}
+	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
 	 */
 	public void setWrappedWebExAccountService(
 		WebExAccountService webExAccountService) {
 		_webExAccountService = webExAccountService;
 	}
 
+	@Override
 	public WebExAccountService getWrappedService() {
 		return _webExAccountService;
 	}
 
+	@Override
 	public void setWrappedService(WebExAccountService webExAccountService) {
 		_webExAccountService = webExAccountService;
 	}

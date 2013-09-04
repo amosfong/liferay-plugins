@@ -19,52 +19,53 @@ import com.liferay.meeting.webex.service.WebExSiteServiceUtil;
 import java.util.Arrays;
 
 /**
- * @author Brian Wing Shun Chan
+ * @author Anant Singh
+ * @generated
  */
 public class WebExSiteServiceClpInvoker {
 	public WebExSiteServiceClpInvoker() {
-		_methodName34 = "getBeanIdentifier";
+		_methodName30 = "getBeanIdentifier";
 
-		_methodParameterTypes34 = new String[] {  };
+		_methodParameterTypes30 = new String[] {  };
 
-		_methodName35 = "setBeanIdentifier";
+		_methodName31 = "setBeanIdentifier";
 
-		_methodParameterTypes35 = new String[] { "java.lang.String" };
+		_methodParameterTypes31 = new String[] { "java.lang.String" };
 
-		_methodName40 = "addWebExSite";
+		_methodName36 = "addWebExSite";
 
-		_methodParameterTypes40 = new String[] {
+		_methodParameterTypes36 = new String[] {
 				"long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"long", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName41 = "deleteWebExSite";
+		_methodName37 = "deleteWebExSite";
 
-		_methodParameterTypes41 = new String[] { "long" };
+		_methodParameterTypes37 = new String[] { "long" };
 
-		_methodName42 = "fetchSiteKeyWebExSite";
+		_methodName38 = "fetchSiteKeyWebExSite";
 
-		_methodParameterTypes42 = new String[] { "long" };
+		_methodParameterTypes38 = new String[] { "long" };
 
-		_methodName43 = "getWebExSite";
+		_methodName39 = "getWebExSite";
 
-		_methodParameterTypes43 = new String[] { "long" };
+		_methodParameterTypes39 = new String[] { "long" };
 
-		_methodName44 = "getWebExSites";
+		_methodName40 = "getWebExSites";
 
-		_methodParameterTypes44 = new String[] {
+		_methodParameterTypes40 = new String[] {
 				"long", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName45 = "getWebExSitesCount";
+		_methodName41 = "getWebExSitesCount";
 
-		_methodParameterTypes45 = new String[] { "long" };
+		_methodParameterTypes41 = new String[] { "long" };
 
-		_methodName46 = "updateWebExSite";
+		_methodName42 = "updateWebExSite";
 
-		_methodParameterTypes46 = new String[] {
+		_methodParameterTypes42 = new String[] {
 				"long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
@@ -72,20 +73,20 @@ public class WebExSiteServiceClpInvoker {
 
 	public Object invokeMethod(String name, String[] parameterTypes,
 		Object[] arguments) throws Throwable {
-		if (_methodName34.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes34, parameterTypes)) {
+		if (_methodName30.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes30, parameterTypes)) {
 			return WebExSiteServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName35.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes35, parameterTypes)) {
+		if (_methodName31.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes31, parameterTypes)) {
 			WebExSiteServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName40.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes40, parameterTypes)) {
+		if (_methodName36.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes36, parameterTypes)) {
 			WebExSiteServiceUtil.addWebExSite(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
 				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
@@ -96,36 +97,36 @@ public class WebExSiteServiceClpInvoker {
 			return null;
 		}
 
-		if (_methodName41.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
+		if (_methodName37.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes37, parameterTypes)) {
 			return WebExSiteServiceUtil.deleteWebExSite(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName42.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
+		if (_methodName38.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes38, parameterTypes)) {
 			return WebExSiteServiceUtil.fetchSiteKeyWebExSite(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName43.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes43, parameterTypes)) {
+		if (_methodName39.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes39, parameterTypes)) {
 			return WebExSiteServiceUtil.getWebExSite(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName44.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
+		if (_methodName40.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes40, parameterTypes)) {
 			return WebExSiteServiceUtil.getWebExSites(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
 		}
 
-		if (_methodName45.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
+		if (_methodName41.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
 			return WebExSiteServiceUtil.getWebExSitesCount(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName46.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
+		if (_methodName42.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
 			WebExSiteServiceUtil.updateWebExSite(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
 				(java.lang.String)arguments[3],
@@ -137,22 +138,22 @@ public class WebExSiteServiceClpInvoker {
 		throw new UnsupportedOperationException();
 	}
 
-	private String _methodName34;
-	private String[] _methodParameterTypes34;
-	private String _methodName35;
-	private String[] _methodParameterTypes35;
+	private String _methodName30;
+	private String[] _methodParameterTypes30;
+	private String _methodName31;
+	private String[] _methodParameterTypes31;
+	private String _methodName36;
+	private String[] _methodParameterTypes36;
+	private String _methodName37;
+	private String[] _methodParameterTypes37;
+	private String _methodName38;
+	private String[] _methodParameterTypes38;
+	private String _methodName39;
+	private String[] _methodParameterTypes39;
 	private String _methodName40;
 	private String[] _methodParameterTypes40;
 	private String _methodName41;
 	private String[] _methodParameterTypes41;
 	private String _methodName42;
 	private String[] _methodParameterTypes42;
-	private String _methodName43;
-	private String[] _methodParameterTypes43;
-	private String _methodName44;
-	private String[] _methodParameterTypes44;
-	private String _methodName45;
-	private String[] _methodParameterTypes45;
-	private String _methodName46;
-	private String[] _methodParameterTypes46;
 }

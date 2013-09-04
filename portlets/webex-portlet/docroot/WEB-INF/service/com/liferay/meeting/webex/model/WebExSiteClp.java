@@ -19,6 +19,7 @@ import com.liferay.meeting.webex.service.WebExSiteLocalServiceUtil;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
@@ -50,17 +51,19 @@ public class WebExSiteClp extends BaseModelImpl<WebExSite> implements WebExSite 
 		return WebExSite.class.getName();
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _webExSiteId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setWebExSiteId(primaryKey);
 	}
 
 	@Override
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_webExSiteId);
+		return _webExSiteId;
 	}
 
 	@Override
@@ -177,10 +180,12 @@ public class WebExSiteClp extends BaseModelImpl<WebExSite> implements WebExSite 
 		}
 	}
 
+	@Override
 	public String getUuid() {
 		return _uuid;
 	}
 
+	@Override
 	public void setUuid(String uuid) {
 		_uuid = uuid;
 
@@ -198,10 +203,12 @@ public class WebExSiteClp extends BaseModelImpl<WebExSite> implements WebExSite 
 		}
 	}
 
+	@Override
 	public long getWebExSiteId() {
 		return _webExSiteId;
 	}
 
+	@Override
 	public void setWebExSiteId(long webExSiteId) {
 		_webExSiteId = webExSiteId;
 
@@ -219,10 +226,12 @@ public class WebExSiteClp extends BaseModelImpl<WebExSite> implements WebExSite 
 		}
 	}
 
+	@Override
 	public long getGroupId() {
 		return _groupId;
 	}
 
+	@Override
 	public void setGroupId(long groupId) {
 		_groupId = groupId;
 
@@ -240,10 +249,12 @@ public class WebExSiteClp extends BaseModelImpl<WebExSite> implements WebExSite 
 		}
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 
@@ -261,10 +272,12 @@ public class WebExSiteClp extends BaseModelImpl<WebExSite> implements WebExSite 
 		}
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 
@@ -282,18 +295,22 @@ public class WebExSiteClp extends BaseModelImpl<WebExSite> implements WebExSite 
 		}
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	public String getUserName() {
 		return _userName;
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 
@@ -311,10 +328,12 @@ public class WebExSiteClp extends BaseModelImpl<WebExSite> implements WebExSite 
 		}
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 
@@ -332,10 +351,12 @@ public class WebExSiteClp extends BaseModelImpl<WebExSite> implements WebExSite 
 		}
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 
@@ -353,10 +374,12 @@ public class WebExSiteClp extends BaseModelImpl<WebExSite> implements WebExSite 
 		}
 	}
 
+	@Override
 	public String getName() {
 		return _name;
 	}
 
+	@Override
 	public void setName(String name) {
 		_name = name;
 
@@ -374,10 +397,12 @@ public class WebExSiteClp extends BaseModelImpl<WebExSite> implements WebExSite 
 		}
 	}
 
+	@Override
 	public String getApiURL() {
 		return _apiURL;
 	}
 
+	@Override
 	public void setApiURL(String apiURL) {
 		_apiURL = apiURL;
 
@@ -395,10 +420,12 @@ public class WebExSiteClp extends BaseModelImpl<WebExSite> implements WebExSite 
 		}
 	}
 
+	@Override
 	public String getLogin() {
 		return _login;
 	}
 
+	@Override
 	public void setLogin(String login) {
 		_login = login;
 
@@ -416,10 +443,12 @@ public class WebExSiteClp extends BaseModelImpl<WebExSite> implements WebExSite 
 		}
 	}
 
+	@Override
 	public String getPassword() {
 		return _password;
 	}
 
+	@Override
 	public void setPassword(String password) {
 		_password = password;
 
@@ -437,10 +466,12 @@ public class WebExSiteClp extends BaseModelImpl<WebExSite> implements WebExSite 
 		}
 	}
 
+	@Override
 	public String getPartnerKey() {
 		return _partnerKey;
 	}
 
+	@Override
 	public void setPartnerKey(String partnerKey) {
 		_partnerKey = partnerKey;
 
@@ -458,10 +489,12 @@ public class WebExSiteClp extends BaseModelImpl<WebExSite> implements WebExSite 
 		}
 	}
 
+	@Override
 	public long getSiteKey() {
 		return _siteKey;
 	}
 
+	@Override
 	public void setSiteKey(long siteKey) {
 		_siteKey = siteKey;
 
@@ -479,6 +512,7 @@ public class WebExSiteClp extends BaseModelImpl<WebExSite> implements WebExSite 
 		}
 	}
 
+	@Override
 	public java.util.List<com.liferay.meeting.webex.model.WebExAccount> getWebExAccounts() {
 		try {
 			String methodName = "getWebExAccounts";
@@ -496,6 +530,12 @@ public class WebExSiteClp extends BaseModelImpl<WebExSite> implements WebExSite 
 		catch (Exception e) {
 			throw new UnsupportedOperationException(e);
 		}
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return new StagedModelType(PortalUtil.getClassNameId(
+				WebExSite.class.getName()));
 	}
 
 	public BaseModel<?> getWebExSiteRemoteModel() {
@@ -547,6 +587,7 @@ public class WebExSiteClp extends BaseModelImpl<WebExSite> implements WebExSite 
 		return returnValue;
 	}
 
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			WebExSiteLocalServiceUtil.addWebExSite(this);
@@ -560,11 +601,6 @@ public class WebExSiteClp extends BaseModelImpl<WebExSite> implements WebExSite 
 	public WebExSite toEscapedModel() {
 		return (WebExSite)ProxyUtil.newProxyInstance(WebExSite.class.getClassLoader(),
 			new Class[] { WebExSite.class }, new AutoEscapeBeanHandler(this));
-	}
-
-	@Override
-	public WebExSite toUnescapedModel() {
-		return this;
 	}
 
 	@Override
@@ -589,6 +625,7 @@ public class WebExSiteClp extends BaseModelImpl<WebExSite> implements WebExSite 
 		return clone;
 	}
 
+	@Override
 	public int compareTo(WebExSite webExSite) {
 		long primaryKey = webExSite.getPrimaryKey();
 

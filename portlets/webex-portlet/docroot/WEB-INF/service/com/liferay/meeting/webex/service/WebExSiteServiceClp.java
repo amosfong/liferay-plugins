@@ -18,6 +18,7 @@ import com.liferay.portal.service.InvokableService;
 
 /**
  * @author Anant Singh
+ * @generated
  */
 public class WebExSiteServiceClp implements WebExSiteService {
 	public WebExSiteServiceClp(InvokableService invokableService) {
@@ -70,6 +71,7 @@ public class WebExSiteServiceClp implements WebExSiteService {
 			};
 	}
 
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -92,6 +94,7 @@ public class WebExSiteServiceClp implements WebExSiteService {
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableService.invokeMethod(_methodName1,
@@ -111,12 +114,14 @@ public class WebExSiteServiceClp implements WebExSiteService {
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public void addWebExSite(long groupId, java.lang.String name,
 		java.lang.String apiURL, java.lang.String login,
 		java.lang.String password, java.lang.String partnerKey, long siteKey,
@@ -165,6 +170,7 @@ public class WebExSiteServiceClp implements WebExSiteService {
 		}
 	}
 
+	@Override
 	public com.liferay.meeting.webex.model.WebExSite deleteWebExSite(
 		long webExSiteId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -198,6 +204,7 @@ public class WebExSiteServiceClp implements WebExSiteService {
 		return (com.liferay.meeting.webex.model.WebExSite)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.meeting.webex.model.WebExSite fetchSiteKeyWebExSite(
 		long siteKey)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -231,6 +238,7 @@ public class WebExSiteServiceClp implements WebExSiteService {
 		return (com.liferay.meeting.webex.model.WebExSite)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.meeting.webex.model.WebExSite getWebExSite(
 		long webExSiteId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -264,6 +272,7 @@ public class WebExSiteServiceClp implements WebExSiteService {
 		return (com.liferay.meeting.webex.model.WebExSite)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.meeting.webex.model.WebExSite> getWebExSites(
 		long groupId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator obc)
@@ -302,6 +311,7 @@ public class WebExSiteServiceClp implements WebExSiteService {
 		return (java.util.List<com.liferay.meeting.webex.model.WebExSite>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getWebExSitesCount(long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -329,6 +339,7 @@ public class WebExSiteServiceClp implements WebExSiteService {
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public void updateWebExSite(long webExSiteId, java.lang.String apiURL,
 		java.lang.String login, java.lang.String password,
 		com.liferay.portal.service.ServiceContext serviceContext)

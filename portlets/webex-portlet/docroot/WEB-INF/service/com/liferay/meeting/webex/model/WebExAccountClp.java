@@ -19,6 +19,7 @@ import com.liferay.meeting.webex.service.WebExAccountLocalServiceUtil;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
@@ -51,17 +52,19 @@ public class WebExAccountClp extends BaseModelImpl<WebExAccount>
 		return WebExAccount.class.getName();
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _webExAccountId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setWebExAccountId(primaryKey);
 	}
 
 	@Override
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_webExAccountId);
+		return _webExAccountId;
 	}
 
 	@Override
@@ -157,10 +160,12 @@ public class WebExAccountClp extends BaseModelImpl<WebExAccount>
 		}
 	}
 
+	@Override
 	public String getUuid() {
 		return _uuid;
 	}
 
+	@Override
 	public void setUuid(String uuid) {
 		_uuid = uuid;
 
@@ -178,10 +183,12 @@ public class WebExAccountClp extends BaseModelImpl<WebExAccount>
 		}
 	}
 
+	@Override
 	public long getWebExAccountId() {
 		return _webExAccountId;
 	}
 
+	@Override
 	public void setWebExAccountId(long webExAccountId) {
 		_webExAccountId = webExAccountId;
 
@@ -199,10 +206,12 @@ public class WebExAccountClp extends BaseModelImpl<WebExAccount>
 		}
 	}
 
+	@Override
 	public long getGroupId() {
 		return _groupId;
 	}
 
+	@Override
 	public void setGroupId(long groupId) {
 		_groupId = groupId;
 
@@ -220,10 +229,12 @@ public class WebExAccountClp extends BaseModelImpl<WebExAccount>
 		}
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 
@@ -241,10 +252,12 @@ public class WebExAccountClp extends BaseModelImpl<WebExAccount>
 		}
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 
@@ -262,18 +275,22 @@ public class WebExAccountClp extends BaseModelImpl<WebExAccount>
 		}
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	public String getUserName() {
 		return _userName;
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 
@@ -291,10 +308,12 @@ public class WebExAccountClp extends BaseModelImpl<WebExAccount>
 		}
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 
@@ -312,10 +331,12 @@ public class WebExAccountClp extends BaseModelImpl<WebExAccount>
 		}
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 
@@ -333,10 +354,12 @@ public class WebExAccountClp extends BaseModelImpl<WebExAccount>
 		}
 	}
 
+	@Override
 	public long getWebExSiteId() {
 		return _webExSiteId;
 	}
 
+	@Override
 	public void setWebExSiteId(long webExSiteId) {
 		_webExSiteId = webExSiteId;
 
@@ -354,10 +377,12 @@ public class WebExAccountClp extends BaseModelImpl<WebExAccount>
 		}
 	}
 
+	@Override
 	public String getLogin() {
 		return _login;
 	}
 
+	@Override
 	public void setLogin(String login) {
 		_login = login;
 
@@ -375,10 +400,12 @@ public class WebExAccountClp extends BaseModelImpl<WebExAccount>
 		}
 	}
 
+	@Override
 	public String getPassword() {
 		return _password;
 	}
 
+	@Override
 	public void setPassword(String password) {
 		_password = password;
 
@@ -396,6 +423,7 @@ public class WebExAccountClp extends BaseModelImpl<WebExAccount>
 		}
 	}
 
+	@Override
 	public com.liferay.meeting.webex.model.WebExSite getWebExSite() {
 		try {
 			String methodName = "getWebExSite";
@@ -414,6 +442,7 @@ public class WebExAccountClp extends BaseModelImpl<WebExAccount>
 		}
 	}
 
+	@Override
 	public com.liferay.meeting.MeetingContext getMeetingContext() {
 		try {
 			String methodName = "getMeetingContext";
@@ -430,6 +459,12 @@ public class WebExAccountClp extends BaseModelImpl<WebExAccount>
 		catch (Exception e) {
 			throw new UnsupportedOperationException(e);
 		}
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return new StagedModelType(PortalUtil.getClassNameId(
+				WebExAccount.class.getName()));
 	}
 
 	public BaseModel<?> getWebExAccountRemoteModel() {
@@ -481,6 +516,7 @@ public class WebExAccountClp extends BaseModelImpl<WebExAccount>
 		return returnValue;
 	}
 
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			WebExAccountLocalServiceUtil.addWebExAccount(this);
@@ -494,11 +530,6 @@ public class WebExAccountClp extends BaseModelImpl<WebExAccount>
 	public WebExAccount toEscapedModel() {
 		return (WebExAccount)ProxyUtil.newProxyInstance(WebExAccount.class.getClassLoader(),
 			new Class[] { WebExAccount.class }, new AutoEscapeBeanHandler(this));
-	}
-
-	@Override
-	public WebExAccount toUnescapedModel() {
-		return this;
 	}
 
 	@Override
@@ -520,6 +551,7 @@ public class WebExAccountClp extends BaseModelImpl<WebExAccount>
 		return clone;
 	}
 
+	@Override
 	public int compareTo(WebExAccount webExAccount) {
 		long primaryKey = webExAccount.getPrimaryKey();
 

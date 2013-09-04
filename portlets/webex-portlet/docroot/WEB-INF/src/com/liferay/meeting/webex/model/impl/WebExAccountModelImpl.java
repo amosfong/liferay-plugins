@@ -21,6 +21,7 @@ import com.liferay.meeting.webex.model.WebExAccountSoap;
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.json.JSON;
+import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -80,6 +81,8 @@ public class WebExAccountModelImpl extends BaseModelImpl<WebExAccount>
 		};
 	public static final String TABLE_SQL_CREATE = "create table WebEx_WebExAccount (uuid_ VARCHAR(75) null,webExAccountId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,webExSiteId LONG,login VARCHAR(300) null,password_ VARCHAR(75) null)";
 	public static final String TABLE_SQL_DROP = "drop table WebEx_WebExAccount";
+	public static final String ORDER_BY_JPQL = " ORDER BY webExAccount.webExAccountId ASC";
+	public static final String ORDER_BY_SQL = " ORDER BY WebEx_WebExAccount.webExAccountId ASC";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
@@ -92,9 +95,11 @@ public class WebExAccountModelImpl extends BaseModelImpl<WebExAccount>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.com.liferay.meeting.webex.model.WebExAccount"),
 			true);
-	public static long GROUPID_COLUMN_BITMASK = 1L;
-	public static long UUID_COLUMN_BITMASK = 2L;
-	public static long WEBEXSITEID_COLUMN_BITMASK = 4L;
+	public static long COMPANYID_COLUMN_BITMASK = 1L;
+	public static long GROUPID_COLUMN_BITMASK = 2L;
+	public static long UUID_COLUMN_BITMASK = 4L;
+	public static long WEBEXSITEID_COLUMN_BITMASK = 8L;
+	public static long WEBEXACCOUNTID_COLUMN_BITMASK = 16L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -150,26 +155,32 @@ public class WebExAccountModelImpl extends BaseModelImpl<WebExAccount>
 	public WebExAccountModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _webExAccountId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setWebExAccountId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_webExAccountId);
+		return _webExAccountId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return WebExAccount.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return WebExAccount.class.getName();
 	}
@@ -263,6 +274,7 @@ public class WebExAccountModelImpl extends BaseModelImpl<WebExAccount>
 	}
 
 	@JSON
+	@Override
 	public String getUuid() {
 		if (_uuid == null) {
 			return StringPool.BLANK;
@@ -272,6 +284,7 @@ public class WebExAccountModelImpl extends BaseModelImpl<WebExAccount>
 		}
 	}
 
+	@Override
 	public void setUuid(String uuid) {
 		if (_originalUuid == null) {
 			_originalUuid = _uuid;
@@ -285,19 +298,23 @@ public class WebExAccountModelImpl extends BaseModelImpl<WebExAccount>
 	}
 
 	@JSON
+	@Override
 	public long getWebExAccountId() {
 		return _webExAccountId;
 	}
 
+	@Override
 	public void setWebExAccountId(long webExAccountId) {
 		_webExAccountId = webExAccountId;
 	}
 
 	@JSON
+	@Override
 	public long getGroupId() {
 		return _groupId;
 	}
 
+	@Override
 	public void setGroupId(long groupId) {
 		_columnBitmask |= GROUPID_COLUMN_BITMASK;
 
@@ -315,32 +332,51 @@ public class WebExAccountModelImpl extends BaseModelImpl<WebExAccount>
 	}
 
 	@JSON
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
+		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
+
+		if (!_setOriginalCompanyId) {
+			_setOriginalCompanyId = true;
+
+			_originalCompanyId = _companyId;
+		}
+
 		_companyId = companyId;
 	}
 
+	public long getOriginalCompanyId() {
+		return _originalCompanyId;
+	}
+
 	@JSON
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
 	@JSON
+	@Override
 	public String getUserName() {
 		if (_userName == null) {
 			return StringPool.BLANK;
@@ -350,33 +386,40 @@ public class WebExAccountModelImpl extends BaseModelImpl<WebExAccount>
 		}
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 	}
 
 	@JSON
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 	}
 
 	@JSON
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 	}
 
 	@JSON
+	@Override
 	public long getWebExSiteId() {
 		return _webExSiteId;
 	}
 
+	@Override
 	public void setWebExSiteId(long webExSiteId) {
 		_columnBitmask |= WEBEXSITEID_COLUMN_BITMASK;
 
@@ -394,6 +437,7 @@ public class WebExAccountModelImpl extends BaseModelImpl<WebExAccount>
 	}
 
 	@JSON
+	@Override
 	public String getLogin() {
 		if (_login == null) {
 			return StringPool.BLANK;
@@ -403,11 +447,13 @@ public class WebExAccountModelImpl extends BaseModelImpl<WebExAccount>
 		}
 	}
 
+	@Override
 	public void setLogin(String login) {
 		_login = login;
 	}
 
 	@JSON
+	@Override
 	public String getPassword() {
 		if (_password == null) {
 			return StringPool.BLANK;
@@ -417,8 +463,15 @@ public class WebExAccountModelImpl extends BaseModelImpl<WebExAccount>
 		}
 	}
 
+	@Override
 	public void setPassword(String password) {
 		_password = password;
+	}
+
+	@Override
+	public StagedModelType getStagedModelType() {
+		return new StagedModelType(PortalUtil.getClassNameId(
+				WebExAccount.class.getName()));
 	}
 
 	public long getColumnBitmask() {
@@ -448,10 +501,6 @@ public class WebExAccountModelImpl extends BaseModelImpl<WebExAccount>
 		return _escapedModel;
 	}
 
-	public WebExAccount toUnescapedModel() {
-		return (WebExAccount)this;
-	}
-
 	@Override
 	public Object clone() {
 		WebExAccountImpl webExAccountImpl = new WebExAccountImpl();
@@ -473,6 +522,7 @@ public class WebExAccountModelImpl extends BaseModelImpl<WebExAccount>
 		return webExAccountImpl;
 	}
 
+	@Override
 	public int compareTo(WebExAccount webExAccount) {
 		long primaryKey = webExAccount.getPrimaryKey();
 
@@ -523,6 +573,10 @@ public class WebExAccountModelImpl extends BaseModelImpl<WebExAccount>
 		webExAccountModelImpl._originalGroupId = webExAccountModelImpl._groupId;
 
 		webExAccountModelImpl._setOriginalGroupId = false;
+
+		webExAccountModelImpl._originalCompanyId = webExAccountModelImpl._companyId;
+
+		webExAccountModelImpl._setOriginalCompanyId = false;
 
 		webExAccountModelImpl._originalWebExSiteId = webExAccountModelImpl._webExSiteId;
 
@@ -629,6 +683,7 @@ public class WebExAccountModelImpl extends BaseModelImpl<WebExAccount>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(37);
 
@@ -697,6 +752,8 @@ public class WebExAccountModelImpl extends BaseModelImpl<WebExAccount>
 	private long _originalGroupId;
 	private boolean _setOriginalGroupId;
 	private long _companyId;
+	private long _originalCompanyId;
+	private boolean _setOriginalCompanyId;
 	private long _userId;
 	private String _userUuid;
 	private String _userName;

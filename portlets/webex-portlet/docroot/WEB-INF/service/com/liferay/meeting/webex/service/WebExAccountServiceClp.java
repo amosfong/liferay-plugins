@@ -18,6 +18,7 @@ import com.liferay.portal.service.InvokableService;
 
 /**
  * @author Anant Singh
+ * @generated
  */
 public class WebExAccountServiceClp implements WebExAccountService {
 	public WebExAccountServiceClp(InvokableService invokableService) {
@@ -65,6 +66,7 @@ public class WebExAccountServiceClp implements WebExAccountService {
 			};
 	}
 
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -87,6 +89,7 @@ public class WebExAccountServiceClp implements WebExAccountService {
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableService.invokeMethod(_methodName1,
@@ -106,12 +109,14 @@ public class WebExAccountServiceClp implements WebExAccountService {
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public void addWebExAccount(long groupId, long webExSiteId,
 		java.lang.String login, java.lang.String password,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -153,6 +158,7 @@ public class WebExAccountServiceClp implements WebExAccountService {
 		}
 	}
 
+	@Override
 	public void deleteWebExAccount(long webExAccountId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -181,6 +187,7 @@ public class WebExAccountServiceClp implements WebExAccountService {
 		}
 	}
 
+	@Override
 	public com.liferay.meeting.webex.model.WebExAccount getWebExAccount(
 		long webExAccountId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -214,6 +221,7 @@ public class WebExAccountServiceClp implements WebExAccountService {
 		return (com.liferay.meeting.webex.model.WebExAccount)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.meeting.webex.model.WebExAccount> getWebExSiteWebExAccounts(
 		long groupId, long webExSiteId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator obc)
@@ -254,6 +262,7 @@ public class WebExAccountServiceClp implements WebExAccountService {
 		return (java.util.List<com.liferay.meeting.webex.model.WebExAccount>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getWebExSiteWebExAccountsCount(long groupId, long webExSiteId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -282,6 +291,7 @@ public class WebExAccountServiceClp implements WebExAccountService {
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public void updateWebExAccount(long webExAccountId,
 		java.lang.String password,
 		com.liferay.portal.service.ServiceContext serviceContext)
