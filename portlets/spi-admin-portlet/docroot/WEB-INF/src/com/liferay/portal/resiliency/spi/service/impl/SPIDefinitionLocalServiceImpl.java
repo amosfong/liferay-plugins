@@ -39,7 +39,10 @@ public class SPIDefinitionLocalServiceImpl
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
+		// SPI definition
+
 		User user = userPersistence.findByPrimaryKey(userId);
+		Date now = new Date();
 
 		validate(user.getCompanyId(), name);
 
@@ -48,29 +51,23 @@ public class SPIDefinitionLocalServiceImpl
 		SPIDefinition spiDefinition = spiDefinitionPersistence.create(
 			spiDefinitionId);
 
-		Date now = new Date();
-
 		spiDefinition.setCompanyId(user.getCompanyId());
 		spiDefinition.setCreateDate(serviceContext.getCreateDate(now));
 		spiDefinition.setModifiedDate(serviceContext.getModifiedDate(now));
 		spiDefinition.setUserId(user.getUserId());
 		spiDefinition.setUserName(user.getFullName());
-
 		spiDefinition.setName(name);
-		spiDefinition.setApplications(applications);
 		spiDefinition.setDescription(description);
+		spiDefinition.setApplications(applications);
 		spiDefinition.setJvmArguments(jvmArguments);
 		spiDefinition.setTypeSettings(typeSettings);
-
 		spiDefinition.setExpandoBridgeAttributes(serviceContext);
 
 		spiDefinitionPersistence.update(spiDefinition);
 
 		// Resources
 
-		resourceLocalService.addResources(
-			user.getCompanyId(), 0, userId, SPIDefinition.class.getName(),
-			spiDefinitionId, false, false, false);
+		resourceLocalService.addModelResources(spiDefinition, serviceContext);
 
 		return spiDefinition;
 	}
@@ -89,18 +86,18 @@ public class SPIDefinitionLocalServiceImpl
 	public SPIDefinition deleteSPIDefinition(SPIDefinition spiDefinition)
 		throws PortalException, SystemException {
 
-		// Expando
+		// SPI definition
 
-		expandoRowLocalService.deleteRows(spiDefinition.getSpiDefinitionId());
+		spiDefinitionPersistence.remove(spiDefinition);
 
 		// Resources
 
 		resourceLocalService.deleteResource(
-			spiDefinition.getCompanyId(), SPIDefinition.class.getName(),
-			ResourceConstants.SCOPE_INDIVIDUAL,
-			spiDefinition.getSpiDefinitionId());
+			spiDefinition, ResourceConstants.SCOPE_INDIVIDUAL);
 
-		spiDefinitionPersistence.remove(spiDefinition);
+		// Expando
+
+		expandoRowLocalService.deleteRows(spiDefinition.getSpiDefinitionId());
 
 		return spiDefinition;
 	}
@@ -142,22 +139,13 @@ public class SPIDefinitionLocalServiceImpl
 		spiDefinition.setModifiedDate(serviceContext.getModifiedDate(null));
 		spiDefinition.setUserId(user.getUserId());
 		spiDefinition.setUserName(user.getFullName());
-
-		spiDefinition.setApplications(applications);
 		spiDefinition.setDescription(description);
+		spiDefinition.setApplications(applications);
 		spiDefinition.setJvmArguments(jvmArguments);
 		spiDefinition.setTypeSettings(typeSettings);
-
 		spiDefinition.setExpandoBridgeAttributes(serviceContext);
 
 		spiDefinitionPersistence.update(spiDefinition);
-
-		// Resources
-
-		resourceLocalService.updateResources(
-			user.getCompanyId(), 0, SPIDefinition.class.getName(),
-			spiDefinitionId, serviceContext.getGroupPermissions(),
-			serviceContext.getGuestPermissions());
 
 		return spiDefinition;
 	}
@@ -169,8 +157,7 @@ public class SPIDefinitionLocalServiceImpl
 			companyId, name);
 
 		if (spiDefinition != null) {
-			throw new DuplicateSPIDefinitionException(
-				"SPI definition already exists with name: " + name);
+			throw new DuplicateSPIDefinitionException();
 		}
 	}
 

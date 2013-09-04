@@ -41,8 +41,8 @@ public class SPIDefinitionServiceImpl extends SPIDefinitionServiceBaseImpl {
 			getPermissionChecker(), ActionKeys.ADD_SPI_DEFINITION);
 
 		return spiDefinitionLocalService.addSPIDefinition(
-				getUserId(), name, description, applications, jvmArguments,
-				typeSettings, serviceContext);
+			getUserId(), name, description, applications, jvmArguments,
+			typeSettings, serviceContext);
 	}
 
 	@Override
@@ -99,8 +99,8 @@ public class SPIDefinitionServiceImpl extends SPIDefinitionServiceBaseImpl {
 			getPermissionChecker(), spiDefinitionId, ActionKeys.UPDATE);
 
 		return spiDefinitionLocalService.updateSPIDefinition(
-				getUserId(), spiDefinitionId, description, applications,
-				jvmArguments, typeSettings, serviceContext);
+			getUserId(), spiDefinitionId, description, applications,
+			jvmArguments, typeSettings, serviceContext);
 	}
 
 }
