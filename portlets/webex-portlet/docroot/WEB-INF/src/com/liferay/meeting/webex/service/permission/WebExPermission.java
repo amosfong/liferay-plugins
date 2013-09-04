@@ -30,7 +30,6 @@ public class WebExPermission {
 		if (!contains(permissionChecker, groupId, actionId)) {
 			throw new PrincipalException();
 		}
-
 	}
 
 	public static boolean contains(
