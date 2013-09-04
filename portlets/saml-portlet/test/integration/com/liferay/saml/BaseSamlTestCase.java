@@ -98,7 +98,6 @@ public class BaseSamlTestCase extends PowerMockito {
 		setupMetadata();
 		setupPortal();
 		setupSamlBindings();
-		setupServices();
 
 		OpenSamlBootstrap.bootstrap();
 	}
@@ -269,12 +268,12 @@ public class BaseSamlTestCase extends PowerMockito {
 		PortletClassLoaderUtil.setClassLoader(
 			currentThread.getContextClassLoader());
 
+		Configuration configuration = mock(Configuration.class);
+
 		ConfigurationFactory configurationFactory = mock(
 			ConfigurationFactory.class);
 
 		ConfigurationFactoryUtil.setConfigurationFactory(configurationFactory);
-
-		Configuration configuration = mock(Configuration.class);
 
 		when(
 			configurationFactory.getConfiguration(
@@ -484,10 +483,6 @@ public class BaseSamlTestCase extends PowerMockito {
 			new HttpSoap11Binding(new BasicParserPool(), httpClient));
 	}
 
-	protected void setupServices() {
-		serviceUtilClasses = new ArrayList<Class<?>>();
-	}
-
 	protected static final String ACS_URL =
 		"http://localhost:8080/c/portal/saml/acs";
 
@@ -532,7 +527,7 @@ public class BaseSamlTestCase extends PowerMockito {
 	protected List<SamlBinding> samlBindings;
 	protected IdentifierGenerator samlIdentifierGenerator =
 		new SamlIdentifierGenerator();
-	protected List<Class<?>> serviceUtilClasses;
+	protected List<Class<?>> serviceUtilClasses = new ArrayList<Class<?>>();
 
 	private class MockMetadataProvider extends DBMetadataProvider {
 
