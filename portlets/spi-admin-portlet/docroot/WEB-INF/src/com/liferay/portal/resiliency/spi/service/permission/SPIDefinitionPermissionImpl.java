@@ -27,7 +27,7 @@ import com.liferay.portal.security.permission.PermissionChecker;
 public class SPIDefinitionPermissionImpl implements SPIDefinitionPermission {
 
 	public static final String RESOURCE_NAME =
-		"com.liferay.portal.resiliency.spi.admin";
+		"com.liferay.portal.resiliency.spi";
 
 	@Override
 	public void check(
