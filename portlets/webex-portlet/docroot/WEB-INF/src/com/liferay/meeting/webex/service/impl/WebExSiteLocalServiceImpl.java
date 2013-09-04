@@ -156,10 +156,6 @@ public class WebExSiteLocalServiceImpl extends WebExSiteLocalServiceBaseImpl {
 		webExSite.setExpandoBridgeAttributes(serviceContext);
 
 		webExSitePersistence.update(webExSite, false);
-
-		// Resources
-
-		resourceLocalService.updateModelResources(webExSite, serviceContext);
 	}
 
 }

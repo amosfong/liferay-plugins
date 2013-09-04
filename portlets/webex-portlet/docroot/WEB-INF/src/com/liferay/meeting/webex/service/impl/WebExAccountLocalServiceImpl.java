@@ -158,10 +158,6 @@ public class WebExAccountLocalServiceImpl
 		webExAccount.setExpandoBridgeAttributes(serviceContext);
 
 		webExAccountPersistence.update(webExAccount, false);
-
-		// Resources
-
-		resourceLocalService.updateModelResources(webExAccount, serviceContext);
 	}
 
 }

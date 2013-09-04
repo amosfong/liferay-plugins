@@ -171,10 +171,6 @@ public class SourceLocalServiceImpl extends SourceLocalServiceBaseImpl {
 
 		sourcePersistence.update(source);
 
-		// Resources
-
-		resourceLocalService.updateModelResources(source, serviceContext);
-
 		return source;
 	}
 
