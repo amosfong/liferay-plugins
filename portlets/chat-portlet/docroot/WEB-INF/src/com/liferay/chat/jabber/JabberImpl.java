@@ -277,7 +277,6 @@ public class JabberImpl implements Jabber {
 					}
 				}
 			}
-
 		}
 		catch (Exception e) {
 			_log.error(e, e);
