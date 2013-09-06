@@ -16,10 +16,6 @@
 
 <%@ include file="/loader/init.jsp" %>
 
-<%
-String baseRenderURL = PortletURLFactoryUtil.create(request, "2_WAR_kaleodesignerportlet", themeDisplay.getPlid(), PortletRequest.RENDER_PHASE).toString();
-%>
-
 <aui:script>
 	Liferay.provide(
 		Liferay.Util,
@@ -27,7 +23,7 @@ String baseRenderURL = PortletURLFactoryUtil.create(request, "2_WAR_kaleodesigne
 		function(config) {
 			var A = AUI();
 
-			var kaleoURL = Liferay.PortletURL.createURL('<%= baseRenderURL %>');
+			var kaleoURL = Liferay.PortletURL.createURL('<%= PortletURLFactoryUtil.create(request, "2_WAR_kaleodesignerportlet", themeDisplay.getPlid(), PortletRequest.RENDER_PHASE) %>');
 
 			kaleoURL.setParameter('availableFields', config.availableFields);
 			kaleoURL.setParameter('availablePropertyModels', config.availablePropertyModels);
@@ -42,7 +38,6 @@ String baseRenderURL = PortletURLFactoryUtil.create(request, "2_WAR_kaleodesigne
 			kaleoURL.setParameter('saveCallback', config.saveCallback);
 			kaleoURL.setParameter('uiScope', config.uiScope);
 			kaleoURL.setParameter('version', config.version);
-
 			kaleoURL.setWindowState('pop_up');
 
 			config.uri = kaleoURL.toString();
