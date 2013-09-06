@@ -19,9 +19,7 @@
 <%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 
-<%@ page import="com.liferay.portal.kernel.portlet.LiferayPortletURL" %><%@
-page import="com.liferay.portal.theme.ThemeDisplay" %><%@
-page import="com.liferay.portlet.PortletURLFactoryUtil" %>
+<%@ page import="com.liferay.portlet.PortletURLFactoryUtil" %>
 
 <%@ page import="javax.portlet.PortletRequest" %>
 
