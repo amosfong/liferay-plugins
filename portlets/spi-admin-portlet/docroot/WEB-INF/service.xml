@@ -21,9 +21,12 @@
 		<!-- Other fields -->
 
 		<column name="name" type="String" />
+		<column name="connectorAddress" type="String" />
+		<column name="connectorPort" type="int" />
 		<column name="description" type="String" />
-		<column name="applications" type="String" />
 		<column name="jvmArguments" type="String" />
+		<column name="portletIds" type="String" />
+		<column name="servletContextNames" type="String" />
 		<column name="typeSettings" type="String" />
 
 		<!-- Order -->
@@ -41,6 +44,10 @@
 			<finder-column name="companyId" />
 			<finder-column name="name" />
 		</finder>
+		<finder name="CA_CP" return-type="SPIDefinition">
+			<finder-column name="connectorAddress" />
+			<finder-column name="connectorPort" />
+		</finder>
 
 		<!-- References -->
 
@@ -48,5 +55,8 @@
 	</entity>
 	<exceptions>
 		<exception>DuplicateSPIDefinition</exception>
+		<exception>DuplicateSPIDefinitionAddressAndPort</exception>
+		<exception>InvalidSPIDefinitionAddressAndPort</exception>
+		<exception>SPIDefinitionActive</exception>
 	</exceptions>
 </service-builder>

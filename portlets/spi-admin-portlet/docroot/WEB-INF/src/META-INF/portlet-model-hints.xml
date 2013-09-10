@@ -10,15 +10,27 @@
 		<field name="modifiedDate" type="Date" />
 		<field name="name" type="String">
 			<hint name="max-length">200</hint>
+			<validator name="required" />
+		</field>
+		<field name="connectorAddress" type="String">
+			<hint name="max-length">200</hint>
+			<validator name="required" />
+		</field>
+		<field name="connectorPort" type="int">
+			<validator name="integer" />
+			<validator name="required" />
 		</field>
 		<field name="description" type="String">
-			<hint name="max-length">500</hint>
-		</field>
-		<field name="applications" type="String">
-			<hint-collection name="CLOB" />
+			<hint-collection name="TEXTAREA" />
 		</field>
 		<field name="jvmArguments" type="String">
-			<hint-collection name="CLOB" />
+			<hint-collection name="TEXTAREA" />
+		</field>
+		<field name="portletIds" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
+		<field name="servletContextNames" type="String">
+			<hint-collection name="TEXTAREA" />
 		</field>
 		<field name="typeSettings" type="String">
 			<hint-collection name="CLOB" />
