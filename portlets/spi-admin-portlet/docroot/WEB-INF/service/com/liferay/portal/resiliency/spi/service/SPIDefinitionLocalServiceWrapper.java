@@ -292,15 +292,16 @@ public class SPIDefinitionLocalServiceWrapper
 
 	@Override
 	public com.liferay.portal.resiliency.spi.model.SPIDefinition addSPIDefinition(
-		long userId, java.lang.String name, java.lang.String description,
-		java.lang.String applications, java.lang.String jvmArguments,
-		java.lang.String typeSettings,
+		long userId, java.lang.String name, java.lang.String connectorAddress,
+		int connectorPort, java.lang.String description,
+		java.lang.String jvmArguments, java.lang.String portletIds,
+		java.lang.String servletContextNames, java.lang.String typeSettings,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _spiDefinitionLocalService.addSPIDefinition(userId, name,
-			description, applications, jvmArguments, typeSettings,
-			serviceContext);
+			connectorAddress, connectorPort, description, jvmArguments,
+			portletIds, servletContextNames, typeSettings, serviceContext);
 	}
 
 	@Override
@@ -312,22 +313,38 @@ public class SPIDefinitionLocalServiceWrapper
 	}
 
 	@Override
-	public java.util.Collection<com.liferay.portal.resiliency.spi.model.SPIDefinition> getSPIDefinitions()
+	public java.util.List<com.liferay.portal.resiliency.spi.model.SPIDefinition> getSPIDefinitions()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _spiDefinitionLocalService.getSPIDefinitions();
 	}
 
 	@Override
+	public void startSPI(long spiDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_spiDefinitionLocalService.startSPI(spiDefinitionId);
+	}
+
+	@Override
+	public void stopSPI(long spiDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_spiDefinitionLocalService.stopSPI(spiDefinitionId);
+	}
+
+	@Override
 	public com.liferay.portal.resiliency.spi.model.SPIDefinition updateSPIDefinition(
-		long userId, long spiDefinitionId, java.lang.String description,
-		java.lang.String applications, java.lang.String jvmArguments,
-		java.lang.String typeSettings,
+		long userId, long spiDefinitionId, java.lang.String connectorAddress,
+		int connectorPort, java.lang.String description,
+		java.lang.String jvmArguments, java.lang.String portletIds,
+		java.lang.String servletContextNames, java.lang.String typeSettings,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _spiDefinitionLocalService.updateSPIDefinition(userId,
-			spiDefinitionId, description, applications, jvmArguments,
-			typeSettings, serviceContext);
+			spiDefinitionId, connectorAddress, connectorPort, description,
+			jvmArguments, portletIds, servletContextNames, typeSettings,
+			serviceContext);
 	}
 
 	/**

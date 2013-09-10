@@ -6,8 +6,11 @@ create table SPIDefinition (
 	createDate DATE null,
 	modifiedDate DATE null,
 	name VARCHAR(200) null,
-	description VARCHAR(500) null,
-	applications TEXT null,
-	jvmArguments TEXT null,
+	connectorAddress VARCHAR(200) null,
+	connectorPort INTEGER,
+	description STRING null,
+	jvmArguments STRING null,
+	portletIds STRING null,
+	servletContextNames STRING null,
 	typeSettings TEXT null
 );

@@ -31,4 +31,15 @@ public interface SPIDefinition extends SPIDefinitionModel, PersistedModel {
 	 *
 	 * Never modify this interface directly. Add methods to {@link com.liferay.portal.resiliency.spi.model.impl.SPIDefinitionImpl} and rerun ServiceBuilder to automatically copy the method declarations to this interface.
 	 */
+	public com.liferay.portal.kernel.util.UnicodeProperties getTypeSettingsProperties();
+
+	public java.lang.String getTypeSettingsProperty(java.lang.String key);
+
+	public java.lang.String getTypeSettingsProperty(java.lang.String key,
+		java.lang.String defaultValue);
+
+	public boolean isAlive();
+
+	public void setTypeSettingsProperties(
+		com.liferay.portal.kernel.util.UnicodeProperties typeSettingsProperties);
 }

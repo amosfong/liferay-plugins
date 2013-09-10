@@ -20,9 +20,12 @@
 				<temporal>TIMESTAMP</temporal>
 			</basic>
 			<basic name="name" />
+			<basic name="connectorAddress" />
+			<basic name="connectorPort" />
 			<basic name="description" />
-			<basic name="applications" />
 			<basic name="jvmArguments" />
+			<basic name="portletIds" />
+			<basic name="servletContextNames" />
 			<basic name="typeSettings" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
@@ -32,6 +35,8 @@
 	</mapped-superclass>
 	<entity class="com.liferay.portal.resiliency.spi.model.impl.SPIDefinitionImpl" name="SPIDefinition">
 		<table name="SPIDefinition" />
-		<attributes />
+		<attributes>
+			<transient name="typeSettingsProperties" />
+		</attributes>
 	</entity>
 </entity-mappings>

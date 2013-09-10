@@ -81,9 +81,12 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("name", getName());
+		attributes.put("connectorAddress", getConnectorAddress());
+		attributes.put("connectorPort", getConnectorPort());
 		attributes.put("description", getDescription());
-		attributes.put("applications", getApplications());
 		attributes.put("jvmArguments", getJvmArguments());
+		attributes.put("portletIds", getPortletIds());
+		attributes.put("servletContextNames", getServletContextNames());
 		attributes.put("typeSettings", getTypeSettings());
 
 		return attributes;
@@ -133,22 +136,41 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 			setName(name);
 		}
 
+		String connectorAddress = (String)attributes.get("connectorAddress");
+
+		if (connectorAddress != null) {
+			setConnectorAddress(connectorAddress);
+		}
+
+		Integer connectorPort = (Integer)attributes.get("connectorPort");
+
+		if (connectorPort != null) {
+			setConnectorPort(connectorPort);
+		}
+
 		String description = (String)attributes.get("description");
 
 		if (description != null) {
 			setDescription(description);
 		}
 
-		String applications = (String)attributes.get("applications");
-
-		if (applications != null) {
-			setApplications(applications);
-		}
-
 		String jvmArguments = (String)attributes.get("jvmArguments");
 
 		if (jvmArguments != null) {
 			setJvmArguments(jvmArguments);
+		}
+
+		String portletIds = (String)attributes.get("portletIds");
+
+		if (portletIds != null) {
+			setPortletIds(portletIds);
+		}
+
+		String servletContextNames = (String)attributes.get(
+				"servletContextNames");
+
+		if (servletContextNames != null) {
+			setServletContextNames(servletContextNames);
 		}
 
 		String typeSettings = (String)attributes.get("typeSettings");
@@ -330,6 +352,53 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 	}
 
 	@Override
+	public String getConnectorAddress() {
+		return _connectorAddress;
+	}
+
+	@Override
+	public void setConnectorAddress(String connectorAddress) {
+		_connectorAddress = connectorAddress;
+
+		if (_spiDefinitionRemoteModel != null) {
+			try {
+				Class<?> clazz = _spiDefinitionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setConnectorAddress",
+						String.class);
+
+				method.invoke(_spiDefinitionRemoteModel, connectorAddress);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public int getConnectorPort() {
+		return _connectorPort;
+	}
+
+	@Override
+	public void setConnectorPort(int connectorPort) {
+		_connectorPort = connectorPort;
+
+		if (_spiDefinitionRemoteModel != null) {
+			try {
+				Class<?> clazz = _spiDefinitionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setConnectorPort", int.class);
+
+				method.invoke(_spiDefinitionRemoteModel, connectorPort);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public String getDescription() {
 		return _description;
 	}
@@ -345,29 +414,6 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 				Method method = clazz.getMethod("setDescription", String.class);
 
 				method.invoke(_spiDefinitionRemoteModel, description);
-			}
-			catch (Exception e) {
-				throw new UnsupportedOperationException(e);
-			}
-		}
-	}
-
-	@Override
-	public String getApplications() {
-		return _applications;
-	}
-
-	@Override
-	public void setApplications(String applications) {
-		_applications = applications;
-
-		if (_spiDefinitionRemoteModel != null) {
-			try {
-				Class<?> clazz = _spiDefinitionRemoteModel.getClass();
-
-				Method method = clazz.getMethod("setApplications", String.class);
-
-				method.invoke(_spiDefinitionRemoteModel, applications);
 			}
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
@@ -399,6 +445,53 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 	}
 
 	@Override
+	public String getPortletIds() {
+		return _portletIds;
+	}
+
+	@Override
+	public void setPortletIds(String portletIds) {
+		_portletIds = portletIds;
+
+		if (_spiDefinitionRemoteModel != null) {
+			try {
+				Class<?> clazz = _spiDefinitionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setPortletIds", String.class);
+
+				method.invoke(_spiDefinitionRemoteModel, portletIds);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getServletContextNames() {
+		return _servletContextNames;
+	}
+
+	@Override
+	public void setServletContextNames(String servletContextNames) {
+		_servletContextNames = servletContextNames;
+
+		if (_spiDefinitionRemoteModel != null) {
+			try {
+				Class<?> clazz = _spiDefinitionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setServletContextNames",
+						String.class);
+
+				method.invoke(_spiDefinitionRemoteModel, servletContextNames);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public String getTypeSettings() {
 		return _typeSettings;
 	}
@@ -418,6 +511,104 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 			catch (Exception e) {
 				throw new UnsupportedOperationException(e);
 			}
+		}
+	}
+
+	@Override
+	public boolean isAlive() {
+		try {
+			String methodName = "isAlive";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			Boolean returnObj = (Boolean)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public com.liferay.portal.kernel.util.UnicodeProperties getTypeSettingsProperties() {
+		try {
+			String methodName = "getTypeSettingsProperties";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			com.liferay.portal.kernel.util.UnicodeProperties returnObj = (com.liferay.portal.kernel.util.UnicodeProperties)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public void setTypeSettingsProperties(
+		com.liferay.portal.kernel.util.UnicodeProperties typeSettingsProperties) {
+		try {
+			String methodName = "setTypeSettingsProperties";
+
+			Class<?>[] parameterTypes = new Class<?>[] {
+					com.liferay.portal.kernel.util.UnicodeProperties.class
+				};
+
+			Object[] parameterValues = new Object[] { typeSettingsProperties };
+
+			invokeOnRemoteModel(methodName, parameterTypes, parameterValues);
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public java.lang.String getTypeSettingsProperty(java.lang.String key,
+		java.lang.String defaultValue) {
+		try {
+			String methodName = "getTypeSettingsProperty";
+
+			Class<?>[] parameterTypes = new Class<?>[] {
+					java.lang.String.class, java.lang.String.class
+				};
+
+			Object[] parameterValues = new Object[] { key, defaultValue };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public java.lang.String getTypeSettingsProperty(java.lang.String key) {
+		try {
+			String methodName = "getTypeSettingsProperty";
+
+			Class<?>[] parameterTypes = new Class<?>[] { java.lang.String.class };
+
+			Object[] parameterValues = new Object[] { key };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
 		}
 	}
 
@@ -498,9 +689,12 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 		clone.setCreateDate(getCreateDate());
 		clone.setModifiedDate(getModifiedDate());
 		clone.setName(getName());
+		clone.setConnectorAddress(getConnectorAddress());
+		clone.setConnectorPort(getConnectorPort());
 		clone.setDescription(getDescription());
-		clone.setApplications(getApplications());
 		clone.setJvmArguments(getJvmArguments());
+		clone.setPortletIds(getPortletIds());
+		clone.setServletContextNames(getServletContextNames());
 		clone.setTypeSettings(getTypeSettings());
 
 		return clone;
@@ -556,7 +750,7 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(29);
 
 		sb.append("{spiDefinitionId=");
 		sb.append(getSpiDefinitionId());
@@ -572,12 +766,18 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 		sb.append(getModifiedDate());
 		sb.append(", name=");
 		sb.append(getName());
+		sb.append(", connectorAddress=");
+		sb.append(getConnectorAddress());
+		sb.append(", connectorPort=");
+		sb.append(getConnectorPort());
 		sb.append(", description=");
 		sb.append(getDescription());
-		sb.append(", applications=");
-		sb.append(getApplications());
 		sb.append(", jvmArguments=");
 		sb.append(getJvmArguments());
+		sb.append(", portletIds=");
+		sb.append(getPortletIds());
+		sb.append(", servletContextNames=");
+		sb.append(getServletContextNames());
 		sb.append(", typeSettings=");
 		sb.append(getTypeSettings());
 		sb.append("}");
@@ -587,7 +787,7 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(37);
+		StringBundler sb = new StringBundler(46);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.portal.resiliency.spi.model.SPIDefinition");
@@ -622,16 +822,28 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 		sb.append(getName());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>connectorAddress</column-name><column-value><![CDATA[");
+		sb.append(getConnectorAddress());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>connectorPort</column-name><column-value><![CDATA[");
+		sb.append(getConnectorPort());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>description</column-name><column-value><![CDATA[");
 		sb.append(getDescription());
 		sb.append("]]></column-value></column>");
 		sb.append(
-			"<column><column-name>applications</column-name><column-value><![CDATA[");
-		sb.append(getApplications());
-		sb.append("]]></column-value></column>");
-		sb.append(
 			"<column><column-name>jvmArguments</column-name><column-value><![CDATA[");
 		sb.append(getJvmArguments());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>portletIds</column-name><column-value><![CDATA[");
+		sb.append(getPortletIds());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>servletContextNames</column-name><column-value><![CDATA[");
+		sb.append(getServletContextNames());
 		sb.append("]]></column-value></column>");
 		sb.append(
 			"<column><column-name>typeSettings</column-name><column-value><![CDATA[");
@@ -651,9 +863,12 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 	private Date _createDate;
 	private Date _modifiedDate;
 	private String _name;
+	private String _connectorAddress;
+	private int _connectorPort;
 	private String _description;
-	private String _applications;
 	private String _jvmArguments;
+	private String _portletIds;
+	private String _servletContextNames;
 	private String _typeSettings;
 	private BaseModel<?> _spiDefinitionRemoteModel;
 }

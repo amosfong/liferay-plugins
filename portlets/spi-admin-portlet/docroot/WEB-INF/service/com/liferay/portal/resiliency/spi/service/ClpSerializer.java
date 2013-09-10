@@ -238,6 +238,21 @@ public class ClpSerializer {
 		}
 
 		if (className.equals(
+					"com.liferay.portal.resiliency.spi.DuplicateSPIDefinitionAddressAndPortException")) {
+			return new com.liferay.portal.resiliency.spi.DuplicateSPIDefinitionAddressAndPortException();
+		}
+
+		if (className.equals(
+					"com.liferay.portal.resiliency.spi.InvalidSPIDefinitionAddressAndPortException")) {
+			return new com.liferay.portal.resiliency.spi.InvalidSPIDefinitionAddressAndPortException();
+		}
+
+		if (className.equals(
+					"com.liferay.portal.resiliency.spi.SPIDefinitionActiveException")) {
+			return new com.liferay.portal.resiliency.spi.SPIDefinitionActiveException();
+		}
+
+		if (className.equals(
 					"com.liferay.portal.resiliency.spi.NoSuchDefinitionException")) {
 			return new com.liferay.portal.resiliency.spi.NoSuchDefinitionException();
 		}

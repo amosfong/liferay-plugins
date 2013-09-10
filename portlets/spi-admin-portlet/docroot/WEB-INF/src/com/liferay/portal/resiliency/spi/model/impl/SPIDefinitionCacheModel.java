@@ -37,7 +37,7 @@ public class SPIDefinitionCacheModel implements CacheModel<SPIDefinition>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(23);
+		StringBundler sb = new StringBundler(29);
 
 		sb.append("{spiDefinitionId=");
 		sb.append(spiDefinitionId);
@@ -53,12 +53,18 @@ public class SPIDefinitionCacheModel implements CacheModel<SPIDefinition>,
 		sb.append(modifiedDate);
 		sb.append(", name=");
 		sb.append(name);
+		sb.append(", connectorAddress=");
+		sb.append(connectorAddress);
+		sb.append(", connectorPort=");
+		sb.append(connectorPort);
 		sb.append(", description=");
 		sb.append(description);
-		sb.append(", applications=");
-		sb.append(applications);
 		sb.append(", jvmArguments=");
 		sb.append(jvmArguments);
+		sb.append(", portletIds=");
+		sb.append(portletIds);
+		sb.append(", servletContextNames=");
+		sb.append(servletContextNames);
 		sb.append(", typeSettings=");
 		sb.append(typeSettings);
 		sb.append("}");
@@ -102,6 +108,15 @@ public class SPIDefinitionCacheModel implements CacheModel<SPIDefinition>,
 			spiDefinitionImpl.setName(name);
 		}
 
+		if (connectorAddress == null) {
+			spiDefinitionImpl.setConnectorAddress(StringPool.BLANK);
+		}
+		else {
+			spiDefinitionImpl.setConnectorAddress(connectorAddress);
+		}
+
+		spiDefinitionImpl.setConnectorPort(connectorPort);
+
 		if (description == null) {
 			spiDefinitionImpl.setDescription(StringPool.BLANK);
 		}
@@ -109,18 +124,25 @@ public class SPIDefinitionCacheModel implements CacheModel<SPIDefinition>,
 			spiDefinitionImpl.setDescription(description);
 		}
 
-		if (applications == null) {
-			spiDefinitionImpl.setApplications(StringPool.BLANK);
-		}
-		else {
-			spiDefinitionImpl.setApplications(applications);
-		}
-
 		if (jvmArguments == null) {
 			spiDefinitionImpl.setJvmArguments(StringPool.BLANK);
 		}
 		else {
 			spiDefinitionImpl.setJvmArguments(jvmArguments);
+		}
+
+		if (portletIds == null) {
+			spiDefinitionImpl.setPortletIds(StringPool.BLANK);
+		}
+		else {
+			spiDefinitionImpl.setPortletIds(portletIds);
+		}
+
+		if (servletContextNames == null) {
+			spiDefinitionImpl.setServletContextNames(StringPool.BLANK);
+		}
+		else {
+			spiDefinitionImpl.setServletContextNames(servletContextNames);
 		}
 
 		if (typeSettings == null) {
@@ -144,9 +166,12 @@ public class SPIDefinitionCacheModel implements CacheModel<SPIDefinition>,
 		createDate = objectInput.readLong();
 		modifiedDate = objectInput.readLong();
 		name = objectInput.readUTF();
+		connectorAddress = objectInput.readUTF();
+		connectorPort = objectInput.readInt();
 		description = objectInput.readUTF();
-		applications = objectInput.readUTF();
 		jvmArguments = objectInput.readUTF();
+		portletIds = objectInput.readUTF();
+		servletContextNames = objectInput.readUTF();
 		typeSettings = objectInput.readUTF();
 	}
 
@@ -174,6 +199,15 @@ public class SPIDefinitionCacheModel implements CacheModel<SPIDefinition>,
 			objectOutput.writeUTF(name);
 		}
 
+		if (connectorAddress == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(connectorAddress);
+		}
+
+		objectOutput.writeInt(connectorPort);
+
 		if (description == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
@@ -181,18 +215,25 @@ public class SPIDefinitionCacheModel implements CacheModel<SPIDefinition>,
 			objectOutput.writeUTF(description);
 		}
 
-		if (applications == null) {
-			objectOutput.writeUTF(StringPool.BLANK);
-		}
-		else {
-			objectOutput.writeUTF(applications);
-		}
-
 		if (jvmArguments == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
 		else {
 			objectOutput.writeUTF(jvmArguments);
+		}
+
+		if (portletIds == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(portletIds);
+		}
+
+		if (servletContextNames == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(servletContextNames);
 		}
 
 		if (typeSettings == null) {
@@ -210,8 +251,11 @@ public class SPIDefinitionCacheModel implements CacheModel<SPIDefinition>,
 	public long createDate;
 	public long modifiedDate;
 	public String name;
+	public String connectorAddress;
+	public int connectorPort;
 	public String description;
-	public String applications;
 	public String jvmArguments;
+	public String portletIds;
+	public String servletContextNames;
 	public String typeSettings;
 }

@@ -1214,6 +1214,280 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 	private static final String _FINDER_COLUMN_C_N_NAME_1 = "spiDefinition.name IS NULL";
 	private static final String _FINDER_COLUMN_C_N_NAME_2 = "spiDefinition.name = ?";
 	private static final String _FINDER_COLUMN_C_N_NAME_3 = "(spiDefinition.name IS NULL OR spiDefinition.name = '')";
+	public static final FinderPath FINDER_PATH_FETCH_BY_CA_CP = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
+			SPIDefinitionModelImpl.FINDER_CACHE_ENABLED,
+			SPIDefinitionImpl.class, FINDER_CLASS_NAME_ENTITY, "fetchByCA_CP",
+			new String[] { String.class.getName(), Integer.class.getName() },
+			SPIDefinitionModelImpl.CONNECTORADDRESS_COLUMN_BITMASK |
+			SPIDefinitionModelImpl.CONNECTORPORT_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_CA_CP = new FinderPath(SPIDefinitionModelImpl.ENTITY_CACHE_ENABLED,
+			SPIDefinitionModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByCA_CP",
+			new String[] { String.class.getName(), Integer.class.getName() });
+
+	/**
+	 * Returns the s p i definition where connectorAddress = &#63; and connectorPort = &#63; or throws a {@link com.liferay.portal.resiliency.spi.NoSuchDefinitionException} if it could not be found.
+	 *
+	 * @param connectorAddress the connector address
+	 * @param connectorPort the connector port
+	 * @return the matching s p i definition
+	 * @throws com.liferay.portal.resiliency.spi.NoSuchDefinitionException if a matching s p i definition could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public SPIDefinition findByCA_CP(String connectorAddress, int connectorPort)
+		throws NoSuchDefinitionException, SystemException {
+		SPIDefinition spiDefinition = fetchByCA_CP(connectorAddress,
+				connectorPort);
+
+		if (spiDefinition == null) {
+			StringBundler msg = new StringBundler(6);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("connectorAddress=");
+			msg.append(connectorAddress);
+
+			msg.append(", connectorPort=");
+			msg.append(connectorPort);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchDefinitionException(msg.toString());
+		}
+
+		return spiDefinition;
+	}
+
+	/**
+	 * Returns the s p i definition where connectorAddress = &#63; and connectorPort = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param connectorAddress the connector address
+	 * @param connectorPort the connector port
+	 * @return the matching s p i definition, or <code>null</code> if a matching s p i definition could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public SPIDefinition fetchByCA_CP(String connectorAddress, int connectorPort)
+		throws SystemException {
+		return fetchByCA_CP(connectorAddress, connectorPort, true);
+	}
+
+	/**
+	 * Returns the s p i definition where connectorAddress = &#63; and connectorPort = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param connectorAddress the connector address
+	 * @param connectorPort the connector port
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching s p i definition, or <code>null</code> if a matching s p i definition could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public SPIDefinition fetchByCA_CP(String connectorAddress,
+		int connectorPort, boolean retrieveFromCache) throws SystemException {
+		Object[] finderArgs = new Object[] { connectorAddress, connectorPort };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_CA_CP,
+					finderArgs, this);
+		}
+
+		if (result instanceof SPIDefinition) {
+			SPIDefinition spiDefinition = (SPIDefinition)result;
+
+			if (!Validator.equals(connectorAddress,
+						spiDefinition.getConnectorAddress()) ||
+					(connectorPort != spiDefinition.getConnectorPort())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(4);
+
+			query.append(_SQL_SELECT_SPIDEFINITION_WHERE);
+
+			boolean bindConnectorAddress = false;
+
+			if (connectorAddress == null) {
+				query.append(_FINDER_COLUMN_CA_CP_CONNECTORADDRESS_1);
+			}
+			else if (connectorAddress.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_CA_CP_CONNECTORADDRESS_3);
+			}
+			else {
+				bindConnectorAddress = true;
+
+				query.append(_FINDER_COLUMN_CA_CP_CONNECTORADDRESS_2);
+			}
+
+			query.append(_FINDER_COLUMN_CA_CP_CONNECTORPORT_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindConnectorAddress) {
+					qPos.add(connectorAddress);
+				}
+
+				qPos.add(connectorPort);
+
+				List<SPIDefinition> list = q.list();
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CA_CP,
+						finderArgs, list);
+				}
+				else {
+					if ((list.size() > 1) && _log.isWarnEnabled()) {
+						_log.warn(
+							"SPIDefinitionPersistenceImpl.fetchByCA_CP(String, int, boolean) with parameters (" +
+							StringUtil.merge(finderArgs) +
+							") yields a result set with more than 1 result. This violates the logical unique restriction. There is no order guarantee on which result is returned by this finder.");
+					}
+
+					SPIDefinition spiDefinition = list.get(0);
+
+					result = spiDefinition;
+
+					cacheResult(spiDefinition);
+
+					if ((spiDefinition.getConnectorAddress() == null) ||
+							!spiDefinition.getConnectorAddress()
+											  .equals(connectorAddress) ||
+							(spiDefinition.getConnectorPort() != connectorPort)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CA_CP,
+							finderArgs, spiDefinition);
+					}
+				}
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CA_CP,
+					finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (SPIDefinition)result;
+		}
+	}
+
+	/**
+	 * Removes the s p i definition where connectorAddress = &#63; and connectorPort = &#63; from the database.
+	 *
+	 * @param connectorAddress the connector address
+	 * @param connectorPort the connector port
+	 * @return the s p i definition that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public SPIDefinition removeByCA_CP(String connectorAddress,
+		int connectorPort) throws NoSuchDefinitionException, SystemException {
+		SPIDefinition spiDefinition = findByCA_CP(connectorAddress,
+				connectorPort);
+
+		return remove(spiDefinition);
+	}
+
+	/**
+	 * Returns the number of s p i definitions where connectorAddress = &#63; and connectorPort = &#63;.
+	 *
+	 * @param connectorAddress the connector address
+	 * @param connectorPort the connector port
+	 * @return the number of matching s p i definitions
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public int countByCA_CP(String connectorAddress, int connectorPort)
+		throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_CA_CP;
+
+		Object[] finderArgs = new Object[] { connectorAddress, connectorPort };
+
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_COUNT_SPIDEFINITION_WHERE);
+
+			boolean bindConnectorAddress = false;
+
+			if (connectorAddress == null) {
+				query.append(_FINDER_COLUMN_CA_CP_CONNECTORADDRESS_1);
+			}
+			else if (connectorAddress.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_CA_CP_CONNECTORADDRESS_3);
+			}
+			else {
+				bindConnectorAddress = true;
+
+				query.append(_FINDER_COLUMN_CA_CP_CONNECTORADDRESS_2);
+			}
+
+			query.append(_FINDER_COLUMN_CA_CP_CONNECTORPORT_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindConnectorAddress) {
+					qPos.add(connectorAddress);
+				}
+
+				qPos.add(connectorPort);
+
+				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_CA_CP_CONNECTORADDRESS_1 = "spiDefinition.connectorAddress IS NULL AND ";
+	private static final String _FINDER_COLUMN_CA_CP_CONNECTORADDRESS_2 = "spiDefinition.connectorAddress = ? AND ";
+	private static final String _FINDER_COLUMN_CA_CP_CONNECTORADDRESS_3 = "(spiDefinition.connectorAddress IS NULL OR spiDefinition.connectorAddress = '') AND ";
+	private static final String _FINDER_COLUMN_CA_CP_CONNECTORPORT_2 = "spiDefinition.connectorPort = ?";
 
 	public SPIDefinitionPersistenceImpl() {
 		setModelClass(SPIDefinition.class);
@@ -1233,6 +1507,12 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_N,
 			new Object[] { spiDefinition.getCompanyId(), spiDefinition.getName() },
 			spiDefinition);
+
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CA_CP,
+			new Object[] {
+				spiDefinition.getConnectorAddress(),
+				spiDefinition.getConnectorPort()
+			}, spiDefinition);
 
 		spiDefinition.resetOriginalValues();
 	}
@@ -1317,6 +1597,16 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 				Long.valueOf(1));
 			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_N, args,
 				spiDefinition);
+
+			args = new Object[] {
+					spiDefinition.getConnectorAddress(),
+					spiDefinition.getConnectorPort()
+				};
+
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CA_CP, args,
+				Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CA_CP, args,
+				spiDefinition);
 		}
 		else {
 			SPIDefinitionModelImpl spiDefinitionModelImpl = (SPIDefinitionModelImpl)spiDefinition;
@@ -1330,6 +1620,19 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_C_N, args,
 					Long.valueOf(1));
 				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_C_N, args,
+					spiDefinition);
+			}
+
+			if ((spiDefinitionModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_CA_CP.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						spiDefinition.getConnectorAddress(),
+						spiDefinition.getConnectorPort()
+					};
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_CA_CP, args,
+					Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_CA_CP, args,
 					spiDefinition);
 			}
 		}
@@ -1354,6 +1657,25 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 
 			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_C_N, args);
 			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_C_N, args);
+		}
+
+		args = new Object[] {
+				spiDefinition.getConnectorAddress(),
+				spiDefinition.getConnectorPort()
+			};
+
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CA_CP, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CA_CP, args);
+
+		if ((spiDefinitionModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_CA_CP.getColumnBitmask()) != 0) {
+			args = new Object[] {
+					spiDefinitionModelImpl.getOriginalConnectorAddress(),
+					spiDefinitionModelImpl.getOriginalConnectorPort()
+				};
+
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_CA_CP, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_CA_CP, args);
 		}
 	}
 
@@ -1546,9 +1868,12 @@ public class SPIDefinitionPersistenceImpl extends BasePersistenceImpl<SPIDefinit
 		spiDefinitionImpl.setCreateDate(spiDefinition.getCreateDate());
 		spiDefinitionImpl.setModifiedDate(spiDefinition.getModifiedDate());
 		spiDefinitionImpl.setName(spiDefinition.getName());
+		spiDefinitionImpl.setConnectorAddress(spiDefinition.getConnectorAddress());
+		spiDefinitionImpl.setConnectorPort(spiDefinition.getConnectorPort());
 		spiDefinitionImpl.setDescription(spiDefinition.getDescription());
-		spiDefinitionImpl.setApplications(spiDefinition.getApplications());
 		spiDefinitionImpl.setJvmArguments(spiDefinition.getJvmArguments());
+		spiDefinitionImpl.setPortletIds(spiDefinition.getPortletIds());
+		spiDefinitionImpl.setServletContextNames(spiDefinition.getServletContextNames());
 		spiDefinitionImpl.setTypeSettings(spiDefinition.getTypeSettings());
 
 		return spiDefinitionImpl;

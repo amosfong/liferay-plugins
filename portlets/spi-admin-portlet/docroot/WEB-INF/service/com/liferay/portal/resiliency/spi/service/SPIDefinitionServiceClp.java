@@ -35,6 +35,7 @@ public class SPIDefinitionServiceClp implements SPIDefinitionService {
 		_methodName3 = "addSPIDefinition";
 
 		_methodParameterTypes3 = new String[] {
+				"java.lang.String", "java.lang.String", "int",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
@@ -56,12 +57,20 @@ public class SPIDefinitionServiceClp implements SPIDefinitionService {
 
 		_methodParameterTypes7 = new String[] {  };
 
-		_methodName8 = "updateSPIDefinition";
+		_methodName8 = "startSPI";
 
-		_methodParameterTypes8 = new String[] {
-				"long", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.lang.String",
-				"com.liferay.portal.service.ServiceContext"
+		_methodParameterTypes8 = new String[] { "long" };
+
+		_methodName9 = "stopSPI";
+
+		_methodParameterTypes9 = new String[] { "long" };
+
+		_methodName10 = "updateSPIDefinition";
+
+		_methodParameterTypes10 = new String[] {
+				"long", "java.lang.String", "int", "java.lang.String",
+				"java.lang.String", "java.lang.String", "java.lang.String",
+				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 	}
 
@@ -117,9 +126,10 @@ public class SPIDefinitionServiceClp implements SPIDefinitionService {
 
 	@Override
 	public com.liferay.portal.resiliency.spi.model.SPIDefinition addSPIDefinition(
-		java.lang.String name, java.lang.String description,
-		java.lang.String applications, java.lang.String jvmArguments,
-		java.lang.String typeSettings,
+		java.lang.String name, java.lang.String connectorAddress,
+		int connectorPort, java.lang.String description,
+		java.lang.String jvmArguments, java.lang.String portletIds,
+		java.lang.String servletContextNames, java.lang.String typeSettings,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -131,11 +141,17 @@ public class SPIDefinitionServiceClp implements SPIDefinitionService {
 					new Object[] {
 						ClpSerializer.translateInput(name),
 						
+					ClpSerializer.translateInput(connectorAddress),
+						
+					connectorPort,
+						
 					ClpSerializer.translateInput(description),
 						
-					ClpSerializer.translateInput(applications),
-						
 					ClpSerializer.translateInput(jvmArguments),
+						
+					ClpSerializer.translateInput(portletIds),
+						
+					ClpSerializer.translateInput(servletContextNames),
 						
 					ClpSerializer.translateInput(typeSettings),
 						
@@ -269,7 +285,7 @@ public class SPIDefinitionServiceClp implements SPIDefinitionService {
 	}
 
 	@Override
-	public java.util.Collection<com.liferay.portal.resiliency.spi.model.SPIDefinition> getSPIDefinitions()
+	public java.util.List<com.liferay.portal.resiliency.spi.model.SPIDefinition> getSPIDefinitions()
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -298,30 +314,95 @@ public class SPIDefinitionServiceClp implements SPIDefinitionService {
 			}
 		}
 
-		return (java.util.Collection<com.liferay.portal.resiliency.spi.model.SPIDefinition>)ClpSerializer.translateOutput(returnObj);
+		return (java.util.List<com.liferay.portal.resiliency.spi.model.SPIDefinition>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public void startSPI(long spiDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		try {
+			_invokableService.invokeMethod(_methodName8,
+				_methodParameterTypes8, new Object[] { spiDefinitionId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	@Override
+	public void stopSPI(long spiDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		try {
+			_invokableService.invokeMethod(_methodName9,
+				_methodParameterTypes9, new Object[] { spiDefinitionId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
 	}
 
 	@Override
 	public com.liferay.portal.resiliency.spi.model.SPIDefinition updateSPIDefinition(
-		long spiDefinitionId, java.lang.String description,
-		java.lang.String applications, java.lang.String jvmArguments,
-		java.lang.String typeSettings,
+		long spiDefinitionId, java.lang.String connectorAddress,
+		int connectorPort, java.lang.String description,
+		java.lang.String jvmArguments, java.lang.String portletIds,
+		java.lang.String servletContextNames, java.lang.String typeSettings,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName8,
-					_methodParameterTypes8,
+			returnObj = _invokableService.invokeMethod(_methodName10,
+					_methodParameterTypes10,
 					new Object[] {
 						spiDefinitionId,
 						
+					ClpSerializer.translateInput(connectorAddress),
+						
+					connectorPort,
+						
 					ClpSerializer.translateInput(description),
 						
-					ClpSerializer.translateInput(applications),
-						
 					ClpSerializer.translateInput(jvmArguments),
+						
+					ClpSerializer.translateInput(portletIds),
+						
+					ClpSerializer.translateInput(servletContextNames),
 						
 					ClpSerializer.translateInput(typeSettings),
 						
@@ -368,4 +449,8 @@ public class SPIDefinitionServiceClp implements SPIDefinitionService {
 	private String[] _methodParameterTypes7;
 	private String _methodName8;
 	private String[] _methodParameterTypes8;
+	private String _methodName9;
+	private String[] _methodParameterTypes9;
+	private String _methodName10;
+	private String[] _methodParameterTypes10;
 }

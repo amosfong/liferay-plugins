@@ -435,6 +435,83 @@ public class SPIDefinitionUtil {
 	}
 
 	/**
+	* Returns the s p i definition where connectorAddress = &#63; and connectorPort = &#63; or throws a {@link com.liferay.portal.resiliency.spi.NoSuchDefinitionException} if it could not be found.
+	*
+	* @param connectorAddress the connector address
+	* @param connectorPort the connector port
+	* @return the matching s p i definition
+	* @throws com.liferay.portal.resiliency.spi.NoSuchDefinitionException if a matching s p i definition could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.resiliency.spi.model.SPIDefinition findByCA_CP(
+		java.lang.String connectorAddress, int connectorPort)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.resiliency.spi.NoSuchDefinitionException {
+		return getPersistence().findByCA_CP(connectorAddress, connectorPort);
+	}
+
+	/**
+	* Returns the s p i definition where connectorAddress = &#63; and connectorPort = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	*
+	* @param connectorAddress the connector address
+	* @param connectorPort the connector port
+	* @return the matching s p i definition, or <code>null</code> if a matching s p i definition could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.resiliency.spi.model.SPIDefinition fetchByCA_CP(
+		java.lang.String connectorAddress, int connectorPort)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().fetchByCA_CP(connectorAddress, connectorPort);
+	}
+
+	/**
+	* Returns the s p i definition where connectorAddress = &#63; and connectorPort = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	*
+	* @param connectorAddress the connector address
+	* @param connectorPort the connector port
+	* @param retrieveFromCache whether to use the finder cache
+	* @return the matching s p i definition, or <code>null</code> if a matching s p i definition could not be found
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.resiliency.spi.model.SPIDefinition fetchByCA_CP(
+		java.lang.String connectorAddress, int connectorPort,
+		boolean retrieveFromCache)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence()
+				   .fetchByCA_CP(connectorAddress, connectorPort,
+			retrieveFromCache);
+	}
+
+	/**
+	* Removes the s p i definition where connectorAddress = &#63; and connectorPort = &#63; from the database.
+	*
+	* @param connectorAddress the connector address
+	* @param connectorPort the connector port
+	* @return the s p i definition that was removed
+	* @throws SystemException if a system exception occurred
+	*/
+	public static com.liferay.portal.resiliency.spi.model.SPIDefinition removeByCA_CP(
+		java.lang.String connectorAddress, int connectorPort)
+		throws com.liferay.portal.kernel.exception.SystemException,
+			com.liferay.portal.resiliency.spi.NoSuchDefinitionException {
+		return getPersistence().removeByCA_CP(connectorAddress, connectorPort);
+	}
+
+	/**
+	* Returns the number of s p i definitions where connectorAddress = &#63; and connectorPort = &#63;.
+	*
+	* @param connectorAddress the connector address
+	* @param connectorPort the connector port
+	* @return the number of matching s p i definitions
+	* @throws SystemException if a system exception occurred
+	*/
+	public static int countByCA_CP(java.lang.String connectorAddress,
+		int connectorPort)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getPersistence().countByCA_CP(connectorAddress, connectorPort);
+	}
+
+	/**
 	* Caches the s p i definition in the entity cache if it is enabled.
 	*
 	* @param spiDefinition the s p i definition

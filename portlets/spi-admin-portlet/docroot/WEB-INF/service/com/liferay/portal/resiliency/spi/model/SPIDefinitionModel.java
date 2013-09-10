@@ -190,6 +190,35 @@ public interface SPIDefinitionModel extends AuditedModel,
 	public void setName(String name);
 
 	/**
+	 * Returns the connector address of this s p i definition.
+	 *
+	 * @return the connector address of this s p i definition
+	 */
+	@AutoEscape
+	public String getConnectorAddress();
+
+	/**
+	 * Sets the connector address of this s p i definition.
+	 *
+	 * @param connectorAddress the connector address of this s p i definition
+	 */
+	public void setConnectorAddress(String connectorAddress);
+
+	/**
+	 * Returns the connector port of this s p i definition.
+	 *
+	 * @return the connector port of this s p i definition
+	 */
+	public int getConnectorPort();
+
+	/**
+	 * Sets the connector port of this s p i definition.
+	 *
+	 * @param connectorPort the connector port of this s p i definition
+	 */
+	public void setConnectorPort(int connectorPort);
+
+	/**
 	 * Returns the description of this s p i definition.
 	 *
 	 * @return the description of this s p i definition
@@ -205,21 +234,6 @@ public interface SPIDefinitionModel extends AuditedModel,
 	public void setDescription(String description);
 
 	/**
-	 * Returns the applications of this s p i definition.
-	 *
-	 * @return the applications of this s p i definition
-	 */
-	@AutoEscape
-	public String getApplications();
-
-	/**
-	 * Sets the applications of this s p i definition.
-	 *
-	 * @param applications the applications of this s p i definition
-	 */
-	public void setApplications(String applications);
-
-	/**
 	 * Returns the jvm arguments of this s p i definition.
 	 *
 	 * @return the jvm arguments of this s p i definition
@@ -233,6 +247,36 @@ public interface SPIDefinitionModel extends AuditedModel,
 	 * @param jvmArguments the jvm arguments of this s p i definition
 	 */
 	public void setJvmArguments(String jvmArguments);
+
+	/**
+	 * Returns the portlet IDs of this s p i definition.
+	 *
+	 * @return the portlet IDs of this s p i definition
+	 */
+	@AutoEscape
+	public String getPortletIds();
+
+	/**
+	 * Sets the portlet IDs of this s p i definition.
+	 *
+	 * @param portletIds the portlet IDs of this s p i definition
+	 */
+	public void setPortletIds(String portletIds);
+
+	/**
+	 * Returns the servlet context names of this s p i definition.
+	 *
+	 * @return the servlet context names of this s p i definition
+	 */
+	@AutoEscape
+	public String getServletContextNames();
+
+	/**
+	 * Sets the servlet context names of this s p i definition.
+	 *
+	 * @param servletContextNames the servlet context names of this s p i definition
+	 */
+	public void setServletContextNames(String servletContextNames);
 
 	/**
 	 * Returns the type settings of this s p i definition.

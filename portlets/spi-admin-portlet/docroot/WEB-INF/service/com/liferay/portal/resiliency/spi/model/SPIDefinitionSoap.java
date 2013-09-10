@@ -38,9 +38,12 @@ public class SPIDefinitionSoap implements Serializable {
 		soapModel.setCreateDate(model.getCreateDate());
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setName(model.getName());
+		soapModel.setConnectorAddress(model.getConnectorAddress());
+		soapModel.setConnectorPort(model.getConnectorPort());
 		soapModel.setDescription(model.getDescription());
-		soapModel.setApplications(model.getApplications());
 		soapModel.setJvmArguments(model.getJvmArguments());
+		soapModel.setPortletIds(model.getPortletIds());
+		soapModel.setServletContextNames(model.getServletContextNames());
 		soapModel.setTypeSettings(model.getTypeSettings());
 
 		return soapModel;
@@ -150,6 +153,22 @@ public class SPIDefinitionSoap implements Serializable {
 		_name = name;
 	}
 
+	public String getConnectorAddress() {
+		return _connectorAddress;
+	}
+
+	public void setConnectorAddress(String connectorAddress) {
+		_connectorAddress = connectorAddress;
+	}
+
+	public int getConnectorPort() {
+		return _connectorPort;
+	}
+
+	public void setConnectorPort(int connectorPort) {
+		_connectorPort = connectorPort;
+	}
+
 	public String getDescription() {
 		return _description;
 	}
@@ -158,20 +177,28 @@ public class SPIDefinitionSoap implements Serializable {
 		_description = description;
 	}
 
-	public String getApplications() {
-		return _applications;
-	}
-
-	public void setApplications(String applications) {
-		_applications = applications;
-	}
-
 	public String getJvmArguments() {
 		return _jvmArguments;
 	}
 
 	public void setJvmArguments(String jvmArguments) {
 		_jvmArguments = jvmArguments;
+	}
+
+	public String getPortletIds() {
+		return _portletIds;
+	}
+
+	public void setPortletIds(String portletIds) {
+		_portletIds = portletIds;
+	}
+
+	public String getServletContextNames() {
+		return _servletContextNames;
+	}
+
+	public void setServletContextNames(String servletContextNames) {
+		_servletContextNames = servletContextNames;
 	}
 
 	public String getTypeSettings() {
@@ -189,8 +216,11 @@ public class SPIDefinitionSoap implements Serializable {
 	private Date _createDate;
 	private Date _modifiedDate;
 	private String _name;
+	private String _connectorAddress;
+	private int _connectorPort;
 	private String _description;
-	private String _applications;
 	private String _jvmArguments;
+	private String _portletIds;
+	private String _servletContextNames;
 	private String _typeSettings;
 }

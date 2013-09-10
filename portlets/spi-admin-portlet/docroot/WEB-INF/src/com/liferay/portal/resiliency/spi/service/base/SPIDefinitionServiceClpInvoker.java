@@ -35,6 +35,7 @@ public class SPIDefinitionServiceClpInvoker {
 		_methodName28 = "addSPIDefinition";
 
 		_methodParameterTypes28 = new String[] {
+				"java.lang.String", "java.lang.String", "int",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
@@ -56,12 +57,20 @@ public class SPIDefinitionServiceClpInvoker {
 
 		_methodParameterTypes32 = new String[] {  };
 
-		_methodName33 = "updateSPIDefinition";
+		_methodName33 = "startSPI";
 
-		_methodParameterTypes33 = new String[] {
-				"long", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.lang.String",
-				"com.liferay.portal.service.ServiceContext"
+		_methodParameterTypes33 = new String[] { "long" };
+
+		_methodName34 = "stopSPI";
+
+		_methodParameterTypes34 = new String[] { "long" };
+
+		_methodName35 = "updateSPIDefinition";
+
+		_methodParameterTypes35 = new String[] {
+				"long", "java.lang.String", "int", "java.lang.String",
+				"java.lang.String", "java.lang.String", "java.lang.String",
+				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 	}
 
@@ -82,9 +91,12 @@ public class SPIDefinitionServiceClpInvoker {
 		if (_methodName28.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes28, parameterTypes)) {
 			return SPIDefinitionServiceUtil.addSPIDefinition((java.lang.String)arguments[0],
-				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
+				(java.lang.String)arguments[1],
+				((Integer)arguments[2]).intValue(),
 				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
-				(com.liferay.portal.service.ServiceContext)arguments[5]);
+				(java.lang.String)arguments[5], (java.lang.String)arguments[6],
+				(java.lang.String)arguments[7],
+				(com.liferay.portal.service.ServiceContext)arguments[8]);
 		}
 
 		if (_methodName29.equals(name) &&
@@ -110,10 +122,27 @@ public class SPIDefinitionServiceClpInvoker {
 
 		if (_methodName33.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes33, parameterTypes)) {
+			SPIDefinitionServiceUtil.startSPI(((Long)arguments[0]).longValue());
+
+			return null;
+		}
+
+		if (_methodName34.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes34, parameterTypes)) {
+			SPIDefinitionServiceUtil.stopSPI(((Long)arguments[0]).longValue());
+
+			return null;
+		}
+
+		if (_methodName35.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes35, parameterTypes)) {
 			return SPIDefinitionServiceUtil.updateSPIDefinition(((Long)arguments[0]).longValue(),
-				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
+				(java.lang.String)arguments[1],
+				((Integer)arguments[2]).intValue(),
 				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
-				(com.liferay.portal.service.ServiceContext)arguments[5]);
+				(java.lang.String)arguments[5], (java.lang.String)arguments[6],
+				(java.lang.String)arguments[7],
+				(com.liferay.portal.service.ServiceContext)arguments[8]);
 		}
 
 		throw new UnsupportedOperationException();
@@ -135,4 +164,8 @@ public class SPIDefinitionServiceClpInvoker {
 	private String[] _methodParameterTypes32;
 	private String _methodName33;
 	private String[] _methodParameterTypes33;
+	private String _methodName34;
+	private String[] _methodParameterTypes34;
+	private String _methodName35;
+	private String[] _methodParameterTypes35;
 }

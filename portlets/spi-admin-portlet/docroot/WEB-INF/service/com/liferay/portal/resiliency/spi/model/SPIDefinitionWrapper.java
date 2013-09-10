@@ -57,9 +57,12 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 		attributes.put("createDate", getCreateDate());
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("name", getName());
+		attributes.put("connectorAddress", getConnectorAddress());
+		attributes.put("connectorPort", getConnectorPort());
 		attributes.put("description", getDescription());
-		attributes.put("applications", getApplications());
 		attributes.put("jvmArguments", getJvmArguments());
+		attributes.put("portletIds", getPortletIds());
+		attributes.put("servletContextNames", getServletContextNames());
 		attributes.put("typeSettings", getTypeSettings());
 
 		return attributes;
@@ -109,22 +112,41 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 			setName(name);
 		}
 
+		String connectorAddress = (String)attributes.get("connectorAddress");
+
+		if (connectorAddress != null) {
+			setConnectorAddress(connectorAddress);
+		}
+
+		Integer connectorPort = (Integer)attributes.get("connectorPort");
+
+		if (connectorPort != null) {
+			setConnectorPort(connectorPort);
+		}
+
 		String description = (String)attributes.get("description");
 
 		if (description != null) {
 			setDescription(description);
 		}
 
-		String applications = (String)attributes.get("applications");
-
-		if (applications != null) {
-			setApplications(applications);
-		}
-
 		String jvmArguments = (String)attributes.get("jvmArguments");
 
 		if (jvmArguments != null) {
 			setJvmArguments(jvmArguments);
+		}
+
+		String portletIds = (String)attributes.get("portletIds");
+
+		if (portletIds != null) {
+			setPortletIds(portletIds);
+		}
+
+		String servletContextNames = (String)attributes.get(
+				"servletContextNames");
+
+		if (servletContextNames != null) {
+			setServletContextNames(servletContextNames);
 		}
 
 		String typeSettings = (String)attributes.get("typeSettings");
@@ -317,6 +339,46 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	/**
+	* Returns the connector address of this s p i definition.
+	*
+	* @return the connector address of this s p i definition
+	*/
+	@Override
+	public java.lang.String getConnectorAddress() {
+		return _spiDefinition.getConnectorAddress();
+	}
+
+	/**
+	* Sets the connector address of this s p i definition.
+	*
+	* @param connectorAddress the connector address of this s p i definition
+	*/
+	@Override
+	public void setConnectorAddress(java.lang.String connectorAddress) {
+		_spiDefinition.setConnectorAddress(connectorAddress);
+	}
+
+	/**
+	* Returns the connector port of this s p i definition.
+	*
+	* @return the connector port of this s p i definition
+	*/
+	@Override
+	public int getConnectorPort() {
+		return _spiDefinition.getConnectorPort();
+	}
+
+	/**
+	* Sets the connector port of this s p i definition.
+	*
+	* @param connectorPort the connector port of this s p i definition
+	*/
+	@Override
+	public void setConnectorPort(int connectorPort) {
+		_spiDefinition.setConnectorPort(connectorPort);
+	}
+
+	/**
 	* Returns the description of this s p i definition.
 	*
 	* @return the description of this s p i definition
@@ -337,26 +399,6 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	/**
-	* Returns the applications of this s p i definition.
-	*
-	* @return the applications of this s p i definition
-	*/
-	@Override
-	public java.lang.String getApplications() {
-		return _spiDefinition.getApplications();
-	}
-
-	/**
-	* Sets the applications of this s p i definition.
-	*
-	* @param applications the applications of this s p i definition
-	*/
-	@Override
-	public void setApplications(java.lang.String applications) {
-		_spiDefinition.setApplications(applications);
-	}
-
-	/**
 	* Returns the jvm arguments of this s p i definition.
 	*
 	* @return the jvm arguments of this s p i definition
@@ -374,6 +416,46 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	@Override
 	public void setJvmArguments(java.lang.String jvmArguments) {
 		_spiDefinition.setJvmArguments(jvmArguments);
+	}
+
+	/**
+	* Returns the portlet IDs of this s p i definition.
+	*
+	* @return the portlet IDs of this s p i definition
+	*/
+	@Override
+	public java.lang.String getPortletIds() {
+		return _spiDefinition.getPortletIds();
+	}
+
+	/**
+	* Sets the portlet IDs of this s p i definition.
+	*
+	* @param portletIds the portlet IDs of this s p i definition
+	*/
+	@Override
+	public void setPortletIds(java.lang.String portletIds) {
+		_spiDefinition.setPortletIds(portletIds);
+	}
+
+	/**
+	* Returns the servlet context names of this s p i definition.
+	*
+	* @return the servlet context names of this s p i definition
+	*/
+	@Override
+	public java.lang.String getServletContextNames() {
+		return _spiDefinition.getServletContextNames();
+	}
+
+	/**
+	* Sets the servlet context names of this s p i definition.
+	*
+	* @param servletContextNames the servlet context names of this s p i definition
+	*/
+	@Override
+	public void setServletContextNames(java.lang.String servletContextNames) {
+		_spiDefinition.setServletContextNames(servletContextNames);
 	}
 
 	/**
@@ -499,6 +581,33 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_spiDefinition.persist();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.util.UnicodeProperties getTypeSettingsProperties() {
+		return _spiDefinition.getTypeSettingsProperties();
+	}
+
+	@Override
+	public java.lang.String getTypeSettingsProperty(java.lang.String key) {
+		return _spiDefinition.getTypeSettingsProperty(key);
+	}
+
+	@Override
+	public java.lang.String getTypeSettingsProperty(java.lang.String key,
+		java.lang.String defaultValue) {
+		return _spiDefinition.getTypeSettingsProperty(key, defaultValue);
+	}
+
+	@Override
+	public boolean isAlive() {
+		return _spiDefinition.isAlive();
+	}
+
+	@Override
+	public void setTypeSettingsProperties(
+		com.liferay.portal.kernel.util.UnicodeProperties typeSettingsProperties) {
+		_spiDefinition.setTypeSettingsProperties(typeSettingsProperties);
 	}
 
 	@Override
