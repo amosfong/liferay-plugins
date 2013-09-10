@@ -12,4 +12,18 @@
 			<bean class="com.liferay.portal.resiliency.spi.service.permission.SPIDefinitionPermissionImpl" />
 		</property>
 	</bean>
+
+	<bean id="com.liferay.portal.resiliency.spi.util.SPIConfigurationTemplate" class="com.liferay.portal.resiliency.spi.util.SPIConfigurationTemplate">
+		<property name="javaExecutable" value="java" />
+		<property name="connectorPortMin" value="9000" />
+		<property name="connectorPortMax" value="9100" />
+		<property name="jvmArguments" value="-Xmx512m -XX:PermSize=200m" />
+		<property name="minThreads" value="20" />
+		<property name="maxThreads" value="100" />
+		<property name="spiAgentClassName" value="com.liferay.portal.resiliency.spi.agent.HttpClientSPIAgent" />
+		<property name="spiPingInterval" value="5000" />
+		<property name="spiProviderName" value="Tomcat SPI Provider" />
+		<property name="spiRegisterTimeout" value="300000" />
+		<property name="spiShutdownTimeout" value="300000" />
+	</bean>
 </beans>

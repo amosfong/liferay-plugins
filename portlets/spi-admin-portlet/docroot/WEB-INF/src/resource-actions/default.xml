@@ -46,6 +46,7 @@
 		<permissions>
 			<supports>
 				<action-key>DELETE</action-key>
+				<action-key>MANAGE</action-key>
 				<action-key>PERMISSIONS</action-key>
 				<action-key>SUBSCRIBE</action-key>
 				<action-key>UPDATE</action-key>
@@ -55,6 +56,7 @@
 			<guest-defaults />
 			<guest-unsupported>
 				<action-key>DELETE</action-key>
+				<action-key>MANAGE</action-key>
 				<action-key>PERMISSIONS</action-key>
 				<action-key>SUBSCRIBE</action-key>
 				<action-key>UPDATE</action-key>

@@ -21,9 +21,8 @@ import com.liferay.portal.resiliency.spi.service.base.SPIDefinitionServiceBaseIm
 import com.liferay.portal.resiliency.spi.service.permission.SPIDefinitionPermissionUtil;
 import com.liferay.portal.resiliency.spi.util.ActionKeys;
 import com.liferay.portal.service.ServiceContext;
-import com.liferay.portal.service.permission.PortalPermissionUtil;
 
-import java.util.Collection;
+import java.util.List;
 
 /**
  * @author Michael C. Han
@@ -32,17 +31,19 @@ public class SPIDefinitionServiceImpl extends SPIDefinitionServiceBaseImpl {
 
 	@Override
 	public SPIDefinition addSPIDefinition(
-			String name, String description, String applications,
-			String jvmArguments, String typeSettings,
+			String name, String connectorAddress, int connectorPort,
+			String description, String jvmArguments, String portletIds,
+			String servletContextNames, String typeSettings,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		PortalPermissionUtil.check(
+		SPIDefinitionPermissionUtil.check(
 			getPermissionChecker(), ActionKeys.ADD_SPI_DEFINITION);
 
 		return spiDefinitionLocalService.addSPIDefinition(
-			getUserId(), name, description, applications, jvmArguments,
-			typeSettings, serviceContext);
+			getUserId(), name, connectorAddress, connectorPort, description,
+			jvmArguments, portletIds, servletContextNames, typeSettings,
+			serviceContext);
 	}
 
 	@Override
@@ -79,19 +80,40 @@ public class SPIDefinitionServiceImpl extends SPIDefinitionServiceBaseImpl {
 	}
 
 	@Override
-	public Collection<SPIDefinition> getSPIDefinitions()
+	public List<SPIDefinition> getSPIDefinitions()
 		throws PortalException, SystemException {
 
-		PortalPermissionUtil.check(
+		SPIDefinitionPermissionUtil.check(
 			getPermissionChecker(), ActionKeys.VIEW_SPI_DEFINITIONS);
 
 		return spiDefinitionLocalService.getSPIDefinitions();
 	}
 
 	@Override
+	public void startSPI(long spiDefinitionId)
+		throws PortalException, SystemException {
+
+		SPIDefinitionPermissionUtil.check(
+			getPermissionChecker(), spiDefinitionId, ActionKeys.MANAGE);
+
+		spiDefinitionLocalService.startSPI(spiDefinitionId);
+	}
+
+	@Override
+	public void stopSPI(long spiDefinitionId)
+		throws PortalException, SystemException {
+
+		SPIDefinitionPermissionUtil.check(
+			getPermissionChecker(), spiDefinitionId, ActionKeys.MANAGE);
+
+		spiDefinitionLocalService.stopSPI(spiDefinitionId);
+	}
+
+	@Override
 	public SPIDefinition updateSPIDefinition(
-			long spiDefinitionId, String description, String applications,
-			String jvmArguments, String typeSettings,
+			long spiDefinitionId, String connectorAddress, int connectorPort,
+			String description, String jvmArguments, String portletIds,
+			String servletContextNames, String typeSettings,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
@@ -99,8 +121,9 @@ public class SPIDefinitionServiceImpl extends SPIDefinitionServiceBaseImpl {
 			getPermissionChecker(), spiDefinitionId, ActionKeys.UPDATE);
 
 		return spiDefinitionLocalService.updateSPIDefinition(
-			getUserId(), spiDefinitionId, description, applications,
-			jvmArguments, typeSettings, serviceContext);
+			getUserId(), spiDefinitionId, connectorAddress, connectorPort,
+			description, jvmArguments, portletIds, servletContextNames,
+			typeSettings, serviceContext);
 	}
 
 }
