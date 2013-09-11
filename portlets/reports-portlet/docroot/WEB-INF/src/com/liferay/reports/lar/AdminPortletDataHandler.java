@@ -88,8 +88,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 			PortletPreferences portletPreferences)
 		throws Exception {
 
-		portletDataContext.addPermissions(
-			"com.liferay.reports.admin", portletDataContext.getScopeGroupId());
+		portletDataContext.addPortletPermissions(RESOURCE_NAME);
 
 		Element rootElement = addExportDataRootElement(portletDataContext);
 
@@ -123,9 +122,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 			PortletPreferences portletPreferences, String data)
 		throws Exception {
 
-		portletDataContext.importPermissions(
-			"com.liferay.reports.admin", portletDataContext.getSourceGroupId(),
-			portletDataContext.getScopeGroupId());
+		portletDataContext.importPortletPermissions(RESOURCE_NAME);
 
 		Element rootElement = portletDataContext.getImportDataRootElement();
 
@@ -384,5 +381,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 		portletDataContext.importClassedModel(
 			source, importedSource, NAMESPACE);
 	}
+
+	protected static final String RESOURCE_NAME = "com.liferay.reports.admin";
 
 }
