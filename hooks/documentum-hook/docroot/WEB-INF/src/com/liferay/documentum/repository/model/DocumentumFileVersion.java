@@ -281,16 +281,6 @@ public class DocumentumFileVersion
 	}
 
 	@Override
-	public boolean isInTrash() {
-		return false;
-	}
-
-	@Override
-	public boolean isInTrashContainer() {
-		return false;
-	}
-
-	@Override
 	public boolean isPending() {
 		return false;
 	}

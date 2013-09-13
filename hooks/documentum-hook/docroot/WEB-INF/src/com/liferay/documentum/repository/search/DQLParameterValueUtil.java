@@ -70,7 +70,6 @@ public class DQLParameterValueUtil {
 						"yyyy/MM/dd HH:mm:ss");
 
 				value = dqlSimpleDateFormat.format(date);
-
 			}
 			catch (ParseException pe) {
 				_log.warn(
