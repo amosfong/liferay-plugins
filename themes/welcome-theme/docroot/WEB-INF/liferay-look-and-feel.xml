@@ -3,7 +3,7 @@
 
 <look-and-feel>
 	<compatibility>
-		<version>6.2.0+</version>
+		<version>6.2.10+</version>
 	</compatibility>
 	<theme id="welcome" name="Welcome" />
 </look-and-feel>
