@@ -92,7 +92,7 @@ JSONArray samlSloRequestInfosJSONArray = samlSloContextJSONObject.getJSONArray("
 	</div>
 </noscript>
 
-<aui:script use="aui-io-request,aui-template">
+<aui:script use="aui-io-request-deprecated,aui-template-deprecated">
 	var AArray = A.Array;
 
 	var MAP_ENTITY_STATUS = {
