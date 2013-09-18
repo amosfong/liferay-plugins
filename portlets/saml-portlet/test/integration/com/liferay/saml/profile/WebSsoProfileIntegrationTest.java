@@ -245,7 +245,7 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 		Assert.assertTrue(samlSsoRequestContext.isNewSession());
 	}
 
-	@Test(expected=SignatureException.class)
+	@Test(expected = SignatureException.class)
 	public void testVerifyAssertionSignatureInvalidSignature()
 		throws Exception {
 
@@ -369,7 +369,7 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 			audienceRestrictions, samlMessageContext);
 	}
 
-	@Test(expected=AudienceException.class)
+	@Test(expected = AudienceException.class)
 	public void testVerifyAudienceRestrictionsDeny() throws Exception {
 		List<AudienceRestriction> audienceRestrictions =
 			new ArrayList<AudienceRestriction>();
@@ -403,10 +403,9 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 			SAMLConstants.SAML2_POST_BINDING_URI);
 
 		_webSsoProfileImpl.verifyDestination(samlMessageContext, ACS_URL);
-
 	}
 
-	@Test(expected=DestinationException.class)
+	@Test(expected = DestinationException.class)
 	public void testVerifyDestinationDeny() throws Exception {
 		MockHttpServletRequest mockHttpServletRequest =
 			getMockHttpServletRequest(ACS_URL);
@@ -431,7 +430,7 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 		_webSsoProfileImpl.verifyInResponseTo(response);
 	}
 
-	@Test(expected=InResponseToException.class)
+	@Test(expected = InResponseToException.class)
 	public void testVerifyInResponseToNoAuthnRequest() throws Exception {
 		Response response = OpenSamlUtil.buildResponse();
 
@@ -467,7 +466,7 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 		_webSsoProfileImpl.verifyInResponseTo(response);
 	}
 
-	@Test(expected=IssuerException.class)
+	@Test(expected = IssuerException.class)
 	public void testVerifyIssuerInvalidFormat() throws Exception {
 		MockHttpServletRequest mockHttpServletRequest =
 			getMockHttpServletRequest(ACS_URL);
@@ -485,7 +484,7 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 		_webSsoProfileImpl.verifyIssuer(samlMessageContext, issuer);
 	}
 
-	@Test(expected=IssuerException.class)
+	@Test(expected = IssuerException.class)
 	public void testVerifyIssuerInvalidIssuer() throws Exception {
 		MockHttpServletRequest mockHttpServletRequest =
 			getMockHttpServletRequest(ACS_URL);
@@ -515,7 +514,7 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 			samlMessageContext, OpenSamlUtil.buildIssuer(IDP_ENTITY_ID));
 	}
 
-	@Test(expected=ExpiredException.class)
+	@Test(expected = ExpiredException.class)
 	public void testVerifySubjectExpired() throws Exception {
 		MockHttpServletRequest mockHttpServletRequest =
 			getMockHttpServletRequest(ACS_URL);
@@ -541,7 +540,7 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 		_webSsoProfileImpl.verifySubject(samlMessageContext, subject);
 	}
 
-	@Test(expected=SubjectException.class)
+	@Test(expected = SubjectException.class)
 	public void testVerifySubjectNoBearerSubjectConfirmation()
 		throws Exception {
 

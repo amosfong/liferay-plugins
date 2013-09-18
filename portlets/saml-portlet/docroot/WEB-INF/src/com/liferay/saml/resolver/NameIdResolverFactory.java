@@ -72,7 +72,6 @@ public class NameIdResolverFactory {
 
 			if (nameIdResolver == null) {
 				nameIdResolver = _nameIdResolver;
-
 			}
 
 			_nameIdResolvers.put(companyId + "," + entityId, nameIdResolver);
