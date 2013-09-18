@@ -648,17 +648,6 @@
 			</throws>
 		</method>
 		<method>
-			<name>getPortletPath</name>
-			<param>
-				<name>portletDataContext</name>
-				<type>com.liferay.portal.kernel.lar.PortletDataContext</type>
-				<comment><![CDATA[]]></comment>
-			</param>
-			<return>
-				<comment><![CDATA[]]></comment>
-			</return>
-		</method>
-		<method>
 			<name>importKBArticle</name>
 			<param>
 				<name>portletDataContext</name>
@@ -9667,27 +9656,6 @@
 		</method>
 		<field>
 			<name>_SQL_DATA_MAX_PARAMETERS</name>
-		</field>
-	</javadoc>
-	<javadoc>
-		<name>PortletKeys</name>
-		<type>com.liferay.knowledgebase.util.PortletKeys</type>
-		<author><![CDATA[Brian Wing Shun Chan]]></author>
-		<author><![CDATA[Peter Shin]]></author>
-		<field>
-			<name>KNOWLEDGE_BASE_ARTICLE</name>
-		</field>
-		<field>
-			<name>KNOWLEDGE_BASE_ARTICLE_DEFAULT_INSTANCE</name>
-		</field>
-		<field>
-			<name>KNOWLEDGE_BASE_DISPLAY</name>
-		</field>
-		<field>
-			<name>KNOWLEDGE_BASE_SEARCH</name>
-		</field>
-		<field>
-			<name>KNOWLEDGE_BASE_SECTION</name>
 		</field>
 	</javadoc>
 	<javadoc>

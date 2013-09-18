@@ -2,6 +2,73 @@
 
 <javadocs>
 	<javadoc>
+		<name>KaleoFormsDDMDisplay</name>
+		<type>com.liferay.portal.workflow.kaleo.forms.ddm.KaleoFormsDDMDisplay</type>
+		<author><![CDATA[Marcellus Tavares]]></author>
+		<method>
+			<name>getPortletId</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
+			<name>getResourceName</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
+			<name>getStorageType</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
+			<name>getStructureType</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
+			<name>getTemplateMode</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
+			<name>getTemplateType</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
+			<name>getViewTemplatesBackURL</name>
+			<param>
+				<name>liferayPortletRequest</name>
+				<type>com.liferay.portal.kernel.portlet.LiferayPortletRequest</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>liferayPortletResponse</name>
+				<type>com.liferay.portal.kernel.portlet.LiferayPortletResponse</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>classPK</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+			<throws>
+				<name>Exception</name>
+				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+	</javadoc>
+	<javadoc>
 		<name>KaleoProcessImpl</name>
 		<type>com.liferay.portal.workflow.kaleo.forms.model.impl.KaleoProcessImpl</type>
 		<author><![CDATA[Marcellus Tavares]]></author>

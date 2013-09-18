@@ -8673,6 +8673,22 @@
 			</return>
 		</method>
 		<method>
+			<name>resolveSingleSignOnService</name>
+			<param>
+				<name>idpSsoDescriptor</name>
+				<type>org.opensaml.saml2.metadata.IDPSSODescriptor</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>preferredBinding</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
 			<name>_getAttributeValue</name>
 			<param>
 				<name>attributes</name>

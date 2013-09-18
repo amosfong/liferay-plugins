@@ -252,9 +252,11 @@ public class DocumentumLock
 	public void setEscapedModel(boolean escapedModel) {
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(BaseModel<?> baseModel) {
 	}
 
+	@Override
 	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
 	}
 

@@ -1114,6 +1114,68 @@
 		<method>
 			<name>search</name>
 			<param>
+				<name>creatorUserId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>status</name>
+				<type>int</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>start</name>
+				<type>int</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>end</name>
+				<type>int</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
+			<name>search</name>
+			<param>
+				<name>creatorUserId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>folderId</name>
+				<type>long</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>mimeTypes</name>
+				<type>java.lang.String[]</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>status</name>
+				<type>int</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>start</name>
+				<type>int</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>end</name>
+				<type>int</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
+			<name>search</name>
+			<param>
 				<name>searchContext</name>
 				<type>com.liferay.portal.kernel.search.SearchContext</type>
 				<comment><![CDATA[]]></comment>
@@ -2014,6 +2076,12 @@
 			</throws>
 		</method>
 		<method>
+			<name>clone</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
 			<name>containsPermission</name>
 			<param>
 				<name>permissionChecker</name>
@@ -2282,6 +2350,12 @@
 			</return>
 		</method>
 		<method>
+			<name>getStagedModelType</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
 			<name>getTitle</name>
 			<return>
 				<comment><![CDATA[]]></comment>
@@ -2365,6 +2439,18 @@
 		</method>
 		<method>
 			<name>isEscapedModel</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
+			<name>isInTrash</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
+			<name>isInTrashContainer</name>
 			<return>
 				<comment><![CDATA[]]></comment>
 			</return>
@@ -2668,6 +2754,12 @@
 			</return>
 		</method>
 		<method>
+			<name>getStagedModelType</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
 			<name>getStatus</name>
 			<return>
 				<comment><![CDATA[]]></comment>
@@ -2769,18 +2861,6 @@
 		</method>
 		<method>
 			<name>isExpired</name>
-			<return>
-				<comment><![CDATA[]]></comment>
-			</return>
-		</method>
-		<method>
-			<name>isInTrash</name>
-			<return>
-				<comment><![CDATA[]]></comment>
-			</return>
-		</method>
-		<method>
-			<name>isInTrashContainer</name>
 			<return>
 				<comment><![CDATA[]]></comment>
 			</return>
@@ -2994,6 +3074,12 @@
 		</method>
 		<method>
 			<name>getRepositoryId</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
+			<name>getStagedModelType</name>
 			<return>
 				<comment><![CDATA[]]></comment>
 			</return>
@@ -3411,6 +3497,22 @@
 		<method>
 			<name>setExpandoBridgeAttributes</name>
 			<param>
+				<name>baseModel</name>
+				<type>com.liferay.portal.model.BaseModel</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+		</method>
+		<method>
+			<name>setExpandoBridgeAttributes</name>
+			<param>
+				<name>expandoBridge</name>
+				<type>com.liferay.portlet.expando.model.ExpandoBridge</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+		</method>
+		<method>
+			<name>setExpandoBridgeAttributes</name>
+			<param>
 				<name>serviceContext</name>
 				<type>com.liferay.portal.service.ServiceContext</type>
 				<comment><![CDATA[]]></comment>
@@ -3560,6 +3662,12 @@
 		<type>com.liferay.documentum.repository.model.DocumentumModel</type>
 		<author><![CDATA[Mika Koivisto]]></author>
 		<method>
+			<name>clone</name>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+		</method>
+		<method>
 			<name>containsPermission</name>
 			<param>
 				<name>permit</name>
@@ -3691,6 +3799,14 @@
 			<name>setUserName</name>
 			<param>
 				<name>userName</name>
+				<type>java.lang.String</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+		</method>
+		<method>
+			<name>setUuid</name>
+			<param>
+				<name>uuid</name>
 				<type>java.lang.String</type>
 				<comment><![CDATA[]]></comment>
 			</param>

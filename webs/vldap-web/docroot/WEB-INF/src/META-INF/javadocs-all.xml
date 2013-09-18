@@ -1620,11 +1620,6 @@
 				<type>java.lang.String</type>
 				<comment><![CDATA[]]></comment>
 			</param>
-			<param>
-				<name>membershipRoleNames</name>
-				<type>java.lang.String</type>
-				<comment><![CDATA[]]></comment>
-			</param>
 		</method>
 		<method>
 			<name>buildDirectories</name>
@@ -2571,20 +2566,9 @@
 				<type>java.lang.String</type>
 				<comment><![CDATA[]]></comment>
 			</param>
-			<param>
-				<name>membershipRoleNames</name>
-				<type>java.lang.String[]</type>
-				<comment><![CDATA[]]></comment>
-			</param>
 		</method>
 		<method>
 			<name>getGIDNumber</name>
-			<return>
-				<comment><![CDATA[]]></comment>
-			</return>
-		</method>
-		<method>
-			<name>getMembershipRoleNames</name>
 			<return>
 				<comment><![CDATA[]]></comment>
 			</return>
@@ -2603,9 +2587,6 @@
 		</method>
 		<field>
 			<name>_gidNumber</name>
-		</field>
-		<field>
-			<name>_membershipRoleNames</name>
 		</field>
 		<field>
 			<name>_name</name>

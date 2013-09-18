@@ -94,6 +94,7 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 		_versionLabel = idfDocument.getVersionLabel(0);
 	}
 
+	@Override
 	public Object clone() {
 		return this;
 	}

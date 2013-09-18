@@ -39,6 +39,7 @@ import java.util.Set;
  */
 public abstract class DocumentumModel {
 
+	@Override
 	public Object clone() {
 		return this;
 	}
