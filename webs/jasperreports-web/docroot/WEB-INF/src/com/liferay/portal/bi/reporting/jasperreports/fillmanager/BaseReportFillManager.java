@@ -70,7 +70,7 @@ public abstract class BaseReportFillManager implements ReportFillManager {
 			throw new JRException(e);
 		}
 
-		Map<String, Serializable> reportParameters = getReportParameters(
+		Map<String, Object> reportParameters = getReportParameters(
 			jasperReport, reportRequest);
 
 		if (connection != null) {
@@ -154,11 +154,11 @@ public abstract class BaseReportFillManager implements ReportFillManager {
 		return null;
 	}
 
-	protected Map<String, Serializable> getReportParameters(
+	protected Map<String, Object> getReportParameters(
 		JasperReport jasperReport, ReportRequest reportRequest) {
 
-		Map<String, Serializable> serializableReportParameters =
-			new HashMap<String, Serializable>();
+		Map<String, Object> serializableReportParameters =
+			new HashMap<String, Object>();
 
 		Map<String, String> stringReportParameters =
 			reportRequest.getReportParameters();
