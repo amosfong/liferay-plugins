@@ -28,7 +28,6 @@ import com.liferay.portal.kernel.util.Validator;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.io.Serializable;
 
 import java.sql.Connection;
 
@@ -157,8 +156,7 @@ public abstract class BaseReportFillManager implements ReportFillManager {
 	protected Map<String, Object> getReportParameters(
 		JasperReport jasperReport, ReportRequest reportRequest) {
 
-		Map<String, Object> serializableReportParameters =
-			new HashMap<String, Object>();
+		Map<String, Object> reportParameters = new HashMap<String, Object>();
 
 		Map<String, String> stringReportParameters =
 			reportRequest.getReportParameters();
@@ -171,14 +169,14 @@ public abstract class BaseReportFillManager implements ReportFillManager {
 
 			String stringValue = stringReportParameters.get(name);
 
-			Serializable serializableValue = stringValue;
+			Object value = stringValue;
 
 			if (clazz.equals(Date.class)) {
 				DateFormat dateFormat =
 					DateFormatFactoryUtil.getSimpleDateFormat("yyyy-MM-dd");
 
 				try {
-					serializableValue = dateFormat.parse(stringValue);
+					value = dateFormat.parse(stringValue);
 				}
 				catch (ParseException pe) {
 					_log.error(stringValue + " is not yyyy-MM-dd");
@@ -188,15 +186,15 @@ public abstract class BaseReportFillManager implements ReportFillManager {
 				List<String> listValue = ListUtil.fromArray(
 					StringUtil.split(stringValue));
 
-				serializableValue = new ArrayList<String>(listValue);
+				value = new ArrayList<String>(listValue);
 			}
 
-			if (serializableValue != null) {
-				serializableReportParameters.put(name, serializableValue);
+			if (value != null) {
+				reportParameters.put(name, value);
 			}
 		}
 
-		return serializableReportParameters;
+		return reportParameters;
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(
