@@ -105,7 +105,7 @@ public class SyncDLObjectLocalServiceImpl
 			dynamicQuery);
 
 		if (modifiedTimes.isEmpty()) {
-			return 0;
+			return System.currentTimeMillis();
 		}
 
 		return modifiedTimes.get(0);
