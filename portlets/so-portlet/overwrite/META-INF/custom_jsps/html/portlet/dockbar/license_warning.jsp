@@ -149,7 +149,7 @@ catch (Exception e) {
 						<div class="license-expired-message">
 							<p><liferay-ui:message key="please-renew-your-license-in-order-to-continue-using-social-office" /></p>
 
-							<p><liferay-ui:message key="please-contact-liferay-support-if-you-are-getting-this-message-in-error" /><a href="mailto:support@liferay.com"> support@liferay.com</a></p>
+							<p><liferay-ui:message key="please-contact-liferay-support-if-you-are-getting-this-message-in-error" /><a href="mailto:provisioning@liferay.com"> provisioning@liferay.com</a></p>
 						</div>
 
 						<%
