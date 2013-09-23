@@ -185,8 +185,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 
 		Element definitionElement = rootElement.addElement("definition");
 
-		portletDataContext.addClassedModel(
-			definitionElement, path, definition, NAMESPACE);
+		portletDataContext.addClassedModel(definitionElement, path, definition);
 
 		for (String fullFileName : definition.getAttachmentsFiles()) {
 			String binPath = getDefinitionAttachmentBinPath(
@@ -222,8 +221,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 
 		Element sourceElement = rootElement.addElement("source");
 
-		portletDataContext.addClassedModel(
-			sourceElement, path, source, NAMESPACE);
+		portletDataContext.addClassedModel(sourceElement, path, source);
 	}
 
 	protected String getDefinitionAttachmentBinPath(
@@ -277,7 +275,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 		InputStream inputStream = null;
 
 		ServiceContext serviceContext = portletDataContext.createServiceContext(
-			definitionElement, definition, NAMESPACE);
+			definitionElement, definition);
 
 		Element attachmentElement = definitionElement.element("attachment");
 
@@ -328,7 +326,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 			}
 
 			portletDataContext.importClassedModel(
-				definition, importedDefinition, NAMESPACE);
+				definition, importedDefinition);
 		}
 		finally {
 			StreamUtil.cleanUp(inputStream);
@@ -343,7 +341,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 		long userId = portletDataContext.getUserId(source.getUserUuid());
 
 		ServiceContext serviceContext = portletDataContext.createServiceContext(
-			sourceElement, source, NAMESPACE);
+			sourceElement, source);
 
 		Source importedSource = null;
 
@@ -378,8 +376,7 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 
 		sourceIds.put(source.getSourceId(), importedSource.getSourceId());
 
-		portletDataContext.importClassedModel(
-			source, importedSource, NAMESPACE);
+		portletDataContext.importClassedModel(source, importedSource);
 	}
 
 	protected static final String RESOURCE_NAME = "com.liferay.reports.admin";
