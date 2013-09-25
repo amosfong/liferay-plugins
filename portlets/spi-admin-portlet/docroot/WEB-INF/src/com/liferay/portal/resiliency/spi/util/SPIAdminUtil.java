@@ -1,0 +1,106 @@
+/**
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
+package com.liferay.portal.resiliency.spi.util;
+
+import com.liferay.portal.kernel.servlet.ServletContextPool;
+import com.liferay.portal.kernel.util.ListUtil;
+import com.liferay.portal.model.Portlet;
+import com.liferay.portal.model.PortletApp;
+import com.liferay.portal.service.PortletLocalServiceUtil;
+import com.liferay.portal.util.PortalUtil;
+import com.liferay.util.portlet.PortletProps;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+
+/**
+ * @author Shuyang Zhou
+ */
+public class SPIAdminUtil {
+
+	public static List<Portlet> getNonPluginPortlets() {
+		List<Portlet> portlets = PortletLocalServiceUtil.getPortlets();
+
+		Iterator<Portlet> iterator = portlets.iterator();
+
+		while (iterator.hasNext()) {
+			Portlet portlet = iterator.next();
+
+			PortletApp portletApp = portlet.getPortletApp();
+
+			if (portletApp.isWARFile() ||
+				portlet.isSystem() ||
+				portlet.isUndeployedPortlet() ||
+				(Arrays.binarySearch(
+					_BLACKLIST_PORTLET_IDS, portlet.getPortletId()) >= 0)) {
+
+				iterator.remove();
+			}
+		}
+
+		Collections.sort(portlets, new _PortletComparator());
+
+		return portlets;
+	}
+
+	public static List<String> getPluginServletContextNames() {
+		List<String> servletContextNames = ListUtil.fromCollection(
+			ServletContextPool.keySet());
+
+		servletContextNames.remove(PortalUtil.getPathContext());
+
+		Iterator<String> itr = servletContextNames.iterator();
+
+		while (itr.hasNext()) {
+			String servletContextName = itr.next();
+
+			if (Arrays.binarySearch(
+					_BLACKLIST_SERVLET_CONTEXT_NAMES,
+					servletContextName) >= 0) {
+
+				itr.remove();
+			}
+		}
+
+		return servletContextNames;
+	}
+
+	private static final String[] _BLACKLIST_PORTLET_IDS =
+		PortletProps.getArray(PortletPropsKeys.SPI_BLACKLIST_PORTLET_IDS);
+
+	private static final String[] _BLACKLIST_SERVLET_CONTEXT_NAMES =
+		PortletProps.getArray(
+			PortletPropsKeys.SPI_BLACKLIST_SERVLET_CONTEXT_NAMES);
+
+	static {
+		Arrays.sort(_BLACKLIST_PORTLET_IDS);
+		Arrays.sort(_BLACKLIST_SERVLET_CONTEXT_NAMES);
+	}
+
+	private static class _PortletComparator implements Comparator<Portlet> {
+
+		@Override
+		public int compare(Portlet portlet1, Portlet portlet2) {
+			String displayName1 = portlet1.getDisplayName();
+			String displayName2 = portlet2.getDisplayName();
+
+			return displayName1.compareTo(displayName2);
+		}
+	}
+
+}
