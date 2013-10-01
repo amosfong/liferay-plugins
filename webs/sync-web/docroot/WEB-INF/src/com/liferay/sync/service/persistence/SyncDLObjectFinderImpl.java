@@ -36,6 +36,9 @@ import java.util.List;
 public class SyncDLObjectFinderImpl
 	extends BasePersistenceImpl<SyncDLObject> implements SyncDLObjectFinder {
 
+	public static final String FIND_BY_C_M_R_E =
+		SyncDLObjectFinder.class.getName() + ".findByC_M_R_E";
+
 	public static final String FIND_BY_C_M_R_T =
 		SyncDLObjectFinder.class.getName() + ".findByC_M_R_T";
 
@@ -49,7 +52,7 @@ public class SyncDLObjectFinderImpl
 		try {
 			session = openSession();
 
-			StringBundler sb = new StringBundler(3);
+			StringBundler sb = new StringBundler(5);
 
 			String sql = CustomSQLUtil.get(FIND_BY_C_M_R_T);
 
@@ -71,6 +74,10 @@ public class SyncDLObjectFinderImpl
 
 			sb.append(sql);
 
+			sb.append(" UNION ALL ");
+
+			sb.append(CustomSQLUtil.get(FIND_BY_C_M_R_E));
+
 			sql = sb.toString();
 
 			SQLQuery q = session.createSQLQuery(sql);
@@ -87,6 +94,10 @@ public class SyncDLObjectFinderImpl
 			qPos.add(modifiedTime);
 			qPos.add(repositoryId);
 			qPos.add(DLSyncConstants.TYPE_FILE);
+			qPos.add(companyId);
+			qPos.add(modifiedTime);
+			qPos.add(repositoryId);
+			qPos.add(DLSyncConstants.EVENT_DELETE);
 
 			return q.list();
 		}
