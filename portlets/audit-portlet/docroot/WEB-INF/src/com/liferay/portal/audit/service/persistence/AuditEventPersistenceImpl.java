@@ -346,6 +346,10 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByCompanyId(companyId);
 
+		if (count == 0) {
+			return null;
+		}
+
 		List<AuditEvent> list = findByCompanyId(companyId, count - 1, count,
 				orderByComparator);
 
@@ -570,6 +574,10 @@ public class AuditEventPersistenceImpl extends BasePersistenceImpl<AuditEvent>
 	}
 
 	private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 = "auditEvent.companyId = ?";
+
+	public AuditEventPersistenceImpl() {
+		setModelClass(AuditEvent.class);
+	}
 
 	/**
 	 * Caches the audit event in the entity cache if it is enabled.

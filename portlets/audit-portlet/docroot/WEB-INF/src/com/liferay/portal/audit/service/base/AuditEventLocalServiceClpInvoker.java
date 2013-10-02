@@ -120,16 +120,20 @@ public class AuditEventLocalServiceClpInvoker {
 				"com.liferay.portal.kernel.audit.AuditMessage"
 			};
 
-		_methodName39 = "getAuditEvents";
+		_methodName39 = "fetchAuditEvent";
 
-		_methodParameterTypes39 = new String[] {
-				"long", "int", "int",
-				"com.liferay.portal.kernel.util.OrderByComparator"
-			};
+		_methodParameterTypes39 = new String[] { "long" };
 
 		_methodName40 = "getAuditEvents";
 
 		_methodParameterTypes40 = new String[] {
+				"long", "int", "int",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			};
+
+		_methodName41 = "getAuditEvents";
+
+		_methodParameterTypes41 = new String[] {
 				"long", "long", "java.lang.String", "java.util.Date",
 				"java.util.Date", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String",
@@ -137,13 +141,13 @@ public class AuditEventLocalServiceClpInvoker {
 				"int", "com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName41 = "getAuditEventsCount";
-
-		_methodParameterTypes41 = new String[] { "long" };
-
 		_methodName42 = "getAuditEventsCount";
 
-		_methodParameterTypes42 = new String[] {
+		_methodParameterTypes42 = new String[] { "long" };
+
+		_methodName43 = "getAuditEventsCount";
+
+		_methodParameterTypes43 = new String[] {
 				"long", "long", "java.lang.String", "java.util.Date",
 				"java.util.Date", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String",
@@ -259,14 +263,19 @@ public class AuditEventLocalServiceClpInvoker {
 
 		if (_methodName39.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes39, parameterTypes)) {
+			return AuditEventLocalServiceUtil.fetchAuditEvent(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName40.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes40, parameterTypes)) {
 			return AuditEventLocalServiceUtil.getAuditEvents(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue(),
 				((Integer)arguments[2]).intValue(),
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
 		}
 
-		if (_methodName40.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes40, parameterTypes)) {
+		if (_methodName41.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
 			return AuditEventLocalServiceUtil.getAuditEvents(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], (java.util.Date)arguments[3],
@@ -282,13 +291,13 @@ public class AuditEventLocalServiceClpInvoker {
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[16]);
 		}
 
-		if (_methodName41.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
+		if (_methodName42.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
 			return AuditEventLocalServiceUtil.getAuditEventsCount(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName42.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
+		if (_methodName43.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes43, parameterTypes)) {
 			return AuditEventLocalServiceUtil.getAuditEventsCount(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], (java.util.Date)arguments[3],
@@ -350,4 +359,6 @@ public class AuditEventLocalServiceClpInvoker {
 	private String[] _methodParameterTypes41;
 	private String _methodName42;
 	private String[] _methodParameterTypes42;
+	private String _methodName43;
+	private String[] _methodParameterTypes43;
 }
