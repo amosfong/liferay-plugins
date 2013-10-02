@@ -23,16 +23,19 @@ long auditEventId = ParamUtil.getLong(request, "auditEventId");
 
 AuditEvent auditEvent = null;
 
-try {
-	auditEvent = AuditEventLocalServiceUtil.getAuditEvent(auditEventId);
-}
-catch (NoSuchEventException nsee) {
+String eventTypeText = StringPool.BLANK;
+
+if (auditEventId > 0) {
+	auditEvent = AuditEventLocalServiceUtil.fetchAuditEvent(auditEventId);
+
+	eventTypeText = (String)PortalClassInvoker.invoke(false, new MethodKey(ClassResolverUtil.resolve("com.liferay.portal.security.permission.ResourceActionsUtil", PortalClassLoaderUtil.getClassLoader()), "getAction", PageContext.class, String.class), pageContext, auditEvent.getEventType());
 }
 %>
 
-<liferay-ui:tabs
+<liferay-ui:header
 	backURL="<%= redirect %>"
-	names="event"
+	localizeTitle="<%= (auditEvent == null) %>"
+	title='<%= (auditEvent == null) ? "audit-event" : auditEvent.getEventType() + " (" + eventTypeText + ")" %>'
 />
 
 <c:choose>
@@ -42,122 +45,59 @@ catch (NoSuchEventException nsee) {
 		</div>
 	</c:when>
 	<c:otherwise>
-		<table class="lfr-table">
-		<tr>
-			<td class="nobr">
-				<strong><liferay-ui:message key="event-id" /></strong>
-			</td>
-			<td width="99%">
+		<aui:column columnWidth="350">
+			<aui:field-wrapper label="event-id">
 				<%= auditEvent.getAuditEventId() %>
-			</td>
-		</tr>
-		<tr>
-			<td class="nobr">
-				<strong><liferay-ui:message key="create-date" /></strong>
-			</td>
-			<td>
+			</aui:field-wrapper>
+
+			<aui:field-wrapper label="create-date">
 				<%= dateFormatDateTime.format(auditEvent.getCreateDate()) %>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<div class="separator"><!-- --></div>
-			</td>
-		</tr>
-		<tr>
-			<td class="nobr">
-				<strong><liferay-ui:message key="user-id" /></strong>
-			</td>
-			<td>
-				<%= auditEvent.getUserId() %>
-			</td>
-		</tr>
-		<tr>
-			<td class="nobr">
-				<strong><liferay-ui:message key="user-name" /></strong>
-			</td>
-			<td>
-				<%= auditEvent.getUserName() %>
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<div class="separator"><!-- --></div>
-			</td>
-		</tr>
-		<tr>
-			<td class="nobr">
-				<strong><liferay-ui:message key="resource-id" /></strong>
-			</td>
-			<td>
+			</aui:field-wrapper>
+
+			<aui:field-wrapper label="resource-id">
 				<%= auditEvent.getClassPK() %>
-			</td>
-		</tr>
-		<tr>
-			<td class="nobr">
-				<strong><liferay-ui:message key="resource-name" /></strong>
-			</td>
-			<td>
+			</aui:field-wrapper>
+
+			<aui:field-wrapper label="resource-name">
 				<%= (String)PortalClassInvoker.invoke(false, new MethodKey(ClassResolverUtil.resolve("com.liferay.portal.security.permission.ResourceActionsUtil", PortalClassLoaderUtil.getClassLoader()), "getModelResource", PageContext.class, String.class), pageContext, auditEvent.getClassName()) %>
 
 				(<%= auditEvent.getClassName() %>)
-			</td>
-		</tr>
-		<tr>
-			<td class="nobr">
-				<strong><liferay-ui:message key="resource-action" /></strong>
-			</td>
-			<td>
-				<%= (String)PortalClassInvoker.invoke(false, new MethodKey(ClassResolverUtil.resolve("com.liferay.portal.security.permission.ResourceActionsUtil", PortalClassLoaderUtil.getClassLoader()), "getAction", PageContext.class, String.class), pageContext, auditEvent.getEventType()) %>
+			</aui:field-wrapper>
+
+			<aui:field-wrapper label="resource-action">
+				<%= eventTypeText %>
 
 				(<%= auditEvent.getEventType() %>)
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<div class="separator"><!-- --></div>
-			</td>
-		</tr>
-		<tr>
-			<td class="nobr">
-				<strong><liferay-ui:message key="client-host" /></strong>
-			</td>
-			<td>
+			</aui:field-wrapper>
+		</aui:column>
+		<aui:column>
+			<aui:field-wrapper label="user-id">
+				<%= auditEvent.getUserId() %>
+			</aui:field-wrapper>
+
+			<aui:field-wrapper label="user-name">
+				<%= auditEvent.getUserName() %>
+			</aui:field-wrapper>
+
+			<aui:field-wrapper label="client-host">
 				<%= Validator.isNotNull(auditEvent.getClientHost()) ? auditEvent.getClientHost() : LanguageUtil.get(pageContext, "none") %>
-			</td>
-		</tr>
-		<tr>
-			<td class="nobr">
-				<strong><liferay-ui:message key="client-ip" /></strong>
-			</td>
-			<td>
+			</aui:field-wrapper>
+
+			<aui:field-wrapper label="client-ip">
 				<%= Validator.isNotNull(auditEvent.getClientIP()) ? auditEvent.getClientIP() : LanguageUtil.get(pageContext, "none") %>
-			</td>
-		</tr>
-		<tr>
-			<td class="nobr">
-				<strong><liferay-ui:message key="server-name" /></strong>
-			</td>
-			<td>
+			</aui:field-wrapper>
+
+			<aui:field-wrapper label="server-name">
 				<%= Validator.isNotNull(auditEvent.getServerName()) ? auditEvent.getServerName() : LanguageUtil.get(pageContext, "none") %>
-			</td>
-		</tr>
-		<tr>
-			<td class="nobr">
-				<strong><liferay-ui:message key="session-id" /></strong>
-			</td>
-			<td>
+			</aui:field-wrapper>
+
+			<aui:field-wrapper label="session-id">
 				<%= Validator.isNotNull(auditEvent.getSessionID()) ? auditEvent.getSessionID() : LanguageUtil.get(pageContext, "none") %>
-			</td>
-		</tr>
-		<tr>
-			<td class="nobr">
-				<strong><liferay-ui:message key="additional-information" /></strong>
-			</td>
-			<td>
+			</aui:field-wrapper>
+
+			<aui:field-wrapper label="additional-information">
 				<%= Validator.isNotNull(auditEvent.getAdditionalInfo()) ? auditEvent.getAdditionalInfo() : LanguageUtil.get(pageContext, "none") %>
-			</td>
-		</tr>
-		</table>
+			</aui:field-wrapper>
+		</aui:column>
 	</c:otherwise>
 </c:choose>
