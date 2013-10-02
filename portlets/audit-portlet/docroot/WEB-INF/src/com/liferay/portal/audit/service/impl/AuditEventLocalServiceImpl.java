@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.util.Date;
@@ -155,7 +156,9 @@ public class AuditEventLocalServiceImpl extends AuditEventLocalServiceBaseImpl {
 		if (Validator.isNotNull(eventType)) {
 			Property property = PropertyFactoryUtil.forName("eventType");
 
-			String value = StringPool.PERCENT + eventType + StringPool.PERCENT;
+			String value =
+				StringPool.PERCENT + StringUtil.toUpperCase(eventType) +
+					StringPool.PERCENT;
 
 			junction.add(property.like(value));
 		}
