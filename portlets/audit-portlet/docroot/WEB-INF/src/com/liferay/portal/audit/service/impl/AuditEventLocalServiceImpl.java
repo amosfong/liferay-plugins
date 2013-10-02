@@ -36,6 +36,7 @@ import java.util.List;
  */
 public class AuditEventLocalServiceImpl extends AuditEventLocalServiceBaseImpl {
 
+	@Override
 	public AuditEvent addAuditEvent(AuditMessage auditMessage)
 		throws SystemException {
 
@@ -65,6 +66,14 @@ public class AuditEventLocalServiceImpl extends AuditEventLocalServiceBaseImpl {
 		return auditEvent;
 	}
 
+	@Override
+	public AuditEvent fetchAuditEvent(long auditEventId)
+		throws SystemException {
+
+		return auditEventPersistence.fetchByPrimaryKey(auditEventId);
+	}
+
+	@Override
 	public List<AuditEvent> getAuditEvents(
 			long companyId, int start, int end,
 			OrderByComparator orderByComparator)
@@ -74,6 +83,7 @@ public class AuditEventLocalServiceImpl extends AuditEventLocalServiceBaseImpl {
 			companyId, start, end, orderByComparator);
 	}
 
+	@Override
 	public List<AuditEvent> getAuditEvents(
 			long companyId, long userId, String userName, Date createDateGT,
 			Date createDateLT, String eventType, String className,
@@ -91,10 +101,12 @@ public class AuditEventLocalServiceImpl extends AuditEventLocalServiceBaseImpl {
 		return dynamicQuery(dynamicQuery, start, end, orderByComparator);
 	}
 
+	@Override
 	public int getAuditEventsCount(long companyId) throws SystemException {
 		return auditEventPersistence.countByCompanyId(companyId);
 	}
 
+	@Override
 	public int getAuditEventsCount(
 			long companyId, long userId, String userName, Date createDateGT,
 			Date createDateLT, String eventType, String className,
