@@ -12,7 +12,7 @@
 			src="${original.war.file}"
 		>
 			<patternset
-				includes="jasperreports-5.2.0/dist/jasperreports-*,jasperreports-5.2.0/lib/iText-*.jar,jasperreports-5.2.0/lib/jxl-*.jar"
+				includes="jasperreports-5.2.0/dist/jasperreports-*,jasperreports-5.2.0/lib/commons-collections-*.jar,jasperreports-5.2.0/lib/commons-digester-*.jar,jasperreports-5.2.0/lib/commons-javaflow-*.jar,jasperreports-5.2.0/lib/groovy-all-*.jar,jasperreports-5.2.0/lib/iText-*.jar,jasperreports-5.2.0/lib/jdt-compiler-*.jar,jasperreports-5.2.0/lib/jxl-*.jar,jasperreports-5.2.0/lib/png-encoder-*.jar"
 			/>
 			<mapper type="flatten" />
 		</unzip>
@@ -38,7 +38,7 @@
 			src="${original.war.file}"
 		>
 			<patternset
-				includes="jasperreports-5.2.0/dist/jasperreports-*,jasperreports-5.2.0/lib/iText-*.jar,jasperreports-5.2.0/lib/jxl-*.jar"
+					includes="jasperreports-5.2.0/dist/jasperreports-*,jasperreports-5.2.0/lib/commons-collections-*.jar,jasperreports-5.2.0/lib/commons-digester-*.jar,jasperreports-5.2.0/lib/commons-javaflow-*.jar,jasperreports-5.2.0/lib/groovy-all-*.jar,jasperreports-5.2.0/lib/iText-*.jar,jasperreports-5.2.0/lib/jdt-compiler-*.jar,jasperreports-5.2.0/lib/jxl-*.jar,jasperreports-5.2.0/lib/png-encoder-*.jar"
 			/>
 		</unzip>
 
@@ -50,47 +50,6 @@
 				includes="**/csvdatasource/data/*,**/csvdatasource/reports/*,**/xlsdatasource/data/*,**/xlsdatasource/reports/*,**/xmldatasource/data/*,**/xmldatasource/reports/*"
 			/>
 		</unzip>
-
-		<unzip
-			dest="${tstamp.value}"
-			src="${original.war.file}"
-		>
-			<patternset
-				includes="**/JRGroovyCompiler.java"
-			/>
-		</unzip>
-
-		<replace file="${tstamp.value}/jasperreports-5.2.0/src/net/sf/jasperreports/compilers/JRGroovyCompiler.java">
-			<replacefilter token="groovyjarjarasm." value="org.objectweb." />
-		</replace>
-
-		<mkdir dir="${tstamp.value}/jasperreports-5.2.0/classes" />
-
-		<path id="plugin-lib.classpath">
-			<fileset dir="${app.server.lib.portal.dir}" includes="asm.jar,groovy.jar" />
-			<fileset dir="${tstamp.value}/jasperreports-5.2.0/dist" includes="*.jar" />
-		</path>
-
-		<antcall target="compile-java">
-			<param name="javac.classpathref" value="plugin.classpath" />
-			<param name="javac.destdir" value="${tstamp.value}/jasperreports-5.2.0/classes" />
-			<param name="javac.srcdir" value="${tstamp.value}/jasperreports-5.2.0/src" />
-			<reference refid="plugin-lib.classpath" torefid="plugin-lib.classpath" />
-		</antcall>
-
-		<zip
-			basedir="${tstamp.value}/jasperreports-5.2.0/classes"
-			destfile="${tstamp.value}/jasperreports-5.2.0/dist/jasperreports-5.2.0.jar"
-			update="yes"
-		/>
-
-		<zip
-			basedir="${tstamp.value}/jasperreports-5.2.0/classes"
-			destfile="${tstamp.value}/jasperreports-5.2.0/dist/jasperreports-javaflow-5.2.0.jar"
-			update="yes"
-		/>
-
-		<delete dir="${tstamp.value}/jasperreports-5.2.0/classes" />
 
 		<zip
 			basedir="${tstamp.value}"
