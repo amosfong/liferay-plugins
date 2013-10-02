@@ -63,6 +63,7 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 		return typeSettingsProperties.getProperty(key, defaultValue);
 	}
 
+	@Override
 	public boolean isAlive() {
 		SPI spi = MPIHelperUtil.getSPI(
 			SPIConfigurationTemplate.getSpiProviderName(),
