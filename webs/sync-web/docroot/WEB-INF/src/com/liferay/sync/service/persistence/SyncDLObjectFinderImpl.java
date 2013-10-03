@@ -54,7 +54,7 @@ public class SyncDLObjectFinderImpl
 
 			StringBundler sb = new StringBundler(5);
 
-			String sql = CustomSQLUtil.get(FIND_BY_C_M_R_T);
+			String sql = CustomSQLUtil.get(FIND_BY_C_M_R_E);
 
 			sb.append(sql);
 			sb.append(" UNION ALL ");
