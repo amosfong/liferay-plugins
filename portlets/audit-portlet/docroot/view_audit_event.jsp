@@ -23,19 +23,19 @@ long auditEventId = ParamUtil.getLong(request, "auditEventId");
 
 AuditEvent auditEvent = null;
 
-String eventTypeText = StringPool.BLANK;
+String eventTypeAction = StringPool.BLANK;
 
 if (auditEventId > 0) {
 	auditEvent = AuditEventLocalServiceUtil.fetchAuditEvent(auditEventId);
 
-	eventTypeText = (String)PortalClassInvoker.invoke(false, new MethodKey(ClassResolverUtil.resolve("com.liferay.portal.security.permission.ResourceActionsUtil", PortalClassLoaderUtil.getClassLoader()), "getAction", PageContext.class, String.class), pageContext, auditEvent.getEventType());
+	eventTypeAction = (String)PortalClassInvoker.invoke(false, new MethodKey(ClassResolverUtil.resolve("com.liferay.portal.security.permission.ResourceActionsUtil", PortalClassLoaderUtil.getClassLoader()), "getAction", PageContext.class, String.class), pageContext, auditEvent.getEventType());
 }
 %>
 
 <liferay-ui:header
 	backURL="<%= redirect %>"
 	localizeTitle="<%= (auditEvent == null) %>"
-	title='<%= (auditEvent == null) ? "audit-event" : auditEvent.getEventType() + " (" + eventTypeText + ")" %>'
+	title='<%= (auditEvent == null) ? "audit-event" : auditEvent.getEventType() + " (" + eventTypeAction + ")" %>'
 />
 
 <c:choose>
@@ -65,7 +65,7 @@ if (auditEventId > 0) {
 			</aui:field-wrapper>
 
 			<aui:field-wrapper label="resource-action">
-				<%= eventTypeText %>
+				<%= eventTypeAction %>
 
 				(<%= auditEvent.getEventType() %>)
 			</aui:field-wrapper>
