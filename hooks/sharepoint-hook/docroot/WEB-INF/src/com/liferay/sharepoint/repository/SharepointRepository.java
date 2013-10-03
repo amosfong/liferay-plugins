@@ -92,6 +92,8 @@ public class SharepointRepository extends CMISRepositoryHandler {
 					"Unable to cancel check out for file entry " + fileEntryId);
 			}
 
+			latestVersionId = getLatestVersionId(objectId);
+
 			FileEntry fileEntry = toFileEntry(latestVersionId);
 
 			return fileEntry.getFileVersion();
