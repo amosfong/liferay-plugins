@@ -18,8 +18,12 @@ import com.liferay.portal.kernel.resiliency.spi.SPIConfiguration;
 import com.liferay.portal.kernel.resiliency.spi.remote.RemoteSPI;
 import com.liferay.portal.kernel.util.PropertiesUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+
+import java.net.MalformedURLException;
+import java.net.URI;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
@@ -27,13 +31,16 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.Properties;
 
 import javax.servlet.Servlet;
-import javax.servlet.ServletException;
 
 import org.apache.catalina.Context;
 import org.apache.catalina.Host;
 import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Connector;
+import org.apache.catalina.core.StandardContext;
+import org.apache.catalina.startup.Constants;
+import org.apache.catalina.startup.ContextConfig;
 import org.apache.catalina.startup.Tomcat;
+import org.apache.catalina.startup.Tomcat.DefaultWebXmlListener;
 
 /**
  * @author Shuyang Zhou
@@ -84,12 +91,35 @@ public class TomcatRemoteSPI extends RemoteSPI {
 		throws RemoteException {
 
 		try {
-			Context context = _tomcat.addWebapp(contextPath, docBasePath);
+			Context context = new StandardContext();
+
+			File contextXmlFile = new File(docBasePath, "META-INF/context.xml");
+
+			if (contextXmlFile.exists()) {
+				URI uri = contextXmlFile.toURI();
+
+				context.setConfigFile(uri.toURL());
+			}
 
 			context.setCrossContext(true);
+			context.setDocBase(docBasePath);
+			context.setName(contextPath);
+			context.setPath(contextPath);
+
+			context.addLifecycleListener(new DefaultWebXmlListener());
+
+			ContextConfig contextConfig = new ContextConfig();
+
+			contextConfig.setDefaultWebXml(Constants.NoDefaultWebXml);
+
+			context.addLifecycleListener(contextConfig);
+
+			Host host = _tomcat.getHost();
+
+			host.addChild(context);
 		}
-		catch (ServletException se) {
-			throw new RemoteException("Unable to add web application", se);
+		catch (MalformedURLException murle) {
+			throw new RemoteException("Unable to add web application", murle);
 		}
 	}
 
