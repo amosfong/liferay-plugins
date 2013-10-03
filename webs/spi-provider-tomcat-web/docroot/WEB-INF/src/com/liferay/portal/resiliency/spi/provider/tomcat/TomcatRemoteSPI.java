@@ -93,10 +93,10 @@ public class TomcatRemoteSPI extends RemoteSPI {
 		try {
 			Context context = new StandardContext();
 
-			File contextXmlFile = new File(docBasePath, "META-INF/context.xml");
+			File contextXMLFile = new File(docBasePath, "META-INF/context.xml");
 
-			if (contextXmlFile.exists()) {
-				URI uri = contextXmlFile.toURI();
+			if (contextXMLFile.exists()) {
+				URI uri = contextXMLFile.toURI();
 
 				context.setConfigFile(uri.toURL());
 			}
