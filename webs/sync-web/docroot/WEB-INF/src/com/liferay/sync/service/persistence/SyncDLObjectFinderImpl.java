@@ -56,13 +56,7 @@ public class SyncDLObjectFinderImpl
 
 			String sql = CustomSQLUtil.get(FIND_BY_C_M_R_T);
 
-			sql = InlineSQLHelperUtil.replacePermissionCheck(
-				sql, DLFolder.class.getName(), "SyncDLObject.typePK", null,
-				"SyncDLObject.repositoryId", new long[] {repositoryId},
-				null);
-
 			sb.append(sql);
-
 			sb.append(" UNION ALL ");
 
 			sql = CustomSQLUtil.get(FIND_BY_C_M_R_T);
@@ -73,10 +67,16 @@ public class SyncDLObjectFinderImpl
 				null);
 
 			sb.append(sql);
-
 			sb.append(" UNION ALL ");
 
-			sb.append(CustomSQLUtil.get(FIND_BY_C_M_R_E));
+			sql = CustomSQLUtil.get(FIND_BY_C_M_R_T);
+
+			sql = InlineSQLHelperUtil.replacePermissionCheck(
+				sql, DLFolder.class.getName(), "SyncDLObject.typePK", null,
+				"SyncDLObject.repositoryId", new long[] {repositoryId},
+				null);
+
+			sb.append(sql);
 
 			sql = sb.toString();
 
@@ -89,7 +89,7 @@ public class SyncDLObjectFinderImpl
 			qPos.add(companyId);
 			qPos.add(modifiedTime);
 			qPos.add(repositoryId);
-			qPos.add(DLSyncConstants.TYPE_FOLDER);
+			qPos.add(DLSyncConstants.EVENT_DELETE);
 			qPos.add(companyId);
 			qPos.add(modifiedTime);
 			qPos.add(repositoryId);
@@ -97,7 +97,7 @@ public class SyncDLObjectFinderImpl
 			qPos.add(companyId);
 			qPos.add(modifiedTime);
 			qPos.add(repositoryId);
-			qPos.add(DLSyncConstants.EVENT_DELETE);
+			qPos.add(DLSyncConstants.TYPE_FOLDER);
 
 			return q.list();
 		}
