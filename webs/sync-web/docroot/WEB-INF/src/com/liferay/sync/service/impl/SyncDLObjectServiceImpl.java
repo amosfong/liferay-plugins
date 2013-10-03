@@ -361,7 +361,8 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 
 		FileEntry fileEntry = dlAppService.moveFileEntryToTrash(fileEntryId);
 
-		return SyncUtil.toSyncDLObject(fileEntry, DLSyncConstants.EVENT_DELETE);
+		return SyncUtil.toSyncDLObject(
+			fileEntry, DLSyncConstants.EVENT_MOVE_TO_TRASH);
 	}
 
 	@Override
@@ -381,7 +382,8 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 
 		Folder folder = dlAppService.moveFolderToTrash(folderId);
 
-		return SyncUtil.toSyncDLObject(folder, DLSyncConstants.EVENT_DELETE);
+		return SyncUtil.toSyncDLObject(
+			folder, DLSyncConstants.EVENT_MOVE_TO_TRASH);
 	}
 
 	@Override
@@ -420,7 +422,7 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 		FileEntry fileEntry = dlAppLocalService.getFileEntry(fileEntryId);
 
 		return SyncUtil.toSyncDLObject(
-			fileEntry, DLSyncConstants.EVENT_RESTORE);
+			fileEntry, DLSyncConstants.EVENT_RESTORE_FROM_TRASH);
 	}
 
 	@Override
@@ -431,7 +433,8 @@ public class SyncDLObjectServiceImpl extends SyncDLObjectServiceBaseImpl {
 
 		Folder folder = dlAppLocalService.getFolder(folderId);
 
-		return SyncUtil.toSyncDLObject(folder, DLSyncConstants.EVENT_RESTORE);
+		return SyncUtil.toSyncDLObject(
+			folder, DLSyncConstants.EVENT_RESTORE_FROM_TRASH);
 	}
 
 	@Override
