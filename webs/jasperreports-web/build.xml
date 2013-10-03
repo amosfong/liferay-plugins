@@ -38,7 +38,7 @@
 			src="${original.war.file}"
 		>
 			<patternset
-					includes="jasperreports-5.2.0/dist/jasperreports-*,jasperreports-5.2.0/lib/commons-collections-*.jar,jasperreports-5.2.0/lib/commons-digester-*.jar,jasperreports-5.2.0/lib/commons-javaflow-*.jar,jasperreports-5.2.0/lib/groovy-all-*.jar,jasperreports-5.2.0/lib/iText-*.jar,jasperreports-5.2.0/lib/jdt-compiler-*.jar,jasperreports-5.2.0/lib/jxl-*.jar,jasperreports-5.2.0/lib/png-encoder-*.jar"
+				includes="jasperreports-5.2.0/dist/jasperreports-*,jasperreports-5.2.0/lib/commons-collections-*.jar,jasperreports-5.2.0/lib/commons-digester-*.jar,jasperreports-5.2.0/lib/commons-javaflow-*.jar,jasperreports-5.2.0/lib/groovy-all-*.jar,jasperreports-5.2.0/lib/iText-*.jar,jasperreports-5.2.0/lib/jdt-compiler-*.jar,jasperreports-5.2.0/lib/jxl-*.jar,jasperreports-5.2.0/lib/png-encoder-*.jar"
 			/>
 		</unzip>
 
