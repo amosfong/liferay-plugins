@@ -1759,7 +1759,7 @@ AUI.add(
 
 					viewTemplate: {
 						value: [
-							'<div class="{$ans}celleditor-assignment-view {$ans}celleditor-view {$ans}celleditor-view-type-{viewId} {$ans}helper-hidden">',
+							'<div class="{$ans}celleditor-assignment-view {$ans}celleditor-view {$ans}celleditor-view-type-{viewId} {$ans}hide">',
 								'{content}',
 								'<tpl if="values.showMenu === true">',
 									'<div class="{$ans}celleditor-view-menu">',
