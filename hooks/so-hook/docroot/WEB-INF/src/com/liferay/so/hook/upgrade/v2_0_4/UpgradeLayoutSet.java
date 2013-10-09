@@ -17,13 +17,7 @@
 
 package com.liferay.so.hook.upgrade.v2_0_4;
 
-import com.liferay.portal.kernel.dao.jdbc.DataAccess;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
-import com.liferay.portal.kernel.util.StringBundler;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 
 /**
  * @author Jonathan Lee
@@ -32,33 +26,8 @@ public class UpgradeLayoutSet extends UpgradeProcess {
 
 	@Override
 	protected void doUpgrade() throws Exception {
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-
-		try {
-			con = DataAccess.getUpgradeOptimizedConnection();
-
-			StringBundler sb = new StringBundler(2);
-
-			sb.append("select layoutSetId from LayoutSet where themeId = ");
-			sb.append("'sowelcome_WAR_sowelcometheme'");
-
-			ps = con.prepareStatement(sb.toString());
-
-			rs = ps.executeQuery();
-
-			while (rs.next()) {
-				long layoutSetId = rs.getLong("layoutSetId");
-
-				runSQL(
-					"update LayoutSet set themeId = 'classic' where " +
-						"layoutSetId = " + layoutSetId);
-			}
-		}
-		finally {
-			DataAccess.cleanUp(con, ps, rs);
-		}
+		runSQL("update Layout set themeId = 'classic' where themeId = " +
+			"'sowelcome_WAR_sowelcometheme'");
 	}
 
 }
