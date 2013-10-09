@@ -17,7 +17,13 @@
 
 package com.liferay.so.hook.upgrade.v2_0_4;
 
+import com.liferay.portal.kernel.dao.jdbc.DataAccess;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
+import com.liferay.portal.kernel.util.StringBundler;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  * @author Jonathan Lee
@@ -26,7 +32,33 @@ public class UpgradeLayout extends UpgradeProcess {
 
 	@Override
 	protected void doUpgrade() throws Exception {
-		// This is a Social Office EE upgrade.
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			con = DataAccess.getUpgradeOptimizedConnection();
+
+			StringBundler sb = new StringBundler(2);
+
+			sb.append("select layoutId from Layout where themeId = ");
+			sb.append("'sowelcome_WAR_sowelcometheme'");
+
+			ps = con.prepareStatement(sb.toString());
+
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				long layoutId = rs.getLong("layoutId");
+
+				runSQL(
+					"update Layout set themeId = 'classic' where layoutId = " +
+						layoutId);
+			}
+		}
+		finally {
+			DataAccess.cleanUp(con, ps, rs);
+		}
 	}
 
 }
