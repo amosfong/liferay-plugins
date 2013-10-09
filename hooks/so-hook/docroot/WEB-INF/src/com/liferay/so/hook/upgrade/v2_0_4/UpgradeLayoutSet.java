@@ -26,8 +26,9 @@ public class UpgradeLayoutSet extends UpgradeProcess {
 
 	@Override
 	protected void doUpgrade() throws Exception {
-		runSQL("update Layout set themeId = 'classic' where themeId = " +
-			"'sowelcome_WAR_sowelcometheme'");
+		runSQL(
+			"update Layout set themeId = 'classic' where themeId = " +
+				"'sowelcome_WAR_sowelcometheme'");
 	}
 
 }
