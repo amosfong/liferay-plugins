@@ -17,7 +17,14 @@
 
 package com.liferay.so.hook.upgrade.v2_0_4;
 
+import com.liferay.portal.kernel.dao.jdbc.DataAccess;
 import com.liferay.portal.kernel.upgrade.UpgradeProcess;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.service.LayoutLocalServiceUtil;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 /**
  * @author Jonathan Lee
@@ -26,9 +33,32 @@ public class UpgradeLayout extends UpgradeProcess {
 
 	@Override
 	protected void doUpgrade() throws Exception {
-		runSQL(
-			"update Layout set themeId = 'classic' where themeId = " +
-				"'sowelcome_WAR_sowelcometheme'");
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+
+		try {
+			con = DataAccess.getUpgradeOptimizedConnection();
+
+			ps = con.prepareStatement(
+				"select groupId, privateLayout, layoutId from Layout where " +
+					"themeId = 'sowelcome_WAR_sowelcometheme'");
+
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				long groupId = rs.getLong("groupId");
+				boolean privateLayout = rs.getBoolean("privateLayout");
+				long layoutId = rs.getLong("layoutId");
+
+				LayoutLocalServiceUtil.updateLookAndFeel(
+					groupId, privateLayout, layoutId, "classic", "01",
+					StringPool.BLANK, false);
+			}
+		}
+		finally {
+			DataAccess.cleanUp(con, ps, rs);
+		}
 	}
 
 }
