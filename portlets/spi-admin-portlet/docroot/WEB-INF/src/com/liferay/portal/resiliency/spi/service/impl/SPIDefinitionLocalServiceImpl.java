@@ -31,9 +31,9 @@ import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
-import com.liferay.portal.resiliency.spi.DuplicateSPIDefinitionAddressAndPortException;
+import com.liferay.portal.resiliency.spi.DuplicateSPIDefinitionConnectorException;
 import com.liferay.portal.resiliency.spi.DuplicateSPIDefinitionException;
-import com.liferay.portal.resiliency.spi.InvalidSPIDefinitionAddressAndPortException;
+import com.liferay.portal.resiliency.spi.InvalidSPIDefinitionConnectorException;
 import com.liferay.portal.resiliency.spi.SPIDefinitionActiveException;
 import com.liferay.portal.resiliency.spi.model.SPIDefinition;
 import com.liferay.portal.resiliency.spi.service.base.SPIDefinitionLocalServiceBaseImpl;
@@ -67,8 +67,8 @@ public class SPIDefinitionLocalServiceImpl
 		User user = userPersistence.findByPrimaryKey(userId);
 		Date now = new Date();
 
-		validate(user.getCompanyId(), name);
-		validate(connectorAddress, connectorPort);
+		validateName(user.getCompanyId(), name);
+		validateConnector(connectorAddress, connectorPort);
 
 		long spiDefinitionId = counterLocalService.increment();
 
@@ -86,17 +86,14 @@ public class SPIDefinitionLocalServiceImpl
 		spiDefinition.setDescription(description);
 
 		if (Validator.isNull(jvmArguments)) {
-			jvmArguments = SPIConfigurationTemplate.getJvmArguments();
+			jvmArguments = SPIConfigurationTemplate.getJVMArguments();
 		}
 
 		spiDefinition.setJvmArguments(jvmArguments);
+
 		spiDefinition.setPortletIds(portletIds);
 		spiDefinition.setServletContextNames(servletContextNames);
-
-		typeSettings = normalizeTypeSettings(typeSettings);
-
-		spiDefinition.setTypeSettings(typeSettings);
-
+		spiDefinition.setTypeSettings(normalizeTypeSettings(typeSettings));
 		spiDefinition.setExpandoBridgeAttributes(serviceContext);
 
 		spiDefinitionPersistence.update(spiDefinition);
@@ -122,9 +119,9 @@ public class SPIDefinitionLocalServiceImpl
 	public SPIDefinition deleteSPIDefinition(SPIDefinition spiDefinition)
 		throws PortalException, SystemException {
 
-		spiDefinitionLocalService.stopSPI(spiDefinition.getSpiDefinitionId());
-
 		// SPI definition
+
+		spiDefinitionLocalService.stopSPI(spiDefinition.getSpiDefinitionId());
 
 		spiDefinitionPersistence.remove(spiDefinition);
 
@@ -170,7 +167,7 @@ public class SPIDefinitionLocalServiceImpl
 		String name = spiDefinition.getName();
 
 		SPI spi = MPIHelperUtil.getSPI(
-			SPIConfigurationTemplate.getSpiProviderName(),
+			SPIConfigurationTemplate.getSPIProviderName(),
 			String.valueOf(spiDefinition.getSpiDefinitionId()));
 
 		if (spi == null) {
@@ -181,33 +178,33 @@ public class SPIDefinitionLocalServiceImpl
 			spi.init();
 
 			if (_log.isInfoEnabled()) {
-				_log.info("Initialized SPI: " + name);
+				_log.info("Initialized SPI " + name);
 			}
 
 			String portalContextPath = PortalUtil.getPathContext();
 
-			ServletContext rootServletContext = ServletContextPool.get(
+			ServletContext portalServletContext = ServletContextPool.get(
 				portalContextPath);
 
-			String rootDir = rootServletContext.getRealPath(portalContextPath);
+			String portalDirName = portalServletContext.getRealPath(
+				portalContextPath);
 
-			spi.addWebapp(portalContextPath, rootDir);
+			spi.addWebapp(portalContextPath, portalDirName);
 
 			if (_log.isInfoEnabled()) {
-				_log.info(
-					"Add portal with baseDir: " + rootDir + " to SPI : " +
-					spi);
+				_log.info("Add portal " + portalDirName + " to SPI " + spi);
 			}
 
 			spi.start();
 
 			if (_log.isInfoEnabled()) {
-				_log.info("Started SPI : " + spi);
+				_log.info("Started SPI " + spi);
 			}
 
 			SPIConfiguration spiConfiguration = spi.getSPIConfiguration();
 
-			String webappsDir = rootDir.substring(0, rootDir.length() - 5);
+			String webappsDirName = portalDirName.substring(
+				0, portalDirName.length() - 5);
 
 			for (String servletContextName :
 					spiConfiguration.getServletContextNames()) {
@@ -216,19 +213,17 @@ public class SPIDefinitionLocalServiceImpl
 					servletContextName);
 
 				String contextPath = servletContext.getContextPath();
-				String docBasePath = webappsDir.concat(contextPath);
 
-				spi.addWebapp(contextPath, docBasePath);
+				spi.addWebapp(contextPath, webappsDirName.concat(contextPath));
 
 				if (_log.isInfoEnabled()) {
-					_log.info(
-						"Add webapp contextPath : " + contextPath +
-						" to SPI : " + spi);
+					_log.info("Add plugin " + contextPath + " to SPI " + spi);
 				}
 			}
 		}
-		catch (RemoteException e) {
-			throw new PortalException("Unable to initialize SPI", e);
+		catch (RemoteException re) {
+			throw new PortalException(
+				"Unable to initialize SPI " + spiDefinitionId, re);
 		}
 	}
 
@@ -241,12 +236,12 @@ public class SPIDefinitionLocalServiceImpl
 			spiDefinitionId);
 
 		SPI spi = MPIHelperUtil.getSPI(
-			SPIConfigurationTemplate.getSpiProviderName(),
+			SPIConfigurationTemplate.getSPIProviderName(),
 			String.valueOf(spiDefinitionId));
 
 		if (spi == null) {
 			if (_log.isWarnEnabled()) {
-				_log.warn("SPI not registered: " + spiDefinition.getName());
+				_log.warn("No SPI with name " + spiDefinition.getName());
 			}
 
 			return;
@@ -261,7 +256,7 @@ public class SPIDefinitionLocalServiceImpl
 		}
 		catch (RemoteException e) {
 			if (_log.isWarnEnabled()) {
-				_log.warn("Unable to communicate with SPI", e);
+				_log.warn("Unable to stop SPI " + spiDefinitionId, e);
 			}
 		}
 	}
@@ -282,7 +277,7 @@ public class SPIDefinitionLocalServiceImpl
 		if (!spiDefinition.getConnectorAddress().equals(connectorAddress) &&
 			(spiDefinition.getConnectorPort() != connectorPort)) {
 
-			validate(connectorAddress, connectorPort);
+			validateConnector(connectorAddress, connectorPort);
 		}
 
 		if (spiDefinition.isAlive()) {
@@ -299,11 +294,7 @@ public class SPIDefinitionLocalServiceImpl
 		spiDefinition.setJvmArguments(jvmArguments);
 		spiDefinition.setPortletIds(portletIds);
 		spiDefinition.setServletContextNames(servletContextNames);
-
-		typeSettings = normalizeTypeSettings(typeSettings);
-
-		spiDefinition.setTypeSettings(typeSettings);
-
+		spiDefinition.setTypeSettings(normalizeTypeSettings(typeSettings));
 		spiDefinition.setExpandoBridgeAttributes(serviceContext);
 
 		spiDefinitionPersistence.update(spiDefinition);
@@ -314,47 +305,25 @@ public class SPIDefinitionLocalServiceImpl
 	protected SPI createSPI(SPIDefinition spiDefinition)
 		throws PortalException {
 
-		String jvmArguments = spiDefinition.getJvmArguments();
-
-		String[] portletIds = StringUtil.split(spiDefinition.getPortletIds());
-
-		String[] servletContextNames = StringUtil.split(
-			spiDefinition.getServletContextNames());
-
-		UnicodeProperties typeSettings =
-			spiDefinition.getTypeSettingsProperties();
-
-		String agentClassName = GetterUtil.getString(
-			typeSettings.getProperty("agent-class-name"));
-
-		String baseDir = PortalUtil.getPathContext();
-
-		String javaExecutable = GetterUtil.getString(
-			typeSettings.getProperty("java-executable"));
-
-		long pingInterval = GetterUtil.getInteger(
-			typeSettings.getProperty("ping-interval"));
-
-		long registerTimeout = GetterUtil.getLong(
-			typeSettings.getProperty("register-timeout"));
-
-		long shutdownTimeout = GetterUtil.getLong(
-			typeSettings.getProperty("shutdown-timeout"));
+		SPIProvider spiProvider = MPIHelperUtil.getSPIProvider(
+			SPIConfigurationTemplate.getSPIProviderName());
 
 		SPIConfiguration spiConfiguration = new SPIConfiguration(
-			String.valueOf(spiDefinition.getSpiDefinitionId()), javaExecutable,
-			jvmArguments, agentClassName, spiDefinition.getConnectorPort(),
-			baseDir, portletIds, servletContextNames, pingInterval,
-			registerTimeout, shutdownTimeout, spiDefinition.getTypeSettings());
-
-		SPIProvider spiProvider = MPIHelperUtil.getSPIProvider(
-			SPIConfigurationTemplate.getSpiProviderName());
+			String.valueOf(spiDefinition.getSpiDefinitionId()),
+			spiDefinition.getJavaExecutable(), spiDefinition.getJvmArguments(),
+			spiDefinition.getAgentClassName(), spiDefinition.getConnectorPort(),
+			PortalUtil.getPathContext(),
+			StringUtil.split(spiDefinition.getPortletIds()),
+			StringUtil.split(spiDefinition.getServletContextNames()),
+			spiDefinition.getPingInterval(), spiDefinition.getRegisterTimeout(),
+			spiDefinition.getShutdownTimeout(),
+			spiDefinition.getTypeSettings());
 
 		try {
 			return spiProvider.createSPI(spiConfiguration);
 		}
-		catch (PortalResiliencyException e) {
-			throw new PortalException(e);
+		catch (PortalResiliencyException pre) {
+			throw new PortalException(pre);
 		}
 	}
 
@@ -365,7 +334,7 @@ public class SPIDefinitionLocalServiceImpl
 
 		typeSettingsProperties.setProperty(
 			"agent-class-name",
-			SPIConfigurationTemplate.getSpiAgentClassName());
+			SPIConfigurationTemplate.getSPIAgentClassName());
 
 		String javaExecutable = GetterUtil.getString(
 			typeSettingsProperties.getProperty("java-executable"));
@@ -385,39 +354,54 @@ public class SPIDefinitionLocalServiceImpl
 				String.valueOf(SPIConfigurationTemplate.getMaxThreads()));
 		}
 
-		int pingInterval = GetterUtil.getInteger(
+		long pingInterval = GetterUtil.getLong(
 			typeSettingsProperties.getProperty("ping-interval"));
 
 		if (pingInterval <= 0) {
 			typeSettingsProperties.setProperty(
 				"ping-interval",
-				String.valueOf(SPIConfigurationTemplate.getSpiPingInterval()));
+				String.valueOf(SPIConfigurationTemplate.getSPIPingInterval()));
 		}
 
-		int registerTimeout = GetterUtil.getInteger(
+		long registerTimeout = GetterUtil.getLong(
 			typeSettingsProperties.getProperty("register-timeout"));
 
 		if (registerTimeout <= 0) {
 			typeSettingsProperties.setProperty(
 				"register-timeout",
 				String.valueOf(
-					SPIConfigurationTemplate.getSpiRegisterTimeout()));
+					SPIConfigurationTemplate.getSPIRegisterTimeout()));
 		}
 
-		int shutdownTimeout = GetterUtil.getInteger(
+		long shutdownTimeout = GetterUtil.getLong(
 			typeSettingsProperties.getProperty("shutdown-timeout"));
 
 		if (shutdownTimeout <= 0) {
 			typeSettingsProperties.setProperty(
 				"shutdown-timeout",
 				String.valueOf(
-					SPIConfigurationTemplate.getSpiShutdownTimeout()));
+					SPIConfigurationTemplate.getSPIShutdownTimeout()));
 		}
 
 		return typeSettingsProperties.toString();
 	}
 
-	protected void validate(long companyId, String name)
+	protected void validateConnector(String connectorAddress, int connectorPort)
+		throws PortalException, SystemException {
+
+		if (Validator.isNull(connectorAddress) || (connectorPort < 0)) {
+			throw new InvalidSPIDefinitionConnectorException();
+		}
+
+		SPIDefinition spiDefinition = spiDefinitionPersistence.fetchByCA_CP(
+			connectorAddress, connectorPort);
+
+		if (spiDefinition != null) {
+			throw new DuplicateSPIDefinitionConnectorException();
+		}
+	}
+
+	protected void validateName(long companyId, String name)
 		throws PortalException, SystemException {
 
 		SPIDefinition spiDefinition = spiDefinitionPersistence.fetchByC_N(
@@ -425,21 +409,6 @@ public class SPIDefinitionLocalServiceImpl
 
 		if (spiDefinition != null) {
 			throw new DuplicateSPIDefinitionException();
-		}
-	}
-
-	protected void validate(String connectorAddress, int connectorPort)
-		throws PortalException, SystemException {
-
-		if (Validator.isNull(connectorAddress) || (connectorPort < 0)) {
-			throw new InvalidSPIDefinitionAddressAndPortException();
-		}
-
-		SPIDefinition spiDefinition = spiDefinitionPersistence.fetchByCA_CP(
-			connectorAddress, connectorPort);
-
-		if (spiDefinition != null) {
-			throw new DuplicateSPIDefinitionAddressAndPortException();
 		}
 	}
 

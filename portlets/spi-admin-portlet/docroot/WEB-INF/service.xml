@@ -55,8 +55,8 @@
 	</entity>
 	<exceptions>
 		<exception>DuplicateSPIDefinition</exception>
-		<exception>DuplicateSPIDefinitionAddressAndPort</exception>
-		<exception>InvalidSPIDefinitionAddressAndPort</exception>
+		<exception>DuplicateSPIDefinitionConnector</exception>
+		<exception>InvalidSPIDefinitionConnector</exception>
 		<exception>SPIDefinitionActive</exception>
 	</exceptions>
 </service-builder>

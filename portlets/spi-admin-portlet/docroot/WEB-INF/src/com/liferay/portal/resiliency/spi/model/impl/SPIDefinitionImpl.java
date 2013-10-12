@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.resiliency.mpi.MPIHelperUtil;
 import com.liferay.portal.kernel.resiliency.spi.SPI;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.resiliency.spi.util.SPIConfigurationTemplate;
 
@@ -27,6 +28,32 @@ import java.rmi.RemoteException;
  * @author Michael C. Han
  */
 public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
+
+	@Override
+	public String getAgentClassName() {
+		return GetterUtil.getString(
+			getTypeSettingsProperty("agent-class-name"));
+	}
+
+	@Override
+	public String getJavaExecutable() {
+		return GetterUtil.getString(getTypeSettingsProperty("java-executable"));
+	}
+
+	@Override
+	public long getPingInterval() {
+		return GetterUtil.getLong(getTypeSettingsProperty("ping-interval"));
+	}
+
+	@Override
+	public long getRegisterTimeout() {
+		return GetterUtil.getLong(getTypeSettingsProperty("register-timeout"));
+	}
+
+	@Override
+	public long getShutdownTimeout() {
+		return GetterUtil.getLong(getTypeSettingsProperty("shutdown-timeout"));
+	}
 
 	@Override
 	public String getTypeSettings() {
@@ -66,7 +93,7 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 	@Override
 	public boolean isAlive() {
 		SPI spi = MPIHelperUtil.getSPI(
-			SPIConfigurationTemplate.getSpiProviderName(),
+			SPIConfigurationTemplate.getSPIProviderName(),
 			String.valueOf(getSpiDefinitionId()));
 
 		if (spi == null) {

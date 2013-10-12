@@ -31,7 +31,7 @@ public class SPIConfigurationTemplate {
 		return _javaExecutable;
 	}
 
-	public static String getJvmArguments() {
+	public static String getJVMArguments() {
 		return _jvmArguments;
 	}
 
@@ -43,23 +43,23 @@ public class SPIConfigurationTemplate {
 		return _minThreads;
 	}
 
-	public static String getSpiAgentClassName() {
+	public static String getSPIAgentClassName() {
 		return _spiAgentClassName;
 	}
 
-	public static int getSpiPingInterval() {
+	public static int getSPIPingInterval() {
 		return _spiPingInterval;
 	}
 
-	public static String getSpiProviderName() {
+	public static String getSPIProviderName() {
 		return _spiProviderName;
 	}
 
-	public static int getSpiRegisterTimeout() {
+	public static int getSPIRegisterTimeout() {
 		return _spiRegisterTimeout;
 	}
 
-	public static int getSpiShutdownTimeout() {
+	public static int getSPIShutdownTimeout() {
 		return _spiShutdownTimeout;
 	}
 
@@ -75,7 +75,7 @@ public class SPIConfigurationTemplate {
 		_javaExecutable = javaExecutable;
 	}
 
-	public void setJvmArguments(String jvmArguments) {
+	public void setJVMArguments(String jvmArguments) {
 		_jvmArguments = jvmArguments;
 	}
 
@@ -87,23 +87,23 @@ public class SPIConfigurationTemplate {
 		_minThreads = minThreads;
 	}
 
-	public void setSpiAgentClassName(String spiAgentClassName) {
+	public void setSPIAgentClassName(String spiAgentClassName) {
 		_spiAgentClassName = spiAgentClassName;
 	}
 
-	public void setSpiPingInterval(int spiPingInterval) {
+	public void setSPIPingInterval(int spiPingInterval) {
 		_spiPingInterval = spiPingInterval;
 	}
 
-	public void setSpiProviderName(String spiProviderName) {
+	public void setSPIProviderName(String spiProviderName) {
 		_spiProviderName = spiProviderName;
 	}
 
-	public void setSpiRegisterTimeout(int spiRegisterTimeout) {
+	public void setSPIRegisterTimeout(int spiRegisterTimeout) {
 		_spiRegisterTimeout = spiRegisterTimeout;
 	}
 
-	public void setSpiShutdownTimeout(int spiShutdownTimeout) {
+	public void setSPIShutdownTimeout(int spiShutdownTimeout) {
 		_spiShutdownTimeout = spiShutdownTimeout;
 	}
 

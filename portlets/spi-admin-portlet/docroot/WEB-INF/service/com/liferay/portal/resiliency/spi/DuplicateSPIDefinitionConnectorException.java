@@ -19,24 +19,23 @@ import com.liferay.portal.kernel.exception.PortalException;
 /**
  * @author Michael C. Han
  */
-public class DuplicateSPIDefinitionAddressAndPortException
-	extends PortalException {
+public class DuplicateSPIDefinitionConnectorException extends PortalException {
 
-	public DuplicateSPIDefinitionAddressAndPortException() {
+	public DuplicateSPIDefinitionConnectorException() {
 		super();
 	}
 
-	public DuplicateSPIDefinitionAddressAndPortException(String msg) {
+	public DuplicateSPIDefinitionConnectorException(String msg) {
 		super(msg);
 	}
 
-	public DuplicateSPIDefinitionAddressAndPortException(
+	public DuplicateSPIDefinitionConnectorException(
 		String msg, Throwable cause) {
 
 		super(msg, cause);
 	}
 
-	public DuplicateSPIDefinitionAddressAndPortException(Throwable cause) {
+	public DuplicateSPIDefinitionConnectorException(Throwable cause) {
 		super(cause);
 	}
 

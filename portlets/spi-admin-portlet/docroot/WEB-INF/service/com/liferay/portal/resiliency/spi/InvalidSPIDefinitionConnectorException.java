@@ -19,24 +19,21 @@ import com.liferay.portal.kernel.exception.PortalException;
 /**
  * @author Michael C. Han
  */
-public class InvalidSPIDefinitionAddressAndPortException
-	extends PortalException {
+public class InvalidSPIDefinitionConnectorException extends PortalException {
 
-	public InvalidSPIDefinitionAddressAndPortException() {
+	public InvalidSPIDefinitionConnectorException() {
 		super();
 	}
 
-	public InvalidSPIDefinitionAddressAndPortException(String msg) {
+	public InvalidSPIDefinitionConnectorException(String msg) {
 		super(msg);
 	}
 
-	public InvalidSPIDefinitionAddressAndPortException(
-		String msg, Throwable cause) {
-
+	public InvalidSPIDefinitionConnectorException(String msg, Throwable cause) {
 		super(msg, cause);
 	}
 
-	public InvalidSPIDefinitionAddressAndPortException(Throwable cause) {
+	public InvalidSPIDefinitionConnectorException(Throwable cause) {
 		super(cause);
 	}
 
