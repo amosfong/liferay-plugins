@@ -78,7 +78,10 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 		}
 		catch (RemoteException e) {
 			if (_log.isWarnEnabled()) {
-				_log.warn("Unable to determine SPI status: " + getName(), e);
+				_log.warn(
+					"Unable to determine whether " + getName() +
+						" is alive or not",
+					e);
 			}
 
 			return false;
