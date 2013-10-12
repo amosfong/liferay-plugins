@@ -45,7 +45,7 @@ public class SPIDefinitionPermissionUtil {
 
 	public static void check(
 			PermissionChecker permissionChecker, String actionId)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getSpiDefinitionPermission().check(permissionChecker, actionId);
 	}
@@ -68,8 +68,7 @@ public class SPIDefinitionPermissionUtil {
 	}
 
 	public static boolean contains(
-			PermissionChecker permissionChecker, String actionId)
-		throws PortalException, SystemException {
+		PermissionChecker permissionChecker, String actionId) {
 
 		return getSpiDefinitionPermission().contains(
 			permissionChecker, actionId);
