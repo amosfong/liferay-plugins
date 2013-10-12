@@ -584,6 +584,31 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	@Override
+	public java.lang.String getAgentClassName() {
+		return _spiDefinition.getAgentClassName();
+	}
+
+	@Override
+	public java.lang.String getJavaExecutable() {
+		return _spiDefinition.getJavaExecutable();
+	}
+
+	@Override
+	public long getPingInterval() {
+		return _spiDefinition.getPingInterval();
+	}
+
+	@Override
+	public long getRegisterTimeout() {
+		return _spiDefinition.getRegisterTimeout();
+	}
+
+	@Override
+	public long getShutdownTimeout() {
+		return _spiDefinition.getShutdownTimeout();
+	}
+
+	@Override
 	public com.liferay.portal.kernel.util.UnicodeProperties getTypeSettingsProperties() {
 		return _spiDefinition.getTypeSettingsProperties();
 	}
