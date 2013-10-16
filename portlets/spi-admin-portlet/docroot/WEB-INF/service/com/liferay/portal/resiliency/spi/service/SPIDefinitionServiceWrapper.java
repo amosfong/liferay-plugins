@@ -81,6 +81,13 @@ public class SPIDefinitionServiceWrapper implements SPIDefinitionService,
 	}
 
 	@Override
+	public com.liferay.portal.kernel.util.Tuple getPortletIdsAndServletContextNames()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _spiDefinitionService.getPortletIdsAndServletContextNames();
+	}
+
+	@Override
 	public com.liferay.portal.resiliency.spi.model.SPIDefinition getSPIDefinition(
 		long spiDefinitionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -111,10 +118,24 @@ public class SPIDefinitionServiceWrapper implements SPIDefinitionService,
 	}
 
 	@Override
+	public long startSPIinBackground(long spiDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _spiDefinitionService.startSPIinBackground(spiDefinitionId);
+	}
+
+	@Override
 	public void stopSPI(long spiDefinitionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_spiDefinitionService.stopSPI(spiDefinitionId);
+	}
+
+	@Override
+	public long stopSPIinBackground(long spiDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _spiDefinitionService.stopSPIinBackground(spiDefinitionId);
 	}
 
 	@Override

@@ -27,6 +27,8 @@
 			<basic name="portletIds" />
 			<basic name="servletContextNames" />
 			<basic name="typeSettings" />
+			<basic name="status" />
+			<basic name="statusMessage" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />

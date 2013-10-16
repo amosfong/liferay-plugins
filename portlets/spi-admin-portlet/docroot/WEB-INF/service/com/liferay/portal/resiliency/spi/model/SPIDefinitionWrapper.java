@@ -64,6 +64,8 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 		attributes.put("portletIds", getPortletIds());
 		attributes.put("servletContextNames", getServletContextNames());
 		attributes.put("typeSettings", getTypeSettings());
+		attributes.put("status", getStatus());
+		attributes.put("statusMessage", getStatusMessage());
 
 		return attributes;
 	}
@@ -153,6 +155,18 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 
 		if (typeSettings != null) {
 			setTypeSettings(typeSettings);
+		}
+
+		Integer status = (Integer)attributes.get("status");
+
+		if (status != null) {
+			setStatus(status);
+		}
+
+		String statusMessage = (String)attributes.get("statusMessage");
+
+		if (statusMessage != null) {
+			setStatusMessage(statusMessage);
 		}
 	}
 
@@ -478,6 +492,46 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 		_spiDefinition.setTypeSettings(typeSettings);
 	}
 
+	/**
+	* Returns the status of this s p i definition.
+	*
+	* @return the status of this s p i definition
+	*/
+	@Override
+	public int getStatus() {
+		return _spiDefinition.getStatus();
+	}
+
+	/**
+	* Sets the status of this s p i definition.
+	*
+	* @param status the status of this s p i definition
+	*/
+	@Override
+	public void setStatus(int status) {
+		_spiDefinition.setStatus(status);
+	}
+
+	/**
+	* Returns the status message of this s p i definition.
+	*
+	* @return the status message of this s p i definition
+	*/
+	@Override
+	public java.lang.String getStatusMessage() {
+		return _spiDefinition.getStatusMessage();
+	}
+
+	/**
+	* Sets the status message of this s p i definition.
+	*
+	* @param statusMessage the status message of this s p i definition
+	*/
+	@Override
+	public void setStatusMessage(java.lang.String statusMessage) {
+		_spiDefinition.setStatusMessage(statusMessage);
+	}
+
 	@Override
 	public boolean isNew() {
 		return _spiDefinition.isNew();
@@ -606,6 +660,16 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	@Override
 	public long getShutdownTimeout() {
 		return _spiDefinition.getShutdownTimeout();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.resiliency.spi.SPI getSPI() {
+		return _spiDefinition.getSPI();
+	}
+
+	@Override
+	public java.lang.String getStatusLabel() {
+		return _spiDefinition.getStatusLabel();
 	}
 
 	@Override

@@ -84,6 +84,12 @@ public class SPIDefinitionServiceUtil {
 		return getService().deleteSPIDefinition(spiDefinitionId);
 	}
 
+	public static com.liferay.portal.kernel.util.Tuple getPortletIdsAndServletContextNames()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getPortletIdsAndServletContextNames();
+	}
+
 	public static com.liferay.portal.resiliency.spi.model.SPIDefinition getSPIDefinition(
 		long spiDefinitionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -110,10 +116,22 @@ public class SPIDefinitionServiceUtil {
 		getService().startSPI(spiDefinitionId);
 	}
 
+	public static long startSPIinBackground(long spiDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().startSPIinBackground(spiDefinitionId);
+	}
+
 	public static void stopSPI(long spiDefinitionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		getService().stopSPI(spiDefinitionId);
+	}
+
+	public static long stopSPIinBackground(long spiDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().stopSPIinBackground(spiDefinitionId);
 	}
 
 	public static com.liferay.portal.resiliency.spi.model.SPIDefinition updateSPIDefinition(

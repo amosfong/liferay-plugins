@@ -45,6 +45,8 @@ public class SPIDefinitionSoap implements Serializable {
 		soapModel.setPortletIds(model.getPortletIds());
 		soapModel.setServletContextNames(model.getServletContextNames());
 		soapModel.setTypeSettings(model.getTypeSettings());
+		soapModel.setStatus(model.getStatus());
+		soapModel.setStatusMessage(model.getStatusMessage());
 
 		return soapModel;
 	}
@@ -209,6 +211,22 @@ public class SPIDefinitionSoap implements Serializable {
 		_typeSettings = typeSettings;
 	}
 
+	public int getStatus() {
+		return _status;
+	}
+
+	public void setStatus(int status) {
+		_status = status;
+	}
+
+	public String getStatusMessage() {
+		return _statusMessage;
+	}
+
+	public void setStatusMessage(String statusMessage) {
+		_statusMessage = statusMessage;
+	}
+
 	private long _spiDefinitionId;
 	private long _companyId;
 	private long _userId;
@@ -223,4 +241,6 @@ public class SPIDefinitionSoap implements Serializable {
 	private String _portletIds;
 	private String _servletContextNames;
 	private String _typeSettings;
+	private int _status;
+	private String _statusMessage;
 }

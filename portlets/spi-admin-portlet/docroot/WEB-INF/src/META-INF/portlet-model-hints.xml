@@ -32,12 +32,12 @@
 		<field name="servletContextNames" type="String">
 			<hint-collection name="TEXTAREA" />
 		</field>
+		<field name="typeSettings" type="String">
+			<hint-collection name="CLOB" />
+		</field>
 		<field name="status" type="int" />
 		<field name="statusMessage" type="String">
 			<hint-collection name="TEXTAREA" />
-		</field>
-		<field name="typeSettings" type="String">
-			<hint-collection name="CLOB" />
 		</field>
 	</model>
 </model-hints>

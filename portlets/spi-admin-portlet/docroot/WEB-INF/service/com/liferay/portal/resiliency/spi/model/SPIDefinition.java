@@ -41,6 +41,10 @@ public interface SPIDefinition extends SPIDefinitionModel, PersistedModel {
 
 	public long getShutdownTimeout();
 
+	public com.liferay.portal.kernel.resiliency.spi.SPI getSPI();
+
+	public java.lang.String getStatusLabel();
+
 	public com.liferay.portal.kernel.util.UnicodeProperties getTypeSettingsProperties();
 
 	public java.lang.String getTypeSettingsProperty(java.lang.String key);

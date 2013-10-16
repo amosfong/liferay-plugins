@@ -88,6 +88,8 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 		attributes.put("portletIds", getPortletIds());
 		attributes.put("servletContextNames", getServletContextNames());
 		attributes.put("typeSettings", getTypeSettings());
+		attributes.put("status", getStatus());
+		attributes.put("statusMessage", getStatusMessage());
 
 		return attributes;
 	}
@@ -177,6 +179,18 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 
 		if (typeSettings != null) {
 			setTypeSettings(typeSettings);
+		}
+
+		Integer status = (Integer)attributes.get("status");
+
+		if (status != null) {
+			setStatus(status);
+		}
+
+		String statusMessage = (String)attributes.get("statusMessage");
+
+		if (statusMessage != null) {
+			setStatusMessage(statusMessage);
 		}
 	}
 
@@ -515,6 +529,52 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 	}
 
 	@Override
+	public int getStatus() {
+		return _status;
+	}
+
+	@Override
+	public void setStatus(int status) {
+		_status = status;
+
+		if (_spiDefinitionRemoteModel != null) {
+			try {
+				Class<?> clazz = _spiDefinitionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setStatus", int.class);
+
+				method.invoke(_spiDefinitionRemoteModel, status);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public String getStatusMessage() {
+		return _statusMessage;
+	}
+
+	@Override
+	public void setStatusMessage(String statusMessage) {
+		_statusMessage = statusMessage;
+
+		if (_spiDefinitionRemoteModel != null) {
+			try {
+				Class<?> clazz = _spiDefinitionRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setStatusMessage", String.class);
+
+				method.invoke(_spiDefinitionRemoteModel, statusMessage);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public boolean isAlive() {
 		try {
 			String methodName = "isAlive";
@@ -524,6 +584,25 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 			Object[] parameterValues = new Object[] {  };
 
 			Boolean returnObj = (Boolean)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public com.liferay.portal.kernel.resiliency.spi.SPI getSPI() {
+		try {
+			String methodName = "getSPI";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			com.liferay.portal.kernel.resiliency.spi.SPI returnObj = (com.liferay.portal.kernel.resiliency.spi.SPI)invokeOnRemoteModel(methodName,
 					parameterTypes, parameterValues);
 
 			return returnObj;
@@ -572,15 +651,75 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 	}
 
 	@Override
-	public long getPingInterval() {
+	public java.lang.String getTypeSettingsProperty(java.lang.String key) {
 		try {
-			String methodName = "getPingInterval";
+			String methodName = "getTypeSettingsProperty";
+
+			Class<?>[] parameterTypes = new Class<?>[] { java.lang.String.class };
+
+			Object[] parameterValues = new Object[] { key };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public java.lang.String getTypeSettingsProperty(java.lang.String key,
+		java.lang.String defaultValue) {
+		try {
+			String methodName = "getTypeSettingsProperty";
+
+			Class<?>[] parameterTypes = new Class<?>[] {
+					java.lang.String.class, java.lang.String.class
+				};
+
+			Object[] parameterValues = new Object[] { key, defaultValue };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public java.lang.String getStatusLabel() {
+		try {
+			String methodName = "getStatusLabel";
 
 			Class<?>[] parameterTypes = new Class<?>[] {  };
 
 			Object[] parameterValues = new Object[] {  };
 
-			Long returnObj = (Long)invokeOnRemoteModel(methodName,
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public java.lang.String getAgentClassName() {
+		try {
+			String methodName = "getAgentClassName";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
 					parameterTypes, parameterValues);
 
 			return returnObj;
@@ -610,15 +749,15 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 	}
 
 	@Override
-	public java.lang.String getAgentClassName() {
+	public long getPingInterval() {
 		try {
-			String methodName = "getAgentClassName";
+			String methodName = "getPingInterval";
 
 			Class<?>[] parameterTypes = new Class<?>[] {  };
 
 			Object[] parameterValues = new Object[] {  };
 
-			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+			Long returnObj = (Long)invokeOnRemoteModel(methodName,
 					parameterTypes, parameterValues);
 
 			return returnObj;
@@ -657,47 +796,6 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 			Object[] parameterValues = new Object[] {  };
 
 			Long returnObj = (Long)invokeOnRemoteModel(methodName,
-					parameterTypes, parameterValues);
-
-			return returnObj;
-		}
-		catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
-	}
-
-	@Override
-	public java.lang.String getTypeSettingsProperty(java.lang.String key,
-		java.lang.String defaultValue) {
-		try {
-			String methodName = "getTypeSettingsProperty";
-
-			Class<?>[] parameterTypes = new Class<?>[] {
-					java.lang.String.class, java.lang.String.class
-				};
-
-			Object[] parameterValues = new Object[] { key, defaultValue };
-
-			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
-					parameterTypes, parameterValues);
-
-			return returnObj;
-		}
-		catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
-	}
-
-	@Override
-	public java.lang.String getTypeSettingsProperty(java.lang.String key) {
-		try {
-			String methodName = "getTypeSettingsProperty";
-
-			Class<?>[] parameterTypes = new Class<?>[] { java.lang.String.class };
-
-			Object[] parameterValues = new Object[] { key };
-
-			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
 					parameterTypes, parameterValues);
 
 			return returnObj;
@@ -791,6 +889,8 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 		clone.setPortletIds(getPortletIds());
 		clone.setServletContextNames(getServletContextNames());
 		clone.setTypeSettings(getTypeSettings());
+		clone.setStatus(getStatus());
+		clone.setStatusMessage(getStatusMessage());
 
 		return clone;
 	}
@@ -845,7 +945,7 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(33);
 
 		sb.append("{spiDefinitionId=");
 		sb.append(getSpiDefinitionId());
@@ -875,6 +975,10 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 		sb.append(getServletContextNames());
 		sb.append(", typeSettings=");
 		sb.append(getTypeSettings());
+		sb.append(", status=");
+		sb.append(getStatus());
+		sb.append(", statusMessage=");
+		sb.append(getStatusMessage());
 		sb.append("}");
 
 		return sb.toString();
@@ -882,7 +986,7 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(46);
+		StringBundler sb = new StringBundler(52);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.portal.resiliency.spi.model.SPIDefinition");
@@ -944,6 +1048,14 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 			"<column><column-name>typeSettings</column-name><column-value><![CDATA[");
 		sb.append(getTypeSettings());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>status</column-name><column-value><![CDATA[");
+		sb.append(getStatus());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>statusMessage</column-name><column-value><![CDATA[");
+		sb.append(getStatusMessage());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -965,5 +1077,7 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 	private String _portletIds;
 	private String _servletContextNames;
 	private String _typeSettings;
+	private int _status;
+	private String _statusMessage;
 	private BaseModel<?> _spiDefinitionRemoteModel;
 }

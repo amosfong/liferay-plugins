@@ -97,6 +97,20 @@ public class SPIDefinitionServiceSoap {
 		}
 	}
 
+	public static com.liferay.portal.kernel.util.Tuple getPortletIdsAndServletContextNames()
+		throws RemoteException {
+		try {
+			com.liferay.portal.kernel.util.Tuple returnValue = SPIDefinitionServiceUtil.getPortletIdsAndServletContextNames();
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.portal.resiliency.spi.model.SPIDefinitionSoap getSPIDefinition(
 		long spiDefinitionId) throws RemoteException {
 		try {
@@ -152,9 +166,37 @@ public class SPIDefinitionServiceSoap {
 		}
 	}
 
+	public static long startSPIinBackground(long spiDefinitionId)
+		throws RemoteException {
+		try {
+			long returnValue = SPIDefinitionServiceUtil.startSPIinBackground(spiDefinitionId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static void stopSPI(long spiDefinitionId) throws RemoteException {
 		try {
 			SPIDefinitionServiceUtil.stopSPI(spiDefinitionId);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static long stopSPIinBackground(long spiDefinitionId)
+		throws RemoteException {
+		try {
+			long returnValue = SPIDefinitionServiceUtil.stopSPIinBackground(spiDefinitionId);
+
+			return returnValue;
 		}
 		catch (Exception e) {
 			_log.error(e, e);

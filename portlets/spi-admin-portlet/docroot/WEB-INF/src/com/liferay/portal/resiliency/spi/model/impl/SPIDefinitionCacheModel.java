@@ -37,7 +37,7 @@ public class SPIDefinitionCacheModel implements CacheModel<SPIDefinition>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(33);
 
 		sb.append("{spiDefinitionId=");
 		sb.append(spiDefinitionId);
@@ -67,6 +67,10 @@ public class SPIDefinitionCacheModel implements CacheModel<SPIDefinition>,
 		sb.append(servletContextNames);
 		sb.append(", typeSettings=");
 		sb.append(typeSettings);
+		sb.append(", status=");
+		sb.append(status);
+		sb.append(", statusMessage=");
+		sb.append(statusMessage);
 		sb.append("}");
 
 		return sb.toString();
@@ -152,6 +156,15 @@ public class SPIDefinitionCacheModel implements CacheModel<SPIDefinition>,
 			spiDefinitionImpl.setTypeSettings(typeSettings);
 		}
 
+		spiDefinitionImpl.setStatus(status);
+
+		if (statusMessage == null) {
+			spiDefinitionImpl.setStatusMessage(StringPool.BLANK);
+		}
+		else {
+			spiDefinitionImpl.setStatusMessage(statusMessage);
+		}
+
 		spiDefinitionImpl.resetOriginalValues();
 
 		return spiDefinitionImpl;
@@ -173,6 +186,8 @@ public class SPIDefinitionCacheModel implements CacheModel<SPIDefinition>,
 		portletIds = objectInput.readUTF();
 		servletContextNames = objectInput.readUTF();
 		typeSettings = objectInput.readUTF();
+		status = objectInput.readInt();
+		statusMessage = objectInput.readUTF();
 	}
 
 	@Override
@@ -242,6 +257,15 @@ public class SPIDefinitionCacheModel implements CacheModel<SPIDefinition>,
 		else {
 			objectOutput.writeUTF(typeSettings);
 		}
+
+		objectOutput.writeInt(status);
+
+		if (statusMessage == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(statusMessage);
+		}
 	}
 
 	public long spiDefinitionId;
@@ -258,4 +282,6 @@ public class SPIDefinitionCacheModel implements CacheModel<SPIDefinition>,
 	public String portletIds;
 	public String servletContextNames;
 	public String typeSettings;
+	public int status;
+	public String statusMessage;
 }

@@ -305,6 +305,12 @@ public class SPIDefinitionLocalServiceWrapper
 	}
 
 	@Override
+	public com.liferay.portal.kernel.util.Tuple getPortletIdsAndServletContextNames()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _spiDefinitionLocalService.getPortletIdsAndServletContextNames();
+	}
+
+	@Override
 	public com.liferay.portal.resiliency.spi.model.SPIDefinition getSPIDefinition(
 		long companyId, java.lang.String name)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -319,6 +325,20 @@ public class SPIDefinitionLocalServiceWrapper
 	}
 
 	@Override
+	public java.util.List<com.liferay.portal.resiliency.spi.model.SPIDefinition> getSPIDefinitions(
+		long companyId, int status)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _spiDefinitionLocalService.getSPIDefinitions(companyId, status);
+	}
+
+	@Override
+	public java.util.List<com.liferay.portal.resiliency.spi.model.SPIDefinition> getSPIDefinitions(
+		long companyId, int[] statuses)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _spiDefinitionLocalService.getSPIDefinitions(companyId, statuses);
+	}
+
+	@Override
 	public void startSPI(long spiDefinitionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -326,10 +346,35 @@ public class SPIDefinitionLocalServiceWrapper
 	}
 
 	@Override
+	public long startSPIinBackground(long userId, long spiDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _spiDefinitionLocalService.startSPIinBackground(userId,
+			spiDefinitionId);
+	}
+
+	@Override
 	public void stopSPI(long spiDefinitionId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_spiDefinitionLocalService.stopSPI(spiDefinitionId);
+	}
+
+	@Override
+	public long stopSPIinBackground(long userId, long spiDefinitionId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _spiDefinitionLocalService.stopSPIinBackground(userId,
+			spiDefinitionId);
+	}
+
+	@Override
+	public com.liferay.portal.resiliency.spi.model.SPIDefinition updateSPIDefinition(
+		long spiDefinitionId, int status, java.lang.String statusMessage)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _spiDefinitionLocalService.updateSPIDefinition(spiDefinitionId,
+			status, statusMessage);
 	}
 
 	@Override

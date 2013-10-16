@@ -78,9 +78,11 @@ public class SPIDefinitionModelImpl extends BaseModelImpl<SPIDefinition>
 			{ "jvmArguments", Types.VARCHAR },
 			{ "portletIds", Types.VARCHAR },
 			{ "servletContextNames", Types.VARCHAR },
-			{ "typeSettings", Types.CLOB }
+			{ "typeSettings", Types.CLOB },
+			{ "status", Types.INTEGER },
+			{ "statusMessage", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table SPIDefinition (spiDefinitionId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(200) null,connectorAddress VARCHAR(200) null,connectorPort INTEGER,description STRING null,jvmArguments STRING null,portletIds STRING null,servletContextNames STRING null,typeSettings TEXT null)";
+	public static final String TABLE_SQL_CREATE = "create table SPIDefinition (spiDefinitionId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(200) null,connectorAddress VARCHAR(200) null,connectorPort INTEGER,description STRING null,jvmArguments STRING null,portletIds STRING null,servletContextNames STRING null,typeSettings TEXT null,status INTEGER,statusMessage STRING null)";
 	public static final String TABLE_SQL_DROP = "drop table SPIDefinition";
 	public static final String ORDER_BY_JPQL = " ORDER BY spiDefinition.spiDefinitionId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY SPIDefinition.spiDefinitionId ASC";
@@ -100,7 +102,8 @@ public class SPIDefinitionModelImpl extends BaseModelImpl<SPIDefinition>
 	public static long CONNECTORADDRESS_COLUMN_BITMASK = 2L;
 	public static long CONNECTORPORT_COLUMN_BITMASK = 4L;
 	public static long NAME_COLUMN_BITMASK = 8L;
-	public static long SPIDEFINITIONID_COLUMN_BITMASK = 16L;
+	public static long STATUS_COLUMN_BITMASK = 16L;
+	public static long SPIDEFINITIONID_COLUMN_BITMASK = 32L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -129,6 +132,8 @@ public class SPIDefinitionModelImpl extends BaseModelImpl<SPIDefinition>
 		model.setPortletIds(soapModel.getPortletIds());
 		model.setServletContextNames(soapModel.getServletContextNames());
 		model.setTypeSettings(soapModel.getTypeSettings());
+		model.setStatus(soapModel.getStatus());
+		model.setStatusMessage(soapModel.getStatusMessage());
 
 		return model;
 	}
@@ -207,6 +212,8 @@ public class SPIDefinitionModelImpl extends BaseModelImpl<SPIDefinition>
 		attributes.put("portletIds", getPortletIds());
 		attributes.put("servletContextNames", getServletContextNames());
 		attributes.put("typeSettings", getTypeSettings());
+		attributes.put("status", getStatus());
+		attributes.put("statusMessage", getStatusMessage());
 
 		return attributes;
 	}
@@ -296,6 +303,18 @@ public class SPIDefinitionModelImpl extends BaseModelImpl<SPIDefinition>
 
 		if (typeSettings != null) {
 			setTypeSettings(typeSettings);
+		}
+
+		Integer status = (Integer)attributes.get("status");
+
+		if (status != null) {
+			setStatus(status);
+		}
+
+		String statusMessage = (String)attributes.get("statusMessage");
+
+		if (statusMessage != null) {
+			setStatusMessage(statusMessage);
 		}
 	}
 
@@ -549,6 +568,45 @@ public class SPIDefinitionModelImpl extends BaseModelImpl<SPIDefinition>
 		_typeSettings = typeSettings;
 	}
 
+	@JSON
+	@Override
+	public int getStatus() {
+		return _status;
+	}
+
+	@Override
+	public void setStatus(int status) {
+		_columnBitmask |= STATUS_COLUMN_BITMASK;
+
+		if (!_setOriginalStatus) {
+			_setOriginalStatus = true;
+
+			_originalStatus = _status;
+		}
+
+		_status = status;
+	}
+
+	public int getOriginalStatus() {
+		return _originalStatus;
+	}
+
+	@JSON
+	@Override
+	public String getStatusMessage() {
+		if (_statusMessage == null) {
+			return StringPool.BLANK;
+		}
+		else {
+			return _statusMessage;
+		}
+	}
+
+	@Override
+	public void setStatusMessage(String statusMessage) {
+		_statusMessage = statusMessage;
+	}
+
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -594,6 +652,8 @@ public class SPIDefinitionModelImpl extends BaseModelImpl<SPIDefinition>
 		spiDefinitionImpl.setPortletIds(getPortletIds());
 		spiDefinitionImpl.setServletContextNames(getServletContextNames());
 		spiDefinitionImpl.setTypeSettings(getTypeSettings());
+		spiDefinitionImpl.setStatus(getStatus());
+		spiDefinitionImpl.setStatusMessage(getStatusMessage());
 
 		spiDefinitionImpl.resetOriginalValues();
 
@@ -663,6 +723,10 @@ public class SPIDefinitionModelImpl extends BaseModelImpl<SPIDefinition>
 		spiDefinitionModelImpl._originalConnectorPort = spiDefinitionModelImpl._connectorPort;
 
 		spiDefinitionModelImpl._setOriginalConnectorPort = false;
+
+		spiDefinitionModelImpl._originalStatus = spiDefinitionModelImpl._status;
+
+		spiDefinitionModelImpl._setOriginalStatus = false;
 
 		spiDefinitionModelImpl._columnBitmask = 0;
 	}
@@ -762,12 +826,22 @@ public class SPIDefinitionModelImpl extends BaseModelImpl<SPIDefinition>
 			spiDefinitionCacheModel.typeSettings = null;
 		}
 
+		spiDefinitionCacheModel.status = getStatus();
+
+		spiDefinitionCacheModel.statusMessage = getStatusMessage();
+
+		String statusMessage = spiDefinitionCacheModel.statusMessage;
+
+		if ((statusMessage != null) && (statusMessage.length() == 0)) {
+			spiDefinitionCacheModel.statusMessage = null;
+		}
+
 		return spiDefinitionCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(33);
 
 		sb.append("{spiDefinitionId=");
 		sb.append(getSpiDefinitionId());
@@ -797,6 +871,10 @@ public class SPIDefinitionModelImpl extends BaseModelImpl<SPIDefinition>
 		sb.append(getServletContextNames());
 		sb.append(", typeSettings=");
 		sb.append(getTypeSettings());
+		sb.append(", status=");
+		sb.append(getStatus());
+		sb.append(", statusMessage=");
+		sb.append(getStatusMessage());
 		sb.append("}");
 
 		return sb.toString();
@@ -804,7 +882,7 @@ public class SPIDefinitionModelImpl extends BaseModelImpl<SPIDefinition>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(46);
+		StringBundler sb = new StringBundler(52);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.portal.resiliency.spi.model.SPIDefinition");
@@ -866,6 +944,14 @@ public class SPIDefinitionModelImpl extends BaseModelImpl<SPIDefinition>
 			"<column><column-name>typeSettings</column-name><column-value><![CDATA[");
 		sb.append(getTypeSettings());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>status</column-name><column-value><![CDATA[");
+		sb.append(getStatus());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>statusMessage</column-name><column-value><![CDATA[");
+		sb.append(getStatusMessage());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -897,6 +983,10 @@ public class SPIDefinitionModelImpl extends BaseModelImpl<SPIDefinition>
 	private String _portletIds;
 	private String _servletContextNames;
 	private String _typeSettings;
+	private int _status;
+	private int _originalStatus;
+	private boolean _setOriginalStatus;
+	private String _statusMessage;
 	private long _columnBitmask;
 	private SPIDefinition _escapedModel;
 }

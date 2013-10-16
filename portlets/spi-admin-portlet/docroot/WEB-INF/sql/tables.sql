@@ -12,5 +12,7 @@ create table SPIDefinition (
 	jvmArguments STRING null,
 	portletIds STRING null,
 	servletContextNames STRING null,
-	typeSettings TEXT null
+	typeSettings TEXT null,
+	status INTEGER,
+	statusMessage STRING null
 );

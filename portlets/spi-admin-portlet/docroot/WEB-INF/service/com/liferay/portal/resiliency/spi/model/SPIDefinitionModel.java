@@ -293,6 +293,35 @@ public interface SPIDefinitionModel extends AuditedModel,
 	 */
 	public void setTypeSettings(String typeSettings);
 
+	/**
+	 * Returns the status of this s p i definition.
+	 *
+	 * @return the status of this s p i definition
+	 */
+	public int getStatus();
+
+	/**
+	 * Sets the status of this s p i definition.
+	 *
+	 * @param status the status of this s p i definition
+	 */
+	public void setStatus(int status);
+
+	/**
+	 * Returns the status message of this s p i definition.
+	 *
+	 * @return the status message of this s p i definition
+	 */
+	@AutoEscape
+	public String getStatusMessage();
+
+	/**
+	 * Sets the status message of this s p i definition.
+	 *
+	 * @param statusMessage the status message of this s p i definition
+	 */
+	public void setStatusMessage(String statusMessage);
+
 	@Override
 	public boolean isNew();
 
