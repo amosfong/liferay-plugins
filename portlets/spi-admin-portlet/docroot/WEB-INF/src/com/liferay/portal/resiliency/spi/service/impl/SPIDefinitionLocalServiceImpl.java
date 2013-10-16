@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.resiliency.spi.SPIConfiguration;
 import com.liferay.portal.kernel.resiliency.spi.provider.SPIProvider;
 import com.liferay.portal.kernel.servlet.ServletContextPool;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.StackTraceUtil;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
@@ -37,6 +38,7 @@ import com.liferay.portal.resiliency.spi.InvalidSPIDefinitionConnectorException;
 import com.liferay.portal.resiliency.spi.SPIDefinitionActiveException;
 import com.liferay.portal.resiliency.spi.model.SPIDefinition;
 import com.liferay.portal.resiliency.spi.service.base.SPIDefinitionLocalServiceBaseImpl;
+import com.liferay.portal.resiliency.spi.util.SPIAdminConstants;
 import com.liferay.portal.resiliency.spi.util.SPIConfigurationTemplate;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.util.PortalUtil;
@@ -156,6 +158,20 @@ public class SPIDefinitionLocalServiceImpl
 		return spiDefinitionPersistence.findAll();
 	}
 
+	@Override
+	public List<SPIDefinition> getSPIDefinitions(long companyId, int status)
+		throws SystemException {
+
+		return spiDefinitionPersistence.findByC_S(companyId, status);
+	}
+
+	@Override
+	public List<SPIDefinition> getSPIDefinitions(long companyId, int[] statuses)
+		throws SystemException {
+
+		return spiDefinitionPersistence.findByC_S(companyId, statuses);
+	}
+
 	@Clusterable
 	@Override
 	public void startSPI(long spiDefinitionId)
@@ -220,6 +236,11 @@ public class SPIDefinitionLocalServiceImpl
 					_log.info("Add plugin " + contextPath + " to SPI " + spi);
 				}
 			}
+
+			spiDefinition.setStatus(SPIAdminConstants.STATUS_STARTED);
+			spiDefinition.setStatusMessage(null);
+
+			spiDefinitionPersistence.update(spiDefinition);
 		}
 		catch (RemoteException re) {
 			throw new PortalException(
@@ -253,12 +274,21 @@ public class SPIDefinitionLocalServiceImpl
 			}
 
 			spi.destroy();
+
+			spiDefinition.setStatusMessage(null);
 		}
 		catch (RemoteException e) {
 			if (_log.isWarnEnabled()) {
 				_log.warn("Unable to stop SPI " + spiDefinitionId, e);
 			}
+
+			spiDefinition.setStatusMessage(StackTraceUtil.getStackTrace(e));
 		}
+		finally {
+			spiDefinition.setStatus(SPIAdminConstants.STATUS_STOPPED);
+		}
+
+		spiDefinitionPersistence.update(spiDefinition);
 	}
 
 	@Override

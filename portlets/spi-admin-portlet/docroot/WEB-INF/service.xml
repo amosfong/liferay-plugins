@@ -27,6 +27,8 @@
 		<column name="jvmArguments" type="String" />
 		<column name="portletIds" type="String" />
 		<column name="servletContextNames" type="String" />
+		<column name="status" type="int" />
+		<column name="statusMessage" type="String" />
 		<column name="typeSettings" type="String" />
 
 		<!-- Order -->
@@ -44,6 +46,10 @@
 			<finder-column name="companyId" />
 			<finder-column name="name" />
 		</finder>
+		<finder name="C_S" return-type="Collection">
+			<finder-column name="companyId" />
+			<finder-column name="status" arrayable-operator="OR" />
+		</finder>
 		<finder name="CA_CP" return-type="SPIDefinition">
 			<finder-column name="connectorAddress" />
 			<finder-column name="connectorPort" />
@@ -51,6 +57,7 @@
 
 		<!-- References -->
 
+		<reference package-path="com.liferay.portal" entity="BackgroundTask" />
 		<reference package-path="com.liferay.portlet.expando" entity="ExpandoRow" />
 	</entity>
 	<exceptions>
