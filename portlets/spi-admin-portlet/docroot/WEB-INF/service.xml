@@ -27,9 +27,9 @@
 		<column name="jvmArguments" type="String" />
 		<column name="portletIds" type="String" />
 		<column name="servletContextNames" type="String" />
+		<column name="typeSettings" type="String" />
 		<column name="status" type="int" />
 		<column name="statusMessage" type="String" />
-		<column name="typeSettings" type="String" />
 
 		<!-- Order -->
 
