@@ -16,6 +16,7 @@ package com.liferay.portal.resiliency.spi.service.impl;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.Tuple;
 import com.liferay.portal.resiliency.spi.model.SPIDefinition;
 import com.liferay.portal.resiliency.spi.service.base.SPIDefinitionServiceBaseImpl;
 import com.liferay.portal.resiliency.spi.service.permission.SPIDefinitionPermissionUtil;
@@ -54,6 +55,17 @@ public class SPIDefinitionServiceImpl extends SPIDefinitionServiceBaseImpl {
 			getPermissionChecker(), spiDefinitionId, ActionKeys.DELETE);
 
 		return spiDefinitionLocalService.deleteSPIDefinition(spiDefinitionId);
+	}
+
+	@Override
+	public Tuple getAllSPIServletContextNamesAndPortletIds()
+		throws PortalException, SystemException {
+
+		SPIDefinitionPermissionUtil.check(
+			getPermissionChecker(), ActionKeys.VIEW_SPI_DEFINITIONS);
+
+		return spiDefinitionLocalService.
+			getAllSPIServletContextNamesAndPortletIds();
 	}
 
 	@Override
@@ -100,6 +112,17 @@ public class SPIDefinitionServiceImpl extends SPIDefinitionServiceBaseImpl {
 	}
 
 	@Override
+	public long startSPIinBackground(long spiDefinitionId)
+		throws PortalException, SystemException {
+
+		SPIDefinitionPermissionUtil.check(
+			getPermissionChecker(), spiDefinitionId, ActionKeys.MANAGE);
+
+		return spiDefinitionLocalService.startSPIinBackground(
+			getUser().getUserId(), spiDefinitionId);
+	}
+
+	@Override
 	public void stopSPI(long spiDefinitionId)
 		throws PortalException, SystemException {
 
@@ -107,6 +130,17 @@ public class SPIDefinitionServiceImpl extends SPIDefinitionServiceBaseImpl {
 			getPermissionChecker(), spiDefinitionId, ActionKeys.MANAGE);
 
 		spiDefinitionLocalService.stopSPI(spiDefinitionId);
+	}
+
+	@Override
+	public long stopSPIinBackground(long spiDefinitionId)
+		throws PortalException, SystemException {
+
+		SPIDefinitionPermissionUtil.check(
+			getPermissionChecker(), spiDefinitionId, ActionKeys.MANAGE);
+
+		return spiDefinitionLocalService.stopSPIinBackground(
+			getUser().getUserId(), spiDefinitionId);
 	}
 
 	@Override

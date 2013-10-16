@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.resiliency.mpi.MPIHelperUtil;
 import com.liferay.portal.kernel.resiliency.spi.SPI;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
+import com.liferay.portal.resiliency.spi.util.SPIAdminConstants;
 import com.liferay.portal.resiliency.spi.util.SPIConfigurationTemplate;
 
 import java.rmi.RemoteException;
@@ -53,6 +54,25 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 	@Override
 	public long getShutdownTimeout() {
 		return GetterUtil.getLong(getTypeSettingsProperty("shutdown-timeout"));
+	}
+
+	@Override
+	public SPI getSPI() {
+		if (_spi == null) {
+			_spi = MPIHelperUtil.getSPI(
+				SPIConfigurationTemplate.getSPIProviderName(),
+				String.valueOf(getSpiDefinitionId()));
+		}
+
+		return _spi;
+	}
+
+	@Override
+	public String getStatusLabel() {
+
+		int status = getStatus();
+
+		return SPIAdminConstants.getStatusLabel(status);
 	}
 
 	@Override
@@ -92,9 +112,8 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 
 	@Override
 	public boolean isAlive() {
-		SPI spi = MPIHelperUtil.getSPI(
-			SPIConfigurationTemplate.getSPIProviderName(),
-			String.valueOf(getSpiDefinitionId()));
+
+		SPI spi = getSPI();
 
 		if (spi == null) {
 			return false;
@@ -133,6 +152,7 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 
 	private static Log _log = LogFactoryUtil.getLog(SPIDefinitionImpl.class);
 
+	private SPI _spi;
 	private UnicodeProperties _typeSettingsProperties;
 
 }
