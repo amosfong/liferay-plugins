@@ -54,17 +54,20 @@ public class SPIAdminConstants {
 	}
 
 	public static String getStatusLabel(int status) {
-		switch (status) {
-			case 0:
-				return LABEL_STARTED;
-			case 1:
-				return LABEL_STARTING;
-			case 2:
-				return LABEL_STOPPED;
-			case 3:
-				return LABEL_STOPPING;
-			default:
-				return StringPool.BLANK;
+		if (status == STATUS_STARTED) {
+			return LABEL_STARTED;
+		}
+		else if (status == STATUS_STARTING) {
+			return LABEL_STARTING;
+		}
+		else if (status == STATUS_STOPPED) {
+			return LABEL_STOPPED;
+		}
+		else if (status == STATUS_STOPPING) {
+			return LABEL_STOPPING;
+		}
+		else {
+			return StringPool.BLANK;
 		}
 	}
 
