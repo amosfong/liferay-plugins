@@ -15,18 +15,17 @@
 package com.liferay.portal.resiliency.spi.backgroundtask.messaging;
 
 import com.liferay.portal.kernel.backgroundtask.BackgroundTaskConstants;
-import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.model.BackgroundTask;
-import com.liferay.portal.resiliency.spi.backgroundtask.SPIStartBackgroundTaskExecutor;
-import com.liferay.portal.resiliency.spi.backgroundtask.SPIStopBackgroundTaskExecutor;
+import com.liferay.portal.resiliency.spi.backgroundtask.StartSPIBackgroundTaskExecutor;
+import com.liferay.portal.resiliency.spi.backgroundtask.StopSPIBackgroundTaskExecutor;
 import com.liferay.portal.resiliency.spi.model.SPIDefinition;
 import com.liferay.portal.resiliency.spi.service.SPIDefinitionLocalServiceUtil;
 import com.liferay.portal.resiliency.spi.util.SPIAdminConstants;
-import com.liferay.portal.service.BackgroundTaskLocalService;
+import com.liferay.portal.service.BackgroundTaskLocalServiceUtil;
 
 import java.io.Serializable;
 
@@ -43,15 +42,14 @@ public class SPIBackgroundTaskStatusMessageListener
 		String taskExecutorClassName = message.getString(
 			"taskExecutorClassName");
 
-		if (!SPIStartBackgroundTaskExecutor.class.getName().equals(
-				taskExecutorClassName) &&
-			!SPIStopBackgroundTaskExecutor.class.getName().equals(
-				taskExecutorClassName)) {
+		if (!taskExecutorClassName.equals(
+				StartSPIBackgroundTaskExecutor.class.getName()) &&
+			!taskExecutorClassName.equals(
+				StopSPIBackgroundTaskExecutor.class.getName())) {
 
 			return;
 		}
 
-		long backgroundTaskId = message.getLong("backgroundTaskId");
 		int status = message.getInteger("status");
 
 		if ((status != BackgroundTaskConstants.STATUS_SUCCESSFUL) &&
@@ -60,8 +58,11 @@ public class SPIBackgroundTaskStatusMessageListener
 			return;
 		}
 
+		long backgroundTaskId = message.getLong("backgroundTaskId");
+
 		BackgroundTask backgroundTask =
-			_backgroundTaskLocalService.deleteBackgroundTask(backgroundTaskId);
+			BackgroundTaskLocalServiceUtil.deleteBackgroundTask(
+				backgroundTaskId);
 
 		if (backgroundTask == null) {
 			return;
@@ -90,24 +91,28 @@ public class SPIBackgroundTaskStatusMessageListener
 		if (status == BackgroundTaskConstants.STATUS_SUCCESSFUL) {
 			spiDefinition.setStatusMessage(null);
 
-			int spiStatus = spiDefinition.getStatus();
+			if (spiDefinition.getStatus() ==
+					SPIAdminConstants.STATUS_STARTING) {
 
-			if (spiStatus == SPIAdminConstants.STATUS_STARTING) {
 				spiDefinition.setStatus(SPIAdminConstants.STATUS_STARTED);
 			}
-			else if (spiStatus == SPIAdminConstants.STATUS_STOPPING) {
+			else if (spiDefinition.getStatus() ==
+						SPIAdminConstants.STATUS_STOPPING) {
+
 				spiDefinition.setStatus(SPIAdminConstants.STATUS_STOPPED);
 			}
 		}
 		else {
 			spiDefinition.setStatusMessage(backgroundTask.getStatusMessage());
 
-			int spiStatus = spiDefinition.getStatus();
+			if (spiDefinition.getStatus() ==
+					SPIAdminConstants.STATUS_STARTING) {
 
-			if (spiStatus == SPIAdminConstants.STATUS_STARTING) {
 				spiDefinition.setStatus(SPIAdminConstants.STATUS_STOPPED);
 			}
-			else if (spiStatus == SPIAdminConstants.STATUS_STOPPING) {
+			else if (spiDefinition.getStatus() ==
+						SPIAdminConstants.STATUS_STOPPING) {
+
 				if (spiDefinition.isAlive()) {
 					spiDefinition.setStatus(SPIAdminConstants.STATUS_STARTED);
 				}
@@ -119,8 +124,5 @@ public class SPIBackgroundTaskStatusMessageListener
 
 		SPIDefinitionLocalServiceUtil.updateSPIDefinition(spiDefinition);
 	}
-
-	@BeanReference(type = BackgroundTaskLocalService.class)
-	private BackgroundTaskLocalService _backgroundTaskLocalService;
 
 }

@@ -58,14 +58,13 @@ public class SPIDefinitionServiceImpl extends SPIDefinitionServiceBaseImpl {
 	}
 
 	@Override
-	public Tuple getAllSPIServletContextNamesAndPortletIds()
+	public Tuple getPortletIdsAndServletContextNames()
 		throws PortalException, SystemException {
 
 		SPIDefinitionPermissionUtil.check(
 			getPermissionChecker(), ActionKeys.VIEW_SPI_DEFINITIONS);
 
-		return spiDefinitionLocalService.
-			getAllSPIServletContextNamesAndPortletIds();
+		return spiDefinitionLocalService. getPortletIdsAndServletContextNames();
 	}
 
 	@Override

@@ -69,7 +69,6 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 
 	@Override
 	public String getStatusLabel() {
-
 		int status = getStatus();
 
 		return SPIAdminConstants.getStatusLabel(status);
@@ -112,7 +111,6 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 
 	@Override
 	public boolean isAlive() {
-
 		SPI spi = getSPI();
 
 		if (spi == null) {

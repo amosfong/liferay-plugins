@@ -59,9 +59,7 @@ public class SPIAdminServletContextListener
 			}
 			catch (Exception e) {
 				if (_log.isWarnEnabled()) {
-					_log.warn(
-						"Trouble shutting down SPI: " +
-							spiDefinition.getName());
+					_log.warn("Unable to stop SPI " + spiDefinition.getName());
 				}
 			}
 		}

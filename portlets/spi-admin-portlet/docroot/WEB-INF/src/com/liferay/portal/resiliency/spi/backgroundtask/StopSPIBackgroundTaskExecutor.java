@@ -26,7 +26,7 @@ import java.util.Map;
 /**
  * @author Michael C. Han
  */
-public class SPIStopBackgroundTaskExecutor
+public class StopSPIBackgroundTaskExecutor
 	extends BaseSPIBackgroundTaskExecutor {
 
 	@Override

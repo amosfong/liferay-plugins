@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.resiliency.spi.SPIConfiguration;
 import com.liferay.portal.kernel.resiliency.spi.provider.SPIProvider;
 import com.liferay.portal.kernel.servlet.ServletContextPool;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StackTraceUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -39,9 +40,10 @@ import com.liferay.portal.resiliency.spi.DuplicateSPIDefinitionConnectorExceptio
 import com.liferay.portal.resiliency.spi.DuplicateSPIDefinitionException;
 import com.liferay.portal.resiliency.spi.InvalidSPIDefinitionConnectorException;
 import com.liferay.portal.resiliency.spi.SPIDefinitionActiveException;
-import com.liferay.portal.resiliency.spi.backgroundtask.SPIStartBackgroundTaskExecutor;
-import com.liferay.portal.resiliency.spi.backgroundtask.SPIStopBackgroundTaskExecutor;
+import com.liferay.portal.resiliency.spi.backgroundtask.StartSPIBackgroundTaskExecutor;
+import com.liferay.portal.resiliency.spi.backgroundtask.StopSPIBackgroundTaskExecutor;
 import com.liferay.portal.resiliency.spi.model.SPIDefinition;
+import com.liferay.portal.resiliency.spi.service.ClpSerializer;
 import com.liferay.portal.resiliency.spi.service.base.SPIDefinitionLocalServiceBaseImpl;
 import com.liferay.portal.resiliency.spi.util.SPIAdminConstants;
 import com.liferay.portal.resiliency.spi.util.SPIConfigurationTemplate;
@@ -52,7 +54,6 @@ import java.io.Serializable;
 
 import java.rmi.RemoteException;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -106,7 +107,7 @@ public class SPIDefinitionLocalServiceImpl
 		spiDefinition.setJvmArguments(jvmArguments);
 
 		setPortletIdsAndServletContextNames(
-			spiDefinition, portletIds, servletContextNames, spiDefinitionId);
+			spiDefinition, spiDefinitionId, portletIds, servletContextNames);
 
 		spiDefinition.setTypeSettings(normalizeTypeSettings(typeSettings));
 		spiDefinition.setExpandoBridgeAttributes(serviceContext);
@@ -153,10 +154,8 @@ public class SPIDefinitionLocalServiceImpl
 	}
 
 	@Override
-	public Tuple getAllSPIServletContextNamesAndPortletIds()
-		throws PortalException, SystemException {
-
-		return doGetAllSPIServletContextNamesAndPortletIds(0);
+	public Tuple getPortletIdsAndServletContextNames() throws SystemException {
+		return getPortletIdsAndServletContextNames(0);
 	}
 
 	@Override
@@ -213,7 +212,6 @@ public class SPIDefinitionLocalServiceImpl
 		}
 
 		try {
-
 			spi.init();
 
 			if (_log.isInfoEnabled()) {
@@ -278,40 +276,40 @@ public class SPIDefinitionLocalServiceImpl
 		SPIDefinition spiDefinition = spiDefinitionPersistence.findByPrimaryKey(
 			spiDefinitionId);
 
+		UnicodeProperties typeSettingsProperties =
+			spiDefinition.getTypeSettingsProperties();
+
 		Map<String, Serializable> taskContextMap =
 			new HashMap<String, Serializable>();
 
 		taskContextMap.put("spiDefinitionId", spiDefinitionId);
 
-		StringBundler taskName = new StringBundler(4);
-		taskName.append("start_");
-		taskName.append(spiDefinition.getName());
-		taskName.append("_");
-		taskName.append(System.currentTimeMillis());
+		StringBundler sb = new StringBundler(4);
+
+		sb.append("start_");
+		sb.append(spiDefinition.getName());
+		sb.append("_");
+		sb.append(System.currentTimeMillis());
 
 		BackgroundTask backgroundTask =
 			backgroundTaskLocalService.addBackgroundTask(
-				userId, 0, taskName.toString(),
-				new String[] {_SERVLET_CONTEXT_NAME},
-				SPIStartBackgroundTaskExecutor.class, taskContextMap,
+				userId, 0, sb.toString(),
+				new String[] {ClpSerializer.getServletContextName()},
+				StartSPIBackgroundTaskExecutor.class, taskContextMap,
 				new ServiceContext());
 
-		long backgroundTaskId = backgroundTask.getBackgroundTaskId();
+		typeSettingsProperties.setProperty(
+			"backgroundTaskId",
+			String.valueOf(backgroundTask.getBackgroundTaskId()));
+
+		spiDefinition.setTypeSettingsProperties(typeSettingsProperties);
 
 		spiDefinition.setStatus(SPIAdminConstants.STATUS_STARTING);
 		spiDefinition.setStatusMessage(null);
 
-		UnicodeProperties typeSettingsProperties =
-			spiDefinition.getTypeSettingsProperties();
-
-		typeSettingsProperties.setProperty(
-			"backgroundTaskId", String.valueOf(backgroundTaskId));
-
-		spiDefinition.setTypeSettingsProperties(typeSettingsProperties);
-
 		spiDefinitionPersistence.update(spiDefinition);
 
-		return backgroundTaskId;
+		return backgroundTask.getBackgroundTaskId();
 	}
 
 	@Clusterable
@@ -376,8 +374,8 @@ public class SPIDefinitionLocalServiceImpl
 		BackgroundTask backgroundTask =
 			backgroundTaskLocalService.addBackgroundTask(
 				userId, 0, taskName.toString(),
-				new String[] {_SERVLET_CONTEXT_NAME},
-				SPIStopBackgroundTaskExecutor.class, taskContextMap,
+				new String[] {ClpSerializer.getServletContextName()},
+				StopSPIBackgroundTaskExecutor.class, taskContextMap,
 				new ServiceContext());
 
 		long backgroundTaskId = backgroundTask.getBackgroundTaskId();
@@ -445,8 +443,10 @@ public class SPIDefinitionLocalServiceImpl
 		spiDefinition.setConnectorPort(connectorPort);
 		spiDefinition.setDescription(description);
 		spiDefinition.setJvmArguments(jvmArguments);
+
 		setPortletIdsAndServletContextNames(
-			spiDefinition, portletIds, servletContextNames, spiDefinitionId);
+			spiDefinition, spiDefinitionId, portletIds, servletContextNames);
+
 		spiDefinition.setTypeSettings(normalizeTypeSettings(typeSettings));
 		spiDefinition.setExpandoBridgeAttributes(serviceContext);
 
@@ -480,45 +480,29 @@ public class SPIDefinitionLocalServiceImpl
 		}
 	}
 
-	protected Tuple doGetAllSPIServletContextNamesAndPortletIds(
+	protected Tuple getPortletIdsAndServletContextNames(
 			long skipSPIDefinitionId)
-		throws PortalException, SystemException {
+		throws SystemException {
+
+		Set<String> portletIds = new HashSet<String>();
+		Set<String> servletContextNames = new HashSet<String>();
 
 		List<SPIDefinition> spiDefinitions = getSPIDefinitions();
-
-		Set<String> uniquePortletIds = new HashSet<String>();
-		Set<String> uniqueServletContextNames = new HashSet<String>();
 
 		for (SPIDefinition spiDefinition : spiDefinitions) {
 			if (spiDefinition.getSpiDefinitionId() == skipSPIDefinitionId) {
 				continue;
 			}
 
-			String servletContextNames = spiDefinition.getServletContextNames();
-
-			populateSet(uniqueServletContextNames, servletContextNames);
-
-			String portletIds = spiDefinition.getPortletIds();
-
-			populateSet(uniquePortletIds, portletIds);
+			portletIds.addAll(
+				SetUtil.fromArray(
+					StringUtil.split(spiDefinition.getPortletIds())));
+			servletContextNames.addAll(
+				SetUtil.fromArray(
+					StringUtil.split(spiDefinition.getServletContextNames())));
 		}
 
-		return new Tuple(uniquePortletIds, uniqueServletContextNames);
-	}
-
-	protected Set<String> getUniqueValues(
-		String commaSeparatedValues, Set<String> usedValues) {
-
-		String[] valuesArray = StringUtil.split(commaSeparatedValues);
-		Set<String> newValues = new HashSet<String>();
-
-		for (String portletId : valuesArray) {
-			if (!usedValues.contains(portletId)) {
-				newValues.add((portletId));
-			}
-		}
-
-		return newValues;
+		return new Tuple(portletIds, servletContextNames);
 	}
 
 	protected String normalizeTypeSettings(String typeSettings) {
@@ -580,31 +564,30 @@ public class SPIDefinitionLocalServiceImpl
 		return typeSettingsProperties.toString();
 	}
 
-	protected void populateSet(Set<String> uniqueValues, String values) {
-		String[] valuesArray = StringUtil.split(values);
-
-		uniqueValues.addAll(Arrays.asList(valuesArray));
-	}
-
 	protected void setPortletIdsAndServletContextNames(
-			SPIDefinition spiDefinition, String portletIds,
-			String servletContextNames, long skipSPIDefinitionId)
-		throws PortalException, SystemException {
+			SPIDefinition spiDefinition, long skipSPIDefinitionId,
+			String portletIds, String servletContextNames)
+		throws SystemException {
 
-		Tuple tuple = doGetAllSPIServletContextNamesAndPortletIds(
-			skipSPIDefinitionId);
+		Tuple portletIdsAndServletContextNames =
+			getPortletIdsAndServletContextNames(skipSPIDefinitionId);
 
-		Set<String> usedPortletIds = (Set<String>)tuple.getObject(0);
-		Set<String> newPortletIds = getUniqueValues(portletIds, usedPortletIds);
+		Set<String> portletIdsSet = SetUtil.fromArray(
+			StringUtil.split(portletIds));
 
-		spiDefinition.setPortletIds(StringUtil.merge(newPortletIds));
+		portletIdsSet.addAll(
+			(Set<String>)portletIdsAndServletContextNames.getObject(0));
 
-		Set<String> usedServletContextNames = (Set<String>)tuple.getObject(1);
-		Set<String> newServletContextNames = getUniqueValues(
-			servletContextNames, usedServletContextNames);
+		spiDefinition.setPortletIds(StringUtil.merge(portletIdsSet));
+
+		Set<String> servletContextNamesSet = SetUtil.fromArray(
+			StringUtil.split(servletContextNames));
+
+		servletContextNamesSet.addAll(
+			(Set<String>)portletIdsAndServletContextNames.getObject(1));
 
 		spiDefinition.setServletContextNames(
-			StringUtil.merge(newServletContextNames));
+			StringUtil.merge(servletContextNamesSet));
 	}
 
 	protected void validateConnector(String connectorAddress, int connectorPort)
@@ -632,8 +615,6 @@ public class SPIDefinitionLocalServiceImpl
 			throw new DuplicateSPIDefinitionException();
 		}
 	}
-
-	private static final String _SERVLET_CONTEXT_NAME = "spi-admin-portlet";
 
 	private static Log _log = LogFactoryUtil.getLog(
 		SPIDefinitionLocalServiceImpl.class);
