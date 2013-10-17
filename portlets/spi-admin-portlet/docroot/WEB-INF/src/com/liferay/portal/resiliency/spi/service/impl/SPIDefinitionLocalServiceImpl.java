@@ -109,8 +109,8 @@ public class SPIDefinitionLocalServiceImpl
 		setPortletIdsAndServletContextNames(
 			spiDefinition, spiDefinitionId, portletIds, servletContextNames);
 
-		spiDefinition.setStatus(SPIAdminConstants.STATUS_STOPPED);
 		spiDefinition.setTypeSettings(normalizeTypeSettings(typeSettings));
+		spiDefinition.setStatus(SPIAdminConstants.STATUS_STOPPED);
 		spiDefinition.setExpandoBridgeAttributes(serviceContext);
 
 		spiDefinitionPersistence.update(spiDefinition);
