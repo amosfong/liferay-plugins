@@ -109,6 +109,7 @@ public class SPIDefinitionLocalServiceImpl
 		setPortletIdsAndServletContextNames(
 			spiDefinition, spiDefinitionId, portletIds, servletContextNames);
 
+		spiDefinition.setStatus(SPIAdminConstants.STATUS_STOPPED);
 		spiDefinition.setTypeSettings(normalizeTypeSettings(typeSettings));
 		spiDefinition.setExpandoBridgeAttributes(serviceContext);
 
@@ -320,17 +321,17 @@ public class SPIDefinitionLocalServiceImpl
 		SPIDefinition spiDefinition = spiDefinitionPersistence.findByPrimaryKey(
 			spiDefinitionId);
 
-		SPI spi = spiDefinition.getSPI();
+		try {
+			SPI spi = spiDefinition.getSPI();
 
-		if (spi == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn("No SPI with name " + spiDefinition.getName());
+			if (spi == null) {
+				if (_log.isWarnEnabled()) {
+					_log.warn("No SPI with name " + spiDefinition.getName());
+				}
+
+				return;
 			}
 
-			return;
-		}
-
-		try {
 			if (spiDefinition.isAlive()) {
 				spi.stop();
 			}
@@ -575,7 +576,7 @@ public class SPIDefinitionLocalServiceImpl
 		Set<String> portletIdsSet = SetUtil.fromArray(
 			StringUtil.split(portletIds));
 
-		portletIdsSet.addAll(
+		portletIdsSet.removeAll(
 			(Set<String>)portletIdsAndServletContextNames.getObject(0));
 
 		spiDefinition.setPortletIds(StringUtil.merge(portletIdsSet));
@@ -583,7 +584,7 @@ public class SPIDefinitionLocalServiceImpl
 		Set<String> servletContextNamesSet = SetUtil.fromArray(
 			StringUtil.split(servletContextNames));
 
-		servletContextNamesSet.addAll(
+		servletContextNamesSet.removeAll(
 			(Set<String>)portletIdsAndServletContextNames.getObject(1));
 
 		spiDefinition.setServletContextNames(
