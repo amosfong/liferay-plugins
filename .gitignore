@@ -26,4 +26,3 @@ _sass_cache_*.css
 /build.*.properties
 /dist
 /tools/*/*/*/lib
-/webs/spi-provider-web/docroot/WEB-INF/embedded-tomcat-lib/ext
