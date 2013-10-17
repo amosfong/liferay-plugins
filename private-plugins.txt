@@ -11,5 +11,6 @@
 /webs/drools-web
 /webs/ehcache-cluster-web
 /webs/jasperreports-web
+/webs/spi-provider-web
 /webs/sync-web
 /webs/vldap-web
