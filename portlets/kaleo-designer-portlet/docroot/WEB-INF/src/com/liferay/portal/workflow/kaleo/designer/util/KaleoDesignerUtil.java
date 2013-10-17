@@ -14,7 +14,6 @@
 
 package com.liferay.portal.workflow.kaleo.designer.util;
 
-import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
 import com.liferay.portal.kernel.language.LanguageUtil;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
@@ -32,8 +31,6 @@ import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition;
 import com.liferay.portal.workflow.kaleo.designer.service.KaleoDraftDefinitionLocalServiceUtil;
-
-import java.io.InputStream;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -54,13 +51,10 @@ public class KaleoDesignerUtil {
 		throws WorkflowException {
 
 		try {
-			InputStream inputStream = new UnsyncByteArrayInputStream(
-				content.getBytes());
-
 			WorkflowDefinition workflowDefinition =
 				WorkflowDefinitionManagerUtil.deployWorkflowDefinition(
 					companyId, userId, _getLocalizedTitleXML(titleMap),
-					inputStream);
+					content.getBytes());
 
 			return workflowDefinition;
 		}

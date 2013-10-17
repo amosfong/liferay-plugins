@@ -37,9 +37,6 @@ import com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition;
 import com.liferay.portal.workflow.kaleo.designer.service.base.KaleoDraftDefinitionLocalServiceBaseImpl;
 import com.liferay.portal.workflow.kaleo.designer.util.KaleoDesignerUtil;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -311,11 +308,8 @@ public class KaleoDraftDefinitionLocalServiceImpl
 
 	protected void validate(String content) throws PortalException {
 		try {
-			InputStream inputStream = new ByteArrayInputStream(
-				content.getBytes());
-
 			WorkflowDefinitionManagerUtil.validateWorkflowDefinition(
-				inputStream);
+				content.getBytes());
 		}
 		catch (WorkflowException we) {
 			throw new KaleoDraftDefinitionContentException(we);

@@ -9,17 +9,17 @@
 		position: relative;
 		width: 78px;
 	}
-	
+
 	.diagram-builder-fields-container {
 		margin: 0;
 	}
-	
+
 	.diagram-builder-content-content {
 		.tabbable {
 			width: 15%;
 		}
 	}
-	
+
 	.diagram-builder-content-container {
 		.tabbable {
 			width: 75%;
@@ -61,7 +61,7 @@
 .diagram-builder-disabled {
 	.diagram-builder-controls {
 		display: none;
-	}	
+	}
 
 	.diagram-builder-field-draggable, .diagram-builder-anchor-node {
 		cursor: auto;
