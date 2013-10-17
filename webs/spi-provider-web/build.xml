@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE project>
 
-<project name="spi-provider-tomcat-web" basedir="." default="deploy">
+<project name="spi-provider-web" basedir="." default="deploy">
 	<import file="../build-common-web.xml" />
 
 	<path id="plugin-lib.classpath">
