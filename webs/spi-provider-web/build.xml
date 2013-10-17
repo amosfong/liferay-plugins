@@ -18,6 +18,8 @@
 			</then>
 		</if>
 
+		<delete dir="docroot/WEB-INF/embedded-tomcat-lib/ext" />
+
 		<antcall target="build-common-plugin.clean" />
 	</target>
 
@@ -31,5 +33,24 @@
 	<classpathentry kind="lib" path="docroot/WEB-INF/embedded-tomcat-lib/tomcat-embed-jasper.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/embedded-tomcat-lib/tomcat-embed-logging-juli.jar" />]]></replacevalue>
 		</replace>
+	</target>
+
+	<target name="war">
+		<if>
+			<not>
+				<equals arg1="${app.server.type}" arg2="tomcat" />
+			</not>
+			<then>
+				<fail>
+.
+
+spi-provider-web must be built from Liferay Tomcat Bundle.
+				</fail>
+			</then>
+		</if>
+		<copy todir="docroot/WEB-INF/embedded-tomcat-lib/ext">
+			<fileset dir="${app.server.tomcat.lib.global.dir}" excludes="hsql.jar,jtds.jar,mysql.jar,portal-service.jar,postgresql.jar" />
+		</copy>
+		<antcall target="build-common-plugin.war" />
 	</target>
 </project>
