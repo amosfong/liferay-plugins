@@ -57,15 +57,13 @@ public class TomcatRemoteSPI extends RemoteSPI {
 			String servletClassName)
 		throws RemoteException {
 
-		Tomcat tomcat = (Tomcat)_tomcat;
-
 		try {
-			Host host = tomcat.getHost();
+			Host host = _tomcat.getHost();
 
 			Context context = (Context)host.findChild(contextPath);
 
 			if (context == null) {
-				context = tomcat.addContext(contextPath, docBasePath);
+				context = _tomcat.addContext(contextPath, docBasePath);
 			}
 
 			context.setCrossContext(true);
@@ -92,8 +90,6 @@ public class TomcatRemoteSPI extends RemoteSPI {
 	public void addWebapp(String contextPath, String docBasePath)
 		throws RemoteException {
 
-		Tomcat tomcat = (Tomcat)_tomcat;
-
 		try {
 			Context context = new StandardContext();
 
@@ -118,7 +114,7 @@ public class TomcatRemoteSPI extends RemoteSPI {
 
 			context.addLifecycleListener(contextConfig);
 
-			Host host = tomcat.getHost();
+			Host host = _tomcat.getHost();
 
 			host.addChild(context);
 		}
@@ -129,10 +125,8 @@ public class TomcatRemoteSPI extends RemoteSPI {
 
 	@Override
 	public void destroy() throws RemoteException {
-		Tomcat tomcat = (Tomcat)_tomcat;
-
 		try {
-			tomcat.destroy();
+			_tomcat.destroy();
 		}
 		catch (LifecycleException le) {
 			throw new RemoteException("Failed to destroy", le);
@@ -149,10 +143,8 @@ public class TomcatRemoteSPI extends RemoteSPI {
 
 	@Override
 	public void init() throws RemoteException {
-		Tomcat tomcat = (Tomcat)_tomcat;
-
 		try {
-			tomcat.init();
+			_tomcat.init();
 		}
 		catch (LifecycleException le) {
 			throw new RemoteException("Unable to init", le);
@@ -161,10 +153,8 @@ public class TomcatRemoteSPI extends RemoteSPI {
 
 	@Override
 	public void start() throws RemoteException {
-		Tomcat tomcat = (Tomcat)_tomcat;
-
 		try {
-			tomcat.start();
+			_tomcat.start();
 		}
 		catch (LifecycleException le) {
 			throw new RemoteException("Unable to start", le);
@@ -173,10 +163,8 @@ public class TomcatRemoteSPI extends RemoteSPI {
 
 	@Override
 	public void stop() throws RemoteException {
-		Tomcat tomcat = (Tomcat)_tomcat;
-
 		try {
-			tomcat.stop();
+			_tomcat.stop();
 		}
 		catch (LifecycleException le) {
 			throw new RemoteException("Unable to stop", le);
@@ -215,6 +203,6 @@ public class TomcatRemoteSPI extends RemoteSPI {
 
 	private static final long serialVersionUID = 1L;
 
-	private transient Object _tomcat;
+	private transient Tomcat _tomcat;
 
 }

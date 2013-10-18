@@ -14,10 +14,26 @@
 
 package com.liferay.portal.resiliency.spi.provider.tomcat;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.resiliency.spi.SPIConfiguration;
 import com.liferay.portal.kernel.resiliency.spi.provider.BaseSPIProvider;
 import com.liferay.portal.kernel.resiliency.spi.remote.RemoteSPI;
+import com.liferay.portal.kernel.util.CharPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.util.resiliency.spi.provider.SPIClassPathContextListener;
+
+import java.io.File;
+
+import java.lang.reflect.Constructor;
+
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLClassLoader;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Shuyang Zhou
@@ -28,7 +44,42 @@ public class TomcatSPIProvider extends BaseSPIProvider {
 
 	@Override
 	public RemoteSPI createRemoteSPI(SPIConfiguration spiConfiguration) {
-		return new TomcatRemoteSPI(spiConfiguration);
+		String[] paths = StringUtil.split(getClassPath(), CharPool.COLON);
+
+		List<URL> urls = new ArrayList<URL>();
+
+		for (String path : paths) {
+			File file = new File(path);
+
+			URI uri = file.toURI();
+
+			try {
+				urls.add(uri.toURL());
+			}
+			catch (MalformedURLException murle) {
+				_log.error(
+					"Unable to create URL for file " + file.getAbsolutePath(),
+					murle);
+			}
+		}
+
+		ClassLoader classLoader = new URLClassLoader(
+			urls.toArray(new URL[urls.size()]),
+			RemoteSPI.class.getClassLoader());
+
+		try {
+			Class<? extends RemoteSPI> tomcatRemoteSPIClass =
+				(Class<? extends RemoteSPI>)classLoader.loadClass(
+					TomcatRemoteSPI.class.getName());
+
+			Constructor<? extends RemoteSPI> constructor =
+				tomcatRemoteSPIClass.getConstructor(SPIConfiguration.class);
+
+			return constructor.newInstance(spiConfiguration);
+		}
+		catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	@Override
@@ -40,5 +91,7 @@ public class TomcatSPIProvider extends BaseSPIProvider {
 	public String getName() {
 		return NAME;
 	}
+
+	private static Log _log = LogFactoryUtil.getLog(TomcatSPIProvider.class);
 
 }
