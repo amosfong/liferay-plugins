@@ -46,7 +46,8 @@ public class TomcatSPIProvider extends BaseSPIProvider {
 	public RemoteSPI createRemoteSPI(SPIConfiguration spiConfiguration) {
 		List<URL> urls = new ArrayList<URL>();
 
-		String[] paths = StringUtil.split(getClassPath(), CharPool.COLON);
+		String[] paths = StringUtil.split(
+			getClassPath(), File.pathSeparatorChar);
 
 		for (String path : paths) {
 			File file = new File(path);
