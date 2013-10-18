@@ -44,9 +44,9 @@ public class TomcatSPIProvider extends BaseSPIProvider {
 
 	@Override
 	public RemoteSPI createRemoteSPI(SPIConfiguration spiConfiguration) {
-		String[] paths = StringUtil.split(getClassPath(), CharPool.COLON);
-
 		List<URL> urls = new ArrayList<URL>();
+
+		String[] paths = StringUtil.split(getClassPath(), CharPool.COLON);
 
 		for (String path : paths) {
 			File file = new File(path);
@@ -68,12 +68,12 @@ public class TomcatSPIProvider extends BaseSPIProvider {
 			RemoteSPI.class.getClassLoader());
 
 		try {
-			Class<? extends RemoteSPI> tomcatRemoteSPIClass =
+			Class<? extends RemoteSPI> clazz =
 				(Class<? extends RemoteSPI>)classLoader.loadClass(
 					TomcatRemoteSPI.class.getName());
 
-			Constructor<? extends RemoteSPI> constructor =
-				tomcatRemoteSPIClass.getConstructor(SPIConfiguration.class);
+			Constructor<? extends RemoteSPI> constructor = clazz.getConstructor(
+				SPIConfiguration.class);
 
 			return constructor.newInstance(spiConfiguration);
 		}
