@@ -46,7 +46,6 @@ public class AddSPIDefinitionActionCommand extends BaseActionCommand {
 		String portletIds = ParamUtil.getString(portletRequest, "portletIds");
 		String servletContextNames = ParamUtil.getString(
 			portletRequest, "servletContextNames");
-
 		UnicodeProperties typeSettingsProperties =
 			PropertiesParamUtil.getProperties(
 				portletRequest, "TypeSettingsProperties--");

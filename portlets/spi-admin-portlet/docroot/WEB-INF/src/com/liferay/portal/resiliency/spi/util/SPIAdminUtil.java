@@ -33,7 +33,7 @@ import java.util.List;
  */
 public class SPIAdminUtil {
 
-	public static List<Portlet> getNonPluginPortlets() {
+	public static List<Portlet> getCorePortlets() {
 		List<Portlet> portlets = PortletLocalServiceUtil.getPortlets();
 
 		Iterator<Portlet> iterator = portlets.iterator();
@@ -47,13 +47,13 @@ public class SPIAdminUtil {
 				portlet.isSystem() ||
 				portlet.isUndeployedPortlet() ||
 				(Arrays.binarySearch(
-					_BLACKLIST_PORTLET_IDS, portlet.getPortletId()) >= 0)) {
+					_SPI_BLACKLIST_PORTLET_IDS, portlet.getPortletId()) >= 0)) {
 
 				iterator.remove();
 			}
 		}
 
-		Collections.sort(portlets, new _PortletComparator());
+		Collections.sort(portlets, new PortletComparator());
 
 		return portlets;
 	}
@@ -70,7 +70,7 @@ public class SPIAdminUtil {
 			String servletContextName = itr.next();
 
 			if (Arrays.binarySearch(
-					_BLACKLIST_SERVLET_CONTEXT_NAMES,
+					_SPI_BLACKLIST_SERVLET_CONTEXT_NAMES,
 					servletContextName) >= 0) {
 
 				itr.remove();
@@ -80,19 +80,19 @@ public class SPIAdminUtil {
 		return servletContextNames;
 	}
 
-	private static final String[] _BLACKLIST_PORTLET_IDS =
+	private static final String[] _SPI_BLACKLIST_PORTLET_IDS =
 		PortletProps.getArray(PortletPropsKeys.SPI_BLACKLIST_PORTLET_IDS);
 
-	private static final String[] _BLACKLIST_SERVLET_CONTEXT_NAMES =
+	private static final String[] _SPI_BLACKLIST_SERVLET_CONTEXT_NAMES =
 		PortletProps.getArray(
 			PortletPropsKeys.SPI_BLACKLIST_SERVLET_CONTEXT_NAMES);
 
 	static {
-		Arrays.sort(_BLACKLIST_PORTLET_IDS);
-		Arrays.sort(_BLACKLIST_SERVLET_CONTEXT_NAMES);
+		Arrays.sort(_SPI_BLACKLIST_PORTLET_IDS);
+		Arrays.sort(_SPI_BLACKLIST_SERVLET_CONTEXT_NAMES);
 	}
 
-	private static class _PortletComparator implements Comparator<Portlet> {
+	private static class PortletComparator implements Comparator<Portlet> {
 
 		@Override
 		public int compare(Portlet portlet1, Portlet portlet2) {
@@ -101,6 +101,7 @@ public class SPIAdminUtil {
 
 			return displayName1.compareTo(displayName2);
 		}
+
 	}
 
 }

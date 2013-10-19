@@ -39,6 +39,7 @@ public class EditSPIDefinitionActionCommand extends BaseActionCommand {
 
 		long spiDefinitionId = ParamUtil.getLong(
 			portletRequest, "spiDefinitionId");
+
 		int connectorPort = ParamUtil.getInteger(
 			portletRequest, "connectorPort");
 		String description = ParamUtil.getString(portletRequest, "description");
@@ -47,7 +48,6 @@ public class EditSPIDefinitionActionCommand extends BaseActionCommand {
 		String portletIds = ParamUtil.getString(portletRequest, "portletIds");
 		String servletContextNames = ParamUtil.getString(
 			portletRequest, "servletContextNames");
-
 		UnicodeProperties typeSettingsProperties =
 			PropertiesParamUtil.getProperties(
 				portletRequest, "TypeSettingsProperties--");

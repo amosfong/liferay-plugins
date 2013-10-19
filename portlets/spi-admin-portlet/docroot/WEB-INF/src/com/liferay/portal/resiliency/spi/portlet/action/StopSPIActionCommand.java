@@ -32,7 +32,7 @@ public class StopSPIActionCommand extends BaseActionCommand {
 		throws Exception {
 
 		long spiDefinitionId = ParamUtil.getLong(
-					portletRequest, "spiDefinitionId");
+			portletRequest, "spiDefinitionId");
 
 		SPIDefinitionServiceUtil.stopSPIinBackground(spiDefinitionId);
 	}
