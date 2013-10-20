@@ -32,6 +32,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StackTraceUtil;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Tuple;
 import com.liferay.portal.kernel.util.UnicodeProperties;
@@ -262,9 +263,6 @@ public class SPIDefinitionLocalServiceImpl
 
 			SPIConfiguration spiConfiguration = spi.getSPIConfiguration();
 
-			String webappsDirName = portalDirName.substring(
-				0, portalDirName.length() - 5);
-
 			for (String servletContextName :
 					spiConfiguration.getServletContextNames()) {
 
@@ -273,7 +271,10 @@ public class SPIDefinitionLocalServiceImpl
 
 				String contextPath = servletContext.getContextPath();
 
-				spi.addWebapp(contextPath, webappsDirName.concat(contextPath));
+				String pluginDirName = servletContext.getRealPath(
+					StringPool.BLANK);
+
+				spi.addWebapp(contextPath, pluginDirName);
 
 				if (_log.isInfoEnabled()) {
 					_log.info("Add plugin " + contextPath + " to SPI " + spi);
