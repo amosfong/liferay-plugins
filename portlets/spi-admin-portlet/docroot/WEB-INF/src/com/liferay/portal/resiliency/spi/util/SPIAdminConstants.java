@@ -31,6 +31,9 @@ public class SPIAdminConstants {
 
 	public static final String LABEL_STOPPING = "stopping";
 
+	public static final String SPI_STATUS_DESTINATION_NAME =
+		"liferay/spi_status";
+
 	public static final int STATUS_STARTED = 0;
 
 	public static final int STATUS_STARTING = 1;

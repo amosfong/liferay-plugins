@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.BasePortalLifecycle;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.resiliency.spi.model.SPIDefinition;
+import com.liferay.portal.resiliency.spi.monitor.SPIDefinitionMonitorUtil;
 import com.liferay.portal.resiliency.spi.service.SPIDefinitionLocalServiceUtil;
 import com.liferay.portal.resiliency.spi.util.PortletPropsKeys;
 import com.liferay.portal.resiliency.spi.util.SPIAdminConstants;
@@ -47,6 +48,9 @@ public class SPIAdminServletContextListener
 
 	@Override
 	protected void doPortalDestroy() throws Exception {
+
+		SPIDefinitionMonitorUtil.unregisterAll();
+
 		List<SPIDefinition> spiDefinitions =
 			SPIDefinitionLocalServiceUtil.getSPIDefinitions();
 

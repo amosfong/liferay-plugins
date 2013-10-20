@@ -46,6 +46,7 @@ import com.liferay.portal.resiliency.spi.SPIDefinitionActiveException;
 import com.liferay.portal.resiliency.spi.backgroundtask.StartSPIBackgroundTaskExecutor;
 import com.liferay.portal.resiliency.spi.backgroundtask.StopSPIBackgroundTaskExecutor;
 import com.liferay.portal.resiliency.spi.model.SPIDefinition;
+import com.liferay.portal.resiliency.spi.monitor.SPIDefinitionMonitorUtil;
 import com.liferay.portal.resiliency.spi.service.ClpSerializer;
 import com.liferay.portal.resiliency.spi.service.base.SPIDefinitionLocalServiceBaseImpl;
 import com.liferay.portal.resiliency.spi.util.SPIAdminConstants;
@@ -286,6 +287,8 @@ public class SPIDefinitionLocalServiceImpl
 			spiDefinition.setStatusMessage(null);
 
 			spiDefinitionPersistence.update(spiDefinition);
+
+			SPIDefinitionMonitorUtil.register(spiDefinition);
 		}
 		catch (Exception re) {
 			throw new PortalException(
@@ -343,6 +346,8 @@ public class SPIDefinitionLocalServiceImpl
 
 		SPIDefinition spiDefinition = spiDefinitionPersistence.findByPrimaryKey(
 			spiDefinitionId);
+
+		SPIDefinitionMonitorUtil.unregister(spiDefinitionId);
 
 		try {
 			SPI spi = spiDefinition.getSPI();
