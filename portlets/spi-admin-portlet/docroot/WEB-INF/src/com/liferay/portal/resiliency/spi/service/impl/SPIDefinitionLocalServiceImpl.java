@@ -17,13 +17,16 @@ package com.liferay.portal.resiliency.spi.service.impl;
 import com.liferay.portal.kernel.cluster.Clusterable;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.io.unsync.UnsyncStringReader;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.nio.intraband.rpc.IntrabandRPCUtil;
 import com.liferay.portal.kernel.resiliency.PortalResiliencyException;
 import com.liferay.portal.kernel.resiliency.mpi.MPIHelperUtil;
 import com.liferay.portal.kernel.resiliency.spi.SPI;
 import com.liferay.portal.kernel.resiliency.spi.SPIConfiguration;
 import com.liferay.portal.kernel.resiliency.spi.provider.SPIProvider;
+import com.liferay.portal.kernel.resiliency.spi.remote.SystemPropertiesProcessCallable;
 import com.liferay.portal.kernel.servlet.ServletContextPool;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.SetUtil;
@@ -59,6 +62,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.servlet.ServletContext;
@@ -200,6 +204,10 @@ public class SPIDefinitionLocalServiceImpl
 		SPIDefinition spiDefinition = spiDefinitionPersistence.findByPrimaryKey(
 			spiDefinitionId);
 
+		if (spiDefinition.isAlive()) {
+			return;
+		}
+
 		String name = spiDefinition.getName();
 
 		SPI spi = spiDefinition.getSPI();
@@ -208,11 +216,26 @@ public class SPIDefinitionLocalServiceImpl
 			spi = createSPI(spiDefinition);
 		}
 
-		if (spiDefinition.isAlive()) {
-			return;
-		}
-
 		try {
+			Properties properties = new Properties();
+
+			properties.load(
+				new UnsyncStringReader(
+					SPIConfigurationTemplate.
+						getSPIPortalPropertiesOverrides()));
+
+			Map<String, String> propertiesMap = new HashMap<String, String>();
+
+			for (String propertyName : properties.stringPropertyNames()) {
+				propertiesMap.put(
+					"portal:".concat(propertyName),
+					properties.getProperty(propertyName));
+			}
+
+			IntrabandRPCUtil.execute(
+				spi.getRegistrationReference(),
+				new SystemPropertiesProcessCallable(propertiesMap));
+
 			spi.init();
 
 			if (_log.isInfoEnabled()) {
@@ -264,7 +287,7 @@ public class SPIDefinitionLocalServiceImpl
 
 			spiDefinitionPersistence.update(spiDefinition);
 		}
-		catch (RemoteException re) {
+		catch (Exception re) {
 			throw new PortalException(
 				"Unable to initialize SPI " + spiDefinitionId, re);
 		}

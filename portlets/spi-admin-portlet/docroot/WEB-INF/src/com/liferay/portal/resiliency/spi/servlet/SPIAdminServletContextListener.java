@@ -67,6 +67,16 @@ public class SPIAdminServletContextListener
 
 	@Override
 	protected void doPortalInit() throws Exception {
+
+		List<SPIDefinition> spiDefinitions =
+			SPIDefinitionLocalServiceUtil.getSPIDefinitions();
+
+		for (SPIDefinition spiDefinition : spiDefinitions) {
+			SPIDefinitionLocalServiceUtil.updateSPIDefinition(
+				spiDefinition.getSpiDefinitionId(),
+				SPIAdminConstants.STATUS_STOPPED, null);
+		}
+
 		if (!GetterUtil.getBoolean(
 				PortletProps.get(
 					PortletPropsKeys.SPI_START_ON_PORTAL_STARTUP))) {
@@ -74,16 +84,7 @@ public class SPIAdminServletContextListener
 			return;
 		}
 
-		List<SPIDefinition> spiDefinitions =
-			SPIDefinitionLocalServiceUtil.getSPIDefinitions();
-
 		for (SPIDefinition spiDefinition : spiDefinitions) {
-			if (spiDefinition.getStatus() != SPIAdminConstants.STATUS_STOPPED) {
-				SPIDefinitionLocalServiceUtil.updateSPIDefinition(
-					spiDefinition.getSpiDefinitionId(),
-					SPIAdminConstants.STATUS_STOPPED, null);
-			}
-
 			SPIDefinitionLocalServiceUtil.startSPIinBackground(
 				0, spiDefinition.getSpiDefinitionId());
 		}

@@ -51,6 +51,10 @@ public class SPIConfigurationTemplate {
 		return _spiPingInterval;
 	}
 
+	public static String getSPIPortalPropertiesOverrides() {
+		return _spiPortalPropertiesOverrides;
+	}
+
 	public static String getSPIProviderName() {
 		return _spiProviderName;
 	}
@@ -95,6 +99,12 @@ public class SPIConfigurationTemplate {
 		_spiPingInterval = spiPingInterval;
 	}
 
+	public void setSPIPortalPropertiesOverrides(
+		String spiPortalPropertiesOverrides) {
+
+		_spiPortalPropertiesOverrides = spiPortalPropertiesOverrides;
+	}
+
 	public void setSPIProviderName(String spiProviderName) {
 		_spiProviderName = spiProviderName;
 	}
@@ -115,6 +125,7 @@ public class SPIConfigurationTemplate {
 	private static int _minThreads;
 	private static String _spiAgentClassName;
 	private static int _spiPingInterval;
+	private static String _spiPortalPropertiesOverrides;
 	private static String _spiProviderName;
 	private static int _spiRegisterTimeout;
 	private static int _spiShutdownTimeout;
