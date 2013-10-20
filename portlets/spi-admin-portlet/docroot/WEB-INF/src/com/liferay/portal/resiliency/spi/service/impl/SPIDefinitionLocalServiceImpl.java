@@ -65,6 +65,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
+import java.util.TimeZone;
 
 import javax.servlet.ServletContext;
 
@@ -105,11 +106,7 @@ public class SPIDefinitionLocalServiceImpl
 		spiDefinition.setConnectorPort(connectorPort);
 		spiDefinition.setDescription(description);
 
-		if (Validator.isNull(jvmArguments)) {
-			jvmArguments = SPIConfigurationTemplate.getJVMArguments();
-		}
-
-		spiDefinition.setJvmArguments(jvmArguments);
+		setJVMArguments(spiDefinition, jvmArguments);
 
 		setPortletIdsAndServletContextNames(
 			spiDefinition, spiDefinitionId, portletIds, servletContextNames);
@@ -471,7 +468,7 @@ public class SPIDefinitionLocalServiceImpl
 		spiDefinition.setConnectorAddress(connectorAddress);
 		spiDefinition.setConnectorPort(connectorPort);
 		spiDefinition.setDescription(description);
-		spiDefinition.setJvmArguments(jvmArguments);
+		setJVMArguments(spiDefinition, jvmArguments);
 
 		setPortletIdsAndServletContextNames(
 			spiDefinition, spiDefinitionId, portletIds, servletContextNames);
@@ -591,6 +588,23 @@ public class SPIDefinitionLocalServiceImpl
 		}
 
 		return typeSettingsProperties.toString();
+	}
+
+	protected void setJVMArguments(
+		SPIDefinition spiDefinition, String jvmArguments) {
+
+		if (Validator.isNull(jvmArguments)) {
+			jvmArguments = SPIConfigurationTemplate.getJVMArguments();
+		}
+
+		if (jvmArguments.indexOf("-Duser.timeZone=") == -1) {
+			TimeZone jvmDefaultTimeZone = TimeZone.getDefault();
+
+			jvmArguments.concat(" -Duser.timeZone=").concat(
+				jvmDefaultTimeZone.getID());
+		}
+
+		spiDefinition.setJvmArguments(jvmArguments);
 	}
 
 	protected void setPortletIdsAndServletContextNames(
