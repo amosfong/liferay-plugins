@@ -17,12 +17,10 @@ package com.liferay.oauth.service;
 import com.liferay.portal.service.ServiceWrapper;
 
 /**
- * <p>
- * This class is a wrapper for {@link OAuthApplicationService}.
- * </p>
+ * Provides a wrapper for {@link OAuthApplicationService}.
  *
- * @author    Ivica Cardic
- * @see       OAuthApplicationService
+ * @author Ivica Cardic
+ * @see OAuthApplicationService
  * @generated
  */
 public class OAuthApplicationServiceWrapper implements OAuthApplicationService,
@@ -37,6 +35,7 @@ public class OAuthApplicationServiceWrapper implements OAuthApplicationService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _oAuthApplicationService.getBeanIdentifier();
 	}
@@ -46,10 +45,12 @@ public class OAuthApplicationServiceWrapper implements OAuthApplicationService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_oAuthApplicationService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
@@ -57,6 +58,7 @@ public class OAuthApplicationServiceWrapper implements OAuthApplicationService,
 			arguments);
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication addOAuthApplication(
 		java.lang.String name, java.lang.String description, int accessLevel,
 		java.lang.String callbackURI, java.lang.String websiteURL,
@@ -67,12 +69,14 @@ public class OAuthApplicationServiceWrapper implements OAuthApplicationService,
 			accessLevel, callbackURI, websiteURL, serviceContext);
 	}
 
+	@Override
 	public void deleteLogo(long oAuthApplicationId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_oAuthApplicationService.deleteLogo(oAuthApplicationId);
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication deleteOAuthApplication(
 		long oAuthApplicationId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -80,6 +84,7 @@ public class OAuthApplicationServiceWrapper implements OAuthApplicationService,
 		return _oAuthApplicationService.deleteOAuthApplication(oAuthApplicationId);
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication updateLogo(
 		long oAuthApplicationId, java.io.InputStream inputStream)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -88,6 +93,7 @@ public class OAuthApplicationServiceWrapper implements OAuthApplicationService,
 			inputStream);
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication updateOAuthApplication(
 		long oAuthApplicationId, java.lang.String name,
 		java.lang.String description, java.lang.String callbackURI,
@@ -100,24 +106,26 @@ public class OAuthApplicationServiceWrapper implements OAuthApplicationService,
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #getWrappedService}
+	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
 	public OAuthApplicationService getWrappedOAuthApplicationService() {
 		return _oAuthApplicationService;
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #setWrappedService}
+	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
 	 */
 	public void setWrappedOAuthApplicationService(
 		OAuthApplicationService oAuthApplicationService) {
 		_oAuthApplicationService = oAuthApplicationService;
 	}
 
+	@Override
 	public OAuthApplicationService getWrappedService() {
 		return _oAuthApplicationService;
 	}
 
+	@Override
 	public void setWrappedService(
 		OAuthApplicationService oAuthApplicationService) {
 		_oAuthApplicationService = oAuthApplicationService;

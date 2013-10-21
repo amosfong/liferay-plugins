@@ -20,7 +20,10 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
 
-import java.io.Serializable;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 import java.util.Date;
 
@@ -31,7 +34,8 @@ import java.util.Date;
  * @see OAuthUser
  * @generated
  */
-public class OAuthUserCacheModel implements CacheModel<OAuthUser>, Serializable {
+public class OAuthUserCacheModel implements CacheModel<OAuthUser>,
+	Externalizable {
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(19);
@@ -59,6 +63,7 @@ public class OAuthUserCacheModel implements CacheModel<OAuthUser>, Serializable 
 		return sb.toString();
 	}
 
+	@Override
 	public OAuthUser toEntityModel() {
 		OAuthUserImpl oAuthUserImpl = new OAuthUserImpl();
 
@@ -106,6 +111,52 @@ public class OAuthUserCacheModel implements CacheModel<OAuthUser>, Serializable 
 		oAuthUserImpl.resetOriginalValues();
 
 		return oAuthUserImpl;
+	}
+
+	@Override
+	public void readExternal(ObjectInput objectInput) throws IOException {
+		oAuthUserId = objectInput.readLong();
+		companyId = objectInput.readLong();
+		userId = objectInput.readLong();
+		userName = objectInput.readUTF();
+		createDate = objectInput.readLong();
+		modifiedDate = objectInput.readLong();
+		oAuthApplicationId = objectInput.readLong();
+		accessToken = objectInput.readUTF();
+		accessSecret = objectInput.readUTF();
+	}
+
+	@Override
+	public void writeExternal(ObjectOutput objectOutput)
+		throws IOException {
+		objectOutput.writeLong(oAuthUserId);
+		objectOutput.writeLong(companyId);
+		objectOutput.writeLong(userId);
+
+		if (userName == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
+
+		objectOutput.writeLong(createDate);
+		objectOutput.writeLong(modifiedDate);
+		objectOutput.writeLong(oAuthApplicationId);
+
+		if (accessToken == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(accessToken);
+		}
+
+		if (accessSecret == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(accessSecret);
+		}
 	}
 
 	public long oAuthUserId;

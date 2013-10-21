@@ -18,6 +18,7 @@ import com.liferay.portal.service.InvokableLocalService;
 
 /**
  * @author Ivica Cardic
+ * @generated
  */
 public class OAuthApplicationLocalServiceClp
 	implements OAuthApplicationLocalService {
@@ -74,36 +75,37 @@ public class OAuthApplicationLocalServiceClp
 				"com.liferay.portal.kernel.dao.orm.DynamicQuery"
 			};
 
-		_methodName9 = "fetchOAuthApplication";
+		_methodName9 = "dynamicQueryCount";
 
-		_methodParameterTypes9 = new String[] { "long" };
+		_methodParameterTypes9 = new String[] {
+				"com.liferay.portal.kernel.dao.orm.DynamicQuery",
+				"com.liferay.portal.kernel.dao.orm.Projection"
+			};
 
-		_methodName10 = "getOAuthApplication";
+		_methodName10 = "fetchOAuthApplication";
 
 		_methodParameterTypes10 = new String[] { "long" };
 
-		_methodName11 = "getPersistedModel";
+		_methodName11 = "getOAuthApplication";
 
-		_methodParameterTypes11 = new String[] { "java.io.Serializable" };
+		_methodParameterTypes11 = new String[] { "long" };
 
-		_methodName12 = "getOAuthApplications";
+		_methodName12 = "getPersistedModel";
 
-		_methodParameterTypes12 = new String[] { "int", "int" };
+		_methodParameterTypes12 = new String[] { "java.io.Serializable" };
 
-		_methodName13 = "getOAuthApplicationsCount";
+		_methodName13 = "getOAuthApplications";
 
-		_methodParameterTypes13 = new String[] {  };
+		_methodParameterTypes13 = new String[] { "int", "int" };
 
-		_methodName14 = "updateOAuthApplication";
+		_methodName14 = "getOAuthApplicationsCount";
 
-		_methodParameterTypes14 = new String[] {
-				"com.liferay.oauth.model.OAuthApplication"
-			};
+		_methodParameterTypes14 = new String[] {  };
 
 		_methodName15 = "updateOAuthApplication";
 
 		_methodParameterTypes15 = new String[] {
-				"com.liferay.oauth.model.OAuthApplication", "boolean"
+				"com.liferay.oauth.model.OAuthApplication"
 			};
 
 		_methodName16 = "getBeanIdentifier";
@@ -171,6 +173,7 @@ public class OAuthApplicationLocalServiceClp
 			};
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication addOAuthApplication(
 		com.liferay.oauth.model.OAuthApplication oAuthApplication)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -201,6 +204,7 @@ public class OAuthApplicationLocalServiceClp
 		return (com.liferay.oauth.model.OAuthApplication)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication createOAuthApplication(
 		long oAuthApplicationId) {
 		Object returnObj = null;
@@ -224,6 +228,7 @@ public class OAuthApplicationLocalServiceClp
 		return (com.liferay.oauth.model.OAuthApplication)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication deleteOAuthApplication(
 		long oAuthApplicationId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -257,6 +262,7 @@ public class OAuthApplicationLocalServiceClp
 		return (com.liferay.oauth.model.OAuthApplication)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication deleteOAuthApplication(
 		com.liferay.oauth.model.OAuthApplication oAuthApplication)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -292,6 +298,7 @@ public class OAuthApplicationLocalServiceClp
 		return (com.liferay.oauth.model.OAuthApplication)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		Object returnObj = null;
 
@@ -314,6 +321,7 @@ public class OAuthApplicationLocalServiceClp
 		return (com.liferay.portal.kernel.dao.orm.DynamicQuery)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -344,6 +352,7 @@ public class OAuthApplicationLocalServiceClp
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -380,6 +389,7 @@ public class OAuthApplicationLocalServiceClp
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -420,6 +430,7 @@ public class OAuthApplicationLocalServiceClp
 		return (java.util.List)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -449,14 +460,50 @@ public class OAuthApplicationLocalServiceClp
 		return ((Long)returnObj).longValue();
 	}
 
+	@Override
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName9,
+					_methodParameterTypes9,
+					new Object[] {
+						ClpSerializer.translateInput(dynamicQuery),
+						
+					ClpSerializer.translateInput(projection)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Long)returnObj).longValue();
+	}
+
+	@Override
 	public com.liferay.oauth.model.OAuthApplication fetchOAuthApplication(
 		long oAuthApplicationId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName9,
-					_methodParameterTypes9, new Object[] { oAuthApplicationId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName10,
+					_methodParameterTypes10, new Object[] { oAuthApplicationId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -477,6 +524,7 @@ public class OAuthApplicationLocalServiceClp
 		return (com.liferay.oauth.model.OAuthApplication)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication getOAuthApplication(
 		long oAuthApplicationId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -484,8 +532,8 @@ public class OAuthApplicationLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName10,
-					_methodParameterTypes10, new Object[] { oAuthApplicationId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName11,
+					_methodParameterTypes11, new Object[] { oAuthApplicationId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -510,6 +558,7 @@ public class OAuthApplicationLocalServiceClp
 		return (com.liferay.oauth.model.OAuthApplication)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -517,8 +566,8 @@ public class OAuthApplicationLocalServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName11,
-					_methodParameterTypes11,
+			returnObj = _invokableLocalService.invokeMethod(_methodName12,
+					_methodParameterTypes12,
 					new Object[] { ClpSerializer.translateInput(primaryKeyObj) });
 		}
 		catch (Throwable t) {
@@ -544,14 +593,15 @@ public class OAuthApplicationLocalServiceClp
 		return (com.liferay.portal.model.PersistedModel)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.oauth.model.OAuthApplication> getOAuthApplications(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName12,
-					_methodParameterTypes12, new Object[] { start, end });
+			returnObj = _invokableLocalService.invokeMethod(_methodName13,
+					_methodParameterTypes13, new Object[] { start, end });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -572,13 +622,14 @@ public class OAuthApplicationLocalServiceClp
 		return (java.util.List<com.liferay.oauth.model.OAuthApplication>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getOAuthApplicationsCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName13,
-					_methodParameterTypes13, new Object[] {  });
+			returnObj = _invokableLocalService.invokeMethod(_methodName14,
+					_methodParameterTypes14, new Object[] {  });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -599,14 +650,15 @@ public class OAuthApplicationLocalServiceClp
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication updateOAuthApplication(
 		com.liferay.oauth.model.OAuthApplication oAuthApplication)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName14,
-					_methodParameterTypes14,
+			returnObj = _invokableLocalService.invokeMethod(_methodName15,
+					_methodParameterTypes15,
 					new Object[] { ClpSerializer.translateInput(
 							oAuthApplication) });
 		}
@@ -629,39 +681,7 @@ public class OAuthApplicationLocalServiceClp
 		return (com.liferay.oauth.model.OAuthApplication)ClpSerializer.translateOutput(returnObj);
 	}
 
-	public com.liferay.oauth.model.OAuthApplication updateOAuthApplication(
-		com.liferay.oauth.model.OAuthApplication oAuthApplication, boolean merge)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		Object returnObj = null;
-
-		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName15,
-					_methodParameterTypes15,
-					new Object[] {
-						ClpSerializer.translateInput(oAuthApplication),
-						
-					merge
-					});
-		}
-		catch (Throwable t) {
-			t = ClpSerializer.translateThrowable(t);
-
-			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
-				throw (com.liferay.portal.kernel.exception.SystemException)t;
-			}
-
-			if (t instanceof RuntimeException) {
-				throw (RuntimeException)t;
-			}
-			else {
-				throw new RuntimeException(t.getClass().getName() +
-					" is not a valid exception");
-			}
-		}
-
-		return (com.liferay.oauth.model.OAuthApplication)ClpSerializer.translateOutput(returnObj);
-	}
-
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -684,6 +704,7 @@ public class OAuthApplicationLocalServiceClp
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableLocalService.invokeMethod(_methodName17,
@@ -703,12 +724,14 @@ public class OAuthApplicationLocalServiceClp
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication addOAuthApplication(
 		long userId, java.lang.String name, java.lang.String description,
 		int accessLevel, java.lang.String callbackURI,
@@ -760,6 +783,7 @@ public class OAuthApplicationLocalServiceClp
 		return (com.liferay.oauth.model.OAuthApplication)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void deleteLogo(long oAuthApplicationId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -788,6 +812,7 @@ public class OAuthApplicationLocalServiceClp
 		}
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication fetchOAuthApplication(
 		java.lang.String consumerKey)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -817,6 +842,7 @@ public class OAuthApplicationLocalServiceClp
 		return (com.liferay.oauth.model.OAuthApplication)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication getOAuthApplication(
 		java.lang.String consumerKey)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -851,6 +877,7 @@ public class OAuthApplicationLocalServiceClp
 		return (com.liferay.oauth.model.OAuthApplication)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.oauth.model.OAuthApplication> getOAuthApplications(
 		long companyId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
@@ -889,6 +916,7 @@ public class OAuthApplicationLocalServiceClp
 		return (java.util.List<com.liferay.oauth.model.OAuthApplication>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int getOAuthApplicationsCount(long companyId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -916,6 +944,7 @@ public class OAuthApplicationLocalServiceClp
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public java.util.List<com.liferay.oauth.model.OAuthApplication> search(
 		long companyId, java.lang.String keywords,
 		java.util.LinkedHashMap<java.lang.String, java.lang.Object> params,
@@ -960,6 +989,7 @@ public class OAuthApplicationLocalServiceClp
 		return (java.util.List<com.liferay.oauth.model.OAuthApplication>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public int searchCount(long companyId, java.lang.String keywords,
 		java.util.LinkedHashMap<java.lang.String, java.lang.Object> params)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -995,6 +1025,7 @@ public class OAuthApplicationLocalServiceClp
 		return ((Integer)returnObj).intValue();
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication updateLogo(
 		long oAuthApplicationId, java.io.InputStream inputStream)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -1033,6 +1064,7 @@ public class OAuthApplicationLocalServiceClp
 		return (com.liferay.oauth.model.OAuthApplication)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication updateOAuthApplication(
 		long oAuthApplicationId, java.lang.String name,
 		java.lang.String description, java.lang.String callbackURI,

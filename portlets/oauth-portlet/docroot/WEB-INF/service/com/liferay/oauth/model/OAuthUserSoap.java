@@ -23,8 +23,8 @@ import java.util.List;
 /**
  * This class is used by SOAP remote services, specifically {@link com.liferay.oauth.service.http.OAuthUserServiceSoap}.
  *
- * @author    Ivica Cardic
- * @see       com.liferay.oauth.service.http.OAuthUserServiceSoap
+ * @author Ivica Cardic
+ * @see com.liferay.oauth.service.http.OAuthUserServiceSoap
  * @generated
  */
 public class OAuthUserSoap implements Serializable {

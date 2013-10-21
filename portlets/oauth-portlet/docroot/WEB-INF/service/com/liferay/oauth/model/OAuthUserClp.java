@@ -50,17 +50,19 @@ public class OAuthUserClp extends BaseModelImpl<OAuthUser> implements OAuthUser 
 		return OAuthUser.class.getName();
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _oAuthUserId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setOAuthUserId(primaryKey);
 	}
 
 	@Override
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_oAuthUserId);
+		return _oAuthUserId;
 	}
 
 	@Override
@@ -142,10 +144,12 @@ public class OAuthUserClp extends BaseModelImpl<OAuthUser> implements OAuthUser 
 		}
 	}
 
+	@Override
 	public long getOAuthUserId() {
 		return _oAuthUserId;
 	}
 
+	@Override
 	public void setOAuthUserId(long oAuthUserId) {
 		_oAuthUserId = oAuthUserId;
 
@@ -163,18 +167,22 @@ public class OAuthUserClp extends BaseModelImpl<OAuthUser> implements OAuthUser 
 		}
 	}
 
+	@Override
 	public String getOAuthUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getOAuthUserId(), "uuid", _oAuthUserUuid);
 	}
 
+	@Override
 	public void setOAuthUserUuid(String oAuthUserUuid) {
 		_oAuthUserUuid = oAuthUserUuid;
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 
@@ -192,10 +200,12 @@ public class OAuthUserClp extends BaseModelImpl<OAuthUser> implements OAuthUser 
 		}
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 
@@ -213,18 +223,22 @@ public class OAuthUserClp extends BaseModelImpl<OAuthUser> implements OAuthUser 
 		}
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	public String getUserName() {
 		return _userName;
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 
@@ -242,10 +256,12 @@ public class OAuthUserClp extends BaseModelImpl<OAuthUser> implements OAuthUser 
 		}
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 
@@ -263,10 +279,12 @@ public class OAuthUserClp extends BaseModelImpl<OAuthUser> implements OAuthUser 
 		}
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 
@@ -284,10 +302,12 @@ public class OAuthUserClp extends BaseModelImpl<OAuthUser> implements OAuthUser 
 		}
 	}
 
+	@Override
 	public long getOAuthApplicationId() {
 		return _oAuthApplicationId;
 	}
 
+	@Override
 	public void setOAuthApplicationId(long oAuthApplicationId) {
 		_oAuthApplicationId = oAuthApplicationId;
 
@@ -306,10 +326,12 @@ public class OAuthUserClp extends BaseModelImpl<OAuthUser> implements OAuthUser 
 		}
 	}
 
+	@Override
 	public String getAccessToken() {
 		return _accessToken;
 	}
 
+	@Override
 	public void setAccessToken(String accessToken) {
 		_accessToken = accessToken;
 
@@ -327,10 +349,12 @@ public class OAuthUserClp extends BaseModelImpl<OAuthUser> implements OAuthUser 
 		}
 	}
 
+	@Override
 	public String getAccessSecret() {
 		return _accessSecret;
 	}
 
+	@Override
 	public void setAccessSecret(String accessSecret) {
 		_accessSecret = accessSecret;
 
@@ -397,6 +421,7 @@ public class OAuthUserClp extends BaseModelImpl<OAuthUser> implements OAuthUser 
 		return returnValue;
 	}
 
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			OAuthUserLocalServiceUtil.addOAuthUser(this);
@@ -410,11 +435,6 @@ public class OAuthUserClp extends BaseModelImpl<OAuthUser> implements OAuthUser 
 	public OAuthUser toEscapedModel() {
 		return (OAuthUser)ProxyUtil.newProxyInstance(OAuthUser.class.getClassLoader(),
 			new Class[] { OAuthUser.class }, new AutoEscapeBeanHandler(this));
-	}
-
-	@Override
-	public OAuthUser toUnescapedModel() {
-		return this;
 	}
 
 	@Override
@@ -434,6 +454,7 @@ public class OAuthUserClp extends BaseModelImpl<OAuthUser> implements OAuthUser 
 		return clone;
 	}
 
+	@Override
 	public int compareTo(OAuthUser oAuthUser) {
 		long primaryKey = oAuthUser.getPrimaryKey();
 

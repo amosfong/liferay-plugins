@@ -38,6 +38,7 @@ public abstract class OAuthApplicationBaseImpl extends OAuthApplicationModelImpl
 	 *
 	 * Never modify or reference this class directly. All methods that expect a o auth application model instance should use the {@link OAuthApplication} interface instead.
 	 */
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			OAuthApplicationLocalServiceUtil.addOAuthApplication(this);

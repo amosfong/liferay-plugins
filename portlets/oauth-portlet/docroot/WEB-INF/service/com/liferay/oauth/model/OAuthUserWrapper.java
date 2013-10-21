@@ -26,8 +26,8 @@ import java.util.Map;
  * This class is a wrapper for {@link OAuthUser}.
  * </p>
  *
- * @author    Ivica Cardic
- * @see       OAuthUser
+ * @author Ivica Cardic
+ * @see OAuthUser
  * @generated
  */
 public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
@@ -35,14 +35,17 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 		_oAuthUser = oAuthUser;
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return OAuthUser.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return OAuthUser.class.getName();
 	}
 
+	@Override
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
@@ -59,6 +62,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 		return attributes;
 	}
 
+	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		Long oAuthUserId = (Long)attributes.get("oAuthUserId");
 
@@ -120,6 +124,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @return the primary key of this o auth user
 	*/
+	@Override
 	public long getPrimaryKey() {
 		return _oAuthUser.getPrimaryKey();
 	}
@@ -129,6 +134,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @param primaryKey the primary key of this o auth user
 	*/
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_oAuthUser.setPrimaryKey(primaryKey);
 	}
@@ -138,6 +144,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @return the o auth user ID of this o auth user
 	*/
+	@Override
 	public long getOAuthUserId() {
 		return _oAuthUser.getOAuthUserId();
 	}
@@ -147,6 +154,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @param oAuthUserId the o auth user ID of this o auth user
 	*/
+	@Override
 	public void setOAuthUserId(long oAuthUserId) {
 		_oAuthUser.setOAuthUserId(oAuthUserId);
 	}
@@ -157,6 +165,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	* @return the o auth user uuid of this o auth user
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.lang.String getOAuthUserUuid()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _oAuthUser.getOAuthUserUuid();
@@ -167,6 +176,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @param oAuthUserUuid the o auth user uuid of this o auth user
 	*/
+	@Override
 	public void setOAuthUserUuid(java.lang.String oAuthUserUuid) {
 		_oAuthUser.setOAuthUserUuid(oAuthUserUuid);
 	}
@@ -176,6 +186,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @return the company ID of this o auth user
 	*/
+	@Override
 	public long getCompanyId() {
 		return _oAuthUser.getCompanyId();
 	}
@@ -185,6 +196,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @param companyId the company ID of this o auth user
 	*/
+	@Override
 	public void setCompanyId(long companyId) {
 		_oAuthUser.setCompanyId(companyId);
 	}
@@ -194,6 +206,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @return the user ID of this o auth user
 	*/
+	@Override
 	public long getUserId() {
 		return _oAuthUser.getUserId();
 	}
@@ -203,6 +216,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @param userId the user ID of this o auth user
 	*/
+	@Override
 	public void setUserId(long userId) {
 		_oAuthUser.setUserId(userId);
 	}
@@ -213,6 +227,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	* @return the user uuid of this o auth user
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.lang.String getUserUuid()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _oAuthUser.getUserUuid();
@@ -223,6 +238,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @param userUuid the user uuid of this o auth user
 	*/
+	@Override
 	public void setUserUuid(java.lang.String userUuid) {
 		_oAuthUser.setUserUuid(userUuid);
 	}
@@ -232,6 +248,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @return the user name of this o auth user
 	*/
+	@Override
 	public java.lang.String getUserName() {
 		return _oAuthUser.getUserName();
 	}
@@ -241,6 +258,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @param userName the user name of this o auth user
 	*/
+	@Override
 	public void setUserName(java.lang.String userName) {
 		_oAuthUser.setUserName(userName);
 	}
@@ -250,6 +268,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @return the create date of this o auth user
 	*/
+	@Override
 	public java.util.Date getCreateDate() {
 		return _oAuthUser.getCreateDate();
 	}
@@ -259,6 +278,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @param createDate the create date of this o auth user
 	*/
+	@Override
 	public void setCreateDate(java.util.Date createDate) {
 		_oAuthUser.setCreateDate(createDate);
 	}
@@ -268,6 +288,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @return the modified date of this o auth user
 	*/
+	@Override
 	public java.util.Date getModifiedDate() {
 		return _oAuthUser.getModifiedDate();
 	}
@@ -277,6 +298,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @param modifiedDate the modified date of this o auth user
 	*/
+	@Override
 	public void setModifiedDate(java.util.Date modifiedDate) {
 		_oAuthUser.setModifiedDate(modifiedDate);
 	}
@@ -286,6 +308,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @return the o auth application ID of this o auth user
 	*/
+	@Override
 	public long getOAuthApplicationId() {
 		return _oAuthUser.getOAuthApplicationId();
 	}
@@ -295,6 +318,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @param oAuthApplicationId the o auth application ID of this o auth user
 	*/
+	@Override
 	public void setOAuthApplicationId(long oAuthApplicationId) {
 		_oAuthUser.setOAuthApplicationId(oAuthApplicationId);
 	}
@@ -304,6 +328,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @return the access token of this o auth user
 	*/
+	@Override
 	public java.lang.String getAccessToken() {
 		return _oAuthUser.getAccessToken();
 	}
@@ -313,6 +338,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @param accessToken the access token of this o auth user
 	*/
+	@Override
 	public void setAccessToken(java.lang.String accessToken) {
 		_oAuthUser.setAccessToken(accessToken);
 	}
@@ -322,6 +348,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @return the access secret of this o auth user
 	*/
+	@Override
 	public java.lang.String getAccessSecret() {
 		return _oAuthUser.getAccessSecret();
 	}
@@ -331,42 +358,64 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	*
 	* @param accessSecret the access secret of this o auth user
 	*/
+	@Override
 	public void setAccessSecret(java.lang.String accessSecret) {
 		_oAuthUser.setAccessSecret(accessSecret);
 	}
 
+	@Override
 	public boolean isNew() {
 		return _oAuthUser.isNew();
 	}
 
+	@Override
 	public void setNew(boolean n) {
 		_oAuthUser.setNew(n);
 	}
 
+	@Override
 	public boolean isCachedModel() {
 		return _oAuthUser.isCachedModel();
 	}
 
+	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_oAuthUser.setCachedModel(cachedModel);
 	}
 
+	@Override
 	public boolean isEscapedModel() {
 		return _oAuthUser.isEscapedModel();
 	}
 
+	@Override
 	public java.io.Serializable getPrimaryKeyObj() {
 		return _oAuthUser.getPrimaryKeyObj();
 	}
 
+	@Override
 	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
 		_oAuthUser.setPrimaryKeyObj(primaryKeyObj);
 	}
 
+	@Override
 	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
 		return _oAuthUser.getExpandoBridge();
 	}
 
+	@Override
+	public void setExpandoBridgeAttributes(
+		com.liferay.portal.model.BaseModel<?> baseModel) {
+		_oAuthUser.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(
+		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+		_oAuthUser.setExpandoBridgeAttributes(expandoBridge);
+	}
+
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.service.ServiceContext serviceContext) {
 		_oAuthUser.setExpandoBridgeAttributes(serviceContext);
@@ -377,6 +426,7 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 		return new OAuthUserWrapper((OAuthUser)_oAuthUser.clone());
 	}
 
+	@Override
 	public int compareTo(com.liferay.oauth.model.OAuthUser oAuthUser) {
 		return _oAuthUser.compareTo(oAuthUser);
 	}
@@ -386,14 +436,17 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 		return _oAuthUser.hashCode();
 	}
 
+	@Override
 	public com.liferay.portal.model.CacheModel<com.liferay.oauth.model.OAuthUser> toCacheModel() {
 		return _oAuthUser.toCacheModel();
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthUser toEscapedModel() {
 		return new OAuthUserWrapper(_oAuthUser.toEscapedModel());
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthUser toUnescapedModel() {
 		return new OAuthUserWrapper(_oAuthUser.toUnescapedModel());
 	}
@@ -403,10 +456,12 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 		return _oAuthUser.toString();
 	}
 
+	@Override
 	public java.lang.String toXmlString() {
 		return _oAuthUser.toXmlString();
 	}
 
+	@Override
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_oAuthUser.persist();
@@ -432,16 +487,18 @@ public class OAuthUserWrapper implements OAuthUser, ModelWrapper<OAuthUser> {
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #getWrappedModel}
+	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
 	 */
 	public OAuthUser getWrappedOAuthUser() {
 		return _oAuthUser;
 	}
 
+	@Override
 	public OAuthUser getWrappedModel() {
 		return _oAuthUser;
 	}
 
+	@Override
 	public void resetOriginalValues() {
 		_oAuthUser.resetOriginalValues();
 	}

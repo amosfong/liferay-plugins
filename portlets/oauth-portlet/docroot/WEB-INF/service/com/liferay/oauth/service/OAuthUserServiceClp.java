@@ -18,6 +18,7 @@ import com.liferay.portal.service.InvokableService;
 
 /**
  * @author Ivica Cardic
+ * @generated
  */
 public class OAuthUserServiceClp implements OAuthUserService {
 	public OAuthUserServiceClp(InvokableService invokableService) {
@@ -36,6 +37,7 @@ public class OAuthUserServiceClp implements OAuthUserService {
 		_methodParameterTypes3 = new String[] { "long" };
 	}
 
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -58,6 +60,7 @@ public class OAuthUserServiceClp implements OAuthUserService {
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableService.invokeMethod(_methodName1,
@@ -77,12 +80,14 @@ public class OAuthUserServiceClp implements OAuthUserService {
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthUser deleteOAuthUser(
 		long oAuthApplicationId)
 		throws com.liferay.portal.kernel.exception.PortalException,

@@ -19,8 +19,6 @@ import com.liferay.oauth.model.OAuthUser;
 import com.liferay.oauth.model.impl.OAuthUserImpl;
 import com.liferay.oauth.model.impl.OAuthUserModelImpl;
 
-import com.liferay.portal.NoSuchModelException;
-import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.cache.CacheRegistryUtil;
 import com.liferay.portal.kernel.dao.orm.EntityCacheUtil;
 import com.liferay.portal.kernel.dao.orm.FinderCacheUtil;
@@ -41,13 +39,11 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.UnmodifiableList;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.security.permission.InlineSQLHelperUtil;
-import com.liferay.portal.service.persistence.BatchSessionUtil;
-import com.liferay.portal.service.persistence.ResourcePersistence;
-import com.liferay.portal.service.persistence.UserPersistence;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
 
 import java.io.Serializable;
@@ -80,14 +76,23 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 		".List1";
 	public static final String FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION = FINDER_CLASS_NAME_ENTITY +
 		".List2";
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll", new String[0]);
+	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
 	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_USERID = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
 			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
 			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByUserId",
 			new String[] {
 				Long.class.getName(),
 				
-			"java.lang.Integer", "java.lang.Integer",
-				"com.liferay.portal.kernel.util.OrderByComparator"
+			Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
 			});
 	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID =
 		new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
@@ -99,522 +104,6 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 			OAuthUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByUserId",
 			new String[] { Long.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_OAUTHAPPLICATIONID =
-		new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByOAuthApplicationId",
-			new String[] {
-				Long.class.getName(),
-				
-			"java.lang.Integer", "java.lang.Integer",
-				"com.liferay.portal.kernel.util.OrderByComparator"
-			});
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_OAUTHAPPLICATIONID =
-		new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"findByOAuthApplicationId", new String[] { Long.class.getName() },
-			OAuthUserModelImpl.OAUTHAPPLICATIONID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_OAUTHAPPLICATIONID = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
-			"countByOAuthApplicationId", new String[] { Long.class.getName() });
-	public static final FinderPath FINDER_PATH_FETCH_BY_ACCESSTOKEN = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
-			FINDER_CLASS_NAME_ENTITY, "fetchByAccessToken",
-			new String[] { String.class.getName() },
-			OAuthUserModelImpl.ACCESSTOKEN_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_ACCESSTOKEN = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByAccessToken",
-			new String[] { String.class.getName() });
-	public static final FinderPath FINDER_PATH_FETCH_BY_U_OAI = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
-			FINDER_CLASS_NAME_ENTITY, "fetchByU_OAI",
-			new String[] { Long.class.getName(), Long.class.getName() },
-			OAuthUserModelImpl.USERID_COLUMN_BITMASK |
-			OAuthUserModelImpl.OAUTHAPPLICATIONID_COLUMN_BITMASK);
-	public static final FinderPath FINDER_PATH_COUNT_BY_U_OAI = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByU_OAI",
-			new String[] { Long.class.getName(), Long.class.getName() });
-	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_ALL = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
-			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findAll", new String[0]);
-	public static final FinderPath FINDER_PATH_COUNT_ALL = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
-
-	/**
-	 * Caches the o auth user in the entity cache if it is enabled.
-	 *
-	 * @param oAuthUser the o auth user
-	 */
-	public void cacheResult(OAuthUser oAuthUser) {
-		EntityCacheUtil.putResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthUserImpl.class, oAuthUser.getPrimaryKey(), oAuthUser);
-
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
-			new Object[] { oAuthUser.getAccessToken() }, oAuthUser);
-
-		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_OAI,
-			new Object[] {
-				Long.valueOf(oAuthUser.getUserId()),
-				Long.valueOf(oAuthUser.getOAuthApplicationId())
-			}, oAuthUser);
-
-		oAuthUser.resetOriginalValues();
-	}
-
-	/**
-	 * Caches the o auth users in the entity cache if it is enabled.
-	 *
-	 * @param oAuthUsers the o auth users
-	 */
-	public void cacheResult(List<OAuthUser> oAuthUsers) {
-		for (OAuthUser oAuthUser : oAuthUsers) {
-			if (EntityCacheUtil.getResult(
-						OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-						OAuthUserImpl.class, oAuthUser.getPrimaryKey()) == null) {
-				cacheResult(oAuthUser);
-			}
-			else {
-				oAuthUser.resetOriginalValues();
-			}
-		}
-	}
-
-	/**
-	 * Clears the cache for all o auth users.
-	 *
-	 * <p>
-	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
-	 * </p>
-	 */
-	@Override
-	public void clearCache() {
-		if (_HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE) {
-			CacheRegistryUtil.clear(OAuthUserImpl.class.getName());
-		}
-
-		EntityCacheUtil.clearCache(OAuthUserImpl.class.getName());
-
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_ENTITY);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-	}
-
-	/**
-	 * Clears the cache for the o auth user.
-	 *
-	 * <p>
-	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
-	 * </p>
-	 */
-	@Override
-	public void clearCache(OAuthUser oAuthUser) {
-		EntityCacheUtil.removeResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthUserImpl.class, oAuthUser.getPrimaryKey());
-
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-
-		clearUniqueFindersCache(oAuthUser);
-	}
-
-	@Override
-	public void clearCache(List<OAuthUser> oAuthUsers) {
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-
-		for (OAuthUser oAuthUser : oAuthUsers) {
-			EntityCacheUtil.removeResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-				OAuthUserImpl.class, oAuthUser.getPrimaryKey());
-
-			clearUniqueFindersCache(oAuthUser);
-		}
-	}
-
-	protected void cacheUniqueFindersCache(OAuthUser oAuthUser) {
-		if (oAuthUser.isNew()) {
-			Object[] args = new Object[] { oAuthUser.getAccessToken() };
-
-			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_ACCESSTOKEN, args,
-				Long.valueOf(1));
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN, args,
-				oAuthUser);
-
-			args = new Object[] {
-					Long.valueOf(oAuthUser.getUserId()),
-					Long.valueOf(oAuthUser.getOAuthApplicationId())
-				};
-
-			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_U_OAI, args,
-				Long.valueOf(1));
-			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_OAI, args,
-				oAuthUser);
-		}
-		else {
-			OAuthUserModelImpl oAuthUserModelImpl = (OAuthUserModelImpl)oAuthUser;
-
-			if ((oAuthUserModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_ACCESSTOKEN.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] { oAuthUser.getAccessToken() };
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_ACCESSTOKEN,
-					args, Long.valueOf(1));
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
-					args, oAuthUser);
-			}
-
-			if ((oAuthUserModelImpl.getColumnBitmask() &
-					FINDER_PATH_FETCH_BY_U_OAI.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						Long.valueOf(oAuthUser.getUserId()),
-						Long.valueOf(oAuthUser.getOAuthApplicationId())
-					};
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_U_OAI, args,
-					Long.valueOf(1));
-				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_OAI, args,
-					oAuthUser);
-			}
-		}
-	}
-
-	protected void clearUniqueFindersCache(OAuthUser oAuthUser) {
-		OAuthUserModelImpl oAuthUserModelImpl = (OAuthUserModelImpl)oAuthUser;
-
-		Object[] args = new Object[] { oAuthUser.getAccessToken() };
-
-		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_ACCESSTOKEN, args);
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN, args);
-
-		if ((oAuthUserModelImpl.getColumnBitmask() &
-				FINDER_PATH_FETCH_BY_ACCESSTOKEN.getColumnBitmask()) != 0) {
-			args = new Object[] { oAuthUserModelImpl.getOriginalAccessToken() };
-
-			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_ACCESSTOKEN, args);
-			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN, args);
-		}
-
-		args = new Object[] {
-				Long.valueOf(oAuthUser.getUserId()),
-				Long.valueOf(oAuthUser.getOAuthApplicationId())
-			};
-
-		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_U_OAI, args);
-		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_U_OAI, args);
-
-		if ((oAuthUserModelImpl.getColumnBitmask() &
-				FINDER_PATH_FETCH_BY_U_OAI.getColumnBitmask()) != 0) {
-			args = new Object[] {
-					Long.valueOf(oAuthUserModelImpl.getOriginalUserId()),
-					Long.valueOf(oAuthUserModelImpl.getOriginalOAuthApplicationId())
-				};
-
-			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_U_OAI, args);
-			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_U_OAI, args);
-		}
-	}
-
-	/**
-	 * Creates a new o auth user with the primary key. Does not add the o auth user to the database.
-	 *
-	 * @param oAuthUserId the primary key for the new o auth user
-	 * @return the new o auth user
-	 */
-	public OAuthUser create(long oAuthUserId) {
-		OAuthUser oAuthUser = new OAuthUserImpl();
-
-		oAuthUser.setNew(true);
-		oAuthUser.setPrimaryKey(oAuthUserId);
-
-		return oAuthUser;
-	}
-
-	/**
-	 * Removes the o auth user with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param oAuthUserId the primary key of the o auth user
-	 * @return the o auth user that was removed
-	 * @throws com.liferay.oauth.NoSuchUserException if a o auth user with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthUser remove(long oAuthUserId)
-		throws NoSuchUserException, SystemException {
-		return remove(Long.valueOf(oAuthUserId));
-	}
-
-	/**
-	 * Removes the o auth user with the primary key from the database. Also notifies the appropriate model listeners.
-	 *
-	 * @param primaryKey the primary key of the o auth user
-	 * @return the o auth user that was removed
-	 * @throws com.liferay.oauth.NoSuchUserException if a o auth user with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public OAuthUser remove(Serializable primaryKey)
-		throws NoSuchUserException, SystemException {
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			OAuthUser oAuthUser = (OAuthUser)session.get(OAuthUserImpl.class,
-					primaryKey);
-
-			if (oAuthUser == null) {
-				if (_log.isWarnEnabled()) {
-					_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
-				}
-
-				throw new NoSuchUserException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-					primaryKey);
-			}
-
-			return remove(oAuthUser);
-		}
-		catch (NoSuchUserException nsee) {
-			throw nsee;
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-	}
-
-	@Override
-	protected OAuthUser removeImpl(OAuthUser oAuthUser)
-		throws SystemException {
-		oAuthUser = toUnwrappedModel(oAuthUser);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			BatchSessionUtil.delete(session, oAuthUser);
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-
-		clearCache(oAuthUser);
-
-		return oAuthUser;
-	}
-
-	@Override
-	public OAuthUser updateImpl(com.liferay.oauth.model.OAuthUser oAuthUser,
-		boolean merge) throws SystemException {
-		oAuthUser = toUnwrappedModel(oAuthUser);
-
-		boolean isNew = oAuthUser.isNew();
-
-		OAuthUserModelImpl oAuthUserModelImpl = (OAuthUserModelImpl)oAuthUser;
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			BatchSessionUtil.update(session, oAuthUser, merge);
-
-			oAuthUser.setNew(false);
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
-		}
-
-		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
-
-		if (isNew || !OAuthUserModelImpl.COLUMN_BITMASK_ENABLED) {
-			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
-		}
-
-		else {
-			if ((oAuthUserModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						Long.valueOf(oAuthUserModelImpl.getOriginalUserId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_USERID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID,
-					args);
-
-				args = new Object[] { Long.valueOf(oAuthUserModelImpl.getUserId()) };
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_USERID, args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID,
-					args);
-			}
-
-			if ((oAuthUserModelImpl.getColumnBitmask() &
-					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_OAUTHAPPLICATIONID.getColumnBitmask()) != 0) {
-				Object[] args = new Object[] {
-						Long.valueOf(oAuthUserModelImpl.getOriginalOAuthApplicationId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_OAUTHAPPLICATIONID,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_OAUTHAPPLICATIONID,
-					args);
-
-				args = new Object[] {
-						Long.valueOf(oAuthUserModelImpl.getOAuthApplicationId())
-					};
-
-				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_OAUTHAPPLICATIONID,
-					args);
-				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_OAUTHAPPLICATIONID,
-					args);
-			}
-		}
-
-		EntityCacheUtil.putResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-			OAuthUserImpl.class, oAuthUser.getPrimaryKey(), oAuthUser);
-
-		clearUniqueFindersCache(oAuthUser);
-		cacheUniqueFindersCache(oAuthUser);
-
-		return oAuthUser;
-	}
-
-	protected OAuthUser toUnwrappedModel(OAuthUser oAuthUser) {
-		if (oAuthUser instanceof OAuthUserImpl) {
-			return oAuthUser;
-		}
-
-		OAuthUserImpl oAuthUserImpl = new OAuthUserImpl();
-
-		oAuthUserImpl.setNew(oAuthUser.isNew());
-		oAuthUserImpl.setPrimaryKey(oAuthUser.getPrimaryKey());
-
-		oAuthUserImpl.setOAuthUserId(oAuthUser.getOAuthUserId());
-		oAuthUserImpl.setCompanyId(oAuthUser.getCompanyId());
-		oAuthUserImpl.setUserId(oAuthUser.getUserId());
-		oAuthUserImpl.setUserName(oAuthUser.getUserName());
-		oAuthUserImpl.setCreateDate(oAuthUser.getCreateDate());
-		oAuthUserImpl.setModifiedDate(oAuthUser.getModifiedDate());
-		oAuthUserImpl.setOAuthApplicationId(oAuthUser.getOAuthApplicationId());
-		oAuthUserImpl.setAccessToken(oAuthUser.getAccessToken());
-		oAuthUserImpl.setAccessSecret(oAuthUser.getAccessSecret());
-
-		return oAuthUserImpl;
-	}
-
-	/**
-	 * Returns the o auth user with the primary key or throws a {@link com.liferay.portal.NoSuchModelException} if it could not be found.
-	 *
-	 * @param primaryKey the primary key of the o auth user
-	 * @return the o auth user
-	 * @throws com.liferay.portal.NoSuchModelException if a o auth user with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public OAuthUser findByPrimaryKey(Serializable primaryKey)
-		throws NoSuchModelException, SystemException {
-		return findByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the o auth user with the primary key or throws a {@link com.liferay.oauth.NoSuchUserException} if it could not be found.
-	 *
-	 * @param oAuthUserId the primary key of the o auth user
-	 * @return the o auth user
-	 * @throws com.liferay.oauth.NoSuchUserException if a o auth user with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthUser findByPrimaryKey(long oAuthUserId)
-		throws NoSuchUserException, SystemException {
-		OAuthUser oAuthUser = fetchByPrimaryKey(oAuthUserId);
-
-		if (oAuthUser == null) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + oAuthUserId);
-			}
-
-			throw new NoSuchUserException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
-				oAuthUserId);
-		}
-
-		return oAuthUser;
-	}
-
-	/**
-	 * Returns the o auth user with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param primaryKey the primary key of the o auth user
-	 * @return the o auth user, or <code>null</code> if a o auth user with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	@Override
-	public OAuthUser fetchByPrimaryKey(Serializable primaryKey)
-		throws SystemException {
-		return fetchByPrimaryKey(((Long)primaryKey).longValue());
-	}
-
-	/**
-	 * Returns the o auth user with the primary key or returns <code>null</code> if it could not be found.
-	 *
-	 * @param oAuthUserId the primary key of the o auth user
-	 * @return the o auth user, or <code>null</code> if a o auth user with the primary key could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthUser fetchByPrimaryKey(long oAuthUserId)
-		throws SystemException {
-		OAuthUser oAuthUser = (OAuthUser)EntityCacheUtil.getResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-				OAuthUserImpl.class, oAuthUserId);
-
-		if (oAuthUser == _nullOAuthUser) {
-			return null;
-		}
-
-		if (oAuthUser == null) {
-			Session session = null;
-
-			boolean hasException = false;
-
-			try {
-				session = openSession();
-
-				oAuthUser = (OAuthUser)session.get(OAuthUserImpl.class,
-						Long.valueOf(oAuthUserId));
-			}
-			catch (Exception e) {
-				hasException = true;
-
-				throw processException(e);
-			}
-			finally {
-				if (oAuthUser != null) {
-					cacheResult(oAuthUser);
-				}
-				else if (!hasException) {
-					EntityCacheUtil.putResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
-						OAuthUserImpl.class, oAuthUserId, _nullOAuthUser);
-				}
-
-				closeSession(session);
-			}
-		}
-
-		return oAuthUser;
-	}
 
 	/**
 	 * Returns all the o auth users where userId = &#63;.
@@ -623,6 +112,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the matching o auth users
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<OAuthUser> findByUserId(long userId) throws SystemException {
 		return findByUserId(userId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
 	}
@@ -631,7 +121,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * Returns a range of all the o auth users where userId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.oauth.model.impl.OAuthUserModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param userId the user ID
@@ -640,6 +130,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the range of matching o auth users
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<OAuthUser> findByUserId(long userId, int start, int end)
 		throws SystemException {
 		return findByUserId(userId, start, end, null);
@@ -649,7 +140,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * Returns an ordered range of all the o auth users where userId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.oauth.model.impl.OAuthUserModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param userId the user ID
@@ -659,13 +150,16 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the ordered range of matching o auth users
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<OAuthUser> findByUserId(long userId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
+		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 				(orderByComparator == null)) {
+			pagination = false;
 			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID;
 			finderArgs = new Object[] { userId };
 		}
@@ -695,7 +189,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 						(orderByComparator.getOrderByFields().length * 3));
 			}
 			else {
-				query = new StringBundler(2);
+				query = new StringBundler(3);
 			}
 
 			query.append(_SQL_SELECT_OAUTHUSER_WHERE);
@@ -705,6 +199,10 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 			if (orderByComparator != null) {
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
 					orderByComparator);
+			}
+			else
+			 if (pagination) {
+				query.append(OAuthUserModelImpl.ORDER_BY_JPQL);
 			}
 
 			String sql = query.toString();
@@ -720,22 +218,29 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 
 				qPos.add(userId);
 
-				list = (List<OAuthUser>)QueryUtil.list(q, getDialect(), start,
-						end);
+				if (!pagination) {
+					list = (List<OAuthUser>)QueryUtil.list(q, getDialect(),
+							start, end, false);
+
+					Collections.sort(list);
+
+					list = new UnmodifiableList<OAuthUser>(list);
+				}
+				else {
+					list = (List<OAuthUser>)QueryUtil.list(q, getDialect(),
+							start, end);
+				}
+
+				cacheResult(list);
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
 				throw processException(e);
 			}
 			finally {
-				if (list == null) {
-					FinderCacheUtil.removeResult(finderPath, finderArgs);
-				}
-				else {
-					cacheResult(list);
-
-					FinderCacheUtil.putResult(finderPath, finderArgs, list);
-				}
-
 				closeSession(session);
 			}
 		}
@@ -752,6 +257,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @throws com.liferay.oauth.NoSuchUserException if a matching o auth user could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public OAuthUser findByUserId_First(long userId,
 		OrderByComparator orderByComparator)
 		throws NoSuchUserException, SystemException {
@@ -781,6 +287,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the first matching o auth user, or <code>null</code> if a matching o auth user could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public OAuthUser fetchByUserId_First(long userId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<OAuthUser> list = findByUserId(userId, 0, 1, orderByComparator);
@@ -801,6 +308,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @throws com.liferay.oauth.NoSuchUserException if a matching o auth user could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public OAuthUser findByUserId_Last(long userId,
 		OrderByComparator orderByComparator)
 		throws NoSuchUserException, SystemException {
@@ -830,9 +338,14 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the last matching o auth user, or <code>null</code> if a matching o auth user could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public OAuthUser fetchByUserId_Last(long userId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUserId(userId);
+
+		if (count == 0) {
+			return null;
+		}
 
 		List<OAuthUser> list = findByUserId(userId, count - 1, count,
 				orderByComparator);
@@ -854,6 +367,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @throws com.liferay.oauth.NoSuchUserException if a o auth user with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public OAuthUser[] findByUserId_PrevAndNext(long oAuthUserId, long userId,
 		OrderByComparator orderByComparator)
 		throws NoSuchUserException, SystemException {
@@ -956,6 +470,9 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 				}
 			}
 		}
+		else {
+			query.append(OAuthUserModelImpl.ORDER_BY_JPQL);
+		}
 
 		String sql = query.toString();
 
@@ -993,6 +510,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the matching o auth users that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<OAuthUser> filterFindByUserId(long userId)
 		throws SystemException {
 		return filterFindByUserId(userId, QueryUtil.ALL_POS, QueryUtil.ALL_POS,
@@ -1003,7 +521,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * Returns a range of all the o auth users that the user has permission to view where userId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.oauth.model.impl.OAuthUserModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param userId the user ID
@@ -1012,6 +530,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the range of matching o auth users that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<OAuthUser> filterFindByUserId(long userId, int start, int end)
 		throws SystemException {
 		return filterFindByUserId(userId, start, end, null);
@@ -1021,7 +540,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * Returns an ordered range of all the o auth users that the user has permissions to view where userId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.oauth.model.impl.OAuthUserModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param userId the user ID
@@ -1031,6 +550,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the ordered range of matching o auth users that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<OAuthUser> filterFindByUserId(long userId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
 		if (!InlineSQLHelperUtil.isEnabled()) {
@@ -1044,7 +564,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(2);
+			query = new StringBundler(3);
 		}
 
 		if (getDB().isSupportsInlineDistinct()) {
@@ -1063,11 +583,19 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 		if (orderByComparator != null) {
 			if (getDB().isSupportsInlineDistinct()) {
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+					orderByComparator, true);
 			}
 			else {
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_TABLE,
-					orderByComparator);
+					orderByComparator, true);
+			}
+		}
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(OAuthUserModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(OAuthUserModelImpl.ORDER_BY_SQL);
 			}
 		}
 
@@ -1112,6 +640,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @throws com.liferay.oauth.NoSuchUserException if a o auth user with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public OAuthUser[] filterFindByUserId_PrevAndNext(long oAuthUserId,
 		long userId, OrderByComparator orderByComparator)
 		throws NoSuchUserException, SystemException {
@@ -1240,6 +769,14 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 				}
 			}
 		}
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(OAuthUserModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(OAuthUserModelImpl.ORDER_BY_SQL);
+			}
+		}
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
 				OAuthUser.class.getName(), _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
@@ -1279,12 +816,150 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	}
 
 	/**
+	 * Removes all the o auth users where userId = &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeByUserId(long userId) throws SystemException {
+		for (OAuthUser oAuthUser : findByUserId(userId, QueryUtil.ALL_POS,
+				QueryUtil.ALL_POS, null)) {
+			remove(oAuthUser);
+		}
+	}
+
+	/**
+	 * Returns the number of o auth users where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @return the number of matching o auth users
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public int countByUserId(long userId) throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_USERID;
+
+		Object[] finderArgs = new Object[] { userId };
+
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_OAUTHUSER_WHERE);
+
+			query.append(_FINDER_COLUMN_USERID_USERID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(userId);
+
+				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return count.intValue();
+	}
+
+	/**
+	 * Returns the number of o auth users that the user has permission to view where userId = &#63;.
+	 *
+	 * @param userId the user ID
+	 * @return the number of matching o auth users that the user has permission to view
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public int filterCountByUserId(long userId) throws SystemException {
+		if (!InlineSQLHelperUtil.isEnabled()) {
+			return countByUserId(userId);
+		}
+
+		StringBundler query = new StringBundler(2);
+
+		query.append(_FILTER_SQL_COUNT_OAUTHUSER_WHERE);
+
+		query.append(_FINDER_COLUMN_USERID_USERID_2);
+
+		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
+				OAuthUser.class.getName(), _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			SQLQuery q = session.createSQLQuery(sql);
+
+			q.addScalar(COUNT_COLUMN_NAME,
+				com.liferay.portal.kernel.dao.orm.Type.LONG);
+
+			QueryPos qPos = QueryPos.getInstance(q);
+
+			qPos.add(userId);
+
+			Long count = (Long)q.uniqueResult();
+
+			return count.intValue();
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	private static final String _FINDER_COLUMN_USERID_USERID_2 = "oAuthUser.userId = ?";
+	public static final FinderPath FINDER_PATH_WITH_PAGINATION_FIND_BY_OAUTHAPPLICATIONID =
+		new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
+			FINDER_CLASS_NAME_LIST_WITH_PAGINATION, "findByOAuthApplicationId",
+			new String[] {
+				Long.class.getName(),
+				
+			Integer.class.getName(), Integer.class.getName(),
+				OrderByComparator.class.getName()
+			});
+	public static final FinderPath FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_OAUTHAPPLICATIONID =
+		new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"findByOAuthApplicationId", new String[] { Long.class.getName() },
+			OAuthUserModelImpl.OAUTHAPPLICATIONID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_OAUTHAPPLICATIONID = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION,
+			"countByOAuthApplicationId", new String[] { Long.class.getName() });
+
+	/**
 	 * Returns all the o auth users where oAuthApplicationId = &#63;.
 	 *
 	 * @param oAuthApplicationId the o auth application ID
 	 * @return the matching o auth users
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<OAuthUser> findByOAuthApplicationId(long oAuthApplicationId)
 		throws SystemException {
 		return findByOAuthApplicationId(oAuthApplicationId, QueryUtil.ALL_POS,
@@ -1295,7 +970,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * Returns a range of all the o auth users where oAuthApplicationId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.oauth.model.impl.OAuthUserModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param oAuthApplicationId the o auth application ID
@@ -1304,6 +979,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the range of matching o auth users
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<OAuthUser> findByOAuthApplicationId(long oAuthApplicationId,
 		int start, int end) throws SystemException {
 		return findByOAuthApplicationId(oAuthApplicationId, start, end, null);
@@ -1313,7 +989,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * Returns an ordered range of all the o auth users where oAuthApplicationId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.oauth.model.impl.OAuthUserModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param oAuthApplicationId the o auth application ID
@@ -1323,14 +999,17 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the ordered range of matching o auth users
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<OAuthUser> findByOAuthApplicationId(long oAuthApplicationId,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
+		boolean pagination = true;
 		FinderPath finderPath = null;
 		Object[] finderArgs = null;
 
 		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
 				(orderByComparator == null)) {
+			pagination = false;
 			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_OAUTHAPPLICATIONID;
 			finderArgs = new Object[] { oAuthApplicationId };
 		}
@@ -1364,7 +1043,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 						(orderByComparator.getOrderByFields().length * 3));
 			}
 			else {
-				query = new StringBundler(2);
+				query = new StringBundler(3);
 			}
 
 			query.append(_SQL_SELECT_OAUTHUSER_WHERE);
@@ -1374,6 +1053,10 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 			if (orderByComparator != null) {
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
 					orderByComparator);
+			}
+			else
+			 if (pagination) {
+				query.append(OAuthUserModelImpl.ORDER_BY_JPQL);
 			}
 
 			String sql = query.toString();
@@ -1389,22 +1072,29 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 
 				qPos.add(oAuthApplicationId);
 
-				list = (List<OAuthUser>)QueryUtil.list(q, getDialect(), start,
-						end);
+				if (!pagination) {
+					list = (List<OAuthUser>)QueryUtil.list(q, getDialect(),
+							start, end, false);
+
+					Collections.sort(list);
+
+					list = new UnmodifiableList<OAuthUser>(list);
+				}
+				else {
+					list = (List<OAuthUser>)QueryUtil.list(q, getDialect(),
+							start, end);
+				}
+
+				cacheResult(list);
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, list);
 			}
 			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
 				throw processException(e);
 			}
 			finally {
-				if (list == null) {
-					FinderCacheUtil.removeResult(finderPath, finderArgs);
-				}
-				else {
-					cacheResult(list);
-
-					FinderCacheUtil.putResult(finderPath, finderArgs, list);
-				}
-
 				closeSession(session);
 			}
 		}
@@ -1421,6 +1111,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @throws com.liferay.oauth.NoSuchUserException if a matching o auth user could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public OAuthUser findByOAuthApplicationId_First(long oAuthApplicationId,
 		OrderByComparator orderByComparator)
 		throws NoSuchUserException, SystemException {
@@ -1451,6 +1142,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the first matching o auth user, or <code>null</code> if a matching o auth user could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public OAuthUser fetchByOAuthApplicationId_First(long oAuthApplicationId,
 		OrderByComparator orderByComparator) throws SystemException {
 		List<OAuthUser> list = findByOAuthApplicationId(oAuthApplicationId, 0,
@@ -1472,6 +1164,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @throws com.liferay.oauth.NoSuchUserException if a matching o auth user could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public OAuthUser findByOAuthApplicationId_Last(long oAuthApplicationId,
 		OrderByComparator orderByComparator)
 		throws NoSuchUserException, SystemException {
@@ -1502,9 +1195,14 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the last matching o auth user, or <code>null</code> if a matching o auth user could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public OAuthUser fetchByOAuthApplicationId_Last(long oAuthApplicationId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByOAuthApplicationId(oAuthApplicationId);
+
+		if (count == 0) {
+			return null;
+		}
 
 		List<OAuthUser> list = findByOAuthApplicationId(oAuthApplicationId,
 				count - 1, count, orderByComparator);
@@ -1526,6 +1224,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @throws com.liferay.oauth.NoSuchUserException if a o auth user with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public OAuthUser[] findByOAuthApplicationId_PrevAndNext(long oAuthUserId,
 		long oAuthApplicationId, OrderByComparator orderByComparator)
 		throws NoSuchUserException, SystemException {
@@ -1628,6 +1327,9 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 				}
 			}
 		}
+		else {
+			query.append(OAuthUserModelImpl.ORDER_BY_JPQL);
+		}
 
 		String sql = query.toString();
 
@@ -1665,6 +1367,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the matching o auth users that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<OAuthUser> filterFindByOAuthApplicationId(
 		long oAuthApplicationId) throws SystemException {
 		return filterFindByOAuthApplicationId(oAuthApplicationId,
@@ -1675,7 +1378,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * Returns a range of all the o auth users that the user has permission to view where oAuthApplicationId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.oauth.model.impl.OAuthUserModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param oAuthApplicationId the o auth application ID
@@ -1684,6 +1387,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the range of matching o auth users that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<OAuthUser> filterFindByOAuthApplicationId(
 		long oAuthApplicationId, int start, int end) throws SystemException {
 		return filterFindByOAuthApplicationId(oAuthApplicationId, start, end,
@@ -1694,7 +1398,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * Returns an ordered range of all the o auth users that the user has permissions to view where oAuthApplicationId = &#63;.
 	 *
 	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.oauth.model.impl.OAuthUserModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	 * </p>
 	 *
 	 * @param oAuthApplicationId the o auth application ID
@@ -1704,6 +1408,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the ordered range of matching o auth users that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public List<OAuthUser> filterFindByOAuthApplicationId(
 		long oAuthApplicationId, int start, int end,
 		OrderByComparator orderByComparator) throws SystemException {
@@ -1719,7 +1424,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 					(orderByComparator.getOrderByFields().length * 3));
 		}
 		else {
-			query = new StringBundler(2);
+			query = new StringBundler(3);
 		}
 
 		if (getDB().isSupportsInlineDistinct()) {
@@ -1738,11 +1443,19 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 		if (orderByComparator != null) {
 			if (getDB().isSupportsInlineDistinct()) {
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
+					orderByComparator, true);
 			}
 			else {
 				appendOrderByComparator(query, _ORDER_BY_ENTITY_TABLE,
-					orderByComparator);
+					orderByComparator, true);
+			}
+		}
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(OAuthUserModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(OAuthUserModelImpl.ORDER_BY_SQL);
 			}
 		}
 
@@ -1787,6 +1500,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @throws com.liferay.oauth.NoSuchUserException if a o auth user with the primary key could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public OAuthUser[] filterFindByOAuthApplicationId_PrevAndNext(
 		long oAuthUserId, long oAuthApplicationId,
 		OrderByComparator orderByComparator)
@@ -1916,6 +1630,14 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 				}
 			}
 		}
+		else {
+			if (getDB().isSupportsInlineDistinct()) {
+				query.append(OAuthUserModelImpl.ORDER_BY_JPQL);
+			}
+			else {
+				query.append(OAuthUserModelImpl.ORDER_BY_SQL);
+			}
+		}
 
 		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
 				OAuthUser.class.getName(), _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
@@ -1955,579 +1677,17 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	}
 
 	/**
-	 * Returns the o auth user where accessToken = &#63; or throws a {@link com.liferay.oauth.NoSuchUserException} if it could not be found.
-	 *
-	 * @param accessToken the access token
-	 * @return the matching o auth user
-	 * @throws com.liferay.oauth.NoSuchUserException if a matching o auth user could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthUser findByAccessToken(String accessToken)
-		throws NoSuchUserException, SystemException {
-		OAuthUser oAuthUser = fetchByAccessToken(accessToken);
-
-		if (oAuthUser == null) {
-			StringBundler msg = new StringBundler(4);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("accessToken=");
-			msg.append(accessToken);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			if (_log.isWarnEnabled()) {
-				_log.warn(msg.toString());
-			}
-
-			throw new NoSuchUserException(msg.toString());
-		}
-
-		return oAuthUser;
-	}
-
-	/**
-	 * Returns the o auth user where accessToken = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param accessToken the access token
-	 * @return the matching o auth user, or <code>null</code> if a matching o auth user could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthUser fetchByAccessToken(String accessToken)
-		throws SystemException {
-		return fetchByAccessToken(accessToken, true);
-	}
-
-	/**
-	 * Returns the o auth user where accessToken = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	 *
-	 * @param accessToken the access token
-	 * @param retrieveFromCache whether to use the finder cache
-	 * @return the matching o auth user, or <code>null</code> if a matching o auth user could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthUser fetchByAccessToken(String accessToken,
-		boolean retrieveFromCache) throws SystemException {
-		Object[] finderArgs = new Object[] { accessToken };
-
-		Object result = null;
-
-		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
-					finderArgs, this);
-		}
-
-		if (result instanceof OAuthUser) {
-			OAuthUser oAuthUser = (OAuthUser)result;
-
-			if (!Validator.equals(accessToken, oAuthUser.getAccessToken())) {
-				result = null;
-			}
-		}
-
-		if (result == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_SELECT_OAUTHUSER_WHERE);
-
-			if (accessToken == null) {
-				query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_1);
-			}
-			else {
-				if (accessToken.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_2);
-				}
-			}
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				if (accessToken != null) {
-					qPos.add(accessToken);
-				}
-
-				List<OAuthUser> list = q.list();
-
-				result = list;
-
-				OAuthUser oAuthUser = null;
-
-				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
-						finderArgs, list);
-				}
-				else {
-					oAuthUser = list.get(0);
-
-					cacheResult(oAuthUser);
-
-					if ((oAuthUser.getAccessToken() == null) ||
-							!oAuthUser.getAccessToken().equals(accessToken)) {
-						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
-							finderArgs, oAuthUser);
-					}
-				}
-
-				return oAuthUser;
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (result == null) {
-					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
-						finderArgs);
-				}
-
-				closeSession(session);
-			}
-		}
-		else {
-			if (result instanceof List<?>) {
-				return null;
-			}
-			else {
-				return (OAuthUser)result;
-			}
-		}
-	}
-
-	/**
-	 * Returns the o auth user where userId = &#63; and oAuthApplicationId = &#63; or throws a {@link com.liferay.oauth.NoSuchUserException} if it could not be found.
-	 *
-	 * @param userId the user ID
-	 * @param oAuthApplicationId the o auth application ID
-	 * @return the matching o auth user
-	 * @throws com.liferay.oauth.NoSuchUserException if a matching o auth user could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthUser findByU_OAI(long userId, long oAuthApplicationId)
-		throws NoSuchUserException, SystemException {
-		OAuthUser oAuthUser = fetchByU_OAI(userId, oAuthApplicationId);
-
-		if (oAuthUser == null) {
-			StringBundler msg = new StringBundler(6);
-
-			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
-
-			msg.append("userId=");
-			msg.append(userId);
-
-			msg.append(", oAuthApplicationId=");
-			msg.append(oAuthApplicationId);
-
-			msg.append(StringPool.CLOSE_CURLY_BRACE);
-
-			if (_log.isWarnEnabled()) {
-				_log.warn(msg.toString());
-			}
-
-			throw new NoSuchUserException(msg.toString());
-		}
-
-		return oAuthUser;
-	}
-
-	/**
-	 * Returns the o auth user where userId = &#63; and oAuthApplicationId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
-	 *
-	 * @param userId the user ID
-	 * @param oAuthApplicationId the o auth application ID
-	 * @return the matching o auth user, or <code>null</code> if a matching o auth user could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthUser fetchByU_OAI(long userId, long oAuthApplicationId)
-		throws SystemException {
-		return fetchByU_OAI(userId, oAuthApplicationId, true);
-	}
-
-	/**
-	 * Returns the o auth user where userId = &#63; and oAuthApplicationId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
-	 *
-	 * @param userId the user ID
-	 * @param oAuthApplicationId the o auth application ID
-	 * @param retrieveFromCache whether to use the finder cache
-	 * @return the matching o auth user, or <code>null</code> if a matching o auth user could not be found
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthUser fetchByU_OAI(long userId, long oAuthApplicationId,
-		boolean retrieveFromCache) throws SystemException {
-		Object[] finderArgs = new Object[] { userId, oAuthApplicationId };
-
-		Object result = null;
-
-		if (retrieveFromCache) {
-			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_U_OAI,
-					finderArgs, this);
-		}
-
-		if (result instanceof OAuthUser) {
-			OAuthUser oAuthUser = (OAuthUser)result;
-
-			if ((userId != oAuthUser.getUserId()) ||
-					(oAuthApplicationId != oAuthUser.getOAuthApplicationId())) {
-				result = null;
-			}
-		}
-
-		if (result == null) {
-			StringBundler query = new StringBundler(3);
-
-			query.append(_SQL_SELECT_OAUTHUSER_WHERE);
-
-			query.append(_FINDER_COLUMN_U_OAI_USERID_2);
-
-			query.append(_FINDER_COLUMN_U_OAI_OAUTHAPPLICATIONID_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(userId);
-
-				qPos.add(oAuthApplicationId);
-
-				List<OAuthUser> list = q.list();
-
-				result = list;
-
-				OAuthUser oAuthUser = null;
-
-				if (list.isEmpty()) {
-					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_OAI,
-						finderArgs, list);
-				}
-				else {
-					oAuthUser = list.get(0);
-
-					cacheResult(oAuthUser);
-
-					if ((oAuthUser.getUserId() != userId) ||
-							(oAuthUser.getOAuthApplicationId() != oAuthApplicationId)) {
-						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_OAI,
-							finderArgs, oAuthUser);
-					}
-				}
-
-				return oAuthUser;
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (result == null) {
-					FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_U_OAI,
-						finderArgs);
-				}
-
-				closeSession(session);
-			}
-		}
-		else {
-			if (result instanceof List<?>) {
-				return null;
-			}
-			else {
-				return (OAuthUser)result;
-			}
-		}
-	}
-
-	/**
-	 * Returns all the o auth users.
-	 *
-	 * @return the o auth users
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthUser> findAll() throws SystemException {
-		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
-	}
-
-	/**
-	 * Returns a range of all the o auth users.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param start the lower bound of the range of o auth users
-	 * @param end the upper bound of the range of o auth users (not inclusive)
-	 * @return the range of o auth users
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthUser> findAll(int start, int end)
-		throws SystemException {
-		return findAll(start, end, null);
-	}
-
-	/**
-	 * Returns an ordered range of all the o auth users.
-	 *
-	 * <p>
-	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
-	 * </p>
-	 *
-	 * @param start the lower bound of the range of o auth users
-	 * @param end the upper bound of the range of o auth users (not inclusive)
-	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
-	 * @return the ordered range of o auth users
-	 * @throws SystemException if a system exception occurred
-	 */
-	public List<OAuthUser> findAll(int start, int end,
-		OrderByComparator orderByComparator) throws SystemException {
-		FinderPath finderPath = null;
-		Object[] finderArgs = new Object[] { start, end, orderByComparator };
-
-		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
-				(orderByComparator == null)) {
-			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL;
-			finderArgs = FINDER_ARGS_EMPTY;
-		}
-		else {
-			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_ALL;
-			finderArgs = new Object[] { start, end, orderByComparator };
-		}
-
-		List<OAuthUser> list = (List<OAuthUser>)FinderCacheUtil.getResult(finderPath,
-				finderArgs, this);
-
-		if (list == null) {
-			StringBundler query = null;
-			String sql = null;
-
-			if (orderByComparator != null) {
-				query = new StringBundler(2 +
-						(orderByComparator.getOrderByFields().length * 3));
-
-				query.append(_SQL_SELECT_OAUTHUSER);
-
-				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
-					orderByComparator);
-
-				sql = query.toString();
-			}
-			else {
-				sql = _SQL_SELECT_OAUTHUSER;
-			}
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				if (orderByComparator == null) {
-					list = (List<OAuthUser>)QueryUtil.list(q, getDialect(),
-							start, end, false);
-
-					Collections.sort(list);
-				}
-				else {
-					list = (List<OAuthUser>)QueryUtil.list(q, getDialect(),
-							start, end);
-				}
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (list == null) {
-					FinderCacheUtil.removeResult(finderPath, finderArgs);
-				}
-				else {
-					cacheResult(list);
-
-					FinderCacheUtil.putResult(finderPath, finderArgs, list);
-				}
-
-				closeSession(session);
-			}
-		}
-
-		return list;
-	}
-
-	/**
-	 * Removes all the o auth users where userId = &#63; from the database.
-	 *
-	 * @param userId the user ID
-	 * @throws SystemException if a system exception occurred
-	 */
-	public void removeByUserId(long userId) throws SystemException {
-		for (OAuthUser oAuthUser : findByUserId(userId)) {
-			remove(oAuthUser);
-		}
-	}
-
-	/**
 	 * Removes all the o auth users where oAuthApplicationId = &#63; from the database.
 	 *
 	 * @param oAuthApplicationId the o auth application ID
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public void removeByOAuthApplicationId(long oAuthApplicationId)
 		throws SystemException {
-		for (OAuthUser oAuthUser : findByOAuthApplicationId(oAuthApplicationId)) {
+		for (OAuthUser oAuthUser : findByOAuthApplicationId(
+				oAuthApplicationId, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
 			remove(oAuthUser);
-		}
-	}
-
-	/**
-	 * Removes the o auth user where accessToken = &#63; from the database.
-	 *
-	 * @param accessToken the access token
-	 * @return the o auth user that was removed
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthUser removeByAccessToken(String accessToken)
-		throws NoSuchUserException, SystemException {
-		OAuthUser oAuthUser = findByAccessToken(accessToken);
-
-		return remove(oAuthUser);
-	}
-
-	/**
-	 * Removes the o auth user where userId = &#63; and oAuthApplicationId = &#63; from the database.
-	 *
-	 * @param userId the user ID
-	 * @param oAuthApplicationId the o auth application ID
-	 * @return the o auth user that was removed
-	 * @throws SystemException if a system exception occurred
-	 */
-	public OAuthUser removeByU_OAI(long userId, long oAuthApplicationId)
-		throws NoSuchUserException, SystemException {
-		OAuthUser oAuthUser = findByU_OAI(userId, oAuthApplicationId);
-
-		return remove(oAuthUser);
-	}
-
-	/**
-	 * Removes all the o auth users from the database.
-	 *
-	 * @throws SystemException if a system exception occurred
-	 */
-	public void removeAll() throws SystemException {
-		for (OAuthUser oAuthUser : findAll()) {
-			remove(oAuthUser);
-		}
-	}
-
-	/**
-	 * Returns the number of o auth users where userId = &#63;.
-	 *
-	 * @param userId the user ID
-	 * @return the number of matching o auth users
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int countByUserId(long userId) throws SystemException {
-		Object[] finderArgs = new Object[] { userId };
-
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_USERID,
-				finderArgs, this);
-
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
-
-			query.append(_SQL_COUNT_OAUTHUSER_WHERE);
-
-			query.append(_FINDER_COLUMN_USERID_USERID_2);
-
-			String sql = query.toString();
-
-			Session session = null;
-
-			try {
-				session = openSession();
-
-				Query q = session.createQuery(sql);
-
-				QueryPos qPos = QueryPos.getInstance(q);
-
-				qPos.add(userId);
-
-				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_USERID,
-					finderArgs, count);
-
-				closeSession(session);
-			}
-		}
-
-		return count.intValue();
-	}
-
-	/**
-	 * Returns the number of o auth users that the user has permission to view where userId = &#63;.
-	 *
-	 * @param userId the user ID
-	 * @return the number of matching o auth users that the user has permission to view
-	 * @throws SystemException if a system exception occurred
-	 */
-	public int filterCountByUserId(long userId) throws SystemException {
-		if (!InlineSQLHelperUtil.isEnabled()) {
-			return countByUserId(userId);
-		}
-
-		StringBundler query = new StringBundler(2);
-
-		query.append(_FILTER_SQL_COUNT_OAUTHUSER_WHERE);
-
-		query.append(_FINDER_COLUMN_USERID_USERID_2);
-
-		String sql = InlineSQLHelperUtil.replacePermissionCheck(query.toString(),
-				OAuthUser.class.getName(), _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN);
-
-		Session session = null;
-
-		try {
-			session = openSession();
-
-			SQLQuery q = session.createSQLQuery(sql);
-
-			q.addScalar(COUNT_COLUMN_NAME,
-				com.liferay.portal.kernel.dao.orm.Type.LONG);
-
-			QueryPos qPos = QueryPos.getInstance(q);
-
-			qPos.add(userId);
-
-			Long count = (Long)q.uniqueResult();
-
-			return count.intValue();
-		}
-		catch (Exception e) {
-			throw processException(e);
-		}
-		finally {
-			closeSession(session);
 		}
 	}
 
@@ -2538,12 +1698,15 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the number of matching o auth users
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByOAuthApplicationId(long oAuthApplicationId)
 		throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_OAUTHAPPLICATIONID;
+
 		Object[] finderArgs = new Object[] { oAuthApplicationId };
 
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_OAUTHAPPLICATIONID,
-				finderArgs, this);
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
 
 		if (count == null) {
 			StringBundler query = new StringBundler(2);
@@ -2566,18 +1729,15 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 				qPos.add(oAuthApplicationId);
 
 				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
 			}
 			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
 				throw processException(e);
 			}
 			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_OAUTHAPPLICATIONID,
-					finderArgs, count);
-
 				closeSession(session);
 			}
 		}
@@ -2592,6 +1752,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the number of matching o auth users that the user has permission to view
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int filterCountByOAuthApplicationId(long oAuthApplicationId)
 		throws SystemException {
 		if (!InlineSQLHelperUtil.isEnabled()) {
@@ -2633,34 +1794,109 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 		}
 	}
 
+	private static final String _FINDER_COLUMN_OAUTHAPPLICATIONID_OAUTHAPPLICATIONID_2 =
+		"oAuthUser.oAuthApplicationId = ?";
+	public static final FinderPath FINDER_PATH_FETCH_BY_ACCESSTOKEN = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByAccessToken",
+			new String[] { String.class.getName() },
+			OAuthUserModelImpl.ACCESSTOKEN_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_ACCESSTOKEN = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByAccessToken",
+			new String[] { String.class.getName() });
+
 	/**
-	 * Returns the number of o auth users where accessToken = &#63;.
+	 * Returns the o auth user where accessToken = &#63; or throws a {@link com.liferay.oauth.NoSuchUserException} if it could not be found.
 	 *
 	 * @param accessToken the access token
-	 * @return the number of matching o auth users
+	 * @return the matching o auth user
+	 * @throws com.liferay.oauth.NoSuchUserException if a matching o auth user could not be found
 	 * @throws SystemException if a system exception occurred
 	 */
-	public int countByAccessToken(String accessToken) throws SystemException {
+	@Override
+	public OAuthUser findByAccessToken(String accessToken)
+		throws NoSuchUserException, SystemException {
+		OAuthUser oAuthUser = fetchByAccessToken(accessToken);
+
+		if (oAuthUser == null) {
+			StringBundler msg = new StringBundler(4);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("accessToken=");
+			msg.append(accessToken);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchUserException(msg.toString());
+		}
+
+		return oAuthUser;
+	}
+
+	/**
+	 * Returns the o auth user where accessToken = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param accessToken the access token
+	 * @return the matching o auth user, or <code>null</code> if a matching o auth user could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public OAuthUser fetchByAccessToken(String accessToken)
+		throws SystemException {
+		return fetchByAccessToken(accessToken, true);
+	}
+
+	/**
+	 * Returns the o auth user where accessToken = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param accessToken the access token
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching o auth user, or <code>null</code> if a matching o auth user could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public OAuthUser fetchByAccessToken(String accessToken,
+		boolean retrieveFromCache) throws SystemException {
 		Object[] finderArgs = new Object[] { accessToken };
 
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_ACCESSTOKEN,
-				finderArgs, this);
+		Object result = null;
 
-		if (count == null) {
-			StringBundler query = new StringBundler(2);
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
+					finderArgs, this);
+		}
 
-			query.append(_SQL_COUNT_OAUTHUSER_WHERE);
+		if (result instanceof OAuthUser) {
+			OAuthUser oAuthUser = (OAuthUser)result;
+
+			if (!Validator.equals(accessToken, oAuthUser.getAccessToken())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(3);
+
+			query.append(_SQL_SELECT_OAUTHUSER_WHERE);
+
+			boolean bindAccessToken = false;
 
 			if (accessToken == null) {
 				query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_1);
 			}
+			else if (accessToken.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_3);
+			}
 			else {
-				if (accessToken.equals(StringPool.BLANK)) {
-					query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_3);
-				}
-				else {
-					query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_2);
-				}
+				bindAccessToken = true;
+
+				query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_2);
 			}
 
 			String sql = query.toString();
@@ -2674,28 +1910,303 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 
 				QueryPos qPos = QueryPos.getInstance(q);
 
-				if (accessToken != null) {
+				if (bindAccessToken) {
+					qPos.add(accessToken);
+				}
+
+				List<OAuthUser> list = q.list();
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
+						finderArgs, list);
+				}
+				else {
+					OAuthUser oAuthUser = list.get(0);
+
+					result = oAuthUser;
+
+					cacheResult(oAuthUser);
+
+					if ((oAuthUser.getAccessToken() == null) ||
+							!oAuthUser.getAccessToken().equals(accessToken)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
+							finderArgs, oAuthUser);
+					}
+				}
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
+					finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (OAuthUser)result;
+		}
+	}
+
+	/**
+	 * Removes the o auth user where accessToken = &#63; from the database.
+	 *
+	 * @param accessToken the access token
+	 * @return the o auth user that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public OAuthUser removeByAccessToken(String accessToken)
+		throws NoSuchUserException, SystemException {
+		OAuthUser oAuthUser = findByAccessToken(accessToken);
+
+		return remove(oAuthUser);
+	}
+
+	/**
+	 * Returns the number of o auth users where accessToken = &#63;.
+	 *
+	 * @param accessToken the access token
+	 * @return the number of matching o auth users
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public int countByAccessToken(String accessToken) throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_ACCESSTOKEN;
+
+		Object[] finderArgs = new Object[] { accessToken };
+
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
+
+		if (count == null) {
+			StringBundler query = new StringBundler(2);
+
+			query.append(_SQL_COUNT_OAUTHUSER_WHERE);
+
+			boolean bindAccessToken = false;
+
+			if (accessToken == null) {
+				query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_1);
+			}
+			else if (accessToken.equals(StringPool.BLANK)) {
+				query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_3);
+			}
+			else {
+				bindAccessToken = true;
+
+				query.append(_FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_2);
+			}
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				if (bindAccessToken) {
 					qPos.add(accessToken);
 				}
 
 				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
 			}
 			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
 				throw processException(e);
 			}
 			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_ACCESSTOKEN,
-					finderArgs, count);
-
 				closeSession(session);
 			}
 		}
 
 		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_1 = "oAuthUser.accessToken IS NULL";
+	private static final String _FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_2 = "oAuthUser.accessToken = ?";
+	private static final String _FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_3 = "(oAuthUser.accessToken IS NULL OR oAuthUser.accessToken = '')";
+	public static final FinderPath FINDER_PATH_FETCH_BY_U_OAI = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, OAuthUserImpl.class,
+			FINDER_CLASS_NAME_ENTITY, "fetchByU_OAI",
+			new String[] { Long.class.getName(), Long.class.getName() },
+			OAuthUserModelImpl.USERID_COLUMN_BITMASK |
+			OAuthUserModelImpl.OAUTHAPPLICATIONID_COLUMN_BITMASK);
+	public static final FinderPath FINDER_PATH_COUNT_BY_U_OAI = new FinderPath(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserModelImpl.FINDER_CACHE_ENABLED, Long.class,
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByU_OAI",
+			new String[] { Long.class.getName(), Long.class.getName() });
+
+	/**
+	 * Returns the o auth user where userId = &#63; and oAuthApplicationId = &#63; or throws a {@link com.liferay.oauth.NoSuchUserException} if it could not be found.
+	 *
+	 * @param userId the user ID
+	 * @param oAuthApplicationId the o auth application ID
+	 * @return the matching o auth user
+	 * @throws com.liferay.oauth.NoSuchUserException if a matching o auth user could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public OAuthUser findByU_OAI(long userId, long oAuthApplicationId)
+		throws NoSuchUserException, SystemException {
+		OAuthUser oAuthUser = fetchByU_OAI(userId, oAuthApplicationId);
+
+		if (oAuthUser == null) {
+			StringBundler msg = new StringBundler(6);
+
+			msg.append(_NO_SUCH_ENTITY_WITH_KEY);
+
+			msg.append("userId=");
+			msg.append(userId);
+
+			msg.append(", oAuthApplicationId=");
+			msg.append(oAuthApplicationId);
+
+			msg.append(StringPool.CLOSE_CURLY_BRACE);
+
+			if (_log.isWarnEnabled()) {
+				_log.warn(msg.toString());
+			}
+
+			throw new NoSuchUserException(msg.toString());
+		}
+
+		return oAuthUser;
+	}
+
+	/**
+	 * Returns the o auth user where userId = &#63; and oAuthApplicationId = &#63; or returns <code>null</code> if it could not be found. Uses the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @param oAuthApplicationId the o auth application ID
+	 * @return the matching o auth user, or <code>null</code> if a matching o auth user could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public OAuthUser fetchByU_OAI(long userId, long oAuthApplicationId)
+		throws SystemException {
+		return fetchByU_OAI(userId, oAuthApplicationId, true);
+	}
+
+	/**
+	 * Returns the o auth user where userId = &#63; and oAuthApplicationId = &#63; or returns <code>null</code> if it could not be found, optionally using the finder cache.
+	 *
+	 * @param userId the user ID
+	 * @param oAuthApplicationId the o auth application ID
+	 * @param retrieveFromCache whether to use the finder cache
+	 * @return the matching o auth user, or <code>null</code> if a matching o auth user could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public OAuthUser fetchByU_OAI(long userId, long oAuthApplicationId,
+		boolean retrieveFromCache) throws SystemException {
+		Object[] finderArgs = new Object[] { userId, oAuthApplicationId };
+
+		Object result = null;
+
+		if (retrieveFromCache) {
+			result = FinderCacheUtil.getResult(FINDER_PATH_FETCH_BY_U_OAI,
+					finderArgs, this);
+		}
+
+		if (result instanceof OAuthUser) {
+			OAuthUser oAuthUser = (OAuthUser)result;
+
+			if ((userId != oAuthUser.getUserId()) ||
+					(oAuthApplicationId != oAuthUser.getOAuthApplicationId())) {
+				result = null;
+			}
+		}
+
+		if (result == null) {
+			StringBundler query = new StringBundler(4);
+
+			query.append(_SQL_SELECT_OAUTHUSER_WHERE);
+
+			query.append(_FINDER_COLUMN_U_OAI_USERID_2);
+
+			query.append(_FINDER_COLUMN_U_OAI_OAUTHAPPLICATIONID_2);
+
+			String sql = query.toString();
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				QueryPos qPos = QueryPos.getInstance(q);
+
+				qPos.add(userId);
+
+				qPos.add(oAuthApplicationId);
+
+				List<OAuthUser> list = q.list();
+
+				if (list.isEmpty()) {
+					FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_OAI,
+						finderArgs, list);
+				}
+				else {
+					OAuthUser oAuthUser = list.get(0);
+
+					result = oAuthUser;
+
+					cacheResult(oAuthUser);
+
+					if ((oAuthUser.getUserId() != userId) ||
+							(oAuthUser.getOAuthApplicationId() != oAuthApplicationId)) {
+						FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_OAI,
+							finderArgs, oAuthUser);
+					}
+				}
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_U_OAI,
+					finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		if (result instanceof List<?>) {
+			return null;
+		}
+		else {
+			return (OAuthUser)result;
+		}
+	}
+
+	/**
+	 * Removes the o auth user where userId = &#63; and oAuthApplicationId = &#63; from the database.
+	 *
+	 * @param userId the user ID
+	 * @param oAuthApplicationId the o auth application ID
+	 * @return the o auth user that was removed
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public OAuthUser removeByU_OAI(long userId, long oAuthApplicationId)
+		throws NoSuchUserException, SystemException {
+		OAuthUser oAuthUser = findByU_OAI(userId, oAuthApplicationId);
+
+		return remove(oAuthUser);
 	}
 
 	/**
@@ -2706,12 +2217,15 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the number of matching o auth users
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countByU_OAI(long userId, long oAuthApplicationId)
 		throws SystemException {
+		FinderPath finderPath = FINDER_PATH_COUNT_BY_U_OAI;
+
 		Object[] finderArgs = new Object[] { userId, oAuthApplicationId };
 
-		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_BY_U_OAI,
-				finderArgs, this);
+		Long count = (Long)FinderCacheUtil.getResult(finderPath, finderArgs,
+				this);
 
 		if (count == null) {
 			StringBundler query = new StringBundler(3);
@@ -2738,23 +2252,643 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 				qPos.add(oAuthApplicationId);
 
 				count = (Long)q.uniqueResult();
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, count);
 			}
 			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
 				throw processException(e);
 			}
 			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
-
-				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_U_OAI,
-					finderArgs, count);
-
 				closeSession(session);
 			}
 		}
 
 		return count.intValue();
+	}
+
+	private static final String _FINDER_COLUMN_U_OAI_USERID_2 = "oAuthUser.userId = ? AND ";
+	private static final String _FINDER_COLUMN_U_OAI_OAUTHAPPLICATIONID_2 = "oAuthUser.oAuthApplicationId = ?";
+
+	public OAuthUserPersistenceImpl() {
+		setModelClass(OAuthUser.class);
+	}
+
+	/**
+	 * Caches the o auth user in the entity cache if it is enabled.
+	 *
+	 * @param oAuthUser the o auth user
+	 */
+	@Override
+	public void cacheResult(OAuthUser oAuthUser) {
+		EntityCacheUtil.putResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserImpl.class, oAuthUser.getPrimaryKey(), oAuthUser);
+
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
+			new Object[] { oAuthUser.getAccessToken() }, oAuthUser);
+
+		FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_OAI,
+			new Object[] {
+				oAuthUser.getUserId(), oAuthUser.getOAuthApplicationId()
+			}, oAuthUser);
+
+		oAuthUser.resetOriginalValues();
+	}
+
+	/**
+	 * Caches the o auth users in the entity cache if it is enabled.
+	 *
+	 * @param oAuthUsers the o auth users
+	 */
+	@Override
+	public void cacheResult(List<OAuthUser> oAuthUsers) {
+		for (OAuthUser oAuthUser : oAuthUsers) {
+			if (EntityCacheUtil.getResult(
+						OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+						OAuthUserImpl.class, oAuthUser.getPrimaryKey()) == null) {
+				cacheResult(oAuthUser);
+			}
+			else {
+				oAuthUser.resetOriginalValues();
+			}
+		}
+	}
+
+	/**
+	 * Clears the cache for all o auth users.
+	 *
+	 * <p>
+	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
+	 * </p>
+	 */
+	@Override
+	public void clearCache() {
+		if (_HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE) {
+			CacheRegistryUtil.clear(OAuthUserImpl.class.getName());
+		}
+
+		EntityCacheUtil.clearCache(OAuthUserImpl.class.getName());
+
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_ENTITY);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+	}
+
+	/**
+	 * Clears the cache for the o auth user.
+	 *
+	 * <p>
+	 * The {@link com.liferay.portal.kernel.dao.orm.EntityCache} and {@link com.liferay.portal.kernel.dao.orm.FinderCache} are both cleared by this method.
+	 * </p>
+	 */
+	@Override
+	public void clearCache(OAuthUser oAuthUser) {
+		EntityCacheUtil.removeResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserImpl.class, oAuthUser.getPrimaryKey());
+
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		clearUniqueFindersCache(oAuthUser);
+	}
+
+	@Override
+	public void clearCache(List<OAuthUser> oAuthUsers) {
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+
+		for (OAuthUser oAuthUser : oAuthUsers) {
+			EntityCacheUtil.removeResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+				OAuthUserImpl.class, oAuthUser.getPrimaryKey());
+
+			clearUniqueFindersCache(oAuthUser);
+		}
+	}
+
+	protected void cacheUniqueFindersCache(OAuthUser oAuthUser) {
+		if (oAuthUser.isNew()) {
+			Object[] args = new Object[] { oAuthUser.getAccessToken() };
+
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_ACCESSTOKEN, args,
+				Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN, args,
+				oAuthUser);
+
+			args = new Object[] {
+					oAuthUser.getUserId(), oAuthUser.getOAuthApplicationId()
+				};
+
+			FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_U_OAI, args,
+				Long.valueOf(1));
+			FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_OAI, args,
+				oAuthUser);
+		}
+		else {
+			OAuthUserModelImpl oAuthUserModelImpl = (OAuthUserModelImpl)oAuthUser;
+
+			if ((oAuthUserModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_ACCESSTOKEN.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] { oAuthUser.getAccessToken() };
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_ACCESSTOKEN,
+					args, Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN,
+					args, oAuthUser);
+			}
+
+			if ((oAuthUserModelImpl.getColumnBitmask() &
+					FINDER_PATH_FETCH_BY_U_OAI.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						oAuthUser.getUserId(), oAuthUser.getOAuthApplicationId()
+					};
+
+				FinderCacheUtil.putResult(FINDER_PATH_COUNT_BY_U_OAI, args,
+					Long.valueOf(1));
+				FinderCacheUtil.putResult(FINDER_PATH_FETCH_BY_U_OAI, args,
+					oAuthUser);
+			}
+		}
+	}
+
+	protected void clearUniqueFindersCache(OAuthUser oAuthUser) {
+		OAuthUserModelImpl oAuthUserModelImpl = (OAuthUserModelImpl)oAuthUser;
+
+		Object[] args = new Object[] { oAuthUser.getAccessToken() };
+
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_ACCESSTOKEN, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN, args);
+
+		if ((oAuthUserModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_ACCESSTOKEN.getColumnBitmask()) != 0) {
+			args = new Object[] { oAuthUserModelImpl.getOriginalAccessToken() };
+
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_ACCESSTOKEN, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_ACCESSTOKEN, args);
+		}
+
+		args = new Object[] {
+				oAuthUser.getUserId(), oAuthUser.getOAuthApplicationId()
+			};
+
+		FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_U_OAI, args);
+		FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_U_OAI, args);
+
+		if ((oAuthUserModelImpl.getColumnBitmask() &
+				FINDER_PATH_FETCH_BY_U_OAI.getColumnBitmask()) != 0) {
+			args = new Object[] {
+					oAuthUserModelImpl.getOriginalUserId(),
+					oAuthUserModelImpl.getOriginalOAuthApplicationId()
+				};
+
+			FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_U_OAI, args);
+			FinderCacheUtil.removeResult(FINDER_PATH_FETCH_BY_U_OAI, args);
+		}
+	}
+
+	/**
+	 * Creates a new o auth user with the primary key. Does not add the o auth user to the database.
+	 *
+	 * @param oAuthUserId the primary key for the new o auth user
+	 * @return the new o auth user
+	 */
+	@Override
+	public OAuthUser create(long oAuthUserId) {
+		OAuthUser oAuthUser = new OAuthUserImpl();
+
+		oAuthUser.setNew(true);
+		oAuthUser.setPrimaryKey(oAuthUserId);
+
+		return oAuthUser;
+	}
+
+	/**
+	 * Removes the o auth user with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * @param oAuthUserId the primary key of the o auth user
+	 * @return the o auth user that was removed
+	 * @throws com.liferay.oauth.NoSuchUserException if a o auth user with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public OAuthUser remove(long oAuthUserId)
+		throws NoSuchUserException, SystemException {
+		return remove((Serializable)oAuthUserId);
+	}
+
+	/**
+	 * Removes the o auth user with the primary key from the database. Also notifies the appropriate model listeners.
+	 *
+	 * @param primaryKey the primary key of the o auth user
+	 * @return the o auth user that was removed
+	 * @throws com.liferay.oauth.NoSuchUserException if a o auth user with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public OAuthUser remove(Serializable primaryKey)
+		throws NoSuchUserException, SystemException {
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			OAuthUser oAuthUser = (OAuthUser)session.get(OAuthUserImpl.class,
+					primaryKey);
+
+			if (oAuthUser == null) {
+				if (_log.isWarnEnabled()) {
+					_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+				}
+
+				throw new NoSuchUserException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+					primaryKey);
+			}
+
+			return remove(oAuthUser);
+		}
+		catch (NoSuchUserException nsee) {
+			throw nsee;
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+	}
+
+	@Override
+	protected OAuthUser removeImpl(OAuthUser oAuthUser)
+		throws SystemException {
+		oAuthUser = toUnwrappedModel(oAuthUser);
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			if (!session.contains(oAuthUser)) {
+				oAuthUser = (OAuthUser)session.get(OAuthUserImpl.class,
+						oAuthUser.getPrimaryKeyObj());
+			}
+
+			if (oAuthUser != null) {
+				session.delete(oAuthUser);
+			}
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+
+		if (oAuthUser != null) {
+			clearCache(oAuthUser);
+		}
+
+		return oAuthUser;
+	}
+
+	@Override
+	public OAuthUser updateImpl(com.liferay.oauth.model.OAuthUser oAuthUser)
+		throws SystemException {
+		oAuthUser = toUnwrappedModel(oAuthUser);
+
+		boolean isNew = oAuthUser.isNew();
+
+		OAuthUserModelImpl oAuthUserModelImpl = (OAuthUserModelImpl)oAuthUser;
+
+		Session session = null;
+
+		try {
+			session = openSession();
+
+			if (oAuthUser.isNew()) {
+				session.save(oAuthUser);
+
+				oAuthUser.setNew(false);
+			}
+			else {
+				session.merge(oAuthUser);
+			}
+		}
+		catch (Exception e) {
+			throw processException(e);
+		}
+		finally {
+			closeSession(session);
+		}
+
+		FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
+
+		if (isNew || !OAuthUserModelImpl.COLUMN_BITMASK_ENABLED) {
+			FinderCacheUtil.clearCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
+		}
+
+		else {
+			if ((oAuthUserModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						oAuthUserModelImpl.getOriginalUserId()
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_USERID, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID,
+					args);
+
+				args = new Object[] { oAuthUserModelImpl.getUserId() };
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_USERID, args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_USERID,
+					args);
+			}
+
+			if ((oAuthUserModelImpl.getColumnBitmask() &
+					FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_OAUTHAPPLICATIONID.getColumnBitmask()) != 0) {
+				Object[] args = new Object[] {
+						oAuthUserModelImpl.getOriginalOAuthApplicationId()
+					};
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_OAUTHAPPLICATIONID,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_OAUTHAPPLICATIONID,
+					args);
+
+				args = new Object[] { oAuthUserModelImpl.getOAuthApplicationId() };
+
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_BY_OAUTHAPPLICATIONID,
+					args);
+				FinderCacheUtil.removeResult(FINDER_PATH_WITHOUT_PAGINATION_FIND_BY_OAUTHAPPLICATIONID,
+					args);
+			}
+		}
+
+		EntityCacheUtil.putResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+			OAuthUserImpl.class, oAuthUser.getPrimaryKey(), oAuthUser);
+
+		clearUniqueFindersCache(oAuthUser);
+		cacheUniqueFindersCache(oAuthUser);
+
+		return oAuthUser;
+	}
+
+	protected OAuthUser toUnwrappedModel(OAuthUser oAuthUser) {
+		if (oAuthUser instanceof OAuthUserImpl) {
+			return oAuthUser;
+		}
+
+		OAuthUserImpl oAuthUserImpl = new OAuthUserImpl();
+
+		oAuthUserImpl.setNew(oAuthUser.isNew());
+		oAuthUserImpl.setPrimaryKey(oAuthUser.getPrimaryKey());
+
+		oAuthUserImpl.setOAuthUserId(oAuthUser.getOAuthUserId());
+		oAuthUserImpl.setCompanyId(oAuthUser.getCompanyId());
+		oAuthUserImpl.setUserId(oAuthUser.getUserId());
+		oAuthUserImpl.setUserName(oAuthUser.getUserName());
+		oAuthUserImpl.setCreateDate(oAuthUser.getCreateDate());
+		oAuthUserImpl.setModifiedDate(oAuthUser.getModifiedDate());
+		oAuthUserImpl.setOAuthApplicationId(oAuthUser.getOAuthApplicationId());
+		oAuthUserImpl.setAccessToken(oAuthUser.getAccessToken());
+		oAuthUserImpl.setAccessSecret(oAuthUser.getAccessSecret());
+
+		return oAuthUserImpl;
+	}
+
+	/**
+	 * Returns the o auth user with the primary key or throws a {@link com.liferay.portal.NoSuchModelException} if it could not be found.
+	 *
+	 * @param primaryKey the primary key of the o auth user
+	 * @return the o auth user
+	 * @throws com.liferay.oauth.NoSuchUserException if a o auth user with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public OAuthUser findByPrimaryKey(Serializable primaryKey)
+		throws NoSuchUserException, SystemException {
+		OAuthUser oAuthUser = fetchByPrimaryKey(primaryKey);
+
+		if (oAuthUser == null) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY + primaryKey);
+			}
+
+			throw new NoSuchUserException(_NO_SUCH_ENTITY_WITH_PRIMARY_KEY +
+				primaryKey);
+		}
+
+		return oAuthUser;
+	}
+
+	/**
+	 * Returns the o auth user with the primary key or throws a {@link com.liferay.oauth.NoSuchUserException} if it could not be found.
+	 *
+	 * @param oAuthUserId the primary key of the o auth user
+	 * @return the o auth user
+	 * @throws com.liferay.oauth.NoSuchUserException if a o auth user with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public OAuthUser findByPrimaryKey(long oAuthUserId)
+		throws NoSuchUserException, SystemException {
+		return findByPrimaryKey((Serializable)oAuthUserId);
+	}
+
+	/**
+	 * Returns the o auth user with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param primaryKey the primary key of the o auth user
+	 * @return the o auth user, or <code>null</code> if a o auth user with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public OAuthUser fetchByPrimaryKey(Serializable primaryKey)
+		throws SystemException {
+		OAuthUser oAuthUser = (OAuthUser)EntityCacheUtil.getResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+				OAuthUserImpl.class, primaryKey);
+
+		if (oAuthUser == _nullOAuthUser) {
+			return null;
+		}
+
+		if (oAuthUser == null) {
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				oAuthUser = (OAuthUser)session.get(OAuthUserImpl.class,
+						primaryKey);
+
+				if (oAuthUser != null) {
+					cacheResult(oAuthUser);
+				}
+				else {
+					EntityCacheUtil.putResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+						OAuthUserImpl.class, primaryKey, _nullOAuthUser);
+				}
+			}
+			catch (Exception e) {
+				EntityCacheUtil.removeResult(OAuthUserModelImpl.ENTITY_CACHE_ENABLED,
+					OAuthUserImpl.class, primaryKey);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return oAuthUser;
+	}
+
+	/**
+	 * Returns the o auth user with the primary key or returns <code>null</code> if it could not be found.
+	 *
+	 * @param oAuthUserId the primary key of the o auth user
+	 * @return the o auth user, or <code>null</code> if a o auth user with the primary key could not be found
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public OAuthUser fetchByPrimaryKey(long oAuthUserId)
+		throws SystemException {
+		return fetchByPrimaryKey((Serializable)oAuthUserId);
+	}
+
+	/**
+	 * Returns all the o auth users.
+	 *
+	 * @return the o auth users
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<OAuthUser> findAll() throws SystemException {
+		return findAll(QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+	}
+
+	/**
+	 * Returns a range of all the o auth users.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.oauth.model.impl.OAuthUserModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param start the lower bound of the range of o auth users
+	 * @param end the upper bound of the range of o auth users (not inclusive)
+	 * @return the range of o auth users
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<OAuthUser> findAll(int start, int end)
+		throws SystemException {
+		return findAll(start, end, null);
+	}
+
+	/**
+	 * Returns an ordered range of all the o auth users.
+	 *
+	 * <p>
+	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.oauth.model.impl.OAuthUserModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
+	 * </p>
+	 *
+	 * @param start the lower bound of the range of o auth users
+	 * @param end the upper bound of the range of o auth users (not inclusive)
+	 * @param orderByComparator the comparator to order the results by (optionally <code>null</code>)
+	 * @return the ordered range of o auth users
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public List<OAuthUser> findAll(int start, int end,
+		OrderByComparator orderByComparator) throws SystemException {
+		boolean pagination = true;
+		FinderPath finderPath = null;
+		Object[] finderArgs = null;
+
+		if ((start == QueryUtil.ALL_POS) && (end == QueryUtil.ALL_POS) &&
+				(orderByComparator == null)) {
+			pagination = false;
+			finderPath = FINDER_PATH_WITHOUT_PAGINATION_FIND_ALL;
+			finderArgs = FINDER_ARGS_EMPTY;
+		}
+		else {
+			finderPath = FINDER_PATH_WITH_PAGINATION_FIND_ALL;
+			finderArgs = new Object[] { start, end, orderByComparator };
+		}
+
+		List<OAuthUser> list = (List<OAuthUser>)FinderCacheUtil.getResult(finderPath,
+				finderArgs, this);
+
+		if (list == null) {
+			StringBundler query = null;
+			String sql = null;
+
+			if (orderByComparator != null) {
+				query = new StringBundler(2 +
+						(orderByComparator.getOrderByFields().length * 3));
+
+				query.append(_SQL_SELECT_OAUTHUSER);
+
+				appendOrderByComparator(query, _ORDER_BY_ENTITY_ALIAS,
+					orderByComparator);
+
+				sql = query.toString();
+			}
+			else {
+				sql = _SQL_SELECT_OAUTHUSER;
+
+				if (pagination) {
+					sql = sql.concat(OAuthUserModelImpl.ORDER_BY_JPQL);
+				}
+			}
+
+			Session session = null;
+
+			try {
+				session = openSession();
+
+				Query q = session.createQuery(sql);
+
+				if (!pagination) {
+					list = (List<OAuthUser>)QueryUtil.list(q, getDialect(),
+							start, end, false);
+
+					Collections.sort(list);
+
+					list = new UnmodifiableList<OAuthUser>(list);
+				}
+				else {
+					list = (List<OAuthUser>)QueryUtil.list(q, getDialect(),
+							start, end);
+				}
+
+				cacheResult(list);
+
+				FinderCacheUtil.putResult(finderPath, finderArgs, list);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(finderPath, finderArgs);
+
+				throw processException(e);
+			}
+			finally {
+				closeSession(session);
+			}
+		}
+
+		return list;
+	}
+
+	/**
+	 * Removes all the o auth users from the database.
+	 *
+	 * @throws SystemException if a system exception occurred
+	 */
+	@Override
+	public void removeAll() throws SystemException {
+		for (OAuthUser oAuthUser : findAll()) {
+			remove(oAuthUser);
+		}
 	}
 
 	/**
@@ -2763,6 +2897,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	 * @return the number of o auth users
 	 * @throws SystemException if a system exception occurred
 	 */
+	@Override
 	public int countAll() throws SystemException {
 		Long count = (Long)FinderCacheUtil.getResult(FINDER_PATH_COUNT_ALL,
 				FINDER_ARGS_EMPTY, this);
@@ -2776,18 +2911,17 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 				Query q = session.createQuery(_SQL_COUNT_OAUTHUSER);
 
 				count = (Long)q.uniqueResult();
-			}
-			catch (Exception e) {
-				throw processException(e);
-			}
-			finally {
-				if (count == null) {
-					count = Long.valueOf(0);
-				}
 
 				FinderCacheUtil.putResult(FINDER_PATH_COUNT_ALL,
 					FINDER_ARGS_EMPTY, count);
+			}
+			catch (Exception e) {
+				FinderCacheUtil.removeResult(FINDER_PATH_COUNT_ALL,
+					FINDER_ARGS_EMPTY);
 
+				throw processException(e);
+			}
+			finally {
 				closeSession(session);
 			}
 		}
@@ -2808,10 +2942,8 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 				List<ModelListener<OAuthUser>> listenersList = new ArrayList<ModelListener<OAuthUser>>();
 
 				for (String listenerClassName : listenerClassNames) {
-					Class<?> clazz = getClass();
-
 					listenersList.add((ModelListener<OAuthUser>)InstanceFactory.newInstance(
-							clazz.getClassLoader(), listenerClassName));
+							getClassLoader(), listenerClassName));
 				}
 
 				listeners = listenersList.toArray(new ModelListener[listenersList.size()]);
@@ -2825,29 +2957,14 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 	public void destroy() {
 		EntityCacheUtil.removeCache(OAuthUserImpl.class.getName());
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_ENTITY);
+		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITH_PAGINATION);
 		FinderCacheUtil.removeCache(FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION);
 	}
 
-	@BeanReference(type = OAuthApplicationPersistence.class)
-	protected OAuthApplicationPersistence oAuthApplicationPersistence;
-	@BeanReference(type = OAuthUserPersistence.class)
-	protected OAuthUserPersistence oAuthUserPersistence;
-	@BeanReference(type = ResourcePersistence.class)
-	protected ResourcePersistence resourcePersistence;
-	@BeanReference(type = UserPersistence.class)
-	protected UserPersistence userPersistence;
 	private static final String _SQL_SELECT_OAUTHUSER = "SELECT oAuthUser FROM OAuthUser oAuthUser";
 	private static final String _SQL_SELECT_OAUTHUSER_WHERE = "SELECT oAuthUser FROM OAuthUser oAuthUser WHERE ";
 	private static final String _SQL_COUNT_OAUTHUSER = "SELECT COUNT(oAuthUser) FROM OAuthUser oAuthUser";
 	private static final String _SQL_COUNT_OAUTHUSER_WHERE = "SELECT COUNT(oAuthUser) FROM OAuthUser oAuthUser WHERE ";
-	private static final String _FINDER_COLUMN_USERID_USERID_2 = "oAuthUser.userId = ?";
-	private static final String _FINDER_COLUMN_OAUTHAPPLICATIONID_OAUTHAPPLICATIONID_2 =
-		"oAuthUser.oAuthApplicationId = ?";
-	private static final String _FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_1 = "oAuthUser.accessToken IS NULL";
-	private static final String _FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_2 = "oAuthUser.accessToken = ?";
-	private static final String _FINDER_COLUMN_ACCESSTOKEN_ACCESSTOKEN_3 = "(oAuthUser.accessToken IS NULL OR oAuthUser.accessToken = ?)";
-	private static final String _FINDER_COLUMN_U_OAI_USERID_2 = "oAuthUser.userId = ? AND ";
-	private static final String _FINDER_COLUMN_U_OAI_OAUTHAPPLICATIONID_2 = "oAuthUser.oAuthApplicationId = ?";
 	private static final String _FILTER_ENTITY_TABLE_FILTER_PK_COLUMN = "oAuthUser.oAuthUserId";
 	private static final String _FILTER_SQL_SELECT_OAUTHUSER_WHERE = "SELECT DISTINCT {oAuthUser.*} FROM OAuth_OAuthUser oAuthUser WHERE ";
 	private static final String _FILTER_SQL_SELECT_OAUTHUSER_NO_INLINE_DISTINCT_WHERE_1 =
@@ -2877,6 +2994,7 @@ public class OAuthUserPersistenceImpl extends BasePersistenceImpl<OAuthUser>
 		};
 
 	private static CacheModel<OAuthUser> _nullOAuthUserCacheModel = new CacheModel<OAuthUser>() {
+			@Override
 			public OAuthUser toEntityModel() {
 				return _nullOAuthUser;
 			}

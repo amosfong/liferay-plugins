@@ -19,11 +19,12 @@ import com.liferay.portal.kernel.util.ReferenceRegistry;
 import com.liferay.portal.service.InvokableService;
 
 /**
- * The utility for the o auth application remote service. This utility wraps {@link com.liferay.oauth.service.impl.OAuthApplicationServiceImpl} and is the primary access point for service operations in application layer code running on a remote server.
- *
- * <p>
- * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
- * </p>
+ * Provides the remote service utility for OAuthApplication. This utility wraps
+ * {@link com.liferay.oauth.service.impl.OAuthApplicationServiceImpl} and is the
+ * primary access point for service operations in application layer code running
+ * on a remote server. Methods of this service are expected to have security
+ * checks based on the propagated JAAS credentials because this service can be
+ * accessed remotely.
  *
  * @author Ivica Cardic
  * @see OAuthApplicationService
@@ -129,7 +130,7 @@ public class OAuthApplicationServiceUtil {
 	}
 
 	/**
-	 * @deprecated
+	 * @deprecated As of 6.2.0
 	 */
 	public void setService(OAuthApplicationService service) {
 	}

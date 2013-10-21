@@ -17,12 +17,10 @@ package com.liferay.oauth.service;
 import com.liferay.portal.service.ServiceWrapper;
 
 /**
- * <p>
- * This class is a wrapper for {@link OAuthUserService}.
- * </p>
+ * Provides a wrapper for {@link OAuthUserService}.
  *
- * @author    Ivica Cardic
- * @see       OAuthUserService
+ * @author Ivica Cardic
+ * @see OAuthUserService
  * @generated
  */
 public class OAuthUserServiceWrapper implements OAuthUserService,
@@ -36,6 +34,7 @@ public class OAuthUserServiceWrapper implements OAuthUserService,
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _oAuthUserService.getBeanIdentifier();
 	}
@@ -45,16 +44,19 @@ public class OAuthUserServiceWrapper implements OAuthUserService,
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_oAuthUserService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		return _oAuthUserService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthUser deleteOAuthUser(
 		long oAuthApplicationId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -63,23 +65,25 @@ public class OAuthUserServiceWrapper implements OAuthUserService,
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #getWrappedService}
+	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
 	public OAuthUserService getWrappedOAuthUserService() {
 		return _oAuthUserService;
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #setWrappedService}
+	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
 	 */
 	public void setWrappedOAuthUserService(OAuthUserService oAuthUserService) {
 		_oAuthUserService = oAuthUserService;
 	}
 
+	@Override
 	public OAuthUserService getWrappedService() {
 		return _oAuthUserService;
 	}
 
+	@Override
 	public void setWrappedService(OAuthUserService oAuthUserService) {
 		_oAuthUserService = oAuthUserService;
 	}

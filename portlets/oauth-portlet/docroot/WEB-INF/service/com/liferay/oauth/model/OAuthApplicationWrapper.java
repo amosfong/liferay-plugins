@@ -26,8 +26,8 @@ import java.util.Map;
  * This class is a wrapper for {@link OAuthApplication}.
  * </p>
  *
- * @author    Ivica Cardic
- * @see       OAuthApplication
+ * @author Ivica Cardic
+ * @see OAuthApplication
  * @generated
  */
 public class OAuthApplicationWrapper implements OAuthApplication,
@@ -36,14 +36,17 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 		_oAuthApplication = oAuthApplication;
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return OAuthApplication.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return OAuthApplication.class.getName();
 	}
 
+	@Override
 	public Map<String, Object> getModelAttributes() {
 		Map<String, Object> attributes = new HashMap<String, Object>();
 
@@ -65,6 +68,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 		return attributes;
 	}
 
+	@Override
 	public void setModelAttributes(Map<String, Object> attributes) {
 		Long oAuthApplicationId = (Long)attributes.get("oAuthApplicationId");
 
@@ -156,6 +160,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @return the primary key of this o auth application
 	*/
+	@Override
 	public long getPrimaryKey() {
 		return _oAuthApplication.getPrimaryKey();
 	}
@@ -165,6 +170,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @param primaryKey the primary key of this o auth application
 	*/
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		_oAuthApplication.setPrimaryKey(primaryKey);
 	}
@@ -174,6 +180,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @return the o auth application ID of this o auth application
 	*/
+	@Override
 	public long getOAuthApplicationId() {
 		return _oAuthApplication.getOAuthApplicationId();
 	}
@@ -183,6 +190,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @param oAuthApplicationId the o auth application ID of this o auth application
 	*/
+	@Override
 	public void setOAuthApplicationId(long oAuthApplicationId) {
 		_oAuthApplication.setOAuthApplicationId(oAuthApplicationId);
 	}
@@ -192,6 +200,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @return the company ID of this o auth application
 	*/
+	@Override
 	public long getCompanyId() {
 		return _oAuthApplication.getCompanyId();
 	}
@@ -201,6 +210,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @param companyId the company ID of this o auth application
 	*/
+	@Override
 	public void setCompanyId(long companyId) {
 		_oAuthApplication.setCompanyId(companyId);
 	}
@@ -210,6 +220,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @return the user ID of this o auth application
 	*/
+	@Override
 	public long getUserId() {
 		return _oAuthApplication.getUserId();
 	}
@@ -219,6 +230,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @param userId the user ID of this o auth application
 	*/
+	@Override
 	public void setUserId(long userId) {
 		_oAuthApplication.setUserId(userId);
 	}
@@ -229,6 +241,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	* @return the user uuid of this o auth application
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.lang.String getUserUuid()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _oAuthApplication.getUserUuid();
@@ -239,6 +252,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @param userUuid the user uuid of this o auth application
 	*/
+	@Override
 	public void setUserUuid(java.lang.String userUuid) {
 		_oAuthApplication.setUserUuid(userUuid);
 	}
@@ -248,6 +262,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @return the user name of this o auth application
 	*/
+	@Override
 	public java.lang.String getUserName() {
 		return _oAuthApplication.getUserName();
 	}
@@ -257,6 +272,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @param userName the user name of this o auth application
 	*/
+	@Override
 	public void setUserName(java.lang.String userName) {
 		_oAuthApplication.setUserName(userName);
 	}
@@ -266,6 +282,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @return the create date of this o auth application
 	*/
+	@Override
 	public java.util.Date getCreateDate() {
 		return _oAuthApplication.getCreateDate();
 	}
@@ -275,6 +292,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @param createDate the create date of this o auth application
 	*/
+	@Override
 	public void setCreateDate(java.util.Date createDate) {
 		_oAuthApplication.setCreateDate(createDate);
 	}
@@ -284,6 +302,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @return the modified date of this o auth application
 	*/
+	@Override
 	public java.util.Date getModifiedDate() {
 		return _oAuthApplication.getModifiedDate();
 	}
@@ -293,6 +312,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @param modifiedDate the modified date of this o auth application
 	*/
+	@Override
 	public void setModifiedDate(java.util.Date modifiedDate) {
 		_oAuthApplication.setModifiedDate(modifiedDate);
 	}
@@ -302,6 +322,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @return the name of this o auth application
 	*/
+	@Override
 	public java.lang.String getName() {
 		return _oAuthApplication.getName();
 	}
@@ -311,6 +332,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @param name the name of this o auth application
 	*/
+	@Override
 	public void setName(java.lang.String name) {
 		_oAuthApplication.setName(name);
 	}
@@ -320,6 +342,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @return the description of this o auth application
 	*/
+	@Override
 	public java.lang.String getDescription() {
 		return _oAuthApplication.getDescription();
 	}
@@ -329,6 +352,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @param description the description of this o auth application
 	*/
+	@Override
 	public void setDescription(java.lang.String description) {
 		_oAuthApplication.setDescription(description);
 	}
@@ -338,6 +362,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @return the consumer key of this o auth application
 	*/
+	@Override
 	public java.lang.String getConsumerKey() {
 		return _oAuthApplication.getConsumerKey();
 	}
@@ -347,6 +372,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @param consumerKey the consumer key of this o auth application
 	*/
+	@Override
 	public void setConsumerKey(java.lang.String consumerKey) {
 		_oAuthApplication.setConsumerKey(consumerKey);
 	}
@@ -356,6 +382,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @return the consumer secret of this o auth application
 	*/
+	@Override
 	public java.lang.String getConsumerSecret() {
 		return _oAuthApplication.getConsumerSecret();
 	}
@@ -365,6 +392,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @param consumerSecret the consumer secret of this o auth application
 	*/
+	@Override
 	public void setConsumerSecret(java.lang.String consumerSecret) {
 		_oAuthApplication.setConsumerSecret(consumerSecret);
 	}
@@ -374,6 +402,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @return the access level of this o auth application
 	*/
+	@Override
 	public int getAccessLevel() {
 		return _oAuthApplication.getAccessLevel();
 	}
@@ -383,6 +412,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @param accessLevel the access level of this o auth application
 	*/
+	@Override
 	public void setAccessLevel(int accessLevel) {
 		_oAuthApplication.setAccessLevel(accessLevel);
 	}
@@ -392,6 +422,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @return the logo ID of this o auth application
 	*/
+	@Override
 	public long getLogoId() {
 		return _oAuthApplication.getLogoId();
 	}
@@ -401,6 +432,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @param logoId the logo ID of this o auth application
 	*/
+	@Override
 	public void setLogoId(long logoId) {
 		_oAuthApplication.setLogoId(logoId);
 	}
@@ -410,6 +442,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @return the callback u r i of this o auth application
 	*/
+	@Override
 	public java.lang.String getCallbackURI() {
 		return _oAuthApplication.getCallbackURI();
 	}
@@ -419,6 +452,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @param callbackURI the callback u r i of this o auth application
 	*/
+	@Override
 	public void setCallbackURI(java.lang.String callbackURI) {
 		_oAuthApplication.setCallbackURI(callbackURI);
 	}
@@ -428,6 +462,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @return the website u r l of this o auth application
 	*/
+	@Override
 	public java.lang.String getWebsiteURL() {
 		return _oAuthApplication.getWebsiteURL();
 	}
@@ -437,42 +472,64 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	*
 	* @param websiteURL the website u r l of this o auth application
 	*/
+	@Override
 	public void setWebsiteURL(java.lang.String websiteURL) {
 		_oAuthApplication.setWebsiteURL(websiteURL);
 	}
 
+	@Override
 	public boolean isNew() {
 		return _oAuthApplication.isNew();
 	}
 
+	@Override
 	public void setNew(boolean n) {
 		_oAuthApplication.setNew(n);
 	}
 
+	@Override
 	public boolean isCachedModel() {
 		return _oAuthApplication.isCachedModel();
 	}
 
+	@Override
 	public void setCachedModel(boolean cachedModel) {
 		_oAuthApplication.setCachedModel(cachedModel);
 	}
 
+	@Override
 	public boolean isEscapedModel() {
 		return _oAuthApplication.isEscapedModel();
 	}
 
+	@Override
 	public java.io.Serializable getPrimaryKeyObj() {
 		return _oAuthApplication.getPrimaryKeyObj();
 	}
 
+	@Override
 	public void setPrimaryKeyObj(java.io.Serializable primaryKeyObj) {
 		_oAuthApplication.setPrimaryKeyObj(primaryKeyObj);
 	}
 
+	@Override
 	public com.liferay.portlet.expando.model.ExpandoBridge getExpandoBridge() {
 		return _oAuthApplication.getExpandoBridge();
 	}
 
+	@Override
+	public void setExpandoBridgeAttributes(
+		com.liferay.portal.model.BaseModel<?> baseModel) {
+		_oAuthApplication.setExpandoBridgeAttributes(baseModel);
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(
+		com.liferay.portlet.expando.model.ExpandoBridge expandoBridge) {
+		_oAuthApplication.setExpandoBridgeAttributes(expandoBridge);
+	}
+
+	@Override
 	public void setExpandoBridgeAttributes(
 		com.liferay.portal.service.ServiceContext serviceContext) {
 		_oAuthApplication.setExpandoBridgeAttributes(serviceContext);
@@ -483,6 +540,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 		return new OAuthApplicationWrapper((OAuthApplication)_oAuthApplication.clone());
 	}
 
+	@Override
 	public int compareTo(
 		com.liferay.oauth.model.OAuthApplication oAuthApplication) {
 		return _oAuthApplication.compareTo(oAuthApplication);
@@ -493,14 +551,17 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 		return _oAuthApplication.hashCode();
 	}
 
+	@Override
 	public com.liferay.portal.model.CacheModel<com.liferay.oauth.model.OAuthApplication> toCacheModel() {
 		return _oAuthApplication.toCacheModel();
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication toEscapedModel() {
 		return new OAuthApplicationWrapper(_oAuthApplication.toEscapedModel());
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication toUnescapedModel() {
 		return new OAuthApplicationWrapper(_oAuthApplication.toUnescapedModel());
 	}
@@ -510,15 +571,18 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 		return _oAuthApplication.toString();
 	}
 
+	@Override
 	public java.lang.String toXmlString() {
 		return _oAuthApplication.toXmlString();
 	}
 
+	@Override
 	public void persist()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		_oAuthApplication.persist();
 	}
 
+	@Override
 	public java.lang.String getAccessLevelLabel() {
 		return _oAuthApplication.getAccessLevelLabel();
 	}
@@ -544,16 +608,18 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #getWrappedModel}
+	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedModel}
 	 */
 	public OAuthApplication getWrappedOAuthApplication() {
 		return _oAuthApplication;
 	}
 
+	@Override
 	public OAuthApplication getWrappedModel() {
 		return _oAuthApplication;
 	}
 
+	@Override
 	public void resetOriginalValues() {
 		_oAuthApplication.resetOriginalValues();
 	}

@@ -83,6 +83,8 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		};
 	public static final String TABLE_SQL_CREATE = "create table OAuth_OAuthApplication (oAuthApplicationId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,description STRING null,consumerKey VARCHAR(75) null,consumerSecret VARCHAR(75) null,accessLevel INTEGER,logoId LONG,callbackURI STRING null,websiteURL STRING null)";
 	public static final String TABLE_SQL_DROP = "drop table OAuth_OAuthApplication";
+	public static final String ORDER_BY_JPQL = " ORDER BY oAuthApplication.oAuthApplicationId ASC";
+	public static final String ORDER_BY_SQL = " ORDER BY OAuth_OAuthApplication.oAuthApplicationId ASC";
 	public static final String DATA_SOURCE = "liferayDataSource";
 	public static final String SESSION_FACTORY = "liferaySessionFactory";
 	public static final String TX_MANAGER = "liferayTransactionManager";
@@ -99,6 +101,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	public static long CONSUMERKEY_COLUMN_BITMASK = 2L;
 	public static long NAME_COLUMN_BITMASK = 4L;
 	public static long USERID_COLUMN_BITMASK = 8L;
+	public static long OAUTHAPPLICATIONID_COLUMN_BITMASK = 16L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -158,26 +161,32 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	public OAuthApplicationModelImpl() {
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _oAuthApplicationId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setOAuthApplicationId(primaryKey);
 	}
 
+	@Override
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_oAuthApplicationId);
+		return _oAuthApplicationId;
 	}
 
+	@Override
 	public void setPrimaryKeyObj(Serializable primaryKeyObj) {
 		setPrimaryKey(((Long)primaryKeyObj).longValue());
 	}
 
+	@Override
 	public Class<?> getModelClass() {
 		return OAuthApplication.class;
 	}
 
+	@Override
 	public String getModelClassName() {
 		return OAuthApplication.class.getName();
 	}
@@ -292,19 +301,23 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	}
 
 	@JSON
+	@Override
 	public long getOAuthApplicationId() {
 		return _oAuthApplicationId;
 	}
 
+	@Override
 	public void setOAuthApplicationId(long oAuthApplicationId) {
 		_oAuthApplicationId = oAuthApplicationId;
 	}
 
 	@JSON
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_columnBitmask |= COMPANYID_COLUMN_BITMASK;
 
@@ -322,10 +335,12 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	}
 
 	@JSON
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_columnBitmask |= USERID_COLUMN_BITMASK;
 
@@ -338,10 +353,12 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		_userId = userId;
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
@@ -351,6 +368,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	}
 
 	@JSON
+	@Override
 	public String getUserName() {
 		if (_userName == null) {
 			return StringPool.BLANK;
@@ -360,29 +378,35 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 	}
 
 	@JSON
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 	}
 
 	@JSON
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 	}
 
 	@JSON
+	@Override
 	public String getName() {
 		if (_name == null) {
 			return StringPool.BLANK;
@@ -392,6 +416,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public void setName(String name) {
 		_columnBitmask |= NAME_COLUMN_BITMASK;
 
@@ -407,6 +432,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	}
 
 	@JSON
+	@Override
 	public String getDescription() {
 		if (_description == null) {
 			return StringPool.BLANK;
@@ -416,11 +442,13 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public void setDescription(String description) {
 		_description = description;
 	}
 
 	@JSON
+	@Override
 	public String getConsumerKey() {
 		if (_consumerKey == null) {
 			return StringPool.BLANK;
@@ -430,6 +458,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public void setConsumerKey(String consumerKey) {
 		_columnBitmask |= CONSUMERKEY_COLUMN_BITMASK;
 
@@ -445,6 +474,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	}
 
 	@JSON
+	@Override
 	public String getConsumerSecret() {
 		if (_consumerSecret == null) {
 			return StringPool.BLANK;
@@ -454,29 +484,35 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public void setConsumerSecret(String consumerSecret) {
 		_consumerSecret = consumerSecret;
 	}
 
 	@JSON
+	@Override
 	public int getAccessLevel() {
 		return _accessLevel;
 	}
 
+	@Override
 	public void setAccessLevel(int accessLevel) {
 		_accessLevel = accessLevel;
 	}
 
 	@JSON
+	@Override
 	public long getLogoId() {
 		return _logoId;
 	}
 
+	@Override
 	public void setLogoId(long logoId) {
 		_logoId = logoId;
 	}
 
 	@JSON
+	@Override
 	public String getCallbackURI() {
 		if (_callbackURI == null) {
 			return StringPool.BLANK;
@@ -486,11 +522,13 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public void setCallbackURI(String callbackURI) {
 		_callbackURI = callbackURI;
 	}
 
 	@JSON
+	@Override
 	public String getWebsiteURL() {
 		if (_websiteURL == null) {
 			return StringPool.BLANK;
@@ -500,6 +538,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public void setWebsiteURL(String websiteURL) {
 		_websiteURL = websiteURL;
 	}
@@ -531,10 +570,6 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		return _escapedModel;
 	}
 
-	public OAuthApplication toUnescapedModel() {
-		return (OAuthApplication)this;
-	}
-
 	@Override
 	public Object clone() {
 		OAuthApplicationImpl oAuthApplicationImpl = new OAuthApplicationImpl();
@@ -559,6 +594,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		return oAuthApplicationImpl;
 	}
 
+	@Override
 	public int compareTo(OAuthApplication oAuthApplication) {
 		long primaryKey = oAuthApplication.getPrimaryKey();
 
@@ -747,6 +783,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		return sb.toString();
 	}
 
+	@Override
 	public String toXmlString() {
 		StringBundler sb = new StringBundler(46);
 

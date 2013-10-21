@@ -38,6 +38,7 @@ public abstract class OAuthUserBaseImpl extends OAuthUserModelImpl
 	 *
 	 * Never modify or reference this class directly. All methods that expect a o auth user model instance should use the {@link OAuthUser} interface instead.
 	 */
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			OAuthUserLocalServiceUtil.addOAuthUser(this);

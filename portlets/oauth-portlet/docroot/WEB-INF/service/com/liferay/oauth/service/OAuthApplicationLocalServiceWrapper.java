@@ -17,12 +17,10 @@ package com.liferay.oauth.service;
 import com.liferay.portal.service.ServiceWrapper;
 
 /**
- * <p>
- * This class is a wrapper for {@link OAuthApplicationLocalService}.
- * </p>
+ * Provides a wrapper for {@link OAuthApplicationLocalService}.
  *
- * @author    Ivica Cardic
- * @see       OAuthApplicationLocalService
+ * @author Ivica Cardic
+ * @see OAuthApplicationLocalService
  * @generated
  */
 public class OAuthApplicationLocalServiceWrapper
@@ -40,6 +38,7 @@ public class OAuthApplicationLocalServiceWrapper
 	* @return the o auth application that was added
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.oauth.model.OAuthApplication addOAuthApplication(
 		com.liferay.oauth.model.OAuthApplication oAuthApplication)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -52,6 +51,7 @@ public class OAuthApplicationLocalServiceWrapper
 	* @param oAuthApplicationId the primary key for the new o auth application
 	* @return the new o auth application
 	*/
+	@Override
 	public com.liferay.oauth.model.OAuthApplication createOAuthApplication(
 		long oAuthApplicationId) {
 		return _oAuthApplicationLocalService.createOAuthApplication(oAuthApplicationId);
@@ -65,6 +65,7 @@ public class OAuthApplicationLocalServiceWrapper
 	* @throws PortalException if a o auth application with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.oauth.model.OAuthApplication deleteOAuthApplication(
 		long oAuthApplicationId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -80,6 +81,7 @@ public class OAuthApplicationLocalServiceWrapper
 	* @throws PortalException
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.oauth.model.OAuthApplication deleteOAuthApplication(
 		com.liferay.oauth.model.OAuthApplication oAuthApplication)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -87,6 +89,7 @@ public class OAuthApplicationLocalServiceWrapper
 		return _oAuthApplicationLocalService.deleteOAuthApplication(oAuthApplication);
 	}
 
+	@Override
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
 		return _oAuthApplicationLocalService.dynamicQuery();
 	}
@@ -98,6 +101,7 @@ public class OAuthApplicationLocalServiceWrapper
 	* @return the matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
@@ -109,7 +113,7 @@ public class OAuthApplicationLocalServiceWrapper
 	* Performs a dynamic query on the database and returns a range of the matching rows.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.oauth.model.impl.OAuthApplicationModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param dynamicQuery the dynamic query
@@ -118,6 +122,7 @@ public class OAuthApplicationLocalServiceWrapper
 	* @return the range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -130,7 +135,7 @@ public class OAuthApplicationLocalServiceWrapper
 	* Performs a dynamic query on the database and returns an ordered range of the matching rows.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.oauth.model.impl.OAuthApplicationModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param dynamicQuery the dynamic query
@@ -140,6 +145,7 @@ public class OAuthApplicationLocalServiceWrapper
 	* @return the ordered range of matching rows
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	@SuppressWarnings("rawtypes")
 	public java.util.List dynamicQuery(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
@@ -157,12 +163,31 @@ public class OAuthApplicationLocalServiceWrapper
 	* @return the number of rows that match the dynamic query
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public long dynamicQueryCount(
 		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _oAuthApplicationLocalService.dynamicQueryCount(dynamicQuery);
 	}
 
+	/**
+	* Returns the number of rows that match the dynamic query.
+	*
+	* @param dynamicQuery the dynamic query
+	* @param projection the projection to apply to the query
+	* @return the number of rows that match the dynamic query
+	* @throws SystemException if a system exception occurred
+	*/
+	@Override
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _oAuthApplicationLocalService.dynamicQueryCount(dynamicQuery,
+			projection);
+	}
+
+	@Override
 	public com.liferay.oauth.model.OAuthApplication fetchOAuthApplication(
 		long oAuthApplicationId)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -177,6 +202,7 @@ public class OAuthApplicationLocalServiceWrapper
 	* @throws PortalException if a o auth application with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.oauth.model.OAuthApplication getOAuthApplication(
 		long oAuthApplicationId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -184,6 +210,7 @@ public class OAuthApplicationLocalServiceWrapper
 		return _oAuthApplicationLocalService.getOAuthApplication(oAuthApplicationId);
 	}
 
+	@Override
 	public com.liferay.portal.model.PersistedModel getPersistedModel(
 		java.io.Serializable primaryKeyObj)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -195,7 +222,7 @@ public class OAuthApplicationLocalServiceWrapper
 	* Returns a range of all the o auth applications.
 	*
 	* <p>
-	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set.
+	* Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS} will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent and pagination is required (<code>start</code> and <code>end</code> are not {@link com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS}), then the query will include the default ORDER BY logic from {@link com.liferay.oauth.model.impl.OAuthApplicationModelImpl}. If both <code>orderByComparator</code> and pagination are absent, for performance reasons, the query will not have an ORDER BY clause and the returned result set will be sorted on by the primary key in an ascending order.
 	* </p>
 	*
 	* @param start the lower bound of the range of o auth applications
@@ -203,6 +230,7 @@ public class OAuthApplicationLocalServiceWrapper
 	* @return the range of o auth applications
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public java.util.List<com.liferay.oauth.model.OAuthApplication> getOAuthApplications(
 		int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -215,6 +243,7 @@ public class OAuthApplicationLocalServiceWrapper
 	* @return the number of o auth applications
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public int getOAuthApplicationsCount()
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _oAuthApplicationLocalService.getOAuthApplicationsCount();
@@ -227,6 +256,7 @@ public class OAuthApplicationLocalServiceWrapper
 	* @return the o auth application that was updated
 	* @throws SystemException if a system exception occurred
 	*/
+	@Override
 	public com.liferay.oauth.model.OAuthApplication updateOAuthApplication(
 		com.liferay.oauth.model.OAuthApplication oAuthApplication)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -234,25 +264,11 @@ public class OAuthApplicationLocalServiceWrapper
 	}
 
 	/**
-	* Updates the o auth application in the database or adds it if it does not yet exist. Also notifies the appropriate model listeners.
-	*
-	* @param oAuthApplication the o auth application
-	* @param merge whether to merge the o auth application with the current session. See {@link com.liferay.portal.service.persistence.BatchSession#update(com.liferay.portal.kernel.dao.orm.Session, com.liferay.portal.model.BaseModel, boolean)} for an explanation.
-	* @return the o auth application that was updated
-	* @throws SystemException if a system exception occurred
-	*/
-	public com.liferay.oauth.model.OAuthApplication updateOAuthApplication(
-		com.liferay.oauth.model.OAuthApplication oAuthApplication, boolean merge)
-		throws com.liferay.portal.kernel.exception.SystemException {
-		return _oAuthApplicationLocalService.updateOAuthApplication(oAuthApplication,
-			merge);
-	}
-
-	/**
 	* Returns the Spring bean ID for this bean.
 	*
 	* @return the Spring bean ID for this bean
 	*/
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		return _oAuthApplicationLocalService.getBeanIdentifier();
 	}
@@ -262,10 +278,12 @@ public class OAuthApplicationLocalServiceWrapper
 	*
 	* @param beanIdentifier the Spring bean ID for this bean
 	*/
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		_oAuthApplicationLocalService.setBeanIdentifier(beanIdentifier);
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
@@ -273,6 +291,7 @@ public class OAuthApplicationLocalServiceWrapper
 			arguments);
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication addOAuthApplication(
 		long userId, java.lang.String name, java.lang.String description,
 		int accessLevel, java.lang.String callbackURI,
@@ -284,18 +303,21 @@ public class OAuthApplicationLocalServiceWrapper
 			description, accessLevel, callbackURI, websiteURL, serviceContext);
 	}
 
+	@Override
 	public void deleteLogo(long oAuthApplicationId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		_oAuthApplicationLocalService.deleteLogo(oAuthApplicationId);
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication fetchOAuthApplication(
 		java.lang.String consumerKey)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _oAuthApplicationLocalService.fetchOAuthApplication(consumerKey);
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication getOAuthApplication(
 		java.lang.String consumerKey)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -303,6 +325,7 @@ public class OAuthApplicationLocalServiceWrapper
 		return _oAuthApplicationLocalService.getOAuthApplication(consumerKey);
 	}
 
+	@Override
 	public java.util.List<com.liferay.oauth.model.OAuthApplication> getOAuthApplications(
 		long companyId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
@@ -311,11 +334,13 @@ public class OAuthApplicationLocalServiceWrapper
 			start, end, orderByComparator);
 	}
 
+	@Override
 	public int getOAuthApplicationsCount(long companyId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return _oAuthApplicationLocalService.getOAuthApplicationsCount(companyId);
 	}
 
+	@Override
 	public java.util.List<com.liferay.oauth.model.OAuthApplication> search(
 		long companyId, java.lang.String keywords,
 		java.util.LinkedHashMap<java.lang.String, java.lang.Object> params,
@@ -326,6 +351,7 @@ public class OAuthApplicationLocalServiceWrapper
 			params, start, end, orderByComparator);
 	}
 
+	@Override
 	public int searchCount(long companyId, java.lang.String keywords,
 		java.util.LinkedHashMap<java.lang.String, java.lang.Object> params)
 		throws com.liferay.portal.kernel.exception.SystemException {
@@ -333,6 +359,7 @@ public class OAuthApplicationLocalServiceWrapper
 			params);
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication updateLogo(
 		long oAuthApplicationId, java.io.InputStream inputStream)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -341,6 +368,7 @@ public class OAuthApplicationLocalServiceWrapper
 			inputStream);
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication updateOAuthApplication(
 		long oAuthApplicationId, java.lang.String name,
 		java.lang.String description, java.lang.String callbackURI,
@@ -353,24 +381,26 @@ public class OAuthApplicationLocalServiceWrapper
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #getWrappedService}
+	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
 	public OAuthApplicationLocalService getWrappedOAuthApplicationLocalService() {
 		return _oAuthApplicationLocalService;
 	}
 
 	/**
-	 * @deprecated Renamed to {@link #setWrappedService}
+	 * @deprecated As of 6.1.0, replaced by {@link #setWrappedService}
 	 */
 	public void setWrappedOAuthApplicationLocalService(
 		OAuthApplicationLocalService oAuthApplicationLocalService) {
 		_oAuthApplicationLocalService = oAuthApplicationLocalService;
 	}
 
+	@Override
 	public OAuthApplicationLocalService getWrappedService() {
 		return _oAuthApplicationLocalService;
 	}
 
+	@Override
 	public void setWrappedService(
 		OAuthApplicationLocalService oAuthApplicationLocalService) {
 		_oAuthApplicationLocalService = oAuthApplicationLocalService;

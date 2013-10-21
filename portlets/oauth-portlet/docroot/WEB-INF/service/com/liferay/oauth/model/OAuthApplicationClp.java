@@ -51,17 +51,19 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		return OAuthApplication.class.getName();
 	}
 
+	@Override
 	public long getPrimaryKey() {
 		return _oAuthApplicationId;
 	}
 
+	@Override
 	public void setPrimaryKey(long primaryKey) {
 		setOAuthApplicationId(primaryKey);
 	}
 
 	@Override
 	public Serializable getPrimaryKeyObj() {
-		return new Long(_oAuthApplicationId);
+		return _oAuthApplicationId;
 	}
 
 	@Override
@@ -178,10 +180,12 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public long getOAuthApplicationId() {
 		return _oAuthApplicationId;
 	}
 
+	@Override
 	public void setOAuthApplicationId(long oAuthApplicationId) {
 		_oAuthApplicationId = oAuthApplicationId;
 
@@ -200,10 +204,12 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
 
+	@Override
 	public void setCompanyId(long companyId) {
 		_companyId = companyId;
 
@@ -221,10 +227,12 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
 
+	@Override
 	public void setUserId(long userId) {
 		_userId = userId;
 
@@ -242,18 +250,22 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public String getUserUuid() throws SystemException {
 		return PortalUtil.getUserValue(getUserId(), "uuid", _userUuid);
 	}
 
+	@Override
 	public void setUserUuid(String userUuid) {
 		_userUuid = userUuid;
 	}
 
+	@Override
 	public String getUserName() {
 		return _userName;
 	}
 
+	@Override
 	public void setUserName(String userName) {
 		_userName = userName;
 
@@ -271,10 +283,12 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
 
+	@Override
 	public void setCreateDate(Date createDate) {
 		_createDate = createDate;
 
@@ -292,10 +306,12 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
 
+	@Override
 	public void setModifiedDate(Date modifiedDate) {
 		_modifiedDate = modifiedDate;
 
@@ -313,10 +329,12 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public String getName() {
 		return _name;
 	}
 
+	@Override
 	public void setName(String name) {
 		_name = name;
 
@@ -334,10 +352,12 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public String getDescription() {
 		return _description;
 	}
 
+	@Override
 	public void setDescription(String description) {
 		_description = description;
 
@@ -355,10 +375,12 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public String getConsumerKey() {
 		return _consumerKey;
 	}
 
+	@Override
 	public void setConsumerKey(String consumerKey) {
 		_consumerKey = consumerKey;
 
@@ -376,10 +398,12 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public String getConsumerSecret() {
 		return _consumerSecret;
 	}
 
+	@Override
 	public void setConsumerSecret(String consumerSecret) {
 		_consumerSecret = consumerSecret;
 
@@ -398,10 +422,12 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public int getAccessLevel() {
 		return _accessLevel;
 	}
 
+	@Override
 	public void setAccessLevel(int accessLevel) {
 		_accessLevel = accessLevel;
 
@@ -419,10 +445,12 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public long getLogoId() {
 		return _logoId;
 	}
 
+	@Override
 	public void setLogoId(long logoId) {
 		_logoId = logoId;
 
@@ -440,10 +468,12 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public String getCallbackURI() {
 		return _callbackURI;
 	}
 
+	@Override
 	public void setCallbackURI(String callbackURI) {
 		_callbackURI = callbackURI;
 
@@ -461,10 +491,12 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public String getWebsiteURL() {
 		return _websiteURL;
 	}
 
+	@Override
 	public void setWebsiteURL(String websiteURL) {
 		_websiteURL = websiteURL;
 
@@ -482,6 +514,7 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		}
 	}
 
+	@Override
 	public java.lang.String getAccessLevelLabel() {
 		try {
 			String methodName = "getAccessLevelLabel";
@@ -550,6 +583,7 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		return returnValue;
 	}
 
+	@Override
 	public void persist() throws SystemException {
 		if (this.isNew()) {
 			OAuthApplicationLocalServiceUtil.addOAuthApplication(this);
@@ -564,11 +598,6 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		return (OAuthApplication)ProxyUtil.newProxyInstance(OAuthApplication.class.getClassLoader(),
 			new Class[] { OAuthApplication.class },
 			new AutoEscapeBeanHandler(this));
-	}
-
-	@Override
-	public OAuthApplication toUnescapedModel() {
-		return this;
 	}
 
 	@Override
@@ -593,6 +622,7 @@ public class OAuthApplicationClp extends BaseModelImpl<OAuthApplication>
 		return clone;
 	}
 
+	@Override
 	public int compareTo(OAuthApplication oAuthApplication) {
 		long primaryKey = oAuthApplication.getPrimaryKey();
 

@@ -18,6 +18,7 @@ import com.liferay.portal.service.InvokableService;
 
 /**
  * @author Ivica Cardic
+ * @generated
  */
 public class OAuthApplicationServiceClp implements OAuthApplicationService {
 	public OAuthApplicationServiceClp(InvokableService invokableService) {
@@ -60,6 +61,7 @@ public class OAuthApplicationServiceClp implements OAuthApplicationService {
 			};
 	}
 
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -82,6 +84,7 @@ public class OAuthApplicationServiceClp implements OAuthApplicationService {
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableService.invokeMethod(_methodName1,
@@ -101,12 +104,14 @@ public class OAuthApplicationServiceClp implements OAuthApplicationService {
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication addOAuthApplication(
 		java.lang.String name, java.lang.String description, int accessLevel,
 		java.lang.String callbackURI, java.lang.String websiteURL,
@@ -155,6 +160,7 @@ public class OAuthApplicationServiceClp implements OAuthApplicationService {
 		return (com.liferay.oauth.model.OAuthApplication)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void deleteLogo(long oAuthApplicationId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -183,6 +189,7 @@ public class OAuthApplicationServiceClp implements OAuthApplicationService {
 		}
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication deleteOAuthApplication(
 		long oAuthApplicationId)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -216,6 +223,7 @@ public class OAuthApplicationServiceClp implements OAuthApplicationService {
 		return (com.liferay.oauth.model.OAuthApplication)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication updateLogo(
 		long oAuthApplicationId, java.io.InputStream inputStream)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -254,6 +262,7 @@ public class OAuthApplicationServiceClp implements OAuthApplicationService {
 		return (com.liferay.oauth.model.OAuthApplication)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public com.liferay.oauth.model.OAuthApplication updateOAuthApplication(
 		long oAuthApplicationId, java.lang.String name,
 		java.lang.String description, java.lang.String callbackURI,

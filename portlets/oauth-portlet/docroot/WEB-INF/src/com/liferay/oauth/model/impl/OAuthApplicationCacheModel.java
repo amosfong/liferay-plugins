@@ -20,7 +20,10 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.model.CacheModel;
 
-import java.io.Serializable;
+import java.io.Externalizable;
+import java.io.IOException;
+import java.io.ObjectInput;
+import java.io.ObjectOutput;
 
 import java.util.Date;
 
@@ -32,7 +35,7 @@ import java.util.Date;
  * @generated
  */
 public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
-	Serializable {
+	Externalizable {
 	@Override
 	public String toString() {
 		StringBundler sb = new StringBundler(29);
@@ -70,6 +73,7 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 		return sb.toString();
 	}
 
+	@Override
 	public OAuthApplication toEntityModel() {
 		OAuthApplicationImpl oAuthApplicationImpl = new OAuthApplicationImpl();
 
@@ -146,6 +150,87 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 		oAuthApplicationImpl.resetOriginalValues();
 
 		return oAuthApplicationImpl;
+	}
+
+	@Override
+	public void readExternal(ObjectInput objectInput) throws IOException {
+		oAuthApplicationId = objectInput.readLong();
+		companyId = objectInput.readLong();
+		userId = objectInput.readLong();
+		userName = objectInput.readUTF();
+		createDate = objectInput.readLong();
+		modifiedDate = objectInput.readLong();
+		name = objectInput.readUTF();
+		description = objectInput.readUTF();
+		consumerKey = objectInput.readUTF();
+		consumerSecret = objectInput.readUTF();
+		accessLevel = objectInput.readInt();
+		logoId = objectInput.readLong();
+		callbackURI = objectInput.readUTF();
+		websiteURL = objectInput.readUTF();
+	}
+
+	@Override
+	public void writeExternal(ObjectOutput objectOutput)
+		throws IOException {
+		objectOutput.writeLong(oAuthApplicationId);
+		objectOutput.writeLong(companyId);
+		objectOutput.writeLong(userId);
+
+		if (userName == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(userName);
+		}
+
+		objectOutput.writeLong(createDate);
+		objectOutput.writeLong(modifiedDate);
+
+		if (name == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(name);
+		}
+
+		if (description == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(description);
+		}
+
+		if (consumerKey == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(consumerKey);
+		}
+
+		if (consumerSecret == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(consumerSecret);
+		}
+
+		objectOutput.writeInt(accessLevel);
+		objectOutput.writeLong(logoId);
+
+		if (callbackURI == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(callbackURI);
+		}
+
+		if (websiteURL == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(websiteURL);
+		}
 	}
 
 	public long oAuthApplicationId;
