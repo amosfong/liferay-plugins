@@ -23,8 +23,8 @@ public interface SPIDefinitionMonitor {
 
 	public void register(SPIDefinition spiDefinition);
 
-	public void unregister(long spiDefinitionId);
-
 	public void unregister();
+
+	public void unregister(long spiDefinitionId);
 
 }

@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.util.PropertiesParamUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.resiliency.spi.model.SPIDefinition;
 import com.liferay.portal.resiliency.spi.service.SPIDefinitionServiceUtil;
-import com.liferay.portal.resiliency.spi.util.SPIAdminConstants;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.util.bridges.mvc.BaseActionCommand;

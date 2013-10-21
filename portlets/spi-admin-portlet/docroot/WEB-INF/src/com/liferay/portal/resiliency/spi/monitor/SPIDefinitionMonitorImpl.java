@@ -96,6 +96,20 @@ public class SPIDefinitionMonitorImpl implements SPIDefinitionMonitor {
 	}
 
 	@Override
+	public void unregister() {
+		Lock writeLock = _readWriteLock.writeLock();
+
+		writeLock.lock();
+
+		try {
+			_spiDefinitions.clear();
+		}
+		finally {
+			writeLock.unlock();
+		}
+	}
+
+	@Override
 	public void unregister(long spiDefinitionId) {
 		Lock writeLock = _readWriteLock.writeLock();
 
@@ -109,19 +123,8 @@ public class SPIDefinitionMonitorImpl implements SPIDefinitionMonitor {
 		}
 	}
 
-	@Override
-	public void unregister() {
-		Lock writeLock = _readWriteLock.writeLock();
-
-		writeLock.lock();
-
-		try {
-			_spiDefinitions.clear();
-		}
-		finally {
-			writeLock.unlock();
-		}
-	}
+	private static final String _SPI_STATUS_DESTINATION_NAME =
+		"liferay/spi_status";
 
 	private long _interval = 60000;
 	private Thread _monitorThread;
@@ -146,8 +149,5 @@ public class SPIDefinitionMonitorImpl implements SPIDefinitionMonitor {
 			while (!_stopped);
 		}
 	}
-
-	private static final String _SPI_STATUS_DESTINATION_NAME =
-		"liferay/spi_status";
 
 }

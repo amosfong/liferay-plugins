@@ -17,7 +17,6 @@ package com.liferay.portal.resiliency.spi.service.impl;
 import com.liferay.portal.kernel.cluster.Clusterable;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.io.unsync.UnsyncStringReader;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.nio.intraband.rpc.IntrabandRPCUtil;
@@ -343,7 +342,6 @@ public class SPIDefinitionLocalServiceImpl
 
 		SPIDefinition spiDefinition = spiDefinitionPersistence.findByPrimaryKey(
 			spiDefinitionId);
-
 
 		try {
 			SPI spi = spiDefinition.getSPI();

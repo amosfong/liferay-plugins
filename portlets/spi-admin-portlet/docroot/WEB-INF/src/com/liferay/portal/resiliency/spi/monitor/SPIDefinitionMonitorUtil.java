@@ -14,7 +14,6 @@
 
 package com.liferay.portal.resiliency.spi.monitor;
 
-import com.liferay.portal.kernel.security.pacl.permission.PortalRuntimePermission;
 import com.liferay.portal.resiliency.spi.model.SPIDefinition;
 
 /**
@@ -30,12 +29,12 @@ public class SPIDefinitionMonitorUtil {
 		getSPIDefinitionMonitor().register(spiDefinition);
 	}
 
-	public static void unregister(long spiDefinitionId) {
-		getSPIDefinitionMonitor().unregister(spiDefinitionId);
-	}
-
 	public static void unregister() {
 		getSPIDefinitionMonitor().unregister();
+	}
+
+	public static void unregister(long spiDefinitionId) {
+		getSPIDefinitionMonitor().unregister(spiDefinitionId);
 	}
 
 	public void setSPIDefinitionMonitor(
