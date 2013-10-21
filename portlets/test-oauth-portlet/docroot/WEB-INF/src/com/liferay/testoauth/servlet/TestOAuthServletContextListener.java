@@ -14,7 +14,7 @@
 
 package com.liferay.testoauth.servlet;
 
-import com.liferay.compat.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.compat.portal.util.PortalUtil;
 import com.liferay.oauth.service.ClpSerializer;
 import com.liferay.opensocial.model.Gadget;
