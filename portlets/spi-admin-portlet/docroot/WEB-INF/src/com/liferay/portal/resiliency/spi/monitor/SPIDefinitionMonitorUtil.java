@@ -37,8 +37,8 @@ public class SPIDefinitionMonitorUtil {
 		getSPIDefinitionMonitor().unregister(spiDefinitionId);
 	}
 
-	public static void unregisterAll() {
-		getSPIDefinitionMonitor().unregisterAll();
+	public static void unregister() {
+		getSPIDefinitionMonitor().unregister();
 	}
 
 	public void setSPIDefinitionMonitor(

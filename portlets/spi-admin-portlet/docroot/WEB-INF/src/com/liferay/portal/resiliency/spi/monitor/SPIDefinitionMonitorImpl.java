@@ -110,7 +110,7 @@ public class SPIDefinitionMonitorImpl implements SPIDefinitionMonitor {
 	}
 
 	@Override
-	public void unregisterAll() {
+	public void unregister() {
 		Lock writeLock = _readWriteLock.writeLock();
 
 		writeLock.lock();

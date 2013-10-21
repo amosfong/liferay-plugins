@@ -25,6 +25,6 @@ public interface SPIDefinitionMonitor {
 
 	public void unregister(long spiDefinitionId);
 
-	public void unregisterAll();
+	public void unregister();
 
 }
