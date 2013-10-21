@@ -31,8 +31,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public abstract class BaseSPIStatusMessageListener extends BaseMessageListener {
 
-	public void setInterestedStatus(Integer... interestedStatus) {
-		_interestedStatuses.addAll(Arrays.asList(interestedStatus));
+	public void setInterestedStatus(Integer... interestedStatuses) {
+		_interestedStatuses.addAll(Arrays.asList(interestedStatuses));
 	}
 
 	public void setMaxExecutions(int maxExecutions) {

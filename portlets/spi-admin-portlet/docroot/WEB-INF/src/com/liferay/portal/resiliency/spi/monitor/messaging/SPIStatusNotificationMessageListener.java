@@ -36,20 +36,20 @@ public class SPIStatusNotificationMessageListener
 		String subject, String message, Integer... interestedStatuses) {
 
 		try {
-			_fromEmailAddress = new InternetAddress(fromEmailAddress);
+			_fromInternetAddress = new InternetAddress(fromEmailAddress);
 
-			Set<InternetAddress> recipientEmailAddressSet =
+			Set<InternetAddress> recipientInternetAddresses =
 				new HashSet<InternetAddress>(recipientEmailAddresses.size());
 
 			for (String recipientEmailAddress : recipientEmailAddresses) {
-				InternetAddress recipientEmail = new InternetAddress(
+				InternetAddress recipientInternetAddress = new InternetAddress(
 					recipientEmailAddress);
 
-				recipientEmailAddressSet.add(recipientEmail);
+				recipientInternetAddresses.add(recipientInternetAddress);
 			}
 
-			_recipientEmailAddresses = recipientEmailAddressSet.toArray(
-				new InternetAddress[recipientEmailAddressSet.size()]);
+			_recipientInternetAddresses = recipientInternetAddresses.toArray(
+				new InternetAddress[recipientInternetAddresses.size()]);
 		}
 		catch (AddressException e) {
 			throw new IllegalArgumentException(
@@ -66,36 +66,36 @@ public class SPIStatusNotificationMessageListener
 	protected boolean processSPIStatus(SPIDefinition spiDefinition, int status)
 		throws Exception {
 
-		StringBundler notificationMessage = new StringBundler(10);
+		StringBundler sb = new StringBundler(10);
 
-		notificationMessage.append(_message);
-		notificationMessage.append("<br><table><tr><td>Id</td><td>");
-		notificationMessage.append(spiDefinition.getSpiDefinitionId());
-		notificationMessage.append("</td></tr><tr><td>Name</td><td>");
-		notificationMessage.append(spiDefinition.getName());
-		notificationMessage.append("</td></tr><tr><td>Description</td><td>");
-		notificationMessage.append(spiDefinition.getDescription());
-		notificationMessage.append("</td></tr><tr><td>Port</td><td>");
-		notificationMessage.append(spiDefinition.getConnectorPort());
-		notificationMessage.append("</td></tr><tr><td>Status</td><td>");
-		notificationMessage.append(spiDefinition.getStatusLabel());
-		notificationMessage.append("</td></tr><tr><td>Message</td><td>");
-		notificationMessage.append(spiDefinition.getStatusMessage());
-		notificationMessage.append("</td></tr></table>");
+		sb.append(_message);
+		sb.append("<br /><table><tr><td>ID</td><td>");
+		sb.append(spiDefinition.getSpiDefinitionId());
+		sb.append("</td></tr><tr><td>Name</td><td>");
+		sb.append(spiDefinition.getName());
+		sb.append("</td></tr><tr><td>Description</td><td>");
+		sb.append(spiDefinition.getDescription());
+		sb.append("</td></tr><tr><td>Port</td><td>");
+		sb.append(spiDefinition.getConnectorPort());
+		sb.append("</td></tr><tr><td>Status</td><td>");
+		sb.append(spiDefinition.getStatusLabel());
+		sb.append("</td></tr><tr><td>Message</td><td>");
+		sb.append(spiDefinition.getStatusMessage());
+		sb.append("</td></tr></table>");
 
 		MailMessage mailMessage = new MailMessage(
-			_fromEmailAddress, _subject, notificationMessage.toString(), true);
+			_fromInternetAddress, _subject, sb.toString(), true);
 
-		mailMessage.setTo(_recipientEmailAddresses);
+		mailMessage.setTo(_recipientInternetAddresses);
 
 		MailServiceUtil.sendEmail(mailMessage);
 
 		return false;
 	}
 
-	private InternetAddress _fromEmailAddress;
+	private InternetAddress _fromInternetAddress;
 	private String _message;
-	private InternetAddress[] _recipientEmailAddresses;
+	private InternetAddress[] _recipientInternetAddresses;
 	private String _subject;
 
 }
