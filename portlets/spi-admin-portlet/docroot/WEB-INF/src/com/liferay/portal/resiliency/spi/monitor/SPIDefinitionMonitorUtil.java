@@ -23,9 +23,6 @@ import com.liferay.portal.resiliency.spi.model.SPIDefinition;
 public class SPIDefinitionMonitorUtil {
 
 	public static SPIDefinitionMonitor getSPIDefinitionMonitor() {
-		PortalRuntimePermission.checkGetBeanProperty(
-			SPIDefinitionMonitorUtil.class);
-
 		return _spiDefinitionMonitor;
 	}
 
@@ -43,8 +40,6 @@ public class SPIDefinitionMonitorUtil {
 
 	public void setSPIDefinitionMonitor(
 		SPIDefinitionMonitor spiDefinitionMonitor) {
-
-		PortalRuntimePermission.checkSetBeanProperty(getClass());
 
 		_spiDefinitionMonitor = spiDefinitionMonitor;
 	}
