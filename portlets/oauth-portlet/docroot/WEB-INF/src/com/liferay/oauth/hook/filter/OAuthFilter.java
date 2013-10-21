@@ -30,6 +30,7 @@ import com.liferay.portal.kernel.servlet.HttpHeaders;
 import com.liferay.portal.kernel.servlet.ProtectedServletRequest;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.io.IOException;
@@ -169,7 +170,9 @@ public class OAuthFilter implements Filter {
 				return;
 			}
 			catch (Exception e2) {
-				_log.warn("Unable to process OAuth exception", e2);
+				if (_log.isWarnEnabled()) {
+					_log.warn("Unable to process OAuth exception", e2);
+				}
 			}
 		}
 
@@ -192,7 +195,7 @@ public class OAuthFilter implements Filter {
 		if (Validator.isNotNull(authorization)) {
 			String authScheme = authorization.substring(0, 5);
 
-			if (authScheme.equalsIgnoreCase(_OAUTH)) {
+			if (StringUtil.equalsIgnoreCase(authScheme, _OAUTH)) {
 				return true;
 			}
 		}
