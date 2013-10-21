@@ -56,10 +56,9 @@ public class EditSPIDefinitionActionCommand extends BaseActionCommand {
 			SPIDefinition.class.getName(), portletRequest);
 
 		SPIDefinitionServiceUtil.updateSPIDefinition(
-			spiDefinitionId, SPIAdminConstants.DEFAULT_CONNECTOR_ADDRESS,
-			connectorPort, description, jvmArguments, portletIds,
-			servletContextNames, typeSettingsProperties.toString(),
-			serviceContext);
+			spiDefinitionId, "localhost", connectorPort, description,
+			jvmArguments, portletIds, servletContextNames,
+			typeSettingsProperties.toString(), serviceContext);
 	}
 
 }

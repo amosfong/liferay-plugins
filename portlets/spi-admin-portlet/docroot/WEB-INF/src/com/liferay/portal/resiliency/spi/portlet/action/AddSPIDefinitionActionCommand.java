@@ -54,9 +54,9 @@ public class AddSPIDefinitionActionCommand extends BaseActionCommand {
 			SPIDefinition.class.getName(), portletRequest);
 
 		SPIDefinitionServiceUtil.addSPIDefinition(
-			name, SPIAdminConstants.DEFAULT_CONNECTOR_ADDRESS, connectorPort,
-			description, jvmArguments, portletIds, servletContextNames,
-			typeSettingsProperties.toString(), serviceContext);
+			name, "localhost", connectorPort, description, jvmArguments,
+			portletIds, servletContextNames, typeSettingsProperties.toString(),
+			serviceContext);
 	}
 
 }

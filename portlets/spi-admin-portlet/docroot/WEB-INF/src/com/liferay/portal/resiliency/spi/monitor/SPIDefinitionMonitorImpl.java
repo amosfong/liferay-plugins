@@ -56,12 +56,13 @@ public class SPIDefinitionMonitorImpl implements SPIDefinitionMonitor {
 				}
 
 				Message message = new Message();
+
 				message.put(
 					"spiDefinitionId", spiDefinition.getSpiDefinitionId());
 				message.put("status", SPIAdminConstants.STATUS_STOPPED);
 
 				MessageBusUtil.sendMessage(
-					SPIAdminConstants.SPI_STATUS_DESTINATION_NAME, message);
+					_SPI_STATUS_DESTINATION_NAME, message);
 			}
 		}
 		finally {
@@ -145,5 +146,8 @@ public class SPIDefinitionMonitorImpl implements SPIDefinitionMonitor {
 			while (!_stopped);
 		}
 	}
+
+	private static final String _SPI_STATUS_DESTINATION_NAME =
+		"liferay/spi_status";
 
 }

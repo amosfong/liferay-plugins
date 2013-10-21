@@ -48,7 +48,6 @@ public class SPIAdminServletContextListener
 
 	@Override
 	protected void doPortalDestroy() throws Exception {
-
 		SPIDefinitionMonitorUtil.unregisterAll();
 
 		List<SPIDefinition> spiDefinitions =

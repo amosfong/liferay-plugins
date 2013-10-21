@@ -21,8 +21,6 @@ import com.liferay.portal.kernel.util.StringPool;
  */
 public class SPIAdminConstants {
 
-	public static final String DEFAULT_CONNECTOR_ADDRESS = "localhost";
-
 	public static final String LABEL_STARTED = "started";
 
 	public static final String LABEL_STARTING = "starting";
@@ -30,9 +28,6 @@ public class SPIAdminConstants {
 	public static final String LABEL_STOPPED = "stopped";
 
 	public static final String LABEL_STOPPING = "stopping";
-
-	public static final String SPI_STATUS_DESTINATION_NAME =
-		"liferay/spi_status";
 
 	public static final int STATUS_STARTED = 0;
 

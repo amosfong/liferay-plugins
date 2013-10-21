@@ -29,6 +29,7 @@ import com.liferay.portal.kernel.resiliency.spi.provider.SPIProvider;
 import com.liferay.portal.kernel.resiliency.spi.remote.SystemPropertiesProcessCallable;
 import com.liferay.portal.kernel.servlet.ServletContextPool;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.PropertiesUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StackTraceUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -216,12 +217,8 @@ public class SPIDefinitionLocalServiceImpl
 		}
 
 		try {
-			Properties properties = new Properties();
-
-			properties.load(
-				new UnsyncStringReader(
-					SPIConfigurationTemplate.
-						getSPIPortalPropertiesOverrides()));
+			Properties properties = PropertiesUtil.load(
+				SPIConfigurationTemplate.getSPIPortalProperties());
 
 			Map<String, String> propertiesMap = new HashMap<String, String>();
 
@@ -342,10 +339,11 @@ public class SPIDefinitionLocalServiceImpl
 	public void stopSPI(long spiDefinitionId)
 		throws PortalException, SystemException {
 
+		SPIDefinitionMonitorUtil.unregister(spiDefinitionId);
+
 		SPIDefinition spiDefinition = spiDefinitionPersistence.findByPrimaryKey(
 			spiDefinitionId);
 
-		SPIDefinitionMonitorUtil.unregister(spiDefinitionId);
 
 		try {
 			SPI spi = spiDefinition.getSPI();
@@ -469,6 +467,7 @@ public class SPIDefinitionLocalServiceImpl
 		spiDefinition.setConnectorAddress(connectorAddress);
 		spiDefinition.setConnectorPort(connectorPort);
 		spiDefinition.setDescription(description);
+
 		setJVMArguments(spiDefinition, jvmArguments);
 
 		setPortletIdsAndServletContextNames(
@@ -598,7 +597,7 @@ public class SPIDefinitionLocalServiceImpl
 			jvmArguments = SPIConfigurationTemplate.getJVMArguments();
 		}
 
-		if (jvmArguments.indexOf("-Duser.timeZone=") == -1) {
+		if (!jvmArguments.contains("-Duser.timeZone=")) {
 			TimeZone jvmDefaultTimeZone = TimeZone.getDefault();
 
 			jvmArguments.concat(" -Duser.timeZone=").concat(
