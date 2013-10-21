@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+	<persistence-unit-metadata>
+		<xml-mapping-metadata-complete/>
+		<persistence-unit-defaults>
+			<access>PROPERTY</access>
+		</persistence-unit-defaults>
+	</persistence-unit-metadata>
+	<mapped-superclass class="com.liferay.oauth.model.impl.OAuthApplicationModelImpl">
+		<attributes>
+			<id name="oAuthApplicationId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="name" />
+			<basic name="description" />
+			<basic name="consumerKey" />
+			<basic name="consumerSecret" />
+			<basic name="accessLevel" />
+			<basic name="logoId" />
+			<basic name="callbackURI" />
+			<basic name="websiteURL" />
+			<transient name="OAuthApplicationId" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.liferay.oauth.model.impl.OAuthUserModelImpl">
+		<attributes>
+			<id name="oAuthUserId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="oAuthApplicationId" />
+			<basic name="accessToken" />
+			<basic name="accessSecret" />
+			<transient name="OAuthApplicationId" />
+			<transient name="OAuthUserId" />
+			<transient name="OAuthUserUuid" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<entity class="com.liferay.oauth.model.impl.OAuthApplicationImpl" name="OAuthApplication">
+		<table name="OAuth_OAuthApplication" />
+		<attributes />
+	</entity>
+	<entity class="com.liferay.oauth.model.impl.OAuthUserImpl" name="OAuthUser">
+		<table name="OAuth_OAuthUser" />
+		<attributes />
+	</entity>
+</entity-mappings>

@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.1.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_1_0.dtd">
+
+<service-builder package-path="com.liferay.oauth" auto-namespace-tables="true">
+	<author>Ivica Cardic</author>
+	<namespace>OAuth</namespace>
+	<entity name="OAuthApplication" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="oAuthApplicationId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="name" type="String" />
+		<column name="description" type="String" />
+		<column name="consumerKey" type="String" />
+		<column name="consumerSecret" type="String" />
+		<column name="accessLevel" type="int" />
+		<column name="logoId" type="long" />
+		<column name="callbackURI" type="String" />
+		<column name="websiteURL" type="String" />
+
+		<!-- Finder methods -->
+
+		<finder name="CompanyId" return-type="Collection">
+			<finder-column name="companyId" />
+		</finder>
+		<finder name="UserId" return-type="Collection">
+			<finder-column name="userId" />
+		</finder>
+		<finder name="ConsumerKey" return-type="OAuthApplication" unique="true">
+			<finder-column name="consumerKey" />
+		</finder>
+		<finder name="C_N" return-type="Collection">
+			<finder-column name="companyId" />
+			<finder-column name="name" case-sensitive="false" comparator="LIKE" />
+		</finder>
+		<finder name="U_N" return-type="Collection">
+			<finder-column name="userId" />
+			<finder-column name="name" case-sensitive="false" comparator="LIKE" />
+		</finder>
+
+		<!-- References -->
+
+		<reference package-path="com.liferay.portal" entity="Image" />
+	</entity>
+	<entity name="OAuthUser" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="oAuthUserId" type="long" primary="true" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="oAuthApplicationId" type="long" />
+		<column name="accessToken" type="String" />
+		<column name="accessSecret" type="String" />
+
+		<!-- Finder methods -->
+
+		<finder name="UserId" return-type="Collection">
+			<finder-column name="userId" />
+		</finder>
+		<finder name="OAuthApplicationId" return-type="Collection">
+			<finder-column name="oAuthApplicationId" />
+		</finder>
+		<finder name="AccessToken" return-type="OAuthUser" unique="true">
+			<finder-column name="accessToken" />
+		</finder>
+		<finder name="U_OAI" return-type="OAuthUser" unique="true">
+			<finder-column name="userId" />
+			<finder-column name="oAuthApplicationId" />
+		</finder>
+	</entity>
+	<exceptions>
+		<exception>OAuthApplicationCallbackURI</exception>
+		<exception>OAuthApplicationName</exception>
+		<exception>OAuthApplicationWebsiteURL</exception>
+	</exceptions>
+</service-builder>

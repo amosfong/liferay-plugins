@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hook PUBLIC "-//Liferay//DTD Hook 6.1.0//EN" "http://www.liferay.com/dtd/liferay-hook_6_1_0.dtd">
+
+<hook>
+	<portal-properties>portal.properties</portal-properties>
+	<servlet-filter>
+		<servlet-filter-name>OAuth Filter</servlet-filter-name>
+		<servlet-filter-impl>com.liferay.oauth.hook.filter.OAuthFilter</servlet-filter-impl>
+	</servlet-filter>
+	<servlet-filter-mapping>
+		<servlet-filter-name>OAuth Filter</servlet-filter-name>
+		<before-filter>JSON Servlet Filter</before-filter>
+		<url-pattern>/api/json/*</url-pattern>
+		<url-pattern>/api/jsonws/*</url-pattern>
+		<url-pattern>/api/secure/json/*</url-pattern>
+		<url-pattern>/api/secure/jsonws/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+	</servlet-filter-mapping>
+	<servlet-filter-mapping>
+		<servlet-filter-name>OAuth Filter</servlet-filter-name>
+		<before-filter>Secure JSON Servlet Filter</before-filter>
+		<url-pattern>/api/secure/json/*</url-pattern>
+		<url-pattern>/api/secure/jsonws/*</url-pattern>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>REQUEST</dispatcher>
+	</servlet-filter-mapping>
+	<struts-action>
+		<struts-action-path>/portal/oauth/access_token</struts-action-path>
+		<struts-action-impl>com.liferay.oauth.hook.action.OAuthAccessTokenAction</struts-action-impl>
+	</struts-action>
+	<struts-action>
+		<struts-action-path>/portal/oauth/authorize</struts-action-path>
+		<struts-action-impl>com.liferay.oauth.hook.action.OAuthAuthorizeAction</struts-action-impl>
+	</struts-action>
+	<struts-action>
+		<struts-action-path>/portal/oauth/request_token</struts-action-path>
+		<struts-action-impl>com.liferay.oauth.hook.action.OAuthRequestTokenAction</struts-action-impl>
+	</struts-action>
+</hook>
