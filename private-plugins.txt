@@ -4,9 +4,11 @@
 /portlets/audit-portlet
 /portlets/kaleo-designer-portlet
 /portlets/kaleo-forms-portlet
+/portlets/oauth-portlet
 /portlets/reports-portlet
 /portlets/salesforce-portlet
 /portlets/saml-portlet
+/portlets/test-oauth-portlet
 /portlets/webex-portlet
 /webs/drools-web
 /webs/ehcache-cluster-web
