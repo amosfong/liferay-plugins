@@ -42,6 +42,16 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 	}
 
 	@Override
+	public int getMaxThreads() {
+		return GetterUtil.getInteger(getTypeSettingsProperty("max-threads"));
+	}
+
+	@Override
+	public int getMinThreads() {
+		return GetterUtil.getInteger(getTypeSettingsProperty("min-threads"));
+	}
+
+	@Override
 	public long getPingInterval() {
 		return GetterUtil.getLong(getTypeSettingsProperty("ping-interval"));
 	}

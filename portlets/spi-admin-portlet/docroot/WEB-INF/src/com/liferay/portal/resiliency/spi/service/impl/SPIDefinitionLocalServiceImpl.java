@@ -556,6 +556,15 @@ public class SPIDefinitionLocalServiceImpl
 				String.valueOf(SPIConfigurationTemplate.getMaxThreads()));
 		}
 
+		int minThreads = GetterUtil.getInteger(
+			typeSettingsProperties.getProperty("min-threads"));
+
+		if (minThreads <= 0) {
+			typeSettingsProperties.setProperty(
+				"min-threads",
+				String.valueOf(SPIConfigurationTemplate.getMinThreads()));
+		}
+
 		long pingInterval = GetterUtil.getLong(
 			typeSettingsProperties.getProperty("ping-interval"));
 
