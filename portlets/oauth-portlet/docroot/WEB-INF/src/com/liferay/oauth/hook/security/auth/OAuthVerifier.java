@@ -12,8 +12,10 @@
  * details.
  */
 
-package com.liferay.oauth.hook.filter;
+package com.liferay.oauth.hook.security.auth;
 
+import com.liferay.compat.portal.kernel.servlet.HttpHeaders;
+import com.liferay.compat.portal.kernel.util.StringUtil;
 import com.liferay.oauth.model.OAuthUser;
 import com.liferay.oauth.service.OAuthUserLocalServiceUtil;
 import com.liferay.oauth.util.DefaultOAuthAccessor;
@@ -23,24 +25,19 @@ import com.liferay.oauth.util.OAuthMessage;
 import com.liferay.oauth.util.OAuthUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.log.Log;
-import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.oauth.OAuthException;
-import com.liferay.portal.kernel.servlet.HttpHeaders;
-import com.liferay.portal.kernel.servlet.ProtectedServletRequest;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.security.auth.AccessControlContext;
+import com.liferay.portal.security.auth.AuthException;
+import com.liferay.portal.security.auth.AuthVerifier;
+import com.liferay.portal.security.auth.AuthVerifierResult;
 
 import java.io.IOException;
 
-import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.FilterConfig;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
+import java.util.Properties;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -49,25 +46,28 @@ import javax.servlet.http.HttpServletResponse;
  * @author Igor Beslic
  * @author Tomas Polesovsky
  */
-public class OAuthFilter implements Filter {
+public class OAuthVerifier implements AuthVerifier {
 
 	@Override
-	public void destroy() {
+	public String getAuthType() {
+		return OAuthVerifier.class.getSimpleName();
 	}
 
 	@Override
-	public void doFilter(
-			ServletRequest servletRequest, ServletResponse servletResponse,
-			FilterChain filterChain)
-		throws IOException, ServletException {
+	public AuthVerifierResult verify(
+			AccessControlContext accessControlContext, Properties properties)
+		throws AuthException {
 
-		HttpServletRequest request = (HttpServletRequest)servletRequest;
-		HttpServletResponse response = (HttpServletResponse)servletResponse;
+		AuthVerifierResult authVerifierResult = new AuthVerifierResult();
+
+		boolean sendBody = GetterUtil.getBoolean(
+			properties.getProperty("send.body"));
+
+		HttpServletRequest request = accessControlContext.getRequest();
+		HttpServletResponse response = accessControlContext.getResponse();
 
 		if (!isUsingOAuth(request)) {
-			filterChain.doFilter(servletRequest, servletResponse);
-
-			return;
+			return authVerifierResult;
 		}
 
 		try {
@@ -80,20 +80,20 @@ public class OAuthFilter implements Filter {
 
 			OAuthUtil.validateOAuthMessage(oAuthMessage, oAuthAccessor);
 
-			servletRequest = new ProtectedServletRequest(
-				request, String.valueOf(oAuthUser.getUserId()), _OAUTH);
+			authVerifierResult.setState(AuthVerifierResult.State.SUCCESS);
 
-			filterChain.doFilter(servletRequest, servletResponse);
+			authVerifierResult.setUserId(oAuthUser.getUserId());
 		}
 		catch (Exception e) {
-			handleException(request, response, e);
+			try {
+				OAuthUtil.handleException(request, response, e, sendBody);
+			}
+			catch (OAuthException oae) {
+				throw new AuthException(oae);
+			}
 		}
-	}
 
-	@Override
-	public void init(FilterConfig filterConfig) {
-		_sendBodyOnError = GetterUtil.getBoolean(
-			filterConfig.getInitParameter("send-body-on-error"));
+		return authVerifierResult;
 	}
 
 	protected OAuthAccessor getOAuthAccessor(
@@ -130,57 +130,6 @@ public class OAuthFilter implements Filter {
 		return oAuthUser;
 	}
 
-	protected void handleException(
-			HttpServletRequest request, HttpServletResponse response,
-			Exception e1)
-		throws IOException {
-
-		// OAuthServlet is only able to process OAuthProblemException
-
-		net.oauth.OAuthProblemException oAuthProblemException = null;
-
-		Throwable cause = e1;
-
-		while (cause != null) {
-			if (cause instanceof net.oauth.OAuthProblemException) {
-				oAuthProblemException = (net.oauth.OAuthProblemException)cause;
-
-				cause = null;
-			}
-			else {
-				cause = e1.getCause();
-			}
-		}
-
-		// Provide net.oauth.OAuth.Problems inside OAuthException
-
-		if ((oAuthProblemException == null) &&
-			(e1 instanceof OAuthException) &&
-			Validator.isNotNull(e1.getMessage())) {
-
-			oAuthProblemException = new net.oauth.OAuthProblemException(
-				e1.getMessage());
-		}
-
-		if (oAuthProblemException != null) {
-			try {
-				OAuthUtil.handleException(
-					request, response, oAuthProblemException, _sendBodyOnError);
-
-				return;
-			}
-			catch (Exception e2) {
-				if (_log.isWarnEnabled()) {
-					_log.warn("Unable to process OAuth exception", e2);
-				}
-			}
-		}
-
-		_log.error(e1, e1);
-
-		response.sendError(HttpServletResponse.SC_SERVICE_UNAVAILABLE);
-	}
-
 	protected boolean isUsingOAuth(HttpServletRequest request) {
 		String oAuthToken = ParamUtil.getString(
 			request, net.oauth.OAuth.OAUTH_TOKEN);
@@ -204,9 +153,5 @@ public class OAuthFilter implements Filter {
 	}
 
 	private static final String _OAUTH = "OAuth";
-
-	private static Log _log = LogFactoryUtil.getLog(OAuthFilter.class);
-
-	private boolean _sendBodyOnError;
 
 }
