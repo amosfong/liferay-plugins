@@ -648,6 +648,16 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	@Override
+	public int getMaxThreads() {
+		return _spiDefinition.getMaxThreads();
+	}
+
+	@Override
+	public int getMinThreads() {
+		return _spiDefinition.getMinThreads();
+	}
+
+	@Override
 	public long getPingInterval() {
 		return _spiDefinition.getPingInterval();
 	}

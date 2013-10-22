@@ -35,6 +35,10 @@ public interface SPIDefinition extends SPIDefinitionModel, PersistedModel {
 
 	public java.lang.String getJavaExecutable();
 
+	public int getMaxThreads();
+
+	public int getMinThreads();
+
 	public long getPingInterval();
 
 	public long getRegisterTimeout();
