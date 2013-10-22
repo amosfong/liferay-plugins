@@ -47,7 +47,7 @@ public class SPIConfigurationTemplate {
 		return _spiAgentClassName;
 	}
 
-	public static int getSPIPingInterval() {
+	public static long getSPIPingInterval() {
 		return _spiPingInterval;
 	}
 
@@ -59,11 +59,11 @@ public class SPIConfigurationTemplate {
 		return _spiProviderName;
 	}
 
-	public static int getSPIRegisterTimeout() {
+	public static long getSPIRegisterTimeout() {
 		return _spiRegisterTimeout;
 	}
 
-	public static int getSPIShutdownTimeout() {
+	public static long getSPIShutdownTimeout() {
 		return _spiShutdownTimeout;
 	}
 
@@ -95,7 +95,7 @@ public class SPIConfigurationTemplate {
 		_spiAgentClassName = spiAgentClassName;
 	}
 
-	public void setSPIPingInterval(int spiPingInterval) {
+	public void setSPIPingInterval(long spiPingInterval) {
 		_spiPingInterval = spiPingInterval;
 	}
 
@@ -107,11 +107,11 @@ public class SPIConfigurationTemplate {
 		_spiProviderName = spiProviderName;
 	}
 
-	public void setSPIRegisterTimeout(int spiRegisterTimeout) {
+	public void setSPIRegisterTimeout(long spiRegisterTimeout) {
 		_spiRegisterTimeout = spiRegisterTimeout;
 	}
 
-	public void setSPIShutdownTimeout(int spiShutdownTimeout) {
+	public void setSPIShutdownTimeout(long spiShutdownTimeout) {
 		_spiShutdownTimeout = spiShutdownTimeout;
 	}
 
@@ -122,10 +122,10 @@ public class SPIConfigurationTemplate {
 	private static int _maxThreads;
 	private static int _minThreads;
 	private static String _spiAgentClassName;
-	private static int _spiPingInterval;
+	private static long _spiPingInterval;
 	private static String _spiPortalProperties;
 	private static String _spiProviderName;
-	private static int _spiRegisterTimeout;
-	private static int _spiShutdownTimeout;
+	private static long _spiRegisterTimeout;
+	private static long _spiShutdownTimeout;
 
 }
