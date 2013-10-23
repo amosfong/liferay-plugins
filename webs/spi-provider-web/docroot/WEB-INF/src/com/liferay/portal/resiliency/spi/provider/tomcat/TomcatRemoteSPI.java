@@ -17,8 +17,10 @@ package com.liferay.portal.resiliency.spi.provider.tomcat;
 import com.liferay.portal.kernel.resiliency.spi.SPIConfiguration;
 import com.liferay.portal.kernel.resiliency.spi.remote.RemoteSPI;
 import com.liferay.portal.kernel.util.PropertiesUtil;
+import com.liferay.portal.kernel.util.StringPool;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 
@@ -32,6 +34,13 @@ import java.util.Properties;
 
 import javax.servlet.Servlet;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
 import org.apache.catalina.Context;
 import org.apache.catalina.Host;
 import org.apache.catalina.LifecycleException;
@@ -41,6 +50,9 @@ import org.apache.catalina.startup.Constants;
 import org.apache.catalina.startup.ContextConfig;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.catalina.startup.Tomcat.DefaultWebXmlListener;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * @author Shuyang Zhou
@@ -96,6 +108,63 @@ public class TomcatRemoteSPI extends RemoteSPI {
 			File contextXMLFile = new File(docBasePath, "META-INF/context.xml");
 
 			if (contextXMLFile.exists()) {
+				try {
+					DocumentBuilderFactory documentBuilderFactory =
+						DocumentBuilderFactory.newInstance();
+
+					DocumentBuilder documentBuilder =
+						documentBuilderFactory.newDocumentBuilder();
+
+					Document document = documentBuilder.parse(contextXMLFile);
+
+					Element element = document.getDocumentElement();
+
+					boolean modified = false;
+
+					if (Boolean.valueOf(
+							element.getAttribute("antiJARLocking"))) {
+
+						element.setAttribute(
+							"antiJARLocking", StringPool.FALSE);
+
+						modified = true;
+					}
+
+					if (Boolean.valueOf(
+							element.getAttribute("antiResourceLocking"))) {
+
+						element.setAttribute(
+							"antiResourceLocking", StringPool.FALSE);
+
+						modified = true;
+					}
+
+					if (modified) {
+						TransformerFactory transformerFactory =
+							TransformerFactory.newInstance();
+
+						Transformer transformer =
+							transformerFactory.newTransformer();
+
+						File tempContextXMLFile = File.createTempFile(
+							"temp-context-", ".xml");
+
+						transformer.transform(
+							new DOMSource(document),
+							new StreamResult(
+								new FileOutputStream(tempContextXMLFile)));
+
+						tempContextXMLFile.deleteOnExit();
+
+						contextXMLFile = tempContextXMLFile;
+					}
+				}
+				catch (Exception e) {
+					throw new RemoteException(
+						"Unable to convert " + contextXMLFile +
+							" to disable jar locking and resource locking" , e);
+				}
+
 				URI uri = contextXMLFile.toURI();
 
 				context.setConfigFile(uri.toURL());
@@ -194,14 +263,12 @@ public class TomcatRemoteSPI extends RemoteSPI {
 
 		System.setProperty("java.io.tmpdir", tempDir.getAbsolutePath());
 
-		Tomcat tomcat = new Tomcat();
+		_tomcat = new Tomcat();
 
-		_tomcat = tomcat;
+		_tomcat.setBaseDir(baseDir);
+		_tomcat.setPort(spiConfiguration.getConnectorPort());
 
-		tomcat.setBaseDir(baseDir);
-		tomcat.setPort(spiConfiguration.getConnectorPort());
-
-		Connector connector = tomcat.getConnector();
+		Connector connector = _tomcat.getConnector();
 
 		Properties properties = PropertiesUtil.load(
 			spiConfiguration.getExtraSettings());
