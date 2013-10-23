@@ -181,11 +181,24 @@ public class TomcatRemoteSPI extends RemoteSPI {
 
 		objectInputStream.defaultReadObject();
 
+		String baseDir = spiConfiguration.getBaseDir();
+
+		File tempDir = new File(baseDir, "temp");
+
+		tempDir.mkdirs();
+
+		if (!tempDir.exists() || !tempDir.isDirectory()) {
+			throw new IOException(
+				"Unable to create temp dir " + tempDir.getAbsolutePath());
+		}
+
+		System.setProperty("java.io.tmpdir", tempDir.getAbsolutePath());
+
 		Tomcat tomcat = new Tomcat();
 
 		_tomcat = tomcat;
 
-		tomcat.setBaseDir(spiConfiguration.getBaseDir());
+		tomcat.setBaseDir(baseDir);
 		tomcat.setPort(spiConfiguration.getConnectorPort());
 
 		Connector connector = tomcat.getConnector();

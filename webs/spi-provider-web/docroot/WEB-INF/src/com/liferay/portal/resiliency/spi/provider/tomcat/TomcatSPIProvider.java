@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.resiliency.spi.SPIConfiguration;
 import com.liferay.portal.kernel.resiliency.spi.provider.BaseSPIProvider;
 import com.liferay.portal.kernel.resiliency.spi.remote.RemoteSPI;
-import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.util.resiliency.spi.provider.SPIClassPathContextListener;
 
