@@ -109,60 +109,13 @@ public class TomcatRemoteSPI extends RemoteSPI {
 
 			if (contextXMLFile.exists()) {
 				try {
-					DocumentBuilderFactory documentBuilderFactory =
-						DocumentBuilderFactory.newInstance();
-
-					DocumentBuilder documentBuilder =
-						documentBuilderFactory.newDocumentBuilder();
-
-					Document document = documentBuilder.parse(contextXMLFile);
-
-					Element element = document.getDocumentElement();
-
-					boolean modified = false;
-
-					if (Boolean.valueOf(
-							element.getAttribute("antiJARLocking"))) {
-
-						element.setAttribute(
-							"antiJARLocking", StringPool.FALSE);
-
-						modified = true;
-					}
-
-					if (Boolean.valueOf(
-							element.getAttribute("antiResourceLocking"))) {
-
-						element.setAttribute(
-							"antiResourceLocking", StringPool.FALSE);
-
-						modified = true;
-					}
-
-					if (modified) {
-						TransformerFactory transformerFactory =
-							TransformerFactory.newInstance();
-
-						Transformer transformer =
-							transformerFactory.newTransformer();
-
-						File tempContextXMLFile = File.createTempFile(
-							"temp-context-", ".xml");
-
-						transformer.transform(
-							new DOMSource(document),
-							new StreamResult(
-								new FileOutputStream(tempContextXMLFile)));
-
-						tempContextXMLFile.deleteOnExit();
-
-						contextXMLFile = tempContextXMLFile;
-					}
+					contextXMLFile = disableJARandResourceLocking(
+						contextXMLFile);
 				}
 				catch (Exception e) {
 					throw new RemoteException(
 						"Unable to convert " + contextXMLFile +
-							" to disable jar locking and resource locking" , e);
+							" to disable JAR locking and resource locking" , e);
 				}
 
 				URI uri = contextXMLFile.toURI();
@@ -243,6 +196,54 @@ public class TomcatRemoteSPI extends RemoteSPI {
 	@Override
 	public String toString() {
 		return spiConfiguration.getSPIId();
+	}
+
+	protected File disableJARandResourceLocking(File contextXMLFile)
+		throws Exception {
+
+		DocumentBuilderFactory documentBuilderFactory =
+			DocumentBuilderFactory.newInstance();
+
+		DocumentBuilder documentBuilder =
+			documentBuilderFactory.newDocumentBuilder();
+
+		Document document = documentBuilder.parse(contextXMLFile);
+
+		Element element = document.getDocumentElement();
+
+		boolean modified = false;
+
+		if (Boolean.valueOf(element.getAttribute("antiJARLocking"))) {
+			element.setAttribute("antiJARLocking", StringPool.FALSE);
+
+			modified = true;
+		}
+
+		if (Boolean.valueOf(element.getAttribute("antiResourceLocking"))) {
+			element.setAttribute("antiResourceLocking", StringPool.FALSE);
+
+			modified = true;
+		}
+
+		if (modified) {
+			TransformerFactory transformerFactory =
+				TransformerFactory.newInstance();
+
+			Transformer transformer = transformerFactory.newTransformer();
+
+			File tempContextXMLFile = File.createTempFile(
+				"temp-context-", ".xml");
+
+			transformer.transform(
+				new DOMSource(document),
+				new StreamResult(new FileOutputStream(tempContextXMLFile)));
+
+			tempContextXMLFile.deleteOnExit();
+
+			contextXMLFile = tempContextXMLFile;
+		}
+
+		return contextXMLFile;
 	}
 
 	private void readObject(ObjectInputStream objectInputStream)
