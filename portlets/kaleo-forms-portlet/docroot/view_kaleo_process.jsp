@@ -42,9 +42,13 @@ DDMStructure ddmStructure = ddlRecordSet.getDDMStructure();
 
 Map<String, Map<String, String>> fieldsMap = ddmStructure.getFieldsMap();
 
-List<String> headerNames = new ArrayList();
+List<String> headerNames = new ArrayList<String>();
 
 for (Map<String, String> fields : fieldsMap.values()) {
+	if (GetterUtil.getBoolean(fields.get(FieldConstants.PRIVATE))) {
+		continue;
+	}
+
 	String label = fields.get(FieldConstants.LABEL);
 
 	headerNames.add(label);
@@ -76,6 +80,10 @@ for (int i = 0; i < results.size(); i++) {
 	// Columns
 
 	for (Map<String, String> fields : fieldsMap.values()) {
+		if (GetterUtil.getBoolean(fields.get(FieldConstants.PRIVATE))) {
+			continue;
+		}
+
 		String name = fields.get(FieldConstants.NAME);
 
 		String value = null;
