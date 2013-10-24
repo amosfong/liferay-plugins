@@ -54,7 +54,6 @@
 		%>
 
 		<liferay-ui:header
-			backURL="<%= currentURL %>"
 			title='<%= (kaleoDraftDefinition == null) ? "new-workflow-definition-draft" : kaleoDraftDefinition.getName() %>'
 		/>
 
