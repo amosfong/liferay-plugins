@@ -351,6 +351,10 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByCompanyId(companyId);
 
+		if (count == 0) {
+			return null;
+		}
+
 		List<SamlIdpSpConnection> list = findByCompanyId(companyId, count - 1,
 				count, orderByComparator);
 
@@ -854,6 +858,10 @@ public class SamlIdpSpConnectionPersistenceImpl extends BasePersistenceImpl<Saml
 	private static final String _FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_1 = "samlIdpSpConnection.samlSpEntityId IS NULL";
 	private static final String _FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_2 = "samlIdpSpConnection.samlSpEntityId = ?";
 	private static final String _FINDER_COLUMN_C_SSEI_SAMLSPENTITYID_3 = "(samlIdpSpConnection.samlSpEntityId IS NULL OR samlIdpSpConnection.samlSpEntityId = '')";
+
+	public SamlIdpSpConnectionPersistenceImpl() {
+		setModelClass(SamlIdpSpConnection.class);
+	}
 
 	/**
 	 * Caches the saml idp sp connection in the entity cache if it is enabled.

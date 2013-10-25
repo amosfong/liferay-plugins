@@ -400,6 +400,10 @@ public class SamlSpAuthRequestPersistenceImpl extends BasePersistenceImpl<SamlSp
 	private static final String _FINDER_COLUMN_SIEI_SSARK_SAMLSPAUTHREQUESTKEY_3 =
 		"(samlSpAuthRequest.samlSpAuthRequestKey IS NULL OR samlSpAuthRequest.samlSpAuthRequestKey = '')";
 
+	public SamlSpAuthRequestPersistenceImpl() {
+		setModelClass(SamlSpAuthRequest.class);
+	}
+
 	/**
 	 * Caches the saml sp auth request in the entity cache if it is enabled.
 	 *

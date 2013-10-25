@@ -81,6 +81,10 @@ public class EntryPersistenceImpl extends BasePersistenceImpl<Entry>
 			EntryModelImpl.FINDER_CACHE_ENABLED, Long.class,
 			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countAll", new String[0]);
 
+	public EntryPersistenceImpl() {
+		setModelClass(Entry.class);
+	}
+
 	/**
 	 * Caches the entry in the entity cache if it is enabled.
 	 *

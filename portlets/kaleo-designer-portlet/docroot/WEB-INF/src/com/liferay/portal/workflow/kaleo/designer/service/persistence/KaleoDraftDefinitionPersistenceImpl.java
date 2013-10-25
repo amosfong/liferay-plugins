@@ -352,6 +352,10 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByCompanyId(companyId);
 
+		if (count == 0) {
+			return null;
+		}
+
 		List<KaleoDraftDefinition> list = findByCompanyId(companyId, count - 1,
 				count, orderByComparator);
 
@@ -907,6 +911,10 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 		int version, OrderByComparator orderByComparator)
 		throws SystemException {
 		int count = countByC_N_V(companyId, name, version);
+
+		if (count == 0) {
+			return null;
+		}
 
 		List<KaleoDraftDefinition> list = findByC_N_V(companyId, name, version,
 				count - 1, count, orderByComparator);
@@ -1509,6 +1517,10 @@ public class KaleoDraftDefinitionPersistenceImpl extends BasePersistenceImpl<Kal
 	private static final String _FINDER_COLUMN_C_N_V_D_NAME_3 = "(kaleoDraftDefinition.name IS NULL OR kaleoDraftDefinition.name = '') AND ";
 	private static final String _FINDER_COLUMN_C_N_V_D_VERSION_2 = "kaleoDraftDefinition.version = ? AND ";
 	private static final String _FINDER_COLUMN_C_N_V_D_DRAFTVERSION_2 = "kaleoDraftDefinition.draftVersion = ?";
+
+	public KaleoDraftDefinitionPersistenceImpl() {
+		setModelClass(KaleoDraftDefinition.class);
+	}
 
 	/**
 	 * Caches the kaleo draft definition in the entity cache if it is enabled.

@@ -397,6 +397,10 @@ public class SamlSpMessagePersistenceImpl extends BasePersistenceImpl<SamlSpMess
 	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_2 = "samlSpMessage.samlIdpResponseKey = ?";
 	private static final String _FINDER_COLUMN_SIEI_SIRK_SAMLIDPRESPONSEKEY_3 = "(samlSpMessage.samlIdpResponseKey IS NULL OR samlSpMessage.samlIdpResponseKey = '')";
 
+	public SamlSpMessagePersistenceImpl() {
+		setModelClass(SamlSpMessage.class);
+	}
+
 	/**
 	 * Caches the saml sp message in the entity cache if it is enabled.
 	 *

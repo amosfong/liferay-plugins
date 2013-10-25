@@ -346,6 +346,10 @@ public class SamlIdpSsoSessionPersistenceImpl extends BasePersistenceImpl<SamlId
 	private static final String _FINDER_COLUMN_SAMLIDPSSOSESSIONKEY_SAMLIDPSSOSESSIONKEY_3 =
 		"(samlIdpSsoSession.samlIdpSsoSessionKey IS NULL OR samlIdpSsoSession.samlIdpSsoSessionKey = '')";
 
+	public SamlIdpSsoSessionPersistenceImpl() {
+		setModelClass(SamlIdpSsoSession.class);
+	}
+
 	/**
 	 * Caches the saml idp sso session in the entity cache if it is enabled.
 	 *

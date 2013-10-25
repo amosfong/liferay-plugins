@@ -204,8 +204,8 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 		}
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getKaleoProcessLinkId() {
 		return _kaleoProcessLinkId;
 	}
@@ -215,8 +215,8 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 		_kaleoProcessLinkId = kaleoProcessLinkId;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getKaleoProcessId() {
 		return _kaleoProcessId;
 	}
@@ -238,8 +238,8 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 		return _originalKaleoProcessId;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getWorkflowTaskName() {
 		if (_workflowTaskName == null) {
 			return StringPool.BLANK;
@@ -264,8 +264,8 @@ public class KaleoProcessLinkModelImpl extends BaseModelImpl<KaleoProcessLink>
 		return GetterUtil.getString(_originalWorkflowTaskName);
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getDDMTemplateId() {
 		return _DDMTemplateId;
 	}

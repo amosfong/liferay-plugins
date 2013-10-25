@@ -355,8 +355,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		}
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getEntryId() {
 		return _entryId;
 	}
@@ -366,8 +366,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		_entryId = entryId;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getGroupId() {
 		return _groupId;
 	}
@@ -377,8 +377,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		_groupId = groupId;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
@@ -388,8 +388,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		_companyId = companyId;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
@@ -409,8 +409,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		_userUuid = userUuid;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getUserName() {
 		if (_userName == null) {
 			return StringPool.BLANK;
@@ -425,8 +425,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		_userName = userName;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -436,8 +436,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		_createDate = createDate;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
@@ -447,8 +447,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		_modifiedDate = modifiedDate;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getDefinitionId() {
 		return _definitionId;
 	}
@@ -458,8 +458,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		_definitionId = definitionId;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getFormat() {
 		if (_format == null) {
 			return StringPool.BLANK;
@@ -474,8 +474,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		_format = format;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public boolean getScheduleRequest() {
 		return _scheduleRequest;
 	}
@@ -490,8 +490,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		_scheduleRequest = scheduleRequest;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public Date getStartDate() {
 		return _startDate;
 	}
@@ -501,8 +501,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		_startDate = startDate;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public Date getEndDate() {
 		return _endDate;
 	}
@@ -512,8 +512,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		_endDate = endDate;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public boolean getRepeating() {
 		return _repeating;
 	}
@@ -528,8 +528,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		_repeating = repeating;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getRecurrence() {
 		if (_recurrence == null) {
 			return StringPool.BLANK;
@@ -544,8 +544,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		_recurrence = recurrence;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getEmailNotifications() {
 		if (_emailNotifications == null) {
 			return StringPool.BLANK;
@@ -560,8 +560,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		_emailNotifications = emailNotifications;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getEmailDelivery() {
 		if (_emailDelivery == null) {
 			return StringPool.BLANK;
@@ -576,8 +576,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		_emailDelivery = emailDelivery;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getPortletId() {
 		if (_portletId == null) {
 			return StringPool.BLANK;
@@ -592,8 +592,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		_portletId = portletId;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getPageURL() {
 		if (_pageURL == null) {
 			return StringPool.BLANK;
@@ -608,8 +608,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		_pageURL = pageURL;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getReportParameters() {
 		if (_reportParameters == null) {
 			return StringPool.BLANK;
@@ -624,8 +624,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		_reportParameters = reportParameters;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getStatus() {
 		if (_status == null) {
 			return StringPool.BLANK;
@@ -640,8 +640,8 @@ public class EntryModelImpl extends BaseModelImpl<Entry> implements EntryModel {
 		_status = status;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getErrorMessage() {
 		if (_errorMessage == null) {
 			return StringPool.BLANK;

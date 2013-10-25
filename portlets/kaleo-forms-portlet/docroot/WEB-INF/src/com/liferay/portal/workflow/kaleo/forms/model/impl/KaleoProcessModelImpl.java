@@ -251,8 +251,8 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 		}
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getKaleoProcessId() {
 		return _kaleoProcessId;
 	}
@@ -262,8 +262,8 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 		_kaleoProcessId = kaleoProcessId;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getGroupId() {
 		return _groupId;
 	}
@@ -285,8 +285,8 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 		return _originalGroupId;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
@@ -296,8 +296,8 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 		_companyId = companyId;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
@@ -317,8 +317,8 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 		_userUuid = userUuid;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getUserName() {
 		if (_userName == null) {
 			return StringPool.BLANK;
@@ -333,8 +333,8 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 		_userName = userName;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -344,8 +344,8 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 		_createDate = createDate;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
@@ -355,8 +355,8 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 		_modifiedDate = modifiedDate;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getDDLRecordSetId() {
 		return _DDLRecordSetId;
 	}
@@ -378,8 +378,8 @@ public class KaleoProcessModelImpl extends BaseModelImpl<KaleoProcess>
 		return _originalDDLRecordSetId;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getDDMTemplateId() {
 		return _DDMTemplateId;
 	}

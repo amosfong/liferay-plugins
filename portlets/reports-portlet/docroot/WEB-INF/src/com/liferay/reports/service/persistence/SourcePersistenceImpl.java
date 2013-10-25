@@ -359,6 +359,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid(uuid);
 
+		if (count == 0) {
+			return null;
+		}
+
 		List<Source> list = findByUuid(uuid, count - 1, count, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -1172,6 +1176,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByUuid_C(uuid, companyId);
 
+		if (count == 0) {
+			return null;
+		}
+
 		List<Source> list = findByUuid_C(uuid, companyId, count - 1, count,
 				orderByComparator);
 
@@ -1697,6 +1705,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	public Source fetchByGroupId_Last(long groupId,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByGroupId(groupId);
+
+		if (count == 0) {
+			return null;
+		}
 
 		List<Source> list = findByGroupId(groupId, count - 1, count,
 				orderByComparator);
@@ -2545,6 +2557,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByCompanyId(companyId);
 
+		if (count == 0) {
+			return null;
+		}
+
 		List<Source> list = findByCompanyId(companyId, count - 1, count,
 				orderByComparator);
 
@@ -2768,6 +2784,10 @@ public class SourcePersistenceImpl extends BasePersistenceImpl<Source>
 	}
 
 	private static final String _FINDER_COLUMN_COMPANYID_COMPANYID_2 = "source.companyId = ?";
+
+	public SourcePersistenceImpl() {
+		setModelClass(Source.class);
+	}
 
 	/**
 	 * Caches the source in the entity cache if it is enabled.

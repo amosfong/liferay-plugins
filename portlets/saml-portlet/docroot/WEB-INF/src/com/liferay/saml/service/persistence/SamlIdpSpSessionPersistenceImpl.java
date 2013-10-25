@@ -358,6 +358,10 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 		throws SystemException {
 		int count = countBySamlIdpSsoSessionId(samlIdpSsoSessionId);
 
+		if (count == 0) {
+			return null;
+		}
+
 		List<SamlIdpSpSession> list = findBySamlIdpSsoSessionId(samlIdpSsoSessionId,
 				count - 1, count, orderByComparator);
 
@@ -867,6 +871,10 @@ public class SamlIdpSpSessionPersistenceImpl extends BasePersistenceImpl<SamlIdp
 	private static final String _FINDER_COLUMN_SISSI_SSEI_SAMLSPENTITYID_1 = "samlIdpSpSession.samlSpEntityId IS NULL";
 	private static final String _FINDER_COLUMN_SISSI_SSEI_SAMLSPENTITYID_2 = "samlIdpSpSession.samlSpEntityId = ?";
 	private static final String _FINDER_COLUMN_SISSI_SSEI_SAMLSPENTITYID_3 = "(samlIdpSpSession.samlSpEntityId IS NULL OR samlIdpSpSession.samlSpEntityId = '')";
+
+	public SamlIdpSpSessionPersistenceImpl() {
+		setModelClass(SamlIdpSpSession.class);
+	}
 
 	/**
 	 * Caches the saml idp sp session in the entity cache if it is enabled.

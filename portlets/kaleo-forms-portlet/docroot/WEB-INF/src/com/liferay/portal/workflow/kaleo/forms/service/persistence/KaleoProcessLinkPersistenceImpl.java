@@ -355,6 +355,10 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByKaleoProcessId(kaleoProcessId);
 
+		if (count == 0) {
+			return null;
+		}
+
 		List<KaleoProcessLink> list = findByKaleoProcessId(kaleoProcessId,
 				count - 1, count, orderByComparator);
 
@@ -854,6 +858,10 @@ public class KaleoProcessLinkPersistenceImpl extends BasePersistenceImpl<KaleoPr
 	private static final String _FINDER_COLUMN_KPI_WTN_WORKFLOWTASKNAME_1 = "kaleoProcessLink.workflowTaskName IS NULL";
 	private static final String _FINDER_COLUMN_KPI_WTN_WORKFLOWTASKNAME_2 = "kaleoProcessLink.workflowTaskName = ?";
 	private static final String _FINDER_COLUMN_KPI_WTN_WORKFLOWTASKNAME_3 = "(kaleoProcessLink.workflowTaskName IS NULL OR kaleoProcessLink.workflowTaskName = '')";
+
+	public KaleoProcessLinkPersistenceImpl() {
+		setModelClass(KaleoProcessLink.class);
+	}
 
 	/**
 	 * Caches the kaleo process link in the entity cache if it is enabled.

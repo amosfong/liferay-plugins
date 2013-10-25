@@ -48,6 +48,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * The base model implementation for the Source service. Represents a row in the &quot;Reports_Source&quot; database table, with each column mapped to a property of this class.
@@ -295,8 +297,8 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 		}
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getUuid() {
 		if (_uuid == null) {
 			return StringPool.BLANK;
@@ -319,8 +321,8 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 		return GetterUtil.getString(_originalUuid);
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getSourceId() {
 		return _sourceId;
 	}
@@ -330,8 +332,8 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 		_sourceId = sourceId;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getGroupId() {
 		return _groupId;
 	}
@@ -353,8 +355,8 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 		return _originalGroupId;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getCompanyId() {
 		return _companyId;
 	}
@@ -376,8 +378,8 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 		return _originalCompanyId;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public long getUserId() {
 		return _userId;
 	}
@@ -397,8 +399,8 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 		_userUuid = userUuid;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getUserName() {
 		if (_userName == null) {
 			return StringPool.BLANK;
@@ -413,8 +415,8 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 		_userName = userName;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public Date getCreateDate() {
 		return _createDate;
 	}
@@ -424,8 +426,8 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 		_createDate = createDate;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
 	}
@@ -435,8 +437,8 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 		_modifiedDate = modifiedDate;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getName() {
 		if (_name == null) {
 			return StringPool.BLANK;
@@ -496,7 +498,7 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 
 	@Override
 	public void setName(String name, Locale locale) {
-		setName(name, locale, LocaleUtil.getDefault());
+		setName(name, locale, LocaleUtil.getSiteDefault());
 	}
 
 	@Override
@@ -521,7 +523,7 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 
 	@Override
 	public void setNameMap(Map<Locale, String> nameMap) {
-		setNameMap(nameMap, LocaleUtil.getDefault());
+		setNameMap(nameMap, LocaleUtil.getSiteDefault());
 	}
 
 	@Override
@@ -534,8 +536,8 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 				LocaleUtil.toLanguageId(defaultLocale)));
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getDriverClassName() {
 		if (_driverClassName == null) {
 			return StringPool.BLANK;
@@ -550,8 +552,8 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 		_driverClassName = driverClassName;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getDriverUrl() {
 		if (_driverUrl == null) {
 			return StringPool.BLANK;
@@ -566,8 +568,8 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 		_driverUrl = driverUrl;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getDriverUserName() {
 		if (_driverUserName == null) {
 			return StringPool.BLANK;
@@ -582,8 +584,8 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 		_driverUserName = driverUserName;
 	}
 
-	@Override
 	@JSON
+	@Override
 	public String getDriverPassword() {
 		if (_driverPassword == null) {
 			return StringPool.BLANK;
@@ -622,11 +624,55 @@ public class SourceModelImpl extends BaseModelImpl<Source>
 	}
 
 	@Override
+	public String[] getAvailableLanguageIds() {
+		Set<String> availableLanguageIds = new TreeSet<String>();
+
+		Map<Locale, String> nameMap = getNameMap();
+
+		for (Map.Entry<Locale, String> entry : nameMap.entrySet()) {
+			Locale locale = entry.getKey();
+			String value = entry.getValue();
+
+			if (Validator.isNotNull(value)) {
+				availableLanguageIds.add(LocaleUtil.toLanguageId(locale));
+			}
+		}
+
+		return availableLanguageIds.toArray(new String[availableLanguageIds.size()]);
+	}
+
+	@Override
+	public String getDefaultLanguageId() {
+		String xml = getName();
+
+		if (xml == null) {
+			return StringPool.BLANK;
+		}
+
+		return LocalizationUtil.getDefaultLanguageId(xml);
+	}
+
+	@Override
+	public void prepareLocalizedFieldsForImport() throws LocaleException {
+		prepareLocalizedFieldsForImport(null);
+	}
+
+	@Override
 	@SuppressWarnings("unused")
 	public void prepareLocalizedFieldsForImport(Locale defaultImportLocale)
 		throws LocaleException {
-		setName(getName(defaultImportLocale), defaultImportLocale,
-			defaultImportLocale);
+		Locale defaultLocale = LocaleUtil.getDefault();
+
+		String modelDefaultLanguageId = getDefaultLanguageId();
+
+		String name = getName(defaultLocale);
+
+		if (Validator.isNull(name)) {
+			setName(getName(modelDefaultLanguageId), defaultLocale);
+		}
+		else {
+			setName(getName(defaultLocale), defaultLocale, defaultLocale);
+		}
 	}
 
 	@Override

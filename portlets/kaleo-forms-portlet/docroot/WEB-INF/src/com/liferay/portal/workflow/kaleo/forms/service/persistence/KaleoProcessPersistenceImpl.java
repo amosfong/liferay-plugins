@@ -344,6 +344,10 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByGroupId(groupId);
 
+		if (count == 0) {
+			return null;
+		}
+
 		List<KaleoProcess> list = findByGroupId(groupId, count - 1, count,
 				orderByComparator);
 
@@ -1151,6 +1155,10 @@ public class KaleoProcessPersistenceImpl extends BasePersistenceImpl<KaleoProces
 	}
 
 	private static final String _FINDER_COLUMN_DDLRECORDSETID_DDLRECORDSETID_2 = "kaleoProcess.DDLRecordSetId = ?";
+
+	public KaleoProcessPersistenceImpl() {
+		setModelClass(KaleoProcess.class);
+	}
 
 	/**
 	 * Caches the kaleo process in the entity cache if it is enabled.

@@ -615,6 +615,10 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByNameIdValue(nameIdValue);
 
+		if (count == 0) {
+			return null;
+		}
+
 		List<SamlSpSession> list = findByNameIdValue(nameIdValue, count - 1,
 				count, orderByComparator);
 
@@ -1369,6 +1373,10 @@ public class SamlSpSessionPersistenceImpl extends BasePersistenceImpl<SamlSpSess
 	private static final String _FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_1 = "samlSpSession.sessionIndex IS NULL";
 	private static final String _FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_2 = "samlSpSession.sessionIndex = ?";
 	private static final String _FINDER_COLUMN_SESSIONINDEX_SESSIONINDEX_3 = "(samlSpSession.sessionIndex IS NULL OR samlSpSession.sessionIndex = '')";
+
+	public SamlSpSessionPersistenceImpl() {
+		setModelClass(SamlSpSession.class);
+	}
 
 	/**
 	 * Caches the saml sp session in the entity cache if it is enabled.
