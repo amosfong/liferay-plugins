@@ -12,27 +12,22 @@
  * details.
  */
 
-package com.liferay.testoauth.servlet;
+package com.liferay.testoauth.messaging;
 
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.compat.portal.util.PortalUtil;
-import com.liferay.oauth.service.ClpSerializer;
 import com.liferay.opensocial.model.Gadget;
 import com.liferay.opensocial.service.GadgetLocalServiceUtil;
-import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.messaging.HotDeployMessageListener;
 import com.liferay.portal.kernel.messaging.Message;
-import com.liferay.portal.kernel.messaging.MessageBusUtil;
-import com.liferay.portal.kernel.messaging.MessageListener;
 import com.liferay.portal.kernel.repository.model.FileEntry;
 import com.liferay.portal.kernel.repository.model.Folder;
-import com.liferay.portal.kernel.util.BasePortalLifecycle;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.User;
@@ -47,23 +42,14 @@ import com.liferay.testoauth.util.PortletPropsValues;
 
 import java.io.InputStream;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
 /**
  * @author Ivica Cardic
  */
-public class TestOAuthServletContextListener
-	extends BasePortalLifecycle implements ServletContextListener {
+public class TestOAuthHotDeployMessageListener
+	extends HotDeployMessageListener {
 
-	@Override
-	public void contextDestroyed(ServletContextEvent servletContextEvent) {
-		portalDestroy();
-	}
-
-	@Override
-	public void contextInitialized(ServletContextEvent servletContextEvent) {
-		registerPortalLifecycle();
+	public TestOAuthHotDeployMessageListener(String... servletContextNames) {
+		super(servletContextNames);
 	}
 
 	protected static Folder getGadgetEditorRootFolder(
@@ -128,35 +114,6 @@ public class TestOAuthServletContextListener
 		DLAppLocalServiceUtil.deleteFileEntry(fileEntry.getFileEntryId());
 	}
 
-	@Override
-	protected void doPortalDestroy() throws Exception {
-		MessageBusUtil.unregisterMessageListener(
-			DestinationNames.HOT_DEPLOY, _messageListener);
-
-		deleteGadget();
-	}
-
-	@Override
-	protected void doPortalInit() {
-		_messageListener = new HotDeployMessageListener(
-			ClpSerializer.getServletContextName()) {
-
-			@Override
-			protected void onDeploy(Message message) throws Exception {
-				setupGadget();
-			}
-
-			@Override
-			protected void onUndeploy(Message message) throws Exception {
-				deleteGadget();
-			}
-
-		};
-
-		MessageBusUtil.registerMessageListener(
-			DestinationNames.HOT_DEPLOY, _messageListener);
-	}
-
 	protected String getFileEntryURL(FileEntry fileEntry) {
 		StringBundler sb = new StringBundler(10);
 
@@ -172,6 +129,16 @@ public class TestOAuthServletContextListener
 		sb.append(fileEntry.getUuid());
 
 		return sb.toString();
+	}
+
+	@Override
+	protected void onDeploy(Message message) throws Exception {
+		setupGadget();
+	}
+
+	@Override
+	protected void onUndeploy(Message message) throws Exception {
+		deleteGadget();
 	}
 
 	protected void setupGadget() throws Exception {
@@ -252,7 +219,5 @@ public class TestOAuthServletContextListener
 
 	private static final String _PORTLET_CATEGORY_NAMES =
 		"root//category.gadgets";
-
-	private MessageListener _messageListener;
 
 }
