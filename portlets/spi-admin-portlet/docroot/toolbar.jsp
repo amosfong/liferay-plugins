@@ -23,17 +23,17 @@ String toolbarItem = ParamUtil.getString(request, "toolbarItem");
 <c:if test="<%= SPIDefinitionPermissionUtil.contains(permissionChecker, ActionKeys.ADD_SPI_DEFINITION) %>">
 	<aui:nav-bar>
 		<aui:nav>
-				<portlet:renderURL var="viewSPIDefinitionsURL">
-					<portlet:param name="mvcPath" value="/view.jsp" />
-				</portlet:renderURL>
+			<portlet:renderURL var="viewSPIDefinitionsURL">
+				<portlet:param name="mvcPath" value="/view.jsp" />
+			</portlet:renderURL>
 
-				<portlet:renderURL var="addSPIDefinitionURL">
-					<portlet:param name="backURL" value="<%= viewSPIDefinitionsURL %>" />
-					<portlet:param name="mvcPath" value="/edit_spi_definition.jsp" />
-					<portlet:param name="redirect" value="<%= viewSPIDefinitionsURL %>" />
-				</portlet:renderURL>
+			<portlet:renderURL var="addSPIDefinitionURL">
+				<portlet:param name="mvcPath" value="/edit_spi_definition.jsp" />
+				<portlet:param name="redirect" value="<%= viewSPIDefinitionsURL %>" />
+				<portlet:param name="backURL" value="<%= viewSPIDefinitionsURL %>" />
+			</portlet:renderURL>
 
-				<aui:nav-item href="<%= addSPIDefinitionURL %>" iconClass="icon-plus" label="add-spi" selected='<%= toolbarItem.equals("add") %>' />
+			<aui:nav-item href="<%= addSPIDefinitionURL %>" iconClass="icon-plus" label="add-spi" selected='<%= toolbarItem.equals("add") %>' />
 		</aui:nav>
 	</aui:nav-bar>
 </c:if>

@@ -13,15 +13,18 @@
  * details.
  */
 --%>
+
 <%@ include file="/init.jsp" %>
 
 <%
-List<SPIDefinition> spiDefinitions = SPIDefinitionServiceUtil.getSPIDefinitions();
-
 PortletURL portletURL = renderResponse.createRenderURL();
 %>
 
 <liferay-util:include page="/toolbar.jsp" servletContext="<%= application %>" />
+
+<%
+List<SPIDefinition> spiDefinitions = SPIDefinitionServiceUtil.getSPIDefinitions();
+%>
 
 <liferay-ui:search-container
 	emptyResultsMessage="no-spi-definitions-are-defined"
@@ -36,32 +39,36 @@ PortletURL portletURL = renderResponse.createRenderURL();
 		className="com.liferay.portal.resiliency.spi.model.SPIDefinition"
 		modelVar="spiDefinition"
 	>
-
-		<portlet:renderURL var="rowURL">
-			<portlet:param name="backURL" value="<%= currentURL %>" />
+		<liferay-portlet:renderURL varImpl="rowURL">
 			<portlet:param name="mvcPath" value="/edit_spi_definition.jsp" />
 			<portlet:param name="redirect" value="<%= currentURL %>" />
+			<portlet:param name="backURL" value="<%= currentURL %>" />
 			<portlet:param name="spiDefinitionId" value="<%= String.valueOf(spiDefinition.getSpiDefinitionId()) %>" />
-		</portlet:renderURL>
+		</liferay-portlet:renderURL>
 
-		<liferay-ui:search-container-column-jsp
+		<liferay-ui:search-container-column-text
 			cssClass="spi-status-column"
 			name="status"
-			path="/spi_status.jsp"
-		/>
+		>
+			<strong class="label <%= SPIAdminConstants.getStatusCssClass(spiDefinition.getStatus()) %>">
+				<liferay-ui:message key="<%= spiDefinition.getStatusLabel() %>" />
+			</strong>
+
+			<c:if test="<%= Validator.isNotNull(spiDefinition.getStatusMessage()) %>">
+				<liferay-ui:icon-help message="<%= spiDefinition.getStatusMessage() %>" />
+			</c:if>
+		</liferay-ui:search-container-column-text>
 
 		<liferay-ui:search-container-column-text
 			cssClass="spi-name-column"
 			href="<%= rowURL %>"
 			name="name"
-			value="<%= spiDefinition.getName() %>"
 		/>
 
 		<liferay-ui:search-container-column-text
 			cssClass="spi-description-column"
 			href="<%= rowURL %>"
 			name="description"
-			value="<%= spiDefinition.getDescription() %>"
 		/>
 
 		<liferay-ui:search-container-column-text
@@ -75,7 +82,7 @@ PortletURL portletURL = renderResponse.createRenderURL();
 			cssClass="spi-connector-port-column"
 			href="<%= rowURL %>"
 			name="connector-port"
-			value="<%= String.valueOf(spiDefinition.getConnectorPort()) %>"
+			property="connectorPort"
 		/>
 
 		<liferay-ui:search-container-column-jsp

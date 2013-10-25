@@ -13,61 +13,41 @@
  * details.
  */
 --%>
+
 <%@ include file="/init.jsp" %>
 
 <%
 String redirect = ParamUtil.getString(request, "redirect");
 
-long spiDefinitionId = ParamUtil.getLong(renderRequest, "spiDefinitionId", 0);
+long spiDefinitionId = ParamUtil.getLong(renderRequest, "spiDefinitionId");
 
 SPIDefinition spiDefinition = null;
 
-int connectorPort = SPIConfigurationTemplate.getConnectorPortMin();
-String javaExecutable = SPIConfigurationTemplate.getJavaExecutable();
-int maxThreads = SPIConfigurationTemplate.getMaxThreads();
-String name = StringPool.BLANK;
-long pingInterval = SPIConfigurationTemplate.getSPIPingInterval();
-String[] portletIds = StringPool.EMPTY_ARRAY;
-long registerTimeout = SPIConfigurationTemplate.getSPIRegisterTimeout();
-String[] servletContextNames = StringPool.EMPTY_ARRAY;
-int status = SPIAdminConstants.STATUS_STOPPED;
-long shutdownTimeout = SPIConfigurationTemplate.getSPIShutdownTimeout();
-
 if (spiDefinitionId > 0) {
 	spiDefinition = SPIDefinitionServiceUtil.getSPIDefinition(spiDefinitionId);
-
-	name = spiDefinition.getName();
-	connectorPort = spiDefinition.getConnectorPort();
-	javaExecutable = spiDefinition.getJavaExecutable();
-	maxThreads = spiDefinition.getMaxThreads();
-	pingInterval = spiDefinition.getPingInterval();
-	portletIds = StringUtil.split(spiDefinition.getPortletIds());
-	registerTimeout = spiDefinition.getRegisterTimeout();
-	shutdownTimeout = spiDefinition.getShutdownTimeout();
-	servletContextNames = StringUtil.split(
-			spiDefinition.getServletContextNames());
-	status = spiDefinition.getStatus();
 }
 
-Tuple tuple = SPIDefinitionServiceUtil.getPortletIdsAndServletContextNames();
-
-Set<String> usedPortletIds = (Set<String>)tuple.getObject(0);
-Set<String> usedServletContextNames = (Set<String>)tuple.getObject(1);
-
-String portalServletContextName = PortalUtil.getPathContext();
-
-ServletContext portalServletContext = ServletContextPool.get(portalServletContextName);
+int connectorPort = BeanPropertiesUtil.getInteger(spiDefinition, "connectorPort", SPIConfigurationTemplate.getConnectorPortMin());
+String javaExecutable = BeanPropertiesUtil.getString(spiDefinition, "javaExecutable", SPIConfigurationTemplate.getJavaExecutable());
+int maxThreads = BeanPropertiesUtil.getInteger(spiDefinition, "maxThreads", SPIConfigurationTemplate.getMaxThreads());
+String name = BeanPropertiesUtil.getString(spiDefinition, "name", StringPool.BLANK);
+long pingInterval = BeanPropertiesUtil.getLong(spiDefinition, "pingInterval", SPIConfigurationTemplate.getSPIPingInterval());
+String[] portletIds = StringUtil.split(BeanPropertiesUtil.getString(spiDefinition, "portletIds", StringPool.BLANK));
+long registerTimeout = BeanPropertiesUtil.getLong(spiDefinition, "registerTimeout", SPIConfigurationTemplate.getSPIRegisterTimeout());
+String[] servletContextNames = StringUtil.split(BeanPropertiesUtil.getString(spiDefinition, "servletContextNames", StringPool.BLANK));
+long shutdownTimeout = BeanPropertiesUtil.getLong(spiDefinition, "shutdownTimeout", SPIConfigurationTemplate.getSPIShutdownTimeout());
+int status = BeanPropertiesUtil.getInteger(spiDefinition, "status", SPIAdminConstants.STATUS_STOPPED);
 %>
 
 <liferay-ui:header
 	backURL="<%= redirect %>"
 	localizeTitle="<%= (spiDefinition == null) %>"
-	title='<%= (spiDefinition == null) ? "add-spi" : name + " (" + LanguageUtil.get(pageContext, SPIAdminConstants.getStatusLabel(status))+ ")" %>'
+	title='<%= (spiDefinition == null) ? LanguageUtil.get(pageContext, "add-spi") : name + " (" + LanguageUtil.get(pageContext, SPIAdminConstants.getStatusLabel(status)) + ")" %>'
 />
 
 <c:if test="<%= (status == SPIAdminConstants.STATUS_STARTED) || (status == SPIAdminConstants.STATUS_STARTING) %>">
 	<div class="alert alert-info">
-		<liferay-ui:message key="spi-currently-active" />
+		<liferay-ui:message key="the-spi-definition-is-currently-in-use.-modified-configurations-will-take-effect-after-the-next-spi-restart" />
 	</div>
 </c:if>
 
@@ -75,43 +55,47 @@ ServletContext portalServletContext = ServletContextPool.get(portalServletContex
 
 <aui:form action="<%= editSPIDefinitionURL %>" method="post" name="fm" onSubmit='<%= "event.preventDefault(); "+ renderResponse.getNamespace() + "saveSPIDefinition();" %>'>
 	<aui:input name="mvcPath" type="hidden" value="/edit_spi_definition.jsp" />
-	<aui:input name="portletIds" type="hidden" value="" />
 	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 	<aui:input name="spiDefinitionId" type="hidden" value="<%= spiDefinitionId %>" />
 	<aui:input name="servletContextNames" type="hidden" value="" />
+	<aui:input name="portletIds" type="hidden" value="" />
 
 	<liferay-ui:error exception="<%= DuplicateSPIDefinitionConnectorException.class %>" message="please-enter-a-unique-spi-connector-address-and-port" />
 	<liferay-ui:error exception="<%= DuplicateSPIDefinitionException.class %>" message="please-enter-a-unique-spi-name" />
-	<liferay-ui:error exception="<%= InvalidSPIDefinitionConnectorException.class %>" message="please-enter-a-valid-spi-connectos-address-and-port" />
+	<liferay-ui:error exception="<%= InvalidSPIDefinitionConnectorException.class %>" message="please-enter-a-valid-spi-connector-address-and-port" />
 	<liferay-ui:error exception="<%= SPIDefinitionActiveException.class %>" message="cannot-update-a-running-spi-configuration" />
 
 	<aui:model-context bean="<%= spiDefinition %>" model="<%= SPIDefinition.class %>" />
 
-	<liferay-ui:panel-container extended="true" id="spiDefinitionGeneralPanel" persistState="true">
-		<liferay-ui:panel collapsible="true" extended="true" id="spiDefinitionGeneralPanel" persistState="true" title="general">
+	<liferay-ui:panel-container extended="<%= true %>" id="spiDefinitionGeneralPanelContainer" persistState="<%= true %>">
+		<liferay-ui:panel collapsible="<%= true %>" extended="<%= true %>" id="spiDefinitionGeneralPanel" persistState="<%= true %>" title="general">
 			<aui:fieldset>
-				<aui:input autoFocus="<%= (spiDefinition == null) && (windowState.equals(WindowState.MAXIMIZED)) %>" disabled="<%= spiDefinition != null %>" name="name" />
+				<aui:input autoFocus="<%= (spiDefinition == null) && windowState.equals(WindowState.MAXIMIZED) %>" disabled="<%= (spiDefinition != null) %>" name="name" />
 
-				<aui:input autoFocus="<%= (spiDefinition != null) && (windowState.equals(WindowState.MAXIMIZED)) %>" name="description" />
-
+				<aui:input autoFocus="<%= (spiDefinition != null) && windowState.equals(WindowState.MAXIMIZED) %>" name="description" />
 			</aui:fieldset>
 		</liferay-ui:panel>
 
-		<liferay-ui:panel collapsible="true" extended="true" id="spiDefinitionRuntimeConfigurationPanel" persistState="true" title="spi-configurations">
-			<liferay-ui:panel collapsible="true" extended="false" id="spiDefinitionSPIRuntimePanel" persistState="true" title="spi-runtime">
-				<aui:fieldset>
-					<aui:input helpMessage="maximum-worker-threads-help" label="maximum-worker-threads" max="<%= SPIConfigurationTemplate.getMaxThreads() %>" min="<%= SPIConfigurationTemplate.getMinThreads() %>" name="TypeSettingsProperties--max-threads--" required="true" type="number" value="<%= maxThreads %>" />
+		<%
+		Tuple portletIdsAndServletContextNamesTuple = SPIDefinitionServiceUtil.getPortletIdsAndServletContextNames();
 
-					<aui:input helpMessage="connector-port-help" label="connector-port" max="<%= SPIConfigurationTemplate.getConnectorPortMax() %>" min="<%= SPIConfigurationTemplate.getConnectorPortMin() %>" name="connectorPort" required="true" type="number" value="<%= connectorPort %>" />
+		Set<String> usedPortletIds = (Set<String>)portletIdsAndServletContextNamesTuple.getObject(0);
+		Set<String> usedServletContextNames = (Set<String>)portletIdsAndServletContextNamesTuple.getObject(1);
+		%>
+
+		<liferay-ui:panel collapsible="<%= true %>" extended="<%= true %>" id="spiDefinitionRuntimeConfigurationPanel" persistState="<%= true %>" title="spi-configurations">
+			<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="spiDefinitionSPIRuntimePanel" persistState="<%= true %>" title="spi-runtime">
+				<aui:fieldset>
+					<aui:input helpMessage="maximum-worker-threads-help" label="maximum-worker-threads" max="<%= SPIConfigurationTemplate.getMaxThreads() %>" min="<%= SPIConfigurationTemplate.getMinThreads() %>" name="TypeSettingsProperties--max-threads--" required="<%= true %>" type="number" value="<%= maxThreads %>" />
+
+					<aui:input helpMessage="connector-port-help" label="connector-port" max="<%= SPIConfigurationTemplate.getConnectorPortMax() %>" min="<%= SPIConfigurationTemplate.getConnectorPortMin() %>" name="connectorPort" required="<%= true %>" type="number" value="<%= connectorPort %>" />
 				</aui:fieldset>
 			</liferay-ui:panel>
 
-			<liferay-ui:panel collapsible="true" extended="false" id="spiDefinitionSPIApplicationsPanel" persistState="true" title="spi-applications">
+			<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="spiDefinitionSPIApplicationsPanel" persistState="<%= true %>" title="spi-applications">
 				<aui:fieldset>
 
 					<%
-
-					// Left list
 					List<KeyValuePair> leftList = new ArrayList<KeyValuePair>();
 
 					for (String servletContextName : servletContextNames) {
@@ -120,18 +104,12 @@ ServletContext portalServletContext = ServletContextPool.get(portalServletContex
 
 					leftList = ListUtil.sort(leftList, new KeyValuePairComparator(false, true));
 
-					// Right list
-
 					List<KeyValuePair> rightList = new ArrayList<KeyValuePair>();
 
 					Arrays.sort(servletContextNames);
 
-					List<String> pluginServletContextNames = SPIAdminUtil.getPluginServletContextNames();
-
-					for (String pluginServletContextName : pluginServletContextNames) {
-						if ((Arrays.binarySearch(servletContextNames, pluginServletContextName) < 0) &&
-							(!usedServletContextNames.contains(pluginServletContextName))) {
-
+					for (String pluginServletContextName : SPIAdminUtil.getPluginServletContextNames()) {
+						if ((Arrays.binarySearch(servletContextNames, pluginServletContextName) < 0) && !usedServletContextNames.contains(pluginServletContextName)) {
 							rightList.add(new KeyValuePair(pluginServletContextName, pluginServletContextName));
 						}
 					}
@@ -150,15 +128,15 @@ ServletContext portalServletContext = ServletContextPool.get(portalServletContex
 				</aui:fieldset>
 			</liferay-ui:panel>
 
-			<liferay-ui:panel collapsible="true" extended="false" id="spiDefinitionJavaRuntimePanel" persistState="true" title="java-runtime">
+			<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="spiDefinitionJavaRuntimePanel" persistState="<%= true %>" title="java-runtime">
 				<aui:fieldset>
 					<aui:input helpMessage="jvm-arguments-help" label="jvm-arguments" name="jvmArguments" />
 				</aui:fieldset>
 			</liferay-ui:panel>
 		</liferay-ui:panel>
 
-		<liferay-ui:panel collapsible="true" defaultState="closed" extended="true" helpMessage="advanced-configurations-help" id="spiDefinitionAdvancedConfigurationPanel" persistState="false" title="advanced-configurations">
-			<liferay-ui:panel collapsible="true" extended="false" id="spiDefinitionAdvancedSPIRuntimePanel" persistState="true" title="advanced-spi-runtime">
+		<liferay-ui:panel collapsible="<%= true %>" defaultState="closed" extended="<%= true %>" helpMessage="advanced-configurations-help" id="spiDefinitionAdvancedConfigurationPanel" persistState="<%= false %>" title="advanced-configurations">
+			<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="spiDefinitionAdvancedSPIRuntimePanel" persistState="<%= true %>" title="advanced-spi-runtime">
 				<aui:fieldset>
 					<aui:input helpMessage="java-executable-help" label="java-executable" name="TypeSettingsProperties--java-executable--" type="text" value="<%= javaExecutable %>" />
 
@@ -170,39 +148,25 @@ ServletContext portalServletContext = ServletContextPool.get(portalServletContex
 				</aui:fieldset>
 			</liferay-ui:panel>
 
-			<liferay-ui:panel collapsible="true" extended="false" helpMessage="spi-core-applications-help" id="spiDefinitionSPICoreApplicationsPanel" persistState="true" title="spi-core-applications">
+			<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" helpMessage="spi-core-applications-help" id="spiDefinitionSPICoreApplicationsPanel" persistState="<%= true %>" title="spi-core-applications">
 				<aui:fieldset>
 
 					<%
-
-					// Left list
 					List<KeyValuePair> leftList = new ArrayList<KeyValuePair>();
 
 					for (String portletId : portletIds) {
-						Portlet portlet = PortletLocalServiceUtil.getPortletById(
-								portletId);
-
-						leftList.add(new KeyValuePair(portletId, PortalUtil.getPortletTitle(portlet, portalServletContext, locale)));
+						leftList.add(new KeyValuePair(portletId, PortalUtil.getPortletTitle(PortletLocalServiceUtil.getPortletById(portletId), ServletContextPool.get(PortalUtil.getPathContext()), locale)));
 					}
 
 					leftList = ListUtil.sort(leftList, new KeyValuePairComparator(false, true));
-
-					// Right list
 
 					List<KeyValuePair> rightList = new ArrayList<KeyValuePair>();
 
 					Arrays.sort(portletIds);
 
-					List<Portlet> corePortlets = SPIAdminUtil.getCorePortlets();
-
-					for (Portlet corePortlet : corePortlets) {
-						if ((Arrays.binarySearch(portletIds, corePortlet.getPortletId()) < 0) &&
-							(!usedPortletIds.contains(corePortlet))) {
-
-							rightList.add(
-									new KeyValuePair(
-											corePortlet.getPortletId(),
-											PortalUtil.getPortletTitle(corePortlet, portalServletContext, locale)));
+					for (Portlet corePortlet : SPIAdminUtil.getCorePortlets()) {
+						if ((Arrays.binarySearch(portletIds, corePortlet.getPortletId()) < 0) && !usedPortletIds.contains(corePortlet)) {
+							rightList.add(new KeyValuePair(corePortlet.getPortletId(), PortalUtil.getPortletTitle(corePortlet, ServletContextPool.get(PortalUtil.getPathContext()), locale)));
 						}
 					}
 
@@ -244,5 +208,5 @@ ServletContext portalServletContext = ServletContextPool.get(portalServletContex
 </aui:script>
 
 <%
-PortalUtil.addPortletBreadcrumbEntry(request, LanguageUtil.get(pageContext, (spiDefinition == null) ? "add-spi" : name), currentURL);
+PortalUtil.addPortletBreadcrumbEntry(request, (spiDefinition != null) ? name : LanguageUtil.get(pageContext, "add-spi"), currentURL);
 %>
