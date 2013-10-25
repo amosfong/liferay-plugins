@@ -82,14 +82,7 @@ page import="javax.portlet.WindowState" %>
 <%
 String currentURL = PortalUtil.getCurrentURL(request);
 
-WindowState windowState = WindowState.NORMAL;
-
-if (renderRequest != null) {
-	windowState = renderRequest.getWindowState();
-}
-else if (resourceRequest != null) {
-	windowState = resourceRequest.getWindowState();
-}
+WindowState windowState = liferayPortletRequest.getWindowState();
 
 PortletPreferences preferences = PortletPreferencesLocalServiceUtil.getPreferences(
 		0, themeDisplay.getScopeGroupId(), PortletKeys.PREFS_OWNER_TYPE_GROUP,
