@@ -331,7 +331,6 @@ if (kaleoProcess != null) {
 					openerWindowName: openerWindowName,
 					portletResourceNamespace: '<%= renderResponse.getNamespace() %>',
 					propertiesSaveCallback: '<portlet:namespace />kaleoDesignerPropertiesSaveCallback',
-					refreshOpenerOnClose: true,
 					saveCallback: saveCallback,
 					version: workflowDefinitionVersion,
 					versionLabel: '<liferay-ui:message key="version" />'
