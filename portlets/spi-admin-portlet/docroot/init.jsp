@@ -96,8 +96,4 @@ PortletPreferences preferences = PortletPreferencesLocalServiceUtil.getPreferenc
 		PortletKeys.PREFS_PLID_SHARED, PortalUtil.getPortletId(request));
 
 String portletResource = ParamUtil.getString(request, "portletResource");
-
-if (Validator.isNotNull(portletResource)) {
-	preferences = PortletPreferencesFactoryUtil.getPortletSetup(request, portletResource);
-}
 %>

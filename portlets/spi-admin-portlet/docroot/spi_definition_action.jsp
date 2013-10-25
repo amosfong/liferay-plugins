@@ -78,7 +78,7 @@ int status = spiDefinition.getStatus();
 			<c:otherwise>
 
 				<%
-					String taglibURL = "javascript:alert('" + UnicodeLanguageUtil.get(pageContext, "you-may-not-delete-a-running-spi-please-stop-the-spi-first") + "');event.preventDefault();";
+					String taglibURL = "javascript:alert('" + UnicodeLanguageUtil.get(pageContext, "you-may-not-delete-a-running-spi-please-stop-the-spi-first") + "');";
 				%>
 
 				<liferay-ui:icon image="delete" url="<%= taglibURL %>" />
