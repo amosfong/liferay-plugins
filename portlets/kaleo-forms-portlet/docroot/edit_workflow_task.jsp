@@ -149,6 +149,7 @@ headerTitle = headerTitle.concat(StringPool.COLON + StringPool.SPACE + ddlRecord
 					classNameId="<%= PortalUtil.getClassNameId(DDMStructure.class) %>"
 					classPK="<%= ddmStructure.getStructureId() %>"
 					fields="<%= fields %>"
+					fieldsNamespace="<%= randomId %>"
 					readOnly="<%= true %>"
 					requestedLocale="<%= locale %>"
 				/>

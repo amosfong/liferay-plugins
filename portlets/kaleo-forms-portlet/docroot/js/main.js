@@ -20,7 +20,7 @@ AUI.add(
 					}
 				);
 
-				var content = A.one('#' + randomId + 'completeForm');
+				var content = A.one('#' + randomId + 'editForm');
 
 				content.show();
 

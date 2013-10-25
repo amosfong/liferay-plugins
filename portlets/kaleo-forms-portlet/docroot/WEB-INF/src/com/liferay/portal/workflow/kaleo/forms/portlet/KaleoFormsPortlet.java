@@ -320,8 +320,7 @@ public class KaleoFormsPortlet extends MVCPortlet {
 		PermissionChecker permissionChecker =
 			themeDisplay.getPermissionChecker();
 
-		long kaleoProcessId = ParamUtil.getLong(
-			serviceContext, "kaleoProcessId");
+		long kaleoProcessId = ParamUtil.getLong(request, "kaleoProcessId");
 
 		KaleoProcessPermission.check(
 			permissionChecker, kaleoProcessId, actionId);
@@ -460,10 +459,11 @@ public class KaleoFormsPortlet extends MVCPortlet {
 	protected DDLRecord updateDDLRecord(ServiceContext serviceContext)
 		throws Exception {
 
-		long ddlRecordId = ParamUtil.getLong(serviceContext, "ddlRecordId");
+		HttpServletRequest request = serviceContext.getRequest();
 
-		long ddlRecordSetId = ParamUtil.getLong(
-			serviceContext, "ddlRecordSetId");
+		long ddlRecordId = ParamUtil.getLong(request, "ddlRecordId");
+
+		long ddlRecordSetId = ParamUtil.getLong(request, "ddlRecordSetId");
 
 		return DDLUtil.updateRecord(
 			ddlRecordId, ddlRecordSetId, true, false, serviceContext);
