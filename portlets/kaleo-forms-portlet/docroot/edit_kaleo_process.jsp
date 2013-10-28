@@ -317,7 +317,7 @@ if (kaleoProcess != null) {
 	Liferay.provide(
 		window,
 		'<portlet:namespace />openKaleoDesigner',
-		function(workflowDefinitionName, workflowDefinitionVersion, saveCallback, openerWindowName) {
+		function(workflowDefinitionName, workflowDefinitionVersion, saveCallback, openerWindowName, refreshOpenerOnClose) {
 			var A = AUI();
 
 			var ddmStructureId = A.one('#<portlet:namespace />ddmStructureId').val();
@@ -331,7 +331,7 @@ if (kaleoProcess != null) {
 					openerWindowName: openerWindowName,
 					portletResourceNamespace: '<%= renderResponse.getNamespace() %>',
 					propertiesSaveCallback: '<portlet:namespace />kaleoDesignerPropertiesSaveCallback',
-					refreshOpenerOnClose: true,
+					refreshOpenerOnClose: A.Lang.isBoolean(refreshOpenerOnClose) ? refreshOpenerOnClose : false,
 					saveCallback: saveCallback,
 					version: workflowDefinitionVersion,
 					versionLabel: '<liferay-ui:message key="version" />'

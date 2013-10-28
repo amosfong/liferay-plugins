@@ -33,7 +33,7 @@ long ddmStructureId = ParamUtil.getLong(request, "ddmStructureId");
 >
 
 	<%
-	String taglibOnClick = "Liferay.Util.getOpener()." + renderResponse.getNamespace() + "openKaleoDesigner('', '0', '', Liferay.Util.getWindowName());";
+	String taglibOnClick = "Liferay.Util.getOpener()." + renderResponse.getNamespace() + "openKaleoDesigner('', '0', '', Liferay.Util.getWindowName(), true);";
 	%>
 
 	<aui:button onClick="<%= taglibOnClick %>" value="add-definition" />
@@ -103,7 +103,7 @@ long ddmStructureId = ParamUtil.getLong(request, "ddmStructureId");
 				sb.append(workflowDefinition.getName());
 				sb.append("', '");
 				sb.append(workflowDefinition.getVersion());
-				sb.append("', '', Liferay.Util.getWindowName());");
+				sb.append("', '', Liferay.Util.getWindowName(), true);");
 
 				String taglibEditURL = sb.toString();
 				%>
@@ -151,7 +151,7 @@ long ddmStructureId = ParamUtil.getLong(request, "ddmStructureId");
 				sb.append(kaleoDraftDefinition.getName());
 				sb.append("', '");
 				sb.append(kaleoDraftDefinition.getVersion());
-				sb.append("', '', Liferay.Util.getWindowName());");
+				sb.append("', '', Liferay.Util.getWindowName(), true);");
 
 				String taglibEditURL = sb.toString();
 				%>
