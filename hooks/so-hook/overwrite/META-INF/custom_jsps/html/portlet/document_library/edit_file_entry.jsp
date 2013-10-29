@@ -423,6 +423,15 @@ editFileEntryURL.setParameter("workflowAction", String.valueOf(WorkflowConstants
 			</liferay-ui:custom-attributes-available>
 		</c:if>
 
+		<c:if test="<%= fileEntry != null %>">
+			<aui:field-wrapper cssClass="revision" label="revision">
+				<aui:input label="major-revision" name="majorVersion" type="radio" value="true" />
+				<aui:input checked="true" label="minor-revision" name="majorVersion" type="radio" value="false" />
+
+				<aui:input cssClass="lfr-input-text-container" ignoreRequestValue="<%= true %>" name="changeLog" type="text" />
+			</aui:field-wrapper>
+		</c:if>
+
 		<c:if test="<%= ((folder == null) || folder.isSupportsSocial()) %>">
 			<liferay-ui:panel defaultState="closed" extended="<%= false %>" id="dlFileEntryCategorizationPanel" persistState="<%= true %>" title="categorization">
 				<aui:fieldset>
