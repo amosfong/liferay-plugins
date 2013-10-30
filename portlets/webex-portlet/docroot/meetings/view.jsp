@@ -23,10 +23,10 @@
 <liferay-ui:search-container
 	emptyResultsMessage="there-are-no-sites"
 	iteratorURL="<%= iteratorURL %>"
+	total="<%= WebExSiteServiceUtil.getWebExSitesCount(themeDisplay.getScopeGroupId()) %>"
 >
 	<liferay-ui:search-container-results
 		results="<%= WebExSiteServiceUtil.getWebExSites(themeDisplay.getScopeGroupId(), searchContainer.getStart(), searchContainer.getEnd(), null) %>"
-		total="<%= WebExSiteServiceUtil.getWebExSitesCount(themeDisplay.getScopeGroupId()) %>"
 	/>
 
 	<liferay-ui:search-container-row

@@ -23,10 +23,10 @@
 <liferay-ui:search-container
 	emptyResultsMessage="there-are-no-accounts"
 	iteratorURL="<%= iteratorURL %>"
+	total="<%= WebExAccountServiceUtil.getWebExSiteWebExAccountsCount(themeDisplay.getScopeGroupId(), webExSiteId) %>"
 >
 	<liferay-ui:search-container-results
 		results="<%= WebExAccountServiceUtil.getWebExSiteWebExAccounts(themeDisplay.getScopeGroupId(), webExSiteId, searchContainer.getStart(), searchContainer.getEnd(), null) %>"
-		total="<%= WebExAccountServiceUtil.getWebExSiteWebExAccountsCount(themeDisplay.getScopeGroupId(), webExSiteId) %>"
 	/>
 
 	<liferay-ui:search-container-row
