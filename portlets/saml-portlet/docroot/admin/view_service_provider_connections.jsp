@@ -26,10 +26,10 @@ portletURL.setParameter("tabs1", "service-provider-connections");
 	emptyResultsMessage="there-are-no-service-providers"
 	headerNames="name"
 	iteratorURL="<%= portletURL %>"
+	total="<%= SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnectionsCount(company.getCompanyId()) %>"
 >
 	<liferay-ui:search-container-results
 		results="<%= SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnections(company.getCompanyId(), searchContainer.getStart(), searchContainer.getEnd()) %>"
-		total="<%= SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnectionsCount(company.getCompanyId()) %>"
 	/>
 
 	<liferay-ui:search-container-row
