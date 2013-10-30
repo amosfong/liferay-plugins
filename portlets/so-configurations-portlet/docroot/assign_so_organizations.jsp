@@ -42,9 +42,6 @@ RowChecker organizationRoleChecker = (RowChecker)InstanceFactory.newInstance(Por
 >
 
 	<%
-	List<Organization> organizations = null;
-	int organizationsCount = 0;
-
 	LinkedHashMap<String, Object> params = new LinkedHashMap<String, Object>();
 
 	if (searchFilter.equals("current")) {
@@ -52,19 +49,20 @@ RowChecker organizationRoleChecker = (RowChecker)InstanceFactory.newInstance(Por
 			params.put("organizationsRoles", role.getRoleId());
 		}
 
-		organizations = OrganizationLocalServiceUtil.search(user.getCompanyId(), OrganizationConstants.ANY_PARENT_ORGANIZATION_ID, keywords, null, null, null, params, searchContainer.getStart(), searchContainer.getEnd());
-		organizationsCount = OrganizationLocalServiceUtil.searchCount(user.getCompanyId(), OrganizationConstants.ANY_PARENT_ORGANIZATION_ID, keywords, null, null, null, params);
+		total = OrganizationLocalServiceUtil.searchCount(user.getCompanyId(), OrganizationConstants.ANY_PARENT_ORGANIZATION_ID, keywords, null, null, null, params);
+
+		searchContainer.setTotal(total);
+
+		searchContainer.setResults(OrganizationLocalServiceUtil.search(user.getCompanyId(), OrganizationConstants.ANY_PARENT_ORGANIZATION_ID, keywords, null, null, null, params, searchContainer.getStart(), searchContainer.getEnd()));
 	}
 	else {
-		organizations = OrganizationLocalServiceUtil.search(user.getCompanyId(), OrganizationConstants.ANY_PARENT_ORGANIZATION_ID, keywords, null, null, null, null, searchContainer.getStart(), searchContainer.getEnd());
-		organizationsCount = OrganizationLocalServiceUtil.searchCount(user.getCompanyId(), OrganizationConstants.ANY_PARENT_ORGANIZATION_ID, keywords, null, null, null, null);
+		total = OrganizationLocalServiceUtil.searchCount(user.getCompanyId(), OrganizationConstants.ANY_PARENT_ORGANIZATION_ID, keywords, null, null, null, null);
+
+		searchContainer.setTotal(total);
+
+		searchContainer.setResults(OrganizationLocalServiceUtil.search(user.getCompanyId(), OrganizationConstants.ANY_PARENT_ORGANIZATION_ID, keywords, null, null, null, null, searchContainer.getStart(), searchContainer.getEnd()));
 	}
 	%>
-
-	<liferay-ui:search-container-results
-		results="<%= organizations %>"
-		total="<%= organizationsCount %>"
-	/>
 
 	<liferay-ui:search-container-row
 		className="com.liferay.portal.model.Organization"

@@ -41,9 +41,6 @@ RowChecker userGroupRoleChecker = (RowChecker)InstanceFactory.newInstance(Portal
 >
 
 	<%
-	List<UserGroup> userGroups = null;
-	int userGroupsCount = 0;
-
 	LinkedHashMap<String, Object> params = new LinkedHashMap<String, Object>();
 
 	if (searchFilter.equals("current")) {
@@ -51,19 +48,20 @@ RowChecker userGroupRoleChecker = (RowChecker)InstanceFactory.newInstance(Portal
 			params.put("userGroupsRoles", role.getRoleId());
 		}
 
-		userGroups = UserGroupLocalServiceUtil.search(user.getCompanyId(), keywords, params, searchContainer.getStart(), searchContainer.getEnd(), (OrderByComparator)null);
-		userGroupsCount = UserGroupLocalServiceUtil.searchCount(user.getCompanyId(), keywords, params);
+		total = UserGroupLocalServiceUtil.searchCount(user.getCompanyId(), keywords, params);
+
+		searchContainer.setTotal(total);
+
+		searchContainer.setResults(UserGroupLocalServiceUtil.search(user.getCompanyId(), keywords, params, searchContainer.getStart(), searchContainer.getEnd(), (OrderByComparator)null));
 	}
 	else {
-		userGroups = UserGroupLocalServiceUtil.search(user.getCompanyId(), keywords, null, searchContainer.getStart(), searchContainer.getEnd(), (OrderByComparator)null);
-		userGroupsCount = UserGroupLocalServiceUtil.searchCount(user.getCompanyId(), keywords, null);
+		total = UserGroupLocalServiceUtil.searchCount(user.getCompanyId(), keywords, null);
+
+		searchContainer.setTotal(total);
+
+		searchContainer.setResults(UserGroupLocalServiceUtil.search(user.getCompanyId(), keywords, null, searchContainer.getStart(), searchContainer.getEnd(), (OrderByComparator)null));
 	}
 	%>
-
-	<liferay-ui:search-container-results
-		results="<%= userGroups %>"
-		total="<%= userGroupsCount %>"
-	/>
 
 	<liferay-ui:search-container-row
 		className="com.liferay.portal.model.UserGroup"

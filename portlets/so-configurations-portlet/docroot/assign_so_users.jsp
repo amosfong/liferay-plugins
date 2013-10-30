@@ -41,9 +41,6 @@ RowChecker userRoleChecker = (RowChecker)InstanceFactory.newInstance(PortalClass
 >
 
 	<%
-	List<User> users = null;
-	int usersCount = 0;
-
 	LinkedHashMap<String, Object> params = new LinkedHashMap<String, Object>();
 
 	if (searchFilter.equals("current")) {
@@ -51,19 +48,20 @@ RowChecker userRoleChecker = (RowChecker)InstanceFactory.newInstance(PortalClass
 			params.put("usersRoles", role.getRoleId());
 		}
 
-		users = UserLocalServiceUtil.search(user.getCompanyId(), keywords, WorkflowConstants.STATUS_APPROVED, params, searchContainer.getStart(), searchContainer.getEnd(), (OrderByComparator)null);
-		usersCount = UserLocalServiceUtil.searchCount(user.getCompanyId(), keywords, WorkflowConstants.STATUS_APPROVED, params);
+		total = UserLocalServiceUtil.searchCount(user.getCompanyId(), keywords, WorkflowConstants.STATUS_APPROVED, params);
+
+		searchContainer.setTotal(total);
+
+		searchContainer.setResults(UserLocalServiceUtil.search(user.getCompanyId(), keywords, WorkflowConstants.STATUS_APPROVED, params, searchContainer.getStart(), searchContainer.getEnd(), (OrderByComparator)null));
 	}
 	else {
-		users = UserLocalServiceUtil.search(user.getCompanyId(), keywords, WorkflowConstants.STATUS_APPROVED, null, searchContainer.getStart(), searchContainer.getEnd(), (OrderByComparator)null);
-		usersCount = UserLocalServiceUtil.searchCount(user.getCompanyId(), keywords, WorkflowConstants.STATUS_APPROVED, null);
+		total = UserLocalServiceUtil.searchCount(user.getCompanyId(), keywords, WorkflowConstants.STATUS_APPROVED, null);
+
+		searchContainer.setTotal(total);
+
+		searchContainer.setResults(UserLocalServiceUtil.search(user.getCompanyId(), keywords, WorkflowConstants.STATUS_APPROVED, null, searchContainer.getStart(), searchContainer.getEnd(), (OrderByComparator)null));
 	}
 	%>
-
-	<liferay-ui:search-container-results
-		results="<%= users %>"
-		total="<%= usersCount %>"
-	/>
 
 	<liferay-ui:search-container-row
 		className="com.liferay.portal.model.User"
