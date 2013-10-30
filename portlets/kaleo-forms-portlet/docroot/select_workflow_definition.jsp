@@ -30,6 +30,7 @@ long ddmStructureId = ParamUtil.getLong(request, "ddmStructureId");
 <liferay-ui:search-container
 	emptyResultsMessage="no-workflow-definitions-are-defined"
 	iteratorURL="<%= iteratorURL %>"
+	total= '<%= tabs1.equals("published") ? WorkflowDefinitionManagerUtil.getActiveWorkflowDefinitionCount(company.getCompanyId()) : KaleoDraftDefinitionLocalServiceUtil.getLatestKaleoDraftDefinitionsCount(company.getCompanyId(), 0) %>'
 >
 
 	<%
@@ -54,7 +55,6 @@ long ddmStructureId = ParamUtil.getLong(request, "ddmStructureId");
 		<c:when test='<%= tabs1.equals("published") %>'>
 			<liferay-ui:search-container-results
 				results="<%= WorkflowDefinitionManagerUtil.getActiveWorkflowDefinitions(company.getCompanyId(), searchContainer.getStart(), searchContainer.getEnd(), null) %>"
-				total="<%= WorkflowDefinitionManagerUtil.getActiveWorkflowDefinitionCount(company.getCompanyId()) %>"
 			/>
 
 			<liferay-ui:search-container-row
@@ -118,7 +118,6 @@ long ddmStructureId = ParamUtil.getLong(request, "ddmStructureId");
 		<c:otherwise>
 			<liferay-ui:search-container-results
 				results="<%= KaleoDraftDefinitionLocalServiceUtil.getLatestKaleoDraftDefinitions(company.getCompanyId(), 0, searchContainer.getStart(), searchContainer.getEnd(), null) %>"
-				total="<%= KaleoDraftDefinitionLocalServiceUtil.getLatestKaleoDraftDefinitionsCount(company.getCompanyId(), 0) %>"
 			/>
 
 			<liferay-ui:search-container-row

@@ -23,10 +23,10 @@ portletURL.setParameter("tabs2", tabs2);
 <liferay-ui:search-container
 	emptyResultsMessage='<%= completedInstances ? "there-are-no-completed-instances-started-by-me" : "there-are-no-pending-instances-started-by-me" %>'
 	iteratorURL="<%= portletURL %>"
+	total="<%= WorkflowInstanceManagerUtil.getWorkflowInstanceCount(company.getCompanyId(), user.getUserId(), KaleoProcess.class.getName(), null, completedInstances) %>"
 >
 	<liferay-ui:search-container-results
 		results="<%= WorkflowInstanceManagerUtil.getWorkflowInstances(company.getCompanyId(), user.getUserId(), KaleoProcess.class.getName(), null, completedInstances, searchContainer.getStart(), searchContainer.getEnd(), null) %>"
-		total="<%= WorkflowInstanceManagerUtil.getWorkflowInstanceCount(company.getCompanyId(), user.getUserId(), KaleoProcess.class.getName(), null, completedInstances) %>"
 	/>
 
 	<liferay-ui:search-container-row

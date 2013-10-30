@@ -30,10 +30,10 @@ String tabs1 = ParamUtil.getString(request, "tabs1");
 
 <liferay-ui:search-container
 	searchContainer="<%= new KaleoProcessSearch(renderRequest, iteratorURL) %>"
+	total="<%= KaleoProcessServiceUtil.getKaleoProcessesCount(scopeGroupId) %>"
 >
 	<liferay-ui:search-container-results
 		results="<%= KaleoProcessServiceUtil.getKaleoProcesses(scopeGroupId, searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator()) %>"
-		total="<%= KaleoProcessServiceUtil.getKaleoProcessesCount(scopeGroupId) %>"
 	/>
 
 	<liferay-ui:search-container-row
