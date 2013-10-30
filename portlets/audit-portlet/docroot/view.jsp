@@ -57,34 +57,31 @@
 			servletContext="<%= application %>"
 		/>
 
-		<liferay-ui:search-container-results>
+		<%
+		int endDateDayHour = (endDateAmPm != Calendar.PM) ? endDateHour : endDateHour + 12;
+		int startDateDayHour = (startDateAmPm != Calendar.PM) ? startDateHour : startDateHour + 12;
 
-			<%
-			int endDateDayHour = (endDateAmPm != Calendar.PM) ? endDateHour : endDateHour + 12;
-			int startDateDayHour = (startDateAmPm != Calendar.PM) ? startDateHour : startDateHour + 12;
+		Date endDate = PortalUtil.getDate(endDateMonth, endDateDay, endDateYear, endDateDayHour, endDateMinute, timeZone, null);
+		Date startDate = PortalUtil.getDate(startDateMonth, startDateDay, startDateYear, startDateDayHour, startDateMinute, timeZone, null);
 
-			Date endDate = PortalUtil.getDate(endDateMonth, endDateDay, endDateYear, endDateDayHour, endDateMinute, timeZone, null);
-			Date startDate = PortalUtil.getDate(startDateMonth, startDateDay, startDateYear, startDateDayHour, startDateMinute, timeZone, null);
+		DisplayTerms displayTerms = searchContainer.getDisplayTerms();
 
-			DisplayTerms displayTerms = searchContainer.getDisplayTerms();
+		if (displayTerms.isAdvancedSearch()) {
+			total = AuditEventLocalServiceUtil.getAuditEventsCount(themeDisplay.getCompanyId(), userId, userName, startDate, endDate, eventType, className, classPK, clientHost, clientIP, serverName, serverPort, sessionID, displayTerms.isAndOperator());
 
-			if (displayTerms.isAdvancedSearch()) {
-				results = AuditEventLocalServiceUtil.getAuditEvents(themeDisplay.getCompanyId(), userId, userName, startDate, endDate, eventType, className, classPK, clientHost, clientIP, serverName, serverPort, sessionID, displayTerms.isAndOperator(), searchContainer.getStart(), searchContainer.getEnd(), new AuditEventCreateDateComparator());
-				total = AuditEventLocalServiceUtil.getAuditEventsCount(themeDisplay.getCompanyId(), userId, userName, startDate, endDate, eventType, className, classPK, clientHost, clientIP, serverName, serverPort, sessionID, displayTerms.isAndOperator());
-			}
-			else {
-				String keywords = displayTerms.getKeywords();
-				String number = Validator.isNumber(keywords) ? keywords : String.valueOf(0);
+			searchContainer.setTotal(total);
 
-				results = AuditEventLocalServiceUtil.getAuditEvents(themeDisplay.getCompanyId(), new Long(number), keywords, null, null, keywords, keywords, keywords, keywords, keywords, keywords, new Integer(number), keywords, false, searchContainer.getStart(), searchContainer.getEnd(), new AuditEventCreateDateComparator());
-				total = AuditEventLocalServiceUtil.getAuditEventsCount(themeDisplay.getCompanyId(), new Long(number), keywords, null, null, keywords, keywords, keywords, keywords, keywords, keywords, new Integer(number), keywords, false);
-			}
+			searchContainer.setResults(AuditEventLocalServiceUtil.getAuditEvents(themeDisplay.getCompanyId(), userId, userName, startDate, endDate, eventType, className, classPK, clientHost, clientIP, serverName, serverPort, sessionID, displayTerms.isAndOperator(), searchContainer.getStart(), searchContainer.getEnd(), new AuditEventCreateDateComparator()));
+		}
+		else {
+			String keywords = displayTerms.getKeywords();
+			String number = Validator.isNumber(keywords) ? keywords : String.valueOf(0);
 
-			pageContext.setAttribute("results", results);
-			pageContext.setAttribute("total", total);
-			%>
+			total = AuditEventLocalServiceUtil.getAuditEventsCount(themeDisplay.getCompanyId(), new Long(number), keywords, null, null, keywords, keywords, keywords, keywords, keywords, keywords, new Integer(number), keywords, false);
 
-		</liferay-ui:search-container-results>
+			searchContainer.setResults(AuditEventLocalServiceUtil.getAuditEvents(themeDisplay.getCompanyId(), new Long(number), keywords, null, null, keywords, keywords, keywords, keywords, keywords, keywords, new Integer(number), keywords, false, searchContainer.getStart(), searchContainer.getEnd(), new AuditEventCreateDateComparator()));
+		}
+		%>
 
 		<liferay-ui:search-container-row
 			className="com.liferay.portal.audit.model.AuditEvent"
