@@ -453,19 +453,19 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 										<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
 									</liferay-portlet:renderURL>
 
+									<%
+									List<FileVersion> fileVersions = fileEntry.getFileVersions(WorkflowConstants.STATUS_APPROVED);
+									%>
+
 									<liferay-ui:search-container
 										delta="<%= 5 %>"
 										deltaConfigurable="<%= false %>"
 										iteratorURL="<%= viewFileEntryURL %>"
+										total="<%= fileVersions.size() %>"
 									>
-
-										<%
-										List<FileVersion> fileVersions = fileEntry.getFileVersions(WorkflowConstants.STATUS_APPROVED);
-										%>
 
 										<liferay-ui:search-container-results
 											results="<%= ListUtil.subList(fileVersions, searchContainer.getStart(), searchContainer.getEnd()) %>"
-											total="<%= fileVersions.size() %>"
 										/>
 
 										<c:if test="<%= fileVersions.size() > searchContainer.getDelta() %>">
