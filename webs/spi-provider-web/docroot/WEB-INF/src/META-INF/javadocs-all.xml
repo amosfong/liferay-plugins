@@ -104,6 +104,22 @@
 			</return>
 		</method>
 		<method>
+			<name>disableJARandResourceLocking</name>
+			<param>
+				<name>contextXMLFile</name>
+				<type>java.io.File</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<return>
+				<comment><![CDATA[]]></comment>
+			</return>
+			<throws>
+				<name>Exception</name>
+				<type>java.lang.Exception</type>
+				<comment><![CDATA[]]></comment>
+			</throws>
+		</method>
+		<method>
 			<name>readObject</name>
 			<param>
 				<name>objectInputStream</name>
@@ -157,6 +173,9 @@
 		</method>
 		<field>
 			<name>NAME</name>
+		</field>
+		<field>
+			<name>_log</name>
 		</field>
 	</javadoc>
 </javadocs>
