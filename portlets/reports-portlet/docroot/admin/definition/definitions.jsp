@@ -49,25 +49,24 @@ String reportName = ParamUtil.getString(request, "reportName");
 			servletContext="<%= application %>"
 		/>
 
-		<liferay-ui:search-container-results>
+		<%
+		DisplayTerms displayTerms = searchContainer.getDisplayTerms();
 
-			<%
-			DisplayTerms displayTerms = searchContainer.getDisplayTerms();
+		if (displayTerms.isAdvancedSearch()) {
+			total = DefinitionServiceUtil.getDefinitionsCount(themeDisplay.getSiteGroupId(), definitionName, description, sourceId, reportName, displayTerms.isAndOperator());
 
-			if (displayTerms.isAdvancedSearch()) {
-				results = DefinitionServiceUtil.getDefinitions(themeDisplay.getSiteGroupId(), definitionName, description, sourceId, reportName, displayTerms.isAndOperator(), searchContainer.getStart(), searchContainer.getEnd(), null);
-				total = DefinitionServiceUtil.getDefinitionsCount(themeDisplay.getSiteGroupId(), definitionName, description, sourceId, reportName, displayTerms.isAndOperator());
-			}
-			else {
-				results = DefinitionServiceUtil.getDefinitions(themeDisplay.getSiteGroupId(), displayTerms.getKeywords(), displayTerms.getKeywords(), null, displayTerms.getKeywords(), false, searchContainer.getStart(), searchContainer.getEnd(), null);
-				total = DefinitionServiceUtil.getDefinitionsCount(themeDisplay.getSiteGroupId(), displayTerms.getKeywords(), displayTerms.getKeywords(), null, displayTerms.getKeywords(), false);
-			}
+			searchContainer.setTotal(total);
 
-			pageContext.setAttribute("results", results);
-			pageContext.setAttribute("total", total);
-			%>
+			searchContainer.setResults(DefinitionServiceUtil.getDefinitions(themeDisplay.getSiteGroupId(), definitionName, description, sourceId, reportName, displayTerms.isAndOperator(), searchContainer.getStart(), searchContainer.getEnd(), null));
+		}
+		else {
+			total = DefinitionServiceUtil.getDefinitionsCount(themeDisplay.getSiteGroupId(), displayTerms.getKeywords(), displayTerms.getKeywords(), null, displayTerms.getKeywords(), false);
 
-		</liferay-ui:search-container-results>
+			searchContainer.setTotal(total);
+
+			searchContainer.setResults(DefinitionServiceUtil.getDefinitions(themeDisplay.getSiteGroupId(), displayTerms.getKeywords(), displayTerms.getKeywords(), null, displayTerms.getKeywords(), false, searchContainer.getStart(), searchContainer.getEnd(), null));
+		}
+		%>
 
 		<liferay-ui:search-container-row
 			className="com.liferay.reports.model.Definition"

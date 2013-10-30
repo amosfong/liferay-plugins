@@ -45,25 +45,24 @@ String driverUrl = ParamUtil.getString(request, "driverUrl");
 			servletContext="<%= application %>"
 		/>
 
-		<liferay-ui:search-container-results>
+		<%
+		DisplayTerms displayTerms = searchContainer.getDisplayTerms();
 
-			<%
-			DisplayTerms displayTerms = searchContainer.getDisplayTerms();
+		if (displayTerms.isAdvancedSearch()) {
+			total = SourceServiceUtil.getSourcesCount(themeDisplay.getSiteGroupId(), name, driverUrl, displayTerms.isAndOperator());
 
-			if (displayTerms.isAdvancedSearch()) {
-				results = SourceServiceUtil.getSources(themeDisplay.getSiteGroupId(), name, driverUrl, displayTerms.isAndOperator(), searchContainer.getStart(), searchContainer.getEnd(), null);
-				total = SourceServiceUtil.getSourcesCount(themeDisplay.getSiteGroupId(), name, driverUrl, displayTerms.isAndOperator());
-			}
-			else {
-				results = SourceServiceUtil.getSources(themeDisplay.getSiteGroupId(), displayTerms.getKeywords(), displayTerms.getKeywords(), false, searchContainer.getStart(), searchContainer.getEnd(), null);
-				total = SourceServiceUtil.getSourcesCount(themeDisplay.getSiteGroupId(), displayTerms.getKeywords(), displayTerms.getKeywords(), false);
-			}
+			searchContainer.setTotal(total);
 
-			pageContext.setAttribute("results", results);
-			pageContext.setAttribute("total", total);
-			%>
+			searchContainer.setResults(SourceServiceUtil.getSources(themeDisplay.getSiteGroupId(), name, driverUrl, displayTerms.isAndOperator(), searchContainer.getStart(), searchContainer.getEnd(), null));
+		}
+		else {
+			total = SourceServiceUtil.getSourcesCount(themeDisplay.getSiteGroupId(), displayTerms.getKeywords(), displayTerms.getKeywords(), false);
 
-		</liferay-ui:search-container-results>
+			searchContainer.setTotal(total);
+
+			searchContainer.setResults(SourceServiceUtil.getSources(themeDisplay.getSiteGroupId(), displayTerms.getKeywords(), displayTerms.getKeywords(), false, searchContainer.getStart(), searchContainer.getEnd(), null));
+		}
+		%>
 
 		<liferay-ui:search-container-row
 			className="com.liferay.reports.model.Source"

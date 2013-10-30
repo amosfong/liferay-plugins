@@ -63,28 +63,27 @@
 			servletContext="<%= application %>"
 		/>
 
-		<liferay-ui:search-container-results>
+		<%
+		DisplayTerms displayTerms = searchContainer.getDisplayTerms();
 
-			<%
-			DisplayTerms displayTerms = searchContainer.getDisplayTerms();
+		Date startDate = PortalUtil.getDate(startDateMonth, startDateDay, startDateYear, timeZone, null);
+		Date endDate = PortalUtil.getDate(endDateMonth, endDateDay + 1, endDateYear, timeZone, null);
 
-			Date startDate = PortalUtil.getDate(startDateMonth, startDateDay, startDateYear, timeZone, null);
-			Date endDate = PortalUtil.getDate(endDateMonth, endDateDay + 1, endDateYear, timeZone, null);
+		if (displayTerms.isAdvancedSearch()) {
+			total = EntryServiceUtil.getEntriesCount(themeDisplay.getSiteGroupId(), definitionName, null, startDate, endDate, displayTerms.isAndOperator());
 
-			if (displayTerms.isAdvancedSearch()) {
-				results = EntryServiceUtil.getEntries(themeDisplay.getSiteGroupId(), definitionName, null, startDate, endDate, displayTerms.isAndOperator(), searchContainer.getStart(), searchContainer.getEnd(), null);
-				total = EntryServiceUtil.getEntriesCount(themeDisplay.getSiteGroupId(), definitionName, null, startDate, endDate, displayTerms.isAndOperator());
-			}
-			else {
-				results = EntryServiceUtil.getEntries(themeDisplay.getSiteGroupId(), displayTerms.getKeywords(), null, null, null, false, searchContainer.getStart(), searchContainer.getEnd(), null);
-				total = EntryServiceUtil.getEntriesCount(themeDisplay.getSiteGroupId(), displayTerms.getKeywords(), null, null, null, false);
-			}
+			searchContainer.setTotal(total);
 
-			pageContext.setAttribute("results", results);
-			pageContext.setAttribute("total", total);
-			%>
+			searchContainer.setResults(EntryServiceUtil.getEntries(themeDisplay.getSiteGroupId(), definitionName, null, startDate, endDate, displayTerms.isAndOperator(), searchContainer.getStart(), searchContainer.getEnd(), null));
+		}
+		else {
+			total = EntryServiceUtil.getEntriesCount(themeDisplay.getSiteGroupId(), displayTerms.getKeywords(), null, null, null, false);
 
-		</liferay-ui:search-container-results>
+			searchContainer.setTotal(total);
+
+			searchContainer.setResults(EntryServiceUtil.getEntries(themeDisplay.getSiteGroupId(), displayTerms.getKeywords(), null, null, null, false, searchContainer.getStart(), searchContainer.getEnd(), null));
+		}
+		%>
 
 		<liferay-ui:search-container-row
 			className="com.liferay.reports.model.Entry"

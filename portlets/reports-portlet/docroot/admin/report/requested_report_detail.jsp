@@ -155,10 +155,10 @@ request.setAttribute("entry", entry);
 	delta="2"
 	iteratorURL="<%= portletURL %>"
 	searchContainer="<%= new SearchContainer(renderRequest, null, null, SearchContainer.DEFAULT_CUR_PARAM, SearchContainer.DEFAULT_DELTA, portletURL, headerNames, null) %>"
+	total="<%= attachmentsFiles.size() %>"
 >
 	<liferay-ui:search-container-results
 		results="<%= ListUtil.subList(attachmentsFiles, searchContainer.getStart(), searchContainer.getEnd()) %>"
-		total="<%= attachmentsFiles.size() %>"
 	/>
 
 	<liferay-ui:search-container-row
