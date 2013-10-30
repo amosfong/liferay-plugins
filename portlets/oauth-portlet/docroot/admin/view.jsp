@@ -35,22 +35,18 @@
 			servletContext="<%= application %>"
 		/>
 
-		<liferay-ui:search-container-results>
+		<%
+		OAuthApplicationDisplayTerms displayTerms = (OAuthApplicationDisplayTerms)searchContainer.getDisplayTerms();
 
-			<%
-			OAuthApplicationDisplayTerms displayTerms = (OAuthApplicationDisplayTerms)searchContainer.getDisplayTerms();
+		LinkedHashMap<String, Object> params = new LinkedHashMap<String, Object>();
 
-			LinkedHashMap<String, Object> params = new LinkedHashMap<String, Object>();
+		if (!permissionChecker.isCompanyAdmin()) {
+			params.put("userId", new Long(themeDisplay.getUserId()));
+		}
 
-			if (!permissionChecker.isCompanyAdmin()) {
-				params.put("userId", new Long(themeDisplay.getUserId()));
-			}
-
-			pageContext.setAttribute("results", OAuthApplicationLocalServiceUtil.search(themeDisplay.getCompanyId(), displayTerms.getName(), params, searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator()));
-			pageContext.setAttribute("total", OAuthApplicationLocalServiceUtil.searchCount(themeDisplay.getCompanyId(), displayTerms.getName(), params));
-			%>
-
-		</liferay-ui:search-container-results>
+		searchContainer.setTotal(OAuthApplicationLocalServiceUtil.searchCount(themeDisplay.getCompanyId(), displayTerms.getName(), params));
+		searchContainer.setResults(OAuthApplicationLocalServiceUtil.search(themeDisplay.getCompanyId(), displayTerms.getName(), params, searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator()));
+		%>
 
 		<liferay-ui:search-container-row
 			className="com.liferay.oauth.model.OAuthApplication"

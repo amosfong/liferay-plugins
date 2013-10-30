@@ -23,10 +23,10 @@
 <liferay-ui:search-container
 	emptyResultsMessage="no-oauth-users-were-found"
 	iteratorURL="<%= iteratorURL %>"
+	total="<%= OAuthUserLocalServiceUtil.getUserOAuthUsersCount(themeDisplay.getUserId()) %>"
 >
 	<liferay-ui:search-container-results
 		results="<%= OAuthUserLocalServiceUtil.getUserOAuthUsers(themeDisplay.getUserId(), searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator()) %>"
-		total="<%= OAuthUserLocalServiceUtil.getUserOAuthUsersCount(themeDisplay.getUserId()) %>"
 	/>
 
 	<liferay-ui:search-container-row
