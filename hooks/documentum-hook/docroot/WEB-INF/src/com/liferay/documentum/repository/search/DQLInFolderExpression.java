@@ -14,19 +14,35 @@
 
 package com.liferay.documentum.repository.search;
 
+import com.liferay.portal.kernel.util.StringBundler;
+
 /**
  * @author Mika Koivisto
  */
 public class DQLInFolderExpression implements DQLCriterion {
 
-	public DQLInFolderExpression(String objectId) {
+	public DQLInFolderExpression(String objectId, boolean decend) {
 		_objectId = objectId;
+		_decend = decend;
 	}
 
 	public String toQueryFragment() {
-		return "FOLDER(ID('".concat(_objectId).concat("'))");
+		StringBundler sb = new StringBundler(5);
+
+		sb.append("FOLDER(ID('");
+		sb.append(_objectId);
+		sb.append("')");
+
+		if (_decend) {
+			sb.append(" DECEND");
+		}
+
+		sb.append(")");
+
+		return sb.toString();
 	}
 
 	private String _objectId;
+	private boolean _decend;
 
 }

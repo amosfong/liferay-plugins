@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.search.BooleanClauseOccur;
 import com.liferay.portal.kernel.search.BooleanQuery;
 import com.liferay.portal.kernel.search.Field;
 import com.liferay.portal.kernel.search.Query;
+import com.liferay.portal.kernel.search.QueryConfig;
 import com.liferay.portal.kernel.search.QueryTerm;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.search.Sort;
@@ -161,7 +162,9 @@ public class DQLQueryBuilder {
 
 		DQLConjunction dqlConjunction = new DQLConjunction();
 
-		_traverseQuery(documentRepository, dqlConjunction, query);
+		QueryConfig queryConfig = searchContext.getQueryConfig();
+
+		_traverseQuery(documentRepository, dqlConjunction, query, queryConfig);
 
 		if (!dqlConjunction.isEmpty()) {
 			sb.append(" WHERE ");
@@ -184,7 +187,9 @@ public class DQLQueryBuilder {
 
 		DQLConjunction dqlConjunction = new DQLConjunction();
 
-		_traverseQuery(documentRepository, dqlConjunction, query);
+		QueryConfig queryConfig = searchContext.getQueryConfig();
+
+		_traverseQuery(documentRepository, dqlConjunction, query, queryConfig);
 
 		if (!dqlConjunction.isEmpty()) {
 			sb.append(" WHERE ");
@@ -235,7 +240,7 @@ public class DQLQueryBuilder {
 
 		DQLCriterion dqlFolderCriterion = _buildFieldExpression(
 			documentRepository, Field.FOLDER_ID, String.valueOf(folderId),
-			DQLSimpleExpressionOperator.EQ);
+			DQLSimpleExpressionOperator.EQ, null);
 
 		if (dqlFolderCriterion != null) {
 			dqlConjunction.add(dqlFolderCriterion);
@@ -243,7 +248,7 @@ public class DQLQueryBuilder {
 
 		DQLCriterion dqlTypeCriterion = _buildFieldExpression(
 			documentRepository, Constants.R_OBJECT_TYPE, Constants.DM_FOLDER,
-			DQLSimpleExpressionOperator.NE);
+			DQLSimpleExpressionOperator.NE, null);
 
 		dqlConjunction.add(dqlTypeCriterion);
 
@@ -254,7 +259,7 @@ public class DQLQueryBuilder {
 				dqlDisjunction.add(
 					_buildFieldExpression(
 						documentRepository, Constants.A_CONTENT_TYPE, mimeType,
-						DQLSimpleExpressionOperator.EQ));
+						DQLSimpleExpressionOperator.EQ, null));
 			}
 
 			if (!dqlDisjunction.isEmpty()) {
@@ -307,7 +312,7 @@ public class DQLQueryBuilder {
 
 		DQLCriterion dqlCriterion = _buildFieldExpression(
 			documentRepository, Field.FOLDER_ID, String.valueOf(folderId),
-			DQLSimpleExpressionOperator.EQ);
+			DQLSimpleExpressionOperator.EQ, null);
 
 		if (dqlCriterion != null) {
 			dqlConjunction.add(dqlCriterion);
@@ -319,13 +324,13 @@ public class DQLQueryBuilder {
 			dqlDisjunction.add(
 				_buildFieldExpression(
 					documentRepository, Constants.R_OBJECT_TYPE,
-					Constants.DM_FOLDER, DQLSimpleExpressionOperator.EQ));
+					Constants.DM_FOLDER, DQLSimpleExpressionOperator.EQ, null));
 
 			for (String mimeType : mimeTypes) {
 				dqlDisjunction.add(
 					_buildFieldExpression(
 						documentRepository, Constants.A_CONTENT_TYPE, mimeType,
-						DQLSimpleExpressionOperator.EQ));
+						DQLSimpleExpressionOperator.EQ, null));
 			}
 
 			if (!dqlDisjunction.isEmpty()) {
@@ -378,7 +383,7 @@ public class DQLQueryBuilder {
 
 		DQLCriterion dqlCriterion = _buildFieldExpression(
 			documentRepository, Field.FOLDER_ID, String.valueOf(folderId),
-			DQLSimpleExpressionOperator.EQ);
+			DQLSimpleExpressionOperator.EQ, null);
 
 		dqlConjunction.add(dqlCriterion);
 
@@ -418,7 +423,8 @@ public class DQLQueryBuilder {
 
 	private static DQLCriterion _buildFieldExpression(
 		DocumentumRepository documentRepository, String field, String value,
-		DQLSimpleExpressionOperator dqlSimpleExpressionOperator) {
+		DQLSimpleExpressionOperator dqlSimpleExpressionOperator,
+		QueryConfig queryConfig) {
 
 		DQLCriterion dqlCriterion = null;
 
@@ -438,7 +444,13 @@ public class DQLQueryBuilder {
 				String objectId = documentRepository.toFolderObjectId(folderId);
 
 				if (objectId != null) {
-					dqlCriterion = new DQLInFolderExpression(objectId);
+					boolean decend = false;
+
+					if (queryConfig != null) {
+						decend = queryConfig.isSearchSubfolders();
+					}
+
+					dqlCriterion = new DQLInFolderExpression(objectId, decend);
 				}
 			}
 			catch (Exception e) {
@@ -493,7 +505,8 @@ public class DQLQueryBuilder {
 
 	private static void _traverseQuery(
 		DocumentumRepository documentRepository,
-		DQLJunction criterionDQLJunction, Query query) {
+		DQLJunction criterionDQLJunction, Query query,
+		QueryConfig queryConfig) {
 
 		if (query instanceof BooleanQuery) {
 			BooleanQuery booleanQuery = (BooleanQuery)query;
@@ -521,7 +534,8 @@ public class DQLQueryBuilder {
 				Query booleanClauseQuery = booleanClause.getQuery();
 
 				_traverseQuery(
-					documentRepository, dqlJunction, booleanClauseQuery);
+					documentRepository, dqlJunction, booleanClauseQuery,
+						queryConfig);
 			}
 
 			if (!anyDQLConjunction.isEmpty()) {
@@ -548,7 +562,7 @@ public class DQLQueryBuilder {
 
 			DQLCriterion dqlExpression = _buildFieldExpression(
 				documentRepository, queryTerm.getField(), queryTerm.getValue(),
-				DQLSimpleExpressionOperator.EQ);
+				DQLSimpleExpressionOperator.EQ, queryConfig);
 
 			if (dqlExpression != null) {
 				criterionDQLJunction.add(dqlExpression);
@@ -586,7 +600,7 @@ public class DQLQueryBuilder {
 
 			DQLCriterion dqlCriterion = _buildFieldExpression(
 				documentRepository, queryTerm.getField(), queryTerm.getValue(),
-				DQLSimpleExpressionOperator.LIKE);
+				DQLSimpleExpressionOperator.LIKE, queryConfig);
 
 			if (dqlCriterion != null) {
 				criterionDQLJunction.add(dqlCriterion);
