@@ -777,7 +777,7 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 				</c:if>
 
 				<%
-					request.removeAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
+				request.removeAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 				%>
 
 				<div class="lfr-asset-panels">
@@ -803,7 +803,6 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 						%>
 
 									<liferay-ui:panel collapsible="<%= true %>" cssClass="metadata" extended="<%= true %>" id="documentLibraryMetadataPanel" persistState="<%= true %>" title="<%= HtmlUtil.escape(ddmStructure.getName(locale)) %>">
-
 										<liferay-ddm:html
 											classNameId="<%= PortalUtil.getClassNameId(DDMStructure.class) %>"
 											classPK="<%= ddmStructure.getPrimaryKey() %>"
@@ -812,7 +811,6 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 											readOnly="<%= true %>"
 											requestedLocale="<%= locale %>"
 										/>
-
 									</liferay-ui:panel>
 
 						<%
