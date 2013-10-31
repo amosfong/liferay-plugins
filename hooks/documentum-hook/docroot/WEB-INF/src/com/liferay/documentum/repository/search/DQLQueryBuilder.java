@@ -535,7 +535,7 @@ public class DQLQueryBuilder {
 
 				_traverseQuery(
 					documentRepository, dqlJunction, booleanClauseQuery,
-						queryConfig);
+					queryConfig);
 			}
 
 			if (!anyDQLConjunction.isEmpty()) {

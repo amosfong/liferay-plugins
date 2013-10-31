@@ -42,7 +42,7 @@ public class DQLInFolderExpression implements DQLCriterion {
 		return sb.toString();
 	}
 
-	private String _objectId;
 	private boolean _decend;
+	private String _objectId;
 
 }
