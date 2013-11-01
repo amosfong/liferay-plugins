@@ -1056,7 +1056,7 @@
 		<licenses><![CDATA[EE]]></licenses>
 		<liferay-versions><![CDATA[6.2.10+]]></liferay-versions>
 		<releng>
-			<bundle><![CDATA[false]]></bundle>
+			<bundle><![CDATA[true]]></bundle>
 			<category><![CDATA[]]></category>
 			<demo-url><![CDATA[]]></demo-url>
 			<dependent-apps><![CDATA[]]></dependent-apps>
@@ -1080,7 +1080,7 @@
 		<licenses><![CDATA[EE]]></licenses>
 		<liferay-versions><![CDATA[6.2.10+]]></liferay-versions>
 		<releng>
-			<bundle><![CDATA[false]]></bundle>
+			<bundle><![CDATA[true]]></bundle>
 			<category><![CDATA[Productivity]]></category>
 			<demo-url><![CDATA[]]></demo-url>
 			<dependent-apps><![CDATA[kaleo-designer-portlet, kaleo-web]]></dependent-apps>
