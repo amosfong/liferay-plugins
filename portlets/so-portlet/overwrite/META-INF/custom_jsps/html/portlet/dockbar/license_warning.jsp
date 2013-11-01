@@ -181,17 +181,19 @@ catch (Exception e) {
 			</div>
 		</div>
 
-		<aui:script use="aui-dialog">
-			new A.Dialog(
+		<aui:script use="liferay-util-window">
+			Liferay.Util.Window.getWindow(
 				{
-					bodyContent: A.one('#<portlet:namespace />licenseExpired').html(),
-					centered: true,
-					close: false,
-					destroyOnClose: true,
-					modal: true,
-					resizable: false,
+					dialog: {
+						bodyContent: A.one('#<portlet:namespace />licenseExpired').html(),
+						centered: true,
+						close: false,
+						destroyOnClose: true,
+						modal: true,
+						resizable: false,
+						width: 650
+					},
 					title: '<%= UnicodeLanguageUtil.get(pageContext, "your-social-office-license-has-expired") %>',
-					width: 650
 				}
 			).render();
 
