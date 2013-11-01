@@ -4037,6 +4037,11 @@
 				<type>java.lang.String</type>
 				<comment><![CDATA[]]></comment>
 			</param>
+			<param>
+				<name>decend</name>
+				<type>boolean</type>
+				<comment><![CDATA[]]></comment>
+			</param>
 		</method>
 		<method>
 			<name>toQueryFragment</name>
@@ -4044,6 +4049,9 @@
 				<comment><![CDATA[]]></comment>
 			</return>
 		</method>
+		<field>
+			<name>_decend</name>
+		</field>
 		<field>
 			<name>_objectId</name>
 		</field>
@@ -4435,6 +4443,11 @@
 				<type>DQLSimpleExpressionOperator</type>
 				<comment><![CDATA[]]></comment>
 			</param>
+			<param>
+				<name>queryConfig</name>
+				<type>com.liferay.portal.kernel.search.QueryConfig</type>
+				<comment><![CDATA[]]></comment>
+			</param>
 			<return>
 				<comment><![CDATA[]]></comment>
 			</return>
@@ -4454,6 +4467,11 @@
 			<param>
 				<name>query</name>
 				<type>com.liferay.portal.kernel.search.Query</type>
+				<comment><![CDATA[]]></comment>
+			</param>
+			<param>
+				<name>queryConfig</name>
+				<type>com.liferay.portal.kernel.search.QueryConfig</type>
 				<comment><![CDATA[]]></comment>
 			</param>
 		</method>
