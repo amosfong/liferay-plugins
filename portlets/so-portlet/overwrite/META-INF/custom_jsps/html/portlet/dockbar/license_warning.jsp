@@ -191,6 +191,7 @@ catch (Exception e) {
 						destroyOnClose: true,
 						modal: true,
 						resizable: false,
+						toolbars: {},
 						width: 650
 					},
 					title: '<%= UnicodeLanguageUtil.get(pageContext, "your-social-office-license-has-expired") %>',
