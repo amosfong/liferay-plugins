@@ -4,6 +4,12 @@
 	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="docroot/WEB-INF/src" />
 	<classpathentry kind="src" path="/portal-master" />
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER" />
+	<classpathentry excluding="**/.svn/**|.svn/" kind="src" path="test/unit" />
+	<classpathentry kind="lib" path="/portal-master/lib/development/junit.jar" />
+	<classpathentry kind="lib" path="/portal-master/lib/development/mockito.jar" />
+	<classpathentry kind="lib" path="/portal-master/lib/development/powermock-mockito.jar" />
+	<classpathentry kind="lib" path="/portal-master/lib/development/spring-test.jar" />
+	<classpathentry kind="lib" path="/portal-master/lib/portal/commons-io.jar" />
 	<classpathentry kind="lib" path="/portal-master/lib/development/activation.jar" />
 	<classpathentry kind="lib" path="/portal-master/lib/development/annotations.jar" />
 	<classpathentry kind="lib" path="/portal-master/lib/development/jsp-api.jar" />
@@ -15,6 +21,9 @@
 	<classpathentry kind="lib" path="/portal-master/lib/portal/commons-lang.jar" />
 	<classpathentry kind="lib" path="/portal-master/lib/portal/commons-logging.jar" />
 	<classpathentry kind="lib" path="/portal-master/lib/portal/log4j.jar" />
+	<classpathentry kind="lib" path="/portal-master/lib/portal/lucene-analyzers.jar" />
+	<classpathentry kind="lib" path="/portal-master/lib/portal/lucene-core.jar" />
+	<classpathentry kind="lib" path="/portal-master/lib/portal/lucene-queryparser.jar" />
 	<classpathentry kind="lib" path="/portal-master/portal-service/portal-service.jar" />
 	<classpathentry kind="lib" path="/portal-master/util-bridges/util-bridges.jar" />
 	<classpathentry kind="lib" path="/portal-master/util-java/util-java.jar" />
@@ -25,5 +34,6 @@
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/dctm.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/dfc.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/jsafeFIPS.jar" />
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/portal-compat-shared.jar" />
 	<classpathentry kind="output" path="bin" />
 </classpath>
