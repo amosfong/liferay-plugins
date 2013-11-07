@@ -1,0 +1,99 @@
+<?xml version="1.0"?>
+<!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_2_0.dtd">
+
+<service-builder package-path="com.liferay.bbb">
+	<author>Shinn Lok</author>
+	<namespace>BBB</namespace>
+	<entity name="Meeting" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="meetingId" type="long" primary="true" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="meetingServerId" type="long" />
+		<column name="name" type="String" />
+		<column name="attendeePassword" type="String" />
+		<column name="moderatorPassword" type="String" />
+		<column name="meetingStatus" type="long" />
+
+		<!-- Finder methods -->
+
+		<finder name="MeetingServerId" return-type="Collection">
+			<finder-column name="meetingServerId" />
+		</finder>
+	</entity>
+	<entity name="MeetingParticipant" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="meetingParticipantId" type="long" primary="true" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="meetingId" type="long" />
+		<column name="name" type="String" />
+		<column name="email" type="String" />
+
+		<!-- Finder methods -->
+
+		<finder name="MeetingId" return-type="Collection">
+			<finder-column name="meetingId" />
+		</finder>
+	</entity>
+	<entity name="MeetingServer" local-service="true" remote-service="true">
+
+		<!-- PK fields -->
+
+		<column name="meetingServerId" type="long" primary="true" />
+
+		<!-- Group instance -->
+
+		<column name="groupId" type="long" />
+
+		<!-- Audit fields -->
+
+		<column name="companyId" type="long" />
+		<column name="userId" type="long" />
+		<column name="userName" type="String" />
+		<column name="createDate" type="Date" />
+		<column name="modifiedDate" type="Date" />
+
+		<!-- Other fields -->
+
+		<column name="name" type="String" />
+		<column name="url" type="String" />
+		<column name="secret" type="String" />
+
+		<!-- Finder methods -->
+
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+	</entity>
+</service-builder>
