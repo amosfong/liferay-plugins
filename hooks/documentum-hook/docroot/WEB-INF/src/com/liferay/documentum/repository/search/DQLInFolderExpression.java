@@ -26,6 +26,7 @@ public class DQLInFolderExpression implements DQLCriterion {
 		_decend = decend;
 	}
 
+	@Override
 	public String toQueryFragment() {
 		StringBundler sb = new StringBundler(5);
 

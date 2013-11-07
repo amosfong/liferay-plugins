@@ -31,6 +31,7 @@ public class DQLSimpleExpression implements DQLCriterion {
 		_dqlSimpleExpressionOperator = dqlSimpleExpressionOperator;
 	}
 
+	@Override
 	public String toQueryFragment() {
 		StringBundler sb = new StringBundler(7);
 
