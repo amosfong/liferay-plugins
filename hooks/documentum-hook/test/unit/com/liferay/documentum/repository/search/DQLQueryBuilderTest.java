@@ -140,7 +140,8 @@ public class DQLQueryBuilderTest extends PowerMockito {
 		assertQueryEquals(
 			"(object_name LIKE 'test%' AND NOT(object_name = 'test.doc')) OR " +
 				"(r_creator_name LIKE 'test%' AND NOT(r_creator_name = " +
-					"'test.doc'))", dql);
+					"'test.doc'))",
+			dql);
 	}
 
 	@Test
@@ -166,7 +167,8 @@ public class DQLQueryBuilderTest extends PowerMockito {
 
 		assertQueryEquals(
 			"(FOLDER(ID('1000'))) AND ((object_name = 'test') OR " +
-				"(r_creator_name = 'test'))", dql);
+				"(r_creator_name = 'test'))",
+			dql);
 	}
 
 	@Test
@@ -188,6 +190,7 @@ public class DQLQueryBuilderTest extends PowerMockito {
 			RepositorySearchQueryBuilderUtil.getFullQuery(searchContext);
 
 		QueryConfig queryConfig = searchContext.getQueryConfig();
+
 		queryConfig.setSearchSubfolders(true);
 
 		String dql = DQLQueryBuilder.buildSearchSelectQueryString(
@@ -195,7 +198,8 @@ public class DQLQueryBuilderTest extends PowerMockito {
 
 		assertQueryEquals(
 			"(FOLDER(ID('1000'), DECEND)) AND ((object_name = 'test') OR " +
-				"(r_creator_name = 'test'))", dql);
+				"(r_creator_name = 'test'))",
+			dql);
 	}
 
 	protected void assertQueryEquals(String where, String query) {
@@ -227,9 +231,10 @@ public class DQLQueryBuilderTest extends PowerMockito {
 		return service;
 	}
 
+	private static final String _QUERY_POSTFIX = ")";
+
 	private static final String _QUERY_PREFIX =
 		"SELECT r_object_id FROM dm_document WHERE (";
-	private static final String _QUERY_POSTFIX = ")";
 
 	private BeanLocator _beanLocator;
 	private DocumentumRepository _documentumRepository;
