@@ -280,6 +280,12 @@ public class DocumentumFileEntry extends DocumentumModel implements FileEntry {
 	public FileVersion getLatestFileVersion()
 		throws PortalException, SystemException {
 
+		return getLatestFileVersion(false);
+	}
+
+	public FileVersion getLatestFileVersion(boolean trusted)
+		throws PortalException, SystemException {
+
 		DocumentumVersionLabel documentumVersionLabel =
 			_documentumVersionLabels.get(0);
 
