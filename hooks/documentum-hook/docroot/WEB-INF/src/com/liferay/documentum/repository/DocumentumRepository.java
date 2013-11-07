@@ -314,8 +314,7 @@ public class DocumentumRepository extends BaseRepositoryImpl {
 
 	@Override
 	public void checkInFileEntry(
-			long fileEntryId, String lockUuid, ServiceContext serviceContext)
-		throws PortalException, SystemException {
+		long fileEntryId, String lockUuid, ServiceContext serviceContext) {
 
 		throw new UnsupportedOperationException();
 	}
