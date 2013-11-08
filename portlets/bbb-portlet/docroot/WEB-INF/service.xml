@@ -4,11 +4,11 @@
 <service-builder package-path="com.liferay.bbb">
 	<author>Shinn Lok</author>
 	<namespace>BBB</namespace>
-	<entity name="Meeting" local-service="true" remote-service="true">
+	<entity name="MeetingEntry" local-service="true" remote-service="true">
 
 		<!-- PK fields -->
 
-		<column name="meetingId" type="long" primary="true" />
+		<column name="meetingEntryId" type="long" primary="true" />
 
 		<!-- Group instance -->
 
@@ -28,7 +28,7 @@
 		<column name="name" type="String" />
 		<column name="attendeePassword" type="String" />
 		<column name="moderatorPassword" type="String" />
-		<column name="meetingStatus" type="long" />
+		<column name="status" type="int" />
 
 		<!-- Finder methods -->
 
@@ -56,14 +56,14 @@
 
 		<!-- Other fields -->
 
-		<column name="meetingId" type="long" />
+		<column name="meetingEntryId" type="long" />
 		<column name="name" type="String" />
-		<column name="email" type="String" />
+		<column name="emailAddress" type="String" />
 
 		<!-- Finder methods -->
 
-		<finder name="MeetingId" return-type="Collection">
-			<finder-column name="meetingId" />
+		<finder name="MeetingEntryId" return-type="Collection">
+			<finder-column name="meetingEntryId" />
 		</finder>
 	</entity>
 	<entity name="MeetingServer" local-service="true" remote-service="true">

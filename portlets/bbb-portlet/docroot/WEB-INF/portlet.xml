@@ -6,11 +6,11 @@
 		<display-name>Meetings</display-name>
 		<portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
 		<init-param>
-			<name>jsp-path</name>
+			<name>template-path</name>
 			<value>/bbb/</value>
 		</init-param>
 		<init-param>
-			<name>view-jsp</name>
+			<name>view-template</name>
 			<value>/bbb/view.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
@@ -40,11 +40,11 @@
 		<display-name>Meetings Admin</display-name>
 		<portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
 		<init-param>
-			<name>jsp-path</name>
+			<name>template-path</name>
 			<value>/bbb_admin/</value>
 		</init-param>
 		<init-param>
-			<name>view-jsp</name>
+			<name>view-template</name>
 			<value>/bbb_admin/view.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
