@@ -484,7 +484,7 @@ public class TasksEntryLocalServiceImpl extends TasksEntryLocalServiceBaseImpl {
 			notificationEventJSONObject.put(
 				"title",
 				serviceContext.translate(
-					title, 
+					title,
 					PortalUtil.getUserName(
 						serviceContext.getUserId(), StringPool.BLANK)));
 
