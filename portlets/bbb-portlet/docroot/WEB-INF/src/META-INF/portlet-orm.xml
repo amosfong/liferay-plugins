@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1.0" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+	<persistence-unit-metadata>
+		<xml-mapping-metadata-complete/>
+		<persistence-unit-defaults>
+			<access>PROPERTY</access>
+		</persistence-unit-defaults>
+	</persistence-unit-metadata>
+	<mapped-superclass class="com.liferay.bbb.model.impl.MeetingEntryModelImpl">
+		<attributes>
+			<id name="meetingEntryId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="meetingServerId" />
+			<basic name="name" />
+			<basic name="attendeePassword" />
+			<basic name="moderatorPassword" />
+			<basic name="status" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.liferay.bbb.model.impl.MeetingParticipantModelImpl">
+		<attributes>
+			<id name="meetingParticipantId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="meetingEntryId" />
+			<basic name="name" />
+			<basic name="emailAddress" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<mapped-superclass class="com.liferay.bbb.model.impl.MeetingServerModelImpl">
+		<attributes>
+			<id name="meetingServerId" />
+			<basic name="groupId" />
+			<basic name="companyId" />
+			<basic name="userId" />
+			<basic name="userName" />
+			<basic name="createDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="modifiedDate">
+				<temporal>TIMESTAMP</temporal>
+			</basic>
+			<basic name="name" />
+			<basic name="url" />
+			<basic name="secret" />
+			<transient name="modelAttributes" />
+			<transient name="primaryKey" />
+			<transient name="primaryKeyObj" />
+			<transient name="userUuid" />
+		</attributes>
+	</mapped-superclass>
+	<entity class="com.liferay.bbb.model.impl.MeetingEntryImpl" name="MeetingEntry">
+		<table name="BBB_MeetingEntry" />
+		<attributes />
+	</entity>
+	<entity class="com.liferay.bbb.model.impl.MeetingParticipantImpl" name="MeetingParticipant">
+		<table name="BBB_MeetingParticipant" />
+		<attributes />
+	</entity>
+	<entity class="com.liferay.bbb.model.impl.MeetingServerImpl" name="MeetingServer">
+		<table name="BBB_MeetingServer" />
+		<attributes />
+	</entity>
+</entity-mappings>

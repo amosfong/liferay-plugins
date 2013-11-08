@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" default-destroy-method="destroy" default-init-method="afterPropertiesSet" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+	<bean id="com.liferay.bbb.service.MeetingEntryLocalService" class="com.liferay.bbb.service.impl.MeetingEntryLocalServiceImpl" />
+	<bean id="com.liferay.bbb.service.MeetingEntryService" class="com.liferay.bbb.service.impl.MeetingEntryServiceImpl" />
+	<bean id="com.liferay.bbb.service.persistence.MeetingEntryPersistence" class="com.liferay.bbb.service.persistence.MeetingEntryPersistenceImpl" parent="basePersistence" />
+	<bean id="com.liferay.bbb.service.MeetingParticipantLocalService" class="com.liferay.bbb.service.impl.MeetingParticipantLocalServiceImpl" />
+	<bean id="com.liferay.bbb.service.MeetingParticipantService" class="com.liferay.bbb.service.impl.MeetingParticipantServiceImpl" />
+	<bean id="com.liferay.bbb.service.persistence.MeetingParticipantPersistence" class="com.liferay.bbb.service.persistence.MeetingParticipantPersistenceImpl" parent="basePersistence" />
+	<bean id="com.liferay.bbb.service.MeetingServerLocalService" class="com.liferay.bbb.service.impl.MeetingServerLocalServiceImpl" />
+	<bean id="com.liferay.bbb.service.MeetingServerService" class="com.liferay.bbb.service.impl.MeetingServerServiceImpl" />
+	<bean id="com.liferay.bbb.service.persistence.MeetingServerPersistence" class="com.liferay.bbb.service.persistence.MeetingServerPersistenceImpl" parent="basePersistence" />
+</beans>
