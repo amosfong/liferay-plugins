@@ -35,9 +35,7 @@ public class PortletPropsValues {
 			PortletProps.get(
 				PortletPropsKeys.SAML_METADATA_MIN_REFRESH_DELAY), 300000);
 
-	public static final int SAML_REPLAY_CACHE_DURATION =
-		GetterUtil.getInteger(
-			PortletProps.get(PortletPropsKeys.SAML_REPLAY_CACHE_DURATION),
-			3600000);
+	public static final int SAML_REPLAY_CACHE_DURATION = GetterUtil.getInteger(
+		PortletProps.get(PortletPropsKeys.SAML_REPLAY_CACHE_DURATION), 3600000);
 
 }

@@ -1256,7 +1256,10 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 		Issuer issuer = assertion.getIssuer();
 		String idpEntityId = issuer.getValue();
 		String messageKey = assertion.getID();
-		DateTime notOnOrAfter = new DateTime().plusMillis(
+
+		DateTime notOnOrAfter = new DateTime();
+
+		notOnOrAfter = notOnOrAfter.plusMillis(
 			PortletPropsValues.SAML_REPLAY_CACHE_DURATION);
 
 		try {
