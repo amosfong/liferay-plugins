@@ -28,6 +28,8 @@ import com.liferay.saml.model.SamlSpAuthRequest;
 import com.liferay.saml.model.impl.SamlSpAuthRequestImpl;
 import com.liferay.saml.service.SamlSpAuthRequestLocalService;
 import com.liferay.saml.service.SamlSpAuthRequestLocalServiceUtil;
+import com.liferay.saml.service.SamlSpMessageLocalService;
+import com.liferay.saml.service.SamlSpMessageLocalServiceUtil;
 import com.liferay.saml.util.OpenSamlUtil;
 import com.liferay.saml.util.PortletWebKeys;
 import com.liferay.saml.util.SamlUtil;
@@ -52,6 +54,7 @@ import org.opensaml.common.xml.SAMLConstants;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.AudienceRestriction;
 import org.opensaml.saml2.core.AuthnRequest;
+import org.opensaml.saml2.core.Conditions;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.NameIDType;
@@ -391,6 +394,38 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 	}
 
 	@Test
+	public void testVerifyConditionsNoDates() throws Exception {
+		prepareIdentityProvider(IDP_ENTITY_ID);
+
+		MockHttpServletRequest mockHttpServletRequest =
+			getMockHttpServletRequest(SSO_URL);
+
+		SAMLMessageContext<AuthnRequest, Response, NameID>
+			idpSamlMessageContext =
+				(SAMLMessageContext<AuthnRequest, Response, NameID>)
+					_webSsoProfileImpl.getSamlMessageContext(
+						mockHttpServletRequest, new MockHttpServletResponse());
+
+		idpSamlMessageContext.setPeerEntityId(SP_ENTITY_ID);
+
+		SamlSsoRequestContext samlSsoRequestContext = new SamlSsoRequestContext(
+			idpSamlMessageContext);
+
+		Conditions conditions = _webSsoProfileImpl.getSuccessConditions(
+			samlSsoRequestContext, null, null);
+
+		prepareServiceProvider(SP_ENTITY_ID);
+
+		mockHttpServletRequest = getMockHttpServletRequest(ACS_URL);
+
+		SAMLMessageContext<?, ?, ?> spSamlMessageContext =
+			_webSsoProfileImpl.getSamlMessageContext(
+				mockHttpServletRequest, new MockHttpServletResponse());
+
+		_webSsoProfileImpl.verifyConditions(spSamlMessageContext, conditions);
+	}
+
+	@Test
 	public void testVerifyDestinationAllow() throws Exception {
 		MockHttpServletRequest mockHttpServletRequest =
 			getMockHttpServletRequest(ACS_URL);
@@ -512,6 +547,62 @@ public class WebSsoProfileIntegrationTest extends BaseSamlTestCase {
 
 		_webSsoProfileImpl.verifyIssuer(
 			samlMessageContext, OpenSamlUtil.buildIssuer(IDP_ENTITY_ID));
+	}
+
+	@Test
+	public void testVerifyReplayNoConditionsDate() throws Exception {
+		prepareIdentityProvider(IDP_ENTITY_ID);
+
+		MockHttpServletRequest mockHttpServletRequest =
+			getMockHttpServletRequest(SSO_URL);
+
+		SAMLMessageContext<AuthnRequest, Response, NameID>
+			idpSamlMessageContext =
+				(SAMLMessageContext<AuthnRequest, Response, NameID>)
+					_webSsoProfileImpl.getSamlMessageContext(
+						mockHttpServletRequest, new MockHttpServletResponse());
+
+		idpSamlMessageContext.setPeerEntityId(SP_ENTITY_ID);
+
+		SamlSsoRequestContext samlSsoRequestContext = new SamlSsoRequestContext(
+			idpSamlMessageContext);
+
+		Conditions conditions = _webSsoProfileImpl.getSuccessConditions(
+			samlSsoRequestContext, null, null);
+
+		prepareServiceProvider(SP_ENTITY_ID);
+
+		mockHttpServletRequest = getMockHttpServletRequest(ACS_URL);
+
+		SAMLMessageContext<?, ?, ?> spSamlMessageContext =
+			_webSsoProfileImpl.getSamlMessageContext(
+				mockHttpServletRequest, new MockHttpServletResponse());
+
+		Assertion assertion = OpenSamlUtil.buildAssertion();
+
+		assertion.setConditions(conditions);
+
+		Issuer issuer = OpenSamlUtil.buildIssuer(IDP_ENTITY_ID);
+
+		assertion.setIssuer(issuer);
+
+		String messageId = identifierGenerator.generateIdentifier();
+
+		assertion.setID(messageId);
+
+		SamlSpMessageLocalService samlSpMessageLocalService =
+			getMockPortletService(
+				SamlSpMessageLocalServiceUtil.class,
+				SamlSpMessageLocalService.class);
+
+		when(
+			samlSpMessageLocalService.fetchSamlSpMessage(
+				Mockito.eq(IDP_ENTITY_ID), Mockito.eq(messageId))
+		).thenReturn(
+			null
+		);
+
+		_webSsoProfileImpl.verifyReplay(spSamlMessageContext, assertion);
 	}
 
 	@Test(expected = ExpiredException.class)
