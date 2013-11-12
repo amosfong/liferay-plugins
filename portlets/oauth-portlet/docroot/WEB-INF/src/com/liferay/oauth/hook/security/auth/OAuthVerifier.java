@@ -87,6 +87,9 @@ public class OAuthVerifier implements AuthVerifier {
 		catch (Exception e) {
 			try {
 				OAuthUtil.handleException(request, response, e, sendBody);
+
+				authVerifierResult.setState(
+					AuthVerifierResult.State.INVALID_CREDENTIALS);
 			}
 			catch (OAuthException oae) {
 				throw new AuthException(oae);
