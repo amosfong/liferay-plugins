@@ -41,6 +41,7 @@ import javax.portlet.PortletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.oauth.OAuthProblemException;
 import net.oauth.server.OAuthServlet;
 
 /**
@@ -189,7 +190,11 @@ public class V10aOAuth implements OAuth {
 		OAuthAccessor oAuthAccessor = (OAuthAccessor)_portalCache.get(token);
 
 		if (oAuthAccessor == null) {
-			throw new OAuthException(net.oauth.OAuth.Problems.TOKEN_EXPIRED);
+			net.oauth.OAuthException oAuthException =
+				new OAuthProblemException(
+					net.oauth.OAuth.Problems.TOKEN_EXPIRED);
+
+			throw new OAuthException(oAuthException);
 		}
 
 		return oAuthAccessor;
@@ -204,15 +209,24 @@ public class V10aOAuth implements OAuth {
 			consumerKey = requestMessage.getConsumerKey();
 		}
 		catch (IOException ioe) {
-			throw new OAuthException(ioe);
+			net.oauth.OAuthException oAuthException =
+				new OAuthProblemException(
+					net.oauth.OAuth.Problems.CONSUMER_KEY_UNKNOWN);
+
+			oAuthException.initCause(ioe);
+
+			throw new OAuthException(oAuthException);
 		}
 
 		OAuthApplication oAuthApplication =
 			OAuthApplicationLocalServiceUtil.fetchOAuthApplication(consumerKey);
 
 		if (oAuthApplication == null) {
-			throw new OAuthException(
-				net.oauth.OAuth.Problems.CONSUMER_KEY_REFUSED);
+			net.oauth.OAuthException oAuthException =
+				new OAuthProblemException(
+					net.oauth.OAuth.Problems.CONSUMER_KEY_REFUSED);
+
+			throw new OAuthException(oAuthException);
 		}
 
 		return new DefaultOAuthConsumer(oAuthApplication);

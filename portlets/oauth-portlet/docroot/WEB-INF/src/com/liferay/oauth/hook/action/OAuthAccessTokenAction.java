@@ -53,7 +53,7 @@ public class OAuthAccessTokenAction extends BaseStrutsAction {
 				oAuthAccessor.getProperty(OAuthAccessorConstants.AUTHORIZED));
 
 			if (!authorized) {
-				throw new OAuthException(
+				throw new net.oauth.OAuthProblemException(
 					net.oauth.OAuth.Problems.ADDITIONAL_AUTHORIZATION_REQUIRED);
 			}
 

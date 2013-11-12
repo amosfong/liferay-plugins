@@ -120,14 +120,22 @@ public class OAuthVerifier implements AuthVerifier {
 		if (Validator.isNull(oAuthMessage) ||
 			Validator.isNull(oAuthMessage.getToken())) {
 
-			throw new OAuthException(net.oauth.OAuth.Problems.PARAMETER_ABSENT);
+			net.oauth.OAuthException oAuthException =
+				new net.oauth.OAuthProblemException(
+					net.oauth.OAuth.Problems.PARAMETER_ABSENT);
+
+			throw new OAuthException(oAuthException);
 		}
 
 		OAuthUser oAuthUser = OAuthUserLocalServiceUtil.fetchOAuthUser(
 			oAuthMessage.getToken());
 
 		if (oAuthUser == null) {
-			throw new OAuthException(net.oauth.OAuth.Problems.TOKEN_REJECTED);
+			net.oauth.OAuthException oAuthException =
+				new net.oauth.OAuthProblemException(
+					net.oauth.OAuth.Problems.TOKEN_REJECTED);
+
+			throw new OAuthException(oAuthException);
 		}
 
 		return oAuthUser;
