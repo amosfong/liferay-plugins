@@ -14,10 +14,9 @@
 
 package com.liferay.saml.util;
 
+import com.liferay.portal.kernel.security.SecureRandom;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.UnicodeFormatter;
-
-import java.security.SecureRandom;
 
 import org.opensaml.common.IdentifierGenerator;
 

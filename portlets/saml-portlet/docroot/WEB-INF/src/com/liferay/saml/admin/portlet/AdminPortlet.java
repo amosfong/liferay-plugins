@@ -25,6 +25,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PropertiesParamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Time;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
@@ -233,7 +234,7 @@ public class AdminPortlet extends MVCPortlet {
 			PortletPropsKeys.SAML_ENTITY_ID);
 
 		if (Validator.isNotNull(currentEntityId) &&
-			!currentEntityId.equalsIgnoreCase(newEntityId)) {
+			!StringUtil.equalsIgnoreCase(currentEntityId, newEntityId)) {
 
 			KeyStore keyStore = KeyStoreManagerUtil.getKeyStore();
 

@@ -26,6 +26,7 @@ import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.saml.SamlException;
@@ -119,7 +120,9 @@ public class SingleLogoutProfileImpl
 			}
 		}
 		catch (Exception e) {
-			_log.warn("Unable to verify single logout support", e);
+			if (_log.isWarnEnabled()) {
+				_log.warn("Unable to verify single logout support", e);
+			}
 		}
 
 		return false;
@@ -198,13 +201,13 @@ public class SingleLogoutProfileImpl
 		String requestPath = SamlUtil.getRequestPath(request);
 
 		if (requestPath.endsWith("/slo_redirect") &&
-			method.equalsIgnoreCase(HttpMethods.GET)) {
+			StringUtil.equalsIgnoreCase(method, HttpMethods.GET)) {
 
 			samlBinding = getSamlBinding(
 				SAMLConstants.SAML2_REDIRECT_BINDING_URI);
 		}
 		else if (requestPath.endsWith("/slo_soap") &&
-				 method.equalsIgnoreCase(HttpMethods.POST)) {
+				 StringUtil.equalsIgnoreCase(method, HttpMethods.POST)) {
 
 			samlBinding = getSamlBinding(
 				SAMLConstants.SAML2_SOAP11_BINDING_URI);

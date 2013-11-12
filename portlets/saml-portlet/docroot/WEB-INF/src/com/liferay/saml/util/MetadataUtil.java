@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.servlet.HttpHeaders;
 import com.liferay.portal.kernel.util.StreamUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -60,10 +61,10 @@ public class MetadataUtil {
 			if (header != null) {
 				String contentEncoding = header.getValue();
 
-				if (contentEncoding.equalsIgnoreCase("deflate")) {
+				if (StringUtil.equalsIgnoreCase(contentEncoding, "deflate")) {
 					inputStream = new InflaterInputStream(inputStream);
 				}
-				else if (contentEncoding.equalsIgnoreCase("gzip")) {
+				else if (StringUtil.equalsIgnoreCase(contentEncoding, "gzip")) {
 					inputStream = new GZIPInputStream(inputStream);
 				}
 			}
@@ -78,7 +79,9 @@ public class MetadataUtil {
 			return new ByteArrayInputStream(bytes);
 		}
 		catch (Exception e) {
-			_log.warn("Unable to get metadata from " + url, e);
+			if (_log.isWarnEnabled()) {
+				_log.warn("Unable to get metadata from " + url, e);
+			}
 		}
 		finally {
 			getMethod.releaseConnection();

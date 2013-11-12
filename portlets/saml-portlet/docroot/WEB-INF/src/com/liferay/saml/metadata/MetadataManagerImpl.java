@@ -238,7 +238,9 @@ public class MetadataManagerImpl implements MetadataManager {
 						httpMetadataProvider.initialize();
 					}
 					catch (MetadataProviderException mpe) {
-						_log.warn("Unable to initialize provider " + path);
+						if (_log.isWarnEnabled()) {
+							_log.warn("Unable to initialize provider " + path);
+						}
 					}
 
 					cachingChainingMetadataProvider.addMetadataProvider(
@@ -260,7 +262,9 @@ public class MetadataManagerImpl implements MetadataManager {
 						filesystemMetadataProvider.initialize();
 					}
 					catch (MetadataProviderException mpe) {
-						_log.warn("Unable to initialize provider " + path);
+						if (_log.isWarnEnabled()) {
+							_log.warn("Unable to initialize provider " + path);
+						}
 					}
 
 					cachingChainingMetadataProvider.addMetadataProvider(

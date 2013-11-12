@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.StreamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.io.ByteArrayInputStream;
@@ -186,7 +187,7 @@ public class CertificateUtil {
 		for (int i = 0; i < digest.length; i++) {
 			String hex = Integer.toHexString(digest[i] & 0xff);
 
-			sb.append(hex.toUpperCase());
+			sb.append(StringUtil.toUpperCase(hex));
 
 			if ((i + 1) < digest.length) {
 				sb.append(CharPool.COLON);

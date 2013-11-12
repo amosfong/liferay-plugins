@@ -107,7 +107,9 @@ public class SamlSloContext implements Serializable {
 			}
 		}
 		catch (Exception e) {
-			_log.warn(e, e);
+			if (_log.isWarnEnabled()) {
+				_log.warn(e, e);
+			}
 		}
 	}
 
