@@ -14,8 +14,6 @@
 
 package com.liferay.oauth.hook.security.auth;
 
-import com.liferay.compat.portal.kernel.servlet.HttpHeaders;
-import com.liferay.compat.portal.kernel.util.StringUtil;
 import com.liferay.oauth.model.OAuthUser;
 import com.liferay.oauth.service.OAuthUserLocalServiceUtil;
 import com.liferay.oauth.util.DefaultOAuthAccessor;
@@ -26,8 +24,10 @@ import com.liferay.oauth.util.OAuthUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.oauth.OAuthException;
+import com.liferay.portal.kernel.servlet.HttpHeaders;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.security.auth.AccessControlContext;
 import com.liferay.portal.security.auth.AuthException;
@@ -64,6 +64,7 @@ public class OAuthVerifier implements AuthVerifier {
 			properties.getProperty("send.body"));
 
 		HttpServletRequest request = accessControlContext.getRequest();
+
 		HttpServletResponse response = accessControlContext.getResponse();
 
 		if (!isUsingOAuth(request)) {

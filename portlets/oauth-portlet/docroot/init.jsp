@@ -24,9 +24,7 @@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %><%@
 taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %><%@
 taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
-<%@ page import="com.liferay.compat.portal.kernel.util.StringUtil" %><%@
-page import="com.liferay.compat.portlet.PortletURLUtil" %><%@
-page import="com.liferay.oauth.model.OAuthApplication" %><%@
+<%@ page import="com.liferay.oauth.model.OAuthApplication" %><%@
 page import="com.liferay.oauth.model.OAuthApplicationConstants" %><%@
 page import="com.liferay.oauth.search.OAuthApplicationDisplayTerms" %><%@
 page import="com.liferay.oauth.search.OAuthApplicationSearch" %><%@
@@ -49,9 +47,11 @@ page import="com.liferay.portal.kernel.upload.UploadException" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.portal.kernel.util.StringPool" %><%@
+page import="com.liferay.portal.kernel.util.StringUtil" %><%@
 page import="com.liferay.portal.kernel.util.Validator" %><%@
 page import="com.liferay.portal.kernel.util.WebKeys" %><%@
-page import="com.liferay.portal.webserver.WebServerServletTokenUtil" %>
+page import="com.liferay.portal.webserver.WebServerServletTokenUtil" %><%@
+page import="com.liferay.portlet.PortletURLUtil" %>
 
 <%@ page import="java.net.MalformedURLException" %>
 

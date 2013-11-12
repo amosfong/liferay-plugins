@@ -14,7 +14,6 @@
 
 package com.liferay.oauth.util;
 
-import com.liferay.compat.portal.util.PortalUtil;
 import com.liferay.oauth.model.OAuthApplication;
 import com.liferay.oauth.model.OAuthUser;
 import com.liferay.oauth.service.OAuthApplicationLocalServiceUtil;
@@ -29,6 +28,7 @@ import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.Http;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.PwdGenerator;
 
 import java.io.IOException;
