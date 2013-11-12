@@ -142,7 +142,7 @@ public class BaseSamlTestCase extends PowerMockito {
 				url.indexOf(StringPool.COLON, protocol.length() + 3));
 			serverPort = GetterUtil.getInteger(
 				url.substring(
-					url.indexOf(StringPool.COLON, protocol.length() + 3),
+					url.indexOf(StringPool.COLON, protocol.length() + 3) + 1,
 					url.indexOf(StringPool.SLASH, protocol.length() + 3)));
 		}
 		else {

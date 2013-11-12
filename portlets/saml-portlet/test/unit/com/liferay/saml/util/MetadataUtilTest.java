@@ -14,6 +14,8 @@
 
 package com.liferay.saml.util;
 
+import com.liferay.portal.kernel.portlet.PortletClassLoaderUtil;
+
 import java.io.InputStream;
 
 import org.junit.Assert;
@@ -29,6 +31,11 @@ public class MetadataUtilTest {
 
 	@BeforeClass
 	public static void setUpClass() throws Exception {
+		Thread currentThread = Thread.currentThread();
+
+		PortletClassLoaderUtil.setClassLoader(
+			currentThread.getContextClassLoader());
+
 		OpenSamlBootstrap.bootstrap();
 
 		MetadataUtil metadataUtil = new MetadataUtil();
