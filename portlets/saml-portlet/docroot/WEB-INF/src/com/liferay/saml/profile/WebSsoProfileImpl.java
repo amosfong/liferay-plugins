@@ -61,6 +61,7 @@ import com.liferay.saml.service.SamlSpAuthRequestLocalServiceUtil;
 import com.liferay.saml.service.SamlSpMessageLocalServiceUtil;
 import com.liferay.saml.service.SamlSpSessionLocalServiceUtil;
 import com.liferay.saml.util.OpenSamlUtil;
+import com.liferay.saml.util.PortletPropsValues;
 import com.liferay.saml.util.PortletWebKeys;
 import com.liferay.saml.util.SamlUtil;
 
@@ -1151,8 +1152,12 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 
 		verifyAudienceRestrictions(
 			conditions.getAudienceRestrictions(), samlMessageContext);
-		verifyNotOnOrAfterDateTime(
-			MetadataManagerUtil.getClockSkew(), conditions.getNotOnOrAfter());
+
+		if (conditions.getNotOnOrAfter() != null) {
+			verifyNotOnOrAfterDateTime(
+				MetadataManagerUtil.getClockSkew(),
+				conditions.getNotOnOrAfter());
+		}
 	}
 
 	protected void verifyDestination(
@@ -1250,8 +1255,8 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 		Issuer issuer = assertion.getIssuer();
 		String idpEntityId = issuer.getValue();
 		String messageKey = assertion.getID();
-		Conditions conditions = assertion.getConditions();
-		DateTime notOnOrAfter = conditions.getNotOnOrAfter();
+		DateTime notOnOrAfter = new DateTime().plusMillis(
+			PortletPropsValues.SAML_REPLAY_CACHE_DURATION);
 
 		try {
 			SamlSpMessage samlSpMessage =

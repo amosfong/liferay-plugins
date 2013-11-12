@@ -89,6 +89,9 @@ public interface PortletPropsKeys {
 
 	public static final String SAML_METADATA_PATHS = "saml.metadata.paths";
 
+	public static final String SAML_REPLAY_CACHE_DURATION =
+		"saml.replay.cache.duration";
+
 	public static final String SAML_ROLE = "saml.role";
 
 	public static final String SAML_SIGN_METADATA = "saml.sign.metadata";
