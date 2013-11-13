@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.util.UnsyncPrintWriterPool;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Ivica Cardic
@@ -62,7 +63,9 @@ public class ExecuteScriptCommand implements Command {
 		Exception exception = null;
 
 		try {
-			ScriptingUtil.exec(null, inputObjects, "groovy", script);
+			ScriptingUtil.exec(
+				(Set<String>)null, inputObjects, "groovy", script,
+				new String[]{});
 
 			unsyncPrintWriter.flush();
 
