@@ -35,7 +35,7 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 }
 %>
 
-<div class="portlet-msg-info <%= (!ready && pending) ? StringPool.BLANK : "aui-helper-hidden" %>" id="<portlet:namespace />pending">
+<div class="portlet-msg-info <%= (!ready && pending) ? StringPool.BLANK : "hide" %>" id="<portlet:namespace />pending">
 	<liferay-ui:message key="this-liferay-instance-is-synchronizing-with-liferay-cloud-services" />
 </div>
 
@@ -127,11 +127,11 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 	<aui:column columnWidth="30">
 		<h4><liferay-ui:message key="connection-status" /></h4>
 
-		<div class="<%= ready ? StringPool.BLANK : "aui-helper-hidden" %> portlet-msg-info" id="<portlet:namespace />registered">
+		<div class="<%= ready ? StringPool.BLANK : "hide" %> portlet-msg-info" id="<portlet:namespace />registered">
 			<liferay-ui:message key="this-liferay-instance-is-registered-and-synchronized-with-liferay-cloud-services" />
 		</div>
 
-		<div class="<%= (!ready && !pending) ? StringPool.BLANK : "aui-helper-hidden" %> portlet-msg-info" id="<portlet:namespace />disconnected">
+		<div class="<%= (!ready && !pending) ? StringPool.BLANK : "hide" %> portlet-msg-info" id="<portlet:namespace />disconnected">
 			<liferay-ui:message key="this-liferay-instance-is-registered-but-not-connected-and-not-synchronized-with-liferay-cloud-services" />
 		</div>
 

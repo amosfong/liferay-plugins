@@ -11,12 +11,12 @@
 	}
 
 	.environment-section {
-		.aui-field-content {
+		.field-content {
 			margin-bottom: 0;
 		}
 
 		.environment-input-wrapper {
-			.aui-field-content {
+			.field-content {
 				margin-top: 0;
 			}
 
@@ -41,12 +41,12 @@
 	}
 
 	input {
-		&.aui-button-input {
+		&.button-input {
 			background: #7F7F7F;
 			color: #FFF;
 			margin-bottom: 10px;
 
-			&.aui-button-input-submit {
+			&.button-input-submit {
 				background: #009D0F;
 			}
 		}

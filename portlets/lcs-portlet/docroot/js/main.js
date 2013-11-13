@@ -29,24 +29,24 @@ AUI.add(
 
 		var STR_VALUE = 'value';
 
-		var TPL_FIELD_HIDDEN = '<input class="aui-field-input aui-field-input-text" id="{portletNamespace}lcsClusterEntryId" name="{portletNamespace}lcsClusterEntryId" type="hidden" value="" />';
+		var TPL_FIELD_HIDDEN = '<input class="field-input field-input-text" id="{portletNamespace}lcsClusterEntryId" name="{portletNamespace}lcsClusterEntryId" type="hidden" value="" />';
 
 		var TPL_FIELD_OPTION = '<option value="{0}">{1}</option>';
 
-		var TPL_FIELD_SELECT = '<span class="aui-field aui-field-select aui-field-menu aui-field-disabled">' +
-			'<span class="aui-field-content">' +
-				'<span class="aui-field-element ">' +
-					'<select class="aui-field-input aui-field-input-select aui-field-input-menu" id="{portletNamespace}lcsClusterEntryId" name="{portletNamespace}lcsClusterEntryId">' +
+		var TPL_FIELD_SELECT = '<span class="field field-select field-menu field-disabled">' +
+			'<span class="field-content">' +
+				'<span class="field-element ">' +
+					'<select class="field-input field-input-select field-input-menu" id="{portletNamespace}lcsClusterEntryId" name="{portletNamespace}lcsClusterEntryId">' +
 						'{optionalContent}' +
 					'</select>' +
 				'</span>' +
 			'</span>' +
 		'</span>';
 
-		var TPL_FIELD_TEXT = '<span class="aui-field aui-field-text aui-field-disabled">' +
-			'<span class="aui-field-content">' +
-				'<span class="aui-field-element ">' +
-					'<input class="aui-field-input aui-field-input-text" disabled="" id="{portletNamespace}lcsClusterEntryName" name="{portletNamespace}lcsClusterEntryName" type="text" value="" />' +
+		var TPL_FIELD_TEXT = '<span class="field field-text field-disabled">' +
+			'<span class="field-content">' +
+				'<span class="field-element ">' +
+					'<input class="field-input field-input-text" disabled="" id="{portletNamespace}lcsClusterEntryName" name="{portletNamespace}lcsClusterEntryName" type="text" value="" />' +
 				'</span>' +
 			'</span>' +
 		'</span>';
@@ -169,15 +169,16 @@ AUI.add(
 						var lcsClusterEntryPanelRenderURL = instance._createURL(TYPE_ADD_LCS_CLUSTER_ENTRY);
 
 						if (!lcsClusterEntryPanel) {
-							lcsClusterEntryPanel = new A.Dialog(
-								{
+							lcsClusterEntryPanel = Liferay.Util.Window.getWindow(
+{
+dialog: {
 									centered: true,
 									cssClass: CSS_LCS_CLUSTER_ENTRY_DIALOG,
 									modal: true,
 									resizable: false,
 									title: Liferay.Language.get('new-environment'),
 									width: 600
-								}
+								}}
 							).render(instance._portletContentBox);
 
 							lcsClusterEntryPanel.plug(
@@ -396,7 +397,7 @@ AUI.add(
 								labelText = Liferay.Language.get('there-are-no-environments-created-yet');
 							}
 
-							environmentRadioInput.ancestor('.aui-field-content').one('label').html(labelText);
+							environmentRadioInput.ancestor('.field-content').one('label').html(labelText);
 						}
 					}
 				}
@@ -407,6 +408,6 @@ AUI.add(
 	},
 	'',
 	{
-		requires: ['aui-dialog', 'aui-io-request', 'dd', 'liferay-portlet-base', 'liferay-portlet-url', 'resize']
+		requires: ['liferay-util-window', 'aui-io-request-deprecated', 'dd', 'liferay-portlet-base', 'liferay-portlet-url', 'resize']
 	}
 );
