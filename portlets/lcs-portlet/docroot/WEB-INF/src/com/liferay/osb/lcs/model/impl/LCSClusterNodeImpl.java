@@ -16,6 +16,7 @@ package com.liferay.osb.lcs.model.impl;
 
 import com.liferay.lcs.util.LCSConstants;
 import com.liferay.osb.lcs.model.LCSClusterNode;
+import com.liferay.portal.model.BaseModel;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portlet.expando.model.ExpandoBridge;
@@ -218,6 +219,16 @@ public class LCSClusterNodeImpl implements LCSClusterNode {
 	@Override
 	public void setDescription(String description) {
 		_description = description;
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(BaseModel<?> baseModel) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public void setExpandoBridgeAttributes(ExpandoBridge expandoBridge) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
