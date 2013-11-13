@@ -16,7 +16,7 @@
 
 <%@ include file="/init.jsp" %>
 
-<liferay-ui:error key="authentication-failed" message="authentication-failed" />
+<liferay-ui:error key="authenticationFailed" message="authentication-failed" />
 
 <hr />
 

@@ -101,7 +101,7 @@ public class CloudServicesPortlet extends MVCPortlet {
 		LCSUtil.setupCredentials();
 
 		if (LCSUtil.getCredentialsStatus() != LCSUtil.CREDENTIALS_SET) {
-			SessionErrors.add(actionRequest, "authentication-failed");
+			SessionErrors.add(actionRequest, "authenticationFailed");
 		}
 	}
 
