@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+
+<beans
+	default-destroy-method="destroy"
+	default-init-method="afterPropertiesSet"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+>
+
+	<!-- Annotation -->
+
+	<bean class="com.liferay.portal.kernel.spring.util.SpringFactoryUtil" factory-method="newBean">
+		<constructor-arg value="com.liferay.portal.spring.bean.BeanReferenceAnnotationBeanPostProcessor" />
+	</bean>
+
+	<!-- Command -->
+
+	<bean id="com.liferay.lcs.command.CheckHeartbeatCommand" class="com.liferay.lcs.command.CheckHeartbeatCommand" />
+	<bean id="com.liferay.lcs.command.DeregisterCommand" class="com.liferay.lcs.command.DeregisterCommand" />
+	<bean id="com.liferay.lcs.command.DownloadPatchesCommand" class="com.liferay.lcs.command.DownloadPatchesCommand" />
+	<bean id="com.liferay.lcs.command.ExecuteScriptCommand" class="com.liferay.lcs.command.ExecuteScriptCommand" />
+	<bean id="com.liferay.lcs.command.SendPatchesCommand" class="com.liferay.lcs.command.SendPatchesCommand" />
+	<bean id="com.liferay.lcs.command.SendPortalPropertiesCommand" class="com.liferay.lcs.command.SendPortalPropertiesCommand" />
+
+	<!-- JSON -->
+
+	<bean id="osbLCSGatewayWebJSONWebServiceClient" class="com.liferay.lcs.json.JSONWebServiceClientImpl">
+		<property name="hostName" value="#{T(com.liferay.util.portlet.PortletProps).get('osb.lcs.gateway.web.host.name')}" />
+		<property name="hostPort" value="#{T(com.liferay.util.portlet.PortletProps).get('osb.lcs.gateway.web.host.port')}" />
+		<property name="login" value="#{T(com.liferay.util.portlet.PortletProps).get('osb.lcs.gateway.web.login')}" />
+		<property name="password" value="#{T(com.liferay.util.portlet.PortletProps).get('osb.lcs.gateway.web.password')}" />
+	</bean>
+	<bean id="osbLCSPortletJSONWebServiceClient" class="com.liferay.lcs.json.JSONWebServiceClientImpl">
+		<property name="hostName" value="#{T(com.liferay.util.portlet.PortletProps).get('osb.lcs.portlet.host.name')}" />
+		<property name="hostPort" value="#{T(com.liferay.util.portlet.PortletProps).get('osb.lcs.portlet.host.port')}" />
+	</bean>
+
+	<!-- Security -->
+
+	<bean name="com.liferay.lcs.security.DigitalSignature" class="com.liferay.lcs.security.DigitalSignatureImpl">
+		<property name="algorithmProvider" value="#{T(com.liferay.util.portlet.PortletProps).get('digital.signature.algorithm.provider')}" />
+		<property name="keyName" value="#{T(com.liferay.util.portlet.PortletProps).get('digital.signature.key.name')}" />
+		<property name="keyStorePassword" value="#{T(com.liferay.util.portlet.PortletProps).get('digital.signature.key.store.password')}" />
+		<property name="keyStorePath" value="#{T(com.liferay.util.portlet.PortletProps).get('digital.signature.key.store.path')}" />
+		<property name="keyStoreType" value="#{T(com.liferay.util.portlet.PortletProps).get('digital.signature.key.store.type')}" />
+		<property name="signingAlgorithm" value="#{T(com.liferay.util.portlet.PortletProps).get('digital.signature.signing.algorithm')}" />
+	</bean>
+
+	<!-- Service -->
+
+	<bean id="com.liferay.lcs.service.LCSGatewayService" class="com.liferay.lcs.service.impl.LCSGatewayServiceImpl">
+		<property name="JSONWebServiceClient" ref="osbLCSGatewayWebJSONWebServiceClient" />
+	</bean>
+	<bean id="com.liferay.osb.lcs.service.CorpEntryService" class="com.liferay.osb.lcs.service.impl.CorpEntryServiceImpl">
+		<property name="JSONWebServiceClient" ref="osbLCSPortletJSONWebServiceClient" />
+	</bean>
+	<bean id="com.liferay.osb.lcs.service.CorpEntryServiceUtil" class="com.liferay.osb.lcs.service.CorpEntryServiceUtil">
+		<property name="corpEntryService" ref="com.liferay.osb.lcs.service.CorpEntryService" />
+	</bean>
+	<bean id="com.liferay.osb.lcs.service.LCSClusterNodeService" class="com.liferay.osb.lcs.service.impl.LCSClusterNodeServiceImpl">
+		<property name="JSONWebServiceClient" ref="osbLCSPortletJSONWebServiceClient" />
+	</bean>
+	<bean id="com.liferay.osb.lcs.service.LCSClusterNodeServiceUtil" class="com.liferay.osb.lcs.service.LCSClusterNodeServiceUtil">
+		<property name="LCSClusterNodeService" ref="com.liferay.osb.lcs.service.LCSClusterNodeService" />
+	</bean>
+	<bean id="com.liferay.osb.lcs.service.LCSClusterEntryService" class="com.liferay.osb.lcs.service.impl.LCSClusterEntryServiceImpl">
+		<property name="JSONWebServiceClient" ref="osbLCSPortletJSONWebServiceClient" />
+	</bean>
+	<bean id="com.liferay.osb.lcs.service.LCSClusterEntryServiceUtil" class="com.liferay.osb.lcs.service.LCSClusterEntryServiceUtil">
+		<property name="LCSClusterEntryService" ref="com.liferay.osb.lcs.service.LCSClusterEntryService" />
+	</bean>
+
+	<!-- Task -->
+
+	<bean id="com.liferay.lcs.task.CacheMetricsTask" class="com.liferay.lcs.task.CacheMetricsTask" />
+	<bean id="com.liferay.lcs.task.CommandMessageTask" class="com.liferay.lcs.task.CommandMessageTask" />
+	<bean id="com.liferay.lcs.task.HandshakeTask" class="com.liferay.lcs.task.HandshakeTask">
+		<property name="handshakeReplyReads" value="#{T(com.liferay.util.portlet.PortletProps).get('communication.handshake.reply.reads')}" />
+		<property name="handshakeWaitTime" value="#{T(com.liferay.util.portlet.PortletProps).get('communication.handshake.wait.time')}" />
+		<property name="heartbeatInterval" value="#{T(com.liferay.util.portlet.PortletProps).get('communication.heartbeat.interval')}" />
+	</bean>
+	<bean id="com.liferay.lcs.task.HeartbeatTask" class="com.liferay.lcs.task.HeartbeatTask" />
+	<bean id="com.liferay.lcs.task.JVMMetricsTask" class="com.liferay.lcs.task.JVMMetricsTask" />
+	<bean id="com.liferay.lcs.task.ServerMetricsTask" class="com.liferay.lcs.task.ServerMetricsTask" />
+	<bean id="com.liferay.lcs.task.SignoffTask" class="com.liferay.lcs.task.SignoffTask">
+		<property name="handshakeReplyReads" value="#{T(com.liferay.util.portlet.PortletProps).get('communication.handshake.reply.reads')}" />
+		<property name="heartbeatInterval" value="#{T(com.liferay.util.portlet.PortletProps).get('communication.heartbeat.interval')}" />
+		<property name="stopReplyReads" value="#{T(com.liferay.util.portlet.PortletProps).get('communication.stop.reply.reads')}" />
+		<property name="stopWaitTime" value="#{T(com.liferay.util.portlet.PortletProps).get('communication.stop.wait.time')}" />
+	</bean>
+
+	<!-- Util -->
+
+	<bean id="com.liferay.lcs.util.HandshakeManager" class="com.liferay.lcs.util.HandshakeManagerImpl">
+		<property name="handshakeWaitTime" value="#{T(com.liferay.util.portlet.PortletProps).get('communication.handshake.wait.time')}" />
+		<property name="heartbeatInterval" value="#{T(com.liferay.util.portlet.PortletProps).get('communication.heartbeat.interval')}" />
+	</bean>
+	<bean id="com.liferay.lcs.util.HandshakeManagerUtil" class="com.liferay.lcs.util.HandshakeManagerUtil">
+		<property name="handshakeManager" ref="com.liferay.lcs.util.HandshakeManager" />
+	</bean>
+	<bean id="com.liferay.lcs.util.KeyGenerator" class="com.liferay.lcs.util.KeyGeneratorImpl">
+		<property name="keyAlias" value="#{T(com.liferay.util.portlet.PortletProps).get('key.generator.key.alias')}" />
+		<property name="keyStorePath" value="#{T(com.liferay.util.portlet.PortletProps).get('key.generator.key.store.path')}" />
+		<property name="keyStoreType" value="#{T(com.liferay.util.portlet.PortletProps).get('key.generator.key.store.type')}" />
+		<property name="keyStorePassword" value="#{T(com.liferay.util.portlet.PortletProps).get('key.generator.key.store.password')}" />
+	</bean>
+	<bean id="com.liferay.lcs.util.KeyGeneratorUtil" class="com.liferay.lcs.util.KeyGeneratorUtil">
+		<property name="keyGenerator" ref="com.liferay.lcs.util.KeyGenerator" />
+	</bean>
+	<bean id="com.liferay.lcs.util.LCSUtil" class="com.liferay.lcs.util.LCSUtil">
+		<property name="JSONWebServiceClient" ref="osbLCSPortletJSONWebServiceClient" />
+	</bean>
+</beans>

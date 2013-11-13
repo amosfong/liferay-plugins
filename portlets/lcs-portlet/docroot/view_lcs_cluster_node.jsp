@@ -1,0 +1,215 @@
+<%--
+/**
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+--%>
+
+<%@ include file="/init.jsp" %>
+
+<%
+boolean pending = HandshakeManagerUtil.isPending();
+boolean ready = HandshakeManagerUtil.isReady();
+
+LCSClusterNode lcsClusterNode = LCSClusterNodeServiceUtil.getLCSClusterNode(KeyGeneratorUtil.getKey());
+
+LCSClusterEntry lcsClusterEntry = LCSClusterEntryServiceUtil.getLCSClusterEntry(lcsClusterNode.getLcsClusterEntryId());
+
+CorpEntryIdentifier corpEntryIdentifier = new CorpEntryIdentifier();
+
+for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCorpEntryIdentifiers()) {
+	if (currentCorpEntryIdentifier.getCorpEntryId() == lcsClusterEntry.getCorpEntryId()) {
+		corpEntryIdentifier = currentCorpEntryIdentifier;
+
+		break;
+	}
+}
+%>
+
+<div class="portlet-msg-info <%= (!ready && pending) ? StringPool.BLANK : "aui-helper-hidden" %>" id="<portlet:namespace />pending">
+	<liferay-ui:message key="this-liferay-instance-is-synchronizing-with-liferay-cloud-services" />
+</div>
+
+<aui:layout>
+	<aui:column columnWidth="70">
+		<h4><liferay-ui:message key="corp-entry-id" /></h4>
+
+		<dl>
+			<dd>
+				<%= HtmlUtil.escape(corpEntryIdentifier.getName()) %>
+			</dd>
+		</dl>
+
+		<h4><liferay-ui:message key="environment" /></h4>
+
+		<dl>
+			<dd>
+				<%= HtmlUtil.escape(lcsClusterEntry.getName()) %>
+			</dd>
+		</dl>
+
+		<h4><liferay-ui:message key="server" /></h4>
+
+		<dl>
+			<dt>
+				<liferay-ui:message key="name" />
+			</dt>
+			<dd>
+				<%= HtmlUtil.escape(lcsClusterNode.getName()) %>
+			</dd>
+			<dt>
+				<liferay-ui:message key="portal-version" />
+			</dt>
+			<dd>
+				<%= lcsClusterNode.getBuildNumber() %>
+			</dd>
+			<dt>
+				<liferay-ui:message key="description" />
+			</dt>
+			<dd>
+				<%= HtmlUtil.escape(lcsClusterNode.getDescription()) %>
+			</dd>
+			<dt>
+				<liferay-ui:message key="location" />
+			</dt>
+			<dd>
+				<%= HtmlUtil.escape(lcsClusterNode.getLocation()) %>
+			</dd>
+		</dl>
+
+		<c:if test="<%= ClusterExecutorUtil.isEnabled() %>">
+			<dl>
+				<dt>
+					<liferay-ui:message key="nodes" />
+				</dt>
+				<dd>
+
+					<%
+					for (ClusterNode clusterNode : ClusterExecutorUtil.getClusterNodes()) {
+					%>
+
+						<%= clusterNode.getClusterNodeId() %><br />
+
+					<%
+					}
+					%>
+
+				</dd>
+			</dl>
+		</c:if>
+
+		<%
+		String lcsPortalURL = "http://" + PortletProps.get("osb.lcs.portlet.host.name");
+
+		String lcsPortalPort = PortletProps.get("osb.lcs.portlet.host.port");
+
+		if (!lcsPortalPort.equals("80")) {
+			lcsPortalURL = lcsPortalURL + ":" + lcsPortalPort;
+		}
+		%>
+
+		<span class="lcs-link">
+			<span class="lcs-link-content">
+				<a class="lcs-portal-link" href="<%= lcsPortalURL %>"><liferay-ui:message key="cloud-dashboard" /></a>
+			</span>
+		</span>
+	</aui:column>
+
+	<aui:column columnWidth="30">
+		<h4><liferay-ui:message key="connection-status" /></h4>
+
+		<div class="<%= ready ? StringPool.BLANK : "aui-helper-hidden" %> portlet-msg-info" id="<portlet:namespace />registered">
+			<liferay-ui:message key="this-liferay-instance-is-registered-and-synchronized-with-liferay-cloud-services" />
+		</div>
+
+		<div class="<%= (!ready && !pending) ? StringPool.BLANK : "aui-helper-hidden" %> portlet-msg-info" id="<portlet:namespace />disconnected">
+			<liferay-ui:message key="this-liferay-instance-is-registered-but-not-connected-and-not-synchronized-with-liferay-cloud-services" />
+		</div>
+
+		<c:if test="<%= !pending %>">
+
+			<%
+			Map<String, String> lcsConnectionMetadata = HandshakeManagerUtil.getLCSConnectionMetadata();
+			%>
+
+			<dl>
+				<dt>
+					<liferay-ui:message key="heartbeat-interval" />
+				</dt>
+				<dd>
+					<%= Time.getDuration(GetterUtil.getLong(lcsConnectionMetadata.get("heartbeatInterval"))) %>
+				</dd>
+				<dt>
+					<liferay-ui:message key="message-task-interval" />
+				</dt>
+				<dd>
+					<%= Time.getDuration(GetterUtil.getLong(lcsConnectionMetadata.get("messageTaskInterval"))) %>
+				</dd>
+				<dt>
+					<liferay-ui:message key="metrics-task-interval" />
+				</dt>
+				<dd>
+					<%= Time.getDuration(GetterUtil.getLong(lcsConnectionMetadata.get("jvmMetricsTaskInterval"))) %>
+				</dd>
+
+				<c:if test='<%= lcsConnectionMetadata.get("messageTaskTime") != null %>'>
+					<dt>
+						<liferay-ui:message key="last-message-received" />
+					</dt>
+					<dd>
+
+						<%
+						Date date = new Date(GetterUtil.getLong(lcsConnectionMetadata.get("messageTaskTime")));
+						%>
+
+						<%= dateFormatDateTime.format(date) %>
+					</dd>
+				</c:if>
+
+				<c:if test="<%= !pending && HandshakeManagerUtil.isReady() %>">
+					<dt>
+						<liferay-ui:message key="connection-uptime" />
+					</dt>
+					<dd>
+
+						<%
+						String handshakeTime = lcsConnectionMetadata.get("handshakeTime");
+						%>
+
+						<c:if test="<%= handshakeTime != null %>">
+							<%= Time.getDuration(System.currentTimeMillis() - GetterUtil.getLong(handshakeTime)) %>
+						</c:if>
+					</dd>
+				</c:if>
+
+				<dt>
+					<c:if test="<%= !pending && !HandshakeManagerUtil.isReady() %>">
+						<liferay-portlet:actionURL name="start" var="startURL">
+							<portlet:param name="redirect" value="<%= currentURL %>" />
+						</liferay-portlet:actionURL>
+
+						<aui:button href="<%= startURL %>" type="submit" value="start" />
+					</c:if>
+				</dt>
+				<dd>
+					<c:if test="<%= !pending && HandshakeManagerUtil.isReady() %>">
+						<liferay-portlet:actionURL name="stop" var="stopURL">
+							<portlet:param name="redirect" value="<%= currentURL %>" />
+						</liferay-portlet:actionURL>
+
+						<aui:button href="<%= stopURL %>" type="submit" value="stop" />
+					</c:if>
+				</dd>
+			</dl>
+		</c:if>
+	</aui:column>
+</aui:layout>

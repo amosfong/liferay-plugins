@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<model-hints>
+	<model name="com.liferay.osb.lcs.model.LCSClusterEntry">
+		<field name="lcsClusterEntryId" type="long" />
+		<field name="corpEntryId" type="long" />
+		<field name="name" type="String">
+			<validator name="required" />
+		</field>
+		<field name="description" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
+		<field name="location" type="String" />
+		<field name="type" type="int">
+			<validator name="required" />
+		</field>
+	</model>
+	<model name="com.liferay.osb.lcs.model.LCSClusterNode">
+		<field name="lcsClusterNodeId" type="long" />
+		<field name="lcsClusterEntryId" type="long" />
+		<field name="name" type="String">
+			<validator name="required" />
+		</field>
+		<field name="description" type="String">
+			<hint-collection name="TEXTAREA" />
+		</field>
+		<field name="buildNumber" type="int">
+			<validator name="required" />
+		</field>
+		<field name="key" type="String">
+			<validator name="required" />
+		</field>
+		<field name="location" type="String" />
+	</model>
+	<model name="com.liferay.osb.lcs.model.LCSClusterUser">
+		<field name="lcsClusterUserId" type="long" />
+		<field name="userId" type="long">
+			<validator name="required" />
+		</field>
+		<field name="corpEntryId" type="long" />
+		<field name="lcsClusterEntryId" type="long" />
+		<field name="role" type="int">
+			<validator name="required" />
+		</field>
+	</model>
+</model-hints>

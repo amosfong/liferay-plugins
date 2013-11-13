@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+
+<beans
+	default-destroy-method="destroy"
+	default-init-method="afterPropertiesSet"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+>
+
+	<!-- Destinations -->
+
+	<bean id="destination.lcs_commands" class="com.liferay.portal.kernel.messaging.ParallelDestination">
+		<property name="name" value="liferay/lcs_commands" />
+	</bean>
+
+	<!-- Listeners -->
+
+	<bean id="messageListener.lcs_commands" class="com.liferay.lcs.messaging.CommandMessageListener">
+		<property name="commands">
+			<map>
+				<entry key="#{T(com.liferay.lcs.messaging.CommandMessage).COMMAND_TYPE_CHECK_HEARTBEAT}" value-ref="com.liferay.lcs.command.CheckHeartbeatCommand" />
+				<entry key="#{T(com.liferay.lcs.messaging.CommandMessage).COMMAND_TYPE_DEREGISTER}" value-ref="com.liferay.lcs.command.DeregisterCommand" />
+				<entry key="#{T(com.liferay.lcs.messaging.CommandMessage).COMMAND_TYPE_DOWNLOAD_PATCHES}" value-ref="com.liferay.lcs.command.DownloadPatchesCommand" />
+				<entry key="#{T(com.liferay.lcs.messaging.CommandMessage).COMMAND_TYPE_EXECUTE_SCRIPT}" value-ref="com.liferay.lcs.command.ExecuteScriptCommand" />
+				<entry key="#{T(com.liferay.lcs.messaging.CommandMessage).COMMAND_TYPE_SEND_PATCHES}" value-ref="com.liferay.lcs.command.SendPatchesCommand" />
+				<entry key="#{T(com.liferay.lcs.messaging.CommandMessage).COMMAND_TYPE_SEND_PORTAL_PROPERTIES}" value-ref="com.liferay.lcs.command.SendPortalPropertiesCommand" />
+			</map>
+		</property>
+	</bean>
+	<bean id="messageListener.monitoring" class="com.liferay.lcs.messaging.PortalMetricsMessageListener" />
+
+	<!-- Senders -->
+
+	<bean id="messageSender.lcs_commands" class="com.liferay.portal.kernel.messaging.sender.DefaultSingleDestinationMessageSender">
+		<property name="destinationName" value="liferay/lcs_commands" />
+		<property name="messageSender">
+			<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+				<property name="targetClass" value="com.liferay.portal.kernel.messaging.MessageBusUtil" />
+				<property name="targetMethod"  value="getMessageSender" />
+			</bean>
+		</property>
+	</bean>
+
+	<!-- Configurator -->
+
+	<bean id="messagingConfigurator" class="com.liferay.portal.kernel.messaging.config.PluginMessagingConfigurator">
+		<property name="messageListeners">
+			<map key-type="java.lang.String" value-type="java.util.List">
+				<entry key="liferay/lcs_commands">
+					<list value-type="com.liferay.portal.kernel.messaging.MessageListener">
+						<ref bean="messageListener.lcs_commands" />
+					</list>
+				</entry>
+				<entry key="liferay/monitoring">
+					<list value-type="com.liferay.portal.kernel.messaging.MessageListener">
+						<ref bean="messageListener.monitoring" />
+					</list>
+				</entry>
+			</map>
+		</property>
+		<property name="destinations">
+			<list>
+				<ref bean="destination.lcs_commands" />
+			</list>
+		</property>
+	</bean>
+</beans>

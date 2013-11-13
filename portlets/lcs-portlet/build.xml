@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE project>
+
+<project name="lcs-portlet" basedir="." default="deploy">
+	<import file="../build-common-portlet.xml" />
+
+	<property name="import.shared" value="lcs-shared" />
+
+	<target name="clean">
+		<delete failonerror="false" includeemptydirs="true">
+			<fileset dir="docroot/WEB-INF/src/com/liferay/osb/lcs/model" includes="*.java" />
+			<fileset dir="docroot/WEB-INF/src/com/liferay/osb/lcs/service" includes="*Service.java" />
+			<fileset dir="docroot/WEB-INF/src/META-INF" includes="portlet-model-hints*.xml" />
+		</delete>
+
+		<antcall target="build-common-plugin.clean" />
+	</target>
+
+	<target name="compile">
+		<copy overwrite="yes" todir="docroot/WEB-INF/src">
+			<fileset dir="${sdk.dir}/portlets/osb-lcs-portlet/docroot/WEB-INF/service">
+				<include name="**/*CorpEntryIdentifier.java" />
+				<include name="**/*CorpEntryService.java" />
+				<include name="**/*LCSClusterEntry.java" />
+				<include name="**/*LCSClusterEntryModel.java" />
+				<include name="**/*LCSClusterEntryService.java" />
+				<include name="**/*LCSClusterNode.java" />
+				<include name="**/*LCSClusterNodeModel.java" />
+				<include name="**/*LCSClusterNodeService.java" />
+			</fileset>
+			<fileset dir="${sdk.dir}/portlets/osb-lcs-portlet/docroot/WEB-INF/src">
+				<include name="META-INF/portlet-model-hints*.xml" />
+			</fileset>
+		</copy>
+		<antcall target="build-common-plugin.compile" />
+	</target>
+</project>
