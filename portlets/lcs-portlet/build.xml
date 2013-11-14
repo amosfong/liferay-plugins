@@ -7,28 +7,31 @@
 	<property name="import.shared" value="lcs-shared" />
 
 	<target name="checkout-dependencies">
-		<git command = "checkout">
+		<git command="checkout">
 			<args>
-				<arg value = "upstream/ee-6.1.x" />
-				<arg value = "../osb-lcs-portlet/docroot/WEB-INF/service/com/liferay/osb/lcs/model/*" />
+				<arg value="upstream/ee-6.1.x" />
+				<arg value="../osb-lcs-portlet/docroot/WEB-INF/service/com/liferay/osb/lcs/model/*" />
 			</args>
 		</git>
-		<git command = "checkout">
+
+		<git command="checkout">
 			<args>
-				<arg value = "upstream/ee-6.1.x" />
-				<arg value = "../osb-lcs-portlet/docroot/WEB-INF/service/com/liferay/osb/lcs/service/*" />
+				<arg value="upstream/ee-6.1.x" />
+				<arg value="../osb-lcs-portlet/docroot/WEB-INF/service/com/liferay/osb/lcs/service/*" />
 			</args>
 		</git>
-		<git command = "checkout">
+
+		<git command="checkout">
 			<args>
-				<arg value = "upstream/ee-6.1.x" />
-				<arg value = "../osb-lcs-portlet/docroot/WEB-INF/src/META-INF/portlet-model-hints*.xml" />
+				<arg value="upstream/ee-6.1.x" />
+				<arg value="../osb-lcs-portlet/docroot/WEB-INF/src/META-INF/portlet-model-hints*.xml" />
 			</args>
 		</git>
-		<git command = "checkout">
+
+		<git command="checkout">
 			<args>
-				<arg value = "upstream/ee-6.1.x" />
-				<arg value = "../../shared/lcs-shared/*" />
+				<arg value="upstream/ee-6.1.x" />
+				<arg value="../../shared/lcs-shared/*" />
 			</args>
 		</git>
 	</target>
@@ -63,14 +66,16 @@
 		<antcall target="build-common-plugin.compile" />
 	</target>
 
-	<macrodef name = "git">
-		<attribute name = "command" />
-		<element name = "args" optional = "true" />
+	<macrodef name="git">
+		<attribute name="command" />
+		<element name="args" optional="true" />
+
 		<sequential>
-			<echo message = "git @{command}" />
-			<exec executable = "git">
-				<arg value = "@{command}" />
-				<args/>
+			<echo message="git @{command}" />
+
+			<exec executable="git">
+				<arg value="@{command}" />
+				<args />
 			</exec>
 		</sequential>
 	</macrodef>
