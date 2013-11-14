@@ -7,33 +7,37 @@
 	<property name="import.shared" value="lcs-shared" />
 
 	<target name="checkout-dependencies">
-		<git command="checkout">
+		<exec executable="git">
 			<args>
+				<arg value="checkout" />
 				<arg value="upstream/ee-6.1.x" />
 				<arg value="../osb-lcs-portlet/docroot/WEB-INF/service/com/liferay/osb/lcs/model/*" />
 			</args>
-		</git>
+		</exec>
 
-		<git command="checkout">
+		<exec executable="git">
 			<args>
+				<arg value="checkout" />
 				<arg value="upstream/ee-6.1.x" />
 				<arg value="../osb-lcs-portlet/docroot/WEB-INF/service/com/liferay/osb/lcs/service/*" />
 			</args>
-		</git>
+		</exec>
 
-		<git command="checkout">
+		<exec executable="git">
 			<args>
+				<arg value="checkout" />
 				<arg value="upstream/ee-6.1.x" />
 				<arg value="../osb-lcs-portlet/docroot/WEB-INF/src/META-INF/portlet-model-hints*.xml" />
 			</args>
-		</git>
+		</exec>
 
-		<git command="checkout">
+		<exec executable="git">
 			<args>
+				<arg value="checkout" />
 				<arg value="upstream/ee-6.1.x" />
 				<arg value="../../shared/lcs-shared/*" />
 			</args>
-		</git>
+		</exec>
 	</target>
 
 	<target name="clean">
@@ -48,6 +52,7 @@
 
 	<target name="compile">
 		<antcall target="checkout-dependencies" />
+
 		<copy overwrite="yes" todir="docroot/WEB-INF/src">
 			<fileset dir="${sdk.dir}/portlets/osb-lcs-portlet/docroot/WEB-INF/service">
 				<include name="**/*CorpEntryIdentifier.java" />
@@ -63,20 +68,7 @@
 				<include name="META-INF/portlet-model-hints*.xml" />
 			</fileset>
 		</copy>
+
 		<antcall target="build-common-plugin.compile" />
 	</target>
-
-	<macrodef name="git">
-		<attribute name="command" />
-		<element name="args" optional="true" />
-
-		<sequential>
-			<echo message="git @{command}" />
-
-			<exec executable="git">
-				<arg value="@{command}" />
-				<args />
-			</exec>
-		</sequential>
-	</macrodef>
 </project>
