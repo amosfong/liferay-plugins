@@ -8,35 +8,27 @@
 
 	<target name="checkout-dependencies">
 		<exec executable="git">
-			<args>
-				<arg value="checkout" />
-				<arg value="upstream/ee-6.1.x" />
-				<arg value="../osb-lcs-portlet/docroot/WEB-INF/service/com/liferay/osb/lcs/model/*" />
-			</args>
+			<arg value="checkout" />
+			<arg value="upstream/ee-6.1.x" />
+			<arg value="../osb-lcs-portlet/docroot/WEB-INF/service/com/liferay/osb/lcs/model/*" />
 		</exec>
 
 		<exec executable="git">
-			<args>
-				<arg value="checkout" />
-				<arg value="upstream/ee-6.1.x" />
-				<arg value="../osb-lcs-portlet/docroot/WEB-INF/service/com/liferay/osb/lcs/service/*" />
-			</args>
+			<arg value="checkout" />
+			<arg value="upstream/ee-6.1.x" />
+			<arg value="../osb-lcs-portlet/docroot/WEB-INF/service/com/liferay/osb/lcs/service/*" />
 		</exec>
 
 		<exec executable="git">
-			<args>
-				<arg value="checkout" />
-				<arg value="upstream/ee-6.1.x" />
-				<arg value="../osb-lcs-portlet/docroot/WEB-INF/src/META-INF/portlet-model-hints*.xml" />
-			</args>
+			<arg value="checkout" />
+			<arg value="upstream/ee-6.1.x" />
+			<arg value="../osb-lcs-portlet/docroot/WEB-INF/src/META-INF/portlet-model-hints*.xml" />
 		</exec>
 
 		<exec executable="git">
-			<args>
-				<arg value="checkout" />
-				<arg value="upstream/ee-6.1.x" />
-				<arg value="../../shared/lcs-shared/*" />
-			</args>
+			<arg value="checkout" />
+			<arg value="upstream/ee-6.1.x" />
+			<arg value="../../shared/lcs-shared/*" />
 		</exec>
 	</target>
 
