@@ -16,6 +16,8 @@ package com.liferay.saml.profile;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.CookieKeys;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.saml.SamlException;
@@ -23,6 +25,7 @@ import com.liferay.saml.binding.SamlBinding;
 import com.liferay.saml.metadata.MetadataManagerUtil;
 import com.liferay.saml.model.SamlSpSession;
 import com.liferay.saml.service.SamlSpSessionLocalServiceUtil;
+import com.liferay.saml.util.OpenSamlUtil;
 import com.liferay.saml.util.PortletWebKeys;
 import com.liferay.saml.util.SamlUtil;
 
@@ -50,6 +53,8 @@ import org.opensaml.ws.message.encoder.MessageEncodingException;
 import org.opensaml.ws.security.SecurityPolicyResolver;
 import org.opensaml.ws.transport.http.HttpServletRequestAdapter;
 import org.opensaml.ws.transport.http.HttpServletResponseAdapter;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.io.MarshallingException;
 
 /**
  * @author Mika Koivisto
@@ -78,6 +83,15 @@ public abstract class BaseProfile {
 		MessageDecoder messageDecoder = samlBinding.getMessageDecoder();
 
 		messageDecoder.decode(samlMessageContext);
+
+		if (_log.isTraceEnabled()) {
+			SAMLObject samlObject = samlMessageContext.getInboundSAMLMessage();
+
+			_log.trace(
+				"Received message using binding " +
+					samlMessageContext.getCommunicationProfileId() + ": " +
+						OpenSamlUtil.marshall(samlObject));
+		}
 
 		EntityDescriptor entityDescriptor =
 			samlMessageContext.getPeerEntityMetadata();
@@ -275,6 +289,22 @@ public abstract class BaseProfile {
 
 		SamlBinding samlBinding = getSamlBinding(endpoint.getBinding());
 
+		if (_log.isTraceEnabled()) {
+			try {
+				XMLObject xmlObject =
+					samlMessageContext.getOutboundSAMLMessage();
+
+				String samlMessage = OpenSamlUtil.marshall(xmlObject);
+
+				_log.trace(
+					"Sending message to " + endpoint.getLocation() +
+						" with binding " + endpoint.getBinding() + ": " +
+							samlMessage);
+			}
+			catch (MarshallingException e) {
+			}
+		}
+
 		MessageEncoder messageEncoder = samlBinding.getMessageEncoder();
 
 		try {
@@ -297,6 +327,8 @@ public abstract class BaseProfile {
 	public void setSamlBindings(List<SamlBinding> samlBindings) {
 		_samlBindings = samlBindings;
 	}
+
+	private static Log _log = LogFactoryUtil.getLog(BaseProfile.class);
 
 	private IdentifierGenerator _identifierGenerator;
 	private List<SamlBinding> _samlBindings;
