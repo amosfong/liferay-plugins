@@ -513,7 +513,7 @@ public class WebSsoProfileImpl extends BaseProfile implements WebSsoProfile {
 			_log.debug("SAML authenticated user " + nameId.getValue());
 		}
 
-		String assertionXml = OpenSamlUtil.marshallElement(assertion.getDOM());
+		String assertionXml = OpenSamlUtil.marshall(assertion);
 
 		List<AuthnStatement> authnStatements = assertion.getAuthnStatements();
 

@@ -40,7 +40,7 @@ public class MetadataAction extends BaseSamlStrutsAction {
 		EntityDescriptor entityDescriptor =
 			MetadataManagerUtil.getEntityDescriptor(request);
 
-		String metadata = OpenSamlUtil.marshallSamlObject(entityDescriptor);
+		String metadata = OpenSamlUtil.marshall(entityDescriptor);
 
 		PrintWriter printWriter = response.getWriter();
 

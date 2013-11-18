@@ -26,7 +26,6 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
 import org.opensaml.Configuration;
-import org.opensaml.common.SAMLObject;
 import org.opensaml.common.SAMLObjectBuilder;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.common.SignableSAMLObject;
@@ -66,9 +65,6 @@ import org.opensaml.xml.XMLObjectBuilderFactory;
 import org.opensaml.xml.io.Marshaller;
 import org.opensaml.xml.io.MarshallerFactory;
 import org.opensaml.xml.io.MarshallingException;
-import org.opensaml.xml.io.Unmarshaller;
-import org.opensaml.xml.io.UnmarshallerFactory;
-import org.opensaml.xml.io.UnmarshallingException;
 import org.opensaml.xml.schema.XSString;
 import org.opensaml.xml.security.SecurityConfiguration;
 import org.opensaml.xml.security.SecurityException;
@@ -83,9 +79,7 @@ import org.opensaml.xml.signature.KeyInfo;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.signature.SignatureException;
 import org.opensaml.xml.signature.Signer;
-import org.opensaml.xml.util.XMLHelper;
-
-import org.w3c.dom.Element;
+import org.opensaml.xml.util.XMLObjectHelper;
 
 /**
  * @author Mika Koivisto
@@ -492,27 +486,12 @@ public class OpenSamlUtil {
 		return subjectConfirmationData;
 	}
 
-	public static String marshallElement(Element element) {
-		StringWriter stringWriter = new StringWriter();
-
-		XMLHelper.writeNode(element, stringWriter);
-
-		return stringWriter.toString();
-	}
-
-	public static String marshallSamlObject(SAMLObject samlObject)
+	public static String marshall(XMLObject xmlObject)
 		throws MarshallingException {
 
-		MarshallerFactory marshallerFactory =
-			Configuration.getMarshallerFactory();
-
-		Marshaller marshaller = marshallerFactory.getMarshaller(samlObject);
-
 		StringWriter stringWriter = new StringWriter();
 
-		Element element = marshaller.marshall(samlObject);
-
-		XMLHelper.writeNode(element, stringWriter);
+		XMLObjectHelper.marshallToWriter(xmlObject, stringWriter);
 
 		return stringWriter.toString();
 	}
@@ -536,27 +515,6 @@ public class OpenSamlUtil {
 		marshaller.marshall(signableObject);
 
 		Signer.signObject(signature);
-	}
-
-	public static XMLObject unmarshallXMLObject(Element element)
-		throws UnmarshallingException {
-
-		UnmarshallerFactory unmarshallerFactory =
-			Configuration.getUnmarshallerFactory();
-
-		Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(
-			element);
-
-		if (unmarshaller == null) {
-			QName qname = XMLHelper.getNodeQName(element);
-
-			throw new UnmarshallingException(
-				"No unmarshaller registered for " + qname.toString());
-		}
-
-		XMLObject xmlObject = unmarshaller.unmarshall(element);
-
-		return xmlObject;
 	}
 
 	@SuppressWarnings("rawtypes")

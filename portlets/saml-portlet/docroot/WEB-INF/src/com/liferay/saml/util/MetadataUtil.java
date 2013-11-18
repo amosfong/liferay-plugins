@@ -23,6 +23,7 @@ import com.liferay.portal.kernel.util.StringUtil;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.io.StringWriter;
 
 import java.util.zip.GZIPInputStream;
 import java.util.zip.InflaterInputStream;
@@ -35,8 +36,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.opensaml.saml2.metadata.EntityDescriptor;
 import org.opensaml.xml.XMLObject;
 import org.opensaml.xml.parse.ParserPool;
-
-import org.w3c.dom.Document;
+import org.opensaml.xml.util.XMLObjectHelper;
 
 /**
  * @author Mika Koivisto
@@ -95,10 +95,8 @@ public class MetadataUtil {
 		throws Exception {
 
 		try {
-			Document document = _parserPool.parse(inputStream);
-
-			XMLObject xmlObject = OpenSamlUtil.unmarshallXMLObject(
-				document.getDocumentElement());
+			XMLObject xmlObject = XMLObjectHelper.unmarshallFromInputStream(
+				_parserPool, inputStream);
 
 			EntityDescriptor entityDescriptor =
 				SamlUtil.getEntityDescriptorById(entityId, xmlObject);
@@ -107,7 +105,11 @@ public class MetadataUtil {
 				return null;
 			}
 
-			return OpenSamlUtil.marshallElement(entityDescriptor.getDOM());
+			StringWriter stringWriter = new StringWriter();
+
+			XMLObjectHelper.marshallToWriter(entityDescriptor, stringWriter);
+
+			return stringWriter.toString();
 		}
 		finally {
 			if (inputStream != null) {

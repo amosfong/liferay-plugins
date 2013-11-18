@@ -22,7 +22,6 @@ import com.liferay.saml.model.SamlIdpSpConnection;
 import com.liferay.saml.model.SamlSpIdpConnection;
 import com.liferay.saml.service.SamlIdpSpConnectionLocalServiceUtil;
 import com.liferay.saml.service.SamlSpIdpConnectionLocalServiceUtil;
-import com.liferay.saml.util.OpenSamlUtil;
 import com.liferay.saml.util.SamlUtil;
 
 import java.io.StringReader;
@@ -49,8 +48,8 @@ import org.opensaml.xml.schema.XSBooleanValue;
 import org.opensaml.xml.signature.Signature;
 import org.opensaml.xml.util.IDIndex;
 import org.opensaml.xml.util.LazySet;
+import org.opensaml.xml.util.XMLObjectHelper;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
@@ -74,11 +73,8 @@ public class DBMetadataProvider extends BaseMetadataProvider {
 				return null;
 			}
 
-			Document document = _parserPool.parse(
-				new StringReader(metadataXml));
-
-			XMLObject metadataXmlObject = OpenSamlUtil.unmarshallXMLObject(
-				document.getDocumentElement());
+			XMLObject metadataXmlObject = XMLObjectHelper.unmarshallFromReader(
+				_parserPool, new StringReader(metadataXml));
 
 			EntityDescriptor entityDescriptor =
 				SamlUtil.getEntityDescriptorById(entityId, metadataXmlObject);
