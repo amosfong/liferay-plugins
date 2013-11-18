@@ -141,6 +141,10 @@ public class KaleoDesignerUtil {
 	public static boolean isPublished(
 		KaleoDraftDefinition kaleoDraftDefinition) {
 
+		if (kaleoDraftDefinition.getVersion() == 0) {
+			return false;
+		}
+
 		try {
 			WorkflowDefinition workflowDefinition =
 				WorkflowDefinitionManagerUtil.getWorkflowDefinition(

@@ -34,7 +34,9 @@
 			try {
 				latestKaleoDraftDefinition = KaleoDraftDefinitionLocalServiceUtil.getLatestKaleoDraftDefinition(kaleoDraftDefinition.getName(), kaleoDraftDefinition.getVersion(), serviceContext);
 
-				workflowDefinition = WorkflowDefinitionManagerUtil.getWorkflowDefinition(themeDisplay.getCompanyId(), kaleoDraftDefinition.getName(), kaleoDraftDefinition.getVersion());
+				if (kaleoDraftDefinition.getVersion() > 0) {
+					workflowDefinition = WorkflowDefinitionManagerUtil.getWorkflowDefinition(themeDisplay.getCompanyId(), kaleoDraftDefinition.getName(), kaleoDraftDefinition.getVersion());
+				}
 			}
 			catch (Exception e) {
 			}
