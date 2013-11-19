@@ -17,23 +17,7 @@ package com.liferay.bbb.service.impl;
 import com.liferay.bbb.service.base.BBBMeetingServiceBaseImpl;
 
 /**
- * The implementation of the b b b meeting remote service.
- *
- * <p>
- * All custom service methods should be put in this class. Whenever methods are added, rerun ServiceBuilder to copy their definitions into the {@link com.liferay.bbb.service.BBBMeetingService} interface.
- *
- * <p>
- * This is a remote service. Methods of this service are expected to have security checks based on the propagated JAAS credentials because this service can be accessed remotely.
- * </p>
- *
  * @author Shinn Lok
- * @see com.liferay.bbb.service.base.BBBMeetingServiceBaseImpl
- * @see com.liferay.bbb.service.BBBMeetingServiceUtil
  */
 public class BBBMeetingServiceImpl extends BBBMeetingServiceBaseImpl {
-	/*
-	 * NOTE FOR DEVELOPERS:
-	 *
-	 * Never reference this interface directly. Always use {@link com.liferay.bbb.service.BBBMeetingServiceUtil} to access the b b b meeting remote service.
-	 */
 }
