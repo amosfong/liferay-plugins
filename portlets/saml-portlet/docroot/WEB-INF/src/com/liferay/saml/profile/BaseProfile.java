@@ -297,9 +297,9 @@ public abstract class BaseProfile {
 				String samlMessage = OpenSamlUtil.marshall(xmlObject);
 
 				_log.debug(
-					"Sending message to " + endpoint.getLocation() +
-						" with binding " + endpoint.getBinding() + ": " +
-							samlMessage);
+					"Sending SAML message " + samlMessage + " to " +
+						endpoint.getLocation() + " with binding " +
+							endpoint.getBinding());
 			}
 			catch (MarshallingException e) {
 			}
