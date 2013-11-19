@@ -190,16 +190,16 @@ public class CloudServicesPortlet extends MVCPortlet {
 	protected void deletePortletPreferences(PortletRequest portletRequest)
 		throws Exception {
 
-		String portletId = PortalUtil.getPortletId(portletRequest);
-
 		try {
+			String portletId = PortalUtil.getPortletId(portletRequest);
+
 			PortletPreferencesLocalServiceUtil.deletePortletPreferences(
 				CompanyConstants.SYSTEM, PortletKeys.PREFS_OWNER_TYPE_COMPANY,
 				0, portletId);
 		}
 		catch (NoSuchPortletPreferencesException nsppe) {
 			if (_log.isWarnEnabled()) {
-				_log.warn("No PortletPreferences to remove!");
+				_log.warn(nsppe, nsppe);
 			}
 		}
 	}
