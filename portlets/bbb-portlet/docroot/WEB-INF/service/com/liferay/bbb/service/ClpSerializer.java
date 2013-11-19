@@ -14,9 +14,9 @@
 
 package com.liferay.bbb.service;
 
-import com.liferay.bbb.model.MeetingEntryClp;
-import com.liferay.bbb.model.MeetingParticipantClp;
-import com.liferay.bbb.model.MeetingServerClp;
+import com.liferay.bbb.model.BBBMeetingClp;
+import com.liferay.bbb.model.BBBParticipantClp;
+import com.liferay.bbb.model.BBBServerClp;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -104,16 +104,16 @@ public class ClpSerializer {
 
 		String oldModelClassName = oldModelClass.getName();
 
-		if (oldModelClassName.equals(MeetingEntryClp.class.getName())) {
-			return translateInputMeetingEntry(oldModel);
+		if (oldModelClassName.equals(BBBMeetingClp.class.getName())) {
+			return translateInputBBBMeeting(oldModel);
 		}
 
-		if (oldModelClassName.equals(MeetingParticipantClp.class.getName())) {
-			return translateInputMeetingParticipant(oldModel);
+		if (oldModelClassName.equals(BBBParticipantClp.class.getName())) {
+			return translateInputBBBParticipant(oldModel);
 		}
 
-		if (oldModelClassName.equals(MeetingServerClp.class.getName())) {
-			return translateInputMeetingServer(oldModel);
+		if (oldModelClassName.equals(BBBServerClp.class.getName())) {
+			return translateInputBBBServer(oldModel);
 		}
 
 		return oldModel;
@@ -131,30 +131,30 @@ public class ClpSerializer {
 		return newList;
 	}
 
-	public static Object translateInputMeetingEntry(BaseModel<?> oldModel) {
-		MeetingEntryClp oldClpModel = (MeetingEntryClp)oldModel;
+	public static Object translateInputBBBMeeting(BaseModel<?> oldModel) {
+		BBBMeetingClp oldClpModel = (BBBMeetingClp)oldModel;
 
-		BaseModel<?> newModel = oldClpModel.getMeetingEntryRemoteModel();
-
-		newModel.setModelAttributes(oldClpModel.getModelAttributes());
-
-		return newModel;
-	}
-
-	public static Object translateInputMeetingParticipant(BaseModel<?> oldModel) {
-		MeetingParticipantClp oldClpModel = (MeetingParticipantClp)oldModel;
-
-		BaseModel<?> newModel = oldClpModel.getMeetingParticipantRemoteModel();
+		BaseModel<?> newModel = oldClpModel.getBBBMeetingRemoteModel();
 
 		newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
 		return newModel;
 	}
 
-	public static Object translateInputMeetingServer(BaseModel<?> oldModel) {
-		MeetingServerClp oldClpModel = (MeetingServerClp)oldModel;
+	public static Object translateInputBBBParticipant(BaseModel<?> oldModel) {
+		BBBParticipantClp oldClpModel = (BBBParticipantClp)oldModel;
 
-		BaseModel<?> newModel = oldClpModel.getMeetingServerRemoteModel();
+		BaseModel<?> newModel = oldClpModel.getBBBParticipantRemoteModel();
+
+		newModel.setModelAttributes(oldClpModel.getModelAttributes());
+
+		return newModel;
+	}
+
+	public static Object translateInputBBBServer(BaseModel<?> oldModel) {
+		BBBServerClp oldClpModel = (BBBServerClp)oldModel;
+
+		BaseModel<?> newModel = oldClpModel.getBBBServerRemoteModel();
 
 		newModel.setModelAttributes(oldClpModel.getModelAttributes());
 
@@ -179,18 +179,17 @@ public class ClpSerializer {
 		String oldModelClassName = oldModelClass.getName();
 
 		if (oldModelClassName.equals(
-					"com.liferay.bbb.model.impl.MeetingEntryImpl")) {
-			return translateOutputMeetingEntry(oldModel);
+					"com.liferay.bbb.model.impl.BBBMeetingImpl")) {
+			return translateOutputBBBMeeting(oldModel);
 		}
 
 		if (oldModelClassName.equals(
-					"com.liferay.bbb.model.impl.MeetingParticipantImpl")) {
-			return translateOutputMeetingParticipant(oldModel);
+					"com.liferay.bbb.model.impl.BBBParticipantImpl")) {
+			return translateOutputBBBParticipant(oldModel);
 		}
 
-		if (oldModelClassName.equals(
-					"com.liferay.bbb.model.impl.MeetingServerImpl")) {
-			return translateOutputMeetingServer(oldModel);
+		if (oldModelClassName.equals("com.liferay.bbb.model.impl.BBBServerImpl")) {
+			return translateOutputBBBServer(oldModel);
 		}
 
 		return oldModel;
@@ -273,49 +272,47 @@ public class ClpSerializer {
 			return new SystemException();
 		}
 
-		if (className.equals("com.liferay.bbb.NoSuchMeetingEntryException")) {
-			return new com.liferay.bbb.NoSuchMeetingEntryException();
+		if (className.equals("com.liferay.bbb.NoSuchMeetingException")) {
+			return new com.liferay.bbb.NoSuchMeetingException();
 		}
 
-		if (className.equals(
-					"com.liferay.bbb.NoSuchMeetingParticipantException")) {
-			return new com.liferay.bbb.NoSuchMeetingParticipantException();
+		if (className.equals("com.liferay.bbb.NoSuchParticipantException")) {
+			return new com.liferay.bbb.NoSuchParticipantException();
 		}
 
-		if (className.equals("com.liferay.bbb.NoSuchMeetingServerException")) {
-			return new com.liferay.bbb.NoSuchMeetingServerException();
+		if (className.equals("com.liferay.bbb.NoSuchServerException")) {
+			return new com.liferay.bbb.NoSuchServerException();
 		}
 
 		return throwable;
 	}
 
-	public static Object translateOutputMeetingEntry(BaseModel<?> oldModel) {
-		MeetingEntryClp newModel = new MeetingEntryClp();
+	public static Object translateOutputBBBMeeting(BaseModel<?> oldModel) {
+		BBBMeetingClp newModel = new BBBMeetingClp();
 
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
-		newModel.setMeetingEntryRemoteModel(oldModel);
+		newModel.setBBBMeetingRemoteModel(oldModel);
 
 		return newModel;
 	}
 
-	public static Object translateOutputMeetingParticipant(
-		BaseModel<?> oldModel) {
-		MeetingParticipantClp newModel = new MeetingParticipantClp();
+	public static Object translateOutputBBBParticipant(BaseModel<?> oldModel) {
+		BBBParticipantClp newModel = new BBBParticipantClp();
 
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
-		newModel.setMeetingParticipantRemoteModel(oldModel);
+		newModel.setBBBParticipantRemoteModel(oldModel);
 
 		return newModel;
 	}
 
-	public static Object translateOutputMeetingServer(BaseModel<?> oldModel) {
-		MeetingServerClp newModel = new MeetingServerClp();
+	public static Object translateOutputBBBServer(BaseModel<?> oldModel) {
+		BBBServerClp newModel = new BBBServerClp();
 
 		newModel.setModelAttributes(oldModel.getModelAttributes());
 
-		newModel.setMeetingServerRemoteModel(oldModel);
+		newModel.setBBBServerRemoteModel(oldModel);
 
 		return newModel;
 	}

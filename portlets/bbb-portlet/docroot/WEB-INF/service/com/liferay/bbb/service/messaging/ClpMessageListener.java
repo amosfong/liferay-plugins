@@ -14,13 +14,13 @@
 
 package com.liferay.bbb.service.messaging;
 
+import com.liferay.bbb.service.BBBMeetingLocalServiceUtil;
+import com.liferay.bbb.service.BBBMeetingServiceUtil;
+import com.liferay.bbb.service.BBBParticipantLocalServiceUtil;
+import com.liferay.bbb.service.BBBParticipantServiceUtil;
+import com.liferay.bbb.service.BBBServerLocalServiceUtil;
+import com.liferay.bbb.service.BBBServerServiceUtil;
 import com.liferay.bbb.service.ClpSerializer;
-import com.liferay.bbb.service.MeetingEntryLocalServiceUtil;
-import com.liferay.bbb.service.MeetingEntryServiceUtil;
-import com.liferay.bbb.service.MeetingParticipantLocalServiceUtil;
-import com.liferay.bbb.service.MeetingParticipantServiceUtil;
-import com.liferay.bbb.service.MeetingServerLocalServiceUtil;
-import com.liferay.bbb.service.MeetingServerServiceUtil;
 
 import com.liferay.portal.kernel.messaging.BaseMessageListener;
 import com.liferay.portal.kernel.messaging.Message;
@@ -40,15 +40,15 @@ public class ClpMessageListener extends BaseMessageListener {
 
 		if (command.equals("undeploy") &&
 				servletContextName.equals(getServletContextName())) {
-			MeetingEntryLocalServiceUtil.clearService();
+			BBBMeetingLocalServiceUtil.clearService();
 
-			MeetingEntryServiceUtil.clearService();
-			MeetingParticipantLocalServiceUtil.clearService();
+			BBBMeetingServiceUtil.clearService();
+			BBBParticipantLocalServiceUtil.clearService();
 
-			MeetingParticipantServiceUtil.clearService();
-			MeetingServerLocalServiceUtil.clearService();
+			BBBParticipantServiceUtil.clearService();
+			BBBServerLocalServiceUtil.clearService();
 
-			MeetingServerServiceUtil.clearService();
+			BBBServerServiceUtil.clearService();
 		}
 	}
 }

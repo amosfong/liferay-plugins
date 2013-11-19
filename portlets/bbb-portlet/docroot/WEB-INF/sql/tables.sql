@@ -1,33 +1,33 @@
-create table BBB_MeetingEntry (
-	meetingEntryId LONG not null primary key,
+create table BBB_BBBMeeting (
+	bbbMeetingId LONG not null primary key,
 	groupId LONG,
 	companyId LONG,
 	userId LONG,
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	meetingServerId LONG,
+	bbbServerId LONG,
 	name VARCHAR(75) null,
 	attendeePassword VARCHAR(75) null,
 	moderatorPassword VARCHAR(75) null,
 	status INTEGER
 );
 
-create table BBB_MeetingParticipant (
-	meetingParticipantId LONG not null primary key,
+create table BBB_BBBParticipant (
+	bbbParticipantId LONG not null primary key,
 	groupId LONG,
 	companyId LONG,
 	userId LONG,
 	userName VARCHAR(75) null,
 	createDate DATE null,
 	modifiedDate DATE null,
-	meetingEntryId LONG,
+	bbbMeetingId LONG,
 	name VARCHAR(75) null,
 	emailAddress VARCHAR(75) null
 );
 
-create table BBB_MeetingServer (
-	meetingServerId LONG not null primary key,
+create table BBB_BBBServer (
+	bbbServerId LONG not null primary key,
 	groupId LONG,
 	companyId LONG,
 	userId LONG,

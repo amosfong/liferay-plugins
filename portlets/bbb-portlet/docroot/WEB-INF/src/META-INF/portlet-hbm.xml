@@ -2,12 +2,12 @@
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping default-lazy="false" auto-import="false">
-	<import class="com.liferay.bbb.model.MeetingEntry" />
-	<import class="com.liferay.bbb.model.MeetingParticipant" />
-	<import class="com.liferay.bbb.model.MeetingServer" />
-	<class name="com.liferay.bbb.model.impl.MeetingEntryImpl" table="BBB_MeetingEntry">
+	<import class="com.liferay.bbb.model.BBBMeeting" />
+	<import class="com.liferay.bbb.model.BBBParticipant" />
+	<import class="com.liferay.bbb.model.BBBServer" />
+	<class name="com.liferay.bbb.model.impl.BBBMeetingImpl" table="BBB_BBBMeeting">
 		<cache usage="read-write" />
-		<id name="meetingEntryId" type="long">
+		<id name="bbbMeetingId" type="long">
 			<generator class="assigned" />
 		</id>
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
@@ -16,15 +16,15 @@
 		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
-		<property name="meetingServerId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="bbbServerId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="attendeePassword" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="moderatorPassword" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 	</class>
-	<class name="com.liferay.bbb.model.impl.MeetingParticipantImpl" table="BBB_MeetingParticipant">
+	<class name="com.liferay.bbb.model.impl.BBBParticipantImpl" table="BBB_BBBParticipant">
 		<cache usage="read-write" />
-		<id name="meetingParticipantId" type="long">
+		<id name="bbbParticipantId" type="long">
 			<generator class="assigned" />
 		</id>
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
@@ -33,13 +33,13 @@
 		<property name="userName" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="createDate" type="org.hibernate.type.TimestampType" />
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
-		<property name="meetingEntryId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="bbbMeetingId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="emailAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>
-	<class name="com.liferay.bbb.model.impl.MeetingServerImpl" table="BBB_MeetingServer">
+	<class name="com.liferay.bbb.model.impl.BBBServerImpl" table="BBB_BBBServer">
 		<cache usage="read-write" />
-		<id name="meetingServerId" type="long">
+		<id name="bbbServerId" type="long">
 			<generator class="assigned" />
 		</id>
 		<property name="groupId" type="com.liferay.portal.dao.orm.hibernate.LongType" />

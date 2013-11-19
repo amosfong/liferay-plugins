@@ -1,5 +1,5 @@
-create index IX_350EA64F on BBB_MeetingEntry (meetingServerId);
+create index IX_3D92D134 on BBB_BBBMeeting (bbbServerId);
 
-create index IX_10368D61 on BBB_MeetingParticipant (meetingEntryId);
+create index IX_AFAA489C on BBB_BBBParticipant (bbbMeetingId);
 
-create index IX_F225B943 on BBB_MeetingServer (groupId);
+create index IX_1BB39CBC on BBB_BBBServer (groupId);

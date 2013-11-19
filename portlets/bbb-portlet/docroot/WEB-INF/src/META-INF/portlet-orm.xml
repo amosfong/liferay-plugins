@@ -7,9 +7,9 @@
 			<access>PROPERTY</access>
 		</persistence-unit-defaults>
 	</persistence-unit-metadata>
-	<mapped-superclass class="com.liferay.bbb.model.impl.MeetingEntryModelImpl">
+	<mapped-superclass class="com.liferay.bbb.model.impl.BBBMeetingModelImpl">
 		<attributes>
-			<id name="meetingEntryId" />
+			<id name="bbbMeetingId" />
 			<basic name="groupId" />
 			<basic name="companyId" />
 			<basic name="userId" />
@@ -20,7 +20,7 @@
 			<basic name="modifiedDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
-			<basic name="meetingServerId" />
+			<basic name="bbbServerId" />
 			<basic name="name" />
 			<basic name="attendeePassword" />
 			<basic name="moderatorPassword" />
@@ -31,9 +31,9 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
-	<mapped-superclass class="com.liferay.bbb.model.impl.MeetingParticipantModelImpl">
+	<mapped-superclass class="com.liferay.bbb.model.impl.BBBParticipantModelImpl">
 		<attributes>
-			<id name="meetingParticipantId" />
+			<id name="bbbParticipantId" />
 			<basic name="groupId" />
 			<basic name="companyId" />
 			<basic name="userId" />
@@ -44,7 +44,7 @@
 			<basic name="modifiedDate">
 				<temporal>TIMESTAMP</temporal>
 			</basic>
-			<basic name="meetingEntryId" />
+			<basic name="bbbMeetingId" />
 			<basic name="name" />
 			<basic name="emailAddress" />
 			<transient name="modelAttributes" />
@@ -53,9 +53,9 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
-	<mapped-superclass class="com.liferay.bbb.model.impl.MeetingServerModelImpl">
+	<mapped-superclass class="com.liferay.bbb.model.impl.BBBServerModelImpl">
 		<attributes>
-			<id name="meetingServerId" />
+			<id name="bbbServerId" />
 			<basic name="groupId" />
 			<basic name="companyId" />
 			<basic name="userId" />
@@ -75,16 +75,16 @@
 			<transient name="userUuid" />
 		</attributes>
 	</mapped-superclass>
-	<entity class="com.liferay.bbb.model.impl.MeetingEntryImpl" name="MeetingEntry">
-		<table name="BBB_MeetingEntry" />
+	<entity class="com.liferay.bbb.model.impl.BBBMeetingImpl" name="BBBMeeting">
+		<table name="BBB_BBBMeeting" />
 		<attributes />
 	</entity>
-	<entity class="com.liferay.bbb.model.impl.MeetingParticipantImpl" name="MeetingParticipant">
-		<table name="BBB_MeetingParticipant" />
+	<entity class="com.liferay.bbb.model.impl.BBBParticipantImpl" name="BBBParticipant">
+		<table name="BBB_BBBParticipant" />
 		<attributes />
 	</entity>
-	<entity class="com.liferay.bbb.model.impl.MeetingServerImpl" name="MeetingServer">
-		<table name="BBB_MeetingServer" />
+	<entity class="com.liferay.bbb.model.impl.BBBServerImpl" name="BBBServer">
+		<table name="BBB_BBBServer" />
 		<attributes />
 	</entity>
 </entity-mappings>
