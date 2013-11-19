@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.MapUtil;
 import com.liferay.portal.kernel.util.PropertiesUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
@@ -64,8 +65,8 @@ public class DefaultUserResolver implements UserResolver {
 			NameID nameId = samlMessageContext.getSubjectNameIdentifier();
 
 			_log.debug(
-				"Resolving user with nameIdFormat: " + nameId.getFormat() +
-					" and value: " + nameId.getValue());
+				"Resolving user with name ID format " + nameId.getFormat() +
+					" and value " + nameId.getValue());
 		}
 
 		User user = null;
@@ -97,7 +98,9 @@ public class DefaultUserResolver implements UserResolver {
 		throws PortalException, SystemException {
 
 		if (_log.isDebugEnabled()) {
-			_log.debug("Adding user with attributesMap: " + attributesMap);
+			_log.debug(
+				"Adding user with attributes map " +
+					MapUtil.toString(attributesMap));
 		}
 
 		long creatorUserId = 0;
@@ -172,7 +175,7 @@ public class DefaultUserResolver implements UserResolver {
 
 			if (_log.isDebugEnabled()) {
 				_log.debug(
-					"Attributes mapping for " + peerEntityId + ": " +
+					"Attributes mapping for " + peerEntityId + " " +
 						userAttributeMappings);
 			}
 
@@ -252,8 +255,8 @@ public class DefaultUserResolver implements UserResolver {
 
 		if (_log.isDebugEnabled()) {
 			_log.debug(
-				"Importing User from LDAP with subjectNameIdentifier: " +
-					subjectNameIdentifier + ", subjectNameIdentifierType: " +
+				"Importing user from LDAP with identifier " +
+					subjectNameIdentifier + " of type " +
 						subjectNameIdentifierType);
 		}
 
@@ -282,9 +285,8 @@ public class DefaultUserResolver implements UserResolver {
 
 		if (_log.isDebugEnabled()) {
 			_log.debug(
-				"Importing User with subjectNameIdentifier: " +
-					subjectNameIdentifier + ", subjectNameIdentifierType: " +
-						subjectNameIdentifierType);
+				"Importing user with identifier " + subjectNameIdentifier +
+					" of type " + subjectNameIdentifierType);
 		}
 
 		User user = getUser(
@@ -292,7 +294,7 @@ public class DefaultUserResolver implements UserResolver {
 
 		if (user != null) {
 			if (_log.isDebugEnabled()) {
-				_log.debug("Found user: " + user.toString());
+				_log.debug("Found user " + user.toString());
 			}
 
 			return user;
@@ -307,7 +309,7 @@ public class DefaultUserResolver implements UserResolver {
 		user = addUser(companyId, attributesMap, serviceContext);
 
 		if (_log.isDebugEnabled()) {
-			_log.debug("Added user: " + user.toString());
+			_log.debug("Added user " + user.toString());
 		}
 
 		return user;
@@ -321,4 +323,5 @@ public class DefaultUserResolver implements UserResolver {
 	private static final String _SUBJECT_NAME_TYPE_UUID = "uuid";
 
 	private static Log _log = LogFactoryUtil.getLog(DefaultUserResolver.class);
+
 }

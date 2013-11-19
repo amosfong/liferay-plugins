@@ -84,12 +84,12 @@ public abstract class BaseProfile {
 
 		messageDecoder.decode(samlMessageContext);
 
-		if (_log.isTraceEnabled()) {
+		if (_log.isDebugEnabled()) {
 			SAMLObject samlObject = samlMessageContext.getInboundSAMLMessage();
 
-			_log.trace(
+			_log.debug(
 				"Received message using binding " +
-					samlMessageContext.getCommunicationProfileId() + ": " +
+					samlMessageContext.getCommunicationProfileId() + " " +
 						OpenSamlUtil.marshall(samlObject));
 		}
 
@@ -289,14 +289,14 @@ public abstract class BaseProfile {
 
 		SamlBinding samlBinding = getSamlBinding(endpoint.getBinding());
 
-		if (_log.isTraceEnabled()) {
+		if (_log.isDebugEnabled()) {
 			try {
 				XMLObject xmlObject =
 					samlMessageContext.getOutboundSAMLMessage();
 
 				String samlMessage = OpenSamlUtil.marshall(xmlObject);
 
-				_log.trace(
+				_log.debug(
 					"Sending message to " + endpoint.getLocation() +
 						" with binding " + endpoint.getBinding() + ": " +
 							samlMessage);
