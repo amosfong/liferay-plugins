@@ -105,6 +105,15 @@ public class CloudServicesPortlet extends MVCPortlet {
 		}
 	}
 
+	public void resetCredentials(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
+
+		stop(actionRequest, actionResponse);
+
+		deletePortletPreferences(actionRequest);
+	}
+
 	@Override
 	public void serveResource(
 			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
@@ -176,6 +185,23 @@ public class CloudServicesPortlet extends MVCPortlet {
 
 		LCSClusterNodeUtil.registerLCSClusterNode(
 			lcsClusterEntryId, name, description, location);
+	}
+
+	protected void deletePortletPreferences(PortletRequest portletRequest)
+		throws Exception {
+
+		String portletId = PortalUtil.getPortletId(portletRequest);
+
+		try {
+			PortletPreferencesLocalServiceUtil.deletePortletPreferences(
+				CompanyConstants.SYSTEM, PortletKeys.PREFS_OWNER_TYPE_COMPANY,
+				0, portletId);
+		}
+		catch (NoSuchPortletPreferencesException nsppe) {
+			if (_log.isWarnEnabled()) {
+				_log.warn("No PortletPreferences to remove!");
+			}
+		}
 	}
 
 	protected JSONArray getCorpEntriesJSONArray(PortletRequest portletRequest)
