@@ -4,11 +4,11 @@
 <service-builder package-path="com.liferay.bbb">
 	<author>Shinn Lok</author>
 	<namespace>BBB</namespace>
-	<entity name="MeetingEntry" local-service="true" remote-service="true">
+	<entity name="BBBMeeting" local-service="true" remote-service="true">
 
 		<!-- PK fields -->
 
-		<column name="meetingEntryId" type="long" primary="true" />
+		<column name="bbbMeetingId" type="long" primary="true" />
 
 		<!-- Group instance -->
 
@@ -24,7 +24,7 @@
 
 		<!-- Other fields -->
 
-		<column name="meetingServerId" type="long" />
+		<column name="bbbServerId" type="long" />
 		<column name="name" type="String" />
 		<column name="attendeePassword" type="String" />
 		<column name="moderatorPassword" type="String" />
@@ -32,15 +32,15 @@
 
 		<!-- Finder methods -->
 
-		<finder name="MeetingServerId" return-type="Collection">
-			<finder-column name="meetingServerId" />
+		<finder name="BBBServerId" return-type="Collection">
+			<finder-column name="bbbServerId" />
 		</finder>
 	</entity>
-	<entity name="MeetingParticipant" local-service="true" remote-service="true">
+	<entity name="BBBParticipant" local-service="true" remote-service="true">
 
 		<!-- PK fields -->
 
-		<column name="meetingParticipantId" type="long" primary="true" />
+		<column name="bbbParticipantId" type="long" primary="true" />
 
 		<!-- Group instance -->
 
@@ -56,21 +56,21 @@
 
 		<!-- Other fields -->
 
-		<column name="meetingEntryId" type="long" />
+		<column name="bbbMeetingId" type="long" />
 		<column name="name" type="String" />
 		<column name="emailAddress" type="String" />
 
 		<!-- Finder methods -->
 
-		<finder name="MeetingEntryId" return-type="Collection">
-			<finder-column name="meetingEntryId" />
+		<finder name="BBBMeetingId" return-type="Collection">
+			<finder-column name="bbbMeetingId" />
 		</finder>
 	</entity>
-	<entity name="MeetingServer" local-service="true" remote-service="true">
+	<entity name="BBBServer" local-service="true" remote-service="true">
 
 		<!-- PK fields -->
 
-		<column name="meetingServerId" type="long" primary="true" />
+		<column name="bbbServerId" type="long" primary="true" />
 
 		<!-- Group instance -->
 
