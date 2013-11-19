@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE service-builder PUBLIC "-//Liferay//DTD Service Builder 6.2.0//EN" "http://www.liferay.com/dtd/liferay-service-builder_6_2_0.dtd">
 
-<service-builder package-path="com.liferay.bbb">
+<service-builder package-path="com.liferay.bbb" auto-namespace-tables="false">
 	<author>Shinn Lok</author>
 	<namespace>BBB</namespace>
 	<entity name="BBBMeeting" local-service="true" remote-service="true">
@@ -26,14 +26,27 @@
 
 		<column name="bbbServerId" type="long" />
 		<column name="name" type="String" />
+		<column name="description" type="String" />
 		<column name="attendeePassword" type="String" />
 		<column name="moderatorPassword" type="String" />
 		<column name="status" type="int" />
 
+		<!-- Order -->
+
+		<order by="desc">
+			<order-column name="createDate" />
+		</order>
+
 		<!-- Finder methods -->
 
-		<finder name="BBBServerId" return-type="Collection">
+		<finder name="GroupId" return-type="Collection">
+			<finder-column name="groupId" />
+		</finder>
+		<finder name="BbbServerId" return-type="Collection">
 			<finder-column name="bbbServerId" />
+		</finder>
+		<finder name="Status" return-type="Collection">
+			<finder-column name="status" />
 		</finder>
 	</entity>
 	<entity name="BBBParticipant" local-service="true" remote-service="true">
@@ -59,10 +72,12 @@
 		<column name="bbbMeetingId" type="long" />
 		<column name="name" type="String" />
 		<column name="emailAddress" type="String" />
+		<column name="type" type="int" />
+		<column name="status" type="int" />
 
 		<!-- Finder methods -->
 
-		<finder name="BBBMeetingId" return-type="Collection">
+		<finder name="BbbMeetingId" return-type="Collection">
 			<finder-column name="bbbMeetingId" />
 		</finder>
 	</entity>
@@ -89,6 +104,12 @@
 		<column name="name" type="String" />
 		<column name="url" type="String" />
 		<column name="secret" type="String" />
+
+		<!-- Order -->
+
+		<order by="asc">
+			<order-column name="name" case-sensitive="false" />
+		</order>
 
 		<!-- Finder methods -->
 
