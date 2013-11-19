@@ -77,10 +77,10 @@ int status = BeanPropertiesUtil.getInteger(spiDefinition, "status", SPIAdminCons
 		</liferay-ui:panel>
 
 		<%
-		Tuple portletIdsAndServletContextNamesTuple = SPIDefinitionServiceUtil.getPortletIdsAndServletContextNames();
+		Tuple portletIdsAndServletContextNames = SPIDefinitionServiceUtil.getPortletIdsAndServletContextNames();
 
-		Set<String> usedPortletIds = (Set<String>)portletIdsAndServletContextNamesTuple.getObject(0);
-		Set<String> usedServletContextNames = (Set<String>)portletIdsAndServletContextNamesTuple.getObject(1);
+		Set<String> portletIds = (Set<String>)portletIdsAndServletContextNames.getObject(0);
+		Set<String> servletContextNames = (Set<String>)portletIdsAndServletContextNames.getObject(1);
 		%>
 
 		<liferay-ui:panel collapsible="<%= true %>" extended="<%= true %>" id="spiDefinitionRuntimeConfigurationPanel" persistState="<%= true %>" title="spi-configurations">
@@ -109,7 +109,7 @@ int status = BeanPropertiesUtil.getInteger(spiDefinition, "status", SPIAdminCons
 					Arrays.sort(servletContextNames);
 
 					for (String pluginServletContextName : SPIAdminUtil.getPluginServletContextNames()) {
-						if ((Arrays.binarySearch(servletContextNames, pluginServletContextName) < 0) && !usedServletContextNames.contains(pluginServletContextName)) {
+						if ((Arrays.binarySearch(servletContextNames, pluginServletContextName) < 0) && !servletContextNames.contains(pluginServletContextName)) {
 							rightList.add(new KeyValuePair(pluginServletContextName, pluginServletContextName));
 						}
 					}
@@ -165,7 +165,7 @@ int status = BeanPropertiesUtil.getInteger(spiDefinition, "status", SPIAdminCons
 					Arrays.sort(portletIds);
 
 					for (Portlet corePortlet : SPIAdminUtil.getCorePortlets()) {
-						if ((Arrays.binarySearch(portletIds, corePortlet.getPortletId()) < 0) && !usedPortletIds.contains(corePortlet)) {
+						if ((Arrays.binarySearch(portletIds, corePortlet.getPortletId()) < 0) && !portletIds.contains(corePortlet)) {
 							rightList.add(new KeyValuePair(corePortlet.getPortletId(), PortalUtil.getPortletTitle(corePortlet, ServletContextPool.get(PortalUtil.getPathContext()), locale)));
 						}
 					}
