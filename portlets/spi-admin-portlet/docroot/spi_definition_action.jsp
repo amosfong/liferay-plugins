@@ -89,7 +89,7 @@ SPIDefinition spiDefinition = (SPIDefinition)row.getObject();
 			<c:otherwise>
 
 				<%
-				String taglibURL = "javascript:alert('" + UnicodeLanguageUtil.get(pageContext, "you-may-not-delete-a-running-spi.-please-stop-the-spi-before-deleting-it") + "');";
+				String taglibURL = "javascript:alert('" + UnicodeLanguageUtil.get(pageContext, "you-cannot-delete-a-running-spi.-please-stop-the-spi-before-deleting-it") + "');";
 				%>
 
 				<liferay-ui:icon
