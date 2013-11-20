@@ -22,6 +22,7 @@
 			</basic>
 			<basic name="bbbServerId" />
 			<basic name="name" />
+			<basic name="description" />
 			<basic name="attendeePassword" />
 			<basic name="moderatorPassword" />
 			<basic name="status" />
@@ -47,6 +48,10 @@
 			<basic name="bbbMeetingId" />
 			<basic name="name" />
 			<basic name="emailAddress" />
+			<basic name="type">
+				<column name="TYPE_" />
+			</basic>
+			<basic name="status" />
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />
@@ -76,15 +81,15 @@
 		</attributes>
 	</mapped-superclass>
 	<entity class="com.liferay.bbb.model.impl.BBBMeetingImpl" name="BBBMeeting">
-		<table name="BBB_BBBMeeting" />
+		<table name="BBBMeeting" />
 		<attributes />
 	</entity>
 	<entity class="com.liferay.bbb.model.impl.BBBParticipantImpl" name="BBBParticipant">
-		<table name="BBB_BBBParticipant" />
+		<table name="BBBParticipant" />
 		<attributes />
 	</entity>
 	<entity class="com.liferay.bbb.model.impl.BBBServerImpl" name="BBBServer">
-		<table name="BBB_BBBServer" />
+		<table name="BBBServer" />
 		<attributes />
 	</entity>
 </entity-mappings>

@@ -38,7 +38,7 @@ public class BBBParticipantCacheModel implements CacheModel<BBBParticipant>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("{bbbParticipantId=");
 		sb.append(bbbParticipantId);
@@ -60,6 +60,10 @@ public class BBBParticipantCacheModel implements CacheModel<BBBParticipant>,
 		sb.append(name);
 		sb.append(", emailAddress=");
 		sb.append(emailAddress);
+		sb.append(", type=");
+		sb.append(type);
+		sb.append(", status=");
+		sb.append(status);
 		sb.append("}");
 
 		return sb.toString();
@@ -111,6 +115,9 @@ public class BBBParticipantCacheModel implements CacheModel<BBBParticipant>,
 			bbbParticipantImpl.setEmailAddress(emailAddress);
 		}
 
+		bbbParticipantImpl.setType(type);
+		bbbParticipantImpl.setStatus(status);
+
 		bbbParticipantImpl.resetOriginalValues();
 
 		return bbbParticipantImpl;
@@ -128,6 +135,8 @@ public class BBBParticipantCacheModel implements CacheModel<BBBParticipant>,
 		bbbMeetingId = objectInput.readLong();
 		name = objectInput.readUTF();
 		emailAddress = objectInput.readUTF();
+		type = objectInput.readInt();
+		status = objectInput.readInt();
 	}
 
 	@Override
@@ -162,6 +171,9 @@ public class BBBParticipantCacheModel implements CacheModel<BBBParticipant>,
 		else {
 			objectOutput.writeUTF(emailAddress);
 		}
+
+		objectOutput.writeInt(type);
+		objectOutput.writeInt(status);
 	}
 
 	public long bbbParticipantId;
@@ -174,4 +186,6 @@ public class BBBParticipantCacheModel implements CacheModel<BBBParticipant>,
 	public long bbbMeetingId;
 	public String name;
 	public String emailAddress;
+	public int type;
+	public int status;
 }

@@ -40,6 +40,7 @@ public class BBBMeetingSoap implements Serializable {
 		soapModel.setModifiedDate(model.getModifiedDate());
 		soapModel.setBbbServerId(model.getBbbServerId());
 		soapModel.setName(model.getName());
+		soapModel.setDescription(model.getDescription());
 		soapModel.setAttendeePassword(model.getAttendeePassword());
 		soapModel.setModeratorPassword(model.getModeratorPassword());
 		soapModel.setStatus(model.getStatus());
@@ -167,6 +168,14 @@ public class BBBMeetingSoap implements Serializable {
 		_name = name;
 	}
 
+	public String getDescription() {
+		return _description;
+	}
+
+	public void setDescription(String description) {
+		_description = description;
+	}
+
 	public String getAttendeePassword() {
 		return _attendeePassword;
 	}
@@ -200,6 +209,7 @@ public class BBBMeetingSoap implements Serializable {
 	private Date _modifiedDate;
 	private long _bbbServerId;
 	private String _name;
+	private String _description;
 	private String _attendeePassword;
 	private String _moderatorPassword;
 	private int _status;

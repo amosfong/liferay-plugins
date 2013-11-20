@@ -17,7 +17,7 @@ package com.liferay.bbb.model;
 import com.liferay.portal.model.PersistedModel;
 
 /**
- * The extended model interface for the BBBServer service. Represents a row in the &quot;BBB_BBBServer&quot; database table, with each column mapped to a property of this class.
+ * The extended model interface for the BBBServer service. Represents a row in the &quot;BBBServer&quot; database table, with each column mapped to a property of this class.
  *
  * @author Shinn Lok
  * @see BBBServerModel

@@ -5,7 +5,7 @@
 	<import class="com.liferay.bbb.model.BBBMeeting" />
 	<import class="com.liferay.bbb.model.BBBParticipant" />
 	<import class="com.liferay.bbb.model.BBBServer" />
-	<class name="com.liferay.bbb.model.impl.BBBMeetingImpl" table="BBB_BBBMeeting">
+	<class name="com.liferay.bbb.model.impl.BBBMeetingImpl" table="BBBMeeting">
 		<cache usage="read-write" />
 		<id name="bbbMeetingId" type="long">
 			<generator class="assigned" />
@@ -18,11 +18,12 @@
 		<property name="modifiedDate" type="org.hibernate.type.TimestampType" />
 		<property name="bbbServerId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="description" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="attendeePassword" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="moderatorPassword" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 	</class>
-	<class name="com.liferay.bbb.model.impl.BBBParticipantImpl" table="BBB_BBBParticipant">
+	<class name="com.liferay.bbb.model.impl.BBBParticipantImpl" table="BBBParticipant">
 		<cache usage="read-write" />
 		<id name="bbbParticipantId" type="long">
 			<generator class="assigned" />
@@ -36,8 +37,10 @@
 		<property name="bbbMeetingId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
 		<property name="name" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="emailAddress" type="com.liferay.portal.dao.orm.hibernate.StringType" />
+		<property name="type" type="com.liferay.portal.dao.orm.hibernate.IntegerType" column="type_" />
+		<property name="status" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 	</class>
-	<class name="com.liferay.bbb.model.impl.BBBServerImpl" table="BBB_BBBServer">
+	<class name="com.liferay.bbb.model.impl.BBBServerImpl" table="BBBServer">
 		<cache usage="read-write" />
 		<id name="bbbServerId" type="long">
 			<generator class="assigned" />

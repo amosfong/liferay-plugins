@@ -19,6 +19,7 @@ import com.liferay.bbb.service.ClpSerializer;
 
 import com.liferay.portal.kernel.bean.AutoEscapeBeanHandler;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.DateUtil;
 import com.liferay.portal.kernel.util.ProxyUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.model.BaseModel;
@@ -84,6 +85,7 @@ public class BBBMeetingClp extends BaseModelImpl<BBBMeeting>
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("bbbServerId", getBbbServerId());
 		attributes.put("name", getName());
+		attributes.put("description", getDescription());
 		attributes.put("attendeePassword", getAttendeePassword());
 		attributes.put("moderatorPassword", getModeratorPassword());
 		attributes.put("status", getStatus());
@@ -145,6 +147,12 @@ public class BBBMeetingClp extends BaseModelImpl<BBBMeeting>
 
 		if (name != null) {
 			setName(name);
+		}
+
+		String description = (String)attributes.get("description");
+
+		if (description != null) {
+			setDescription(description);
 		}
 
 		String attendeePassword = (String)attributes.get("attendeePassword");
@@ -384,6 +392,29 @@ public class BBBMeetingClp extends BaseModelImpl<BBBMeeting>
 	}
 
 	@Override
+	public String getDescription() {
+		return _description;
+	}
+
+	@Override
+	public void setDescription(String description) {
+		_description = description;
+
+		if (_bbbMeetingRemoteModel != null) {
+			try {
+				Class<?> clazz = _bbbMeetingRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setDescription", String.class);
+
+				method.invoke(_bbbMeetingRemoteModel, description);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
 	public String getAttendeePassword() {
 		return _attendeePassword;
 	}
@@ -532,6 +563,7 @@ public class BBBMeetingClp extends BaseModelImpl<BBBMeeting>
 		clone.setModifiedDate(getModifiedDate());
 		clone.setBbbServerId(getBbbServerId());
 		clone.setName(getName());
+		clone.setDescription(getDescription());
 		clone.setAttendeePassword(getAttendeePassword());
 		clone.setModeratorPassword(getModeratorPassword());
 		clone.setStatus(getStatus());
@@ -541,17 +573,17 @@ public class BBBMeetingClp extends BaseModelImpl<BBBMeeting>
 
 	@Override
 	public int compareTo(BBBMeeting bbbMeeting) {
-		long primaryKey = bbbMeeting.getPrimaryKey();
+		int value = 0;
 
-		if (getPrimaryKey() < primaryKey) {
-			return -1;
+		value = DateUtil.compareTo(getCreateDate(), bbbMeeting.getCreateDate());
+
+		value = value * -1;
+
+		if (value != 0) {
+			return value;
 		}
-		else if (getPrimaryKey() > primaryKey) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
+
+		return 0;
 	}
 
 	@Override
@@ -583,7 +615,7 @@ public class BBBMeetingClp extends BaseModelImpl<BBBMeeting>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(27);
 
 		sb.append("{bbbMeetingId=");
 		sb.append(getBbbMeetingId());
@@ -603,6 +635,8 @@ public class BBBMeetingClp extends BaseModelImpl<BBBMeeting>
 		sb.append(getBbbServerId());
 		sb.append(", name=");
 		sb.append(getName());
+		sb.append(", description=");
+		sb.append(getDescription());
 		sb.append(", attendeePassword=");
 		sb.append(getAttendeePassword());
 		sb.append(", moderatorPassword=");
@@ -616,7 +650,7 @@ public class BBBMeetingClp extends BaseModelImpl<BBBMeeting>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(40);
+		StringBundler sb = new StringBundler(43);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.bbb.model.BBBMeeting");
@@ -659,6 +693,10 @@ public class BBBMeetingClp extends BaseModelImpl<BBBMeeting>
 		sb.append(getName());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>description</column-name><column-value><![CDATA[");
+		sb.append(getDescription());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>attendeePassword</column-name><column-value><![CDATA[");
 		sb.append(getAttendeePassword());
 		sb.append("]]></column-value></column>");
@@ -686,6 +724,7 @@ public class BBBMeetingClp extends BaseModelImpl<BBBMeeting>
 	private Date _modifiedDate;
 	private long _bbbServerId;
 	private String _name;
+	private String _description;
 	private String _attendeePassword;
 	private String _moderatorPassword;
 	private int _status;

@@ -60,6 +60,8 @@ public class BBBParticipantWrapper implements BBBParticipant,
 		attributes.put("bbbMeetingId", getBbbMeetingId());
 		attributes.put("name", getName());
 		attributes.put("emailAddress", getEmailAddress());
+		attributes.put("type", getType());
+		attributes.put("status", getStatus());
 
 		return attributes;
 	}
@@ -124,6 +126,18 @@ public class BBBParticipantWrapper implements BBBParticipant,
 
 		if (emailAddress != null) {
 			setEmailAddress(emailAddress);
+		}
+
+		Integer type = (Integer)attributes.get("type");
+
+		if (type != null) {
+			setType(type);
+		}
+
+		Integer status = (Integer)attributes.get("status");
+
+		if (status != null) {
+			setStatus(status);
 		}
 	}
 
@@ -367,6 +381,46 @@ public class BBBParticipantWrapper implements BBBParticipant,
 	@Override
 	public void setEmailAddress(java.lang.String emailAddress) {
 		_bbbParticipant.setEmailAddress(emailAddress);
+	}
+
+	/**
+	* Returns the type of this b b b participant.
+	*
+	* @return the type of this b b b participant
+	*/
+	@Override
+	public int getType() {
+		return _bbbParticipant.getType();
+	}
+
+	/**
+	* Sets the type of this b b b participant.
+	*
+	* @param type the type of this b b b participant
+	*/
+	@Override
+	public void setType(int type) {
+		_bbbParticipant.setType(type);
+	}
+
+	/**
+	* Returns the status of this b b b participant.
+	*
+	* @return the status of this b b b participant
+	*/
+	@Override
+	public int getStatus() {
+		return _bbbParticipant.getStatus();
+	}
+
+	/**
+	* Sets the status of this b b b participant.
+	*
+	* @param status the status of this b b b participant
+	*/
+	@Override
+	public void setStatus(int status) {
+		_bbbParticipant.setStatus(status);
 	}
 
 	@Override

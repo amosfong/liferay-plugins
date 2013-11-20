@@ -117,10 +117,10 @@ public class BBBParticipantUtil {
 	* @return the matching b b b participants
 	* @throws SystemException if a system exception occurred
 	*/
-	public static java.util.List<com.liferay.bbb.model.BBBParticipant> findByBBBMeetingId(
+	public static java.util.List<com.liferay.bbb.model.BBBParticipant> findByBbbMeetingId(
 		long bbbMeetingId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().findByBBBMeetingId(bbbMeetingId);
+		return getPersistence().findByBbbMeetingId(bbbMeetingId);
 	}
 
 	/**
@@ -136,10 +136,10 @@ public class BBBParticipantUtil {
 	* @return the range of matching b b b participants
 	* @throws SystemException if a system exception occurred
 	*/
-	public static java.util.List<com.liferay.bbb.model.BBBParticipant> findByBBBMeetingId(
+	public static java.util.List<com.liferay.bbb.model.BBBParticipant> findByBbbMeetingId(
 		long bbbMeetingId, int start, int end)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().findByBBBMeetingId(bbbMeetingId, start, end);
+		return getPersistence().findByBbbMeetingId(bbbMeetingId, start, end);
 	}
 
 	/**
@@ -156,12 +156,12 @@ public class BBBParticipantUtil {
 	* @return the ordered range of matching b b b participants
 	* @throws SystemException if a system exception occurred
 	*/
-	public static java.util.List<com.liferay.bbb.model.BBBParticipant> findByBBBMeetingId(
+	public static java.util.List<com.liferay.bbb.model.BBBParticipant> findByBbbMeetingId(
 		long bbbMeetingId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
-				   .findByBBBMeetingId(bbbMeetingId, start, end,
+				   .findByBbbMeetingId(bbbMeetingId, start, end,
 			orderByComparator);
 	}
 
@@ -174,13 +174,13 @@ public class BBBParticipantUtil {
 	* @throws com.liferay.bbb.NoSuchParticipantException if a matching b b b participant could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.bbb.model.BBBParticipant findByBBBMeetingId_First(
+	public static com.liferay.bbb.model.BBBParticipant findByBbbMeetingId_First(
 		long bbbMeetingId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.bbb.NoSuchParticipantException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
-				   .findByBBBMeetingId_First(bbbMeetingId, orderByComparator);
+				   .findByBbbMeetingId_First(bbbMeetingId, orderByComparator);
 	}
 
 	/**
@@ -191,12 +191,12 @@ public class BBBParticipantUtil {
 	* @return the first matching b b b participant, or <code>null</code> if a matching b b b participant could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.bbb.model.BBBParticipant fetchByBBBMeetingId_First(
+	public static com.liferay.bbb.model.BBBParticipant fetchByBbbMeetingId_First(
 		long bbbMeetingId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
-				   .fetchByBBBMeetingId_First(bbbMeetingId, orderByComparator);
+				   .fetchByBbbMeetingId_First(bbbMeetingId, orderByComparator);
 	}
 
 	/**
@@ -208,13 +208,13 @@ public class BBBParticipantUtil {
 	* @throws com.liferay.bbb.NoSuchParticipantException if a matching b b b participant could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.bbb.model.BBBParticipant findByBBBMeetingId_Last(
+	public static com.liferay.bbb.model.BBBParticipant findByBbbMeetingId_Last(
 		long bbbMeetingId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.bbb.NoSuchParticipantException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
-				   .findByBBBMeetingId_Last(bbbMeetingId, orderByComparator);
+				   .findByBbbMeetingId_Last(bbbMeetingId, orderByComparator);
 	}
 
 	/**
@@ -225,12 +225,12 @@ public class BBBParticipantUtil {
 	* @return the last matching b b b participant, or <code>null</code> if a matching b b b participant could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.bbb.model.BBBParticipant fetchByBBBMeetingId_Last(
+	public static com.liferay.bbb.model.BBBParticipant fetchByBbbMeetingId_Last(
 		long bbbMeetingId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
-				   .fetchByBBBMeetingId_Last(bbbMeetingId, orderByComparator);
+				   .fetchByBbbMeetingId_Last(bbbMeetingId, orderByComparator);
 	}
 
 	/**
@@ -243,13 +243,13 @@ public class BBBParticipantUtil {
 	* @throws com.liferay.bbb.NoSuchParticipantException if a b b b participant with the primary key could not be found
 	* @throws SystemException if a system exception occurred
 	*/
-	public static com.liferay.bbb.model.BBBParticipant[] findByBBBMeetingId_PrevAndNext(
+	public static com.liferay.bbb.model.BBBParticipant[] findByBbbMeetingId_PrevAndNext(
 		long bbbParticipantId, long bbbMeetingId,
 		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.bbb.NoSuchParticipantException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getPersistence()
-				   .findByBBBMeetingId_PrevAndNext(bbbParticipantId,
+				   .findByBbbMeetingId_PrevAndNext(bbbParticipantId,
 			bbbMeetingId, orderByComparator);
 	}
 
@@ -259,9 +259,9 @@ public class BBBParticipantUtil {
 	* @param bbbMeetingId the bbb meeting ID
 	* @throws SystemException if a system exception occurred
 	*/
-	public static void removeByBBBMeetingId(long bbbMeetingId)
+	public static void removeByBbbMeetingId(long bbbMeetingId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		getPersistence().removeByBBBMeetingId(bbbMeetingId);
+		getPersistence().removeByBbbMeetingId(bbbMeetingId);
 	}
 
 	/**
@@ -271,9 +271,9 @@ public class BBBParticipantUtil {
 	* @return the number of matching b b b participants
 	* @throws SystemException if a system exception occurred
 	*/
-	public static int countByBBBMeetingId(long bbbMeetingId)
+	public static int countByBbbMeetingId(long bbbMeetingId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return getPersistence().countByBBBMeetingId(bbbMeetingId);
+		return getPersistence().countByBbbMeetingId(bbbMeetingId);
 	}
 
 	/**

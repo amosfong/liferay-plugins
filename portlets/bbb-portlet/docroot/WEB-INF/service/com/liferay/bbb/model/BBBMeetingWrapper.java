@@ -58,6 +58,7 @@ public class BBBMeetingWrapper implements BBBMeeting, ModelWrapper<BBBMeeting> {
 		attributes.put("modifiedDate", getModifiedDate());
 		attributes.put("bbbServerId", getBbbServerId());
 		attributes.put("name", getName());
+		attributes.put("description", getDescription());
 		attributes.put("attendeePassword", getAttendeePassword());
 		attributes.put("moderatorPassword", getModeratorPassword());
 		attributes.put("status", getStatus());
@@ -119,6 +120,12 @@ public class BBBMeetingWrapper implements BBBMeeting, ModelWrapper<BBBMeeting> {
 
 		if (name != null) {
 			setName(name);
+		}
+
+		String description = (String)attributes.get("description");
+
+		if (description != null) {
+			setDescription(description);
 		}
 
 		String attendeePassword = (String)attributes.get("attendeePassword");
@@ -360,6 +367,26 @@ public class BBBMeetingWrapper implements BBBMeeting, ModelWrapper<BBBMeeting> {
 	@Override
 	public void setName(java.lang.String name) {
 		_bbbMeeting.setName(name);
+	}
+
+	/**
+	* Returns the description of this b b b meeting.
+	*
+	* @return the description of this b b b meeting
+	*/
+	@Override
+	public java.lang.String getDescription() {
+		return _bbbMeeting.getDescription();
+	}
+
+	/**
+	* Sets the description of this b b b meeting.
+	*
+	* @param description the description of this b b b meeting
+	*/
+	@Override
+	public void setDescription(java.lang.String description) {
+		_bbbMeeting.setDescription(description);
 	}
 
 	/**

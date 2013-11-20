@@ -41,6 +41,8 @@ public class BBBParticipantSoap implements Serializable {
 		soapModel.setBbbMeetingId(model.getBbbMeetingId());
 		soapModel.setName(model.getName());
 		soapModel.setEmailAddress(model.getEmailAddress());
+		soapModel.setType(model.getType());
+		soapModel.setStatus(model.getStatus());
 
 		return soapModel;
 	}
@@ -173,6 +175,22 @@ public class BBBParticipantSoap implements Serializable {
 		_emailAddress = emailAddress;
 	}
 
+	public int getType() {
+		return _type;
+	}
+
+	public void setType(int type) {
+		_type = type;
+	}
+
+	public int getStatus() {
+		return _status;
+	}
+
+	public void setStatus(int status) {
+		_status = status;
+	}
+
 	private long _bbbParticipantId;
 	private long _groupId;
 	private long _companyId;
@@ -183,4 +201,6 @@ public class BBBParticipantSoap implements Serializable {
 	private long _bbbMeetingId;
 	private String _name;
 	private String _emailAddress;
+	private int _type;
+	private int _status;
 }

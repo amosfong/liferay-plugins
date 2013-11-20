@@ -35,6 +35,7 @@ import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PropsKeys;
 import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
@@ -48,6 +49,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The persistence implementation for the b b b participant service.
@@ -88,7 +90,7 @@ public class BBBParticipantPersistenceImpl extends BasePersistenceImpl<BBBPartic
 		new FinderPath(BBBParticipantModelImpl.ENTITY_CACHE_ENABLED,
 			BBBParticipantModelImpl.FINDER_CACHE_ENABLED,
 			BBBParticipantImpl.class, FINDER_CLASS_NAME_LIST_WITH_PAGINATION,
-			"findByBBBMeetingId",
+			"findByBbbMeetingId",
 			new String[] {
 				Long.class.getName(),
 				
@@ -99,12 +101,12 @@ public class BBBParticipantPersistenceImpl extends BasePersistenceImpl<BBBPartic
 		new FinderPath(BBBParticipantModelImpl.ENTITY_CACHE_ENABLED,
 			BBBParticipantModelImpl.FINDER_CACHE_ENABLED,
 			BBBParticipantImpl.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByBBBMeetingId",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "findByBbbMeetingId",
 			new String[] { Long.class.getName() },
 			BBBParticipantModelImpl.BBBMEETINGID_COLUMN_BITMASK);
 	public static final FinderPath FINDER_PATH_COUNT_BY_BBBMEETINGID = new FinderPath(BBBParticipantModelImpl.ENTITY_CACHE_ENABLED,
 			BBBParticipantModelImpl.FINDER_CACHE_ENABLED, Long.class,
-			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByBBBMeetingId",
+			FINDER_CLASS_NAME_LIST_WITHOUT_PAGINATION, "countByBbbMeetingId",
 			new String[] { Long.class.getName() });
 
 	/**
@@ -115,9 +117,9 @@ public class BBBParticipantPersistenceImpl extends BasePersistenceImpl<BBBPartic
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<BBBParticipant> findByBBBMeetingId(long bbbMeetingId)
+	public List<BBBParticipant> findByBbbMeetingId(long bbbMeetingId)
 		throws SystemException {
-		return findByBBBMeetingId(bbbMeetingId, QueryUtil.ALL_POS,
+		return findByBbbMeetingId(bbbMeetingId, QueryUtil.ALL_POS,
 			QueryUtil.ALL_POS, null);
 	}
 
@@ -135,9 +137,9 @@ public class BBBParticipantPersistenceImpl extends BasePersistenceImpl<BBBPartic
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<BBBParticipant> findByBBBMeetingId(long bbbMeetingId,
+	public List<BBBParticipant> findByBbbMeetingId(long bbbMeetingId,
 		int start, int end) throws SystemException {
-		return findByBBBMeetingId(bbbMeetingId, start, end, null);
+		return findByBbbMeetingId(bbbMeetingId, start, end, null);
 	}
 
 	/**
@@ -155,7 +157,7 @@ public class BBBParticipantPersistenceImpl extends BasePersistenceImpl<BBBPartic
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public List<BBBParticipant> findByBBBMeetingId(long bbbMeetingId,
+	public List<BBBParticipant> findByBbbMeetingId(long bbbMeetingId,
 		int start, int end, OrderByComparator orderByComparator)
 		throws SystemException {
 		boolean pagination = true;
@@ -267,10 +269,10 @@ public class BBBParticipantPersistenceImpl extends BasePersistenceImpl<BBBPartic
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public BBBParticipant findByBBBMeetingId_First(long bbbMeetingId,
+	public BBBParticipant findByBbbMeetingId_First(long bbbMeetingId,
 		OrderByComparator orderByComparator)
 		throws NoSuchParticipantException, SystemException {
-		BBBParticipant bbbParticipant = fetchByBBBMeetingId_First(bbbMeetingId,
+		BBBParticipant bbbParticipant = fetchByBbbMeetingId_First(bbbMeetingId,
 				orderByComparator);
 
 		if (bbbParticipant != null) {
@@ -298,9 +300,9 @@ public class BBBParticipantPersistenceImpl extends BasePersistenceImpl<BBBPartic
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public BBBParticipant fetchByBBBMeetingId_First(long bbbMeetingId,
+	public BBBParticipant fetchByBbbMeetingId_First(long bbbMeetingId,
 		OrderByComparator orderByComparator) throws SystemException {
-		List<BBBParticipant> list = findByBBBMeetingId(bbbMeetingId, 0, 1,
+		List<BBBParticipant> list = findByBbbMeetingId(bbbMeetingId, 0, 1,
 				orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -320,10 +322,10 @@ public class BBBParticipantPersistenceImpl extends BasePersistenceImpl<BBBPartic
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public BBBParticipant findByBBBMeetingId_Last(long bbbMeetingId,
+	public BBBParticipant findByBbbMeetingId_Last(long bbbMeetingId,
 		OrderByComparator orderByComparator)
 		throws NoSuchParticipantException, SystemException {
-		BBBParticipant bbbParticipant = fetchByBBBMeetingId_Last(bbbMeetingId,
+		BBBParticipant bbbParticipant = fetchByBbbMeetingId_Last(bbbMeetingId,
 				orderByComparator);
 
 		if (bbbParticipant != null) {
@@ -351,15 +353,15 @@ public class BBBParticipantPersistenceImpl extends BasePersistenceImpl<BBBPartic
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public BBBParticipant fetchByBBBMeetingId_Last(long bbbMeetingId,
+	public BBBParticipant fetchByBbbMeetingId_Last(long bbbMeetingId,
 		OrderByComparator orderByComparator) throws SystemException {
-		int count = countByBBBMeetingId(bbbMeetingId);
+		int count = countByBbbMeetingId(bbbMeetingId);
 
 		if (count == 0) {
 			return null;
 		}
 
-		List<BBBParticipant> list = findByBBBMeetingId(bbbMeetingId, count - 1,
+		List<BBBParticipant> list = findByBbbMeetingId(bbbMeetingId, count - 1,
 				count, orderByComparator);
 
 		if (!list.isEmpty()) {
@@ -380,7 +382,7 @@ public class BBBParticipantPersistenceImpl extends BasePersistenceImpl<BBBPartic
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public BBBParticipant[] findByBBBMeetingId_PrevAndNext(
+	public BBBParticipant[] findByBbbMeetingId_PrevAndNext(
 		long bbbParticipantId, long bbbMeetingId,
 		OrderByComparator orderByComparator)
 		throws NoSuchParticipantException, SystemException {
@@ -393,12 +395,12 @@ public class BBBParticipantPersistenceImpl extends BasePersistenceImpl<BBBPartic
 
 			BBBParticipant[] array = new BBBParticipantImpl[3];
 
-			array[0] = getByBBBMeetingId_PrevAndNext(session, bbbParticipant,
+			array[0] = getByBbbMeetingId_PrevAndNext(session, bbbParticipant,
 					bbbMeetingId, orderByComparator, true);
 
 			array[1] = bbbParticipant;
 
-			array[2] = getByBBBMeetingId_PrevAndNext(session, bbbParticipant,
+			array[2] = getByBbbMeetingId_PrevAndNext(session, bbbParticipant,
 					bbbMeetingId, orderByComparator, false);
 
 			return array;
@@ -411,7 +413,7 @@ public class BBBParticipantPersistenceImpl extends BasePersistenceImpl<BBBPartic
 		}
 	}
 
-	protected BBBParticipant getByBBBMeetingId_PrevAndNext(Session session,
+	protected BBBParticipant getByBbbMeetingId_PrevAndNext(Session session,
 		BBBParticipant bbbParticipant, long bbbMeetingId,
 		OrderByComparator orderByComparator, boolean previous) {
 		StringBundler query = null;
@@ -523,9 +525,9 @@ public class BBBParticipantPersistenceImpl extends BasePersistenceImpl<BBBPartic
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public void removeByBBBMeetingId(long bbbMeetingId)
+	public void removeByBbbMeetingId(long bbbMeetingId)
 		throws SystemException {
-		for (BBBParticipant bbbParticipant : findByBBBMeetingId(bbbMeetingId,
+		for (BBBParticipant bbbParticipant : findByBbbMeetingId(bbbMeetingId,
 				QueryUtil.ALL_POS, QueryUtil.ALL_POS, null)) {
 			remove(bbbParticipant);
 		}
@@ -539,7 +541,7 @@ public class BBBParticipantPersistenceImpl extends BasePersistenceImpl<BBBPartic
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Override
-	public int countByBBBMeetingId(long bbbMeetingId) throws SystemException {
+	public int countByBbbMeetingId(long bbbMeetingId) throws SystemException {
 		FinderPath finderPath = FINDER_PATH_COUNT_BY_BBBMEETINGID;
 
 		Object[] finderArgs = new Object[] { bbbMeetingId };
@@ -859,6 +861,8 @@ public class BBBParticipantPersistenceImpl extends BasePersistenceImpl<BBBPartic
 		bbbParticipantImpl.setBbbMeetingId(bbbParticipant.getBbbMeetingId());
 		bbbParticipantImpl.setName(bbbParticipant.getName());
 		bbbParticipantImpl.setEmailAddress(bbbParticipant.getEmailAddress());
+		bbbParticipantImpl.setType(bbbParticipant.getType());
+		bbbParticipantImpl.setStatus(bbbParticipant.getStatus());
 
 		return bbbParticipantImpl;
 	}
@@ -1137,6 +1141,11 @@ public class BBBParticipantPersistenceImpl extends BasePersistenceImpl<BBBPartic
 		return count.intValue();
 	}
 
+	@Override
+	protected Set<String> getBadColumnNames() {
+		return _badColumnNames;
+	}
+
 	/**
 	 * Initializes the b b b participant persistence.
 	 */
@@ -1179,6 +1188,9 @@ public class BBBParticipantPersistenceImpl extends BasePersistenceImpl<BBBPartic
 	private static final boolean _HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE = GetterUtil.getBoolean(PropsUtil.get(
 				PropsKeys.HIBERNATE_CACHE_USE_SECOND_LEVEL_CACHE));
 	private static Log _log = LogFactoryUtil.getLog(BBBParticipantPersistenceImpl.class);
+	private static Set<String> _badColumnNames = SetUtil.fromArray(new String[] {
+				"type"
+			});
 	private static BBBParticipant _nullBBBParticipant = new BBBParticipantImpl() {
 			@Override
 			public Object clone() {

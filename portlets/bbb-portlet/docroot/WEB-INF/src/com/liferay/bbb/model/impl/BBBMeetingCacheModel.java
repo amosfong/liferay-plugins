@@ -38,7 +38,7 @@ public class BBBMeetingCacheModel implements CacheModel<BBBMeeting>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(25);
+		StringBundler sb = new StringBundler(27);
 
 		sb.append("{bbbMeetingId=");
 		sb.append(bbbMeetingId);
@@ -58,6 +58,8 @@ public class BBBMeetingCacheModel implements CacheModel<BBBMeeting>,
 		sb.append(bbbServerId);
 		sb.append(", name=");
 		sb.append(name);
+		sb.append(", description=");
+		sb.append(description);
 		sb.append(", attendeePassword=");
 		sb.append(attendeePassword);
 		sb.append(", moderatorPassword=");
@@ -108,6 +110,13 @@ public class BBBMeetingCacheModel implements CacheModel<BBBMeeting>,
 			bbbMeetingImpl.setName(name);
 		}
 
+		if (description == null) {
+			bbbMeetingImpl.setDescription(StringPool.BLANK);
+		}
+		else {
+			bbbMeetingImpl.setDescription(description);
+		}
+
 		if (attendeePassword == null) {
 			bbbMeetingImpl.setAttendeePassword(StringPool.BLANK);
 		}
@@ -140,6 +149,7 @@ public class BBBMeetingCacheModel implements CacheModel<BBBMeeting>,
 		modifiedDate = objectInput.readLong();
 		bbbServerId = objectInput.readLong();
 		name = objectInput.readUTF();
+		description = objectInput.readUTF();
 		attendeePassword = objectInput.readUTF();
 		moderatorPassword = objectInput.readUTF();
 		status = objectInput.readInt();
@@ -171,6 +181,13 @@ public class BBBMeetingCacheModel implements CacheModel<BBBMeeting>,
 			objectOutput.writeUTF(name);
 		}
 
+		if (description == null) {
+			objectOutput.writeUTF(StringPool.BLANK);
+		}
+		else {
+			objectOutput.writeUTF(description);
+		}
+
 		if (attendeePassword == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
 		}
@@ -197,6 +214,7 @@ public class BBBMeetingCacheModel implements CacheModel<BBBMeeting>,
 	public long modifiedDate;
 	public long bbbServerId;
 	public String name;
+	public String description;
 	public String attendeePassword;
 	public String moderatorPassword;
 	public int status;

@@ -476,17 +476,15 @@ public class BBBServerClp extends BaseModelImpl<BBBServer> implements BBBServer 
 
 	@Override
 	public int compareTo(BBBServer bbbServer) {
-		long primaryKey = bbbServer.getPrimaryKey();
+		int value = 0;
 
-		if (getPrimaryKey() < primaryKey) {
-			return -1;
+		value = getName().compareToIgnoreCase(bbbServer.getName());
+
+		if (value != 0) {
+			return value;
 		}
-		else if (getPrimaryKey() > primaryKey) {
-			return 1;
-		}
-		else {
-			return 0;
-		}
+
+		return 0;
 	}
 
 	@Override

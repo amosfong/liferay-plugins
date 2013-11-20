@@ -85,6 +85,8 @@ public class BBBParticipantClp extends BaseModelImpl<BBBParticipant>
 		attributes.put("bbbMeetingId", getBbbMeetingId());
 		attributes.put("name", getName());
 		attributes.put("emailAddress", getEmailAddress());
+		attributes.put("type", getType());
+		attributes.put("status", getStatus());
 
 		return attributes;
 	}
@@ -149,6 +151,18 @@ public class BBBParticipantClp extends BaseModelImpl<BBBParticipant>
 
 		if (emailAddress != null) {
 			setEmailAddress(emailAddress);
+		}
+
+		Integer type = (Integer)attributes.get("type");
+
+		if (type != null) {
+			setType(type);
+		}
+
+		Integer status = (Integer)attributes.get("status");
+
+		if (status != null) {
+			setStatus(status);
 		}
 	}
 
@@ -393,6 +407,52 @@ public class BBBParticipantClp extends BaseModelImpl<BBBParticipant>
 		}
 	}
 
+	@Override
+	public int getType() {
+		return _type;
+	}
+
+	@Override
+	public void setType(int type) {
+		_type = type;
+
+		if (_bbbParticipantRemoteModel != null) {
+			try {
+				Class<?> clazz = _bbbParticipantRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setType", int.class);
+
+				method.invoke(_bbbParticipantRemoteModel, type);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
+	@Override
+	public int getStatus() {
+		return _status;
+	}
+
+	@Override
+	public void setStatus(int status) {
+		_status = status;
+
+		if (_bbbParticipantRemoteModel != null) {
+			try {
+				Class<?> clazz = _bbbParticipantRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setStatus", int.class);
+
+				method.invoke(_bbbParticipantRemoteModel, status);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
 	public BaseModel<?> getBBBParticipantRemoteModel() {
 		return _bbbParticipantRemoteModel;
 	}
@@ -474,6 +534,8 @@ public class BBBParticipantClp extends BaseModelImpl<BBBParticipant>
 		clone.setBbbMeetingId(getBbbMeetingId());
 		clone.setName(getName());
 		clone.setEmailAddress(getEmailAddress());
+		clone.setType(getType());
+		clone.setStatus(getStatus());
 
 		return clone;
 	}
@@ -522,7 +584,7 @@ public class BBBParticipantClp extends BaseModelImpl<BBBParticipant>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(25);
 
 		sb.append("{bbbParticipantId=");
 		sb.append(getBbbParticipantId());
@@ -544,6 +606,10 @@ public class BBBParticipantClp extends BaseModelImpl<BBBParticipant>
 		sb.append(getName());
 		sb.append(", emailAddress=");
 		sb.append(getEmailAddress());
+		sb.append(", type=");
+		sb.append(getType());
+		sb.append(", status=");
+		sb.append(getStatus());
 		sb.append("}");
 
 		return sb.toString();
@@ -551,7 +617,7 @@ public class BBBParticipantClp extends BaseModelImpl<BBBParticipant>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(34);
+		StringBundler sb = new StringBundler(40);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.bbb.model.BBBParticipant");
@@ -597,6 +663,14 @@ public class BBBParticipantClp extends BaseModelImpl<BBBParticipant>
 			"<column><column-name>emailAddress</column-name><column-value><![CDATA[");
 		sb.append(getEmailAddress());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>type</column-name><column-value><![CDATA[");
+		sb.append(getType());
+		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>status</column-name><column-value><![CDATA[");
+		sb.append(getStatus());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -614,5 +688,7 @@ public class BBBParticipantClp extends BaseModelImpl<BBBParticipant>
 	private long _bbbMeetingId;
 	private String _name;
 	private String _emailAddress;
+	private int _type;
+	private int _status;
 	private BaseModel<?> _bbbParticipantRemoteModel;
 }
