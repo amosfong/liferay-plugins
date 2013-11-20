@@ -21,7 +21,7 @@ import com.liferay.portal.security.permission.PermissionChecker;
 /**
  * @author Shinn Lok
  */
-public class AdminPortletPermission {
+public class AdminPermission {
 
 	public static final String RESOURCE_NAME = "com.liferay.bbb.admin";
 
