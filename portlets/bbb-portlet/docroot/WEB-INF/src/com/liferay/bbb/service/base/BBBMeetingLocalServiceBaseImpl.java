@@ -111,12 +111,13 @@ public abstract class BBBMeetingLocalServiceBaseImpl
 	 *
 	 * @param bbbMeeting the b b b meeting
 	 * @return the b b b meeting that was removed
+	 * @throws PortalException
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public BBBMeeting deleteBBBMeeting(BBBMeeting bbbMeeting)
-		throws SystemException {
+		throws PortalException, SystemException {
 		return bbbMeetingPersistence.remove(bbbMeeting);
 	}
 

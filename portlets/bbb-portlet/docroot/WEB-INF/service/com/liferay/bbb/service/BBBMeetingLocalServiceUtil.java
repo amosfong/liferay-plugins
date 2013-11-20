@@ -83,11 +83,13 @@ public class BBBMeetingLocalServiceUtil {
 	*
 	* @param bbbMeeting the b b b meeting
 	* @return the b b b meeting that was removed
+	* @throws PortalException
 	* @throws SystemException if a system exception occurred
 	*/
 	public static com.liferay.bbb.model.BBBMeeting deleteBBBMeeting(
 		com.liferay.bbb.model.BBBMeeting bbbMeeting)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		return getService().deleteBBBMeeting(bbbMeeting);
 	}
 
@@ -273,6 +275,55 @@ public class BBBMeetingLocalServiceUtil {
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		return getService().invokeMethod(name, parameterTypes, arguments);
+	}
+
+	public static com.liferay.bbb.model.BBBMeeting addBBBMeeting(long userId,
+		long groupId, long bbbServerId, java.lang.String name,
+		java.lang.String description, java.lang.String attendeePassword,
+		java.lang.String moderatorPassword, int status,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addBBBMeeting(userId, groupId, bbbServerId, name,
+			description, attendeePassword, moderatorPassword, status,
+			serviceContext);
+	}
+
+	public static java.util.List<com.liferay.bbb.model.BBBMeeting> getBBBMeetings(
+		int status) throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getBBBMeetings(status);
+	}
+
+	public static java.util.List<com.liferay.bbb.model.BBBMeeting> getBBBMeetings(
+		long groupId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getBBBMeetings(groupId, start, end, obc);
+	}
+
+	public static int getBBBMeetingsCount(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getBBBMeetingsCount(groupId);
+	}
+
+	public static com.liferay.bbb.model.BBBMeeting updateBBBMeeting(
+		long bbbMeetingId, long bbbServerId, java.lang.String name,
+		java.lang.String description, java.lang.String attendeePassword,
+		java.lang.String moderatorPassword,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateBBBMeeting(bbbMeetingId, bbbServerId, name,
+			description, attendeePassword, moderatorPassword, serviceContext);
+	}
+
+	public static com.liferay.bbb.model.BBBMeeting updateStatus(
+		long bbbMeetingId, int status)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().updateStatus(bbbMeetingId, status);
 	}
 
 	public static void clearService() {

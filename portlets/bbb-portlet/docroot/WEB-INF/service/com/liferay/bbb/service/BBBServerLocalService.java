@@ -81,11 +81,13 @@ public interface BBBServerLocalService extends BaseLocalService,
 	*
 	* @param bbbServer the b b b server
 	* @return the b b b server that was removed
+	* @throws PortalException
 	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.bbb.model.BBBServer deleteBBBServer(
 		com.liferay.bbb.model.BBBServer bbbServer)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery();
 
@@ -244,4 +246,27 @@ public interface BBBServerLocalService extends BaseLocalService,
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
+
+	public com.liferay.bbb.model.BBBServer addBBBServer(long userId,
+		long groupId, java.lang.String name, java.lang.String url,
+		java.lang.String secret,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.bbb.model.BBBServer> getBBBServers(
+		long groupId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getBBBServersCount(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public com.liferay.bbb.model.BBBServer updateBBBServer(long bbbServerId,
+		java.lang.String name, java.lang.String url, java.lang.String secret,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 }

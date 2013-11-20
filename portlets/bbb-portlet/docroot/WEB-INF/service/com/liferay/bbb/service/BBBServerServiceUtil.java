@@ -63,6 +63,45 @@ public class BBBServerServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static com.liferay.bbb.model.BBBServer addBBBServer(long groupId,
+		java.lang.String name, java.lang.String url, java.lang.String secret,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addBBBServer(groupId, name, url, secret, serviceContext);
+	}
+
+	public static com.liferay.bbb.model.BBBServer deleteBBBServer(
+		long bbbServerId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().deleteBBBServer(bbbServerId);
+	}
+
+	public static java.util.List<com.liferay.bbb.model.BBBServer> getBBBServers(
+		long groupId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getBBBServers(groupId, start, end, obc);
+	}
+
+	public static int getBBBServersCount(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getBBBServersCount(groupId);
+	}
+
+	public static com.liferay.bbb.model.BBBServer updateBBBServer(
+		long bbbServerId, java.lang.String name, java.lang.String url,
+		java.lang.String secret,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateBBBServer(bbbServerId, name, url, secret,
+			serviceContext);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

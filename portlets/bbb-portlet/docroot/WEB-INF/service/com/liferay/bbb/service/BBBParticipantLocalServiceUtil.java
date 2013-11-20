@@ -275,6 +275,46 @@ public class BBBParticipantLocalServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static com.liferay.bbb.model.BBBParticipant addBBBParticipant(
+		long userId, long groupId, long meetingEntryId, java.lang.String name,
+		java.lang.String emailAddress, int type, int status,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addBBBParticipant(userId, groupId, meetingEntryId, name,
+			emailAddress, type, status, serviceContext);
+	}
+
+	public static java.util.List<com.liferay.bbb.model.BBBParticipant> getBBBParticipants(
+		long meetingEntryId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getBBBParticipants(meetingEntryId);
+	}
+
+	public static int getBBBParticipantsCount(long meetingEntryId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getBBBParticipantsCount(meetingEntryId);
+	}
+
+	public static com.liferay.bbb.model.BBBParticipant updateBBBParticipant(
+		long bbbParticipantId, long meetingEntryId, java.lang.String name,
+		java.lang.String emailAddress, int type,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateBBBParticipant(bbbParticipantId, meetingEntryId,
+			name, emailAddress, type, serviceContext);
+	}
+
+	public static com.liferay.bbb.model.BBBParticipant updateStatus(
+		long bbbParticipantId, int status)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().updateStatus(bbbParticipantId, status);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

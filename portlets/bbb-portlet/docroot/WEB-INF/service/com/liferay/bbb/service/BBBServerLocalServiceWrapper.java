@@ -75,12 +75,14 @@ public class BBBServerLocalServiceWrapper implements BBBServerLocalService,
 	*
 	* @param bbbServer the b b b server
 	* @return the b b b server that was removed
+	* @throws PortalException
 	* @throws SystemException if a system exception occurred
 	*/
 	@Override
 	public com.liferay.bbb.model.BBBServer deleteBBBServer(
 		com.liferay.bbb.model.BBBServer bbbServer)
-		throws com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		return _bbbServerLocalService.deleteBBBServer(bbbServer);
 	}
 
@@ -280,6 +282,41 @@ public class BBBServerLocalServiceWrapper implements BBBServerLocalService,
 		throws java.lang.Throwable {
 		return _bbbServerLocalService.invokeMethod(name, parameterTypes,
 			arguments);
+	}
+
+	@Override
+	public com.liferay.bbb.model.BBBServer addBBBServer(long userId,
+		long groupId, java.lang.String name, java.lang.String url,
+		java.lang.String secret,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _bbbServerLocalService.addBBBServer(userId, groupId, name, url,
+			secret, serviceContext);
+	}
+
+	@Override
+	public java.util.List<com.liferay.bbb.model.BBBServer> getBBBServers(
+		long groupId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _bbbServerLocalService.getBBBServers(groupId, start, end, obc);
+	}
+
+	@Override
+	public int getBBBServersCount(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _bbbServerLocalService.getBBBServersCount(groupId);
+	}
+
+	@Override
+	public com.liferay.bbb.model.BBBServer updateBBBServer(long bbbServerId,
+		java.lang.String name, java.lang.String url, java.lang.String secret,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _bbbServerLocalService.updateBBBServer(bbbServerId, name, url,
+			secret, serviceContext);
 	}
 
 	/**

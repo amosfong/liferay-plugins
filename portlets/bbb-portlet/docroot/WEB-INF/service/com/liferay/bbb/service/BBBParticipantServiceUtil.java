@@ -63,6 +63,48 @@ public class BBBParticipantServiceUtil {
 		return getService().invokeMethod(name, parameterTypes, arguments);
 	}
 
+	public static com.liferay.bbb.model.BBBParticipant addBBBParticipant(
+		long groupId, long meetingEntryId, java.lang.String name,
+		java.lang.String emailAddress, int type, int status,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .addBBBParticipant(groupId, meetingEntryId, name,
+			emailAddress, type, status, serviceContext);
+	}
+
+	public static com.liferay.bbb.model.BBBParticipant deleteBBBParticipant(
+		com.liferay.bbb.model.BBBParticipant bbbParticipant)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().deleteBBBParticipant(bbbParticipant);
+	}
+
+	public static java.util.List<com.liferay.bbb.model.BBBParticipant> getBBBParticipants(
+		long meetingEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getBBBParticipants(meetingEntryId);
+	}
+
+	public static int getBBBParticipantsCount(long meetingEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService().getBBBParticipantsCount(meetingEntryId);
+	}
+
+	public static com.liferay.bbb.model.BBBParticipant updateBBBParticipant(
+		long bbbParticipantId, long meetingEntryId, java.lang.String name,
+		java.lang.String emailAddress, int type,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateBBBParticipant(bbbParticipantId, meetingEntryId,
+			name, emailAddress, type, serviceContext);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

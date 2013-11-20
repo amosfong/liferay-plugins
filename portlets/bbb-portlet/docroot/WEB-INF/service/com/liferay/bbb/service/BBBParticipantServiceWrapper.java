@@ -58,6 +58,51 @@ public class BBBParticipantServiceWrapper implements BBBParticipantService,
 			arguments);
 	}
 
+	@Override
+	public com.liferay.bbb.model.BBBParticipant addBBBParticipant(
+		long groupId, long meetingEntryId, java.lang.String name,
+		java.lang.String emailAddress, int type, int status,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _bbbParticipantService.addBBBParticipant(groupId,
+			meetingEntryId, name, emailAddress, type, status, serviceContext);
+	}
+
+	@Override
+	public com.liferay.bbb.model.BBBParticipant deleteBBBParticipant(
+		com.liferay.bbb.model.BBBParticipant bbbParticipant)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _bbbParticipantService.deleteBBBParticipant(bbbParticipant);
+	}
+
+	@Override
+	public java.util.List<com.liferay.bbb.model.BBBParticipant> getBBBParticipants(
+		long meetingEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _bbbParticipantService.getBBBParticipants(meetingEntryId);
+	}
+
+	@Override
+	public int getBBBParticipantsCount(long meetingEntryId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _bbbParticipantService.getBBBParticipantsCount(meetingEntryId);
+	}
+
+	@Override
+	public com.liferay.bbb.model.BBBParticipant updateBBBParticipant(
+		long bbbParticipantId, long meetingEntryId, java.lang.String name,
+		java.lang.String emailAddress, int type,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _bbbParticipantService.updateBBBParticipant(bbbParticipantId,
+			meetingEntryId, name, emailAddress, type, serviceContext);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

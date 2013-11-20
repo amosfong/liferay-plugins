@@ -110,12 +110,13 @@ public abstract class BBBServerLocalServiceBaseImpl extends BaseLocalServiceImpl
 	 *
 	 * @param bbbServer the b b b server
 	 * @return the b b b server that was removed
+	 * @throws PortalException
 	 * @throws SystemException if a system exception occurred
 	 */
 	@Indexable(type = IndexableType.DELETE)
 	@Override
 	public BBBServer deleteBBBServer(BBBServer bbbServer)
-		throws SystemException {
+		throws PortalException, SystemException {
 		return bbbServerPersistence.remove(bbbServer);
 	}
 

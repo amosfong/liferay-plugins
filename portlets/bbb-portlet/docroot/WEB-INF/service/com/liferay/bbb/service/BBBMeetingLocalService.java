@@ -81,11 +81,13 @@ public interface BBBMeetingLocalService extends BaseLocalService,
 	*
 	* @param bbbMeeting the b b b meeting
 	* @return the b b b meeting that was removed
+	* @throws PortalException
 	* @throws SystemException if a system exception occurred
 	*/
 	public com.liferay.bbb.model.BBBMeeting deleteBBBMeeting(
 		com.liferay.bbb.model.BBBMeeting bbbMeeting)
-		throws com.liferay.portal.kernel.exception.SystemException;
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 
 	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery();
 
@@ -244,4 +246,39 @@ public interface BBBMeetingLocalService extends BaseLocalService,
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
+
+	public com.liferay.bbb.model.BBBMeeting addBBBMeeting(long userId,
+		long groupId, long bbbServerId, java.lang.String name,
+		java.lang.String description, java.lang.String attendeePassword,
+		java.lang.String moderatorPassword, int status,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.bbb.model.BBBMeeting> getBBBMeetings(
+		int status) throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.bbb.model.BBBMeeting> getBBBMeetings(
+		long groupId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getBBBMeetingsCount(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public com.liferay.bbb.model.BBBMeeting updateBBBMeeting(
+		long bbbMeetingId, long bbbServerId, java.lang.String name,
+		java.lang.String description, java.lang.String attendeePassword,
+		java.lang.String moderatorPassword,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public com.liferay.bbb.model.BBBMeeting updateStatus(long bbbMeetingId,
+		int status)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 }

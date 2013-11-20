@@ -56,6 +56,47 @@ public class BBBServerServiceWrapper implements BBBServerService,
 		return _bbbServerService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	@Override
+	public com.liferay.bbb.model.BBBServer addBBBServer(long groupId,
+		java.lang.String name, java.lang.String url, java.lang.String secret,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _bbbServerService.addBBBServer(groupId, name, url, secret,
+			serviceContext);
+	}
+
+	@Override
+	public com.liferay.bbb.model.BBBServer deleteBBBServer(long bbbServerId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _bbbServerService.deleteBBBServer(bbbServerId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.bbb.model.BBBServer> getBBBServers(
+		long groupId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _bbbServerService.getBBBServers(groupId, start, end, obc);
+	}
+
+	@Override
+	public int getBBBServersCount(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _bbbServerService.getBBBServersCount(groupId);
+	}
+
+	@Override
+	public com.liferay.bbb.model.BBBServer updateBBBServer(long bbbServerId,
+		java.lang.String name, java.lang.String url, java.lang.String secret,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _bbbServerService.updateBBBServer(bbbServerId, name, url,
+			secret, serviceContext);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

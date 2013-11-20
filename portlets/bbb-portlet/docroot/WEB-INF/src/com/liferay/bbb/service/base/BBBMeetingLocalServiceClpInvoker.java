@@ -109,6 +109,55 @@ public class BBBMeetingLocalServiceClpInvoker {
 		_methodName47 = "setBeanIdentifier";
 
 		_methodParameterTypes47 = new String[] { "java.lang.String" };
+
+		_methodName52 = "addBBBMeeting";
+
+		_methodParameterTypes52 = new String[] {
+				"long", "long", "long", "java.lang.String", "java.lang.String",
+				"java.lang.String", "java.lang.String", "int",
+				"com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName53 = "deleteBBBMeeting";
+
+		_methodParameterTypes53 = new String[] {
+				"com.liferay.bbb.model.BBBMeeting"
+			};
+
+		_methodName54 = "deleteBBBMeeting";
+
+		_methodParameterTypes54 = new String[] { "long" };
+
+		_methodName55 = "getBBBMeeting";
+
+		_methodParameterTypes55 = new String[] { "long" };
+
+		_methodName56 = "getBBBMeetings";
+
+		_methodParameterTypes56 = new String[] { "int" };
+
+		_methodName57 = "getBBBMeetings";
+
+		_methodParameterTypes57 = new String[] {
+				"long", "int", "int",
+				"com.liferay.portal.kernel.util.OrderByComparator"
+			};
+
+		_methodName58 = "getBBBMeetingsCount";
+
+		_methodParameterTypes58 = new String[] { "long" };
+
+		_methodName59 = "updateBBBMeeting";
+
+		_methodParameterTypes59 = new String[] {
+				"long", "long", "java.lang.String", "java.lang.String",
+				"java.lang.String", "java.lang.String",
+				"com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName60 = "updateStatus";
+
+		_methodParameterTypes60 = new String[] { "long", "int" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -212,6 +261,65 @@ public class BBBMeetingLocalServiceClpInvoker {
 			return null;
 		}
 
+		if (_methodName52.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes52, parameterTypes)) {
+			return BBBMeetingLocalServiceUtil.addBBBMeeting(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				((Long)arguments[2]).longValue(),
+				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
+				(java.lang.String)arguments[5], (java.lang.String)arguments[6],
+				((Integer)arguments[7]).intValue(),
+				(com.liferay.portal.service.ServiceContext)arguments[8]);
+		}
+
+		if (_methodName53.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes53, parameterTypes)) {
+			return BBBMeetingLocalServiceUtil.deleteBBBMeeting((com.liferay.bbb.model.BBBMeeting)arguments[0]);
+		}
+
+		if (_methodName54.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes54, parameterTypes)) {
+			return BBBMeetingLocalServiceUtil.deleteBBBMeeting(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName55.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes55, parameterTypes)) {
+			return BBBMeetingLocalServiceUtil.getBBBMeeting(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName56.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes56, parameterTypes)) {
+			return BBBMeetingLocalServiceUtil.getBBBMeetings(((Integer)arguments[0]).intValue());
+		}
+
+		if (_methodName57.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes57, parameterTypes)) {
+			return BBBMeetingLocalServiceUtil.getBBBMeetings(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue(),
+				(com.liferay.portal.kernel.util.OrderByComparator)arguments[3]);
+		}
+
+		if (_methodName58.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
+			return BBBMeetingLocalServiceUtil.getBBBMeetingsCount(((Long)arguments[0]).longValue());
+		}
+
+		if (_methodName59.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
+			return BBBMeetingLocalServiceUtil.updateBBBMeeting(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				(java.lang.String)arguments[2], (java.lang.String)arguments[3],
+				(java.lang.String)arguments[4], (java.lang.String)arguments[5],
+				(com.liferay.portal.service.ServiceContext)arguments[6]);
+		}
+
+		if (_methodName60.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+			return BBBMeetingLocalServiceUtil.updateStatus(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue());
+		}
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -251,4 +359,22 @@ public class BBBMeetingLocalServiceClpInvoker {
 	private String[] _methodParameterTypes46;
 	private String _methodName47;
 	private String[] _methodParameterTypes47;
+	private String _methodName52;
+	private String[] _methodParameterTypes52;
+	private String _methodName53;
+	private String[] _methodParameterTypes53;
+	private String _methodName54;
+	private String[] _methodParameterTypes54;
+	private String _methodName55;
+	private String[] _methodParameterTypes55;
+	private String _methodName56;
+	private String[] _methodParameterTypes56;
+	private String _methodName57;
+	private String[] _methodParameterTypes57;
+	private String _methodName58;
+	private String[] _methodParameterTypes58;
+	private String _methodName59;
+	private String[] _methodParameterTypes59;
+	private String _methodName60;
+	private String[] _methodParameterTypes60;
 }

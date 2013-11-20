@@ -14,6 +14,13 @@
 
 package com.liferay.bbb.service.http;
 
+import com.liferay.bbb.service.BBBServerServiceUtil;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
  * {@link com.liferay.bbb.service.BBBServerServiceUtil} service utility. The
@@ -55,4 +62,86 @@ package com.liferay.bbb.service.http;
  * @generated
  */
 public class BBBServerServiceSoap {
+	public static com.liferay.bbb.model.BBBServerSoap addBBBServer(
+		long groupId, java.lang.String name, java.lang.String url,
+		java.lang.String secret,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			com.liferay.bbb.model.BBBServer returnValue = BBBServerServiceUtil.addBBBServer(groupId,
+					name, url, secret, serviceContext);
+
+			return com.liferay.bbb.model.BBBServerSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.bbb.model.BBBServerSoap deleteBBBServer(
+		long bbbServerId) throws RemoteException {
+		try {
+			com.liferay.bbb.model.BBBServer returnValue = BBBServerServiceUtil.deleteBBBServer(bbbServerId);
+
+			return com.liferay.bbb.model.BBBServerSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.bbb.model.BBBServerSoap[] getBBBServers(
+		long groupId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws RemoteException {
+		try {
+			java.util.List<com.liferay.bbb.model.BBBServer> returnValue = BBBServerServiceUtil.getBBBServers(groupId,
+					start, end, obc);
+
+			return com.liferay.bbb.model.BBBServerSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getBBBServersCount(long groupId)
+		throws RemoteException {
+		try {
+			int returnValue = BBBServerServiceUtil.getBBBServersCount(groupId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.bbb.model.BBBServerSoap updateBBBServer(
+		long bbbServerId, java.lang.String name, java.lang.String url,
+		java.lang.String secret,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			com.liferay.bbb.model.BBBServer returnValue = BBBServerServiceUtil.updateBBBServer(bbbServerId,
+					name, url, secret, serviceContext);
+
+			return com.liferay.bbb.model.BBBServerSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(BBBServerServiceSoap.class);
 }

@@ -56,6 +56,60 @@ public class BBBMeetingServiceWrapper implements BBBMeetingService,
 		return _bbbMeetingService.invokeMethod(name, parameterTypes, arguments);
 	}
 
+	@Override
+	public com.liferay.bbb.model.BBBMeeting addBBBMeeting(long groupId,
+		long meetingServerId, java.lang.String name,
+		java.lang.String description, java.lang.String attendeePassword,
+		java.lang.String moderatorPassword, int status,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _bbbMeetingService.addBBBMeeting(groupId, meetingServerId, name,
+			description, attendeePassword, moderatorPassword, status,
+			serviceContext);
+	}
+
+	@Override
+	public com.liferay.bbb.model.BBBMeeting deleteBBBMeeting(long bbbMeetingId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _bbbMeetingService.deleteBBBMeeting(bbbMeetingId);
+	}
+
+	@Override
+	public com.liferay.bbb.model.BBBMeeting getBBBMeeting(long bbbMeetingId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _bbbMeetingService.getBBBMeeting(bbbMeetingId);
+	}
+
+	@Override
+	public java.util.List<com.liferay.bbb.model.BBBMeeting> getBBBMeetings(
+		long groupId, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator obc)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _bbbMeetingService.getBBBMeetings(groupId, start, end, obc);
+	}
+
+	@Override
+	public int getBBBMeetingsCount(long groupId)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _bbbMeetingService.getBBBMeetingsCount(groupId);
+	}
+
+	@Override
+	public com.liferay.bbb.model.BBBMeeting updateBBBMeeting(
+		long bbbMeetingId, long meetingServerId, java.lang.String name,
+		java.lang.String description, java.lang.String attendeePassword,
+		java.lang.String moderatorPassword,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _bbbMeetingService.updateBBBMeeting(bbbMeetingId,
+			meetingServerId, name, description, attendeePassword,
+			moderatorPassword, serviceContext);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

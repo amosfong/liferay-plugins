@@ -14,6 +14,13 @@
 
 package com.liferay.bbb.service.http;
 
+import com.liferay.bbb.service.BBBParticipantServiceUtil;
+
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
+
+import java.rmi.RemoteException;
+
 /**
  * Provides the SOAP utility for the
  * {@link com.liferay.bbb.service.BBBParticipantServiceUtil} service utility. The
@@ -55,4 +62,86 @@ package com.liferay.bbb.service.http;
  * @generated
  */
 public class BBBParticipantServiceSoap {
+	public static com.liferay.bbb.model.BBBParticipantSoap addBBBParticipant(
+		long groupId, long meetingEntryId, java.lang.String name,
+		java.lang.String emailAddress, int type, int status,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			com.liferay.bbb.model.BBBParticipant returnValue = BBBParticipantServiceUtil.addBBBParticipant(groupId,
+					meetingEntryId, name, emailAddress, type, status,
+					serviceContext);
+
+			return com.liferay.bbb.model.BBBParticipantSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.bbb.model.BBBParticipantSoap deleteBBBParticipant(
+		com.liferay.bbb.model.BBBParticipantSoap bbbParticipant)
+		throws RemoteException {
+		try {
+			com.liferay.bbb.model.BBBParticipant returnValue = BBBParticipantServiceUtil.deleteBBBParticipant(com.liferay.bbb.model.impl.BBBParticipantModelImpl.toModel(
+						bbbParticipant));
+
+			return com.liferay.bbb.model.BBBParticipantSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.bbb.model.BBBParticipantSoap[] getBBBParticipants(
+		long meetingEntryId) throws RemoteException {
+		try {
+			java.util.List<com.liferay.bbb.model.BBBParticipant> returnValue = BBBParticipantServiceUtil.getBBBParticipants(meetingEntryId);
+
+			return com.liferay.bbb.model.BBBParticipantSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static int getBBBParticipantsCount(long meetingEntryId)
+		throws RemoteException {
+		try {
+			int returnValue = BBBParticipantServiceUtil.getBBBParticipantsCount(meetingEntryId);
+
+			return returnValue;
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	public static com.liferay.bbb.model.BBBParticipantSoap updateBBBParticipant(
+		long bbbParticipantId, long meetingEntryId, java.lang.String name,
+		java.lang.String emailAddress, int type,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			com.liferay.bbb.model.BBBParticipant returnValue = BBBParticipantServiceUtil.updateBBBParticipant(bbbParticipantId,
+					meetingEntryId, name, emailAddress, type, serviceContext);
+
+			return com.liferay.bbb.model.BBBParticipantSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
+	private static Log _log = LogFactoryUtil.getLog(BBBParticipantServiceSoap.class);
 }

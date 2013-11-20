@@ -248,4 +248,32 @@ public interface BBBParticipantLocalService extends BaseLocalService,
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable;
+
+	public com.liferay.bbb.model.BBBParticipant addBBBParticipant(long userId,
+		long groupId, long meetingEntryId, java.lang.String name,
+		java.lang.String emailAddress, int type, int status,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public java.util.List<com.liferay.bbb.model.BBBParticipant> getBBBParticipants(
+		long meetingEntryId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getBBBParticipantsCount(long meetingEntryId)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
+	public com.liferay.bbb.model.BBBParticipant updateBBBParticipant(
+		long bbbParticipantId, long meetingEntryId, java.lang.String name,
+		java.lang.String emailAddress, int type,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
+
+	public com.liferay.bbb.model.BBBParticipant updateStatus(
+		long bbbParticipantId, int status)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 }
