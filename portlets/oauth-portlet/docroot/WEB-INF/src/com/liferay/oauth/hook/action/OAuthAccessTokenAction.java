@@ -29,6 +29,9 @@ import java.io.OutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.oauth.OAuth;
+import net.oauth.OAuthProblemException;
+
 /**
  * @author Ivica Cardic
  */
@@ -52,8 +55,8 @@ public class OAuthAccessTokenAction extends BaseStrutsAction {
 				oAuthAccessor.getProperty(OAuthAccessorConstants.AUTHORIZED));
 
 			if (!authorized) {
-				throw new net.oauth.OAuthProblemException(
-					net.oauth.OAuth.Problems.ADDITIONAL_AUTHORIZATION_REQUIRED);
+				throw new OAuthProblemException(
+					OAuth.Problems.ADDITIONAL_AUTHORIZATION_REQUIRED);
 			}
 
 			long userId = (Long)oAuthAccessor.getProperty(
