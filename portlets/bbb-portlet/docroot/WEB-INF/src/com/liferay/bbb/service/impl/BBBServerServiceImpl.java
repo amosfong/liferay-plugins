@@ -14,10 +14,71 @@
 
 package com.liferay.bbb.service.impl;
 
+import com.liferay.bbb.model.BBBServer;
 import com.liferay.bbb.service.base.BBBServerServiceBaseImpl;
+import com.liferay.bbb.service.permission.AdminPortletPermission;
+import com.liferay.bbb.service.permission.BBBServerPermission;
+import com.liferay.bbb.util.ActionKeys;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.service.ServiceContext;
+
+import java.util.List;
 
 /**
  * @author Shinn Lok
  */
 public class BBBServerServiceImpl extends BBBServerServiceBaseImpl {
+
+	@Override
+	public BBBServer addBBBServer(
+			long groupId, String name, String url, String secret,
+			ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		AdminPortletPermission.check(
+			getPermissionChecker(), groupId, ActionKeys.ADD_SERVER);
+
+		return bbbServerLocalService.addBBBServer(
+			getUserId(), groupId, name, url, secret, serviceContext);
+	}
+
+	@Override
+	public BBBServer deleteBBBServer(long bbbServerId)
+		throws PortalException, SystemException {
+
+		BBBServerPermission.check(
+			getPermissionChecker(), bbbServerId, ActionKeys.DELETE);
+
+		return bbbServerLocalService.deleteBBBServer(bbbServerId);
+	}
+
+	@Override
+	public List<BBBServer> getBBBServers(
+			long groupId, int start, int end, OrderByComparator obc)
+		throws SystemException {
+
+		return bbbServerPersistence.filterFindByGroupId(
+			groupId, start, end, obc);
+	}
+
+	@Override
+	public int getBBBServersCount(long groupId) throws SystemException {
+		return bbbServerPersistence.filterCountByGroupId(groupId);
+	}
+
+	@Override
+	public BBBServer updateBBBServer(
+			long bbbServerId, String name, String url, String secret,
+			ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		BBBServerPermission.check(
+			getPermissionChecker(), bbbServerId, ActionKeys.UPDATE);
+
+		return bbbServerLocalService.updateBBBServer(
+			bbbServerId, name, url, secret, serviceContext);
+	}
+
 }

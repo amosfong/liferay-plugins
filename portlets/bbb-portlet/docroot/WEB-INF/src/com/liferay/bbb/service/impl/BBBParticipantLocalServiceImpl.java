@@ -14,11 +14,118 @@
 
 package com.liferay.bbb.service.impl;
 
+import com.liferay.bbb.model.BBBMeeting;
+import com.liferay.bbb.model.BBBParticipant;
 import com.liferay.bbb.service.base.BBBParticipantLocalServiceBaseImpl;
+import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.model.User;
+import com.liferay.portal.service.ServiceContext;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Shinn Lok
  */
 public class BBBParticipantLocalServiceImpl
 	extends BBBParticipantLocalServiceBaseImpl {
+
+	@Override
+	public BBBParticipant addBBBParticipant(
+			long userId, long groupId, long meetingEntryId, String name,
+			String emailAddress, int type, int status,
+			ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		User user = userPersistence.findByPrimaryKey(userId);
+
+		Date now = new Date();
+
+		long bbbParticipantId = counterLocalService.increment();
+
+		BBBParticipant bbbParticipant = bbbParticipantPersistence.create(
+			bbbParticipantId);
+
+		bbbParticipant.setGroupId(groupId);
+		bbbParticipant.setCompanyId(user.getCompanyId());
+		bbbParticipant.setUserId(user.getUserId());
+		bbbParticipant.setUserName(user.getFullName());
+		bbbParticipant.setCreateDate(serviceContext.getCreateDate(now));
+		bbbParticipant.setModifiedDate(serviceContext.getModifiedDate(now));
+		bbbParticipant.setBbbMeetingId(meetingEntryId);
+		bbbParticipant.setName(name);
+		bbbParticipant.setEmailAddress(emailAddress);
+		bbbParticipant.setType(type);
+		bbbParticipant.setStatus(status);
+
+		bbbParticipantPersistence.update(bbbParticipant);
+
+		return bbbParticipant;
+	}
+
+	@Override
+	public BBBParticipant deleteBBBParticipant(BBBParticipant bbbParticipant)
+		throws SystemException {
+
+		return bbbParticipantPersistence.remove(bbbParticipant);
+	}
+
+	@Override
+	public List<BBBParticipant> getBBBParticipants(long meetingEntryId)
+		throws SystemException {
+
+		return bbbParticipantPersistence.findByBbbMeetingId(meetingEntryId);
+	}
+
+	@Override
+	public int getBBBParticipantsCount(long meetingEntryId)
+		throws SystemException {
+
+		return bbbParticipantPersistence.countByBbbMeetingId(meetingEntryId);
+	}
+
+	@Override
+	public BBBParticipant updateBBBParticipant(
+			long bbbParticipantId, long meetingEntryId, String name,
+			String emailAddress, int type, ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		Date now = new Date();
+
+		BBBParticipant bbbParticipant =
+			bbbParticipantPersistence.findByPrimaryKey(bbbParticipantId);
+
+		bbbParticipant.setModifiedDate(serviceContext.getModifiedDate(now));
+
+		if (meetingEntryId > 0) {
+			bbbParticipant.setBbbMeetingId(meetingEntryId);
+		}
+
+		bbbParticipant.setName(name);
+
+		if (Validator.isNotNull(emailAddress)) {
+			bbbParticipant.setEmailAddress(emailAddress);
+		}
+
+		bbbParticipant.setType(type);
+
+		return bbbParticipantPersistence.update(bbbParticipant);
+	}
+
+	@Override
+	public BBBParticipant updateStatus(long bbbParticipantId, int status)
+		throws PortalException, SystemException {
+
+		BBBParticipant bbbParticipant =
+			bbbParticipantPersistence.findByPrimaryKey(bbbParticipantId);
+
+		bbbParticipant.setStatus(status);
+
+		bbbParticipantPersistence.update(bbbParticipant);
+
+		return bbbParticipant;
+	}
+
 }
