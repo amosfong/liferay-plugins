@@ -14,7 +14,6 @@
 
 package com.liferay.bbb.service.impl;
 
-import com.liferay.bbb.model.BBBMeeting;
 import com.liferay.bbb.model.BBBParticipant;
 import com.liferay.bbb.service.base.BBBParticipantLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -40,7 +39,6 @@ public class BBBParticipantLocalServiceImpl
 		throws PortalException, SystemException {
 
 		User user = userPersistence.findByPrimaryKey(userId);
-
 		Date now = new Date();
 
 		long bbbParticipantId = counterLocalService.increment();
@@ -92,12 +90,10 @@ public class BBBParticipantLocalServiceImpl
 			String emailAddress, int type, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		Date now = new Date();
-
 		BBBParticipant bbbParticipant =
 			bbbParticipantPersistence.findByPrimaryKey(bbbParticipantId);
 
-		bbbParticipant.setModifiedDate(serviceContext.getModifiedDate(now));
+		bbbParticipant.setModifiedDate(serviceContext.getModifiedDate(null));
 
 		if (meetingEntryId > 0) {
 			bbbParticipant.setBbbMeetingId(meetingEntryId);

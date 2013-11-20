@@ -40,7 +40,6 @@ public class BBBServerLocalServiceImpl extends BBBServerLocalServiceBaseImpl {
 		// BBB server
 
 		User user = userPersistence.findByPrimaryKey(userId);
-
 		Date now = new Date();
 
 		long bbbServerId = counterLocalService.increment();

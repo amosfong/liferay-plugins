@@ -43,7 +43,6 @@ public class BBBMeetingLocalServiceImpl extends BBBMeetingLocalServiceBaseImpl {
 		// BBB meeting
 
 		User user = userPersistence.findByPrimaryKey(userId);
-
 		Date now = new Date();
 
 		long bbbMeetingId = counterLocalService.increment();
@@ -80,7 +79,12 @@ public class BBBMeetingLocalServiceImpl extends BBBMeetingLocalServiceBaseImpl {
 
 		bbbMeetingPersistence.remove(bbbMeeting);
 
-		// Meeting Participants
+		// Resources
+
+		resourceLocalService.deleteResource(
+			bbbMeeting, ResourceConstants.SCOPE_INDIVIDUAL);
+
+		// BBB participants
 
 		List<BBBParticipant> bbbParticipants =
 			bbbParticipantLocalService.getBBBParticipants(
@@ -89,11 +93,6 @@ public class BBBMeetingLocalServiceImpl extends BBBMeetingLocalServiceBaseImpl {
 		for (BBBParticipant bbbParticipant : bbbParticipants) {
 			bbbParticipantLocalService.deleteBBBParticipant(bbbParticipant);
 		}
-
-		// Resources
-
-		resourceLocalService.deleteResource(
-			bbbMeeting, ResourceConstants.SCOPE_INDIVIDUAL);
 
 		return bbbMeeting;
 	}
@@ -109,10 +108,10 @@ public class BBBMeetingLocalServiceImpl extends BBBMeetingLocalServiceBaseImpl {
 	}
 
 	@Override
-	public BBBMeeting getBBBMeeting(long BBBMeetingId)
+	public BBBMeeting getBBBMeeting(long bbbMeetingId)
 		throws PortalException, SystemException {
 
-		return bbbMeetingPersistence.findByPrimaryKey(BBBMeetingId);
+		return bbbMeetingPersistence.findByPrimaryKey(bbbMeetingId);
 	}
 
 	@Override
@@ -140,12 +139,10 @@ public class BBBMeetingLocalServiceImpl extends BBBMeetingLocalServiceBaseImpl {
 			String moderatorPassword, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		Date now = new Date();
-
 		BBBMeeting bbbMeeting = bbbMeetingPersistence.findByPrimaryKey(
 			bbbMeetingId);
 
-		bbbMeeting.setModifiedDate(serviceContext.getModifiedDate(now));
+		bbbMeeting.setModifiedDate(serviceContext.getModifiedDate(null));
 
 		if (bbbServerId > 0) {
 			bbbMeeting.setBbbServerId(bbbServerId);
