@@ -54,6 +54,7 @@ public class V10aOAuth implements OAuth {
 		_oAuthValidator = oAuthValidator;
 	}
 
+	@Override
 	public String addParameters(String url, String... parameters)
 		throws OAuthException {
 
@@ -65,6 +66,7 @@ public class V10aOAuth implements OAuth {
 		}
 	}
 
+	@Override
 	public void authorize(
 			OAuthAccessor oAuthAccessor, long userId,
 			ServiceContext serviceContext)
@@ -86,6 +88,7 @@ public class V10aOAuth implements OAuth {
 		_portalCache.put(oAuthAccessor.getRequestToken(), oAuthAccessor);
 	}
 
+	@Override
 	public void formEncode(
 			String token, String tokenSecret, OutputStream outputStream)
 		throws OAuthException {
@@ -102,6 +105,7 @@ public class V10aOAuth implements OAuth {
 		}
 	}
 
+	@Override
 	public void generateAccessToken(
 			OAuthAccessor oAuthAccessor, long userId,
 			ServiceContext serviceContext)
@@ -155,6 +159,7 @@ public class V10aOAuth implements OAuth {
 		_portalCache.put(token, oAuthAccessor);
 	}
 
+	@Override
 	public void generateRequestToken(OAuthAccessor oAuthAccessor) {
 		OAuthConsumer oAuthConsumer = oAuthAccessor.getOAuthConsumer();
 
@@ -175,6 +180,7 @@ public class V10aOAuth implements OAuth {
 		_portalCache.put(token, oAuthAccessor);
 	}
 
+	@Override
 	public OAuthAccessor getOAuthAccessor(OAuthMessage oAuthMessage)
 		throws OAuthException {
 
@@ -200,6 +206,7 @@ public class V10aOAuth implements OAuth {
 		return oAuthAccessor;
 	}
 
+	@Override
 	public OAuthConsumer getOAuthConsumer(OAuthMessage requestMessage)
 		throws PortalException, SystemException {
 
@@ -232,20 +239,24 @@ public class V10aOAuth implements OAuth {
 		return new DefaultOAuthConsumer(oAuthApplication);
 	}
 
+	@Override
 	public OAuthMessage getOAuthMessage(HttpServletRequest request) {
 		return getOAuthMessage(request, null);
 	}
 
+	@Override
 	public OAuthMessage getOAuthMessage(
 		HttpServletRequest request, String url) {
 
 		return new DefaultOAuthMessage(OAuthServlet.getMessage(request, url));
 	}
 
+	@Override
 	public OAuthMessage getOAuthMessage(PortletRequest portletRequest) {
 		return getOAuthMessage(portletRequest, null);
 	}
 
+	@Override
 	public OAuthMessage getOAuthMessage(
 		PortletRequest portletRequest, String url) {
 
@@ -255,6 +266,7 @@ public class V10aOAuth implements OAuth {
 		return getOAuthMessage(request, url);
 	}
 
+	@Override
 	public void handleException(
 			HttpServletRequest request, HttpServletResponse response,
 			Exception exception, boolean sendBody)
@@ -280,11 +292,13 @@ public class V10aOAuth implements OAuth {
 		}
 	}
 
+	@Override
 	public String randomizeToken(String token) {
 		return DigesterUtil.digestHex(
 			Digester.MD5, token, PwdGenerator.getPassword());
 	}
 
+	@Override
 	public void validateOAuthMessage(
 			OAuthMessage oAuthMessage, OAuthAccessor accessor)
 		throws OAuthException {

@@ -27,6 +27,7 @@ import com.liferay.portal.security.permission.ActionKeys;
  */
 public class OAuthUserServiceImpl extends OAuthUserServiceBaseImpl {
 
+	@Override
 	public OAuthUser deleteOAuthUser(long oAuthApplicationId)
 		throws PortalException, SystemException {
 

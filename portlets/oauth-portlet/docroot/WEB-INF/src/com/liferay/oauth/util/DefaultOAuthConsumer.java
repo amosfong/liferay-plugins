@@ -35,22 +35,27 @@ public class DefaultOAuthConsumer implements OAuthConsumer {
 		_oAuthApplication = oAuthApplication;
 	}
 
+	@Override
 	public String getCallbackURL() {
 		return _oAuthConsumer.callbackURL;
 	}
 
+	@Override
 	public OAuthApplication getOAuthApplication() {
 		return _oAuthApplication;
 	}
 
+	@Override
 	public Object getProperty(String name) {
 		return _oAuthConsumer.getProperty(name);
 	}
 
+	@Override
 	public Object getWrappedOAuthConsumer() {
 		return _oAuthConsumer;
 	}
 
+	@Override
 	public void setWrappedOAuthConsumer(Object oAuthConsumer) {
 		_oAuthConsumer = (net.oauth.OAuthConsumer)oAuthConsumer;
 	}

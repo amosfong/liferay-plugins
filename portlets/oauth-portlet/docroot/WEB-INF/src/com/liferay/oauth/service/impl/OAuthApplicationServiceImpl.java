@@ -32,6 +32,7 @@ import java.io.InputStream;
 public class OAuthApplicationServiceImpl
 	extends OAuthApplicationServiceBaseImpl {
 
+	@Override
 	public OAuthApplication addOAuthApplication(
 			String name, String description, int accessLevel,
 			String callbackURI, String websiteURL,
@@ -46,6 +47,7 @@ public class OAuthApplicationServiceImpl
 			websiteURL, serviceContext);
 	}
 
+	@Override
 	public void deleteLogo(long oAuthApplicationId)
 		throws PortalException, SystemException {
 
@@ -55,6 +57,7 @@ public class OAuthApplicationServiceImpl
 		oAuthApplicationLocalService.deleteLogo(oAuthApplicationId);
 	}
 
+	@Override
 	public OAuthApplication deleteOAuthApplication(long oAuthApplicationId)
 		throws PortalException, SystemException {
 
@@ -68,6 +71,7 @@ public class OAuthApplicationServiceImpl
 			oAuthApplication);
 	}
 
+	@Override
 	public OAuthApplication updateLogo(
 			long oAuthApplicationId, InputStream inputStream)
 		throws PortalException, SystemException {
@@ -79,6 +83,7 @@ public class OAuthApplicationServiceImpl
 			oAuthApplicationId, inputStream);
 	}
 
+	@Override
 	public OAuthApplication updateOAuthApplication(
 			long oAuthApplicationId, String name, String description,
 			String callbackURI, String websiteURL,

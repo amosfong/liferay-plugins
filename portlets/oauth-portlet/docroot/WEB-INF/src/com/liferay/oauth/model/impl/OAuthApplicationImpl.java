@@ -24,6 +24,7 @@ public class OAuthApplicationImpl extends OAuthApplicationBaseImpl {
 	public OAuthApplicationImpl() {
 	}
 
+	@Override
 	public String getAccessLevelLabel() {
 		if (getAccessLevel() == OAuthApplicationConstants.ACCESS_READ) {
 			return OAuthApplicationConstants.LABEL_ACCESS_READ;

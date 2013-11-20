@@ -32,6 +32,7 @@ import java.util.List;
  */
 public class OAuthUserLocalServiceImpl extends OAuthUserLocalServiceBaseImpl {
 
+	@Override
 	public OAuthUser addOAuthUser(
 			long userId, long oAuthApplicationId, String accessToken,
 			String accessSecret, ServiceContext serviceContext)
@@ -66,6 +67,7 @@ public class OAuthUserLocalServiceImpl extends OAuthUserLocalServiceBaseImpl {
 		return oAuthUser;
 	}
 
+	@Override
 	public OAuthUser deleteOAuthUser(long userId, long oAuthApplicationId)
 		throws PortalException, SystemException {
 
@@ -91,16 +93,19 @@ public class OAuthUserLocalServiceImpl extends OAuthUserLocalServiceBaseImpl {
 		return oAuthUser;
 	}
 
+	@Override
 	public OAuthUser fetchOAuthUser(long userId, long oAuthApplicationId)
 		throws SystemException {
 
 		return oAuthUserPersistence.fetchByU_OAI(userId, oAuthApplicationId);
 	}
 
+	@Override
 	public OAuthUser fetchOAuthUser(String accessToken) throws SystemException {
 		return oAuthUserPersistence.fetchByAccessToken(accessToken);
 	}
 
+	@Override
 	public List<OAuthUser> getOAuthApplicationOAuthUsers(
 			long oAuthApplicationId, int start, int end,
 			OrderByComparator orderByComparator)
@@ -110,6 +115,7 @@ public class OAuthUserLocalServiceImpl extends OAuthUserLocalServiceBaseImpl {
 			oAuthApplicationId, start, end, orderByComparator);
 	}
 
+	@Override
 	public int getOAuthApplicationOAuthUsersCount(long oAuthApplicationId)
 		throws SystemException {
 
@@ -117,18 +123,21 @@ public class OAuthUserLocalServiceImpl extends OAuthUserLocalServiceBaseImpl {
 			oAuthApplicationId);
 	}
 
+	@Override
 	public OAuthUser getOAuthUser(long userId, long oAuthApplicationId)
 		throws PortalException, SystemException {
 
 		return oAuthUserPersistence.findByU_OAI(userId, oAuthApplicationId);
 	}
 
+	@Override
 	public OAuthUser getOAuthUser(String accessToken)
 		throws PortalException, SystemException {
 
 		return oAuthUserPersistence.findByAccessToken(accessToken);
 	}
 
+	@Override
 	public List<OAuthUser> getUserOAuthUsers(
 			long userId, int start, int end,
 			OrderByComparator orderByComparator)
@@ -138,10 +147,12 @@ public class OAuthUserLocalServiceImpl extends OAuthUserLocalServiceBaseImpl {
 			userId, start, end, orderByComparator);
 	}
 
+	@Override
 	public int getUserOAuthUsersCount(long userId) throws SystemException {
 		return oAuthUserPersistence.countByUserId(userId);
 	}
 
+	@Override
 	public OAuthUser updateOAuthUser(
 			long userId, long oAuthApplicationId, String accessToken,
 			String accessSecret, ServiceContext serviceContext)

@@ -25,18 +25,22 @@ public class DefaultOAuthMessage implements OAuthMessage {
 		_oAuthMessage = oAuthMessage;
 	}
 
+	@Override
 	public String getConsumerKey() throws IOException {
 		return _oAuthMessage.getConsumerKey();
 	}
 
+	@Override
 	public String getParameter(String name) throws IOException {
 		return _oAuthMessage.getParameter(name);
 	}
 
+	@Override
 	public String getToken() throws IOException {
 		return _oAuthMessage.getToken();
 	}
 
+	@Override
 	public Object getWrappedOAuthMessage() {
 		return _oAuthMessage;
 	}

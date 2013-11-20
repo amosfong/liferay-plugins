@@ -44,6 +44,7 @@ import java.util.List;
 public class OAuthApplicationLocalServiceImpl
 	extends OAuthApplicationLocalServiceBaseImpl {
 
+	@Override
 	public OAuthApplication addOAuthApplication(
 			long userId, String name, String description, int accessLevel,
 			String callbackURI, String websiteURL,
@@ -94,6 +95,7 @@ public class OAuthApplicationLocalServiceImpl
 		return oAuthApplication;
 	}
 
+	@Override
 	public void deleteLogo(long oAuthApplicationId)
 		throws PortalException, SystemException {
 
@@ -152,18 +154,21 @@ public class OAuthApplicationLocalServiceImpl
 		return oAuthApplication;
 	}
 
+	@Override
 	public OAuthApplication fetchOAuthApplication(String consumerKey)
 		throws SystemException {
 
 		return oAuthApplicationPersistence.fetchByConsumerKey(consumerKey);
 	}
 
+	@Override
 	public OAuthApplication getOAuthApplication(String consumerKey)
 		throws PortalException, SystemException {
 
 		return oAuthApplicationPersistence.findByConsumerKey(consumerKey);
 	}
 
+	@Override
 	public List<OAuthApplication> getOAuthApplications(
 			long companyId, int start, int end,
 			OrderByComparator orderByComparator)
@@ -173,12 +178,14 @@ public class OAuthApplicationLocalServiceImpl
 			companyId, start, end, orderByComparator);
 	}
 
+	@Override
 	public int getOAuthApplicationsCount(long companyId)
 		throws SystemException {
 
 		return oAuthApplicationPersistence.countByCompanyId(companyId);
 	}
 
+	@Override
 	public List<OAuthApplication> search(
 			long companyId, String keywords,
 			LinkedHashMap<String, Object> params, int start, int end,
@@ -208,6 +215,7 @@ public class OAuthApplicationLocalServiceImpl
 			companyId, start, end, orderByComparator);
 	}
 
+	@Override
 	public int searchCount(
 			long companyId, String keywords,
 			LinkedHashMap<String, Object> params)
@@ -232,6 +240,7 @@ public class OAuthApplicationLocalServiceImpl
 		return oAuthApplicationPersistence.countByCompanyId(companyId);
 	}
 
+	@Override
 	public OAuthApplication updateLogo(
 			long oAuthApplicationId, InputStream inputStream)
 		throws PortalException, SystemException {
@@ -254,6 +263,7 @@ public class OAuthApplicationLocalServiceImpl
 		return oAuthApplication;
 	}
 
+	@Override
 	public OAuthApplication updateOAuthApplication(
 			long oAuthApplicationId, String name, String description,
 			String callbackURI, String websiteURL,
