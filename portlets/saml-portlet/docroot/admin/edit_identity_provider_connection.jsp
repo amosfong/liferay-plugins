@@ -23,16 +23,19 @@ SamlSpIdpConnection samlSpIdpConnection = null;
 
 String samlIdpEntityId = MetadataManagerUtil.getDefaultIdpEntityId();
 
+String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_SP_NAME_ID_FORMAT, NameIDType.EMAIL));
+
 if (Validator.isNotNull(samlIdpEntityId)) {
 	try {
 		samlSpIdpConnection = SamlSpIdpConnectionLocalServiceUtil.getSamlSpIdpConnection(themeDisplay.getCompanyId(), samlIdpEntityId);
 	}
 	catch (Exception e) {
 	}
+
+	nameIdFormat = ParamUtil.getString(request, "nameIdFormat", MetadataManagerUtil.getNameIdFormat(samlIdpEntityId));
 }
 
 long clockSkew = ParamUtil.getLong(request, "clockSkew", MetadataManagerUtil.getClockSkew());
-String nameIdFormat = ParamUtil.getString(request, "nameIdFormat", MetadataManagerUtil.getNameIdFormat());
 String userAttributeMappings = ParamUtil.getString(request, "userAttributeMappings", PortletPrefsPropsUtil.getString(PortletPropsKeys.SAML_SP_USER_ATTRIBUTE_MAPPINGS));
 %>
 

@@ -317,34 +317,48 @@ public class MetadataManagerImpl implements MetadataManager {
 	}
 
 	@Override
-	public String getNameIdFormat() {
-		return PortletPrefsPropsUtil.getString(
-			PortletPropsKeys.SAML_SP_NAME_ID_FORMAT, NameIDType.EMAIL);
-	}
-
-	@Override
 	public String getNameIdFormat(String entityId) {
 		long companyId = CompanyThreadLocal.getCompanyId();
 
 		String nameIdFormat = StringPool.BLANK;
 
-		try {
-			SamlIdpSpConnection samlIdpSpConnection =
-				SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnection(
-					companyId, entityId);
+		if (SamlUtil.isRoleIdp()) {
+			try {
+				SamlIdpSpConnection samlIdpSpConnection =
+					SamlIdpSpConnectionLocalServiceUtil.getSamlIdpSpConnection(
+						companyId, entityId);
 
-			nameIdFormat = samlIdpSpConnection.getNameIdFormat();
-		}
-		catch (Exception e) {
-		}
+				nameIdFormat = samlIdpSpConnection.getNameIdFormat();
+			}
+			catch (Exception e) {
+			}
 
-		if (Validator.isNotNull(nameIdFormat)) {
-			return nameIdFormat;
-		}
+			if (Validator.isNotNull(nameIdFormat)) {
+				return nameIdFormat;
+			}
 
-		nameIdFormat = PortletPrefsPropsUtil.getString(
-			PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_FORMAT,
-			new Filter(entityId));
+			nameIdFormat = PortletPrefsPropsUtil.getString(
+				PortletPropsKeys.SAML_IDP_METADATA_NAME_ID_FORMAT,
+				new Filter(entityId));
+		}
+		else if (SamlUtil.isRoleSp()) {
+			try {
+				SamlSpIdpConnection samlSpIdpConnection =
+					SamlSpIdpConnectionLocalServiceUtil.getSamlSpIdpConnection(
+						companyId, entityId);
+
+				nameIdFormat = samlSpIdpConnection.getNameIdFormat();
+			}
+			catch (Exception e) {
+			}
+
+			if (Validator.isNotNull(nameIdFormat)) {
+				return nameIdFormat;
+			}
+
+			nameIdFormat = PortletPrefsPropsUtil.getString(
+				PortletPropsKeys.SAML_SP_NAME_ID_FORMAT, new Filter(entityId));
+		}
 
 		if (Validator.isNull(nameIdFormat)) {
 			nameIdFormat = NameIDType.EMAIL;

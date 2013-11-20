@@ -70,10 +70,6 @@ public class MetadataManagerUtil {
 		return getMetadataManager().getNameIdAttribute(entityId);
 	}
 
-	public static String getNameIdFormat() {
-		return getMetadataManager().getNameIdFormat();
-	}
-
 	public static String getNameIdFormat(String entityId) {
 		return getMetadataManager().getNameIdFormat(entityId);
 	}

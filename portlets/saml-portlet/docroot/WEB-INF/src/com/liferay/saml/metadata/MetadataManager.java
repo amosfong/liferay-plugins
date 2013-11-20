@@ -47,8 +47,6 @@ public interface MetadataManager {
 
 	public String getNameIdAttribute(String entityId);
 
-	public String getNameIdFormat();
-
 	public String getNameIdFormat(String entityId);
 
 	public SecurityPolicyResolver getSecurityPolicyResolver(
