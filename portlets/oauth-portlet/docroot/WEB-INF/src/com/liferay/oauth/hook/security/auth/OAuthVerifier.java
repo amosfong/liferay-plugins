@@ -39,7 +39,6 @@ import java.io.IOException;
 import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Ivica Cardic
@@ -60,12 +59,7 @@ public class OAuthVerifier implements AuthVerifier {
 
 		AuthVerifierResult authVerifierResult = new AuthVerifierResult();
 
-		boolean sendBody = GetterUtil.getBoolean(
-			properties.getProperty("send.body"));
-
 		HttpServletRequest request = accessControlContext.getRequest();
-
-		HttpServletResponse response = accessControlContext.getResponse();
 
 		if (!isUsingOAuth(request)) {
 			return authVerifierResult;
@@ -82,12 +76,15 @@ public class OAuthVerifier implements AuthVerifier {
 			OAuthUtil.validateOAuthMessage(oAuthMessage, oAuthAccessor);
 
 			authVerifierResult.setState(AuthVerifierResult.State.SUCCESS);
-
 			authVerifierResult.setUserId(oAuthUser.getUserId());
 		}
 		catch (Exception e) {
 			try {
-				OAuthUtil.handleException(request, response, e, sendBody);
+				boolean sendBody = GetterUtil.getBoolean(
+					properties.getProperty("send.body"));
+
+				OAuthUtil.handleException(
+					request, accessControlContext.getResponse(), e, sendBody);
 
 				authVerifierResult.setState(
 					AuthVerifierResult.State.INVALID_CREDENTIALS);
