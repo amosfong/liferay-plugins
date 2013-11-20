@@ -85,7 +85,7 @@ public class OAuthApplicationLocalServiceImpl
 		oAuthApplication.setCallbackURI(callbackURI);
 		oAuthApplication.setWebsiteURL(websiteURL);
 
-		oAuthApplicationPersistence.update(oAuthApplication, false);
+		oAuthApplicationPersistence.update(oAuthApplication);
 
 		// Resources
 
@@ -107,7 +107,7 @@ public class OAuthApplicationLocalServiceImpl
 		if (logoId > 0) {
 			oAuthApplication.setLogoId(0);
 
-			oAuthApplicationPersistence.update(oAuthApplication, false);
+			oAuthApplicationPersistence.update(oAuthApplication);
 
 			imageLocalService.deleteImage(logoId);
 		}
@@ -255,7 +255,7 @@ public class OAuthApplicationLocalServiceImpl
 
 			oAuthApplication.setLogoId(logoId);
 
-			oAuthApplicationPersistence.update(oAuthApplication, false);
+			oAuthApplicationPersistence.update(oAuthApplication);
 		}
 
 		imageLocalService.updateImage(logoId, inputStream);
@@ -281,7 +281,7 @@ public class OAuthApplicationLocalServiceImpl
 		oAuthApplication.setCallbackURI(callbackURI);
 		oAuthApplication.setWebsiteURL(websiteURL);
 
-		oAuthApplicationPersistence.update(oAuthApplication, false);
+		oAuthApplicationPersistence.update(oAuthApplication);
 
 		return oAuthApplication;
 	}

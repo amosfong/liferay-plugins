@@ -58,7 +58,7 @@ public class OAuthUserLocalServiceImpl extends OAuthUserLocalServiceBaseImpl {
 		oAuthUser.setAccessToken(accessToken);
 		oAuthUser.setAccessSecret(accessSecret);
 
-		oAuthUserPersistence.update(oAuthUser, false);
+		oAuthUserPersistence.update(oAuthUser);
 
 		// Resources
 
@@ -164,7 +164,7 @@ public class OAuthUserLocalServiceImpl extends OAuthUserLocalServiceBaseImpl {
 		oAuthUser.setAccessToken(accessToken);
 		oAuthUser.setAccessSecret(accessSecret);
 
-		oAuthUserPersistence.update(oAuthUser, false);
+		oAuthUserPersistence.update(oAuthUser);
 
 		return oAuthUser;
 	}
