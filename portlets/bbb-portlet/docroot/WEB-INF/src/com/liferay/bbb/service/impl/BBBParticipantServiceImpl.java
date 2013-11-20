@@ -16,7 +16,7 @@ package com.liferay.bbb.service.impl;
 
 import com.liferay.bbb.model.BBBParticipant;
 import com.liferay.bbb.service.base.BBBParticipantServiceBaseImpl;
-import com.liferay.bbb.service.permission.AdminPortletPermission;
+import com.liferay.bbb.service.permission.AdminPermission;
 import com.liferay.bbb.service.permission.BBBMeetingPermission;
 import com.liferay.bbb.util.ActionKeys;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -36,7 +36,7 @@ public class BBBParticipantServiceImpl extends BBBParticipantServiceBaseImpl {
 			int type, int status, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		AdminPortletPermission.check(
+		AdminPermission.check(
 			getPermissionChecker(), groupId, ActionKeys.ADD_PARTICIPANT);
 
 		return bbbParticipantLocalService.addBBBParticipant(
