@@ -193,7 +193,7 @@ public class V10aOAuth implements OAuth {
 			throw new OAuthException(ioe);
 		}
 
-		OAuthAccessor oAuthAccessor = (OAuthAccessor)_portalCache.get(token);
+		OAuthAccessor oAuthAccessor = _portalCache.get(token);
 
 		if (oAuthAccessor == null) {
 			net.oauth.OAuthException oAuthException =
@@ -306,8 +306,8 @@ public class V10aOAuth implements OAuth {
 		_oAuthValidator.validateOAuthMessage(oAuthMessage, accessor);
 	}
 
-	private static PortalCache _portalCache = MultiVMPoolUtil.getCache(
-		V10aOAuth.class.getName());
+	private static PortalCache<String, OAuthAccessor> _portalCache =
+		MultiVMPoolUtil.getCache(V10aOAuth.class.getName());
 
 	private OAuthValidator _oAuthValidator;
 
