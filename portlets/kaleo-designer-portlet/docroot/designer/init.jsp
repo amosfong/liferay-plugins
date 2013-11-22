@@ -45,8 +45,7 @@ page import="com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefiniti
 page import="com.liferay.portal.workflow.kaleo.designer.service.KaleoDraftDefinitionLocalServiceUtil" %><%@
 page import="com.liferay.portal.workflow.kaleo.designer.util.KaleoDesignerUtil" %><%@
 page import="com.liferay.portal.workflow.kaleo.designer.util.WebKeys" %><%@
-page import="com.liferay.portlet.PortletURLUtil" %><%@
-page import="com.liferay.util.JS" %>
+page import="com.liferay.portlet.PortletURLUtil" %>
 
 <%@ page import="javax.portlet.PortletURL" %>
 

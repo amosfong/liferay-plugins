@@ -102,7 +102,7 @@
 									</liferay-portlet:renderURL>
 
 									<aui:field-wrapper cssClass="lfr-portlet-workflowdesigner-field-wrapper-first" helpMessage="the-definition-name-is-defined-in-the-workflow-definition-file" label="workflow-definition-name">
-										<aui:a href="<%= themeDisplay.getURLControlPanel() + StringPool.AMPERSAND + HttpUtil.getQueryString(workflowDefinitionEditURL) %>" target="_blank"><%= workflowDefinition.getName() %></aui:a>
+										<aui:a href="<%= themeDisplay.getURLControlPanel() + StringPool.AMPERSAND + HttpUtil.getQueryString(workflowDefinitionEditURL) %>" target="_blank"><%= HtmlUtil.escape(workflowDefinition.getName()) %></aui:a>
 									</aui:field-wrapper>
 
 									<aui:field-wrapper label="workflow-definition-version">
@@ -513,7 +513,7 @@
 			%>
 
 			<c:if test="<%= (kaleoDraftDefinition != null) && Validator.isNotNull(saveCallback) %>">
-				Liferay.Util.getOpener().<%= HtmlUtil.escape(saveCallback) %>('<%= kaleoDraftDefinition.getName() %>', <%= kaleoDraftDefinition.getVersion() %>, <%= kaleoDraftDefinition.getDraftVersion() %>);
+				Liferay.Util.getOpener()['<%= HtmlUtil.escapeJS(saveCallback) %>']('<%= HtmlUtil.escapeJS(kaleoDraftDefinition.getName()) %>', <%= kaleoDraftDefinition.getVersion() %>, <%= kaleoDraftDefinition.getDraftVersion() %>);
 			</c:if>
 		</aui:script>
 
@@ -561,7 +561,7 @@
 
 						kaleoProcessId: '<%= kaleoProcessId %>'
 					},
-					definition: '<%= JS.encodeURIComponent(content) %>',
+					definition: '<%= HtmlUtil.escapeJS(content) %>',
 					disabled: <%= !editable %>,
 
 					<%
@@ -570,7 +570,7 @@
 
 					<c:if test="<%= Validator.isNotNull(propertiesSaveCallback) %>">
 						on: {
-							save: Liferay.Util.getOpener().<%= HtmlUtil.escape(propertiesSaveCallback) %>
+							save: Liferay.Util.getOpener()['<%= HtmlUtil.escapeJS(propertiesSaveCallback) %>']
 						},
 					</c:if>
 
