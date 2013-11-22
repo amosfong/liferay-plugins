@@ -33,7 +33,7 @@ public class BBBParticipantLocalServiceImpl
 
 	@Override
 	public BBBParticipant addBBBParticipant(
-			long userId, long groupId, long meetingEntryId, String name,
+			long userId, long groupId, long bbbMeetingId, String name,
 			String emailAddress, int type, int status,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
@@ -52,7 +52,7 @@ public class BBBParticipantLocalServiceImpl
 		bbbParticipant.setUserName(user.getFullName());
 		bbbParticipant.setCreateDate(serviceContext.getCreateDate(now));
 		bbbParticipant.setModifiedDate(serviceContext.getModifiedDate(now));
-		bbbParticipant.setBbbMeetingId(meetingEntryId);
+		bbbParticipant.setBbbMeetingId(bbbMeetingId);
 		bbbParticipant.setName(name);
 		bbbParticipant.setEmailAddress(emailAddress);
 		bbbParticipant.setType(type);
@@ -71,22 +71,22 @@ public class BBBParticipantLocalServiceImpl
 	}
 
 	@Override
-	public List<BBBParticipant> getBBBParticipants(long meetingEntryId)
+	public List<BBBParticipant> getBBBParticipants(long bbbMeetingId)
 		throws SystemException {
 
-		return bbbParticipantPersistence.findByBbbMeetingId(meetingEntryId);
+		return bbbParticipantPersistence.findByBbbMeetingId(bbbMeetingId);
 	}
 
 	@Override
-	public int getBBBParticipantsCount(long meetingEntryId)
+	public int getBBBParticipantsCount(long bbbMeetingId)
 		throws SystemException {
 
-		return bbbParticipantPersistence.countByBbbMeetingId(meetingEntryId);
+		return bbbParticipantPersistence.countByBbbMeetingId(bbbMeetingId);
 	}
 
 	@Override
 	public BBBParticipant updateBBBParticipant(
-			long bbbParticipantId, long meetingEntryId, String name,
+			long bbbParticipantId, long bbbMeetingId, String name,
 			String emailAddress, int type, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
@@ -95,8 +95,8 @@ public class BBBParticipantLocalServiceImpl
 
 		bbbParticipant.setModifiedDate(serviceContext.getModifiedDate(null));
 
-		if (meetingEntryId > 0) {
-			bbbParticipant.setBbbMeetingId(meetingEntryId);
+		if (bbbMeetingId > 0) {
+			bbbParticipant.setBbbMeetingId(bbbMeetingId);
 		}
 
 		bbbParticipant.setName(name);

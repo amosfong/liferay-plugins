@@ -33,7 +33,7 @@ public class BBBMeetingServiceImpl extends BBBMeetingServiceBaseImpl {
 
 	@Override
 	public BBBMeeting addBBBMeeting(
-			long groupId, long meetingServerId, String name, String description,
+			long groupId, long bbbServerId, String name, String description,
 			String attendeePassword, String moderatorPassword, int status,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
@@ -42,7 +42,7 @@ public class BBBMeetingServiceImpl extends BBBMeetingServiceBaseImpl {
 			getPermissionChecker(), groupId, ActionKeys.ADD_MEETING);
 
 		return bbbMeetingLocalService.addBBBMeeting(
-			getUserId(), groupId, meetingServerId, name, description,
+			getUserId(), groupId, bbbServerId, name, description,
 			attendeePassword, moderatorPassword, status, serviceContext);
 	}
 
@@ -82,7 +82,7 @@ public class BBBMeetingServiceImpl extends BBBMeetingServiceBaseImpl {
 
 	@Override
 	public BBBMeeting updateBBBMeeting(
-			long bbbMeetingId, long meetingServerId, String name,
+			long bbbMeetingId, long bbbServerId, String name,
 			String description, String attendeePassword,
 			String moderatorPassword, ServiceContext serviceContext)
 		throws PortalException, SystemException {
@@ -91,7 +91,7 @@ public class BBBMeetingServiceImpl extends BBBMeetingServiceBaseImpl {
 			getPermissionChecker(), bbbMeetingId, ActionKeys.UPDATE);
 
 		return bbbMeetingLocalService.updateBBBMeeting(
-			bbbMeetingId, meetingServerId, name, description, attendeePassword,
+			bbbMeetingId, bbbServerId, name, description, attendeePassword,
 			moderatorPassword, serviceContext);
 	}
 

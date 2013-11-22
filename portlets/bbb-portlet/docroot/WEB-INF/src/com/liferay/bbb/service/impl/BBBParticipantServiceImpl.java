@@ -32,7 +32,7 @@ public class BBBParticipantServiceImpl extends BBBParticipantServiceBaseImpl {
 
 	@Override
 	public BBBParticipant addBBBParticipant(
-			long groupId, long meetingEntryId, String name, String emailAddress,
+			long groupId, long bbbMeetingId, String name, String emailAddress,
 			int type, int status, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
@@ -40,7 +40,7 @@ public class BBBParticipantServiceImpl extends BBBParticipantServiceBaseImpl {
 			getPermissionChecker(), groupId, ActionKeys.ADD_PARTICIPANT);
 
 		return bbbParticipantLocalService.addBBBParticipant(
-			getUserId(), groupId, meetingEntryId, name, emailAddress, type,
+			getUserId(), groupId, bbbMeetingId, name, emailAddress, type,
 			status, serviceContext);
 	}
 
@@ -56,37 +56,36 @@ public class BBBParticipantServiceImpl extends BBBParticipantServiceBaseImpl {
 	}
 
 	@Override
-	public List<BBBParticipant> getBBBParticipants(long meetingEntryId)
+	public List<BBBParticipant> getBBBParticipants(long bbbMeetingId)
 		throws PortalException, SystemException {
 
 		BBBMeetingPermission.check(
-			getPermissionChecker(), meetingEntryId, ActionKeys.VIEW);
+			getPermissionChecker(), bbbMeetingId, ActionKeys.VIEW);
 
-		return bbbParticipantLocalService.getBBBParticipants(meetingEntryId);
+		return bbbParticipantLocalService.getBBBParticipants(bbbMeetingId);
 	}
 
 	@Override
-	public int getBBBParticipantsCount(long meetingEntryId)
+	public int getBBBParticipantsCount(long bbbMeetingId)
 		throws PortalException, SystemException {
 
 		BBBMeetingPermission.check(
-			getPermissionChecker(), meetingEntryId, ActionKeys.VIEW);
+			getPermissionChecker(), bbbMeetingId, ActionKeys.VIEW);
 
-		return bbbParticipantLocalService.getBBBParticipantsCount(
-			meetingEntryId);
+		return bbbParticipantLocalService.getBBBParticipantsCount(bbbMeetingId);
 	}
 
 	@Override
 	public BBBParticipant updateBBBParticipant(
-			long bbbParticipantId, long meetingEntryId, String name,
+			long bbbParticipantId, long bbbMeetingId, String name,
 			String emailAddress, int type, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		BBBMeetingPermission.check(
-			getPermissionChecker(), meetingEntryId, ActionKeys.UPDATE);
+			getPermissionChecker(), bbbMeetingId, ActionKeys.UPDATE);
 
 		return bbbParticipantLocalService.updateBBBParticipant(
-			bbbParticipantId, meetingEntryId, name, emailAddress, type,
+			bbbParticipantId, bbbMeetingId, name, emailAddress, type,
 			serviceContext);
 	}
 
