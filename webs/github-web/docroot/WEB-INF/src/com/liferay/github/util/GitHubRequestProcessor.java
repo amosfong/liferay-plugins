@@ -16,6 +16,8 @@ package com.liferay.github.util;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.json.JSONObject;
+
 /**
  * @author Brian Wing Shun Chan
  */
@@ -25,6 +27,15 @@ public class GitHubRequestProcessor {
 		throws Exception {
 
 		String payload = request.getParameter("payload");
+
+		JSONObject payloadJSONObject = new JSONObject(payload);
+
+		JSONObject repositoryJSONObject = payloadJSONObject.getJSONObject(
+			"repository");
+
+		String url = repositoryJSONObject.getString("url");
+
+		System.out.println("URL: " + url);
 
 		System.out.println("Payload: " + payload);
 	}
