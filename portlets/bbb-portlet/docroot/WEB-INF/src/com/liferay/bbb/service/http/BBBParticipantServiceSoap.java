@@ -63,13 +63,13 @@ import java.rmi.RemoteException;
  */
 public class BBBParticipantServiceSoap {
 	public static com.liferay.bbb.model.BBBParticipantSoap addBBBParticipant(
-		long groupId, long meetingEntryId, java.lang.String name,
+		long groupId, long bbbMeetingId, java.lang.String name,
 		java.lang.String emailAddress, int type, int status,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.bbb.model.BBBParticipant returnValue = BBBParticipantServiceUtil.addBBBParticipant(groupId,
-					meetingEntryId, name, emailAddress, type, status,
+					bbbMeetingId, name, emailAddress, type, status,
 					serviceContext);
 
 			return com.liferay.bbb.model.BBBParticipantSoap.toSoapModel(returnValue);
@@ -98,9 +98,9 @@ public class BBBParticipantServiceSoap {
 	}
 
 	public static com.liferay.bbb.model.BBBParticipantSoap[] getBBBParticipants(
-		long meetingEntryId) throws RemoteException {
+		long bbbMeetingId) throws RemoteException {
 		try {
-			java.util.List<com.liferay.bbb.model.BBBParticipant> returnValue = BBBParticipantServiceUtil.getBBBParticipants(meetingEntryId);
+			java.util.List<com.liferay.bbb.model.BBBParticipant> returnValue = BBBParticipantServiceUtil.getBBBParticipants(bbbMeetingId);
 
 			return com.liferay.bbb.model.BBBParticipantSoap.toSoapModels(returnValue);
 		}
@@ -111,10 +111,10 @@ public class BBBParticipantServiceSoap {
 		}
 	}
 
-	public static int getBBBParticipantsCount(long meetingEntryId)
+	public static int getBBBParticipantsCount(long bbbMeetingId)
 		throws RemoteException {
 		try {
-			int returnValue = BBBParticipantServiceUtil.getBBBParticipantsCount(meetingEntryId);
+			int returnValue = BBBParticipantServiceUtil.getBBBParticipantsCount(bbbMeetingId);
 
 			return returnValue;
 		}
@@ -126,13 +126,13 @@ public class BBBParticipantServiceSoap {
 	}
 
 	public static com.liferay.bbb.model.BBBParticipantSoap updateBBBParticipant(
-		long bbbParticipantId, long meetingEntryId, java.lang.String name,
+		long bbbParticipantId, long bbbMeetingId, java.lang.String name,
 		java.lang.String emailAddress, int type,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.bbb.model.BBBParticipant returnValue = BBBParticipantServiceUtil.updateBBBParticipant(bbbParticipantId,
-					meetingEntryId, name, emailAddress, type, serviceContext);
+					bbbMeetingId, name, emailAddress, type, serviceContext);
 
 			return com.liferay.bbb.model.BBBParticipantSoap.toSoapModel(returnValue);
 		}

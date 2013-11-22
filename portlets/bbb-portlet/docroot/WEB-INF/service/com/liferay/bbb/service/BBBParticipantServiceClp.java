@@ -113,7 +113,7 @@ public class BBBParticipantServiceClp implements BBBParticipantService {
 
 	@Override
 	public com.liferay.bbb.model.BBBParticipant addBBBParticipant(
-		long groupId, long meetingEntryId, java.lang.String name,
+		long groupId, long bbbMeetingId, java.lang.String name,
 		java.lang.String emailAddress, int type, int status,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -126,7 +126,7 @@ public class BBBParticipantServiceClp implements BBBParticipantService {
 					new Object[] {
 						groupId,
 						
-					meetingEntryId,
+					bbbMeetingId,
 						
 					ClpSerializer.translateInput(name),
 						
@@ -199,14 +199,14 @@ public class BBBParticipantServiceClp implements BBBParticipantService {
 
 	@Override
 	public java.util.List<com.liferay.bbb.model.BBBParticipant> getBBBParticipants(
-		long meetingEntryId)
+		long bbbMeetingId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableService.invokeMethod(_methodName5,
-					_methodParameterTypes5, new Object[] { meetingEntryId });
+					_methodParameterTypes5, new Object[] { bbbMeetingId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -232,14 +232,14 @@ public class BBBParticipantServiceClp implements BBBParticipantService {
 	}
 
 	@Override
-	public int getBBBParticipantsCount(long meetingEntryId)
+	public int getBBBParticipantsCount(long bbbMeetingId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
 			returnObj = _invokableService.invokeMethod(_methodName6,
-					_methodParameterTypes6, new Object[] { meetingEntryId });
+					_methodParameterTypes6, new Object[] { bbbMeetingId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -266,7 +266,7 @@ public class BBBParticipantServiceClp implements BBBParticipantService {
 
 	@Override
 	public com.liferay.bbb.model.BBBParticipant updateBBBParticipant(
-		long bbbParticipantId, long meetingEntryId, java.lang.String name,
+		long bbbParticipantId, long bbbMeetingId, java.lang.String name,
 		java.lang.String emailAddress, int type,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -279,7 +279,7 @@ public class BBBParticipantServiceClp implements BBBParticipantService {
 					new Object[] {
 						bbbParticipantId,
 						
-					meetingEntryId,
+					bbbMeetingId,
 						
 					ClpSerializer.translateInput(name),
 						

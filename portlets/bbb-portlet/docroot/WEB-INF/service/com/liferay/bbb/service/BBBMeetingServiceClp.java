@@ -120,10 +120,9 @@ public class BBBMeetingServiceClp implements BBBMeetingService {
 
 	@Override
 	public com.liferay.bbb.model.BBBMeeting addBBBMeeting(long groupId,
-		long meetingServerId, java.lang.String name,
-		java.lang.String description, java.lang.String attendeePassword,
-		java.lang.String moderatorPassword, int status,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		long bbbServerId, java.lang.String name, java.lang.String description,
+		java.lang.String attendeePassword, java.lang.String moderatorPassword,
+		int status, com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -134,7 +133,7 @@ public class BBBMeetingServiceClp implements BBBMeetingService {
 					new Object[] {
 						groupId,
 						
-					meetingServerId,
+					bbbServerId,
 						
 					ClpSerializer.translateInput(name),
 						
@@ -307,7 +306,7 @@ public class BBBMeetingServiceClp implements BBBMeetingService {
 
 	@Override
 	public com.liferay.bbb.model.BBBMeeting updateBBBMeeting(
-		long bbbMeetingId, long meetingServerId, java.lang.String name,
+		long bbbMeetingId, long bbbServerId, java.lang.String name,
 		java.lang.String description, java.lang.String attendeePassword,
 		java.lang.String moderatorPassword,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -321,7 +320,7 @@ public class BBBMeetingServiceClp implements BBBMeetingService {
 					new Object[] {
 						bbbMeetingId,
 						
-					meetingServerId,
+					bbbServerId,
 						
 					ClpSerializer.translateInput(name),
 						

@@ -250,7 +250,7 @@ public interface BBBParticipantLocalService extends BaseLocalService,
 		throws java.lang.Throwable;
 
 	public com.liferay.bbb.model.BBBParticipant addBBBParticipant(long userId,
-		long groupId, long meetingEntryId, java.lang.String name,
+		long groupId, long bbbMeetingId, java.lang.String name,
 		java.lang.String emailAddress, int type, int status,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -258,15 +258,15 @@ public interface BBBParticipantLocalService extends BaseLocalService,
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public java.util.List<com.liferay.bbb.model.BBBParticipant> getBBBParticipants(
-		long meetingEntryId)
+		long bbbMeetingId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public int getBBBParticipantsCount(long meetingEntryId)
+	public int getBBBParticipantsCount(long bbbMeetingId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
 	public com.liferay.bbb.model.BBBParticipant updateBBBParticipant(
-		long bbbParticipantId, long meetingEntryId, java.lang.String name,
+		long bbbParticipantId, long bbbMeetingId, java.lang.String name,
 		java.lang.String emailAddress, int type,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,

@@ -290,37 +290,37 @@ public class BBBParticipantLocalServiceWrapper
 
 	@Override
 	public com.liferay.bbb.model.BBBParticipant addBBBParticipant(long userId,
-		long groupId, long meetingEntryId, java.lang.String name,
+		long groupId, long bbbMeetingId, java.lang.String name,
 		java.lang.String emailAddress, int type, int status,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _bbbParticipantLocalService.addBBBParticipant(userId, groupId,
-			meetingEntryId, name, emailAddress, type, status, serviceContext);
+			bbbMeetingId, name, emailAddress, type, status, serviceContext);
 	}
 
 	@Override
 	public java.util.List<com.liferay.bbb.model.BBBParticipant> getBBBParticipants(
-		long meetingEntryId)
+		long bbbMeetingId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _bbbParticipantLocalService.getBBBParticipants(meetingEntryId);
+		return _bbbParticipantLocalService.getBBBParticipants(bbbMeetingId);
 	}
 
 	@Override
-	public int getBBBParticipantsCount(long meetingEntryId)
+	public int getBBBParticipantsCount(long bbbMeetingId)
 		throws com.liferay.portal.kernel.exception.SystemException {
-		return _bbbParticipantLocalService.getBBBParticipantsCount(meetingEntryId);
+		return _bbbParticipantLocalService.getBBBParticipantsCount(bbbMeetingId);
 	}
 
 	@Override
 	public com.liferay.bbb.model.BBBParticipant updateBBBParticipant(
-		long bbbParticipantId, long meetingEntryId, java.lang.String name,
+		long bbbParticipantId, long bbbMeetingId, java.lang.String name,
 		java.lang.String emailAddress, int type,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _bbbParticipantLocalService.updateBBBParticipant(bbbParticipantId,
-			meetingEntryId, name, emailAddress, type, serviceContext);
+			bbbMeetingId, name, emailAddress, type, serviceContext);
 	}
 
 	@Override

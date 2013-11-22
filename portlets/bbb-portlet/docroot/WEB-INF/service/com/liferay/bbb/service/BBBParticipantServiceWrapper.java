@@ -60,13 +60,13 @@ public class BBBParticipantServiceWrapper implements BBBParticipantService,
 
 	@Override
 	public com.liferay.bbb.model.BBBParticipant addBBBParticipant(
-		long groupId, long meetingEntryId, java.lang.String name,
+		long groupId, long bbbMeetingId, java.lang.String name,
 		java.lang.String emailAddress, int type, int status,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _bbbParticipantService.addBBBParticipant(groupId,
-			meetingEntryId, name, emailAddress, type, status, serviceContext);
+		return _bbbParticipantService.addBBBParticipant(groupId, bbbMeetingId,
+			name, emailAddress, type, status, serviceContext);
 	}
 
 	@Override
@@ -79,28 +79,28 @@ public class BBBParticipantServiceWrapper implements BBBParticipantService,
 
 	@Override
 	public java.util.List<com.liferay.bbb.model.BBBParticipant> getBBBParticipants(
-		long meetingEntryId)
+		long bbbMeetingId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _bbbParticipantService.getBBBParticipants(meetingEntryId);
+		return _bbbParticipantService.getBBBParticipants(bbbMeetingId);
 	}
 
 	@Override
-	public int getBBBParticipantsCount(long meetingEntryId)
+	public int getBBBParticipantsCount(long bbbMeetingId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return _bbbParticipantService.getBBBParticipantsCount(meetingEntryId);
+		return _bbbParticipantService.getBBBParticipantsCount(bbbMeetingId);
 	}
 
 	@Override
 	public com.liferay.bbb.model.BBBParticipant updateBBBParticipant(
-		long bbbParticipantId, long meetingEntryId, java.lang.String name,
+		long bbbParticipantId, long bbbMeetingId, java.lang.String name,
 		java.lang.String emailAddress, int type,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _bbbParticipantService.updateBBBParticipant(bbbParticipantId,
-			meetingEntryId, name, emailAddress, type, serviceContext);
+			bbbMeetingId, name, emailAddress, type, serviceContext);
 	}
 
 	/**

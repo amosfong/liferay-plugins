@@ -64,13 +64,13 @@ public class BBBParticipantServiceUtil {
 	}
 
 	public static com.liferay.bbb.model.BBBParticipant addBBBParticipant(
-		long groupId, long meetingEntryId, java.lang.String name,
+		long groupId, long bbbMeetingId, java.lang.String name,
 		java.lang.String emailAddress, int type, int status,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .addBBBParticipant(groupId, meetingEntryId, name,
+				   .addBBBParticipant(groupId, bbbMeetingId, name,
 			emailAddress, type, status, serviceContext);
 	}
 
@@ -82,27 +82,27 @@ public class BBBParticipantServiceUtil {
 	}
 
 	public static java.util.List<com.liferay.bbb.model.BBBParticipant> getBBBParticipants(
-		long meetingEntryId)
+		long bbbMeetingId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().getBBBParticipants(meetingEntryId);
+		return getService().getBBBParticipants(bbbMeetingId);
 	}
 
-	public static int getBBBParticipantsCount(long meetingEntryId)
+	public static int getBBBParticipantsCount(long bbbMeetingId)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
-		return getService().getBBBParticipantsCount(meetingEntryId);
+		return getService().getBBBParticipantsCount(bbbMeetingId);
 	}
 
 	public static com.liferay.bbb.model.BBBParticipant updateBBBParticipant(
-		long bbbParticipantId, long meetingEntryId, java.lang.String name,
+		long bbbParticipantId, long bbbMeetingId, java.lang.String name,
 		java.lang.String emailAddress, int type,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .updateBBBParticipant(bbbParticipantId, meetingEntryId,
-			name, emailAddress, type, serviceContext);
+				   .updateBBBParticipant(bbbParticipantId, bbbMeetingId, name,
+			emailAddress, type, serviceContext);
 	}
 
 	public static void clearService() {

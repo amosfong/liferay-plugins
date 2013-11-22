@@ -64,14 +64,13 @@ public class BBBMeetingServiceUtil {
 	}
 
 	public static com.liferay.bbb.model.BBBMeeting addBBBMeeting(long groupId,
-		long meetingServerId, java.lang.String name,
-		java.lang.String description, java.lang.String attendeePassword,
-		java.lang.String moderatorPassword, int status,
-		com.liferay.portal.service.ServiceContext serviceContext)
+		long bbbServerId, java.lang.String name, java.lang.String description,
+		java.lang.String attendeePassword, java.lang.String moderatorPassword,
+		int status, com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .addBBBMeeting(groupId, meetingServerId, name, description,
+				   .addBBBMeeting(groupId, bbbServerId, name, description,
 			attendeePassword, moderatorPassword, status, serviceContext);
 	}
 
@@ -102,14 +101,14 @@ public class BBBMeetingServiceUtil {
 	}
 
 	public static com.liferay.bbb.model.BBBMeeting updateBBBMeeting(
-		long bbbMeetingId, long meetingServerId, java.lang.String name,
+		long bbbMeetingId, long bbbServerId, java.lang.String name,
 		java.lang.String description, java.lang.String attendeePassword,
 		java.lang.String moderatorPassword,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .updateBBBMeeting(bbbMeetingId, meetingServerId, name,
+				   .updateBBBMeeting(bbbMeetingId, bbbServerId, name,
 			description, attendeePassword, moderatorPassword, serviceContext);
 	}
 
