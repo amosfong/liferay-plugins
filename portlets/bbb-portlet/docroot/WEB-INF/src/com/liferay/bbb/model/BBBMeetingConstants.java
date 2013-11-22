@@ -21,7 +21,7 @@ import com.liferay.portal.kernel.util.StringPool;
  */
 public class BBBMeetingConstants {
 
-	public static final int DEFAULT_BBB_SERVER_ID = 0;
+	public static final int BBB_SERVER_ID_DEFAULT = 0;
 
 	public static final String LABEL_COMPLETE = "completed";
 

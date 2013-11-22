@@ -28,17 +28,17 @@ public class BBBConstants {
 
 	public static final String API_METHOD_JOIN = "join";
 
-	public static final String API_PARAM_ATTENDEE_PW = "attendeePW";
+	public static final String API_PARAMETER_ATTENDEE_PW = "attendeePW";
 
-	public static final String API_PARAM_FULL_NAME = "fullName";
+	public static final String API_PARAMETER_FULL_NAME = "fullName";
 
-	public static final String API_PARAM_MEETING_ID = "meetingID";
+	public static final String API_PARAMETER_MEETING_ID = "meetingID";
 
-	public static final String API_PARAM_MODERATOR_PW = "moderatorPW";
+	public static final String API_PARAMETER_MODERATOR_PW = "moderatorPW";
 
-	public static final String API_PARAM_NAME = "name";
+	public static final String API_PARAMETER_NAME = "name";
 
-	public static final String API_PARAM_PASSWORD = "password";
+	public static final String API_PARAMETER_PASSWORD = "password";
 
 	public static final String API_RESPONSE_FAILED = "FAILED";
 
