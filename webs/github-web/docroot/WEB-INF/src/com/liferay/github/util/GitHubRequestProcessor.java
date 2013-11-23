@@ -14,6 +14,8 @@
 
 package com.liferay.github.util;
 
+import java.util.Properties;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -50,12 +52,7 @@ public class GitHubRequestProcessor {
 
 		String repositoryName = repositoryJSONObject.getString("name");
 
-		try {
-			_callRedeploy(ownerName, repositoryName);
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
+		_callRedeploy(ownerName, repositoryName);
 	}
 
 	private static void _callRedeploy(String ownerName, String repositoryName)
@@ -88,11 +85,26 @@ public class GitHubRequestProcessor {
 	}
 
 	private static String[] _getHostnames(
-		String ownerName, String repositoryName) {
+			String ownerName, String repositoryName)
+		throws Exception {
+
+		if (_peekProperties == null) {
+			Properties peekProperties = new Properties();
+
+			peekProperties.load(
+				GitHubRequestProcessor.class.getResourceAsStream(
+					"peek.properties"));
+
+			System.out.println("## peek properties " + peekProperties.size());
+
+			_peekProperties = peekProperties;
+		}
 
 		return new String[] {"172.16.168.126"};
 	}
 
 	private static Log _log = LogFactory.getLog(GitHubRequestProcessor.class);
+
+	private static Properties _peekProperties;
 
 }
