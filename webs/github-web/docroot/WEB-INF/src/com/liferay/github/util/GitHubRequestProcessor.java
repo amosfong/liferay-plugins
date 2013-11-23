@@ -97,6 +97,11 @@ public class GitHubRequestProcessor {
 
 			System.out.println("## peek properties " + peekProperties.size());
 
+			String key = (String)peekProperties.keySet().iterator().next();
+
+			System.out.println("## key " + key);
+			System.out.println("## value " + peekProperties.get(key));
+
 			_peekProperties = peekProperties;
 		}
 
