@@ -33,9 +33,14 @@ public class GitHubRequestProcessor {
 		JSONObject repositoryJSONObject = payloadJSONObject.getJSONObject(
 			"repository");
 
-		String url = repositoryJSONObject.getString("url");
+		String repositoryName = repositoryJSONObject.getString("name");
 
-		System.out.println("URL: " + url);
+		JSONObject ownerJSONObject = repositoryJSONObject.getJSONObject(
+			"owner");
+
+		String ownerName = ownerJSONObject.getString("name");
+
+		System.out.println("Key: " + repositoryName + "/" + ownerName);
 
 		System.out.println("Payload: " + payload);
 	}
