@@ -65,7 +65,9 @@ public class GitHubRequestProcessor {
 				"http://" + hostname + ":1220/protected/redeploy.php");
 
 			try {
-				httpClient.executeMethod(httpMethod);
+				int responseCode = httpClient.executeMethod(httpMethod);
+
+				System.out.println("responseCode " + responseCode);
 			}
 			finally {
 				httpMethod.releaseConnection();
