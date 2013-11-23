@@ -95,7 +95,7 @@ public class GitHubRequestProcessor {
 	private static String[] _getHostnames(
 		String ownerName, String repositoryName) {
 
-		return new String[] {"lrdcom-vm-16"};
+		return new String[] {"172.16.168.126"};
 	}
 
 	private static Log _log = LogFactory.getLog(GitHubRequestProcessor.class);
