@@ -95,17 +95,27 @@ public class GitHubRequestProcessor {
 				GitHubRequestProcessor.class.getResourceAsStream(
 					"/peek.properties"));
 
-			System.out.println("## peek properties " + peekProperties.size());
-
-			String key = (String)peekProperties.keySet().iterator().next();
-
-			System.out.println("## key " + key);
-			System.out.println("## value " + peekProperties.get(key));
-
 			_peekProperties = peekProperties;
 		}
 
-		return new String[] {"172.16.168.126"};
+		String hostnames = _peekProperties.getProperty(
+			ownerName + "." + repositoryName);
+
+		if (hostnames == null) {
+			return new String[0];
+		}
+
+		String[] hostnamesArray = hostnames.split(",");
+
+		for (int i = 0; i < hostnamesArray.length; i++) {
+			String hostname = hostnamesArray[i];
+
+			if (hostname.equals("lrdcom-vm-16")) {
+				hostnamesArray[i] = "172.16.168.126";
+			}
+		}
+
+		return hostnamesArray;
 	}
 
 	private static Log _log = LogFactory.getLog(GitHubRequestProcessor.class);
