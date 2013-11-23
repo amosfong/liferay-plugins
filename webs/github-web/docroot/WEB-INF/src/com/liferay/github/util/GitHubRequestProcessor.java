@@ -93,7 +93,7 @@ public class GitHubRequestProcessor {
 
 			peekProperties.load(
 				GitHubRequestProcessor.class.getResourceAsStream(
-					"peek.properties"));
+					"/peek.properties"));
 
 			System.out.println("## peek properties " + peekProperties.size());
 
