@@ -56,13 +56,23 @@ public class GitHubRequestProcessor {
 	private static void _callRedeploy(String ownerName, String repositoryName)
 		throws Exception {
 
+		System.out.println("Step 1");
+
 		String[] hostnames = _getHostnames(ownerName, repositoryName);
 
+		System.out.println("Step 2");
+
 		for (String hostname : hostnames) {
+			System.out.println("Step 3 " + hostname);
+
 			HttpClient httpClient = new HttpClient();
+
+			System.out.println("Step 4 " + httpClient);
 
 			HttpMethod httpMethod = new GetMethod(
 				"http://" + hostname + ":1220/protected/redeploy.php");
+
+			System.out.println("Step 5 " + httpMethod);
 
 			try {
 				System.out.println("Preparing to invoke " + "http://" + hostname + ":1220/protected/redeploy.php");
