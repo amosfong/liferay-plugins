@@ -66,13 +66,12 @@ public class GitHubServlet extends HttpServlet {
 
 	protected boolean isValidIP(String remoteAddr) {
 		for (String validIp : _validIps) {
-			if (remoteAddr.equals(validIp)) {
+			if (remoteAddr.equals(validIp) || remoteAddr.startsWith(validIp)) {
 				return true;
 			}
 		}
 
-		//return false;
-		return true;
+		return false;
 	}
 
 	protected void sendError(HttpServletResponse response, String message)

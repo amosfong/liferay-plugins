@@ -7,7 +7,7 @@
 		<servlet-class>com.liferay.github.servlet.GitHubServlet</servlet-class>
 		<init-param>
 			<param-name>validIps</param-name>
-			<param-value>127.0.0.1</param-value>
+			<param-value>192.30.252,192.30.253,192.30.254,192.30.255</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
