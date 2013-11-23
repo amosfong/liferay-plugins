@@ -50,7 +50,12 @@ public class GitHubRequestProcessor {
 
 		String repositoryName = repositoryJSONObject.getString("name");
 
-		_callRedeploy(ownerName, repositoryName);
+		try {
+			_callRedeploy(ownerName, repositoryName);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	private static void _callRedeploy(String ownerName, String repositoryName)
