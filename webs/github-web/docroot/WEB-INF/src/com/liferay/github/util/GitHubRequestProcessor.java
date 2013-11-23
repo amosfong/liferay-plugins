@@ -16,6 +16,12 @@ package com.liferay.github.util;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import org.json.JSONObject;
 
 /**
@@ -28,21 +34,51 @@ public class GitHubRequestProcessor {
 
 		String payload = request.getParameter("payload");
 
+		if (_log.isDebugEnabled()) {
+			_log.debug("Payload: " + payload);
+		}
+
 		JSONObject payloadJSONObject = new JSONObject(payload);
 
 		JSONObject repositoryJSONObject = payloadJSONObject.getJSONObject(
 			"repository");
-
-		String repositoryName = repositoryJSONObject.getString("name");
 
 		JSONObject ownerJSONObject = repositoryJSONObject.getJSONObject(
 			"owner");
 
 		String ownerName = ownerJSONObject.getString("name");
 
-		System.out.println("Key: " + repositoryName + "/" + ownerName);
+		String repositoryName = repositoryJSONObject.getString("name");
 
-		System.out.println("Payload: " + payload);
+		_callRedeploy(ownerName, repositoryName);
 	}
+
+	private static void _callRedeploy(String ownerName, String repositoryName)
+		throws Exception {
+
+		String[] hostnames = _getHostnames(ownerName, repositoryName);
+
+		for (String hostname : hostnames) {
+			HttpClient httpClient = new HttpClient();
+
+			HttpMethod httpMethod = new GetMethod(
+				"http://" + hostname + ":1220/protected/redeploy.php");
+
+			try {
+				httpClient.executeMethod(httpMethod);
+			}
+			finally {
+				httpMethod.releaseConnection();
+			}
+		}
+	}
+
+	private static String[] _getHostnames(
+		String ownerName, String repositoryName) {
+
+		return new String[] {"lrdcom-vm-16"};
+	}
+
+	private static Log _log = LogFactory.getLog(GitHubRequestProcessor.class);
 
 }
