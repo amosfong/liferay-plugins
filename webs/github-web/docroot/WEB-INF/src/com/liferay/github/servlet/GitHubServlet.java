@@ -66,7 +66,9 @@ public class GitHubServlet extends HttpServlet {
 
 	protected boolean isValidIP(String remoteAddr) {
 		for (String validIp : _validIps) {
-			if (remoteAddr.equals(validIp) || remoteAddr.startsWith(validIp)) {
+			if (remoteAddr.equals(validIp) ||
+				remoteAddr.startsWith(validIp + ".")) {
+
 				return true;
 			}
 		}
