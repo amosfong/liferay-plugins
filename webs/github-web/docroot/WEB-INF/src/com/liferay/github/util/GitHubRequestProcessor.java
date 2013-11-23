@@ -77,7 +77,9 @@ public class GitHubRequestProcessor {
 			try {
 				int responseCode = httpClient.executeMethod(httpMethod);
 
-				System.out.println("Resonse code " + responseCode);
+				if (_log.isInfoEnabled()) {
+					_log.info("Response code " + responseCode);
+				}
 			}
 			finally {
 				httpMethod.releaseConnection();
