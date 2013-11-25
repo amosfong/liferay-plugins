@@ -31,10 +31,15 @@ import com.liferay.portal.kernel.workflow.WorkflowException;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.User;
+import com.liferay.portal.security.permission.ActionKeys;
+import com.liferay.portal.security.permission.PermissionChecker;
+import com.liferay.portal.security.permission.PermissionThreadLocal;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.service.permission.RolePermissionUtil;
+import com.liferay.portal.service.permission.UserPermissionUtil;
 import com.liferay.portal.theme.ThemeDisplay;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.workflow.kaleo.designer.DuplicateKaleoDraftDefinitionNameException;
@@ -48,7 +53,7 @@ import com.liferay.portal.workflow.kaleo.designer.util.WebKeys;
 import com.liferay.portlet.dynamicdatamapping.model.DDMStructure;
 import com.liferay.portlet.dynamicdatamapping.model.DDMTemplate;
 import com.liferay.portlet.dynamicdatamapping.model.DDMTemplateConstants;
-import com.liferay.portlet.dynamicdatamapping.service.DDMTemplateLocalServiceUtil;
+import com.liferay.portlet.dynamicdatamapping.service.DDMTemplateServiceUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
 import java.io.IOException;
@@ -328,7 +333,7 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 			resourceRequest, "ddmStructureId");
 		String keywords = ParamUtil.getString(resourceRequest, "keywords");
 
-		List<DDMTemplate> ddmTemplates = DDMTemplateLocalServiceUtil.search(
+		List<DDMTemplate> ddmTemplates = DDMTemplateServiceUtil.search(
 			themeDisplay.getCompanyId(), themeDisplay.getScopeGroupId(),
 			PortalUtil.getClassNameId(DDMStructure.class), ddmStructureId,
 			keywords, DDMTemplateConstants.TEMPLATE_TYPE_FORM, null, 0,
@@ -374,9 +379,18 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 			themeDisplay.getCompanyId(), keywords, getRoleTypesObj(type), 0,
 			SearchContainer.DEFAULT_DELTA, (OrderByComparator)null);
 
+		PermissionChecker permissionChecker =
+			PermissionThreadLocal.getPermissionChecker();
+
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
 		for (Role role : roles) {
+			if (!RolePermissionUtil.contains(
+					permissionChecker, role.getRoleId(), ActionKeys.VIEW)) {
+
+				continue;
+			}
+
 			JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
 			jsonObject.put("name", role.getName());
@@ -403,9 +417,18 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 			new LinkedHashMap<String, Object>(), 0,
 			SearchContainer.DEFAULT_DELTA, (OrderByComparator)null);
 
+		PermissionChecker permissionChecker =
+			PermissionThreadLocal.getPermissionChecker();
+
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
 		for (User user : users) {
+			if (!UserPermissionUtil.contains(
+					permissionChecker, user.getUserId(), ActionKeys.VIEW)) {
+
+				continue;
+			}
+
 			JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
 			jsonObject.put("emailAddress", user.getEmailAddress());
