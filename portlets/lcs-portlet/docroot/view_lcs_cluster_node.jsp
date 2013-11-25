@@ -112,26 +112,26 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 	}
 	%>
 
-	<div class="lcs-button-container">
-		<a class="lcs-portal-link" href="<%= lcsPortalURL %>"><liferay-ui:message key="cloud-dashboard" /></a>
-	</div>
+	<aui:button-row>
+		<a class="btn btn-primary" href="<%= lcsPortalURL %>"><liferay-ui:message key="cloud-dashboard" /></a>
+	</aui:button-row>
 </div>
 
 <div id="lcs-connection-status">
 	<h4><liferay-ui:message key="connection-status" /></h4>
 
-	<div class="<%= ready ? StringPool.BLANK : "hide" %> lcs-msg" id="lcs-msg-registered">
+	<div class="<%= ready ? StringPool.BLANK : "hide" %> alert-success lcs-msg" id="lcs-msg-registered">
 		<liferay-ui:message key="this-liferay-instance-is-registered-and-synchronized-with-liferay-cloud-services" />
 
 		<span class="lcs-msg-icon"></span>
 	</div>
 
-	<div class="<%= (!ready && !pending) ? StringPool.BLANK : "hide" %> lcs-msg" id="lcs-msg-disconnected">
+	<div class="<%= (!ready && !pending) ? StringPool.BLANK : "hide" %> alert-error lcs-msg" id="lcs-msg-disconnected">
 		<liferay-ui:message key="this-liferay-instance-is-registered-but-not-connected-and-not-synchronized-with-liferay-cloud-services" />
 		<span class="lcs-msg-icon"></span>
 	</div>
 
-	<div class="<%= (!ready && pending) ? StringPool.BLANK : "hide" %> lcs-msg" id="lcs-msg-pending">
+	<div class="<%= (!ready && pending) ? StringPool.BLANK : "hide" %> alert-info  lcs-msg" id="lcs-msg-pending">
 		<liferay-ui:message key="this-liferay-instance-is-synchronizing-with-liferay-cloud-services" />
 		<span class="lcs-msg-icon"></span>
 	</div>
@@ -195,7 +195,7 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 			</c:if>
 		</dl>
 
-		<div class="lcs-button-container">
+		<aui:button-row>
 			<c:if test="<%= !pending && !HandshakeManagerUtil.isReady() %>">
 				<liferay-portlet:actionURL name="start" var="startURL">
 					<portlet:param name="redirect" value="<%= currentURL %>" />
@@ -215,7 +215,7 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 				<portlet:param name="redirect" value="<%= currentURL %>" />
 			</liferay-portlet:actionURL>
 
-			<aui:button href="<%= resetCredentialsURL %>" type="submit" value="reset-credentials" />
-		</div>
+			<aui:button cssClass="btn-reset-credentials" href="<%= resetCredentialsURL %>" type="submit" value="reset-credentials" />
+		</aui:button-row>
 	</c:if>
 </div>

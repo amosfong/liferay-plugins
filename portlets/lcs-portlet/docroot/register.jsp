@@ -18,9 +18,9 @@
 
 <h3><liferay-ui:message arguments="2" key="registration-step-x-2" /></h3>
 
-<p>
+<span class="lcs-registration-info alert alert-info">
 	<liferay-ui:message key="please-add-information-about-your-server" />
-</p>
+</span>
 
 <portlet:renderURL var="viewLCSClusterNodeURL">
 	<portlet:param name="mvcPath" value="/view.jsp" />
@@ -68,11 +68,11 @@
 	<aui:field-wrapper cssClass="environment-section" label="environment">
 		<aui:input checked="<%= true %>" id="lcsDefaultCluster" inlineLabel="right" label="use-default-environment" name="environment" type="radio" value="0" />
 
-		<span class="helper-message"><liferay-ui:message key="you-will-be-able-to-edit-it-on-your-cloud-dashboard" /></span>
+		<span class="lcs-helper-message"><liferay-ui:message key="you-will-be-able-to-edit-it-on-your-cloud-dashboard" /></span>
 
 		<aui:input id="lcsClusterEntry" inlineLabel="right" label='<%= lcsClusterEntries.isEmpty() ? "there-are-no-environments-created-yet" : "choose-an-environment" %>' name="environment" type="radio" value='<%= lcsClusterEntries.isEmpty() ? "1" : "2" %>' />
 
-		<span class="environment-input-wrapper" id="<portlet:namespace />environmentInputWrapper">
+		<span class="lcs-environment-input-wrapper" id="<portlet:namespace />environmentInputWrapper">
 			<c:choose>
 				<c:when test="<%= lcsClusterEntries.size() == 1 %>">
 
@@ -109,7 +109,7 @@
 			</c:choose>
 		</span>
 
-		<span class="helper-message disabled" id="<portlet:namespace />addEntryLink">
+		<span class="lcs-helper-message disabled" id="<portlet:namespace />addEntryLink">
 			<liferay-ui:message arguments="javascript:" key="do-you-want-to-add-a-new-environment" />
 		</span>
 	</aui:field-wrapper>
@@ -120,15 +120,9 @@
 		<%= KeyGeneratorUtil.getKey() %>
 	</aui:field-wrapper>
 
-	<aui:layout>
-		<aui:column columnWidth="50" first="<%= true %>">
-			<aui:input name="description" />
-		</aui:column>
+	<aui:input name="location" />
 
-		<aui:column columnWidth="50" last="<%= true %>">
-			<aui:input name="location" />
-		</aui:column>
-	</aui:layout>
+	<aui:input name="description" />
 
 	<aui:input checked="<%= true %>" disabled="<%= !ClusterExecutorUtil.isEnabled() %>" id="registerAllClusterNodes" label="register-all-nodes-of-this-cluster" name="registerAllClusterNodes" type="checkbox" />
 

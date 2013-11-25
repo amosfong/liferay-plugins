@@ -10,15 +10,6 @@
 		visibility: hidden;
 	}
 
-	.button-input, .lcs-portal-link {
-		background: #009D0F;
-		border: 3px solid #2D2D2D;
-		color: #FFF;
-		font-size: 14px;
-		font-weight: bold;
-		padding: 5px 15px;
-	}
-
 	dl {
 		color: #696969;
 		margin: 0;
@@ -30,6 +21,16 @@
 		dd {
 			margin: 0 0 2px 10px;
 		}
+	}
+
+	.aui-field-select {
+		min-width: 200px;
+		width: auto;
+	}
+
+	.btn-reset-credentials {
+		background-color: #E50000;
+		background-image: linear-gradient(to bottom, #FF0000, #E50000);
 	}
 
 	.environment-section {
@@ -48,40 +49,39 @@
 		}
 	}
 
-	.helper-message {
-		font-size: 0.74em;
-		margin-left: 22px;
-	}
-
-	.lcs-cluster-entry-dialog {
-		background-color: #FFF;
-		padding: 0;
-	}
-
-	.lcs-button-container {
-		padding: 2px 0;
+	.lcs-helper-message {
+		display: inline-block;
+		font-size: 11px;
+		margin: 0 0 10px 22px;
 	}
 
 	#lcs-connection-status {
 		background-color: #FFF;
 		float: left;
-		padding: 10px;
+		max-width: 300px;
 		position: relative;
-		width: 230px;
 
 		& > h4 {
 			line-height: 61px;
+			margin-bottom: 0;
 			padding-left: 10px;
 		}
 
-		.lcs-msg-icon {
-			background: url(../images/connection_red.png) no-repeat right center;
-			display: block;
-			height: 61px;
-			left: 150px;
-			position: absolute;
-			top: 0;
-			width: 64px;
+		.lcs-msg {
+			border-style: solid;
+			border-width: 1px;
+			margin-bottom: 16px;
+			padding: 10px;
+
+			.lcs-msg-icon {
+				background: url(../images/connection_red.png) no-repeat right center;
+				display: block;
+				height: 61px;
+				right: 20px;
+				position: absolute;
+				top: 0;
+				width: 64px;
+			}
 		}
 
 		#lcs-msg-disconnected .lcs-msg-icon {
@@ -107,38 +107,27 @@
 		text-decoration: none;
 	}
 
-	.lcs-separator {
-		border: 2px solid #2D2D2D;
-		margin-bottom: 17px;
-	}
-
 	#lcs-server-info {
 		float: left;
 		margin: 0 50px 20px 0;
+	}
 
-		dl {
-			margin-bottom: 20px;
+	.lcs-registration-info {
+		display: inline-block;
+		margin-top: 0;
+	}
+
+	.lcs-environment-input-wrapper {
+		display: block;
+
+		.control-group {
+			margin-bottom: 0;
 		}
 	}
 }
 
 /* ---------- Extras ---------- */
 
-#lcs-main-container {
-	.button-input {
-		@include border-radius(0);
-	}
-
-	.button-input, .lcs-portal-link {
-		@include box-shadow(2px 2px 2px #808080);
-		@include text-shadow(none);
-	}
-
-	.helper-message.disabled {
-		@include opacity(0.5);
-	}
-
-	.lcs-separator {
-		@include border-radius(2px);
-	}
+.lcs-helper-message.disabled {
+	@include opacity(0.5);
 }

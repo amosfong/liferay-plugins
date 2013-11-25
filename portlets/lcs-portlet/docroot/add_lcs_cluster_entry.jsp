@@ -39,15 +39,9 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 
 	<aui:input name="name" />
 
-	<aui:layout>
-		<aui:column columnWidth="50" first="<%= true %>">
-			<aui:input name="description" />
-		</aui:column>
+	<aui:input name="location" />
 
-		<aui:column columnWidth="50" last="<%= true %>">
-			<aui:input name="location" />
-		</aui:column>
-	</aui:layout>
+	<aui:input name="description" />
 
 	<aui:button-row>
 		<aui:button disabled="<%= true %>" name="create" type="submit" value="create" />

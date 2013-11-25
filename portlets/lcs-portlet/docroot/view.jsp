@@ -19,8 +19,6 @@
 <liferay-ui:error key="authenticationFailed" message="authentication-failed" />
 
 <div id="lcs-main-container">
-	<div class="lcs-separator"></div>
-
 	<%
 	boolean forceLoginView = ParamUtil.getBoolean(request, "forceLoginView");
 	%>
