@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.ServerDetector;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import java.lang.management.ManagementFactory;
@@ -139,8 +140,8 @@ public class ServerMetricsTask implements Runnable {
 			String liferayPoolProvider = properties.getProperty(
 				"liferay.pool.provider");
 
-			if (liferayPoolProvider.equalsIgnoreCase("c3p0") ||
-				liferayPoolProvider.equalsIgnoreCase("c3po")) {
+			if (StringUtil.equalsIgnoreCase(liferayPoolProvider, "c3p0") ||
+				StringUtil.equalsIgnoreCase(liferayPoolProvider, "c3po")) {
 
 				Set<ObjectName> objectNames = mBeanServer.queryNames(
 					new ObjectName(
@@ -166,7 +167,7 @@ public class ServerMetricsTask implements Runnable {
 					jdbcConnectionPoolsMetrics.put(dataSourceName, values);
 				}
 			}
-			else if (liferayPoolProvider.equalsIgnoreCase("dbcp")) {
+			else if (StringUtil.equalsIgnoreCase(liferayPoolProvider, "dbcp")) {
 				jdbcConnectionPoolsMetrics = Collections.emptyMap();
 			}
 			else {
