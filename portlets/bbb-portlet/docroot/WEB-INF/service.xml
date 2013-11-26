@@ -48,7 +48,7 @@
 		<finder name="Status" return-type="Collection">
 			<finder-column name="status" />
 		</finder>
-		<finder name="B_S" return-type="Collection">
+		<finder name="BSI_S" return-type="Collection">
 			<finder-column name="bbbServerId" />
 			<finder-column name="status" />
 		</finder>

@@ -136,7 +136,7 @@ public class BBBMeetingLocalServiceImpl extends BBBMeetingLocalServiceBaseImpl {
 	public int getBBBMeetingsCount(long bbbServerId, int status)
 		throws SystemException {
 
-		return bbbMeetingPersistence.countByB_S(bbbServerId, status);
+		return bbbMeetingPersistence.countByBSI_S(bbbServerId, status);
 	}
 
 	@Override
