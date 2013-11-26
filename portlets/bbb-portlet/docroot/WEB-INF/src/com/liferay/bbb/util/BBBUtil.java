@@ -28,9 +28,9 @@ import com.liferay.portal.kernel.util.Digester;
 import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
+import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.DocumentException;
 import com.liferay.portal.kernel.xml.Element;
@@ -38,9 +38,6 @@ import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.portal.service.ServiceContext;
 
 import java.io.IOException;
-
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import java.util.List;
 import java.util.Map;
@@ -87,9 +84,6 @@ public class BBBUtil {
 				BBBParticipantConstants.STATUS_INVITED, new ServiceContext());
 		}
 
-		BBBMeeting bbbMeeting = BBBMeetingLocalServiceUtil.getBBBMeeting(
-			bbbParticipant.getBbbMeetingId());
-
 		StringBundler sb = new StringBundler(11);
 
 		sb.append(BBBConstants.API_PARAMETER_FULL_NAME);
@@ -98,7 +92,12 @@ public class BBBUtil {
 		sb.append(StringPool.AMPERSAND);
 		sb.append(BBBConstants.API_PARAMETER_MEETING_ID);
 		sb.append(StringPool.EQUAL);
+
+		BBBMeeting bbbMeeting = BBBMeetingLocalServiceUtil.getBBBMeeting(
+			bbbParticipant.getBbbMeetingId());
+
 		sb.append(bbbMeeting.getBbbMeetingId());
+
 		sb.append(StringPool.AMPERSAND);
 		sb.append(BBBConstants.API_PARAMETER_PASSWORD);
 		sb.append(StringPool.EQUAL);
@@ -132,11 +131,8 @@ public class BBBUtil {
 
 			Element element = document.getRootElement();
 
-			String running = getText(
-				element, BBBConstants.API_RESPONSE_RUNNING);
-
-			if (Validator.isNotNull(running) &&
-				GetterUtil.getBoolean(running)) {
+			if (GetterUtil.getBoolean(
+					getText(element, BBBConstants.API_RESPONSE_RUNNING))) {
 
 				return true;
 			}
@@ -150,16 +146,18 @@ public class BBBUtil {
 	public static BBBMeeting startMeeting(long bbbMeetingId)
 		throws PortalException, SystemException {
 
-		BBBMeeting bbbMeeting = BBBMeetingLocalServiceUtil.getBBBMeeting(
-			bbbMeetingId);
-
-		bbbMeeting.setBbbServerId(getBBBServerId(bbbMeeting.getGroupId()));
-
 		StringBundler sb = new StringBundler(7);
 
 		sb.append(BBBConstants.API_PARAMETER_MEETING_ID);
 		sb.append(StringPool.EQUAL);
+
+		BBBMeeting bbbMeeting = BBBMeetingLocalServiceUtil.getBBBMeeting(
+			bbbMeetingId);
+
+		bbbMeeting.setBbbServerId(getBbbServerId(bbbMeeting.getGroupId()));
+
 		sb.append(bbbMeeting.getBbbMeetingId());
+
 		sb.append(StringPool.AMPERSAND);
 		sb.append(BBBConstants.API_PARAMETER_NAME);
 		sb.append(StringPool.EQUAL);
@@ -174,7 +172,7 @@ public class BBBUtil {
 			element, BBBConstants.API_RESPONSE_RETURN_CODE);
 
 		if (returnCode.equals(BBBConstants.API_RESPONSE_FAILED)) {
-			throw new PortalException();
+			throw new SystemException();
 		}
 
 		bbbMeeting.setAttendeePassword(
@@ -189,34 +187,25 @@ public class BBBUtil {
 	}
 
 	protected static Document execute(
-			BBBMeeting bbbMeeting, String methodName, String parameters)
+			BBBMeeting bbbMeeting, String methodName, String queryString)
 		throws PortalException, SystemException {
 
-		Document document = null;
-
-		String url = getURL(bbbMeeting, methodName, parameters);
-
 		try {
-			URL urlObj = new URL(url);
+			String url = getURL(bbbMeeting, methodName, queryString);
 
-			HttpURLConnection urlConnection =
-				(HttpURLConnection)urlObj.openConnection();
+			String xml = HttpUtil.URLtoString(url);
 
-			urlConnection.setConnectTimeout(30000);
-
-			document = SAXReaderUtil.read(urlConnection.getInputStream());
+			return SAXReaderUtil.read(xml);
 		}
 		catch (DocumentException de) {
-			throw new PortalException(de);
+			throw new SystemException(de);
 		}
 		catch (IOException ioe) {
-			throw new PortalException(ioe);
+			throw new SystemException(ioe);
 		}
-
-		return document;
 	}
 
-	protected static long getBBBServerId(long groupId) throws SystemException {
+	protected static long getBbbServerId(long groupId) throws SystemException {
 		TreeMap<Integer, Long> bbbServersMap = new TreeMap<Integer, Long>();
 
 		List<BBBServer> bbbServers = BBBServerLocalServiceUtil.getBBBServers(
@@ -250,24 +239,24 @@ public class BBBUtil {
 	}
 
 	protected static String getURL(
-			BBBMeeting bbbMeeting, String methodName, String parameters)
+			BBBMeeting bbbMeeting, String methodName, String queryString)
 		throws PortalException, SystemException {
+
+		StringBundler sb = new StringBundler(6);
 
 		BBBServer bbbServer = BBBServerLocalServiceUtil.getBBBServer(
 			bbbMeeting.getBbbServerId());
 
-		String checksum =
-			DigesterUtil.digestHex(
-				Digester.SHA_1,
-				methodName.concat(parameters).concat(bbbServer.getSecret()));
-
-		StringBundler sb = new StringBundler(6);
-
 		sb.append(bbbServer.getUrl());
+
 		sb.append(methodName);
 		sb.append(StringPool.QUESTION);
-		sb.append(parameters);
+		sb.append(queryString);
 		sb.append("&checksum=");
+
+		String checksum = DigesterUtil.digestHex(
+			Digester.SHA_1, methodName + queryString + bbbServer.getSecret());
+
 		sb.append(checksum);
 
 		return sb.toString();
