@@ -15,7 +15,6 @@
 package com.liferay.lcs.portlet;
 
 import com.liferay.compat.portal.util.PortalUtil;
-import com.liferay.compat.util.bridges.mvc.MVCPortlet;
 import com.liferay.lcs.util.HandshakeManagerUtil;
 import com.liferay.lcs.util.LCSClusterNodeUtil;
 import com.liferay.lcs.util.LCSConstants;
@@ -40,6 +39,7 @@ import com.liferay.portal.model.PortletPreferences;
 import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
 import com.liferay.portal.util.PortletKeys;
 import com.liferay.portlet.PortletPreferencesFactoryUtil;
+import com.liferay.util.bridges.mvc.MVCPortlet;
 
 import java.io.IOException;
 

@@ -14,7 +14,6 @@
 
 package com.liferay.lcs.util;
 
-import com.liferay.compat.portal.kernel.util.StringUtil;
 import com.liferay.osb.lcs.service.LCSClusterNodeServiceUtil;
 import com.liferay.portal.kernel.cluster.ClusterExecutorUtil;
 import com.liferay.portal.kernel.cluster.ClusterNode;
@@ -30,6 +29,7 @@ import com.liferay.portal.kernel.util.MethodHandler;
 import com.liferay.portal.kernel.util.MethodKey;
 import com.liferay.portal.kernel.util.ReleaseInfo;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.license.util.LicenseManagerUtil;
 
 import java.util.ArrayList;
