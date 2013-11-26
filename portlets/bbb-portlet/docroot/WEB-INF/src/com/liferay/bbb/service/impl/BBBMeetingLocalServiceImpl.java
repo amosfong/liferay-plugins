@@ -133,6 +133,13 @@ public class BBBMeetingLocalServiceImpl extends BBBMeetingLocalServiceBaseImpl {
 	}
 
 	@Override
+	public int getBBBMeetingsCount(long bbbServerId, int status)
+		throws SystemException {
+
+		return bbbMeetingPersistence.countByB_S(bbbServerId, status);
+	}
+
+	@Override
 	public BBBMeeting updateBBBMeeting(
 			long bbbMeetingId, long bbbServerId, String name,
 			String description, String attendeePassword,

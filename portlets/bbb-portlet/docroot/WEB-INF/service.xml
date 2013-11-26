@@ -48,6 +48,10 @@
 		<finder name="Status" return-type="Collection">
 			<finder-column name="status" />
 		</finder>
+		<finder name="B_S" return-type="Collection">
+			<finder-column name="bbbServerId" />
+			<finder-column name="status" />
+		</finder>
 	</entity>
 	<entity name="BBBParticipant" local-service="true" remote-service="true">
 
@@ -104,6 +108,7 @@
 		<column name="name" type="String" />
 		<column name="url" type="String" />
 		<column name="secret" type="String" />
+		<column name="active" type="boolean" />
 
 		<!-- Order -->
 
@@ -115,6 +120,10 @@
 
 		<finder name="GroupId" return-type="Collection">
 			<finder-column name="groupId" />
+		</finder>
+		<finder name="G_A" return-type="Collection">
+			<finder-column name="groupId" />
+			<finder-column name="active" />
 		</finder>
 	</entity>
 </service-builder>
