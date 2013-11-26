@@ -151,7 +151,7 @@ public class KeyGeneratorImpl implements KeyGenerator {
 				"com.liferay.portal.license.util.LicenseUtil");
 
 			MethodKey getServerIdBytesMethodKey = new MethodKey(
-				licenseUtilClass.getName(), "getServerIdBytes");
+				licenseUtilClass, "getServerIdBytes");
 
 			byte[] serverIdBytes = (byte[])PortalClassInvoker.invoke(
 				true, getServerIdBytesMethodKey);
