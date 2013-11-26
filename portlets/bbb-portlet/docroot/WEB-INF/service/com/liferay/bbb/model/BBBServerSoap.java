@@ -41,6 +41,7 @@ public class BBBServerSoap implements Serializable {
 		soapModel.setName(model.getName());
 		soapModel.setUrl(model.getUrl());
 		soapModel.setSecret(model.getSecret());
+		soapModel.setActive(model.getActive());
 
 		return soapModel;
 	}
@@ -173,6 +174,18 @@ public class BBBServerSoap implements Serializable {
 		_secret = secret;
 	}
 
+	public boolean getActive() {
+		return _active;
+	}
+
+	public boolean isActive() {
+		return _active;
+	}
+
+	public void setActive(boolean active) {
+		_active = active;
+	}
+
 	private long _bbbServerId;
 	private long _groupId;
 	private long _companyId;
@@ -183,4 +196,5 @@ public class BBBServerSoap implements Serializable {
 	private String _name;
 	private String _url;
 	private String _secret;
+	private boolean _active;
 }

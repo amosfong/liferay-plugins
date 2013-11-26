@@ -307,6 +307,11 @@ public class BBBMeetingLocalServiceUtil {
 		return getService().getBBBMeetingsCount(groupId);
 	}
 
+	public static int getBBBMeetingsCount(long bbbServerId, int status)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getBBBMeetingsCount(bbbServerId, status);
+	}
+
 	public static com.liferay.bbb.model.BBBMeeting updateBBBMeeting(
 		long bbbMeetingId, long bbbServerId, java.lang.String name,
 		java.lang.String description, java.lang.String attendeePassword,

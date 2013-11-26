@@ -74,6 +74,9 @@
 			<basic name="name" />
 			<basic name="url" />
 			<basic name="secret" />
+			<basic name="active">
+				<column name="ACTIVE_" />
+			</basic>
 			<transient name="modelAttributes" />
 			<transient name="primaryKey" />
 			<transient name="primaryKeyObj" />

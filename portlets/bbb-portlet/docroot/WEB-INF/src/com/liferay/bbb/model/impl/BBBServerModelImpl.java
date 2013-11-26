@@ -75,9 +75,10 @@ public class BBBServerModelImpl extends BaseModelImpl<BBBServer>
 			{ "modifiedDate", Types.TIMESTAMP },
 			{ "name", Types.VARCHAR },
 			{ "url", Types.VARCHAR },
-			{ "secret", Types.VARCHAR }
+			{ "secret", Types.VARCHAR },
+			{ "active_", Types.BOOLEAN }
 		};
-	public static final String TABLE_SQL_CREATE = "create table BBBServer (bbbServerId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,url VARCHAR(75) null,secret VARCHAR(75) null)";
+	public static final String TABLE_SQL_CREATE = "create table BBBServer (bbbServerId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,url VARCHAR(75) null,secret VARCHAR(75) null,active_ BOOLEAN)";
 	public static final String TABLE_SQL_DROP = "drop table BBBServer";
 	public static final String ORDER_BY_JPQL = " ORDER BY bbbServer.name ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY BBBServer.name ASC";
@@ -93,8 +94,9 @@ public class BBBServerModelImpl extends BaseModelImpl<BBBServer>
 	public static final boolean COLUMN_BITMASK_ENABLED = GetterUtil.getBoolean(com.liferay.util.service.ServiceProps.get(
 				"value.object.column.bitmask.enabled.com.liferay.bbb.model.BBBServer"),
 			true);
-	public static long GROUPID_COLUMN_BITMASK = 1L;
-	public static long NAME_COLUMN_BITMASK = 2L;
+	public static long ACTIVE_COLUMN_BITMASK = 1L;
+	public static long GROUPID_COLUMN_BITMASK = 2L;
+	public static long NAME_COLUMN_BITMASK = 4L;
 
 	/**
 	 * Converts the soap model instance into a normal model instance.
@@ -119,6 +121,7 @@ public class BBBServerModelImpl extends BaseModelImpl<BBBServer>
 		model.setName(soapModel.getName());
 		model.setUrl(soapModel.getUrl());
 		model.setSecret(soapModel.getSecret());
+		model.setActive(soapModel.getActive());
 
 		return model;
 	}
@@ -193,6 +196,7 @@ public class BBBServerModelImpl extends BaseModelImpl<BBBServer>
 		attributes.put("name", getName());
 		attributes.put("url", getUrl());
 		attributes.put("secret", getSecret());
+		attributes.put("active", getActive());
 
 		return attributes;
 	}
@@ -257,6 +261,12 @@ public class BBBServerModelImpl extends BaseModelImpl<BBBServer>
 
 		if (secret != null) {
 			setSecret(secret);
+		}
+
+		Boolean active = (Boolean)attributes.get("active");
+
+		if (active != null) {
+			setActive(active);
 		}
 	}
 
@@ -414,6 +424,34 @@ public class BBBServerModelImpl extends BaseModelImpl<BBBServer>
 		_secret = secret;
 	}
 
+	@JSON
+	@Override
+	public boolean getActive() {
+		return _active;
+	}
+
+	@Override
+	public boolean isActive() {
+		return _active;
+	}
+
+	@Override
+	public void setActive(boolean active) {
+		_columnBitmask |= ACTIVE_COLUMN_BITMASK;
+
+		if (!_setOriginalActive) {
+			_setOriginalActive = true;
+
+			_originalActive = _active;
+		}
+
+		_active = active;
+	}
+
+	public boolean getOriginalActive() {
+		return _originalActive;
+	}
+
 	public long getColumnBitmask() {
 		return _columnBitmask;
 	}
@@ -455,6 +493,7 @@ public class BBBServerModelImpl extends BaseModelImpl<BBBServer>
 		bbbServerImpl.setName(getName());
 		bbbServerImpl.setUrl(getUrl());
 		bbbServerImpl.setSecret(getSecret());
+		bbbServerImpl.setActive(getActive());
 
 		bbbServerImpl.resetOriginalValues();
 
@@ -508,6 +547,10 @@ public class BBBServerModelImpl extends BaseModelImpl<BBBServer>
 		bbbServerModelImpl._originalGroupId = bbbServerModelImpl._groupId;
 
 		bbbServerModelImpl._setOriginalGroupId = false;
+
+		bbbServerModelImpl._originalActive = bbbServerModelImpl._active;
+
+		bbbServerModelImpl._setOriginalActive = false;
 
 		bbbServerModelImpl._columnBitmask = 0;
 	}
@@ -574,12 +617,14 @@ public class BBBServerModelImpl extends BaseModelImpl<BBBServer>
 			bbbServerCacheModel.secret = null;
 		}
 
+		bbbServerCacheModel.active = getActive();
+
 		return bbbServerCacheModel;
 	}
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{bbbServerId=");
 		sb.append(getBbbServerId());
@@ -601,6 +646,8 @@ public class BBBServerModelImpl extends BaseModelImpl<BBBServer>
 		sb.append(getUrl());
 		sb.append(", secret=");
 		sb.append(getSecret());
+		sb.append(", active=");
+		sb.append(getActive());
 		sb.append("}");
 
 		return sb.toString();
@@ -608,7 +655,7 @@ public class BBBServerModelImpl extends BaseModelImpl<BBBServer>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(34);
+		StringBundler sb = new StringBundler(37);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.bbb.model.BBBServer");
@@ -654,6 +701,10 @@ public class BBBServerModelImpl extends BaseModelImpl<BBBServer>
 			"<column><column-name>secret</column-name><column-value><![CDATA[");
 		sb.append(getSecret());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>active</column-name><column-value><![CDATA[");
+		sb.append(getActive());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -677,6 +728,9 @@ public class BBBServerModelImpl extends BaseModelImpl<BBBServer>
 	private String _name;
 	private String _url;
 	private String _secret;
+	private boolean _active;
+	private boolean _originalActive;
+	private boolean _setOriginalActive;
 	private long _columnBitmask;
 	private BBBServer _escapedModel;
 }

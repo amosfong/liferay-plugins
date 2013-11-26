@@ -59,6 +59,7 @@ public class BBBServerWrapper implements BBBServer, ModelWrapper<BBBServer> {
 		attributes.put("name", getName());
 		attributes.put("url", getUrl());
 		attributes.put("secret", getSecret());
+		attributes.put("active", getActive());
 
 		return attributes;
 	}
@@ -123,6 +124,12 @@ public class BBBServerWrapper implements BBBServer, ModelWrapper<BBBServer> {
 
 		if (secret != null) {
 			setSecret(secret);
+		}
+
+		Boolean active = (Boolean)attributes.get("active");
+
+		if (active != null) {
+			setActive(active);
 		}
 	}
 
@@ -366,6 +373,36 @@ public class BBBServerWrapper implements BBBServer, ModelWrapper<BBBServer> {
 	@Override
 	public void setSecret(java.lang.String secret) {
 		_bbbServer.setSecret(secret);
+	}
+
+	/**
+	* Returns the active of this b b b server.
+	*
+	* @return the active of this b b b server
+	*/
+	@Override
+	public boolean getActive() {
+		return _bbbServer.getActive();
+	}
+
+	/**
+	* Returns <code>true</code> if this b b b server is active.
+	*
+	* @return <code>true</code> if this b b b server is active; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isActive() {
+		return _bbbServer.isActive();
+	}
+
+	/**
+	* Sets whether this b b b server is active.
+	*
+	* @param active the active of this b b b server
+	*/
+	@Override
+	public void setActive(boolean active) {
+		_bbbServer.setActive(active);
 	}
 
 	@Override

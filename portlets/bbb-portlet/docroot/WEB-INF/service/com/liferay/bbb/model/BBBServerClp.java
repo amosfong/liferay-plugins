@@ -84,6 +84,7 @@ public class BBBServerClp extends BaseModelImpl<BBBServer> implements BBBServer 
 		attributes.put("name", getName());
 		attributes.put("url", getUrl());
 		attributes.put("secret", getSecret());
+		attributes.put("active", getActive());
 
 		return attributes;
 	}
@@ -148,6 +149,12 @@ public class BBBServerClp extends BaseModelImpl<BBBServer> implements BBBServer 
 
 		if (secret != null) {
 			setSecret(secret);
+		}
+
+		Boolean active = (Boolean)attributes.get("active");
+
+		if (active != null) {
+			setActive(active);
 		}
 	}
 
@@ -391,6 +398,34 @@ public class BBBServerClp extends BaseModelImpl<BBBServer> implements BBBServer 
 		}
 	}
 
+	@Override
+	public boolean getActive() {
+		return _active;
+	}
+
+	@Override
+	public boolean isActive() {
+		return _active;
+	}
+
+	@Override
+	public void setActive(boolean active) {
+		_active = active;
+
+		if (_bbbServerRemoteModel != null) {
+			try {
+				Class<?> clazz = _bbbServerRemoteModel.getClass();
+
+				Method method = clazz.getMethod("setActive", boolean.class);
+
+				method.invoke(_bbbServerRemoteModel, active);
+			}
+			catch (Exception e) {
+				throw new UnsupportedOperationException(e);
+			}
+		}
+	}
+
 	public BaseModel<?> getBBBServerRemoteModel() {
 		return _bbbServerRemoteModel;
 	}
@@ -470,6 +505,7 @@ public class BBBServerClp extends BaseModelImpl<BBBServer> implements BBBServer 
 		clone.setName(getName());
 		clone.setUrl(getUrl());
 		clone.setSecret(getSecret());
+		clone.setActive(getActive());
 
 		return clone;
 	}
@@ -516,7 +552,7 @@ public class BBBServerClp extends BaseModelImpl<BBBServer> implements BBBServer 
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{bbbServerId=");
 		sb.append(getBbbServerId());
@@ -538,6 +574,8 @@ public class BBBServerClp extends BaseModelImpl<BBBServer> implements BBBServer 
 		sb.append(getUrl());
 		sb.append(", secret=");
 		sb.append(getSecret());
+		sb.append(", active=");
+		sb.append(getActive());
 		sb.append("}");
 
 		return sb.toString();
@@ -545,7 +583,7 @@ public class BBBServerClp extends BaseModelImpl<BBBServer> implements BBBServer 
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(34);
+		StringBundler sb = new StringBundler(37);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.bbb.model.BBBServer");
@@ -591,6 +629,10 @@ public class BBBServerClp extends BaseModelImpl<BBBServer> implements BBBServer 
 			"<column><column-name>secret</column-name><column-value><![CDATA[");
 		sb.append(getSecret());
 		sb.append("]]></column-value></column>");
+		sb.append(
+			"<column><column-name>active</column-name><column-value><![CDATA[");
+		sb.append(getActive());
+		sb.append("]]></column-value></column>");
 
 		sb.append("</model>");
 
@@ -608,5 +650,6 @@ public class BBBServerClp extends BaseModelImpl<BBBServer> implements BBBServer 
 	private String _name;
 	private String _url;
 	private String _secret;
+	private boolean _active;
 	private BaseModel<?> _bbbServerRemoteModel;
 }

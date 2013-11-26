@@ -288,6 +288,12 @@ public class BBBServerLocalServiceUtil {
 	}
 
 	public static java.util.List<com.liferay.bbb.model.BBBServer> getBBBServers(
+		long groupId, boolean active)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService().getBBBServers(groupId, active);
+	}
+
+	public static java.util.List<com.liferay.bbb.model.BBBServer> getBBBServers(
 		long groupId, int start, int end,
 		com.liferay.portal.kernel.util.OrderByComparator obc)
 		throws com.liferay.portal.kernel.exception.SystemException {

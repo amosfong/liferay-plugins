@@ -234,6 +234,27 @@ public interface BBBServerModel extends BaseModel<BBBServer>, GroupedModel {
 	 */
 	public void setSecret(String secret);
 
+	/**
+	 * Returns the active of this b b b server.
+	 *
+	 * @return the active of this b b b server
+	 */
+	public boolean getActive();
+
+	/**
+	 * Returns <code>true</code> if this b b b server is active.
+	 *
+	 * @return <code>true</code> if this b b b server is active; <code>false</code> otherwise
+	 */
+	public boolean isActive();
+
+	/**
+	 * Sets whether this b b b server is active.
+	 *
+	 * @param active the active of this b b b server
+	 */
+	public void setActive(boolean active);
+
 	@Override
 	public boolean isNew();
 

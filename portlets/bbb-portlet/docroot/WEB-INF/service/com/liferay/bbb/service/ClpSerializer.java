@@ -272,10 +272,6 @@ public class ClpSerializer {
 			return new SystemException();
 		}
 
-		if (className.equals("com.liferay.bbb.MeetingRequestException")) {
-			return new com.liferay.bbb.MeetingRequestException();
-		}
-
 		if (className.equals("com.liferay.bbb.NoSuchMeetingException")) {
 			return new com.liferay.bbb.NoSuchMeetingException();
 		}

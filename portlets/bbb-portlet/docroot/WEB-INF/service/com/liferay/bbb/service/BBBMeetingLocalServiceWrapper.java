@@ -319,6 +319,12 @@ public class BBBMeetingLocalServiceWrapper implements BBBMeetingLocalService,
 	}
 
 	@Override
+	public int getBBBMeetingsCount(long bbbServerId, int status)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _bbbMeetingLocalService.getBBBMeetingsCount(bbbServerId, status);
+	}
+
+	@Override
 	public com.liferay.bbb.model.BBBMeeting updateBBBMeeting(
 		long bbbMeetingId, long bbbServerId, java.lang.String name,
 		java.lang.String description, java.lang.String attendeePassword,

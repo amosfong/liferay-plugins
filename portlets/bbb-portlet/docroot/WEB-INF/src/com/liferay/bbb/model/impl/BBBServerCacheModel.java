@@ -38,7 +38,7 @@ public class BBBServerCacheModel implements CacheModel<BBBServer>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(21);
+		StringBundler sb = new StringBundler(23);
 
 		sb.append("{bbbServerId=");
 		sb.append(bbbServerId);
@@ -60,6 +60,8 @@ public class BBBServerCacheModel implements CacheModel<BBBServer>,
 		sb.append(url);
 		sb.append(", secret=");
 		sb.append(secret);
+		sb.append(", active=");
+		sb.append(active);
 		sb.append("}");
 
 		return sb.toString();
@@ -116,6 +118,8 @@ public class BBBServerCacheModel implements CacheModel<BBBServer>,
 			bbbServerImpl.setSecret(secret);
 		}
 
+		bbbServerImpl.setActive(active);
+
 		bbbServerImpl.resetOriginalValues();
 
 		return bbbServerImpl;
@@ -133,6 +137,7 @@ public class BBBServerCacheModel implements CacheModel<BBBServer>,
 		name = objectInput.readUTF();
 		url = objectInput.readUTF();
 		secret = objectInput.readUTF();
+		active = objectInput.readBoolean();
 	}
 
 	@Override
@@ -173,6 +178,8 @@ public class BBBServerCacheModel implements CacheModel<BBBServer>,
 		else {
 			objectOutput.writeUTF(secret);
 		}
+
+		objectOutput.writeBoolean(active);
 	}
 
 	public long bbbServerId;
@@ -185,4 +192,5 @@ public class BBBServerCacheModel implements CacheModel<BBBServer>,
 	public String name;
 	public String url;
 	public String secret;
+	public boolean active;
 }

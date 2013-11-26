@@ -134,17 +134,21 @@ public class BBBMeetingLocalServiceClp implements BBBMeetingLocalService {
 
 		_methodParameterTypes22 = new String[] { "long" };
 
-		_methodName23 = "updateBBBMeeting";
+		_methodName23 = "getBBBMeetingsCount";
 
-		_methodParameterTypes23 = new String[] {
+		_methodParameterTypes23 = new String[] { "long", "int" };
+
+		_methodName24 = "updateBBBMeeting";
+
+		_methodParameterTypes24 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName24 = "updateStatus";
+		_methodName25 = "updateStatus";
 
-		_methodParameterTypes24 = new String[] { "long", "int" };
+		_methodParameterTypes25 = new String[] { "long", "int" };
 	}
 
 	@Override
@@ -850,6 +854,35 @@ public class BBBMeetingLocalServiceClp implements BBBMeetingLocalService {
 	}
 
 	@Override
+	public int getBBBMeetingsCount(long bbbServerId, int status)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23,
+					new Object[] { bbbServerId, status });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return ((Integer)returnObj).intValue();
+	}
+
+	@Override
 	public com.liferay.bbb.model.BBBMeeting updateBBBMeeting(
 		long bbbMeetingId, long bbbServerId, java.lang.String name,
 		java.lang.String description, java.lang.String attendeePassword,
@@ -860,8 +893,8 @@ public class BBBMeetingLocalServiceClp implements BBBMeetingLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName23,
-					_methodParameterTypes23,
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24,
 					new Object[] {
 						bbbMeetingId,
 						
@@ -909,8 +942,8 @@ public class BBBMeetingLocalServiceClp implements BBBMeetingLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName24,
-					_methodParameterTypes24,
+			returnObj = _invokableLocalService.invokeMethod(_methodName25,
+					_methodParameterTypes25,
 					new Object[] { bbbMeetingId, status });
 		}
 		catch (Throwable t) {
@@ -985,4 +1018,6 @@ public class BBBMeetingLocalServiceClp implements BBBMeetingLocalService {
 	private String[] _methodParameterTypes23;
 	private String _methodName24;
 	private String[] _methodParameterTypes24;
+	private String _methodName25;
+	private String[] _methodParameterTypes25;
 }

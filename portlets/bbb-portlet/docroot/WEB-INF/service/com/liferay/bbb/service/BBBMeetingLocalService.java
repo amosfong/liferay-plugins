@@ -269,6 +269,10 @@ public interface BBBMeetingLocalService extends BaseLocalService,
 	public int getBBBMeetingsCount(long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException;
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getBBBMeetingsCount(long bbbServerId, int status)
+		throws com.liferay.portal.kernel.exception.SystemException;
+
 	public com.liferay.bbb.model.BBBMeeting updateBBBMeeting(
 		long bbbMeetingId, long bbbServerId, java.lang.String name,
 		java.lang.String description, java.lang.String attendeePassword,
