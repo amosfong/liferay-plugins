@@ -84,6 +84,7 @@ public class AdminPortlet extends MVCPortlet {
 			WebKeys.THEME_DISPLAY);
 
 		long bbbMeetingId = ParamUtil.getLong(actionRequest, "bbbMeetingId");
+
 		String name = ParamUtil.getString(actionRequest, "name");
 		String description = ParamUtil.getString(actionRequest, "description");
 
@@ -128,6 +129,7 @@ public class AdminPortlet extends MVCPortlet {
 			WebKeys.THEME_DISPLAY);
 
 		long bbbServerId = ParamUtil.getLong(actionRequest, "bbbServerId");
+
 		String name = ParamUtil.getString(actionRequest, "name");
 		String url = ParamUtil.getString(actionRequest, "url");
 		String secret = ParamUtil.getString(actionRequest, "secret");

@@ -20,23 +20,17 @@ import com.liferay.bbb.model.BBBParticipantConstants;
 import com.liferay.bbb.service.BBBMeetingLocalServiceUtil;
 import com.liferay.bbb.service.BBBParticipantLocalServiceUtil;
 import com.liferay.bbb.service.BBBParticipantServiceUtil;
-import com.liferay.bbb.util.PortletKeys;
 import com.liferay.mail.service.MailServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.mail.MailMessage;
-import com.liferay.portal.kernel.util.DigesterUtil;
-import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Company;
-import com.liferay.portal.model.Layout;
-import com.liferay.portal.model.LayoutConstants;
 import com.liferay.portal.service.CompanyLocalServiceUtil;
-import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
-import com.liferay.portlet.PortletURLFactoryUtil;
 import com.liferay.util.ContentUtil;
 
 import java.util.ArrayList;
@@ -48,10 +42,6 @@ import java.util.Set;
 import javax.mail.internet.InternetAddress;
 
 import javax.portlet.ActionRequest;
-import javax.portlet.PortletMode;
-import javax.portlet.PortletRequest;
-import javax.portlet.PortletURL;
-import javax.portlet.WindowState;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -81,7 +71,6 @@ public class AdminUtil {
 
 			String name = ParamUtil.getString(
 				actionRequest, "bbbParticipantName" + bbbParticipantsIndex);
-
 			String emailAddress = ParamUtil.getString(
 				actionRequest,
 				"bbbParticipantEmailAddress" + bbbParticipantsIndex);
@@ -111,31 +100,7 @@ public class AdminUtil {
 			BBBParticipant bbbParticipant, HttpServletRequest request)
 		throws Exception {
 
-		Layout layout = LayoutLocalServiceUtil.fetchFirstLayout(
-			bbbParticipant.getGroupId(), false,
-			LayoutConstants.DEFAULT_PARENT_LAYOUT_ID);
-
-		PortletURL portletURL = PortletURLFactoryUtil.create(
-			request, PortletKeys.BBB_DISPLAY, layout.getPlid(),
-			PortletRequest.RENDER_PHASE);
-
-		portletURL.setParameter("mvcPath", "/display/view.jsp");
-
-		portletURL.setPortletMode(PortletMode.VIEW);
-		portletURL.setWindowState(WindowState.MAXIMIZED);
-
-		portletURL.setParameter(
-			"bbbParticipantId",
-			String.valueOf(bbbParticipant.getBbbParticipantId()));
-		portletURL.setParameter(
-			"hash", DigesterUtil.digestHex(bbbParticipant.getEmailAddress()));
-
-		String url = portletURL.toString();
-
-		url = HttpUtil.removeParameter(url, "doAsGroupId");
-		url = HttpUtil.removeParameter(url, "refererPlid");
-
-		return HttpUtil.removeParameter(url, "controlPanelCategory");
+		return StringPool.BLANK;
 	}
 
 	public static void sendEmail(
@@ -173,14 +138,12 @@ public class AdminUtil {
 		for (BBBParticipant bbbParticipant : bbbParticipants) {
 			long bbbParticipantId = bbbParticipant.getBbbParticipantId();
 
-			String name = bbbParticipant.getName();
-			String emailAddress = bbbParticipant.getEmailAddress();
-			int type = bbbParticipant.getType();
-
 			if (bbbParticipantId <= 0) {
 				bbbParticipant =
 					BBBParticipantServiceUtil.addBBBParticipant(
-						groupId, bbbMeetingId, name, emailAddress, type,
+						groupId, bbbMeetingId, bbbParticipant.getName(),
+						bbbParticipant.getEmailAddress(),
+						bbbParticipant.getType(),
 						BBBParticipantConstants.STATUS_DEFAULT,
 						new ServiceContext());
 
@@ -188,7 +151,8 @@ public class AdminUtil {
 			}
 			else {
 				BBBParticipantServiceUtil.updateBBBParticipant(
-					bbbParticipantId, bbbMeetingId, name, emailAddress, type,
+					bbbParticipantId, bbbMeetingId, bbbParticipant.getName(),
+					bbbParticipant.getEmailAddress(), bbbParticipant.getType(),
 					new ServiceContext());
 			}
 
@@ -215,8 +179,9 @@ public class AdminUtil {
 		Company company = CompanyLocalServiceUtil.getCompany(
 			serviceContext.getCompanyId());
 
-		InternetAddress from = new InternetAddress(company.getEmailAddress());
-		InternetAddress to = new InternetAddress(
+		InternetAddress fromInternetAddress = new InternetAddress(
+			company.getEmailAddress());
+		InternetAddress toInternetAddress = new InternetAddress(
 			bbbParticipant.getEmailAddress(), bbbParticipant.getName());
 
 		String subject = ContentUtil.get(
@@ -245,7 +210,7 @@ public class AdminUtil {
 			});
 
 		MailMessage mailMessage = new MailMessage(
-			from, to, subject, body, true);
+			fromInternetAddress, toInternetAddress, subject, body, true);
 
 		MailServiceUtil.sendEmail(mailMessage);
 	}
