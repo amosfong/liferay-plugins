@@ -33,23 +33,13 @@ AUI.add(
 
 		var TPL_FIELD_OPTION = '<option value="{0}">{1}</option>';
 
-		var TPL_FIELD_SELECT = '<span class="field field-select field-menu field-disabled">' +
-			'<span class="field-content">' +
-				'<span class="field-element ">' +
-					'<select class="field-input field-input-select field-input-menu" id="{portletNamespace}lcsClusterEntryId" name="{portletNamespace}lcsClusterEntryId">' +
-						'{optionalContent}' +
-					'</select>' +
-				'</span>' +
-			'</span>' +
-		'</span>';
+		var TPL_FIELD_SELECT = '<div class="control-group">' +
+			'<select class="aui-field-select" id="{portletNamespace}lcsClusterEntryId" name="{portletNamespace}lcsClusterEntryId">' +
+				'{optionalContent}' +
+			'</select>' +
+		'</div>';
 
-		var TPL_FIELD_TEXT = '<span class="field field-text field-disabled">' +
-			'<span class="field-content">' +
-				'<span class="field-element ">' +
-					'<input class="field-input field-input-text" disabled="" id="{portletNamespace}lcsClusterEntryName" name="{portletNamespace}lcsClusterEntryName" type="text" value="" />' +
-				'</span>' +
-			'</span>' +
-		'</span>';
+		var TPL_FIELD_TEXT = '<input class="field" disabled="" id="{portletNamespace}lcsClusterEntryName" name="{portletNamespace}lcsClusterEntryName" type="text" value="" />';
 
 		var TYPE_ADD_LCS_CLUSTER_ENTRY = 0;
 
@@ -98,7 +88,11 @@ AUI.add(
 
 						lcsClusterEntryFormAdd.detach(EVENT_SUBMIT);
 
-						instance.one('#name', lcsClusterEntryFormAdd).on(EVENT_INPUT, instance._onLCSClusterEntryNameInput, instance, lcsClusterEntryFormAdd);
+						var nameNode = instance.one('#name', lcsClusterEntryFormAdd);
+
+						nameNode.on(EVENT_INPUT, instance._onLCSClusterEntryNameInput, instance, lcsClusterEntryFormAdd);
+
+						Liferay.Util.focusFormField(nameNode);
 
 						lcsClusterEntryFormAdd.on(EVENT_SUBMIT, instance._onLCSClusterEntryFormSubmit, instance, lcsClusterEntryFormAdd);
 
@@ -170,15 +164,17 @@ AUI.add(
 
 						if (!lcsClusterEntryPanel) {
 							lcsClusterEntryPanel = Liferay.Util.Window.getWindow(
-{
-dialog: {
-									centered: true,
-									cssClass: CSS_LCS_CLUSTER_ENTRY_DIALOG,
-									modal: true,
-									resizable: false,
+								{
+									dialog: {
+										centered: true,
+										cssClass: CSS_LCS_CLUSTER_ENTRY_DIALOG,
+										height: 560,
+										modal: true,
+										resizable: false,
+										width: 600
+									},
 									title: Liferay.Language.get('new-environment'),
-									width: 600
-								}}
+								}
 							).render(instance._portletContentBox);
 
 							lcsClusterEntryPanel.plug(
@@ -337,7 +333,7 @@ dialog: {
 
 								lcsClusterEntryInputNode = instance._createTextNode();
 
-								instance.one('#lcsClusterEntryName', lcsClusterEntryInputNode).val(lcsClusterEntry.name);
+								lcsClusterEntryInputNode.val(lcsClusterEntry.name);
 							}
 							else {
 								lcsClusterEntryInputNode = instance._createSelectNode(lcsClusterEntries);
@@ -397,7 +393,13 @@ dialog: {
 								labelText = Liferay.Language.get('there-are-no-environments-created-yet');
 							}
 
-							environmentRadioInput.ancestor('.field-content').one('label').html(labelText);
+							var labelElement = environmentRadioInput.ancestor('label');
+
+							labelElement.html('');
+
+							labelElement.append(environmentRadioInput);
+
+							labelElement.append(labelText);
 						}
 					}
 				}
@@ -408,6 +410,6 @@ dialog: {
 	},
 	'',
 	{
-		requires: ['liferay-util-window', 'aui-io-request-deprecated', 'dd', 'liferay-portlet-base', 'liferay-portlet-url', 'resize']
+		requires: ['liferay-util-window', 'aui-io-plugin-deprecated', 'dd', 'liferay-portlet-base', 'liferay-portlet-url', 'resize']
 	}
 );

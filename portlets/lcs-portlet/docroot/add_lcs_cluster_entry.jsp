@@ -47,7 +47,3 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 		<aui:button disabled="<%= true %>" name="create" type="submit" value="create" />
 	</aui:button-row>
 </aui:form>
-
-<aui:script>
-	Liferay.Util.focusFormField(document.<portlet:namespace />addLCSClusterEntryFm.<portlet:namespace />name);
-</aui:script>
