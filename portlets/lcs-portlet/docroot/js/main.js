@@ -142,7 +142,11 @@ AUI.add(
 
 						options = options.join('');
 
-						return instance._nodeFromTemplate(TPL_FIELD_SELECT, options);
+						var selectedNode = instance._nodeFromTemplate(TPL_FIELD_SELECT, options);
+
+						selectedNode.one('option:last-child').set('selected', true);
+
+						return selectedNode;
 					},
 
 					_createTextNode: function(value) {
