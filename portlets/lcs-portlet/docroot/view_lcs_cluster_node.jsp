@@ -120,18 +120,18 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 <div id="lcs-connection-status">
 	<h4><liferay-ui:message key="connection-status" /></h4>
 
-	<div class="<%= ready ? StringPool.BLANK : "aui-helper-hidden" %> lcs-msg" id="lcs-msg-registered">
+	<div class="<%= ready ? StringPool.BLANK : "hide" %> lcs-msg" id="lcs-msg-registered">
 		<liferay-ui:message key="this-liferay-instance-is-registered-and-synchronized-with-liferay-cloud-services" />
 
 		<span class="lcs-msg-icon"></span>
 	</div>
 
-	<div class="<%= (!ready && !pending) ? StringPool.BLANK : "aui-helper-hidden" %> lcs-msg" id="lcs-msg-disconnected">
+	<div class="<%= (!ready && !pending) ? StringPool.BLANK : "hide" %> lcs-msg" id="lcs-msg-disconnected">
 		<liferay-ui:message key="this-liferay-instance-is-registered-but-not-connected-and-not-synchronized-with-liferay-cloud-services" />
 		<span class="lcs-msg-icon"></span>
 	</div>
 
-	<div class="<%= (!ready && pending) ? StringPool.BLANK : "aui-helper-hidden" %> lcs-msg" id="lcs-msg-pending">
+	<div class="<%= (!ready && pending) ? StringPool.BLANK : "hide" %> lcs-msg" id="lcs-msg-pending">
 		<liferay-ui:message key="this-liferay-instance-is-synchronizing-with-liferay-cloud-services" />
 		<span class="lcs-msg-icon"></span>
 	</div>

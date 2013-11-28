@@ -10,7 +10,7 @@
 		visibility: hidden;
 	}
 
-	.aui-button-input, .lcs-portal-link {
+	.button-input, .lcs-portal-link {
 		background: #009D0F;
 		border: 3px solid #2D2D2D;
 		color: #FFF;
@@ -33,12 +33,12 @@
 	}
 
 	.environment-section {
-		.aui-field-content {
+		.field-content {
 			margin-bottom: 0;
 		}
 
 		.environment-input-wrapper {
-			.aui-field-content {
+			.field-content {
 				margin-top: 0;
 			}
 
@@ -125,11 +125,11 @@
 /* ---------- Extras ---------- */
 
 #lcs-main-container {
-	.aui-button-input {
+	.button-input {
 		@include border-radius(0);
 	}
 
-	.aui-button-input, .lcs-portal-link {
+	.button-input, .lcs-portal-link {
 		@include box-shadow(2px 2px 2px #808080);
 		@include text-shadow(none);
 	}
