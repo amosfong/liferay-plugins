@@ -1,22 +1,44 @@
 @import "compass";
 
-#wrapper .lcs-portlet .panel-page-body {
-	float: left;
-	padding-left: 0;
-}
+#lcs-main-container {
+	color: #2D2D2D;
 
-.lcs-portlet {
-	div.portlet-body {
-		background-color: #E8F1F2;
+	&:after {
+		clear: both;
+		content: " ";
+		display: block;
+		visibility: hidden;
+	}
+
+	.aui-button-input, .lcs-portal-link {
+		background: #009D0F;
+		border: 3px solid #2D2D2D;
+		color: #FFF;
+		font-size: 14px;
+		font-weight: bold;
+		padding: 5px 15px;
+	}
+
+	dl {
+		color: #696969;
+		margin: 0;
+
+		dt {
+			font-weight: bold;
+		}
+
+		dd {
+			margin: 0 0 2px 10px;
+		}
 	}
 
 	.environment-section {
-		.field-content {
+		.aui-field-content {
 			margin-bottom: 0;
 		}
 
 		.environment-input-wrapper {
-			.field-content {
+			.aui-field-content {
 				margin-top: 0;
 			}
 
@@ -29,10 +51,6 @@
 	.helper-message {
 		font-size: 0.74em;
 		margin-left: 22px;
-
-		&.disabled {
-			@include opacity(0.5);
-		}
 	}
 
 	.lcs-cluster-entry-dialog {
@@ -40,15 +58,87 @@
 		padding: 0;
 	}
 
-	input {
-		&.button-input {
-			background: #7F7F7F;
-			color: #FFF;
-			margin-bottom: 10px;
+	.lcs-button-container {
+		padding: 2px 0;
+	}
 
-			&.button-input-submit {
-				background: #009D0F;
-			}
+	#lcs-connection-status {
+		background-color: #FFF;
+		float: left;
+		padding: 10px;
+		position: relative;
+		width: 230px;
+
+		& > h4 {
+			line-height: 61px;
+			padding-left: 10px;
 		}
+
+		.lcs-msg-icon {
+			background: url(../images/connection_red.png) no-repeat right center;
+			display: block;
+			height: 61px;
+			left: 150px;
+			position: absolute;
+			top: 0;
+			width: 64px;
+		}
+
+		#lcs-msg-disconnected .lcs-msg-icon {
+			background-image: url(../images/connection_red.png);
+		}
+
+		#lcs-msg-pending .lcs-msg-icon {
+			background-image: url(../images/connection_orange.png);
+		}
+
+		#lcs-msg-registered .lcs-msg-icon {
+			background-image: url(../images/connection_green.png);
+		}
+
+		.lcs-separator {
+			border-color: #EEE;
+			margin: 10px 0;
+		}
+	}
+
+	.lcs-portal-link {
+		display: inline-block;
+		text-decoration: none;
+	}
+
+	.lcs-separator {
+		border: 2px solid #2D2D2D;
+		margin-bottom: 17px;
+	}
+
+	#lcs-server-info {
+		float: left;
+		margin: 0 50px 20px 0;
+
+		dl {
+			margin-bottom: 20px;
+		}
+	}
+}
+
+/* ---------- Extras ---------- */
+
+#lcs-main-container {
+	.aui-button-input {
+		@include border-radius(0);
+	}
+
+	.aui-button-input, .lcs-portal-link {
+		@include box-shadow(2px 2px 2px #808080);
+		@include text-shadow(none);
+	}
+
+	.helper-message.disabled {
+		@include opacity(0.5);
+	}
+
+	.lcs-separator {
+		@include border-radius(2px);
 	}
 }

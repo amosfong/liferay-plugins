@@ -18,24 +18,26 @@
 
 <liferay-ui:error key="authenticationFailed" message="authentication-failed" />
 
-<hr />
+<div id="lcs-main-container">
+	<div class="lcs-separator"></div>
 
-<%
-boolean forceLoginView = ParamUtil.getBoolean(request, "forceLoginView");
-%>
+	<%
+	boolean forceLoginView = ParamUtil.getBoolean(request, "forceLoginView");
+	%>
 
-<c:choose>
-	<c:when test="<%= !forceLoginView && LCSUtil.isCredentialsSet() %>">
-		<c:choose>
-			<c:when test="<%= LCSClusterNodeServiceUtil.isRegistered(KeyGeneratorUtil.getKey()) %>">
-				<liferay-util:include page="/view_lcs_cluster_node.jsp" servletContext="<%= application %>" />
-			</c:when>
-			<c:otherwise>
-				<liferay-util:include page="/register.jsp" servletContext="<%= application %>" />
-			</c:otherwise>
-		</c:choose>
-	</c:when>
-	<c:otherwise>
-		<liferay-util:include page="/login.jsp" servletContext="<%= application %>" />
-	</c:otherwise>
-</c:choose>
+	<c:choose>
+		<c:when test="<%= !forceLoginView && LCSUtil.isCredentialsSet() %>">
+			<c:choose>
+				<c:when test="<%= LCSClusterNodeServiceUtil.isRegistered(KeyGeneratorUtil.getKey()) %>">
+					<liferay-util:include page="/view_lcs_cluster_node.jsp" servletContext="<%= application %>" />
+				</c:when>
+				<c:otherwise>
+					<liferay-util:include page="/register.jsp" servletContext="<%= application %>" />
+				</c:otherwise>
+			</c:choose>
+		</c:when>
+		<c:otherwise>
+			<liferay-util:include page="/login.jsp" servletContext="<%= application %>" />
+		</c:otherwise>
+	</c:choose>
+</div>
