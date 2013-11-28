@@ -131,7 +131,7 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 		<span class="lcs-msg-icon"></span>
 	</div>
 
-	<div class="<%= (!ready && pending) ? StringPool.BLANK : "hide" %> alert-info  lcs-msg" id="lcs-msg-pending">
+	<div class="<%= (!ready && pending) ? StringPool.BLANK : "hide" %> alert-info lcs-msg" id="lcs-msg-pending">
 		<liferay-ui:message key="this-liferay-instance-is-synchronizing-with-liferay-cloud-services" />
 		<span class="lcs-msg-icon"></span>
 	</div>
