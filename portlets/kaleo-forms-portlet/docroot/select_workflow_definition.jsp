@@ -68,7 +68,7 @@ long ddmStructureId = ParamUtil.getLong(request, "ddmStructureId");
 				sb.append("javascript:Liferay.Util.getOpener().");
 				sb.append(portletDisplay.getNamespace());
 				sb.append("selectWorkflowDefinition('");
-				sb.append(workflowDefinition.getName());
+				sb.append(HtmlUtil.escapeJS(workflowDefinition.getName()));
 				sb.append("', '");
 				sb.append(workflowDefinition.getVersion());
 				sb.append("', Liferay.Util.getWindow());");
@@ -85,7 +85,7 @@ long ddmStructureId = ParamUtil.getLong(request, "ddmStructureId");
 				<liferay-ui:search-container-column-text
 					href="<%= rowHREF %>"
 					name="title"
-					value="<%= workflowDefinition.getTitle(themeDisplay.getLanguageId()) %>"
+					value="<%= HtmlUtil.escape(workflowDefinition.getTitle(themeDisplay.getLanguageId())) %>"
 				/>
 
 				<liferay-ui:search-container-column-text
@@ -100,7 +100,7 @@ long ddmStructureId = ParamUtil.getLong(request, "ddmStructureId");
 				sb.append("javascript:Liferay.Util.getOpener().");
 				sb.append(renderResponse.getNamespace());
 				sb.append("openKaleoDesigner('");
-				sb.append(workflowDefinition.getName());
+				sb.append(HtmlUtil.escapeJS(workflowDefinition.getName()));
 				sb.append("', '");
 				sb.append(workflowDefinition.getVersion());
 				sb.append("', '', Liferay.Util.getWindowName(), true);");
@@ -128,12 +128,12 @@ long ddmStructureId = ParamUtil.getLong(request, "ddmStructureId");
 			>
 				<liferay-ui:search-container-column-text
 					name="name"
-					value="<%= kaleoDraftDefinition.getName() %>"
+					value="<%= HtmlUtil.escape(kaleoDraftDefinition.getName()) %>"
 				/>
 
 				<liferay-ui:search-container-column-text
 					name="title"
-					value="<%= kaleoDraftDefinition.getTitle(themeDisplay.getLanguageId()) %>"
+					value="<%= HtmlUtil.escape(kaleoDraftDefinition.getTitle(themeDisplay.getLanguageId())) %>"
 				/>
 
 				<liferay-ui:search-container-column-text
@@ -147,7 +147,7 @@ long ddmStructureId = ParamUtil.getLong(request, "ddmStructureId");
 				sb.append("javascript:Liferay.Util.getOpener().");
 				sb.append(renderResponse.getNamespace());
 				sb.append("openKaleoDesigner('");
-				sb.append(kaleoDraftDefinition.getName());
+				sb.append(HtmlUtil.escapeJS(kaleoDraftDefinition.getName()));
 				sb.append("', '");
 				sb.append(kaleoDraftDefinition.getVersion());
 				sb.append("', '', Liferay.Util.getWindowName(), true);");

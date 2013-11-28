@@ -97,7 +97,7 @@ long[] pooledActorsIds = WorkflowTaskManagerUtil.getPooledActorsIds(company.getC
 
 			<liferay-ui:icon
 				cssClass='<%= "workflow-task-" + randomId + " task-change-status-link" %>'
-				id='<%= randomId + transitionName + "taskChangeStatusLink" %>'
+				id='<%= randomId + HtmlUtil.escapeAttribute(transitionName) + "taskChangeStatusLink" %>'
 				image="../aui/random"
 				message="<%= transitionName %>"
 				method="get"
@@ -218,7 +218,7 @@ long[] pooledActorsIds = WorkflowTaskManagerUtil.getPooledActorsIds(company.getC
 		for (String transitionName : transitionNames) {
 		%>
 
-			Liferay.delegateClick('<portlet:namespace /><%= randomId + transitionName %>taskChangeStatusLink', onTaskClickFn);
+			Liferay.delegateClick('<portlet:namespace /><%= randomId + HtmlUtil.escapeJS(transitionName) %>taskChangeStatusLink', onTaskClickFn);
 
 		<%
 		}

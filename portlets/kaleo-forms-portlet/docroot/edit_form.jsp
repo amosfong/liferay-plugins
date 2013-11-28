@@ -1,4 +1,3 @@
-
 <%--
 /**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
@@ -33,7 +32,7 @@ long ddlRecordId = ParamUtil.getLong(request, "ddlRecordId");
 String formName = ParamUtil.getString(request, "formName");
 %>
 
-<aui:form cssClass="lfr-dynamic-form" enctype="multipart/form-data" name="<%= formName %>" onSubmit='<%= "event.preventDefault(); submitForm(event.target);" %>'>
+<aui:form cssClass="lfr-dynamic-form" enctype="multipart/form-data" name="<%= HtmlUtil.escapeAttribute(formName) %>" onSubmit='<%= "event.preventDefault(); submitForm(event.target);" %>'>
 	<aui:input name="redirect" type="hidden" value="<%= currentURL %>" />
 	<aui:input name="groupId" type="hidden" value="<%= String.valueOf(groupId) %>" />
 	<aui:input name="ddlRecordId" type="hidden" value="<%= String.valueOf(ddlRecordId) %>" />

@@ -135,7 +135,7 @@ if (kaleoProcess != null) {
 		<aui:input name="description" />
 
 		<aui:field-wrapper cssClass="kaleo-forms-portlet-selection" label="entry-definition" required="<%= true %>">
-			<aui:a href="javascript:;" id="selectDDMStructureDisplay" label="<%= ddmStructureName %>" />
+			<aui:a href="javascript:;" id="selectDDMStructureDisplay" label="<%= HtmlUtil.escape(ddmStructureName) %>" />
 
 			<liferay-ui:icon
 				id="selectDDMStructure"
@@ -147,7 +147,7 @@ if (kaleoProcess != null) {
 		</aui:field-wrapper>
 
 		<aui:field-wrapper cssClass="kaleo-forms-portlet-selection" helpMessage="select-the-template-used-to-render-the-initial-form" label="initial-form" name="ddmTemplateId" required="<%= true %>">
-			<aui:a href="javascript:;" id="selectDDMTemplateDisplay" label="<%= ddmTemplateName %>" />
+			<aui:a href="javascript:;" id="selectDDMTemplateDisplay" label="<%= HtmlUtil.escape(ddmTemplateName) %>" />
 
 			<liferay-ui:icon
 				id="selectDDMTemplate"
@@ -349,7 +349,7 @@ if (kaleoProcess != null) {
 
 			A.one('#<portlet:namespace />ddmStructureId').val(event.ddmstructureid);
 			A.one('#<portlet:namespace />ddmStructureName').val(event.name);
-			A.one('#<portlet:namespace />selectDDMStructureDisplay').html(event.name);
+			A.one('#<portlet:namespace />selectDDMStructureDisplay').html(Liferay.Util.escapeHTML(event.name));
 
 			A.one('#<portlet:namespace />workflowDefinition').val('');
 			A.one('#<portlet:namespace />workflowDefinitionName').val('');
@@ -379,7 +379,7 @@ if (kaleoProcess != null) {
 
 			A.one('#<portlet:namespace />ddmTemplateId').val(event.ddmtemplateid);
 			A.one('#<portlet:namespace />ddmTemplateName').val(event.name);
-			A.one('#<portlet:namespace />selectDDMTemplateDisplay').html(event.name);
+			A.one('#<portlet:namespace />selectDDMTemplateDisplay').html(Liferay.Util.escapeHTML(event.name));
 
 			if (dialog) {
 				dialog.hide();
@@ -402,7 +402,7 @@ if (kaleoProcess != null) {
 				A.Lang.sub(
 					'{name} ({versionLabel} {version})',
 					{
-						name: workflowDefinitionName,
+						name: Liferay.Util.escapeHTML(workflowDefinitionName),
 						version: workflowDefinitionVersion,
 						versionLabel: '<liferay-ui:message key="version" />'
 					}
@@ -525,6 +525,6 @@ if (kaleoProcess != null) {
 	);
 
 	<c:if test="<%= Validator.isNotNull(workflowDefinitionName) && (workflowDefinitionVersion > 0) %>">
-		<portlet:namespace />selectWorkflowDefinition('<%= workflowDefinitionName %>', <%= workflowDefinitionVersion %>);
+		<portlet:namespace />selectWorkflowDefinition('<%= HtmlUtil.escapeJS(workflowDefinitionName) %>', <%= workflowDefinitionVersion %>);
 	</c:if>
 </aui:script>

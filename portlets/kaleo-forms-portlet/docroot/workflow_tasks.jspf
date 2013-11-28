@@ -70,7 +70,7 @@ PortletURL portletURL = renderResponse.createRenderURL();
 		<liferay-ui:search-container-column-text
 			href="<%= rowURL %>"
 			name="task"
-			value="<%= workflowTask.getName() %>"
+			value="<%= HtmlUtil.escape(workflowTask.getName()) %>"
 		/>
 
 		<liferay-ui:search-container-column-text

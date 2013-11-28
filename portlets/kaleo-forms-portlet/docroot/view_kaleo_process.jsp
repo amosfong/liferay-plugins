@@ -97,7 +97,7 @@ for (int i = 0; i < results.size(); i++) {
 			value = StringPool.BLANK;
 		}
 
-		row.addText(value);
+		row.addText(HtmlUtil.escape(value));
 	}
 
 	row.addText(LanguageUtil.get(pageContext, WorkflowConstants.getStatusLabel(ddlRecord.getStatus())));

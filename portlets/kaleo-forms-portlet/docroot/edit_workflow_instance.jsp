@@ -219,7 +219,7 @@ headerTitle = headerTitle.concat(StringPool.COLON + StringPool.SPACE + ddlRecord
 												previousActorName = PortalUtil.getUserName(workflowLog.getPreviousUserId(), StringPool.BLANK);
 											%>
 
-												<%= LanguageUtil.format(pageContext, "task-assigned-to-x.-previous-assignee-was-x", new Object[] {actorName, HtmlUtil.escape(previousActorName)}) %>
+												<%= LanguageUtil.format(pageContext, "task-assigned-to-x.-previous-assignee-was-x", new Object[] {HtmlUtil.escape(actorName), HtmlUtil.escape(previousActorName)}) %>
 
 											<%
 											}
@@ -228,7 +228,7 @@ headerTitle = headerTitle.concat(StringPool.COLON + StringPool.SPACE + ddlRecord
 											}
 											%>
 
-											<%= LanguageUtil.format(pageContext, "task-initially-assigned-to-the-x-role", new Object[] {actorName}) %>
+											<%= LanguageUtil.format(pageContext, "task-initially-assigned-to-the-x-role", new Object[] {HtmlUtil.escape(actorName)}) %>
 										</c:otherwise>
 									</c:choose>
 								</c:otherwise>
@@ -257,7 +257,7 @@ headerTitle = headerTitle.concat(StringPool.COLON + StringPool.SPACE + ddlRecord
 			/>
 
 			<div class="lfr-asset-name">
-				<%= workflowInstance.getWorkflowDefinitionName() %>
+				<%= HtmlUtil.escape(workflowInstance.getWorkflowDefinitionName()) %>
 			</div>
 		</div>
 

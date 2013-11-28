@@ -20,6 +20,7 @@ import com.liferay.portal.kernel.portlet.PortletResponseUtil;
 import com.liferay.portal.kernel.servlet.SessionErrors;
 import com.liferay.portal.kernel.upload.UploadPortletRequest;
 import com.liferay.portal.kernel.util.CharPool;
+import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.LocalizationUtil;
 import com.liferay.portal.kernel.util.MimeTypesUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
@@ -93,7 +94,8 @@ public class KaleoFormsPortlet extends MVCPortlet {
 			actionRequest, "workflowTaskId");
 		long assigneeUserId = ParamUtil.getLong(
 			actionRequest, "assigneeUserId");
-		String comment = ParamUtil.getString(actionRequest, "comment");
+		String comment = HtmlUtil.stripHtml(
+			ParamUtil.getString(actionRequest, "comment"));
 
 		WorkflowTaskManagerUtil.assignWorkflowTaskToUser(
 			themeDisplay.getCompanyId(), themeDisplay.getUserId(),
@@ -141,7 +143,8 @@ public class KaleoFormsPortlet extends MVCPortlet {
 
 		String transitionName = ParamUtil.getString(
 			actionRequest, "transitionName");
-		String comment = ParamUtil.getString(actionRequest, "comment");
+		String comment = HtmlUtil.stripHtml(
+			ParamUtil.getString(actionRequest, "comment"));
 
 		WorkflowTaskManagerUtil.completeWorkflowTask(
 			themeDisplay.getCompanyId(), themeDisplay.getUserId(),
@@ -285,7 +288,8 @@ public class KaleoFormsPortlet extends MVCPortlet {
 		long workflowTaskId = ParamUtil.getLong(
 			actionRequest, "workflowTaskId");
 
-		String comment = ParamUtil.getString(actionRequest, "comment");
+		String comment = HtmlUtil.stripHtml(
+			ParamUtil.getString(actionRequest, "comment"));
 
 		int dueDateMonth = ParamUtil.getInteger(actionRequest, "dueDateMonth");
 		int dueDateDay = ParamUtil.getInteger(actionRequest, "dueDateDay");
