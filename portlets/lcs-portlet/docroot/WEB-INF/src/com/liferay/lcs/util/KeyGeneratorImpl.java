@@ -180,7 +180,7 @@ public class KeyGeneratorImpl implements KeyGenerator {
 			"com.liferay.portal.license.util.LicenseUtil");
 
 		MethodKey writeServerPropertiesMethodKey = new MethodKey(
-			licenseUtilClass.getName(), "writeServerProperties", byte[].class);
+			licenseUtilClass, "writeServerProperties", byte[].class);
 
 		PortalClassInvoker.invoke(
 			true, writeServerPropertiesMethodKey, serverIdBytes);
