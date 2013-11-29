@@ -41,6 +41,7 @@ import java.util.UUID;
 
 /**
  * @author Ivica Cardic
+ * @author Igor Beslic
  */
 public class KeyGeneratorImpl implements KeyGenerator {
 
@@ -145,16 +146,9 @@ public class KeyGeneratorImpl implements KeyGenerator {
 
 	protected String getServerId() {
 		try {
-			ClassLoader classLoader = PortalClassLoaderUtil.getClassLoader();
-
-			Class<?> licenseUtilClass = classLoader.loadClass(
-				"com.liferay.portal.license.util.LicenseUtil");
-
-			MethodKey getServerIdBytesMethodKey = new MethodKey(
-				licenseUtilClass, "getServerIdBytes");
-
-			byte[] serverIdBytes = (byte[])PortalClassInvoker.invoke(
-				true, getServerIdBytesMethodKey);
+			byte[] serverIdBytes = (byte[])invokePortalClassMethod(
+				"com.liferay.portal.license.util.LicenseUtil",
+				"getServerIdBytes");
 
 			if (serverIdBytes.length == 0) {
 				serverIdBytes = generateServerId();
@@ -174,16 +168,33 @@ public class KeyGeneratorImpl implements KeyGenerator {
 	protected void writeServerProperties(byte[] serverIdBytes)
 		throws Exception {
 
+		invokePortalClassMethod(
+			"com.liferay.portal.license.util.LicenseUtil",
+			"writeServerProperties", serverIdBytes);
+	}
+
+	private Object invokePortalClassMethod(
+			String clazz, String method, Object... parameterTypes)
+		throws Exception {
+
 		ClassLoader classLoader = PortalClassLoaderUtil.getClassLoader();
 
-		Class<?> licenseUtilClass = classLoader.loadClass(
-			"com.liferay.portal.license.util.LicenseUtil");
+		Class<?> portalClass = classLoader.loadClass(clazz);
 
-		MethodKey writeServerPropertiesMethodKey = new MethodKey(
-			licenseUtilClass, "writeServerProperties", byte[].class);
+		Class<?>[] parameterTypesClasses = null;
 
-		PortalClassInvoker.invoke(
-			true, writeServerPropertiesMethodKey, serverIdBytes);
+		if (parameterTypes != null) {
+			parameterTypesClasses = new Class<?>[parameterTypes.length];
+
+			for (int i = 0; i < parameterTypes.length; i++) {
+				parameterTypesClasses[i] = parameterTypes[i].getClass();
+			}
+		}
+
+		MethodKey methodKey = new MethodKey(
+			portalClass, method, parameterTypesClasses);
+
+		return PortalClassInvoker.invoke(true, methodKey, parameterTypes);
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(KeyGeneratorImpl.class);
