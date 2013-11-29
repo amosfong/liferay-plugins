@@ -52,15 +52,14 @@ public class PortalMetricsMessageListener implements MessageListener {
 		metricsMessage.setCreateTime(System.currentTimeMillis());
 		metricsMessage.setKey(_keyGenerator.getKey());
 
-		Map<String, Object> payload = new HashMap<String, Object>();
+		Object payload = null;
 
 		if (message.getPayload() instanceof DataSample) {
 			DataSample dataSample = (DataSample)message.getPayload();
 
 			metricsMessage.setMetricsType(getMetricsType(dataSample));
 
-			payload.put(
-				"performanceMetrics", getPerformanceMetrics(dataSample));
+			payload = getPerformanceMetrics(dataSample);
 		}
 		else {
 			List<Object> performanceMetricsList = new ArrayList<Object>();
@@ -80,7 +79,7 @@ public class PortalMetricsMessageListener implements MessageListener {
 
 			metricsMessage.setMetricsType(MetricsMessage.METRICS_TYPE_PORTAL);
 
-			payload.put("performanceMetrics", performanceMetricsList);
+			payload = performanceMetricsList;
 		}
 
 		metricsMessage.setPayload(payload);
@@ -101,7 +100,7 @@ public class PortalMetricsMessageListener implements MessageListener {
 		String namespace = dataSample.getNamespace();
 
 		if (namespace.contains("Portal")) {
-			return MetricsMessage.METRICS_TYPE_PORTAL;
+			return MetricsMessage.METRICS_TYPE_LAYOUT;
 		}
 		else if (namespace.contains("Portlet")) {
 			return MetricsMessage.METRICS_TYPE_PORTLET;
