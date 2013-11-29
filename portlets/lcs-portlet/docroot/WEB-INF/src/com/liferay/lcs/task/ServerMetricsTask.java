@@ -145,7 +145,8 @@ public class ServerMetricsTask implements Runnable {
 
 				Set<ObjectName> objectNames = mBeanServer.queryNames(
 					new ObjectName(
-						"com.mchange.v2.c3p0:type=PooledDataSource*"),
+						"com.mchange.v2.c3p0:type=PooledDataSource," +
+							"identityToken=*,name=*"),
 					null);
 
 				for (ObjectName objectName : objectNames) {
