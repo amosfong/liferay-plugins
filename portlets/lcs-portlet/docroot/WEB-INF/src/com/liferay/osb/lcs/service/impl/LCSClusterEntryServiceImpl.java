@@ -46,11 +46,17 @@ public class LCSClusterEntryServiceImpl
 			location = null;
 		}
 
-		return doGetToObject(
-			LCSClusterEntryImpl.class,
-			_URL_LCS_CLUSTER_ENTRY_ADD_LCS_CLUSTER_ENTRY, "corpEntryId",
-			String.valueOf(corpEntryId), "name", name, "description",
-			description, "location", location, "type", String.valueOf(type));
+		try {
+			return doGetToObject(
+				LCSClusterEntryImpl.class,
+				_URL_LCS_CLUSTER_ENTRY_ADD_LCS_CLUSTER_ENTRY, "corpEntryId",
+				String.valueOf(corpEntryId), "name", name, "description",
+				description, "location", location, "type",
+				String.valueOf(type));
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
 	}
 
 	@Override
@@ -72,10 +78,17 @@ public class LCSClusterEntryServiceImpl
 	public List<LCSClusterEntry> getCorpEntryLCSClusterEntries(long corpEntryId)
 		throws SystemException {
 
-		List<LCSClusterEntryImpl> remoteLcsClusterEntries = doGetToList(
-			LCSClusterEntryImpl.class,
-			_URL_LCS_CLUSTER_ENTRY_GET_COR_ENTRY_LCS_CLUSTER_ENTRIES,
-			"corpEntryId", String.valueOf(corpEntryId));
+		List<LCSClusterEntryImpl> remoteLcsClusterEntries = null;
+
+		try {
+			remoteLcsClusterEntries = doGetToList(
+				LCSClusterEntryImpl.class,
+				_URL_LCS_CLUSTER_ENTRY_GET_COR_ENTRY_LCS_CLUSTER_ENTRIES,
+				"corpEntryId", String.valueOf(corpEntryId));
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
 
 		List<LCSClusterEntry> localLCSClusterEntries = new ArrayList
 			<LCSClusterEntry>();
@@ -91,20 +104,32 @@ public class LCSClusterEntryServiceImpl
 	public LCSClusterEntry getLCSClusterEntry(long lcsClusterEntryId)
 		throws SystemException {
 
-		return doGetToObject(
-			LCSClusterEntryImpl.class,
-			_URL_LCS_CLUSTER_ENTRY_GET_LCS_CLUSTER_ENTRY, "lcsClusterEntryId",
-			String.valueOf(lcsClusterEntryId));
+		try {
+			return doGetToObject(
+				LCSClusterEntryImpl.class,
+				_URL_LCS_CLUSTER_ENTRY_GET_LCS_CLUSTER_ENTRY,
+				"lcsClusterEntryId", String.valueOf(lcsClusterEntryId));
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
 	}
 
 	@Override
 	public List<LCSClusterEntry> getUserLCSClusterEntries(long userId)
 		throws SystemException {
 
-		List<LCSClusterEntryImpl> remoteLcsClusterEntries = doGetToList(
-			LCSClusterEntryImpl.class,
-			_URL_LCS_CLUSTER_ENTRY_GET_USER_LCS_CLUSTER_ENTRIES, "userId",
-			String.valueOf(userId));
+		List<LCSClusterEntryImpl> remoteLcsClusterEntries = null;
+
+		try {
+			remoteLcsClusterEntries = doGetToList(
+				LCSClusterEntryImpl.class,
+				_URL_LCS_CLUSTER_ENTRY_GET_USER_LCS_CLUSTER_ENTRIES, "userId",
+				String.valueOf(userId));
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
 
 		List<LCSClusterEntry> localLCSClusterEntries = new ArrayList
 			<LCSClusterEntry>();

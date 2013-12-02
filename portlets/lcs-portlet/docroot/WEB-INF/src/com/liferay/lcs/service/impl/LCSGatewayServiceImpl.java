@@ -19,12 +19,16 @@ import com.liferay.lcs.service.LCSGatewayService;
 import com.liferay.lcs.util.CompressionUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.security.auth.PrincipalException;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.security.auth.login.CredentialException;
+
 /**
  * @author Ivica Cardic
+ * @author Igor Beslic
  */
 public class LCSGatewayServiceImpl
 	extends BaseLCSServiceImpl implements LCSGatewayService {
@@ -33,18 +37,26 @@ public class LCSGatewayServiceImpl
 	public List<Message> getMessages(String key)
 		throws PortalException, SystemException {
 
-		List<Message> messages = new ArrayList<Message>();
+		try {
+			List<Message> messages = new ArrayList<Message>();
 
-		List<String> messageJSONs = doGetToList(
-			String.class, _URL_LCS_GATEWAY_GET_MESSAGES, "key", key);
+			List<String> messageJSONs = doGetToList(
+				String.class, _URL_LCS_GATEWAY_GET_MESSAGES, "key", key);
 
-		for (String messageJSON : messageJSONs) {
-			Message message = (Message)fromJSON(messageJSON);
+			for (String messageJSON : messageJSONs) {
+				Message message = (Message)fromJSON(messageJSON);
 
-			messages.add(message);
+				messages.add(message);
+			}
+
+			return messages;
 		}
-
-		return messages;
+		catch (CredentialException ce) {
+			throw new PrincipalException(ce);
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
 	}
 
 	@Override
@@ -55,12 +67,15 @@ public class LCSGatewayServiceImpl
 
 		try {
 			json = CompressionUtil.compress(json);
+
+			doPost(_URL_LCS_GATEWAY_SEND_MESSAGE, "json", json);
+		}
+		catch (CredentialException ce) {
+			throw new PrincipalException(ce);
 		}
 		catch (Exception e) {
 			throw new SystemException(e);
 		}
-
-		doPost(_URL_LCS_GATEWAY_SEND_MESSAGE, "json", json);
 	}
 
 	private static final String _URL_LCS_GATEWAY =

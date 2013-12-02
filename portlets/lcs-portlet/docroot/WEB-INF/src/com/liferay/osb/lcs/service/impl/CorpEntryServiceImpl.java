@@ -36,9 +36,14 @@ public class CorpEntryServiceImpl
 	public List<CorpEntryIdentifier> getCorpEntryIdentifiers()
 		throws SystemException {
 
-		return doGetToList(
-			CorpEntryIdentifier.class,
-			_URL_CORP_ENTRY_GET_CORP_ENTRY_IDENTIFIERS);
+		try {
+			return doGetToList(
+				CorpEntryIdentifier.class,
+				_URL_CORP_ENTRY_GET_CORP_ENTRY_IDENTIFIERS);
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
 	}
 
 	@Override

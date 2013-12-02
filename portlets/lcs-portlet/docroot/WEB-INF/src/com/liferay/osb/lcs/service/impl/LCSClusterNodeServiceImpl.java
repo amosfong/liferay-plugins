@@ -46,12 +46,17 @@ public class LCSClusterNodeServiceImpl
 			location = null;
 		}
 
-		return doGetToObject(
-			LCSClusterNodeImpl.class,
-			_URL_LCS_CLUSTER_NODE_ADD_LCS_CLUSTER_NODE, "buildNumber",
-			String.valueOf(buildNumber), "name", name, "description",
-			description, "key", key, "lcsClusterEntryId",
-			String.valueOf(lcsClusterEntryId), "location", location);
+		try {
+			return doGetToObject(
+				LCSClusterNodeImpl.class,
+				_URL_LCS_CLUSTER_NODE_ADD_LCS_CLUSTER_NODE, "buildNumber",
+				String.valueOf(buildNumber), "name", name, "description",
+				description, "key", key, "lcsClusterEntryId",
+				String.valueOf(lcsClusterEntryId), "location", location);
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
 	}
 
 	@Override
@@ -60,11 +65,16 @@ public class LCSClusterNodeServiceImpl
 			String location, ServiceContext serviceContext)
 		throws SystemException {
 
-		return doGetToObject(
-			LCSClusterNodeImpl.class,
-			_URL_LCS_CLUSTER_NODE_ADD_LCS_CLUSTER_NODE, "siblingKey",
-			siblingKey, "name", name, "description", description, "key", key,
-			"location", location);
+		try {
+			return doGetToObject(
+				LCSClusterNodeImpl.class,
+				_URL_LCS_CLUSTER_NODE_ADD_LCS_CLUSTER_NODE, "siblingKey",
+				siblingKey, "name", name, "description", description, "key",
+				key, "location", location);
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
 	}
 
 	@Override
@@ -117,9 +127,14 @@ public class LCSClusterNodeServiceImpl
 
 	@Override
 	public LCSClusterNode getLCSClusterNode(String key) throws SystemException {
-		return doGetToObject(
-			LCSClusterNodeImpl.class,
-			_URL_LCS_CLUSTER_NODE_GET_LCS_CLUSTER_NODE, "key", key);
+		try {
+			return doGetToObject(
+				LCSClusterNodeImpl.class,
+				_URL_LCS_CLUSTER_NODE_GET_LCS_CLUSTER_NODE, "key", key);
+		}
+		catch (Exception e) {
+			throw new SystemException(e);
+		}
 	}
 
 	@Override
