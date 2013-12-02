@@ -60,7 +60,7 @@ public class ExecuteScriptCommand implements Command {
 
 		String payload = null;
 
-		Exception exception = null;
+		String error = null;
 
 		try {
 			ScriptingUtil.exec(
@@ -72,12 +72,12 @@ public class ExecuteScriptCommand implements Command {
 			payload = unsyncByteArrayOutputStream.toString();
 		}
 		catch (ScriptingException se) {
-			exception = se;
+			error = se.getMessage();
 		}
 
 		ResponseCommandMessage responseCommandMessage =
 			ResponseCommandMessageUtil.createResponseCommandMessage(
-				requestCommandMessage, payload, exception.getMessage());
+				requestCommandMessage, payload, error);
 
 		_lcsGatewayService.sendMessage(responseCommandMessage);
 	}
