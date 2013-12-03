@@ -32,9 +32,11 @@ import java.util.List;
 
 /**
  * @author Brian Wing Shun Chan
+ * @author Tibor Lipusz
  */
 public class StatusLocalServiceImpl extends StatusLocalServiceBaseImpl {
 
+	@Override
 	public List<Object[]> getAllStatuses(
 			long companyId, long userId, long modifiedDate, int start, int end)
 		throws SystemException {
@@ -43,6 +45,7 @@ public class StatusLocalServiceImpl extends StatusLocalServiceBaseImpl {
 			companyId, userId, modifiedDate, start, end);
 	}
 
+	@Override
 	public List<Object[]> getGroupStatuses(
 			long userId, long modifiedDate, String[] groupNames, int start,
 			int end)
@@ -52,14 +55,25 @@ public class StatusLocalServiceImpl extends StatusLocalServiceBaseImpl {
 			userId, modifiedDate, groupNames, start, end);
 	}
 
+	@Override
 	public List<Object[]> getSocialStatuses(
 			long userId, int type, long modifiedDate, int start, int end)
 		throws SystemException {
 
-		return statusFinder.findBySocialRelationType(
-			userId, type, modifiedDate, start, end);
+		return getSocialStatuses(
+			userId, new int[] {type}, modifiedDate, start, end);
 	}
 
+	@Override
+	public List<Object[]> getSocialStatuses(
+			long userId, int[] types, long modifiedDate, int start, int end)
+		throws SystemException {
+
+		return statusFinder.findBySocialRelationTypes(
+			userId, types, modifiedDate, start, end);
+	}
+
+	@Override
 	public Status getUserStatus(long userId) throws SystemException {
 		Status status = statusPersistence.fetchByUserId(userId);
 
@@ -72,12 +86,14 @@ public class StatusLocalServiceImpl extends StatusLocalServiceBaseImpl {
 		return status;
 	}
 
+	@Override
 	public Status updateStatus(long userId, long modifiedDate)
 		throws SystemException {
 
 		return updateStatus(userId, modifiedDate, -1, -1, null, null, -1);
 	}
 
+	@Override
 	public Status updateStatus(
 			long userId, long modifiedDate, int online, int awake,
 			String activePanelIds, String message, int playSound)

@@ -10,46 +10,61 @@ AUI().use(
 
 				var currentTarget = event.currentTarget;
 
-				var markAsReadURL = currentTarget.attr('data-markAsReadURL');
+				var uri = currentTarget.attr('data-href');
 
-				if (markAsReadURL) {
-					A.io.request(
-						markAsReadURL,
-						{
-							after: {
-								success: function(event, id, obj) {
-									var responseData = this.get('responseData');
+				if (uri) {
+					var markAsReadURL = currentTarget.attr('data-markAsReadURL');
 
-									if (responseData.success) {
-										var userNotification = currentTarget.ancestor('.user-notification');
+					if (markAsReadURL) {
+						A.io.request(
+							markAsReadURL,
+							{
+								after: {
+									success: function(event, id, obj) {
+										var responseData = this.get('responseData');
 
-										if (userNotification) {
-											userNotification.removeClass('unread');
+										if (responseData.success) {
+											var userNotification = currentTarget.ancestor('.user-notification');
 
-											var read = userNotification.one('.content .read');
+											if (userNotification) {
+												userNotification.removeClass('unread');
 
-											if (read) {
-												read.setHTML(Liferay.Language.get('read'));
+												var read = userNotification.one('.content .read');
+
+												if (read) {
+													read.setHTML(Liferay.Language.get('read'));
+												}
+
+												if (instance._openWindow(uri)) {
+													Liferay.Util.openWindow(
+														{
+															id: 'notificationsWindow',
+															uri: uri
+														}
+													);
+												}
+												else {
+													var topWindow = Liferay.Util.getTop();
+
+													topWindow.location.href = uri;
+												}
 											}
 										}
 									}
-								}
-							},
-							dataType: 'json'
-						}
-					);
+								},
+								dataType: 'json'
+							}
+						);
+					}
+				}
+			},
+
+			_openWindow: function(uri) {
+				if (uri.match('p_p_state=maximized') || uri.match('p_p_state=pop_up') || uri.match('p_p_state=exclusive')) {
+					return true;
 				}
 
-				var uri = currentTarget.attr('href');
-
-				if (uri) {
-					Liferay.Util.openWindow(
-						{
-							id: 'notificationsWindow',
-							uri: uri
-						}
-					);
-				}
+				return false;
 			}
 		};
 	}

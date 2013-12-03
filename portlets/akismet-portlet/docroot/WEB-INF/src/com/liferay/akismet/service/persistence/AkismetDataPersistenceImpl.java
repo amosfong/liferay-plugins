@@ -41,7 +41,6 @@ import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.UnmodifiableList;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.CacheModel;
 import com.liferay.portal.model.ModelListener;
 import com.liferay.portal.service.persistence.impl.BasePersistenceImpl;
@@ -165,8 +164,8 @@ public class AkismetDataPersistenceImpl extends BasePersistenceImpl<AkismetData>
 
 		if ((list != null) && !list.isEmpty()) {
 			for (AkismetData akismetData : list) {
-				if (!Validator.equals(modifiedDate,
-							akismetData.getModifiedDate())) {
+				if ((modifiedDate.getTime() <= akismetData.getModifiedDate()
+															  .getTime())) {
 					list = null;
 
 					break;
@@ -349,6 +348,10 @@ public class AkismetDataPersistenceImpl extends BasePersistenceImpl<AkismetData>
 	public AkismetData fetchByLtModifiedDate_Last(Date modifiedDate,
 		OrderByComparator orderByComparator) throws SystemException {
 		int count = countByLtModifiedDate(modifiedDate);
+
+		if (count == 0) {
+			return null;
+		}
 
 		List<AkismetData> list = findByLtModifiedDate(modifiedDate, count - 1,
 				count, orderByComparator);
@@ -838,6 +841,10 @@ public class AkismetDataPersistenceImpl extends BasePersistenceImpl<AkismetData>
 
 	private static final String _FINDER_COLUMN_C_C_CLASSNAMEID_2 = "akismetData.classNameId = ? AND ";
 	private static final String _FINDER_COLUMN_C_C_CLASSPK_2 = "akismetData.classPK = ?";
+
+	public AkismetDataPersistenceImpl() {
+		setModelClass(AkismetData.class);
+	}
 
 	/**
 	 * Caches the akismet data in the entity cache if it is enabled.

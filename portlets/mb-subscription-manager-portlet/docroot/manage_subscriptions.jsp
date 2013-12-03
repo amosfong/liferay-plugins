@@ -57,7 +57,6 @@ MBCategory mbCategory = MBCategoryLocalServiceUtil.getMBCategory(mbCategoryId);
 		>
 			<liferay-ui:search-container-results
 				results="<%= userSearchContainer.getResults() %>"
-				total="<%= userSearchContainer.getTotal() %>"
 			/>
 
 			<c:if test="<%= !results.isEmpty() %>">

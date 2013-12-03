@@ -14,8 +14,12 @@
 
 package com.liferay.scriptingexecutor.scripts.groovy;
 
+import com.liferay.portal.model.GroupConstants;
+import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.Role;
-import com.liferay.portal.model.RoleConstants;
+import com.liferay.portal.model.RoleConstants
+import com.liferay.portal.service.ResourceBlockLocalServiceUtil
+import com.liferay.portal.service.ResourcePermissionLocalServiceUtil
 import com.liferay.portal.service.RoleLocalServiceUtil;
 
 /**
@@ -53,17 +57,76 @@ class GroovyRole {
 		return groovyRole;
 	}
 
-	void create(GroovyScriptingContext scriptingContext) {
-		role = RoleLocalServiceUtil.fetchRole(scriptingContext.companyId, name);
+	void create(GroovyScriptingContext groovyScriptingContext) {
+		role = RoleLocalServiceUtil.fetchRole(
+			groovyScriptingContext.companyId, name);
 
 		if (role != null) {
 			return;
 		}
 
 		role = RoleLocalServiceUtil.addRole(
-			scriptingContext.defaultUserId, scriptingContext.companyId, name,
+			groovyScriptingContext.defaultUserId, null, 0, name,
 			GroovyScriptingContext.getLocalizationMap(name),
-			GroovyScriptingContext.getLocalizationMap(description), type);
+			GroovyScriptingContext.getLocalizationMap(description), type, null,
+			groovyScriptingContext.serviceContext);
+	}
+
+	void updatePermissions(
+		String resourceName, String[] actionIds, boolean add,
+		GroovyScriptingContext groovyScriptingContext) {
+
+		boolean resourceBlockSupported =
+			ResourceBlockLocalServiceUtil.isSupported(resourceName);
+
+		int scope = ResourceConstants.SCOPE_COMPANY;
+
+		if ((role.getType() == RoleConstants.TYPE_ORGANIZATION) ||
+			(role.getType() == RoleConstants.TYPE_SITE)) {
+
+			scope = ResourceConstants.SCOPE_GROUP_TEMPLATE;
+		}
+
+		for (String actionId : actionIds) {
+			if (add) {
+				if (resourceBlockSupported) {
+					ResourceBlockLocalServiceUtil.addCompanyScopePermission(
+						groovyScriptingContext.companyId, resourceName,
+						role.getRoleId(), actionId);
+				}
+				else {
+					if (scope == ResourceConstants.SCOPE_COMPANY) {
+						ResourcePermissionLocalServiceUtil.
+							addResourcePermission(
+								groovyScriptingContext.companyId, resourceName,
+								scope, String.valueOf(role.getCompanyId()),
+								role.getRoleId(), actionId);
+					}
+					else if (scope == ResourceConstants.SCOPE_GROUP_TEMPLATE) {
+						ResourcePermissionLocalServiceUtil.
+							addResourcePermission(
+								groovyScriptingContext.companyId, resourceName,
+								scope,
+								String.valueOf(
+									GroupConstants.DEFAULT_PARENT_GROUP_ID),
+								role.getRoleId(), actionId);
+					}
+				}
+			}
+			else {
+				if (resourceBlockSupported) {
+					ResourceBlockLocalServiceUtil.removeCompanyScopePermission(
+						groovyScriptingContext.companyId, resourceName,
+						role.getRoleId(), actionId);
+				}
+				else {
+					ResourcePermissionLocalServiceUtil.
+						removeResourcePermissions(
+							groovyScriptingContext.companyId, resourceName,
+							scope, role.getRoleId(), actionId);
+				}
+			}
+		}
 	}
 
 	String description;

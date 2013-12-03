@@ -119,7 +119,7 @@ public class FindKBArticleAction extends BaseStrutsAction {
 			long plid, int status, HttpServletRequest request)
 		throws Exception {
 
-		String portletId = PortletKeys.KNOWLEDGE_BASE_ARTICLE_DEFAULT_INSTANCE;
+		String portletId = PortletKeys.KNOWLEDGE_BASE_DISPLAY;
 
 		PortletURL portletURL = getKBArticleURL(plid, portletId, request);
 
@@ -134,7 +134,6 @@ public class FindKBArticleAction extends BaseStrutsAction {
 		}
 
 		portletURL.setPortletMode(PortletMode.VIEW);
-		portletURL.setWindowState(LiferayWindowState.MAXIMIZED);
 
 		return portletURL;
 	}

@@ -87,6 +87,21 @@ public class NotificationTemplateContextFactory {
 
 		attributes.put("endTime", endTime);
 
+		CalendarNotificationTemplate calendarNotificationTemplate =
+			CalendarNotificationTemplateLocalServiceUtil.
+				fetchCalendarNotificationTemplate(
+					calendar.getCalendarId(), notificationType,
+					notificationTemplateType);
+
+		attributes.put(
+			"fromAddress",
+			NotificationUtil.getTemplatePropertyValue(
+				calendarNotificationTemplate, "from-address"));
+		attributes.put(
+			"fromName",
+			NotificationUtil.getTemplatePropertyValue(
+				calendarNotificationTemplate, "from-name"));
+
 		attributes.put("location", calendarBooking.getLocation());
 
 		Company company = CompanyLocalServiceUtil.getCompany(
@@ -118,12 +133,6 @@ public class NotificationTemplateContextFactory {
 		notificationTemplateContext.setAttributes(attributes);
 
 		// Content
-
-		CalendarNotificationTemplate calendarNotificationTemplate =
-			CalendarNotificationTemplateLocalServiceUtil.
-				fetchCalendarNotificationTemplate(
-					calendar.getCalendarId(), notificationType,
-					notificationTemplateType);
 
 		notificationTemplateContext.setCalendarNotificationTemplate(
 			calendarNotificationTemplate);

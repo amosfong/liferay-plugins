@@ -27,7 +27,7 @@ PortletURL portletURL = renderResponse.createRenderURL();
 portletURL.setParameter("tabs1", tabs1);
 %>
 
-<c:if test="<%= group.isUser() %>">
+<c:if test="<%= group.isUser() && layout.isPrivateLayout() %>">
 	<liferay-ui:tabs
 		names="all,connections,following,my-sites,me"
 		url="<%= portletURL.toString() %>"
@@ -39,7 +39,7 @@ portletURL.setParameter("tabs1", tabs1);
 
 <div class="loading-bar"></div>
 
-<aui:script use="aui-base,aui-io-request,aui-parse-content,liferay-so-scroll">
+<aui:script use="aui-base,aui-io-request-deprecated,aui-parse-content,liferay-so-scroll">
 	var activities = A.one('#p_p_id<portlet:namespace />');
 	var body = A.getBody();
 
@@ -68,13 +68,21 @@ portletURL.setParameter("tabs1", tabs1);
 		setTimeout(
 			function() {
 				<portlet:renderURL var="viewActivitySetsURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
-					<portlet:param name="mvcPath" value="/activities/view_activity_sets.jsp" />
+					<c:choose>
+						<c:when test="<%= GetterUtil.getBoolean(PropsUtil.get(PropsKeys.SOCIAL_ACTIVITY_SETS_ENABLED)) %>">
+							<portlet:param name="mvcPath" value="/activities/view_activity_sets.jsp" />
+						</c:when>
+						<c:otherwise>
+							<portlet:param name="mvcPath" value="/activities/view_activities.jsp" />
+						</c:otherwise>
+					</c:choose>
+
 					<portlet:param name="tabs1" value="<%= tabs1 %>" />
 				</portlet:renderURL>
 
 				var uri = '<%= viewActivitySetsURL %>';
 
-				uri = Liferay.Util.addParams('start=' + start, uri) || uri;
+				uri = Liferay.Util.addParams('<portlet:namespace />start=' + start, uri) || uri;
 
 				A.io.request(
 					uri,
@@ -131,15 +139,13 @@ portletURL.setParameter("tabs1", tabs1);
 
 			var commentsList = commentsContainer.one('.comments-list');
 
-			var commentEntry = commentsList.one('.comment-entry');
-
-			if (commentEntry) {
+			if (commentsList.attr('loaded')) {
 				commentsList.toggle();
 			}
 			else {
 				var uri = '<liferay-portlet:resourceURL id="getComments"></liferay-portlet:resourceURL>';
 
-				uri = Liferay.Util.addParams('activitySetId=' + currentTarget.getAttribute('data-activitySetId'), uri) || uri;
+				uri = Liferay.Util.addParams('<portlet:namespace />activitySetId=' + currentTarget.getAttribute('data-activitySetId'), uri) || uri;
 
 				A.io.request(
 					uri,
@@ -149,12 +155,16 @@ portletURL.setParameter("tabs1", tabs1);
 								var responseData = this.get('responseData');
 
 								if (responseData) {
+									commentsList.empty();
+
 									A.Array.each(
 										responseData.comments,
 										function(item, index, collection) {
 											Liferay.SO.Activities.addNewComment(commentsList, item);
 										}
 									);
+
+									commentsList.attr('loaded', 'true');
 								}
 							}
 						},
@@ -332,7 +342,7 @@ portletURL.setParameter("tabs1", tabs1);
 
 			var uri = '<portlet:renderURL windowState="<%= LiferayWindowState.POP_UP.toString() %>"><portlet:param name="mvcPath" value="/activities/repost_microblogs_entry.jsp" /><portlet:param name="mvcPath" value="/activities/repost_microblogs_entry.jsp" /><portlet:param name="redirect" value="<%= currentURL %>" /></portlet:renderURL>';
 
-			uri = Liferay.Util.addParams('microblogsEntryId=' + currentTarget.getAttribute('data-microblogsEntryId'), uri) || uri;
+			uri = Liferay.Util.addParams('<portlet:namespace />microblogsEntryId=' + currentTarget.getAttribute('data-microblogsEntryId'), uri) || uri;
 
 			Liferay.Util.openWindow(
 				{
