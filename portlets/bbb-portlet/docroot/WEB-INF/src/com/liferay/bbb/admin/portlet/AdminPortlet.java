@@ -73,7 +73,10 @@ public class AdminPortlet extends MVCPortlet {
 
 		long bbbMeetingId = ParamUtil.getLong(actionRequest, "bbbMeetingId");
 
-		BBBUtil.startMeeting(bbbMeetingId);
+		boolean recordMeeting = ParamUtil.getBoolean(
+			actionRequest, "recordMeeting");
+
+		BBBUtil.startMeeting(bbbMeetingId, recordMeeting);
 	}
 
 	public void updateBBBMeeting(

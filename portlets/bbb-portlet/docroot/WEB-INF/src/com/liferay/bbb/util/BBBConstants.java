@@ -27,6 +27,8 @@ public class BBBConstants {
 
 	public static final String API_METHOD_GET_MEETINGS = "getMeetings";
 
+	public static final String API_METHOD_GET_RECORDINGS = "getRecordings";
+
 	public static final String API_METHOD_IS_MEETING_RUNNING =
 		"isMeetingRunning";
 
@@ -44,12 +46,24 @@ public class BBBConstants {
 
 	public static final String API_PARAMETER_PASSWORD = "password";
 
+	public static final String API_PARAMETER_RECORD = "record";
+
 	public static final String API_RESPONSE_FAILED = "FAILED";
+
+	public static final String API_RESPONSE_FORMAT = "format";
+
+	public static final String API_RESPONSE_PLAYBACK = "playback";
+
+	public static final String API_RESPONSE_RECORDING = "recording";
+
+	public static final String API_RESPONSE_RECORDINGS = "recordings";
 
 	public static final String API_RESPONSE_RETURN_CODE = "returncode";
 
 	public static final String API_RESPONSE_RUNNING = "running";
 
 	public static final String API_RESPONSE_SUCCESS = "SUCCESS";
+
+	public static final String API_RESPONSE_URL = "url";
 
 }

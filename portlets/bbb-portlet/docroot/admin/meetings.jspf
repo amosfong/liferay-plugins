@@ -42,7 +42,7 @@
 	>
 
 		<portlet:renderURL var="rowURL">
-			<portlet:param name="mvcPath" value="/admin/edit_meeting.jsp" />
+			<portlet:param name="mvcPath" value="/admin/view_meeting.jsp" />
 			<portlet:param name="redirect" value="<%= portletURL.toString() %>" />
 			<portlet:param name="bbbMeetingId" value="<%= String.valueOf(bbbMeeting.getBbbMeetingId()) %>" />
 		</portlet:renderURL>

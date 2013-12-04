@@ -40,6 +40,8 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -76,13 +78,6 @@ public class BBBUtil {
 	public static String getJoinURL(
 			BBBParticipant bbbParticipant, String userName)
 		throws PortalException, SystemException {
-
-		if ((bbbParticipant.getType() ==
-				BBBParticipantConstants.TYPE_MODERATOR) &&
-			!isMeetingRunning(bbbParticipant.getBbbMeetingId())) {
-
-			startMeeting(bbbParticipant.getBbbMeetingId());
-		}
 
 		if (!userName.equals(bbbParticipant.getName())) {
 			bbbParticipant = BBBParticipantLocalServiceUtil.addBBBParticipant(
@@ -157,6 +152,47 @@ public class BBBUtil {
 		return document;
 	}
 
+	public static List<String> getMeetingRecordings(long bbbMeetingId)
+		throws PortalException, SystemException {
+
+		List<String> meetingRecordings = new ArrayList<String>();
+
+		BBBMeeting bbbMeeting = BBBMeetingLocalServiceUtil.getBBBMeeting(
+			bbbMeetingId);
+
+		StringBundler sb = new StringBundler(3);
+
+		sb.append(BBBConstants.API_PARAMETER_MEETING_ID);
+		sb.append(StringPool.EQUAL);
+		sb.append(bbbMeetingId);
+
+		Document document = execute(
+			bbbMeeting, BBBConstants.API_METHOD_GET_RECORDINGS, sb.toString());
+
+		Element rootElement = document.getRootElement();
+
+		Element recordingsElement = rootElement.element(
+			BBBConstants.API_RESPONSE_RECORDINGS);
+
+		Iterator iterator = recordingsElement.elementIterator(
+			BBBConstants.API_RESPONSE_RECORDING);
+
+		while (iterator.hasNext()) {
+			Element element = (Element)iterator.next();
+
+			Element playbackElement = element.element(
+				BBBConstants.API_RESPONSE_PLAYBACK);
+
+			Element formatElement = playbackElement.element(
+				BBBConstants.API_RESPONSE_FORMAT);
+
+			meetingRecordings.add(
+				getText(formatElement, BBBConstants.API_RESPONSE_URL));
+		}
+
+		return meetingRecordings;
+	}
+
 	public static boolean isMeetingRunning(long bbbMeetingId) {
 		try {
 			getMeetingInfo(bbbMeetingId);
@@ -192,7 +228,8 @@ public class BBBUtil {
 		return false;
 	}
 
-	public static BBBMeeting startMeeting(long bbbMeetingId)
+	public static BBBMeeting startMeeting(
+			long bbbMeetingId, boolean recordMeeting)
 		throws PortalException, SystemException {
 
 		BBBMeeting bbbMeeting = BBBMeetingLocalServiceUtil.getBBBMeeting(
@@ -202,7 +239,7 @@ public class BBBUtil {
 			return bbbMeeting;
 		}
 
-		StringBundler sb = new StringBundler(7);
+		StringBundler sb = new StringBundler(11);
 
 		sb.append(BBBConstants.API_PARAMETER_MEETING_ID);
 		sb.append(StringPool.EQUAL);
@@ -214,6 +251,13 @@ public class BBBUtil {
 		sb.append(BBBConstants.API_PARAMETER_NAME);
 		sb.append(StringPool.EQUAL);
 		sb.append(HtmlUtil.escapeURL(bbbMeeting.getName()));
+
+		if (recordMeeting) {
+			sb.append(StringPool.AMPERSAND);
+			sb.append(BBBConstants.API_PARAMETER_RECORD);
+			sb.append(StringPool.EQUAL);
+			sb.append(StringPool.TRUE);
+		}
 
 		Document document = execute(
 			bbbMeeting, BBBConstants.API_METHOD_CREATE, sb.toString());

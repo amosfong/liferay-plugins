@@ -43,6 +43,8 @@ public class DisplayPortlet extends MVCPortlet {
 			actionRequest, "bbbParticipantId");
 		String hash = ParamUtil.getString(actionRequest, "hash");
 		String name = ParamUtil.getString(actionRequest, "name");
+		boolean recordMeeting = ParamUtil.getBoolean(
+			actionRequest, "recordMeeting");
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
@@ -71,6 +73,15 @@ public class DisplayPortlet extends MVCPortlet {
 				jsonObject.put("retry", Boolean.TRUE);
 			}
 			else {
+				if ((bbbParticipant.getType() ==
+						BBBParticipantConstants.TYPE_MODERATOR) &&
+					!BBBUtil.isMeetingRunning(
+						bbbParticipant.getBbbMeetingId())) {
+
+					BBBUtil.startMeeting(
+						bbbParticipant.getBbbMeetingId(), recordMeeting);
+				}
+
 				String joinURL = BBBUtil.getJoinURL(bbbParticipant, name);
 
 				jsonObject.put("joinURL", joinURL);

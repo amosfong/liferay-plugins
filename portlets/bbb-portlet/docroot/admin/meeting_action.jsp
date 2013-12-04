@@ -68,6 +68,19 @@ if (row != null) {
 	</c:if>
 
 	<c:if test="<%= BBBMeetingPermission.contains(permissionChecker, bbbMeeting, ActionKeys.UPDATE) %>">
+		<c:if test="<%= bbbMeeting.getStatus() == BBBMeetingConstants.STATUS_IN_PROGRESS %>">
+			<portlet:actionURL name="endBBBMeeting" var="endMeetingURL">
+				<portlet:param name="redirect" value="<%= currentURL %>" />
+				<portlet:param name="bbbMeetingId" value="<%= String.valueOf(bbbMeeting.getBbbMeetingId()) %>" />
+			</portlet:actionURL>
+
+			<liferay-ui:icon
+				image="unlink"
+				message="end-meeting"
+				url="<%= endMeetingURL %>"
+			/>
+		</c:if>
+
 		<c:if test="<%= bbbMeeting.getStatus() == BBBMeetingConstants.STATUS_SCHEDULED %>">
 			<portlet:actionURL name="startBBBMeeting" var="startMeetingURL">
 				<portlet:param name="redirect" value="<%= currentURL %>" />
@@ -79,18 +92,17 @@ if (row != null) {
 				message="start-meeting"
 				url="<%= startMeetingURL %>"
 			/>
-		</c:if>
 
-		<c:if test="<%= bbbMeeting.getStatus() == BBBMeetingConstants.STATUS_IN_PROGRESS %>">
-			<portlet:actionURL name="endBBBMeeting" var="endMeetingURL">
+			<portlet:actionURL name="startBBBMeeting" var="startMeetingWithRecordingURL">
 				<portlet:param name="redirect" value="<%= currentURL %>" />
 				<portlet:param name="bbbMeetingId" value="<%= String.valueOf(bbbMeeting.getBbbMeetingId()) %>" />
+				<portlet:param name="recordMeeting" value="true" />
 			</portlet:actionURL>
 
 			<liferay-ui:icon
-				image="unlink"
-				message="end-meeting"
-				url="<%= endMeetingURL %>"
+				image="desktop"
+				message="start-meeting-with-recording"
+				url="<%= startMeetingWithRecordingURL %>"
 			/>
 		</c:if>
 	</c:if>
