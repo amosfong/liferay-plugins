@@ -4,7 +4,6 @@
 <liferay-portlet-app>
 	<portlet>
 		<portlet-name>1</portlet-name>
-		<icon>/icon.png</icon>
 		<friendly-url-mapper-class>com.liferay.portal.kernel.portlet.DefaultFriendlyURLMapper</friendly-url-mapper-class>
 		<friendly-url-mapping>meetings</friendly-url-mapping>
 		<friendly-url-routes>com/liferay/bbb/display/portlet/display-friendly-url-routes.xml</friendly-url-routes>
@@ -12,7 +11,7 @@
 	</portlet>
 	<portlet>
 		<portlet-name>2</portlet-name>
-		<icon>/icon.png</icon>
+		<icon>/admin/icon.png</icon>
 		<scheduler-entry>
 			<scheduler-event-listener-class>com.liferay.bbb.admin.messaging.CheckServersMessageListener</scheduler-event-listener-class>
 			<trigger>
