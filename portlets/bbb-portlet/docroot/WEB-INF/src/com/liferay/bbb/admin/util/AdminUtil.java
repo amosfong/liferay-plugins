@@ -20,17 +20,27 @@ import com.liferay.bbb.model.BBBParticipantConstants;
 import com.liferay.bbb.service.BBBMeetingLocalServiceUtil;
 import com.liferay.bbb.service.BBBParticipantLocalServiceUtil;
 import com.liferay.bbb.service.BBBParticipantServiceUtil;
+import com.liferay.bbb.util.PortletKeys;
 import com.liferay.mail.service.MailServiceUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.mail.MailMessage;
+import com.liferay.portal.kernel.util.Digester;
+import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.Company;
+import com.liferay.portal.model.Layout;
 import com.liferay.portal.service.CompanyLocalServiceUtil;
+import com.liferay.portal.service.LayoutLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.util.Portal;
+import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.ContentUtil;
 
 import java.util.ArrayList;
@@ -100,7 +110,28 @@ public class AdminUtil {
 			BBBParticipant bbbParticipant, HttpServletRequest request)
 		throws Exception {
 
-		return StringPool.BLANK;
+		StringBundler sb = new StringBundler(7);
+
+		long plid = PortalUtil.getPlidFromPortletId(
+			bbbParticipant.getGroupId(), PortletKeys.BBB_DISPLAY);
+
+		Layout layout = LayoutLocalServiceUtil.getLayout(plid);
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)request.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		sb.append(PortalUtil.getLayoutURL(layout, themeDisplay));
+
+		sb.append(Portal.FRIENDLY_URL_SEPARATOR);
+		sb.append("meetings");
+		sb.append(StringPool.SLASH);
+		sb.append(bbbParticipant.getBbbParticipantId());
+		sb.append(StringPool.SLASH);
+		sb.append(
+			DigesterUtil.digestHex(
+				Digester.SHA_1, bbbParticipant.getEmailAddress()));
+
+		return sb.toString();
 	}
 
 	public static void sendEmail(
@@ -139,13 +170,11 @@ public class AdminUtil {
 			long bbbParticipantId = bbbParticipant.getBbbParticipantId();
 
 			if (bbbParticipantId <= 0) {
-				bbbParticipant =
-					BBBParticipantServiceUtil.addBBBParticipant(
-						groupId, bbbMeetingId, bbbParticipant.getName(),
-						bbbParticipant.getEmailAddress(),
-						bbbParticipant.getType(),
-						BBBParticipantConstants.STATUS_DEFAULT,
-						new ServiceContext());
+				bbbParticipant = BBBParticipantServiceUtil.addBBBParticipant(
+					groupId, bbbMeetingId, bbbParticipant.getName(),
+					bbbParticipant.getEmailAddress(), bbbParticipant.getType(),
+					BBBParticipantConstants.STATUS_DEFAULT,
+					new ServiceContext());
 
 				bbbParticipantId = bbbParticipant.getBbbParticipantId();
 			}
@@ -185,7 +214,8 @@ public class AdminUtil {
 			bbbParticipant.getEmailAddress(), bbbParticipant.getName());
 
 		String subject = ContentUtil.get(
-			"admin/dependencies/meeting_scheduled_notification_subject.tmpl");
+			"com/liferay/bbb/admin/dependencies/" +
+				"meeting_scheduled_notification_subject.tmpl");
 
 		subject = StringUtil.replace(
 			subject,
@@ -197,7 +227,8 @@ public class AdminUtil {
 			});
 
 		String body = ContentUtil.get(
-			"admin/dependencies/meeting_scheduled_notification_body.tmpl");
+			"com/liferay/bbb/admin/dependencies/" +
+				"meeting_scheduled_notification_body.tmpl");
 
 		body = StringUtil.replace(
 			body,
