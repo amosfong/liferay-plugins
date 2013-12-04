@@ -14,8 +14,12 @@
 
 package com.liferay.bbb.service.impl;
 
+import com.liferay.bbb.model.BBBMeeting;
+import com.liferay.bbb.model.BBBMeetingConstants;
 import com.liferay.bbb.model.BBBServer;
+import com.liferay.bbb.service.BBBMeetingLocalServiceUtil;
 import com.liferay.bbb.service.base.BBBServerLocalServiceBaseImpl;
+import com.liferay.bbb.util.BBBUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -55,6 +59,7 @@ public class BBBServerLocalServiceImpl extends BBBServerLocalServiceBaseImpl {
 		bbbServer.setName(name);
 		bbbServer.setUrl(url);
 		bbbServer.setSecret(secret);
+		bbbServer.setActive(BBBUtil.isServerActive(bbbServer));
 
 		bbbServerPersistence.update(bbbServer);
 
@@ -63,6 +68,29 @@ public class BBBServerLocalServiceImpl extends BBBServerLocalServiceBaseImpl {
 		resourceLocalService.addModelResources(bbbServer, serviceContext);
 
 		return bbbServer;
+	}
+
+	@Override
+	public void checkBBBServers() throws PortalException, SystemException {
+		List<BBBServer> bbbServers = bbbServerPersistence.findAll();
+
+		for (BBBServer bbbServer : bbbServers) {
+			bbbServer.setActive(BBBUtil.isServerActive(bbbServer));
+
+			bbbServerPersistence.update(bbbServer);
+		}
+
+		List<BBBMeeting> bbbMeetings =
+			BBBMeetingLocalServiceUtil.getBBBMeetings(
+				BBBMeetingConstants.STATUS_IN_PROGRESS);
+
+		for (BBBMeeting bbbMeeting : bbbMeetings) {
+			if (!BBBUtil.isMeetingRunning(bbbMeeting.getBbbMeetingId())) {
+				bbbMeeting.setStatus(BBBMeetingConstants.STATUS_COMPLETED);
+
+				bbbMeetingPersistence.update(bbbMeeting);
+			}
+		}
 	}
 
 	@Override
@@ -124,6 +152,7 @@ public class BBBServerLocalServiceImpl extends BBBServerLocalServiceBaseImpl {
 		bbbServer.setName(name);
 		bbbServer.setUrl(url);
 		bbbServer.setSecret(secret);
+		bbbServer.setActive(BBBUtil.isServerActive(bbbServer));
 
 		return bbbServerPersistence.update(bbbServer);
 	}

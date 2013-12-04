@@ -28,7 +28,6 @@ import com.liferay.portal.kernel.util.Digester;
 import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
-import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.xml.Document;
@@ -38,6 +37,9 @@ import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.portal.service.ServiceContext;
 
 import java.io.IOException;
+
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 import java.util.List;
 import java.util.Map;
@@ -76,6 +78,13 @@ public class BBBUtil {
 			BBBParticipant bbbParticipant, String userName)
 		throws PortalException, SystemException {
 
+		if ((bbbParticipant.getType() ==
+				BBBParticipantConstants.TYPE_MODERATOR) &&
+			!isMeetingRunning(bbbParticipant.getBbbMeetingId())) {
+
+			startMeeting(bbbParticipant.getBbbMeetingId());
+		}
+
 		if (!userName.equals(bbbParticipant.getName())) {
 			bbbParticipant = BBBParticipantLocalServiceUtil.addBBBParticipant(
 				bbbParticipant.getUserId(), bbbParticipant.getGroupId(),
@@ -111,7 +120,10 @@ public class BBBUtil {
 			sb.append(HtmlUtil.escapeURL(bbbMeeting.getAttendeePassword()));
 		}
 
-		return getURL(bbbMeeting, BBBConstants.API_METHOD_JOIN, sb.toString());
+		BBBServer bbbServer = BBBServerLocalServiceUtil.getBBBServer(
+			bbbMeeting.getBbbServerId());
+
+		return getURL(bbbServer, BBBConstants.API_METHOD_JOIN, sb.toString());
 	}
 
 	public static boolean isMeetingRunning(long bbbMeetingId) {
@@ -134,6 +146,29 @@ public class BBBUtil {
 			if (GetterUtil.getBoolean(
 					getText(element, BBBConstants.API_RESPONSE_RUNNING))) {
 
+				return true;
+			}
+		}
+		catch (Exception e) {
+		}
+
+		return false;
+	}
+
+	public static boolean isServerActive(BBBServer bbbServer)
+		throws PortalException, SystemException {
+
+		try {
+			Document document = execute(
+				bbbServer, BBBConstants.API_METHOD_GET_MEETINGS,
+				StringPool.BLANK);
+
+			Element element = document.getRootElement();
+
+			String returnCode = getText(
+				element, BBBConstants.API_RESPONSE_RETURN_CODE);
+
+			if (returnCode.equals(BBBConstants.API_RESPONSE_SUCCESS)) {
 				return true;
 			}
 		}
@@ -190,12 +225,27 @@ public class BBBUtil {
 			BBBMeeting bbbMeeting, String methodName, String queryString)
 		throws PortalException, SystemException {
 
+		BBBServer bbbServer = BBBServerLocalServiceUtil.getBBBServer(
+			bbbMeeting.getBbbServerId());
+
+		return execute(bbbServer, methodName, queryString);
+	}
+
+	protected static Document execute(
+			BBBServer bbbServer, String methodName, String queryString)
+		throws PortalException, SystemException {
+
 		try {
-			String url = getURL(bbbMeeting, methodName, queryString);
+			String url = getURL(bbbServer, methodName, queryString);
 
-			String xml = HttpUtil.URLtoString(url);
+			URL urlObj = new URL(url);
 
-			return SAXReaderUtil.read(xml);
+			HttpURLConnection urlConnection =
+				(HttpURLConnection)urlObj.openConnection();
+
+			urlConnection.setConnectTimeout(3000);
+
+			return SAXReaderUtil.read(urlConnection.getInputStream());
 		}
 		catch (DocumentException de) {
 			throw new SystemException(de);
@@ -205,8 +255,12 @@ public class BBBUtil {
 		}
 	}
 
-	protected static long getBbbServerId(long groupId) throws SystemException {
+	protected static long getBbbServerId(long groupId)
+		throws PortalException, SystemException {
+
 		TreeMap<Integer, Long> bbbServersMap = new TreeMap<Integer, Long>();
+
+		BBBServerLocalServiceUtil.checkBBBServers();
 
 		List<BBBServer> bbbServers = BBBServerLocalServiceUtil.getBBBServers(
 			groupId, true);
@@ -239,13 +293,10 @@ public class BBBUtil {
 	}
 
 	protected static String getURL(
-			BBBMeeting bbbMeeting, String methodName, String queryString)
+			BBBServer bbbServer, String methodName, String queryString)
 		throws PortalException, SystemException {
 
 		StringBundler sb = new StringBundler(6);
-
-		BBBServer bbbServer = BBBServerLocalServiceUtil.getBBBServer(
-			bbbMeeting.getBbbServerId());
 
 		sb.append(bbbServer.getUrl());
 

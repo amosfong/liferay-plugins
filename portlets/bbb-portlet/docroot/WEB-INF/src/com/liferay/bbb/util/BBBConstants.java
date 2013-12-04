@@ -23,6 +23,8 @@ public class BBBConstants {
 
 	public static final String API_METHOD_END = "end";
 
+	public static final String API_METHOD_GET_MEETINGS = "getMeetings";
+
 	public static final String API_METHOD_IS_MEETING_RUNNING =
 		"isMeetingRunning";
 
@@ -45,5 +47,7 @@ public class BBBConstants {
 	public static final String API_RESPONSE_RETURN_CODE = "returncode";
 
 	public static final String API_RESPONSE_RUNNING = "running";
+
+	public static final String API_RESPONSE_SUCCESS = "SUCCESS";
 
 }

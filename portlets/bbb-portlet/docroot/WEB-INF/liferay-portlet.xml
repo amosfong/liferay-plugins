@@ -13,6 +13,15 @@
 	<portlet>
 		<portlet-name>2</portlet-name>
 		<icon>/icon.png</icon>
+		<scheduler-entry>
+			<scheduler-event-listener-class>com.liferay.bbb.admin.messaging.CheckServersMessageListener</scheduler-event-listener-class>
+			<trigger>
+				<simple>
+					<property-key>bbb.synchronization.interval</property-key>
+					<time-unit>minute</time-unit>
+				</simple>
+			</trigger>
+		</scheduler-entry>
 		<control-panel-entry-category>site_administration.content</control-panel-entry-category>
 		<css-class-wrapper>bbb-portlet</css-class-wrapper>
 	</portlet>
