@@ -23,6 +23,8 @@ public class BBBConstants {
 
 	public static final String API_METHOD_END = "end";
 
+	public static final String API_METHOD_GET_MEETING_INFO = "getMeetingInfo";
+
 	public static final String API_METHOD_GET_MEETINGS = "getMeetings";
 
 	public static final String API_METHOD_IS_MEETING_RUNNING =

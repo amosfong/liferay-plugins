@@ -26,7 +26,6 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.Digester;
 import com.liferay.portal.kernel.util.DigesterUtil;
-import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
@@ -126,28 +125,43 @@ public class BBBUtil {
 		return getURL(bbbServer, BBBConstants.API_METHOD_JOIN, sb.toString());
 	}
 
+	public static Document getMeetingInfo(long bbbMeetingId)
+		throws PortalException, SystemException {
+
+		BBBMeeting bbbMeeting = BBBMeetingLocalServiceUtil.getBBBMeeting(
+			bbbMeetingId);
+
+		StringBundler sb = new StringBundler(7);
+
+		sb.append(BBBConstants.API_PARAMETER_MEETING_ID);
+		sb.append(StringPool.EQUAL);
+		sb.append(bbbMeeting.getBbbMeetingId());
+		sb.append(StringPool.AMPERSAND);
+		sb.append(BBBConstants.API_PARAMETER_PASSWORD);
+		sb.append(StringPool.EQUAL);
+		sb.append(bbbMeeting.getModeratorPassword());
+
+		Document document = execute(
+			bbbMeeting, BBBConstants.API_METHOD_GET_MEETING_INFO,
+			sb.toString());
+
+		Element element = document.getRootElement();
+
+		String returnCode = getText(
+			element, BBBConstants.API_RESPONSE_RETURN_CODE);
+
+		if (returnCode.equals(BBBConstants.API_RESPONSE_FAILED)) {
+			throw new SystemException();
+		}
+
+		return document;
+	}
+
 	public static boolean isMeetingRunning(long bbbMeetingId) {
 		try {
-			BBBMeeting bbbMeeting = BBBMeetingLocalServiceUtil.getBBBMeeting(
-				bbbMeetingId);
+			getMeetingInfo(bbbMeetingId);
 
-			StringBundler sb = new StringBundler(3);
-
-			sb.append(BBBConstants.API_PARAMETER_MEETING_ID);
-			sb.append(StringPool.EQUAL);
-			sb.append(bbbMeeting.getBbbMeetingId());
-
-			Document document = execute(
-				bbbMeeting, BBBConstants.API_METHOD_IS_MEETING_RUNNING,
-				sb.toString());
-
-			Element element = document.getRootElement();
-
-			if (GetterUtil.getBoolean(
-					getText(element, BBBConstants.API_RESPONSE_RUNNING))) {
-
-				return true;
-			}
+			return true;
 		}
 		catch (Exception e) {
 		}
@@ -181,14 +195,17 @@ public class BBBUtil {
 	public static BBBMeeting startMeeting(long bbbMeetingId)
 		throws PortalException, SystemException {
 
+		BBBMeeting bbbMeeting = BBBMeetingLocalServiceUtil.getBBBMeeting(
+			bbbMeetingId);
+
+		if (bbbMeeting.getStatus() != BBBMeetingConstants.STATUS_SCHEDULED) {
+			return bbbMeeting;
+		}
+
 		StringBundler sb = new StringBundler(7);
 
 		sb.append(BBBConstants.API_PARAMETER_MEETING_ID);
 		sb.append(StringPool.EQUAL);
-
-		BBBMeeting bbbMeeting = BBBMeetingLocalServiceUtil.getBBBMeeting(
-			bbbMeetingId);
-
 		bbbMeeting.setBbbServerId(getBbbServerId(bbbMeeting.getGroupId()));
 
 		sb.append(bbbMeeting.getBbbMeetingId());
