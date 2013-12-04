@@ -19,11 +19,8 @@ import com.liferay.bbb.model.BBBParticipant;
 import com.liferay.bbb.model.BBBParticipantConstants;
 import com.liferay.bbb.service.BBBMeetingLocalServiceUtil;
 import com.liferay.bbb.service.BBBParticipantLocalServiceUtil;
-import com.liferay.bbb.service.BBBParticipantServiceUtil;
 import com.liferay.bbb.util.PortletKeys;
 import com.liferay.mail.service.MailServiceUtil;
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.mail.MailMessage;
 import com.liferay.portal.kernel.util.Digester;
 import com.liferay.portal.kernel.util.DigesterUtil;
@@ -45,9 +42,7 @@ import com.liferay.util.ContentUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.mail.internet.InternetAddress;
 
@@ -156,47 +151,6 @@ public class AdminUtil {
 			BBBParticipantLocalServiceUtil.updateStatus(
 				bbbParticipant.getBbbParticipantId(),
 				BBBParticipantConstants.STATUS_INVITED);
-		}
-	}
-
-	public static void updateBBBParticipants(
-			long groupId, long bbbMeetingId,
-			List<BBBParticipant> bbbParticipants)
-		throws PortalException, SystemException {
-
-		Set<Long> bbbParticipantIds = new HashSet<Long>();
-
-		for (BBBParticipant bbbParticipant : bbbParticipants) {
-			long bbbParticipantId = bbbParticipant.getBbbParticipantId();
-
-			if (bbbParticipantId <= 0) {
-				bbbParticipant = BBBParticipantServiceUtil.addBBBParticipant(
-					groupId, bbbMeetingId, bbbParticipant.getName(),
-					bbbParticipant.getEmailAddress(), bbbParticipant.getType(),
-					BBBParticipantConstants.STATUS_DEFAULT,
-					new ServiceContext());
-
-				bbbParticipantId = bbbParticipant.getBbbParticipantId();
-			}
-			else {
-				BBBParticipantServiceUtil.updateBBBParticipant(
-					bbbParticipantId, bbbMeetingId, bbbParticipant.getName(),
-					bbbParticipant.getEmailAddress(), bbbParticipant.getType(),
-					new ServiceContext());
-			}
-
-			bbbParticipantIds.add(bbbParticipantId);
-		}
-
-		bbbParticipants = BBBParticipantServiceUtil.getBBBParticipants(
-			bbbMeetingId);
-
-		for (BBBParticipant bbbParticipant : bbbParticipants) {
-			if (!bbbParticipantIds.contains(
-					bbbParticipant.getBbbParticipantId())) {
-
-				BBBParticipantServiceUtil.deleteBBBParticipant(bbbParticipant);
-			}
 		}
 	}
 

@@ -14,8 +14,10 @@
 
 package com.liferay.bbb.service.impl;
 
+import com.liferay.bbb.admin.util.AdminUtil;
 import com.liferay.bbb.model.BBBMeeting;
 import com.liferay.bbb.model.BBBParticipant;
+import com.liferay.bbb.model.BBBParticipantConstants;
 import com.liferay.bbb.service.base.BBBMeetingLocalServiceBaseImpl;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -26,7 +28,9 @@ import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Shinn Lok
@@ -37,7 +41,8 @@ public class BBBMeetingLocalServiceImpl extends BBBMeetingLocalServiceBaseImpl {
 	public BBBMeeting addBBBMeeting(
 			long userId, long groupId, long bbbServerId, String name,
 			String description, String attendeePassword,
-			String moderatorPassword, int status, ServiceContext serviceContext)
+			String moderatorPassword, int status,
+			List<BBBParticipant> bbbParticipants, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		// BBB meeting
@@ -67,6 +72,11 @@ public class BBBMeetingLocalServiceImpl extends BBBMeetingLocalServiceBaseImpl {
 		// Resources
 
 		resourceLocalService.addModelResources(bbbMeeting, serviceContext);
+
+		// BBB participants
+
+		updateBBBParticipants(
+			userId, groupId, bbbMeetingId, bbbParticipants, serviceContext);
 
 		return bbbMeeting;
 	}
@@ -143,8 +153,11 @@ public class BBBMeetingLocalServiceImpl extends BBBMeetingLocalServiceBaseImpl {
 	public BBBMeeting updateBBBMeeting(
 			long bbbMeetingId, long bbbServerId, String name,
 			String description, String attendeePassword,
-			String moderatorPassword, ServiceContext serviceContext)
+			String moderatorPassword, List<BBBParticipant> bbbParticipants,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
+
+		// BBB meeting
 
 		BBBMeeting bbbMeeting = bbbMeetingPersistence.findByPrimaryKey(
 			bbbMeetingId);
@@ -166,6 +179,12 @@ public class BBBMeetingLocalServiceImpl extends BBBMeetingLocalServiceBaseImpl {
 			bbbMeeting.setModeratorPassword(moderatorPassword);
 		}
 
+		// BBB participants
+
+		updateBBBParticipants(
+			bbbMeeting.getUserId(), bbbMeeting.getGroupId(), bbbMeetingId,
+			bbbParticipants, serviceContext);
+
 		return bbbMeetingPersistence.update(bbbMeeting);
 	}
 
@@ -181,6 +200,54 @@ public class BBBMeetingLocalServiceImpl extends BBBMeetingLocalServiceBaseImpl {
 		bbbMeetingPersistence.update(bbbMeeting);
 
 		return bbbMeeting;
+	}
+
+	protected void updateBBBParticipants(
+			long userId, long groupId, long bbbMeetingId,
+			List<BBBParticipant> bbbParticipants, ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		Set<Long> bbbParticipantIds = new HashSet<Long>();
+
+		for (BBBParticipant bbbParticipant : bbbParticipants) {
+			long bbbParticipantId = bbbParticipant.getBbbParticipantId();
+
+			if (bbbParticipantId <= 0) {
+				bbbParticipant = bbbParticipantLocalService.addBBBParticipant(
+					userId,  groupId, bbbMeetingId, bbbParticipant.getName(),
+					bbbParticipant.getEmailAddress(), bbbParticipant.getType(),
+					BBBParticipantConstants.STATUS_DEFAULT,
+					new ServiceContext());
+
+				bbbParticipantId = bbbParticipant.getBbbParticipantId();
+			}
+			else {
+				bbbParticipantLocalService.updateBBBParticipant(
+					bbbParticipantId, bbbMeetingId, bbbParticipant.getName(),
+					bbbParticipant.getEmailAddress(), bbbParticipant.getType(),
+					new ServiceContext());
+			}
+
+			bbbParticipantIds.add(bbbParticipantId);
+		}
+
+		bbbParticipants = bbbParticipantLocalService.getBBBParticipants(
+			bbbMeetingId);
+
+		for (BBBParticipant bbbParticipant : bbbParticipants) {
+			if (!bbbParticipantIds.contains(
+					bbbParticipant.getBbbParticipantId())) {
+
+				bbbParticipantLocalService.deleteBBBParticipant(bbbParticipant);
+			}
+		}
+
+		try {
+			AdminUtil.sendEmail(bbbMeetingId, serviceContext);
+		}
+		catch (Exception e) {
+			throw new SystemException();
+		}
 	}
 
 }

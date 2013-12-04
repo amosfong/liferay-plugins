@@ -88,17 +88,19 @@ public class AdminPortlet extends MVCPortlet {
 		String name = ParamUtil.getString(actionRequest, "name");
 		String description = ParamUtil.getString(actionRequest, "description");
 
+		List<BBBParticipant> bbbParticipants = AdminUtil.getBBBParticipants(
+			actionRequest);
+
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			BBBMeeting.class.getName(), actionRequest);
 
 		if (bbbMeetingId <= 0) {
-			BBBMeeting bbbMeeting = BBBMeetingServiceUtil.addBBBMeeting(
+			BBBMeetingServiceUtil.addBBBMeeting(
 				themeDisplay.getScopeGroupId(),
 				BBBMeetingConstants.BBB_SERVER_ID_DEFAULT, name, description,
 				PwdGenerator.getPassword(8), PwdGenerator.getPassword(8),
-				BBBMeetingConstants.STATUS_SCHEDULED, serviceContext);
-
-			bbbMeetingId = bbbMeeting.getBbbMeetingId();
+				BBBMeetingConstants.STATUS_SCHEDULED, bbbParticipants,
+				serviceContext);
 		}
 		else {
 			BBBMeeting bbbMeeting = BBBMeetingServiceUtil.getBBBMeeting(
@@ -107,17 +109,8 @@ public class AdminPortlet extends MVCPortlet {
 			BBBMeetingServiceUtil.updateBBBMeeting(
 				bbbMeetingId, bbbMeeting.getBbbServerId(), name, description,
 				bbbMeeting.getAttendeePassword(),
-				bbbMeeting.getModeratorPassword(), serviceContext);
-		}
-
-		List<BBBParticipant> bbbParticipants = AdminUtil.getBBBParticipants(
-			actionRequest);
-
-		AdminUtil.updateBBBParticipants(
-			themeDisplay.getScopeGroupId(), bbbMeetingId, bbbParticipants);
-
-		if (!bbbParticipants.isEmpty()) {
-			AdminUtil.sendEmail(bbbMeetingId, serviceContext);
+				bbbMeeting.getModeratorPassword(), bbbParticipants,
+				serviceContext);
 		}
 	}
 

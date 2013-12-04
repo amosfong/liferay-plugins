@@ -15,6 +15,7 @@
 package com.liferay.bbb.service.impl;
 
 import com.liferay.bbb.model.BBBMeeting;
+import com.liferay.bbb.model.BBBParticipant;
 import com.liferay.bbb.service.base.BBBMeetingServiceBaseImpl;
 import com.liferay.bbb.service.permission.AdminPermission;
 import com.liferay.bbb.service.permission.BBBMeetingPermission;
@@ -35,7 +36,7 @@ public class BBBMeetingServiceImpl extends BBBMeetingServiceBaseImpl {
 	public BBBMeeting addBBBMeeting(
 			long groupId, long bbbServerId, String name, String description,
 			String attendeePassword, String moderatorPassword, int status,
-			ServiceContext serviceContext)
+			List<BBBParticipant> bbbParticipants, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		AdminPermission.check(
@@ -43,7 +44,8 @@ public class BBBMeetingServiceImpl extends BBBMeetingServiceBaseImpl {
 
 		return bbbMeetingLocalService.addBBBMeeting(
 			getUserId(), groupId, bbbServerId, name, description,
-			attendeePassword, moderatorPassword, status, serviceContext);
+			attendeePassword, moderatorPassword, status, bbbParticipants,
+			serviceContext);
 	}
 
 	@Override
@@ -84,7 +86,8 @@ public class BBBMeetingServiceImpl extends BBBMeetingServiceBaseImpl {
 	public BBBMeeting updateBBBMeeting(
 			long bbbMeetingId, long bbbServerId, String name,
 			String description, String attendeePassword,
-			String moderatorPassword, ServiceContext serviceContext)
+			String moderatorPassword, List<BBBParticipant> bbbParticipants,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
 		BBBMeetingPermission.check(
@@ -92,7 +95,7 @@ public class BBBMeetingServiceImpl extends BBBMeetingServiceBaseImpl {
 
 		return bbbMeetingLocalService.updateBBBMeeting(
 			bbbMeetingId, bbbServerId, name, description, attendeePassword,
-			moderatorPassword, serviceContext);
+			moderatorPassword, bbbParticipants, serviceContext);
 	}
 
 }
