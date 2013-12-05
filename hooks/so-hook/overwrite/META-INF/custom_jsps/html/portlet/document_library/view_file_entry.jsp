@@ -177,9 +177,21 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 				</c:choose>
 			</c:if>
 
+			<liferay-util:buffer var="documentTitle">
+				<%= fileVersion.getTitle() %>
+
+				<c:if test="<%= versionSpecific %>">
+					(<liferay-ui:message key="version" /> <%= HtmlUtil.escape(fileVersion.getVersion()) %>)
+				</c:if>
+			</liferay-util:buffer>
+
 			<div class="body-row">
 				<div class="document-info">
 					<c:if test="<%= showAssetMetadata %>">
+						<h2 class="document-title" title="<%= documentTitle %>">
+							<%= documentTitle %>
+						</h2>
+
 						<span class="document-thumbnail">
 
 							<%
@@ -198,14 +210,6 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 						</span>
 
 						<div class="document-header">
-							<liferay-util:buffer var="documentTitle">
-								<%= fileVersion.getTitle() %>
-
-								<c:if test="<%= versionSpecific %>">
-									(<liferay-ui:message key="version" /> <%= HtmlUtil.escape(fileVersion.getVersion()) %>)
-								</c:if>
-							</liferay-util:buffer>
-
 							<span class="user-date">
 
 								<%
