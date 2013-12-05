@@ -22,6 +22,7 @@ import com.liferay.bbb.model.BBBServer;
 import com.liferay.bbb.service.BBBMeetingLocalServiceUtil;
 import com.liferay.bbb.service.BBBParticipantLocalServiceUtil;
 import com.liferay.bbb.service.BBBServerLocalServiceUtil;
+import com.liferay.compat.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.Digester;
@@ -36,9 +37,6 @@ import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.portal.service.ServiceContext;
 
 import java.io.IOException;
-
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -299,14 +297,9 @@ public class BBBUtil {
 		try {
 			String url = getURL(bbbServer, methodName, queryString);
 
-			URL urlObj = new URL(url);
+			String xml = HttpUtil.URLtoString(url);
 
-			HttpURLConnection urlConnection =
-				(HttpURLConnection)urlObj.openConnection();
-
-			urlConnection.setConnectTimeout(3000);
-
-			return SAXReaderUtil.read(urlConnection.getInputStream());
+			return SAXReaderUtil.read(xml);
 		}
 		catch (DocumentException de) {
 			throw new SystemException(de);
