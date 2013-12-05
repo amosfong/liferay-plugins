@@ -76,7 +76,6 @@ else {
 
 					<div class="lfr-form-row lfr-form-row-inline">
 						<div class="row-fields">
-
 							<aui:input autoFocus="<%= true %>" label="enter-your-full-name" name="name" />
 
 							<c:if test="<%= (bbbMeeting.getStatus() == BBBMeetingConstants.STATUS_SCHEDULED) && (bbbParticipant.getType() == BBBParticipantConstants.TYPE_MODERATOR) %>">

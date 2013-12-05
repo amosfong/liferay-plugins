@@ -168,8 +168,8 @@ public class AdminUtil {
 			bbbParticipant.getEmailAddress(), bbbParticipant.getName());
 
 		String subject = ContentUtil.get(
-			"com/liferay/bbb/admin/dependencies/" +
-				"meeting_scheduled_notification_subject.tmpl");
+			"com/liferay/bbb/admin/dependencies" +
+				"/meeting_scheduled_notification_subject.tmpl");
 
 		subject = StringUtil.replace(
 			subject,
@@ -181,8 +181,8 @@ public class AdminUtil {
 			});
 
 		String body = ContentUtil.get(
-			"com/liferay/bbb/admin/dependencies/" +
-				"meeting_scheduled_notification_body.tmpl");
+			"com/liferay/bbb/admin/dependencies" +
+				"/meeting_scheduled_notification_body.tmpl");
 
 		body = StringUtil.replace(
 			body,

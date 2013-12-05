@@ -214,7 +214,7 @@ public class BBBMeetingLocalServiceImpl extends BBBMeetingLocalServiceBaseImpl {
 
 			if (bbbParticipantId <= 0) {
 				bbbParticipant = bbbParticipantLocalService.addBBBParticipant(
-					userId,  groupId, bbbMeetingId, bbbParticipant.getName(),
+					userId, groupId, bbbMeetingId, bbbParticipant.getName(),
 					bbbParticipant.getEmailAddress(), bbbParticipant.getType(),
 					BBBParticipantConstants.STATUS_DEFAULT,
 					new ServiceContext());

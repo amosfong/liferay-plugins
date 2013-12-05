@@ -40,7 +40,6 @@
 		keyProperty="bbbMeetingId"
 		modelVar="bbbMeeting"
 	>
-
 		<portlet:renderURL var="rowURL">
 			<portlet:param name="mvcPath" value="/admin/view_meeting.jsp" />
 			<portlet:param name="redirect" value="<%= portletURL.toString() %>" />

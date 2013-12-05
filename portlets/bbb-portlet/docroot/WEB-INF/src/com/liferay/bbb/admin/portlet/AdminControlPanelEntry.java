@@ -29,7 +29,7 @@ public class AdminControlPanelEntry extends BaseControlPanelEntry {
 			PermissionChecker permissionChecker, Group group, Portlet portlet)
 		throws Exception {
 
-		if (group.isUser() || group.isLayoutSetPrototype()) {
+		if (group.isLayoutSetPrototype() || group.isUser()) {
 			return true;
 		}
 

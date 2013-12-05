@@ -120,7 +120,7 @@ public class BBBUtil {
 		return getURL(bbbServer, BBBConstants.API_METHOD_JOIN, sb.toString());
 	}
 
-	public static Document getMeetingInfo(long bbbMeetingId)
+	public static Document getMeetingInfoDocument(long bbbMeetingId)
 		throws PortalException, SystemException {
 
 		BBBMeeting bbbMeeting = BBBMeetingLocalServiceUtil.getBBBMeeting(
@@ -195,7 +195,7 @@ public class BBBUtil {
 
 	public static boolean isMeetingRunning(long bbbMeetingId) {
 		try {
-			getMeetingInfo(bbbMeetingId);
+			getMeetingInfoDocument(bbbMeetingId);
 
 			return true;
 		}
@@ -360,7 +360,6 @@ public class BBBUtil {
 		StringBundler sb = new StringBundler(6);
 
 		sb.append(bbbServer.getUrl());
-
 		sb.append(methodName);
 		sb.append(StringPool.QUESTION);
 		sb.append(queryString);
