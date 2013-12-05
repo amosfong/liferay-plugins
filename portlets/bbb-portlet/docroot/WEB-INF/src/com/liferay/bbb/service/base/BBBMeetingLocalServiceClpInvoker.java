@@ -114,7 +114,7 @@ public class BBBMeetingLocalServiceClpInvoker {
 
 		_methodParameterTypes52 = new String[] {
 				"long", "long", "long", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.lang.String", "int",
+				"java.lang.String", "java.lang.String", "int", "java.util.List",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
@@ -155,7 +155,7 @@ public class BBBMeetingLocalServiceClpInvoker {
 
 		_methodParameterTypes60 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.lang.String",
+				"java.lang.String", "java.lang.String", "java.util.List",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
@@ -273,7 +273,8 @@ public class BBBMeetingLocalServiceClpInvoker {
 				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
 				(java.lang.String)arguments[5], (java.lang.String)arguments[6],
 				((Integer)arguments[7]).intValue(),
-				(com.liferay.portal.service.ServiceContext)arguments[8]);
+				(java.util.List<com.liferay.bbb.model.BBBParticipant>)arguments[8],
+				(com.liferay.portal.service.ServiceContext)arguments[9]);
 		}
 
 		if (_methodName53.equals(name) &&
@@ -321,7 +322,8 @@ public class BBBMeetingLocalServiceClpInvoker {
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], (java.lang.String)arguments[3],
 				(java.lang.String)arguments[4], (java.lang.String)arguments[5],
-				(com.liferay.portal.service.ServiceContext)arguments[6]);
+				(java.util.List<com.liferay.bbb.model.BBBParticipant>)arguments[6],
+				(com.liferay.portal.service.ServiceContext)arguments[7]);
 		}
 
 		if (_methodName61.equals(name) &&

@@ -281,13 +281,14 @@ public class BBBMeetingLocalServiceUtil {
 		long groupId, long bbbServerId, java.lang.String name,
 		java.lang.String description, java.lang.String attendeePassword,
 		java.lang.String moderatorPassword, int status,
+		java.util.List<com.liferay.bbb.model.BBBParticipant> bbbParticipants,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
 				   .addBBBMeeting(userId, groupId, bbbServerId, name,
 			description, attendeePassword, moderatorPassword, status,
-			serviceContext);
+			bbbParticipants, serviceContext);
 	}
 
 	public static java.util.List<com.liferay.bbb.model.BBBMeeting> getBBBMeetings(
@@ -316,12 +317,14 @@ public class BBBMeetingLocalServiceUtil {
 		long bbbMeetingId, long bbbServerId, java.lang.String name,
 		java.lang.String description, java.lang.String attendeePassword,
 		java.lang.String moderatorPassword,
+		java.util.List<com.liferay.bbb.model.BBBParticipant> bbbParticipants,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
 				   .updateBBBMeeting(bbbMeetingId, bbbServerId, name,
-			description, attendeePassword, moderatorPassword, serviceContext);
+			description, attendeePassword, moderatorPassword, bbbParticipants,
+			serviceContext);
 	}
 
 	public static com.liferay.bbb.model.BBBMeeting updateStatus(

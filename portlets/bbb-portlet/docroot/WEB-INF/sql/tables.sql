@@ -8,7 +8,7 @@ create table BBBMeeting (
 	modifiedDate DATE null,
 	bbbServerId LONG,
 	name VARCHAR(75) null,
-	description VARCHAR(75) null,
+	description STRING null,
 	attendeePassword VARCHAR(75) null,
 	moderatorPassword VARCHAR(75) null,
 	status INTEGER
@@ -38,7 +38,7 @@ create table BBBServer (
 	createDate DATE null,
 	modifiedDate DATE null,
 	name VARCHAR(75) null,
-	url VARCHAR(75) null,
+	url STRING null,
 	secret VARCHAR(75) null,
 	active_ BOOLEAN
 );

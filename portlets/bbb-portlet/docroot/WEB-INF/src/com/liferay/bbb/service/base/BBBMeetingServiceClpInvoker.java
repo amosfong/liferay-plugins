@@ -36,7 +36,7 @@ public class BBBMeetingServiceClpInvoker {
 
 		_methodParameterTypes36 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.lang.String", "int",
+				"java.lang.String", "java.lang.String", "int", "java.util.List",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
@@ -63,7 +63,7 @@ public class BBBMeetingServiceClpInvoker {
 
 		_methodParameterTypes41 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.lang.String",
+				"java.lang.String", "java.lang.String", "java.util.List",
 				"com.liferay.portal.service.ServiceContext"
 			};
 	}
@@ -89,7 +89,8 @@ public class BBBMeetingServiceClpInvoker {
 				(java.lang.String)arguments[2], (java.lang.String)arguments[3],
 				(java.lang.String)arguments[4], (java.lang.String)arguments[5],
 				((Integer)arguments[6]).intValue(),
-				(com.liferay.portal.service.ServiceContext)arguments[7]);
+				(java.util.List<com.liferay.bbb.model.BBBParticipant>)arguments[7],
+				(com.liferay.portal.service.ServiceContext)arguments[8]);
 		}
 
 		if (_methodName37.equals(name) &&
@@ -121,7 +122,8 @@ public class BBBMeetingServiceClpInvoker {
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], (java.lang.String)arguments[3],
 				(java.lang.String)arguments[4], (java.lang.String)arguments[5],
-				(com.liferay.portal.service.ServiceContext)arguments[6]);
+				(java.util.List<com.liferay.bbb.model.BBBParticipant>)arguments[6],
+				(com.liferay.portal.service.ServiceContext)arguments[7]);
 		}
 
 		throw new UnsupportedOperationException();

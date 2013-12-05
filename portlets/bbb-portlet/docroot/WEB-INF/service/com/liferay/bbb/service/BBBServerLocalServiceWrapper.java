@@ -296,6 +296,13 @@ public class BBBServerLocalServiceWrapper implements BBBServerLocalService,
 	}
 
 	@Override
+	public void checkBBBServers()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_bbbServerLocalService.checkBBBServers();
+	}
+
+	@Override
 	public java.util.List<com.liferay.bbb.model.BBBServer> getBBBServers(
 		long groupId, boolean active)
 		throws com.liferay.portal.kernel.exception.SystemException {

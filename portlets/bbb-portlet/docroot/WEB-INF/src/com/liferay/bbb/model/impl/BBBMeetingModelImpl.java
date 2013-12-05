@@ -81,7 +81,7 @@ public class BBBMeetingModelImpl extends BaseModelImpl<BBBMeeting>
 			{ "moderatorPassword", Types.VARCHAR },
 			{ "status", Types.INTEGER }
 		};
-	public static final String TABLE_SQL_CREATE = "create table BBBMeeting (bbbMeetingId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,bbbServerId LONG,name VARCHAR(75) null,description VARCHAR(75) null,attendeePassword VARCHAR(75) null,moderatorPassword VARCHAR(75) null,status INTEGER)";
+	public static final String TABLE_SQL_CREATE = "create table BBBMeeting (bbbMeetingId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,bbbServerId LONG,name VARCHAR(75) null,description STRING null,attendeePassword VARCHAR(75) null,moderatorPassword VARCHAR(75) null,status INTEGER)";
 	public static final String TABLE_SQL_DROP = "drop table BBBMeeting";
 	public static final String ORDER_BY_JPQL = " ORDER BY bbbMeeting.createDate DESC";
 	public static final String ORDER_BY_SQL = " ORDER BY BBBMeeting.createDate DESC";

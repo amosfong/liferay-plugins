@@ -115,7 +115,7 @@ public class BBBMeetingLocalServiceClp implements BBBMeetingLocalService {
 
 		_methodParameterTypes19 = new String[] {
 				"long", "long", "long", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.lang.String", "int",
+				"java.lang.String", "java.lang.String", "int", "java.util.List",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
@@ -142,7 +142,7 @@ public class BBBMeetingLocalServiceClp implements BBBMeetingLocalService {
 
 		_methodParameterTypes24 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.lang.String",
+				"java.lang.String", "java.lang.String", "java.util.List",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
@@ -707,6 +707,7 @@ public class BBBMeetingLocalServiceClp implements BBBMeetingLocalService {
 		long groupId, long bbbServerId, java.lang.String name,
 		java.lang.String description, java.lang.String attendeePassword,
 		java.lang.String moderatorPassword, int status,
+		java.util.List<com.liferay.bbb.model.BBBParticipant> bbbParticipants,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -731,6 +732,8 @@ public class BBBMeetingLocalServiceClp implements BBBMeetingLocalService {
 					ClpSerializer.translateInput(moderatorPassword),
 						
 					status,
+						
+					ClpSerializer.translateInput(bbbParticipants),
 						
 					ClpSerializer.translateInput(serviceContext)
 					});
@@ -887,6 +890,7 @@ public class BBBMeetingLocalServiceClp implements BBBMeetingLocalService {
 		long bbbMeetingId, long bbbServerId, java.lang.String name,
 		java.lang.String description, java.lang.String attendeePassword,
 		java.lang.String moderatorPassword,
+		java.util.List<com.liferay.bbb.model.BBBParticipant> bbbParticipants,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -907,6 +911,8 @@ public class BBBMeetingLocalServiceClp implements BBBMeetingLocalService {
 					ClpSerializer.translateInput(attendeePassword),
 						
 					ClpSerializer.translateInput(moderatorPassword),
+						
+					ClpSerializer.translateInput(bbbParticipants),
 						
 					ClpSerializer.translateInput(serviceContext)
 					});

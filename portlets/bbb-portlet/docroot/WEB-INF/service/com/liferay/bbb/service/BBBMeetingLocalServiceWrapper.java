@@ -290,12 +290,13 @@ public class BBBMeetingLocalServiceWrapper implements BBBMeetingLocalService,
 		long groupId, long bbbServerId, java.lang.String name,
 		java.lang.String description, java.lang.String attendeePassword,
 		java.lang.String moderatorPassword, int status,
+		java.util.List<com.liferay.bbb.model.BBBParticipant> bbbParticipants,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _bbbMeetingLocalService.addBBBMeeting(userId, groupId,
 			bbbServerId, name, description, attendeePassword,
-			moderatorPassword, status, serviceContext);
+			moderatorPassword, status, bbbParticipants, serviceContext);
 	}
 
 	@Override
@@ -329,12 +330,13 @@ public class BBBMeetingLocalServiceWrapper implements BBBMeetingLocalService,
 		long bbbMeetingId, long bbbServerId, java.lang.String name,
 		java.lang.String description, java.lang.String attendeePassword,
 		java.lang.String moderatorPassword,
+		java.util.List<com.liferay.bbb.model.BBBParticipant> bbbParticipants,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _bbbMeetingLocalService.updateBBBMeeting(bbbMeetingId,
 			bbbServerId, name, description, attendeePassword,
-			moderatorPassword, serviceContext);
+			moderatorPassword, bbbParticipants, serviceContext);
 	}
 
 	@Override

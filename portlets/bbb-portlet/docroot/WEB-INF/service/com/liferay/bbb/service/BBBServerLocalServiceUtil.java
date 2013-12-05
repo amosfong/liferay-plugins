@@ -287,6 +287,12 @@ public class BBBServerLocalServiceUtil {
 			serviceContext);
 	}
 
+	public static void checkBBBServers()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().checkBBBServers();
+	}
+
 	public static java.util.List<com.liferay.bbb.model.BBBServer> getBBBServers(
 		long groupId, boolean active)
 		throws com.liferay.portal.kernel.exception.SystemException {

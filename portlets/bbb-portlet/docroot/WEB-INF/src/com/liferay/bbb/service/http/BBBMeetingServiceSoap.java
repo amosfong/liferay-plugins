@@ -66,12 +66,15 @@ public class BBBMeetingServiceSoap {
 		long groupId, long bbbServerId, java.lang.String name,
 		java.lang.String description, java.lang.String attendeePassword,
 		java.lang.String moderatorPassword, int status,
+		com.liferay.bbb.model.BBBParticipantSoap[] bbbParticipants,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.bbb.model.BBBMeeting returnValue = BBBMeetingServiceUtil.addBBBMeeting(groupId,
 					bbbServerId, name, description, attendeePassword,
-					moderatorPassword, status, serviceContext);
+					moderatorPassword, status,
+					com.liferay.bbb.model.impl.BBBParticipantModelImpl.toModels(
+						bbbParticipants), serviceContext);
 
 			return com.liferay.bbb.model.BBBMeetingSoap.toSoapModel(returnValue);
 		}
@@ -145,12 +148,15 @@ public class BBBMeetingServiceSoap {
 		long bbbMeetingId, long bbbServerId, java.lang.String name,
 		java.lang.String description, java.lang.String attendeePassword,
 		java.lang.String moderatorPassword,
+		com.liferay.bbb.model.BBBParticipantSoap[] bbbParticipants,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.bbb.model.BBBMeeting returnValue = BBBMeetingServiceUtil.updateBBBMeeting(bbbMeetingId,
 					bbbServerId, name, description, attendeePassword,
-					moderatorPassword, serviceContext);
+					moderatorPassword,
+					com.liferay.bbb.model.impl.BBBParticipantModelImpl.toModels(
+						bbbParticipants), serviceContext);
 
 			return com.liferay.bbb.model.BBBMeetingSoap.toSoapModel(returnValue);
 		}

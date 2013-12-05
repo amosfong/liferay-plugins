@@ -115,24 +115,28 @@ public class BBBServerLocalServiceClp implements BBBServerLocalService {
 				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName20 = "getBBBServers";
+		_methodName20 = "checkBBBServers";
 
-		_methodParameterTypes20 = new String[] { "long", "boolean" };
+		_methodParameterTypes20 = new String[] {  };
 
 		_methodName21 = "getBBBServers";
 
-		_methodParameterTypes21 = new String[] {
+		_methodParameterTypes21 = new String[] { "long", "boolean" };
+
+		_methodName22 = "getBBBServers";
+
+		_methodParameterTypes22 = new String[] {
 				"long", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName22 = "getBBBServersCount";
+		_methodName23 = "getBBBServersCount";
 
-		_methodParameterTypes22 = new String[] { "long" };
+		_methodParameterTypes23 = new String[] { "long" };
 
-		_methodName23 = "updateBBBServer";
+		_methodName24 = "updateBBBServer";
 
-		_methodParameterTypes23 = new String[] {
+		_methodParameterTypes24 = new String[] {
 				"long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
@@ -739,14 +743,43 @@ public class BBBServerLocalServiceClp implements BBBServerLocalService {
 	}
 
 	@Override
+	public void checkBBBServers()
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		try {
+			_invokableLocalService.invokeMethod(_methodName20,
+				_methodParameterTypes20, new Object[] {  });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	@Override
 	public java.util.List<com.liferay.bbb.model.BBBServer> getBBBServers(
 		long groupId, boolean active)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName20,
-					_methodParameterTypes20, new Object[] { groupId, active });
+			returnObj = _invokableLocalService.invokeMethod(_methodName21,
+					_methodParameterTypes21, new Object[] { groupId, active });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -775,8 +808,8 @@ public class BBBServerLocalServiceClp implements BBBServerLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName21,
-					_methodParameterTypes21,
+			returnObj = _invokableLocalService.invokeMethod(_methodName22,
+					_methodParameterTypes22,
 					new Object[] {
 						groupId,
 						
@@ -812,8 +845,8 @@ public class BBBServerLocalServiceClp implements BBBServerLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName22,
-					_methodParameterTypes22, new Object[] { groupId });
+			returnObj = _invokableLocalService.invokeMethod(_methodName23,
+					_methodParameterTypes23, new Object[] { groupId });
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
@@ -843,8 +876,8 @@ public class BBBServerLocalServiceClp implements BBBServerLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName23,
-					_methodParameterTypes23,
+			returnObj = _invokableLocalService.invokeMethod(_methodName24,
+					_methodParameterTypes24,
 					new Object[] {
 						bbbServerId,
 						
@@ -927,4 +960,6 @@ public class BBBServerLocalServiceClp implements BBBServerLocalService {
 	private String[] _methodParameterTypes22;
 	private String _methodName23;
 	private String[] _methodParameterTypes23;
+	private String _methodName24;
+	private String[] _methodParameterTypes24;
 }

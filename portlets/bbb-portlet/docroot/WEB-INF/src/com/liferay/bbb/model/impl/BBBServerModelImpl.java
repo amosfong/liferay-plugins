@@ -78,7 +78,7 @@ public class BBBServerModelImpl extends BaseModelImpl<BBBServer>
 			{ "secret", Types.VARCHAR },
 			{ "active_", Types.BOOLEAN }
 		};
-	public static final String TABLE_SQL_CREATE = "create table BBBServer (bbbServerId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,url VARCHAR(75) null,secret VARCHAR(75) null,active_ BOOLEAN)";
+	public static final String TABLE_SQL_CREATE = "create table BBBServer (bbbServerId LONG not null primary key,groupId LONG,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,url STRING null,secret VARCHAR(75) null,active_ BOOLEAN)";
 	public static final String TABLE_SQL_DROP = "drop table BBBServer";
 	public static final String ORDER_BY_JPQL = " ORDER BY bbbServer.name ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY BBBServer.name ASC";
