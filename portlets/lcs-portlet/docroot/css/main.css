@@ -30,7 +30,6 @@
 
 	.btn-reset-credentials {
 		background-color: #E50000;
-		background-image: linear-gradient(to bottom, #FF0000, #E50000);
 	}
 
 	.environment-section {
@@ -55,7 +54,7 @@
 		margin: 0 0 10px 22px;
 	}
 
-	#lcs-connection-status {
+	.lcs-connection-status {
 		background-color: #FFF;
 		float: left;
 		max-width: 300px;
@@ -84,15 +83,15 @@
 			}
 		}
 
-		#lcs-msg-disconnected .lcs-msg-icon {
+		.lcs-msg-disconnected .lcs-msg-icon {
 			background-image: url(../images/connection_red.png);
 		}
 
-		#lcs-msg-pending .lcs-msg-icon {
+		.lcs-msg-pending .lcs-msg-icon {
 			background-image: url(../images/connection_orange.png);
 		}
 
-		#lcs-msg-registered .lcs-msg-icon {
+		.lcs-msg-registered .lcs-msg-icon {
 			background-image: url(../images/connection_green.png);
 		}
 
@@ -127,6 +126,10 @@
 }
 
 /* ---------- Extras ---------- */
+
+.btn-reset-credentials {
+	@include background-image(linear-gradient(to bottom, #FF0000, #E50000));
+}
 
 .lcs-helper-message.disabled {
 	@include opacity(0.5);

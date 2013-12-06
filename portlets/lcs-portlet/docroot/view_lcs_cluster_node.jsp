@@ -117,21 +117,21 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 	</aui:button-row>
 </div>
 
-<div id="lcs-connection-status">
+<div class="lcs-connection-status">
 	<h4><liferay-ui:message key="connection-status" /></h4>
 
-	<div class="<%= ready ? StringPool.BLANK : "hide" %> alert-success lcs-msg" id="lcs-msg-registered">
+	<div class="<%= ready ? StringPool.BLANK : "hide" %> alert-success lcs-msg lcs-msg-registered">
 		<liferay-ui:message key="this-liferay-instance-is-registered-and-synchronized-with-liferay-cloud-services" />
 
 		<span class="lcs-msg-icon"></span>
 	</div>
 
-	<div class="<%= (!ready && !pending) ? StringPool.BLANK : "hide" %> alert-error lcs-msg" id="lcs-msg-disconnected">
+	<div class="<%= (!ready && !pending) ? StringPool.BLANK : "hide" %> alert-error lcs-msg lcs-msg-disconnected">
 		<liferay-ui:message key="this-liferay-instance-is-registered-but-not-connected-and-not-synchronized-with-liferay-cloud-services" />
 		<span class="lcs-msg-icon"></span>
 	</div>
 
-	<div class="<%= (!ready && pending) ? StringPool.BLANK : "hide" %> alert-info lcs-msg" id="lcs-msg-pending">
+	<div class="<%= (!ready && pending) ? StringPool.BLANK : "hide" %> alert-info lcs-msg lcs-msg-pending">
 		<liferay-ui:message key="this-liferay-instance-is-synchronizing-with-liferay-cloud-services" />
 		<span class="lcs-msg-icon"></span>
 	</div>
@@ -203,6 +203,7 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 
 				<aui:button href="<%= startURL %>" type="submit" value="start" />
 			</c:if>
+
 			<c:if test="<%= !pending && HandshakeManagerUtil.isReady() %>">
 				<liferay-portlet:actionURL name="stop" var="stopURL">
 					<portlet:param name="redirect" value="<%= currentURL %>" />

@@ -37,7 +37,7 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 
 	<aui:input name="corpEntryId" type="hidden" value="<%= String.valueOf(corpEntryId) %>" />
 
-	<aui:input name="name" />
+	<aui:input autoFocus="<%= true %>" name="name" />
 
 	<aui:input name="location" />
 

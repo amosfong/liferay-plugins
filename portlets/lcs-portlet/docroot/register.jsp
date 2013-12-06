@@ -18,7 +18,7 @@
 
 <h3><liferay-ui:message arguments="2" key="registration-step-x-2" /></h3>
 
-<span class="lcs-registration-info alert alert-info">
+<span class="alert alert-info lcs-registration-info">
 	<liferay-ui:message key="please-add-information-about-your-server" />
 </span>
 
@@ -68,7 +68,9 @@
 	<aui:field-wrapper cssClass="environment-section" label="environment">
 		<aui:input checked="<%= true %>" id="lcsDefaultCluster" inlineLabel="right" label="use-default-environment" name="environment" type="radio" value="0" />
 
-		<span class="lcs-helper-message"><liferay-ui:message key="you-will-be-able-to-edit-it-on-your-cloud-dashboard" /></span>
+		<span class="lcs-helper-message">
+			<liferay-ui:message key="you-will-be-able-to-edit-it-on-your-cloud-dashboard" />
+		</span>
 
 		<aui:input id="lcsClusterEntry" inlineLabel="right" label='<%= lcsClusterEntries.isEmpty() ? "there-are-no-environments-created-yet" : "choose-an-environment" %>' name="environment" type="radio" value='<%= lcsClusterEntries.isEmpty() ? "1" : "2" %>' />
 
@@ -109,7 +111,7 @@
 			</c:choose>
 		</span>
 
-		<span class="lcs-helper-message disabled" id="<portlet:namespace />addEntryLink">
+		<span class="disabled lcs-helper-message" id="<portlet:namespace />addEntryLink">
 			<liferay-ui:message arguments="javascript:" key="do-you-want-to-add-a-new-environment" />
 		</span>
 	</aui:field-wrapper>

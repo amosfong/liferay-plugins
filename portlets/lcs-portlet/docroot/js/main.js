@@ -86,13 +86,11 @@ AUI.add(
 
 						var lcsClusterEntryFormAdd = instance.byId(SELECTOR_LCS_CLUSTER_ENTRY_ADD_FORM, instance._lcsClusterEntryPanel);
 
+						var name = lcsClusterEntryFormAdd.one('#name');
+
 						lcsClusterEntryFormAdd.detach(EVENT_SUBMIT);
 
-						var nameNode = instance.one('#name', lcsClusterEntryFormAdd);
-
-						nameNode.on(EVENT_INPUT, instance._onLCSClusterEntryNameInput, instance, lcsClusterEntryFormAdd);
-
-						Liferay.Util.focusFormField(nameNode);
+						name.on(EVENT_INPUT, instance._onLCSClusterEntryNameInput, instance, lcsClusterEntryFormAdd);
 
 						lcsClusterEntryFormAdd.on(EVENT_SUBMIT, instance._onLCSClusterEntryFormSubmit, instance, lcsClusterEntryFormAdd);
 
