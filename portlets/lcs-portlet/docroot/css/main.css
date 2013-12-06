@@ -1,6 +1,6 @@
 @import "compass";
 
-#lcs-main-container {
+#lcsMainContainer {
 	color: #2D2D2D;
 
 	&:after {
@@ -76,8 +76,8 @@
 				background: url(../images/connection_red.png) no-repeat right center;
 				display: block;
 				height: 61px;
-				right: 20px;
 				position: absolute;
+				right: 20px;
 				top: 0;
 				width: 64px;
 			}
@@ -106,7 +106,7 @@
 		text-decoration: none;
 	}
 
-	#lcs-server-info {
+	#lcsServerInfo {
 		float: left;
 		margin: 0 50px 20px 0;
 	}

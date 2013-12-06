@@ -35,7 +35,7 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 }
 %>
 
-<div id="lcs-server-info">
+<div id="lcsServerInfo">
 	<h4><liferay-ui:message key="corp-entry-id" /></h4>
 
 	<dl>

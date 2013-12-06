@@ -142,7 +142,7 @@ AUI.add(
 
 						var selectedNode = instance._nodeFromTemplate(TPL_FIELD_SELECT, options);
 
-						selectedNode.one('option:last-child').set('selected', true);
+						selectedNode.set('selectedIndex', options.length - 1);
 
 						return selectedNode;
 					},
@@ -175,7 +175,7 @@ AUI.add(
 										resizable: false,
 										width: 600
 									},
-									title: Liferay.Language.get('new-environment'),
+									title: Liferay.Language.get('new-environment')
 								}
 							).render(instance._portletContentBox);
 
@@ -400,7 +400,6 @@ AUI.add(
 							labelElement.html('');
 
 							labelElement.append(environmentRadioInput);
-
 							labelElement.append(labelText);
 						}
 					}
