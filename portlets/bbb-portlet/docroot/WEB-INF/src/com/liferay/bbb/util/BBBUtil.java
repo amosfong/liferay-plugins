@@ -39,6 +39,7 @@ import com.liferay.portal.service.ServiceContext;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -153,10 +154,17 @@ public class BBBUtil {
 	public static List<String> getMeetingRecordings(long bbbMeetingId)
 		throws PortalException, SystemException {
 
-		List<String> meetingRecordings = new ArrayList<String>();
-
 		BBBMeeting bbbMeeting = BBBMeetingLocalServiceUtil.getBBBMeeting(
 			bbbMeetingId);
+
+		BBBServer bbbServer = BBBServerLocalServiceUtil.getBBBServer(
+			bbbMeeting.getBbbServerId());
+
+		if (!isServerActive(bbbServer)) {
+			return Collections.emptyList();
+		}
+
+		List<String> meetingRecordings = new ArrayList<String>();
 
 		StringBundler sb = new StringBundler(3);
 

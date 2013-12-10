@@ -23,7 +23,7 @@ public class BBBMeetingConstants {
 
 	public static final int BBB_SERVER_ID_DEFAULT = 0;
 
-	public static final String LABEL_COMPLETE = "completed";
+	public static final String LABEL_COMPLETED = "completed";
 
 	public static final String LABEL_IN_PROGRESS = "in-progress";
 
@@ -37,7 +37,7 @@ public class BBBMeetingConstants {
 
 	public static String getStatusLabel(int status) {
 		if (status == STATUS_COMPLETED) {
-			return LABEL_COMPLETE;
+			return LABEL_COMPLETED;
 		}
 		else if (status == STATUS_IN_PROGRESS) {
 			return LABEL_IN_PROGRESS;

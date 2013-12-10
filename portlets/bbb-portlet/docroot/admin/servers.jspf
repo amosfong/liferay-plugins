@@ -26,7 +26,7 @@
 	<c:if test="<%= AdminPermission.contains(permissionChecker, themeDisplay.getScopeGroupId(), ActionKeys.ADD_MEETING) %>">
 		<aui:button-row>
 			<portlet:renderURL var="addBBBServerURL">
-				<portlet:param name="mvcPath" value="/admin/edit_meeting_server.jsp" />
+				<portlet:param name="mvcPath" value="/admin/edit_server.jsp" />
 				<portlet:param name="redirect" value="<%= portletURL.toString() %>" />
 			</portlet:renderURL>
 
