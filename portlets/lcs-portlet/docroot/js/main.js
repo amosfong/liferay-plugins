@@ -86,7 +86,7 @@ AUI.add(
 
 						var lcsClusterEntryFormAdd = instance.byId(SELECTOR_LCS_CLUSTER_ENTRY_ADD_FORM, instance._lcsClusterEntryPanel);
 
-						var name = lcsClusterEntryFormAdd.one('#name');
+						var name = instance.one('#name', lcsClusterEntryFormAdd);
 
 						lcsClusterEntryFormAdd.detach(EVENT_SUBMIT);
 
@@ -142,7 +142,7 @@ AUI.add(
 
 						var selectedNode = instance._nodeFromTemplate(TPL_FIELD_SELECT, options);
 
-						selectedNode.set('selectedIndex', options.length - 1);
+						selectedNode.set('selectedIndex', optionsArray.length - 1);
 
 						return selectedNode;
 					},
@@ -335,7 +335,7 @@ AUI.add(
 
 								lcsClusterEntryInputNode = instance._createTextNode();
 
-								lcsClusterEntryInputNode.val(lcsClusterEntry.name);
+								instance.one('#lcsClusterEntryName', lcsClusterEntryInputNode).val(lcsClusterEntry.name);
 							}
 							else {
 								lcsClusterEntryInputNode = instance._createSelectNode(lcsClusterEntries);

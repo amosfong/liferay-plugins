@@ -35,7 +35,7 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 }
 %>
 
-<div id="lcsServerInfo">
+<div class="lcs-server-info">
 	<h4><liferay-ui:message key="corp-entry-id" /></h4>
 
 	<dl>
@@ -141,8 +141,6 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 		<%
 		Map<String, String> lcsConnectionMetadata = HandshakeManagerUtil.getLCSConnectionMetadata();
 		%>
-
-		<div class="lcs-separator"></div>
 
 		<dl>
 			<dt>

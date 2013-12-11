@@ -19,7 +19,7 @@
 		}
 
 		dd {
-			margin: 0 0 2px 10px;
+			margin: 0 0 4px 10px;
 		}
 	}
 
@@ -106,9 +106,11 @@
 		text-decoration: none;
 	}
 
-	#lcsServerInfo {
+	.lcs-server-info {
 		float: left;
 		margin: 0 50px 20px 0;
+		max-width: 300px;
+		word-wrap: break-word;
 	}
 
 	.lcs-registration-info {
