@@ -21,9 +21,9 @@ import com.liferay.bbb.model.BBBParticipantConstants;
 import com.liferay.bbb.service.BBBMeetingLocalServiceUtil;
 import com.liferay.bbb.service.BBBParticipantLocalServiceUtil;
 import com.liferay.bbb.util.BBBAPIUtil;
+import com.liferay.bbb.util.BBBUtil;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
-import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
@@ -51,9 +51,7 @@ public class DisplayPortlet extends MVCPortlet {
 		BBBParticipant bbbParticipant =
 			BBBParticipantLocalServiceUtil.getBBBParticipant(bbbParticipantId);
 
-		if (!hash.equals(
-				DigesterUtil.digestHex(bbbParticipant.getEmailAddress()))) {
-
+		if (!hash.equals(BBBUtil.getHash(bbbParticipant))) {
 			jsonObject.put("success", Boolean.FALSE);
 
 			writeJSON(actionRequest, actionResponse, jsonObject);

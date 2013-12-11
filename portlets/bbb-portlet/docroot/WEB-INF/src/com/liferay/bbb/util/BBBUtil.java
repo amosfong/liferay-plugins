@@ -100,6 +100,17 @@ public class BBBUtil {
 		return bbbParticipants;
 	}
 
+	public static String getHash(BBBParticipant bbbParticipant)
+		throws Exception {
+
+		BBBMeeting bbbMeeting = BBBMeetingLocalServiceUtil.getBBBMeeting(
+			bbbParticipant.getBbbMeetingId());
+
+		return DigesterUtil.digest(
+			Digester.SHA_1, bbbMeeting.getAttendeePassword(),
+			bbbParticipant.getEmailAddress());
+	}
+
 	public static String getInvitationURL(
 			BBBParticipant bbbParticipant, HttpServletRequest request)
 		throws Exception {
@@ -121,9 +132,7 @@ public class BBBUtil {
 		sb.append(StringPool.SLASH);
 		sb.append(bbbParticipant.getBbbParticipantId());
 		sb.append(StringPool.SLASH);
-		sb.append(
-			DigesterUtil.digestHex(
-				Digester.SHA_1, bbbParticipant.getEmailAddress()));
+		sb.append(getHash(bbbParticipant));
 
 		return sb.toString();
 	}
