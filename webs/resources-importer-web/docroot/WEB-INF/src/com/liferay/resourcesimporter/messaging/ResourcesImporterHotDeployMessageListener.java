@@ -27,9 +27,11 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.TextFormatter;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Company;
+import com.liferay.portal.model.Group;
 import com.liferay.portal.model.LayoutSetPrototype;
 import com.liferay.portal.security.auth.CompanyThreadLocal;
 import com.liferay.portal.service.CompanyLocalServiceUtil;
+import com.liferay.portal.service.GroupLocalServiceUtil;
 import com.liferay.resourcesimporter.util.FileSystemImporter;
 import com.liferay.resourcesimporter.util.Importer;
 import com.liferay.resourcesimporter.util.ImporterException;
@@ -105,9 +107,9 @@ public class ResourcesImporterHotDeployMessageListener
 		ServletContext servletContext = ServletContextPool.get(
 			servletContextName);
 
-		URL url = servletContext.getResource(_RESOURCES_DIR);
+		if ((servletContext.getResource(_RESOURCES_DIR) == null) &&
+			(servletContext.getResource(_TEMPLATES_DIR) == null)) {
 
-		if (url == null) {
 			return;
 		}
 
@@ -120,6 +122,8 @@ public class ResourcesImporterHotDeployMessageListener
 
 		Set<String> resourcePaths = servletContext.getResourcePaths(
 			_RESOURCES_DIR);
+		Set<String> templatePaths = servletContext.getResourcePaths(
+			_TEMPLATES_DIR);
 
 		URL privateLARURL = null;
 		URL publicLARURL = servletContext.getResource(
@@ -171,6 +175,15 @@ public class ResourcesImporterHotDeployMessageListener
 
 					importer.setResourcesDir(_RESOURCES_DIR);
 				}
+				else if ((templatePaths != null) && !templatePaths.isEmpty()) {
+					importer = getResourceImporter();
+
+					Group group = GroupLocalServiceUtil.getCompanyGroup(
+						companyId);
+
+					importer.setGroupId(group.getGroupId());
+					importer.setResourcesDir(_TEMPLATES_DIR);
+				}
 				else {
 					String resourcesDir = pluginPackageProperties.getProperty(
 						"resources-importer-external-dir");
@@ -207,7 +220,9 @@ public class ResourcesImporterHotDeployMessageListener
 					pluginPackageProperties.getProperty(
 						"resources-importer-developer-mode-enabled"));
 
-				if (!developerModeEnabled && importer.isExisting()) {
+				if (!developerModeEnabled && importer.isExisting() &&
+					!importer.isCompanyGroup()) {
+
 					if (_log.isInfoEnabled()) {
 						_log.info(
 							"Group or layout set prototype already exists " +
@@ -280,6 +295,9 @@ public class ResourcesImporterHotDeployMessageListener
 
 	private static final String _RESOURCES_DIR =
 		"/WEB-INF/classes/resources-importer/";
+
+	private static final String _TEMPLATES_DIR =
+		"/WEB-INF/classes/templates-importer/";
 
 	private static Log _log = LogFactoryUtil.getLog(
 		ResourcesImporterHotDeployMessageListener.class);

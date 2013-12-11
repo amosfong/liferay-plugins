@@ -23,7 +23,9 @@ import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.util.Constants;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
+import com.liferay.portal.kernel.util.MethodKey;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.PortalClassInvoker;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
@@ -77,9 +79,9 @@ public class StorePortlet extends MVCPortlet {
 
 			FileUtil.write(tempFile, inputStream);
 
-			App app = AppServiceUtil.updateApp(remoteAppId, version, tempFile);
+			AppServiceUtil.updateApp(remoteAppId, version, tempFile);
 
-			JSONObject jsonObject = getAppJSONObject(app.getRemoteAppId());
+			JSONObject jsonObject = getAppJSONObject(remoteAppId);
 
 			jsonObject.put("cmd", "downloadApp");
 			jsonObject.put("message", "success");
@@ -218,6 +220,9 @@ public class StorePortlet extends MVCPortlet {
 		long remoteAppId = ParamUtil.getLong(actionRequest, "appId");
 		String version = ParamUtil.getString(actionRequest, "version");
 		String url = ParamUtil.getString(actionRequest, "url");
+		String orderUuid = ParamUtil.getString(actionRequest, "orderUuid");
+		String productEntryName = ParamUtil.getString(
+			actionRequest, "productEntryName");
 
 		url = getRemoteAppPackageURL(
 			themeDisplay.getCompanyId(), themeDisplay.getUserId(), token, url);
@@ -227,6 +232,9 @@ public class StorePortlet extends MVCPortlet {
 		File tempFile = null;
 
 		try {
+			PortalClassInvoker.invoke(
+				false, _registerOrderMethodKey, orderUuid, productEntryName, 0);
+
 			InputStream inputStream = urlObj.openStream();
 
 			tempFile = FileUtil.createTempFile();
@@ -374,5 +382,10 @@ public class StorePortlet extends MVCPortlet {
 
 	private static final String _PORTLET_NAMESPACE =
 		PortalUtil.getPortletNamespace("12_WAR_osbportlet");
+
+	private static MethodKey _registerOrderMethodKey =
+		new MethodKey(
+			"com.liferay.portal.license.util.LicenseUtil", "registerOrder",
+			String.class, String.class,	int.class);
 
 }

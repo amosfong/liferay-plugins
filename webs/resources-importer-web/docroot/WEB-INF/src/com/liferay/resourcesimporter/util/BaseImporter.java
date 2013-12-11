@@ -70,7 +70,10 @@ public abstract class BaseImporter implements Importer {
 			targetClassPK = layoutSetPrototype.getLayoutSetPrototypeId();
 		}
 		else if (targetClassName.equals(Group.class.getName())) {
-			if (targetValue.equals(GroupConstants.GUEST)) {
+			if (targetValue.equals(GroupConstants.GLOBAL)) {
+				group = GroupLocalServiceUtil.getCompanyGroup(companyId);
+			}
+			else if (targetValue.equals(GroupConstants.GUEST)) {
 				group = GroupLocalServiceUtil.getGroup(
 					companyId, GroupConstants.GUEST);
 
@@ -147,6 +150,17 @@ public abstract class BaseImporter implements Importer {
 	}
 
 	@Override
+	public boolean isCompanyGroup() throws Exception {
+		Group group = GroupLocalServiceUtil.fetchGroup(groupId);
+
+		if (group == null) {
+			return false;
+		}
+
+		return group.isCompany();
+	}
+
+	@Override
 	public boolean isExisting() {
 		return existing;
 	}
@@ -154,6 +168,11 @@ public abstract class BaseImporter implements Importer {
 	@Override
 	public void setCompanyId(long companyId) {
 		this.companyId = companyId;
+	}
+
+	@Override
+	public void setGroupId(long groupId) {
+		this.groupId = groupId;
 	}
 
 	@Override

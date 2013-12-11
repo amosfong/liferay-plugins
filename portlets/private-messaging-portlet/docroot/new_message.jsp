@@ -61,14 +61,10 @@ for (long userId : userIds) {
 to = sb.toString() + to;
 %>
 
-<div id="<portlet:namespace />messageContainer"></div>
-
-<liferay-portlet:actionURL name="sendMessage" var="sendMessageURL">
-	<portlet:param name="redirect" value="<%= redirect %>" />
-</liferay-portlet:actionURL>
+<div class="message-container" id="<portlet:namespace />messageContainer"></div>
 
 <aui:layout cssClass="message-body-container">
-	<aui:form action="<%= sendMessageURL %>" enctype="multipart/form-data" method="post" name="fm" onSubmit="event.preventDefault();">
+	<aui:form enctype="multipart/form-data" method="post" name="fm" onSubmit="event.preventDefault();">
 		<aui:input name="userId" type="hidden" value="<%= user.getUserId() %>" />
 		<aui:input name="mbThreadId" type="hidden" value="<%= mbThreadId %>" />
 
@@ -113,24 +109,12 @@ to = sb.toString() + to;
 		<aui:input label="" name="msgFile3" type="file" />
 
 		<aui:button-row>
-			<input type="submit" value="<liferay-ui:message key="send" />" />
+			<aui:button primary="<%= true %>" type="submit" value="send" />
 		</aui:button-row>
 	</aui:form>
 </aui:layout>
 
-<aui:script>
-	function <portlet:namespace />showMessage(message) {
-		var A = AUI();
-
-		var messageContainer = A.one('#<portlet:namespace />messageContainer');
-
-		if (messageContainer) {
-			messageContainer.html(message);
-		}
-	}
-</aui:script>
-
-<aui:script use="aui-io-request,aui-loading-mask,autocomplete,json-parse,io-upload-iframe">
+<aui:script use="aui-io-request-deprecated,aui-loading-mask-deprecated,autocomplete,io-upload-iframe,json-parse">
 	var form = A.one('#<portlet:namespace />fm');
 
 	form.on(
@@ -166,11 +150,11 @@ to = sb.toString() + to;
 			loadingMask.show();
 
 			A.io.request(
-				'<liferay-portlet:resourceURL id="checkData"><liferay-portlet:param name="redirect" value="<%= PortalUtil.getLayoutURL(themeDisplay) %>" /></liferay-portlet:resourceURL>',
+				'<liferay-portlet:resourceURL id="sendMessage"></liferay-portlet:resourceURL>',
 				{
 					dataType: 'json',
 					form: {
-						id: form.getDOM(),
+						id: form,
 						upload: true
 					},
 					on: {
@@ -180,18 +164,17 @@ to = sb.toString() + to;
 							var responseData = A.JSON.parse(responseText);
 
 							if (responseData.success) {
-								submitForm(document.<portlet:namespace />fm);
+								Liferay.Util.getWindow('<portlet:namespace />Dialog').hide();
 							}
 							else {
-								<portlet:namespace />showMessage('<span class="portlet-msg-error">' + responseData.message + '</span>');
+								var messageContainer = A.one('#<portlet:namespace />messageContainer');
+
+								if (messageContainer) {
+									messageContainer.html('<span class="portlet-msg-error">' + responseData.message + '</span>');
+								}
 
 								loadingMask.hide();
 							}
-						},
-						failure: function(event, id, obj) {
-							<portlet:namespace />showMessage('<span class="portlet-msg-error"><%= UnicodeLanguageUtil.get(pageContext, "your-request-failed-to-complete") %></span>');
-
-							loadingMask.hide();
 						}
 					}
 				}
@@ -199,7 +182,7 @@ to = sb.toString() + to;
 		}
 	);
 
-	var to = A.one('#<portlet:namespace/>to');
+	var to = A.one('#<portlet:namespace />to');
 
 	to.plug(
 		A.Plugin.AutoComplete,

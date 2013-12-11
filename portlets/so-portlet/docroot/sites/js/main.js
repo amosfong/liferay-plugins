@@ -25,13 +25,91 @@ AUI.add(
 	}
 );
 
+AUI.add(
+	'liferay-so-user-menu',
+	function(A) {
+		var UserMenu = function(config) {
+			var hideClass = config.hideClass;
+			var hideOn = config.hideOn || 'close-menus';
+			var preventDefault = config.preventDefault || false;
+			var showClass = config.showClass;
+			var showOn = config.showOn || 'click';
+
+			var node = A.one(config.node);
+
+			var target = A.one(config.target) || node;
+
+			A.on(
+				'close-menus',
+				function(event) {
+					target.fire('close-menus', event);
+				}
+			);
+
+			target.on(
+				'click',
+				function(event) {
+					event.stopPropagation();
+				}
+			);
+
+			target.on(
+				'hideOn|close-menus',
+				function(event) {
+					if (hideClass && !target.hasClass(hideClass)) {
+						target.addClass(hideClass);
+					}
+
+					if (showClass && target.hasClass(showClass)) {
+						target.removeClass(showClass);
+					}
+				}
+			);
+
+			var trigger = A.one(config.trigger) || node;
+
+			trigger.on(
+				showOn,
+				function(event) {
+					if (preventDefault) {
+						event.preventDefault();
+					}
+
+					A.fire('close-menus', event);
+
+					if (hideClass && target.hasClass(hideClass)) {
+						setTimeout(
+							function() {
+								target.removeClass(hideClass);
+							},
+							10
+						);
+					}
+
+					if (showClass && !target.hasClass(showClass)) {
+						target.addClass(showClass);
+					}
+				}
+			);
+		}
+
+		Liferay.namespace('SO');
+
+		Liferay.SO.UserMenu = UserMenu;
+	},
+	'',
+	{
+		requires: ['aui-base', 'node-core']
+	}
+);
+
 AUI().use(
 	'aui-base',
-	'aui-dialog',
-	'aui-io-plugin',
+	'aui-io-plugin-deprecated',
 	'datasource-io',
 	'json-parse',
 	'liferay-so-site-list',
+	'liferay-util-window',
 	function(A) {
 		var Lang = A.Lang;
 
@@ -40,6 +118,8 @@ AUI().use(
 		Liferay.SO.Sites = {
 			init: function(config) {
 				var instance = this;
+
+				instance._namespace = config.namespace;
 
 				instance._createSiteList(config);
 				instance._assignEvents();
@@ -56,6 +136,8 @@ AUI().use(
 			},
 
 			createDataSource: function(url) {
+				var instance = this;
+
 				return new A.DataSource.IO(
 					{
 						ioConfig: {
@@ -71,76 +153,22 @@ AUI().use(
 									tabs1 = sitesTabsContainer.one('select').get('value');
 								}
 
+								var eventData = {};
+
 								var data = event.request;
 
-								event.cfg.data = {
-									directory: data.directory || false,
-									end: data.end || 10,
-									keywords: data.keywords || '',
-									searchTab: data.searchTab || tabs1,
-									start: data.start || 0
-								}
+								eventData[instance._namespace + 'directory'] = data[instance._namespace + 'directory'] || false;
+								eventData[instance._namespace + 'end'] = data[instance._namespace + 'end'] || 10;
+								eventData[instance._namespace + 'keywords'] = data[instance._namespace + 'keywords'] || '';
+								eventData[instance._namespace + 'searchTab'] = data[instance._namespace + 'searchTab'] || tabs1;
+								eventData[instance._namespace + 'start'] = data[instance._namespace + 'start'] || 0;
+
+								event.cfg.data = eventData;
 							}
 						},
 						source: url
 					}
 				)
-			},
-
-			disableButton: function(button) {
-				button = button.one('input') || button;
-
-				button.set('disabled', true);
-				button.ancestor('.aui-button').addClass('aui-button-disabled');
-			},
-
-			displayPopup: function(url, title, data) {
-				var instance = this;
-
-				var viewportRegion = A.getBody().get('viewportRegion');
-
-				var popup = instance.getPopup();
-
-				popup.show();
-
-				popup.set('title', title);
-
-				popup.io.set('uri', url);
-				popup.io.set('data', data);
-
-				popup.io.start();
-			},
-
-			enableButton: function(button) {
-				button = button.one('input') || button;
-
-				button.set('disabled', false);
-				button.ancestor('.aui-button').removeClass('aui-button-disabled');
-			},
-
-			getPopup: function() {
-				var instance = this;
-
-				if (!instance._popup) {
-					instance._popup = new A.Dialog(
-						{
-							align: {
-								node: null,
-								points: ['tc', 'tc']
-							},
-							constrain2view: true,
-							cssClass: 'so-portlet-sites-dialog',
-							modal: true,
-							resizable: true,
-							width: 650
-						}
-					).plug(
-						A.Plugin.IO,
-						{autoLoad: false}
-					).render();
-				}
-
-				return instance._popup;
 			},
 
 			createDirectoryList: function(directoryList) {
@@ -149,12 +177,68 @@ AUI().use(
 				instance._directoryList = directoryList;
 			},
 
+			disableButton: function(button) {
+				button.set('disabled', true);
+
+				button.addClass('disabled');
+			},
+
+			displayPopup: function(url, title, data) {
+				var instance = this;
+
+				var popup = instance.getPopup();
+
+				popup.titleNode.html(title);
+
+				popup.show();
+
+				popup.io.set('uri', url);
+				popup.io.set('data', data);
+
+				popup.io.start();
+			},
+
+			enableButton: function(button) {
+				button.set('disabled', false);
+
+				button.removeClass('disabled');
+			},
+
+			getPopup: function() {
+				var instance = this;
+
+				if (!instance._popup) {
+					instance._popup = Liferay.Util.Window.getWindow(
+						{
+							dialog: {
+								align: {
+									node: null,
+									points: ['tc', 'tc']
+								},
+								constrain2view: true,
+								cssClass: 'so-portlet-sites-dialog',
+								modal: true,
+								resizable: true,
+								width: 650
+							}
+						}
+					).plug(
+						A.Plugin.IO,
+						{
+							autoLoad: false
+						}
+					).render();
+				}
+
+				return instance._popup;
+			},
+
 			setTitle: function(title) {
 				var instance = this;
 
 				var popup = instance.getPopup();
 
-				popup.set('title', title);
+				popup.titleNode.html(title);
 			},
 
 			updateSites: function(showSuccessMessage, keywordsInput, requestTemplate) {
@@ -215,9 +299,11 @@ AUI().use(
 						listNode: siteList,
 						minQueryLength: 0,
 						requestTemplate: function(query) {
-							return {
-								keywords: query
-							}
+							var data = {};
+
+							data[instance._namespace + 'keywords'] = query;
+
+							return data;
 						},
 						resultTextLocator: function(response) {
 							var result = '';

@@ -14,6 +14,7 @@
 
 package com.liferay.portal.workflow.kaleo;
 
+import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.workflow.WorkflowDefinition;
 import com.liferay.portal.kernel.workflow.WorkflowDefinitionManager;
@@ -24,8 +25,6 @@ import com.liferay.portal.workflow.kaleo.model.KaleoDefinition;
 import com.liferay.portal.workflow.kaleo.runtime.WorkflowEngine;
 import com.liferay.portal.workflow.kaleo.service.KaleoDefinitionLocalServiceUtil;
 import com.liferay.portal.workflow.kaleo.util.WorkflowModelUtil;
-
-import java.io.InputStream;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +38,7 @@ public class WorkflowDefinitionManagerImpl
 
 	@Override
 	public WorkflowDefinition deployWorkflowDefinition(
-			long companyId, long userId, String title, InputStream inputStream)
+			long companyId, long userId, String title, byte[] bytes)
 		throws WorkflowException {
 
 		ServiceContext serviceContext = new ServiceContext();
@@ -48,7 +47,7 @@ public class WorkflowDefinitionManagerImpl
 		serviceContext.setUserId(userId);
 
 		return _workflowEngine.deployWorkflowDefinition(
-			title, inputStream, serviceContext);
+			title, new UnsyncByteArrayInputStream(bytes), serviceContext);
 	}
 
 	@Override
@@ -329,10 +328,11 @@ public class WorkflowDefinitionManagerImpl
 	}
 
 	@Override
-	public void validateWorkflowDefinition(InputStream inputStream)
+	public void validateWorkflowDefinition(byte[] bytes)
 		throws WorkflowException {
 
-		_workflowEngine.validateWorkflowDefinition(inputStream);
+		_workflowEngine.validateWorkflowDefinition(
+			new UnsyncByteArrayInputStream(bytes));
 	}
 
 	protected List<WorkflowDefinition> toWorkflowDefinitions(

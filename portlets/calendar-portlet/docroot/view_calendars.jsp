@@ -42,10 +42,10 @@ CalendarResource calendarResource = (CalendarResource)request.getAttribute(WebKe
 <liferay-ui:search-container
 	emptyResultsMessage="there-are-no-calendars-for-the-selected-resource"
 	iteratorURL="<%= renderResponse.createRenderURL() %>"
+	total="<%= CalendarServiceUtil.searchCount(themeDisplay.getCompanyId(), new long[] {calendarResource.getGroupId()}, new long[] {calendarResource.getCalendarResourceId()}, null, false) %>"
 >
 	<liferay-ui:search-container-results
 		results="<%= CalendarServiceUtil.search(themeDisplay.getCompanyId(), new long[] {calendarResource.getGroupId()}, new long[] {calendarResource.getCalendarResourceId()}, null, false, QueryUtil.ALL_POS, QueryUtil.ALL_POS, new CalendarNameComparator(true)) %>"
-		total="<%= CalendarServiceUtil.searchCount(themeDisplay.getCompanyId(), new long[] {calendarResource.getGroupId()}, new long[] {calendarResource.getCalendarResourceId()}, null, false) %>"
 	/>
 
 	<liferay-ui:search-container-row
@@ -60,7 +60,7 @@ CalendarResource calendarResource = (CalendarResource)request.getAttribute(WebKe
 
 		<liferay-ui:search-container-column-text
 			name="description"
-			value="<%= StringUtil.shorten(calendar.getDescription(locale)) %>"
+			value="<%= HtmlUtil.escape(StringUtil.shorten(calendar.getDescription(locale))) %>"
 		/>
 
 		<liferay-ui:search-container-column-text

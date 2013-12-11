@@ -24,7 +24,28 @@ String tabs1 = ParamUtil.getString(request, "tabs1", tabs1Default);
 String tabs2 = ParamUtil.getString(request, "tabs2", "open");
 
 long[] assetTagIds = StringUtil.split(ParamUtil.getString(request, "assetTagIds"), 0L);
-long groupId = ParamUtil.getLong(request, "groupId", 0);
+
+long groupId = ParamUtil.getLong(request, "groupId");
+
+if (group.isRegularSite()) {
+	groupId = group.getGroupId();
+}
+
+long assigneeUserId = 0;
+long reporterUserId = 0;
+
+if (tabs1.equals("assigned-to-me")) {
+	assigneeUserId = user.getUserId();
+}
+else if (tabs1.equals("i-have-created")) {
+	reporterUserId = user.getUserId();
+}
+
+int status = TasksEntryConstants.STATUS_ALL;
+
+if (tabs2.equals("open")) {
+	status = TasksEntryConstants.STATUS_OPEN;
+}
 
 PortletURL portletURL = renderResponse.createRenderURL();
 
@@ -46,33 +67,10 @@ taskListURL.setParameter("tabs2", tabs2);
 	emptyResultsMessage="no-tasks-were-found"
 	headerNames="description,due, "
 	iteratorURL="<%= portletURL %>"
+	total= "<%= TasksEntryLocalServiceUtil.getTasksEntriesCount(groupId, 0, assigneeUserId, reporterUserId, status, assetTagIds, new long[0]) %>"
 >
-
-	<%
-	if (group.isRegularSite()) {
-		groupId = group.getGroupId();
-	}
-
-	long assigneeUserId = 0;
-	long reporterUserId = 0;
-
-	if (tabs1.equals("assigned-to-me")) {
-		assigneeUserId = user.getUserId();
-	}
-	else if (tabs1.equals("i-have-created")) {
-		reporterUserId = user.getUserId();
-	}
-
-	int status = TasksEntryConstants.STATUS_ALL;
-
-	if (tabs2.equals("open")) {
-		status = TasksEntryConstants.STATUS_OPEN;
-	}
-	%>
-
 	<liferay-ui:search-container-results
 		results="<%= TasksEntryLocalServiceUtil.getTasksEntries(groupId, 0, assigneeUserId, reporterUserId, status, assetTagIds, new long[0], searchContainer.getStart(), searchContainer.getEnd()) %>"
-		total="<%= TasksEntryLocalServiceUtil.getTasksEntriesCount(groupId, 0, assigneeUserId, reporterUserId, status, assetTagIds, new long[0]) %>"
 	/>
 
 	<liferay-ui:search-container-row
