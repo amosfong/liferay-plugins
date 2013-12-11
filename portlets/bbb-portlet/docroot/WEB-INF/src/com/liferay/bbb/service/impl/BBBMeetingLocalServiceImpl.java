@@ -14,11 +14,11 @@
 
 package com.liferay.bbb.service.impl;
 
-import com.liferay.bbb.admin.util.AdminUtil;
 import com.liferay.bbb.model.BBBMeeting;
 import com.liferay.bbb.model.BBBParticipant;
 import com.liferay.bbb.model.BBBParticipantConstants;
 import com.liferay.bbb.service.base.BBBMeetingLocalServiceBaseImpl;
+import com.liferay.bbb.util.BBBUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -243,7 +243,7 @@ public class BBBMeetingLocalServiceImpl extends BBBMeetingLocalServiceBaseImpl {
 		}
 
 		try {
-			AdminUtil.sendEmail(bbbMeetingId, serviceContext);
+			BBBUtil.sendEmail(bbbMeetingId, serviceContext);
 		}
 		catch (Exception e) {
 			throw new SystemException();

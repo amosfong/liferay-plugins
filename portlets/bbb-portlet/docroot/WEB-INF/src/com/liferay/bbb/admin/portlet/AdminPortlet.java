@@ -14,7 +14,6 @@
 
 package com.liferay.bbb.admin.portlet;
 
-import com.liferay.bbb.admin.util.AdminUtil;
 import com.liferay.bbb.model.BBBMeeting;
 import com.liferay.bbb.model.BBBMeetingConstants;
 import com.liferay.bbb.model.BBBParticipant;
@@ -22,6 +21,7 @@ import com.liferay.bbb.model.BBBServer;
 import com.liferay.bbb.service.BBBMeetingServiceUtil;
 import com.liferay.bbb.service.BBBServerServiceUtil;
 import com.liferay.bbb.util.BBBAPIUtil;
+import com.liferay.bbb.util.BBBUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.service.ServiceContext;
@@ -91,7 +91,7 @@ public class AdminPortlet extends MVCPortlet {
 		String name = ParamUtil.getString(actionRequest, "name");
 		String description = ParamUtil.getString(actionRequest, "description");
 
-		List<BBBParticipant> bbbParticipants = AdminUtil.getBBBParticipants(
+		List<BBBParticipant> bbbParticipants = BBBUtil.getBBBParticipants(
 			actionRequest);
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(

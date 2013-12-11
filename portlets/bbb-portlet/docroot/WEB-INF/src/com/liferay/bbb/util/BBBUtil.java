@@ -12,14 +12,13 @@
  * details.
  */
 
-package com.liferay.bbb.admin.util;
+package com.liferay.bbb.util;
 
 import com.liferay.bbb.model.BBBMeeting;
 import com.liferay.bbb.model.BBBParticipant;
 import com.liferay.bbb.model.BBBParticipantConstants;
 import com.liferay.bbb.service.BBBMeetingLocalServiceUtil;
 import com.liferay.bbb.service.BBBParticipantLocalServiceUtil;
-import com.liferay.bbb.util.PortletKeys;
 import com.liferay.mail.service.MailServiceUtil;
 import com.liferay.portal.kernel.mail.MailMessage;
 import com.liferay.portal.kernel.util.Digester;
@@ -53,7 +52,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @author Shinn Lok
  */
-public class AdminUtil {
+public class BBBUtil {
 
 	public static List<BBBParticipant> getBBBParticipants(
 		ActionRequest actionRequest) {
@@ -168,8 +167,7 @@ public class AdminUtil {
 			bbbParticipant.getEmailAddress(), bbbParticipant.getName());
 
 		String subject = ContentUtil.get(
-			"com/liferay/bbb/admin/dependencies" +
-				"/meeting_scheduled_notification_subject.tmpl");
+			"dependencies/meeting_scheduled_notification_subject.tmpl");
 
 		subject = StringUtil.replace(
 			subject,
@@ -181,8 +179,7 @@ public class AdminUtil {
 			});
 
 		String body = ContentUtil.get(
-			"com/liferay/bbb/admin/dependencies" +
-				"/meeting_scheduled_notification_body.tmpl");
+			"dependencies/meeting_scheduled_notification_body.tmpl");
 
 		body = StringUtil.replace(
 			body,
