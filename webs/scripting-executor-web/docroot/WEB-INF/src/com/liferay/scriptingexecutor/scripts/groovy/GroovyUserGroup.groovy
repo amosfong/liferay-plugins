@@ -14,7 +14,6 @@
 
 package com.liferay.scriptingexecutor.scripts.groovy;
 
-import com.liferay.portal.NoSuchUserGroupException;
 import com.liferay.portal.model.UserGroup;
 import com.liferay.portal.service.UserGroupLocalServiceUtil;
 
@@ -24,16 +23,10 @@ import com.liferay.portal.service.UserGroupLocalServiceUtil;
 class GroovyUserGroup {
 
 	static UserGroup fetchUserGroup(
-		GroovyScriptingContext scriptingContext, String name) {
+		GroovyScriptingContext groovyScriptingContext, String name) {
 
-		try {
-			return UserGroupLocalServiceUtil.getUserGroup(
-				scriptingContext.companyId, name);
-		}
-		catch (NoSuchUserGroupException nsuge) {
-		}
-
-		return null;
+		return UserGroupLocalServiceUtil.fetchUserGroup(
+			groovyScriptingContext.companyId, name);
 	}
 
 }

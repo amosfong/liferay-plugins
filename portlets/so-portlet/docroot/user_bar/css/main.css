@@ -23,23 +23,6 @@ $defaultTextColor: #202020;
 	@include box-shadow(0 1px 3px rgba(0,0,0, 0.78));
 }
 
-.portlet-dockbar {
-	overflow: hidden;
-}
-
-#dockbar {
-	margin-top: -31px;
-	opacity: 0;
-	position: relative;
-
-	@include transition-duration(0.5s);
-	@include transition-property(all);
-
-	.user-toolbar {
-		display: none;
-	}
-}
-
 body.show-dockbar, html > body.lfr-dockbar-pinned, body.controls-visible {
 	.portlet-dockbar {
 		overflow: visible;
@@ -52,31 +35,13 @@ body.show-dockbar, html > body.lfr-dockbar-pinned, body.controls-visible {
 	}
 }
 
-html > body.lfr-dockbar-pinned {
-	padding-top: 74px;
-
-	#dockbar {
-		@include box-shadow(0 7px 9px -8px rgba(0, 0, 0, 0.5));
-
-		position: fixed;
-		top: 42px;
-	}
-
-	.so-portlet-user-bar {
-		left: 0;
-		position: fixed;
-		right: 0;
-		top: 0;
-	}
-}
-
-.so-portlet-user-bar {
-	background: #32363A url(../images/user_bar_default_bg.png) repeat-x;
+.aui .so-portlet-user-bar {
+	background: #252D31 url(../images/user_bar_default_bg.png) 0 0 repeat-x;
 
 	@include background-image(linear-gradient(bottom, #252D31 0, #32363A 100%));
 
-	font: 13px/1.5em 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	font-weight: 200;
+	font: 14px/2em 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-weight: 400;
 	padding-right: 30%;
 	position: relative;
 	z-index: 301;
@@ -85,15 +50,15 @@ html > body.lfr-dockbar-pinned {
 		&, &:hover, &:visited, &:active {
 			color: #FFF;
 			font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-			font-size: 13px;
+			font-size: 14px;
 			font-weight: 400;
+			line-height: 2em;
 			text-decoration: none;
 		}
 	}
 
 	.so-logo {
 		display: inline-block;
-		margin-bottom: -7px;
 		padding: 6px 3px 6px 8px;
 		vertical-align: middle;
 
@@ -105,21 +70,21 @@ html > body.lfr-dockbar-pinned {
 	}
 
 	.dashboard-nav {
+		font-size: 0;
 		position: relative;
 		width: 100%;
 		z-index: 2;
+
+		li {
+			font-size: 14px;
+		}
 	}
 
 	a {
 		color: #FFF;
 		background-color: rgba(0,0,0, 0);
-
-		@include border-radius(4px);
-		@include box-shadow(none);
-
 		font-size: 1em;
-		padding: 0.25em 0.8em;
-		text-shadow: 0 1px 2px rgba(0,0,0, 0.75);
+		padding: 0.58em 0.8em;
 
 		@include transition-duration(0.5s);
 		@include transition-property(background-color);
@@ -127,9 +92,6 @@ html > body.lfr-dockbar-pinned {
 
 	li.selected a, a:hover, .hover a {
 		background-color: rgba(0,0,0, 0.48);
-
-		@include box-shadow(0 1px 2px rgba(0,0,0, 0.75));
-
 		text-decoration: none;
 	}
 
@@ -153,419 +115,203 @@ html > body.lfr-dockbar-pinned {
 	.has-submenu {
 		position: relative;
 	}
+}
 
-	.user-toolbar {
-		padding: 0.5em;
-		position: absolute;
-		right: 0;
-		top: 0;
+.aui .dockbar-split .portlet-dockbar .dockbar .navbar-inner .nav-account-controls {
+	background-color: transparent;
+	background-image: none;
+	border-top-color: transparent;
+	right: 0;
+}
 
-		.avatar {
-			display: inline-block;
-			height: 24px;
-			margin: -5px 5px -4px -5px;
-			overflow: hidden;
-			padding: 0;
-			vertical-align: middle;
-			width: 24px;
-
-			img {
-				max-width: 24px;
-				min-height: 24px;
-			}
+html.aui {
+	.dockbar,
+	.dockbar-split .dockbar,
+	.dockbar.navbar-static-top .dockbar {
+		.navbar-inner, .container {
+			width: auto;
 		}
 
-		.child-menu {
-			display: none;
-			height: 0;
-			left: auto;
+		.navbar-inner {
+			.container {
+				.nav-account-controls {
+					bottom: 100%;
+					left: auto;
+					position: absolute;
+					right: 0;
+					z-index: 301;
 
-			@include menu-mix;
+					.divider-vertical {
+						display: none;
+					}
 
-			min-width: 150px;
+					li.dropdown {
+						> .dropdown-toggle {
+							background-color: rgba(0,0,0, 0);
 
-			position: absolute;
-			right: 0;
+							@include transition-duration(0.5s);
+							@include transition-property(background-color);
+						}
 
-			@include transition-duration(0.5s);
-			@include transition-property(all);
+						&.open > .dropdown-toggle {
+							background-color: rgba(0,0,0, 0.48);
+						}
+					}
 
-			top: 100%;
-			z-index: 3;
+					&.nav > li {
 
-			li {
-				display: block;
+						> a {
+							font-size: 14px;
+							font-weight: 400;
+							line-height: 18px;
+							margin: 0 0;
+							padding: 10px;
+						}
+
+						&.admin-links > a {
+							line-height: 20px;
+							min-height: 23px;
+						}
+					}
+
+					.user-avatar-link {
+						.nav-item-label {
+							padding-left: 20px;
+							position: relative;
+						}
+
+						img {
+							border-width: 0;
+
+							@include border-radius(0);
+
+							clip: rect(0px, 20px, 20px, 0px);
+							left: -6px;
+							position: absolute;
+							top: 0;
+						}
+					}
+				}
 			}
 
-			a {
+			.nav-account-controls > li {
 				background-color: transparent;
+				background-image: none;
 
-				@include box-shadow(none);
-
-				color: $defaultTextColor;
-				display: block;
-
-				@include text-shadow(none);
-
-				&:hover {
-					background-color: rgba(0, 0, 0, 0.6);
+				> a {
 					color: #FFF;
+					text-shadow: none;
 				}
 			}
 		}
 
-		.full-name {
-			display: inline-block;
-			max-width: 8.25em;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-		}
-
-		.config-icon {
-			padding: 0.25em 6px;
-
-			img {
-				vertical-align: bottom;
-			}
-		}
-	}
-
-	.user-notification-events a, .user-notification-events a:hover {
-		background: transparent;
-		box-shadow: none;
-		color: $blue;
-		font-weight: normal;
-		padding: 0;
-		text-shadow: none;
-	}
-
-	.user-notification-events {
-		@include clear-both;
-
-		color: $defaultTextColor;
-		font-size: 1em;
-		right: 0;
-		top: 135%;
-		width: 350px;
-		z-index: 2;
-
-		.aui-menu-content {
-			background-image: none;
-
-			@include menu-mix;
-		}
-
-		.user-notification-event-content {
-			border-bottom: 1px solid $defaultBorderColor;
-			border-width: 0 0 1px;
-			cursor: pointer;
-		}
-
-		.user-notification-event-sender {
-			float: left;
-			padding: 0.75em;
-			position: relative;
-
-			.icon, .portlet-icon {
-				bottom: 0;
-				position: absolute;
-				right: 0;
-			}
-		}
-
-		.thumbnail {
-			display: block;
-			height: 45px;
-			overflow: hidden;
-			width: 45px;
-
-			img {
-				max-width: 45px;
-				min-height: 45px;
-			}
-		}
-
-		.notification-entry {
-			color: $defaultTextColor;
-			margin-left: 60px;
-			padding: 0.5em 0.65em;
-
-			.title a {
-				display: inline;
-				font-weight: bold;
-			}
-
-			.datetime {
-				font-size: 0.85em;
-			}
-		}
-
-		.request {
-			text-align: right;
-
-			a {
-				@include border-radius(4px);
-
-				display: inline-block;
-				margin-right: 10px;
-			}
-		}
-
-		.user-notification-event-header{
-			padding: 0.5em;
-		}
-
-		.user-notification-event-footer {
-			border: none;
-
-			a {
-				@include border-radius(0);
-
-				display: block;
-				float: none;
-				text-align: left;
-				width: auto;
-
-				&, &:hover {
-					display: block;
-					padding: 0.5em;
-				}
-			}
-
-			.view-all, .dismiss-notifications {
-				border-width: 0;
-				float: none;
-				width: auto;
-			}
-
-			.dismiss-notifications a {
-				border-bottom: 1px solid $defaultBorderColor;
-			}
-		}
-	}
-
-	.notifications-menu {
-		position: relative;
-
-		.notification-count {
-			background: transparent;
-			color: #202020;
-			margin: 0 -0.1em;
-			padding: 0;
-			text-shadow: none;
-		}
-
-		.user-notification-events-icon {
-			background: rgba(255, 255, 255, 1);
-
-			@include border-radius(20px);
-
-			padding: 0 0.55em;
-
-			&:hover {
-				background: rgba(0,0,0, 0.8);
-
-				.notification-count {
-					color: #FFF;
-				}
-			}
-		}
-	}
-
-	.so-portlet-sites {
-		display: block;
-		margin-left: -300px;
-		max-width: 450px;
-		min-width: 350px;
-		position: relative;
-		right: 0;
-		top: 0;
-		vertical-align: middle;
-		width: 350px;
-
-		.portlet {
+		.portlet, .portlet-content {
+			background: transparent none;
 			border-width: 0;
 		}
 
-		.portlet-topper, .favorite-msg-info {
-			display: none;
+		.info-items, .info-link-container {
+			left: auto;
+			position: absolute;
+			right: 16px;
+			top: 43px;
 		}
 
-		.portlet-body {
-			left: 0;
-			margin: -1.675em 0 0;
+		.info-items {
+			width: 660px;
+		}
+	}
 
-			@include menu-mix;
-
-			padding: 3.4em 0 0;
+	.dockbar .navbar-inner .container, .dockbar.navbar-static-top .collapse {
+		.nav-account-controls {
 			position: absolute;
-			right: 0;
-			visibility: hidden;
-			z-index: 1;
+			top: -44px;
 
-			a, a:hover, li.has-menu:hover a {
-				background-color: transparent;
-
-				@include border-radius(0);
-				@include box-shadow(none);
-
-				color: $defaultTextColor;
-				font-weight: normal;
-				text-shadow: none;
+			.go-to .so-portlet-sites {
+				top: 0;
 			}
 		}
+	}
 
-		.search {
-			display: block;
-			float: none;
-			left: 0;
-			margin-bottom: 0;
-			padding: 0 0.75em;
+	.dockbar-split .dockbar .navbar-inner .container, .dockbar-split .dockbar.navbar-static-top .collapse {
+		.nav.nav-account-controls {
+			margin-right: 10px;
 			position: absolute;
-			right: 0;
-			text-align: right;
-			top: 0.65em;
-			visibility: visible;
-			width: auto;
+			top: 0;
+		}
+	}
 
-			.search-input {
-				background: rgba(0,0,0, 0.40);
-				border: 1px solid #1C2125;
+	.my-sites.dropdown {
+		display: none;
+	}
 
-				@include border-radius(4px);
-				@include box-shadow(0 1px 2px rgba(0,0,0, 0.4) inset);
+	.dockbar-user-notifications, .notifications-portlet {
+		.user-notifications-count {
+			background: #FFF;
 
+			@include border-radius(12px);
+
+			border-width: 0;
+			color: #202020;
+			font-size: 12px;
+			font-weight: bold;
+			margin: 0;
+			padding: 4px 8px;
+
+			&.alert {
+				background-color: #A20F0F;
 				color: #FFF;
-				cursor: pointer;
-				display: block;
-				float: right;
-
-				@include transition-duration(0.5s);
-				@include transition-property(width);
-
-				text-align: left;
-				text-indent: 0.5em;
-				text-shadow: 0 1px 2px rgba(0,0,0, 0.75);
-				width: 20%;
-			}
-
-			input[type=image] {
-				display: none;
-			}
-		}
-
-		.sites-tabs, .sites-list-container, .control-container {
-			display: none;
-		}
-
-		.sites-tabs {
-			border-top: 1px solid rgba(0,0,0, 0.1);
-			float: none;
-			padding: 1em;
-
-			select {
-				display: block;
-				width: 100%;
-			}
-		}
-
-		.site-list-container {
-			.name {
-				position: relative;
-
-				a {
-					background-position: 8px center;
-					background-repeat: no-repeat;
-					border-top: 1px solid $defaultBorderColor;
-					display: block;
-					padding: 0.55em 2.5em;
-
-					&:hover {
-						background-color: rgba(0,0,0, 0.1);
-					}
-				}
-
-				.private-pages {
-					background: #FFF;
-					padding: 0.55em 0.5em;
-					position: absolute;
-					right: 2em;
-					top: 0;
-				}
-			}
-
-			span.action {
-				position: relative;
-				z-index: 1;
-
-				a {
-					font-size: 0;
-					margin-top: 8px;
-					text-indent: -9999em;
-				}
-			}
-
-			ul.site-list {
-				&, li {
-					background-color: transparent;
-					border-width: 0;
-					color: $defaultTextColor;
-					display: block;
-					margin: 0;
-					padding: 0
-				}
-
-				.empty, .empty:hover {
-					border-width: 1px 0 0;
-					padding: 0.5em 1em 0.5em 2em;
-				}
-			}
-		}
-
-		.control-container {
-			.aui-toolbar-content {
-				display: block;
-			}
-
-			button {
-				width: 50%;
-			}
-		}
-	}
-
-	.search-focus .so-portlet-sites .portlet-body {
-		visibility: visible;
-		z-index: 3;
-
-		.search {
-			width: auto;
-
-			.search-input {
-				background: #FFF;
-				border: 1px solid $defaultBorderColor;
-
-				@include box-shadow(0 1px 2px rgba(0,0,0, 0) inset);
-
-				color: $defaultTextColor;
-				cursor: text;
 				text-shadow: none;
-				width: 97%;
 			}
-		}
-
-		.sites-tabs, .sites-list-container, .control-container {
-			display: block;
 		}
 	}
 
-	.menu-active {
-		overflow: visible;
-
-		.child-menu {
-			display: block;
-			height: auto;
+	.navbar .dockbar-user-notifications .nav>li>.dropdown-menu {
+		&:after {
+			left: auto;
+			right: 9px;
 		}
+
+		&:before {
+			left: auto;
+			right: 10px;
+		}
+	}
+
+	.navbar .nav > .user-avatar > .dropdown-menu:after {
+		left: 18px;
+	}
+
+	.navbar .nav .user-avatar-image, .navbar .nav li.dropdown.user-avatar .user-avatar-image {
+		@include border-radius(50%);
+
+		box-shadow: none;
+		margin: 0;
+		width: 23px;
+	}
+
+	.dockbar .nav > li > a [class^="icon-"],
+	.dockbar .nav > li > a [class*=" icon-"],
+	.dockbar-split .dockbar .navbar-inner .nav > li > a [class^="icon-"], 
+	.dockbar-split .dockbar .navbar-inner .nav > li > a [class*=" icon-"] {
+		background-color: transparent;
+		margin: 0;
+		padding: 0;
+	}
+}
+
+.portlet-dockbar .nav-account-controls .go-to .so-portlet-sites {
+	.alert, .alert-success, .portlet-msg-alert, .portlet-msg-error, .portlet-msg-help, .portlet-msg-info, .portlet-msg-progress, .portlet-msg-success {
+		display: block;
+		margin-bottom: -1px;
+	}
+
+	.search .search-input {
+		border: 1px solid #1C2125;
+	}
+
+	.dockbar .user-avatar img {
+		margin: 0;
 	}
 }
 
@@ -633,5 +379,71 @@ html > body.lfr-dockbar-pinned {
 
 	.config-item {
 		float: right;
+	}
+}
+
+/* ---------- Responsive ---------- */
+
+html.aui {
+	@media (max-width:860px) {
+		.so-portlet-user-bar {
+			a {
+				padding: 0.25em 0.7em;
+			}
+
+			.user-info a {
+				padding: 0;
+
+				.avatar {
+					@include border-radius(4px);
+
+					margin: 0;
+				}
+			}
+
+			.full-name {
+				display: none;
+			}
+		}
+	}
+
+	@media (max-width:979px) {
+		.so-portlet-user-bar {
+			padding-right: 0;
+
+			.dashboard-nav li a {
+				font-weight: 400;
+				padding: 0.58em 0.7em;
+			}
+		}
+
+		.portlet-dockbar {
+			.navbar {
+				margin-top: 0;
+			}
+
+			.btn-navbar {
+				padding: 7px 10px;
+
+				&:hover {
+					color: #000;
+				}
+
+				.user-avatar-image {
+					width: 20px;
+				}
+			}
+		}
+
+		#banner #toggleDockbar {
+			display: none
+		}
+
+		.dockbar-split .dockbar.navbar-static-top .collapse, .dockbar-split .dockbar .navbar-inner .container {
+			.nav.nav-account-controls {
+				float: right;
+				position: relative;
+			}
+		}
 	}
 }

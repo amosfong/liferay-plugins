@@ -28,7 +28,7 @@ List<Calendar> calendars = null;
 if (calendarResource != null) {
 	calendarResourceId = calendarResource.getCalendarResourceId();
 
-	calendars = CalendarLocalServiceUtil.getCalendarResourceCalendars(themeDisplay.getScopeGroupId(), calendarResourceId);
+	calendars = CalendarServiceUtil.getCalendarResourceCalendars(themeDisplay.getScopeGroupId(), calendarResourceId);
 }
 
 String code = BeanParamUtil.getString(calendarResource, request, "code");
@@ -69,7 +69,7 @@ String code = BeanParamUtil.getString(calendarResource, request, "code");
 					</c:when>
 					<c:otherwise>
 						<aui:field-wrapper label="code">
-							<%= code %>
+							<liferay-ui:input-resource url="<%= code %>" />
 						</aui:field-wrapper>
 					</c:otherwise>
 				</c:choose>
@@ -83,7 +83,7 @@ String code = BeanParamUtil.getString(calendarResource, request, "code");
 						for (Calendar calendar : calendars) {
 						%>
 
-							<aui:option label="<%= calendar.getName(locale) %>" value="<%= calendar.getCalendarId() %>" />
+							<aui:option label="<%= HtmlUtil.escapeAttribute(calendar.getName(locale)) %>" value="<%= calendar.getCalendarId() %>" />
 
 						<%
 						}
@@ -117,6 +117,10 @@ String code = BeanParamUtil.getString(calendarResource, request, "code");
 </aui:form>
 
 <aui:script>
+	function <portlet:namespace />getSuggestionsContent() {
+		return document.<portlet:namespace />fm.<portlet:namespace />name.value + ' ' + document.<portlet:namespace />fm.<portlet:namespace />description.value;
+	}
+
 	function <portlet:namespace />updateCalendarResource() {
 		submitForm(document.<portlet:namespace />fm);
 	}

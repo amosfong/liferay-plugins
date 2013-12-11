@@ -24,7 +24,7 @@ String topLink = ParamUtil.getString(request, "topLink", "bookmarks-home");
 
 BookmarksFolder folder = (BookmarksFolder)request.getAttribute(WebKeys.BOOKMARKS_FOLDER);
 
-long defaultFolderId = GetterUtil.getLong(preferences.getValue("rootFolderId", StringPool.BLANK), BookmarksFolderConstants.DEFAULT_PARENT_FOLDER_ID);
+long defaultFolderId = GetterUtil.getLong(portalPreferences.getValue("rootFolderId", StringPool.BLANK), BookmarksFolderConstants.DEFAULT_PARENT_FOLDER_ID);
 
 long folderId = BeanParamUtil.getLong(folder, request, "folderId", defaultFolderId);
 
@@ -69,15 +69,15 @@ request.setAttribute("view.jsp-viewFolder", Boolean.TRUE.toString());
 <liferay-ui:search-container
 	curParam="cur1"
 	iteratorURL="<%= portletURL %>"
+	total="<%= BookmarksEntryServiceUtil.getEntriesCount(scopeGroupId, folderId) %>"
 >
 
 	<%
-	OrderByComparator orderByComparator = BookmarksUtil.getEntriesOrderByComparator("name", "asc");
+	OrderByComparator orderByComparator = BookmarksUtil.getEntryOrderByComparator("name", "asc");
 	%>
 
 	<liferay-ui:search-container-results
 		results="<%= BookmarksEntryServiceUtil.getEntries(scopeGroupId, folderId, searchContainer.getStart(), searchContainer.getEnd(), orderByComparator) %>"
-		total="<%= BookmarksEntryServiceUtil.getEntriesCount(scopeGroupId, folderId) %>"
 	/>
 
 	<liferay-ui:search-container-row

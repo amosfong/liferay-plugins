@@ -54,7 +54,7 @@ portletURL.setWindowState(WindowState.NORMAL);
 pageContext.setAttribute("portletURL", portletURL);
 %>
 
-<div id="<portlet:namespace/>messages"><!-- --></div>
+<div id="<portlet:namespace />messages"><!-- --></div>
 
 <form action="<%= portletURL.toString() %>" method="get" name="<portlet:namespace />fm">
 <liferay-portlet:renderURLParams varImpl="portletURL" />
@@ -68,7 +68,7 @@ pageContext.setAttribute("portletURL", portletURL);
 </div>
 
 <div class="search">
-	<input class="search-input" id="<portlet:namespace />name" name="<portlet:namespace />name" size="30" type="text" value="<%= HtmlUtil.escape(name) %>" />
+	<input class="search-input" id="<portlet:namespace />name" name="<portlet:namespace />name" placeholder="<liferay-ui:message key="go-to" />" size="30" type="text" value="<%= HtmlUtil.escape(name) %>" />
 
 	<input src="<%= themeDisplay.getPathThemeImages() %>/common/search.png" type="image" value='<liferay-ui:message key="search" />' />
 </div>
@@ -83,10 +83,11 @@ pageContext.setAttribute("portletURL", portletURL);
 
 </form>
 
-<aui:script use="aui-base,aui-io,aui-toolbar">
+<aui:script use="aui-base,aui-io-deprecated,aui-toolbar,liferay-so-user-menu">
 	Liferay.SO.Sites.init(
 		{
 			messages: '#<portlet:namespace />messages',
+			namespace: '<portlet:namespace />',
 			siteList: '.so-portlet-sites .site-list',
 			siteListContainer: '.so-portlet-sites .site-list-container',
 			siteListURL: '<portlet:resourceURL id="getSites"><portlet:param name="portletResource" value="<%= portletResource %>" /></portlet:resourceURL>',
@@ -145,16 +146,6 @@ pageContext.setAttribute("portletURL", portletURL);
 		function(event) {
 			searchInput.set('value', '');
 
-			Liferay.SO.Sites.init(
-				{
-					messages: '#<portlet:namespace />messages',
-					siteList: '.so-portlet-sites .site-list',
-					siteListContainer: '.so-portlet-sites .site-list-container',
-					siteListURL: '<portlet:resourceURL id="getSites"><portlet:param name="portletResource" value="<%= portletResource %>" /></portlet:resourceURL>',
-					siteSearchInput: '#<portlet:namespace />name'
-				}
-			);
-
 			Liferay.SO.Sites.updateSites();
 		}
 	);
@@ -165,8 +156,8 @@ pageContext.setAttribute("portletURL", portletURL);
 			var keywords = searchInput.get('value');
 
 			var data = {
-				keywords: keywords,
-				tabs1: sitesTabsSelect.get('value')
+				<portlet:namespace />keywords: keywords,
+				<portlet:namespace />tabs1: sitesTabsSelect.get('value')
 			};
 
 			<liferay-portlet:renderURL var="viewSitesURL" windowState="<%= LiferayWindowState.EXCLUSIVE.toString() %>">
@@ -196,4 +187,26 @@ pageContext.setAttribute("portletURL", portletURL);
 		},
 		'.action a'
 	);
+
+	var dockBar = A.one('.portlet-dockbar');
+
+	if (dockBar) {
+		var html = A.one('html');
+
+		html.on(
+			'click',
+			function(event) {
+				A.fire('close-menus');
+			}
+		);
+
+		new Liferay.SO.UserMenu(
+			{
+				node: '.portlet-dockbar .go-to',
+				showClass: 'search-focus',
+				showOn: 'focus',
+				trigger: '.portlet-dockbar .go-to .so-portlet-sites .search-input'
+			}
+		);
+	}
 </aui:script>

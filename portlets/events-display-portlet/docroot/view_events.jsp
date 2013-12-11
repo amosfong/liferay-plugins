@@ -20,31 +20,31 @@
 <%@ include file="/init.jsp" %>
 
 <%
-List<CalEvent> events = (List<CalEvent>)request.getAttribute("view.jsp-events");
+String searchContainerName = ParamUtil.getString(request, "searchContainerName");
+
+List<CalendarBooking> calendarBookings = (List<CalendarBooking>)request.getAttribute("view.jsp-calendarBookings");
 %>
 
 <liferay-ui:search-container
 	delta="<%= eventsPerPage %>"
+	total="<%= calendarBookings.size() %>"
 >
 
-	<%
-	int end = (events.size() < searchContainer.getEnd()) ? events.size() : searchContainer.getEnd();
-	%>
-
 	<liferay-ui:search-container-results
-		results="<%= events.subList(searchContainer.getStart(), end) %>"
-		total="<%= events.size() %>"
+		results="<%= calendarBookings.subList(searchContainer.getStart(), searchContainer.getResultEnd()) %>"
 	/>
 
 	<liferay-ui:search-container-row
-		className="com.liferay.portlet.calendar.model.CalEvent"
-		keyProperty="eventId"
-		modelVar="event"
+		className="com.liferay.calendar.model.CalendarBooking"
+		keyProperty="calendarBookingId"
+		modelVar="calendarBooking"
 	>
-		<liferay-ui:search-container-column-text>
+		<liferay-ui:search-container-column-text
+			name="<%= searchContainerName %>"
+		>
 
 			<%
-			Group group = GroupLocalServiceUtil.getGroup(event.getGroupId());
+			Group group = GroupLocalServiceUtil.getGroup(calendarBooking.getGroupId());
 
 			LiferayPortletURL groupURL = PortletURLFactoryUtil.create(request, PortletKeys.MY_SITES, layout.getPlid(), PortletRequest.ACTION_PHASE);
 
@@ -62,17 +62,17 @@ List<CalEvent> events = (List<CalEvent>)request.getAttribute("view.jsp-events");
 
 			String eventHREF = groupURL.toString();
 
-			long selPlid = PortalUtil.getPlidFromPortletId(event.getGroupId(), PortletKeys.CALENDAR);
+			long selPlid = PortalUtil.getPlidFromPortletId(calendarBooking.getGroupId(), "1_WAR_calendarportlet");
 
 			if (selPlid != LayoutConstants.DEFAULT_PLID) {
-				LiferayPortletURL eventURL = PortletURLFactoryUtil.create(request, PortletKeys.CALENDAR, selPlid, PortletRequest.RENDER_PHASE);
+				LiferayPortletURL eventURL = PortletURLFactoryUtil.create(request, "1_WAR_calendarportlet", selPlid, PortletRequest.RENDER_PHASE);
 
 				eventURL.setWindowState(LiferayWindowState.NORMAL);
 				eventURL.setPortletMode(PortletMode.VIEW);
 
-				eventURL.setParameter("struts_action", "/calendar/view_event");
+				eventURL.setParameter("mvcPath", "/view_calendar_booking.jsp");
 				eventURL.setParameter("redirect", PortalUtil.getCurrentURL(request));
-				eventURL.setParameter("eventId", String.valueOf(event.getEventId()));
+				eventURL.setParameter("calendarBookingId", String.valueOf(calendarBooking.getCalendarBookingId()));
 
 				eventHREF = eventURL.toString();
 			}
@@ -80,19 +80,12 @@ List<CalEvent> events = (List<CalEvent>)request.getAttribute("view.jsp-events");
 
 			<div class="event">
 				<span class="event-name">
-					<a href="<%= eventHREF %>"><%= StringUtil.shorten(event.getTitle(), 40) %></a>
+					<a href="<%= eventHREF %>"><%= StringUtil.shorten(calendarBooking.getTitle(locale), 40) %></a>
 				</span>
 
-				<c:if test="<%= !event.isAllDay() %>">
+				<c:if test="<%= !calendarBooking.isAllDay() %>">
 					<span class="event-time">
-						<c:choose>
-							<c:when test="<%= event.isTimeZoneSensitive() %>">
-								<%= dateFormatTime.format(Time.getDate(event.getStartDate(), timeZone)) %>
-							</c:when>
-							<c:otherwise>
-								<%= dateFormatTime.format(event.getStartDate()) %>
-							</c:otherwise>
-						</c:choose>
+						<%= dateFormatTime.format(calendarBooking.getStartTime()) %>
 					</span>
 				</c:if>
 
@@ -101,10 +94,6 @@ List<CalEvent> events = (List<CalEvent>)request.getAttribute("view.jsp-events");
 						<a href="<%= groupURL.toString() %>"><%= group.getDescriptiveName(locale) %></a>
 					</span>
 				</c:if>
-
-				<span class="event-type">
-					<%= LanguageUtil.get(pageContext, event.getType()) %>
-				</span>
 			</div>
 		</liferay-ui:search-container-column-text>
 	</liferay-ui:search-container-row>
