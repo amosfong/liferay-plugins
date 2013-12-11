@@ -48,7 +48,7 @@ import java.util.TreeMap;
 /**
  * @author Shinn Lok
  */
-public class BBBUtil {
+public class BBBAPIUtil {
 
 	public static BBBMeeting endMeeting(long bbbMeetingId)
 		throws PortalException, SystemException {

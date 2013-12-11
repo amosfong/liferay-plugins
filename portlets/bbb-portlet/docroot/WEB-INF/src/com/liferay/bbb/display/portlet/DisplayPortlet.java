@@ -20,7 +20,7 @@ import com.liferay.bbb.model.BBBParticipant;
 import com.liferay.bbb.model.BBBParticipantConstants;
 import com.liferay.bbb.service.BBBMeetingLocalServiceUtil;
 import com.liferay.bbb.service.BBBParticipantLocalServiceUtil;
-import com.liferay.bbb.util.BBBUtil;
+import com.liferay.bbb.util.BBBAPIUtil;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.util.DigesterUtil;
@@ -75,14 +75,14 @@ public class DisplayPortlet extends MVCPortlet {
 			else {
 				if ((bbbParticipant.getType() ==
 						BBBParticipantConstants.TYPE_MODERATOR) &&
-					!BBBUtil.isMeetingRunning(
+					!BBBAPIUtil.isMeetingRunning(
 						bbbParticipant.getBbbMeetingId())) {
 
-					BBBUtil.startMeeting(
+					BBBAPIUtil.startMeeting(
 						bbbParticipant.getBbbMeetingId(), recordMeeting);
 				}
 
-				String joinURL = BBBUtil.getJoinURL(bbbParticipant, name);
+				String joinURL = BBBAPIUtil.getJoinURL(bbbParticipant, name);
 
 				jsonObject.put("joinURL", joinURL);
 				jsonObject.put("success", Boolean.TRUE);

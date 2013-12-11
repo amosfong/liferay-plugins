@@ -21,7 +21,7 @@ import com.liferay.bbb.model.BBBParticipant;
 import com.liferay.bbb.model.BBBServer;
 import com.liferay.bbb.service.BBBMeetingServiceUtil;
 import com.liferay.bbb.service.BBBServerServiceUtil;
-import com.liferay.bbb.util.BBBUtil;
+import com.liferay.bbb.util.BBBAPIUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.service.ServiceContext;
@@ -64,7 +64,7 @@ public class AdminPortlet extends MVCPortlet {
 
 		long bbbMeetingId = ParamUtil.getLong(actionRequest, "bbbMeetingId");
 
-		BBBUtil.endMeeting(bbbMeetingId);
+		BBBAPIUtil.endMeeting(bbbMeetingId);
 	}
 
 	public void startBBBMeeting(
@@ -76,7 +76,7 @@ public class AdminPortlet extends MVCPortlet {
 		boolean recordMeeting = ParamUtil.getBoolean(
 			actionRequest, "recordMeeting");
 
-		BBBUtil.startMeeting(bbbMeetingId, recordMeeting);
+		BBBAPIUtil.startMeeting(bbbMeetingId, recordMeeting);
 	}
 
 	public void updateBBBMeeting(

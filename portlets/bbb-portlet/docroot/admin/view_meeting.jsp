@@ -93,7 +93,7 @@ BBBMeeting bbbMeeting = BBBMeetingLocalServiceUtil.fetchBBBMeeting(bbbMeetingId)
 List<String> meetingRecordings = new ArrayList<String>();
 
 if (bbbMeeting.getStatus() == BBBMeetingConstants.STATUS_COMPLETED) {
-	meetingRecordings = BBBUtil.getMeetingRecordings(bbbMeetingId);
+	meetingRecordings = BBBAPIUtil.getMeetingRecordings(bbbMeetingId);
 }
 %>
 
