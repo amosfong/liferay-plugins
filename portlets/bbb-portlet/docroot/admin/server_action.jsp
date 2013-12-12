@@ -51,6 +51,7 @@ if (row != null) {
 
 		<liferay-ui:icon
 			image="permissions"
+			method="get"
 			url="<%= permissionsURL %>"
 			useDialog="<%= true %>"
 		/>
