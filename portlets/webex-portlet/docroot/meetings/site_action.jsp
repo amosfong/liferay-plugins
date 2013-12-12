@@ -52,11 +52,14 @@ else {
 			modelResourceDescription="<%= webExSite.getName() %>"
 			resourcePrimKey="<%= String.valueOf(webExSite.getWebExSiteId()) %>"
 			var="permissionsURL"
+			windowState="<%= LiferayWindowState.POP_UP.toString() %>"
 		/>
 
 		<liferay-ui:icon
 			image="permissions"
+			method="get"
 			url="<%= permissionsURL %>"
+			useDialog="<%= true %>"
 		/>
 	</c:if>
 
