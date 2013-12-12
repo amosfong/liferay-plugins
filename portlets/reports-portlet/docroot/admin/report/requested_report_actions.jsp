@@ -29,11 +29,14 @@ Entry entry = (Entry) row.getObject();
 			modelResourceDescription="<%= String.valueOf(entry.getEntryId()) %>"
 			resourcePrimKey="<%= String.valueOf(entry.getEntryId()) %>"
 			var="permissionsURL"
+			windowState="<%= LiferayWindowState.POP_UP.toString() %>"
 		/>
 
 		<liferay-ui:icon
 			image="permissions"
+			method="get"
 			url="<%= permissionsURL %>"
+			useDialog="<%= true %>"
 		/>
 	</c:if>
 

@@ -41,11 +41,14 @@ Definition definition = (Definition)row.getObject();
 			modelResourceDescription="<%= definition.getName(locale) %>"
 			resourcePrimKey="<%= String.valueOf(definition.getDefinitionId()) %>"
 			var="permissionsURL"
+			windowState="<%= LiferayWindowState.POP_UP.toString() %>"
 		/>
 
 		<liferay-ui:icon
 			image="permissions"
+			method="get"
 			url="<%= permissionsURL %>"
+			useDialog="<%= true %>"
 		/>
 	</c:if>
 
