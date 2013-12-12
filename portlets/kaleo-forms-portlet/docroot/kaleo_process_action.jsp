@@ -79,11 +79,14 @@ KaleoProcess kaleoProcess = (KaleoProcess)row.getObject();
 			modelResourceDescription="<%= kaleoProcess.getName(locale) %>"
 			resourcePrimKey="<%= String.valueOf(kaleoProcess.getKaleoProcessId()) %>"
 			var="permissionsURL"
+			windowState="<%= LiferayWindowState.POP_UP.toString() %>"
 		/>
 
 		<liferay-ui:icon
 			image="permissions"
+			method="get"
 			url="<%= permissionsURL %>"
+			useDialog="<%= true %>"
 		/>
 	</c:if>
 
