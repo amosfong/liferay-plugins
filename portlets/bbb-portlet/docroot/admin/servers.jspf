@@ -23,7 +23,7 @@
 		results="<%= BBBServerServiceUtil.getBBBServers(themeDisplay.getScopeGroupId(), searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator()) %>"
 	/>
 
-	<c:if test="<%= AdminPermission.contains(permissionChecker, themeDisplay.getScopeGroupId(), ActionKeys.ADD_MEETING) %>">
+	<c:if test="<%= AdminPermission.contains(permissionChecker, themeDisplay.getScopeGroupId(), ActionKeys.ADD_SERVER) %>">
 		<aui:button-row>
 			<portlet:renderURL var="addBBBServerURL">
 				<portlet:param name="mvcPath" value="/admin/edit_server.jsp" />
