@@ -15,13 +15,22 @@
 package com.liferay.bbb.service.impl;
 
 import com.liferay.bbb.model.BBBMeeting;
+import com.liferay.bbb.model.BBBMeetingConstants;
 import com.liferay.bbb.model.BBBParticipant;
 import com.liferay.bbb.model.BBBParticipantConstants;
 import com.liferay.bbb.service.base.BBBMeetingLocalServiceBaseImpl;
 import com.liferay.bbb.util.BBBUtil;
+import com.liferay.portal.kernel.dao.orm.DynamicQuery;
+import com.liferay.portal.kernel.dao.orm.DynamicQueryFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.Junction;
+import com.liferay.portal.kernel.dao.orm.OrderFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.Property;
+import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
+import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
@@ -138,6 +147,27 @@ public class BBBMeetingLocalServiceImpl extends BBBMeetingLocalServiceBaseImpl {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
+	public List<BBBMeeting> getBBBMeetings(
+			long groupId, long userId, String name, String description,
+			int status, boolean andSearch, int start, int end,
+			String orderByField, String orderByType)
+		throws SystemException {
+
+		DynamicQuery dynamicQuery = buildDynamicQuery(
+			groupId, userId, name, description, status, andSearch);
+
+		if (orderByType.equals("desc")) {
+			dynamicQuery.addOrder(OrderFactoryUtil.desc(orderByField));
+		}
+		else {
+			dynamicQuery.addOrder(OrderFactoryUtil.asc(orderByField));
+		}
+
+		return dynamicQuery(dynamicQuery, start, end);
+	}
+
+	@Override
 	public int getBBBMeetingsCount(long groupId) throws SystemException {
 		return bbbMeetingPersistence.countByGroupId(groupId);
 	}
@@ -147,6 +177,18 @@ public class BBBMeetingLocalServiceImpl extends BBBMeetingLocalServiceBaseImpl {
 		throws SystemException {
 
 		return bbbMeetingPersistence.countByBSI_S(bbbServerId, status);
+	}
+
+	@Override
+	public int getBBBMeetingsCount(
+			long groupId, long userId, String name, String description,
+			int status, boolean andSearch)
+		throws SystemException {
+
+		DynamicQuery dynamicQuery = buildDynamicQuery(
+			groupId, userId, name, description, status, andSearch);
+
+		return (int)dynamicQueryCount(dynamicQuery);
 	}
 
 	@Override
@@ -200,6 +242,62 @@ public class BBBMeetingLocalServiceImpl extends BBBMeetingLocalServiceBaseImpl {
 		bbbMeetingPersistence.update(bbbMeeting);
 
 		return bbbMeeting;
+	}
+
+	protected DynamicQuery buildDynamicQuery(
+		long groupId, long userId, String name, String description, int status,
+		boolean andSearch) {
+
+		Junction junction = null;
+
+		if (andSearch) {
+			junction = RestrictionsFactoryUtil.conjunction();
+		}
+		else {
+			junction = RestrictionsFactoryUtil.disjunction();
+		}
+
+		if (Validator.isNotNull(name)) {
+			Property property = PropertyFactoryUtil.forName("name");
+
+			String value = StringPool.PERCENT + name + StringPool.PERCENT;
+
+			junction.add(property.like(value));
+		}
+
+		if (Validator.isNotNull(description)) {
+			Property property = PropertyFactoryUtil.forName("description");
+
+			String value =
+				StringPool.PERCENT + description + StringPool.PERCENT;
+
+			junction.add(property.like(value));
+		}
+
+		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
+			BBBMeeting.class, getClassLoader());
+
+		if (groupId > 0) {
+			Property property = PropertyFactoryUtil.forName("groupId");
+
+			dynamicQuery.add(property.eq(groupId));
+		}
+
+		if (userId > 0) {
+			Property property = PropertyFactoryUtil.forName("userId");
+
+			dynamicQuery.add(property.eq(userId));
+		}
+
+		if (status != BBBMeetingConstants.STATUS_ANY) {
+			Property property = PropertyFactoryUtil.forName("status");
+
+			dynamicQuery.add(property.eq(status));
+		}
+
+		dynamicQuery.add(junction);
+
+		return dynamicQuery;
 	}
 
 	protected void updateBBBParticipants(
