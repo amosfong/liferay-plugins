@@ -8,6 +8,7 @@
 		<friendly-url-mapping>meetings</friendly-url-mapping>
 		<friendly-url-routes>com/liferay/bbb/display/portlet/display-friendly-url-routes.xml</friendly-url-routes>
 		<css-class-wrapper>bbb-portlet</css-class-wrapper>
+		<add-default-resource>true</add-default-resource>
 	</portlet>
 	<portlet>
 		<portlet-name>2</portlet-name>
