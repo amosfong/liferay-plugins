@@ -62,5 +62,26 @@
 		</copy>
 
 		<antcall target="build-common-plugin.compile" />
+
+		<antcall target="delete-dependencies" />
+	</target>
+
+	<target name="delete-dependencies">
+		<exec executable="git">
+			<arg value="rm" />
+			<arg value="--cached" />
+			<arg value="../../shared/lcs-shared/*" />
+		</exec>
+
+		<exec executable="git">
+			<arg value="rm" />
+			<arg value="--cached" />
+			<arg value="../osb-lcs-portlet/*" />
+		</exec>
+
+		<delete failonerror="false" includeemptydirs="true">
+			<fileset dir="../osb-lcs-portlet" />
+			<fileset dir="../../shared/lcs-shared" />
+		</delete>
 	</target>
 </project>
