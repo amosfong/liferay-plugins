@@ -107,8 +107,10 @@ public class BBBUtil {
 		BBBMeeting bbbMeeting = BBBMeetingLocalServiceUtil.getBBBMeeting(
 			bbbParticipant.getBbbMeetingId());
 
-		return DigesterUtil.digest(
-			Digester.SHA_1, bbbMeeting.getAttendeePassword(),
+		return DigesterUtil.digestHex(
+			Digester.SHA_1, String.valueOf(bbbMeeting.getBbbMeetingId()),
+			String.valueOf(bbbParticipant.getBbbParticipantId()),
+			String.valueOf(bbbParticipant.getCreateDate()),
 			bbbParticipant.getEmailAddress());
 	}
 
