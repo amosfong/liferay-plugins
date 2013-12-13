@@ -15,6 +15,7 @@
 package com.liferay.lcs.portlet;
 
 import com.liferay.compat.portal.util.PortalUtil;
+import com.liferay.lcs.oauth.OAuthUtil;
 import com.liferay.lcs.util.HandshakeManagerUtil;
 import com.liferay.lcs.util.LCSClusterNodeUtil;
 import com.liferay.lcs.util.LCSConstants;
@@ -25,7 +26,6 @@ import com.liferay.osb.lcs.service.CorpEntryServiceUtil;
 import com.liferay.osb.lcs.service.LCSClusterEntryServiceUtil;
 import com.liferay.portal.NoSuchPortletPreferencesException;
 import com.liferay.portal.kernel.cluster.ClusterExecutorUtil;
-import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.json.JSONArray;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
@@ -48,8 +48,11 @@ import java.util.List;
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
 import javax.portlet.PortletRequest;
+import javax.portlet.PortletSession;
 import javax.portlet.ResourceRequest;
 import javax.portlet.ResourceResponse;
+
+import org.scribe.model.Token;
 
 /**
  * @author Ivica Cardic
@@ -71,38 +74,6 @@ public class CloudServicesPortlet extends MVCPortlet {
 
 		addLCSClusterNode(
 			corpEntryId, lcsClusterEntryId, name, description, location);
-	}
-
-	public void login(
-			ActionRequest actionRequest, ActionResponse actionResponse)
-		throws Exception {
-
-		javax.portlet.PortletPreferences jxPortletPreferences =
-			getJxPortletPreferences(actionRequest);
-
-		String login = actionRequest.getParameter("login");
-
-		if (Validator.isNull(login)) {
-			throw new PortalException("Login is null");
-		}
-
-		jxPortletPreferences.setValue("lcsLogin", login);
-
-		String password = actionRequest.getParameter("password");
-
-		if (Validator.isNull(password)) {
-			throw new PortalException("Password is null");
-		}
-
-		jxPortletPreferences.setValue("lcsPassword", password);
-
-		jxPortletPreferences.store();
-
-		LCSUtil.setupCredentials();
-
-		if (LCSUtil.getCredentialsStatus() != LCSUtil.CREDENTIALS_SET) {
-			SessionErrors.add(actionRequest, "authenticationFailed");
-		}
 	}
 
 	public void resetCredentials(
@@ -140,6 +111,36 @@ public class CloudServicesPortlet extends MVCPortlet {
 			jsonObject.put("result", "failure");
 
 			writeJSON(resourceRequest, resourceResponse, jsonObject);
+		}
+	}
+
+	public void setupOAuth(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
+
+		String oauthVerifier = ParamUtil.getString(
+			actionRequest, "oauth_verifier");
+
+		PortletSession portletSession = actionRequest.getPortletSession();
+
+		Token requestToken = (Token)portletSession.getAttribute(
+			"oauthRequestToken");
+
+		Token token = OAuthUtil.extractAccessToken(requestToken, oauthVerifier);
+
+		javax.portlet.PortletPreferences jxPortletPreferences =
+			getJxPortletPreferences(actionRequest);
+
+		jxPortletPreferences.setValue("lcsAccessToken", token.getToken());
+
+		jxPortletPreferences.setValue("lcsAccessSecret", token.getSecret());
+
+		jxPortletPreferences.store();
+
+		LCSUtil.setupCredentials();
+
+		if (LCSUtil.getCredentialsStatus() != LCSUtil.CREDENTIALS_SET) {
+			SessionErrors.add(actionRequest, "authenticationFailed");
 		}
 	}
 

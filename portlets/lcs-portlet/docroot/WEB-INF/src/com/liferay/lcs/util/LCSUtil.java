@@ -53,8 +53,9 @@ public class LCSUtil {
 			return CREDENTIALS_NOT_AVAILABLE;
 		}
 
-		String lcsLogin = jxPortletPreferences.getValue("lcsLogin", null);
-		String lcsPassword = jxPortletPreferences.getValue("lcsPassword", null);
+		String lcsLogin = jxPortletPreferences.getValue("lcsAccessToken", null);
+		String lcsPassword = jxPortletPreferences.getValue(
+			"lcsAccessSecret", null);
 
 		if (Validator.isNull(lcsLogin) || Validator.isNull(lcsPassword)) {
 			return CREDENTIALS_INVALID;
@@ -88,8 +89,9 @@ public class LCSUtil {
 		javax.portlet.PortletPreferences jxPortletPreferences =
 			getJxPortletPreferences();
 
-		String lcsLogin = jxPortletPreferences.getValue("lcsLogin", null);
-		String lcsPassword = jxPortletPreferences.getValue("lcsPassword", null);
+		String lcsLogin = jxPortletPreferences.getValue("lcsAccessToken", null);
+		String lcsPassword = jxPortletPreferences.getValue(
+			"lcsAccessSecret", null);
 
 		if (Validator.isNull(lcsLogin) || Validator.isNull(lcsPassword)) {
 			throw new SystemException("Unable to setup LCS credentials");
