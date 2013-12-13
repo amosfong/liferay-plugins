@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
@@ -147,7 +148,6 @@ public class BBBMeetingLocalServiceImpl extends BBBMeetingLocalServiceBaseImpl {
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public List<BBBMeeting> getBBBMeetings(
 			long groupId, long userId, String name, String description,
 			int status, boolean andSearch, int start, int end,
@@ -248,32 +248,6 @@ public class BBBMeetingLocalServiceImpl extends BBBMeetingLocalServiceBaseImpl {
 		long groupId, long userId, String name, String description, int status,
 		boolean andSearch) {
 
-		Junction junction = null;
-
-		if (andSearch) {
-			junction = RestrictionsFactoryUtil.conjunction();
-		}
-		else {
-			junction = RestrictionsFactoryUtil.disjunction();
-		}
-
-		if (Validator.isNotNull(name)) {
-			Property property = PropertyFactoryUtil.forName("name");
-
-			String value = StringPool.PERCENT + name + StringPool.PERCENT;
-
-			junction.add(property.like(value));
-		}
-
-		if (Validator.isNotNull(description)) {
-			Property property = PropertyFactoryUtil.forName("description");
-
-			String value =
-				StringPool.PERCENT + description + StringPool.PERCENT;
-
-			junction.add(property.like(value));
-		}
-
 		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 			BBBMeeting.class, getClassLoader());
 
@@ -293,6 +267,31 @@ public class BBBMeetingLocalServiceImpl extends BBBMeetingLocalServiceBaseImpl {
 			Property property = PropertyFactoryUtil.forName("status");
 
 			dynamicQuery.add(property.eq(status));
+		}
+
+		Junction junction = null;
+
+		if (andSearch) {
+			junction = RestrictionsFactoryUtil.conjunction();
+		}
+		else {
+			junction = RestrictionsFactoryUtil.disjunction();
+		}
+
+		if (Validator.isNotNull(name)) {
+			Property property = PropertyFactoryUtil.forName("name");
+
+			String value = StringUtil.quote(name, StringPool.PERCENT);
+
+			junction.add(property.like(value));
+		}
+
+		if (Validator.isNotNull(description)) {
+			Property property = PropertyFactoryUtil.forName("description");
+
+			String value = StringUtil.quote(description, StringPool.PERCENT);
+
+			junction.add(property.like(value));
 		}
 
 		dynamicQuery.add(junction);
