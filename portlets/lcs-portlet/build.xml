@@ -70,13 +70,13 @@
 		<exec executable="git">
 			<arg value="rm" />
 			<arg value="--cached" />
-			<arg value="../../shared/lcs-shared/*" />
+			<arg value="../osb-lcs-portlet/*" />
 		</exec>
 
 		<exec executable="git">
 			<arg value="rm" />
 			<arg value="--cached" />
-			<arg value="../osb-lcs-portlet/*" />
+			<arg value="../../shared/lcs-shared/*" />
 		</exec>
 
 		<delete failonerror="false" includeemptydirs="true">
