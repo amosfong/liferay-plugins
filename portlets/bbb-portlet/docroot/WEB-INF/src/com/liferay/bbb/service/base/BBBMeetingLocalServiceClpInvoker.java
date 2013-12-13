@@ -143,25 +143,39 @@ public class BBBMeetingLocalServiceClpInvoker {
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName58 = "getBBBMeetingsCount";
+		_methodName58 = "getBBBMeetings";
 
-		_methodParameterTypes58 = new String[] { "long" };
+		_methodParameterTypes58 = new String[] {
+				"long", "long", "java.lang.String", "java.lang.String", "int",
+				"boolean", "int", "int", "java.lang.String", "java.lang.String"
+			};
 
 		_methodName59 = "getBBBMeetingsCount";
 
-		_methodParameterTypes59 = new String[] { "long", "int" };
+		_methodParameterTypes59 = new String[] { "long" };
 
-		_methodName60 = "updateBBBMeeting";
+		_methodName60 = "getBBBMeetingsCount";
 
-		_methodParameterTypes60 = new String[] {
+		_methodParameterTypes60 = new String[] { "long", "int" };
+
+		_methodName61 = "getBBBMeetingsCount";
+
+		_methodParameterTypes61 = new String[] {
+				"long", "long", "java.lang.String", "java.lang.String", "int",
+				"boolean"
+			};
+
+		_methodName62 = "updateBBBMeeting";
+
+		_methodParameterTypes62 = new String[] {
 				"long", "long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.util.List",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName61 = "updateStatus";
+		_methodName63 = "updateStatus";
 
-		_methodParameterTypes61 = new String[] { "long", "int" };
+		_methodParameterTypes63 = new String[] { "long", "int" };
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
@@ -307,17 +321,38 @@ public class BBBMeetingLocalServiceClpInvoker {
 
 		if (_methodName58.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes58, parameterTypes)) {
-			return BBBMeetingLocalServiceUtil.getBBBMeetingsCount(((Long)arguments[0]).longValue());
+			return BBBMeetingLocalServiceUtil.getBBBMeetings(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				(java.lang.String)arguments[2], (java.lang.String)arguments[3],
+				((Integer)arguments[4]).intValue(),
+				((Boolean)arguments[5]).booleanValue(),
+				((Integer)arguments[6]).intValue(),
+				((Integer)arguments[7]).intValue(),
+				(java.lang.String)arguments[8], (java.lang.String)arguments[9]);
 		}
 
 		if (_methodName59.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes59, parameterTypes)) {
-			return BBBMeetingLocalServiceUtil.getBBBMeetingsCount(((Long)arguments[0]).longValue(),
-				((Integer)arguments[1]).intValue());
+			return BBBMeetingLocalServiceUtil.getBBBMeetingsCount(((Long)arguments[0]).longValue());
 		}
 
 		if (_methodName60.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes60, parameterTypes)) {
+			return BBBMeetingLocalServiceUtil.getBBBMeetingsCount(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue());
+		}
+
+		if (_methodName61.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+			return BBBMeetingLocalServiceUtil.getBBBMeetingsCount(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				(java.lang.String)arguments[2], (java.lang.String)arguments[3],
+				((Integer)arguments[4]).intValue(),
+				((Boolean)arguments[5]).booleanValue());
+		}
+
+		if (_methodName62.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes62, parameterTypes)) {
 			return BBBMeetingLocalServiceUtil.updateBBBMeeting(((Long)arguments[0]).longValue(),
 				((Long)arguments[1]).longValue(),
 				(java.lang.String)arguments[2], (java.lang.String)arguments[3],
@@ -326,8 +361,8 @@ public class BBBMeetingLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[7]);
 		}
 
-		if (_methodName61.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes61, parameterTypes)) {
+		if (_methodName63.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes63, parameterTypes)) {
 			return BBBMeetingLocalServiceUtil.updateStatus(((Long)arguments[0]).longValue(),
 				((Integer)arguments[1]).intValue());
 		}
@@ -391,4 +426,8 @@ public class BBBMeetingLocalServiceClpInvoker {
 	private String[] _methodParameterTypes60;
 	private String _methodName61;
 	private String[] _methodParameterTypes61;
+	private String _methodName62;
+	private String[] _methodParameterTypes62;
+	private String _methodName63;
+	private String[] _methodParameterTypes63;
 }

@@ -66,9 +66,9 @@ public interface BBBMeetingService extends BaseService, InvokableService {
 		throws java.lang.Throwable;
 
 	public com.liferay.bbb.model.BBBMeeting addBBBMeeting(long groupId,
-		long bbbServerId, java.lang.String name, java.lang.String description,
-		java.lang.String attendeePassword, java.lang.String moderatorPassword,
-		int status,
+		java.lang.String portletId, long bbbServerId, java.lang.String name,
+		java.lang.String description, java.lang.String attendeePassword,
+		java.lang.String moderatorPassword, int status,
 		java.util.List<com.liferay.bbb.model.BBBParticipant> bbbParticipants,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,

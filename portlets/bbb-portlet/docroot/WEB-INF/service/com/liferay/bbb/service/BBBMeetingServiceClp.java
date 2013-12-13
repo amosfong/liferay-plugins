@@ -35,8 +35,9 @@ public class BBBMeetingServiceClp implements BBBMeetingService {
 		_methodName3 = "addBBBMeeting";
 
 		_methodParameterTypes3 = new String[] {
-				"long", "long", "java.lang.String", "java.lang.String",
-				"java.lang.String", "java.lang.String", "int", "java.util.List",
+				"long", "java.lang.String", "long", "java.lang.String",
+				"java.lang.String", "java.lang.String", "java.lang.String",
+				"int", "java.util.List",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
@@ -120,9 +121,9 @@ public class BBBMeetingServiceClp implements BBBMeetingService {
 
 	@Override
 	public com.liferay.bbb.model.BBBMeeting addBBBMeeting(long groupId,
-		long bbbServerId, java.lang.String name, java.lang.String description,
-		java.lang.String attendeePassword, java.lang.String moderatorPassword,
-		int status,
+		java.lang.String portletId, long bbbServerId, java.lang.String name,
+		java.lang.String description, java.lang.String attendeePassword,
+		java.lang.String moderatorPassword, int status,
 		java.util.List<com.liferay.bbb.model.BBBParticipant> bbbParticipants,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
@@ -134,6 +135,8 @@ public class BBBMeetingServiceClp implements BBBMeetingService {
 					_methodParameterTypes3,
 					new Object[] {
 						groupId,
+						
+					ClpSerializer.translateInput(portletId),
 						
 					bbbServerId,
 						

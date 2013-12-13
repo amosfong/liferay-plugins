@@ -63,16 +63,16 @@ import java.rmi.RemoteException;
  */
 public class BBBMeetingServiceSoap {
 	public static com.liferay.bbb.model.BBBMeetingSoap addBBBMeeting(
-		long groupId, long bbbServerId, java.lang.String name,
-		java.lang.String description, java.lang.String attendeePassword,
-		java.lang.String moderatorPassword, int status,
-		com.liferay.bbb.model.BBBParticipantSoap[] bbbParticipants,
+		long groupId, java.lang.String portletId, long bbbServerId,
+		java.lang.String name, java.lang.String description,
+		java.lang.String attendeePassword, java.lang.String moderatorPassword,
+		int status, com.liferay.bbb.model.BBBParticipantSoap[] bbbParticipants,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.bbb.model.BBBMeeting returnValue = BBBMeetingServiceUtil.addBBBMeeting(groupId,
-					bbbServerId, name, description, attendeePassword,
-					moderatorPassword, status,
+					portletId, bbbServerId, name, description,
+					attendeePassword, moderatorPassword, status,
 					com.liferay.bbb.model.impl.BBBParticipantModelImpl.toModels(
 						bbbParticipants), serviceContext);
 

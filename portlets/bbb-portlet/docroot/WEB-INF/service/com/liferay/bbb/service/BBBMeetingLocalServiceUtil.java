@@ -303,6 +303,16 @@ public class BBBMeetingLocalServiceUtil {
 		return getService().getBBBMeetings(groupId, start, end, obc);
 	}
 
+	public static java.util.List<com.liferay.bbb.model.BBBMeeting> getBBBMeetings(
+		long groupId, long userId, java.lang.String name,
+		java.lang.String description, int status, boolean andSearch, int start,
+		int end, java.lang.String orderByField, java.lang.String orderByType)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getBBBMeetings(groupId, userId, name, description, status,
+			andSearch, start, end, orderByField, orderByType);
+	}
+
 	public static int getBBBMeetingsCount(long groupId)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService().getBBBMeetingsCount(groupId);
@@ -311,6 +321,15 @@ public class BBBMeetingLocalServiceUtil {
 	public static int getBBBMeetingsCount(long bbbServerId, int status)
 		throws com.liferay.portal.kernel.exception.SystemException {
 		return getService().getBBBMeetingsCount(bbbServerId, status);
+	}
+
+	public static int getBBBMeetingsCount(long groupId, long userId,
+		java.lang.String name, java.lang.String description, int status,
+		boolean andSearch)
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getBBBMeetingsCount(groupId, userId, name, description,
+			status, andSearch);
 	}
 
 	public static com.liferay.bbb.model.BBBMeeting updateBBBMeeting(
