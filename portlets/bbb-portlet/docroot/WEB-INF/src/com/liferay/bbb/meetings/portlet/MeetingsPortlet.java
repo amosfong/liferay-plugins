@@ -18,14 +18,22 @@ import com.liferay.bbb.model.BBBMeeting;
 import com.liferay.bbb.model.BBBMeetingConstants;
 import com.liferay.bbb.model.BBBParticipant;
 import com.liferay.bbb.model.BBBParticipantConstants;
-import com.liferay.bbb.portlet.BBBPortlet;
 import com.liferay.bbb.service.BBBMeetingLocalServiceUtil;
+import com.liferay.bbb.service.BBBMeetingServiceUtil;
 import com.liferay.bbb.service.BBBParticipantLocalServiceUtil;
 import com.liferay.bbb.util.BBBAPIUtil;
 import com.liferay.bbb.util.BBBUtil;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.service.ServiceContext;
+import com.liferay.portal.service.ServiceContextFactory;
+import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.util.PortalUtil;
+import com.liferay.util.bridges.mvc.MVCPortlet;
+
+import java.util.List;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -33,7 +41,25 @@ import javax.portlet.ActionResponse;
 /**
  * @author Shinn Lok
  */
-public class MeetingsPortlet extends BBBPortlet {
+public class MeetingsPortlet extends MVCPortlet {
+
+	public void deleteBBBMeeting(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
+
+		long bbbMeetingId = ParamUtil.getLong(actionRequest, "bbbMeetingId");
+
+		BBBMeetingServiceUtil.deleteBBBMeeting(bbbMeetingId);
+	}
+
+	public void endBBBMeeting(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
+
+		long bbbMeetingId = ParamUtil.getLong(actionRequest, "bbbMeetingId");
+
+		BBBAPIUtil.endMeeting(bbbMeetingId);
+	}
 
 	public void joinMeeting(
 			ActionRequest actionRequest, ActionResponse actionResponse)
@@ -91,6 +117,57 @@ public class MeetingsPortlet extends BBBPortlet {
 		}
 
 		writeJSON(actionRequest, actionResponse, jsonObject);
+	}
+
+	public void startBBBMeeting(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
+
+		long bbbMeetingId = ParamUtil.getLong(actionRequest, "bbbMeetingId");
+
+		boolean recordMeeting = ParamUtil.getBoolean(
+			actionRequest, "recordMeeting");
+
+		BBBAPIUtil.startMeeting(bbbMeetingId, recordMeeting);
+	}
+
+	public void updateBBBMeeting(
+			ActionRequest actionRequest, ActionResponse actionResponse)
+		throws Exception {
+
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		long bbbMeetingId = ParamUtil.getLong(actionRequest, "bbbMeetingId");
+
+		String name = ParamUtil.getString(actionRequest, "name");
+		String description = ParamUtil.getString(actionRequest, "description");
+
+		List<BBBParticipant> bbbParticipants = BBBUtil.getBBBParticipants(
+			actionRequest);
+
+		ServiceContext serviceContext = ServiceContextFactory.getInstance(
+			BBBMeeting.class.getName(), actionRequest);
+
+		if (bbbMeetingId <= 0) {
+			String portletId = PortalUtil.getPortletId(actionRequest);
+
+			BBBMeetingServiceUtil.addBBBMeeting(
+				themeDisplay.getScopeGroupId(), portletId,
+				BBBMeetingConstants.BBB_SERVER_ID_DEFAULT, name, description,
+				null, null, BBBMeetingConstants.STATUS_SCHEDULED,
+				bbbParticipants, serviceContext);
+		}
+		else {
+			BBBMeeting bbbMeeting = BBBMeetingServiceUtil.getBBBMeeting(
+				bbbMeetingId);
+
+			BBBMeetingServiceUtil.updateBBBMeeting(
+				bbbMeetingId, bbbMeeting.getBbbServerId(), name, description,
+				bbbMeeting.getAttendeePassword(),
+				bbbMeeting.getModeratorPassword(), bbbParticipants,
+				serviceContext);
+		}
 	}
 
 }
