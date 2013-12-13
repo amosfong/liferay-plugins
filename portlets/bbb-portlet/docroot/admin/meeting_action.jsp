@@ -29,7 +29,7 @@ if (row != null) {
 <liferay-ui:icon-menu showExpanded="<%= row == null %>">
 	<c:if test="<%= BBBMeetingPermission.contains(permissionChecker, bbbMeeting, ActionKeys.UPDATE) %>">
 		<portlet:renderURL var="editURL">
-			<portlet:param name="mvcPath" value="/admin/edit_meeting.jsp" />
+			<portlet:param name="mvcPath" value='<%= templatePath + "edit_meeting.jsp" %>' />
 			<portlet:param name="redirect" value="<%= currentURL %>" />
 			<portlet:param name="bbbMeetingId" value="<%= String.valueOf(bbbMeeting.getBbbMeetingId()) %>" />
 		</portlet:renderURL>

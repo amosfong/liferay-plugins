@@ -44,7 +44,7 @@ BBBMeeting bbbMeeting = BBBMeetingLocalServiceUtil.fetchBBBMeeting(bbbMeetingId)
 
 	<aui:input name="description" />
 
-	<liferay-util:include page="/admin/participants.jsp" servletContext="<%= application %>">
+	<liferay-util:include page='<%= templatePath + "participants.jsp" %>' servletContext="<%= application %>">
 		<liferay-util:param name="bbbMeetingId" value="<%= String.valueOf(bbbMeetingId) %>" />
 	</liferay-util:include>
 

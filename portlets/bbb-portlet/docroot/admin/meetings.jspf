@@ -14,25 +14,36 @@
  */
 --%>
 
+<%
+String orderByCol = ParamUtil.getString(request, "orderByCol", "createDate");
+String orderByType = ParamUtil.getString(request, "orderByType", "desc");
+
+long userId = 0;
+
+if (portletId.equals(PortletKeys.BBB_MEETINGS)) {
+	userId = themeDisplay.getUserId();
+}
+%>
+
 <liferay-ui:search-container
 	emptyResultsMessage="there-are-no-meetings"
 	iteratorURL="<%= portletURL %>"
-	total="<%= BBBMeetingServiceUtil.getBBBMeetingsCount(themeDisplay.getScopeGroupId()) %>"
+	orderByCol="<%= orderByCol %>"
+	orderByType="<%= orderByType %>"
+	total="<%= BBBMeetingLocalServiceUtil.getBBBMeetingsCount(themeDisplay.getScopeGroupId(), userId, null, null, BBBMeetingConstants.STATUS_ANY, false) %>"
 >
+	<aui:button-row>
+		<portlet:renderURL var="addBBBMeetingURL">
+			<portlet:param name="mvcPath" value='<%= templatePath + "edit_meeting.jsp" %>' />
+			<portlet:param name="redirect" value="<%= portletURL.toString() %>" />
+		</portlet:renderURL>
+
+		<aui:button onClick="<%= addBBBMeetingURL.toString() %>" value="add-meeting" />
+	</aui:button-row>
+
 	<liferay-ui:search-container-results
-		results="<%= BBBMeetingServiceUtil.getBBBMeetings(themeDisplay.getScopeGroupId(), searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByComparator()) %>"
+		results="<%= BBBMeetingLocalServiceUtil.getBBBMeetings(themeDisplay.getScopeGroupId(), themeDisplay.getUserId(), null, null, BBBMeetingConstants.STATUS_ANY, false, searchContainer.getStart(), searchContainer.getEnd(), searchContainer.getOrderByCol(), searchContainer.getOrderByType()) %>"
 	/>
-
-	<c:if test="<%= AdminPermission.contains(permissionChecker, themeDisplay.getScopeGroupId(), ActionKeys.ADD_MEETING) %>">
-		<aui:button-row>
-			<portlet:renderURL var="addBBBMeetingURL">
-				<portlet:param name="mvcPath" value="/admin/edit_meeting.jsp" />
-				<portlet:param name="redirect" value="<%= portletURL.toString() %>" />
-			</portlet:renderURL>
-
-			<aui:button onClick="<%= addBBBMeetingURL.toString() %>" value="add-meeting" />
-		</aui:button-row>
-	</c:if>
 
 	<liferay-ui:search-container-row
 		className="com.liferay.bbb.model.BBBMeeting"
@@ -41,7 +52,7 @@
 		modelVar="bbbMeeting"
 	>
 		<portlet:renderURL var="rowURL">
-			<portlet:param name="mvcPath" value="/admin/view_meeting.jsp" />
+			<portlet:param name="mvcPath" value='<%= templatePath + "view_meeting.jsp" %>' />
 			<portlet:param name="redirect" value="<%= portletURL.toString() %>" />
 			<portlet:param name="bbbMeetingId" value="<%= String.valueOf(bbbMeeting.getBbbMeetingId()) %>" />
 		</portlet:renderURL>
@@ -87,7 +98,7 @@
 
 		</liferay-ui:search-container-column-text>
 
-		<liferay-ui:search-container-column-jsp path="/admin/meeting_action.jsp" />
+		<liferay-ui:search-container-column-jsp path='<%= templatePath + "meeting_action.jsp" %>' />
 	</liferay-ui:search-container-row>
 
 	<liferay-ui:search-iterator />

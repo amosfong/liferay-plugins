@@ -20,6 +20,24 @@
 		</permissions>
 	</portlet-resource>
 	<model-resource>
+		<model-name>com.liferay.bbb.meetings</model-name>
+		<portlet-ref>
+			<portlet-name>1</portlet-name>
+		</portlet-ref>
+		<permissions>
+			<supports>
+				<action-key>ADD_MEETING</action-key>
+				<action-key>ADD_PARTICIPANT</action-key>
+			</supports>
+			<site-member-defaults />
+			<guest-defaults />
+			<guest-unsupported>
+				<action-key>ADD_MEETING</action-key>
+				<action-key>ADD_PARTICIPANT</action-key>
+			</guest-unsupported>
+		</permissions>
+	</model-resource>
+	<model-resource>
 		<model-name>com.liferay.bbb.admin</model-name>
 		<portlet-ref>
 			<portlet-name>2</portlet-name>

@@ -27,6 +27,7 @@ import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
 import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.util.PortalUtil;
 import com.liferay.util.PwdGenerator;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
@@ -98,8 +99,10 @@ public class AdminPortlet extends MVCPortlet {
 			BBBMeeting.class.getName(), actionRequest);
 
 		if (bbbMeetingId <= 0) {
+			String portletId = PortalUtil.getPortletId(actionRequest);
+
 			BBBMeetingServiceUtil.addBBBMeeting(
-				themeDisplay.getScopeGroupId(),
+				themeDisplay.getScopeGroupId(), portletId,
 				BBBMeetingConstants.BBB_SERVER_ID_DEFAULT, name, description,
 				PwdGenerator.getPassword(8), PwdGenerator.getPassword(8),
 				BBBMeetingConstants.STATUS_SCHEDULED, bbbParticipants,
