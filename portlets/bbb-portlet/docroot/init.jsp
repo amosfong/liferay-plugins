@@ -66,11 +66,11 @@ page import="javax.portlet.WindowState" %>
 <liferay-theme:defineObjects />
 
 <%
-String templatePath = portletConfig.getInitParameter("template-path");
-
-String portletId = portletDisplay.getId();
-
 PortletURL portletURL = renderResponse.createRenderURL();
 
 String currentURL = PortalUtil.getCurrentURL(request);
+
+String portletId = portletDisplay.getId();
+
+String templatePath = portletConfig.getInitParameter("template-path");
 %>
