@@ -197,7 +197,7 @@ public class DQLQueryBuilderTest extends PowerMockito {
 			_documentumRepository, searchContext, searchQuery);
 
 		assertQueryEquals(
-			"(FOLDER(ID('1000'), DECEND)) AND ((object_name = 'test') OR " +
+			"(FOLDER(ID('1000'), DESCEND)) AND ((object_name = 'test') OR " +
 				"(r_creator_name = 'test'))",
 			dql);
 	}

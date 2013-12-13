@@ -35,7 +35,7 @@ public class DQLInFolderExpression implements DQLCriterion {
 		sb.append("')");
 
 		if (_decend) {
-			sb.append(", DECEND");
+			sb.append(", DESCEND");
 		}
 
 		sb.append(")");
