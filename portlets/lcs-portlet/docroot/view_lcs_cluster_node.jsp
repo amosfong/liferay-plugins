@@ -102,18 +102,8 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 		</dl>
 	</c:if>
 
-	<%
-	String lcsPortalURL = "http://" + PortletProps.get("osb.lcs.portlet.host.name");
-
-	String lcsPortalPort = PortletProps.get("osb.lcs.portlet.host.port");
-
-	if (!lcsPortalPort.equals("80")) {
-		lcsPortalURL = lcsPortalURL + ":" + lcsPortalPort;
-	}
-	%>
-
 	<aui:button-row>
-		<a class="btn btn-primary" href="<%= lcsPortalURL %>"><liferay-ui:message key="cloud-dashboard" /></a>
+		<aui:button name="cloudDashboard" primary="<%= true %>" value="cloud-dashboard" />
 	</aui:button-row>
 </div>
 
@@ -218,3 +208,28 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 		</aui:button-row>
 	</c:if>
 </div>
+
+<aui:script use="aui-base">
+	<%
+	String lcsPortalURL = "http://" + PortletProps.get("osb.lcs.portlet.host.name");
+
+	String lcsPortalPort = PortletProps.get("osb.lcs.portlet.host.port");
+
+	if (!lcsPortalPort.equals("80")) {
+		lcsPortalURL = lcsPortalURL + ":" + lcsPortalPort;
+	}
+	%>
+
+	var cloudDashboardBtn = A.one('#<portlet:namespace/>cloudDashboard');
+
+	if (cloudDashboardBtn) {
+		cloudDashboardBtn.on(
+			'click',
+			function(event) {
+				var url = '<%= lcsPortalURL %>';
+
+				window.location.href = url;
+			}
+		);
+	}
+</aui:script>

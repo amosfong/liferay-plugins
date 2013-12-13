@@ -101,11 +101,6 @@
 		}
 	}
 
-	.lcs-portal-link {
-		display: inline-block;
-		text-decoration: none;
-	}
-
 	.lcs-server-info {
 		float: left;
 		margin: 0 50px 20px 0;
