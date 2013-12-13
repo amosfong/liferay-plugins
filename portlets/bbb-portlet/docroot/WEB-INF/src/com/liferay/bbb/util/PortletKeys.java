@@ -19,6 +19,8 @@ package com.liferay.bbb.util;
  */
 public class PortletKeys extends com.liferay.portal.util.PortletKeys {
 
-	public static final String BBB_DISPLAY = "1_WAR_bbbportlet";
+	public static final String BBB_ADMIN = "2_WAR_bbbportlet";
+
+	public static final String BBB_MEETINGS = "1_WAR_bbbportlet";
 
 }

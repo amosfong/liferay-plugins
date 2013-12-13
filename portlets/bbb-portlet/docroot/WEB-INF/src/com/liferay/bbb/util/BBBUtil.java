@@ -119,7 +119,7 @@ public class BBBUtil {
 		StringBundler sb = new StringBundler(7);
 
 		long plid = PortalUtil.getPlidFromPortletId(
-			bbbParticipant.getGroupId(), PortletKeys.BBB_DISPLAY);
+			bbbParticipant.getGroupId(), PortletKeys.BBB_MEETINGS);
 
 		if (plid == 0) {
 			Layout layout = LayoutLocalServiceUtil.fetchFirstLayout(

@@ -4,14 +4,14 @@
 	<portlet>
 		<portlet-name>1</portlet-name>
 		<display-name>Meetings</display-name>
-		<portlet-class>com.liferay.bbb.display.portlet.DisplayPortlet</portlet-class>
+		<portlet-class>com.liferay.bbb.meetings.portlet.MeetingsPortlet</portlet-class>
 		<init-param>
 			<name>template-path</name>
-			<value>/display/</value>
+			<value>/meetings/</value>
 		</init-param>
 		<init-param>
 			<name>view-template</name>
-			<value>/display/view.jsp</value>
+			<value>/meetings/view.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>

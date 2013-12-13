@@ -21,8 +21,17 @@ long bbbParticipantId = ParamUtil.getLong(request, "bbbParticipantId");
 String hash = ParamUtil.getString(request, "hash");
 
 if (bbbParticipantId <= 0) {
-	renderRequest.setAttribute(WebKeys.PORTLET_CONFIGURATOR_VISIBILITY, Boolean.TRUE);
-	renderRequest.setAttribute(WebKeys.PORTLET_DECORATE, Boolean.FALSE);
+	if (themeDisplay.isSignedIn() && MeetingsPermission.contains(permissionChecker, themeDisplay.getScopeGroupId(), ActionKeys.ADD_MEETING)) {
+%>
+
+	<%@ include file="/meetings/meetings.jspf" %>
+
+<%
+	}
+	else {
+		renderRequest.setAttribute(WebKeys.PORTLET_CONFIGURATOR_VISIBILITY, Boolean.TRUE);
+		renderRequest.setAttribute(WebKeys.PORTLET_DECORATE, Boolean.FALSE);
+	}
 }
 else {
 	BBBParticipant bbbParticipant = BBBParticipantLocalServiceUtil.fetchBBBParticipant(bbbParticipantId);

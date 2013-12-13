@@ -4,7 +4,7 @@
 <routes>
 	<route>
 		<pattern>/{bbbParticipantId:\d+}/{hash}</pattern>
-		<implicit-parameter name="mvcPath">/display/view.jsp</implicit-parameter>
+		<implicit-parameter name="mvcPath">/meetings/view.jsp</implicit-parameter>
 		<implicit-parameter name="p_p_id">1_WAR_bbbportlet</implicit-parameter>
 		<implicit-parameter name="p_p_lifecycle">0</implicit-parameter>
 		<implicit-parameter name="p_p_state">maximized</implicit-parameter>
