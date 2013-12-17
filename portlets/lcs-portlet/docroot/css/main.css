@@ -5,7 +5,7 @@
 
 	&:after {
 		clear: both;
-		content: " ";
+		content: "";
 		display: block;
 		visibility: hidden;
 	}
@@ -125,7 +125,7 @@
 /* ---------- Extras ---------- */
 
 .btn-reset-credentials {
-	@include background-image(linear-gradient(to bottom, #FF0000, #E50000));
+	@include background-image(linear-gradient(to bottom, #F00, #E50000));
 }
 
 .lcs-helper-message.disabled {
