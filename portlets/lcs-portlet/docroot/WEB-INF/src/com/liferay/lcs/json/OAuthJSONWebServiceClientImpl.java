@@ -33,7 +33,7 @@ import org.scribe.oauth.OAuthService;
 /**
  * @author Igor Beslic
  */
-public class JSONWebServiceOAuthClientImpl extends JSONWebServiceClientImpl {
+public class OAuthJSONWebServiceClientImpl extends JSONWebServiceClientImpl {
 
 	@Override
 	public void resetHttpClient() {
