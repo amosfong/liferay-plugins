@@ -24,6 +24,8 @@ String cmd = ParamUtil.getString(request, Constants.CMD, Constants.EDIT);
 
 String redirect = ParamUtil.getString(request, "redirect");
 
+String displaySection = ParamUtil.getString(request, "displaySection");
+
 String referringPortletResource = ParamUtil.getString(request, "referringPortletResource");
 
 String referringPortletResourceRootPortletId = PortletConstants.getRootPortletId(referringPortletResource);
@@ -248,7 +250,7 @@ editFileEntryURL.setParameter("workflowAction", String.valueOf(WorkflowConstants
 
 	<aui:fieldset>
 		<aui:field-wrapper>
-			<c:if test="<%= fileMaxSize != 0 %>">
+			<c:if test='<%= (fileMaxSize != 0) && !displaySection.equals("checkin") %>'>
 				<div class="alert alert-info">
 					<%= LanguageUtil.format(pageContext, "upload-documents-no-larger-than-x-k", String.valueOf(fileMaxSize), false) %>
 				</div>
@@ -271,7 +273,7 @@ editFileEntryURL.setParameter("workflowAction", String.valueOf(WorkflowConstants
 		}
 		%>
 
-		<aui:field-wrapper label="folder">
+		<aui:field-wrapper cssClass='<%= !displaySection.equals("checkin") ? StringPool.BLANK : "hidden" %>' label="folder">
 			<div class="input-append">
 				<liferay-ui:input-resource id="folderName" url="<%= folderName %>" />
 
@@ -321,13 +323,13 @@ editFileEntryURL.setParameter("workflowAction", String.valueOf(WorkflowConstants
 			</div>
 		</aui:field-wrapper>
 
-		<aui:input autoFocus="<%= windowState.equals(WindowState.MAXIMIZED) %>" name="file" onChange='<%= renderResponse.getNamespace() + "validateTitle();" %>' style="width: auto;" type="file">
+		<aui:input autoFocus="<%= windowState.equals(WindowState.MAXIMIZED) %>" cssClass='<%= !displaySection.equals("checkin") ? StringPool.BLANK : "hide" %>' label='<%= !displaySection.equals("checkin") ? "file" : StringPool.BLANK %>' name="file" onChange='<%= renderResponse.getNamespace() + "validateTitle();" %>' style="width: auto;" type="file">
 			<aui:validator name="acceptFiles">
 				'<%= StringUtil.merge(PrefsPropsUtil.getStringArray(PropsKeys.DL_FILE_EXTENSIONS, StringPool.COMMA)) %>'
 			</aui:validator>
 		</aui:input>
 
-		<aui:input name="title">
+		<aui:input cssClass='<%= !displaySection.equals("checkin") ? StringPool.BLANK : "hide" %>' label='<%= !displaySection.equals("checkin") ? "title" : StringPool.BLANK %>' name="title">
 			<aui:validator errorMessage="you-must-specify-a-file-or-a-title" name="custom">
 				function(val, fieldNode, ruleValue) {
 					return ((val != '') || A.one('#<portlet:namespace />file').val() != '');
@@ -335,7 +337,7 @@ editFileEntryURL.setParameter("workflowAction", String.valueOf(WorkflowConstants
 			</aui:validator>
 		</aui:input>
 
-		<c:if test="<%= ((folder == null) || folder.isSupportsMetadata()) %>">
+		<c:if test='<%= ((folder == null) || folder.isSupportsMetadata()) && !displaySection.equals("checkin") %>'>
 			<aui:input name="description" />
 
 			<c:if test="<%= (folder == null) || (folder.getModel() instanceof DLFolder) %>">
@@ -432,7 +434,7 @@ editFileEntryURL.setParameter("workflowAction", String.valueOf(WorkflowConstants
 			</aui:field-wrapper>
 		</c:if>
 
-		<c:if test="<%= ((folder == null) || folder.isSupportsSocial()) %>">
+		<c:if test='<%= ((folder == null) || folder.isSupportsSocial()) && !displaySection.equals("checkin") %>'>
 			<liferay-ui:panel defaultState="closed" extended="<%= false %>" id="dlFileEntryCategorizationPanel" persistState="<%= true %>" title="categorization">
 				<aui:fieldset>
 					<aui:input classPK="<%= assetClassPK %>" model="<%= DLFileEntry.class %>" name="categories" type="assetCategories" />
@@ -482,7 +484,7 @@ editFileEntryURL.setParameter("workflowAction", String.valueOf(WorkflowConstants
 			%>
 
 			<c:if test="<%= PropsValues.DL_FILE_ENTRY_DRAFTS_ENABLED %>">
-				<aui:button disabled="<%= checkedOut && !hasLock %>" name="saveButton" onClick='<%= renderResponse.getNamespace() + "saveFileEntry(true);" %>' value="<%= saveButtonLabel %>" />
+				<aui:button cssClass='<%= !displaySection.equals("checkin") ? StringPool.BLANK : "hide" %>' disabled="<%= checkedOut && !hasLock %>" name="saveButton" onClick='<%= renderResponse.getNamespace() + "saveFileEntry(true);" %>' value="<%= saveButtonLabel %>" />
 			</c:if>
 
 			<%
@@ -497,7 +499,7 @@ editFileEntryURL.setParameter("workflowAction", String.valueOf(WorkflowConstants
 			}
 			%>
 
-			<aui:button disabled="<%= checkedOut && !hasLock || (pending && PropsValues.DL_FILE_ENTRY_DRAFTS_ENABLED) %>" name="publishButton" type="submit" value="<%= publishButtonLabel %>" />
+			<aui:button cssClass='<%= !displaySection.equals("checkin") ? StringPool.BLANK : "hide" %>' disabled="<%= checkedOut && !hasLock || (pending && PropsValues.DL_FILE_ENTRY_DRAFTS_ENABLED) %>" name="publishButton" type="submit" value="<%= publishButtonLabel %>" />
 
 			<c:if test="<%= (fileEntry != null) && ((checkedOut && hasLock) || !checkedOut) %>">
 				<c:choose>

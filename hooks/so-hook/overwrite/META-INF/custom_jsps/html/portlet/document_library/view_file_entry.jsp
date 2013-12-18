@@ -1097,8 +1097,15 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 						label: '<%= UnicodeLanguageUtil.get(pageContext, "checkin") %>',
 						on: {
 							click: function(event) {
-								document.<portlet:namespace />fm.<portlet:namespace /><%= Constants.CMD %>.value = '<%= Constants.CHECKIN %>';
-								submitForm(document.<portlet:namespace />fm);
+								<portlet:renderURL var="checkInURL">
+									<portlet:param name="struts_action" value="/document_library/edit_file_entry" />
+									<portlet:param name="redirect" value="<%= currentURL %>" />
+									<portlet:param name="backURL" value="<%= currentURL %>" />
+									<portlet:param name="displaySection" value="checkin" />
+									<portlet:param name="fileEntryId" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
+								</portlet:renderURL>
+
+								location.href = '<%= checkInURL %>';
 							}
 						}
 					}
