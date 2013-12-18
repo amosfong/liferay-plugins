@@ -31,7 +31,7 @@
 		<property name="login" value="#{T(com.liferay.util.portlet.PortletProps).get('osb.lcs.gateway.web.login')}" />
 		<property name="password" value="#{T(com.liferay.util.portlet.PortletProps).get('osb.lcs.gateway.web.password')}" />
 	</bean>
-	<bean id="osbLCSPortletJSONWebServiceClient" class="com.liferay.lcs.json.JSONWebServiceClientImpl">
+	<bean id="osbLCSPortletJSONWebServiceClient" class="com.liferay.lcs.json.OAuthJSONWebServiceClientImpl">
 		<property name="hostName" value="#{T(com.liferay.util.portlet.PortletProps).get('osb.lcs.portlet.host.name')}" />
 		<property name="hostPort" value="#{T(com.liferay.util.portlet.PortletProps).get('osb.lcs.portlet.host.port')}" />
 	</bean>
