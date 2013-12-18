@@ -10,25 +10,29 @@
 		<exec executable="git">
 			<arg value="checkout" />
 			<arg value="upstream/ee-6.1.x" />
-			<arg value="../osb-lcs-portlet/docroot/WEB-INF/service/com/liferay/osb/lcs/model/*" />
+			<arg value="--" />
+			<arg value="../osb-lcs-portlet/docroot/WEB-INF/service/com/liferay/osb/lcs/model" />
 		</exec>
 
 		<exec executable="git">
 			<arg value="checkout" />
 			<arg value="upstream/ee-6.1.x" />
-			<arg value="../osb-lcs-portlet/docroot/WEB-INF/service/com/liferay/osb/lcs/service/*" />
+			<arg value="--" />
+			<arg value="../osb-lcs-portlet/docroot/WEB-INF/service/com/liferay/osb/lcs/service" />
 		</exec>
 
 		<exec executable="git">
 			<arg value="checkout" />
 			<arg value="upstream/ee-6.1.x" />
-			<arg value="../osb-lcs-portlet/docroot/WEB-INF/src/META-INF/portlet-model-hints*.xml" />
+			<arg value="--" />
+			<arg value="../osb-lcs-portlet/docroot/WEB-INF/src/META-INF" />
 		</exec>
 
 		<exec executable="git">
 			<arg value="checkout" />
 			<arg value="upstream/ee-6.1.x" />
-			<arg value="../../shared/lcs-shared/*" />
+			<arg value="--" />
+			<arg value="../../shared/lcs-shared" />
 		</exec>
 	</target>
 
@@ -79,9 +83,7 @@
 			<arg value="../../shared/lcs-shared/*" />
 		</exec>
 
-		<delete failonerror="false" includeemptydirs="true">
-			<fileset dir="../osb-lcs-portlet" />
-			<fileset dir="../../shared/lcs-shared" />
-		</delete>
+		<delete dir="../osb-lcs-portlet" failonerror="false" includeemptydirs="true" />
+		<delete dir="../../shared/lcs-shared" failonerror="false" includeemptydirs="true" />
 	</target>
 </project>
