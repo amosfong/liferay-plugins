@@ -15,6 +15,7 @@
 package com.liferay.lcs.oauth;
 
 import com.liferay.lcs.util.PortletPropsValues;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import org.scribe.builder.api.DefaultApi10a;
@@ -29,7 +30,8 @@ public class OAuthAPIImpl extends DefaultApi10a {
 		if (Validator.isNull(_accessTokenEndpoint)) {
 			_accessTokenEndpoint = OAuthUtil.buildURL(
 				PortletPropsValues.OSB_LCS_PORTLET_HOST_NAME,
-				Integer.parseInt(PortletPropsValues.OSB_LCS_PORTLET_HOST_PORT),
+				GetterUtil.getInteger(
+					PortletPropsValues.OSB_LCS_PORTLET_HOST_PORT),
 				"http",
 				PortletPropsValues.OSB_LCS_PORTLET_OAUTH_ACCESS_TOKEN_URI);
 		}
@@ -42,7 +44,8 @@ public class OAuthAPIImpl extends DefaultApi10a {
 		if (Validator.isNull(_requestTokenEndpoint)) {
 			_requestTokenEndpoint = OAuthUtil.buildURL(
 				PortletPropsValues.OSB_LCS_PORTLET_HOST_NAME,
-				Integer.parseInt(PortletPropsValues.OSB_LCS_PORTLET_HOST_PORT),
+				GetterUtil.getInteger(
+					PortletPropsValues.OSB_LCS_PORTLET_HOST_PORT),
 				"http",
 				PortletPropsValues.OSB_LCS_PORTLET_OAUTH_REQUEST_TOKEN_URI);
 		}

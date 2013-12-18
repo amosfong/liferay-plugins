@@ -15,6 +15,7 @@
 package com.liferay.lcs.oauth;
 
 import com.liferay.lcs.util.PortletPropsValues;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
@@ -51,9 +52,9 @@ public class OAuthUtil {
 	}
 
 	public static Token extractAccessToken(
-		Token requestToken, String oauthVerifier) {
+		Token requestToken, String oAuthVerifier) {
 
-		Verifier verifier = new Verifier(oauthVerifier);
+		Verifier verifier = new Verifier(oAuthVerifier);
 
 		OAuthService oAuthService = getOAuthService();
 
@@ -66,7 +67,8 @@ public class OAuthUtil {
 		if (Validator.isNull(_authorizeRequestURL)) {
 			_authorizeRequestURL = buildURL(
 				PortletPropsValues.OSB_LCS_PORTLET_HOST_NAME,
-				Integer.parseInt(PortletPropsValues.OSB_LCS_PORTLET_HOST_PORT),
+				GetterUtil.getInteger(
+					PortletPropsValues.OSB_LCS_PORTLET_HOST_PORT),
 				"http", PortletPropsValues.OSB_LCS_PORTLET_OAUTH_AUTHORIZE_URI);
 
 			if (Validator.isNotNull(callbackURL)) {
@@ -82,11 +84,11 @@ public class OAuthUtil {
 		if (_oAuthService == null) {
 			ServiceBuilder oAuthServiceBuilder = new ServiceBuilder();
 
-			oAuthServiceBuilder.provider(OAuthAPIImpl.class);
 			oAuthServiceBuilder.apiKey(
 				PortletPropsValues.OSB_LCS_PORTLET_OAUTH_CONSUMER_KEY);
 			oAuthServiceBuilder.apiSecret(
 				PortletPropsValues.OSB_LCS_PORTLET_OAUTH_CONSUMER_SECRET);
+			oAuthServiceBuilder.provider(OAuthAPIImpl.class);
 
 			_oAuthService = oAuthServiceBuilder.build();
 		}
