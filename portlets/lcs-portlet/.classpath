@@ -26,6 +26,7 @@
 	<classpathentry kind="lib" path="/portal-master/util-java/util-java.jar" />
 	<classpathentry kind="lib" path="/portal-master/util-slf4j/util-slf4j.jar" />
 	<classpathentry kind="lib" path="/portal-master/util-taglib/util-taglib.jar" />
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/commons-codec.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/lcs-shared.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/metrics-core.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/portal-compat-shared.jar" />
