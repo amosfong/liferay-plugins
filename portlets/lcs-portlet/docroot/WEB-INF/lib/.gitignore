@@ -1,4 +1,3 @@
-/commons-codec.jar
 /commons-logging.jar
 /flexjson.jar
 /httpclient.jar
@@ -9,7 +8,6 @@
 /jstl-impl.jar
 /lcs-shared.jar
 /log4j.jar
-/portal-compat-shared.jar
 /scribe.jar
 /slf4j-api.jar
 /util-bridges.jar
