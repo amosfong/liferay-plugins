@@ -19,18 +19,25 @@ package com.liferay.lcs.util;
  */
 public interface PortletPropsKeys {
 
-	public static final String OSB_LCS_PORTLET_HOST_NAME = "osb.lcs.portlet.host.name";
+	public static final String OSB_LCS_PORTLET_HOST_NAME =
+		"osb.lcs.portlet.host.name";
 
-	public static final String OSB_LCS_PORTLET_HOST_PORT = "osb.lcs.portlet.host.port";
+	public static final String OSB_LCS_PORTLET_HOST_PORT =
+		"osb.lcs.portlet.host.port";
 
-	public static final String OSB_LCS_PORTLET_OAUTH_ACCESS_TOKEN_URI = "osb.lcs.portlet.oauth.access.token.uri";
+	public static final String OSB_LCS_PORTLET_OAUTH_ACCESS_TOKEN_URI =
+		"osb.lcs.portlet.oauth.access.token.uri";
 
-	public static final String OSB_LCS_PORTLET_OAUTH_AUTHORIZE_URI = "osb.lcs.portlet.oauth.authorize.uri";
+	public static final String OSB_LCS_PORTLET_OAUTH_AUTHORIZE_URI =
+		"osb.lcs.portlet.oauth.authorize.uri";
 
-	public static final String OSB_LCS_PORTLET_OAUTH_CONSUMER_KEY = "osb.lcs.portlet.oauth.consumer.key";
+	public static final String OSB_LCS_PORTLET_OAUTH_CONSUMER_KEY =
+		"osb.lcs.portlet.oauth.consumer.key";
 
-	public static final String OSB_LCS_PORTLET_OAUTH_CONSUMER_SECRET = "osb.lcs.portlet.oauth.consumer.secret";
+	public static final String OSB_LCS_PORTLET_OAUTH_CONSUMER_SECRET =
+		"osb.lcs.portlet.oauth.consumer.secret";
 
-	public static final String OSB_LCS_PORTLET_OAUTH_REQUEST_TOKEN_URI = "osb.lcs.portlet.oauth.request.token.uri";
+	public static final String OSB_LCS_PORTLET_OAUTH_REQUEST_TOKEN_URI =
+		"osb.lcs.portlet.oauth.request.token.uri";
 
 }

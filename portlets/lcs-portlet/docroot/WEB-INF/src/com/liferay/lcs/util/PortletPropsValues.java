@@ -21,18 +21,28 @@ import com.liferay.util.portlet.PortletProps;
  */
 public class PortletPropsValues {
 
-	public static final String OSB_LCS_PORTLET_HOST_NAME = PortletProps.get(PortletPropsKeys.OSB_LCS_PORTLET_HOST_NAME);
+	public static final String OSB_LCS_PORTLET_HOST_NAME = PortletProps.get(
+		PortletPropsKeys.OSB_LCS_PORTLET_HOST_NAME);
 
-	public static final String OSB_LCS_PORTLET_HOST_PORT = PortletProps.get(PortletPropsKeys.OSB_LCS_PORTLET_HOST_PORT);
+	public static final String OSB_LCS_PORTLET_HOST_PORT = PortletProps.get(
+		PortletPropsKeys.OSB_LCS_PORTLET_HOST_PORT);
 
-	public static final String OSB_LCS_PORTLET_OAUTH_ACCESS_TOKEN_URI = PortletProps.get(PortletPropsKeys.OSB_LCS_PORTLET_OAUTH_ACCESS_TOKEN_URI);
+	public static final String OSB_LCS_PORTLET_OAUTH_ACCESS_TOKEN_URI =
+		PortletProps.get(
+			PortletPropsKeys.OSB_LCS_PORTLET_OAUTH_ACCESS_TOKEN_URI);
 
-	public static final String OSB_LCS_PORTLET_OAUTH_AUTHORIZE_URI = PortletProps.get(PortletPropsKeys.OSB_LCS_PORTLET_OAUTH_AUTHORIZE_URI);
+	public static final String OSB_LCS_PORTLET_OAUTH_AUTHORIZE_URI =
+		PortletProps.get(PortletPropsKeys.OSB_LCS_PORTLET_OAUTH_AUTHORIZE_URI);
 
-	public static final String OSB_LCS_PORTLET_OAUTH_CONSUMER_KEY = PortletProps.get(PortletPropsKeys.OSB_LCS_PORTLET_OAUTH_CONSUMER_KEY);
+	public static final String OSB_LCS_PORTLET_OAUTH_CONSUMER_KEY =
+		PortletProps.get(PortletPropsKeys.OSB_LCS_PORTLET_OAUTH_CONSUMER_KEY);
 
-	public static final String OSB_LCS_PORTLET_OAUTH_CONSUMER_SECRET = PortletProps.get(PortletPropsKeys.OSB_LCS_PORTLET_OAUTH_CONSUMER_SECRET);
+	public static final String OSB_LCS_PORTLET_OAUTH_CONSUMER_SECRET =
+		PortletProps.get(
+			PortletPropsKeys.OSB_LCS_PORTLET_OAUTH_CONSUMER_SECRET);
 
-	public static final String OSB_LCS_PORTLET_OAUTH_REQUEST_TOKEN_URI = PortletProps.get(PortletPropsKeys.OSB_LCS_PORTLET_OAUTH_REQUEST_TOKEN_URI);
+	public static final String OSB_LCS_PORTLET_OAUTH_REQUEST_TOKEN_URI =
+		PortletProps.get(
+			PortletPropsKeys.OSB_LCS_PORTLET_OAUTH_REQUEST_TOKEN_URI);
 
 }

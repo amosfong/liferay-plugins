@@ -55,25 +55,27 @@ public class OAuthUtil {
 
 		Verifier verifier = new Verifier(oauthVerifier);
 
-		return getOAuthService().getAccessToken(requestToken, verifier);
+		OAuthService oAuthService = getOAuthService();
+
+		return oAuthService.getAccessToken(requestToken, verifier);
 	}
 
 	public static String getAuthorizeURL(
 		String callbackURL, Token requestToken) {
 
-		if (Validator.isNull(_authorizeRequestURLTpl)) {
-			_authorizeRequestURLTpl = buildURL(
+		if (Validator.isNull(_authorizeRequestURL)) {
+			_authorizeRequestURL = buildURL(
 				PortletPropsValues.OSB_LCS_PORTLET_HOST_NAME,
 				Integer.parseInt(PortletPropsValues.OSB_LCS_PORTLET_HOST_PORT),
 				"http", PortletPropsValues.OSB_LCS_PORTLET_OAUTH_AUTHORIZE_URI);
 
 			if (Validator.isNotNull(callbackURL)) {
-				_authorizeRequestURLTpl = HttpUtil.addParameter(
-					_authorizeRequestURLTpl, "oauth_callback", callbackURL);
+				_authorizeRequestURL = HttpUtil.addParameter(
+					_authorizeRequestURL, "oauth_callback", callbackURL);
 			}
 		}
 
-		return _authorizeRequestURLTpl.replace("{0}", requestToken.getToken());
+		return _authorizeRequestURL.replace("{0}", requestToken.getToken());
 	}
 
 	public static OAuthService getOAuthService() {
@@ -93,10 +95,12 @@ public class OAuthUtil {
 	}
 
 	public static Token getRequestToken() {
-		return getOAuthService().getRequestToken();
+		OAuthService oAuthService = getOAuthService();
+
+		return oAuthService.getRequestToken();
 	}
 
-	private static String _authorizeRequestURLTpl;
+	private static String _authorizeRequestURL;
 	private static OAuthService _oAuthService;
 
 }

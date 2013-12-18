@@ -20,12 +20,15 @@ import java.io.IOException;
 
 import javax.security.auth.login.CredentialException;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.http.client.methods.HttpRequestBase;
 
 import org.scribe.model.OAuthRequest;
 import org.scribe.model.Response;
 import org.scribe.model.Token;
 import org.scribe.model.Verb;
+import org.scribe.oauth.OAuthService;
 
 /**
  * @author Igor Beslic
@@ -38,12 +41,12 @@ public class JSONWebServiceOAuthClientImpl extends JSONWebServiceClientImpl {
 
 	@Override
 	public void setLogin(String login) {
-		_accessToken = login;
+		_login = login;
 	}
 
 	@Override
 	public void setPassword(String password) {
-		_accessSecret = password;
+		_password = password;
 	}
 
 	@Override
@@ -51,36 +54,36 @@ public class JSONWebServiceOAuthClientImpl extends JSONWebServiceClientImpl {
 		throws CredentialException, IOException {
 
 		try {
-			if ((_accessToken == null) && (_accessSecret == null)) {
-				throw new CredentialException("OAuth credentials not set.");
+			if ((_login == null) && (_password == null)) {
+				throw new CredentialException("OAuth credentials are not set");
 			}
+
+			Token token = new Token(_login, _password);
 
 			String requestURL = OAuthUtil.buildURL(
 				getHostName(), getPort(), getProtocol(),
-				httpRequestBase.getURI().toString());
-
-			Token token = new Token(_accessToken, _accessSecret);
+				String.valueOf(httpRequestBase.getURI()));
 
 			OAuthRequest oAuthRequest = new OAuthRequest(Verb.POST, requestURL);
 
-			OAuthUtil.getOAuthService().signRequest(token, oAuthRequest);
+			OAuthService oAuthService = OAuthUtil.getOAuthService();
+
+			oAuthService.signRequest(token, oAuthRequest);
 
 			Response response = oAuthRequest.send();
 
-			if (response.getCode() == 401) {
-				String header = response.getHeader("WWW-Authenticate");
+			if (response.getCode() == HttpServletResponse.SC_UNAUTHORIZED) {
+				String value = response.getHeader("WWW-Authenticate");
 
-				throw new CredentialException(header);
+				throw new CredentialException(value);
 			}
 
-			if (response.getCode() == 200) {
+			if (response.getCode() == HttpServletResponse.SC_OK) {
 				return response.getBody();
 			}
 			else {
-				return
-					"{\"exception\":\"Server returned " +
-					String.valueOf(response.getCode()) +
-					".\"}";
+				return "{\"exception\":\"Server returned " +
+					response.getCode() + ".\"}";
 			}
 		}
 		finally {
@@ -88,7 +91,7 @@ public class JSONWebServiceOAuthClientImpl extends JSONWebServiceClientImpl {
 		}
 	}
 
-	private String _accessSecret;
-	private String _accessToken;
+	private String _login;
+	private String _password;
 
 }

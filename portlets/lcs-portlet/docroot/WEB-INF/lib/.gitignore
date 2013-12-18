@@ -10,6 +10,7 @@
 /lcs-shared.jar
 /log4j.jar
 /portal-compat-shared.jar
+/scribe.jar
 /slf4j-api.jar
 /util-bridges.jar
 /util-java.jar
