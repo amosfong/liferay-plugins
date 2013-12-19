@@ -21,15 +21,13 @@
 <portlet:actionURL name="setupOAuth" var="setupOAuthURL" />
 
 <%
-Token oauthRequestToken = OAuthUtil.getRequestToken();
+Token requestToken = OAuthUtil.getRequestToken();
 
-PortletSession portletSession = renderRequest.getPortletSession();
-
-portletSession.setAttribute("oauthRequestToken", oauthRequestToken);
+portletSession.setAttribute(Token.class.getName(), requestToken);
 %>
 
 <div class="lcs-button-container">
-	<a class="lcs-portal-link" href="<%= OAuthUtil.getAuthorizeURL(setupOAuthURL, oauthRequestToken) %>"><liferay-ui:message key="authorize-access" /></a>
+	<a class="lcs-portal-link" href="<%= OAuthUtil.getAuthorizeURL(setupOAuthURL, requestToken) %>"><liferay-ui:message key="authorize-access" /></a>
 </div>
 
 <aui:field-wrapper>

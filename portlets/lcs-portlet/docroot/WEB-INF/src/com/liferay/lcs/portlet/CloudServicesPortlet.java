@@ -121,7 +121,7 @@ public class CloudServicesPortlet extends MVCPortlet {
 		PortletSession portletSession = actionRequest.getPortletSession();
 
 		Token requestToken = (Token)portletSession.getAttribute(
-			"oauthRequestToken");
+			Token.class.getName());
 
 		String oAuthVerifier = ParamUtil.getString(
 			actionRequest, "oauth_verifier");
