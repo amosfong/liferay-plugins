@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.dao.orm.Session;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
+import com.liferay.portal.kernel.util.CharPool;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.InstanceFactory;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -2131,7 +2132,10 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 		if ((list != null) && !list.isEmpty()) {
 			for (OAuthApplication oAuthApplication : list) {
 				if ((companyId != oAuthApplication.getCompanyId()) ||
-						!Validator.equals(name, oAuthApplication.getName())) {
+						!StringUtil.wildcardMatches(
+							oAuthApplication.getName(), name,
+							CharPool.UNDERLINE, CharPool.PERCENT,
+							CharPool.BACK_SLASH, false)) {
 					list = null;
 
 					break;
@@ -3112,7 +3116,10 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 		if ((list != null) && !list.isEmpty()) {
 			for (OAuthApplication oAuthApplication : list) {
 				if ((userId != oAuthApplication.getUserId()) ||
-						!Validator.equals(name, oAuthApplication.getName())) {
+						!StringUtil.wildcardMatches(
+							oAuthApplication.getName(), name,
+							CharPool.UNDERLINE, CharPool.PERCENT,
+							CharPool.BACK_SLASH, false)) {
 					list = null;
 
 					break;

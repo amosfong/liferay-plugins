@@ -24,104 +24,104 @@ import java.util.Arrays;
  */
 public class SalesforceLocalServiceClpInvoker {
 	public SalesforceLocalServiceClpInvoker() {
-		_methodName26 = "getBeanIdentifier";
+		_methodName32 = "getBeanIdentifier";
 
-		_methodParameterTypes26 = new String[] {  };
+		_methodParameterTypes32 = new String[] {  };
 
-		_methodName27 = "setBeanIdentifier";
+		_methodName33 = "setBeanIdentifier";
 
-		_methodParameterTypes27 = new String[] { "java.lang.String" };
+		_methodParameterTypes33 = new String[] { "java.lang.String" };
 
-		_methodName30 = "executeAdd";
+		_methodName36 = "executeAdd";
 
-		_methodParameterTypes30 = new String[] { "long", "java.util.List" };
+		_methodParameterTypes36 = new String[] { "long", "java.util.List" };
 
-		_methodName31 = "executeAdd";
+		_methodName37 = "executeAdd";
 
-		_methodParameterTypes31 = new String[] {
+		_methodParameterTypes37 = new String[] {
 				"long", "com.liferay.portal.kernel.messaging.Message"
 			};
 
-		_methodName32 = "executeAddOrUpdate";
+		_methodName38 = "executeAddOrUpdate";
 
-		_methodParameterTypes32 = new String[] {
+		_methodParameterTypes38 = new String[] {
 				"long", "java.lang.String", "java.util.List"
 			};
 
-		_methodName33 = "executeAddOrUpdate";
+		_methodName39 = "executeAddOrUpdate";
 
-		_methodParameterTypes33 = new String[] {
+		_methodParameterTypes39 = new String[] {
 				"long", "java.lang.String",
 				"com.liferay.portal.kernel.messaging.Message"
 			};
 
-		_methodName34 = "executeDelete";
-
-		_methodParameterTypes34 = new String[] { "long", "java.util.List" };
-
-		_methodName35 = "executeDelete";
-
-		_methodParameterTypes35 = new String[] { "long", "java.lang.String" };
-
-		_methodName36 = "executeQuery";
-
-		_methodParameterTypes36 = new String[] { "long", "java.lang.String" };
-
-		_methodName37 = "executeQuery";
-
-		_methodParameterTypes37 = new String[] {
-				"long", "java.lang.String", "java.lang.String", "java.util.List"
-			};
-
-		_methodName38 = "executeQueryMore";
-
-		_methodParameterTypes38 = new String[] { "long", "java.lang.String" };
-
-		_methodName39 = "executeSearch";
-
-		_methodParameterTypes39 = new String[] { "long", "java.lang.String" };
-
-		_methodName40 = "executeUpdate";
+		_methodName40 = "executeDelete";
 
 		_methodParameterTypes40 = new String[] { "long", "java.util.List" };
 
-		_methodName41 = "executeUpdate";
+		_methodName41 = "executeDelete";
 
-		_methodParameterTypes41 = new String[] {
+		_methodParameterTypes41 = new String[] { "long", "java.lang.String" };
+
+		_methodName42 = "executeQuery";
+
+		_methodParameterTypes42 = new String[] { "long", "java.lang.String" };
+
+		_methodName43 = "executeQuery";
+
+		_methodParameterTypes43 = new String[] {
+				"long", "java.lang.String", "java.lang.String", "java.util.List"
+			};
+
+		_methodName44 = "executeQueryMore";
+
+		_methodParameterTypes44 = new String[] { "long", "java.lang.String" };
+
+		_methodName45 = "executeSearch";
+
+		_methodParameterTypes45 = new String[] { "long", "java.lang.String" };
+
+		_methodName46 = "executeUpdate";
+
+		_methodParameterTypes46 = new String[] { "long", "java.util.List" };
+
+		_methodName47 = "executeUpdate";
+
+		_methodParameterTypes47 = new String[] {
 				"long", "com.liferay.portal.kernel.messaging.Message"
 			};
 	}
 
 	public Object invokeMethod(String name, String[] parameterTypes,
 		Object[] arguments) throws Throwable {
-		if (_methodName26.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes26, parameterTypes)) {
+		if (_methodName32.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes32, parameterTypes)) {
 			return SalesforceLocalServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName27.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes27, parameterTypes)) {
+		if (_methodName33.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes33, parameterTypes)) {
 			SalesforceLocalServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName30.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes30, parameterTypes)) {
+		if (_methodName36.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes36, parameterTypes)) {
 			SalesforceLocalServiceUtil.executeAdd(((Long)arguments[0]).longValue(),
 				(java.util.List<com.liferay.portal.kernel.messaging.Message>)arguments[1]);
 
 			return null;
 		}
 
-		if (_methodName31.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes31, parameterTypes)) {
+		if (_methodName37.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes37, parameterTypes)) {
 			return SalesforceLocalServiceUtil.executeAdd(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.kernel.messaging.Message)arguments[1]);
 		}
 
-		if (_methodName32.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes32, parameterTypes)) {
+		if (_methodName38.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes38, parameterTypes)) {
 			SalesforceLocalServiceUtil.executeAddOrUpdate(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1],
 				(java.util.List<com.liferay.portal.kernel.messaging.Message>)arguments[2]);
@@ -129,8 +129,8 @@ public class SalesforceLocalServiceClpInvoker {
 			return null;
 		}
 
-		if (_methodName33.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes33, parameterTypes)) {
+		if (_methodName39.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes39, parameterTypes)) {
 			SalesforceLocalServiceUtil.executeAddOrUpdate(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1],
 				(com.liferay.portal.kernel.messaging.Message)arguments[2]);
@@ -138,55 +138,55 @@ public class SalesforceLocalServiceClpInvoker {
 			return null;
 		}
 
-		if (_methodName34.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes34, parameterTypes)) {
+		if (_methodName40.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes40, parameterTypes)) {
 			SalesforceLocalServiceUtil.executeDelete(((Long)arguments[0]).longValue(),
 				(java.util.List<java.lang.String>)arguments[1]);
 
 			return null;
 		}
 
-		if (_methodName35.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes35, parameterTypes)) {
+		if (_methodName41.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
 			return SalesforceLocalServiceUtil.executeDelete(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1]);
 		}
 
-		if (_methodName36.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes36, parameterTypes)) {
+		if (_methodName42.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
 			return SalesforceLocalServiceUtil.executeQuery(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1]);
 		}
 
-		if (_methodName37.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes37, parameterTypes)) {
+		if (_methodName43.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes43, parameterTypes)) {
 			return SalesforceLocalServiceUtil.executeQuery(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
 				(java.util.List<java.lang.String>)arguments[3]);
 		}
 
-		if (_methodName38.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes38, parameterTypes)) {
+		if (_methodName44.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
 			return SalesforceLocalServiceUtil.executeQueryMore(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1]);
 		}
 
-		if (_methodName39.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes39, parameterTypes)) {
+		if (_methodName45.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
 			return SalesforceLocalServiceUtil.executeSearch(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1]);
 		}
 
-		if (_methodName40.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes40, parameterTypes)) {
+		if (_methodName46.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
 			SalesforceLocalServiceUtil.executeUpdate(((Long)arguments[0]).longValue(),
 				(java.util.List<com.liferay.portal.kernel.messaging.Message>)arguments[1]);
 
 			return null;
 		}
 
-		if (_methodName41.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
+		if (_methodName47.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
 			SalesforceLocalServiceUtil.executeUpdate(((Long)arguments[0]).longValue(),
 				(com.liferay.portal.kernel.messaging.Message)arguments[1]);
 
@@ -196,22 +196,10 @@ public class SalesforceLocalServiceClpInvoker {
 		throw new UnsupportedOperationException();
 	}
 
-	private String _methodName26;
-	private String[] _methodParameterTypes26;
-	private String _methodName27;
-	private String[] _methodParameterTypes27;
-	private String _methodName30;
-	private String[] _methodParameterTypes30;
-	private String _methodName31;
-	private String[] _methodParameterTypes31;
 	private String _methodName32;
 	private String[] _methodParameterTypes32;
 	private String _methodName33;
 	private String[] _methodParameterTypes33;
-	private String _methodName34;
-	private String[] _methodParameterTypes34;
-	private String _methodName35;
-	private String[] _methodParameterTypes35;
 	private String _methodName36;
 	private String[] _methodParameterTypes36;
 	private String _methodName37;
@@ -224,4 +212,16 @@ public class SalesforceLocalServiceClpInvoker {
 	private String[] _methodParameterTypes40;
 	private String _methodName41;
 	private String[] _methodParameterTypes41;
+	private String _methodName42;
+	private String[] _methodParameterTypes42;
+	private String _methodName43;
+	private String[] _methodParameterTypes43;
+	private String _methodName44;
+	private String[] _methodParameterTypes44;
+	private String _methodName45;
+	private String[] _methodParameterTypes45;
+	private String _methodName46;
+	private String[] _methodParameterTypes46;
+	private String _methodName47;
+	private String[] _methodParameterTypes47;
 }

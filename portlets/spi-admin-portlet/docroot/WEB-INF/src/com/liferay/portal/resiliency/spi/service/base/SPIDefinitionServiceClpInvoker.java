@@ -24,62 +24,62 @@ import java.util.Arrays;
  */
 public class SPIDefinitionServiceClpInvoker {
 	public SPIDefinitionServiceClpInvoker() {
-		_methodName28 = "getBeanIdentifier";
+		_methodName34 = "getBeanIdentifier";
 
-		_methodParameterTypes28 = new String[] {  };
+		_methodParameterTypes34 = new String[] {  };
 
-		_methodName29 = "setBeanIdentifier";
+		_methodName35 = "setBeanIdentifier";
 
-		_methodParameterTypes29 = new String[] { "java.lang.String" };
+		_methodParameterTypes35 = new String[] { "java.lang.String" };
 
-		_methodName34 = "addSPIDefinition";
+		_methodName40 = "addSPIDefinition";
 
-		_methodParameterTypes34 = new String[] {
+		_methodParameterTypes40 = new String[] {
 				"java.lang.String", "java.lang.String", "int",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName35 = "deleteSPIDefinition";
-
-		_methodParameterTypes35 = new String[] { "long" };
-
-		_methodName36 = "getPortletIdsAndServletContextNames";
-
-		_methodParameterTypes36 = new String[] {  };
-
-		_methodName37 = "getSPIDefinition";
-
-		_methodParameterTypes37 = new String[] { "long" };
-
-		_methodName38 = "getSPIDefinition";
-
-		_methodParameterTypes38 = new String[] { "long", "java.lang.String" };
-
-		_methodName39 = "getSPIDefinitions";
-
-		_methodParameterTypes39 = new String[] {  };
-
-		_methodName40 = "startSPI";
-
-		_methodParameterTypes40 = new String[] { "long" };
-
-		_methodName41 = "startSPIinBackground";
+		_methodName41 = "deleteSPIDefinition";
 
 		_methodParameterTypes41 = new String[] { "long" };
 
-		_methodName42 = "stopSPI";
+		_methodName42 = "getPortletIdsAndServletContextNames";
 
-		_methodParameterTypes42 = new String[] { "long" };
+		_methodParameterTypes42 = new String[] {  };
 
-		_methodName43 = "stopSPIinBackground";
+		_methodName43 = "getSPIDefinition";
 
 		_methodParameterTypes43 = new String[] { "long" };
 
-		_methodName44 = "updateSPIDefinition";
+		_methodName44 = "getSPIDefinition";
 
-		_methodParameterTypes44 = new String[] {
+		_methodParameterTypes44 = new String[] { "long", "java.lang.String" };
+
+		_methodName45 = "getSPIDefinitions";
+
+		_methodParameterTypes45 = new String[] {  };
+
+		_methodName46 = "startSPI";
+
+		_methodParameterTypes46 = new String[] { "long" };
+
+		_methodName47 = "startSPIinBackground";
+
+		_methodParameterTypes47 = new String[] { "long" };
+
+		_methodName48 = "stopSPI";
+
+		_methodParameterTypes48 = new String[] { "long" };
+
+		_methodName49 = "stopSPIinBackground";
+
+		_methodParameterTypes49 = new String[] { "long" };
+
+		_methodName50 = "updateSPIDefinition";
+
+		_methodParameterTypes50 = new String[] {
 				"long", "java.lang.String", "int", "java.lang.String",
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "com.liferay.portal.service.ServiceContext"
@@ -88,20 +88,20 @@ public class SPIDefinitionServiceClpInvoker {
 
 	public Object invokeMethod(String name, String[] parameterTypes,
 		Object[] arguments) throws Throwable {
-		if (_methodName28.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes28, parameterTypes)) {
+		if (_methodName34.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes34, parameterTypes)) {
 			return SPIDefinitionServiceUtil.getBeanIdentifier();
 		}
 
-		if (_methodName29.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes29, parameterTypes)) {
+		if (_methodName35.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes35, parameterTypes)) {
 			SPIDefinitionServiceUtil.setBeanIdentifier((java.lang.String)arguments[0]);
 
 			return null;
 		}
 
-		if (_methodName34.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes34, parameterTypes)) {
+		if (_methodName40.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes40, parameterTypes)) {
 			return SPIDefinitionServiceUtil.addSPIDefinition((java.lang.String)arguments[0],
 				(java.lang.String)arguments[1],
 				((Integer)arguments[2]).intValue(),
@@ -111,58 +111,58 @@ public class SPIDefinitionServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[8]);
 		}
 
-		if (_methodName35.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes35, parameterTypes)) {
+		if (_methodName41.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
 			return SPIDefinitionServiceUtil.deleteSPIDefinition(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName36.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes36, parameterTypes)) {
+		if (_methodName42.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
 			return SPIDefinitionServiceUtil.getPortletIdsAndServletContextNames();
 		}
 
-		if (_methodName37.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes37, parameterTypes)) {
+		if (_methodName43.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes43, parameterTypes)) {
 			return SPIDefinitionServiceUtil.getSPIDefinition(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName38.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes38, parameterTypes)) {
+		if (_methodName44.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
 			return SPIDefinitionServiceUtil.getSPIDefinition(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1]);
 		}
 
-		if (_methodName39.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes39, parameterTypes)) {
+		if (_methodName45.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes45, parameterTypes)) {
 			return SPIDefinitionServiceUtil.getSPIDefinitions();
 		}
 
-		if (_methodName40.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes40, parameterTypes)) {
+		if (_methodName46.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
 			SPIDefinitionServiceUtil.startSPI(((Long)arguments[0]).longValue());
 
 			return null;
 		}
 
-		if (_methodName41.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes41, parameterTypes)) {
+		if (_methodName47.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes47, parameterTypes)) {
 			return SPIDefinitionServiceUtil.startSPIinBackground(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName42.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes42, parameterTypes)) {
+		if (_methodName48.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes48, parameterTypes)) {
 			SPIDefinitionServiceUtil.stopSPI(((Long)arguments[0]).longValue());
 
 			return null;
 		}
 
-		if (_methodName43.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes43, parameterTypes)) {
+		if (_methodName49.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes49, parameterTypes)) {
 			return SPIDefinitionServiceUtil.stopSPIinBackground(((Long)arguments[0]).longValue());
 		}
 
-		if (_methodName44.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes44, parameterTypes)) {
+		if (_methodName50.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes50, parameterTypes)) {
 			return SPIDefinitionServiceUtil.updateSPIDefinition(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1],
 				((Integer)arguments[2]).intValue(),
@@ -175,22 +175,10 @@ public class SPIDefinitionServiceClpInvoker {
 		throw new UnsupportedOperationException();
 	}
 
-	private String _methodName28;
-	private String[] _methodParameterTypes28;
-	private String _methodName29;
-	private String[] _methodParameterTypes29;
 	private String _methodName34;
 	private String[] _methodParameterTypes34;
 	private String _methodName35;
 	private String[] _methodParameterTypes35;
-	private String _methodName36;
-	private String[] _methodParameterTypes36;
-	private String _methodName37;
-	private String[] _methodParameterTypes37;
-	private String _methodName38;
-	private String[] _methodParameterTypes38;
-	private String _methodName39;
-	private String[] _methodParameterTypes39;
 	private String _methodName40;
 	private String[] _methodParameterTypes40;
 	private String _methodName41;
@@ -201,4 +189,16 @@ public class SPIDefinitionServiceClpInvoker {
 	private String[] _methodParameterTypes43;
 	private String _methodName44;
 	private String[] _methodParameterTypes44;
+	private String _methodName45;
+	private String[] _methodParameterTypes45;
+	private String _methodName46;
+	private String[] _methodParameterTypes46;
+	private String _methodName47;
+	private String[] _methodParameterTypes47;
+	private String _methodName48;
+	private String[] _methodParameterTypes48;
+	private String _methodName49;
+	private String[] _methodParameterTypes49;
+	private String _methodName50;
+	private String[] _methodParameterTypes50;
 }
