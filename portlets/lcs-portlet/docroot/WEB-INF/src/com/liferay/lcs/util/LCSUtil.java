@@ -53,11 +53,14 @@ public class LCSUtil {
 			return CREDENTIALS_NOT_AVAILABLE;
 		}
 
-		String lcsLogin = jxPortletPreferences.getValue("lcsAccessToken", null);
-		String lcsPassword = jxPortletPreferences.getValue(
+		String lcsAccessToken = jxPortletPreferences.getValue(
+			"lcsAccessToken", null);
+		String lcsAccessSecret = jxPortletPreferences.getValue(
 			"lcsAccessSecret", null);
 
-		if (Validator.isNull(lcsLogin) || Validator.isNull(lcsPassword)) {
+		if (Validator.isNull(lcsAccessToken) ||
+			Validator.isNull(lcsAccessSecret)) {
+
 			return CREDENTIALS_INVALID;
 		}
 
@@ -89,16 +92,19 @@ public class LCSUtil {
 		javax.portlet.PortletPreferences jxPortletPreferences =
 			getJxPortletPreferences();
 
-		String lcsLogin = jxPortletPreferences.getValue("lcsAccessToken", null);
-		String lcsPassword = jxPortletPreferences.getValue(
+		String lcsAccessToken = jxPortletPreferences.getValue(
+			"lcsAccessToken", null);
+		String lcsAccessSecret = jxPortletPreferences.getValue(
 			"lcsAccessSecret", null);
 
-		if (Validator.isNull(lcsLogin) || Validator.isNull(lcsPassword)) {
+		if (Validator.isNull(lcsAccessToken) ||
+			Validator.isNull(lcsAccessSecret)) {
+
 			throw new SystemException("Unable to setup LCS credentials");
 		}
 
-		_jsonWebServiceClient.setLogin(lcsLogin);
-		_jsonWebServiceClient.setPassword(lcsPassword);
+		_jsonWebServiceClient.setLogin(lcsAccessToken);
+		_jsonWebServiceClient.setPassword(lcsAccessSecret);
 
 		_jsonWebServiceClient.resetHttpClient();
 	}

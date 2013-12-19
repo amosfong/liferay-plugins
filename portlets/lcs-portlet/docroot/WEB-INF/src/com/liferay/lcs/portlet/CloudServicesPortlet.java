@@ -118,22 +118,21 @@ public class CloudServicesPortlet extends MVCPortlet {
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
-		String oauthVerifier = ParamUtil.getString(
-			actionRequest, "oauth_verifier");
-
 		PortletSession portletSession = actionRequest.getPortletSession();
 
 		Token requestToken = (Token)portletSession.getAttribute(
 			"oauthRequestToken");
 
-		Token token = OAuthUtil.extractAccessToken(requestToken, oauthVerifier);
+		String oAuthVerifier = ParamUtil.getString(
+			actionRequest, "oauth_verifier");
+
+		Token token = OAuthUtil.extractAccessToken(requestToken, oAuthVerifier);
 
 		javax.portlet.PortletPreferences jxPortletPreferences =
 			getJxPortletPreferences(actionRequest);
 
-		jxPortletPreferences.setValue("lcsAccessToken", token.getToken());
-
 		jxPortletPreferences.setValue("lcsAccessSecret", token.getSecret());
+		jxPortletPreferences.setValue("lcsAccessToken", token.getToken());
 
 		jxPortletPreferences.store();
 
