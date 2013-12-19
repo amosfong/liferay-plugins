@@ -109,12 +109,10 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 	Group group = layout.getGroup();
 	%>
 
-	<c:if test="<%= !group.isControlPanel() %>">
+	<c:if test="<%= !group.isControlPanel() && !portletId.equals(PortletKeys.TRASH) %>">
 
 		<%
-		FileEntry fileEntryBreadcrumb = (FileEntry)request.getAttribute(WebKeys.DOCUMENT_LIBRARY_FILE_ENTRY);
-
-		DLUtil.addPortletBreadcrumbEntries(fileEntryBreadcrumb, request, renderResponse);
+		DLUtil.addPortletBreadcrumbEntries(fileEntry, request, renderResponse);
 		%>
 
 		<div class="so-breadcrumbs">
@@ -1203,9 +1201,3 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 		}
 	);
 </aui:script>
-
-<%
-if (!portletId.equals(PortletKeys.TRASH)) {
-	DLUtil.addPortletBreadcrumbEntries(fileEntry, request, renderResponse);
-}
-%>
