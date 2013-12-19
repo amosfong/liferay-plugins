@@ -24,6 +24,7 @@
 
 <%@ page import="com.liferay.compat.portal.kernel.util.Time" %><%@
 page import="com.liferay.compat.portlet.PortletURLUtil" %><%@
+page import="com.liferay.lcs.oauth.OAuthUtil" %><%@
 page import="com.liferay.lcs.util.HandshakeManagerUtil" %><%@
 page import="com.liferay.lcs.util.KeyGeneratorUtil" %><%@
 page import="com.liferay.lcs.util.LCSUtil" %><%@
@@ -50,8 +51,11 @@ page import="java.util.List" %><%@
 page import="java.util.Map" %>
 
 <%@ page import="javax.portlet.PortletMode" %><%@
+page import="javax.portlet.PortletSession" %><%@
 page import="javax.portlet.PortletURL" %><%@
 page import="javax.portlet.WindowState" %>
+
+<%@ page import="org.scribe.model.Token" %>
 
 <portlet:defineObjects />
 

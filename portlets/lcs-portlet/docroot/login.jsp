@@ -18,40 +18,22 @@
 
 <h3><liferay-ui:message arguments="1" key="registration-step-x-2" /></h3>
 
-<portlet:actionURL name="login" var="loginURL" />
+<portlet:actionURL name="setupOAuth" var="setupOAuthURL" />
 
-<aui:form action="<%= loginURL %>" autocomplete="off" name="fm">
-	<aui:input name="login">
-		<aui:validator name="required" />
+<%
+Token oauthRequestToken = OAuthUtil.getRequestToken();
 
-		<aui:validator name="email" />
-	</aui:input>
+PortletSession portletSession = renderRequest.getPortletSession();
 
-	<aui:input name="password" type="password">
-		<aui:validator name="required" />
-	</aui:input>
+portletSession.setAttribute("oauthRequestToken", oauthRequestToken);
+%>
 
-	<aui:button-row>
-		<aui:button disabled="true" name="loginButton" type="submit" value="next" />
-	</aui:button-row>
-</aui:form>
+<div class="lcs-button-container">
+	<a class="lcs-portal-link" href="<%= OAuthUtil.getAuthorizeURL(setupOAuthURL, oauthRequestToken) %>"><liferay-ui:message key="authorize-access" /></a>
+</div>
 
 <aui:field-wrapper>
 	<liferay-ui:message arguments="https://www.liferay.com/home?p_p_id=58&p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view&_58_struts_action=%2Flogin%2Fforgot_password" key="forgot-your-x-or-x" />
 
 	<liferay-ui:message arguments="https://www.liferay.com/home?p_p_id=58&p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view&saveLastPath=0&_58_struts_action=%2Flogin%2Fcreate_account" key="you-dont-have-account.-create-a-new-account" />
 </aui:field-wrapper>
-
-<aui:script use="aui-base">
-	A.one('#<portlet:namespace/>fm').on(
-		'input',
-		function(event) {
-			var userNameInputTxt = A.one('#<portlet:namespace/>login');
-			var passwordInputTxt = A.one('#<portlet:namespace/>password');
-
-			var loginButtonDisabled = !(userNameInputTxt.val() && passwordInputTxt.val());
-
-			Liferay.Util.toggleDisabled(A.one('#<portlet:namespace />loginButton'), loginButtonDisabled);
-		}
-	);
-</aui:script>
