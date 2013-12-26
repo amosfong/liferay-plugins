@@ -8,10 +8,6 @@
 		min-height: 30px;
 	}
 
-	.lfr-header-row-content {
-		padding: 3px 4px;
-	}
-
 	.aui-column-content-first {
 		position: relative;
 	}
@@ -135,7 +131,7 @@
 					display: inline-block;
 
 					img {
-						margin: 0 0 3px -3px;
+						margin: 0 3px 3px -3px;
 					}
 
 					&:hover {
