@@ -243,6 +243,11 @@ public class ClpSerializer {
 		}
 
 		if (className.equals(
+					"com.liferay.portal.resiliency.spi.InvalidDatabaseConfigurationException")) {
+			return new com.liferay.portal.resiliency.spi.InvalidDatabaseConfigurationException();
+		}
+
+		if (className.equals(
 					"com.liferay.portal.resiliency.spi.InvalidSPIDefinitionConnectorException")) {
 			return new com.liferay.portal.resiliency.spi.InvalidSPIDefinitionConnectorException();
 		}
