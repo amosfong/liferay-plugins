@@ -14,8 +14,6 @@
 
 package com.liferay.portal.workflow.kaleo.designer.service;
 
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayOutputStream;
 import com.liferay.portal.kernel.log.Log;
@@ -207,6 +205,13 @@ public class ClpSerializer {
 
 				return throwable;
 			}
+			catch (ClassNotFoundException cnfe) {
+				if (_log.isInfoEnabled()) {
+					_log.info("Do not use reflection to translate throwable");
+				}
+
+				_useReflectionToTranslateThrowable = false;
+			}
 			catch (SecurityException se) {
 				if (_log.isInfoEnabled()) {
 					_log.info("Do not use reflection to translate throwable");
@@ -225,32 +230,28 @@ public class ClpSerializer {
 
 		String className = clazz.getName();
 
-		if (className.equals(PortalException.class.getName())) {
-			return new PortalException();
-		}
-
-		if (className.equals(SystemException.class.getName())) {
-			return new SystemException();
-		}
-
 		if (className.equals(
 					"com.liferay.portal.workflow.kaleo.designer.DuplicateKaleoDraftDefinitionNameException")) {
-			return new com.liferay.portal.workflow.kaleo.designer.DuplicateKaleoDraftDefinitionNameException();
+			return new com.liferay.portal.workflow.kaleo.designer.DuplicateKaleoDraftDefinitionNameException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionContentException")) {
-			return new com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionContentException();
+			return new com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionContentException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionNameException")) {
-			return new com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionNameException();
+			return new com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionNameException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException")) {
-			return new com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException();
+			return new com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		return throwable;

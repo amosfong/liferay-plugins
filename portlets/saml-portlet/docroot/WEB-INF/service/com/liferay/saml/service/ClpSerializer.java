@@ -14,8 +14,6 @@
 
 package com.liferay.saml.service;
 
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayOutputStream;
 import com.liferay.portal.kernel.log.Log;
@@ -329,6 +327,13 @@ public class ClpSerializer {
 
 				return throwable;
 			}
+			catch (ClassNotFoundException cnfe) {
+				if (_log.isInfoEnabled()) {
+					_log.info("Do not use reflection to translate throwable");
+				}
+
+				_useReflectionToTranslateThrowable = false;
+			}
 			catch (SecurityException se) {
 				if (_log.isInfoEnabled()) {
 					_log.info("Do not use reflection to translate throwable");
@@ -347,161 +352,187 @@ public class ClpSerializer {
 
 		String className = clazz.getName();
 
-		if (className.equals(PortalException.class.getName())) {
-			return new PortalException();
-		}
-
-		if (className.equals(SystemException.class.getName())) {
-			return new SystemException();
-		}
-
 		if (className.equals("com.liferay.saml.AssertionException")) {
-			return new com.liferay.saml.AssertionException();
+			return new com.liferay.saml.AssertionException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.saml.AudienceException")) {
-			return new com.liferay.saml.AudienceException();
+			return new com.liferay.saml.AudienceException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.saml.CertificateKeyPasswordException")) {
-			return new com.liferay.saml.CertificateKeyPasswordException();
+			return new com.liferay.saml.CertificateKeyPasswordException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.saml.CredentialException")) {
-			return new com.liferay.saml.CredentialException();
+			return new com.liferay.saml.CredentialException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.saml.DestinationException")) {
-			return new com.liferay.saml.DestinationException();
+			return new com.liferay.saml.DestinationException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.saml.DuplicateSamlIdpSpConnectionSamlSpEntityIdException")) {
-			return new com.liferay.saml.DuplicateSamlIdpSpConnectionSamlSpEntityIdException();
+			return new com.liferay.saml.DuplicateSamlIdpSpConnectionSamlSpEntityIdException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.saml.DuplicateSamlIdpSpSessionException")) {
-			return new com.liferay.saml.DuplicateSamlIdpSpSessionException();
+			return new com.liferay.saml.DuplicateSamlIdpSpSessionException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.saml.DuplicateSamlIdpSsoSessionException")) {
-			return new com.liferay.saml.DuplicateSamlIdpSsoSessionException();
+			return new com.liferay.saml.DuplicateSamlIdpSsoSessionException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.saml.DuplicateSamlSpIdpConnectionSamlIdpEntityIdException")) {
-			return new com.liferay.saml.DuplicateSamlSpIdpConnectionSamlIdpEntityIdException();
+			return new com.liferay.saml.DuplicateSamlSpIdpConnectionSamlIdpEntityIdException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.saml.EntityIdException")) {
-			return new com.liferay.saml.EntityIdException();
+			return new com.liferay.saml.EntityIdException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.saml.ExpiredException")) {
-			return new com.liferay.saml.ExpiredException();
+			return new com.liferay.saml.ExpiredException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.saml.InResponseToException")) {
-			return new com.liferay.saml.InResponseToException();
+			return new com.liferay.saml.InResponseToException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.saml.IssuerException")) {
-			return new com.liferay.saml.IssuerException();
+			return new com.liferay.saml.IssuerException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.saml.ReplayException")) {
-			return new com.liferay.saml.ReplayException();
+			return new com.liferay.saml.ReplayException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.saml.SamlIdpSpConnectionMetadataUrlException")) {
-			return new com.liferay.saml.SamlIdpSpConnectionMetadataUrlException();
+			return new com.liferay.saml.SamlIdpSpConnectionMetadataUrlException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.saml.SamlIdpSpConnectionMetadataXmlException")) {
-			return new com.liferay.saml.SamlIdpSpConnectionMetadataXmlException();
+			return new com.liferay.saml.SamlIdpSpConnectionMetadataXmlException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.saml.SamlIdpSpConnectionNameException")) {
-			return new com.liferay.saml.SamlIdpSpConnectionNameException();
+			return new com.liferay.saml.SamlIdpSpConnectionNameException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.saml.SamlIdpSpConnectionSamlSpEntityIdException")) {
-			return new com.liferay.saml.SamlIdpSpConnectionSamlSpEntityIdException();
+			return new com.liferay.saml.SamlIdpSpConnectionSamlSpEntityIdException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.saml.SamlSpIdpConnectionMetadataUrlException")) {
-			return new com.liferay.saml.SamlSpIdpConnectionMetadataUrlException();
+			return new com.liferay.saml.SamlSpIdpConnectionMetadataUrlException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.saml.SamlSpIdpConnectionMetadataXmlException")) {
-			return new com.liferay.saml.SamlSpIdpConnectionMetadataXmlException();
+			return new com.liferay.saml.SamlSpIdpConnectionMetadataXmlException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.saml.SamlSpIdpConnectionNameException")) {
-			return new com.liferay.saml.SamlSpIdpConnectionNameException();
+			return new com.liferay.saml.SamlSpIdpConnectionNameException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.saml.SamlSpIdpConnectionSamlIdpEntityIdException")) {
-			return new com.liferay.saml.SamlSpIdpConnectionSamlIdpEntityIdException();
+			return new com.liferay.saml.SamlSpIdpConnectionSamlIdpEntityIdException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.saml.SignatureException")) {
-			return new com.liferay.saml.SignatureException();
+			return new com.liferay.saml.SignatureException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.saml.StatusException")) {
-			return new com.liferay.saml.StatusException();
+			return new com.liferay.saml.StatusException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.saml.SubjectException")) {
-			return new com.liferay.saml.SubjectException();
+			return new com.liferay.saml.SubjectException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.saml.UnsolicitedLogoutResponseException")) {
-			return new com.liferay.saml.UnsolicitedLogoutResponseException();
+			return new com.liferay.saml.UnsolicitedLogoutResponseException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.saml.UnsupportedBindingException")) {
-			return new com.liferay.saml.UnsupportedBindingException();
+			return new com.liferay.saml.UnsupportedBindingException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.saml.NoSuchIdpSpConnectionException")) {
-			return new com.liferay.saml.NoSuchIdpSpConnectionException();
+			return new com.liferay.saml.NoSuchIdpSpConnectionException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.saml.NoSuchIdpSpSessionException")) {
-			return new com.liferay.saml.NoSuchIdpSpSessionException();
+			return new com.liferay.saml.NoSuchIdpSpSessionException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.saml.NoSuchIdpSsoSessionException")) {
-			return new com.liferay.saml.NoSuchIdpSsoSessionException();
+			return new com.liferay.saml.NoSuchIdpSsoSessionException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.saml.NoSuchSpAuthRequestException")) {
-			return new com.liferay.saml.NoSuchSpAuthRequestException();
+			return new com.liferay.saml.NoSuchSpAuthRequestException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.saml.NoSuchSpIdpConnectionException")) {
-			return new com.liferay.saml.NoSuchSpIdpConnectionException();
+			return new com.liferay.saml.NoSuchSpIdpConnectionException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.saml.NoSuchSpMessageException")) {
-			return new com.liferay.saml.NoSuchSpMessageException();
+			return new com.liferay.saml.NoSuchSpMessageException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.saml.NoSuchSpSessionException")) {
-			return new com.liferay.saml.NoSuchSpSessionException();
+			return new com.liferay.saml.NoSuchSpSessionException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		return throwable;

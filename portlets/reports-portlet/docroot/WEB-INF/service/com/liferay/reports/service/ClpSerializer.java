@@ -14,8 +14,6 @@
 
 package com.liferay.reports.service;
 
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayOutputStream;
 import com.liferay.portal.kernel.log.Log;
@@ -246,6 +244,13 @@ public class ClpSerializer {
 
 				return throwable;
 			}
+			catch (ClassNotFoundException cnfe) {
+				if (_log.isInfoEnabled()) {
+					_log.info("Do not use reflection to translate throwable");
+				}
+
+				_useReflectionToTranslateThrowable = false;
+			}
 			catch (SecurityException se) {
 				if (_log.isInfoEnabled()) {
 					_log.info("Do not use reflection to translate throwable");
@@ -264,79 +269,87 @@ public class ClpSerializer {
 
 		String className = clazz.getName();
 
-		if (className.equals(PortalException.class.getName())) {
-			return new PortalException();
-		}
-
-		if (className.equals(SystemException.class.getName())) {
-			return new SystemException();
-		}
-
 		if (className.equals("com.liferay.reports.DefinitionFileException")) {
-			return new com.liferay.reports.DefinitionFileException();
+			return new com.liferay.reports.DefinitionFileException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.reports.DefinitionNameException")) {
-			return new com.liferay.reports.DefinitionNameException();
+			return new com.liferay.reports.DefinitionNameException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.reports.EntryEmailDeliveryException")) {
-			return new com.liferay.reports.EntryEmailDeliveryException();
+			return new com.liferay.reports.EntryEmailDeliveryException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.reports.EntryEmailNotificationsException")) {
-			return new com.liferay.reports.EntryEmailNotificationsException();
+			return new com.liferay.reports.EntryEmailNotificationsException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.reports.SourceCharsetException")) {
-			return new com.liferay.reports.SourceCharsetException();
+			return new com.liferay.reports.SourceCharsetException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.reports.SourceColumnNamesException")) {
-			return new com.liferay.reports.SourceColumnNamesException();
+			return new com.liferay.reports.SourceColumnNamesException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.reports.SourceDriverClassNameException")) {
-			return new com.liferay.reports.SourceDriverClassNameException();
+			return new com.liferay.reports.SourceDriverClassNameException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.reports.SourceFileException")) {
-			return new com.liferay.reports.SourceFileException();
+			return new com.liferay.reports.SourceFileException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.reports.SourceJDBCConnectionException")) {
-			return new com.liferay.reports.SourceJDBCConnectionException();
+			return new com.liferay.reports.SourceJDBCConnectionException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.reports.SourceLoginException")) {
-			return new com.liferay.reports.SourceLoginException();
+			return new com.liferay.reports.SourceLoginException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.reports.SourceNameException")) {
-			return new com.liferay.reports.SourceNameException();
+			return new com.liferay.reports.SourceNameException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.reports.SourceTypeException")) {
-			return new com.liferay.reports.SourceTypeException();
+			return new com.liferay.reports.SourceTypeException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.reports.SourceURLException")) {
-			return new com.liferay.reports.SourceURLException();
+			return new com.liferay.reports.SourceURLException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.reports.NoSuchDefinitionException")) {
-			return new com.liferay.reports.NoSuchDefinitionException();
+			return new com.liferay.reports.NoSuchDefinitionException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.reports.NoSuchEntryException")) {
-			return new com.liferay.reports.NoSuchEntryException();
+			return new com.liferay.reports.NoSuchEntryException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.reports.NoSuchSourceException")) {
-			return new com.liferay.reports.NoSuchSourceException();
+			return new com.liferay.reports.NoSuchSourceException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		return throwable;

@@ -14,8 +14,6 @@
 
 package com.liferay.portal.resiliency.spi.service;
 
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayOutputStream;
 import com.liferay.portal.kernel.log.Log;
@@ -206,6 +204,13 @@ public class ClpSerializer {
 
 				return throwable;
 			}
+			catch (ClassNotFoundException cnfe) {
+				if (_log.isInfoEnabled()) {
+					_log.info("Do not use reflection to translate throwable");
+				}
+
+				_useReflectionToTranslateThrowable = false;
+			}
 			catch (SecurityException se) {
 				if (_log.isInfoEnabled()) {
 					_log.info("Do not use reflection to translate throwable");
@@ -224,42 +229,40 @@ public class ClpSerializer {
 
 		String className = clazz.getName();
 
-		if (className.equals(PortalException.class.getName())) {
-			return new PortalException();
-		}
-
-		if (className.equals(SystemException.class.getName())) {
-			return new SystemException();
-		}
-
 		if (className.equals(
 					"com.liferay.portal.resiliency.spi.DuplicateSPIDefinitionException")) {
-			return new com.liferay.portal.resiliency.spi.DuplicateSPIDefinitionException();
+			return new com.liferay.portal.resiliency.spi.DuplicateSPIDefinitionException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.portal.resiliency.spi.DuplicateSPIDefinitionConnectorException")) {
-			return new com.liferay.portal.resiliency.spi.DuplicateSPIDefinitionConnectorException();
+			return new com.liferay.portal.resiliency.spi.DuplicateSPIDefinitionConnectorException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.portal.resiliency.spi.InvalidDatabaseConfigurationException")) {
-			return new com.liferay.portal.resiliency.spi.InvalidDatabaseConfigurationException();
+			return new com.liferay.portal.resiliency.spi.InvalidDatabaseConfigurationException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.portal.resiliency.spi.InvalidSPIDefinitionConnectorException")) {
-			return new com.liferay.portal.resiliency.spi.InvalidSPIDefinitionConnectorException();
+			return new com.liferay.portal.resiliency.spi.InvalidSPIDefinitionConnectorException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.portal.resiliency.spi.SPIDefinitionActiveException")) {
-			return new com.liferay.portal.resiliency.spi.SPIDefinitionActiveException();
+			return new com.liferay.portal.resiliency.spi.SPIDefinitionActiveException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.portal.resiliency.spi.NoSuchDefinitionException")) {
-			return new com.liferay.portal.resiliency.spi.NoSuchDefinitionException();
+			return new com.liferay.portal.resiliency.spi.NoSuchDefinitionException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		return throwable;

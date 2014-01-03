@@ -689,16 +689,13 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 	}
 
 	@Override
-	public java.lang.String getTypeSettingsProperty(java.lang.String key,
-		java.lang.String defaultValue) {
+	public java.lang.String getTypeSettingsProperty(java.lang.String key) {
 		try {
 			String methodName = "getTypeSettingsProperty";
 
-			Class<?>[] parameterTypes = new Class<?>[] {
-					java.lang.String.class, java.lang.String.class
-				};
+			Class<?>[] parameterTypes = new Class<?>[] { java.lang.String.class };
 
-			Object[] parameterValues = new Object[] { key, defaultValue };
+			Object[] parameterValues = new Object[] { key };
 
 			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
 					parameterTypes, parameterValues);
@@ -711,13 +708,16 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 	}
 
 	@Override
-	public java.lang.String getTypeSettingsProperty(java.lang.String key) {
+	public java.lang.String getTypeSettingsProperty(java.lang.String key,
+		java.lang.String defaultValue) {
 		try {
 			String methodName = "getTypeSettingsProperty";
 
-			Class<?>[] parameterTypes = new Class<?>[] { java.lang.String.class };
+			Class<?>[] parameterTypes = new Class<?>[] {
+					java.lang.String.class, java.lang.String.class
+				};
 
-			Object[] parameterValues = new Object[] { key };
+			Object[] parameterValues = new Object[] { key, defaultValue };
 
 			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
 					parameterTypes, parameterValues);

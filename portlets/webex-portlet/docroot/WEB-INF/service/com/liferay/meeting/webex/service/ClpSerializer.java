@@ -17,8 +17,6 @@ package com.liferay.meeting.webex.service;
 import com.liferay.meeting.webex.model.WebExAccountClp;
 import com.liferay.meeting.webex.model.WebExSiteClp;
 
-import com.liferay.portal.kernel.exception.PortalException;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayInputStream;
 import com.liferay.portal.kernel.io.unsync.UnsyncByteArrayOutputStream;
 import com.liferay.portal.kernel.log.Log;
@@ -227,6 +225,13 @@ public class ClpSerializer {
 
 				return throwable;
 			}
+			catch (ClassNotFoundException cnfe) {
+				if (_log.isInfoEnabled()) {
+					_log.info("Do not use reflection to translate throwable");
+				}
+
+				_useReflectionToTranslateThrowable = false;
+			}
 			catch (SecurityException se) {
 				if (_log.isInfoEnabled()) {
 					_log.info("Do not use reflection to translate throwable");
@@ -245,53 +250,54 @@ public class ClpSerializer {
 
 		String className = clazz.getName();
 
-		if (className.equals(PortalException.class.getName())) {
-			return new PortalException();
-		}
-
-		if (className.equals(SystemException.class.getName())) {
-			return new SystemException();
-		}
-
 		if (className.equals(
 					"com.liferay.meeting.webex.WebExAccountLoginException")) {
-			return new com.liferay.meeting.webex.WebExAccountLoginException();
+			return new com.liferay.meeting.webex.WebExAccountLoginException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.meeting.webex.WebExAccountPasswordException")) {
-			return new com.liferay.meeting.webex.WebExAccountPasswordException();
+			return new com.liferay.meeting.webex.WebExAccountPasswordException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.meeting.webex.WebExSiteAPIURLException")) {
-			return new com.liferay.meeting.webex.WebExSiteAPIURLException();
+			return new com.liferay.meeting.webex.WebExSiteAPIURLException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.meeting.webex.WebExSiteKeyException")) {
-			return new com.liferay.meeting.webex.WebExSiteKeyException();
+			return new com.liferay.meeting.webex.WebExSiteKeyException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.meeting.webex.WebExSiteLoginException")) {
-			return new com.liferay.meeting.webex.WebExSiteLoginException();
+			return new com.liferay.meeting.webex.WebExSiteLoginException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.meeting.webex.WebExSiteNameException")) {
-			return new com.liferay.meeting.webex.WebExSiteNameException();
+			return new com.liferay.meeting.webex.WebExSiteNameException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals(
 					"com.liferay.meeting.webex.WebExSitePasswordException")) {
-			return new com.liferay.meeting.webex.WebExSitePasswordException();
+			return new com.liferay.meeting.webex.WebExSitePasswordException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.meeting.webex.NoSuchAccountException")) {
-			return new com.liferay.meeting.webex.NoSuchAccountException();
+			return new com.liferay.meeting.webex.NoSuchAccountException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		if (className.equals("com.liferay.meeting.webex.NoSuchSiteException")) {
-			return new com.liferay.meeting.webex.NoSuchSiteException();
+			return new com.liferay.meeting.webex.NoSuchSiteException(throwable.getMessage(),
+				throwable.getCause());
 		}
 
 		return throwable;
