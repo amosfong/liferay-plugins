@@ -62,6 +62,7 @@ int status = BeanPropertiesUtil.getInteger(spiDefinition, "status", SPIAdminCons
 
 	<liferay-ui:error exception="<%= DuplicateSPIDefinitionConnectorException.class %>" message="please-enter-a-unique-spi-connector-address-and-port" />
 	<liferay-ui:error exception="<%= DuplicateSPIDefinitionException.class %>" message="please-enter-a-unique-spi-name" />
+	<liferay-ui:error exception="<%= InvalidDatabaseConfigurationException.class %>" message="please-do-not-use-jndi-to-configure-database-connection-pools-please-use-portal-properties-instead" />
 	<liferay-ui:error exception="<%= InvalidSPIDefinitionConnectorException.class %>" message="please-enter-a-valid-spi-connector-address-and-port" />
 	<liferay-ui:error exception="<%= SPIDefinitionActiveException.class %>" message="cannot-update-a-running-spi-configuration" />
 

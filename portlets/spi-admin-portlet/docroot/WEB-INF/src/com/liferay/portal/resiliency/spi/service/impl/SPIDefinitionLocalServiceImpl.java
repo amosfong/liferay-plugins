@@ -29,6 +29,8 @@ import com.liferay.portal.kernel.resiliency.spi.remote.SystemPropertiesProcessCa
 import com.liferay.portal.kernel.servlet.ServletContextPool;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PropertiesUtil;
+import com.liferay.portal.kernel.util.PropsKeys;
+import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.kernel.util.SetUtil;
 import com.liferay.portal.kernel.util.StackTraceUtil;
 import com.liferay.portal.kernel.util.StringBundler;
@@ -42,6 +44,7 @@ import com.liferay.portal.model.ResourceConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.resiliency.spi.DuplicateSPIDefinitionConnectorException;
 import com.liferay.portal.resiliency.spi.DuplicateSPIDefinitionException;
+import com.liferay.portal.resiliency.spi.InvalidDatabaseConfigurationException;
 import com.liferay.portal.resiliency.spi.InvalidSPIDefinitionConnectorException;
 import com.liferay.portal.resiliency.spi.SPIDefinitionActiveException;
 import com.liferay.portal.resiliency.spi.backgroundtask.StartSPIBackgroundTaskExecutor;
@@ -89,6 +92,7 @@ public class SPIDefinitionLocalServiceImpl
 		User user = userPersistence.findByPrimaryKey(userId);
 		Date now = new Date();
 
+		validatePortalConfigurations();
 		validateName(user.getCompanyId(), name);
 		validateConnector(connectorAddress, connectorPort);
 
@@ -663,6 +667,12 @@ public class SPIDefinitionLocalServiceImpl
 
 		if (spiDefinition != null) {
 			throw new DuplicateSPIDefinitionException();
+		}
+	}
+
+	protected void validatePortalConfigurations() throws PortalException {
+		if (PropsUtil.contains(PropsKeys.JDBC_DEFAULT_JNDI_NAME)) {
+			throw new InvalidDatabaseConfigurationException();
 		}
 	}
 

@@ -40,6 +40,7 @@ page import="com.liferay.portal.kernel.util.Validator" %><%@
 page import="com.liferay.portal.model.Portlet" %><%@
 page import="com.liferay.portal.resiliency.spi.DuplicateSPIDefinitionConnectorException" %><%@
 page import="com.liferay.portal.resiliency.spi.DuplicateSPIDefinitionException" %><%@
+page import="com.liferay.portal.resiliency.spi.InvalidDatabaseConfigurationException" %><%@
 page import="com.liferay.portal.resiliency.spi.InvalidSPIDefinitionConnectorException" %><%@
 page import="com.liferay.portal.resiliency.spi.SPIDefinitionActiveException" %><%@
 page import="com.liferay.portal.resiliency.spi.model.SPIDefinition" %><%@
