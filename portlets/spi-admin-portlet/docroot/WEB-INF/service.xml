@@ -63,6 +63,7 @@
 	<exceptions>
 		<exception>DuplicateSPIDefinition</exception>
 		<exception>DuplicateSPIDefinitionConnector</exception>
+		<exception>InvalidDatabaseConfiguration</exception>
 		<exception>InvalidSPIDefinitionConnector</exception>
 		<exception>SPIDefinitionActive</exception>
 	</exceptions>
