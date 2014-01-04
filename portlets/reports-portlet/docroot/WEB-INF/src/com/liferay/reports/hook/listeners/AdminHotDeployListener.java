@@ -12,15 +12,17 @@
  * details.
  */
 
-package com.liferay.reports.servlet;
+package com.liferay.reports.hook.listeners;
 
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
+import com.liferay.portal.kernel.deploy.hot.HotDeployEvent;
+import com.liferay.portal.kernel.deploy.hot.HotDeployException;
+import com.liferay.portal.kernel.deploy.hot.HotDeployListener;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.DestinationNames;
 import com.liferay.portal.kernel.scheduler.SchedulerEngineHelperUtil;
 import com.liferay.portal.kernel.scheduler.StorageType;
-import com.liferay.portal.kernel.util.BasePortalLifecycle;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.reports.service.permission.ActionKeys;
 
@@ -28,33 +30,37 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
-
 /**
- * @author Michael C. Han
+ * @author Peter Shin
  */
-public class AdminServletContextListener
-	extends BasePortalLifecycle implements ServletContextListener {
+public class AdminHotDeployListener implements HotDeployListener {
 
 	@Override
-	public void contextDestroyed(ServletContextEvent servletContextEvent) {
-		portalDestroy();
+	public void invokeDeploy(HotDeployEvent event) throws HotDeployException {
+		try {
+			doInvokeDeploy(event);
+		}
+		catch (Throwable t) {
+			throw new HotDeployException(t);
+		}
 	}
 
 	@Override
-	public void contextInitialized(ServletContextEvent servletContextEvent) {
-		registerPortalLifecycle();
+	public void invokeUndeploy(HotDeployEvent event) throws HotDeployException {
+		try {
+			doInvokeUndeploy(event);
+		}
+		catch (Throwable t) {
+			throw new HotDeployException(t);
+		}
 	}
 
-	@Override
-	protected void doPortalDestroy() {
-		processSchedulerRequests("pause");
-	}
-
-	@Override
-	protected void doPortalInit() throws Exception {
+	protected void doInvokeDeploy(HotDeployEvent event) {
 		processSchedulerRequests("resume");
+	}
+
+	protected void doInvokeUndeploy(HotDeployEvent event) {
+		processSchedulerRequests("pause");
 	}
 
 	protected void processSchedulerRequests(String command) {
@@ -101,6 +107,6 @@ public class AdminServletContextListener
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(
-		AdminServletContextListener.class);
+		AdminHotDeployListener.class);
 
 }
