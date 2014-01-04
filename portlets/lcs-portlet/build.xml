@@ -83,7 +83,16 @@
 			<arg value="../../shared/lcs-shared/*" />
 		</exec>
 
-		<delete dir="../osb-lcs-portlet" failonerror="false" includeemptydirs="true" />
-		<delete dir="../../shared/lcs-shared" failonerror="false" includeemptydirs="true" />
+		<delete
+			dir="../osb-lcs-portlet"
+			failonerror="false"
+			includeemptydirs="true"
+		/>
+
+		<delete
+			dir="../../shared/lcs-shared"
+			failonerror="false"
+			includeemptydirs="true"
+		/>
 	</target>
 </project>
