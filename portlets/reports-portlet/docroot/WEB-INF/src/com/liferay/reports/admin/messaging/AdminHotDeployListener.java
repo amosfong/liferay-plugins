@@ -12,15 +12,14 @@
  * details.
  */
 
-package com.liferay.reports.hook.listeners;
+package com.liferay.reports.admin.messaging;
 
 import com.liferay.portal.kernel.dao.jdbc.DataAccess;
-import com.liferay.portal.kernel.deploy.hot.HotDeployEvent;
-import com.liferay.portal.kernel.deploy.hot.HotDeployException;
-import com.liferay.portal.kernel.deploy.hot.HotDeployListener;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.messaging.DestinationNames;
+import com.liferay.portal.kernel.messaging.HotDeployMessageListener;
+import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.scheduler.SchedulerEngineHelperUtil;
 import com.liferay.portal.kernel.scheduler.StorageType;
 import com.liferay.portal.kernel.util.StringPool;
@@ -33,33 +32,19 @@ import java.sql.ResultSet;
 /**
  * @author Peter Shin
  */
-public class AdminHotDeployListener implements HotDeployListener {
+public class AdminHotDeployListener extends HotDeployMessageListener {
 
-	@Override
-	public void invokeDeploy(HotDeployEvent event) throws HotDeployException {
-		try {
-			doInvokeDeploy(event);
-		}
-		catch (Throwable t) {
-			throw new HotDeployException(t);
-		}
+	public AdminHotDeployListener(String... servletContextNames) {
+		super(servletContextNames);
 	}
 
 	@Override
-	public void invokeUndeploy(HotDeployEvent event) throws HotDeployException {
-		try {
-			doInvokeUndeploy(event);
-		}
-		catch (Throwable t) {
-			throw new HotDeployException(t);
-		}
-	}
-
-	protected void doInvokeDeploy(HotDeployEvent event) {
+	protected void onDeploy(Message message) throws Exception {
 		processSchedulerRequests("resume");
 	}
 
-	protected void doInvokeUndeploy(HotDeployEvent event) {
+	@Override
+	protected void onUndeploy(Message message) throws Exception {
 		processSchedulerRequests("pause");
 	}
 

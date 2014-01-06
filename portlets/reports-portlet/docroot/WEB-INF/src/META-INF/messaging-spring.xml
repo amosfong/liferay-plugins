@@ -19,6 +19,13 @@
 
 	<!-- Listeners -->
 
+	<bean id="messageListener.hot_deploy" class="com.liferay.reports.admin.messaging.AdminHotDeployListener">
+		<constructor-arg name="servletContextNames">
+			<array>
+				<bean class="com.liferay.reports.service.ClpSerializer" factory-method="getServletContextName" />
+			</array>
+		</constructor-arg>
+	</bean>
 	<bean id="messageListener.reports_admin" class="com.liferay.reports.messaging.AdminMessageListener" />
 	<bean id="messageListener.reports_scheduler_event" class="com.liferay.portal.kernel.scheduler.messaging.SchedulerEventMessageListenerWrapper">
 		<property name="className" value="com.liferay.reports.messaging.SchedulerEventMessageListener" />
@@ -38,6 +45,11 @@
 		</property>
 		<property name="messageListeners">
 			<map key-type="java.lang.String" value-type="java.util.List">
+				<entry key="liferay/hot_deploy">
+					<list value-type="com.liferay.portal.kernel.messaging.MessageListener">
+						<ref bean="messageListener.hot_deploy" />
+					</list>
+				</entry>
 				<entry key="liferay/reports_admin">
 					<list value-type="com.liferay.portal.kernel.messaging.MessageListener">
 						<ref bean="messageListener.reports_admin" />
