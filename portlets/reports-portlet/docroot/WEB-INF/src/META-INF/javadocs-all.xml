@@ -890,7 +890,7 @@
 	</javadoc>
 	<javadoc>
 		<name>AdminMessageListener</name>
-		<type>com.liferay.reports.messaging.AdminMessageListener</type>
+		<type>com.liferay.reports.admin.messaging.AdminMessageListener</type>
 		<author><![CDATA[Gavin Wan]]></author>
 		<method>
 			<name>doReceive</name>

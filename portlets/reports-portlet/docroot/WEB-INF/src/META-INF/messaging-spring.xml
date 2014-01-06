@@ -26,7 +26,7 @@
 			</array>
 		</constructor-arg>
 	</bean>
-	<bean id="messageListener.reports_admin" class="com.liferay.reports.messaging.AdminMessageListener" />
+	<bean id="messageListener.reports_admin" class="com.liferay.reports.admin.messaging.AdminMessageListener" />
 	<bean id="messageListener.reports_scheduler_event" class="com.liferay.portal.kernel.scheduler.messaging.SchedulerEventMessageListenerWrapper">
 		<property name="className" value="com.liferay.reports.messaging.SchedulerEventMessageListener" />
 		<property name="messageListener">

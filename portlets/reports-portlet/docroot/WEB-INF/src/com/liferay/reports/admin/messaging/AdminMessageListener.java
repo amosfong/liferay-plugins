@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.reports.messaging;
+package com.liferay.reports.admin.messaging;
 
 import com.liferay.portal.kernel.bi.reporting.ReportGenerationException;
 import com.liferay.portal.kernel.bi.reporting.ReportResultContainer;
