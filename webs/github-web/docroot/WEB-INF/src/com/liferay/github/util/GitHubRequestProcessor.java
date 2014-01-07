@@ -60,23 +60,25 @@ public class GitHubRequestProcessor {
 
 		String[] hostnames = _getHostnames(ownerName, repositoryName);
 
+		if (hostnames.length == 0) {
+			System.out.println(
+				"There are no hostnames associated with " + ownerName +
+					" and " + repositoryName);
+		}
+
 		for (String hostname : hostnames) {
 			HttpClient httpClient = new HttpClient();
 
 			String url = "http://" + hostname + ":1220/protected/redeploy.php";
 
-			if (_log.isInfoEnabled()) {
-				_log.info("Invoke URL " + url);
-			}
+			System.out.println("Invoke URL " + url);
 
 			HttpMethod httpMethod = new GetMethod(url);
 
 			try {
 				int responseCode = httpClient.executeMethod(httpMethod);
 
-				if (_log.isInfoEnabled()) {
-					_log.info("Response code " + responseCode);
-				}
+				System.out.println("Response code " + responseCode);
 			}
 			finally {
 				httpMethod.releaseConnection();
