@@ -53,6 +53,8 @@ public class GitHubServlet extends HttpServlet {
 			GitHubRequestProcessor.process(request);
 		}
 		catch (Exception e) {
+			e.printStackTrace();
+
 			_log.error(e, e);
 		}
 	}
