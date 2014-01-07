@@ -52,6 +52,7 @@ public class UsersBuilderTest extends GeneralBuilderTestCase {
 		when(user.getScreenName()).thenReturn("testScreenName");
 
 		List<User> users = new ArrayList<User>();
+
 		users.add(user);
 
 		UserLocalService userLocalService = getMockService(

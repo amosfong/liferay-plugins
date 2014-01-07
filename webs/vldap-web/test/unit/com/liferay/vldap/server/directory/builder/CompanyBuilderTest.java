@@ -61,7 +61,6 @@ public class CompanyBuilderTest extends BaseVLDAPTestCase {
 				"objectclass", "organizationalUnit"));
 		Assert.assertTrue(returnedDirectory.hasAttribute("objectclass", "top"));
 		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "liferay.com"));
-
 	}
 
 	@Test
@@ -76,7 +75,6 @@ public class CompanyBuilderTest extends BaseVLDAPTestCase {
 				"objectclass", "organizationalUnit"));
 		Assert.assertTrue(returnedDirectory.hasAttribute("objectclass", "top"));
 		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "liferay.com"));
-
 	}
 
 	@Test
@@ -97,7 +95,6 @@ public class CompanyBuilderTest extends BaseVLDAPTestCase {
 				"objectclass", "organizationalUnit"));
 		Assert.assertTrue(returnedDirectory.hasAttribute("objectclass", "top"));
 		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "liferay.com"));
-
 	}
 
 	private CompanyBuilder _companyBuilder;

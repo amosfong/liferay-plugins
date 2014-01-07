@@ -64,7 +64,6 @@ public class SambaMachineBuilderTest extends BaseVLDAPTestCase {
 			returnedDirectory.hasAttribute("sambaSID", "S-1-5-21-" + 42l));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute("sambaNextUserRid", "1000"));
-
 	}
 
 	@Test

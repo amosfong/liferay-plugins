@@ -397,7 +397,6 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 			returnedDirectory.hasAttribute("sambaMaxPwdAge", "-1"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute("sambaLockoutDuration", "120"));
-
 	}
 
 	@Test
