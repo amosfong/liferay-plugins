@@ -14,6 +14,8 @@
 
 package com.liferay.github.util;
 
+import java.net.ConnectException;
+
 import java.util.Properties;
 
 import javax.servlet.http.HttpServletRequest;
@@ -79,6 +81,11 @@ public class GitHubRequestProcessor {
 				int responseCode = httpClient.executeMethod(httpMethod);
 
 				System.out.println("Response code " + responseCode);
+			}
+			catch (ConnectException ce) {
+				System.out.println("Unable to connect to " + hostname);
+
+				continue;
 			}
 			finally {
 				httpMethod.releaseConnection();
