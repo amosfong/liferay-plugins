@@ -63,9 +63,11 @@ public class GitHubRequestProcessor {
 		String[] hostnames = _getHostnames(ownerName, repositoryName);
 
 		if (hostnames.length == 0) {
-			System.out.println(
-				"There are no hostnames associated with " + ownerName +
-					" and " + repositoryName);
+			if (_log.isInfoEnabled()) {
+				_log.info(
+					"There are no hostnames associated with " + ownerName +
+						" and " + repositoryName);
+			}
 		}
 
 		for (String hostname : hostnames) {
@@ -73,17 +75,23 @@ public class GitHubRequestProcessor {
 
 			String url = "http://" + hostname + ":1220/protected/redeploy.php";
 
-			System.out.println("Invoke URL " + url);
+			if (_log.isInfoEnabled()) {
+				_log.info("Invoke URL " + url);
+			}
 
 			HttpMethod httpMethod = new GetMethod(url);
 
 			try {
 				int responseCode = httpClient.executeMethod(httpMethod);
 
-				System.out.println("Response code " + responseCode);
+				if (_log.isInfoEnabled()) {
+					_log.info("Response code " + responseCode);
+				}
 			}
 			catch (ConnectException ce) {
-				System.out.println("Unable to connect to " + hostname);
+				if (_log.isInfoEnabled()) {
+					_log.info("Unable to connect to " + hostname);
+				}
 
 				continue;
 			}

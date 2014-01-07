@@ -41,7 +41,9 @@ public class GitHubServlet extends HttpServlet {
 
 		String remoteAddr = request.getRemoteAddr();
 
-		System.out.println("Remote address: " + remoteAddr);
+		if (_log.isInfoEnabled()) {
+			_log.info("Remote address: " + remoteAddr);
+		}
 
 		if (!isValidIP(remoteAddr)) {
 			sendError(response, "IP " + remoteAddr + " is invalid.");
@@ -53,8 +55,6 @@ public class GitHubServlet extends HttpServlet {
 			GitHubRequestProcessor.process(request);
 		}
 		catch (Exception e) {
-			e.printStackTrace();
-
 			_log.error(e, e);
 		}
 	}
