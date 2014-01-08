@@ -142,7 +142,7 @@ public class SamlUtil {
 			requestURI = requestURI.substring(contextPath.length());
 		}
 
-		return HttpUtil.removePathParamters(requestURI);
+		return HttpUtil.removeParameters(requestURI);
 	}
 
 	public static SingleLogoutService getSingleLogoutServiceForBinding(
