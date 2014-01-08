@@ -14,7 +14,7 @@
 
 package com.liferay.saml.util;
 
-import com.liferay.portal.kernel.util.HttpUtil;
+import com.liferay.compat.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 
@@ -142,7 +142,7 @@ public class SamlUtil {
 			requestURI = requestURI.substring(contextPath.length());
 		}
 
-		return HttpUtil.removeParameters(requestURI);
+		return HttpUtil.removePathParameters(requestURI);
 	}
 
 	public static SingleLogoutService getSingleLogoutServiceForBinding(
