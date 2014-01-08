@@ -37,6 +37,13 @@ public class ReinitializingHttpMetadataProvider extends HTTPMetadataProvider {
 	}
 
 	@Override
+	public synchronized void destroy() {
+		super.destroy();
+
+		_timer.cancel();
+	}
+
+	@Override
 	public synchronized void initialize() throws MetadataProviderException {
 		try {
 			super.initialize();

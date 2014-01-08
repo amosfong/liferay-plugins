@@ -80,4 +80,6 @@ public interface MetadataManager {
 
 	public boolean isWantAuthnRequestSigned();
 
+	public void shutdown();
+
 }

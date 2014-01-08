@@ -56,6 +56,7 @@ import org.opensaml.saml2.binding.security.SAML2HTTPPostSimpleSignRule;
 import org.opensaml.saml2.binding.security.SAML2HTTPRedirectDeflateSignatureRule;
 import org.opensaml.saml2.core.NameIDType;
 import org.opensaml.saml2.metadata.EntityDescriptor;
+import org.opensaml.saml2.metadata.provider.BaseMetadataProvider;
 import org.opensaml.saml2.metadata.provider.FilesystemMetadataProvider;
 import org.opensaml.saml2.metadata.provider.HTTPMetadataProvider;
 import org.opensaml.saml2.metadata.provider.MetadataProvider;
@@ -604,6 +605,20 @@ public class MetadataManagerImpl implements MetadataManager {
 
 	public void setParserPool(ParserPool parserPool) {
 		_parserPool = parserPool;
+	}
+
+	public void shutdown() {
+		for (MetadataProvider provider : _metadataProviders.values()) {
+			if (provider instanceof BaseMetadataProvider) {
+				BaseMetadataProvider baseMetadataProvider =
+					(BaseMetadataProvider)provider;
+
+				baseMetadataProvider.destroy();
+			}
+		}
+
+		_metadataProviders.clear();
+		_timer.cancel();
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(MetadataManagerImpl.class);
