@@ -55,31 +55,6 @@ import org.w3c.dom.Element;
  */
 public class CachingChainingMetadataProvider extends BaseMetadataProvider {
 
-	@Override
-	public synchronized void destroy() {
-		Lock lock = _readWriteLock.writeLock();
-
-		lock.lock();
-
-		try {
-			_metadataProvidersMap.clear();
-
-			for (MetadataProvider provider : _metadataProviders) {
-				if (provider instanceof BaseMetadataProvider) {
-					BaseMetadataProvider baseMetadataProvider =
-						(BaseMetadataProvider)provider;
-
-					baseMetadataProvider.destroy();
-				}
-			}
-
-			_metadataProviders.clear();
-		}
-		finally {
-			lock.unlock();
-		}
-	}
-
 	public void addMetadataProvider(MetadataProvider metadataProvider) {
 		Lock lock = _readWriteLock.writeLock();
 
@@ -92,6 +67,31 @@ public class CachingChainingMetadataProvider extends BaseMetadataProvider {
 
 				_metadataProviders.add(metadataProvider);
 			}
+		}
+		finally {
+			lock.unlock();
+		}
+	}
+
+	@Override
+	public synchronized void destroy() {
+		Lock lock = _readWriteLock.writeLock();
+
+		lock.lock();
+
+		try {
+			_metadataProvidersMap.clear();
+
+			for (MetadataProvider metadataProvider : _metadataProviders) {
+				if (metadataProvider instanceof BaseMetadataProvider) {
+					BaseMetadataProvider baseMetadataProvider =
+						(BaseMetadataProvider)metadataProvider;
+
+					baseMetadataProvider.destroy();
+				}
+			}
+
+			_metadataProviders.clear();
 		}
 		finally {
 			lock.unlock();

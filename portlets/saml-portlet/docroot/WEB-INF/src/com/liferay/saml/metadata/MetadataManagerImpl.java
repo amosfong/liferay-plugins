@@ -608,10 +608,10 @@ public class MetadataManagerImpl implements MetadataManager {
 	}
 
 	public void shutdown() {
-		for (MetadataProvider provider : _metadataProviders.values()) {
-			if (provider instanceof BaseMetadataProvider) {
+		for (MetadataProvider metadataProvider : _metadataProviders.values()) {
+			if (metadataProvider instanceof BaseMetadataProvider) {
 				BaseMetadataProvider baseMetadataProvider =
-					(BaseMetadataProvider)provider;
+					(BaseMetadataProvider)metadataProvider;
 
 				baseMetadataProvider.destroy();
 			}

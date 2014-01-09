@@ -15,7 +15,6 @@
 package com.liferay.saml.servlet;
 
 import com.liferay.portal.kernel.util.BasePortalLifecycle;
-import com.liferay.saml.metadata.MetadataManagerUtil;
 import com.liferay.saml.util.OpenSamlBootstrap;
 
 import javax.servlet.ServletContextEvent;
