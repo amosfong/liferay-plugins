@@ -638,8 +638,19 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	@Override
+	public void deleteBaseDir() {
+		_spiDefinition.deleteBaseDir();
+	}
+
+	@Override
 	public java.lang.String getAgentClassName() {
 		return _spiDefinition.getAgentClassName();
+	}
+
+	@Override
+	public java.lang.String getBaseDir()
+		throws com.liferay.portal.kernel.exception.SystemException {
+		return _spiDefinition.getBaseDir();
 	}
 
 	@Override

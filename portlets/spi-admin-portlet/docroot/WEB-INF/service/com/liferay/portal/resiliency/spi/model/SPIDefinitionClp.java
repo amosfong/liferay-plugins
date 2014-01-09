@@ -613,6 +613,25 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 	}
 
 	@Override
+	public java.lang.String getBaseDir() {
+		try {
+			String methodName = "getBaseDir";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
 	public com.liferay.portal.kernel.resiliency.spi.SPI getSPI() {
 		try {
 			String methodName = "getSPI";
@@ -644,6 +663,22 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 					parameterTypes, parameterValues);
 
 			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public void deleteBaseDir() {
+		try {
+			String methodName = "deleteBaseDir";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			invokeOnRemoteModel(methodName, parameterTypes, parameterValues);
 		}
 		catch (Exception e) {
 			throw new UnsupportedOperationException(e);
@@ -689,13 +724,16 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 	}
 
 	@Override
-	public java.lang.String getTypeSettingsProperty(java.lang.String key) {
+	public java.lang.String getTypeSettingsProperty(java.lang.String key,
+		java.lang.String defaultValue) {
 		try {
 			String methodName = "getTypeSettingsProperty";
 
-			Class<?>[] parameterTypes = new Class<?>[] { java.lang.String.class };
+			Class<?>[] parameterTypes = new Class<?>[] {
+					java.lang.String.class, java.lang.String.class
+				};
 
-			Object[] parameterValues = new Object[] { key };
+			Object[] parameterValues = new Object[] { key, defaultValue };
 
 			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
 					parameterTypes, parameterValues);
@@ -708,16 +746,13 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 	}
 
 	@Override
-	public java.lang.String getTypeSettingsProperty(java.lang.String key,
-		java.lang.String defaultValue) {
+	public java.lang.String getTypeSettingsProperty(java.lang.String key) {
 		try {
 			String methodName = "getTypeSettingsProperty";
 
-			Class<?>[] parameterTypes = new Class<?>[] {
-					java.lang.String.class, java.lang.String.class
-				};
+			Class<?>[] parameterTypes = new Class<?>[] { java.lang.String.class };
 
-			Object[] parameterValues = new Object[] { key, defaultValue };
+			Object[] parameterValues = new Object[] { key };
 
 			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
 					parameterTypes, parameterValues);
