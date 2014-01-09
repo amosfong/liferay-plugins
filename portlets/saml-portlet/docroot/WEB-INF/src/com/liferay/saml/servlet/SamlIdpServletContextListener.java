@@ -39,7 +39,6 @@ public class SamlIdpServletContextListener
 
 	@Override
 	protected void doPortalDestroy() throws Exception {
-		MetadataManagerUtil.shutdown();
 	}
 
 	@Override

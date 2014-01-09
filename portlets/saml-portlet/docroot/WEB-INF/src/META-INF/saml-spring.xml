@@ -28,7 +28,7 @@
 
 	<!-- Metadata -->
 
-	<bean id="com.liferay.saml.metadata.MetadataManager" class="com.liferay.saml.metadata.MetadataManagerImpl">
+	<bean id="com.liferay.saml.metadata.MetadataManager" class="com.liferay.saml.metadata.MetadataManagerImpl" destroy-method="shutdown">
 		<property name="credentialResolver" ref="org.opensaml.xml.security.credential.CredentialResolver" />
 		<property name="httpClient" ref="org.apache.commons.httpclient.HttpClient" />
 		<property name="parserPool" ref="org.opensaml.xml.parse.ParserPool" />

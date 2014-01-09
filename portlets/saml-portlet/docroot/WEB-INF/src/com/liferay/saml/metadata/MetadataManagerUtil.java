@@ -140,10 +140,6 @@ public class MetadataManagerUtil {
 		_metadataManager = metadataManager;
 	}
 
-	public static void shutdown() {
-		getMetadataManager().shutdown();
-	}
-
 	private static MetadataManager _metadataManager;
 
 }
