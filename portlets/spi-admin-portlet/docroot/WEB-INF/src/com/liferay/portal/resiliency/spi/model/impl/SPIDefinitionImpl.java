@@ -21,7 +21,6 @@ import com.liferay.portal.kernel.resiliency.mpi.MPIHelperUtil;
 import com.liferay.portal.kernel.resiliency.spi.SPI;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.resiliency.spi.util.SPIAdminConstants;
 import com.liferay.portal.resiliency.spi.util.SPIConfigurationTemplate;
@@ -37,11 +36,11 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 
 	@Override
 	public void deleteBaseDir() {
-		String baseDir = getBaseDirName();
+		String baseDirName = getBaseDirName();
 
-		File baseDirFile = new File(baseDir);
+		File baseDir = new File(baseDirName);
 
-		FileUtil.deltree(baseDirFile);
+		FileUtil.deltree(baseDir);
 	}
 
 	@Override
@@ -52,18 +51,18 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 
 	@Override
 	public String getBaseDir() throws SystemException {
-		String baseDir = getBaseDirName();
+		String baseDirName = getBaseDirName();
 
-		File baseDirFile = new File(baseDir);
+		File baseDir = new File(baseDirName);
 
-		FileUtil.deltree(baseDirFile);
+		FileUtil.deltree(baseDir);
 
-		if (!baseDirFile.mkdir()) {
+		if (!baseDir.mkdir()) {
 			throw new SystemException(
-				"Unable to create base directory: " + baseDir);
+				"Unable to create base directory " + baseDirName);
 		}
 
-		return baseDir;
+		return baseDirName;
 	}
 
 	@Override
@@ -189,13 +188,8 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 	}
 
 	protected String getBaseDirName() {
-		StringBundler sb = new StringBundler(3);
-
-		sb.append(System.getProperty("java.io.tmpdir"));
-		sb.append(File.separator);
-		sb.append(getSpiDefinitionId());
-
-		return sb.toString();
+		return System.getProperty("java.io.tmpdir") + File.separator +
+			getSpiDefinitionId();
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(SPIDefinitionImpl.class);

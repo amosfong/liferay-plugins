@@ -511,14 +511,13 @@ public class SPIDefinitionLocalServiceImpl
 	}
 
 	protected String getExtraSettings(SPIDefinition spiDefinition) {
-		StringBundler sb = new StringBundler(6);
+		StringBundler sb = new StringBundler(5);
 
 		sb.append("maxThreads=");
 		sb.append(String.valueOf(spiDefinition.getMaxThreads()));
 		sb.append("\n");
 		sb.append("minThreads=");
 		sb.append(String.valueOf(spiDefinition.getMinThreads()));
-		sb.append("\n");
 
 		return sb.toString();
 	}
