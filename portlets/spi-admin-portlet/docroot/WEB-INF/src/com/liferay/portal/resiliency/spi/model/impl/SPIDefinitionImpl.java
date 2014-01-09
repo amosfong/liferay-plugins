@@ -14,14 +14,19 @@
 
 package com.liferay.portal.resiliency.spi.model.impl;
 
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.resiliency.mpi.MPIHelperUtil;
 import com.liferay.portal.kernel.resiliency.spi.SPI;
+import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.resiliency.spi.util.SPIAdminConstants;
 import com.liferay.portal.resiliency.spi.util.SPIConfigurationTemplate;
+
+import java.io.File;
 
 import java.rmi.RemoteException;
 
@@ -31,9 +36,34 @@ import java.rmi.RemoteException;
 public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 
 	@Override
+	public void deleteBaseDir() {
+		String baseDir = getBaseDirName();
+
+		File baseDirFile = new File(baseDir);
+
+		FileUtil.deltree(baseDirFile);
+	}
+
+	@Override
 	public String getAgentClassName() {
 		return GetterUtil.getString(
 			getTypeSettingsProperty("agent-class-name"));
+	}
+
+	@Override
+	public String getBaseDir() throws SystemException {
+		String baseDir = getBaseDirName();
+
+		File baseDirFile = new File(baseDir);
+
+		FileUtil.deltree(baseDirFile);
+
+		if (!baseDirFile.mkdir()) {
+			throw new SystemException(
+				"Unable to create base directory: " + baseDir);
+		}
+
+		return baseDir;
 	}
 
 	@Override
@@ -156,6 +186,16 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 		_typeSettingsProperties = typeSettingsProperties;
 
 		super.setTypeSettings(_typeSettingsProperties.toString());
+	}
+
+	protected String getBaseDirName() {
+		StringBundler sb = new StringBundler(3);
+
+		sb.append(System.getProperty("java.io.tmpdir"));
+		sb.append(File.separator);
+		sb.append(getSpiDefinitionId());
+
+		return sb.toString();
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(SPIDefinitionImpl.class);

@@ -55,6 +55,8 @@ public class SPIDefinitionMonitorImpl implements SPIDefinitionMonitor {
 					continue;
 				}
 
+				spiDefinition.deleteBaseDir();
+
 				Message message = new Message();
 
 				message.put(

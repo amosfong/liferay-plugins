@@ -364,6 +364,8 @@ public class SPIDefinitionLocalServiceImpl
 
 			spi.destroy();
 
+			spiDefinition.deleteBaseDir();
+
 			spiDefinition.setStatusMessage(null);
 		}
 		catch (RemoteException e) {
@@ -484,7 +486,7 @@ public class SPIDefinitionLocalServiceImpl
 	}
 
 	protected SPI createSPI(SPIDefinition spiDefinition)
-		throws PortalException {
+		throws PortalException, SystemException {
 
 		SPIProvider spiProvider = MPIHelperUtil.getSPIProvider(
 			SPIConfigurationTemplate.getSPIProviderName());
@@ -493,12 +495,12 @@ public class SPIDefinitionLocalServiceImpl
 			String.valueOf(spiDefinition.getSpiDefinitionId()),
 			spiDefinition.getJavaExecutable(), spiDefinition.getJvmArguments(),
 			spiDefinition.getAgentClassName(), spiDefinition.getConnectorPort(),
-			PortalUtil.getPathContext(),
+			spiDefinition.getBaseDir(),
 			StringUtil.split(spiDefinition.getPortletIds()),
 			StringUtil.split(spiDefinition.getServletContextNames()),
 			spiDefinition.getPingInterval(), spiDefinition.getRegisterTimeout(),
 			spiDefinition.getShutdownTimeout(),
-			spiDefinition.getTypeSettings());
+			getExtraSettings(spiDefinition));
 
 		try {
 			return spiProvider.createSPI(spiConfiguration);
@@ -506,6 +508,19 @@ public class SPIDefinitionLocalServiceImpl
 		catch (PortalResiliencyException pre) {
 			throw new PortalException(pre);
 		}
+	}
+
+	protected String getExtraSettings(SPIDefinition spiDefinition) {
+		StringBundler sb = new StringBundler(6);
+
+		sb.append("maxThreads=");
+		sb.append(String.valueOf(spiDefinition.getMaxThreads()));
+		sb.append("\n");
+		sb.append("minThreads=");
+		sb.append(String.valueOf(spiDefinition.getMinThreads()));
+		sb.append("\n");
+
+		return sb.toString();
 	}
 
 	protected Tuple getPortletIdsAndServletContextNames(
@@ -608,10 +623,10 @@ public class SPIDefinitionLocalServiceImpl
 			jvmArguments = SPIConfigurationTemplate.getJVMArguments();
 		}
 
-		if (!jvmArguments.contains("-Duser.timeZone=")) {
+		if (!jvmArguments.contains("-Duser.timezone=")) {
 			TimeZone jvmDefaultTimeZone = TimeZone.getDefault();
 
-			jvmArguments = jvmArguments.concat(" -Duser.timeZone=").concat(
+			jvmArguments = jvmArguments.concat(" -Duser.timezone=").concat(
 				jvmDefaultTimeZone.getID());
 		}
 
