@@ -54,7 +54,7 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 
 	<h4><liferay-ui:message key="server" /></h4>
 
-	<dl>
+	<dl class="lcs-server-details">
 		<dt>
 			<liferay-ui:message key="name" />
 		</dt>
@@ -103,7 +103,7 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 	</c:if>
 
 	<aui:button-row>
-		<aui:button name="cloudDashboard" primary="<%= true %>" value="cloud-dashboard" />
+		<aui:button cssClass="btn-info" name="cloudDashboard" value="cloud-dashboard" />
 	</aui:button-row>
 </div>
 
@@ -185,31 +185,31 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 
 		<aui:button-row>
 			<c:if test="<%= !pending && !HandshakeManagerUtil.isReady() %>">
-				<liferay-portlet:actionURL name="start" var="startURL">
+				<liferay-portlet:actionURL name="start" var="connectURL">
 					<portlet:param name="redirect" value="<%= currentURL %>" />
 				</liferay-portlet:actionURL>
 
-				<aui:button href="<%= startURL %>" type="submit" value="start" />
+				<aui:button cssClass="btn-success" href="<%= connectURL %>" title='<%= LanguageUtil.get(pageContext, "connect-help") %>' value="connect" />
 			</c:if>
 
 			<c:if test="<%= !pending && HandshakeManagerUtil.isReady() %>">
-				<liferay-portlet:actionURL name="stop" var="stopURL">
+				<liferay-portlet:actionURL name="stop" var="disconnectURL">
 					<portlet:param name="redirect" value="<%= currentURL %>" />
 				</liferay-portlet:actionURL>
 
-				<aui:button href="<%= stopURL %>" type="submit" value="stop" />
+				<aui:button cssClass="btn-warning" href="<%= disconnectURL %>" title='<%= LanguageUtil.get(pageContext, "disconnect-help") %>' value="disconnect" />
 			</c:if>
 
 			<liferay-portlet:actionURL name="resetCredentials" var="resetCredentialsURL">
 				<portlet:param name="redirect" value="<%= currentURL %>" />
 			</liferay-portlet:actionURL>
 
-			<aui:button cssClass="btn-reset-credentials" href="<%= resetCredentialsURL %>" type="submit" value="reset-credentials" />
+			<aui:button cssClass="btn-danger" href="<%= resetCredentialsURL %>" title='<%= LanguageUtil.get(pageContext, "reset-credentials-help") %>' value="reset-credentials" />
 		</aui:button-row>
 	</c:if>
 </div>
 
-<aui:script use="aui-base">
+<aui:script use="aui-tooltip">
 
 	<%
 	String lcsPortalURL = "http://" + PortletProps.get("osb.lcs.portlet.host.name");
@@ -233,4 +233,11 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 			}
 		);
 	}
+
+	new A.TooltipDelegate(
+		{
+			trigger: '.lcs-connection-status button',
+			zIndex: 1
+		}
+	).render();
 </aui:script>

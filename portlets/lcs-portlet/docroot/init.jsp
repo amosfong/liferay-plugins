@@ -36,6 +36,7 @@ page import="com.liferay.osb.lcs.service.LCSClusterEntryServiceUtil" %><%@
 page import="com.liferay.osb.lcs.service.LCSClusterNodeServiceUtil" %><%@
 page import="com.liferay.portal.kernel.cluster.ClusterExecutorUtil" %><%@
 page import="com.liferay.portal.kernel.cluster.ClusterNode" %><%@
+page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
 page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %><%@
 page import="com.liferay.portal.kernel.util.FastDateFormatFactoryUtil" %><%@
 page import="com.liferay.portal.kernel.util.GetterUtil" %><%@

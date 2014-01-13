@@ -28,10 +28,6 @@
 		width: auto;
 	}
 
-	.btn-reset-credentials {
-		background-color: #E50000;
-	}
-
 	.environment-section {
 		.field-content {
 			margin-bottom: 0;
@@ -106,6 +102,10 @@
 		margin: 0 50px 20px 0;
 		max-width: 300px;
 		word-wrap: break-word;
+
+		.lcs-server-details {
+			margin-left: 10px;
+		}
 	}
 
 	.lcs-registration-info {
@@ -124,10 +124,6 @@
 
 /* ---------- Extras ---------- */
 
-.btn-reset-credentials {
-	@include background-image(linear-gradient(to bottom, #F00, #E50000));
-}
-
-.lcs-helper-message.disabled {
+#lcsMainContainer .lcs-helper-message.disabled {
 	@include opacity(0.5);
 }
