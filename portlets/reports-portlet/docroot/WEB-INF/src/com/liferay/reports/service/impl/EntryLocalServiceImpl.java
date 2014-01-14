@@ -547,7 +547,9 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 
 		SubscriptionSender subscriptionSender = new SubscriptionSender();
 
-		subscriptionSender.addFileAttachment(file, reportName);
+		if (!notification) {
+			subscriptionSender.addFileAttachment(file, reportName);
+		}
 
 		subscriptionSender.setBody(body);
 		subscriptionSender.setCompanyId(entry.getCompanyId());
