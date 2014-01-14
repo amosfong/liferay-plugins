@@ -14,6 +14,8 @@
 
 package com.liferay.testoauth.messaging;
 
+import com.liferay.compat.portal.kernel.util.HttpUtil;
+import com.liferay.compat.portal.kernel.util.StringUtil;
 import com.liferay.compat.portal.util.PortalUtil;
 import com.liferay.opensocial.model.Gadget;
 import com.liferay.opensocial.service.GadgetLocalServiceUtil;
@@ -24,10 +26,8 @@ import com.liferay.portal.kernel.repository.model.Folder;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
-import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.User;
@@ -172,12 +172,12 @@ public class TestOAuthHotDeployMessageListener
 					"[$PORTAL_URL$]", "[$REPOSITORY_ID$]", "[$REQUEST_URL$]"
 				},
 				new String[] {
-					PortletPropsValues.OAUTH_ACCESS_TOKEN,
-					PortletPropsValues.OAUTH_AUTHORIZE,
+					PortletPropsValues.OAUTH_ACCESS_TOKEN_URI,
+					PortletPropsValues.OAUTH_AUTHORIZE_URI,
 					String.valueOf(gadgetEditorRootFolder.getFolderId()),
 					PortletPropsValues.PORTAL_URL,
 					String.valueOf(group.getGroupId()),
-					PortletPropsValues.OAUTH_REQUEST_TOKEN
+					PortletPropsValues.OAUTH_REQUEST_TOKEN_URI
 				}
 			);
 
