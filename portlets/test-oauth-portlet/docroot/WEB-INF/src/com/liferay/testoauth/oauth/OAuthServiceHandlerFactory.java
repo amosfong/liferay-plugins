@@ -61,6 +61,7 @@ public class OAuthServiceHandlerFactory {
 		}
 
 		oAuthServiceHandlerBase.setAuthorizeURL(authorizeURL);
+
 		oAuthServiceHandlerBase.setRequestURL(requestURL);
 
 		_oAuthServiceHandlers.put(cacheKey, oAuthServiceHandlerBase);
@@ -73,11 +74,24 @@ public class OAuthServiceHandlerFactory {
 			String requestURL)
 		throws PortalException {
 
-		if (Validator.isNull(key) || Validator.isNull(secret) ||
-			Validator.isNull(accessURL) || Validator.isNull(authorizeURL) ||
-			Validator.isNull(requestURL)) {
+		if (Validator.isNull(key)) {
+			throw new PortalException("Key is null");
+		}
 
-			throw new PortalException("Provided init parameters not valid.");
+		if (Validator.isNull(secret)) {
+			throw new PortalException("Secret is null");
+		}
+
+		if (Validator.isNull(accessURL)) {
+			throw new PortalException("Access URL is null");
+		}
+
+		if (Validator.isNull(authorizeURL)) {
+			throw new PortalException("Authorize URL is null");
+		}
+
+		if (Validator.isNull(requestURL)) {
+			throw new PortalException("Request URL is null");
 		}
 	}
 

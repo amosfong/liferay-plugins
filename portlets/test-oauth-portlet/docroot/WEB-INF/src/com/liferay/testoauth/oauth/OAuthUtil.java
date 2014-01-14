@@ -78,17 +78,15 @@ public class OAuthUtil {
 		String requestURL = buildURL(
 			hostName, Integer.parseInt(hostPort), "http", requestURI);
 
-		OAuthServiceHandler oAuthServiceHandler = null;
-
 		try {
-			oAuthServiceHandler = OAuthServiceHandlerFactory.getInstance(
+			return OAuthServiceHandlerFactory.getInstance(
 				key, secret, accessURL, authorizeURL, requestURL, callbackURL);
 		}
 		catch (PortalException pe) {
-			_log.error(pe);
-		}
+			_log.error(pe, pe);
 
-		return oAuthServiceHandler;
+			return null;
+		}
 	}
 
 	public static int getOAuthStatus(PortletPreferences portletPreferences) {

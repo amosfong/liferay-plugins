@@ -48,7 +48,7 @@ public class OAuthServiceHandlerImpl implements OAuthServiceHandler {
 	@Override
 	public String getAuthorizeURL(Token requestToken, String callbackURL) {
 		if (requestToken == null) {
-			_log.error("Request token parameter should not be null.");
+			_log.error("Request token parameter is null");
 
 			return null;
 		}
