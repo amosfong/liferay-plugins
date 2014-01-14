@@ -24,8 +24,8 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
-import com.liferay.portal.kernel.patcher.PatcherUtil;
 import com.liferay.portal.kernel.util.FileUtil;
+import com.liferay.portal.patcher.PatcherUtil;
 
 import java.io.BufferedInputStream;
 import java.io.File;

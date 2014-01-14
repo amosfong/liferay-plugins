@@ -22,11 +22,11 @@ import com.liferay.lcs.util.ResponseCommandMessageUtil;
 import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.portal.kernel.patcher.PatcherUtil;
 import com.liferay.portal.kernel.util.Digester;
 import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.ListUtil;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.patcher.PatcherUtil;
 
 import java.util.Arrays;
 import java.util.HashMap;

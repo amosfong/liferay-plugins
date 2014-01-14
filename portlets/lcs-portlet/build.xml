@@ -4,7 +4,7 @@
 <project name="lcs-portlet" basedir="." default="deploy">
 	<import file="../build-common-portlet.xml" />
 
-	<property name="import.shared" value="lcs-shared" />
+	<property name="import.shared" value="lcs-shared,portal-patcher-shared" />
 
 	<target name="checkout-dependencies">
 		<exec executable="git">
