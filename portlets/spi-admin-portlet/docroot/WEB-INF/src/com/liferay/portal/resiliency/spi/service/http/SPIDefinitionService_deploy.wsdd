@@ -2,7 +2,7 @@
 
 <deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
 	<service name="Plugin_SPI_SPIDefinitionService" provider="java:RPC" style="rpc" use="encoded">
-		<arrayMapping xmlns:ns="urn:http.service.spi.resiliency.portal.liferay.com" xmlns:cmp-ns="http://model.spi.resiliency.portal.liferay.com" qname="ns:ArrayOf_tns2_SPIDefinitionSoap" type="java:com.liferay.portal.resiliency.spi.model.SPIDefinitionSoap[]" innerType="cmp-ns:SPIDefinitionSoap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
+		<arrayMapping xmlns:ns="urn:http.service.spi.resiliency.portal.liferay.com" xmlns:cmp-ns="http://model.spi.resiliency.portal.liferay.com" qname="ns:ArrayOf_tns13_SPIDefinitionSoap" type="java:com.liferay.portal.resiliency.spi.model.SPIDefinitionSoap[]" innerType="cmp-ns:SPIDefinitionSoap" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
 		<arrayMapping xmlns:ns="urn:http.service.spi.resiliency.portal.liferay.com" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_anyType" type="java:java.lang.Object[]" innerType="cmp-ns:anyType" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
 		<arrayMapping xmlns:ns="urn:http.service.spi.resiliency.portal.liferay.com" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_long" type="java:long[]" innerType="cmp-ns:long" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
 		<arrayMapping xmlns:ns="urn:http.service.spi.resiliency.portal.liferay.com" xmlns:cmp-ns="http://www.w3.org/2001/XMLSchema" qname="ns:ArrayOf_xsd_string" type="java:java.lang.String[]" innerType="cmp-ns:string" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"></arrayMapping>
@@ -35,7 +35,7 @@
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="companyId" type="tns:long"></parameter>
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="name" type="tns:string"></parameter>
 		</operation>
-		<operation xmlns:operNS="urn:http.service.spi.resiliency.portal.liferay.com" xmlns:rtns="urn:http.service.spi.resiliency.portal.liferay.com" xmlns:tns2="http://model.spi.resiliency.portal.liferay.com" name="getSPIDefinitions" qname="operNS:getSPIDefinitions" returnQName="getSPIDefinitionsReturn" returnType="rtns:ArrayOf_tns2_SPIDefinitionSoap" returnItemType="tns2:SPIDefinitionSoap" soapAction=""> </operation>
+		<operation xmlns:operNS="urn:http.service.spi.resiliency.portal.liferay.com" xmlns:rtns="urn:http.service.spi.resiliency.portal.liferay.com" xmlns:tns2="http://model.spi.resiliency.portal.liferay.com" name="getSPIDefinitions" qname="operNS:getSPIDefinitions" returnQName="getSPIDefinitionsReturn" returnType="rtns:ArrayOf_tns13_SPIDefinitionSoap" returnItemType="tns2:SPIDefinitionSoap" soapAction=""> </operation>
 		<operation xmlns:operNS="urn:http.service.spi.resiliency.portal.liferay.com" name="startSPI" qname="operNS:startSPI" soapAction="">
 			<parameter xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="spiDefinitionId" type="tns:long"></parameter>
 		</operation>
