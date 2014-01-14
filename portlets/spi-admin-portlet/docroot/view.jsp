@@ -50,7 +50,7 @@ List<SPIDefinition> spiDefinitions = SPIDefinitionServiceUtil.getSPIDefinitions(
 			cssClass="spi-status-column"
 			name="status"
 		>
-			<strong class="label <%= SPIAdminConstants.getStatusCssClass(spiDefinition.getStatus()) %>">
+			<strong class="label <%= SPIAdminConstants.getStatusCssClass(spiDefinition.getStatus()) %>" data-id="<%= String.valueOf(spiDefinition.getSpiDefinitionId()) %>">
 				<liferay-ui:message key="<%= spiDefinition.getStatusLabel() %>" />
 			</strong>
 
@@ -93,3 +93,11 @@ List<SPIDefinition> spiDefinitions = SPIDefinitionServiceUtil.getSPIDefinitions(
 
 	<liferay-ui:search-iterator />
 </liferay-ui:search-container>
+
+<aui:script use="liferay-spi-definition">
+	new Liferay.Portlet.SPIDefinition(
+		{
+			namespace: '<portlet:namespace />'
+		}
+	);
+</aui:script>
