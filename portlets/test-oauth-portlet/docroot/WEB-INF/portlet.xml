@@ -4,7 +4,7 @@
 	<portlet>
 		<portlet-name>1</portlet-name>
 		<display-name>Test OAuth</display-name>
-		<portlet-class>com.liferay.util.bridges.mvc.MVCPortlet</portlet-class>
+		<portlet-class>com.liferay.testoauth.portlet.TestOAuthPortlet</portlet-class>
 		<init-param>
 			<name>config-template</name>
 			<value>/configuration.jsp</value>
@@ -17,6 +17,7 @@
 		<supports>
 			<mime-type>text/html</mime-type>
 		</supports>
+		<resource-bundle>content.Language</resource-bundle>
 		<portlet-info>
 			<title>Test OAuth</title>
 			<short-title>Test OAuth</short-title>
