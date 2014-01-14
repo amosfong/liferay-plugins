@@ -19,11 +19,17 @@ package com.liferay.testoauth.util;
  */
 public class PortletPropsKeys {
 
-	public static final String OAUTH_ACCESS_TOKEN = "oauth.access.token";
+	public static final String OAUTH_ACCESS_TOKEN_URI =
+		"oauth.access.token.uri";
 
-	public static final String OAUTH_AUTHORIZE = "oauth.authorize";
+	public static final String OAUTH_AUTHORIZE_URI = "oauth.authorize.uri";
 
-	public static final String OAUTH_REQUEST_TOKEN = "oauth.request.token";
+	public static final String OAUTH_HOST_NAME = "oauth.host.name";
+
+	public static final String OAUTH_HOST_PORT = "oauth.host.port";
+
+	public static final String OAUTH_REQUEST_TOKEN_URI =
+		"oauth.request.token.uri";
 
 	public static final String PORTAL_URL = "portal.url";
 

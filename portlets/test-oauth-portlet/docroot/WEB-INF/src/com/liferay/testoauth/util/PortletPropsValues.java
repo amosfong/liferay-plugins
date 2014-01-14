@@ -21,14 +21,20 @@ import com.liferay.util.portlet.PortletProps;
  */
 public class PortletPropsValues {
 
-	public static final String OAUTH_ACCESS_TOKEN = PortletProps.get(
-		PortletPropsKeys.OAUTH_ACCESS_TOKEN);
+	public static final String OAUTH_ACCESS_TOKEN_URI = PortletProps.get(
+		PortletPropsKeys.OAUTH_ACCESS_TOKEN_URI);
 
-	public static final String OAUTH_AUTHORIZE = PortletProps.get(
-		PortletPropsKeys.OAUTH_AUTHORIZE);
+	public static final String OAUTH_AUTHORIZE_URI = PortletProps.get(
+		PortletPropsKeys.OAUTH_AUTHORIZE_URI);
 
-	public static final String OAUTH_REQUEST_TOKEN = PortletProps.get(
-		PortletPropsKeys.OAUTH_REQUEST_TOKEN);
+	public static final String OAUTH_HOST_NAME = PortletProps.get(
+		PortletPropsKeys.OAUTH_HOST_NAME);
+
+	public static final String OAUTH_HOST_PORT = PortletProps.get(
+		PortletPropsKeys.OAUTH_HOST_PORT);
+
+	public static final String OAUTH_REQUEST_TOKEN_URI = PortletProps.get(
+		PortletPropsKeys.OAUTH_REQUEST_TOKEN_URI);
 
 	public static final String PORTAL_URL = PortletProps.get(
 		PortletPropsKeys.PORTAL_URL);
