@@ -19,7 +19,6 @@
 	<classpathentry kind="lib" path="/portal-master/lib/portal/jstl-api.jar" />
 	<classpathentry kind="lib" path="/portal-master/lib/portal/jstl-impl.jar" />
 	<classpathentry kind="lib" path="/portal-master/lib/portal/log4j.jar" />
-	<classpathentry kind="lib" path="/portal-master/lib/portal/scribe.jar" />
 	<classpathentry kind="lib" path="/portal-master/lib/portal/slf4j-api.jar" />
 	<classpathentry kind="lib" path="/portal-master/portal-service/portal-service.jar" />
 	<classpathentry kind="lib" path="/portal-master/util-bridges/util-bridges.jar" />
@@ -30,5 +29,7 @@
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/lcs-shared.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/metrics-core.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/portal-compat-shared.jar" />
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/portal-patcher-shared.jar" />
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/scribe.jar" />
 	<classpathentry kind="output" path="bin" />
 </classpath>
