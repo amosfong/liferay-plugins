@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
 
 import org.scribe.builder.api.DefaultApi10a;
+import org.scribe.model.Token;
 
 /**
  * @author Igor Beslic
@@ -26,7 +27,7 @@ import org.scribe.builder.api.DefaultApi10a;
 public class OAuthAPIImpl extends DefaultApi10a {
 
 	@Override
-	protected String getAccessTokenEndpoint() {
+	public String getAccessTokenEndpoint() {
 		if (Validator.isNull(_accessTokenEndpoint)) {
 			_accessTokenEndpoint = OAuthUtil.buildURL(
 				PortletPropsValues.OSB_LCS_PORTLET_HOST_NAME,
@@ -40,7 +41,20 @@ public class OAuthAPIImpl extends DefaultApi10a {
 	}
 
 	@Override
-	protected String getRequestTokenEndpoint() {
+	public String getAuthorizationUrl(Token token) {
+		if (Validator.isNull(_authorizationURL)) {
+			_authorizationURL = OAuthUtil.buildURL(
+				PortletPropsValues.OSB_LCS_PORTLET_HOST_NAME,
+				GetterUtil.getInteger(
+					PortletPropsValues.OSB_LCS_PORTLET_HOST_PORT),
+				"http", PortletPropsValues.OSB_LCS_PORTLET_OAUTH_AUTHORIZE_URI);
+		}
+
+		return _authorizationURL.replace("{0}", token.getToken());
+	}
+
+	@Override
+	public String getRequestTokenEndpoint() {
 		if (Validator.isNull(_requestTokenEndpoint)) {
 			_requestTokenEndpoint = OAuthUtil.buildURL(
 				PortletPropsValues.OSB_LCS_PORTLET_HOST_NAME,
@@ -54,6 +68,7 @@ public class OAuthAPIImpl extends DefaultApi10a {
 	}
 
 	private String _accessTokenEndpoint;
+	private String _authorizationURL;
 	private String _requestTokenEndpoint;
 
 }

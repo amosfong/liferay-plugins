@@ -15,7 +15,6 @@
 package com.liferay.lcs.oauth;
 
 import com.liferay.lcs.util.PortletPropsValues;
-import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
@@ -64,20 +63,15 @@ public class OAuthUtil {
 	public static String getAuthorizeURL(
 		String callbackURL, Token requestToken) {
 
-		if (Validator.isNull(_authorizeRequestURL)) {
-			_authorizeRequestURL = buildURL(
-				PortletPropsValues.OSB_LCS_PORTLET_HOST_NAME,
-				GetterUtil.getInteger(
-					PortletPropsValues.OSB_LCS_PORTLET_HOST_PORT),
-				"http", PortletPropsValues.OSB_LCS_PORTLET_OAUTH_AUTHORIZE_URI);
+		String authorizeRequestURL = getOAuthService().getAuthorizationUrl(
+			requestToken);
 
-			if (Validator.isNotNull(callbackURL)) {
-				_authorizeRequestURL = HttpUtil.addParameter(
-					_authorizeRequestURL, "oauth_callback", callbackURL);
-			}
+		if (Validator.isNotNull(callbackURL)) {
+			authorizeRequestURL = HttpUtil.addParameter(
+				authorizeRequestURL, "oauth_callback", callbackURL);
 		}
 
-		return _authorizeRequestURL.replace("{0}", requestToken.getToken());
+		return authorizeRequestURL.replace("{0}", requestToken.getToken());
 	}
 
 	public static OAuthService getOAuthService() {
@@ -102,7 +96,6 @@ public class OAuthUtil {
 		return oAuthService.getRequestToken();
 	}
 
-	private static String _authorizeRequestURL;
 	private static OAuthService _oAuthService;
 
 }
