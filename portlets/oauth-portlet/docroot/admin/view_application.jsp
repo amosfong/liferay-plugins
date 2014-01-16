@@ -59,6 +59,21 @@ OAuthApplication oAuthApplication = OAuthApplicationLocalServiceUtil.getOAuthApp
 
 			<%= HtmlUtil.escape(oAuthApplication.getConsumerSecret()) %>
 		</aui:field-wrapper>
+
+		<aui:field-wrapper label="oauth-request-uris">
+			<liferay-ui:message key="request-token-uri" />:
+
+			<%= OAuthUtil.getRequestTokenURI() %><br />
+
+			<liferay-ui:message key="user-authorization-uri" />:
+
+			<%= OAuthUtil.getAuthorizeURI() %><br />
+
+			<liferay-ui:message key="access-token-uri" />:
+
+			<%= OAuthUtil.getAccessTokenURI() %>
+
+		</aui:field-wrapper>
 	</aui:column>
 
 	<c:if test="<%= oAuthApplication.getLogoId() != 0 %>">
