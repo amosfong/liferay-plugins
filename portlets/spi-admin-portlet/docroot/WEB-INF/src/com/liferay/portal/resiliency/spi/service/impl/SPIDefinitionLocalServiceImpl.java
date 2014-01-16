@@ -301,6 +301,8 @@ public class SPIDefinitionLocalServiceImpl
 		SPIDefinition spiDefinition = spiDefinitionPersistence.findByPrimaryKey(
 			spiDefinitionId);
 
+		spiDefinition.setRestartAttempts(0);
+
 		UnicodeProperties typeSettingsProperties =
 			spiDefinition.getTypeSettingsProperties();
 
@@ -327,7 +329,6 @@ public class SPIDefinitionLocalServiceImpl
 			"backgroundTaskId",
 			String.valueOf(backgroundTask.getBackgroundTaskId()));
 
-		spiDefinition.setRestartAttemptCount(0);
 		spiDefinition.setTypeSettingsProperties(typeSettingsProperties);
 
 		spiDefinition.setStatus(SPIAdminConstants.STATUS_STARTING);
@@ -487,7 +488,7 @@ public class SPIDefinitionLocalServiceImpl
 	}
 
 	@Override
-	public SPIDefinition updateSPIDefinitionTypeSettings(
+	public SPIDefinition updateTypeSettings(
 			long userId, long spiDefinitionId, String typeSettings,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {

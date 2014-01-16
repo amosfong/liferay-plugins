@@ -103,9 +103,9 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 	}
 
 	@Override
-	public int getRestartAttemptCount() {
+	public int getRestartAttempts() {
 		return GetterUtil.getInteger(
-			getTypeSettingsProperty("restart-attempt-count"));
+			getTypeSettingsProperty("restart-attempts"));
 	}
 
 	@Override
@@ -210,11 +210,11 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 	}
 
 	@Override
-	public void setRestartAttemptCount(int restartAttemptCount) {
+	public void setRestartAttempts(int restartAttempts) {
 		UnicodeProperties typeSettingsProperties = getTypeSettingsProperties();
 
 		typeSettingsProperties.setProperty(
-			"restart-attempt-count", String.valueOf(restartAttemptCount));
+			"restart-attempts", String.valueOf(restartAttempts));
 
 		setTypeSettingsProperties(typeSettingsProperties);
 	}

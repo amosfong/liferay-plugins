@@ -44,16 +44,16 @@ public class SPIRestartMessageListener extends BaseSPIStatusMessageListener {
 			return;
 		}
 
-		int restartAttemptCount = spiDefinition.getRestartAttemptCount();
 		int maxRestartAttempts = spiDefinition.getMaxRestartAttempts();
+		int restartAttempts = spiDefinition.getRestartAttempts();
 
-		if (restartAttemptCount++ > maxRestartAttempts) {
+		if (maxRestartAttempts < restartAttempts++) {
 			return;
 		}
 
-		spiDefinition.setRestartAttemptCount(restartAttemptCount);
+		spiDefinition.setRestartAttempts(restartAttempts);
 
-		SPIDefinitionLocalServiceUtil.updateSPIDefinitionTypeSettings(
+		SPIDefinitionLocalServiceUtil.updateTypeSettings(
 			spiDefinition.getUserId(), spiDefinition.getSpiDefinitionId(),
 			spiDefinition.getTypeSettings(), new ServiceContext());
 
