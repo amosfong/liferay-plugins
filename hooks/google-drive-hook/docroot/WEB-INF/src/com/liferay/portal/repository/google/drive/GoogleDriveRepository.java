@@ -14,11 +14,27 @@
 
 package com.liferay.portal.repository.google.drive;
 
+import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.services.drive.Drive;
+
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.kernel.servlet.PortalSessionThreadLocal;
+import com.liferay.portal.kernel.util.AutoResetThreadLocal;
+import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.PrefsPropsUtil;
+import com.liferay.portal.kernel.util.TransientValue;
 import com.liferay.portal.kernel.util.UnicodeProperties;
+import com.liferay.portal.model.User;
+import com.liferay.portal.security.auth.PrincipalException;
+import com.liferay.portal.security.auth.PrincipalThreadLocal;
+import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.repository.external.CredentialsProvider;
 import com.liferay.repository.external.ExtRepository;
 import com.liferay.repository.external.ExtRepositoryFileEntry;
@@ -33,6 +49,8 @@ import com.liferay.repository.external.search.ExtRepositoryQueryMapper;
 import java.io.InputStream;
 
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @author Sergio González
@@ -117,6 +135,30 @@ public class GoogleDriveRepository implements ExtRepository {
 		throws PortalException, SystemException {
 
 		return null;
+	}
+
+	public Drive getDrive() throws PortalException {
+		HttpSession httpSession = PortalSessionThreadLocal.getHttpSession();
+
+		Drive drive = null;
+
+		if (httpSession != null) {
+			TransientValue<Drive> transientValue =
+				(TransientValue<Drive>)httpSession.getAttribute(_SESSION_KEY);
+
+			if (transientValue != null) {
+				drive = transientValue.getValue();
+			}
+		}
+		else {
+			drive = _driveThreadLocal.get();
+		}
+
+		if (drive != null) {
+			return drive;
+		}
+
+		return createDrive();
 	}
 
 	@Override
@@ -250,5 +292,69 @@ public class GoogleDriveRepository implements ExtRepository {
 
 		return null;
 	}
+
+	protected Drive createDrive() throws PortalException {
+		HttpTransport httpTransport = new NetHttpTransport();
+		JacksonFactory jsonFactory = new JacksonFactory();
+
+		long userId = PrincipalThreadLocal.getUserId();
+
+		try {
+			User user = UserLocalServiceUtil.getUser(userId);
+
+			if (user.isDefaultUser()) {
+				throw new PrincipalException("User is not logged in");
+			}
+
+			String googleClientId = PrefsPropsUtil.getString(
+				user.getCompanyId(), "google.client.id");
+			String googleClientSecret = PrefsPropsUtil.getString(
+				user.getCompanyId(), "google.client.secret");
+
+			GoogleCredential.Builder builder = new GoogleCredential.Builder();
+
+			builder.setTransport(httpTransport);
+			builder.setJsonFactory(jsonFactory);
+			builder.setClientSecrets(googleClientId, googleClientSecret);
+
+			GoogleCredential googleCredential = builder.build();
+
+			ExpandoBridge expandoBridge = user.getExpandoBridge();
+
+			String googleAccessToken = GetterUtil.getString(
+				expandoBridge.getAttribute("googleAccessToken", false));
+			String googleRefreshToken = GetterUtil.getString(
+				expandoBridge.getAttribute("googleRefreshToken", false));
+
+			googleCredential.setAccessToken(googleAccessToken);
+			googleCredential.setRefreshToken(googleRefreshToken);
+
+			Drive.Builder driveBuilder = new Drive.Builder(
+				httpTransport, jsonFactory, googleCredential);
+
+			Drive drive = driveBuilder.build();
+
+			HttpSession httpSession = PortalSessionThreadLocal.getHttpSession();
+
+			if (httpSession != null) {
+				httpSession.setAttribute(
+					_SESSION_KEY, new TransientValue<Drive>(drive));
+			}
+			else {
+				_driveThreadLocal.set(drive);
+			}
+
+			return drive;
+		}
+		catch (Exception e) {
+			throw new PrincipalException(e);
+		}
+	}
+
+	private static final String _SESSION_KEY =
+		GoogleDriveRepository.class.getName() + ".drive";
+
+	private AutoResetThreadLocal<Drive> _driveThreadLocal =
+		new AutoResetThreadLocal<Drive>(Drive.class.getName());
 
 }
