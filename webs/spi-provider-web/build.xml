@@ -4,9 +4,7 @@
 <project name="spi-provider-web" basedir="." default="deploy">
 	<import file="../build-common-web.xml" />
 
-	<path id="plugin-lib.classpath">
-		<fileset dir="docroot/WEB-INF/embedded-tomcat-lib" includes="*.jar" />
-	</path>
+	<property name="plugin-lib.additional.dir" value="docroot/WEB-INF/embedded-tomcat-lib" />
 
 	<target name="clean">
 		<if>
