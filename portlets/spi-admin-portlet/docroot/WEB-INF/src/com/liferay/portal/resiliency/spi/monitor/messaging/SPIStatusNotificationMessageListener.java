@@ -63,7 +63,7 @@ public class SPIStatusNotificationMessageListener
 	}
 
 	@Override
-	protected boolean processSPIStatus(SPIDefinition spiDefinition, int status)
+	protected void processSPIStatus(SPIDefinition spiDefinition, int status)
 		throws Exception {
 
 		StringBundler sb = new StringBundler(10);
@@ -89,8 +89,6 @@ public class SPIStatusNotificationMessageListener
 		mailMessage.setTo(_recipientInternetAddresses);
 
 		MailServiceUtil.sendEmail(mailMessage);
-
-		return false;
 	}
 
 	private InternetAddress _fromInternetAddress;

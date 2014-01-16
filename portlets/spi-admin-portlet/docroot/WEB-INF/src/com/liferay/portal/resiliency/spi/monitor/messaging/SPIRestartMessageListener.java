@@ -17,6 +17,7 @@ package com.liferay.portal.resiliency.spi.monitor.messaging;
 import com.liferay.portal.resiliency.spi.model.SPIDefinition;
 import com.liferay.portal.resiliency.spi.service.SPIDefinitionLocalServiceUtil;
 import com.liferay.portal.resiliency.spi.util.SPIAdminConstants;
+import com.liferay.portal.service.ServiceContext;
 
 /**
  * @author Michael C. Han
@@ -28,25 +29,36 @@ public class SPIRestartMessageListener extends BaseSPIStatusMessageListener {
 	}
 
 	@Override
-	protected boolean processSPIStatus(SPIDefinition spiDefinition, int status)
+	protected void processSPIStatus(SPIDefinition spiDefinition, int status)
 		throws Exception {
 
 		if ((spiDefinition.getStatus() == SPIAdminConstants.STATUS_STOPPED) &&
 			(status == SPIAdminConstants.STATUS_STOPPED)) {
 
-			return false;
+			return;
 		}
 
 		if ((spiDefinition.getStatus() == SPIAdminConstants.STATUS_STARTING) ||
 			(spiDefinition.getStatus() == SPIAdminConstants.STATUS_STOPPING)) {
 
-			return false;
+			return;
 		}
+
+		int restartAttemptCount = spiDefinition.getRestartAttemptCount();
+		int maxRestartAttempts = spiDefinition.getMaxRestartAttempts();
+
+		if (restartAttemptCount++ > maxRestartAttempts) {
+			return;
+		}
+
+		spiDefinition.setRestartAttemptCount(restartAttemptCount);
+
+		SPIDefinitionLocalServiceUtil.updateSPIDefinitionTypeSettings(
+			spiDefinition.getUserId(), spiDefinition.getSpiDefinitionId(),
+			spiDefinition.getTypeSettings(), new ServiceContext());
 
 		SPIDefinitionLocalServiceUtil.startSPI(
 			spiDefinition.getSpiDefinitionId());
-
-		return true;
 	}
 
 }

@@ -22,9 +22,7 @@ import com.liferay.portal.resiliency.spi.service.SPIDefinitionLocalServiceUtil;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Michael C. Han
@@ -33,10 +31,6 @@ public abstract class BaseSPIStatusMessageListener extends BaseMessageListener {
 
 	public void setInterestedStatus(Integer... interestedStatuses) {
 		_interestedStatuses.addAll(Arrays.asList(interestedStatuses));
-	}
-
-	public void setMaxExecutions(int maxExecutions) {
-		_maxExecutions = maxExecutions;
 	}
 
 	@Override
@@ -54,39 +48,16 @@ public abstract class BaseSPIStatusMessageListener extends BaseMessageListener {
 			return;
 		}
 
-		Integer retryCount = _executionCounts.get(spiDefinitionId);
-
-		if (_maxExecutions > 0) {
-			if (retryCount == null) {
-				retryCount = 0;
-
-				_executionCounts.put(spiDefinitionId, retryCount);
-			}
-
-			if (retryCount >= _maxExecutions) {
-				return;
-			}
-		}
-
 		SPIDefinition spiDefinition =
 			SPIDefinitionLocalServiceUtil.getSPIDefinition(spiDefinitionId);
 
-		boolean incrementRetryCount = processSPIStatus(spiDefinition, status);
-
-		if (incrementRetryCount && (_maxExecutions > 0)) {
-			retryCount++;
-
-			_executionCounts.put(spiDefinitionId, retryCount);
-		}
+		processSPIStatus(spiDefinition, status);
 	}
 
-	protected abstract boolean processSPIStatus(
+	protected abstract void processSPIStatus(
 			SPIDefinition spiDefinition, int status)
 		throws Exception;
 
-	private Map<Long, Integer> _executionCounts =
-		new ConcurrentHashMap<Long, Integer>();
 	private Set<Integer> _interestedStatuses = new HashSet<Integer>();
-	private int _maxExecutions = 5;
 
 }
