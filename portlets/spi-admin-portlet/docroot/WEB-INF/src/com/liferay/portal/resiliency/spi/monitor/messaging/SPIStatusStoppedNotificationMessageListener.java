@@ -28,10 +28,10 @@ import javax.mail.internet.InternetAddress;
 /**
  * @author Michael C. Han
  */
-public class SPIStatusNotificationMessageListener
+public class SPIStatusStoppedNotificationMessageListener
 	extends BaseSPIStatusMessageListener {
 
-	public SPIStatusNotificationMessageListener(
+	public SPIStatusStoppedNotificationMessageListener(
 		String fromEmailAddress, Set<String> recipientEmailAddresses,
 		String subject, String message, Integer... interestedStatuses) {
 

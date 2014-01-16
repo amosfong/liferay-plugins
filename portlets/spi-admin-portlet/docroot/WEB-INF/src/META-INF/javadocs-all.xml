@@ -421,7 +421,7 @@
 	</javadoc>
 	<javadoc>
 		<name>SPIStatusNotificationMessageListener</name>
-		<type>com.liferay.portal.resiliency.spi.monitor.messaging.SPIStatusNotificationMessageListener</type>
+		<type>com.liferay.portal.resiliency.spi.monitor.messaging.SPIStatusStoppedNotificationMessageListener</type>
 		<author><![CDATA[Michael C. Han]]></author>
 		<method>
 			<name>SPIStatusNotificationMessageListener</name>
