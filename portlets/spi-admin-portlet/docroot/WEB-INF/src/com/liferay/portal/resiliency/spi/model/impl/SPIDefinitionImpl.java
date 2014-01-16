@@ -71,6 +71,12 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 	}
 
 	@Override
+	public int getMaxRestartAttempts() {
+		return GetterUtil.getInteger(
+			getTypeSettingsProperty("max-restart-attempts"));
+	}
+
+	@Override
 	public int getMaxThreads() {
 		return GetterUtil.getInteger(getTypeSettingsProperty("max-threads"));
 	}
@@ -81,6 +87,12 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 	}
 
 	@Override
+	public String getNotificationRecipients() {
+		return GetterUtil.getString(
+			getTypeSettingsProperty("notification-recipients"));
+	}
+
+	@Override
 	public long getPingInterval() {
 		return GetterUtil.getLong(getTypeSettingsProperty("ping-interval"));
 	}
@@ -88,6 +100,12 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 	@Override
 	public long getRegisterTimeout() {
 		return GetterUtil.getLong(getTypeSettingsProperty("register-timeout"));
+	}
+
+	@Override
+	public int getRestartAttemptCount() {
+		return GetterUtil.getInteger(
+			getTypeSettingsProperty("restart-attempt-count"));
 	}
 
 	@Override
@@ -172,6 +190,36 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 	}
 
 	@Override
+	public void setMaxRestartAttempts(int maxRestartAttempts) {
+		UnicodeProperties typeSettingsProperties = getTypeSettingsProperties();
+
+		typeSettingsProperties.setProperty(
+			"max-restart-attempts", String.valueOf(maxRestartAttempts));
+
+		setTypeSettingsProperties(typeSettingsProperties);
+	}
+
+	@Override
+	public void setNotificationRecipients(String notificationRecipients) {
+		UnicodeProperties typeSettingsProperties = getTypeSettingsProperties();
+
+		typeSettingsProperties.setProperty(
+			"notification-receipients", notificationRecipients);
+
+		setTypeSettingsProperties(typeSettingsProperties);
+	}
+
+	@Override
+	public void setRestartAttemptCount(int restartAttemptCount) {
+		UnicodeProperties typeSettingsProperties = getTypeSettingsProperties();
+
+		typeSettingsProperties.setProperty(
+			"restart-attempt-count", String.valueOf(restartAttemptCount));
+
+		setTypeSettingsProperties(typeSettingsProperties);
+	}
+
+	@Override
 	public void setTypeSettings(String typeSettings) {
 		_typeSettingsProperties = null;
 
@@ -194,6 +242,7 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 
 	private static Log _log = LogFactoryUtil.getLog(SPIDefinitionImpl.class);
 
+	private UnicodeProperties _recoveryOptionsProperties;
 	private SPI _spi;
 	private UnicodeProperties _typeSettingsProperties;
 

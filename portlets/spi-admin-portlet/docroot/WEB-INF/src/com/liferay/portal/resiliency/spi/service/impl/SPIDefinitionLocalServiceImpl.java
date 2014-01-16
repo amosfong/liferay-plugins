@@ -327,6 +327,7 @@ public class SPIDefinitionLocalServiceImpl
 			"backgroundTaskId",
 			String.valueOf(backgroundTask.getBackgroundTaskId()));
 
+		spiDefinition.setRestartAttemptCount(0);
 		spiDefinition.setTypeSettingsProperties(typeSettingsProperties);
 
 		spiDefinition.setStatus(SPIAdminConstants.STATUS_STARTING);
@@ -479,6 +480,27 @@ public class SPIDefinitionLocalServiceImpl
 
 		spiDefinition.setTypeSettings(normalizeTypeSettings(typeSettings));
 		spiDefinition.setExpandoBridgeAttributes(serviceContext);
+
+		spiDefinitionPersistence.update(spiDefinition);
+
+		return spiDefinition;
+	}
+
+	@Override
+	public SPIDefinition updateSPIDefinitionTypeSettings(
+			long userId, long spiDefinitionId, String typeSettings,
+			ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		User user = userPersistence.findByPrimaryKey(userId);
+
+		SPIDefinition spiDefinition = spiDefinitionPersistence.findByPrimaryKey(
+			spiDefinitionId);
+
+		spiDefinition.setModifiedDate(serviceContext.getModifiedDate(null));
+		spiDefinition.setUserId(user.getUserId());
+		spiDefinition.setUserName(user.getFullName());
+		spiDefinition.setTypeSettings(typeSettings);
 
 		spiDefinitionPersistence.update(spiDefinition);
 

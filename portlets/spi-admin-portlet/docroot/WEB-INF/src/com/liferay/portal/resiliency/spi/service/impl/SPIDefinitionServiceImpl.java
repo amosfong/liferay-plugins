@@ -159,4 +159,17 @@ public class SPIDefinitionServiceImpl extends SPIDefinitionServiceBaseImpl {
 			typeSettings, serviceContext);
 	}
 
+	@Override
+	public SPIDefinition updateSPIDefinitionTypeSettings(
+			long userId, long spiDefinitionId, String recoveryOptions,
+			ServiceContext serviceContext)
+		throws PortalException, SystemException {
+
+		SPIDefinitionPermissionUtil.check(
+			getPermissionChecker(), spiDefinitionId, ActionKeys.UPDATE);
+
+		return spiDefinitionLocalService.updateSPIDefinitionTypeSettings(
+			getUserId(), spiDefinitionId, recoveryOptions, serviceContext);
+	}
+
 }
