@@ -26,7 +26,7 @@ String webId = ParamUtil.getString(request, "webId", null);
 
 	<c:choose>
 		<c:when test="<%= !OAuthUtil.isConsumerReady(portletPreferences) %>">
-			<liferay-ui:header title="1.-set-oauth-consumer-credentials" />
+			<liferay-ui:header title="set-oauth-consumer-credentials" />
 
 			<aui:input name="hostName" required="<%= true %>" value="<%= hostName %>" />
 			<aui:input name="hostPort" required="<%= true %>" value="<%= hostPort %>" />
@@ -47,7 +47,7 @@ String webId = ParamUtil.getString(request, "webId", null);
 		<c:when test="<%= !OAuthUtil.isAccessorReady(portletPreferences) %>">
 			<%@ include file="/view_oauth_settings.jspf" %>
 
-			<liferay-ui:header title="2.-obtain-oauth-accessor-credentials" />
+			<liferay-ui:header title="obtain-oauth-accessor-credentials" />
 
 			<%
 			OAuthServiceHandler oAuthServiceHandler = OAuthUtil.getOAuthServiceHandler(portletPreferences);
@@ -73,7 +73,7 @@ String webId = ParamUtil.getString(request, "webId", null);
 		<c:otherwise>
 			<%@ include file="/view_oauth_settings.jspf" %>
 
-			<liferay-ui:header title="3.-execute-platform-specific-task-using-oauth-authorized-request" />
+			<liferay-ui:header title="execute-platform-specific-task-using-oauth-authorized-request" />
 
 			<%
 			String oAuthResult = null;
