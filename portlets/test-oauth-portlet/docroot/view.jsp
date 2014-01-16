@@ -21,6 +21,7 @@ String webId = ParamUtil.getString(request, "webId", null);
 %>
 
 <aui:form name="fm">
+
 	<liferay-ui:error key="authenticationFailed" message="authentication-failed" />
 
 	<c:choose>
@@ -75,9 +76,8 @@ String webId = ParamUtil.getString(request, "webId", null);
 			<liferay-ui:header title="3.-execute-platform-specific-task-using-oauth-authorized-request" />
 
 			<%
-			OAuthServiceHandler oAuthServiceHandler = OAuthUtil.getOAuthServiceHandler(portletPreferences);
-
 			String oAuthResult = null;
+			OAuthServiceHandler oAuthServiceHandler = OAuthUtil.getOAuthServiceHandler(portletPreferences);
 
 			if (webId != null) {
 				LiferayOAuthPlatformTest liferayOAuthPlatformTest = new LiferayOAuthPlatformTest(hostName, hostPort, oAuthServiceHandler);
@@ -91,7 +91,7 @@ String webId = ParamUtil.getString(request, "webId", null);
 
 				<c:choose>
 					<c:when test="<%= oAuthResult == null %>">
-						<aui:input helpMessage="eg.-liferay.com" name="webId" />
+						<aui:input helpMessage="e.g.-liferay.com" name="webId" />
 
 						<%
 						String taglibOnClick = renderResponse.getNamespace() + "testAuthorizedRequest();";
@@ -110,17 +110,21 @@ String webId = ParamUtil.getString(request, "webId", null);
 			</p>
 		</c:otherwise>
 	</c:choose>
+
+	<hr />
+
+	<div class="button-container">
+		<liferay-portlet:actionURL name="resetOAuth" var="resetOAuthURL" />
+
+		<liferay-ui:message arguments="<%= resetOAuthURL %>" key="reset-oauth-settings-to-repeat-the-test" />
+	</div>
+
+	<hr />
+
+	<p>
+		<liferay-ui:message key="test-oauth-v1.0a-functionality" />
+	</p>
 </aui:form>
-<hr />
-
-<liferay-portlet:actionURL name="resetOAuth" var="resetOAuthURL" />
-<div class="button-container">
-	<liferay-ui:message arguments="<%= resetOAuthURL %>" key="reset-oauth-settings-to-repeat-the-test" />
-</div>
-
-<hr />
-
-<p><liferay-ui:message key="test-oauth-v1.0a-functionality" /></p>
 
 <aui:script>
 	function <portlet:namespace />setupOAuthConsumer() {

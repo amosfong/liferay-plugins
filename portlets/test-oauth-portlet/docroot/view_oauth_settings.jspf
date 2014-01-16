@@ -15,6 +15,7 @@
 --%>
 
 <liferay-ui:header title="1.-set-oauth-consumer-credentials" />
+
 <liferay-ui:icon image="checked" />
 
 <p>
@@ -27,8 +28,9 @@
 	<liferay-ui:message arguments="<%= secret %>" key="consumer-secret-{0}" />
 </p>
 
-<c:if test="<%= accessToken != StringPool.BLANK %>">
+<c:if test="<%= Validator.isNotNull(accessToken) %>">
 	<liferay-ui:header title="2.-obtain-oauth-accessor-credentials" />
+
 	<liferay-ui:icon image="checked" />
 
 	<p>
@@ -36,4 +38,3 @@
 		<liferay-ui:message arguments="<%= accessSecret %>" key="access-secret-{0}" />
 	</p>
 </c:if>
-</p>
