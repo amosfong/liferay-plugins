@@ -17,6 +17,8 @@ package com.liferay.oauth.util;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.oauth.OAuthException;
+import com.liferay.portal.kernel.util.PropsUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.service.ServiceContext;
 
 import java.io.OutputStream;
@@ -29,6 +31,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @author Ivica Cardic
  * @author Raymond Augé
+ * @author Igor Beslic
  */
 public class OAuthUtil {
 
@@ -63,6 +66,22 @@ public class OAuthUtil {
 
 	public static void generateRequestToken(OAuthAccessor oAuthAccessor) {
 		getOAuth().generateRequestToken(oAuthAccessor);
+	}
+
+	public static String getAccessTokenURI() {
+		if (_accessTokenURI == null) {
+			_accessTokenURI = getOAuthURI("access_token");
+		}
+
+		return _accessTokenURI;
+	}
+
+	public static String getAuthorizeURI() {
+		if (_authorizeURI == null) {
+			_authorizeURI = getOAuthURI("authorize");
+		}
+
+		return _authorizeURI;
 	}
 
 	public static OAuth getOAuth() {
@@ -101,6 +120,14 @@ public class OAuthUtil {
 		return getOAuth().getOAuthMessage(portletRequest, url);
 	}
 
+	public static String getRequestTokenURI() {
+		if (_requestTokenURI == null) {
+			_requestTokenURI = getOAuthURI("request_token");
+		}
+
+		return _requestTokenURI;
+	}
+
 	public static void handleException(
 			HttpServletRequest request, HttpServletResponse response,
 			Exception exception, boolean sendBody)
@@ -124,6 +151,30 @@ public class OAuthUtil {
 		_oAuth = oAuth;
 	}
 
+	private static String getOAuthURI(String uriSuffix) {
+		String oauthPublicPath = null;
+
+		for (String publicPath : PropsUtil.getArray("auth.public.paths")) {
+			if (publicPath.endsWith(uriSuffix)) {
+				oauthPublicPath = publicPath;
+
+				break;
+			}
+		}
+
+		if (oauthPublicPath != null) {
+			oauthPublicPath = "/c" + oauthPublicPath;
+		}
+		else {
+			oauthPublicPath = StringPool.BLANK;
+		}
+
+		return oauthPublicPath;
+	}
+
+	private static String _accessTokenURI;
+	private static String _authorizeURI;
 	private static OAuth _oAuth;
+	private static String _requestTokenURI;
 
 }
