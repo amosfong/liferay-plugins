@@ -29,8 +29,10 @@ if (spiDefinitionId > 0) {
 
 int connectorPort = BeanPropertiesUtil.getInteger(spiDefinition, "connectorPort", SPIConfigurationTemplate.getConnectorPortMin());
 String javaExecutable = BeanPropertiesUtil.getString(spiDefinition, "javaExecutable", SPIConfigurationTemplate.getJavaExecutable());
+int maxRestartAttempts = BeanPropertiesUtil.getInteger(spiDefinition, "maxRestartAttempts", 0);
 int maxThreads = BeanPropertiesUtil.getInteger(spiDefinition, "maxThreads", SPIConfigurationTemplate.getMaxThreads());
 String name = BeanPropertiesUtil.getString(spiDefinition, "name", StringPool.BLANK);
+String notificationRecipients = BeanPropertiesUtil.getString(spiDefinition, "notificationRecipients", StringPool.BLANK);
 long pingInterval = BeanPropertiesUtil.getLong(spiDefinition, "pingInterval", SPIConfigurationTemplate.getSPIPingInterval());
 String[] portletIds = StringUtil.split(BeanPropertiesUtil.getString(spiDefinition, "portletIds", StringPool.BLANK));
 long registerTimeout = BeanPropertiesUtil.getLong(spiDefinition, "registerTimeout", SPIConfigurationTemplate.getSPIRegisterTimeout());
@@ -132,6 +134,14 @@ int status = BeanPropertiesUtil.getInteger(spiDefinition, "status", SPIAdminCons
 			<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="spiDefinitionJavaRuntimePanel" persistState="<%= true %>" title="java-runtime">
 				<aui:fieldset>
 					<aui:input helpMessage="jvm-arguments-help" label="jvm-arguments" name="jvmArguments" />
+				</aui:fieldset>
+			</liferay-ui:panel>
+
+			<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="spiDefinitionRecoveryOptions" persistState="<%= true %>" title="recovery-options">
+				<aui:fieldset>
+					<aui:input helpMessage="notification-recipients-help" label="notification-recipients" name="TypeSettingsProperties--notification-recipients--" type="text" value="<%= notificationRecipients %>" />
+
+					<aui:input helpMessage="maximum-restart-attempts-help" label="maximum-restart-attempts" name="TypeSettingsProperties--max-restart-attempts--" type="text" value="<%= maxRestartAttempts %>" />
 				</aui:fieldset>
 			</liferay-ui:panel>
 		</liferay-ui:panel>
