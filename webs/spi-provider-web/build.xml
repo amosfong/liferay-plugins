@@ -20,7 +20,9 @@
 
 		<delete dir="docroot/WEB-INF/embedded-tomcat-lib/ext" />
 
-		<antcall target="build-common-plugin.clean" />
+		<clean
+			module.dir="."
+		/>
 	</target>
 
 	<target name="setup-eclipse">
@@ -53,6 +55,8 @@ spi-provider-web must be built from a Liferay Tomcat bundle.
 			<fileset dir="${app.server.tomcat.lib.global.dir}" excludes="hsql.jar,jtds.jar,mysql.jar,portal-service.jar,postgresql.jar" />
 		</copy>
 
-		<antcall target="build-common-plugin.war" />
+		<war
+			module.dir="."
+		/>
 	</target>
 </project>

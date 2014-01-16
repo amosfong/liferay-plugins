@@ -43,7 +43,9 @@
 			<fileset dir="docroot/WEB-INF/src/META-INF" includes="portlet-model-hints*.xml" />
 		</delete>
 
-		<antcall target="build-common-plugin.clean" />
+		<clean
+			module.dir="."
+		/>
 	</target>
 
 	<target name="compile">
@@ -65,7 +67,9 @@
 			</fileset>
 		</copy>
 
-		<antcall target="build-common-plugin.compile" />
+		<compile
+			module.dir="."
+		/>
 
 		<antcall target="delete-dependencies" />
 	</target>
