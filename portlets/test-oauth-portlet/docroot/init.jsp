@@ -37,9 +37,9 @@ page import="com.liferay.testoauth.util.PortletPropsValues" %>
 <liferay-theme:defineObjects />
 
 <%
+String accessSecret = portletPreferences.getValue("accessSecret", StringPool.BLANK);
 String accessToken = portletPreferences.getValue("accessToken", StringPool.BLANK);
 String accessTokenURI = portletPreferences.getValue("accessTokenURI", PortletPropsValues.OAUTH_ACCESS_TOKEN_URI);
-String accessSecret = portletPreferences.getValue("accessSecret", StringPool.BLANK);
 String authorizeURI = portletPreferences.getValue("authorizeURI", PortletPropsValues.OAUTH_AUTHORIZE_URI);
 String hostName = portletPreferences.getValue("hostName", PortletPropsValues.OAUTH_HOST_NAME);
 String hostPort = portletPreferences.getValue("hostPort", PortletPropsValues.OAUTH_HOST_PORT);

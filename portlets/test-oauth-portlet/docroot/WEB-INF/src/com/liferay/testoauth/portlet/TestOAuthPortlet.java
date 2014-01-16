@@ -101,12 +101,11 @@ public class TestOAuthPortlet extends MVCPortlet {
 		String requestURI = ParamUtil.getString(actionRequest, "requestURI");
 		String secret = ParamUtil.getString(actionRequest, "secret");
 
-		if (Validator.isNotNull(key) && Validator.isNotNull(secret) &&
-			Validator.isNotNull(hostName) &&
-			Validator.isNotNull(hostPort) &&
-			Validator.isNotNull(accessURI) &&
+		if (Validator.isNotNull(accessURI) &&
 			Validator.isNotNull(authorizeURI) &&
-			Validator.isNotNull(requestURI)) {
+			Validator.isNotNull(hostName) && Validator.isNotNull(hostPort) &&
+			Validator.isNotNull(key) && Validator.isNotNull(requestURI) &&
+			Validator.isNotNull(secret)) {
 
 			PortletPreferences portletPreferences =
 				actionRequest.getPreferences();
