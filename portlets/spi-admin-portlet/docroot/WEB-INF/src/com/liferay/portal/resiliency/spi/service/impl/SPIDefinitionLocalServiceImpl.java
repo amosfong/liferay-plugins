@@ -102,10 +102,10 @@ public class SPIDefinitionLocalServiceImpl
 			spiDefinitionId);
 
 		spiDefinition.setCompanyId(user.getCompanyId());
-		spiDefinition.setCreateDate(serviceContext.getCreateDate(now));
-		spiDefinition.setModifiedDate(serviceContext.getModifiedDate(now));
 		spiDefinition.setUserId(user.getUserId());
 		spiDefinition.setUserName(user.getFullName());
+		spiDefinition.setCreateDate(serviceContext.getCreateDate(now));
+		spiDefinition.setModifiedDate(serviceContext.getModifiedDate(now));
 		spiDefinition.setName(name);
 		spiDefinition.setConnectorAddress(connectorAddress);
 		spiDefinition.setConnectorPort(connectorPort);
@@ -467,9 +467,9 @@ public class SPIDefinitionLocalServiceImpl
 		}
 
 		spiDefinition.setCompanyId(user.getCompanyId());
-		spiDefinition.setModifiedDate(serviceContext.getModifiedDate(null));
 		spiDefinition.setUserId(user.getUserId());
 		spiDefinition.setUserName(user.getFullName());
+		spiDefinition.setModifiedDate(serviceContext.getModifiedDate(null));
 		spiDefinition.setConnectorAddress(connectorAddress);
 		spiDefinition.setConnectorPort(connectorPort);
 		spiDefinition.setDescription(description);
