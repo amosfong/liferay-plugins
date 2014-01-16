@@ -659,6 +659,11 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	@Override
+	public int getMaxRestartAttempts() {
+		return _spiDefinition.getMaxRestartAttempts();
+	}
+
+	@Override
 	public int getMaxThreads() {
 		return _spiDefinition.getMaxThreads();
 	}
@@ -669,6 +674,11 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	}
 
 	@Override
+	public java.lang.String getNotificationRecipients() {
+		return _spiDefinition.getNotificationRecipients();
+	}
+
+	@Override
 	public long getPingInterval() {
 		return _spiDefinition.getPingInterval();
 	}
@@ -676,6 +686,11 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	@Override
 	public long getRegisterTimeout() {
 		return _spiDefinition.getRegisterTimeout();
+	}
+
+	@Override
+	public int getRestartAttempts() {
+		return _spiDefinition.getRestartAttempts();
 	}
 
 	@Override
@@ -712,6 +727,22 @@ public class SPIDefinitionWrapper implements SPIDefinition,
 	@Override
 	public boolean isAlive() {
 		return _spiDefinition.isAlive();
+	}
+
+	@Override
+	public void setMaxRestartAttempts(int maxRestartAttempts) {
+		_spiDefinition.setMaxRestartAttempts(maxRestartAttempts);
+	}
+
+	@Override
+	public void setNotificationRecipients(
+		java.lang.String notificationRecipients) {
+		_spiDefinition.setNotificationRecipients(notificationRecipients);
+	}
+
+	@Override
+	public void setRestartAttempts(int restartAttempts) {
+		_spiDefinition.setRestartAttempts(restartAttempts);
 	}
 
 	@Override

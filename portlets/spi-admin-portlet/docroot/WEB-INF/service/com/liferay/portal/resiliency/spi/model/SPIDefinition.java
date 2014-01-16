@@ -40,13 +40,19 @@ public interface SPIDefinition extends SPIDefinitionModel, PersistedModel {
 
 	public java.lang.String getJavaExecutable();
 
+	public int getMaxRestartAttempts();
+
 	public int getMaxThreads();
 
 	public int getMinThreads();
 
+	public java.lang.String getNotificationRecipients();
+
 	public long getPingInterval();
 
 	public long getRegisterTimeout();
+
+	public int getRestartAttempts();
 
 	public long getShutdownTimeout();
 
@@ -62,6 +68,13 @@ public interface SPIDefinition extends SPIDefinitionModel, PersistedModel {
 		java.lang.String defaultValue);
 
 	public boolean isAlive();
+
+	public void setMaxRestartAttempts(int maxRestartAttempts);
+
+	public void setNotificationRecipients(
+		java.lang.String notificationRecipients);
+
+	public void setRestartAttempts(int restartAttempts);
 
 	public void setTypeSettingsProperties(
 		com.liferay.portal.kernel.util.UnicodeProperties typeSettingsProperties);

@@ -227,5 +227,22 @@ public class SPIDefinitionServiceSoap {
 		}
 	}
 
+	public static com.liferay.portal.resiliency.spi.model.SPIDefinitionSoap updateTypeSettings(
+		long userId, long spiDefinitionId, java.lang.String recoveryOptions,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws RemoteException {
+		try {
+			com.liferay.portal.resiliency.spi.model.SPIDefinition returnValue = SPIDefinitionServiceUtil.updateTypeSettings(userId,
+					spiDefinitionId, recoveryOptions, serviceContext);
+
+			return com.liferay.portal.resiliency.spi.model.SPIDefinitionSoap.toSoapModel(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	private static Log _log = LogFactoryUtil.getLog(SPIDefinitionServiceSoap.class);
 }

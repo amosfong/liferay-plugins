@@ -575,15 +575,15 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 	}
 
 	@Override
-	public boolean isAlive() {
+	public int getRestartAttempts() {
 		try {
-			String methodName = "isAlive";
+			String methodName = "getRestartAttempts";
 
 			Class<?>[] parameterTypes = new Class<?>[] {  };
 
 			Object[] parameterValues = new Object[] {  };
 
-			Boolean returnObj = (Boolean)invokeOnRemoteModel(methodName,
+			Integer returnObj = (Integer)invokeOnRemoteModel(methodName,
 					parameterTypes, parameterValues);
 
 			return returnObj;
@@ -613,18 +613,32 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 	}
 
 	@Override
-	public java.lang.String getBaseDir() {
+	public void setNotificationRecipients(
+		java.lang.String notificationRecipients) {
 		try {
-			String methodName = "getBaseDir";
+			String methodName = "setNotificationRecipients";
 
-			Class<?>[] parameterTypes = new Class<?>[] {  };
+			Class<?>[] parameterTypes = new Class<?>[] { java.lang.String.class };
 
-			Object[] parameterValues = new Object[] {  };
+			Object[] parameterValues = new Object[] { notificationRecipients };
 
-			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
-					parameterTypes, parameterValues);
+			invokeOnRemoteModel(methodName, parameterTypes, parameterValues);
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
 
-			return returnObj;
+	@Override
+	public void setMaxRestartAttempts(int maxRestartAttempts) {
+		try {
+			String methodName = "setMaxRestartAttempts";
+
+			Class<?>[] parameterTypes = new Class<?>[] { int.class };
+
+			Object[] parameterValues = new Object[] { maxRestartAttempts };
+
+			invokeOnRemoteModel(methodName, parameterTypes, parameterValues);
 		}
 		catch (Exception e) {
 			throw new UnsupportedOperationException(e);
@@ -641,6 +655,25 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 			Object[] parameterValues = new Object[] {  };
 
 			com.liferay.portal.kernel.resiliency.spi.SPI returnObj = (com.liferay.portal.kernel.resiliency.spi.SPI)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public java.lang.String getBaseDir() {
+		try {
+			String methodName = "getBaseDir";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
 					parameterTypes, parameterValues);
 
 			return returnObj;
@@ -724,28 +757,6 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 	}
 
 	@Override
-	public java.lang.String getTypeSettingsProperty(java.lang.String key,
-		java.lang.String defaultValue) {
-		try {
-			String methodName = "getTypeSettingsProperty";
-
-			Class<?>[] parameterTypes = new Class<?>[] {
-					java.lang.String.class, java.lang.String.class
-				};
-
-			Object[] parameterValues = new Object[] { key, defaultValue };
-
-			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
-					parameterTypes, parameterValues);
-
-			return returnObj;
-		}
-		catch (Exception e) {
-			throw new UnsupportedOperationException(e);
-		}
-	}
-
-	@Override
 	public java.lang.String getTypeSettingsProperty(java.lang.String key) {
 		try {
 			String methodName = "getTypeSettingsProperty";
@@ -784,6 +795,25 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 	}
 
 	@Override
+	public java.lang.String getNotificationRecipients() {
+		try {
+			String methodName = "getNotificationRecipients";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
 	public java.lang.String getAgentClassName() {
 		try {
 			String methodName = "getAgentClassName";
@@ -803,13 +833,70 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 	}
 
 	@Override
-	public java.lang.String getJavaExecutable() {
+	public boolean isAlive() {
 		try {
-			String methodName = "getJavaExecutable";
+			String methodName = "isAlive";
 
 			Class<?>[] parameterTypes = new Class<?>[] {  };
 
 			Object[] parameterValues = new Object[] {  };
+
+			Boolean returnObj = (Boolean)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public void setRestartAttempts(int restartAttempts) {
+		try {
+			String methodName = "setRestartAttempts";
+
+			Class<?>[] parameterTypes = new Class<?>[] { int.class };
+
+			Object[] parameterValues = new Object[] { restartAttempts };
+
+			invokeOnRemoteModel(methodName, parameterTypes, parameterValues);
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public int getMaxRestartAttempts() {
+		try {
+			String methodName = "getMaxRestartAttempts";
+
+			Class<?>[] parameterTypes = new Class<?>[] {  };
+
+			Object[] parameterValues = new Object[] {  };
+
+			Integer returnObj = (Integer)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public java.lang.String getTypeSettingsProperty(java.lang.String key,
+		java.lang.String defaultValue) {
+		try {
+			String methodName = "getTypeSettingsProperty";
+
+			Class<?>[] parameterTypes = new Class<?>[] {
+					java.lang.String.class, java.lang.String.class
+				};
+
+			Object[] parameterValues = new Object[] { key, defaultValue };
 
 			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
 					parameterTypes, parameterValues);
@@ -841,18 +928,18 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 	}
 
 	@Override
-	public void setTypeSettingsProperties(
-		com.liferay.portal.kernel.util.UnicodeProperties typeSettingsProperties) {
+	public java.lang.String getJavaExecutable() {
 		try {
-			String methodName = "setTypeSettingsProperties";
+			String methodName = "getJavaExecutable";
 
-			Class<?>[] parameterTypes = new Class<?>[] {
-					com.liferay.portal.kernel.util.UnicodeProperties.class
-				};
+			Class<?>[] parameterTypes = new Class<?>[] {  };
 
-			Object[] parameterValues = new Object[] { typeSettingsProperties };
+			Object[] parameterValues = new Object[] {  };
 
-			invokeOnRemoteModel(methodName, parameterTypes, parameterValues);
+			java.lang.String returnObj = (java.lang.String)invokeOnRemoteModel(methodName,
+					parameterTypes, parameterValues);
+
+			return returnObj;
 		}
 		catch (Exception e) {
 			throw new UnsupportedOperationException(e);
@@ -872,6 +959,25 @@ public class SPIDefinitionClp extends BaseModelImpl<SPIDefinition>
 					parameterTypes, parameterValues);
 
 			return returnObj;
+		}
+		catch (Exception e) {
+			throw new UnsupportedOperationException(e);
+		}
+	}
+
+	@Override
+	public void setTypeSettingsProperties(
+		com.liferay.portal.kernel.util.UnicodeProperties typeSettingsProperties) {
+		try {
+			String methodName = "setTypeSettingsProperties";
+
+			Class<?>[] parameterTypes = new Class<?>[] {
+					com.liferay.portal.kernel.util.UnicodeProperties.class
+				};
+
+			Object[] parameterValues = new Object[] { typeSettingsProperties };
+
+			invokeOnRemoteModel(methodName, parameterTypes, parameterValues);
 		}
 		catch (Exception e) {
 			throw new UnsupportedOperationException(e);

@@ -84,6 +84,13 @@ public class SPIDefinitionServiceClp implements SPIDefinitionService {
 				"java.lang.String", "java.lang.String", "java.lang.String",
 				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
+
+		_methodName14 = "updateTypeSettings";
+
+		_methodParameterTypes14 = new String[] {
+				"long", "long", "java.lang.String",
+				"com.liferay.portal.service.ServiceContext"
+			};
 	}
 
 	@Override
@@ -543,6 +550,50 @@ public class SPIDefinitionServiceClp implements SPIDefinitionService {
 		return (com.liferay.portal.resiliency.spi.model.SPIDefinition)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
+	public com.liferay.portal.resiliency.spi.model.SPIDefinition updateTypeSettings(
+		long userId, long spiDefinitionId, java.lang.String recoveryOptions,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName14,
+					_methodParameterTypes14,
+					new Object[] {
+						userId,
+						
+					spiDefinitionId,
+						
+					ClpSerializer.translateInput(recoveryOptions),
+						
+					ClpSerializer.translateInput(serviceContext)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (com.liferay.portal.resiliency.spi.model.SPIDefinition)ClpSerializer.translateOutput(returnObj);
+	}
+
 	private InvokableService _invokableService;
 	private String _methodName0;
 	private String[] _methodParameterTypes0;
@@ -570,4 +621,6 @@ public class SPIDefinitionServiceClp implements SPIDefinitionService {
 	private String[] _methodParameterTypes12;
 	private String _methodName13;
 	private String[] _methodParameterTypes13;
+	private String _methodName14;
+	private String[] _methodParameterTypes14;
 }

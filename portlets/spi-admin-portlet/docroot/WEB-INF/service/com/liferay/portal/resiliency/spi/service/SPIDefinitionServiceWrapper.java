@@ -152,6 +152,16 @@ public class SPIDefinitionServiceWrapper implements SPIDefinitionService,
 			portletIds, servletContextNames, typeSettings, serviceContext);
 	}
 
+	@Override
+	public com.liferay.portal.resiliency.spi.model.SPIDefinition updateTypeSettings(
+		long userId, long spiDefinitionId, java.lang.String recoveryOptions,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _spiDefinitionService.updateTypeSettings(userId,
+			spiDefinitionId, recoveryOptions, serviceContext);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */

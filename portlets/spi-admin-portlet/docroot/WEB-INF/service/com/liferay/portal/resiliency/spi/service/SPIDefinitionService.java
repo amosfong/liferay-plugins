@@ -125,4 +125,10 @@ public interface SPIDefinitionService extends BaseService, InvokableService {
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException;
+
+	public com.liferay.portal.resiliency.spi.model.SPIDefinition updateTypeSettings(
+		long userId, long spiDefinitionId, java.lang.String recoveryOptions,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException;
 }

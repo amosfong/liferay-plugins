@@ -148,6 +148,16 @@ public class SPIDefinitionServiceUtil {
 			servletContextNames, typeSettings, serviceContext);
 	}
 
+	public static com.liferay.portal.resiliency.spi.model.SPIDefinition updateTypeSettings(
+		long userId, long spiDefinitionId, java.lang.String recoveryOptions,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .updateTypeSettings(userId, spiDefinitionId,
+			recoveryOptions, serviceContext);
+	}
+
 	public static void clearService() {
 		_service = null;
 	}

@@ -38,6 +38,9 @@
 	<entity class="com.liferay.portal.resiliency.spi.model.impl.SPIDefinitionImpl" name="SPIDefinition">
 		<table name="SPIDefinition" />
 		<attributes>
+			<transient name="maxRestartAttempts" />
+			<transient name="notificationRecipients" />
+			<transient name="restartAttempts" />
 			<transient name="typeSettingsProperties" />
 		</attributes>
 	</entity>

@@ -392,6 +392,16 @@ public class SPIDefinitionLocalServiceWrapper
 			serviceContext);
 	}
 
+	@Override
+	public com.liferay.portal.resiliency.spi.model.SPIDefinition updateTypeSettings(
+		long userId, long spiDefinitionId, java.lang.String typeSettings,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return _spiDefinitionLocalService.updateTypeSettings(userId,
+			spiDefinitionId, typeSettings, serviceContext);
+	}
+
 	/**
 	 * @deprecated As of 6.1.0, replaced by {@link #getWrappedService}
 	 */
