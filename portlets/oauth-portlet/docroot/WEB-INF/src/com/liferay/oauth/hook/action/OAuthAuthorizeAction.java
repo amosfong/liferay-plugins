@@ -14,10 +14,10 @@
 
 package com.liferay.oauth.hook.action;
 
+import com.liferay.compat.portal.kernel.util.HttpUtil;
 import com.liferay.oauth.util.PortletKeys;
 import com.liferay.portal.kernel.portlet.WindowStateFactory;
 import com.liferay.portal.kernel.struts.BaseStrutsAction;
-import com.liferay.portal.kernel.util.HttpUtil;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
