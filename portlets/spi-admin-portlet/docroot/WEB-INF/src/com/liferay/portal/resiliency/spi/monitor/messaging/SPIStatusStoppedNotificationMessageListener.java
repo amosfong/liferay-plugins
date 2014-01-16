@@ -17,13 +17,20 @@ package com.liferay.portal.resiliency.spi.monitor.messaging;
 import com.liferay.mail.service.MailServiceUtil;
 import com.liferay.portal.kernel.mail.MailMessage;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringUtil;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.resiliency.spi.model.SPIDefinition;
+import com.liferay.portal.resiliency.spi.util.NotificationUtil;
+import com.liferay.portal.resiliency.spi.util.SPIAdminConstants;
+import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
+import com.liferay.portal.util.PortletKeys;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+
+import javax.portlet.PortletPreferences;
 
 /**
  * @author Michael C. Han
@@ -31,44 +38,79 @@ import javax.mail.internet.InternetAddress;
 public class SPIStatusStoppedNotificationMessageListener
 	extends BaseSPIStatusMessageListener {
 
-	public SPIStatusStoppedNotificationMessageListener(
-		String fromEmailAddress, Set<String> recipientEmailAddresses,
-		String subject, String message, Integer... interestedStatuses) {
-
-		try {
-			_fromInternetAddress = new InternetAddress(fromEmailAddress);
-
-			Set<InternetAddress> recipientInternetAddresses =
-				new HashSet<InternetAddress>(recipientEmailAddresses.size());
-
-			for (String recipientEmailAddress : recipientEmailAddresses) {
-				InternetAddress recipientInternetAddress = new InternetAddress(
-					recipientEmailAddress);
-
-				recipientInternetAddresses.add(recipientInternetAddress);
-			}
-
-			_recipientInternetAddresses = recipientInternetAddresses.toArray(
-				new InternetAddress[recipientInternetAddresses.size()]);
-		}
-		catch (AddressException e) {
-			throw new IllegalArgumentException(
-				"Unable to parse email addresses", e);
-		}
-
-		_message = message;
-		_subject = subject;
-
-		setInterestedStatus(interestedStatuses);
+	public SPIStatusStoppedNotificationMessageListener() {
+		setInterestedStatus(SPIAdminConstants.STATUS_STOPPED);
 	}
 
 	@Override
 	protected void processSPIStatus(SPIDefinition spiDefinition, int status)
 		throws Exception {
 
+		if ((spiDefinition.getStatus() == SPIAdminConstants.STATUS_STOPPED) &&
+			(status == SPIAdminConstants.STATUS_STOPPED)) {
+
+			return;
+		}
+
+		if ((spiDefinition.getStatus() == SPIAdminConstants.STATUS_STARTING) ||
+			(spiDefinition.getStatus() == SPIAdminConstants.STATUS_STOPPING)) {
+
+			return;
+		}
+
+		String notificationRecipients =
+			spiDefinition.getNotificationRecipients();
+
+		if (Validator.isNull(notificationRecipients)) {
+			return;
+		}
+
+		long ownerId = spiDefinition.getCompanyId();
+		int ownerType = PortletKeys.PREFS_OWNER_TYPE_GROUP;
+		long plid = PortletKeys.PREFS_PLID_SHARED;
+		String portletId =
+			com.liferay.portal.resiliency.spi.util.PortletKeys.SPI_ADMIN;
+		String defaultPreferences = null;
+
+		PortletPreferences preferences =
+			PortletPreferencesLocalServiceUtil.getPreferences(
+				spiDefinition.getCompanyId(), ownerId, ownerType, plid,
+				portletId, defaultPreferences);
+
+		String fromName = NotificationUtil.getNotificationEmailFromName(
+			preferences);
+		String fromAddress = NotificationUtil.getNotificationEmailFromAddress(
+			preferences);
+
+		String subject = NotificationUtil.getNotificationEmailSubject(
+			preferences);
+		String body = NotificationUtil.getNotificationEmailBody(preferences);
+
+		InternetAddress fromInternetAddress = new InternetAddress(fromAddress);
+
+		String[] notificationRecipientsArray = StringUtil.split(
+			notificationRecipients);
+
+		Set<InternetAddress> recipientInternetAddresses =
+			new HashSet<InternetAddress>(notificationRecipientsArray.length);
+
+		for (String notificationRecipient : notificationRecipientsArray) {
+			InternetAddress recipientInternetAddress = new InternetAddress(
+				notificationRecipient);
+
+			recipientInternetAddresses.add(recipientInternetAddress);
+		}
+
+		subject = StringUtil.replace(
+			subject,
+			new String[] {
+				"[$SANDBOX_NAME$]"
+			},
+			new String[] { spiDefinition.getName() }
+		);
+
 		StringBundler sb = new StringBundler(10);
 
-		sb.append(_message);
 		sb.append("<br /><table><tr><td>ID</td><td>");
 		sb.append(spiDefinition.getSpiDefinitionId());
 		sb.append("</td></tr><tr><td>Name</td><td>");
@@ -83,17 +125,24 @@ public class SPIStatusStoppedNotificationMessageListener
 		sb.append(spiDefinition.getStatusMessage());
 		sb.append("</td></tr></table>");
 
-		MailMessage mailMessage = new MailMessage(
-			_fromInternetAddress, _subject, sb.toString(), true);
+		body = StringUtil.replace(
+			body,
+			new String[] {
+				"[$FROM_ADDRESS$]", "[$FROM_NAME$]", "[$SANDBOX_DETAILS$]"
+			},
+			new String[] {
+				fromName, fromAddress, sb.toString()
+			}
+		);
 
-		mailMessage.setTo(_recipientInternetAddresses);
+		MailMessage mailMessage = new MailMessage(
+			fromInternetAddress, subject, body, true);
+
+		mailMessage.setTo(
+			recipientInternetAddresses.toArray(
+				new InternetAddress[recipientInternetAddresses.size()]));
 
 		MailServiceUtil.sendEmail(mailMessage);
 	}
-
-	private InternetAddress _fromInternetAddress;
-	private String _message;
-	private InternetAddress[] _recipientInternetAddresses;
-	private String _subject;
 
 }

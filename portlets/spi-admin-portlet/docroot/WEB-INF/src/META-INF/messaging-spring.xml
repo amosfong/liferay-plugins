@@ -17,6 +17,8 @@
 	<!-- Listeners -->
 
 	<bean id="messageListener.spi_background_task_status" class="com.liferay.portal.resiliency.spi.backgroundtask.messaging.SPIBackgroundTaskStatusMessageListener" />
+	<bean id="messageListener.spi_restart" class="com.liferay.portal.resiliency.spi.monitor.messaging.SPIRestartMessageListener" />
+	<bean id="messageListener.spi_status_notification" class="com.liferay.portal.resiliency.spi.monitor.messaging.SPIStatusStoppedNotificationMessageListener" />
 
 	<!-- Configurator -->
 
@@ -31,6 +33,12 @@
 				<entry key="liferay/background_task_status">
 					<list value-type="com.liferay.portal.kernel.messaging.MessageListener">
 						<ref bean="messageListener.spi_background_task_status" />
+					</list>
+				</entry>
+				<entry key="liferay/spi_status">
+					<list value-type="com.liferay.portal.kernel.messaging.MessageListener">
+						<ref bean="messageListener.spi_restart" />
+						<ref bean="messageListener.spi_status_notification" />
 					</list>
 				</entry>
 			</map>

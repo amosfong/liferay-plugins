@@ -20,7 +20,6 @@ import com.liferay.portal.model.Portlet;
 import com.liferay.portal.model.PortletApp;
 import com.liferay.portal.service.PortletLocalServiceUtil;
 import com.liferay.portal.util.PortalUtil;
-import com.liferay.util.portlet.PortletProps;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -47,7 +46,8 @@ public class SPIAdminUtil {
 				portlet.isSystem() ||
 				portlet.isUndeployedPortlet() ||
 				(Arrays.binarySearch(
-					_SPI_BLACKLIST_PORTLET_IDS, portlet.getPortletId()) >= 0)) {
+					PortletPropsValues.SPI_BLACKLIST_PORTLET_IDS,
+					portlet.getPortletId()) >= 0)) {
 
 				iterator.remove();
 			}
@@ -70,7 +70,7 @@ public class SPIAdminUtil {
 			String servletContextName = itr.next();
 
 			if (Arrays.binarySearch(
-					_SPI_BLACKLIST_SERVLET_CONTEXT_NAMES,
+					PortletPropsValues.SPI_BLACKLIST_SERVLET_CONTEXT_NAMES,
 					servletContextName) >= 0) {
 
 				itr.remove();
@@ -78,18 +78,6 @@ public class SPIAdminUtil {
 		}
 
 		return servletContextNames;
-	}
-
-	private static final String[] _SPI_BLACKLIST_PORTLET_IDS =
-		PortletProps.getArray(PortletPropsKeys.SPI_BLACKLIST_PORTLET_IDS);
-
-	private static final String[] _SPI_BLACKLIST_SERVLET_CONTEXT_NAMES =
-		PortletProps.getArray(
-			PortletPropsKeys.SPI_BLACKLIST_SERVLET_CONTEXT_NAMES);
-
-	static {
-		Arrays.sort(_SPI_BLACKLIST_PORTLET_IDS);
-		Arrays.sort(_SPI_BLACKLIST_SERVLET_CONTEXT_NAMES);
 	}
 
 	private static class PortletComparator implements Comparator<Portlet> {
