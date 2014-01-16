@@ -72,7 +72,6 @@ OAuthApplication oAuthApplication = OAuthApplicationLocalServiceUtil.getOAuthApp
 			<liferay-ui:message key="access-token-uri" />:
 
 			<%= OAuthUtil.getAccessTokenURI() %>
-
 		</aui:field-wrapper>
 	</aui:column>
 

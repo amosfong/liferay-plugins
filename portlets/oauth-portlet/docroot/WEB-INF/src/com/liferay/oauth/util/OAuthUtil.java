@@ -70,7 +70,7 @@ public class OAuthUtil {
 
 	public static String getAccessTokenURI() {
 		if (_accessTokenURI == null) {
-			_accessTokenURI = getOAuthURI("access_token");
+			_accessTokenURI = _getOAuthURI("access_token");
 		}
 
 		return _accessTokenURI;
@@ -78,7 +78,7 @@ public class OAuthUtil {
 
 	public static String getAuthorizeURI() {
 		if (_authorizeURI == null) {
-			_authorizeURI = getOAuthURI("authorize");
+			_authorizeURI = _getOAuthURI("authorize");
 		}
 
 		return _authorizeURI;
@@ -122,7 +122,7 @@ public class OAuthUtil {
 
 	public static String getRequestTokenURI() {
 		if (_requestTokenURI == null) {
-			_requestTokenURI = getOAuthURI("request_token");
+			_requestTokenURI = _getOAuthURI("request_token");
 		}
 
 		return _requestTokenURI;
@@ -151,7 +151,7 @@ public class OAuthUtil {
 		_oAuth = oAuth;
 	}
 
-	private static String getOAuthURI(String uriSuffix) {
+	private static String _getOAuthURI(String uriSuffix) {
 		String oauthPublicPath = null;
 
 		for (String publicPath : PropsUtil.getArray("auth.public.paths")) {
