@@ -40,16 +40,18 @@ public class AdminPortlet extends MVCPortlet {
 
 		String name = ParamUtil.getString(actionRequest, "name");
 		String description = ParamUtil.getString(actionRequest, "description");
-		String websiteURL = ParamUtil.getString(actionRequest, "websiteURL");
-		String callbackURI = ParamUtil.getString(actionRequest, "callbackURI");
 		int accessLevel = ParamUtil.getInteger(actionRequest, "accessType");
+		boolean shareableAccessToken = ParamUtil.getBoolean(
+			actionRequest, "shareableAccessToken");
+		String callbackURI = ParamUtil.getString(actionRequest, "callbackURI");
+		String websiteURL = ParamUtil.getString(actionRequest, "websiteURL");
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			actionRequest);
 
 		OAuthApplicationServiceUtil.addOAuthApplication(
-			name, description, accessLevel, callbackURI, websiteURL,
-			serviceContext);
+			name, description, accessLevel, shareableAccessToken, callbackURI,
+			websiteURL, serviceContext);
 	}
 
 	public void deleteOAuthApplication(
@@ -98,6 +100,8 @@ public class AdminPortlet extends MVCPortlet {
 
 		String name = ParamUtil.getString(actionRequest, "name");
 		String description = ParamUtil.getString(actionRequest, "description");
+		boolean shareableAccessToken = ParamUtil.getBoolean(
+			actionRequest, "shareableAccessToken");
 		String callbackURI = ParamUtil.getString(actionRequest, "callbackURI");
 		String websiteURL = ParamUtil.getString(actionRequest, "websiteURL");
 
@@ -105,8 +109,8 @@ public class AdminPortlet extends MVCPortlet {
 			actionRequest);
 
 		OAuthApplicationServiceUtil.updateOAuthApplication(
-			oAuthApplicationId, name, description, callbackURI, websiteURL,
-			serviceContext);
+			oAuthApplicationId, name, description, shareableAccessToken,
+			callbackURI, websiteURL, serviceContext);
 
 		boolean deleteLogo = ParamUtil.getBoolean(actionRequest, "deleteLogo");
 
