@@ -29,19 +29,21 @@ String webId = ParamUtil.getString(request, "webId", null);
 			<liferay-ui:header title="set-oauth-consumer-credentials" />
 
 			<aui:input name="hostName" required="<%= true %>" value="<%= hostName %>" />
+
 			<aui:input name="hostPort" required="<%= true %>" value="<%= hostPort %>" />
+
 			<aui:input label="access-token-endpoint-uri" name="accessURI" required="<%= true %>" value="<%= accessTokenURI %>" />
+
 			<aui:input label="authorize-token-endpoint-uri" name="authorizeURI" required="<%= true %>" value="<%= authorizeURI %>" />
+
 			<aui:input label="request-token-endpoint-uri" name="requestURI" required="<%= true %>" value="<%= requestTokenURI %>" />
+
 			<aui:input name="key" required="<%= true %>" />
+
 			<aui:input name="secret" required="<%= true %>" />
 
-			<%
-			String taglibOnClick = renderResponse.getNamespace() + "setupOAuthConsumer();";
-			%>
-
 			<aui:button-row>
-				<aui:button onClick="<%= taglibOnClick %>" value="Save" />
+				<aui:button onClick='<%= renderResponse.getNamespace() + "setupOAuthConsumer();" %>' value="save" />
 			</aui:button-row>
 		</c:when>
 		<c:when test="<%= !OAuthUtil.isAccessorReady(portletPreferences) %>">
@@ -59,7 +61,7 @@ String webId = ParamUtil.getString(request, "webId", null);
 
 			<c:choose>
 				<c:when test="<%= requestToken == null %>">
-					<liferay-ui:error message="failed-to-generate-valid-request-token.-please-review-oauth-settings" />
+					<liferay-ui:error message="uanble-to-generate-valid-request-token.-please-review-oauth-settings" />
 				</c:when>
 				<c:otherwise>
 					<liferay-portlet:actionURL name="setupOAuth" var="setupOAuthURL" />
