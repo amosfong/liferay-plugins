@@ -95,7 +95,7 @@ public class OAuthServiceHandlerImpl implements OAuthServiceHandler {
 			return oAuthService.getRequestToken();
 		}
 		catch (Exception e) {
-			_log.error(e);
+			_log.error(e, e);
 		}
 
 		return null;

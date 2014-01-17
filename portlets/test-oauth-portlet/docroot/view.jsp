@@ -77,11 +77,11 @@ String webId = ParamUtil.getString(request, "webId", null);
 
 			<%
 			String oAuthResult = null;
-			OAuthServiceHandler oAuthServiceHandler = OAuthUtil.getOAuthServiceHandler(portletPreferences);
 
 			if (webId != null) {
-				LiferayOAuthJSONWSClient
-					liferayOAuthJSONWSClient = new LiferayOAuthJSONWSClient(hostName, hostPort, oAuthServiceHandler);
+				OAuthServiceHandler oAuthServiceHandler = OAuthUtil.getOAuthServiceHandler(portletPreferences);
+
+				LiferayOAuthJSONWSClient liferayOAuthJSONWSClient = new LiferayOAuthJSONWSClient(hostName, hostPort, oAuthServiceHandler);
 
 				oAuthResult = liferayOAuthJSONWSClient.getRemotePortalCompany(accessToken, accessSecret, webId);
 			}
@@ -92,7 +92,7 @@ String webId = ParamUtil.getString(request, "webId", null);
 
 				<c:choose>
 					<c:when test="<%= oAuthResult == null %>">
-						<aui:input helpMessage="e.g.-liferay.com" name="webId" />
+						<aui:input helpMessage="web-id-help" name="webId" />
 
 						<aui:button-row>
 							<aui:button onClick='<%= renderResponse.getNamespace() + "testAuthorizedRequest();" %>' value="test" />

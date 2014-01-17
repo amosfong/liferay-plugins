@@ -14,6 +14,8 @@
 
 package com.liferay.testoauth.oauth;
 
+import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 
 import javax.servlet.http.HttpServletResponse;
@@ -41,17 +43,17 @@ public class LiferayOAuthJSONWSClient {
 	public String getRemotePortalCompany(
 		String accessToken, String accessSecret, String webId) {
 
+		Token token = new Token(accessToken, accessSecret);
+
+		OAuthService oAuthService = _oAuthServiceHandler.getOAuthService();
+
 		String apiJSONWSURL =
 			_URL_COMPANY_GET_COMPANY_BY_WEB_ID + "web-id/" + webId;
 
-		Token token = new Token(accessToken, accessSecret);
-
 		String requestURL = OAuthUtil.buildURL(
-			_hostName, Integer.parseInt(_hostPort), "http", apiJSONWSURL);
+			_hostName, GetterUtil.getInteger(_hostPort), "http", apiJSONWSURL);
 
 		OAuthRequest oAuthRequest = new OAuthRequest(Verb.POST, requestURL);
-
-		OAuthService oAuthService = _oAuthServiceHandler.getOAuthService();
 
 		oAuthService.signRequest(token, oAuthRequest);
 
@@ -67,13 +69,12 @@ public class LiferayOAuthJSONWSClient {
 			return formatJSON(response.getBody());
 		}
 		else {
-			return "{\"exception\":\"Server returned " +
-				response.getCode() + ".\"}";
+			return "Response code: " + response.getCode();
 		}
 	}
 
 	protected String formatJSON(String json) {
-		StringBuffer sb = new StringBuffer();
+		StringBundler sb = new StringBundler();
 
 		for (String token : json.split(StringPool.COMMA)) {
 			if (token.startsWith(StringPool.OPEN_CURLY_BRACE)) {
