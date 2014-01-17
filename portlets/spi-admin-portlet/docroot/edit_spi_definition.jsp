@@ -29,7 +29,7 @@ if (spiDefinitionId > 0) {
 
 int connectorPort = BeanPropertiesUtil.getInteger(spiDefinition, "connectorPort", SPIConfigurationTemplate.getConnectorPortMin());
 String javaExecutable = BeanPropertiesUtil.getString(spiDefinition, "javaExecutable", SPIConfigurationTemplate.getJavaExecutable());
-int maxRestartAttempts = BeanPropertiesUtil.getInteger(spiDefinition, "maxRestartAttempts", 0);
+int maxRestartAttempts = BeanPropertiesUtil.getInteger(spiDefinition, "maxRestartAttempts");
 int maxThreads = BeanPropertiesUtil.getInteger(spiDefinition, "maxThreads", SPIConfigurationTemplate.getMaxThreads());
 String name = BeanPropertiesUtil.getString(spiDefinition, "name", StringPool.BLANK);
 String notificationRecipients = BeanPropertiesUtil.getString(spiDefinition, "notificationRecipients", StringPool.BLANK);
