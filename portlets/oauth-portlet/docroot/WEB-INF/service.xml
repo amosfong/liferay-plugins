@@ -26,6 +26,7 @@
 		<column name="consumerSecret" type="String" />
 		<column name="accessLevel" type="int" />
 		<column name="logoId" type="long" />
+		<column name="shareableAccessToken" type="boolean" />
 		<column name="callbackURI" type="String" />
 		<column name="websiteURL" type="String" />
 
