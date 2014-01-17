@@ -27,9 +27,9 @@ import org.scribe.oauth.OAuthService;
 /**
  * @author Igor Beslic
  */
-public class LiferayOAuthPlatformTest {
+public class LiferayOAuthJSONWSClient {
 
-	public LiferayOAuthPlatformTest(
+	public LiferayOAuthJSONWSClient(
 		String hostName, String hostPort,
 		OAuthServiceHandler oAuthServiceHandler) {
 
