@@ -89,9 +89,16 @@ public class OAuthServiceHandlerImpl implements OAuthServiceHandler {
 	}
 
 	public Token getRequestToken() {
-		OAuthService oAuthService = getOAuthService();
+		try {
+			OAuthService oAuthService = getOAuthService();
 
-		return oAuthService.getRequestToken();
+			return oAuthService.getRequestToken();
+		}
+		catch (Exception e) {
+			_log.error(e);
+		}
+
+		return null;
 	}
 
 	protected void setAccessURL(String accessURL) {
