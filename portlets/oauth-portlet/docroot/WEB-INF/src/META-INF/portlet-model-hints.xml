@@ -18,6 +18,7 @@
 		<field name="consumerSecret" type="String" />
 		<field name="accessLevel" type="int" />
 		<field name="logoId" type="long" />
+		<field name="shareableAccessToken" type="boolean" />
 		<field name="callbackURI" type="String">
 			<hint-collection name="URL" />
 			<validator name="required" />

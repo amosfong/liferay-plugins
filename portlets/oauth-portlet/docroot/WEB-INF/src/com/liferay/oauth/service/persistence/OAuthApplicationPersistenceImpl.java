@@ -4364,6 +4364,7 @@ public class OAuthApplicationPersistenceImpl extends BasePersistenceImpl<OAuthAp
 		oAuthApplicationImpl.setConsumerSecret(oAuthApplication.getConsumerSecret());
 		oAuthApplicationImpl.setAccessLevel(oAuthApplication.getAccessLevel());
 		oAuthApplicationImpl.setLogoId(oAuthApplication.getLogoId());
+		oAuthApplicationImpl.setShareableAccessToken(oAuthApplication.isShareableAccessToken());
 		oAuthApplicationImpl.setCallbackURI(oAuthApplication.getCallbackURI());
 		oAuthApplicationImpl.setWebsiteURL(oAuthApplication.getWebsiteURL());
 

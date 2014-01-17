@@ -11,6 +11,7 @@ create table OAuth_OAuthApplication (
 	consumerSecret VARCHAR(75) null,
 	accessLevel INTEGER,
 	logoId LONG,
+	shareableAccessToken BOOLEAN,
 	callbackURI STRING null,
 	websiteURL STRING null
 );

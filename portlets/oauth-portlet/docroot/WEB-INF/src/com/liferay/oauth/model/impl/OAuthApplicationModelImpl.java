@@ -78,10 +78,11 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 			{ "consumerSecret", Types.VARCHAR },
 			{ "accessLevel", Types.INTEGER },
 			{ "logoId", Types.BIGINT },
+			{ "shareableAccessToken", Types.BOOLEAN },
 			{ "callbackURI", Types.VARCHAR },
 			{ "websiteURL", Types.VARCHAR }
 		};
-	public static final String TABLE_SQL_CREATE = "create table OAuth_OAuthApplication (oAuthApplicationId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,description STRING null,consumerKey VARCHAR(75) null,consumerSecret VARCHAR(75) null,accessLevel INTEGER,logoId LONG,callbackURI STRING null,websiteURL STRING null)";
+	public static final String TABLE_SQL_CREATE = "create table OAuth_OAuthApplication (oAuthApplicationId LONG not null primary key,companyId LONG,userId LONG,userName VARCHAR(75) null,createDate DATE null,modifiedDate DATE null,name VARCHAR(75) null,description STRING null,consumerKey VARCHAR(75) null,consumerSecret VARCHAR(75) null,accessLevel INTEGER,logoId LONG,shareableAccessToken BOOLEAN,callbackURI STRING null,websiteURL STRING null)";
 	public static final String TABLE_SQL_DROP = "drop table OAuth_OAuthApplication";
 	public static final String ORDER_BY_JPQL = " ORDER BY oAuthApplication.oAuthApplicationId ASC";
 	public static final String ORDER_BY_SQL = " ORDER BY OAuth_OAuthApplication.oAuthApplicationId ASC";
@@ -128,6 +129,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		model.setConsumerSecret(soapModel.getConsumerSecret());
 		model.setAccessLevel(soapModel.getAccessLevel());
 		model.setLogoId(soapModel.getLogoId());
+		model.setShareableAccessToken(soapModel.getShareableAccessToken());
 		model.setCallbackURI(soapModel.getCallbackURI());
 		model.setWebsiteURL(soapModel.getWebsiteURL());
 
@@ -207,6 +209,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		attributes.put("consumerSecret", getConsumerSecret());
 		attributes.put("accessLevel", getAccessLevel());
 		attributes.put("logoId", getLogoId());
+		attributes.put("shareableAccessToken", getShareableAccessToken());
 		attributes.put("callbackURI", getCallbackURI());
 		attributes.put("websiteURL", getWebsiteURL());
 
@@ -285,6 +288,13 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 
 		if (logoId != null) {
 			setLogoId(logoId);
+		}
+
+		Boolean shareableAccessToken = (Boolean)attributes.get(
+				"shareableAccessToken");
+
+		if (shareableAccessToken != null) {
+			setShareableAccessToken(shareableAccessToken);
 		}
 
 		String callbackURI = (String)attributes.get("callbackURI");
@@ -513,6 +523,22 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 
 	@JSON
 	@Override
+	public boolean getShareableAccessToken() {
+		return _shareableAccessToken;
+	}
+
+	@Override
+	public boolean isShareableAccessToken() {
+		return _shareableAccessToken;
+	}
+
+	@Override
+	public void setShareableAccessToken(boolean shareableAccessToken) {
+		_shareableAccessToken = shareableAccessToken;
+	}
+
+	@JSON
+	@Override
 	public String getCallbackURI() {
 		if (_callbackURI == null) {
 			return StringPool.BLANK;
@@ -586,6 +612,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		oAuthApplicationImpl.setConsumerSecret(getConsumerSecret());
 		oAuthApplicationImpl.setAccessLevel(getAccessLevel());
 		oAuthApplicationImpl.setLogoId(getLogoId());
+		oAuthApplicationImpl.setShareableAccessToken(getShareableAccessToken());
 		oAuthApplicationImpl.setCallbackURI(getCallbackURI());
 		oAuthApplicationImpl.setWebsiteURL(getWebsiteURL());
 
@@ -727,6 +754,8 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 
 		oAuthApplicationCacheModel.logoId = getLogoId();
 
+		oAuthApplicationCacheModel.shareableAccessToken = getShareableAccessToken();
+
 		oAuthApplicationCacheModel.callbackURI = getCallbackURI();
 
 		String callbackURI = oAuthApplicationCacheModel.callbackURI;
@@ -748,7 +777,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("{oAuthApplicationId=");
 		sb.append(getOAuthApplicationId());
@@ -774,6 +803,8 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		sb.append(getAccessLevel());
 		sb.append(", logoId=");
 		sb.append(getLogoId());
+		sb.append(", shareableAccessToken=");
+		sb.append(getShareableAccessToken());
 		sb.append(", callbackURI=");
 		sb.append(getCallbackURI());
 		sb.append(", websiteURL=");
@@ -785,7 +816,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 
 	@Override
 	public String toXmlString() {
-		StringBundler sb = new StringBundler(46);
+		StringBundler sb = new StringBundler(49);
 
 		sb.append("<model><model-name>");
 		sb.append("com.liferay.oauth.model.OAuthApplication");
@@ -840,6 +871,10 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 		sb.append(getLogoId());
 		sb.append("]]></column-value></column>");
 		sb.append(
+			"<column><column-name>shareableAccessToken</column-name><column-value><![CDATA[");
+		sb.append(getShareableAccessToken());
+		sb.append("]]></column-value></column>");
+		sb.append(
 			"<column><column-name>callbackURI</column-name><column-value><![CDATA[");
 		sb.append(getCallbackURI());
 		sb.append("]]></column-value></column>");
@@ -876,6 +911,7 @@ public class OAuthApplicationModelImpl extends BaseModelImpl<OAuthApplication>
 	private String _consumerSecret;
 	private int _accessLevel;
 	private long _logoId;
+	private boolean _shareableAccessToken;
 	private String _callbackURI;
 	private String _websiteURL;
 	private long _columnBitmask;

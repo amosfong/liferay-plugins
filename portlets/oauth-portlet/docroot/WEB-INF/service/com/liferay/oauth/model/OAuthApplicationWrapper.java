@@ -62,6 +62,7 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 		attributes.put("consumerSecret", getConsumerSecret());
 		attributes.put("accessLevel", getAccessLevel());
 		attributes.put("logoId", getLogoId());
+		attributes.put("shareableAccessToken", getShareableAccessToken());
 		attributes.put("callbackURI", getCallbackURI());
 		attributes.put("websiteURL", getWebsiteURL());
 
@@ -140,6 +141,13 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 
 		if (logoId != null) {
 			setLogoId(logoId);
+		}
+
+		Boolean shareableAccessToken = (Boolean)attributes.get(
+				"shareableAccessToken");
+
+		if (shareableAccessToken != null) {
+			setShareableAccessToken(shareableAccessToken);
 		}
 
 		String callbackURI = (String)attributes.get("callbackURI");
@@ -435,6 +443,36 @@ public class OAuthApplicationWrapper implements OAuthApplication,
 	@Override
 	public void setLogoId(long logoId) {
 		_oAuthApplication.setLogoId(logoId);
+	}
+
+	/**
+	* Returns the shareable access token of this o auth application.
+	*
+	* @return the shareable access token of this o auth application
+	*/
+	@Override
+	public boolean getShareableAccessToken() {
+		return _oAuthApplication.getShareableAccessToken();
+	}
+
+	/**
+	* Returns <code>true</code> if this o auth application is shareable access token.
+	*
+	* @return <code>true</code> if this o auth application is shareable access token; <code>false</code> otherwise
+	*/
+	@Override
+	public boolean isShareableAccessToken() {
+		return _oAuthApplication.isShareableAccessToken();
+	}
+
+	/**
+	* Sets whether this o auth application is shareable access token.
+	*
+	* @param shareableAccessToken the shareable access token of this o auth application
+	*/
+	@Override
+	public void setShareableAccessToken(boolean shareableAccessToken) {
+		_oAuthApplication.setShareableAccessToken(shareableAccessToken);
 	}
 
 	/**

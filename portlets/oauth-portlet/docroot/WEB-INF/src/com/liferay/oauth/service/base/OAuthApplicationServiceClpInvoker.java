@@ -35,7 +35,7 @@ public class OAuthApplicationServiceClpInvoker {
 		_methodName42 = "addOAuthApplication";
 
 		_methodParameterTypes42 = new String[] {
-				"java.lang.String", "java.lang.String", "int",
+				"java.lang.String", "java.lang.String", "int", "boolean",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -55,7 +55,7 @@ public class OAuthApplicationServiceClpInvoker {
 		_methodName46 = "updateOAuthApplication";
 
 		_methodParameterTypes46 = new String[] {
-				"long", "java.lang.String", "java.lang.String",
+				"long", "java.lang.String", "java.lang.String", "boolean",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -80,8 +80,9 @@ public class OAuthApplicationServiceClpInvoker {
 			return OAuthApplicationServiceUtil.addOAuthApplication((java.lang.String)arguments[0],
 				(java.lang.String)arguments[1],
 				((Integer)arguments[2]).intValue(),
-				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
-				(com.liferay.portal.service.ServiceContext)arguments[5]);
+				((Boolean)arguments[3]).booleanValue(),
+				(java.lang.String)arguments[4], (java.lang.String)arguments[5],
+				(com.liferay.portal.service.ServiceContext)arguments[6]);
 		}
 
 		if (_methodName43.equals(name) &&
@@ -106,8 +107,9 @@ public class OAuthApplicationServiceClpInvoker {
 				Arrays.deepEquals(_methodParameterTypes46, parameterTypes)) {
 			return OAuthApplicationServiceUtil.updateOAuthApplication(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
-				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
-				(com.liferay.portal.service.ServiceContext)arguments[5]);
+				((Boolean)arguments[3]).booleanValue(),
+				(java.lang.String)arguments[4], (java.lang.String)arguments[5],
+				(com.liferay.portal.service.ServiceContext)arguments[6]);
 		}
 
 		throw new UnsupportedOperationException();

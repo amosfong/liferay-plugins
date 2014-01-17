@@ -294,13 +294,14 @@ public class OAuthApplicationLocalServiceWrapper
 	@Override
 	public com.liferay.oauth.model.OAuthApplication addOAuthApplication(
 		long userId, java.lang.String name, java.lang.String description,
-		int accessLevel, java.lang.String callbackURI,
-		java.lang.String websiteURL,
+		int accessLevel, boolean shareableAccessToken,
+		java.lang.String callbackURI, java.lang.String websiteURL,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _oAuthApplicationLocalService.addOAuthApplication(userId, name,
-			description, accessLevel, callbackURI, websiteURL, serviceContext);
+			description, accessLevel, shareableAccessToken, callbackURI,
+			websiteURL, serviceContext);
 	}
 
 	@Override
@@ -371,13 +372,14 @@ public class OAuthApplicationLocalServiceWrapper
 	@Override
 	public com.liferay.oauth.model.OAuthApplication updateOAuthApplication(
 		long oAuthApplicationId, java.lang.String name,
-		java.lang.String description, java.lang.String callbackURI,
-		java.lang.String websiteURL,
+		java.lang.String description, boolean shareableAccessToken,
+		java.lang.String callbackURI, java.lang.String websiteURL,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _oAuthApplicationLocalService.updateOAuthApplication(oAuthApplicationId,
-			name, description, callbackURI, websiteURL, serviceContext);
+			name, description, shareableAccessToken, callbackURI, websiteURL,
+			serviceContext);
 	}
 
 	/**

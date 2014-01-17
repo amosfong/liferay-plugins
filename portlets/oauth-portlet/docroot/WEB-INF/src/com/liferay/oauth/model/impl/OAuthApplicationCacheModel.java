@@ -38,7 +38,7 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 	Externalizable {
 	@Override
 	public String toString() {
-		StringBundler sb = new StringBundler(29);
+		StringBundler sb = new StringBundler(31);
 
 		sb.append("{oAuthApplicationId=");
 		sb.append(oAuthApplicationId);
@@ -64,6 +64,8 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 		sb.append(accessLevel);
 		sb.append(", logoId=");
 		sb.append(logoId);
+		sb.append(", shareableAccessToken=");
+		sb.append(shareableAccessToken);
 		sb.append(", callbackURI=");
 		sb.append(callbackURI);
 		sb.append(", websiteURL=");
@@ -132,6 +134,7 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 
 		oAuthApplicationImpl.setAccessLevel(accessLevel);
 		oAuthApplicationImpl.setLogoId(logoId);
+		oAuthApplicationImpl.setShareableAccessToken(shareableAccessToken);
 
 		if (callbackURI == null) {
 			oAuthApplicationImpl.setCallbackURI(StringPool.BLANK);
@@ -166,6 +169,7 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 		consumerSecret = objectInput.readUTF();
 		accessLevel = objectInput.readInt();
 		logoId = objectInput.readLong();
+		shareableAccessToken = objectInput.readBoolean();
 		callbackURI = objectInput.readUTF();
 		websiteURL = objectInput.readUTF();
 	}
@@ -217,6 +221,7 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 
 		objectOutput.writeInt(accessLevel);
 		objectOutput.writeLong(logoId);
+		objectOutput.writeBoolean(shareableAccessToken);
 
 		if (callbackURI == null) {
 			objectOutput.writeUTF(StringPool.BLANK);
@@ -245,6 +250,7 @@ public class OAuthApplicationCacheModel implements CacheModel<OAuthApplication>,
 	public String consumerSecret;
 	public int accessLevel;
 	public long logoId;
+	public boolean shareableAccessToken;
 	public String callbackURI;
 	public String websiteURL;
 }

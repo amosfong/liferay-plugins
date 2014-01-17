@@ -117,7 +117,7 @@ public class OAuthApplicationLocalServiceClpInvoker {
 		_methodName58 = "addOAuthApplication";
 
 		_methodParameterTypes58 = new String[] {
-				"long", "java.lang.String", "java.lang.String", "int",
+				"long", "java.lang.String", "java.lang.String", "int", "boolean",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -175,7 +175,7 @@ public class OAuthApplicationLocalServiceClpInvoker {
 		_methodName69 = "updateOAuthApplication";
 
 		_methodParameterTypes69 = new String[] {
-				"long", "java.lang.String", "java.lang.String",
+				"long", "java.lang.String", "java.lang.String", "boolean",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -287,8 +287,9 @@ public class OAuthApplicationLocalServiceClpInvoker {
 			return OAuthApplicationLocalServiceUtil.addOAuthApplication(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
 				((Integer)arguments[3]).intValue(),
-				(java.lang.String)arguments[4], (java.lang.String)arguments[5],
-				(com.liferay.portal.service.ServiceContext)arguments[6]);
+				((Boolean)arguments[4]).booleanValue(),
+				(java.lang.String)arguments[5], (java.lang.String)arguments[6],
+				(com.liferay.portal.service.ServiceContext)arguments[7]);
 		}
 
 		if (_methodName59.equals(name) &&
@@ -358,8 +359,9 @@ public class OAuthApplicationLocalServiceClpInvoker {
 				Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
 			return OAuthApplicationLocalServiceUtil.updateOAuthApplication(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
-				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
-				(com.liferay.portal.service.ServiceContext)arguments[5]);
+				((Boolean)arguments[3]).booleanValue(),
+				(java.lang.String)arguments[4], (java.lang.String)arguments[5],
+				(com.liferay.portal.service.ServiceContext)arguments[6]);
 		}
 
 		throw new UnsupportedOperationException();

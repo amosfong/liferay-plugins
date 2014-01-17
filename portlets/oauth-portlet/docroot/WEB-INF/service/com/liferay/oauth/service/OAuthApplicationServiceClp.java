@@ -35,7 +35,7 @@ public class OAuthApplicationServiceClp implements OAuthApplicationService {
 		_methodName3 = "addOAuthApplication";
 
 		_methodParameterTypes3 = new String[] {
-				"java.lang.String", "java.lang.String", "int",
+				"java.lang.String", "java.lang.String", "int", "boolean",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -55,7 +55,7 @@ public class OAuthApplicationServiceClp implements OAuthApplicationService {
 		_methodName7 = "updateOAuthApplication";
 
 		_methodParameterTypes7 = new String[] {
-				"long", "java.lang.String", "java.lang.String",
+				"long", "java.lang.String", "java.lang.String", "boolean",
 				"java.lang.String", "java.lang.String",
 				"com.liferay.portal.service.ServiceContext"
 			};
@@ -114,7 +114,8 @@ public class OAuthApplicationServiceClp implements OAuthApplicationService {
 	@Override
 	public com.liferay.oauth.model.OAuthApplication addOAuthApplication(
 		java.lang.String name, java.lang.String description, int accessLevel,
-		java.lang.String callbackURI, java.lang.String websiteURL,
+		boolean shareableAccessToken, java.lang.String callbackURI,
+		java.lang.String websiteURL,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -129,6 +130,8 @@ public class OAuthApplicationServiceClp implements OAuthApplicationService {
 					ClpSerializer.translateInput(description),
 						
 					accessLevel,
+						
+					shareableAccessToken,
 						
 					ClpSerializer.translateInput(callbackURI),
 						
@@ -265,8 +268,8 @@ public class OAuthApplicationServiceClp implements OAuthApplicationService {
 	@Override
 	public com.liferay.oauth.model.OAuthApplication updateOAuthApplication(
 		long oAuthApplicationId, java.lang.String name,
-		java.lang.String description, java.lang.String callbackURI,
-		java.lang.String websiteURL,
+		java.lang.String description, boolean shareableAccessToken,
+		java.lang.String callbackURI, java.lang.String websiteURL,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
@@ -281,6 +284,8 @@ public class OAuthApplicationServiceClp implements OAuthApplicationService {
 					ClpSerializer.translateInput(name),
 						
 					ClpSerializer.translateInput(description),
+						
+					shareableAccessToken,
 						
 					ClpSerializer.translateInput(callbackURI),
 						

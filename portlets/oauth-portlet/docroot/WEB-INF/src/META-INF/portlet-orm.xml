@@ -25,6 +25,7 @@
 			<basic name="consumerSecret" />
 			<basic name="accessLevel" />
 			<basic name="logoId" />
+			<basic name="shareableAccessToken" />
 			<basic name="callbackURI" />
 			<basic name="websiteURL" />
 			<transient name="OAuthApplicationId" />

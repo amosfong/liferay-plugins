@@ -20,6 +20,7 @@
 		<property name="consumerSecret" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="accessLevel" type="com.liferay.portal.dao.orm.hibernate.IntegerType" />
 		<property name="logoId" type="com.liferay.portal.dao.orm.hibernate.LongType" />
+		<property name="shareableAccessToken" type="com.liferay.portal.dao.orm.hibernate.BooleanType" />
 		<property name="callbackURI" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 		<property name="websiteURL" type="com.liferay.portal.dao.orm.hibernate.StringType" />
 	</class>

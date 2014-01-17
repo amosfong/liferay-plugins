@@ -263,6 +263,27 @@ public interface OAuthApplicationModel extends AuditedModel,
 	public void setLogoId(long logoId);
 
 	/**
+	 * Returns the shareable access token of this o auth application.
+	 *
+	 * @return the shareable access token of this o auth application
+	 */
+	public boolean getShareableAccessToken();
+
+	/**
+	 * Returns <code>true</code> if this o auth application is shareable access token.
+	 *
+	 * @return <code>true</code> if this o auth application is shareable access token; <code>false</code> otherwise
+	 */
+	public boolean isShareableAccessToken();
+
+	/**
+	 * Sets whether this o auth application is shareable access token.
+	 *
+	 * @param shareableAccessToken the shareable access token of this o auth application
+	 */
+	public void setShareableAccessToken(boolean shareableAccessToken);
+
+	/**
 	 * Returns the callback u r i of this o auth application.
 	 *
 	 * @return the callback u r i of this o auth application

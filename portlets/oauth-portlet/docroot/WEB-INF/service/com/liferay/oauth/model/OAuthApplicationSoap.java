@@ -43,6 +43,7 @@ public class OAuthApplicationSoap implements Serializable {
 		soapModel.setConsumerSecret(model.getConsumerSecret());
 		soapModel.setAccessLevel(model.getAccessLevel());
 		soapModel.setLogoId(model.getLogoId());
+		soapModel.setShareableAccessToken(model.getShareableAccessToken());
 		soapModel.setCallbackURI(model.getCallbackURI());
 		soapModel.setWebsiteURL(model.getWebsiteURL());
 
@@ -195,6 +196,18 @@ public class OAuthApplicationSoap implements Serializable {
 		_logoId = logoId;
 	}
 
+	public boolean getShareableAccessToken() {
+		return _shareableAccessToken;
+	}
+
+	public boolean isShareableAccessToken() {
+		return _shareableAccessToken;
+	}
+
+	public void setShareableAccessToken(boolean shareableAccessToken) {
+		_shareableAccessToken = shareableAccessToken;
+	}
+
 	public String getCallbackURI() {
 		return _callbackURI;
 	}
@@ -223,6 +236,7 @@ public class OAuthApplicationSoap implements Serializable {
 	private String _consumerSecret;
 	private int _accessLevel;
 	private long _logoId;
+	private boolean _shareableAccessToken;
 	private String _callbackURI;
 	private String _websiteURL;
 }

@@ -279,14 +279,14 @@ public class OAuthApplicationLocalServiceUtil {
 
 	public static com.liferay.oauth.model.OAuthApplication addOAuthApplication(
 		long userId, java.lang.String name, java.lang.String description,
-		int accessLevel, java.lang.String callbackURI,
-		java.lang.String websiteURL,
+		int accessLevel, boolean shareableAccessToken,
+		java.lang.String callbackURI, java.lang.String websiteURL,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
 				   .addOAuthApplication(userId, name, description, accessLevel,
-			callbackURI, websiteURL, serviceContext);
+			shareableAccessToken, callbackURI, websiteURL, serviceContext);
 	}
 
 	public static void deleteLogo(long oAuthApplicationId)
@@ -348,14 +348,15 @@ public class OAuthApplicationLocalServiceUtil {
 
 	public static com.liferay.oauth.model.OAuthApplication updateOAuthApplication(
 		long oAuthApplicationId, java.lang.String name,
-		java.lang.String description, java.lang.String callbackURI,
-		java.lang.String websiteURL,
+		java.lang.String description, boolean shareableAccessToken,
+		java.lang.String callbackURI, java.lang.String websiteURL,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
 				   .updateOAuthApplication(oAuthApplicationId, name,
-			description, callbackURI, websiteURL, serviceContext);
+			description, shareableAccessToken, callbackURI, websiteURL,
+			serviceContext);
 	}
 
 	public static void clearService() {

@@ -64,13 +64,14 @@ import java.rmi.RemoteException;
 public class OAuthApplicationServiceSoap {
 	public static com.liferay.oauth.model.OAuthApplicationSoap addOAuthApplication(
 		java.lang.String name, java.lang.String description, int accessLevel,
-		java.lang.String callbackURI, java.lang.String websiteURL,
+		boolean shareableAccessToken, java.lang.String callbackURI,
+		java.lang.String websiteURL,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.oauth.model.OAuthApplication returnValue = OAuthApplicationServiceUtil.addOAuthApplication(name,
-					description, accessLevel, callbackURI, websiteURL,
-					serviceContext);
+					description, accessLevel, shareableAccessToken,
+					callbackURI, websiteURL, serviceContext);
 
 			return com.liferay.oauth.model.OAuthApplicationSoap.toSoapModel(returnValue);
 		}
@@ -109,13 +110,14 @@ public class OAuthApplicationServiceSoap {
 
 	public static com.liferay.oauth.model.OAuthApplicationSoap updateOAuthApplication(
 		long oAuthApplicationId, java.lang.String name,
-		java.lang.String description, java.lang.String callbackURI,
-		java.lang.String websiteURL,
+		java.lang.String description, boolean shareableAccessToken,
+		java.lang.String callbackURI, java.lang.String websiteURL,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws RemoteException {
 		try {
 			com.liferay.oauth.model.OAuthApplication returnValue = OAuthApplicationServiceUtil.updateOAuthApplication(oAuthApplicationId,
-					name, description, callbackURI, websiteURL, serviceContext);
+					name, description, shareableAccessToken, callbackURI,
+					websiteURL, serviceContext);
 
 			return com.liferay.oauth.model.OAuthApplicationSoap.toSoapModel(returnValue);
 		}
