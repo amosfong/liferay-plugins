@@ -1,24 +1,25 @@
 AUI.add(
-	'liferay-spi-definition', function(A) {
-		var CSS_TABLE_DATA = '.table-data';
-		var CSS_LABEL_IMPORTANT = 'label-important';
-		var CSS_LABEL_INFO = 'label-info';
-		var CSS_LABEL_SUCCESS = 'label-success';
-		var CSS_SEARCH_CONTAINER = '#spiDefinitionsSearchContainer';
+	'liferay-spi-definition',
+	function(A) {
+		var Lang = A.Lang;
 
 		var CACHED_STATUS = 'cachedStatus';
-		var DELAY = 'delay';
-		var KEY = '.spi-status-column .label[data-id="{spiDefinitionId}"]';
 
-		var STARTED = 'started';
-		var STARTING = 'starting';
-		var STOPPED = 'stopped';
-		var STOPPING = 'stopping';
+		var CSS_DROPDOWN_MENU = '.dropdown-menu';
 
-		var SPI_STATUS_MAP = [STARTED, STARTING, STOPPED, STOPPING];
+		var CSS_LABEL_INFO = 'label-info';
 
-		var SEARCH_CONTAINER = 'searchContainer';
-		var REGISTERED = 'registered';
+		var CSS_LABEL_IMPORTANT = 'label-important';
+
+		var CSS_LABEL_SUCCESS = 'label-success';
+
+		var MENU_LIST_CONTAINER = 'menuListContainer';
+
+		var TPL_SPI_DEFINITION_ID = 'spiDefinitionId={id}';
+
+		var TPL_DATA_ID_NODE_SELECTOR = '.spi-status-column .label[data-id="{spiDefinitionId}"]';
+
+		var URLS = 'urls';
 
 		var SPIDefinition = A.Component.create(
 			{
@@ -26,15 +27,25 @@ AUI.add(
 					cachedStatus: {
 						value: {}
 					},
+
 					delay: {
 						value: 5000
 					},
+
 					searchContainer: {
 						valueFn: function() {
 							var instance = this;
 
-							return instance.one(CSS_SEARCH_CONTAINER);
+							return instance.one('#spiDefinitionsSearchContainerSearchContainer');
 						}
+					},
+
+					spiDefinitionActionURL: {
+						value: ''
+					},
+
+					urls: {
+						value: {}
 					}
 				},
 
@@ -48,38 +59,23 @@ AUI.add(
 					initializer: function() {
 						var instance = this;
 
-						instance.getDefinitionsStatus();
+						instance._getDefinitionsStatus();
 					},
 
-					getDefinitionsStatus: function() {
+					_getDefinitionsStatus: function() {
 						var instance = this;
 
 						Liferay.Service(
 							'/spi-admin-portlet.spidefinition/get-spi-definitions',
 							function(response) {
 								if (response.length) {
-									A.Array.each(
-										response,
-										function(item, index, collection) {
-											var name = item.name;
+									var updateItemStatus = A.bind(instance._updateItemStatus, instance);
 
-											var status = item.status;
+									A.Array.each(response, updateItemStatus);
 
-											if (A.Lang.isNumber(status)) {
-												var cachedStatus = instance.get(CACHED_STATUS);
+									var getDefinitionsStatus = A.bind(instance._getDefinitionsStatus, instance);
 
-												cachedStatus[name] = status;
-
-												instance._updateRowNodeLabelStatus(item);
-
-												instance._updateCachedStatus(name, status);
-											}
-										}
-									);
-
-									var getDefinitionsStatus = instance.getDefinitionsStatus.bind(instance);
-
-									setTimeout(getDefinitionsStatus, instance.get(DELAY));
+									setTimeout(getDefinitionsStatus, instance.get('delay'));
 								}
 							}
 						);
@@ -91,7 +87,7 @@ AUI.add(
 						var searchContainerTableData = instance._searchContainerTableData;
 
 						if (!searchContainerTableData) {
-							searchContainerTableData = instance.get(SEARCH_CONTAINER).one(CSS_TABLE_DATA);
+							searchContainerTableData = instance.get('searchContainer').one('.table-data');
 
 							instance._searchContainerTableData = searchContainerTableData;
 						}
@@ -104,9 +100,34 @@ AUI.add(
 
 						var searchContainerTableData = instance._getSearchContainerTableData();
 
-						var dataIdNodeSelector = A.Lang.sub(KEY, item);
+						var dataIdNodeSelector = Lang.sub(TPL_DATA_ID_NODE_SELECTOR, item);
 
 						return searchContainerTableData.one(dataIdNodeSelector);
+					},
+
+					_getURL: function(id) {
+						var instance = this;
+
+						var urls = instance.get(URLS);
+
+						var url = urls[id];
+
+						if (!url) {
+							var param = Lang.sub(
+								instance.ns(TPL_SPI_DEFINITION_ID),
+								{
+									id: id
+								}
+							);
+
+							url = Liferay.Util.addParams(param, instance.get('spiDefinitionActionURL'));
+
+							urls[id] = url;
+
+							instance.set(URLS, urls);
+						}
+
+						return url;
 					},
 
 					_updateCachedStatus: function(key, value) {
@@ -126,15 +147,48 @@ AUI.add(
 						node.removeClass(CSS_LABEL_IMPORTANT);
 						node.removeClass(CSS_LABEL_SUCCESS);
 
+						var labelCssClass = CSS_LABEL_IMPORTANT;
+
 						if (status === 0) {
-							node.addClass(CSS_LABEL_SUCCESS);
+							labelCssClass = CSS_LABEL_SUCCESS;
 						}
 						else if (status === 1 || status === 3) {
-							node.addClass(CSS_LABEL_INFO);
+							labelCssClass = CSS_LABEL_INFO;
 						}
-						else {
-							node.addClass(CSS_LABEL_IMPORTANT);
-						}
+
+						node.addClass(labelCssClass);
+					},
+
+					_updateRowNodeActionMenu: function(labelNode) {
+						var instance = this;
+
+						var rowNode = labelNode.ancestor('tr');
+
+						var actionsMenuTrigger = rowNode.one('.dropdown-toggle');
+
+						var spiDefinitionId = rowNode.one('.spi-status-column [data-id]').getData('id');
+
+						var actionsMenuNode = actionsMenuTrigger.getData(MENU_LIST_CONTAINER) || actionsMenuTrigger.next(CSS_DROPDOWN_MENU);
+
+						A.io.request(
+							instance._getURL(spiDefinitionId),
+							{
+								after: {
+									success: function(event, id, obj) {
+										var responseData = this.get('responseData');
+
+										var tempNode = A.Node.create(responseData);
+
+										var dropdownMenuFragment = tempNode.one('#p_p_id' + instance.NS + ' .portlet-body ' + CSS_DROPDOWN_MENU + '.lfr-menu-list');
+
+										actionsMenuNode.html(dropdownMenuFragment.html());
+
+										actionsMenuTrigger.setData(MENU_LIST_CONTAINER, actionsMenuNode);
+									}
+								},
+								dataType: 'html'
+							}
+						);
 					},
 
 					_updateRowNodeLabelStatus: function(item) {
@@ -143,13 +197,51 @@ AUI.add(
 						var labelNode = instance._getSPIStatusLabel(item);
 
 						if (labelNode) {
-							var status = SPI_STATUS_MAP[item.status];
+							var status = item.status;
 
-							var statusText = Liferay.Language.get(status);
+							var statusText = '';
+
+							if (status === 0) {
+								statusText = Liferay.Language.get('started');
+							}
+							else if (status === 1) {
+								statusText = Liferay.Language.get('starting');
+							}
+							else if (status === 2) {
+								statusText = Liferay.Language.get('stopped');
+							}
+							else if (status === 3) {
+								statusText = Liferay.Language.get('stopping');
+							}
 
 							labelNode.text(statusText);
 
-							instance._updateLabelClass(labelNode, item.status);
+							instance._updateLabelClass(labelNode, status);
+
+							instance._updateRowNodeActionMenu(labelNode);
+						}
+					},
+
+					_updateItemStatus: function(item) {
+						var instance = this;
+
+						var status = item.status;
+
+						if (Lang.isNumber(status)) {
+							var cachedStatus = instance.get(CACHED_STATUS);
+
+							var name = item.name;
+
+							var cachedValue = cachedStatus[name];
+
+							if (!cachedValue) {
+								instance._updateCachedStatus(name, status);
+							}
+							else if (cachedValue != status) {
+								instance._updateRowNodeLabelStatus(item);
+
+								instance._updateCachedStatus(name, status);
+							}
 						}
 					}
 				}
@@ -160,6 +252,6 @@ AUI.add(
 	},
 	'',
 	{
-		requires: ['aui-component', 'liferay-portlet-base']
+		requires: ['aui-component', 'aui-io-request', 'liferay-portlet-base']
 	}
 );

@@ -19,7 +19,16 @@
 <%
 ResultRow row = (ResultRow)request.getAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 
-SPIDefinition spiDefinition = (SPIDefinition)row.getObject();
+SPIDefinition spiDefinition = null;
+
+if (row != null) {
+	spiDefinition = (SPIDefinition)row.getObject();
+}
+else {
+	long spiDefinitionId = ParamUtil.getLong(request, "spiDefinitionId");
+
+	spiDefinition = SPIDefinitionServiceUtil.getSPIDefinition(spiDefinitionId);
+}
 %>
 
 <liferay-ui:icon-menu>

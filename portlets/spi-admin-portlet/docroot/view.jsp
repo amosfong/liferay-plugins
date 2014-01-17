@@ -97,7 +97,8 @@ List<SPIDefinition> spiDefinitions = SPIDefinitionServiceUtil.getSPIDefinitions(
 <aui:script use="liferay-spi-definition">
 	new Liferay.Portlet.SPIDefinition(
 		{
-			namespace: '<portlet:namespace />'
+			namespace: '<portlet:namespace />',
+			spiDefinitionActionURL: '<portlet:renderURL windowState="<%= LiferayWindowState.MAXIMIZED.toString() %>"><portlet:param name="mvcPath" value="/spi_definition_action.jsp" /></portlet:renderURL>'
 		}
 	);
 </aui:script>

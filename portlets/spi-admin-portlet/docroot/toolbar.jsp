@@ -33,7 +33,7 @@ String toolbarItem = ParamUtil.getString(request, "toolbarItem");
 				<portlet:param name="backURL" value="<%= viewSPIDefinitionsURL %>" />
 			</portlet:renderURL>
 
-			<aui:nav-item href="<%= addSPIDefinitionURL %>" iconClass="icon-plus" label="add-spi" selected='<%= toolbarItem.equals("add") %>' />
+			<aui:nav-item href="<%= addSPIDefinitionURL %>" iconCssClass="icon-plus" label="add-spi" selected='<%= toolbarItem.equals("add") %>' />
 		</aui:nav>
 	</aui:nav-bar>
 </c:if>
