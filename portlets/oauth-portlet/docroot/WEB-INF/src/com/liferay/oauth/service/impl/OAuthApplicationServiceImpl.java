@@ -35,7 +35,7 @@ public class OAuthApplicationServiceImpl
 	@Override
 	public OAuthApplication addOAuthApplication(
 			String name, String description, int accessLevel,
-			String callbackURI, String websiteURL,
+			boolean shareableAccessToken, String callbackURI, String websiteURL,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
@@ -43,8 +43,8 @@ public class OAuthApplicationServiceImpl
 			getPermissionChecker(), ActionKeys.ADD_APPLICATION);
 
 		return oAuthApplicationLocalService.addOAuthApplication(
-			getUserId(), name, description, accessLevel, callbackURI,
-			websiteURL, serviceContext);
+			getUserId(), name, description, accessLevel, shareableAccessToken,
+			callbackURI, websiteURL, serviceContext);
 	}
 
 	@Override
@@ -86,7 +86,7 @@ public class OAuthApplicationServiceImpl
 	@Override
 	public OAuthApplication updateOAuthApplication(
 			long oAuthApplicationId, String name, String description,
-			String callbackURI, String websiteURL,
+			boolean shareableAccessToken, String callbackURI, String websiteURL,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
@@ -94,8 +94,8 @@ public class OAuthApplicationServiceImpl
 			getPermissionChecker(), oAuthApplicationId, ActionKeys.UPDATE);
 
 		return oAuthApplicationLocalService.updateOAuthApplication(
-			oAuthApplicationId, name, description, callbackURI, websiteURL,
-			serviceContext);
+			oAuthApplicationId, name, description, shareableAccessToken,
+			callbackURI, websiteURL, serviceContext);
 	}
 
 }

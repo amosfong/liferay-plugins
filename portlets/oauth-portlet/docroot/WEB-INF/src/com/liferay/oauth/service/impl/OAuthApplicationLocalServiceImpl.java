@@ -47,7 +47,7 @@ public class OAuthApplicationLocalServiceImpl
 	@Override
 	public OAuthApplication addOAuthApplication(
 			long userId, String name, String description, int accessLevel,
-			String callbackURI, String websiteURL,
+			boolean shareableAccessToken, String callbackURI, String websiteURL,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
@@ -82,6 +82,7 @@ public class OAuthApplicationLocalServiceImpl
 		oAuthApplication.setConsumerSecret(
 			OAuthUtil.randomizeToken(consumerKey));
 		oAuthApplication.setAccessLevel(accessLevel);
+		oAuthApplication.setShareableAccessToken(shareableAccessToken);
 		oAuthApplication.setCallbackURI(callbackURI);
 		oAuthApplication.setWebsiteURL(websiteURL);
 
@@ -266,7 +267,7 @@ public class OAuthApplicationLocalServiceImpl
 	@Override
 	public OAuthApplication updateOAuthApplication(
 			long oAuthApplicationId, String name, String description,
-			String callbackURI, String websiteURL,
+			boolean shareableAccessToken, String callbackURI, String websiteURL,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
@@ -278,6 +279,7 @@ public class OAuthApplicationLocalServiceImpl
 		oAuthApplication.setModifiedDate(serviceContext.getModifiedDate(null));
 		oAuthApplication.setName(name);
 		oAuthApplication.setDescription(description);
+		oAuthApplication.setShareableAccessToken(shareableAccessToken);
 		oAuthApplication.setCallbackURI(callbackURI);
 		oAuthApplication.setWebsiteURL(websiteURL);
 
