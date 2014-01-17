@@ -21,9 +21,9 @@
 <p>
 	<liferay-ui:message key="host-name" />: <strong><%= hostName %></strong><br />
 	<liferay-ui:message key="host-port" />: <strong><%= hostPort %></strong><br />
-	<liferay-ui:message key="access-token" />: <strong><%= accessTokenURI %></strong><br />
+	<liferay-ui:message key="access-uri" />: <strong><%= accessURI %></strong><br />
 	<liferay-ui:message key="authorize-uri" />: <strong><%= authorizeURI %></strong><br />
-	<liferay-ui:message key="request-uri" />: <strong><%= requestTokenURI %></strong><br />
+	<liferay-ui:message key="request-uri" />: <strong><%= requestURI %></strong><br />
 	<liferay-ui:message key="consumer-key" />: <strong><%= key %></strong><br />
 	<liferay-ui:message key="consumer-secret" />: <strong><%= secret %></strong>
 </p>
@@ -34,7 +34,7 @@
 	<liferay-ui:icon image="checked" />
 
 	<p>
-		<liferay-ui:message key="access-token-{0}" />: <strong><%= accessToken %></strong><br />
-		<liferay-ui:message key="access-secret-{0}" />: <strong><%= accessSecret %></strong>
+		<liferay-ui:message key="access-token" />: <strong><%= accessToken %></strong><br />
+		<liferay-ui:message key="access-secret" />: <strong><%= accessSecret %></strong>
 	</p>
 </c:if>

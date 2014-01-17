@@ -25,7 +25,7 @@
 <%@ page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
 page import="com.liferay.portal.kernel.util.StringPool" %><%@
 page import="com.liferay.portal.kernel.util.Validator" %><%@
-page import="com.liferay.testoauth.oauth.LiferayOAuthPlatformTest" %><%@
+page import="com.liferay.testoauth.oauth.LiferayOAuthJSONWSClient" %><%@
 page import="com.liferay.testoauth.oauth.OAuthServiceHandler" %><%@
 page import="com.liferay.testoauth.oauth.OAuthUtil" %><%@
 page import="com.liferay.testoauth.util.PortletPropsValues" %>
@@ -39,11 +39,11 @@ page import="com.liferay.testoauth.util.PortletPropsValues" %>
 <%
 String accessSecret = portletPreferences.getValue("accessSecret", StringPool.BLANK);
 String accessToken = portletPreferences.getValue("accessToken", StringPool.BLANK);
-String accessTokenURI = portletPreferences.getValue("accessTokenURI", PortletPropsValues.OAUTH_ACCESS_TOKEN_URI);
+String accessURI = portletPreferences.getValue("accessURI", PortletPropsValues.OAUTH_ACCESS_TOKEN_URI);
 String authorizeURI = portletPreferences.getValue("authorizeURI", PortletPropsValues.OAUTH_AUTHORIZE_URI);
 String hostName = portletPreferences.getValue("hostName", PortletPropsValues.OAUTH_HOST_NAME);
 String hostPort = portletPreferences.getValue("hostPort", PortletPropsValues.OAUTH_HOST_PORT);
 String key = portletPreferences.getValue("key", StringPool.BLANK);
-String requestTokenURI = portletPreferences.getValue("requestTokenURI", PortletPropsValues.OAUTH_REQUEST_TOKEN_URI);
+String requestURI = portletPreferences.getValue("requestURI", PortletPropsValues.OAUTH_REQUEST_TOKEN_URI);
 String secret = portletPreferences.getValue("secret", StringPool.BLANK);
 %>

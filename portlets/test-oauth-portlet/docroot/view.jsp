@@ -32,11 +32,11 @@ String webId = ParamUtil.getString(request, "webId", null);
 
 			<aui:input name="hostPort" required="<%= true %>" value="<%= hostPort %>" />
 
-			<aui:input label="access-token-endpoint-uri" name="accessURI" required="<%= true %>" value="<%= accessTokenURI %>" />
+			<aui:input label="access-uri" name="accessURI" required="<%= true %>" value="<%= accessURI %>" />
 
-			<aui:input label="authorize-token-endpoint-uri" name="authorizeURI" required="<%= true %>" value="<%= authorizeURI %>" />
+			<aui:input label="authorize-uri" name="authorizeURI" required="<%= true %>" value="<%= authorizeURI %>" />
 
-			<aui:input label="request-token-endpoint-uri" name="requestURI" required="<%= true %>" value="<%= requestTokenURI %>" />
+			<aui:input label="request-uri" name="requestURI" required="<%= true %>" value="<%= requestURI %>" />
 
 			<aui:input name="key" required="<%= true %>" />
 
@@ -66,9 +66,7 @@ String webId = ParamUtil.getString(request, "webId", null);
 				<c:otherwise>
 					<liferay-portlet:actionURL name="setupOAuth" var="setupOAuthURL" />
 
-					<aui:button-row>
-						<aui:button href="<%= oAuthServiceHandler.getAuthorizeURL(requestToken, setupOAuthURL) %>" value="authorize-access" />
-					</aui:button-row>
+					<a href="<%= oAuthServiceHandler.getAuthorizeURL(requestToken, setupOAuthURL) %>"><liferay-ui:message key="authorize-access" /></a>
 				</c:otherwise>
 			</c:choose>
 		</c:when>
@@ -82,9 +80,10 @@ String webId = ParamUtil.getString(request, "webId", null);
 			OAuthServiceHandler oAuthServiceHandler = OAuthUtil.getOAuthServiceHandler(portletPreferences);
 
 			if (webId != null) {
-				LiferayOAuthPlatformTest liferayOAuthPlatformTest = new LiferayOAuthPlatformTest(hostName, hostPort, oAuthServiceHandler);
+				LiferayOAuthJSONWSClient
+					liferayOAuthJSONWSClient = new LiferayOAuthJSONWSClient(hostName, hostPort, oAuthServiceHandler);
 
-				oAuthResult = liferayOAuthPlatformTest.getRemotePortalCompany(accessToken, accessSecret, webId);
+				oAuthResult = liferayOAuthJSONWSClient.getRemotePortalCompany(accessToken, accessSecret, webId);
 			}
 			%>
 
@@ -95,12 +94,8 @@ String webId = ParamUtil.getString(request, "webId", null);
 					<c:when test="<%= oAuthResult == null %>">
 						<aui:input helpMessage="e.g.-liferay.com" name="webId" />
 
-						<%
-						String taglibOnClick = renderResponse.getNamespace() + "testAuthorizedRequest();";
-						%>
-
 						<aui:button-row>
-							<aui:button onClick="<%= taglibOnClick %>" value="test" />
+							<aui:button onClick='<%= renderResponse.getNamespace() + "testAuthorizedRequest();" %>' value="test" />
 						</aui:button-row>
 					</c:when>
 					<c:otherwise>
@@ -118,7 +113,7 @@ String webId = ParamUtil.getString(request, "webId", null);
 	<div class="button-container">
 		<liferay-portlet:actionURL name="resetOAuth" var="resetOAuthURL" />
 
-		<liferay-ui:message arguments="<%= resetOAuthURL %>" key="reset-oauth-settings-to-repeat-the-test" />
+		<a href="<%= resetOAuthURL %>"><liferay-ui:message key="reset-oauth-settings" /></a>
 	</div>
 
 	<hr />
