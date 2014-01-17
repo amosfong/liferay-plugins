@@ -53,6 +53,8 @@ OAuthApplication oAuthApplication = OAuthApplicationLocalServiceUtil.fetchOAuthA
 
 		<aui:input label="callback-uri" name="callbackURI" />
 
+		<aui:input helpMessage="if-checked-share-access-token-option-enables-multiple-application-instances-per-user" label="share-access-token" name="shareableAccessToken" />
+
 		<c:if test="<%= (oAuthApplication == null) %>">
 			<aui:select helpMessage="access-type-description" label="access-type" name="accessType">
 				<aui:option label="<%= OAuthApplicationConstants.LABEL_ACCESS_READ %>" value="<%= OAuthApplicationConstants.ACCESS_READ %>" />

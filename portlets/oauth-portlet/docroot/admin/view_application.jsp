@@ -50,6 +50,17 @@ OAuthApplication oAuthApplication = OAuthApplicationLocalServiceUtil.getOAuthApp
 			<%= HtmlUtil.escape(oAuthApplication.getCallbackURI()) %>
 		</aui:field-wrapper>
 
+		<aui:field-wrapper label="share-access-token">
+			<c:choose>
+				<c:when test="<%= oAuthApplication.isShareableAccessToken() %>">
+					<liferay-ui:icon image="checked" />
+				</c:when>
+				<c:otherwise>
+					<liferay-ui:icon image="close" />
+				</c:otherwise>
+			</c:choose>
+		</aui:field-wrapper>
+
 		<aui:field-wrapper label="application-credentials">
 			<liferay-ui:message key="consumer-key" />:
 
