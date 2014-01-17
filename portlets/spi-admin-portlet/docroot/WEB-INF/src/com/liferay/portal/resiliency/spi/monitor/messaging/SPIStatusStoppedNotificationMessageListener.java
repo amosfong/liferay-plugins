@@ -23,7 +23,7 @@ import com.liferay.portal.resiliency.spi.model.SPIDefinition;
 import com.liferay.portal.resiliency.spi.util.NotificationUtil;
 import com.liferay.portal.resiliency.spi.util.SPIAdminConstants;
 import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
-import com.liferay.portal.util.PortletKeys;
+import com.liferay.portal.resiliency.spi.util.PortletKeys;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -65,41 +65,21 @@ public class SPIStatusStoppedNotificationMessageListener
 			return;
 		}
 
-		long ownerId = spiDefinition.getCompanyId();
-		int ownerType = PortletKeys.PREFS_OWNER_TYPE_GROUP;
-		long plid = PortletKeys.PREFS_PLID_SHARED;
-		String portletId =
-			com.liferay.portal.resiliency.spi.util.PortletKeys.SPI_ADMIN;
-		String defaultPreferences = null;
-
-		PortletPreferences preferences =
+		PortletPreferences portletPreferences =
 			PortletPreferencesLocalServiceUtil.getPreferences(
-				spiDefinition.getCompanyId(), ownerId, ownerType, plid,
-				portletId, defaultPreferences);
+				spiDefinition.getCompanyId(), spiDefinition.getCompanyId(),
+				PortletKeys.PREFS_OWNER_TYPE_GROUP,
+				PortletKeys.PREFS_PLID_SHARED, PortletKeys.SPI_ADMIN, null);
 
 		String fromName = NotificationUtil.getNotificationEmailFromName(
-			preferences);
+			portletPreferences);
 		String fromAddress = NotificationUtil.getNotificationEmailFromAddress(
-			preferences);
-
-		String subject = NotificationUtil.getNotificationEmailSubject(
-			preferences);
-		String body = NotificationUtil.getNotificationEmailBody(preferences);
+			portletPreferences);
 
 		InternetAddress fromInternetAddress = new InternetAddress(fromAddress);
 
-		String[] notificationRecipientsArray = StringUtil.split(
-			notificationRecipients);
-
-		Set<InternetAddress> recipientInternetAddresses =
-			new HashSet<InternetAddress>(notificationRecipientsArray.length);
-
-		for (String notificationRecipient : notificationRecipientsArray) {
-			InternetAddress recipientInternetAddress = new InternetAddress(
-				notificationRecipient);
-
-			recipientInternetAddresses.add(recipientInternetAddress);
-		}
+		String subject = NotificationUtil.getNotificationEmailSubject(
+			portletPreferences);
 
 		subject = StringUtil.replace(
 			subject,
@@ -108,6 +88,9 @@ public class SPIStatusStoppedNotificationMessageListener
 			},
 			new String[] { spiDefinition.getName() }
 		);
+
+		String body = NotificationUtil.getNotificationEmailBody(
+			portletPreferences);
 
 		StringBundler sb = new StringBundler(10);
 
@@ -137,6 +120,19 @@ public class SPIStatusStoppedNotificationMessageListener
 
 		MailMessage mailMessage = new MailMessage(
 			fromInternetAddress, subject, body, true);
+
+		String[] notificationRecipientsArray = StringUtil.split(
+			notificationRecipients);
+
+		Set<InternetAddress> recipientInternetAddresses =
+			new HashSet<InternetAddress>(notificationRecipientsArray.length);
+
+		for (String notificationRecipient : notificationRecipientsArray) {
+			InternetAddress recipientInternetAddress = new InternetAddress(
+				notificationRecipient);
+
+			recipientInternetAddresses.add(recipientInternetAddress);
+		}
 
 		mailMessage.setTo(
 			recipientInternetAddresses.toArray(

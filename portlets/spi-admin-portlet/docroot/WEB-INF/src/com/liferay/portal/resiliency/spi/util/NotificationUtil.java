@@ -26,9 +26,9 @@ import javax.portlet.PortletPreferences;
 public class NotificationUtil {
 
 	public static String getNotificationEmailBody(
-		PortletPreferences preferences) {
+		PortletPreferences portletPreferences) {
 
-		String notificationEmailBody = preferences.getValue(
+		String notificationEmailBody = portletPreferences.getValue(
 			"notificationEmailBody", StringPool.BLANK);
 
 		if (Validator.isNotNull(notificationEmailBody)) {
@@ -39,29 +39,29 @@ public class NotificationUtil {
 	}
 
 	public static String getNotificationEmailFromAddress(
-		PortletPreferences preferences) {
+		PortletPreferences portletPreferences) {
 
 		String notificationEmailFromAddress =
 			PortletPropsValues.SPI_NOTIFICATION_EMAIL_FROM_ADDRESS;
 
-		return preferences.getValue(
+		return portletPreferences.getValue(
 			"notificationEmailFromAddress", notificationEmailFromAddress);
 	}
 
 	public static String getNotificationEmailFromName(
-		PortletPreferences preferences) {
+		PortletPreferences portletPreferences) {
 
 		String notificationEmailFromName =
 			PortletPropsValues.SPI_NOTIFICATION_EMAIL_FROM_NAME;
 
-		return preferences.getValue(
+		return portletPreferences.getValue(
 			"notificationEmailFromName", notificationEmailFromName);
 	}
 
 	public static String getNotificationEmailSubject(
-		PortletPreferences preferences) {
+		PortletPreferences portletPreferences) {
 
-		String notificationEmailSubject = preferences.getValue(
+		String notificationEmailSubject = portletPreferences.getValue(
 			"notificationEmailSubject", StringPool.BLANK);
 
 		if (Validator.isNotNull(notificationEmailSubject)) {

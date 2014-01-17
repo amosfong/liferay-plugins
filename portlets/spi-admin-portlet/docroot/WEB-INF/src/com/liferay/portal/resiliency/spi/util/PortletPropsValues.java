@@ -31,11 +31,6 @@ public class PortletPropsValues {
 		PortletProps.getArray(
 			PortletPropsKeys.SPI_BLACKLIST_SERVLET_CONTEXT_NAMES);
 
-	static {
-		Arrays.sort(SPI_BLACKLIST_PORTLET_IDS);
-		Arrays.sort(SPI_BLACKLIST_SERVLET_CONTEXT_NAMES);
-	}
-
 	public static final String SPI_NOTIFICATION_EMAIL_BODY =
 		GetterUtil.getString(
 			PortletProps.get(PortletPropsKeys.SPI_NOTIFICATION_EMAIL_BODY));
@@ -53,5 +48,10 @@ public class PortletPropsValues {
 	public static final String SPI_NOTIFICATION_EMAIL_SUBJECT =
 		GetterUtil.getString(
 			PortletProps.get(PortletPropsKeys.SPI_NOTIFICATION_EMAIL_SUBJECT));
+
+	static {
+		Arrays.sort(SPI_BLACKLIST_PORTLET_IDS);
+		Arrays.sort(SPI_BLACKLIST_SERVLET_CONTEXT_NAMES);
+	}
 
 }
