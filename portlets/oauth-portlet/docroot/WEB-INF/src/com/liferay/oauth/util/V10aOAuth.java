@@ -146,15 +146,17 @@ public class V10aOAuth implements OAuth {
 				serviceContext);
 		}
 		else {
-			OAuthUserLocalServiceUtil.updateOAuthUser(
-				userId, oAuthUser.getOAuthApplicationId(),
-				oAuthAccessor.getAccessToken(), oAuthAccessor.getTokenSecret(),
-				serviceContext);
+			if (oAuthApplication.isShareableAccessToken()) {
+				oAuthAccessor.setAccessToken(oAuthUser.getAccessToken());
+				oAuthAccessor.setTokenSecret(oAuthUser.getAccessSecret());
+			}
+			else {
+				OAuthUserLocalServiceUtil.updateOAuthUser(
+					userId, oAuthUser.getOAuthApplicationId(),
+					oAuthAccessor.getAccessToken(),
+					oAuthAccessor.getTokenSecret(), serviceContext);
+			}
 		}
-
-		oAuthAccessor.setAccessToken(token);
-		oAuthAccessor.setRequestToken(null);
-		oAuthAccessor.setTokenSecret(tokenSecret);
 
 		_portalCache.put(token, oAuthAccessor);
 	}
