@@ -209,7 +209,7 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 	</c:if>
 </div>
 
-<aui:script use="aui-tooltip">
+<aui:script use="aui-tooltip-delegate">
 
 	<%
 	String lcsPortalURL = "http://" + PortletProps.get("osb.lcs.portlet.host.name");
