@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.vldap.server.directory;
+package com.liferay.vldap;
 
 import com.liferay.portal.kernel.bean.BeanLocator;
 import com.liferay.portal.kernel.bean.PortalBeanLocatorUtil;
@@ -31,6 +31,7 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.service.CompanyLocalService;
 import com.liferay.portal.service.CompanyLocalServiceUtil;
+import com.liferay.vldap.server.directory.SearchBase;
 import com.liferay.vldap.util.PortletPropsKeys;
 
 import java.lang.reflect.Field;
@@ -56,10 +57,11 @@ public class BaseVLDAPTestCase extends PowerMockito {
 	@Before
 	public void setUp() throws Exception {
 		setupPortal();
-		setupProps();
-		setupCompany();
+
 		setupConfiguration();
-		setupFactories();
+		setupCompany();
+		setupORM();
+		setupProps();
 		setupSearchBase();
 	}
 
@@ -141,18 +143,17 @@ public class BaseVLDAPTestCase extends PowerMockito {
 
 		Configuration configuration = mock(Configuration.class);
 
-		String[] sambaNames = new String[1];
-		sambaNames[0] = "testDomainName";
-
 		when(
 			configuration.getArray(PortletPropsKeys.SAMBA_DOMAIN_NAMES)
-			).thenReturn(sambaNames);
-
-		String[] sambaHosts = new String[0];
+		).thenReturn(
+			new String[] {"testDomainName"}
+		);
 
 		when(
 			configuration.getArray(PortletPropsKeys.SAMBA_HOSTS_ALLOWED)
-			).thenReturn(sambaHosts);
+		).thenReturn(
+			new String[0]
+		);
 
 		ConfigurationFactory configurationFactory = mock(
 			ConfigurationFactory.class);
@@ -163,6 +164,7 @@ public class BaseVLDAPTestCase extends PowerMockito {
 		).thenReturn(
 			configuration
 		);
+
 		when(
 			configurationFactory.getConfiguration(
 				Mockito.any(ClassLoader.class), Mockito.eq("service"))
@@ -173,7 +175,7 @@ public class BaseVLDAPTestCase extends PowerMockito {
 		ConfigurationFactoryUtil.setConfigurationFactory(configurationFactory);
 	}
 
-	protected void setupFactories() throws Exception {
+	protected void setupORM() throws Exception {
 		Criterion criterion = mock(Criterion.class);
 
 		DynamicQuery dynamicQuery = mock(DynamicQuery.class);
@@ -190,6 +192,7 @@ public class BaseVLDAPTestCase extends PowerMockito {
 
 		DynamicQueryFactoryUtil dynamicQueryFactoryUtil =
 			new DynamicQueryFactoryUtil();
+
 		dynamicQueryFactoryUtil.setDynamicQueryFactory(dynamicQueryFactory);
 
 		RestrictionsFactory restrictionsFactory = mock(
@@ -201,6 +204,7 @@ public class BaseVLDAPTestCase extends PowerMockito {
 		).thenReturn(
 			criterion
 		);
+
 		when(
 			restrictionsFactory.ilike(
 				Mockito.anyString(), Mockito.any(Object.class))
@@ -210,6 +214,7 @@ public class BaseVLDAPTestCase extends PowerMockito {
 
 		RestrictionsFactoryUtil restrictionsFactoryUtil =
 			new RestrictionsFactoryUtil();
+
 		restrictionsFactoryUtil.setRestrictionsFactory(restrictionsFactory);
 	}
 
