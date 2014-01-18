@@ -44,7 +44,9 @@ public class SambaAuth implements Authenticator {
 			PortalSambaUtil.setSambaNTPassword(user, password);
 		}
 		catch (Exception e) {
-			_log.warn(e, e);
+			if (_log.isWarnEnabled()) {
+				_log.warn(e, e);
+			}
 		}
 
 		return SUCCESS;
@@ -63,7 +65,9 @@ public class SambaAuth implements Authenticator {
 			PortalSambaUtil.setSambaNTPassword(user, password);
 		}
 		catch (Exception e) {
-			_log.warn(e, e);
+			if (_log.isWarnEnabled()) {
+				_log.warn(e, e);
+			}
 		}
 
 		return SUCCESS;
@@ -81,7 +85,9 @@ public class SambaAuth implements Authenticator {
 			PortalSambaUtil.setSambaNTPassword(user, password);
 		}
 		catch (Exception e) {
-			_log.warn(e, e);
+			if (_log.isWarnEnabled()) {
+				_log.warn(e, e);
+			}
 		}
 
 		return SUCCESS;

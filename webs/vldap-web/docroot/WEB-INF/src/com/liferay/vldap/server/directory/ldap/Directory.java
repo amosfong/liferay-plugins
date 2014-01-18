@@ -17,6 +17,7 @@ package com.liferay.vldap.server.directory.ldap;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.workflow.WorkflowConstants;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.User;
@@ -41,7 +42,9 @@ public abstract class Directory {
 
 	public boolean hasAttribute(String attributeId) {
 		for (Attribute attribute : getAttributes()) {
-			if (attributeId.equalsIgnoreCase(attribute.getAttributeId())) {
+			if (StringUtil.equalsIgnoreCase(
+					attributeId, attribute.getAttributeId())) {
+
 				return true;
 			}
 		}
@@ -51,8 +54,9 @@ public abstract class Directory {
 
 	public boolean hasAttribute(String attributeId, String value) {
 		for (Attribute attribute : getAttributes()) {
-			if (attributeId.equalsIgnoreCase(attribute.getAttributeId()) &&
-				value.equalsIgnoreCase(attribute.getValue())) {
+			if (StringUtil.equalsIgnoreCase(
+					attributeId, attribute.getAttributeId()) &&
+				StringUtil.equalsIgnoreCase(value, attribute.getValue())) {
 
 				return true;
 			}
@@ -122,7 +126,7 @@ public abstract class Directory {
 		}
 
 		for (String current : list) {
-			if (current.equalsIgnoreCase(value)) {
+			if (StringUtil.equalsIgnoreCase(current, value)) {
 				return true;
 			}
 		}

@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.model.User;
@@ -229,7 +230,7 @@ public class BindLdapHandler extends BaseLdapHandler {
 			String rdnNormType = rdn.getNormType();
 			Value<?> rdnNormValue = rdn.getNormValue();
 
-			if (rdnNormType.equalsIgnoreCase(normType)) {
+			if (StringUtil.equalsIgnoreCase(rdnNormType, normType)) {
 				return GetterUtil.getString(rdnNormValue.getString());
 			}
 		}

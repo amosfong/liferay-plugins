@@ -85,7 +85,9 @@ public class PortalSambaUtil {
 					expandoBridge.addAttribute(attributeName, false);
 				}
 				catch (Exception e) {
-					_log.warn(e, e);
+					if (_log.isWarnEnabled()) {
+						_log.warn(e, e);
+					}
 				}
 			}
 
