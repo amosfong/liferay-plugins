@@ -66,10 +66,10 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 
 		_userBuilder = new UserBuilder();
 
-		_groupLocalService = getMockService(
+		_groupLocalService = getMockPortalService(
 			GroupLocalServiceUtil.class, GroupLocalService.class);
 
-		_userLocalService = getMockService(
+		_userLocalService = getMockPortalService(
 			UserLocalServiceUtil.class, UserLocalService.class);
 
 		setupUsers();
@@ -130,7 +130,7 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 			group
 		);
 
-		when(_searchBase.getCommunity()).thenReturn(group);
+		when(searchBase.getCommunity()).thenReturn(group);
 
 		List<Group> groups = new ArrayList<Group>();
 		groups.add(group);
@@ -155,7 +155,7 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 
 		when(_user.getOrganizations()).thenReturn(organizations);
 
-		when(_searchBase.getOrganization()).thenReturn(organization);
+		when(searchBase.getOrganization()).thenReturn(organization);
 	}
 
 	public void setupPasswordPolicy() throws Exception {
@@ -208,7 +208,7 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 
 		when(_user.getRoles()).thenReturn(roles);
 
-		when(_searchBase.getRole()).thenReturn(role);
+		when(searchBase.getRole()).thenReturn(role);
 	}
 
 	public void setupUserGroups() throws Exception {
@@ -222,7 +222,7 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 
 		when(_user.getUserGroups()).thenReturn(userGroups);
 
-		when(_searchBase.getUserGroup()).thenReturn(userGroup);
+		when(searchBase.getUserGroup()).thenReturn(userGroup);
 	}
 
 	public void setupUsers() throws Exception {
@@ -286,7 +286,7 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _userBuilder.buildDirectories(
-			_searchBase, filterConstraints);
+			searchBase, filterConstraints);
 
 		Directory returnedDirectory = directory.get(0);
 
@@ -318,7 +318,7 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 	@Test
 	public void testBuildDirectoriesNullFilter() throws Exception {
 		List<Directory> directory = _userBuilder.buildDirectories(
-			_searchBase, null);
+			searchBase, null);
 
 		Directory returnedDirectory = directory.get(0);
 
@@ -370,7 +370,7 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _userBuilder.buildDirectories(
-			_searchBase, filterConstraints);
+			searchBase, filterConstraints);
 
 		Directory returnedDirectory = directory.get(0);
 
@@ -422,7 +422,7 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _userBuilder.buildDirectories(
-			_searchBase, filterConstraints);
+			searchBase, filterConstraints);
 
 		Directory returnedDirectory = directory.get(0);
 
@@ -472,7 +472,7 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _userBuilder.buildDirectories(
-			_searchBase, filterConstraints);
+			searchBase, filterConstraints);
 
 		Directory returnedDirectory = directory.get(0);
 

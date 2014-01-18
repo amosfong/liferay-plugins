@@ -40,7 +40,7 @@ public class GeneralBuilderTestCase extends BaseVLDAPTestCase {
 		filterConstraints.add(filterConstraint);
 
 		List<Directory> directories = _builder.buildDirectories(
-			_searchBase, filterConstraints);
+			searchBase, filterConstraints);
 
 		Directory returnedDirectory = directories.get(0);
 

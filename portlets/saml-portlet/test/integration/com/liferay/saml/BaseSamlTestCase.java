@@ -202,8 +202,7 @@ public class BaseSamlTestCase extends PowerMockito {
 		T service = mock(serviceClass);
 
 		when(
-			portalBeanLocator.locate(
-				Mockito.eq(serviceClass.getName()))
+			portalBeanLocator.locate(Mockito.eq(serviceClass.getName()))
 		).thenReturn(
 			service
 		);

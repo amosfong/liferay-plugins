@@ -53,12 +53,12 @@ public class RoleBuilderTest extends BaseVLDAPTestCase {
 
 		_roleBuilder = new RoleBuilder();
 
-		_userLocalService = getMockService(
+		_userLocalService = getMockPortalService(
 			UserLocalServiceUtil.class, UserLocalService.class);
 	}
 
 	public void setupRoles() throws Exception {
-		RoleLocalService roleLocalService = getMockService(
+		RoleLocalService roleLocalService = getMockPortalService(
 			RoleLocalServiceUtil.class, RoleLocalService.class);
 
 		Role role = mock(Role.class);
@@ -88,7 +88,7 @@ public class RoleBuilderTest extends BaseVLDAPTestCase {
 	@Test
 	public void testBuildDirectoriesFilterNullFilter() throws Exception {
 		List<Directory> directory = _roleBuilder.buildDirectories(
-			_searchBase, null);
+			searchBase, null);
 
 		Directory returnedDirectory = directory.get(0);
 
@@ -110,7 +110,7 @@ public class RoleBuilderTest extends BaseVLDAPTestCase {
 		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _roleBuilder.buildDirectories(
-			_searchBase, filterConstraints);
+			searchBase, filterConstraints);
 
 		Directory returnedDirectory = directory.get(0);
 
@@ -139,7 +139,7 @@ public class RoleBuilderTest extends BaseVLDAPTestCase {
 		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _roleBuilder.buildDirectories(
-			_searchBase, filterConstraints);
+			searchBase, filterConstraints);
 
 		Directory returnedDirectory = directory.get(0);
 

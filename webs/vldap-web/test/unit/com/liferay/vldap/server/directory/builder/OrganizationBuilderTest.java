@@ -60,7 +60,7 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 	@Test
 	public void testBuildDirectoriesNullFilter() throws Exception {
 		List<Directory> directory = _organizationBuilder.buildDirectories(
-			_searchBase, null);
+			searchBase, null);
 
 		Directory returnedDirectory = directory.get(0);
 
@@ -84,7 +84,7 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 		filterConstraint.addAttribute("ou", "testName");
 
 		List<Directory> directory = _organizationBuilder.buildDirectories(
-			_searchBase, null);
+			searchBase, null);
 
 		Directory returnedDirectory = directory.get(0);
 
@@ -115,7 +115,7 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 		).thenReturn(_user);
 
 		List<Directory> directory = _organizationBuilder.buildDirectories(
-			_searchBase, null);
+			searchBase, null);
 
 		Directory returnedDirectory = directory.get(0);
 
@@ -141,7 +141,7 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 
 		when(_user.getOrganizations()).thenReturn(organizations);
 
-		OrganizationLocalService organizationLocalService = getMockService(
+		OrganizationLocalService organizationLocalService = getMockPortalService(
 			OrganizationLocalServiceUtil.class, OrganizationLocalService.class);
 
 		when(
@@ -160,7 +160,7 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 		List<User> users = new ArrayList<User>();
 		users.add(_user);
 
-		_userLocalService = getMockService(
+		_userLocalService = getMockPortalService(
 			UserLocalServiceUtil.class, UserLocalService.class);
 
 		when(

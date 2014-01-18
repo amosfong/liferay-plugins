@@ -54,7 +54,7 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 
 		_communityBuilder = new CommunityBuilder();
 
-		_groupLocalService = getMockService(
+		_groupLocalService = getMockPortalService(
 			GroupLocalServiceUtil.class, GroupLocalService.class);
 	}
 
@@ -79,7 +79,7 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _communityBuilder.buildDirectories(
-			_searchBase, filterConstraints);
+			searchBase, filterConstraints);
 
 		Directory returnedDirectory = directory.get(0);
 
@@ -116,7 +116,7 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _communityBuilder.buildDirectories(
-			_searchBase, filterConstraints);
+			searchBase, filterConstraints);
 
 		Directory returnedDirectory = directory.get(0);
 
@@ -142,7 +142,7 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 		);
 
 		List<Directory> directory = _communityBuilder.buildDirectories(
-			_searchBase, null);
+			searchBase, null);
 
 		Directory returnedDirectory = directory.get(0);
 
@@ -170,7 +170,7 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	protected void setupUsers() throws Exception {
-		_userLocalService = getMockService(
+		_userLocalService = getMockPortalService(
 			UserLocalServiceUtil.class, UserLocalService.class);
 
 		_user = mock(User.class);

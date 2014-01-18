@@ -52,7 +52,7 @@ public class CompanyBuilderTest extends BaseVLDAPTestCase {
 		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _companyBuilder.buildDirectories(
-			_searchBase, filterConstraints);
+			searchBase, filterConstraints);
 
 		Directory returnedDirectory = directory.get(0);
 
@@ -66,7 +66,7 @@ public class CompanyBuilderTest extends BaseVLDAPTestCase {
 	@Test
 	public void testBuildDirectoriesNullFilter() throws Exception {
 		List<Directory> directory = _companyBuilder.buildDirectories(
-			_searchBase, null);
+			searchBase, null);
 
 		Directory returnedDirectory = directory.get(0);
 
@@ -86,7 +86,7 @@ public class CompanyBuilderTest extends BaseVLDAPTestCase {
 		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _companyBuilder.buildDirectories(
-			_searchBase, filterConstraints);
+			searchBase, filterConstraints);
 
 		Directory returnedDirectory = directory.get(0);
 

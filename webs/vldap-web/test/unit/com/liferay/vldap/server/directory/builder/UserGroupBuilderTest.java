@@ -54,14 +54,14 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 
 		_userGroupBuilder = new UserGroupBuilder();
 
-		_userLocalService = getMockService(
+		_userLocalService = getMockPortalService(
 			UserLocalServiceUtil.class, UserLocalService.class);
 	}
 
 	@Test
 	public void testBuildDirectoriesFilterNullFilter() throws Exception {
 		List<Directory> directory = _userGroupBuilder.buildDirectories(
-			_searchBase, null);
+			searchBase, null);
 
 		Directory returnedDirectory = directory.get(0);
 
@@ -91,7 +91,7 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _userGroupBuilder.buildDirectories(
-			_searchBase, filterConstraints);
+			searchBase, filterConstraints);
 
 		Directory returnedDirectory = directory.get(0);
 
@@ -130,7 +130,7 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _userGroupBuilder.buildDirectories(
-			_searchBase, filterConstraints);
+			searchBase, filterConstraints);
 
 		Directory returnedDirectory = directory.get(0);
 
@@ -159,7 +159,7 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	protected void setupUserGroupLocalService() throws Exception {
-		UserGroupLocalService userGroupLocalService = getMockService(
+		UserGroupLocalService userGroupLocalService = getMockPortalService(
 			UserGroupLocalServiceUtil.class, UserGroupLocalService.class);
 
 		when(

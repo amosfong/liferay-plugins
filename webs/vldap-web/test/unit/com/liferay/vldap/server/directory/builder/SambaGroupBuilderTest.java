@@ -47,7 +47,7 @@ public class SambaGroupBuilderTest extends BaseVLDAPTestCase {
 
 		when(_organization.getName()).thenReturn("testName");
 
-		when(_searchBase.getOrganization()).thenReturn(_organization);
+		when(searchBase.getOrganization()).thenReturn(_organization);
 	}
 
 	@Test
@@ -62,7 +62,7 @@ public class SambaGroupBuilderTest extends BaseVLDAPTestCase {
 		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _sambaGroupBuilder.buildDirectories(
-			_searchBase, filterConstraints);
+			searchBase, filterConstraints);
 
 		Directory returnedDirectory = directory.get(0);
 
@@ -92,7 +92,7 @@ public class SambaGroupBuilderTest extends BaseVLDAPTestCase {
 		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _sambaGroupBuilder.buildDirectories(
-			_searchBase, filterConstraints);
+			searchBase, filterConstraints);
 
 		Directory returnedDirectory = directory.get(0);
 

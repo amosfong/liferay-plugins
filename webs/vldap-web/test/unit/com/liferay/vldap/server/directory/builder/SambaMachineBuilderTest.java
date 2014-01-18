@@ -47,13 +47,13 @@ public class SambaMachineBuilderTest extends BaseVLDAPTestCase {
 
 		when(_organization.getName()).thenReturn("testName");
 
-		when(_searchBase.getOrganization()).thenReturn(_organization);
+		when(searchBase.getOrganization()).thenReturn(_organization);
 	}
 
 	@Test
 	public void testBuildDirectoriesOrganizationDomain() throws Exception {
 		List<Directory> directory = _sambaMachineBuilder.buildDirectories(
-			_searchBase.getTop(), _company, _organization, "testDomainName");
+			searchBase.getTop(), company, _organization, "testDomainName");
 
 		Directory returnedDirectory = directory.get(0);
 
@@ -77,7 +77,7 @@ public class SambaMachineBuilderTest extends BaseVLDAPTestCase {
 		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _sambaMachineBuilder.buildDirectories(
-			_searchBase, filterConstraints);
+			searchBase, filterConstraints);
 
 		Directory returnedDirectory = directory.get(0);
 

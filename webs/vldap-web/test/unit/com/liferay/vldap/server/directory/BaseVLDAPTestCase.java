@@ -55,38 +55,38 @@ public class BaseVLDAPTestCase extends PowerMockito {
 
 	@Before
 	public void setUp() throws Exception {
-		setupServiceMocks();
 		setupPortal();
 		setupProps();
 		setupCompany();
 		setupConfiguration();
 		setupFactories();
-		setupBuilderBase();
+		setupSearchBase();
 	}
 
 	@After
 	public void tearDown() {
-		for (Class<?> utilClass : _serviceUtilClasses) {
+		for (Class<?> serviceUtilClass : serviceUtilClasses) {
 			try {
-				Field field = utilClass.getDeclaredField("_service");
+				Field field = serviceUtilClass.getDeclaredField("_service");
 
 				field.setAccessible(true);
 
-				field.set(utilClass, null);
+				field.set(serviceUtilClass, null);
 			}
 			catch (Exception e) {
 			}
 		}
 	}
 
-	protected <T> T getMockService(Class<?> utilType, Class<T> serviceType) {
-		_serviceUtilClasses.add(utilType);
+	protected <T> T getMockPortalService(
+		Class<?> serviceUtilClass, Class<T> serviceClass) {
 
-		T serviceMock = mock(serviceType);
+		serviceUtilClasses.add(serviceUtilClass);
+
+		T serviceMock = mock(serviceClass);
 
 		when(
-			_portalBeanLocator.locate(
-				Mockito.eq(serviceType.getName()))
+			portalBeanLocator.locate(Mockito.eq(serviceClass.getName()))
 		).thenReturn(
 			serviceMock
 		);
@@ -94,46 +94,42 @@ public class BaseVLDAPTestCase extends PowerMockito {
 		return serviceMock;
 	}
 
-	protected void setupBuilderBase() {
-		Long testLong = 42l;
-
-		_searchBase = mock(SearchBase.class);
-
-		when(_searchBase.getCompanies()).thenReturn(_companies);
-		when(_searchBase.getSizeLimit()).thenReturn(testLong);
-		when(_searchBase.getTop()).thenReturn("Liferay");
-	}
-
 	protected void setupCompany() throws Exception {
-		Long testLong = 42l;
+		company = mock(Company.class);
 
-		_company = mock(Company.class);
+		when(
+			company.getWebId()
+		).thenReturn(
+			"liferay.com"
+		);
 
-		when(_company.getWebId()).thenReturn("liferay.com");
-		when(_company.getCompanyId()).thenReturn(testLong);
+		when(
+			company.getCompanyId()
+		).thenReturn(
+			42l
+		);
 
-		_companies = new ArrayList<Company>();
-		_companies.add(_company);
+		companies.add(company);
 
-		CompanyLocalService companyLocalService = getMockService(
+		CompanyLocalService companyLocalService = getMockPortalService(
 			CompanyLocalServiceUtil.class, CompanyLocalService.class);
 
 		when(
 			companyLocalService.getCompanies()
 		).thenReturn(
-			_companies
+			companies
 		);
 
 		when(
 			companyLocalService.getCompanies(Mockito.anyBoolean())
 		).thenReturn(
-			_companies
+			companies
 		);
 
 		when(
 			companyLocalService.getCompanyByWebId(Mockito.eq("liferay.com"))
 		).thenReturn(
-			_company
+			company
 		);
 	}
 
@@ -218,9 +214,9 @@ public class BaseVLDAPTestCase extends PowerMockito {
 	}
 
 	protected void setupPortal() {
-		_portalBeanLocator = mock(BeanLocator.class);
+		portalBeanLocator = mock(BeanLocator.class);
 
-		PortalBeanLocatorUtil.setBeanLocator(_portalBeanLocator);
+		PortalBeanLocatorUtil.setBeanLocator(portalBeanLocator);
 	}
 
 	protected void setupProps() {
@@ -228,18 +224,40 @@ public class BaseVLDAPTestCase extends PowerMockito {
 
 		PropsUtil.setProps(props);
 
-		when(props.get(PortletPropsKeys.SEARCH_MAX_SIZE)).thenReturn("42");
+		when(
+			props.get(PortletPropsKeys.SEARCH_MAX_SIZE)
+		).thenReturn(
+			"42"
+		);
 	}
 
-	protected void setupServiceMocks() {
-		_serviceUtilClasses = new ArrayList<Class<?>>();
+	protected void setupSearchBase() {
+		searchBase = mock(SearchBase.class);
+
+		when(
+			searchBase.getCompanies()
+		).thenReturn(
+			companies
+		);
+
+		when(
+			searchBase.getSizeLimit()
+		).thenReturn(
+			100l
+		);
+
+		when(
+			searchBase.getTop()
+		).thenReturn(
+			"Liferay"
+		);
 	}
 
-	protected List<Company> _companies;
-	protected Company _company;
-	protected BeanLocator _portalBeanLocator;
-	protected SearchBase _searchBase;
-	protected List<Class<?>> _serviceUtilClasses;
+	protected List<Company> companies = new ArrayList<Company>();
+	protected Company company;
+	protected BeanLocator portalBeanLocator;
 	protected Props props;
+	protected SearchBase searchBase;
+	protected List<Class<?>> serviceUtilClasses = new ArrayList<Class<?>>();
 
 }

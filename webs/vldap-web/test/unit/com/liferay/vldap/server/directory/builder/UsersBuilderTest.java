@@ -55,7 +55,7 @@ public class UsersBuilderTest extends GeneralBuilderTestCase {
 
 		users.add(user);
 
-		UserLocalService userLocalService = getMockService(
+		UserLocalService userLocalService = getMockPortalService(
 			UserLocalServiceUtil.class, UserLocalService.class);
 
 		when(
