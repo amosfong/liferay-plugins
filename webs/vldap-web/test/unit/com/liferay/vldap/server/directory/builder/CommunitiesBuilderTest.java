@@ -37,7 +37,7 @@ public class CommunitiesBuilderTest extends BaseDirectoryBuilderTestCase {
 
 	@Test
 	public void testBuildDirectories() throws Exception {
-		super.testBuildDirectoriesWithFilterConstraint();
+		super.doTestBuildDirectories();
 	}
 
 }

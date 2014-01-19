@@ -49,7 +49,7 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	@Test
-	public void testBuildDirectoriesFilterNullFilter() throws Exception {
+	public void testBuildDirectoriesFilter() throws Exception {
 		List<Directory> directories = _userGroupBuilder.buildDirectories(
 			searchBase, null);
 
@@ -58,13 +58,13 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 		Assert.assertTrue(directory.hasAttribute("cn", "testName"));
 		Assert.assertTrue(
 			directory.hasAttribute("description", "testDescription"));
-		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 		Assert.assertTrue(
 			directory.hasAttribute("objectclass", "groupOfNames"));
 		Assert.assertTrue(
 			directory.hasAttribute("objectclass", "liferayUserGroup"));
 		Assert.assertTrue(
 			directory.hasAttribute("objectclass", "organizationalUnit"));
+		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 	}
 
 	@Test
@@ -74,8 +74,8 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 
 		FilterConstraint filterConstraint = new FilterConstraint();
 
-		filterConstraint.addAttribute("ou", "testName");
 		filterConstraint.addAttribute("description", "testDescription");
+		filterConstraint.addAttribute("ou", "testName");
 
 		filterConstraints.add(filterConstraint);
 
@@ -87,13 +87,13 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 		Assert.assertTrue(directory.hasAttribute("cn", "testName"));
 		Assert.assertTrue(
 			directory.hasAttribute("description", "testDescription"));
-		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 		Assert.assertTrue(
 			directory.hasAttribute("objectclass", "groupOfNames"));
 		Assert.assertTrue(
 			directory.hasAttribute("objectclass", "liferayUserGroup"));
 		Assert.assertTrue(
 			directory.hasAttribute("objectclass", "organizationalUnit"));
+		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 	}
 
 	@Test
@@ -116,10 +116,10 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 
 		FilterConstraint filterConstraint = new FilterConstraint();
 
-		filterConstraint.addAttribute("ou", "testName");
 		filterConstraint.addAttribute("description", "testDescription");
 		filterConstraint.addAttribute(
 			"member", "screenName=testScreenName,ou=test,cn=test,test=test");
+		filterConstraint.addAttribute("ou", "testName");
 
 		filterConstraints.add(filterConstraint);
 
@@ -131,13 +131,13 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 		Assert.assertTrue(directory.hasAttribute("cn", "testName"));
 		Assert.assertTrue(
 			directory.hasAttribute("description", "testDescription"));
-		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 		Assert.assertTrue(
 			directory.hasAttribute("objectclass", "groupOfNames"));
 		Assert.assertTrue(
 			directory.hasAttribute("objectclass", "liferayUserGroup"));
 		Assert.assertTrue(
 			directory.hasAttribute("objectclass", "organizationalUnit"));
+		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 	}
 
 	protected void setupUserGroups() throws Exception {

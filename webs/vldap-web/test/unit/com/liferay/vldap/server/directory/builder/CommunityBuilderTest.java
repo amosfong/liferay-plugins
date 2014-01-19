@@ -50,7 +50,33 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	@Test
-	public void testBuildDirectoriesFilterNullScreenName() throws Exception {
+	public void testBuildDirectoriesNoFilter() throws Exception {
+		when(
+			groupLocalService.getCompanyGroups(
+				Mockito.anyLong(), Mockito.anyInt(), Mockito.anyInt())
+		).thenReturn(
+			_groups
+		);
+
+		List<Directory> directories = _communityBuilder.buildDirectories(
+			searchBase, null);
+
+		Directory directory = directories.get(0);
+
+		Assert.assertTrue(directory.hasAttribute("cn", "testName"));
+		Assert.assertTrue(
+			directory.hasAttribute("description", "testDescription"));
+		Assert.assertTrue(
+			directory.hasAttribute(
+				"member",
+				"cn=testScreenName,ou=Users,ou=liferay.com,o=Liferay"));
+		Assert.assertTrue(
+			directory.hasAttribute("objectclass", "liferayCommunity"));
+		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
+	}
+
+	@Test
+	public void testBuildDirectoriesNoScreenName() throws Exception {
 		when(
 			groupLocalService.search(
 				Mockito.anyLong(), Mockito.anyString(), Mockito.anyString(),
@@ -65,8 +91,8 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 
 		FilterConstraint filterConstraint = new FilterConstraint();
 
-		filterConstraint.addAttribute("ou", "testName");
 		filterConstraint.addAttribute("description", "testDescription");
+		filterConstraint.addAttribute("ou", "testName");
 
 		filterConstraints.add(filterConstraint);
 
@@ -78,17 +104,17 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 		Assert.assertTrue(directory.hasAttribute("cn", "testName"));
 		Assert.assertTrue(
 			directory.hasAttribute("description", "testDescription"));
-		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
-		Assert.assertTrue(
-			directory.hasAttribute("objectclass", "liferayCommunity"));
 		Assert.assertTrue(
 			directory.hasAttribute(
 				"member",
 				"cn=testScreenName,ou=Users,ou=liferay.com,o=Liferay"));
+		Assert.assertTrue(
+			directory.hasAttribute("objectclass", "liferayCommunity"));
+		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 	}
 
 	@Test
-	public void testBuildDirectoriesFilterValidScreenName() throws Exception {
+	public void testBuildDirectoriesValidScreenName() throws Exception {
 		when(
 			_user.getGroups()
 		).thenReturn(
@@ -107,10 +133,10 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 
 		FilterConstraint filterConstraint = new FilterConstraint();
 
-		filterConstraint.addAttribute("ou", "testName");
 		filterConstraint.addAttribute("description", "testDescription");
 		filterConstraint.addAttribute(
 			"member", "screenName=testScreenName,ou=test,cn=test,blah=test");
+		filterConstraint.addAttribute("ou", "testName");
 
 		filterConstraints.add(filterConstraint);
 
@@ -122,39 +148,13 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 		Assert.assertTrue(directory.hasAttribute("cn", "testName"));
 		Assert.assertTrue(
 			directory.hasAttribute("description", "testDescription"));
-		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
-		Assert.assertTrue(
-			directory.hasAttribute("objectclass", "liferayCommunity"));
 		Assert.assertTrue(
 			directory.hasAttribute(
 				"member",
 				"cn=testScreenName,ou=Users,ou=liferay.com,o=Liferay"));
-	}
-
-	@Test
-	public void testBuildDirectoriesNullFilter() throws Exception {
-		when(
-			groupLocalService.getCompanyGroups(
-				Mockito.anyLong(), Mockito.anyInt(), Mockito.anyInt())
-		).thenReturn(
-			_groups
-		);
-
-		List<Directory> directories = _communityBuilder.buildDirectories(
-			searchBase, null);
-
-		Directory directory = directories.get(0);
-
-		Assert.assertTrue(directory.hasAttribute("cn", "testName"));
-		Assert.assertTrue(
-			directory.hasAttribute("description", "testDescription"));
-		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 		Assert.assertTrue(
 			directory.hasAttribute("objectclass", "liferayCommunity"));
-		Assert.assertTrue(
-			directory.hasAttribute(
-				"member",
-				"cn=testScreenName,ou=Users,ou=liferay.com,o=Liferay"));
+		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 	}
 
 	protected void setupGroups() throws Exception {

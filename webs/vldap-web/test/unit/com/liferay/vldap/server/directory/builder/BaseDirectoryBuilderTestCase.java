@@ -32,7 +32,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 public abstract class BaseDirectoryBuilderTestCase extends BaseVLDAPTestCase {
 
-	protected void testBuildDirectoriesWithFilterConstraint() throws Exception {
+	protected void doTestBuildDirectories() throws Exception {
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 

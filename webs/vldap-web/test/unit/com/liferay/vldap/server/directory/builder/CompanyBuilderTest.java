@@ -35,7 +35,20 @@ import org.powermock.modules.junit4.PowerMockRunner;
 public class CompanyBuilderTest extends BaseVLDAPTestCase {
 
 	@Test
-	public void testBuildDirectoriesNullCompanyWebId() throws Exception {
+	public void testBuildDirectoriesNoFilter() throws Exception {
+		List<Directory> directories = _companyBuilder.buildDirectories(
+			searchBase, null);
+
+		Directory directory = directories.get(0);
+
+		Assert.assertTrue(
+			directory.hasAttribute("objectclass", "organizationalUnit"));
+		Assert.assertTrue(directory.hasAttribute("objectclass", "top"));
+		Assert.assertTrue(directory.hasAttribute("ou", "liferay.com"));
+	}
+
+	@Test
+	public void testBuildDirectoriesNoWebId() throws Exception {
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 
@@ -57,20 +70,7 @@ public class CompanyBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	@Test
-	public void testBuildDirectoriesNullFilter() throws Exception {
-		List<Directory> directories = _companyBuilder.buildDirectories(
-			searchBase, null);
-
-		Directory directory = directories.get(0);
-
-		Assert.assertTrue(
-			directory.hasAttribute("objectclass", "organizationalUnit"));
-		Assert.assertTrue(directory.hasAttribute("objectclass", "top"));
-		Assert.assertTrue(directory.hasAttribute("ou", "liferay.com"));
-	}
-
-	@Test
-	public void testBuildDirectoriesValidCompanyWebId() throws Exception {
+	public void testBuildDirectoriesValidWebId() throws Exception {
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 

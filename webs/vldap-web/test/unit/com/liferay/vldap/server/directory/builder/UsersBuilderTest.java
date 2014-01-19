@@ -69,7 +69,7 @@ public class UsersBuilderTest extends BaseDirectoryBuilderTestCase {
 			users
 		);
 
-		super.testBuildDirectoriesWithFilterConstraint();
+		super.doTestBuildDirectories();
 	}
 
 }
