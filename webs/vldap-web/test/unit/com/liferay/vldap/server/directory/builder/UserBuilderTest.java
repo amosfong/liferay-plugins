@@ -260,158 +260,155 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 			_users
 		);
 
+		List<FilterConstraint> filterConstraints =
+			new ArrayList<FilterConstraint>();
+
 		FilterConstraint filterConstraint = new FilterConstraint();
 
+		filterConstraint.addAttribute("cn", "testScreenName");
+		filterConstraint.addAttribute("gidNumber", StringPool.STAR);
+		filterConstraint.addAttribute("givenName", "testFirstName");
+		filterConstraint.addAttribute("mail", "test@email");
 		filterConstraint.addAttribute(
 			"member",
 			"ou=testGroupName,ou=Communities,ou=liferay.com,cn=test");
-		filterConstraint.addAttribute("gidNumber", StringPool.STAR);
-		filterConstraint.addAttribute("uuid", null);
-		filterConstraint.addAttribute("givenName", "testFirstName");
-		filterConstraint.addAttribute("sn", "testLastName");
-		filterConstraint.addAttribute("cn", "testScreenName");
-		filterConstraint.addAttribute("mail", "test@email");
-		filterConstraint.addAttribute("uidNumber", null);
 		filterConstraint.addAttribute("sambaSID", null);
+		filterConstraint.addAttribute("sn", "testLastName");
+		filterConstraint.addAttribute("uidNumber", null);
+		filterConstraint.addAttribute("uuid", null);
 
-		List<FilterConstraint> filterConstraints =
-			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
 
-		List<Directory> directory = _userBuilder.buildDirectories(
+		List<Directory> directories = _userBuilder.buildDirectories(
 			searchBase, filterConstraints);
 
-		Directory returnedDirectory = directory.get(0);
+		Directory directory = directories.get(0);
 
+		Assert.assertTrue(directory.hasAttribute("cn", "testScreenName"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("cn", "testScreenName"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("sn", "testLastName"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-			"member", "cn=testOrganizationName,ou=testOrganizationName," +
-				"ou=Organizations,ou=liferay.com,o=Liferay"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-				"member", "cn=testRoleName,ou=testRoleName," +
-					"ou=Roles,ou=liferay.com,o=Liferay"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-				"member", "cn=testUserGroupName,ou=testUserGroupName," +
-					"ou=User Groups,ou=liferay.com,o=Liferay"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
+			directory.hasAttribute(
 				"member", "cn=testGroupName,ou=testGroupName," +
 					"ou=Communities,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("sambaMaxPwdAge", "-1"));
+			directory.hasAttribute(
+			"member", "cn=testOrganizationName,ou=testOrganizationName," +
+				"ou=Organizations,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("sambaLockoutDuration", "120"));
+			directory.hasAttribute(
+				"member", "cn=testRoleName,ou=testRoleName," +
+					"ou=Roles,ou=liferay.com,o=Liferay"));
+		Assert.assertTrue(
+			directory.hasAttribute(
+				"member", "cn=testUserGroupName,ou=testUserGroupName," +
+					"ou=User Groups,ou=liferay.com,o=Liferay"));
+		Assert.assertTrue(
+			directory.hasAttribute("sambaLockoutDuration", "120"));
+		Assert.assertTrue(directory.hasAttribute("sambaMaxPwdAge", "-1"));
+		Assert.assertTrue(directory.hasAttribute("sn", "testLastName"));
 	}
 
 	@Test
 	public void testBuildDirectoriesNoFilter() throws Exception {
-		List<Directory> directory = _userBuilder.buildDirectories(
+		List<Directory> directories = _userBuilder.buildDirectories(
 			searchBase, null);
 
-		Directory returnedDirectory = directory.get(0);
+		Directory directory = directories.get(0);
 
+		Assert.assertTrue(directory.hasAttribute("cn", "testScreenName"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("cn", "testScreenName"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("sn", "testLastName"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-				"member", "cn=testOrganizationName,ou=testOrganizationName," +
-					"ou=Organizations,ou=liferay.com,o=Liferay"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-				"member", "cn=testRoleName,ou=testRoleName," +
-					"ou=Roles,ou=liferay.com,o=Liferay"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-				"member", "cn=testUserGroupName,ou=testUserGroupName," +
-					"ou=User Groups,ou=liferay.com,o=Liferay"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
+			directory.hasAttribute(
 				"member", "cn=testGroupName,ou=testGroupName," +
 					"ou=Communities,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("sambaMaxPwdAge", "-1"));
+			directory.hasAttribute(
+				"member", "cn=testOrganizationName,ou=testOrganizationName," +
+					"ou=Organizations,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("sambaLockoutDuration", "120"));
+			directory.hasAttribute(
+				"member", "cn=testRoleName,ou=testRoleName," +
+					"ou=Roles,ou=liferay.com,o=Liferay"));
+		Assert.assertTrue(
+			directory.hasAttribute(
+				"member", "cn=testUserGroupName,ou=testUserGroupName," +
+					"ou=User Groups,ou=liferay.com,o=Liferay"));
+		Assert.assertTrue(
+			directory.hasAttribute("sambaLockoutDuration", "120"));
+		Assert.assertTrue(directory.hasAttribute("sambaMaxPwdAge", "-1"));
+		Assert.assertTrue(directory.hasAttribute("sn", "testLastName"));
 	}
 
 	@Test
 	public void testBuildDirectoriesValidSambaSID() throws Exception {
 		when(userLocalService.fetchUser(Mockito.anyLong())).thenReturn(_user);
 
+		List<FilterConstraint> filterConstraints =
+			new ArrayList<FilterConstraint>();
+
 		FilterConstraint filterConstraint = new FilterConstraint();
 
+		filterConstraint.addAttribute("cn", "testScreenName");
+		filterConstraint.addAttribute("gidNumber", StringPool.STAR);
+		filterConstraint.addAttribute("givenName", "testFirstName");
+		filterConstraint.addAttribute("mail", "test@email");
 		filterConstraint.addAttribute(
 			"member",
 			"ou=testGroupName,ou=Communities,ou=liferay.com,cn=test");
-		filterConstraint.addAttribute("gidNumber", StringPool.STAR);
-		filterConstraint.addAttribute("uuid", null);
-		filterConstraint.addAttribute("givenName", "testFirstName");
-		filterConstraint.addAttribute("sn", "testLastName");
-		filterConstraint.addAttribute("cn", "testScreenName");
-		filterConstraint.addAttribute("mail", "test@email");
-		filterConstraint.addAttribute("uidNumber", null);
 		filterConstraint.addAttribute("sambaSID", "42-42-42");
+		filterConstraint.addAttribute("sn", "testLastName");
+		filterConstraint.addAttribute("uidNumber", null);
+		filterConstraint.addAttribute("uuid", null);
 
-		List<FilterConstraint> filterConstraints =
-			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
 
-		List<Directory> directory = _userBuilder.buildDirectories(
+		List<Directory> directories = _userBuilder.buildDirectories(
 			searchBase, filterConstraints);
 
-		Directory returnedDirectory = directory.get(0);
+		Directory directory = directories.get(0);
 
+		Assert.assertTrue(directory.hasAttribute("cn", "testScreenName"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("cn", "testScreenName"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("sn", "testLastName"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-				"member", "cn=testOrganizationName,ou=testOrganizationName," +
-					"ou=Organizations,ou=liferay.com,o=Liferay"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-				"member", "cn=testRoleName,ou=testRoleName," +
-				"ou=Roles,ou=liferay.com,o=Liferay"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-				"member", "cn=testUserGroupName,ou=testUserGroupName," +
-					"ou=User Groups,ou=liferay.com,o=Liferay"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
+			directory.hasAttribute(
 				"member", "cn=testGroupName,ou=testGroupName," +
 					"ou=Communities,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("sambaMaxPwdAge", "-1"));
+			directory.hasAttribute(
+				"member", "cn=testOrganizationName,ou=testOrganizationName," +
+					"ou=Organizations,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("sambaLockoutDuration", "120"));
+			directory.hasAttribute(
+				"member", "cn=testRoleName,ou=testRoleName," +
+				"ou=Roles,ou=liferay.com,o=Liferay"));
+		Assert.assertTrue(
+			directory.hasAttribute(
+				"member", "cn=testUserGroupName,ou=testUserGroupName," +
+					"ou=User Groups,ou=liferay.com,o=Liferay"));
+		Assert.assertTrue(
+			directory.hasAttribute("sambaLockoutDuration", "120"));
+		Assert.assertTrue(directory.hasAttribute("sambaMaxPwdAge", "-1"));
+		Assert.assertTrue(directory.hasAttribute("sn", "testLastName"));
 	}
 
 	@Test
 	public void testBuildDirectoriesValidUidNumber() throws Exception {
 		when(userLocalService.fetchUser(Mockito.anyLong())).thenReturn(_user);
 
+		List<FilterConstraint> filterConstraints =
+			new ArrayList<FilterConstraint>();
+
 		FilterConstraint filterConstraint = new FilterConstraint();
 
+		filterConstraint.addAttribute("cn", "testScreenName");
+		filterConstraint.addAttribute("gidNumber", StringPool.STAR);
+		filterConstraint.addAttribute("givenName", "testFirstName");
+		filterConstraint.addAttribute("mail", "test@email");
 		filterConstraint.addAttribute(
 			"member",
 			"ou=testGroupName,ou=Communities,ou=liferay.com,cn=test");
-		filterConstraint.addAttribute("gidNumber", StringPool.STAR);
-		filterConstraint.addAttribute("uuid", null);
-		filterConstraint.addAttribute("givenName", "testFirstName");
-		filterConstraint.addAttribute("sn", "testLastName");
-		filterConstraint.addAttribute("cn", "testScreenName");
-		filterConstraint.addAttribute("mail", "test@email");
-		filterConstraint.addAttribute("uidNumber", "42");
 		filterConstraint.addAttribute("sambaSID", null);
+		filterConstraint.addAttribute("sn", "testLastName");
+		filterConstraint.addAttribute("uidNumber", "42");
+		filterConstraint.addAttribute("uuid", null);
 
-		List<FilterConstraint> filterConstraints =
-			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _userBuilder.buildDirectories(
@@ -421,7 +418,10 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute("cn", "testScreenName"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("sn", "testLastName"));
+		Assert.assertTrue(
+			returnedDirectory.hasAttribute(
+				"member", "cn=testGroupName,ou=testGroupName," +
+					"ou=Communities,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testOrganizationName,ou=testOrganizationName," +
@@ -435,13 +435,10 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 				"member", "cn=testUserGroupName,ou=testUserGroupName," +
 					"ou=User Groups,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-				"member", "cn=testGroupName,ou=testGroupName," +
-					"ou=Communities,ou=liferay.com,o=Liferay"));
+			returnedDirectory.hasAttribute("sambaLockoutDuration", "120"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute("sambaMaxPwdAge", "-1"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute("sambaLockoutDuration", "120"));
+		Assert.assertTrue(returnedDirectory.hasAttribute("sn", "testLastName"));
 	}
 
 	@Test
@@ -452,16 +449,17 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 			_user
 		);
 
+		List<FilterConstraint> filterConstraints =
+			new ArrayList<FilterConstraint>();
+
 		FilterConstraint filterConstraint = new FilterConstraint();
 
+		filterConstraint.addAttribute("gidNumber", StringPool.STAR);
 		filterConstraint.addAttribute(
 			"member",
 			"ou=testGroupName,ou=Communities,ou=liferay.com,cn=test");
-		filterConstraint.addAttribute("gidNumber", StringPool.STAR);
 		filterConstraint.addAttribute("uuid", "testUuid");
 
-		List<FilterConstraint> filterConstraints =
-			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
 
 		List<Directory> directory = _userBuilder.buildDirectories(
@@ -471,7 +469,10 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute("cn", "testScreenName"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("sn", "testLastName"));
+		Assert.assertTrue(
+			returnedDirectory.hasAttribute(
+				"member", "cn=testGroupName,ou=testGroupName," +
+					"ou=Communities,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute(
 				"member", "cn=testOrganizationName,ou=testOrganizationName," +
@@ -485,13 +486,10 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 				"member", "cn=testUserGroupName,ou=testUserGroupName," +
 					"ou=User Groups,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-				"member", "cn=testGroupName,ou=testGroupName," +
-					"ou=Communities,ou=liferay.com,o=Liferay"));
+			returnedDirectory.hasAttribute("sambaLockoutDuration", "120"));
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute("sambaMaxPwdAge", "-1"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute("sambaLockoutDuration", "120"));
+		Assert.assertTrue(returnedDirectory.hasAttribute("sn", "testLastName"));
 	}
 
 	private User _user;

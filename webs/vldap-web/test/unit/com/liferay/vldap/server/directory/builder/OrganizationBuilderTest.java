@@ -60,13 +60,13 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 		Directory directory = directories.get(0);
 
 		Assert.assertTrue(directory.hasAttribute("cn", "testName"));
-		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
-		Assert.assertTrue(
-			directory.hasAttribute("objectclass", "liferayOrganization"));
 		Assert.assertTrue(
 			directory.hasAttribute(
 				"member",
 				"cn=testScreenName,ou=Users,ou=liferay.com,o=Liferay"));
+		Assert.assertTrue(
+			directory.hasAttribute("objectclass", "liferayOrganization"));
+		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 	}
 
 	@Test
@@ -86,13 +86,13 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 		Directory directory = directories.get(0);
 
 		Assert.assertTrue(directory.hasAttribute("cn", "testName"));
-		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
-		Assert.assertTrue(
-			directory.hasAttribute("objectclass", "liferayOrganization"));
 		Assert.assertTrue(
 			directory.hasAttribute(
 				"member",
 				"cn=testScreenName,ou=Users,ou=liferay.com,o=Liferay"));
+		Assert.assertTrue(
+			directory.hasAttribute("objectclass", "liferayOrganization"));
+		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 	}
 
 	@Test
@@ -121,13 +121,13 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 		Directory directory = directories.get(0);
 
 		Assert.assertTrue(directory.hasAttribute("cn", "testName"));
-		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
-		Assert.assertTrue(
-			directory.hasAttribute("objectclass", "liferayOrganization"));
 		Assert.assertTrue(
 			directory.hasAttribute(
 				"member",
 				"cn=testScreenName,ou=Users,ou=liferay.com,o=Liferay"));
+		Assert.assertTrue(
+			directory.hasAttribute("objectclass", "liferayOrganization"));
+		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 	}
 
 	protected void setupOrganizations() throws Exception {

@@ -88,11 +88,11 @@ public class SambaMachineBuilderTest extends BaseVLDAPTestCase {
 
 		Directory directory = directories.get(0);
 
+		Assert.assertTrue(
+			directory.hasAttribute("sambaDomainName", "testDomainName"));
 		Assert.assertTrue(directory.hasAttribute("sambaNextUserRid", "1000"));
 		Assert.assertTrue(
 			directory.hasAttribute("sambaSID", "S-1-5-21-" + 42l));
-		Assert.assertTrue(
-			directory.hasAttribute("sambaDomainName", "testDomainName"));
 	}
 
 	private Organization _organization;
