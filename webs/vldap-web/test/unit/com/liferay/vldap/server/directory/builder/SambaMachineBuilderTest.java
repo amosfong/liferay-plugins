@@ -41,8 +41,6 @@ public class SambaMachineBuilderTest extends BaseVLDAPTestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 
-		_sambaMachineBuilder = new SambaMachineBuilder();
-
 		_organization = mock(Organization.class);
 
 		when(
@@ -78,7 +76,8 @@ public class SambaMachineBuilderTest extends BaseVLDAPTestCase {
 			directory.hasAttribute("sambaDomainName", "testDomainName"));
 		Assert.assertTrue(directory.hasAttribute("sambaNextUserRid", "1000"));
 		Assert.assertTrue(
-			directory.hasAttribute("sambaSID", "S-1-5-21-" + 42l));
+			directory.hasAttribute(
+				"sambaSID", "S-1-5-21-" + company.getCompanyId()));
 	}
 
 	@Test
@@ -92,10 +91,12 @@ public class SambaMachineBuilderTest extends BaseVLDAPTestCase {
 			directory.hasAttribute("sambaDomainName", "testDomainName"));
 		Assert.assertTrue(directory.hasAttribute("sambaNextUserRid", "1000"));
 		Assert.assertTrue(
-			directory.hasAttribute("sambaSID", "S-1-5-21-" + 42l));
+			directory.hasAttribute(
+				"sambaSID", "S-1-5-21-" + company.getCompanyId()));
 	}
 
 	private Organization _organization;
-	private SambaMachineBuilder _sambaMachineBuilder;
+	private SambaMachineBuilder _sambaMachineBuilder =
+		new SambaMachineBuilder();
 
 }

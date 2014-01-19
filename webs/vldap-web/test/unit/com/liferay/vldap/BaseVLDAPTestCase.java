@@ -269,7 +269,7 @@ public class BaseVLDAPTestCase extends PowerMockito {
 		when(
 			searchBase.getSizeLimit()
 		).thenReturn(
-			100l
+			42l
 		);
 
 		when(

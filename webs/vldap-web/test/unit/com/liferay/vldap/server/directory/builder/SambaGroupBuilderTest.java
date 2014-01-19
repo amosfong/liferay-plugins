@@ -41,8 +41,6 @@ public class SambaGroupBuilderTest extends BaseVLDAPTestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 
-		_sambaGroupBuilder = new SambaGroupBuilder();
-
 		_organization = mock(Organization.class);
 
 		when(
@@ -56,6 +54,8 @@ public class SambaGroupBuilderTest extends BaseVLDAPTestCase {
 		).thenReturn(
 			_organization
 		);
+		
+		_sambaGroupBuilder = new SambaGroupBuilder();
 	}
 
 	@Test
