@@ -17,10 +17,6 @@ package com.liferay.vldap.server.directory.builder;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.model.Organization;
 import com.liferay.portal.model.User;
-import com.liferay.portal.service.OrganizationLocalService;
-import com.liferay.portal.service.OrganizationLocalServiceUtil;
-import com.liferay.portal.service.UserLocalService;
-import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.util.comparator.UserScreenNameComparator;
 import com.liferay.vldap.BaseVLDAPTestCase;
 import com.liferay.vldap.server.directory.FilterConstraint;
@@ -52,80 +48,84 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 		super.setUp();
 
 		setupUsers();
-		setupOrganizations();
 
-		_organizationBuilder = new OrganizationBuilder();
+		setupOrganizations();
 	}
 
 	@Test
 	public void testBuildDirectoriesNullFilter() throws Exception {
-		List<Directory> directory = _organizationBuilder.buildDirectories(
+		List<Directory> directories = _organizationBuilder.buildDirectories(
 			searchBase, null);
 
-		Directory returnedDirectory = directory.get(0);
+		Directory directory = directories.get(0);
 
-		Assert.assertTrue(returnedDirectory.hasAttribute("cn", "testName"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "testName"));
+		Assert.assertTrue(directory.hasAttribute("cn", "testName"));
+		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-				"objectclass", "liferayOrganization"));
+			directory.hasAttribute("objectclass", "liferayOrganization"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
+			directory.hasAttribute(
 				"member",
 				"cn=testScreenName,ou=Users,ou=liferay.com,o=Liferay"));
 	}
 
 	@Test
 	public void testBuildDirectoriesNullScreenName() throws Exception {
-		FilterConstraint filterConstraint = new FilterConstraint();
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
-		filterConstraints.add(filterConstraint);
+
+		FilterConstraint filterConstraint = new FilterConstraint();
+
 		filterConstraint.addAttribute("ou", "testName");
 
-		List<Directory> directory = _organizationBuilder.buildDirectories(
+		filterConstraints.add(filterConstraint);
+
+		List<Directory> directories = _organizationBuilder.buildDirectories(
 			searchBase, null);
 
-		Directory returnedDirectory = directory.get(0);
+		Directory directory = directories.get(0);
 
-		Assert.assertTrue(returnedDirectory.hasAttribute("cn", "testName"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "testName"));
+		Assert.assertTrue(directory.hasAttribute("cn", "testName"));
+		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-				"objectclass", "liferayOrganization"));
+			directory.hasAttribute("objectclass", "liferayOrganization"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
+			directory.hasAttribute(
 				"member",
 				"cn=testScreenName,ou=Users,ou=liferay.com,o=Liferay"));
 	}
 
 	@Test
 	public void testBuildDirectoriesValidScreenName() throws Exception {
-		FilterConstraint filterConstraint = new FilterConstraint();
+		when(
+			userLocalService.getUserByScreenName(
+				Mockito.anyLong(), Mockito.anyString())
+		).thenReturn(
+			_user
+		);
+
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
-		filterConstraints.add(filterConstraint);
+
+		FilterConstraint filterConstraint = new FilterConstraint();
+
 		filterConstraint.addAttribute("ou", "testName");
 		filterConstraint.addAttribute(
 			"member", "screenName=testScreenName,ou=test,cn=test,blah=test");
 
-		when(
-			_userLocalService.getUserByScreenName(
-				Mockito.anyLong(), Mockito.anyString())
-		).thenReturn(_user);
+		filterConstraints.add(filterConstraint);
 
-		List<Directory> directory = _organizationBuilder.buildDirectories(
+		List<Directory> directories = _organizationBuilder.buildDirectories(
 			searchBase, null);
 
-		Directory returnedDirectory = directory.get(0);
+		Directory directory = directories.get(0);
 
-		Assert.assertTrue(returnedDirectory.hasAttribute("cn", "testName"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "testName"));
+		Assert.assertTrue(directory.hasAttribute("cn", "testName"));
+		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-				"objectclass", "liferayOrganization"));
+			directory.hasAttribute("objectclass", "liferayOrganization"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
+			directory.hasAttribute(
 				"member",
 				"cn=testScreenName,ou=Users,ou=liferay.com,o=Liferay"));
 	}
@@ -133,18 +133,27 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 	protected void setupOrganizations() throws Exception {
 		Organization organization = mock(Organization.class);
 
-		when(organization.getName()).thenReturn("testName");
-		when(organization.getOrganizationId()).thenReturn(42l);
+		when(
+			organization.getOrganizationId()
+		).thenReturn(
+			42l
+		);
+
+		when(
+			organization.getName()
+		).thenReturn(
+			"testName"
+		);
 
 		List<Organization> organizations = new ArrayList<Organization>();
+
 		organizations.add(organization);
 
-		when(_user.getOrganizations()).thenReturn(organizations);
-
-		OrganizationLocalService organizationLocalService =
-			getMockPortalService(
-				OrganizationLocalServiceUtil.class,
-				OrganizationLocalService.class);
+		when(
+			_user.getOrganizations()
+		).thenReturn(
+			organizations
+		);
 
 		when(
 			organizationLocalService.dynamicQuery(
@@ -157,16 +166,18 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 	protected void setupUsers() throws Exception {
 		_user = mock(User.class);
 
-		when(_user.getScreenName()).thenReturn("testScreenName");
+		when(
+			_user.getScreenName()
+		).thenReturn(
+			"testScreenName"
+		);
 
 		List<User> users = new ArrayList<User>();
+
 		users.add(_user);
 
-		_userLocalService = getMockPortalService(
-			UserLocalServiceUtil.class, UserLocalService.class);
-
 		when(
-			_userLocalService.search(
+			userLocalService.search(
 				Mockito.anyLong(), Mockito.anyString(), Mockito.anyString(),
 				Mockito.anyString(), Mockito.anyString(), Mockito.anyString(),
 				Mockito.anyInt(), Mockito.any(LinkedHashMap.class),
@@ -178,8 +189,8 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 		);
 	}
 
-	private OrganizationBuilder _organizationBuilder;
+	private OrganizationBuilder _organizationBuilder =
+		new OrganizationBuilder();
 	private User _user;
-	private UserLocalService _userLocalService;
 
 }

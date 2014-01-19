@@ -64,11 +64,8 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 
-		_userBuilder = new UserBuilder();
-
 		_groupLocalService = getMockPortalService(
 			GroupLocalServiceUtil.class, GroupLocalService.class);
-
 		_userLocalService = getMockPortalService(
 			UserLocalServiceUtil.class, UserLocalService.class);
 
@@ -89,11 +86,16 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		when(
 			expandBridge.getAttribute(
 				Mockito.eq("sambaLMPassword"), Mockito.eq(false))
-		).thenReturn("testLMPassword");
+		).thenReturn(
+			"testLMPassword"
+		);
+
 		when(
 			expandBridge.getAttribute(
 				Mockito.eq("sambaNTPassword"), Mockito.eq(false))
-		).thenReturn("testNTPassword");
+		).thenReturn(
+			"testNTPassword"
+		);
 
 		when(_user.getExpandoBridge()).thenReturn(expandBridge);
 	}
@@ -503,7 +505,7 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 
 	private GroupLocalService _groupLocalService;
 	private User _user;
-	private UserBuilder _userBuilder;
+	private UserBuilder _userBuilder = new UserBuilder();
 	private UserLocalService _userLocalService;
 	private List<User> _users;
 

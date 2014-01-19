@@ -31,6 +31,16 @@ import com.liferay.portal.kernel.util.PropsUtil;
 import com.liferay.portal.model.Company;
 import com.liferay.portal.service.CompanyLocalService;
 import com.liferay.portal.service.CompanyLocalServiceUtil;
+import com.liferay.portal.service.GroupLocalService;
+import com.liferay.portal.service.GroupLocalServiceUtil;
+import com.liferay.portal.service.OrganizationLocalService;
+import com.liferay.portal.service.OrganizationLocalServiceUtil;
+import com.liferay.portal.service.RoleLocalService;
+import com.liferay.portal.service.RoleLocalServiceUtil;
+import com.liferay.portal.service.UserGroupLocalService;
+import com.liferay.portal.service.UserGroupLocalServiceUtil;
+import com.liferay.portal.service.UserLocalService;
+import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.vldap.server.directory.SearchBase;
 import com.liferay.vldap.util.PortletPropsKeys;
 
@@ -222,6 +232,17 @@ public class BaseVLDAPTestCase extends PowerMockito {
 		portalBeanLocator = mock(BeanLocator.class);
 
 		PortalBeanLocatorUtil.setBeanLocator(portalBeanLocator);
+
+		groupLocalService = getMockPortalService(
+			GroupLocalServiceUtil.class, GroupLocalService.class);
+		organizationLocalService = getMockPortalService(
+			OrganizationLocalServiceUtil.class, OrganizationLocalService.class);
+		roleLocalService = getMockPortalService(
+			RoleLocalServiceUtil.class, RoleLocalService.class);
+		userGroupLocalService = getMockPortalService(
+			UserGroupLocalServiceUtil.class, UserGroupLocalService.class);
+		userLocalService = getMockPortalService(
+			UserLocalServiceUtil.class, UserLocalService.class);
 	}
 
 	protected void setupProps() {
@@ -260,9 +281,14 @@ public class BaseVLDAPTestCase extends PowerMockito {
 
 	protected List<Company> companies = new ArrayList<Company>();
 	protected Company company;
+	protected GroupLocalService groupLocalService;
+	protected OrganizationLocalService organizationLocalService;
 	protected BeanLocator portalBeanLocator;
 	protected Props props;
+	protected RoleLocalService roleLocalService;
 	protected SearchBase searchBase;
 	protected List<Class<?>> serviceUtilClasses = new ArrayList<Class<?>>();
+	protected UserGroupLocalService userGroupLocalService;
+	protected UserLocalService userLocalService;
 
 }

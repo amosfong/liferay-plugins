@@ -16,10 +16,6 @@ package com.liferay.vldap.server.directory.builder;
 
 import com.liferay.portal.model.Group;
 import com.liferay.portal.model.User;
-import com.liferay.portal.service.GroupLocalService;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.UserLocalService;
-import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.util.comparator.UserScreenNameComparator;
 import com.liferay.vldap.BaseVLDAPTestCase;
 import com.liferay.vldap.server.directory.FilterConstraint;
@@ -51,17 +47,12 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 
 		setupGroups();
 		setupUsers();
-
-		_communityBuilder = new CommunityBuilder();
-
-		_groupLocalService = getMockPortalService(
-			GroupLocalServiceUtil.class, GroupLocalService.class);
 	}
 
 	@Test
 	public void testBuildDirectoriesFilterNullScreenName() throws Exception {
 		when(
-			_groupLocalService.search(
+			groupLocalService.search(
 				Mockito.anyLong(), Mockito.anyString(), Mockito.anyString(),
 				Mockito.any(LinkedHashMap.class), Mockito.anyBoolean(),
 				Mockito.anyInt(), Mockito.anyInt())
@@ -69,28 +60,29 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 			_groups
 		);
 
+		List<FilterConstraint> filterConstraints =
+			new ArrayList<FilterConstraint>();
+
 		FilterConstraint filterConstraint = new FilterConstraint();
 
 		filterConstraint.addAttribute("ou", "testName");
 		filterConstraint.addAttribute("description", "testDescription");
 
-		List<FilterConstraint> filterConstraints =
-			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
 
-		List<Directory> directory = _communityBuilder.buildDirectories(
+		List<Directory> directories = _communityBuilder.buildDirectories(
 			searchBase, filterConstraints);
 
-		Directory returnedDirectory = directory.get(0);
+		Directory directory = directories.get(0);
 
-		Assert.assertTrue(returnedDirectory.hasAttribute("cn", "testName"));
+		Assert.assertTrue(directory.hasAttribute("cn", "testName"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("description", "testDescription"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "testName"));
+			directory.hasAttribute("description", "testDescription"));
+		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("objectclass", "liferayCommunity"));
+			directory.hasAttribute("objectclass", "liferayCommunity"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
+			directory.hasAttribute(
 				"member",
 				"cn=testScreenName,ou=Users,ou=liferay.com,o=Liferay"));
 	}
@@ -98,11 +90,20 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 	@Test
 	public void testBuildDirectoriesFilterValidScreenName() throws Exception {
 		when(
-			_userLocalService.getUserByScreenName(
-				Mockito.anyLong(), Mockito.anyString())
-		).thenReturn(_user);
+			_user.getGroups()
+		).thenReturn(
+			_groups
+		);
 
-		when(_user.getGroups()).thenReturn(_groups);
+		when(
+			userLocalService.getUserByScreenName(
+				Mockito.anyLong(), Mockito.anyString())
+		).thenReturn(
+			_user
+		);
+
+		List<FilterConstraint> filterConstraints =
+			new ArrayList<FilterConstraint>();
 
 		FilterConstraint filterConstraint = new FilterConstraint();
 
@@ -111,23 +112,21 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 		filterConstraint.addAttribute(
 			"member", "screenName=testScreenName,ou=test,cn=test,blah=test");
 
-		List<FilterConstraint> filterConstraints =
-			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
 
-		List<Directory> directory = _communityBuilder.buildDirectories(
+		List<Directory> directories = _communityBuilder.buildDirectories(
 			searchBase, filterConstraints);
 
-		Directory returnedDirectory = directory.get(0);
+		Directory directory = directories.get(0);
 
-		Assert.assertTrue(returnedDirectory.hasAttribute("cn", "testName"));
+		Assert.assertTrue(directory.hasAttribute("cn", "testName"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("description", "testDescription"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "testName"));
+			directory.hasAttribute("description", "testDescription"));
+		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("objectclass", "liferayCommunity"));
+			directory.hasAttribute("objectclass", "liferayCommunity"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
+			directory.hasAttribute(
 				"member",
 				"cn=testScreenName,ou=Users,ou=liferay.com,o=Liferay"));
 	}
@@ -135,25 +134,25 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 	@Test
 	public void testBuildDirectoriesNullFilter() throws Exception {
 		when(
-			_groupLocalService.getCompanyGroups(
+			groupLocalService.getCompanyGroups(
 				Mockito.anyLong(), Mockito.anyInt(), Mockito.anyInt())
 		).thenReturn(
 			_groups
 		);
 
-		List<Directory> directory = _communityBuilder.buildDirectories(
+		List<Directory> directories = _communityBuilder.buildDirectories(
 			searchBase, null);
 
-		Directory returnedDirectory = directory.get(0);
+		Directory directory = directories.get(0);
 
-		Assert.assertTrue(returnedDirectory.hasAttribute("cn", "testName"));
+		Assert.assertTrue(directory.hasAttribute("cn", "testName"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("description", "testDescription"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "testName"));
+			directory.hasAttribute("description", "testDescription"));
+		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("objectclass", "liferayCommunity"));
+			directory.hasAttribute("objectclass", "liferayCommunity"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
+			directory.hasAttribute(
 				"member",
 				"cn=testScreenName,ou=Users,ou=liferay.com,o=Liferay"));
 	}
@@ -161,26 +160,42 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 	protected void setupGroups() throws Exception {
 		Group group = mock(Group.class);
 
-		when(group.getName()).thenReturn("testName");
-		when(group.getGroupId()).thenReturn(42l);
-		when(group.getDescription()).thenReturn("testDescription");
+		when(
+			group.getGroupId()
+		).thenReturn(
+			42l
+		);
 
-		_groups = new ArrayList<Group>();
+		when(
+			group.getName()
+		).thenReturn(
+			"testName"
+		);
+
+		when(
+			group.getDescription()
+		).thenReturn(
+			"testDescription"
+		);
+
 		_groups.add(group);
 	}
 
 	protected void setupUsers() throws Exception {
-		_userLocalService = getMockPortalService(
-			UserLocalServiceUtil.class, UserLocalService.class);
-
 		_user = mock(User.class);
-		when(_user.getScreenName()).thenReturn("testScreenName");
+
+		when(
+			_user.getScreenName()
+		).thenReturn(
+			"testScreenName"
+		);
 
 		List<User> users = new ArrayList<User>();
+
 		users.add(_user);
 
 		when(
-			_userLocalService.search(
+			userLocalService.search(
 				Mockito.anyLong(), Mockito.anyString(), Mockito.anyString(),
 				Mockito.anyString(), Mockito.anyString(), Mockito.anyString(),
 				Mockito.anyInt(), Mockito.any(LinkedHashMap.class),
@@ -192,10 +207,8 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 		);
 	}
 
-	private CommunityBuilder _communityBuilder;
-	private GroupLocalService _groupLocalService;
-	private List<Group> _groups;
+	private CommunityBuilder _communityBuilder = new CommunityBuilder();
+	private List<Group> _groups = new ArrayList<Group>();
 	private User _user;
-	private UserLocalService _userLocalService;
 
 }

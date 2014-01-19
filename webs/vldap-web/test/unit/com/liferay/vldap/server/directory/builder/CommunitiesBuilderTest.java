@@ -25,19 +25,19 @@ import org.powermock.modules.junit4.PowerMockRunner;
  */
 
 @RunWith(PowerMockRunner.class)
-public class CommunitiesBuilderTest extends GeneralBuilderTestCase {
+public class CommunitiesBuilderTest extends BaseDirectoryBuilderTestCase {
 
 	@Before
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
 
-		_builder = new CommunitiesBuilder();
+		directoryBuilder = new CommunitiesBuilder();
 	}
 
 	@Test
 	public void testBuildDirectories() throws Exception {
-		super.testBuildDirectoriesValidFilter();
+		super.testBuildDirectoriesWithFilterConstraint();
 	}
 
 }

@@ -22,7 +22,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -35,68 +34,63 @@ import org.powermock.modules.junit4.PowerMockRunner;
 @RunWith(PowerMockRunner.class)
 public class CompanyBuilderTest extends BaseVLDAPTestCase {
 
-	@Before
-	@Override
-	public void setUp() throws Exception {
-		super.setUp();
-
-		_companyBuilder = new CompanyBuilder();
-	}
-
 	@Test
 	public void testBuildDirectoriesNullCompanyWebId() throws Exception {
-		FilterConstraint filterConstraint = new FilterConstraint();
-		filterConstraint.addAttribute("ou", null);
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
+
+		FilterConstraint filterConstraint = new FilterConstraint();
+
+		filterConstraint.addAttribute("ou", null);
+
 		filterConstraints.add(filterConstraint);
 
-		List<Directory> directory = _companyBuilder.buildDirectories(
+		List<Directory> directories = _companyBuilder.buildDirectories(
 			searchBase, filterConstraints);
 
-		Directory returnedDirectory = directory.get(0);
+		Directory directory = directories.get(0);
 
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-				"objectclass", "organizationalUnit"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("objectclass", "top"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "liferay.com"));
+			directory.hasAttribute("objectclass", "organizationalUnit"));
+		Assert.assertTrue(directory.hasAttribute("objectclass", "top"));
+		Assert.assertTrue(directory.hasAttribute("ou", "liferay.com"));
 	}
 
 	@Test
 	public void testBuildDirectoriesNullFilter() throws Exception {
-		List<Directory> directory = _companyBuilder.buildDirectories(
+		List<Directory> directories = _companyBuilder.buildDirectories(
 			searchBase, null);
 
-		Directory returnedDirectory = directory.get(0);
+		Directory directory = directories.get(0);
 
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-				"objectclass", "organizationalUnit"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("objectclass", "top"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "liferay.com"));
+			directory.hasAttribute("objectclass", "organizationalUnit"));
+		Assert.assertTrue(directory.hasAttribute("objectclass", "top"));
+		Assert.assertTrue(directory.hasAttribute("ou", "liferay.com"));
 	}
 
 	@Test
 	public void testBuildDirectoriesValidCompanyWebId() throws Exception {
-		FilterConstraint filterConstraint = new FilterConstraint();
-		filterConstraint.addAttribute("ou", "liferay.com");
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
+
+		FilterConstraint filterConstraint = new FilterConstraint();
+
+		filterConstraint.addAttribute("ou", "liferay.com");
+
 		filterConstraints.add(filterConstraint);
 
-		List<Directory> directory = _companyBuilder.buildDirectories(
+		List<Directory> directories = _companyBuilder.buildDirectories(
 			searchBase, filterConstraints);
 
-		Directory returnedDirectory = directory.get(0);
+		Directory directory = directories.get(0);
 
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-				"objectclass", "organizationalUnit"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("objectclass", "top"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "liferay.com"));
+			directory.hasAttribute("objectclass", "organizationalUnit"));
+		Assert.assertTrue(directory.hasAttribute("objectclass", "top"));
+		Assert.assertTrue(directory.hasAttribute("ou", "liferay.com"));
 	}
 
-	private CompanyBuilder _companyBuilder;
+	private CompanyBuilder _companyBuilder = new CompanyBuilder();
 
 }

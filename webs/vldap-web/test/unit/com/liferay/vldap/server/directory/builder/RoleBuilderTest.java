@@ -17,10 +17,6 @@ package com.liferay.vldap.server.directory.builder;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.User;
-import com.liferay.portal.service.RoleLocalService;
-import com.liferay.portal.service.RoleLocalServiceUtil;
-import com.liferay.portal.service.UserLocalService;
-import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.vldap.BaseVLDAPTestCase;
 import com.liferay.vldap.server.directory.FilterConstraint;
 import com.liferay.vldap.server.directory.ldap.Directory;
@@ -52,78 +48,98 @@ public class RoleBuilderTest extends BaseVLDAPTestCase {
 		setupRoles();
 
 		_roleBuilder = new RoleBuilder();
-
-		_userLocalService = getMockPortalService(
-			UserLocalServiceUtil.class, UserLocalService.class);
 	}
 
 	public void setupRoles() throws Exception {
-		RoleLocalService roleLocalService = getMockPortalService(
-			RoleLocalServiceUtil.class, RoleLocalService.class);
-
 		Role role = mock(Role.class);
 
-		when(role.getName()).thenReturn("testName");
-		when(role.getRoleId()).thenReturn(42l);
-		when(role.getDescription()).thenReturn("testDescription");
+		when(
+			role.getRoleId()
+		).thenReturn(
+			42l
+		);
+
+		when(
+			role.getName()
+		).thenReturn(
+			"testName"
+		);
+
+		when(
+			role.getDescription()
+		).thenReturn(
+			"testDescription"
+		);
 
 		List<Role> roles = new ArrayList<Role>();
+
 		roles.add(role);
 
 		when(
 			roleLocalService.dynamicQuery(Mockito.any(DynamicQuery.class))
-		).thenReturn(roles);
+		).thenReturn(
+			roles
+		);
 
-		when(_user.getRoles()).thenReturn(roles);
+		when(
+			_user.getRoles()
+		).thenReturn(
+			roles
+		);
 	}
 
 	public void setupUsers() throws Exception {
-		_user = mock(User.class);
-		when(_user.getScreenName()).thenReturn("testScreenName");
+		_user = mock(
+			User.class
+		);
 
-		List<User> users = new ArrayList<User>();
-		users.add(_user);
+		when(
+			_user.getScreenName()
+		).thenReturn(
+			"testScreenName"
+		);
 	}
 
 	@Test
 	public void testBuildDirectoriesFilterNullFilter() throws Exception {
-		List<Directory> directory = _roleBuilder.buildDirectories(
+		List<Directory> directories = _roleBuilder.buildDirectories(
 			searchBase, null);
 
-		Directory returnedDirectory = directory.get(0);
+		Directory directory = directories.get(0);
 
-		Assert.assertTrue(returnedDirectory.hasAttribute("cn", "testName"));
+		Assert.assertTrue(directory.hasAttribute("cn", "testName"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("description", "testDescription"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "testName"));
+			directory.hasAttribute("description", "testDescription"));
+		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 	}
 
 	@Test
 	public void testBuildDirectoriesFilterNullScreenName() throws Exception {
-		FilterConstraint filterConstraint = new FilterConstraint();
-
-		filterConstraint.addAttribute("ou", "testName");
-		filterConstraint.addAttribute("description", "testDescription");
-
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
+
+		FilterConstraint filterConstraint = new FilterConstraint();
+
+		filterConstraint.addAttribute("description", "testDescription");
+		filterConstraint.addAttribute("ou", "testName");
+
 		filterConstraints.add(filterConstraint);
 
-		List<Directory> directory = _roleBuilder.buildDirectories(
+		List<Directory> directories = _roleBuilder.buildDirectories(
 			searchBase, filterConstraints);
 
-		Directory returnedDirectory = directory.get(0);
+		Directory directory = directories.get(0);
 
-		Assert.assertTrue(returnedDirectory.hasAttribute("cn", "testName"));
+		Assert.assertTrue(directory.hasAttribute("cn", "testName"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("description", "testDescription"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "testName"));
+			directory.hasAttribute("description", "testDescription"));
+		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 	}
 
 	@Test
 	public void testBuildDirectoriesFilterValidScreenName() throws Exception {
 		when(
-			_userLocalService.getUserByScreenName(
+			userLocalService.getUserByScreenName(
 				Mockito.anyLong(), Mockito.anyString())
 		).thenReturn(_user);
 
@@ -151,6 +167,5 @@ public class RoleBuilderTest extends BaseVLDAPTestCase {
 
 	private RoleBuilder _roleBuilder;
 	private User _user;
-	private UserLocalService _userLocalService;
 
 }

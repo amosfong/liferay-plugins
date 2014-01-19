@@ -24,19 +24,19 @@ import org.powermock.modules.junit4.PowerMockRunner;
  * @author William Newbury
  */
 @RunWith(PowerMockRunner.class)
-public class RolesBuilderTest extends GeneralBuilderTestCase {
+public class RolesBuilderTest extends BaseDirectoryBuilderTestCase {
 
 	@Before
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
 
-		_builder = new RolesBuilder();
+		directoryBuilder = new RolesBuilder();
 	}
 
 	@Test
 	public void testBuildDirectories() throws Exception {
-		super.testBuildDirectoriesValidFilter();
+		super.testBuildDirectoriesWithFilterConstraint();
 	}
 
 }

@@ -15,8 +15,6 @@
 package com.liferay.vldap.server.directory.builder;
 
 import com.liferay.portal.model.User;
-import com.liferay.portal.service.UserLocalService;
-import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.util.comparator.UserScreenNameComparator;
 
 import java.util.ArrayList;
@@ -35,28 +33,29 @@ import org.powermock.modules.junit4.PowerMockRunner;
  * @author William Newbury
  */
 @RunWith(PowerMockRunner.class)
-public class UsersBuilderTest extends GeneralBuilderTestCase {
+public class UsersBuilderTest extends BaseDirectoryBuilderTestCase {
 
 	@Before
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
 
-		_builder = new UsersBuilder();
+		directoryBuilder = new UsersBuilder();
 	}
 
 	@Test
 	public void testBuildDirectories() throws Exception {
 		User user = mock(User.class);
 
-		when(user.getScreenName()).thenReturn("testScreenName");
+		when(
+			user.getScreenName()
+		).thenReturn(
+			"testScreenName"
+		);
 
 		List<User> users = new ArrayList<User>();
 
 		users.add(user);
-
-		UserLocalService userLocalService = getMockPortalService(
-			UserLocalServiceUtil.class, UserLocalService.class);
 
 		when(
 			userLocalService.search(
@@ -70,7 +69,7 @@ public class UsersBuilderTest extends GeneralBuilderTestCase {
 			users
 		);
 
-		super.testBuildDirectoriesValidFilter();
+		super.testBuildDirectoriesWithFilterConstraint();
 	}
 
 }

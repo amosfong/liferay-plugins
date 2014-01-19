@@ -30,23 +30,22 @@ import org.powermock.modules.junit4.PowerMockRunner;
  * @author William Newbury
  */
 @RunWith(PowerMockRunner.class)
-public class GeneralBuilderTestCase extends BaseVLDAPTestCase {
+public abstract class BaseDirectoryBuilderTestCase extends BaseVLDAPTestCase {
 
-	public void testBuildDirectoriesValidFilter() throws Exception {
-		FilterConstraint filterConstraint = new FilterConstraint();
-
+	protected void testBuildDirectoriesWithFilterConstraint() throws Exception {
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
-		filterConstraints.add(filterConstraint);
 
-		List<Directory> directories = _builder.buildDirectories(
+		filterConstraints.add(new FilterConstraint());
+
+		List<Directory> directories = directoryBuilder.buildDirectories(
 			searchBase, filterConstraints);
 
-		Directory returnedDirectory = directories.get(0);
+		Directory directory = directories.get(0);
 
-		Assert.assertNotNull(returnedDirectory);
+		Assert.assertNotNull(directory);
 	}
 
-	protected DirectoryBuilder _builder;
+	protected DirectoryBuilder directoryBuilder;
 
 }
