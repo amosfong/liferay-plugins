@@ -141,28 +141,31 @@ public class RoleBuilderTest extends BaseVLDAPTestCase {
 		when(
 			userLocalService.getUserByScreenName(
 				Mockito.anyLong(), Mockito.anyString())
-		).thenReturn(_user);
-
-		FilterConstraint filterConstraint = new FilterConstraint();
-
-		filterConstraint.addAttribute("ou", "testName");
-		filterConstraint.addAttribute("description", "testDescription");
-		filterConstraint.addAttribute(
-			"member", "screenName=testScreenName,ou=test,cn=test,blah=test");
+		).thenReturn(
+			_user
+		);
 
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
+
+		FilterConstraint filterConstraint = new FilterConstraint();
+
+		filterConstraint.addAttribute("description", "testDescription");
+		filterConstraint.addAttribute(
+			"member", "screenName=testScreenName,ou=test,cn=test,blah=test");
+		filterConstraint.addAttribute("ou", "testName");
+
 		filterConstraints.add(filterConstraint);
 
-		List<Directory> directory = _roleBuilder.buildDirectories(
+		List<Directory> directories = _roleBuilder.buildDirectories(
 			searchBase, filterConstraints);
 
-		Directory returnedDirectory = directory.get(0);
+		Directory directory = directories.get(0);
 
-		Assert.assertTrue(returnedDirectory.hasAttribute("cn", "testName"));
+		Assert.assertTrue(directory.hasAttribute("cn", "testName"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("description", "testDescription"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("ou", "testName"));
+			directory.hasAttribute("description", "testDescription"));
+		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 	}
 
 	private RoleBuilder _roleBuilder;

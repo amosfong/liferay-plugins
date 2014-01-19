@@ -45,49 +45,54 @@ public class SambaMachineBuilderTest extends BaseVLDAPTestCase {
 
 		_organization = mock(Organization.class);
 
-		when(_organization.getName()).thenReturn("testName");
+		when(
+			_organization.getName()
+		).thenReturn(
+			"testName"
+		);
 
-		when(searchBase.getOrganization()).thenReturn(_organization);
+		when(
+			searchBase.getOrganization()
+		).thenReturn(
+			_organization
+		);
 	}
 
 	@Test
 	public void testBuildDirectoriesOrganizationDomain() throws Exception {
-		List<Directory> directory = _sambaMachineBuilder.buildDirectories(
+		List<Directory> directories = _sambaMachineBuilder.buildDirectories(
 			searchBase.getTop(), company, _organization, "testDomainName");
 
-		Directory returnedDirectory = directory.get(0);
+		Directory directory = directories.get(0);
 
+		Assert.assertTrue(directory.hasAttribute("sambaNextUserRid", "1000"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-				"sambaDomainName", "testDomainName"));
+			directory.hasAttribute("sambaSID", "S-1-5-21-" + 42l));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("sambaSID", "S-1-5-21-" + 42l));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute("sambaNextUserRid", "1000"));
+			directory.hasAttribute("sambaDomainName", "testDomainName"));
 	}
 
 	@Test
 	public void testBuildDirectoriesValidFilterConstraint() throws Exception {
+		List<FilterConstraint> filterConstraints =
+			new ArrayList<FilterConstraint>();
+
 		FilterConstraint filterConstraint = new FilterConstraint();
 
 		filterConstraint.addAttribute("sambaDomainName", "testDomainName");
 
-		List<FilterConstraint> filterConstraints =
-			new ArrayList<FilterConstraint>();
 		filterConstraints.add(filterConstraint);
 
-		List<Directory> directory = _sambaMachineBuilder.buildDirectories(
+		List<Directory> directories = _sambaMachineBuilder.buildDirectories(
 			searchBase, filterConstraints);
 
-		Directory returnedDirectory = directory.get(0);
+		Directory directory = directories.get(0);
 
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
-				"sambaDomainName", "testDomainName"));
+			directory.hasAttribute("sambaDomainName", "testDomainName"));
+		Assert.assertTrue(directory.hasAttribute("sambaNextUserRid", "1000"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("sambaSID", "S-1-5-21-" + 42l));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute("sambaNextUserRid", "1000"));
+			directory.hasAttribute("sambaSID", "S-1-5-21-" + 42l));
 	}
 
 	private Organization _organization;
