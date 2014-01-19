@@ -35,8 +35,8 @@ public class UserGroupsBuilderTest extends BaseDirectoryBuilderTestCase {
 	}
 
 	@Test
-	public void testBuildDirectories() throws Exception {
-		super.doTestBuildDirectories();
+	public void testBuildDirectoriesDefaultFilter() throws Exception {
+		super.doTestBuildDirectoriesDefaultFilter();
 	}
 
 }

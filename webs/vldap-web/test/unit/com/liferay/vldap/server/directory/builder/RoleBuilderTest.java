@@ -101,7 +101,7 @@ public class RoleBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	@Test
-	public void testBuildDirectoriesFilterNullFilter() throws Exception {
+	public void testBuildDirectoriesFilterNoFilter() throws Exception {
 		List<Directory> directories = _roleBuilder.buildDirectories(
 			searchBase, null);
 
@@ -114,7 +114,7 @@ public class RoleBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	@Test
-	public void testBuildDirectoriesFilterNullScreenName() throws Exception {
+	public void testBuildDirectoriesFilterNoScreenName() throws Exception {
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 

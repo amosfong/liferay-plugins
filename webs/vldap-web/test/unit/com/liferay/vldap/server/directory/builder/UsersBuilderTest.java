@@ -44,7 +44,7 @@ public class UsersBuilderTest extends BaseDirectoryBuilderTestCase {
 	}
 
 	@Test
-	public void testBuildDirectories() throws Exception {
+	public void testBuildDirectoriesDefaultFilter() throws Exception {
 		User user = mock(User.class);
 
 		when(
@@ -69,7 +69,7 @@ public class UsersBuilderTest extends BaseDirectoryBuilderTestCase {
 			users
 		);
 
-		super.doTestBuildDirectories();
+		super.doTestBuildDirectoriesDefaultFilter();
 	}
 
 }

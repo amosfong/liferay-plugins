@@ -53,7 +53,7 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	@Test
-	public void testBuildDirectoriesNullFilter() throws Exception {
+	public void testBuildDirectoriesNoFilter() throws Exception {
 		List<Directory> directories = _organizationBuilder.buildDirectories(
 			searchBase, null);
 
@@ -70,7 +70,7 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	@Test
-	public void testBuildDirectoriesNullScreenName() throws Exception {
+	public void testBuildDirectoriesNoScreenName() throws Exception {
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 

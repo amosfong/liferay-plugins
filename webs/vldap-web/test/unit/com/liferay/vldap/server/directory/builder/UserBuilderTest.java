@@ -24,10 +24,6 @@ import com.liferay.portal.model.PasswordPolicy;
 import com.liferay.portal.model.Role;
 import com.liferay.portal.model.User;
 import com.liferay.portal.model.UserGroup;
-import com.liferay.portal.service.GroupLocalService;
-import com.liferay.portal.service.GroupLocalServiceUtil;
-import com.liferay.portal.service.UserLocalService;
-import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.util.Portal;
 import com.liferay.portal.util.PortalUtil;
 import com.liferay.portal.util.comparator.UserScreenNameComparator;
@@ -63,11 +59,6 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 	@Override
 	public void setUp() throws Exception {
 		super.setUp();
-
-		_groupLocalService = getMockPortalService(
-			GroupLocalServiceUtil.class, GroupLocalService.class);
-		_userLocalService = getMockPortalService(
-			UserLocalServiceUtil.class, UserLocalService.class);
 
 		setupUsers();
 		setupGroups();
@@ -126,7 +117,7 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		when(group.getName()).thenReturn("testGroupName");
 
 		when(
-			_groupLocalService.getGroup(
+			groupLocalService.getGroup(
 				Mockito.eq(42l), Mockito.eq("testGroupName"))
 		).thenReturn(
 			group
@@ -138,7 +129,7 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		groups.add(group);
 
 		when(
-			_groupLocalService.search(
+			groupLocalService.search(
 				Mockito.anyLong(), Mockito.any(long[].class),
 				Mockito.anyString(), Mockito.anyString(),
 				Mockito.any(LinkedHashMap.class), Mockito.anyBoolean(),
@@ -251,7 +242,7 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		_users.add(_user);
 
 		when(
-			_userLocalService.getCompanyUsers(
+			userLocalService.getCompanyUsers(
 				Mockito.anyLong(), Mockito.anyInt(), Mockito.anyInt())
 		).thenReturn(_users);
 	}
@@ -259,7 +250,7 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 	@Test
 	public void testBuildDirectories() throws Exception {
 		when(
-			_userLocalService.search(
+			userLocalService.search(
 				Mockito.anyLong(), Mockito.anyString(), Mockito.anyString(),
 				Mockito.anyString(), Mockito.anyString(), Mockito.anyString(),
 				Mockito.anyInt(), Mockito.any(LinkedHashMap.class),
@@ -318,7 +309,7 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	@Test
-	public void testBuildDirectoriesNullFilter() throws Exception {
+	public void testBuildDirectoriesNoFilter() throws Exception {
 		List<Directory> directory = _userBuilder.buildDirectories(
 			searchBase, null);
 
@@ -351,7 +342,7 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 
 	@Test
 	public void testBuildDirectoriesValidSambaSID() throws Exception {
-		when(_userLocalService.fetchUser(Mockito.anyLong())).thenReturn(_user);
+		when(userLocalService.fetchUser(Mockito.anyLong())).thenReturn(_user);
 
 		FilterConstraint filterConstraint = new FilterConstraint();
 
@@ -403,7 +394,7 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 
 	@Test
 	public void testBuildDirectoriesValidUidNumber() throws Exception {
-		when(_userLocalService.fetchUser(Mockito.anyLong())).thenReturn(_user);
+		when(userLocalService.fetchUser(Mockito.anyLong())).thenReturn(_user);
 
 		FilterConstraint filterConstraint = new FilterConstraint();
 
@@ -454,9 +445,9 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	@Test
-	public void testBuildDirectoriesValidUuid() throws Exception {
+	public void testBuildDirectoriesValidUUID() throws Exception {
 		when(
-			_userLocalService.getUserByUuid(Mockito.anyString())
+			userLocalService.getUserByUuid(Mockito.anyString())
 		).thenReturn(
 			_user
 		);
@@ -503,10 +494,8 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 			returnedDirectory.hasAttribute("sambaLockoutDuration", "120"));
 	}
 
-	private GroupLocalService _groupLocalService;
 	private User _user;
 	private UserBuilder _userBuilder = new UserBuilder();
-	private UserLocalService _userLocalService;
 	private List<User> _users;
 
 }

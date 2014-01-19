@@ -59,21 +59,7 @@ public class SambaMachineBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	@Test
-	public void testBuildDirectoriesOrganizationDomain() throws Exception {
-		List<Directory> directories = _sambaMachineBuilder.buildDirectories(
-			searchBase.getTop(), company, _organization, "testDomainName");
-
-		Directory directory = directories.get(0);
-
-		Assert.assertTrue(directory.hasAttribute("sambaNextUserRid", "1000"));
-		Assert.assertTrue(
-			directory.hasAttribute("sambaSID", "S-1-5-21-" + 42l));
-		Assert.assertTrue(
-			directory.hasAttribute("sambaDomainName", "testDomainName"));
-	}
-
-	@Test
-	public void testBuildDirectoriesValidFilterConstraint() throws Exception {
+	public void testBuildDirectoriesDefaultFilter() throws Exception {
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 
@@ -93,6 +79,20 @@ public class SambaMachineBuilderTest extends BaseVLDAPTestCase {
 		Assert.assertTrue(directory.hasAttribute("sambaNextUserRid", "1000"));
 		Assert.assertTrue(
 			directory.hasAttribute("sambaSID", "S-1-5-21-" + 42l));
+	}
+
+	@Test
+	public void testBuildDirectoriesValidOrganizationDomain() throws Exception {
+		List<Directory> directories = _sambaMachineBuilder.buildDirectories(
+			searchBase.getTop(), company, _organization, "testDomainName");
+
+		Directory directory = directories.get(0);
+
+		Assert.assertTrue(directory.hasAttribute("sambaNextUserRid", "1000"));
+		Assert.assertTrue(
+			directory.hasAttribute("sambaSID", "S-1-5-21-" + 42l));
+		Assert.assertTrue(
+			directory.hasAttribute("sambaDomainName", "testDomainName"));
 	}
 
 	private Organization _organization;

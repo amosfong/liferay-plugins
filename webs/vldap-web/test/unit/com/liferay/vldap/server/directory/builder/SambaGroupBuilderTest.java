@@ -59,7 +59,7 @@ public class SambaGroupBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	@Test
-	public void testBuildDirectoriesNullGIDNumber() throws Exception {
+	public void testBuildDirectoriesNoGIDNumber() throws Exception {
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 
@@ -92,8 +92,8 @@ public class SambaGroupBuilderTest extends BaseVLDAPTestCase {
 		FilterConstraint filterConstraint = new FilterConstraint();
 
 		filterConstraint.addAttribute("cn", "root");
-		filterConstraint.addAttribute("sambaSID", "S-1-5-32-544");
 		filterConstraint.addAttribute("gidNumber", "0");
+		filterConstraint.addAttribute("sambaSID", "S-1-5-32-544");
 
 		filterConstraints.add(filterConstraint);
 

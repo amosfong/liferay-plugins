@@ -49,7 +49,7 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	@Test
-	public void testBuildDirectoriesFilter() throws Exception {
+	public void testBuildDirectoriesNoFilter() throws Exception {
 		List<Directory> directories = _userGroupBuilder.buildDirectories(
 			searchBase, null);
 
@@ -68,7 +68,7 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	@Test
-	public void testBuildDirectoriesFilterNullScreenName() throws Exception {
+	public void testBuildDirectoriesNoScreenName() throws Exception {
 		List<FilterConstraint> filterConstraints =
 			new ArrayList<FilterConstraint>();
 
@@ -97,7 +97,7 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	@Test
-	public void testBuildDirectoriestFilterValidScreenName() throws Exception {
+	public void testBuildDirectoriestValidScreenName() throws Exception {
 		when(
 			_user.getUserGroups()
 		).thenReturn(
