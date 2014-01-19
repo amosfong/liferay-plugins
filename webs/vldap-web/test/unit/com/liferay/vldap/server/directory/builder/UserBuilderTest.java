@@ -71,182 +71,6 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		setupExpando();
 	}
 
-	public void setupExpando() throws Exception {
-		ExpandoBridge expandBridge = mock(ExpandoBridge.class);
-
-		when(
-			expandBridge.getAttribute(
-				Mockito.eq("sambaLMPassword"), Mockito.eq(false))
-		).thenReturn(
-			"testLMPassword"
-		);
-
-		when(
-			expandBridge.getAttribute(
-				Mockito.eq("sambaNTPassword"), Mockito.eq(false))
-		).thenReturn(
-			"testNTPassword"
-		);
-
-		when(_user.getExpandoBridge()).thenReturn(expandBridge);
-	}
-
-	public void setupFastDateFormat() throws Exception {
-		FastDateFormat fastFormat = FastDateFormat.getInstance(
-			"yyyyMMddHHmmss.SZ", (TimeZone)null, LocaleUtil.getDefault());
-
-		FastDateFormatFactory fastDateFormatFactory = mock(
-			FastDateFormatFactory.class);
-
-		when(
-			fastDateFormatFactory.getSimpleDateFormat(Mockito.anyString())
-		).thenReturn(
-			fastFormat
-		);
-
-		FastDateFormatFactoryUtil fastDateFormatFactoryUtil =
-			new FastDateFormatFactoryUtil();
-		fastDateFormatFactoryUtil.setFastDateFormatFactory(
-			fastDateFormatFactory);
-	}
-
-	public void setupGroups() throws Exception {
-		Group group = mock(Group.class);
-
-		when(group.getGroupId()).thenReturn(42l);
-		when(group.getName()).thenReturn("testGroupName");
-
-		when(
-			groupLocalService.getGroup(
-				Mockito.eq(42l), Mockito.eq("testGroupName"))
-		).thenReturn(
-			group
-		);
-
-		when(searchBase.getCommunity()).thenReturn(group);
-
-		List<Group> groups = new ArrayList<Group>();
-		groups.add(group);
-
-		when(
-			groupLocalService.search(
-				Mockito.anyLong(), Mockito.any(long[].class),
-				Mockito.anyString(), Mockito.anyString(),
-				Mockito.any(LinkedHashMap.class), Mockito.anyBoolean(),
-				Mockito.anyInt(), Mockito.anyInt())
-		).thenReturn(groups);
-	}
-
-	public void setupOrganizations() throws Exception {
-		Organization organization = mock(Organization.class);
-
-		when(organization.getName()).thenReturn("testOrganizationName");
-		when(organization.getOrganizationId()).thenReturn(42l);
-
-		List<Organization> organizations = new ArrayList<Organization>();
-		organizations.add(organization);
-
-		when(_user.getOrganizations()).thenReturn(organizations);
-
-		when(searchBase.getOrganization()).thenReturn(organization);
-	}
-
-	public void setupPasswordPolicy() throws Exception {
-		PasswordPolicy passwordPolicy = mock(PasswordPolicy.class);
-
-		when(passwordPolicy.isExpireable()).thenReturn(false);
-		when(passwordPolicy.isLockout()).thenReturn(true);
-		when(
-			passwordPolicy.getLockoutDuration()
-		).thenReturn(new Long("7200000"));
-		when(
-			passwordPolicy.getResetFailureCount()
-		).thenReturn(new Long("3600000"));
-		when(passwordPolicy.isRequireUnlock()).thenReturn(true);
-		when(
-			passwordPolicy.getGraceLimit()
-		).thenReturn(7200000);
-		when(
-			passwordPolicy.getMaxAge()
-		).thenReturn(new Long("14400000"));
-		when(
-			passwordPolicy.getMinAge()
-		).thenReturn(new Long("3600000"));
-		when(
-			passwordPolicy.getHistoryCount()
-		).thenReturn(3600000);
-
-		when(_user.getPasswordPolicy()).thenReturn(passwordPolicy);
-	}
-
-	public void setupPortalUtil() throws Exception {
-		Portal portal = mock(Portal.class);
-
-		when(
-			portal.getClassNameId(Mockito.any(Class.class))
-		).thenReturn(42l);
-
-		PortalUtil portalUtil = new PortalUtil();
-		portalUtil.setPortal(portal);
-	}
-
-	public void setupRoles() throws Exception {
-		Role role = mock(Role.class);
-
-		when(role.getName()).thenReturn("testRoleName");
-		when(role.getRoleId()).thenReturn(42l);
-
-		List<Role> roles = new ArrayList<Role>();
-		roles.add(role);
-
-		when(_user.getRoles()).thenReturn(roles);
-
-		when(searchBase.getRole()).thenReturn(role);
-	}
-
-	public void setupUserGroups() throws Exception {
-		UserGroup userGroup = mock(UserGroup.class);
-
-		when(userGroup.getName()).thenReturn("testUserGroupName");
-		when(userGroup.getUserGroupId()).thenReturn(42l);
-
-		List<UserGroup> userGroups = new ArrayList<UserGroup>();
-		userGroups.add(userGroup);
-
-		when(_user.getUserGroups()).thenReturn(userGroups);
-
-		when(searchBase.getUserGroup()).thenReturn(userGroup);
-	}
-
-	public void setupUsers() throws Exception {
-		_user = mock(User.class);
-
-		Long testLong = 42l;
-		when(_user.getScreenName()).thenReturn("testScreenName");
-		when(_user.getCreateDate()).thenReturn(null);
-		when(_user.getFullName()).thenReturn("testFullName");
-		when(
-			props.get(PortletPropsValues.POSIX_GROUP_ID)
-		).thenReturn(
-			"testGroupId"
-		);
-		when(_user.getFirstName()).thenReturn("testFirstName");
-		when(_user.getEmailAddress()).thenReturn("test@email");
-		when(_user.getModifiedDate()).thenReturn(null);
-		when(_user.getLastName()).thenReturn("testLastName");
-		when(_user.getUserId()).thenReturn(testLong);
-		when(_user.getUuid()).thenReturn("testUuid");
-		when(_user.getCompanyId()).thenReturn(testLong);
-
-		_users = new ArrayList<User>();
-		_users.add(_user);
-
-		when(
-			userLocalService.getCompanyUsers(
-				Mockito.anyLong(), Mockito.anyInt(), Mockito.anyInt())
-		).thenReturn(_users);
-	}
-
 	@Test
 	public void testBuildDirectories() throws Exception {
 		when(
@@ -490,6 +314,182 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		Assert.assertTrue(
 			returnedDirectory.hasAttribute("sambaMaxPwdAge", "-1"));
 		Assert.assertTrue(returnedDirectory.hasAttribute("sn", "testLastName"));
+	}
+
+	protected void setupExpando() throws Exception {
+		ExpandoBridge expandBridge = mock(ExpandoBridge.class);
+
+		when(
+			expandBridge.getAttribute(
+				Mockito.eq("sambaLMPassword"), Mockito.eq(false))
+		).thenReturn(
+			"testLMPassword"
+		);
+
+		when(
+			expandBridge.getAttribute(
+				Mockito.eq("sambaNTPassword"), Mockito.eq(false))
+		).thenReturn(
+			"testNTPassword"
+		);
+
+		when(_user.getExpandoBridge()).thenReturn(expandBridge);
+	}
+
+	protected void setupFastDateFormat() throws Exception {
+		FastDateFormat fastFormat = FastDateFormat.getInstance(
+			"yyyyMMddHHmmss.SZ", (TimeZone)null, LocaleUtil.getDefault());
+
+		FastDateFormatFactory fastDateFormatFactory = mock(
+			FastDateFormatFactory.class);
+
+		when(
+			fastDateFormatFactory.getSimpleDateFormat(Mockito.anyString())
+		).thenReturn(
+			fastFormat
+		);
+
+		FastDateFormatFactoryUtil fastDateFormatFactoryUtil =
+			new FastDateFormatFactoryUtil();
+		fastDateFormatFactoryUtil.setFastDateFormatFactory(
+			fastDateFormatFactory);
+	}
+
+	protected void setupGroups() throws Exception {
+		Group group = mock(Group.class);
+
+		when(group.getGroupId()).thenReturn(42l);
+		when(group.getName()).thenReturn("testGroupName");
+
+		when(
+			groupLocalService.getGroup(
+				Mockito.eq(42l), Mockito.eq("testGroupName"))
+		).thenReturn(
+			group
+		);
+
+		when(searchBase.getCommunity()).thenReturn(group);
+
+		List<Group> groups = new ArrayList<Group>();
+		groups.add(group);
+
+		when(
+			groupLocalService.search(
+				Mockito.anyLong(), Mockito.any(long[].class),
+				Mockito.anyString(), Mockito.anyString(),
+				Mockito.any(LinkedHashMap.class), Mockito.anyBoolean(),
+				Mockito.anyInt(), Mockito.anyInt())
+		).thenReturn(groups);
+	}
+
+	protected void setupOrganizations() throws Exception {
+		Organization organization = mock(Organization.class);
+
+		when(organization.getName()).thenReturn("testOrganizationName");
+		when(organization.getOrganizationId()).thenReturn(42l);
+
+		List<Organization> organizations = new ArrayList<Organization>();
+		organizations.add(organization);
+
+		when(_user.getOrganizations()).thenReturn(organizations);
+
+		when(searchBase.getOrganization()).thenReturn(organization);
+	}
+
+	protected void setupPasswordPolicy() throws Exception {
+		PasswordPolicy passwordPolicy = mock(PasswordPolicy.class);
+
+		when(passwordPolicy.isExpireable()).thenReturn(false);
+		when(passwordPolicy.isLockout()).thenReturn(true);
+		when(
+			passwordPolicy.getLockoutDuration()
+		).thenReturn(new Long("7200000"));
+		when(
+			passwordPolicy.getResetFailureCount()
+		).thenReturn(new Long("3600000"));
+		when(passwordPolicy.isRequireUnlock()).thenReturn(true);
+		when(
+			passwordPolicy.getGraceLimit()
+		).thenReturn(7200000);
+		when(
+			passwordPolicy.getMaxAge()
+		).thenReturn(new Long("14400000"));
+		when(
+			passwordPolicy.getMinAge()
+		).thenReturn(new Long("3600000"));
+		when(
+			passwordPolicy.getHistoryCount()
+		).thenReturn(3600000);
+
+		when(_user.getPasswordPolicy()).thenReturn(passwordPolicy);
+	}
+
+	protected void setupPortalUtil() throws Exception {
+		Portal portal = mock(Portal.class);
+
+		when(
+			portal.getClassNameId(Mockito.any(Class.class))
+		).thenReturn(42l);
+
+		PortalUtil portalUtil = new PortalUtil();
+		portalUtil.setPortal(portal);
+	}
+
+	protected void setupRoles() throws Exception {
+		Role role = mock(Role.class);
+
+		when(role.getName()).thenReturn("testRoleName");
+		when(role.getRoleId()).thenReturn(42l);
+
+		List<Role> roles = new ArrayList<Role>();
+		roles.add(role);
+
+		when(_user.getRoles()).thenReturn(roles);
+
+		when(searchBase.getRole()).thenReturn(role);
+	}
+
+	protected void setupUserGroups() throws Exception {
+		UserGroup userGroup = mock(UserGroup.class);
+
+		when(userGroup.getName()).thenReturn("testUserGroupName");
+		when(userGroup.getUserGroupId()).thenReturn(42l);
+
+		List<UserGroup> userGroups = new ArrayList<UserGroup>();
+		userGroups.add(userGroup);
+
+		when(_user.getUserGroups()).thenReturn(userGroups);
+
+		when(searchBase.getUserGroup()).thenReturn(userGroup);
+	}
+
+	protected void setupUsers() throws Exception {
+		_user = mock(User.class);
+
+		Long testLong = 42l;
+		when(_user.getScreenName()).thenReturn("testScreenName");
+		when(_user.getCreateDate()).thenReturn(null);
+		when(_user.getFullName()).thenReturn("testFullName");
+		when(
+			props.get(PortletPropsValues.POSIX_GROUP_ID)
+		).thenReturn(
+			"testGroupId"
+		);
+		when(_user.getFirstName()).thenReturn("testFirstName");
+		when(_user.getEmailAddress()).thenReturn("test@email");
+		when(_user.getModifiedDate()).thenReturn(null);
+		when(_user.getLastName()).thenReturn("testLastName");
+		when(_user.getUserId()).thenReturn(testLong);
+		when(_user.getUuid()).thenReturn("testUuid");
+		when(_user.getCompanyId()).thenReturn(testLong);
+
+		_users = new ArrayList<User>();
+		_users.add(_user);
+
+		when(
+			userLocalService.getCompanyUsers(
+				Mockito.anyLong(), Mockito.anyInt(), Mockito.anyInt())
+		).thenReturn(_users);
 	}
 
 	private User _user;

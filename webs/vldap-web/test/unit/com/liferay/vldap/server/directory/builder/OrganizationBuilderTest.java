@@ -150,14 +150,14 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 		organizations.add(organization);
 
 		when(
-			_user.getOrganizations()
+			organizationLocalService.dynamicQuery(
+				Mockito.any(DynamicQuery.class))
 		).thenReturn(
 			organizations
 		);
 
 		when(
-			organizationLocalService.dynamicQuery(
-				Mockito.any(DynamicQuery.class))
+			_user.getOrganizations()
 		).thenReturn(
 			organizations
 		);

@@ -44,8 +44,9 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 	public void setUp() throws Exception {
 		super.setUp();
 
-		setupUserGroups();
 		setupUsers();
+
+		setupUserGroups();
 	}
 
 	@Test
@@ -98,12 +99,6 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 
 	@Test
 	public void testBuildDirectoriestValidScreenName() throws Exception {
-		when(
-			_user.getUserGroups()
-		).thenReturn(
-			_userGroups
-		);
-
 		when(
 			userLocalService.getUserByScreenName(
 				Mockito.anyLong(), Mockito.anyString())
@@ -161,12 +156,20 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 			"testDescription"
 		);
 
-		_userGroups.add(userGroup);
+		List<UserGroup> userGroups = new ArrayList<UserGroup>();
+
+		userGroups.add(userGroup);
 
 		when(
 			userGroupLocalService.dynamicQuery(Mockito.any(DynamicQuery.class))
 		).thenReturn(
-			_userGroups
+			userGroups
+		);
+
+		when(
+			_user.getUserGroups()
+		).thenReturn(
+			userGroups
 		);
 	}
 
@@ -182,6 +185,5 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 
 	private User _user;
 	private UserGroupBuilder _userGroupBuilder = new UserGroupBuilder();
-	private List<UserGroup> _userGroups = new ArrayList<UserGroup>();
 
 }

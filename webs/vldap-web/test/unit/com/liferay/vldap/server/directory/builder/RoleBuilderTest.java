@@ -45,59 +45,8 @@ public class RoleBuilderTest extends BaseVLDAPTestCase {
 		super.setUp();
 
 		setupUsers();
+
 		setupRoles();
-
-		_roleBuilder = new RoleBuilder();
-	}
-
-	public void setupRoles() throws Exception {
-		Role role = mock(Role.class);
-
-		when(
-			role.getRoleId()
-		).thenReturn(
-			42l
-		);
-
-		when(
-			role.getName()
-		).thenReturn(
-			"testName"
-		);
-
-		when(
-			role.getDescription()
-		).thenReturn(
-			"testDescription"
-		);
-
-		List<Role> roles = new ArrayList<Role>();
-
-		roles.add(role);
-
-		when(
-			roleLocalService.dynamicQuery(Mockito.any(DynamicQuery.class))
-		).thenReturn(
-			roles
-		);
-
-		when(
-			_user.getRoles()
-		).thenReturn(
-			roles
-		);
-	}
-
-	public void setupUsers() throws Exception {
-		_user = mock(
-			User.class
-		);
-
-		when(
-			_user.getScreenName()
-		).thenReturn(
-			"testScreenName"
-		);
 	}
 
 	@Test
@@ -168,7 +117,57 @@ public class RoleBuilderTest extends BaseVLDAPTestCase {
 		Assert.assertTrue(directory.hasAttribute("ou", "testName"));
 	}
 
-	private RoleBuilder _roleBuilder;
+	protected void setupRoles() throws Exception {
+		Role role = mock(Role.class);
+
+		when(
+			role.getRoleId()
+		).thenReturn(
+			42l
+		);
+
+		when(
+			role.getName()
+		).thenReturn(
+			"testName"
+		);
+
+		when(
+			role.getDescription()
+		).thenReturn(
+			"testDescription"
+		);
+
+		List<Role> roles = new ArrayList<Role>();
+
+		roles.add(role);
+
+		when(
+			roleLocalService.dynamicQuery(Mockito.any(DynamicQuery.class))
+		).thenReturn(
+			roles
+		);
+
+		when(
+			_user.getRoles()
+		).thenReturn(
+			roles
+		);
+	}
+
+	protected void setupUsers() throws Exception {
+		_user = mock(
+			User.class
+		);
+
+		when(
+			_user.getScreenName()
+		).thenReturn(
+			"testScreenName"
+		);
+	}
+
+	private RoleBuilder _roleBuilder = new RoleBuilder();
 	private User _user;
 
 }

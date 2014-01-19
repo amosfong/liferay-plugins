@@ -54,7 +54,7 @@ public class SambaGroupBuilderTest extends BaseVLDAPTestCase {
 		).thenReturn(
 			_organization
 		);
-		
+
 		_sambaGroupBuilder = new SambaGroupBuilder();
 	}
 
