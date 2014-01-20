@@ -32,8 +32,6 @@ import com.liferay.portal.model.Role;
 import com.liferay.portal.model.RoleConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.security.permission.ActionKeys;
-import com.liferay.portal.security.permission.PermissionChecker;
-import com.liferay.portal.security.permission.PermissionThreadLocal;
 import com.liferay.portal.service.RoleLocalServiceUtil;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextFactory;
@@ -379,14 +377,12 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 			themeDisplay.getCompanyId(), keywords, getRoleTypesObj(type), 0,
 			SearchContainer.DEFAULT_DELTA, (OrderByComparator)null);
 
-		PermissionChecker permissionChecker =
-			PermissionThreadLocal.getPermissionChecker();
-
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
 		for (Role role : roles) {
 			if (!RolePermissionUtil.contains(
-					permissionChecker, role.getRoleId(), ActionKeys.VIEW)) {
+					themeDisplay.getPermissionChecker(), role.getRoleId(),
+					ActionKeys.VIEW)) {
 
 				continue;
 			}
@@ -417,14 +413,12 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 			new LinkedHashMap<String, Object>(), 0,
 			SearchContainer.DEFAULT_DELTA, (OrderByComparator)null);
 
-		PermissionChecker permissionChecker =
-			PermissionThreadLocal.getPermissionChecker();
-
 		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
 
 		for (User user : users) {
 			if (!UserPermissionUtil.contains(
-					permissionChecker, user.getUserId(), ActionKeys.VIEW)) {
+					themeDisplay.getPermissionChecker(), user.getUserId(),
+					ActionKeys.VIEW)) {
 
 				continue;
 			}
