@@ -72,7 +72,9 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	@Test
-	public void testBuildDirectories() throws Exception {
+	public void testBuildDirectoriesNoSambaSIDOrUidNumberOrUUID()
+		throws Exception {
+
 		when(
 			userLocalService.search(
 				Mockito.anyLong(), Mockito.anyString(), Mockito.anyString(),
