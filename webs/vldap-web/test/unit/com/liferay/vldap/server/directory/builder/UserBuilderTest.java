@@ -61,14 +61,15 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		super.setUp();
 
 		setupUsers();
+
+		setupExpando();
+		setupFastDateFormat();
 		setupGroups();
 		setupOrganizations();
+		setupPasswordPolicy();
+		setupPortalUtil();
 		setupRoles();
 		setupUserGroups();
-		setupFastDateFormat();
-		setupPortalUtil();
-		setupPasswordPolicy();
-		setupExpando();
 	}
 
 	@Test
@@ -237,34 +238,32 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 
 		filterConstraints.add(filterConstraint);
 
-		List<Directory> directory = _userBuilder.buildDirectories(
+		List<Directory> directories = _userBuilder.buildDirectories(
 			searchBase, filterConstraints);
 
-		Directory returnedDirectory = directory.get(0);
+		Directory directory = directories.get(0);
 
+		Assert.assertTrue(directory.hasAttribute("cn", "testScreenName"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("cn", "testScreenName"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
+			directory.hasAttribute(
 				"member", "cn=testGroupName,ou=testGroupName," +
 					"ou=Communities,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
+			directory.hasAttribute(
 				"member", "cn=testOrganizationName,ou=testOrganizationName," +
 					"ou=Organizations,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
+			directory.hasAttribute(
 				"member", "cn=testRoleName,ou=testRoleName," +
 					"ou=Roles,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
+			directory.hasAttribute(
 				"member", "cn=testUserGroupName,ou=testUserGroupName," +
 					"ou=User Groups,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("sambaLockoutDuration", "120"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute("sambaMaxPwdAge", "-1"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("sn", "testLastName"));
+			directory.hasAttribute("sambaLockoutDuration", "120"));
+		Assert.assertTrue(directory.hasAttribute("sambaMaxPwdAge", "-1"));
+		Assert.assertTrue(directory.hasAttribute("sn", "testLastName"));
 	}
 
 	@Test
@@ -288,34 +287,32 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 
 		filterConstraints.add(filterConstraint);
 
-		List<Directory> directory = _userBuilder.buildDirectories(
+		List<Directory> directories = _userBuilder.buildDirectories(
 			searchBase, filterConstraints);
 
-		Directory returnedDirectory = directory.get(0);
+		Directory directory = directories.get(0);
 
+		Assert.assertTrue(directory.hasAttribute("cn", "testScreenName"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("cn", "testScreenName"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
+			directory.hasAttribute(
 				"member", "cn=testGroupName,ou=testGroupName," +
 					"ou=Communities,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
+			directory.hasAttribute(
 				"member", "cn=testOrganizationName,ou=testOrganizationName," +
 					"ou=Organizations,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
+			directory.hasAttribute(
 				"member", "cn=testRoleName,ou=testRoleName," +
 					"ou=Roles,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute(
+			directory.hasAttribute(
 				"member", "cn=testUserGroupName,ou=testUserGroupName," +
 					"ou=User Groups,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
-			returnedDirectory.hasAttribute("sambaLockoutDuration", "120"));
-		Assert.assertTrue(
-			returnedDirectory.hasAttribute("sambaMaxPwdAge", "-1"));
-		Assert.assertTrue(returnedDirectory.hasAttribute("sn", "testLastName"));
+			directory.hasAttribute("sambaLockoutDuration", "120"));
+		Assert.assertTrue(directory.hasAttribute("sambaMaxPwdAge", "-1"));
+		Assert.assertTrue(directory.hasAttribute("sn", "testLastName"));
 	}
 
 	protected void setupExpando() throws Exception {
@@ -335,11 +332,15 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 			"testNTPassword"
 		);
 
-		when(_user.getExpandoBridge()).thenReturn(expandBridge);
+		when(
+			_user.getExpandoBridge()
+		).thenReturn(
+			expandBridge
+		);
 	}
 
 	protected void setupFastDateFormat() throws Exception {
-		FastDateFormat fastFormat = FastDateFormat.getInstance(
+		FastDateFormat fastDateFormat = FastDateFormat.getInstance(
 			"yyyyMMddHHmmss.SZ", (TimeZone)null, LocaleUtil.getDefault());
 
 		FastDateFormatFactory fastDateFormatFactory = mock(
@@ -348,11 +349,12 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		when(
 			fastDateFormatFactory.getSimpleDateFormat(Mockito.anyString())
 		).thenReturn(
-			fastFormat
+			fastDateFormat
 		);
 
 		FastDateFormatFactoryUtil fastDateFormatFactoryUtil =
 			new FastDateFormatFactoryUtil();
+
 		fastDateFormatFactoryUtil.setFastDateFormatFactory(
 			fastDateFormatFactory);
 	}
@@ -360,8 +362,17 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 	protected void setupGroups() throws Exception {
 		Group group = mock(Group.class);
 
-		when(group.getGroupId()).thenReturn(42l);
-		when(group.getName()).thenReturn("testGroupName");
+		when(
+			group.getGroupId()
+		).thenReturn(
+			42l
+		);
+
+		when(
+			group.getName()
+		).thenReturn(
+			"testGroupName"
+		);
 
 		when(
 			groupLocalService.getGroup(
@@ -370,9 +381,8 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 			group
 		);
 
-		when(searchBase.getCommunity()).thenReturn(group);
-
 		List<Group> groups = new ArrayList<Group>();
+
 		groups.add(group);
 
 		when(
@@ -381,49 +391,111 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 				Mockito.anyString(), Mockito.anyString(),
 				Mockito.any(LinkedHashMap.class), Mockito.anyBoolean(),
 				Mockito.anyInt(), Mockito.anyInt())
-		).thenReturn(groups);
+		).thenReturn(
+			groups
+		);
+
+		when(
+			searchBase.getCommunity()
+		).thenReturn(
+			group
+		);
 	}
 
 	protected void setupOrganizations() throws Exception {
 		Organization organization = mock(Organization.class);
 
-		when(organization.getName()).thenReturn("testOrganizationName");
-		when(organization.getOrganizationId()).thenReturn(42l);
+		when(
+			organization.getOrganizationId()
+		).thenReturn(
+			42l
+		);
+
+		when(
+			organization.getName()
+		).thenReturn(
+			"testOrganizationName"
+		);
 
 		List<Organization> organizations = new ArrayList<Organization>();
+
 		organizations.add(organization);
 
-		when(_user.getOrganizations()).thenReturn(organizations);
+		when(
+			_user.getOrganizations()
+		).thenReturn(
+			organizations
+		);
 
-		when(searchBase.getOrganization()).thenReturn(organization);
+		when(
+			searchBase.getOrganization()
+		).thenReturn(
+			organization
+		);
 	}
 
 	protected void setupPasswordPolicy() throws Exception {
 		PasswordPolicy passwordPolicy = mock(PasswordPolicy.class);
 
-		when(passwordPolicy.isExpireable()).thenReturn(false);
-		when(passwordPolicy.isLockout()).thenReturn(true);
+		when(
+			passwordPolicy.isExpireable()
+		).thenReturn(
+			false
+		);
+
+		when(
+			passwordPolicy.isLockout()
+		).thenReturn(
+			true
+		);
+
 		when(
 			passwordPolicy.getLockoutDuration()
-		).thenReturn(new Long("7200000"));
+		).thenReturn(
+			7200000l
+		);
+
 		when(
 			passwordPolicy.getResetFailureCount()
-		).thenReturn(new Long("3600000"));
-		when(passwordPolicy.isRequireUnlock()).thenReturn(true);
+		).thenReturn(
+			3600000l
+		);
+
+		when(
+			passwordPolicy.isRequireUnlock()
+		).thenReturn(
+			true
+		);
+
 		when(
 			passwordPolicy.getGraceLimit()
-		).thenReturn(7200000);
+		).thenReturn(
+			7200000
+		);
+
 		when(
 			passwordPolicy.getMaxAge()
-		).thenReturn(new Long("14400000"));
+		).thenReturn(
+			14400000l
+		);
+
 		when(
 			passwordPolicy.getMinAge()
-		).thenReturn(new Long("3600000"));
+		).thenReturn(
+			3600000l
+		);
+
 		when(
 			passwordPolicy.getHistoryCount()
-		).thenReturn(3600000);
+		).thenReturn(
+			3600000
+		);
 
-		when(_user.getPasswordPolicy()).thenReturn(passwordPolicy);
+		when(
+			_user.getPasswordPolicy()
+		).thenReturn(
+			passwordPolicy
+		);
 	}
 
 	protected void setupPortalUtil() throws Exception {
@@ -434,68 +506,155 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		).thenReturn(42l);
 
 		PortalUtil portalUtil = new PortalUtil();
+
 		portalUtil.setPortal(portal);
 	}
 
 	protected void setupRoles() throws Exception {
 		Role role = mock(Role.class);
 
-		when(role.getName()).thenReturn("testRoleName");
-		when(role.getRoleId()).thenReturn(42l);
+		when(
+			role.getRoleId()
+		).thenReturn(
+			42l
+		);
+
+		when(
+			role.getName()
+		).thenReturn(
+			"testRoleName"
+		);
 
 		List<Role> roles = new ArrayList<Role>();
+
 		roles.add(role);
 
-		when(_user.getRoles()).thenReturn(roles);
+		when(
+			_user.getRoles()
+		).thenReturn(
+			roles
+		);
 
-		when(searchBase.getRole()).thenReturn(role);
+		when(
+			searchBase.getRole()
+		).thenReturn(
+			role
+		);
 	}
 
 	protected void setupUserGroups() throws Exception {
 		UserGroup userGroup = mock(UserGroup.class);
 
-		when(userGroup.getName()).thenReturn("testUserGroupName");
-		when(userGroup.getUserGroupId()).thenReturn(42l);
+		when(
+			userGroup.getUserGroupId()
+		).thenReturn(
+			42l
+		);
+
+		when(
+			userGroup.getName()
+		).thenReturn(
+			"testUserGroupName"
+		);
 
 		List<UserGroup> userGroups = new ArrayList<UserGroup>();
+
 		userGroups.add(userGroup);
 
-		when(_user.getUserGroups()).thenReturn(userGroups);
+		when(
+			_user.getUserGroups()
+		).thenReturn(
+			userGroups
+		);
 
-		when(searchBase.getUserGroup()).thenReturn(userGroup);
+		when(
+			searchBase.getUserGroup()
+		).thenReturn(
+			userGroup
+		);
 	}
 
 	protected void setupUsers() throws Exception {
 		_user = mock(User.class);
 
-		Long testLong = 42l;
-		when(_user.getScreenName()).thenReturn("testScreenName");
-		when(_user.getCreateDate()).thenReturn(null);
-		when(_user.getFullName()).thenReturn("testFullName");
+		when(
+			_user.getScreenName()
+		).thenReturn(
+			"testScreenName"
+		);
+
+		when(
+			_user.getCreateDate()
+		).thenReturn(
+			null
+		);
+
+		when(
+			_user.getFullName()
+		).thenReturn(
+			"testFullName"
+		);
+
 		when(
 			props.get(PortletPropsValues.POSIX_GROUP_ID)
 		).thenReturn(
 			"testGroupId"
 		);
-		when(_user.getFirstName()).thenReturn("testFirstName");
-		when(_user.getEmailAddress()).thenReturn("test@email");
-		when(_user.getModifiedDate()).thenReturn(null);
-		when(_user.getLastName()).thenReturn("testLastName");
-		when(_user.getUserId()).thenReturn(testLong);
-		when(_user.getUuid()).thenReturn("testUuid");
-		when(_user.getCompanyId()).thenReturn(testLong);
 
-		_users = new ArrayList<User>();
+		when(
+			_user.getFirstName()
+		).thenReturn(
+			"testFirstName"
+		);
+
+		when(
+			_user.getEmailAddress()
+		).thenReturn(
+			"test@email"
+		);
+
+		when(
+			_user.getModifiedDate()
+		).thenReturn(
+			null
+		);
+
+		when(
+			_user.getLastName()
+		).thenReturn(
+			"testLastName"
+		);
+
+		when(
+			_user.getUserId()
+		).thenReturn(
+			42l
+		);
+
+		when(
+			_user.getUuid()
+		).thenReturn(
+			"testUuid"
+		);
+
+		when(
+			_user.getCompanyId()
+		).thenReturn(
+			42l
+		);
+
 		_users.add(_user);
 
 		when(
 			userLocalService.getCompanyUsers(
 				Mockito.anyLong(), Mockito.anyInt(), Mockito.anyInt())
-		).thenReturn(_users);
+		).thenReturn(
+			_users
+		);
 	}
 
 	private User _user;
 	private UserBuilder _userBuilder = new UserBuilder();
-	private List<User> _users;
+	private List<User> _users = new ArrayList<User>();
 
 }
