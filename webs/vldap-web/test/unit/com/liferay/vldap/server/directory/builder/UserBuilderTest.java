@@ -72,6 +72,36 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 	}
 
 	@Test
+	public void testBuildDirectoriesNoFilter() throws Exception {
+		List<Directory> directories = _userBuilder.buildDirectories(
+			searchBase, null);
+
+		Directory directory = directories.get(0);
+
+		Assert.assertTrue(directory.hasAttribute("cn", "testScreenName"));
+		Assert.assertTrue(
+			directory.hasAttribute(
+				"member", "cn=testGroupName,ou=testGroupName," +
+					"ou=Communities,ou=liferay.com,o=Liferay"));
+		Assert.assertTrue(
+			directory.hasAttribute(
+				"member", "cn=testOrganizationName,ou=testOrganizationName," +
+					"ou=Organizations,ou=liferay.com,o=Liferay"));
+		Assert.assertTrue(
+			directory.hasAttribute(
+				"member", "cn=testRoleName,ou=testRoleName," +
+					"ou=Roles,ou=liferay.com,o=Liferay"));
+		Assert.assertTrue(
+			directory.hasAttribute(
+				"member", "cn=testUserGroupName,ou=testUserGroupName," +
+					"ou=User Groups,ou=liferay.com,o=Liferay"));
+		Assert.assertTrue(
+			directory.hasAttribute("sambaLockoutDuration", "120"));
+		Assert.assertTrue(directory.hasAttribute("sambaMaxPwdAge", "-1"));
+		Assert.assertTrue(directory.hasAttribute("sn", "testLastName"));
+	}
+
+	@Test
 	public void testBuildDirectoriesNoSambaSIDOrUidNumberOrUUID()
 		throws Exception {
 
@@ -119,36 +149,6 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 			directory.hasAttribute(
 			"member", "cn=testOrganizationName,ou=testOrganizationName," +
 				"ou=Organizations,ou=liferay.com,o=Liferay"));
-		Assert.assertTrue(
-			directory.hasAttribute(
-				"member", "cn=testRoleName,ou=testRoleName," +
-					"ou=Roles,ou=liferay.com,o=Liferay"));
-		Assert.assertTrue(
-			directory.hasAttribute(
-				"member", "cn=testUserGroupName,ou=testUserGroupName," +
-					"ou=User Groups,ou=liferay.com,o=Liferay"));
-		Assert.assertTrue(
-			directory.hasAttribute("sambaLockoutDuration", "120"));
-		Assert.assertTrue(directory.hasAttribute("sambaMaxPwdAge", "-1"));
-		Assert.assertTrue(directory.hasAttribute("sn", "testLastName"));
-	}
-
-	@Test
-	public void testBuildDirectoriesNoFilter() throws Exception {
-		List<Directory> directories = _userBuilder.buildDirectories(
-			searchBase, null);
-
-		Directory directory = directories.get(0);
-
-		Assert.assertTrue(directory.hasAttribute("cn", "testScreenName"));
-		Assert.assertTrue(
-			directory.hasAttribute(
-				"member", "cn=testGroupName,ou=testGroupName," +
-					"ou=Communities,ou=liferay.com,o=Liferay"));
-		Assert.assertTrue(
-			directory.hasAttribute(
-				"member", "cn=testOrganizationName,ou=testOrganizationName," +
-					"ou=Organizations,ou=liferay.com,o=Liferay"));
 		Assert.assertTrue(
 			directory.hasAttribute(
 				"member", "cn=testRoleName,ou=testRoleName," +
