@@ -139,9 +139,9 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 		UserGroup userGroup = mock(UserGroup.class);
 
 		when(
-			userGroup.getUserGroupId()
+			userGroup.getDescription()
 		).thenReturn(
-			42l
+			"testDescription"
 		);
 
 		when(
@@ -151,9 +151,9 @@ public class UserGroupBuilderTest extends BaseVLDAPTestCase {
 		);
 
 		when(
-			userGroup.getDescription()
+			userGroup.getUserGroupId()
 		).thenReturn(
-			"testDescription"
+			42l
 		);
 
 		List<UserGroup> userGroups = new ArrayList<UserGroup>();

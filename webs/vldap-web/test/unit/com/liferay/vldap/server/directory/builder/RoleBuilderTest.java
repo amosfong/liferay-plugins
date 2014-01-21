@@ -121,9 +121,9 @@ public class RoleBuilderTest extends BaseVLDAPTestCase {
 		Role role = mock(Role.class);
 
 		when(
-			role.getRoleId()
+			role.getDescription()
 		).thenReturn(
-			42l
+			"testDescription"
 		);
 
 		when(
@@ -133,9 +133,9 @@ public class RoleBuilderTest extends BaseVLDAPTestCase {
 		);
 
 		when(
-			role.getDescription()
+			role.getRoleId()
 		).thenReturn(
-			"testDescription"
+			42l
 		);
 
 		List<Role> roles = new ArrayList<Role>();

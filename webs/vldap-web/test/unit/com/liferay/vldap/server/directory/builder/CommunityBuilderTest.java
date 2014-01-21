@@ -161,6 +161,12 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 		Group group = mock(Group.class);
 
 		when(
+			group.getDescription()
+		).thenReturn(
+			"testDescription"
+		);
+
+		when(
 			group.getGroupId()
 		).thenReturn(
 			42l
@@ -170,12 +176,6 @@ public class CommunityBuilderTest extends BaseVLDAPTestCase {
 			group.getName()
 		).thenReturn(
 			"testName"
-		);
-
-		when(
-			group.getDescription()
-		).thenReturn(
-			"testDescription"
 		);
 
 		_groups.add(group);

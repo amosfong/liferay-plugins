@@ -134,15 +134,15 @@ public class OrganizationBuilderTest extends BaseVLDAPTestCase {
 		Organization organization = mock(Organization.class);
 
 		when(
-			organization.getOrganizationId()
-		).thenReturn(
-			42l
-		);
-
-		when(
 			organization.getName()
 		).thenReturn(
 			"testName"
+		);
+
+		when(
+			organization.getOrganizationId()
+		).thenReturn(
+			42l
 		);
 
 		List<Organization> organizations = new ArrayList<Organization>();

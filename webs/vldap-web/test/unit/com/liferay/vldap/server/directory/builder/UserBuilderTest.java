@@ -406,15 +406,15 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		Organization organization = mock(Organization.class);
 
 		when(
-			organization.getOrganizationId()
-		).thenReturn(
-			42l
-		);
-
-		when(
 			organization.getName()
 		).thenReturn(
 			"testOrganizationName"
+		);
+
+		when(
+			organization.getOrganizationId()
+		).thenReturn(
+			42l
 		);
 
 		List<Organization> organizations = new ArrayList<Organization>();
@@ -438,39 +438,21 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		PasswordPolicy passwordPolicy = mock(PasswordPolicy.class);
 
 		when(
-			passwordPolicy.isExpireable()
+			passwordPolicy.getGraceLimit()
 		).thenReturn(
-			false
+			7200000
 		);
 
 		when(
-			passwordPolicy.isLockout()
+			passwordPolicy.getHistoryCount()
 		).thenReturn(
-			true
+			3600000
 		);
 
 		when(
 			passwordPolicy.getLockoutDuration()
 		).thenReturn(
 			7200000l
-		);
-
-		when(
-			passwordPolicy.getResetFailureCount()
-		).thenReturn(
-			3600000l
-		);
-
-		when(
-			passwordPolicy.isRequireUnlock()
-		).thenReturn(
-			true
-		);
-
-		when(
-			passwordPolicy.getGraceLimit()
-		).thenReturn(
-			7200000
 		);
 
 		when(
@@ -486,9 +468,27 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		);
 
 		when(
-			passwordPolicy.getHistoryCount()
+			passwordPolicy.getResetFailureCount()
 		).thenReturn(
-			3600000
+			3600000l
+		);
+
+		when(
+			passwordPolicy.isExpireable()
+		).thenReturn(
+			false
+		);
+
+		when(
+			passwordPolicy.isLockout()
+		).thenReturn(
+			true
+		);
+
+		when(
+			passwordPolicy.isRequireUnlock()
+		).thenReturn(
+			true
 		);
 
 		when(
@@ -503,26 +503,39 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 
 		when(
 			portal.getClassNameId(Mockito.any(Class.class))
-		).thenReturn(42l);
+		).thenReturn(
+			42l
+		);
 
 		PortalUtil portalUtil = new PortalUtil();
 
 		portalUtil.setPortal(portal);
 	}
 
-	protected void setupRoles() throws Exception {
-		Role role = mock(Role.class);
+	@Override
+	protected void setupProps() {
+		super.setupProps();
 
 		when(
-			role.getRoleId()
+			props.get(PortletPropsValues.POSIX_GROUP_ID)
 		).thenReturn(
-			42l
+			"testGroupId"
 		);
+	}
+
+	protected void setupRoles() throws Exception {
+		Role role = mock(Role.class);
 
 		when(
 			role.getName()
 		).thenReturn(
 			"testRoleName"
+		);
+
+		when(
+			role.getRoleId()
+		).thenReturn(
+			42l
 		);
 
 		List<Role> roles = new ArrayList<Role>();
@@ -546,15 +559,15 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		UserGroup userGroup = mock(UserGroup.class);
 
 		when(
-			userGroup.getUserGroupId()
-		).thenReturn(
-			42l
-		);
-
-		when(
 			userGroup.getName()
 		).thenReturn(
 			"testUserGroupName"
+		);
+
+		when(
+			userGroup.getUserGroupId()
+		).thenReturn(
+			42l
 		);
 
 		List<UserGroup> userGroups = new ArrayList<UserGroup>();
@@ -578,9 +591,9 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		_user = mock(User.class);
 
 		when(
-			_user.getScreenName()
+			_user.getCompanyId()
 		).thenReturn(
-			"testScreenName"
+			42l
 		);
 
 		when(
@@ -590,15 +603,9 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		);
 
 		when(
-			_user.getFullName()
+			_user.getEmailAddress()
 		).thenReturn(
-			"testFullName"
-		);
-
-		when(
-			props.get(PortletPropsValues.POSIX_GROUP_ID)
-		).thenReturn(
-			"testGroupId"
+			"test@email"
 		);
 
 		when(
@@ -608,9 +615,15 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		);
 
 		when(
-			_user.getEmailAddress()
+			_user.getFullName()
 		).thenReturn(
-			"test@email"
+			"testFullName"
+		);
+
+		when(
+			_user.getLastName()
+		).thenReturn(
+			"testLastName"
 		);
 
 		when(
@@ -620,9 +633,9 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 		);
 
 		when(
-			_user.getLastName()
+			_user.getScreenName()
 		).thenReturn(
-			"testLastName"
+			"testScreenName"
 		);
 
 		when(
@@ -635,12 +648,6 @@ public class UserBuilderTest extends BaseVLDAPTestCase {
 			_user.getUuid()
 		).thenReturn(
 			"testUuid"
-		);
-
-		when(
-			_user.getCompanyId()
-		).thenReturn(
-			42l
 		);
 
 		_users.add(_user);

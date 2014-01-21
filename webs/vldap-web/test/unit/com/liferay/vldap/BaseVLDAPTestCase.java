@@ -110,15 +110,15 @@ public class BaseVLDAPTestCase extends PowerMockito {
 		company = mock(Company.class);
 
 		when(
-			company.getWebId()
-		).thenReturn(
-			"liferay.com"
-		);
-
-		when(
 			company.getCompanyId()
 		).thenReturn(
 			42l
+		);
+
+		when(
+			company.getWebId()
+		).thenReturn(
+			"liferay.com"
 		);
 
 		companies.add(company);
