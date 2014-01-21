@@ -302,7 +302,7 @@ if (kaleoProcess != null) {
 							var templateName = forms.templateName[0];
 
 							if (templateName) {
-								templateName = '(' + templateName + ')';
+								templateName = '(' + Liferay.Util.escapeHTML(templateName) + ')';
 							}
 
 							editingNode._uiSetName(workflowTaskName + ' ' + templateName);

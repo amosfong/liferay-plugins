@@ -806,7 +806,7 @@
 														A.Lang.sub(
 															'{workflowTaskName} ({templateName})',
 															{
-																templateName: templateName,
+																templateName: Liferay.Util.escapeHTML(templateName),
 																workflowTaskName: workflowTaskName
 															}
 														)
