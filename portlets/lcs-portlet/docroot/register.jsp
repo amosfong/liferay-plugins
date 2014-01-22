@@ -133,9 +133,9 @@
 	</portlet:renderURL>
 
 	<aui:button-row>
-		<aui:button href="<%= previousURL.toString() %>" name="previous" value="previous" />
+		<aui:button cssClass="btn-info" href="<%= previousURL.toString() %>" name="previous" value="previous" />
 
-		<aui:button disabled="<%= true %>" name="register" type="submit" value="register" />
+		<aui:button cssClass="btn-success" disabled="<%= true %>" name="register" type="submit" value="register" />
 	</aui:button-row>
 </aui:form>
 

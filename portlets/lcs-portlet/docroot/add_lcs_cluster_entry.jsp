@@ -44,6 +44,6 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 	<aui:input name="description" />
 
 	<aui:button-row>
-		<aui:button disabled="<%= true %>" name="create" type="submit" value="create" />
+		<aui:button cssClass="btn-success" disabled="<%= true %>" name="create" type="submit" value="create" />
 	</aui:button-row>
 </aui:form>

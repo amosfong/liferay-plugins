@@ -1,6 +1,6 @@
 @import "compass";
 
-#lcsMainContainer {
+.lcs-portlet {
 	color: #2D2D2D;
 
 	&:after {
@@ -124,6 +124,6 @@
 
 /* ---------- Extras ---------- */
 
-#lcsMainContainer .lcs-helper-message.disabled {
+.lcs-portlet .lcs-helper-message.disabled {
 	@include opacity(0.5);
 }

@@ -103,7 +103,7 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 	</c:if>
 
 	<aui:button-row>
-		<aui:button cssClass="btn-info" name="cloudDashboard" value="cloud-dashboard" />
+		<aui:button cssClass="btn-info" name="cloudDashboard" title='<%= LanguageUtil.get(pageContext, "cloud-dashboard-help") %>' value="cloud-dashboard" />
 	</aui:button-row>
 </div>
 
@@ -223,20 +223,18 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 
 	var cloudDashboardBtn = A.one('#<portlet:namespace/>cloudDashboard');
 
-	if (cloudDashboardBtn) {
-		cloudDashboardBtn.on(
-			'click',
-			function(event) {
-				var url = '<%= lcsPortalURL %>';
+	cloudDashboardBtn.on(
+		'click',
+		function(event) {
+			var url = '<%= lcsPortalURL %>';
 
-				window.location.href = url;
-			}
-		);
-	}
+			window.open(url, '_blank');
+		}
+	);
 
 	new A.TooltipDelegate(
 		{
-			trigger: '.lcs-connection-status button',
+			trigger: '.lcs-connection-status button, .lcs-server-info button',
 			zIndex: 1
 		}
 	).render();
