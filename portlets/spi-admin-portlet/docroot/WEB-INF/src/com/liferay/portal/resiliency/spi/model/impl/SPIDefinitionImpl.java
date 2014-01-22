@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.resiliency.spi.SPI;
 import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.UnicodeProperties;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.resiliency.spi.util.SPIAdminConstants;
 import com.liferay.portal.resiliency.spi.util.SPIConfigurationTemplate;
 
@@ -193,8 +194,13 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 	public void setMaxRestartAttempts(int maxRestartAttempts) {
 		UnicodeProperties typeSettingsProperties = getTypeSettingsProperties();
 
-		typeSettingsProperties.setProperty(
-			"max-restart-attempts", String.valueOf(maxRestartAttempts));
+		if (maxRestartAttempts >= 0) {
+			typeSettingsProperties.setProperty(
+				"max-restart-attempts", String.valueOf(maxRestartAttempts));
+		}
+		else {
+			typeSettingsProperties.remove("max-restart-attempts");
+		}
 
 		setTypeSettingsProperties(typeSettingsProperties);
 	}
@@ -203,8 +209,13 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 	public void setNotificationRecipients(String notificationRecipients) {
 		UnicodeProperties typeSettingsProperties = getTypeSettingsProperties();
 
-		typeSettingsProperties.setProperty(
-			"notification-receipients", notificationRecipients);
+		if (Validator.isNotNull(notificationRecipients)) {
+			typeSettingsProperties.setProperty(
+				"notification-recipients", notificationRecipients);
+		}
+		else {
+			typeSettingsProperties.remove("notification-recipients");
+		}
 
 		setTypeSettingsProperties(typeSettingsProperties);
 	}

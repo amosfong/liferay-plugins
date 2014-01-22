@@ -19,6 +19,9 @@
 <%
 String redirect = ParamUtil.getString(request, "redirect");
 
+int defaultMaxRestartAttempts = PrefsParamUtil.getInteger(portletPreferences, request, "maxRestartAttempts", 0);
+String defaultNotificationRecipients = PrefsParamUtil.getString(portletPreferences, request, "notificationRecipients", StringPool.BLANK);
+
 long spiDefinitionId = ParamUtil.getLong(renderRequest, "spiDefinitionId");
 
 SPIDefinition spiDefinition = null;
@@ -32,13 +35,24 @@ String javaExecutable = BeanPropertiesUtil.getString(spiDefinition, "javaExecuta
 int maxRestartAttempts = BeanPropertiesUtil.getInteger(spiDefinition, "maxRestartAttempts");
 int maxThreads = BeanPropertiesUtil.getInteger(spiDefinition, "maxThreads", SPIConfigurationTemplate.getMaxThreads());
 String name = BeanPropertiesUtil.getString(spiDefinition, "name", StringPool.BLANK);
-String notificationRecipients = BeanPropertiesUtil.getString(spiDefinition, "notificationRecipients", StringPool.BLANK);
+String notificationRecipients = BeanPropertiesUtil.getString(spiDefinition, "notificationRecipients");
 long pingInterval = BeanPropertiesUtil.getLong(spiDefinition, "pingInterval", SPIConfigurationTemplate.getSPIPingInterval());
 String[] portletIds = StringUtil.split(BeanPropertiesUtil.getString(spiDefinition, "portletIds", StringPool.BLANK));
 long registerTimeout = BeanPropertiesUtil.getLong(spiDefinition, "registerTimeout", SPIConfigurationTemplate.getSPIRegisterTimeout());
 String[] servletContextNames = StringUtil.split(BeanPropertiesUtil.getString(spiDefinition, "servletContextNames", StringPool.BLANK));
 long shutdownTimeout = BeanPropertiesUtil.getLong(spiDefinition, "shutdownTimeout", SPIConfigurationTemplate.getSPIShutdownTimeout());
 int status = BeanPropertiesUtil.getInteger(spiDefinition, "status", SPIAdminConstants.STATUS_STOPPED);
+boolean useDefaultNotificationOptions = Validator.isNull(notificationRecipients);
+
+if (useDefaultNotificationOptions) {
+	notificationRecipients = defaultNotificationRecipients;
+}
+
+boolean useDefaultRestartOptions = (maxRestartAttempts <= 0);
+
+if (useDefaultRestartOptions) {
+	maxRestartAttempts = defaultMaxRestartAttempts;
+}
 %>
 
 <liferay-ui:header
@@ -139,9 +153,13 @@ int status = BeanPropertiesUtil.getInteger(spiDefinition, "status", SPIAdminCons
 
 			<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="spiDefinitionRecoveryOptions" persistState="<%= true %>" title="recovery-options">
 				<aui:fieldset>
-					<aui:input helpMessage="notification-recipients-help" label="notification-recipients" name="TypeSettingsProperties--notification-recipients--" type="text" value="<%= notificationRecipients %>" />
+					<aui:input checked="<%= useDefaultNotificationOptions %>" helpMessage="use-default-notification-options" id="useDefaultNotificationOptions" label="use-default-notification-options" name="useDefaultNotificationOptions" type="checkbox" />
 
-					<aui:input helpMessage="maximum-restart-attempts-help" label="maximum-restart-attempts" name="TypeSettingsProperties--max-restart-attempts--" type="text" value="<%= maxRestartAttempts %>" />
+					<aui:input disabled="<%= useDefaultNotificationOptions %>" helpMessage="notification-recipients-help" id="notificationRecipients"  label="notification-recipients" name="TypeSettingsProperties--notification-recipients--" type="text" value="<%= notificationRecipients %>" />
+
+					<aui:input checked="<%= useDefaultRestartOptions %>" helpMessage="use-default-restart-options" id="useDefaultRestartOptions" label="use-default-restart-options" name="useDefaultRestartOptions" type="checkbox" />
+
+					<aui:input disabled="<%= useDefaultRestartOptions %>" helpMessage="maximum-restart-attempts-help" id="maxRestartAttempts" label="maximum-restart-attempts" name="TypeSettingsProperties--max-restart-attempts--" type="text" value="<%= maxRestartAttempts %>" />
 				</aui:fieldset>
 			</liferay-ui:panel>
 		</liferay-ui:panel>

@@ -1,4 +1,4 @@
-/*
+/**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
  *
  * This library is free software; you can redistribute it and/or modify it under
@@ -15,6 +15,8 @@
 package com.liferay.portal.resiliency.spi.portlet.action;
 
 import com.liferay.portal.kernel.portlet.DefaultConfigurationAction;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.util.Validator;
 
 import javax.portlet.ActionRequest;
 import javax.portlet.ActionResponse;
@@ -27,11 +29,21 @@ public class ConfigurationActionImpl extends DefaultConfigurationAction {
 
 	@Override
 	public void processAction(
-		PortletConfig portletConfig, ActionRequest actionRequest,
-		ActionResponse actionResponse)
+			PortletConfig portletConfig, ActionRequest actionRequest,
+			ActionResponse actionResponse)
 		throws Exception {
 
-		//todo add validation logic
+		String maxRestartAttemptsString = getParameter(
+			actionRequest, "maxRestartAttempts");
+
+		if (Validator.isNotNull(maxRestartAttemptsString)) {
+			try {
+				Integer.parseInt(maxRestartAttemptsString);
+			}
+			catch (NumberFormatException nfe) {
+				SessionErrors.add(actionRequest, "maxRestartAttempts");
+			}
+		}
 
 		super.processAction(portletConfig, actionRequest, actionResponse);
 	}

@@ -72,4 +72,14 @@ public class NotificationUtil {
 			PortletPropsValues.SPI_NOTIFICATION_EMAIL_SUBJECT);
 	}
 
+	public static String getNotificationRecipients(
+		PortletPreferences portletPreferences) {
+
+		String notificationRecipients = portletPreferences.getValue(
+			"notificationRecipients", StringPool.BLANK);
+
+		return portletPreferences.getValue(
+			"notificationRecipients", notificationRecipients);
+	}
+
 }

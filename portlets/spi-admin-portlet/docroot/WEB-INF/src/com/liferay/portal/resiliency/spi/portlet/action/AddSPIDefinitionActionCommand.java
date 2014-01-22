@@ -45,9 +45,22 @@ public class AddSPIDefinitionActionCommand extends BaseActionCommand {
 		String portletIds = ParamUtil.getString(portletRequest, "portletIds");
 		String servletContextNames = ParamUtil.getString(
 			portletRequest, "servletContextNames");
+		boolean useDefaultNotificationOptions = ParamUtil.getBoolean(
+			portletRequest, "useDefaultNotificationOptions", true);
+		boolean useDefaultRestartOptions = ParamUtil.getBoolean(
+			portletRequest, "useDefaultRestartOptions", true);
+
 		UnicodeProperties typeSettingsProperties =
 			PropertiesParamUtil.getProperties(
 				portletRequest, "TypeSettingsProperties--");
+
+		if (useDefaultNotificationOptions) {
+			typeSettingsProperties.remove("notification-recipients");
+		}
+
+		if (useDefaultRestartOptions) {
+			typeSettingsProperties.remove("max-restart-attempts");
+		}
 
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(
 			SPIDefinition.class.getName(), portletRequest);
