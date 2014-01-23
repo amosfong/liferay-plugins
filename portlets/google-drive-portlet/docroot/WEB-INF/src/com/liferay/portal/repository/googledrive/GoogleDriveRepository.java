@@ -159,7 +159,7 @@ public class GoogleDriveRepository implements ExtRepository {
 			return drive;
 		}
 
-		return createDrive();
+		return buildDrive();
 	}
 
 	@Override
@@ -294,29 +294,32 @@ public class GoogleDriveRepository implements ExtRepository {
 		return null;
 	}
 
-	protected Drive createDrive() throws PortalException {
-		HttpTransport httpTransport = new NetHttpTransport();
-		JacksonFactory jsonFactory = new JacksonFactory();
-
-		long userId = PrincipalThreadLocal.getUserId();
-
+	protected Drive buildDrive() throws PrincipalException {
 		try {
+			long userId = PrincipalThreadLocal.getUserId();
+
 			User user = UserLocalServiceUtil.getUser(userId);
 
 			if (user.isDefaultUser()) {
-				throw new PrincipalException("User is not logged in");
+				throw new PrincipalException("User is not authenticated");
 			}
+
+			GoogleCredential.Builder builder = new GoogleCredential.Builder();
 
 			String googleClientId = PrefsPropsUtil.getString(
 				user.getCompanyId(), "google.client.id");
 			String googleClientSecret = PrefsPropsUtil.getString(
 				user.getCompanyId(), "google.client.secret");
 
-			GoogleCredential.Builder builder = new GoogleCredential.Builder();
+			builder.setClientSecrets(googleClientId, googleClientSecret);
+
+			JacksonFactory jsonFactory = new JacksonFactory();
+
+			builder.setJsonFactory(jsonFactory);
+
+			HttpTransport httpTransport = new NetHttpTransport();
 
 			builder.setTransport(httpTransport);
-			builder.setJsonFactory(jsonFactory);
-			builder.setClientSecrets(googleClientId, googleClientSecret);
 
 			GoogleCredential googleCredential = builder.build();
 
@@ -324,10 +327,11 @@ public class GoogleDriveRepository implements ExtRepository {
 
 			String googleAccessToken = GetterUtil.getString(
 				expandoBridge.getAttribute("googleAccessToken", false));
+			googleCredential.setAccessToken(googleAccessToken);
+
 			String googleRefreshToken = GetterUtil.getString(
 				expandoBridge.getAttribute("googleRefreshToken", false));
 
-			googleCredential.setAccessToken(googleAccessToken);
 			googleCredential.setRefreshToken(googleRefreshToken);
 
 			Drive.Builder driveBuilder = new Drive.Builder(
@@ -353,7 +357,7 @@ public class GoogleDriveRepository implements ExtRepository {
 		}
 	}
 
-	private AutoResetThreadLocal<Drive> _driveThreadLocal =
+	private ThreadLocal<Drive> _driveThreadLocal =
 		new AutoResetThreadLocal<Drive>(Drive.class.getName());
 
 }
