@@ -12,23 +12,35 @@
  * details.
  */
 
-package com.liferay.portal.repository.google.drive.model;
+package com.liferay.portal.repository.googledrive.model;
 
-import com.liferay.repository.external.CredentialsProvider;
+import com.liferay.repository.external.ExtRepositoryModel;
+
+import java.util.Date;
 
 /**
  * @author Sergio González
  */
-public class GoogleDriveCredentialsProvider implements CredentialsProvider {
+public class GoogleDriveModel implements ExtRepositoryModel {
 
 	@Override
-	public String getLogin() {
+	public Date getCreatedDate() {
 		return null;
 	}
 
 	@Override
-	public String getPassword() {
+	public String getExtRepositoryModelKey() {
 		return null;
+	}
+
+	@Override
+	public String getOwner() {
+		return null;
+	}
+
+	@Override
+	public long getSize() {
+		return 0;
 	}
 
 }

@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.portal.repository.google.drive;
+package com.liferay.portal.repository.googledrive;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.HttpTransport;

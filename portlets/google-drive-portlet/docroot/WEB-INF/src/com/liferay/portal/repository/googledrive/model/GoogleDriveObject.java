@@ -12,16 +12,16 @@
  * details.
  */
 
-package com.liferay.portal.repository.google.drive.model;
+package com.liferay.portal.repository.googledrive.model;
 
-import com.liferay.repository.external.ExtRepositoryFolder;
+import com.liferay.repository.external.ExtRepositoryObject;
 
 import java.util.Date;
 
 /**
  * @author Sergio González
  */
-public class GoogleDriveFolder implements ExtRepositoryFolder {
+public class GoogleDriveObject implements ExtRepositoryObject {
 
 	@Override
 	public boolean containsPermission(
@@ -56,11 +56,6 @@ public class GoogleDriveFolder implements ExtRepositoryFolder {
 	}
 
 	@Override
-	public String getName() {
-		return null;
-	}
-
-	@Override
 	public String getOwner() {
 		return null;
 	}
@@ -68,11 +63,6 @@ public class GoogleDriveFolder implements ExtRepositoryFolder {
 	@Override
 	public long getSize() {
 		return 0;
-	}
-
-	@Override
-	public boolean isRoot() {
-		return false;
 	}
 
 }

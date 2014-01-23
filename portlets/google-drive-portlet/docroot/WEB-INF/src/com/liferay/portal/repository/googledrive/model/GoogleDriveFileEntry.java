@@ -12,16 +12,28 @@
  * details.
  */
 
-package com.liferay.portal.repository.google.drive.model;
+package com.liferay.portal.repository.googledrive.model;
 
-import com.liferay.repository.external.ExtRepositoryModel;
+import com.liferay.repository.external.ExtRepositoryFileEntry;
 
 import java.util.Date;
 
 /**
  * @author Sergio González
  */
-public class GoogleDriveModel implements ExtRepositoryModel {
+public class GoogleDriveFileEntry implements ExtRepositoryFileEntry {
+
+	@Override
+	public boolean containsPermission(
+		ExtRepositoryPermission extRepositoryPermission) {
+
+		return false;
+	}
+
+	@Override
+	public String getCheckedOutBy() {
+		return null;
+	}
 
 	@Override
 	public Date getCreatedDate() {
@@ -29,7 +41,27 @@ public class GoogleDriveModel implements ExtRepositoryModel {
 	}
 
 	@Override
+	public String getDescription() {
+		return null;
+	}
+
+	@Override
+	public String getExtension() {
+		return null;
+	}
+
+	@Override
 	public String getExtRepositoryModelKey() {
+		return null;
+	}
+
+	@Override
+	public String getMimeType() {
+		return null;
+	}
+
+	@Override
+	public Date getModifiedDate() {
 		return null;
 	}
 
@@ -41,6 +73,11 @@ public class GoogleDriveModel implements ExtRepositoryModel {
 	@Override
 	public long getSize() {
 		return 0;
+	}
+
+	@Override
+	public String getTitle() {
+		return null;
 	}
 
 }
