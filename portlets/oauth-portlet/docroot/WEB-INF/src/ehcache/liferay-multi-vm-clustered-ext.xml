@@ -15,7 +15,7 @@
 	>
 		<cacheEventListenerFactory
 			class="com.liferay.portal.cache.ehcache.LiferayCacheEventListenerFactory"
-			properties="replicatePuts=false,replicateUpdatesViaCopy=false"
+			properties="replicatePuts=true,replicatePutsViaCopy=true,replicateUpdatesViaCopy=true"
 			propertySeparator=","
 		/>
 		<bootstrapCacheLoaderFactory class="com.liferay.portal.cache.ehcache.LiferayBootstrapCacheLoaderFactory" />
