@@ -159,8 +159,13 @@ public class GoogleDriveRepository implements ExtRepository {
 			return drive;
 		}
 
-		drive = buildDrive();
-	
+		try {
+			drive = buildDrive();
+		}
+		catch (Exception e) {
+			throw new PrincipalException(e);
+		}
+
 		if (httpSession != null) {
 			httpSession.setAttribute(
 				GoogleDriveRepository.class.getName(),
@@ -169,7 +174,7 @@ public class GoogleDriveRepository implements ExtRepository {
 		else {
 			_driveThreadLocal.set(drive);
 		}
-		
+
 		return drive;
 	}
 
@@ -305,54 +310,50 @@ public class GoogleDriveRepository implements ExtRepository {
 		return null;
 	}
 
-	protected Drive buildDrive() throws PrincipalException {
-		try {
-			long userId = PrincipalThreadLocal.getUserId();
+	protected Drive buildDrive() throws Exception {
+		long userId = PrincipalThreadLocal.getUserId();
 
-			User user = UserLocalServiceUtil.getUser(userId);
+		User user = UserLocalServiceUtil.getUser(userId);
 
-			if (user.isDefaultUser()) {
-				throw new PrincipalException("User is not authenticated");
-			}
-
-			GoogleCredential.Builder builder = new GoogleCredential.Builder();
-
-			String googleClientId = PrefsPropsUtil.getString(
-				user.getCompanyId(), "google.client.id");
-			String googleClientSecret = PrefsPropsUtil.getString(
-				user.getCompanyId(), "google.client.secret");
-
-			builder.setClientSecrets(googleClientId, googleClientSecret);
-
-			JacksonFactory jsonFactory = new JacksonFactory();
-
-			builder.setJsonFactory(jsonFactory);
-
-			HttpTransport httpTransport = new NetHttpTransport();
-
-			builder.setTransport(httpTransport);
-
-			GoogleCredential googleCredential = builder.build();
-
-			ExpandoBridge expandoBridge = user.getExpandoBridge();
-
-			String googleAccessToken = GetterUtil.getString(
-				expandoBridge.getAttribute("googleAccessToken", false));
-			googleCredential.setAccessToken(googleAccessToken);
-
-			String googleRefreshToken = GetterUtil.getString(
-				expandoBridge.getAttribute("googleRefreshToken", false));
-
-			googleCredential.setRefreshToken(googleRefreshToken);
-
-			Drive.Builder driveBuilder = new Drive.Builder(
-				httpTransport, jsonFactory, googleCredential);
-
-			return driveBuilder.build();
+		if (user.isDefaultUser()) {
+			throw new PrincipalException("User is not authenticated");
 		}
-		catch (Exception e) {
-			throw new PrincipalException(e);
-		}
+
+		GoogleCredential.Builder builder = new GoogleCredential.Builder();
+
+		String googleClientId = PrefsPropsUtil.getString(
+			user.getCompanyId(), "google.client.id");
+		String googleClientSecret = PrefsPropsUtil.getString(
+			user.getCompanyId(), "google.client.secret");
+
+		builder.setClientSecrets(googleClientId, googleClientSecret);
+
+		JacksonFactory jsonFactory = new JacksonFactory();
+
+		builder.setJsonFactory(jsonFactory);
+
+		HttpTransport httpTransport = new NetHttpTransport();
+
+		builder.setTransport(httpTransport);
+
+		GoogleCredential googleCredential = builder.build();
+
+		ExpandoBridge expandoBridge = user.getExpandoBridge();
+
+		String googleAccessToken = GetterUtil.getString(
+			expandoBridge.getAttribute("googleAccessToken", false));
+
+		googleCredential.setAccessToken(googleAccessToken);
+
+		String googleRefreshToken = GetterUtil.getString(
+			expandoBridge.getAttribute("googleRefreshToken", false));
+
+		googleCredential.setRefreshToken(googleRefreshToken);
+
+		Drive.Builder driveBuilder = new Drive.Builder(
+			httpTransport, jsonFactory, googleCredential);
+
+		return driveBuilder.build();
 	}
 
 	private ThreadLocal<Drive> _driveThreadLocal =
