@@ -144,7 +144,8 @@ public class GoogleDriveRepository implements ExtRepository {
 
 		if (httpSession != null) {
 			TransientValue<Drive> transientValue =
-				(TransientValue<Drive>)httpSession.getAttribute(_SESSION_KEY);
+				(TransientValue<Drive>)httpSession.getAttribute(
+					GoogleDriveRepository.class.getName());
 
 			if (transientValue != null) {
 				drive = transientValue.getValue();
@@ -338,7 +339,8 @@ public class GoogleDriveRepository implements ExtRepository {
 
 			if (httpSession != null) {
 				httpSession.setAttribute(
-					_SESSION_KEY, new TransientValue<Drive>(drive));
+					GoogleDriveRepository.class.getName(),
+					new TransientValue<Drive>(drive));
 			}
 			else {
 				_driveThreadLocal.set(drive);
@@ -350,9 +352,6 @@ public class GoogleDriveRepository implements ExtRepository {
 			throw new PrincipalException(e);
 		}
 	}
-
-	private static final String _SESSION_KEY =
-		GoogleDriveRepository.class.getName() + ".drive";
 
 	private AutoResetThreadLocal<Drive> _driveThreadLocal =
 		new AutoResetThreadLocal<Drive>(Drive.class.getName());
