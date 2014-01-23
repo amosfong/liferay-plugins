@@ -131,6 +131,14 @@ request.setAttribute("view_file_entry.jsp-fileEntry", fileEntry);
 	<aui:input name="fileEntryId" type="hidden" value="<%= String.valueOf(fileEntry.getFileEntryId()) %>" />
 </aui:form>
 
+<c:if test="<%= showHeader && (folder != null) %>">
+	<liferay-ui:header
+		backURL="<%= redirect %>"
+		localizeTitle="<%= false %>"
+		title="<%= fileVersion.getTitle() %>"
+	/>
+</c:if>
+
 <div class="view">
 	<c:if test="<%= showActions %>">
 		<liferay-ui:app-view-toolbar>
