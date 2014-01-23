@@ -66,11 +66,6 @@ public class GoogleDriveFolder implements ExtRepositoryFolder {
 	}
 
 	@Override
-	public String getParentFolderId() {
-		return null;
-	}
-
-	@Override
 	public long getSize() {
 		return 0;
 	}
