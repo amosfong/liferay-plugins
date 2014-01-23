@@ -159,7 +159,18 @@ public class GoogleDriveRepository implements ExtRepository {
 			return drive;
 		}
 
-		return buildDrive();
+		drive = buildDrive();
+	
+		if (httpSession != null) {
+			httpSession.setAttribute(
+				GoogleDriveRepository.class.getName(),
+				new TransientValue<Drive>(drive));
+		}
+		else {
+			_driveThreadLocal.set(drive);
+		}
+		
+		return drive;
 	}
 
 	@Override
@@ -337,20 +348,7 @@ public class GoogleDriveRepository implements ExtRepository {
 			Drive.Builder driveBuilder = new Drive.Builder(
 				httpTransport, jsonFactory, googleCredential);
 
-			Drive drive = driveBuilder.build();
-
-			HttpSession httpSession = PortalSessionThreadLocal.getHttpSession();
-
-			if (httpSession != null) {
-				httpSession.setAttribute(
-					GoogleDriveRepository.class.getName(),
-					new TransientValue<Drive>(drive));
-			}
-			else {
-				_driveThreadLocal.set(drive);
-			}
-
-			return drive;
+			return driveBuilder.build();
 		}
 		catch (Exception e) {
 			throw new PrincipalException(e);
