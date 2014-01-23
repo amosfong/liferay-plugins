@@ -16,10 +16,12 @@ package com.liferay.oauth.util;
 
 import com.liferay.oauth.model.OAuthApplication;
 
+import java.io.Serializable;
+
 /**
  * @author Ivica Cardic
  */
-public class DefaultOAuthConsumer implements OAuthConsumer {
+public class DefaultOAuthConsumer implements OAuthConsumer, Serializable {
 
 	public DefaultOAuthConsumer(net.oauth.OAuthConsumer oAuthConsumer) {
 		_oAuthConsumer = oAuthConsumer;
