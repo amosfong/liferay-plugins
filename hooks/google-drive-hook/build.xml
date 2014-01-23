@@ -3,4 +3,6 @@
 
 <project name="google-drive-hook" basedir="." default="deploy">
 	<import file="../build-common-hook.xml" />
+
+	<property name="import.shared" value="dl-repository-shared" />
 </project>
