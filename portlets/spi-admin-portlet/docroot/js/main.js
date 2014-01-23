@@ -234,10 +234,7 @@ AUI.add(
 
 							var cachedValue = cachedStatus[name];
 
-							if (!cachedValue) {
-								instance._updateCachedStatus(name, status);
-							}
-							else if (cachedValue != status) {
+							if (!cachedValue || (cachedValue != status)) {
 								instance._updateRowNodeLabelStatus(item);
 
 								instance._updateCachedStatus(name, status);
