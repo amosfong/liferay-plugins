@@ -21,9 +21,9 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.resiliency.spi.model.SPIDefinition;
 import com.liferay.portal.resiliency.spi.util.NotificationUtil;
+import com.liferay.portal.resiliency.spi.util.PortletKeys;
 import com.liferay.portal.resiliency.spi.util.SPIAdminConstants;
 import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
-import com.liferay.portal.resiliency.spi.util.PortletKeys;
 
 import java.util.HashSet;
 import java.util.Set;
