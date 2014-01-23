@@ -22,7 +22,7 @@
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/google-http-client-jackson2.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/google-http-client.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/google-oauth-client.jar" />
-	<classpathentry kind="lib" path="docroot/WEB-INF/lib/jackson-databind.jar" />
+	<classpathentry kind="lib" path="docroot/WEB-INF/lib/jackson-core.jar" />
 	<classpathentry kind="lib" path="docroot/WEB-INF/lib/portal-compat-shared.jar" />
 	<classpathentry kind="output" path="bin" />
 </classpath>
