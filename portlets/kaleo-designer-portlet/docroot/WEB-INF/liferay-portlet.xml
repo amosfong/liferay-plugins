@@ -10,6 +10,8 @@
 	</portlet>
 	<portlet>
 		<portlet-name>2</portlet-name>
+		<control-panel-entry-category>configuration</control-panel-entry-category>
+		<control-panel-entry-weight>5.0</control-panel-entry-weight>
 		<autopropagated-parameters>availableFields,availablePropertyModels,kaleoProcessId,openerWindowName,portletResourceNamespace,propertiesSaveCallback,refreshOpenerOnClose,saveCallback,uiScope</autopropagated-parameters>
 		<footer-portlet-css>/designer/css/main.css</footer-portlet-css>
 		<footer-portlet-javascript>/designer/js/main.js</footer-portlet-javascript>
