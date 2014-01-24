@@ -65,6 +65,7 @@ public class GoogleDriveObject
 		}
 		else if (extRepositoryPermission.equals(
 					ExtRepositoryPermission.DELETE)) {
+
 			return isOwner(role);
 		}
 

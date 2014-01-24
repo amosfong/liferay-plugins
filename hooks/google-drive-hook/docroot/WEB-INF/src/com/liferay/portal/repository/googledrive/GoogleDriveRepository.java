@@ -16,6 +16,7 @@ package com.liferay.portal.repository.googledrive;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpRequest;
 import com.google.api.client.http.HttpRequestFactory;
 import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
@@ -287,8 +288,7 @@ public class GoogleDriveRepository
 			List<Revision> revisions = revisionList.getItems();
 
 			List<ExtRepositoryFileVersion> extRepositoryFileVersions =
-				new ArrayList<ExtRepositoryFileVersion>(
-					revisions.size());
+				new ArrayList<ExtRepositoryFileVersion>(revisions.size());
 
 			for (Revision revision : revisions) {
 				extRepositoryFileVersions.add(
@@ -373,9 +373,9 @@ public class GoogleDriveRepository
 			}
 
 			sb.append(_FOLDER_MIME_TYPE);
-			
+
 			Drive.Files.List driveFilesList = driveFiles.list();
-			
+
 			driveFilesList.setQ(sb.toString());
 
 			FileList fileList = driveFilesList.execute();
@@ -389,8 +389,7 @@ public class GoogleDriveRepository
 			if (extRepositoryObjectType.equals(
 					ExtRepositoryObjectType.FOLDER)) {
 
-				return (T)new GoogleDriveFolder(
-					files.get(0), _rootFolderKey);
+				return (T)new GoogleDriveFolder(files.get(0), _rootFolderKey);
 			}
 			else {
 				return (T)new GoogleDriveFileEntry(files.get(0));
@@ -441,9 +440,9 @@ public class GoogleDriveRepository
 			sb.append("trashed = false");
 
 			Drive.Files driveFiles = drive.files();
-			
+
 			Drive.Files.List driveFilesList = driveFiles.list();
-			
+
 			driveFilesList.setQ(sb.toString());
 
 			FileList fileList = driveFilesList.execute();
@@ -458,8 +457,7 @@ public class GoogleDriveRepository
 						(T)new GoogleDriveFolder(file, _rootFolderKey));
 				}
 				else {
-					extRepositoryObjects.add(
-						(T)new GoogleDriveFileEntry(file));
+					extRepositoryObjects.add((T)new GoogleDriveFileEntry(file));
 				}
 			}
 
@@ -503,7 +501,7 @@ public class GoogleDriveRepository
 
 			if (!parentReferences.isEmpty()) {
 				ParentReference parentReference = parentReferences.get(0);
-				
+
 				Drive.Files.Get driveFilesGet = driveFiles.get(
 					parentReference.getId());
 
@@ -585,7 +583,7 @@ public class GoogleDriveRepository
 		try {
 			Drive.Files.Get driveFilesGet = driveFiles.get(
 				extRepositoryObjectKey);
-			
+
 			File file = driveFilesGet.execute();
 
 			Drive.Parents driveParents = drive.parents();
@@ -593,18 +591,18 @@ public class GoogleDriveRepository
 			List<ParentReference> parentReferences = file.getParents();
 
 			for (ParentReference parentReference : parentReferences) {
-				Drive.Parents.Delete driveParentsDelete =
-					driveParents.delete(file.getId(), parentReference.getId());
-					
+				Drive.Parents.Delete driveParentsDelete = driveParents.delete(
+					file.getId(), parentReference.getId());
+
 				driveParentsDelete.execute();
 			}
 
 			ParentReference parentReference = new ParentReference();
 
 			parentReference.setId(newExtRepositoryFolderKey);
-			
-			Drive.Parents.Insert driveParentsInsert =
-				driveParents.insert(file.getId(), parentReference);
+
+			Drive.Parents.Insert driveParentsInsert = driveParents.insert(
+				file.getId(), parentReference);
 
 			driveParentsInsert.execute();
 
@@ -641,16 +639,21 @@ public class GoogleDriveRepository
 
 		Drive drive = getDrive();
 
-		Drive.Files files = drive.files();
+		Drive.Files driveFiles = drive.files();
 
 		try {
-			File file = files.get(extRepositoryFileEntryKey).execute();
+			Drive.Files.Get driveFilesGet = driveFiles.get(
+				extRepositoryFileEntryKey);
+
+			File file = driveFilesGet.execute();
 
 			InputStreamContent inputStreamContent = new InputStreamContent(
 				mimeType, inputStream);
 
-			file = files.update(
-				extRepositoryFileEntryKey, file, inputStreamContent).execute();
+			Drive.Files.Update driveFilesUpdate = driveFiles.update(
+				extRepositoryFileEntryKey, file, inputStreamContent);
+
+			file = driveFilesUpdate.execute();
 
 			return new GoogleDriveFileEntry(file);
 		}
@@ -666,35 +669,43 @@ public class GoogleDriveRepository
 			String description, InputStream inputStream)
 		throws PortalException, SystemException {
 
-		File body = new File();
-
-		body.setTitle(title);
-		body.setDescription(description);
-		body.setMimeType(mimeType);
-
 		try {
+			File file = new File();
+
+			file.setDescription(description);
+			file.setMimeType(mimeType);
+
 			Drive drive = getDrive();
 
-			Drive.Files files = drive.files();
+			Drive.Files driveFiles = drive.files();
 
-			File folder = files.get(extRepositoryParentFolderKey).execute();
+			Drive.Files.Get driveFilesGet = driveFiles.get(
+				extRepositoryParentFolderKey);
 
-			body.setParents(
-				Arrays.asList(new ParentReference().setId(folder.getId())));
+			File extRepositoryParentFolderFile = driveFilesGet.execute();
 
-			File file = null;
+			ParentReference parentReference = new ParentReference();
+
+			parentReference.setId(extRepositoryParentFolderFile.getId());
+
+			file.setParents(Arrays.asList(parentReference));
+
+			file.setTitle(title);
 
 			if (inputStream != null) {
-				InputStreamContent isContent = new InputStreamContent(
+				InputStreamContent inputStreamContent = new InputStreamContent(
 					mimeType, inputStream);
 
-				file = files.insert(body, isContent).execute();
+				Drive.Files.Insert driveFilesInsert = driveFiles.insert(
+					file, inputStreamContent);
+
+				return driveFilesInsert.execute();
 			}
 			else {
-				file = files.insert(body).execute();
-			}
+				Drive.Files.Insert driveFilesInsert = driveFiles.insert(file);
 
-			return file;
+				return driveFilesInsert.execute();
+			}
 		}
 		catch (IOException ioe) {
 			_log.error(ioe, ioe);
@@ -749,24 +760,26 @@ public class GoogleDriveRepository
 		return driveBuilder.build();
 	}
 
-	protected InputStream getContentStream(String downloadUrl)
+	protected InputStream getContentStream(String downloadURL)
 		throws PortalException, SystemException {
 
-		if (Validator.isNull(downloadUrl)) {
+		if (Validator.isNull(downloadURL)) {
 			return null;
 		}
 
 		Drive drive = getDrive();
 
+		HttpRequestFactory httpRequestFactory = drive.getRequestFactory();
+
+		GenericUrl genericUrl = new GenericUrl(downloadURL);
+
 		try {
-			HttpRequestFactory requestFactory = drive.getRequestFactory();
+			HttpRequest httpRequest = httpRequestFactory.buildGetRequest(
+				genericUrl);
 
-			GenericUrl genericUrl = new GenericUrl(downloadUrl);
+			HttpResponse httpResponse = httpRequest.execute();
 
-			HttpResponse response = requestFactory.buildGetRequest(
-				genericUrl).execute();
-
-			return response.getContent();
+			return httpResponse.getContent();
 		}
 		catch (IOException ioe) {
 			_log.error(ioe, ioe);
