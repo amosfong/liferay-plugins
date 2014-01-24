@@ -24,6 +24,7 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
+import com.google.api.services.drive.model.FileList;
 import com.google.api.services.drive.model.ParentReference;
 
 import com.liferay.portal.NoSuchRepositoryEntryException;
@@ -35,6 +36,7 @@ import com.liferay.portal.kernel.servlet.PortalSessionThreadLocal;
 import com.liferay.portal.kernel.util.AutoResetThreadLocal;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PrefsPropsUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.TransientValue;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
@@ -60,6 +62,7 @@ import com.liferay.repository.external.search.ExtRepositoryQueryMapper;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -281,7 +284,54 @@ public class GoogleDriveRepository implements ExtRepository {
 			String extRepositoryFolderKey, String title)
 		throws PortalException, SystemException {
 
-		return null;
+		Drive drive = getDrive();
+
+		Drive.Files files = drive.files();
+
+		try {
+			File file = files.get(extRepositoryFolderKey).execute();
+
+			StringBundler sb = new StringBundler();
+
+			sb.append("'");
+			sb.append(file.getId());
+			sb.append("' in parents and title contains '");
+			sb.append(title);
+			sb.append(" and mimeType ");
+
+			if (extRepositoryObjectType.equals(
+					extRepositoryObjectType.FOLDER)) {
+
+				sb.append("= ");
+			}
+			else {
+				sb.append("!= ");
+			}
+
+			sb.append(_FOLDER_MIME_TYPE);
+
+			FileList fileList = files.list().setQ(sb.toString()).execute();
+
+			List<File> fileItems = fileList.getItems();
+
+			if (fileItems.isEmpty()) {
+				throw new NoSuchRepositoryEntryException();
+			}
+
+			if (extRepositoryObjectType.equals(
+					extRepositoryObjectType.FOLDER)) {
+
+				return (T)new GoogleDriveFolder(fileItems.get(0));
+			}
+			else {
+				return (T)new GoogleDriveFileEntry(fileItems.get(0));
+			}
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+
+			throw new NoSuchRepositoryEntryException(ioe);
+		}
 	}
 
 	@Override
@@ -290,7 +340,61 @@ public class GoogleDriveRepository implements ExtRepository {
 			String extRepositoryFolderKey)
 		throws PortalException, SystemException {
 
-		return null;
+		Drive drive = getDrive();
+
+		try {
+			StringBundler sb = new StringBundler();
+
+			if (extRepositoryFolderKey != null) {
+				sb.append("'");
+				sb.append(extRepositoryFolderKey);
+				sb.append("' in parents and ");
+			}
+
+			if (!extRepositoryObjectType.equals(
+					extRepositoryObjectType.OBJECT)) {
+
+				sb.append("mimeType");
+
+				if (extRepositoryObjectType.equals(
+						extRepositoryObjectType.FILE)) {
+
+					sb.append(" != '");
+				}
+				else {
+					sb.append(" = '");
+				}
+
+				sb.append(_FOLDER_MIME_TYPE);
+				sb.append("' and ");
+			}
+
+			sb.append("trashed = false");
+
+			Drive.Files files = drive.files();
+
+			FileList fileList = files.list().setQ(sb.toString()).execute();
+
+			List<File> fileItems = fileList.getItems();
+
+			List<T> entries = new ArrayList<T>();
+
+			for (File file : fileItems) {
+				if (_FOLDER_MIME_TYPE.equals(file.getMimeType())) {
+					entries.add((T)new GoogleDriveFolder(file));
+				}
+				else {
+					entries.add((T)new GoogleDriveFileEntry(file));
+				}
+			}
+
+			return entries;
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+
+			throw new SystemException(ioe);
+		}
 	}
 
 	@Override
@@ -300,7 +404,11 @@ public class GoogleDriveRepository implements ExtRepository {
 			String extRepositoryFolderKey)
 		throws PortalException, SystemException {
 
-		return 0;
+		List<? extends ExtRepositoryObject> extRepositoryObjects =
+			getExtRepositoryObjects(
+				extRepositoryObjectType, extRepositoryFolderKey);
+
+		return extRepositoryObjects.size();
 	}
 
 	@Override
