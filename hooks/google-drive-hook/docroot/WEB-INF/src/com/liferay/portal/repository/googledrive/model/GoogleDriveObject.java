@@ -40,22 +40,6 @@ public class GoogleDriveObject
 
 		_permission = file.getUserPermission();
 	}
-	
-	protected boolean isOwnerOrWriter(String role) {
-		if (role.equals("owner") || role.equals("writer")) {
-			return true;
-		}
-		
-		return false;
-	}
-
-	protected boolean isOwner(String role) {
-		if (role.equals("owner")) {
-			return true;
-		}
-		
-		return false;
-	}
 
 	@Override
 	public boolean containsPermission(
@@ -70,11 +54,11 @@ public class GoogleDriveObject
 		}
 		else if (extRepositoryPermission.equals(
 					ExtRepositoryPermission.ADD_DOCUMENT) ||
-				extRepositoryPermission.equals(
+				 extRepositoryPermission.equals(
 					ExtRepositoryPermission.ADD_FOLDER) ||
-				extRepositoryPermission.equals(
+				 extRepositoryPermission.equals(
 					ExtRepositoryPermission.ADD_SUBFOLDER) ||
-				extRepositoryPermission.equals(
+				 extRepositoryPermission.equals(
 					ExtRepositoryPermission.UPDATE)) {
 
 			return isOwnerOrWriter(role);
@@ -100,6 +84,22 @@ public class GoogleDriveObject
 	@Override
 	public Date getModifiedDate() {
 		return _modifiedDate;
+	}
+
+	protected boolean isOwner(String role) {
+		if (role.equals("owner")) {
+			return true;
+		}
+
+		return false;
+	}
+
+	protected boolean isOwnerOrWriter(String role) {
+		if (role.equals("owner") || role.equals("writer")) {
+			return true;
+		}
+
+		return false;
 	}
 
 	private String _description;

@@ -32,7 +32,6 @@ public class GoogleDriveFileVersion
 
 		_downloadURL = revision.getDownloadUrl();
 		_mimeType = revision.getMimeType();
-
 	}
 
 	@Override

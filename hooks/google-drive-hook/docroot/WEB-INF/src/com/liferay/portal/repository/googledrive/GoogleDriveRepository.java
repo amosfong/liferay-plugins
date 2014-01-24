@@ -52,7 +52,6 @@ import com.liferay.portal.repository.googledrive.model.GoogleDriveFolder;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.service.UserLocalServiceUtil;
-import com.liferay.portal.service.impl.UserLocalServiceImpl;
 import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.repository.external.CredentialsProvider;
 import com.liferay.repository.external.ExtRepository;
@@ -155,12 +154,13 @@ public class GoogleDriveRepository
 
 		Drive drive = getDrive();
 
-		Drive.Files files = drive.files();
+		Drive.Files driveFiles = drive.files();
 
 		try {
-			Drive.Files.Delete delete = files.delete(extRepositoryObjectKey);
+			Drive.Files.Delete driveFilesDelete = driveFiles.delete(
+				extRepositoryObjectKey);
 
-			delete.execute();
+			driveFilesDelete.execute();
 		}
 		catch (IOException ioe) {
 			_log.error(ioe, ioe);
@@ -244,12 +244,13 @@ public class GoogleDriveRepository
 
 		Drive drive = getDrive();
 
-		Drive.Revisions revisions = drive.revisions();
+		Drive.Revisions driveRevisions = drive.revisions();
 
 		try {
-			Revision revision = revisions.get(
-				extRepositoryFileEntry.getExtRepositoryModelKey(), version).
-					execute();
+			Drive.Revisions.Get driveRevisionsGet = driveRevisions.get(
+				extRepositoryFileEntry.getExtRepositoryModelKey(), version);
+
+			Revision revision = driveRevisionsGet.execute();
 
 			return new GoogleDriveFileVersion(revision);
 		}
@@ -271,23 +272,25 @@ public class GoogleDriveRepository
 	@Override
 	public List<ExtRepositoryFileVersion> getExtRepositoryFileVersions(
 			ExtRepositoryFileEntry extRepositoryFileEntry)
-		throws SystemException {
+		throws PortalException, SystemException {
+
+		Drive drive = getDrive();
+
+		Drive.Revisions driveRevisions = drive.revisions();
 
 		try {
-			Drive drive = getDrive();
+			Drive.Revisions.List driveRevisionsList = driveRevisions.list(
+				extRepositoryFileEntry.getExtRepositoryModelKey());
 
-			Drive.Revisions revisions = drive.revisions();
+			RevisionList revisionList = driveRevisionsList.execute();
 
-			RevisionList revisionList = revisions.list(
-				extRepositoryFileEntry.getExtRepositoryModelKey()).execute();
-
-			List<Revision> revisionListItems = revisionList.getItems();
+			List<Revision> revisions = revisionList.getItems();
 
 			List<ExtRepositoryFileVersion> extRepositoryFileVersions =
 				new ArrayList<ExtRepositoryFileVersion>(
-					revisionListItems.size());
+					revisions.size());
 
-			for (Revision revision : revisionListItems) {
+			for (Revision revision : revisions) {
 				extRepositoryFileVersions.add(
 					new GoogleDriveFileVersion(revision));
 			}
@@ -299,9 +302,6 @@ public class GoogleDriveRepository
 
 			throw new SystemException(ioe);
 		}
-		catch (PortalException pe) {
-			throw new SystemException(pe);
-		}
 	}
 
 	@Override
@@ -312,24 +312,27 @@ public class GoogleDriveRepository
 
 		Drive drive = getDrive();
 
-		Drive.Files files = drive.files();
+		Drive.Files driveFiles = drive.files();
 
 		try {
-			File file = files.get(extRepositoryObjectKey).execute();
+			Drive.Files.Get driveFilesGet = driveFiles.get(
+				extRepositoryObjectKey);
 
-			T extRepositoryEntry = null;
+			File file = driveFilesGet.execute();
+
+			T extRepositoryObject = null;
 
 			if (extRepositoryObjectType.equals(
 					ExtRepositoryObjectType.FOLDER)) {
 
-				extRepositoryEntry = (T)new GoogleDriveFolder(
+				extRepositoryObject = (T)new GoogleDriveFolder(
 					file, _rootFolderKey);
 			}
 			else {
-				extRepositoryEntry = (T)new GoogleDriveFileEntry(file);
+				extRepositoryObject = (T)new GoogleDriveFileEntry(file);
 			}
 
-			return extRepositoryEntry;
+			return extRepositoryObject;
 		}
 		catch (IOException ioe) {
 			throw new NoSuchRepositoryEntryException(ioe);
@@ -344,10 +347,13 @@ public class GoogleDriveRepository
 
 		Drive drive = getDrive();
 
-		Drive.Files files = drive.files();
+		Drive.Files driveFiles = drive.files();
 
 		try {
-			File file = files.get(extRepositoryFolderKey).execute();
+			Drive.Files.Get driveFilesGet = driveFiles.get(
+				extRepositoryFolderKey);
+
+			File file = driveFilesGet.execute();
 
 			StringBundler sb = new StringBundler();
 
@@ -367,12 +373,16 @@ public class GoogleDriveRepository
 			}
 
 			sb.append(_FOLDER_MIME_TYPE);
+			
+			Drive.Files.List driveFilesList = driveFiles.list();
+			
+			driveFilesList.setQ(sb.toString());
 
-			FileList fileList = files.list().setQ(sb.toString()).execute();
+			FileList fileList = driveFilesList.execute();
 
-			List<File> fileListItems = fileList.getItems();
+			List<File> files = fileList.getItems();
 
-			if (fileListItems.isEmpty()) {
+			if (files.isEmpty()) {
 				throw new NoSuchRepositoryEntryException();
 			}
 
@@ -380,10 +390,10 @@ public class GoogleDriveRepository
 					ExtRepositoryObjectType.FOLDER)) {
 
 				return (T)new GoogleDriveFolder(
-					fileListItems.get(0), _rootFolderKey);
+					files.get(0), _rootFolderKey);
 			}
 			else {
-				return (T)new GoogleDriveFileEntry(fileListItems.get(0));
+				return (T)new GoogleDriveFileEntry(files.get(0));
 			}
 		}
 		catch (IOException ioe) {
@@ -430,24 +440,30 @@ public class GoogleDriveRepository
 
 			sb.append("trashed = false");
 
-			Drive.Files files = drive.files();
+			Drive.Files driveFiles = drive.files();
+			
+			Drive.Files.List driveFilesList = driveFiles.list();
+			
+			driveFilesList.setQ(sb.toString());
 
-			FileList fileList = files.list().setQ(sb.toString()).execute();
+			FileList fileList = driveFilesList.execute();
 
-			List<File> fileListItems = fileList.getItems();
+			List<File> files = fileList.getItems();
 
-			List<T> entries = new ArrayList<T>();
+			List<T> extRepositoryObjects = new ArrayList<T>();
 
-			for (File file : fileListItems) {
+			for (File file : files) {
 				if (_FOLDER_MIME_TYPE.equals(file.getMimeType())) {
-					entries.add((T)new GoogleDriveFolder(file, _rootFolderKey));
+					extRepositoryObjects.add(
+						(T)new GoogleDriveFolder(file, _rootFolderKey));
 				}
 				else {
-					entries.add((T)new GoogleDriveFileEntry(file));
+					extRepositoryObjects.add(
+						(T)new GoogleDriveFileEntry(file));
 				}
 			}
 
-			return entries;
+			return extRepositoryObjects;
 		}
 		catch (IOException ioe) {
 			_log.error(ioe, ioe);
@@ -477,24 +493,27 @@ public class GoogleDriveRepository
 
 		Drive drive = getDrive();
 
-		Drive.Files files = drive.files();
+		Drive.Files driveFiles = drive.files();
 
 		try {
-			File file = files.get(
+			File file = driveFiles.get(
 				extRepositoryObject.getExtRepositoryModelKey()).execute();
 
 			List<ParentReference> parentReferences = file.getParents();
 
 			if (!parentReferences.isEmpty()) {
 				ParentReference parentReference = parentReferences.get(0);
+				
+				Drive.Files.Get driveFilesGet = driveFiles.get(
+					parentReference.getId());
 
-				File parentFile =
-					drive.files().get(parentReference.getId()).execute();
+				File parentFile = driveFilesGet.execute();
 
 				return new GoogleDriveFolder(parentFile, _rootFolderKey);
 			}
 		}
-		catch (IOException e) {
+		catch (IOException ioe) {
+			//_log.error(ioe, ioe);
 		}
 
 		return null;
@@ -536,8 +555,12 @@ public class GoogleDriveRepository
 
 		Drive drive = getDrive();
 
+		Drive.About driveAbout = drive.about();
+
 		try {
-			About about = drive.about().get().execute();
+			Drive.About.Get driveAboutGet = driveAbout.get();
+
+			About about = driveAboutGet.execute();
 
 			_rootFolderKey = about.getRootFolderId();
 		}
@@ -557,24 +580,30 @@ public class GoogleDriveRepository
 
 		Drive drive = getDrive();
 
-		Drive.Files files = drive.files();
+		Drive.Files driveFiles = drive.files();
 
 		try {
-			File file = files.get(extRepositoryObjectKey).execute();
+			Drive.Files.Get driveFilesGet = driveFiles.get(
+				extRepositoryObjectKey);
+			
+			File file = driveFilesGet.execute();
 
-			Drive.Parents parents = drive.parents();
+			Drive.Parents driveParents = drive.parents();
 
 			List<ParentReference> parentReferences = file.getParents();
 
 			for (ParentReference parentReference : parentReferences) {
-				parents.delete(file.getId(), parentReference.getId());
+				driveParents.delete(file.getId(), parentReference.getId());
 			}
 
-			ParentReference newParentReference = new ParentReference();
+			ParentReference parentReference = new ParentReference();
 
-			newParentReference.setId(newExtRepositoryFolderKey);
+			parentReference.setId(newExtRepositoryFolderKey);
+			
+			Drive.Parents.Insert driveParentsInsert =
+				driveParents.insert(file.getId(), parentReference);
 
-			parents.insert(file.getId(), newParentReference).execute();
+			driveParentsInsert.execute();
 
 			if (extRepositoryObjectType.equals(
 					ExtRepositoryObjectType.OBJECT)) {
