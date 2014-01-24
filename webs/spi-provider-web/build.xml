@@ -53,7 +53,7 @@ spi-provider-web must be built from a Liferay Tomcat bundle.
 			<fileset dir="${app.server.tomcat.lib.global.dir}" excludes="hsql.jar,jtds.jar,mysql.jar,portal-service.jar,postgresql.jar" />
 		</copy>
 
-		<war
+		<war-macro
 			module.dir="."
 		/>
 	</target>
