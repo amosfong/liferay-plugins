@@ -14,33 +14,60 @@
 
 package com.liferay.portal.repository.googledrive.model;
 
+import com.google.api.client.util.DateTime;
+import com.google.api.services.drive.model.File;
+
+import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.repository.external.ExtRepositoryModel;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Sergio González
  */
 public class GoogleDriveModel implements ExtRepositoryModel {
 
+	public GoogleDriveModel(File file) {
+		DateTime createDateTime = file.getCreatedDate();
+
+		_createdDate = new Date(createDateTime.getValue());
+
+		_id = file.getId();
+
+		_size = GetterUtil.getLong(file.getFileSize());
+
+		List<String> ownerNames = file.getOwnerNames();
+
+		if (!ownerNames.isEmpty()) {
+			_owner = ownerNames.get(0);
+		}
+	}
+
 	@Override
 	public Date getCreatedDate() {
-		return null;
+		return _createdDate;
 	}
 
 	@Override
 	public String getExtRepositoryModelKey() {
-		return null;
+		return _id;
 	}
 
 	@Override
 	public String getOwner() {
-		return null;
+		return _owner;
 	}
 
 	@Override
 	public long getSize() {
-		return 0;
+		return _size;
 	}
+
+	private Date _createdDate;
+	private String _id;
+	private String _owner = StringPool.BLANK;
+	private long _size;
 
 }
