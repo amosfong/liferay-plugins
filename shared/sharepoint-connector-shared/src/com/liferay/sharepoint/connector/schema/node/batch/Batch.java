@@ -12,13 +12,25 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node;
+package com.liferay.sharepoint.connector.schema.node.batch;
+
+import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public interface Node {
+public class Batch extends BaseNode {
 
-	public String toXmlString();
+	public Batch(OnError onError, String rootFolder, Method...methods) {
+		_onError = onError;
+		_rootFolder = rootFolder;
+		_methods = methods;
+	}
+
+	public static enum OnError {Return, Continue}
+
+	private final Method[] _methods;
+	private final OnError _onError;
+	private final String _rootFolder;
 
 }

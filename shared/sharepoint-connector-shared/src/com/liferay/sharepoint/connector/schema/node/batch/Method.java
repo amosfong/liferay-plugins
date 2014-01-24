@@ -12,13 +12,25 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node;
+package com.liferay.sharepoint.connector.schema.node.batch;
+
+import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public interface Node {
+public class Method extends BaseNode {
 
-	public String toXmlString();
+	public Method(int id, Cmd cmd, Field...fields) {
+		_id = id;
+		_cmd = cmd;
+		_fields = fields;
+	}
+
+	public static enum Cmd {Delete, New, Update}
+
+	private final Cmd _cmd;
+	private final Field[] _fields;
+	private final int _id;
 
 }

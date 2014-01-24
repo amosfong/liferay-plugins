@@ -12,13 +12,28 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node;
+package com.liferay.sharepoint.connector.schema.node.option;
+
+import com.liferay.sharepoint.connector.schema.marker.QueryOption;
+import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public interface Node {
+public class QueryOptions extends BaseNode {
 
-	public String toXmlString();
+	public QueryOptions(QueryOption...queryOptions) {
+		if (queryOptions == null) {
+			_queryOptions = _EMPTY_QUERY_OPTIONS;
+		}
+		else {
+			_queryOptions = queryOptions;
+		}
+	}
+
+	private static final QueryOption[] _EMPTY_QUERY_OPTIONS =
+		new QueryOption[]{};
+
+	private final QueryOption[] _queryOptions;
 
 }

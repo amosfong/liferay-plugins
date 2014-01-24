@@ -12,13 +12,26 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node;
+package com.liferay.sharepoint.connector.schema.node.view;
+
+import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public interface Node {
+public class ViewFields extends BaseNode {
 
-	public String toXmlString();
+	public ViewFields(FieldRef...fieldRefs) {
+		if (fieldRefs == null) {
+			_fieldRefs = _EMPTY_FIELD_REFS;
+		}
+		else {
+			_fieldRefs = fieldRefs;
+		}
+	}
+
+	private static final FieldRef[] _EMPTY_FIELD_REFS = new FieldRef[]{};
+
+	private final FieldRef[] _fieldRefs;
 
 }

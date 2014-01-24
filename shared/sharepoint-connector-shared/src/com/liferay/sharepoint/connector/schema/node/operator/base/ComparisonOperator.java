@@ -12,13 +12,21 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node;
+package com.liferay.sharepoint.connector.schema.node.operator.base;
+
+import com.liferay.sharepoint.connector.schema.marker.Clause;
+import com.liferay.sharepoint.connector.schema.node.BaseNode;
+import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
 
 /**
  * @author Iván Zaera
  */
-public interface Node {
+public abstract class ComparisonOperator extends BaseNode implements Clause {
 
-	public String toXmlString();
+	public ComparisonOperator(FieldRef fieldRef) {
+		this._fieldRef = fieldRef;
+	}
+
+	private final FieldRef _fieldRef;
 
 }

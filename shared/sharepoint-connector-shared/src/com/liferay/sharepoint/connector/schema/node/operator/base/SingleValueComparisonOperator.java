@@ -12,13 +12,22 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node;
+package com.liferay.sharepoint.connector.schema.node.operator.base;
+
+import com.liferay.sharepoint.connector.schema.node.value.Value;
+import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
 
 /**
  * @author Iván Zaera
  */
-public interface Node {
+public abstract class SingleValueComparisonOperator extends ComparisonOperator {
 
-	public String toXmlString();
+	public SingleValueComparisonOperator(FieldRef fieldRef, Value value) {
+		super(fieldRef);
+
+		this._value = value;
+	}
+
+	private final Value _value;
 
 }

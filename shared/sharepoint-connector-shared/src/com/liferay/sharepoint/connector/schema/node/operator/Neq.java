@@ -12,13 +12,19 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node;
+package com.liferay.sharepoint.connector.schema.node.operator;
+
+import com.liferay.sharepoint.connector.schema.node.operator.base.SingleValueComparisonOperator;
+import com.liferay.sharepoint.connector.schema.node.value.Value;
+import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
 
 /**
  * @author Iván Zaera
  */
-public interface Node {
+public class Neq extends SingleValueComparisonOperator {
 
-	public String toXmlString();
+	public Neq(FieldRef fieldRef, Value value) {
+		super(fieldRef, value);
+	}
 
 }

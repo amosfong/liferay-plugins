@@ -12,13 +12,18 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node;
+package com.liferay.sharepoint.connector.schema.node.join;
+
+import com.liferay.sharepoint.connector.schema.marker.Clause;
+import com.liferay.sharepoint.connector.schema.node.join.base.LogicalJoin;
 
 /**
  * @author Iván Zaera
  */
-public interface Node {
+public class Or extends LogicalJoin {
 
-	public String toXmlString();
+	public Or(Clause leftClause, Clause rightClause) {
+		super(leftClause, rightClause);
+	}
 
 }

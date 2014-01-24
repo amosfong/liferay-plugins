@@ -12,13 +12,22 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node;
+package com.liferay.sharepoint.connector.schema.node.join.base;
+
+import com.liferay.sharepoint.connector.schema.marker.Clause;
+import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public interface Node {
+public abstract class LogicalJoin extends BaseNode implements Clause {
 
-	public String toXmlString();
+	public LogicalJoin(Clause leftClause, Clause rightClause) {
+		this._leftClause = leftClause;
+		this._rightClause = rightClause;
+	}
+
+	private final Clause _leftClause;
+	private final Clause _rightClause;
 
 }

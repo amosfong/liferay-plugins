@@ -12,13 +12,21 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node;
+package com.liferay.sharepoint.connector.schema.node.batch;
+
+import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public interface Node {
+public class Field extends BaseNode {
 
-	public String toXmlString();
+	public Field(String fieldName, String value) {
+		_fieldName = fieldName;
+		_value = value;
+	}
+
+	private final String _fieldName;
+	private final String _value;
 
 }

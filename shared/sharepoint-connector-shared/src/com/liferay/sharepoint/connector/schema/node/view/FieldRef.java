@@ -12,13 +12,19 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node;
+package com.liferay.sharepoint.connector.schema.node.view;
+
+import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public interface Node {
+public class FieldRef extends BaseNode {
 
-	public String toXmlString();
+	public FieldRef(String fieldName) {
+		this._fieldName = fieldName;
+	}
+
+	private final String _fieldName;
 
 }

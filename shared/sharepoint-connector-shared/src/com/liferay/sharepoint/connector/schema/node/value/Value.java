@@ -12,13 +12,27 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node;
+package com.liferay.sharepoint.connector.schema.node.value;
+
+import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public interface Node {
+public class Value extends BaseNode {
 
-	public String toXmlString();
+	public Value(String value) {
+		this(Type.Text, value);
+	}
+
+	public Value(Type type, String value) {
+		_type = type;
+		_value = value;
+	}
+
+	public static enum Type {Text, Lookup, Integer}
+
+	private final Type _type;
+	private final String _value;
 
 }

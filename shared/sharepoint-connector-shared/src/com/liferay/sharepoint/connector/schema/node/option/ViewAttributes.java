@@ -12,13 +12,20 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node;
+package com.liferay.sharepoint.connector.schema.node.option;
+
+import com.liferay.sharepoint.connector.schema.marker.QueryOption;
+import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public interface Node {
+public class ViewAttributes extends BaseNode implements QueryOption {
 
-	public String toXmlString();
+	public ViewAttributes(boolean recursive) {
+		_recursive = recursive;
+	}
+
+	private final boolean _recursive;
 
 }

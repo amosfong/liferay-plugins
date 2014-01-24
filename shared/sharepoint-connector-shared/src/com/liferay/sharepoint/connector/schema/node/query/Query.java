@@ -12,13 +12,20 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node;
+package com.liferay.sharepoint.connector.schema.node.query;
+
+import com.liferay.sharepoint.connector.schema.marker.Clause;
+import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public interface Node {
+public class Query extends BaseNode {
 
-	public String toXmlString();
+	public Query(Clause clause) {
+		this._clause = clause;
+	}
+
+	private final Clause _clause;
 
 }

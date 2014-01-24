@@ -12,13 +12,19 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node;
+package com.liferay.sharepoint.connector.schema.node.operator;
+
+import com.liferay.sharepoint.connector.schema.node.operator.base.MultiValueComparisonOperator;
+import com.liferay.sharepoint.connector.schema.node.value.Value;
+import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
 
 /**
  * @author Iván Zaera
  */
-public interface Node {
+public class In extends MultiValueComparisonOperator {
 
-	public String toXmlString();
+	public In(FieldRef fieldRef, Value...values) {
+		super(fieldRef, values);
+	}
 
 }

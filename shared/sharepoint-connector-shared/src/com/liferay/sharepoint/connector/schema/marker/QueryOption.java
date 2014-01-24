@@ -12,13 +12,12 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node;
+package com.liferay.sharepoint.connector.schema.marker;
+
+import com.liferay.sharepoint.connector.schema.node.Node;
 
 /**
  * @author Iván Zaera
  */
-public interface Node {
-
-	public String toXmlString();
-
+public interface QueryOption extends Node {
 }

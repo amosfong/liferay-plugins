@@ -12,13 +12,22 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node;
+package com.liferay.sharepoint.connector.schema;
+
+import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
+import com.liferay.sharepoint.connector.schema.node.view.ViewFields;
 
 /**
  * @author Iván Zaera
  */
-public interface Node {
+public class ViewFieldsBuilder {
 
-	public String toXmlString();
+	public FieldRef fieldRef( String fieldName ) {
+		return new FieldRef(fieldName);
+	}
+
+	public ViewFields viewFields( FieldRef...fields ) {
+		return new ViewFields(fields);
+	}
 
 }

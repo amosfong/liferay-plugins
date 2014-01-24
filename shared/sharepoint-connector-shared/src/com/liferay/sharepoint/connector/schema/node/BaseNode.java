@@ -17,8 +17,10 @@ package com.liferay.sharepoint.connector.schema.node;
 /**
  * @author Iván Zaera
  */
-public interface Node {
+public abstract class BaseNode implements Node {
 
-	public String toXmlString();
+	public final String toXmlString() {
+		return null;
+	}
 
 }
