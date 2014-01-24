@@ -33,11 +33,17 @@ public class GoogleDriveFileVersion
 			revision.getFileSize(), revision.getLastModifyingUserName());
 
 		_mimeType = revision.getMimeType();
+
+		_downloadUrl = revision.getDownloadUrl();
 	}
 
 	@Override
 	public String getChangeLog() {
 		return StringPool.BLANK;
+	}
+
+	public String getDownloadUrl() {
+		return _downloadUrl;
 	}
 
 	@Override
@@ -50,6 +56,7 @@ public class GoogleDriveFileVersion
 		return getExtRepositoryModelKey();
 	}
 
+	private String _downloadUrl;
 	private final String _mimeType;
 
 }

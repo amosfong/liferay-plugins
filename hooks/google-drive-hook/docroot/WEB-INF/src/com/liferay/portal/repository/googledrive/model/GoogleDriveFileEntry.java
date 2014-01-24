@@ -31,11 +31,17 @@ public class GoogleDriveFileEntry
 		_title = file.getTitle();
 
 		_mimeType = file.getMimeType();
+
+		_downloadUrl = file.getDownloadUrl();
 	}
 
 	@Override
 	public String getCheckedOutBy() {
 		return StringPool.BLANK;
+	}
+
+	public String getDownloadUrl() {
+		return _downloadUrl;
 	}
 
 	@Override
@@ -48,6 +54,7 @@ public class GoogleDriveFileEntry
 		return _title;
 	}
 
+	private String _downloadUrl;
 	private String _mimeType;
 	private String _title;
 

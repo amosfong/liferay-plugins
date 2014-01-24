@@ -15,6 +15,9 @@
 package com.liferay.portal.repository.googledrive;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
+import com.google.api.client.http.GenericUrl;
+import com.google.api.client.http.HttpRequestFactory;
+import com.google.api.client.http.HttpResponse;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.http.InputStreamContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
@@ -33,8 +36,10 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PrefsPropsUtil;
 import com.liferay.portal.kernel.util.TransientValue;
 import com.liferay.portal.kernel.util.UnicodeProperties;
+import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.User;
 import com.liferay.portal.repository.googledrive.model.GoogleDriveFileEntry;
+import com.liferay.portal.repository.googledrive.model.GoogleDriveFileVersion;
 import com.liferay.portal.repository.googledrive.model.GoogleDriveFolder;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.auth.PrincipalThreadLocal;
@@ -143,7 +148,10 @@ public class GoogleDriveRepository implements ExtRepository {
 			ExtRepositoryFileEntry extRepositoryFileEntry)
 		throws PortalException, SystemException {
 
-		return null;
+		GoogleDriveFileEntry googleDriveFileEntry =
+			(GoogleDriveFileEntry)extRepositoryFileEntry;
+
+		return getContentStream(googleDriveFileEntry.getDownloadUrl());
 	}
 
 	@Override
@@ -151,7 +159,10 @@ public class GoogleDriveRepository implements ExtRepository {
 			ExtRepositoryFileVersion extRepositoryFileVersion)
 		throws PortalException, SystemException {
 
-		return null;
+		GoogleDriveFileVersion googleDriveFileVersion =
+			(GoogleDriveFileVersion)extRepositoryFileVersion;
+
+		return getContentStream(googleDriveFileVersion.getDownloadUrl());
 	}
 
 	public Drive getDrive() throws PortalException {
@@ -413,6 +424,32 @@ public class GoogleDriveRepository implements ExtRepository {
 			httpTransport, jsonFactory, googleCredential);
 
 		return driveBuilder.build();
+	}
+
+	protected InputStream getContentStream(String downloadUrl)
+		throws PortalException, SystemException {
+
+		if (Validator.isNull(downloadUrl)) {
+			return null;
+		}
+
+		Drive drive = getDrive();
+
+		try {
+			HttpRequestFactory requestFactory = drive.getRequestFactory();
+
+			GenericUrl genericUrl = new GenericUrl(downloadUrl);
+
+			HttpResponse response = requestFactory.buildGetRequest(
+				genericUrl).execute();
+
+			return response.getContent();
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+
+			throw new SystemException(ioe);
+		}
 	}
 
 	private static final String _FOLDER_MIME_TYPE =
