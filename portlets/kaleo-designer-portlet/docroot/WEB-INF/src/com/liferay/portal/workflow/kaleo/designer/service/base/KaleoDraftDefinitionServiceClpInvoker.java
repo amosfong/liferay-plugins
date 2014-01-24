@@ -35,8 +35,9 @@ public class KaleoDraftDefinitionServiceClpInvoker {
 		_methodName30 = "addKaleoDraftDefinition";
 
 		_methodParameterTypes30 = new String[] {
-				"long", "java.lang.String", "java.util.Map", "java.lang.String",
-				"int", "int", "com.liferay.portal.service.ServiceContext"
+				"long", "long", "java.lang.String", "java.util.Map",
+				"java.lang.String", "int", "int",
+				"com.liferay.portal.service.ServiceContext"
 			};
 
 		_methodName31 = "getKaleoDraftDefinition";
@@ -57,16 +58,23 @@ public class KaleoDraftDefinitionServiceClpInvoker {
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName34 = "publishKaleoDraftDefinition";
+		_methodName34 = "getLatestKaleoDraftDefinitions";
 
 		_methodParameterTypes34 = new String[] {
-				"long", "java.lang.String", "java.util.Map", "java.lang.String",
-				"com.liferay.portal.service.ServiceContext"
+				"long", "int", "int", "int",
+				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName35 = "updateKaleoDraftDefinition";
+		_methodName35 = "publishKaleoDraftDefinition";
 
 		_methodParameterTypes35 = new String[] {
+				"long", "long", "java.lang.String", "java.util.Map",
+				"java.lang.String", "com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName36 = "updateKaleoDraftDefinition";
+
+		_methodParameterTypes36 = new String[] {
 				"long", "java.lang.String", "java.util.Map", "java.lang.String",
 				"int", "com.liferay.portal.service.ServiceContext"
 			};
@@ -89,12 +97,13 @@ public class KaleoDraftDefinitionServiceClpInvoker {
 		if (_methodName30.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes30, parameterTypes)) {
 			return KaleoDraftDefinitionServiceUtil.addKaleoDraftDefinition(((Long)arguments[0]).longValue(),
-				(java.lang.String)arguments[1],
-				(java.util.Map<java.util.Locale, java.lang.String>)arguments[2],
-				(java.lang.String)arguments[3],
-				((Integer)arguments[4]).intValue(),
+				((Long)arguments[1]).longValue(),
+				(java.lang.String)arguments[2],
+				(java.util.Map<java.util.Locale, java.lang.String>)arguments[3],
+				(java.lang.String)arguments[4],
 				((Integer)arguments[5]).intValue(),
-				(com.liferay.portal.service.ServiceContext)arguments[6]);
+				((Integer)arguments[6]).intValue(),
+				(com.liferay.portal.service.ServiceContext)arguments[7]);
 		}
 
 		if (_methodName31.equals(name) &&
@@ -119,15 +128,25 @@ public class KaleoDraftDefinitionServiceClpInvoker {
 
 		if (_methodName34.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes34, parameterTypes)) {
-			return KaleoDraftDefinitionServiceUtil.publishKaleoDraftDefinition(((Long)arguments[0]).longValue(),
-				(java.lang.String)arguments[1],
-				(java.util.Map<java.util.Locale, java.lang.String>)arguments[2],
-				(java.lang.String)arguments[3],
-				(com.liferay.portal.service.ServiceContext)arguments[4]);
+			return KaleoDraftDefinitionServiceUtil.getLatestKaleoDraftDefinitions(((Long)arguments[0]).longValue(),
+				((Integer)arguments[1]).intValue(),
+				((Integer)arguments[2]).intValue(),
+				((Integer)arguments[3]).intValue(),
+				(com.liferay.portal.kernel.util.OrderByComparator)arguments[4]);
 		}
 
 		if (_methodName35.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes35, parameterTypes)) {
+			return KaleoDraftDefinitionServiceUtil.publishKaleoDraftDefinition(((Long)arguments[0]).longValue(),
+				((Long)arguments[1]).longValue(),
+				(java.lang.String)arguments[2],
+				(java.util.Map<java.util.Locale, java.lang.String>)arguments[3],
+				(java.lang.String)arguments[4],
+				(com.liferay.portal.service.ServiceContext)arguments[5]);
+		}
+
+		if (_methodName36.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes36, parameterTypes)) {
 			return KaleoDraftDefinitionServiceUtil.updateKaleoDraftDefinition(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1],
 				(java.util.Map<java.util.Locale, java.lang.String>)arguments[2],
@@ -155,4 +174,6 @@ public class KaleoDraftDefinitionServiceClpInvoker {
 	private String[] _methodParameterTypes34;
 	private String _methodName35;
 	private String[] _methodParameterTypes35;
+	private String _methodName36;
+	private String[] _methodParameterTypes36;
 }

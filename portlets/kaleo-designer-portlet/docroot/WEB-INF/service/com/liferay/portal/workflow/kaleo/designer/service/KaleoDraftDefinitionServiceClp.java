@@ -36,8 +36,9 @@ public class KaleoDraftDefinitionServiceClp
 		_methodName3 = "addKaleoDraftDefinition";
 
 		_methodParameterTypes3 = new String[] {
-				"long", "java.lang.String", "java.util.Map", "java.lang.String",
-				"int", "int", "com.liferay.portal.service.ServiceContext"
+				"long", "long", "java.lang.String", "java.util.Map",
+				"java.lang.String", "int", "int",
+				"com.liferay.portal.service.ServiceContext"
 			};
 
 		_methodName4 = "getKaleoDraftDefinition";
@@ -58,16 +59,23 @@ public class KaleoDraftDefinitionServiceClp
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName7 = "publishKaleoDraftDefinition";
+		_methodName7 = "getLatestKaleoDraftDefinitions";
 
 		_methodParameterTypes7 = new String[] {
-				"long", "java.lang.String", "java.util.Map", "java.lang.String",
-				"com.liferay.portal.service.ServiceContext"
+				"long", "int", "int", "int",
+				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName8 = "updateKaleoDraftDefinition";
+		_methodName8 = "publishKaleoDraftDefinition";
 
 		_methodParameterTypes8 = new String[] {
+				"long", "long", "java.lang.String", "java.util.Map",
+				"java.lang.String", "com.liferay.portal.service.ServiceContext"
+			};
+
+		_methodName9 = "updateKaleoDraftDefinition";
+
+		_methodParameterTypes9 = new String[] {
 				"long", "java.lang.String", "java.util.Map", "java.lang.String",
 				"int", "com.liferay.portal.service.ServiceContext"
 			};
@@ -125,7 +133,7 @@ public class KaleoDraftDefinitionServiceClp
 
 	@Override
 	public com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition addKaleoDraftDefinition(
-		long userId, java.lang.String name,
+		long userId, long groupId, java.lang.String name,
 		java.util.Map<java.util.Locale, java.lang.String> titleMap,
 		java.lang.String content, int version, int draftVersion,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -138,6 +146,8 @@ public class KaleoDraftDefinitionServiceClp
 					_methodParameterTypes3,
 					new Object[] {
 						userId,
+						
+					groupId,
 						
 					ClpSerializer.translateInput(name),
 						
@@ -221,7 +231,8 @@ public class KaleoDraftDefinitionServiceClp
 
 	@Override
 	public java.util.List<com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition> getKaleoDraftDefinitions()
-		throws com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
 
 		try {
@@ -230,6 +241,10 @@ public class KaleoDraftDefinitionServiceClp
 		}
 		catch (Throwable t) {
 			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
 
 			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
 				throw (com.liferay.portal.kernel.exception.SystemException)t;
@@ -290,11 +305,9 @@ public class KaleoDraftDefinitionServiceClp
 	}
 
 	@Override
-	public com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition publishKaleoDraftDefinition(
-		long userId, java.lang.String name,
-		java.util.Map<java.util.Locale, java.lang.String> titleMap,
-		java.lang.String content,
-		com.liferay.portal.service.ServiceContext serviceContext)
+	public java.util.List<com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition> getLatestKaleoDraftDefinitions(
+		long companyId, int version, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		Object returnObj = null;
@@ -303,7 +316,57 @@ public class KaleoDraftDefinitionServiceClp
 			returnObj = _invokableService.invokeMethod(_methodName7,
 					_methodParameterTypes7,
 					new Object[] {
+						companyId,
+						
+					version,
+						
+					start,
+						
+					end,
+						
+					ClpSerializer.translateInput(orderByComparator)
+					});
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+
+		return (java.util.List<com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition>)ClpSerializer.translateOutput(returnObj);
+	}
+
+	@Override
+	public com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition publishKaleoDraftDefinition(
+		long userId, long groupId, java.lang.String name,
+		java.util.Map<java.util.Locale, java.lang.String> titleMap,
+		java.lang.String content,
+		com.liferay.portal.service.ServiceContext serviceContext)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		Object returnObj = null;
+
+		try {
+			returnObj = _invokableService.invokeMethod(_methodName8,
+					_methodParameterTypes8,
+					new Object[] {
 						userId,
+						
+					groupId,
 						
 					ClpSerializer.translateInput(name),
 						
@@ -348,8 +411,8 @@ public class KaleoDraftDefinitionServiceClp
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableService.invokeMethod(_methodName8,
-					_methodParameterTypes8,
+			returnObj = _invokableService.invokeMethod(_methodName9,
+					_methodParameterTypes9,
 					new Object[] {
 						userId,
 						
@@ -404,4 +467,6 @@ public class KaleoDraftDefinitionServiceClp
 	private String[] _methodParameterTypes7;
 	private String _methodName8;
 	private String[] _methodParameterTypes8;
+	private String _methodName9;
+	private String[] _methodParameterTypes9;
 }

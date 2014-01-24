@@ -66,7 +66,7 @@ import java.util.Map;
  */
 public class KaleoDraftDefinitionServiceSoap {
 	public static com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinitionSoap addKaleoDraftDefinition(
-		long userId, java.lang.String name,
+		long userId, long groupId, java.lang.String name,
 		java.lang.String[] titleMapLanguageIds,
 		java.lang.String[] titleMapValues, java.lang.String content,
 		int version, int draftVersion,
@@ -78,7 +78,7 @@ public class KaleoDraftDefinitionServiceSoap {
 
 			com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition returnValue =
 				KaleoDraftDefinitionServiceUtil.addKaleoDraftDefinition(userId,
-					name, titleMap, content, version, draftVersion,
+					groupId, name, titleMap, content, version, draftVersion,
 					serviceContext);
 
 			return com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinitionSoap.toSoapModel(returnValue);
@@ -141,8 +141,26 @@ public class KaleoDraftDefinitionServiceSoap {
 		}
 	}
 
+	public static com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinitionSoap[] getLatestKaleoDraftDefinitions(
+		long companyId, int version, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws RemoteException {
+		try {
+			java.util.List<com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition> returnValue =
+				KaleoDraftDefinitionServiceUtil.getLatestKaleoDraftDefinitions(companyId,
+					version, start, end, orderByComparator);
+
+			return com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinitionSoap.toSoapModels(returnValue);
+		}
+		catch (Exception e) {
+			_log.error(e, e);
+
+			throw new RemoteException(e.getMessage());
+		}
+	}
+
 	public static com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinitionSoap publishKaleoDraftDefinition(
-		long userId, java.lang.String name,
+		long userId, long groupId, java.lang.String name,
 		java.lang.String[] titleMapLanguageIds,
 		java.lang.String[] titleMapValues, java.lang.String content,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -153,7 +171,7 @@ public class KaleoDraftDefinitionServiceSoap {
 
 			com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition returnValue =
 				KaleoDraftDefinitionServiceUtil.publishKaleoDraftDefinition(userId,
-					name, titleMap, content, serviceContext);
+					groupId, name, titleMap, content, serviceContext);
 
 			return com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinitionSoap.toSoapModel(returnValue);
 		}

@@ -292,14 +292,15 @@ public class KaleoDraftDefinitionLocalServiceWrapper
 
 	@Override
 	public com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition addKaleoDraftDefinition(
-		long userId, java.lang.String name,
+		long userId, long groupId, java.lang.String name,
 		java.util.Map<java.util.Locale, java.lang.String> titleMap,
 		java.lang.String content, int version, int draftVersion,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _kaleoDraftDefinitionLocalService.addKaleoDraftDefinition(userId,
-			name, titleMap, content, version, draftVersion, serviceContext);
+			groupId, name, titleMap, content, version, draftVersion,
+			serviceContext);
 	}
 
 	@Override
@@ -386,14 +387,14 @@ public class KaleoDraftDefinitionLocalServiceWrapper
 
 	@Override
 	public com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition publishKaleoDraftDefinition(
-		long userId, java.lang.String name,
+		long userId, long groupId, java.lang.String name,
 		java.util.Map<java.util.Locale, java.lang.String> titleMap,
 		java.lang.String content,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return _kaleoDraftDefinitionLocalService.publishKaleoDraftDefinition(userId,
-			name, titleMap, content, serviceContext);
+			groupId, name, titleMap, content, serviceContext);
 	}
 
 	@Override

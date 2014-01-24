@@ -119,8 +119,9 @@ public class KaleoDraftDefinitionLocalServiceClp
 		_methodName19 = "addKaleoDraftDefinition";
 
 		_methodParameterTypes19 = new String[] {
-				"long", "java.lang.String", "java.util.Map", "java.lang.String",
-				"int", "int", "com.liferay.portal.service.ServiceContext"
+				"long", "long", "java.lang.String", "java.util.Map",
+				"java.lang.String", "int", "int",
+				"com.liferay.portal.service.ServiceContext"
 			};
 
 		_methodName20 = "deleteKaleoDraftDefinition";
@@ -187,8 +188,8 @@ public class KaleoDraftDefinitionLocalServiceClp
 		_methodName29 = "publishKaleoDraftDefinition";
 
 		_methodParameterTypes29 = new String[] {
-				"long", "java.lang.String", "java.util.Map", "java.lang.String",
-				"com.liferay.portal.service.ServiceContext"
+				"long", "long", "java.lang.String", "java.util.Map",
+				"java.lang.String", "com.liferay.portal.service.ServiceContext"
 			};
 
 		_methodName30 = "updateKaleoDraftDefinition";
@@ -761,7 +762,7 @@ public class KaleoDraftDefinitionLocalServiceClp
 
 	@Override
 	public com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition addKaleoDraftDefinition(
-		long userId, java.lang.String name,
+		long userId, long groupId, java.lang.String name,
 		java.util.Map<java.util.Locale, java.lang.String> titleMap,
 		java.lang.String content, int version, int draftVersion,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -774,6 +775,8 @@ public class KaleoDraftDefinitionLocalServiceClp
 					_methodParameterTypes19,
 					new Object[] {
 						userId,
+						
+					groupId,
 						
 					ClpSerializer.translateInput(name),
 						
@@ -1168,7 +1171,7 @@ public class KaleoDraftDefinitionLocalServiceClp
 
 	@Override
 	public com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition publishKaleoDraftDefinition(
-		long userId, java.lang.String name,
+		long userId, long groupId, java.lang.String name,
 		java.util.Map<java.util.Locale, java.lang.String> titleMap,
 		java.lang.String content,
 		com.liferay.portal.service.ServiceContext serviceContext)
@@ -1181,6 +1184,8 @@ public class KaleoDraftDefinitionLocalServiceClp
 					_methodParameterTypes29,
 					new Object[] {
 						userId,
+						
+					groupId,
 						
 					ClpSerializer.translateInput(name),
 						

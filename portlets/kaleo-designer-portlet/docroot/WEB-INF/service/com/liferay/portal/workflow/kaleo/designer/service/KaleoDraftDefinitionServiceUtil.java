@@ -64,15 +64,15 @@ public class KaleoDraftDefinitionServiceUtil {
 	}
 
 	public static com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition addKaleoDraftDefinition(
-		long userId, java.lang.String name,
+		long userId, long groupId, java.lang.String name,
 		java.util.Map<java.util.Locale, java.lang.String> titleMap,
 		java.lang.String content, int version, int draftVersion,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .addKaleoDraftDefinition(userId, name, titleMap, content,
-			version, draftVersion, serviceContext);
+				   .addKaleoDraftDefinition(userId, groupId, name, titleMap,
+			content, version, draftVersion, serviceContext);
 	}
 
 	public static com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition getKaleoDraftDefinition(
@@ -86,7 +86,8 @@ public class KaleoDraftDefinitionServiceUtil {
 	}
 
 	public static java.util.List<com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition> getKaleoDraftDefinitions()
-		throws com.liferay.portal.kernel.exception.SystemException {
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
 		return getService().getKaleoDraftDefinitions();
 	}
 
@@ -99,16 +100,26 @@ public class KaleoDraftDefinitionServiceUtil {
 				   .getLatestKaleoDraftDefinition(name, version, serviceContext);
 	}
 
+	public static java.util.List<com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition> getLatestKaleoDraftDefinitions(
+		long companyId, int version, int start, int end,
+		com.liferay.portal.kernel.util.OrderByComparator orderByComparator)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		return getService()
+				   .getLatestKaleoDraftDefinitions(companyId, version, start,
+			end, orderByComparator);
+	}
+
 	public static com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition publishKaleoDraftDefinition(
-		long userId, java.lang.String name,
+		long userId, long groupId, java.lang.String name,
 		java.util.Map<java.util.Locale, java.lang.String> titleMap,
 		java.lang.String content,
 		com.liferay.portal.service.ServiceContext serviceContext)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		return getService()
-				   .publishKaleoDraftDefinition(userId, name, titleMap,
-			content, serviceContext);
+				   .publishKaleoDraftDefinition(userId, groupId, name,
+			titleMap, content, serviceContext);
 	}
 
 	public static com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition updateKaleoDraftDefinition(
