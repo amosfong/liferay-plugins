@@ -14,6 +14,10 @@
 
 package com.liferay.portal.repository.googledrive.model;
 
+import com.google.api.client.util.DateTime;
+import com.google.api.services.drive.model.File;
+import com.google.api.services.drive.model.Permission;
+
 import com.liferay.repository.external.ExtRepositoryObject;
 
 import java.util.Date;
@@ -21,48 +25,82 @@ import java.util.Date;
 /**
  * @author Sergio González
  */
-public class GoogleDriveObject implements ExtRepositoryObject {
+public class GoogleDriveObject
+	extends GoogleDriveModel implements ExtRepositoryObject {
+
+	public GoogleDriveObject(File file) {
+		super(file);
+
+		DateTime modifiedDateTime = file.getCreatedDate();
+
+		_modifiedDate = new Date(modifiedDateTime.getValue());
+
+		_extension = file.getFileExtension();
+
+		_description = file.getDescription();
+
+		_permission = file.getUserPermission();
+	}
 
 	@Override
 	public boolean containsPermission(
 		ExtRepositoryPermission extRepositoryPermission) {
 
+		String role = _permission.getRole();
+
+		if (extRepositoryPermission.equals(ExtRepositoryPermission.ACCESS)) {
+			return true;
+		}
+		else if (ExtRepositoryPermission.ADD_DOCUMENT.equals(
+					extRepositoryPermission)) {
+
+			return role.equals("owner") || role.equals("writer");
+		}
+		else if (ExtRepositoryPermission.ADD_FOLDER.equals(
+					extRepositoryPermission)) {
+
+			return role.equals("owner") || role.equals("writer");
+		}
+		else if (ExtRepositoryPermission.ADD_SUBFOLDER.equals(
+					extRepositoryPermission)) {
+
+			return role.equals("owner") || role.equals("writer");
+		}
+		else if (ExtRepositoryPermission.DELETE.equals(
+					extRepositoryPermission)) {
+
+			return role.equals("owner");
+		}
+		else if (ExtRepositoryPermission.UPDATE.equals(
+					extRepositoryPermission)) {
+
+			return role.equals("owner") || role.equals("writer");
+		}
+		else if (ExtRepositoryPermission.VIEW.equals(extRepositoryPermission)) {
+			return true;
+		}
+
 		return false;
 	}
 
 	@Override
-	public Date getCreatedDate() {
-		return null;
-	}
-
-	@Override
 	public String getDescription() {
-		return null;
+		return _description;
 	}
 
 	@Override
 	public String getExtension() {
-		return null;
-	}
-
-	@Override
-	public String getExtRepositoryModelKey() {
-		return null;
+		return _extension;
 	}
 
 	@Override
 	public Date getModifiedDate() {
-		return null;
+		return _modifiedDate;
 	}
 
-	@Override
-	public String getOwner() {
-		return null;
-	}
-
-	@Override
-	public long getSize() {
-		return 0;
-	}
+	private String _description;
+	private String _extension;
+	private Date _modifiedDate;
+	private Permission _permission;
 
 }
