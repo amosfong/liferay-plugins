@@ -27,6 +27,8 @@ import com.google.api.services.drive.model.About;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.google.api.services.drive.model.ParentReference;
+import com.google.api.services.drive.model.Revision;
+import com.google.api.services.drive.model.RevisionList;
 
 import com.liferay.portal.NoSuchRepositoryEntryException;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -229,7 +231,22 @@ public class GoogleDriveRepository implements ExtRepository {
 			ExtRepositoryFileEntry extRepositoryFileEntry, String version)
 		throws PortalException, SystemException {
 
-		return null;
+		Drive drive = getDrive();
+
+		Drive.Revisions revisions = drive.revisions();
+
+		try {
+			Revision revision = revisions.get(
+				extRepositoryFileEntry.getExtRepositoryModelKey(), version).
+					execute();
+
+			return new GoogleDriveFileVersion(revision);
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+
+			throw new SystemException(ioe);
+		}
 	}
 
 	@Override
@@ -245,7 +262,35 @@ public class GoogleDriveRepository implements ExtRepository {
 			ExtRepositoryFileEntry extRepositoryFileEntry)
 		throws SystemException {
 
-		return null;
+		try {
+			Drive drive = getDrive();
+
+			Drive.Revisions revisions = drive.revisions();
+
+			RevisionList revisionList = revisions.list(
+				extRepositoryFileEntry.getExtRepositoryModelKey()).execute();
+
+			List<Revision> revisionListItems = revisionList.getItems();
+
+			List<ExtRepositoryFileVersion> extRepositoryFileVersions =
+				new ArrayList<ExtRepositoryFileVersion>(
+					revisionListItems.size());
+
+			for (Revision revision : revisionListItems) {
+				extRepositoryFileVersions.add(
+					new GoogleDriveFileVersion(revision));
+			}
+
+			return extRepositoryFileVersions;
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+
+			throw new SystemException(ioe);
+		}
+		catch (PortalException pe) {
+			throw new SystemException(pe);
+		}
 	}
 
 	@Override
@@ -313,19 +358,19 @@ public class GoogleDriveRepository implements ExtRepository {
 
 			FileList fileList = files.list().setQ(sb.toString()).execute();
 
-			List<File> fileItems = fileList.getItems();
+			List<File> fileListItems = fileList.getItems();
 
-			if (fileItems.isEmpty()) {
+			if (fileListItems.isEmpty()) {
 				throw new NoSuchRepositoryEntryException();
 			}
 
 			if (extRepositoryObjectType.equals(
 					extRepositoryObjectType.FOLDER)) {
 
-				return (T)new GoogleDriveFolder(fileItems.get(0));
+				return (T)new GoogleDriveFolder(fileListItems.get(0));
 			}
 			else {
-				return (T)new GoogleDriveFileEntry(fileItems.get(0));
+				return (T)new GoogleDriveFileEntry(fileListItems.get(0));
 			}
 		}
 		catch (IOException ioe) {
@@ -376,11 +421,11 @@ public class GoogleDriveRepository implements ExtRepository {
 
 			FileList fileList = files.list().setQ(sb.toString()).execute();
 
-			List<File> fileItems = fileList.getItems();
+			List<File> fileListItems = fileList.getItems();
 
 			List<T> entries = new ArrayList<T>();
 
-			for (File file : fileItems) {
+			for (File file : fileListItems) {
 				if (_FOLDER_MIME_TYPE.equals(file.getMimeType())) {
 					entries.add((T)new GoogleDriveFolder(file));
 				}
