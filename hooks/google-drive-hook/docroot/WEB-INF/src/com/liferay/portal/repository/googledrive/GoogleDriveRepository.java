@@ -136,6 +136,19 @@ public class GoogleDriveRepository implements ExtRepository {
 				extRepositoryObjectType,
 			String extRepositoryObjectKey)
 		throws PortalException, SystemException {
+
+		Drive drive = getDrive();
+
+		Drive.Files files = drive.files();
+
+		try {
+			files.delete(extRepositoryObjectKey).execute();
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+
+			throw new PortalException(ioe);
+		}
 	}
 
 	@Override
