@@ -33,6 +33,8 @@ import com.google.api.services.drive.model.RevisionList;
 import com.liferay.portal.NoSuchRepositoryEntryException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.servlet.PortalSessionThreadLocal;
@@ -50,6 +52,7 @@ import com.liferay.portal.repository.googledrive.model.GoogleDriveFolder;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.service.UserLocalServiceUtil;
+import com.liferay.portal.service.impl.UserLocalServiceImpl;
 import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.repository.external.CredentialsProvider;
 import com.liferay.repository.external.ExtRepository;
@@ -148,17 +151,19 @@ public class GoogleDriveRepository
 			ExtRepositoryObjectType<? extends ExtRepositoryObject>
 				extRepositoryObjectType,
 			String extRepositoryObjectKey)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Drive drive = getDrive();
 
 		Drive.Files files = drive.files();
 
 		try {
-			files.delete(extRepositoryObjectKey).execute();
+			Drive.Files.Delete delete = files.delete(extRepositoryObjectKey);
+
+			delete.execute();
 		}
 		catch (IOException ioe) {
-			ioe.printStackTrace();
+			_log.error(ioe, ioe);
 
 			throw new PortalException(ioe);
 		}
@@ -177,7 +182,7 @@ public class GoogleDriveRepository
 		GoogleDriveFileEntry googleDriveFileEntry =
 			(GoogleDriveFileEntry)extRepositoryFileEntry;
 
-		return getContentStream(googleDriveFileEntry.getDownloadUrl());
+		return getContentStream(googleDriveFileEntry.getDownloadURL());
 	}
 
 	@Override
@@ -188,7 +193,7 @@ public class GoogleDriveRepository
 		GoogleDriveFileVersion googleDriveFileVersion =
 			(GoogleDriveFileVersion)extRepositoryFileVersion;
 
-		return getContentStream(googleDriveFileVersion.getDownloadUrl());
+		return getContentStream(googleDriveFileVersion.getDownloadURL());
 	}
 
 	public Drive getDrive() throws PortalException {
@@ -249,7 +254,7 @@ public class GoogleDriveRepository
 			return new GoogleDriveFileVersion(revision);
 		}
 		catch (IOException ioe) {
-			ioe.printStackTrace();
+			_log.error(ioe, ioe);
 
 			throw new SystemException(ioe);
 		}
@@ -290,7 +295,7 @@ public class GoogleDriveRepository
 			return extRepositoryFileVersions;
 		}
 		catch (IOException ioe) {
-			ioe.printStackTrace();
+			_log.error(ioe, ioe);
 
 			throw new SystemException(ioe);
 		}
@@ -303,7 +308,7 @@ public class GoogleDriveRepository
 	public <T extends ExtRepositoryObject> T getExtRepositoryObject(
 			ExtRepositoryObjectType<T> extRepositoryObjectType,
 			String extRepositoryObjectKey)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Drive drive = getDrive();
 
@@ -315,7 +320,7 @@ public class GoogleDriveRepository
 			T extRepositoryEntry = null;
 
 			if (extRepositoryObjectType.equals(
-					extRepositoryObjectType.FOLDER)) {
+					ExtRepositoryObjectType.FOLDER)) {
 
 				extRepositoryEntry = (T)new GoogleDriveFolder(
 					file, _rootFolderKey);
@@ -335,7 +340,7 @@ public class GoogleDriveRepository
 	public <T extends ExtRepositoryObject> T getExtRepositoryObject(
 			ExtRepositoryObjectType<T> extRepositoryObjectType,
 			String extRepositoryFolderKey, String title)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Drive drive = getDrive();
 
@@ -353,7 +358,7 @@ public class GoogleDriveRepository
 			sb.append(" and mimeType ");
 
 			if (extRepositoryObjectType.equals(
-					extRepositoryObjectType.FOLDER)) {
+					ExtRepositoryObjectType.FOLDER)) {
 
 				sb.append("= ");
 			}
@@ -372,7 +377,7 @@ public class GoogleDriveRepository
 			}
 
 			if (extRepositoryObjectType.equals(
-					extRepositoryObjectType.FOLDER)) {
+					ExtRepositoryObjectType.FOLDER)) {
 
 				return (T)new GoogleDriveFolder(
 					fileListItems.get(0), _rootFolderKey);
@@ -382,7 +387,7 @@ public class GoogleDriveRepository
 			}
 		}
 		catch (IOException ioe) {
-			ioe.printStackTrace();
+			_log.error(ioe, ioe);
 
 			throw new NoSuchRepositoryEntryException(ioe);
 		}
@@ -406,12 +411,12 @@ public class GoogleDriveRepository
 			}
 
 			if (!extRepositoryObjectType.equals(
-					extRepositoryObjectType.OBJECT)) {
+					ExtRepositoryObjectType.OBJECT)) {
 
 				sb.append("mimeType");
 
 				if (extRepositoryObjectType.equals(
-						extRepositoryObjectType.FILE)) {
+						ExtRepositoryObjectType.FILE)) {
 
 					sb.append(" != '");
 				}
@@ -445,7 +450,7 @@ public class GoogleDriveRepository
 			return entries;
 		}
 		catch (IOException ioe) {
-			ioe.printStackTrace();
+			_log.error(ioe, ioe);
 
 			throw new SystemException(ioe);
 		}
@@ -468,7 +473,7 @@ public class GoogleDriveRepository
 	@Override
 	public ExtRepositoryFolder getExtRepositoryParentFolder(
 			ExtRepositoryObject extRepositoryObject)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		Drive drive = getDrive();
 
@@ -501,7 +506,7 @@ public class GoogleDriveRepository
 	}
 
 	@Override
-	public String getRootFolderKey() throws PortalException, SystemException {
+	public String getRootFolderKey() {
 		return _rootFolderKey;
 	}
 
@@ -537,7 +542,7 @@ public class GoogleDriveRepository
 			_rootFolderKey = about.getRootFolderId();
 		}
 		catch (IOException ioe) {
-			ioe.printStackTrace();
+			_log.error(ioe, ioe);
 
 			throw new SystemException(ioe);
 		}
@@ -581,7 +586,7 @@ public class GoogleDriveRepository
 			}
 		}
 		catch (IOException ioe) {
-			ioe.printStackTrace();
+			_log.error(ioe, ioe);
 
 			throw new SystemException(ioe);
 		}
@@ -618,7 +623,7 @@ public class GoogleDriveRepository
 			return new GoogleDriveFileEntry(file);
 		}
 		catch (IOException ioe) {
-			ioe.printStackTrace();
+			_log.error(ioe, ioe);
 
 			throw new SystemException(ioe);
 		}
@@ -660,7 +665,7 @@ public class GoogleDriveRepository
 			return file;
 		}
 		catch (IOException ioe) {
-			ioe.printStackTrace();
+			_log.error(ioe, ioe);
 
 			throw new SystemException(ioe);
 		}
@@ -732,7 +737,7 @@ public class GoogleDriveRepository
 			return response.getContent();
 		}
 		catch (IOException ioe) {
-			ioe.printStackTrace();
+			_log.error(ioe, ioe);
 
 			throw new SystemException(ioe);
 		}
@@ -740,6 +745,9 @@ public class GoogleDriveRepository
 
 	private static final String _FOLDER_MIME_TYPE =
 		"application/vnd.google-apps.folder";
+
+	private static Log _log = LogFactoryUtil.getLog(
+		GoogleDriveRepository.class);
 
 	private ThreadLocal<Drive> _driveThreadLocal =
 		new AutoResetThreadLocal<Drive>(Drive.class.getName());
