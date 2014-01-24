@@ -95,7 +95,7 @@ public class GoogleDriveRepository implements ExtRepository {
 			String extRepositoryFileEntryKey)
 		throws PortalException, SystemException {
 
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -103,6 +103,8 @@ public class GoogleDriveRepository implements ExtRepository {
 			String extRepositoryFileEntryKey, boolean createMajorVersion,
 			String changeLog)
 		throws PortalException, SystemException {
+
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
@@ -110,7 +112,7 @@ public class GoogleDriveRepository implements ExtRepository {
 			String extRepositoryFileEntryKey)
 		throws PortalException, SystemException {
 
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
