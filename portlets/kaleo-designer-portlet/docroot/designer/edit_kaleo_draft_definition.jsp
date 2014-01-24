@@ -20,6 +20,8 @@
 	<c:when test="<%= WorkflowEngineManagerUtil.isDeployed() %>">
 
 		<%
+		String backURL = ParamUtil.getString(request, "backURL");
+
 		ServiceContext serviceContext = ServiceContextFactory.getInstance(request);
 
 		KaleoDraftDefinition kaleoDraftDefinition = (KaleoDraftDefinition)request.getAttribute(WebKeys.KALEO_DRAFT_DEFINITION);
@@ -56,12 +58,15 @@
 		%>
 
 		<liferay-ui:header
+			backURL="<%= backURL %>"
 			title='<%= (kaleoDraftDefinition == null) ? "new-workflow-definition-draft" : kaleoDraftDefinition.getName() %>'
 		/>
 
 		<aui:form method="post" name="fm" onSubmit="event.preventDefault();">
 			<aui:model-context bean="<%= kaleoDraftDefinition %>" model="<%= KaleoDraftDefinition.class %>" />
 
+			<aui:input name="mvcPath" type="hidden" value="/designer/edit_kaleo_draft_definition.jsp" />
+			<aui:input name="backURL" type="hidden" value="<%= backURL %>" />
 			<aui:input name="content" type="hidden" value="<%= content %>" />
 			<aui:input name="version" type="hidden" />
 			<aui:input name="draftVersion" type="hidden" />
@@ -136,12 +141,16 @@
 					<c:if test="<%= editable %>">
 						<c:choose>
 							<c:when test="<%= kaleoDraftDefinition == null %>">
-								<aui:button onClick='<%= renderResponse.getNamespace() + "addKaleoDraftDefinition();" %>' value="add-draft" />
+								<c:if test="<%= KaleoDesignerPermission.contains(permissionChecker, themeDisplay.getCompanyGroupId(), ActionKeys.ADD_DRAFT) %>">
+									<aui:button onClick='<%= renderResponse.getNamespace() + "addKaleoDraftDefinition();" %>' value="add-draft" />
+								</c:if>
 							</c:when>
 							<c:otherwise>
-								<aui:button onClick='<%= renderResponse.getNamespace() + "updateKaleoDraftDefinition();" %>' value="save-draft" />
+								<c:if test="<%= KaleoDraftDefinitionPermission.contains(permissionChecker, kaleoDraftDefinition, ActionKeys.UPDATE) %>">
+									<aui:button onClick='<%= renderResponse.getNamespace() + "updateKaleoDraftDefinition();" %>' value="save-draft" />
+								</c:if>
 
-								<c:if test="<%= !KaleoDesignerUtil.isPublished(kaleoDraftDefinition) %>">
+								<c:if test="<%= KaleoDesignerPermission.contains(permissionChecker, themeDisplay.getCompanyGroupId(), ActionKeys.PUBLISH) %>">
 									<aui:button onClick='<%= renderResponse.getNamespace() + "publishKaleoDraftDefinition();" %>' value="publish" />
 								</c:if>
 							</c:otherwise>
@@ -209,20 +218,22 @@
 		</div>
 
 		<aui:script>
-			Liferay.provide(
-				window,
-				'<portlet:namespace />addKaleoDraftDefinition',
-				function() {
-					var A = AUI();
+			<c:if test="<%= KaleoDesignerPermission.contains(permissionChecker, themeDisplay.getCompanyGroupId(), ActionKeys.ADD_DRAFT) %>">
+				Liferay.provide(
+					window,
+					'<portlet:namespace />addKaleoDraftDefinition',
+					function() {
+						var A = AUI();
 
-					<portlet:namespace />updateContent();
+						<portlet:namespace />updateContent();
 
-					<portlet:namespace />updateAction('<portlet:actionURL name="addKaleoDraftDefinition" />');
+						<portlet:namespace />updateAction('<portlet:actionURL name="addKaleoDraftDefinition" />');
 
-					submitForm(document.<portlet:namespace />fm);
-				},
-				['aui-base']
-			);
+						submitForm(document.<portlet:namespace />fm);
+					},
+					['aui-base']
+				);
+			</c:if>
 
 			Liferay.provide(
 				window,
@@ -393,20 +404,22 @@
 				['aui-base']
 			);
 
-			Liferay.provide(
-				window,
-				'<portlet:namespace />publishKaleoDraftDefinition',
-				function() {
-					var A = AUI();
+			<c:if test="<%= KaleoDesignerPermission.contains(permissionChecker, themeDisplay.getCompanyGroupId(), ActionKeys.PUBLISH) %>">
+				Liferay.provide(
+					window,
+					'<portlet:namespace />publishKaleoDraftDefinition',
+					function() {
+						var A = AUI();
 
-					<portlet:namespace />updateContent();
+						<portlet:namespace />updateContent();
 
-					<portlet:namespace />updateAction('<portlet:actionURL name="publishKaleoDraftDefinition" />');
+						<portlet:namespace />updateAction('<portlet:actionURL name="publishKaleoDraftDefinition" />');
 
-					submitForm(document.<portlet:namespace />fm);
-				},
-				['aui-base']
-			);
+						submitForm(document.<portlet:namespace />fm);
+					},
+					['aui-base']
+				);
+			</c:if>
 
 			Liferay.provide(
 				window,
@@ -423,20 +436,22 @@
 				['aui-base']
 			);
 
-			Liferay.provide(
-				window,
-				'<portlet:namespace />updateKaleoDraftDefinition',
-				function() {
-					var A = AUI();
+			<c:if test="<%= (kaleoDraftDefinition != null) && KaleoDraftDefinitionPermission.contains(permissionChecker, kaleoDraftDefinition, ActionKeys.UPDATE) %>">
+				Liferay.provide(
+					window,
+					'<portlet:namespace />updateKaleoDraftDefinition',
+					function() {
+						var A = AUI();
 
-					<portlet:namespace />updateContent();
+						<portlet:namespace />updateContent();
 
-					<portlet:namespace />updateAction('<portlet:actionURL name="updateKaleoDraftDefinition" />');
+						<portlet:namespace />updateAction('<portlet:actionURL name="updateKaleoDraftDefinition" />');
 
-					submitForm(document.<portlet:namespace />fm);
-				},
-				['aui-base']
-			);
+						submitForm(document.<portlet:namespace />fm);
+					},
+					['aui-base']
+				);
+			</c:if>
 
 			Liferay.provide(
 				window,

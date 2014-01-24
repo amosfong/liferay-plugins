@@ -17,6 +17,7 @@ package com.liferay.portal.workflow.kaleo.designer.service.impl;
 import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition;
@@ -34,6 +35,7 @@ import java.util.Map;
 /**
  * @author Gregory Amerson
  * @author Eduardo Lundgren
+ * @author Marcellus Tavares
  */
 public class KaleoDraftDefinitionServiceImpl
 	extends KaleoDraftDefinitionServiceBaseImpl {
@@ -91,6 +93,19 @@ public class KaleoDraftDefinitionServiceImpl
 			ActionKeys.VIEW);
 
 		return latestKaleoDraftDefinition;
+	}
+
+	public List<KaleoDraftDefinition> getLatestKaleoDraftDefinitions(
+			long companyId, int version, int start, int end,
+			OrderByComparator orderByComparator)
+		throws PortalException, SystemException {
+
+		List<KaleoDraftDefinition> latestKaleoDraftDefinitions =
+			kaleoDraftDefinitionLocalService.getLatestKaleoDraftDefinitions(
+				companyId, version, start, end, orderByComparator);
+
+		return filterKaleoDraftDefinitions(
+			latestKaleoDraftDefinitions, ActionKeys.VIEW);
 	}
 
 	public KaleoDraftDefinition publishKaleoDraftDefinition(

@@ -22,10 +22,14 @@
 			<portlet:param name="mvcPath" value="/designer/view.jsp" />
 		</liferay-portlet:renderURL>
 
+		<%
+		List<KaleoDraftDefinition> latestKaleoDraftDefinitions = KaleoDraftDefinitionServiceUtil.getLatestKaleoDraftDefinitions(company.getCompanyId(), -1, QueryUtil.ALL_POS, QueryUtil.ALL_POS, null);
+		%>
+
 		<liferay-ui:search-container
 			emptyResultsMessage="no-workflow-definitions-are-defined"
 			iteratorURL="<%= iteratorURL %>"
-			total= "<%= KaleoDraftDefinitionLocalServiceUtil.getLatestKaleoDraftDefinitionsCount(company.getCompanyId(), -1) %>"
+			total= "<%= latestKaleoDraftDefinitions.size() %>"
 		>
 
 			<c:if test="<%= KaleoDesignerPermission.contains(permissionChecker, themeDisplay.getCompanyGroupId(), ActionKeys.ADD_DRAFT) %>">
@@ -40,7 +44,7 @@
 			</c:if>
 
 			<liferay-ui:search-container-results
-				results="<%= KaleoDraftDefinitionLocalServiceUtil.getLatestKaleoDraftDefinitions(company.getCompanyId(), -1, searchContainer.getStart(), searchContainer.getEnd(), null) %>"
+				 results="<%= ListUtil.subList(latestKaleoDraftDefinitions, searchContainer.getStart(), searchContainer.getEnd()) %>"
 			/>
 
 			<liferay-ui:search-container-row
