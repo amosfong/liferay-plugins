@@ -16,9 +16,12 @@ package com.liferay.portal.repository.googledrive;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.HttpTransport;
+import com.google.api.client.http.InputStreamContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.model.File;
+import com.google.api.services.drive.model.ParentReference;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -31,6 +34,8 @@ import com.liferay.portal.kernel.util.PrefsPropsUtil;
 import com.liferay.portal.kernel.util.TransientValue;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.model.User;
+import com.liferay.portal.repository.googledrive.model.GoogleDriveFileEntry;
+import com.liferay.portal.repository.googledrive.model.GoogleDriveFolder;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.service.UserLocalServiceUtil;
@@ -46,8 +51,10 @@ import com.liferay.repository.external.ExtRepositoryObjectType;
 import com.liferay.repository.external.ExtRepositorySearchResult;
 import com.liferay.repository.external.search.ExtRepositoryQueryMapper;
 
+import java.io.IOException;
 import java.io.InputStream;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -63,7 +70,11 @@ public class GoogleDriveRepository implements ExtRepository {
 			String description, String changeLog, InputStream inputStream)
 		throws PortalException, SystemException {
 
-		return null;
+		File file = addFile(
+			extRepositoryParentFolderKey, mimeType, title, description,
+			inputStream);
+
+		return new GoogleDriveFileEntry(file);
 	}
 
 	@Override
@@ -72,7 +83,11 @@ public class GoogleDriveRepository implements ExtRepository {
 			String description)
 		throws PortalException, SystemException {
 
-		return null;
+		File file = addFile(
+			extRepositoryParentFolderKey, _FOLDER_MIME_TYPE, name, description,
+			null);
+
+		return new GoogleDriveFolder(file);
 	}
 
 	@Override
@@ -310,6 +325,48 @@ public class GoogleDriveRepository implements ExtRepository {
 		return null;
 	}
 
+	protected File addFile(
+			String extRepositoryParentFolderKey, String mimeType, String title,
+			String description, InputStream inputStream)
+		throws PortalException, SystemException {
+
+		File body = new File();
+
+		body.setTitle(title);
+		body.setDescription(description);
+		body.setMimeType(mimeType);
+
+		try {
+			Drive drive = getDrive();
+
+			Drive.Files files = drive.files();
+
+			File folder = files.get(extRepositoryParentFolderKey).execute();
+
+			body.setParents(
+				Arrays.asList(new ParentReference().setId(folder.getId())));
+
+			File file = null;
+
+			if (inputStream != null) {
+				InputStreamContent isContent = new InputStreamContent(
+					mimeType, inputStream);
+
+				file = files.insert(body, isContent).execute();
+			}
+			else {
+				file = files.insert(body).execute();
+			}
+
+			return file;
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+
+			throw new SystemException(ioe);
+		}
+	}
+
 	protected Drive buildDrive() throws Exception {
 		long userId = PrincipalThreadLocal.getUserId();
 
@@ -355,6 +412,9 @@ public class GoogleDriveRepository implements ExtRepository {
 
 		return driveBuilder.build();
 	}
+
+	private static final String _FOLDER_MIME_TYPE =
+		"application/vnd.google-apps.folder";
 
 	private ThreadLocal<Drive> _driveThreadLocal =
 		new AutoResetThreadLocal<Drive>(Drive.class.getName());
