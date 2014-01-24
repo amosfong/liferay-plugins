@@ -493,7 +493,26 @@ public class GoogleDriveRepository implements ExtRepository {
 			InputStream inputStream)
 		throws PortalException, SystemException {
 
-		return null;
+		Drive drive = getDrive();
+
+		Drive.Files files = drive.files();
+
+		try {
+			File file = files.get(extRepositoryFileEntryKey).execute();
+
+			InputStreamContent inputStreamContent = new InputStreamContent(
+				mimeType, inputStream);
+
+			file = files.update(
+				extRepositoryFileEntryKey, file, inputStreamContent).execute();
+
+			return new GoogleDriveFileEntry(file);
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+
+			throw new SystemException(ioe);
+		}
 	}
 
 	protected File addFile(
