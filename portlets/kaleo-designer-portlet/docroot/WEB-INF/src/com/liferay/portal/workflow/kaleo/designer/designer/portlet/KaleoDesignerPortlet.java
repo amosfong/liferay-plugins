@@ -45,7 +45,7 @@ import com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionContentExc
 import com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionNameException;
 import com.liferay.portal.workflow.kaleo.designer.NoSuchKaleoDraftDefinitionException;
 import com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition;
-import com.liferay.portal.workflow.kaleo.designer.service.KaleoDraftDefinitionLocalServiceUtil;
+import com.liferay.portal.workflow.kaleo.designer.service.KaleoDraftDefinitionServiceUtil;
 import com.liferay.portal.workflow.kaleo.designer.util.KaleoDesignerUtil;
 import com.liferay.portal.workflow.kaleo.designer.util.WebKeys;
 import com.liferay.portlet.dynamicdatamapping.model.DDMStructure;
@@ -94,9 +94,9 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 				actionRequest);
 
 			KaleoDraftDefinition kaleoDraftDefinition =
-				KaleoDraftDefinitionLocalServiceUtil.addKaleoDraftDefinition(
-					themeDisplay.getUserId(), name, titleMap, content, version,
-					1, serviceContext);
+				KaleoDraftDefinitionServiceUtil.addKaleoDraftDefinition(
+					themeDisplay.getUserId(), themeDisplay.getCompanyGroupId(),
+					name, titleMap, content, version, 1, serviceContext);
 
 			actionRequest.setAttribute(
 				WebKeys.KALEO_DRAFT_DEFINITION, kaleoDraftDefinition);
@@ -137,10 +137,9 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 				actionRequest);
 
 			KaleoDraftDefinition kaleoDraftDefinition =
-				KaleoDraftDefinitionLocalServiceUtil.
-					publishKaleoDraftDefinition(
-						themeDisplay.getUserId(), name, titleMap, content,
-						serviceContext);
+				KaleoDraftDefinitionServiceUtil.publishKaleoDraftDefinition(
+					themeDisplay.getUserId(), themeDisplay.getCompanyGroupId(),
+					name, titleMap, content, serviceContext);
 
 			actionRequest.setAttribute(
 				WebKeys.KALEO_DRAFT_DEFINITION, kaleoDraftDefinition);
@@ -235,7 +234,7 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 				actionRequest);
 
 			KaleoDraftDefinition kaleoDraftDefinition =
-				KaleoDraftDefinitionLocalServiceUtil.updateKaleoDraftDefinition(
+				KaleoDraftDefinitionServiceUtil.updateKaleoDraftDefinition(
 					themeDisplay.getUserId(), name, titleMap, content, version,
 					serviceContext);
 
@@ -304,7 +303,7 @@ public class KaleoDesignerPortlet extends MVCPortlet {
 
 		if (Validator.isNotNull(name) && (draftVersion > 0)) {
 			KaleoDraftDefinition kaleoDraftDefinition =
-				KaleoDraftDefinitionLocalServiceUtil.getKaleoDraftDefinition(
+				KaleoDraftDefinitionServiceUtil.getKaleoDraftDefinition(
 					name, version, draftVersion, serviceContext);
 
 			jsonObject.put("content", kaleoDraftDefinition.getContent());
