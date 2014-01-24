@@ -593,7 +593,10 @@ public class GoogleDriveRepository
 			List<ParentReference> parentReferences = file.getParents();
 
 			for (ParentReference parentReference : parentReferences) {
-				driveParents.delete(file.getId(), parentReference.getId());
+				Drive.Parents.Delete driveParentsDelete =
+					driveParents.delete(file.getId(), parentReference.getId());
+					
+				driveParentsDelete.execute();
 			}
 
 			ParentReference parentReference = new ParentReference();
