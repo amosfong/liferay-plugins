@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE project>
+
+<project name="sharepoint-ws-shared" basedir="." default="deploy">
+	<property name="plugin.version" value="1" />
+
+	<import file="../build-common-shared.xml" />
+
+	<target name="generate-sharepoint-classes">
+		<taskdef classpathref="portal.classpath" resource="axis-tasks.properties" />
+
+		<delete dir="src" includeemptydirs="true">
+			<exclude name="wsdl/**"/>
+		</delete>
+		
+		<axis-wsdl2java output="src" url="src/wsdl/lists.wsdl" />
+		<axis-wsdl2java output="src" url="src/wsdl/versions.wsdl" />
+		<axis-wsdl2java output="src" url="src/wsdl/copy.wsdl" />
+		<axis-wsdl2java output="src" url="src/wsdl/search.wsdl" />
+	</target>
+
+</project>
