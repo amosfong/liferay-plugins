@@ -28,11 +28,9 @@ public class GoogleDriveFileEntry
 	public GoogleDriveFileEntry(File file) {
 		super(file);
 
-		_title = file.getTitle();
-
+		_downloadURL = file.getDownloadUrl();
 		_mimeType = file.getMimeType();
-
-		_downloadUrl = file.getDownloadUrl();
+		_title = file.getTitle();
 	}
 
 	@Override
@@ -40,8 +38,8 @@ public class GoogleDriveFileEntry
 		return StringPool.BLANK;
 	}
 
-	public String getDownloadUrl() {
-		return _downloadUrl;
+	public String getDownloadURL() {
+		return _downloadURL;
 	}
 
 	@Override
@@ -54,7 +52,7 @@ public class GoogleDriveFileEntry
 		return _title;
 	}
 
-	private String _downloadUrl;
+	private String _downloadURL;
 	private String _mimeType;
 	private String _title;
 

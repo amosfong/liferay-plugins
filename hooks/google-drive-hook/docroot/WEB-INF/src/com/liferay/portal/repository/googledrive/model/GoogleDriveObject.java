@@ -31,15 +31,30 @@ public class GoogleDriveObject
 	public GoogleDriveObject(File file) {
 		super(file);
 
-		DateTime modifiedDateTime = file.getCreatedDate();
-
-		_modifiedDate = new Date(modifiedDateTime.getValue());
-
+		_description = file.getDescription();
 		_extension = file.getFileExtension();
 
-		_description = file.getDescription();
+		DateTime createDateTime = file.getCreatedDate();
+
+		_modifiedDate = new Date(createDateTime.getValue());
 
 		_permission = file.getUserPermission();
+	}
+	
+	protected boolean isOwnerOrWriter(String role) {
+		if (role.equals("owner") || role.equals("writer")) {
+			return true;
+		}
+		
+		return false;
+	}
+
+	protected boolean isOwner(String role) {
+		if (role.equals("owner")) {
+			return true;
+		}
+		
+		return false;
 	}
 
 	@Override
@@ -48,36 +63,25 @@ public class GoogleDriveObject
 
 		String role = _permission.getRole();
 
-		if (extRepositoryPermission.equals(ExtRepositoryPermission.ACCESS)) {
+		if (extRepositoryPermission.equals(ExtRepositoryPermission.ACCESS) ||
+			extRepositoryPermission.equals(ExtRepositoryPermission.VIEW)) {
+
 			return true;
 		}
-		else if (ExtRepositoryPermission.ADD_DOCUMENT.equals(
-					extRepositoryPermission)) {
+		else if (extRepositoryPermission.equals(
+					ExtRepositoryPermission.ADD_DOCUMENT) ||
+				extRepositoryPermission.equals(
+					ExtRepositoryPermission.ADD_FOLDER) ||
+				extRepositoryPermission.equals(
+					ExtRepositoryPermission.ADD_SUBFOLDER) ||
+				extRepositoryPermission.equals(
+					ExtRepositoryPermission.UPDATE)) {
 
-			return role.equals("owner") || role.equals("writer");
+			return isOwnerOrWriter(role);
 		}
-		else if (ExtRepositoryPermission.ADD_FOLDER.equals(
-					extRepositoryPermission)) {
-
-			return role.equals("owner") || role.equals("writer");
-		}
-		else if (ExtRepositoryPermission.ADD_SUBFOLDER.equals(
-					extRepositoryPermission)) {
-
-			return role.equals("owner") || role.equals("writer");
-		}
-		else if (ExtRepositoryPermission.DELETE.equals(
-					extRepositoryPermission)) {
-
-			return role.equals("owner");
-		}
-		else if (ExtRepositoryPermission.UPDATE.equals(
-					extRepositoryPermission)) {
-
-			return role.equals("owner") || role.equals("writer");
-		}
-		else if (ExtRepositoryPermission.VIEW.equals(extRepositoryPermission)) {
-			return true;
+		else if (extRepositoryPermission.equals(
+					ExtRepositoryPermission.DELETE)) {
+			return isOwner(role);
 		}
 
 		return false;

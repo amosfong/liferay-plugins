@@ -30,10 +30,11 @@ import java.util.List;
 public class GoogleDriveModel implements ExtRepositoryModel {
 
 	public GoogleDriveModel(
-		Date createdDate, String id, long size, String owner) {
+		DateTime createDateTime, String extRepositoryModelKey, long size,
+		String owner) {
 
-		_createdDate = createdDate;
-		_id = id;
+		_createDate = new Date(createDateTime.getValue());
+		_extRepositoryModelKey = extRepositoryModelKey;
 		_size = size;
 		_owner = owner;
 	}
@@ -41,9 +42,9 @@ public class GoogleDriveModel implements ExtRepositoryModel {
 	public GoogleDriveModel(File file) {
 		DateTime createDateTime = file.getCreatedDate();
 
-		_createdDate = new Date(createDateTime.getValue());
+		_createDate = new Date(createDateTime.getValue());
 
-		_id = file.getId();
+		_extRepositoryModelKey = file.getId();
 
 		_size = GetterUtil.getLong(file.getFileSize());
 
@@ -55,13 +56,13 @@ public class GoogleDriveModel implements ExtRepositoryModel {
 	}
 
 	@Override
-	public Date getCreatedDate() {
-		return _createdDate;
+	public Date getCreateDate() {
+		return _createDate;
 	}
 
 	@Override
 	public String getExtRepositoryModelKey() {
-		return _id;
+		return _extRepositoryModelKey;
 	}
 
 	@Override
@@ -74,8 +75,8 @@ public class GoogleDriveModel implements ExtRepositoryModel {
 		return _size;
 	}
 
-	private Date _createdDate;
-	private String _id;
+	private Date _createDate;
+	private String _extRepositoryModelKey;
 	private String _owner = StringPool.BLANK;
 	private long _size;
 

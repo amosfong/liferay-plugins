@@ -19,8 +19,6 @@ import com.google.api.services.drive.model.Revision;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.repository.external.ExtRepositoryFileVersion;
 
-import java.util.Date;
-
 /**
  * @author Sergio González
  */
@@ -29,12 +27,12 @@ public class GoogleDriveFileVersion
 
 	public GoogleDriveFileVersion(Revision revision) {
 		super(
-			new Date(revision.getModifiedDate().getValue()), revision.getId(),
+			revision.getModifiedDate(), revision.getId(),
 			revision.getFileSize(), revision.getLastModifyingUserName());
 
+		_downloadURL = revision.getDownloadUrl();
 		_mimeType = revision.getMimeType();
 
-		_downloadUrl = revision.getDownloadUrl();
 	}
 
 	@Override
@@ -42,8 +40,8 @@ public class GoogleDriveFileVersion
 		return StringPool.BLANK;
 	}
 
-	public String getDownloadUrl() {
-		return _downloadUrl;
+	public String getDownloadURL() {
+		return _downloadURL;
 	}
 
 	@Override
@@ -56,7 +54,7 @@ public class GoogleDriveFileVersion
 		return getExtRepositoryModelKey();
 	}
 
-	private String _downloadUrl;
+	private String _downloadURL;
 	private final String _mimeType;
 
 }
