@@ -20,11 +20,14 @@
 
 <%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
 <%@ taglib uri="http://liferay.com/tld/portlet" prefix="liferay-portlet" %>
+<%@ taglib uri="http://liferay.com/tld/security" prefix="liferay-security" %>
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 <%@ taglib uri="http://liferay.com/tld/util" prefix="liferay-util" %>
 
-<%@ page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
+<%@ page import="com.liferay.portal.kernel.dao.search.ResultRow" %><%@
+page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
+page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %><%@
 page import="com.liferay.portal.kernel.util.Constants" %><%@
 page import="com.liferay.portal.kernel.util.HtmlUtil" %><%@
 page import="com.liferay.portal.kernel.util.HttpUtil" %><%@
@@ -43,6 +46,9 @@ page import="com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionCont
 page import="com.liferay.portal.workflow.kaleo.designer.KaleoDraftDefinitionNameException" %><%@
 page import="com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition" %><%@
 page import="com.liferay.portal.workflow.kaleo.designer.service.KaleoDraftDefinitionLocalServiceUtil" %><%@
+page import="com.liferay.portal.workflow.kaleo.designer.service.permission.KaleoDesignerPermission" %><%@
+page import="com.liferay.portal.workflow.kaleo.designer.service.permission.KaleoDraftDefinitionPermission" %><%@
+page import="com.liferay.portal.workflow.kaleo.designer.util.ActionKeys" %><%@
 page import="com.liferay.portal.workflow.kaleo.designer.util.KaleoDesignerUtil" %><%@
 page import="com.liferay.portal.workflow.kaleo.designer.util.WebKeys" %><%@
 page import="com.liferay.portlet.PortletURLUtil" %>

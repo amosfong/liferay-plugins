@@ -287,7 +287,11 @@ public class KaleoDraftDefinitionLocalServiceImpl
 
 		dynamicQuery.add(
 			PropertyFactoryUtil.forName("companyId").eq(companyId));
-		dynamicQuery.add(PropertyFactoryUtil.forName("version").eq(version));
+
+		if (version >= 0) {
+			dynamicQuery.add(
+				PropertyFactoryUtil.forName("version").eq(version));
+		}
 
 		List<Object[]> results = dynamicQuery(dynamicQuery);
 
