@@ -26,6 +26,7 @@ import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.ParentReference;
 
+import com.liferay.portal.NoSuchRepositoryEntryException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.search.Query;
@@ -249,7 +250,29 @@ public class GoogleDriveRepository implements ExtRepository {
 			String extRepositoryObjectKey)
 		throws PortalException, SystemException {
 
-		return null;
+		Drive drive = getDrive();
+
+		Drive.Files files = drive.files();
+
+		try {
+			File file = files.get(extRepositoryObjectKey).execute();
+
+			T extRepositoryEntry = null;
+
+			if (extRepositoryObjectType.equals(
+					extRepositoryObjectType.FOLDER)) {
+
+				extRepositoryEntry = (T)new GoogleDriveFolder(file);
+			}
+			else {
+				extRepositoryEntry = (T)new GoogleDriveFileEntry(file);
+			}
+
+			return extRepositoryEntry;
+		}
+		catch (IOException ioe) {
+			throw new NoSuchRepositoryEntryException(ioe);
+		}
 	}
 
 	@Override
