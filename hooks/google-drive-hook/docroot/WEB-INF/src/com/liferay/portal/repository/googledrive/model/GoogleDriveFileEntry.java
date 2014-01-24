@@ -14,70 +14,41 @@
 
 package com.liferay.portal.repository.googledrive.model;
 
-import com.liferay.repository.external.ExtRepositoryFileEntry;
+import com.google.api.services.drive.model.File;
 
-import java.util.Date;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.repository.external.ExtRepositoryFileEntry;
 
 /**
  * @author Sergio González
  */
-public class GoogleDriveFileEntry implements ExtRepositoryFileEntry {
+public class GoogleDriveFileEntry
+	extends GoogleDriveObject implements ExtRepositoryFileEntry {
 
-	@Override
-	public boolean containsPermission(
-		ExtRepositoryPermission extRepositoryPermission) {
+	public GoogleDriveFileEntry(File file) {
+		super(file);
 
-		return false;
+		_title = file.getTitle();
+
+		_mimeType = file.getMimeType();
 	}
 
 	@Override
 	public String getCheckedOutBy() {
-		return null;
-	}
-
-	@Override
-	public Date getCreatedDate() {
-		return null;
-	}
-
-	@Override
-	public String getDescription() {
-		return null;
-	}
-
-	@Override
-	public String getExtension() {
-		return null;
-	}
-
-	@Override
-	public String getExtRepositoryModelKey() {
-		return null;
+		return StringPool.BLANK;
 	}
 
 	@Override
 	public String getMimeType() {
-		return null;
-	}
-
-	@Override
-	public Date getModifiedDate() {
-		return null;
-	}
-
-	@Override
-	public String getOwner() {
-		return null;
-	}
-
-	@Override
-	public long getSize() {
-		return 0;
+		return _mimeType;
 	}
 
 	@Override
 	public String getTitle() {
-		return null;
+		return _title;
 	}
+
+	private String _mimeType;
+	private String _title;
 
 }

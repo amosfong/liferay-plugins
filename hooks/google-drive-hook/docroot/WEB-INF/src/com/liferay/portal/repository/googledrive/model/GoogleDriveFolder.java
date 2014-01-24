@@ -14,65 +14,32 @@
 
 package com.liferay.portal.repository.googledrive.model;
 
-import com.liferay.repository.external.ExtRepositoryFolder;
+import com.google.api.services.drive.model.File;
 
-import java.util.Date;
+import com.liferay.repository.external.ExtRepositoryFolder;
 
 /**
  * @author Sergio González
  */
-public class GoogleDriveFolder implements ExtRepositoryFolder {
+public class GoogleDriveFolder
+	extends GoogleDriveObject implements ExtRepositoryFolder {
 
-	@Override
-	public boolean containsPermission(
-		ExtRepositoryPermission extRepositoryPermission) {
+	public GoogleDriveFolder(File file) {
+		super(file);
 
-		return false;
-	}
-
-	@Override
-	public Date getCreatedDate() {
-		return null;
-	}
-
-	@Override
-	public String getDescription() {
-		return null;
-	}
-
-	@Override
-	public String getExtension() {
-		return null;
-	}
-
-	@Override
-	public String getExtRepositoryModelKey() {
-		return null;
-	}
-
-	@Override
-	public Date getModifiedDate() {
-		return null;
+		_name = file.getTitle();
 	}
 
 	@Override
 	public String getName() {
-		return null;
-	}
-
-	@Override
-	public String getOwner() {
-		return null;
-	}
-
-	@Override
-	public long getSize() {
-		return 0;
+		return _name;
 	}
 
 	@Override
 	public boolean isRoot() {
 		return false;
 	}
+
+	private String _name;
 
 }
