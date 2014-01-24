@@ -25,6 +25,7 @@
 
 			var kaleoURL = Liferay.PortletURL.createURL('<%= PortletURLFactoryUtil.create(request, "2_WAR_kaleodesignerportlet", themeDisplay.getPlid(), PortletRequest.RENDER_PHASE) %>');
 
+			kaleoURL.setParameter('mvcPath', '/designer/edit_kaleo_draft_definition.jsp');
 			kaleoURL.setParameter('availableFields', config.availableFields);
 			kaleoURL.setParameter('availablePropertyModels', config.availablePropertyModels);
 			kaleoURL.setParameter('ddmStructureId', config.ddmStructureId);
