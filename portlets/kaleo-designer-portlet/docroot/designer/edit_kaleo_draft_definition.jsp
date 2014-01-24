@@ -181,6 +181,7 @@
 
 						<div class="tab-content">
 							<div class="tab-pane"></div>
+
 							<div class="tab-pane"></div>
 						</div>
 					</div>

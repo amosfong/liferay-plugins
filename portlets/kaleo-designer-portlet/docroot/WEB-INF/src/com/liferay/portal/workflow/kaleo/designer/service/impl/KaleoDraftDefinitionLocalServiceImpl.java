@@ -58,6 +58,8 @@ public class KaleoDraftDefinitionLocalServiceImpl
 			int draftVersion, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
+		// Kaleo draft definition
+
 		User user = userPersistence.findByPrimaryKey(userId);
 		Date now = new Date();
 
@@ -94,6 +96,8 @@ public class KaleoDraftDefinitionLocalServiceImpl
 			String name, int version, int draftVersion,
 			ServiceContext serviceContext)
 		throws PortalException, SystemException {
+
+		// Kaleo draft definition
 
 		KaleoDraftDefinition kaleoDraftDefinition = getKaleoDraftDefinition(
 			name, version, draftVersion, serviceContext);
