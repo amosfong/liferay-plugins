@@ -23,6 +23,7 @@ import com.google.api.client.http.InputStreamContent;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.drive.Drive;
+import com.google.api.services.drive.model.About;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.FileList;
 import com.google.api.services.drive.model.ParentReference;
@@ -426,7 +427,7 @@ public class GoogleDriveRepository implements ExtRepository {
 
 	@Override
 	public String getRootFolderKey() throws PortalException, SystemException {
-		return null;
+		return _rootFolderKey;
 	}
 
 	@Override
@@ -452,6 +453,19 @@ public class GoogleDriveRepository implements ExtRepository {
 			UnicodeProperties typeSettingsProperties,
 			CredentialsProvider credentialsProvider)
 		throws PortalException, SystemException {
+
+		Drive drive = getDrive();
+
+		try {
+			About about = drive.about().get().execute();
+
+			_rootFolderKey = about.getRootFolderId();
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+
+			throw new SystemException(ioe);
+		}
 	}
 
 	@Override
@@ -601,5 +615,6 @@ public class GoogleDriveRepository implements ExtRepository {
 
 	private ThreadLocal<Drive> _driveThreadLocal =
 		new AutoResetThreadLocal<Drive>(Drive.class.getName());
+	private String _rootFolderKey;
 
 }
