@@ -520,7 +520,41 @@ public class GoogleDriveRepository implements ExtRepository {
 			String newTitle)
 		throws PortalException, SystemException {
 
-		return null;
+		Drive drive = getDrive();
+
+		Drive.Files files = drive.files();
+
+		try {
+			File file = files.get(extRepositoryObjectKey).execute();
+
+			Drive.Parents parents = drive.parents();
+
+			List<ParentReference> parentReferences = file.getParents();
+
+			for (ParentReference parentReference : parentReferences) {
+				parents.delete(file.getId(), parentReference.getId());
+			}
+
+			ParentReference newParentReference = new ParentReference();
+
+			newParentReference.setId(newExtRepositoryFolderKey);
+
+			parents.insert(file.getId(), newParentReference).execute();
+
+			if (extRepositoryObjectType.equals(
+					ExtRepositoryObjectType.OBJECT)) {
+
+				return (T)new GoogleDriveFileEntry(file);
+			}
+			else {
+				return (T)new GoogleDriveFolder(file);
+			}
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+
+			throw new SystemException(ioe);
+		}
 	}
 
 	@Override
