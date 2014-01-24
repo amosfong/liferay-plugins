@@ -24,10 +24,11 @@ import com.liferay.repository.external.ExtRepositoryFolder;
 public class GoogleDriveFolder
 	extends GoogleDriveObject implements ExtRepositoryFolder {
 
-	public GoogleDriveFolder(File file) {
+	public GoogleDriveFolder(File file, String rootFolderKey) {
 		super(file);
 
 		_name = file.getTitle();
+		_rootFolderKey = rootFolderKey;
 	}
 
 	@Override
@@ -37,9 +38,10 @@ public class GoogleDriveFolder
 
 	@Override
 	public boolean isRoot() {
-		return false;
+		return _rootFolderKey.equals(getExtRepositoryModelKey());
 	}
 
 	private String _name;
+	private final String _rootFolderKey;
 
 }

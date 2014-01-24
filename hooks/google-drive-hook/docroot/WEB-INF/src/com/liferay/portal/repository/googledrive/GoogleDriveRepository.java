@@ -99,7 +99,7 @@ public class GoogleDriveRepository implements ExtRepository {
 			extRepositoryParentFolderKey, _FOLDER_MIME_TYPE, name, description,
 			null);
 
-		return new GoogleDriveFolder(file);
+		return new GoogleDriveFolder(file, _rootFolderKey);
 	}
 
 	@Override
@@ -311,7 +311,8 @@ public class GoogleDriveRepository implements ExtRepository {
 			if (extRepositoryObjectType.equals(
 					extRepositoryObjectType.FOLDER)) {
 
-				extRepositoryEntry = (T)new GoogleDriveFolder(file);
+				extRepositoryEntry = (T)new GoogleDriveFolder(
+					file, _rootFolderKey);
 			}
 			else {
 				extRepositoryEntry = (T)new GoogleDriveFileEntry(file);
@@ -367,7 +368,8 @@ public class GoogleDriveRepository implements ExtRepository {
 			if (extRepositoryObjectType.equals(
 					extRepositoryObjectType.FOLDER)) {
 
-				return (T)new GoogleDriveFolder(fileListItems.get(0));
+				return (T)new GoogleDriveFolder(
+					fileListItems.get(0), _rootFolderKey);
 			}
 			else {
 				return (T)new GoogleDriveFileEntry(fileListItems.get(0));
@@ -427,7 +429,7 @@ public class GoogleDriveRepository implements ExtRepository {
 
 			for (File file : fileListItems) {
 				if (_FOLDER_MIME_TYPE.equals(file.getMimeType())) {
-					entries.add((T)new GoogleDriveFolder(file));
+					entries.add((T)new GoogleDriveFolder(file, _rootFolderKey));
 				}
 				else {
 					entries.add((T)new GoogleDriveFileEntry(file));
@@ -569,7 +571,7 @@ public class GoogleDriveRepository implements ExtRepository {
 				return (T)new GoogleDriveFileEntry(file);
 			}
 			else {
-				return (T)new GoogleDriveFolder(file);
+				return (T)new GoogleDriveFolder(file, _rootFolderKey);
 			}
 		}
 		catch (IOException ioe) {
