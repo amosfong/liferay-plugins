@@ -53,6 +53,7 @@ import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portlet.expando.model.ExpandoBridge;
 import com.liferay.repository.external.CredentialsProvider;
 import com.liferay.repository.external.ExtRepository;
+import com.liferay.repository.external.ExtRepositoryAdapter;
 import com.liferay.repository.external.ExtRepositoryFileEntry;
 import com.liferay.repository.external.ExtRepositoryFileVersion;
 import com.liferay.repository.external.ExtRepositoryFileVersionDescriptor;
@@ -74,7 +75,12 @@ import javax.servlet.http.HttpSession;
 /**
  * @author Sergio González
  */
-public class GoogleDriveRepository implements ExtRepository {
+public class GoogleDriveRepository
+	extends ExtRepositoryAdapter implements ExtRepository {
+
+	public GoogleDriveRepository() {
+		super(null);
+	}
 
 	@Override
 	public ExtRepositoryFileEntry addExtRepositoryFileEntry(
