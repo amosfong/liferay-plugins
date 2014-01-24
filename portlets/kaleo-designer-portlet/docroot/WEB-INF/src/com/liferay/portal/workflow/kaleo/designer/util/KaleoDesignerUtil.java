@@ -124,8 +124,8 @@ public class KaleoDesignerUtil {
 		String content = workflowDefinition.getContent();
 
 		return KaleoDraftDefinitionLocalServiceUtil.addKaleoDraftDefinition(
-			themeDisplay.getUserId(), name, titleMap, content, version, 1,
-			serviceContext);
+			themeDisplay.getUserId(), themeDisplay.getCompanyGroupId(), name,
+			titleMap, content, version, 1, serviceContext);
 	}
 
 	public static KaleoDraftDefinition getKaleoDraftDefinition(
