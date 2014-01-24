@@ -27,7 +27,7 @@ portletSession.setAttribute(Token.class.getName(), requestToken);
 %>
 
 <aui:button-row>
-	<aui:button cssClass="btn-success" name="authorizeAccess" value="authorize-access" />
+	<aui:button cssClass="btn-success" name="authorizeAccess" onClick='<%= renderResponse.getNamespace() + "loadAuthorizeAccess();" %>' value="authorize-access" />
 </aui:button-row>
 
 <aui:field-wrapper>
@@ -36,15 +36,8 @@ portletSession.setAttribute(Token.class.getName(), requestToken);
 	<liferay-ui:message arguments="https://www.liferay.com/home?p_p_id=58&p_p_lifecycle=0&p_p_state=maximized&p_p_mode=view&saveLastPath=0&_58_struts_action=%2Flogin%2Fcreate_account" key="you-dont-have-account.-create-a-new-account" />
 </aui:field-wrapper>
 
-<aui:script use="aui-base">
-	var authorizeAccessBtn = A.one('#<portlet:namespace/>authorizeAccess');
-
-	authorizeAccessBtn.on(
-		'click',
-		function(event) {
-			var url = '<%= OAuthUtil.getAuthorizeURL(setupOAuthURL, requestToken) %>';
-
-			window.location.href = url;
-		}
-	);
+<aui:script>
+	function <portlet:namespace />loadAuthorizeAccess() {
+		window.location.href = '<%= OAuthUtil.getAuthorizeURL(setupOAuthURL, requestToken) %>';
+	}
 </aui:script>

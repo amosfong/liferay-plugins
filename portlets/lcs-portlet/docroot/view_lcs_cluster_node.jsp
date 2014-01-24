@@ -103,7 +103,7 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 	</c:if>
 
 	<aui:button-row>
-		<aui:button cssClass="btn-info" name="cloudDashboard" title='<%= LanguageUtil.get(pageContext, "cloud-dashboard-help") %>' value="cloud-dashboard" />
+		<aui:button cssClass="btn-info" name="cloudDashboard" onClick='<%= renderResponse.getNamespace() + "openCloudDashboard();" %>' title='<%= LanguageUtil.get(pageContext, "cloud-dashboard-help") %>' value="cloud-dashboard" />
 	</aui:button-row>
 </div>
 
@@ -209,7 +209,7 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 	</c:if>
 </div>
 
-<aui:script use="aui-tooltip-delegate">
+<aui:script>
 
 	<%
 	String lcsPortalURL = "http://" + PortletProps.get("osb.lcs.portlet.host.name");
@@ -221,17 +221,12 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 	}
 	%>
 
-	var cloudDashboardBtn = A.one('#<portlet:namespace/>cloudDashboard');
+	function <portlet:namespace />openCloudDashboard() {
+		window.open('<%= lcsPortalURL %>', '_blank');
+	}
+</aui:script>
 
-	cloudDashboardBtn.on(
-		'click',
-		function(event) {
-			var url = '<%= lcsPortalURL %>';
-
-			window.open(url, '_blank');
-		}
-	);
-
+<aui:script use="aui-tooltip-delegate">
 	new A.TooltipDelegate(
 		{
 			trigger: '.lcs-connection-status button, .lcs-server-info button',
