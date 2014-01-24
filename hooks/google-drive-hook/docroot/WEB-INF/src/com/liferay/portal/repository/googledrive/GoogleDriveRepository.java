@@ -153,11 +153,11 @@ public class GoogleDriveRepository
 			String extRepositoryObjectKey)
 		throws PortalException {
 
-		Drive drive = getDrive();
-
-		Drive.Files driveFiles = drive.files();
-
 		try {
+			Drive drive = getDrive();
+
+			Drive.Files driveFiles = drive.files();
+
 			Drive.Files.Delete driveFilesDelete = driveFiles.delete(
 				extRepositoryObjectKey);
 
@@ -243,11 +243,11 @@ public class GoogleDriveRepository
 			ExtRepositoryFileEntry extRepositoryFileEntry, String version)
 		throws PortalException, SystemException {
 
-		Drive drive = getDrive();
-
-		Drive.Revisions driveRevisions = drive.revisions();
-
 		try {
+			Drive drive = getDrive();
+
+			Drive.Revisions driveRevisions = drive.revisions();
+
 			Drive.Revisions.Get driveRevisionsGet = driveRevisions.get(
 				extRepositoryFileEntry.getExtRepositoryModelKey(), version);
 
@@ -275,11 +275,11 @@ public class GoogleDriveRepository
 			ExtRepositoryFileEntry extRepositoryFileEntry)
 		throws PortalException, SystemException {
 
-		Drive drive = getDrive();
-
-		Drive.Revisions driveRevisions = drive.revisions();
-
 		try {
+			Drive drive = getDrive();
+
+			Drive.Revisions driveRevisions = drive.revisions();
+
 			Drive.Revisions.List driveRevisionsList = driveRevisions.list(
 				extRepositoryFileEntry.getExtRepositoryModelKey());
 
@@ -310,11 +310,11 @@ public class GoogleDriveRepository
 			String extRepositoryObjectKey)
 		throws PortalException {
 
-		Drive drive = getDrive();
-
-		Drive.Files driveFiles = drive.files();
-
 		try {
+			Drive drive = getDrive();
+
+			Drive.Files driveFiles = drive.files();
+
 			Drive.Files.Get driveFilesGet = driveFiles.get(
 				extRepositoryObjectKey);
 
@@ -345,11 +345,11 @@ public class GoogleDriveRepository
 			String extRepositoryFolderKey, String title)
 		throws PortalException {
 
-		Drive drive = getDrive();
-
-		Drive.Files driveFiles = drive.files();
-
 		try {
+			Drive drive = getDrive();
+
+			Drive.Files driveFiles = drive.files();
+
 			Drive.Files.Get driveFilesGet = driveFiles.get(
 				extRepositoryFolderKey);
 
@@ -408,9 +408,13 @@ public class GoogleDriveRepository
 			String extRepositoryFolderKey)
 		throws PortalException, SystemException {
 
-		Drive drive = getDrive();
-
 		try {
+			Drive drive = getDrive();
+
+			Drive.Files driveFiles = drive.files();
+
+			Drive.Files.List driveFilesList = driveFiles.list();
+
 			StringBundler sb = new StringBundler();
 
 			if (extRepositoryFolderKey != null) {
@@ -438,10 +442,6 @@ public class GoogleDriveRepository
 			}
 
 			sb.append("trashed = false");
-
-			Drive.Files driveFiles = drive.files();
-
-			Drive.Files.List driveFilesList = driveFiles.list();
 
 			driveFilesList.setQ(sb.toString());
 
@@ -489,11 +489,11 @@ public class GoogleDriveRepository
 			ExtRepositoryObject extRepositoryObject)
 		throws PortalException {
 
-		Drive drive = getDrive();
-
-		Drive.Files driveFiles = drive.files();
-
 		try {
+			Drive drive = getDrive();
+
+			Drive.Files driveFiles = drive.files();
+
 			File file = driveFiles.get(
 				extRepositoryObject.getExtRepositoryModelKey()).execute();
 
@@ -551,11 +551,11 @@ public class GoogleDriveRepository
 			CredentialsProvider credentialsProvider)
 		throws PortalException, SystemException {
 
-		Drive drive = getDrive();
-
-		Drive.About driveAbout = drive.about();
-
 		try {
+			Drive drive = getDrive();
+
+			Drive.About driveAbout = drive.about();
+
 			Drive.About.Get driveAboutGet = driveAbout.get();
 
 			About about = driveAboutGet.execute();
@@ -576,11 +576,11 @@ public class GoogleDriveRepository
 			String newTitle)
 		throws PortalException, SystemException {
 
-		Drive drive = getDrive();
-
-		Drive.Files driveFiles = drive.files();
-
 		try {
+			Drive drive = getDrive();
+
+			Drive.Files driveFiles = drive.files();
+
 			Drive.Files.Get driveFilesGet = driveFiles.get(
 				extRepositoryObjectKey);
 
@@ -637,11 +637,11 @@ public class GoogleDriveRepository
 			InputStream inputStream)
 		throws PortalException, SystemException {
 
-		Drive drive = getDrive();
-
-		Drive.Files driveFiles = drive.files();
-
 		try {
+			Drive drive = getDrive();
+
+			Drive.Files driveFiles = drive.files();
+
 			Drive.Files.Get driveFilesGet = driveFiles.get(
 				extRepositoryFileEntryKey);
 
