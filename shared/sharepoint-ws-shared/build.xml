@@ -6,17 +6,39 @@
 
 	<import file="../build-common-shared.xml" />
 
-	<target name="generate-sharepoint-classes">
+	<target name="build-sharepoint-ws">
 		<taskdef classpathref="portal.classpath" resource="axis-tasks.properties" />
 
 		<delete dir="src" includeemptydirs="true">
-			<exclude name="wsdl/**"/>
+			<exclude name="wsdl/**" />
 		</delete>
-		
-		<axis-wsdl2java output="src" url="src/wsdl/lists.wsdl" />
-		<axis-wsdl2java output="src" url="src/wsdl/versions.wsdl" />
+
 		<axis-wsdl2java output="src" url="src/wsdl/copy.wsdl" />
+		<axis-wsdl2java output="src" url="src/wsdl/lists.wsdl" />
 		<axis-wsdl2java output="src" url="src/wsdl/search.wsdl" />
+		<axis-wsdl2java output="src" url="src/wsdl/versions.wsdl" />
 	</target>
 
+	<target name="format-xml">
+		<for param="xml.file">
+			<path>
+				<fileset
+					dir="."
+					includes="src/wsdl/*"
+				/>
+			</path>
+			<sequential>
+				<java
+					classname="com.liferay.portal.tools.XMLFormatter"
+					classpathref="portal.classpath"
+					fork="true"
+					newenvironment="true"
+				>
+					<jvmarg value="-Dexternal-properties=com/liferay/portal/tools/dependencies/portal-tools.properties" />
+					<jvmarg value="-Dxml.formatter.file=@{xml.file}" />
+					<jvmarg value="-Dxml.formatter.strip.comments=true" />
+				</java>
+			</sequential>
+		</for>
+	</target>
 </project>
