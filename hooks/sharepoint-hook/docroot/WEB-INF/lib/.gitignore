@@ -1,3 +1,4 @@
+/axis-jaxrpc.jar
 /axis.jar
 /chemistry-opencmis-client-api.jar
 /chemistry-opencmis-client-bindings.jar
@@ -10,8 +11,10 @@
 /commons-logging.jar
 /jaxrpc.jar
 /log4j.jar
+/portal-compat-shared.jar
 /saaj-api.jar
 /saaj-impl.jar
+/sharepoint-ws-shared.jar
 /util-bridges.jar
 /util-java.jar
 /util-taglib.jar
