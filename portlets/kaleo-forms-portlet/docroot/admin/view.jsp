@@ -16,7 +16,7 @@
 
 <%@ include file="/init.jsp" %>
 
-<liferay-util:include page="/toolbar.jsp" servletContext="<%= application %>">
+<liferay-util:include page="/admin/toolbar.jsp" servletContext="<%= application %>">
 	<liferay-util:param name="toolbarItem" value="view-all" />
 </liferay-util:include>
 
@@ -36,7 +36,7 @@
 	>
 
 		<portlet:renderURL var="rowURL">
-			<portlet:param name="mvcPath" value='<%= "/view_kaleo_process.jsp" %>' />
+			<portlet:param name="mvcPath" value='<%= "/admin/view_kaleo_process.jsp" %>' />
 			<portlet:param name="backURL" value="<%= currentURL %>" />
 			<portlet:param name="kaleoProcessId" value="<%= String.valueOf(process.getKaleoProcessId()) %>" />
 		</portlet:renderURL>
@@ -55,7 +55,7 @@
 
 		<liferay-ui:search-container-column-jsp
 			align="right"
-			path="/kaleo_process_action.jsp"
+			path="/admin/kaleo_process_action.jsp"
 		/>
 	</liferay-ui:search-container-row>
 

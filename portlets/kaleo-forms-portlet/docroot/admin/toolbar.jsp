@@ -28,7 +28,7 @@ String toolbarItem = ParamUtil.getString(request, "toolbarItem", "view-all");
 
 		<c:if test="<%= KaleoFormsPermission.contains(permissionChecker, scopeGroupId, ActionKeys.ADD_PROCESS) %>">
 			<portlet:renderURL var="addProcessURL">
-				<portlet:param name="mvcPath" value="/edit_kaleo_process.jsp" />
+				<portlet:param name="mvcPath" value="/admin/edit_kaleo_process.jsp" />
 				<portlet:param name="redirect" value="<%= currentURL %>" />
 				<portlet:param name="backURL" value="<%= currentURL %>" />
 			</portlet:renderURL>

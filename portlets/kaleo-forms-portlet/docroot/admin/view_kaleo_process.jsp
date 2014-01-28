@@ -32,7 +32,7 @@ long kaleoProcessId = BeanParamUtil.getLong(kaleoProcess, request, "kaleoProcess
 <%
 PortletURL portletURL = renderResponse.createRenderURL();
 
-portletURL.setParameter("mvcPath", "/view_kaleo_process.jsp");
+portletURL.setParameter("mvcPath", "/admin/view_kaleo_process.jsp");
 portletURL.setParameter("backURL", backURL);
 portletURL.setParameter("kaleoProcessId", String.valueOf(kaleoProcessId));
 

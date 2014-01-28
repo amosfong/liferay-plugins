@@ -102,7 +102,7 @@ if (kaleoProcess != null) {
 </c:if>
 
 <portlet:actionURL name="updateKaleoProcess" var="editKaleoProcessURL">
-	<portlet:param name="mvcPath" value="/edit_kaleo_process.jsp" />
+	<portlet:param name="mvcPath" value="/admin/edit_kaleo_process.jsp" />
 	<portlet:param name="redirect" value="<%= redirect %>" />
 	<portlet:param name="backURL" value="<%= backURL %>" />
 </portlet:actionURL>
@@ -450,7 +450,7 @@ if (kaleoProcess != null) {
 
 		'<portlet:namespace />selectWorkflowDefinition': function(event) {
 			<portlet:renderURL var="workflowDefinitionURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
-				<portlet:param name="mvcPath" value='<%= "/select_workflow_definition.jsp" %>' />
+				<portlet:param name="mvcPath" value='<%= "/admin/select_workflow_definition.jsp" %>' />
 				<portlet:param name="kaleoProcessId" value="<%= String.valueOf(kaleoProcessId) %>" />
 			</portlet:renderURL>
 
