@@ -128,12 +128,12 @@
 
 	<aui:input checked="<%= true %>" disabled="<%= !ClusterExecutorUtil.isEnabled() %>" id="registerAllClusterNodes" label="register-all-nodes-of-this-cluster" name="registerAllClusterNodes" type="checkbox" />
 
-	<portlet:renderURL var="previousURL">
-		<portlet:param name="forceLoginView" value="true" />
-	</portlet:renderURL>
+	<portlet:actionURL name="resetCredentials" var="resetCredentialsURL">
+		<portlet:param name="redirect" value="<%= currentURL %>" />
+	</portlet:actionURL>
 
 	<aui:button-row>
-		<aui:button cssClass="btn-info" href="<%= previousURL.toString() %>" name="previous" value="previous" />
+		<aui:button cssClass="btn-info" href="<%= resetCredentialsURL.toString() %>" name="previous" value="previous" />
 
 		<aui:button cssClass="btn-success" disabled="<%= true %>" name="register" type="submit" value="register" />
 	</aui:button-row>

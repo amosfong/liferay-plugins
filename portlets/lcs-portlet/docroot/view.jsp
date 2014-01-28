@@ -20,12 +20,8 @@
 
 <div id="lcsMainContainer">
 
-	<%
-	boolean forceLoginView = ParamUtil.getBoolean(request, "forceLoginView");
-	%>
-
 	<c:choose>
-		<c:when test="<%= !forceLoginView && LCSUtil.isCredentialsSet() %>">
+		<c:when test="<%= LCSUtil.isCredentialsSet() %>">
 			<c:choose>
 				<c:when test="<%= LCSClusterNodeServiceUtil.isRegistered(KeyGeneratorUtil.getKey()) %>">
 					<liferay-util:include page="/view_lcs_cluster_node.jsp" servletContext="<%= application %>" />
