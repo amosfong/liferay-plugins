@@ -16,29 +16,9 @@
 
 <%@ include file="/init.jsp" %>
 
-<%
-String tabs1 = ParamUtil.getString(request, "tabs1", "summary");
-
-PortletURL portletURL = renderResponse.createRenderURL();
-
-portletURL.setParameter("tabs1", tabs1);
-%>
-
 <c:choose>
 	<c:when test="<%= WorkflowEngineManagerUtil.isDeployed() %>">
-		<liferay-ui:tabs
-			names="summary,processes"
-			url="<%= portletURL.toString() %>"
-		/>
-
-		<c:choose>
-			<c:when test='<%= tabs1.equals("summary") %>'>
-				<liferay-util:include page="/view_summary.jsp" servletContext="<%= application %>" />
-			</c:when>
-			<c:when test='<%= tabs1.equals("processes") %>'>
-				<liferay-util:include page="/view_kaleo_processes.jsp" servletContext="<%= application %>" />
-			</c:when>
-		</c:choose>
+		<liferay-util:include page="/view_summary.jsp" servletContext="<%= application %>" />
 	</c:when>
 	<c:otherwise>
 		<div class="alert alert-info">

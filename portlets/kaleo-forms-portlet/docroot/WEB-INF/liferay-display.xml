@@ -5,4 +5,7 @@
 	<category name="category.workflow">
 		<portlet id="1" />
 	</category>
+	<category name="category.hidden">
+		<portlet id="2" />
+	</category>
 </display>

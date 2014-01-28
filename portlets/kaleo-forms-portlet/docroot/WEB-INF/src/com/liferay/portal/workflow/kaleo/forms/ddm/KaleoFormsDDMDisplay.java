@@ -30,7 +30,7 @@ public class KaleoFormsDDMDisplay extends BaseDDMDisplay {
 
 	@Override
 	public String getPortletId() {
-		return "1_WAR_kaleoformsportlet";
+		return "2_WAR_kaleoformsportlet";
 	}
 
 	@Override
