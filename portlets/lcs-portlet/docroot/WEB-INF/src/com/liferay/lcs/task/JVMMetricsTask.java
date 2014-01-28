@@ -22,9 +22,9 @@ import com.liferay.portal.kernel.bean.BeanReference;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 
+import com.yammer.metrics.core.VirtualMachineMetrics;
 import com.yammer.metrics.core.VirtualMachineMetrics.BufferPoolStats;
 import com.yammer.metrics.core.VirtualMachineMetrics.GarbageCollectorStats;
-import com.yammer.metrics.core.VirtualMachineMetrics;
 
 import java.util.HashMap;
 import java.util.HashSet;
