@@ -16,17 +16,11 @@
 
 <%@ include file="/init.jsp" %>
 
-<%
-String tabs1 = ParamUtil.getString(request, "tabs1");
-%>
-
 <liferay-util:include page="/toolbar.jsp" servletContext="<%= application %>">
 	<liferay-util:param name="toolbarItem" value="view-all" />
 </liferay-util:include>
 
-<liferay-portlet:renderURL varImpl="iteratorURL">
-	<portlet:param name="tabs1" value="<%= tabs1 %>" />
-</liferay-portlet:renderURL>
+<liferay-portlet:renderURL varImpl="iteratorURL" />
 
 <liferay-ui:search-container
 	searchContainer="<%= new KaleoProcessSearch(renderRequest, iteratorURL) %>"

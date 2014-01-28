@@ -22,9 +22,7 @@ String toolbarItem = ParamUtil.getString(request, "toolbarItem", "view-all");
 
 <aui:nav-bar>
 	<aui:nav>
-		<portlet:renderURL var="viewProcessURL">
-			<portlet:param name="tabs1" value="processes" />
-		</portlet:renderURL>
+		<portlet:renderURL var="viewProcessURL" />
 
 		<aui:nav-item href="<%= viewProcessURL %>" label="view-all" selected='<%= toolbarItem.equals("view-all") %>' />
 
