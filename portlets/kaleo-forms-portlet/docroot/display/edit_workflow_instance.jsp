@@ -51,7 +51,7 @@ headerTitle = headerTitle.concat(StringPool.COLON + StringPool.SPACE + ddlRecord
 			<aui:column columnWidth="60">
 				<div class="lfr-asset-status">
 					<aui:field-wrapper label="state">
-						<%= LanguageUtil.get(pageContext, workflowInstance.getState()) %>
+						<%= LanguageUtil.get(pageContext, HtmlUtil.escape(workflowInstance.getState())) %>
 					</aui:field-wrapper>
 				</div>
 			</aui:column>
@@ -126,7 +126,7 @@ headerTitle = headerTitle.concat(StringPool.COLON + StringPool.SPACE + ddlRecord
 								buffer.append("<span class=\"task-name\" id=\"");
 								buffer.append(workflowTask.getWorkflowTaskId());
 								buffer.append("\">");
-								buffer.append(LanguageUtil.get(pageContext, workflowTask.getName()));
+								buffer.append(LanguageUtil.get(pageContext, HtmlUtil.escape(workflowTask.getName())));
 								buffer.append("</span>");
 								%>
 
@@ -197,13 +197,13 @@ headerTitle = headerTitle.concat(StringPool.COLON + StringPool.SPACE + ddlRecord
 						<div class="task-activity-message">
 							<c:choose>
 								<c:when test="<%= workflowLog.getType() == WorkflowLog.TASK_COMPLETION %>">
-									<%= LanguageUtil.format(pageContext, "x-completed-the-task-x", new Object[] {HtmlUtil.escape(actorName), workflowLog.getState()}) %>
+									<%= LanguageUtil.format(pageContext, "x-completed-the-task-x", new Object[] {HtmlUtil.escape(actorName), HtmlUtil.escape(workflowLog.getState())}) %>
 								</c:when>
 								<c:when test="<%= workflowLog.getType() == WorkflowLog.TASK_UPDATE %>">
 									<%= LanguageUtil.format(pageContext, "x-updated-the-due-date", HtmlUtil.escape(actorName)) %>
 								</c:when>
 								<c:when test="<%= workflowLog.getType() == WorkflowLog.TRANSITION %>">
-									<%= LanguageUtil.format(pageContext, "x-changed-the-state-from-x-to-x", new Object[] {HtmlUtil.escape(actorName), workflowLog.getPreviousState(), workflowLog.getState()}) %>
+									<%= LanguageUtil.format(pageContext, "x-changed-the-state-from-x-to-x", new Object[] {HtmlUtil.escape(actorName), HtmlUtil.escape(workflowLog.getPreviousState()), HtmlUtil.escape(workflowLog.getState())}) %>
 								</c:when>
 								<c:otherwise>
 									<c:choose>

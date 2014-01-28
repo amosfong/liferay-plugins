@@ -63,7 +63,7 @@ portletURL.setParameter("tabs2", tabs2);
 		>
 
 			<%
-			buffer.append(LanguageUtil.get(pageContext, workflowInstance.getState()));
+			buffer.append(LanguageUtil.get(pageContext, HtmlUtil.escape(workflowInstance.getState())));
 			%>
 
 		</liferay-ui:search-container-column-text>

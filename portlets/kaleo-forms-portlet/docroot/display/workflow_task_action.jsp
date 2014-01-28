@@ -99,7 +99,7 @@ long[] pooledActorsIds = WorkflowTaskManagerUtil.getPooledActorsIds(company.getC
 				cssClass='<%= "workflow-task-" + randomId + " task-change-status-link" %>'
 				id='<%= randomId + HtmlUtil.escapeAttribute(transitionName) + "taskChangeStatusLink" %>'
 				image="../aui/random"
-				message="<%= transitionName %>"
+				message="<%= HtmlUtil.escape(transitionName) %>"
 				method="get"
 				url="<%= completeWorkflowTaskURL %>"
 			/>

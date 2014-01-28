@@ -79,7 +79,7 @@ long ddmStructureId = ParamUtil.getLong(request, "ddmStructureId");
 				<liferay-ui:search-container-column-text
 					href="<%= rowHREF %>"
 					name="name"
-					value="<%= workflowDefinition.getName() %>"
+					value="<%= HtmlUtil.escape(workflowDefinition.getName()) %>"
 				/>
 
 				<liferay-ui:search-container-column-text
@@ -122,7 +122,6 @@ long ddmStructureId = ParamUtil.getLong(request, "ddmStructureId");
 
 			<liferay-ui:search-container-row
 				className="com.liferay.portal.workflow.kaleo.designer.model.KaleoDraftDefinition"
-				escapedModel="<%= true %>"
 				keyProperty="kaleoDraftDefinitionId"
 				modelVar="kaleoDraftDefinition"
 			>

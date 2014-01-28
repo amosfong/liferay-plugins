@@ -32,7 +32,7 @@ AUI.add(
 							constrain: true,
 							constrain2view: true,
 							modal: true,
-							title: icon.text(),
+							title: Liferay.Util.escapeHTML(icon.text()),
 							width: 400
 						}
 					}
