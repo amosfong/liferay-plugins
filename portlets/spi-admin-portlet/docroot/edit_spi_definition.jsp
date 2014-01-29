@@ -43,15 +43,19 @@ String[] servletContextNames = StringUtil.split(BeanPropertiesUtil.getString(spi
 long shutdownTimeout = BeanPropertiesUtil.getLong(spiDefinition, "shutdownTimeout", SPIConfigurationTemplate.getSPIShutdownTimeout());
 int status = BeanPropertiesUtil.getInteger(spiDefinition, "status", SPIAdminConstants.STATUS_STOPPED);
 boolean useDefaultNotificationOptions = Validator.isNull(notificationRecipients);
-
-if (useDefaultNotificationOptions) {
-	notificationRecipients = defaultNotificationRecipients;
-}
-
 boolean useDefaultRestartOptions = (maxRestartAttempts <= 0);
 
-if (useDefaultRestartOptions) {
-	maxRestartAttempts = defaultMaxRestartAttempts;
+UnicodeProperties typeSettingsProperties = PropertiesParamUtil.getProperties(request, "TypeSettingsProperties--");
+
+String useDefaultNotificationOptionsString = typeSettingsProperties.getProperty("use-default-notification-options");
+String useDefaultRestartOptionsString = typeSettingsProperties.getProperty("use-default-restart-options");
+
+if (Validator.isNotNull(useDefaultNotificationOptionsString)) {
+	useDefaultNotificationOptions = Boolean.parseBoolean(useDefaultNotificationOptionsString);
+}
+
+if (Validator.isNotNull(useDefaultRestartOptionsString)) {
+	useDefaultRestartOptions = Boolean.parseBoolean(useDefaultRestartOptionsString);
 }
 %>
 
@@ -155,11 +159,11 @@ if (useDefaultRestartOptions) {
 				<aui:fieldset>
 					<aui:input checked="<%= useDefaultNotificationOptions %>" helpMessage="use-default-notification-options" id="useDefaultNotificationOptions" label="use-default-notification-options" name="useDefaultNotificationOptions" type="checkbox" />
 
-					<aui:input disabled="<%= useDefaultNotificationOptions %>" helpMessage="notification-recipients-help" id="notificationRecipients"  label="notification-recipients" name="TypeSettingsProperties--notification-recipients--" type="text" value="<%= notificationRecipients %>" />
+					<aui:input data-defaultvalue="<%= defaultNotificationRecipients %>" disabled="<%= useDefaultNotificationOptions %>" helpMessage="notification-recipients-help" id="notificationRecipients" label="notification-recipients" name="TypeSettingsProperties--notification-recipients--" type="text" value="<%= notificationRecipients %>" />
 
 					<aui:input checked="<%= useDefaultRestartOptions %>" helpMessage="use-default-restart-options" id="useDefaultRestartOptions" label="use-default-restart-options" name="useDefaultRestartOptions" type="checkbox" />
 
-					<aui:input disabled="<%= useDefaultRestartOptions %>" helpMessage="maximum-restart-attempts-help" id="maxRestartAttempts" label="maximum-restart-attempts" name="TypeSettingsProperties--max-restart-attempts--" type="text" value="<%= maxRestartAttempts %>" />
+					<aui:input data-defaultvalue="<%= defaultMaxRestartAttempts %>" disabled="<%= useDefaultRestartOptions %>" helpMessage="maximum-restart-attempts-help" id="maxRestartAttempts" label="maximum-restart-attempts" name="TypeSettingsProperties--max-restart-attempts--" type="text" value="<%= maxRestartAttempts %>" />
 				</aui:fieldset>
 			</liferay-ui:panel>
 		</liferay-ui:panel>
@@ -222,7 +226,7 @@ if (useDefaultRestartOptions) {
 	</aui:button-row>
 </aui:form>
 
-<aui:script>
+<aui:script use="aui-base">
 	Liferay.provide(
 		window,
 		'<portlet:namespace />saveSPIDefinition',
@@ -234,6 +238,27 @@ if (useDefaultRestartOptions) {
 		},
 		['liferay-util-list-fields']
 	);
+
+	var onChange = function(event, input) {
+		var checked = event.currentTarget.attr('checked');
+
+		var value = checked ? input.getData('defaultvalue') : '';
+
+		input.attr('disabled', checked);
+
+		input.val(value);
+	};
+
+	var spiDefinitionRecoveryOptions = A.one('#spiDefinitionRecoveryOptions');
+
+	var maxRestartAttempts = spiDefinitionRecoveryOptions.one('#<portlet:namespace/>maxRestartAttempts');
+	var notificationRecipients = spiDefinitionRecoveryOptions.one('#<portlet:namespace/>notificationRecipients');
+
+	var useDefaultNotificationOptionsCheckbox = spiDefinitionRecoveryOptions.one('#<portlet:namespace/>useDefaultNotificationOptionsCheckbox');
+	var useDefaultRestartOptionsCheckbox = spiDefinitionRecoveryOptions.one('#<portlet:namespace/>useDefaultRestartOptionsCheckbox');
+
+	useDefaultNotificationOptionsCheckbox.on('change', A.rbind(onChange, null, notificationRecipients));
+	useDefaultRestartOptionsCheckbox.on('change', A.rbind(onChange, null, maxRestartAttempts));
 </aui:script>
 
 <%
