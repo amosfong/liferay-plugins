@@ -23,7 +23,7 @@ try {
 	}
 %>
 
-	<%@ include file="/workflow_instances.jspf" %>
+	<%@ include file="/display/workflow_instances.jspf" %>
 
 <%
 }

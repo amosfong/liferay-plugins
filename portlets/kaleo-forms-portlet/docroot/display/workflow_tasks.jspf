@@ -87,7 +87,7 @@ PortletURL portletURL = renderResponse.createRenderURL();
 
 		<liferay-ui:search-container-column-jsp
 			align="right"
-			path="/workflow_task_action.jsp"
+			path="/display/workflow_task_action.jsp"
 		/>
 	</liferay-ui:search-container-row>
 

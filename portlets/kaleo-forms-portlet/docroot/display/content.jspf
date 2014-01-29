@@ -20,18 +20,18 @@ String tabs2 = ParamUtil.getString(request, "tabs2", "inbox");
 
 <c:choose>
 	<c:when test='<%= tabs2.equals("edit-request") %>'>
-		<liferay-util:include page="/edit_request.jsp" servletContext="<%= application %>" />
+		<liferay-util:include page="/display/edit_request.jsp" servletContext="<%= application %>" />
 	</c:when>
 	<c:when test='<%= tabs2.equals("edit-workflow-instance") %>'>
-		<liferay-util:include page="/edit_workflow_instance.jsp" servletContext="<%= application %>" />
+		<liferay-util:include page="/display/edit_workflow_instance.jsp" servletContext="<%= application %>" />
 	</c:when>
 	<c:when test='<%= tabs2.equals("edit-workflow-task") %>'>
-		<liferay-util:include page="/edit_workflow_task.jsp" servletContext="<%= application %>" />
+		<liferay-util:include page="/display/edit_workflow_task.jsp" servletContext="<%= application %>" />
 	</c:when>
 	<c:when test='<%= tabs2.equals("inbox") %>'>
-		<%@ include file="/view_workflow_tasks.jspf" %>
+		<%@ include file="/display/view_workflow_tasks.jspf" %>
 	</c:when>
 	<c:otherwise>
-		<%@ include file="/view_workflow_instances.jspf" %>
+		<%@ include file="/display/view_workflow_instances.jspf" %>
 	</c:otherwise>
 </c:choose>

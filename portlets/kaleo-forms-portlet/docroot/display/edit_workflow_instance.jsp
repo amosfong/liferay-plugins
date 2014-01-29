@@ -154,7 +154,7 @@ headerTitle = headerTitle.concat(StringPool.COLON + StringPool.SPACE + ddlRecord
 
 							<liferay-ui:search-container-column-jsp
 								align="right"
-								path="/workflow_task_action.jsp"
+								path="/display/workflow_task_action.jsp"
 							/>
 						</liferay-ui:search-container-row>
 						<liferay-ui:search-iterator />
@@ -265,7 +265,7 @@ headerTitle = headerTitle.concat(StringPool.COLON + StringPool.SPACE + ddlRecord
 		request.removeAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 		%>
 
-		<liferay-util:include page="/workflow_instance_action.jsp" servletContext="<%= application %>" />
+		<liferay-util:include page="/display/workflow_instance_action.jsp" servletContext="<%= application %>" />
 	</aui:column>
 </aui:layout>
 

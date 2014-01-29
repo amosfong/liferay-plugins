@@ -18,7 +18,7 @@
 
 <c:choose>
 	<c:when test="<%= WorkflowEngineManagerUtil.isDeployed() %>">
-		<liferay-util:include page="/view_summary.jsp" servletContext="<%= application %>" />
+		<liferay-util:include page="/display/view_summary.jsp" servletContext="<%= application %>" />
 	</c:when>
 	<c:otherwise>
 		<div class="alert alert-info">

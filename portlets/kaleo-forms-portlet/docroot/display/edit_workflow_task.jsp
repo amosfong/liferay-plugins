@@ -263,7 +263,7 @@ headerTitle = headerTitle.concat(StringPool.COLON + StringPool.SPACE + ddlRecord
 		request.removeAttribute(WebKeys.SEARCH_CONTAINER_RESULT_ROW);
 		%>
 
-		<liferay-util:include page="/workflow_task_action.jsp" servletContext="<%= application %>">
+		<liferay-util:include page="/display/workflow_task_action.jsp" servletContext="<%= application %>">
 			<liferay-util:param name="kaleoProcessId" value="<%= String.valueOf(kaleoProcess.getKaleoProcessId()) %>" />
 			<liferay-util:param name="ddlRecordId" value="<%= String.valueOf(ddlRecord.getRecordId()) %>" />
 		</liferay-util:include>

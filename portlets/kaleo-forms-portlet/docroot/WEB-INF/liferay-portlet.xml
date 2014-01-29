@@ -5,10 +5,10 @@
 	<portlet>
 		<portlet-name>1</portlet-name>
 		<header-portal-css>/html/portlet/workflow_definitions/css/main.css</header-portal-css>
-		<header-portlet-css>/css/main.css</header-portlet-css>
+		<header-portlet-css>/display/css/main.css</header-portlet-css>
 		<footer-portal-javascript>/html/portlet/workflow_tasks/js/main.js</footer-portal-javascript>
-		<footer-portlet-javascript>/js/main.js</footer-portlet-javascript>
-		<css-class-wrapper>kaleo-forms-portlet</css-class-wrapper>
+		<footer-portlet-javascript>/display/js/main.js</footer-portlet-javascript>
+		<css-class-wrapper>kaleo-forms-display-portlet</css-class-wrapper>
 	</portlet>
 	<portlet>
 		<portlet-name>2</portlet-name>
@@ -16,7 +16,7 @@
 		<control-panel-entry-weight>12.0</control-panel-entry-weight>
 		<ddm-display>com.liferay.portal.workflow.kaleo.forms.ddm.KaleoFormsDDMDisplay</ddm-display>
 		<workflow-handler>com.liferay.portal.workflow.kaleo.forms.workflow.KaleoProcessWorkflowHandler</workflow-handler>
-		<css-class-wrapper>kaleo-forms-portlet</css-class-wrapper>
+		<css-class-wrapper>kaleo-forms-admin-portlet</css-class-wrapper>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>

@@ -21,7 +21,7 @@ try {
 
 	<liferay-ui:panel-container extended="<%= false %>" id="workflowTasksPanelContainer" persistState="<%= true %>">
 		<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="workflowMyTasksPanel" persistState="<%= true %>" title="assigned-to-me">
-			<%@ include file="/workflow_tasks.jspf" %>
+			<%@ include file="/display/workflow_tasks.jspf" %>
 		</liferay-ui:panel>
 
 		<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="workflowMyRolesTasksPanel" persistState="<%= true %>" title="assigned-to-my-roles">
@@ -30,7 +30,7 @@ try {
 			searchByUserRoles = true;
 			%>
 
-			<%@ include file="/workflow_tasks.jspf" %>
+			<%@ include file="/display/workflow_tasks.jspf" %>
 		</liferay-ui:panel>
 	</liferay-ui:panel-container>
 
