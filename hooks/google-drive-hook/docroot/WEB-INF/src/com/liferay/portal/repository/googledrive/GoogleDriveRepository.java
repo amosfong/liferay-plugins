@@ -145,7 +145,43 @@ public class GoogleDriveRepository
 			String newTitle)
 		throws PortalException, SystemException {
 
-		return null;
+		try {
+			Drive drive = getDrive();
+
+			Drive.Files driveFiles = drive.files();
+
+			File newFile = new File();
+
+			ParentReference parentReference = new ParentReference();
+
+			parentReference.setId(newExtRepositoryFolderKey);
+
+			newFile.setParents(Arrays.asList(parentReference));
+
+			Drive.Files.Copy driveFilesCopy = driveFiles.copy(
+				extRepositoryFileEntryKey, newFile);
+
+			driveFilesCopy.execute();
+
+			T extRepositoryObject = null;
+
+			if (extRepositoryObjectType.equals(
+					ExtRepositoryObjectType.FOLDER)) {
+
+				extRepositoryObject = (T)new GoogleDriveFolder(
+					newFile, _rootFolderKey);
+			}
+			else {
+				extRepositoryObject = (T)new GoogleDriveFileEntry(newFile);
+			}
+
+			return extRepositoryObject;
+		}
+		catch (IOException ioe) {
+			_log.error(ioe, ioe);
+
+			throw new PortalException(ioe);
+		}
 	}
 
 	@Override
