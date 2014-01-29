@@ -38,11 +38,13 @@ import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.kernel.search.SearchException;
 import com.liferay.portal.kernel.servlet.PortalSessionThreadLocal;
 import com.liferay.portal.kernel.util.AutoResetThreadLocal;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.PrefsPropsUtil;
 import com.liferay.portal.kernel.util.StringBundler;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.TransientValue;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
@@ -628,7 +630,59 @@ public class GoogleDriveRepository
 			ExtRepositoryQueryMapper extRepositoryQueryMapper)
 		throws PortalException, SystemException {
 
-		return null;
+		String keywords = searchContext.getKeywords();
+
+		long[] folderIds = searchContext.getFolderIds();
+
+		String searchQuery = getSearchQuery(
+			keywords, folderIds, extRepositoryQueryMapper);
+
+		try {
+			Drive drive = getDrive();
+
+			Drive.Files driveFiles = drive.files();
+
+			Drive.Files.List driveFilesList = driveFiles.list();
+
+			driveFilesList.setQ(searchQuery);
+
+			FileList fileList = driveFilesList.execute();
+
+			List<File> files = fileList.getItems();
+
+			List<ExtRepositorySearchResult<?>> extRepositorySearchResults =
+				new ArrayList<ExtRepositorySearchResult<?>>();
+
+			for (File file : files) {
+				if (_FOLDER_MIME_TYPE.equals(file.getMimeType())) {
+					GoogleDriveFolder googleDriveFolder = new GoogleDriveFolder(
+						file, _rootFolderKey);
+
+					ExtRepositorySearchResult extRepositorySearchResult =
+						new ExtRepositorySearchResult(
+							googleDriveFolder, 1.0F, StringPool.BLANK);
+
+					extRepositorySearchResults.add(extRepositorySearchResult);
+				}
+				else {
+					GoogleDriveFileEntry googleDriveFileEntry =
+						new GoogleDriveFileEntry(file);
+
+					ExtRepositorySearchResult extRepositorySearchResult =
+						new ExtRepositorySearchResult(
+							googleDriveFileEntry, 1.0F, StringPool.BLANK);
+
+					extRepositorySearchResults.add(extRepositorySearchResult);
+				}
+			}
+
+			return extRepositorySearchResults;
+		}
+		catch (IOException ioe) {
+			_log.error(ioe, ioe);
+
+			throw new SystemException(ioe);
+		}
 	}
 
 	@Override
@@ -786,6 +840,37 @@ public class GoogleDriveRepository
 
 			throw new SystemException(ioe);
 		}
+	}
+
+	protected String getSearchQuery(
+			String keywords, long[] folderIds,
+			ExtRepositoryQueryMapper extRepositoryQueryMapper)
+		throws SearchException {
+
+		StringBundler sb = new StringBundler();
+
+		sb.append("fullText contains '");
+		sb.append(keywords);
+		sb.append("' and ");
+
+		for (int i = 0; i < folderIds.length; i++) {
+			if (i != 0) {
+				sb.append(" and ");
+			}
+
+			long folderId = folderIds[i];
+
+			String folderKey = extRepositoryQueryMapper.formatParameterValue(
+				"folderId", String.valueOf(folderId));
+
+			sb.append(StringPool.APOSTROPHE);
+			sb.append(folderKey);
+			sb.append(StringPool.APOSTROPHE);
+
+			sb.append(" in parents");
+		}
+
+		return sb.toString();
 	}
 
 	private static final String _FOLDER_MIME_TYPE =
