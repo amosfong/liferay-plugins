@@ -14,7 +14,7 @@
  */
 --%>
 
-<%@ include file="/init.jsp" %>
+<%@ include file="/admin/init.jsp" %>
 
 <%
 String toolbarItem = ParamUtil.getString(request, "toolbarItem", "view-all");

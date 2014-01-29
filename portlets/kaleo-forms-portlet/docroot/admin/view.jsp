@@ -14,7 +14,7 @@
  */
 --%>
 
-<%@ include file="/init.jsp" %>
+<%@ include file="/admin/init.jsp" %>
 
 <liferay-util:include page="/admin/toolbar.jsp" servletContext="<%= application %>">
 	<liferay-util:param name="toolbarItem" value="view-all" />
