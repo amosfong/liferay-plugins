@@ -38,9 +38,9 @@ import org.opensaml.saml2.metadata.SingleLogoutService;
 import org.opensaml.saml2.metadata.SingleSignOnService;
 import org.opensaml.saml2.metadata.provider.MetadataProviderException;
 import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.schema.XSAny;
+import org.opensaml.xml.schema.XSString;
 import org.opensaml.xml.util.DatatypeHelper;
-
-import org.w3c.dom.Element;
 
 /**
  * @author Mika Koivisto
@@ -74,6 +74,18 @@ public class SamlUtil {
 			"Binding " + binding + " is not supported");
 	}
 
+	public static Attribute getAttribute(
+		List<Attribute> attributes, String attributeName) {
+
+		for (Attribute attribute : attributes) {
+			if (attributeName.equals(attribute.getName())) {
+				return attribute;
+			}
+		}
+
+		return null;
+	}
+
 	public static Map<String, String> getAttributesMap(
 		List<Attribute> attributes, Properties attributeMappingsProperties) {
 
@@ -84,12 +96,24 @@ public class SamlUtil {
 
 			String name = attributeMappingsProperties.getProperty(keyString);
 
-			String value = _getAttributeValue(attributes, name);
+			Attribute attribute = getAttribute(attributes, name);
+
+			String value = getAttributeValueAsString(attribute);
 
 			attributesMap.put(keyString, value);
 		}
 
 		return attributesMap;
+	}
+
+	public static String getAttributeValueAsString(Attribute attribute) {
+		if ((attribute != null) && !attribute.getAttributeValues().isEmpty()) {
+			List<XMLObject> values = attribute.getAttributeValues();
+
+			return getStringValueFromXMLObject(values.get(0));
+		}
+
+		return null;
 	}
 
 	public static EntityDescriptor getEntityDescriptorById(
@@ -177,6 +201,17 @@ public class SamlUtil {
 
 		throw new MetadataProviderException(
 			"Binding " + binding + " is not supported");
+	}
+
+	public static String getStringValueFromXMLObject(XMLObject xmlObject) {
+		if (xmlObject instanceof XSString) {
+			return ((XSString)xmlObject).getValue();
+		}
+		else if (xmlObject instanceof XSAny) {
+			return ((XSAny)xmlObject).getTextContent();
+		}
+
+		return null;
 	}
 
 	public static boolean isEnabled() {
@@ -294,20 +329,6 @@ public class SamlUtil {
 
 		if (!singleSignOnServices.isEmpty()) {
 			return singleSignOnServices.get(0);
-		}
-
-		return null;
-	}
-
-	private static String _getAttributeValue(
-		List<Attribute> attributes, String name) {
-
-		for (Attribute attribute : attributes) {
-			if (name.equals(attribute.getName())) {
-				Element element = attribute.getDOM();
-
-				return element.getTextContent();
-			}
 		}
 
 		return null;

@@ -278,7 +278,14 @@ public class DefaultAttributeResolver implements AttributeResolver {
 			String[] values = StringUtil.split(attributeName, "=");
 
 			attributeName = values[0];
-			attributeValue = attributeName.substring(values[0].length() + 1);
+			attributeValue = values[1];
+
+			if (values.length > 2) {
+				for (int i = 2; i < values.length; i++) {
+					attributeValue = attributeValue.concat("=").concat(
+						values[i]);
+				}
+			}
 		}
 
 		Attribute attribute = OpenSamlUtil.buildAttribute(
@@ -396,11 +403,11 @@ public class DefaultAttributeResolver implements AttributeResolver {
 			Attribute attribute = OpenSamlUtil.buildAttribute();
 
 			if (namespaceEnabled) {
-				attribute.setName("urn:liferay:userGroup");
+				attribute.setName("urn:liferay:userGroups");
 				attribute.setNameFormat(Attribute.URI_REFERENCE);
 			}
 			else {
-				attribute.setName("userGroup");
+				attribute.setName("userGroups");
 				attribute.setNameFormat(Attribute.UNSPECIFIED);
 			}
 
