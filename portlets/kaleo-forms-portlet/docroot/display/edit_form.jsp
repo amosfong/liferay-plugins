@@ -14,7 +14,7 @@
  */
 --%>
 
-<%@ include file="/init.jsp" %>
+<%@ include file="/display/init.jsp" %>
 
 <%
 long workflowTaskId = ParamUtil.getLong(request, "workflowTaskId");

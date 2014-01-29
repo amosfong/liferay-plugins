@@ -14,7 +14,7 @@
  */
 --%>
 
-<%@ include file="/init.jsp" %>
+<%@ include file="/display/init.jsp" %>
 
 <%
 String randomId = PwdGenerator.getPassword(PwdGenerator.KEY3, 4);

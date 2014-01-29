@@ -14,13 +14,4 @@
  */
 --%>
 
-<%@ include file="/display/init.jsp" %>
-
-<aui:layout>
-	<aui:column columnWidth="<%= 25 %>" first="<%= true %>">
-		<%@ include file="/navigation.jspf" %>
-	</aui:column>
-	<aui:column columnWidth="<%= 75 %>" last="<%= true %>">
-		<%@ include file="/content.jspf" %>
-	</aui:column>
-</aui:layout>
+<%@ include file="/init.jsp" %>
