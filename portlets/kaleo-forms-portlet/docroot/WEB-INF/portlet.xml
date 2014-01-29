@@ -10,8 +10,12 @@
 			<value>true</value>
 		</init-param>
 		<init-param>
+			<name>template-path</name>
+			<value>/display/</value>
+		</init-param>
+		<init-param>
 			<name>view-template</name>
-			<value>/view.jsp</value>
+			<value>/display/view.jsp</value>
 		</init-param>
 		<expiration-cache>0</expiration-cache>
 		<supports>
