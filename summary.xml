@@ -153,6 +153,54 @@
 		</releng>
 	</plugin>
 	<plugin>
+		<artifact-id><![CDATA[google-drive-hook]]></artifact-id>
+		<name><![CDATA[Google Drive Connector EE]]></name>
+		<type><![CDATA[hook]]></type>
+		<tags><![CDATA[]]></tags>
+		<short-description><![CDATA[]]></short-description>
+		<long-description><![CDATA[]]></long-description>
+		<change-log><![CDATA[]]></change-log>
+		<page-url><![CDATA[http://www.liferay.com]]></page-url>
+		<author><![CDATA[Liferay, Inc.]]></author>
+		<licenses><![CDATA[EE]]></licenses>
+		<liferay-versions><![CDATA[6.2.10+]]></liferay-versions>
+		<releng>
+			<bundle><![CDATA[false]]></bundle>
+			<category><![CDATA[]]></category>
+			<demo-url><![CDATA[]]></demo-url>
+			<dependent-apps><![CDATA[]]></dependent-apps>
+			<labs><![CDATA[true]]></labs>
+			<marketplace><![CDATA[false]]></marketplace>
+			<public><![CDATA[true]]></public>
+			<support-url><![CDATA[]]></support-url>
+			<supported><![CDATA[false]]></supported>
+		</releng>
+	</plugin>
+	<plugin>
+		<artifact-id><![CDATA[google-login-hook]]></artifact-id>
+		<name><![CDATA[Google Login]]></name>
+		<type><![CDATA[hook]]></type>
+		<tags><![CDATA[]]></tags>
+		<short-description><![CDATA[]]></short-description>
+		<long-description><![CDATA[]]></long-description>
+		<change-log><![CDATA[]]></change-log>
+		<page-url><![CDATA[http://www.liferay.com]]></page-url>
+		<author><![CDATA[Liferay, Inc.]]></author>
+		<licenses><![CDATA[LGPL]]></licenses>
+		<liferay-versions><![CDATA[7.0.0+]]></liferay-versions>
+		<releng>
+			<bundle><![CDATA[false]]></bundle>
+			<category><![CDATA[Security]]></category>
+			<demo-url><![CDATA[]]></demo-url>
+			<dependent-apps><![CDATA[]]></dependent-apps>
+			<labs><![CDATA[true]]></labs>
+			<marketplace><![CDATA[true]]></marketplace>
+			<public><![CDATA[false]]></public>
+			<support-url><![CDATA[]]></support-url>
+			<supported><![CDATA[true]]></supported>
+		</releng>
+	</plugin>
+	<plugin>
 		<artifact-id><![CDATA[localization-ja-hook]]></artifact-id>
 		<name><![CDATA[Japanese Localization EE]]></name>
 		<type><![CDATA[hook]]></type>
@@ -195,6 +243,30 @@
 			<dependent-apps><![CDATA[]]></dependent-apps>
 			<labs><![CDATA[true]]></labs>
 			<marketplace><![CDATA[true]]></marketplace>
+			<public><![CDATA[false]]></public>
+			<support-url><![CDATA[]]></support-url>
+			<supported><![CDATA[true]]></supported>
+		</releng>
+	</plugin>
+	<plugin>
+		<artifact-id><![CDATA[portal-compat-hook]]></artifact-id>
+		<name><![CDATA[Portal Compatibility EE]]></name>
+		<type><![CDATA[hook]]></type>
+		<tags><![CDATA[]]></tags>
+		<short-description><![CDATA[]]></short-description>
+		<long-description><![CDATA[]]></long-description>
+		<change-log><![CDATA[]]></change-log>
+		<page-url><![CDATA[http://www.liferay.com]]></page-url>
+		<author><![CDATA[Liferay, Inc.]]></author>
+		<licenses><![CDATA[EE]]></licenses>
+		<liferay-versions><![CDATA[6.2.10+]]></liferay-versions>
+		<releng>
+			<bundle><![CDATA[false]]></bundle>
+			<category><![CDATA[]]></category>
+			<demo-url><![CDATA[]]></demo-url>
+			<dependent-apps><![CDATA[]]></dependent-apps>
+			<labs><![CDATA[false]]></labs>
+			<marketplace><![CDATA[false]]></marketplace>
 			<public><![CDATA[false]]></public>
 			<support-url><![CDATA[]]></support-url>
 			<supported><![CDATA[true]]></supported>
@@ -392,6 +464,32 @@
 			<screenshot><![CDATA[hooks/sharepoint-hook/docroot/WEB-INF/releng/screenshots/1.jpg]]></screenshot>
 			<screenshot><![CDATA[hooks/sharepoint-hook/docroot/WEB-INF/releng/screenshots/2.jpg]]></screenshot>
 			<screenshot><![CDATA[hooks/sharepoint-hook/docroot/WEB-INF/releng/screenshots/3.jpg]]></screenshot>
+			<support-url><![CDATA[]]></support-url>
+			<supported><![CDATA[true]]></supported>
+		</releng>
+	</plugin>
+	<plugin>
+		<artifact-id><![CDATA[shibboleth-hook]]></artifact-id>
+		<name><![CDATA[Shibboleth Single Sign On EE]]></name>
+		<type><![CDATA[hook]]></type>
+		<tags><![CDATA[login, shibboleth, sso]]></tags>
+		<short-description><![CDATA[]]></short-description>
+		<long-description><![CDATA[The Shibboleth Single Sign On hook enables Liferay to use a Shibboleth Identity Provider to sign into the portal. It's completely configurable, allowing you to set a custom header attribute and a logout URL to give your users a seamless experience.]]></long-description>
+		<change-log><![CDATA[]]></change-log>
+		<page-url><![CDATA[http://www.liferay.com]]></page-url>
+		<author><![CDATA[Liferay, Inc.]]></author>
+		<licenses><![CDATA[EE]]></licenses>
+		<liferay-versions><![CDATA[6.2.10+]]></liferay-versions>
+		<releng>
+			<bundle><![CDATA[false]]></bundle>
+			<category><![CDATA[Security]]></category>
+			<demo-url><![CDATA[]]></demo-url>
+			<dependent-apps><![CDATA[]]></dependent-apps>
+			<icon><![CDATA[hooks/shibboleth-hook/docroot/WEB-INF/releng/icons/90x90.png]]></icon>
+			<labs><![CDATA[true]]></labs>
+			<marketplace><![CDATA[true]]></marketplace>
+			<public><![CDATA[false]]></public>
+			<screenshot><![CDATA[hooks/shibboleth-hook/docroot/WEB-INF/releng/screenshots/1.jpg]]></screenshot>
 			<support-url><![CDATA[]]></support-url>
 			<supported><![CDATA[true]]></supported>
 		</releng>
@@ -705,6 +803,30 @@
 			<public><![CDATA[false]]></public>
 			<screenshot><![CDATA[portlets/audit-portlet/docroot/WEB-INF/releng/screenshots/1.jpg]]></screenshot>
 			<screenshot><![CDATA[portlets/audit-portlet/docroot/WEB-INF/releng/screenshots/2.jpg]]></screenshot>
+			<support-url><![CDATA[]]></support-url>
+			<supported><![CDATA[true]]></supported>
+		</releng>
+	</plugin>
+	<plugin>
+		<artifact-id><![CDATA[bbb-portlet]]></artifact-id>
+		<name><![CDATA[BigBlueButton EE]]></name>
+		<type><![CDATA[portlet]]></type>
+		<tags><![CDATA[]]></tags>
+		<short-description><![CDATA[]]></short-description>
+		<long-description><![CDATA[]]></long-description>
+		<change-log><![CDATA[]]></change-log>
+		<page-url><![CDATA[http://www.liferay.com]]></page-url>
+		<author><![CDATA[Liferay, Inc.]]></author>
+		<licenses><![CDATA[EE]]></licenses>
+		<liferay-versions><![CDATA[6.2.10+]]></liferay-versions>
+		<releng>
+			<bundle><![CDATA[false]]></bundle>
+			<category><![CDATA[Communication]]></category>
+			<demo-url><![CDATA[]]></demo-url>
+			<dependent-apps><![CDATA[]]></dependent-apps>
+			<labs><![CDATA[true]]></labs>
+			<marketplace><![CDATA[true]]></marketplace>
+			<public><![CDATA[false]]></public>
 			<support-url><![CDATA[]]></support-url>
 			<supported><![CDATA[true]]></supported>
 		</releng>
@@ -1126,6 +1248,30 @@
 		</releng>
 	</plugin>
 	<plugin>
+		<artifact-id><![CDATA[lcs-portlet]]></artifact-id>
+		<name><![CDATA[LCS EE]]></name>
+		<type><![CDATA[portlet]]></type>
+		<tags><![CDATA[]]></tags>
+		<short-description><![CDATA[]]></short-description>
+		<long-description><![CDATA[]]></long-description>
+		<change-log><![CDATA[]]></change-log>
+		<page-url><![CDATA[http://www.liferay.com]]></page-url>
+		<author><![CDATA[Liferay, Inc.]]></author>
+		<licenses><![CDATA[EE]]></licenses>
+		<liferay-versions><![CDATA[6.2+]]></liferay-versions>
+		<releng>
+			<bundle><![CDATA[false]]></bundle>
+			<category><![CDATA[]]></category>
+			<demo-url><![CDATA[]]></demo-url>
+			<dependent-apps><![CDATA[]]></dependent-apps>
+			<labs><![CDATA[true]]></labs>
+			<marketplace><![CDATA[false]]></marketplace>
+			<public><![CDATA[true]]></public>
+			<support-url><![CDATA[]]></support-url>
+			<supported><![CDATA[false]]></supported>
+		</releng>
+	</plugin>
+	<plugin>
 		<artifact-id><![CDATA[logos-reftagger-portlet]]></artifact-id>
 		<name><![CDATA[Logos RefTagger EE]]></name>
 		<type><![CDATA[portlet]]></type>
@@ -1204,9 +1350,9 @@
 		<artifact-id><![CDATA[mb-subscription-manager-portlet]]></artifact-id>
 		<name><![CDATA[Message Boards Subscription Manager EE]]></name>
 		<type><![CDATA[portlet]]></type>
-		<tags><![CDATA[]]></tags>
+		<tags><![CDATA[category, control panel, message board, subscription manager]]></tags>
 		<short-description><![CDATA[]]></short-description>
-		<long-description><![CDATA[]]></long-description>
+		<long-description><![CDATA[This app facilitates managing Liferay Portal message boards category subscriptions. In particular, it lets site administrators view user subscriptions and subscribe multiple users to message boards categories.<br /><br />This app will appear in the Configuration page of Site Administration once installed.]]></long-description>
 		<change-log><![CDATA[]]></change-log>
 		<page-url><![CDATA[http://www.liferay.com]]></page-url>
 		<author><![CDATA[Liferay, Inc.]]></author>
@@ -1217,9 +1363,12 @@
 			<category><![CDATA[Utility]]></category>
 			<demo-url><![CDATA[]]></demo-url>
 			<dependent-apps><![CDATA[]]></dependent-apps>
+			<icon><![CDATA[portlets/mb-subscription-manager-portlet/docroot/WEB-INF/releng/icons/90x90.png]]></icon>
 			<labs><![CDATA[true]]></labs>
 			<marketplace><![CDATA[true]]></marketplace>
 			<public><![CDATA[false]]></public>
+			<screenshot><![CDATA[portlets/mb-subscription-manager-portlet/docroot/WEB-INF/releng/screenshots/1.jpg]]></screenshot>
+			<screenshot><![CDATA[portlets/mb-subscription-manager-portlet/docroot/WEB-INF/releng/screenshots/2.jpg]]></screenshot>
 			<support-url><![CDATA[]]></support-url>
 			<supported><![CDATA[true]]></supported>
 		</releng>
@@ -1407,32 +1556,6 @@
 		</releng>
 	</plugin>
 	<plugin>
-		<artifact-id><![CDATA[plugins-security-manager-portlet]]></artifact-id>
-		<name><![CDATA[Plugins Security Manager EE]]></name>
-		<type><![CDATA[portlet]]></type>
-		<tags><![CDATA[management, pacl, plugin, protection, security]]></tags>
-		<short-description><![CDATA[]]></short-description>
-		<long-description><![CDATA[The main function of the Plugins Security Manager is to protect the portal and host system from malicious code. The Plugins Security Manager checks an apps's API access attempt against the security manager properties specified in a plugin's liferay-plugin-package.properties file. If an app tries to access a portal resource without having the property "security-manager-enabled" in the liferay-plugin-package.properties file, the Plugins Security Manager prevents this access. This app allows you to disable the Plugins Security Manager so that it does not enforce these security checks.<br /><br />This app will appear in your Control Panel once installed.]]></long-description>
-		<change-log><![CDATA[]]></change-log>
-		<page-url><![CDATA[http://www.liferay.com]]></page-url>
-		<author><![CDATA[Liferay, Inc.]]></author>
-		<licenses><![CDATA[EE]]></licenses>
-		<liferay-versions><![CDATA[6.2.10+]]></liferay-versions>
-		<releng>
-			<bundle><![CDATA[false]]></bundle>
-			<category><![CDATA[Utility]]></category>
-			<demo-url><![CDATA[]]></demo-url>
-			<dependent-apps><![CDATA[]]></dependent-apps>
-			<icon><![CDATA[portlets/plugins-security-manager-portlet/docroot/WEB-INF/releng/icons/90x90.png]]></icon>
-			<labs><![CDATA[true]]></labs>
-			<marketplace><![CDATA[true]]></marketplace>
-			<public><![CDATA[false]]></public>
-			<screenshot><![CDATA[portlets/plugins-security-manager-portlet/docroot/WEB-INF/releng/screenshots/1.jpg]]></screenshot>
-			<support-url><![CDATA[]]></support-url>
-			<supported><![CDATA[true]]></supported>
-		</releng>
-	</plugin>
-	<plugin>
 		<artifact-id><![CDATA[private-messaging-portlet]]></artifact-id>
 		<name><![CDATA[Private Messaging EE]]></name>
 		<type><![CDATA[portlet]]></type>
@@ -1520,7 +1643,7 @@
 			<bundle><![CDATA[false]]></bundle>
 			<category><![CDATA[Productivity]]></category>
 			<demo-url><![CDATA[]]></demo-url>
-			<dependent-apps><![CDATA[]]></dependent-apps>
+			<dependent-apps><![CDATA[jasperreports-web]]></dependent-apps>
 			<icon><![CDATA[portlets/reports-portlet/docroot/WEB-INF/releng/icons/90x90.png]]></icon>
 			<labs><![CDATA[false]]></labs>
 			<marketplace><![CDATA[true]]></marketplace>
@@ -1800,30 +1923,6 @@
 		</releng>
 	</plugin>
 	<plugin>
-		<artifact-id><![CDATA[sample-laszlo-portlet]]></artifact-id>
-		<name><![CDATA[Sample Laszlo EE]]></name>
-		<type><![CDATA[portlet]]></type>
-		<tags><![CDATA[sample]]></tags>
-		<short-description><![CDATA[This plugin shows how to create Laszlo portlets in Liferay.]]></short-description>
-		<long-description><![CDATA[]]></long-description>
-		<change-log><![CDATA[]]></change-log>
-		<page-url><![CDATA[http://www.liferay.com]]></page-url>
-		<author><![CDATA[Liferay, Inc.]]></author>
-		<licenses><![CDATA[EE]]></licenses>
-		<liferay-versions><![CDATA[6.2.10+]]></liferay-versions>
-		<releng>
-			<bundle><![CDATA[false]]></bundle>
-			<category><![CDATA[]]></category>
-			<demo-url><![CDATA[]]></demo-url>
-			<dependent-apps><![CDATA[]]></dependent-apps>
-			<labs><![CDATA[true]]></labs>
-			<marketplace><![CDATA[false]]></marketplace>
-			<public><![CDATA[false]]></public>
-			<support-url><![CDATA[]]></support-url>
-			<supported><![CDATA[false]]></supported>
-		</releng>
-	</plugin>
-	<plugin>
 		<artifact-id><![CDATA[sample-permissions-portlet]]></artifact-id>
 		<name><![CDATA[Sample Permissions EE]]></name>
 		<type><![CDATA[portlet]]></type>
@@ -2040,30 +2139,6 @@
 		</releng>
 	</plugin>
 	<plugin>
-		<artifact-id><![CDATA[sample-struts-liferay-portlet]]></artifact-id>
-		<name><![CDATA[Sample Struts Liferay EE]]></name>
-		<type><![CDATA[portlet]]></type>
-		<tags><![CDATA[sample]]></tags>
-		<short-description><![CDATA[This plugin shows how to use Liferay's Struts Bridge.]]></short-description>
-		<long-description><![CDATA[]]></long-description>
-		<change-log><![CDATA[]]></change-log>
-		<page-url><![CDATA[http://www.liferay.com]]></page-url>
-		<author><![CDATA[Liferay, Inc.]]></author>
-		<licenses><![CDATA[EE]]></licenses>
-		<liferay-versions><![CDATA[6.2.10+]]></liferay-versions>
-		<releng>
-			<bundle><![CDATA[false]]></bundle>
-			<category><![CDATA[]]></category>
-			<demo-url><![CDATA[]]></demo-url>
-			<dependent-apps><![CDATA[]]></dependent-apps>
-			<labs><![CDATA[true]]></labs>
-			<marketplace><![CDATA[false]]></marketplace>
-			<public><![CDATA[false]]></public>
-			<support-url><![CDATA[]]></support-url>
-			<supported><![CDATA[false]]></supported>
-		</releng>
-	</plugin>
-	<plugin>
 		<artifact-id><![CDATA[sample-struts-portlet]]></artifact-id>
 		<name><![CDATA[Sample Struts EE]]></name>
 		<type><![CDATA[portlet]]></type>
@@ -2247,7 +2322,7 @@
 			<bundle><![CDATA[false]]></bundle>
 			<category><![CDATA[Productivity]]></category>
 			<demo-url><![CDATA[]]></demo-url>
-			<dependent-apps><![CDATA[calendar-portlet, chat-portlet, contacts-portlet, deploy-listener-hook, documentum-hook, events-display-portlet, microblogs-portlet, private-messaging-portlet, sharepoint-hook, so-activities-hook, so-announcements-portlet, so-configurations-portlet, so-hook, so-strata-theme, tasks-portlet, wysiwyg-portlet]]></dependent-apps>
+			<dependent-apps><![CDATA[calendar-portlet, chat-portlet, contacts-portlet, deploy-listener-hook, documentum-hook, events-display-portlet, microblogs-portlet, notifications-portlet, portal-compat-hook, private-messaging-portlet, sharepoint-hook, so-activities-hook, so-announcements-portlet, so-configurations-portlet, so-hook, so-theme, tasks-portlet, wysiwyg-portlet]]></dependent-apps>
 			<icon><![CDATA[portlets/so-portlet/docroot/WEB-INF/releng/icons/90x90.png]]></icon>
 			<labs><![CDATA[false]]></labs>
 			<marketplace><![CDATA[true]]></marketplace>
@@ -2660,6 +2735,30 @@
 	<plugin>
 		<artifact-id><![CDATA[test-http-client-portlet]]></artifact-id>
 		<name><![CDATA[Test HTTP Client EE]]></name>
+		<type><![CDATA[portlet]]></type>
+		<tags><![CDATA[test]]></tags>
+		<short-description><![CDATA[]]></short-description>
+		<long-description><![CDATA[]]></long-description>
+		<change-log><![CDATA[]]></change-log>
+		<page-url><![CDATA[http://www.liferay.com]]></page-url>
+		<author><![CDATA[Liferay, Inc.]]></author>
+		<licenses><![CDATA[EE]]></licenses>
+		<liferay-versions><![CDATA[6.2.10+]]></liferay-versions>
+		<releng>
+			<bundle><![CDATA[false]]></bundle>
+			<category><![CDATA[]]></category>
+			<demo-url><![CDATA[]]></demo-url>
+			<dependent-apps><![CDATA[]]></dependent-apps>
+			<labs><![CDATA[true]]></labs>
+			<marketplace><![CDATA[false]]></marketplace>
+			<public><![CDATA[false]]></public>
+			<support-url><![CDATA[]]></support-url>
+			<supported><![CDATA[false]]></supported>
+		</releng>
+	</plugin>
+	<plugin>
+		<artifact-id><![CDATA[test-jsr-286-plt-26-6-portlet]]></artifact-id>
+		<name><![CDATA[Test JSR 286 PLT.26.6 EE]]></name>
 		<type><![CDATA[portlet]]></type>
 		<tags><![CDATA[test]]></tags>
 		<short-description><![CDATA[]]></short-description>
@@ -3331,34 +3430,10 @@
 		</releng>
 	</plugin>
 	<plugin>
-		<artifact-id><![CDATA[so-strata-theme]]></artifact-id>
-		<name><![CDATA[Social Office Strata EE]]></name>
-		<type><![CDATA[theme]]></type>
-		<tags><![CDATA[collaboration, communication, office, so, social, social office, team]]></tags>
-		<short-description><![CDATA[]]></short-description>
-		<long-description><![CDATA[]]></long-description>
-		<change-log><![CDATA[]]></change-log>
-		<page-url><![CDATA[http://www.liferay.com]]></page-url>
-		<author><![CDATA[Liferay, Inc.]]></author>
-		<licenses><![CDATA[EE]]></licenses>
-		<liferay-versions><![CDATA[6.2.10+]]></liferay-versions>
-		<releng>
-			<bundle><![CDATA[false]]></bundle>
-			<category><![CDATA[]]></category>
-			<demo-url><![CDATA[]]></demo-url>
-			<dependent-apps><![CDATA[]]></dependent-apps>
-			<labs><![CDATA[false]]></labs>
-			<marketplace><![CDATA[false]]></marketplace>
-			<public><![CDATA[false]]></public>
-			<support-url><![CDATA[]]></support-url>
-			<supported><![CDATA[true]]></supported>
-		</releng>
-	</plugin>
-	<plugin>
 		<artifact-id><![CDATA[so-theme]]></artifact-id>
 		<name><![CDATA[Social Office EE]]></name>
 		<type><![CDATA[theme]]></type>
-		<tags><![CDATA[]]></tags>
+		<tags><![CDATA[collaboration, communication, office, so, social, social office, team]]></tags>
 		<short-description><![CDATA[]]></short-description>
 		<long-description><![CDATA[]]></long-description>
 		<change-log><![CDATA[]]></change-log>
@@ -3680,7 +3755,7 @@
 		<type><![CDATA[web]]></type>
 		<tags><![CDATA[cluster, ehcache, enterprise, ha, high availability, replication]]></tags>
 		<short-description><![CDATA[]]></short-description>
-		<long-description><![CDATA[Liferay portal relies upon both content and object caching to minimize database interaction and excessive object creation. Out of the box, the portal leverages ehCache for its caching needs. You may configure additional caches including Terracotta, osCache, Oracle Coherence Cache, and others. Liferay Portal has hundreds of object caches that require event cached object replication or cache event replication. By default, the out-of-the-box ehCache configuration uses a thread-per-cache replication algorithm that may introduce additional overhead.<br /><br />This app provides Enterprise Edition customers an enhanced algorithm that uses more efficient thread pooling for cached object and event replication. To configure the portal to use this algorithm, download and install this app, and refer to the "Liferay Deployment Checklist" whitepaper for details on how to configure this app for optimal cache performance.<br /><br />This app will install to your application server or servlet container.]]></long-description>
+		<long-description><![CDATA[Liferay Portal relies upon both content and object caching to minimize database interaction and excessive object creation. Out of the box, the portal leverages ehCache for its caching needs. You may configure additional caches including Terracotta, osCache, Oracle Coherence Cache, and others. Liferay Portal has hundreds of object caches that require event cached object replication or cache event replication. By default, the out-of-the-box ehCache configuration uses a thread-per-cache replication algorithm that may introduce additional overhead.<br /><br />This app provides Enterprise Edition customers an enhanced algorithm that uses more efficient thread pooling for cached object and event replication. To configure the portal to use this algorithm, download and install this app, and refer to the "Liferay Deployment Checklist" whitepaper for details on how to configure this app for optimal cache performance.<br /><br />This app will install to your application server or servlet container.]]></long-description>
 		<change-log><![CDATA[]]></change-log>
 		<page-url><![CDATA[http://www.liferay.com]]></page-url>
 		<author><![CDATA[Liferay, Inc.]]></author>
@@ -3699,6 +3774,30 @@
 			<screenshot><![CDATA[webs/ehcache-cluster-web/docroot/WEB-INF/releng/screenshots/2.jpg]]></screenshot>
 			<support-url><![CDATA[]]></support-url>
 			<supported><![CDATA[true]]></supported>
+		</releng>
+	</plugin>
+	<plugin>
+		<artifact-id><![CDATA[github-web]]></artifact-id>
+		<name><![CDATA[GitHub EE]]></name>
+		<type><![CDATA[web]]></type>
+		<tags><![CDATA[]]></tags>
+		<short-description><![CDATA[]]></short-description>
+		<long-description><![CDATA[]]></long-description>
+		<change-log><![CDATA[]]></change-log>
+		<page-url><![CDATA[http://www.liferay.com]]></page-url>
+		<author><![CDATA[Liferay, Inc.]]></author>
+		<licenses><![CDATA[EE]]></licenses>
+		<liferay-versions><![CDATA[]]></liferay-versions>
+		<releng>
+			<bundle><![CDATA[false]]></bundle>
+			<category><![CDATA[]]></category>
+			<demo-url><![CDATA[]]></demo-url>
+			<dependent-apps><![CDATA[]]></dependent-apps>
+			<labs><![CDATA[true]]></labs>
+			<marketplace><![CDATA[false]]></marketplace>
+			<public><![CDATA[false]]></public>
+			<support-url><![CDATA[]]></support-url>
+			<supported><![CDATA[false]]></supported>
 		</releng>
 	</plugin>
 	<plugin>
@@ -3855,12 +3954,11 @@
 			<demo-url><![CDATA[]]></demo-url>
 			<dependent-apps><![CDATA[]]></dependent-apps>
 			<icon><![CDATA[webs/solr3-web/docroot/WEB-INF/releng/icons/90x90.png]]></icon>
-			<labs><![CDATA[true]]></labs>
+			<labs><![CDATA[false]]></labs>
 			<marketplace><![CDATA[true]]></marketplace>
 			<public><![CDATA[false]]></public>
 			<screenshot><![CDATA[webs/solr3-web/docroot/WEB-INF/releng/screenshots/1.jpg]]></screenshot>
 			<screenshot><![CDATA[webs/solr3-web/docroot/WEB-INF/releng/screenshots/2.jpg]]></screenshot>
-			<screenshot><![CDATA[webs/solr3-web/docroot/WEB-INF/releng/screenshots/3.jpg]]></screenshot>
 			<support-url><![CDATA[]]></support-url>
 			<supported><![CDATA[true]]></supported>
 		</releng>
@@ -3869,7 +3967,7 @@
 		<artifact-id><![CDATA[solr4-web]]></artifact-id>
 		<name><![CDATA[Solr 4 Search Engine EE]]></name>
 		<type><![CDATA[web]]></type>
-		<tags><![CDATA[apache, search, solr]]></tags>
+		<tags><![CDATA[apache, lucene, search, seo, solr]]></tags>
 		<short-description><![CDATA[]]></short-description>
 		<long-description><![CDATA[This app provides integration with Apache Solr, the popular open source enterprise search platform from the Apache Lucene project. Its major features include powerful full-text search, hit highlighting, faceted search, dynamic clustering, database integration, rich document (e.g., Word, PDF) handling, and geospatial search. Solr is highly scalable, providing distributed search and index replication, and it powers the search and navigation features of many of the world's largest internet sites. With this integration, your Liferay Portal will use Solr for indexing and searching.<br /><br />This app installs as a Liferay service.]]></long-description>
 		<change-log><![CDATA[]]></change-log>
@@ -3883,14 +3981,13 @@
 			<demo-url><![CDATA[]]></demo-url>
 			<dependent-apps><![CDATA[]]></dependent-apps>
 			<icon><![CDATA[webs/solr4-web/docroot/WEB-INF/releng/icons/90x90.png]]></icon>
-			<labs><![CDATA[true]]></labs>
+			<labs><![CDATA[false]]></labs>
 			<marketplace><![CDATA[true]]></marketplace>
 			<public><![CDATA[false]]></public>
 			<screenshot><![CDATA[webs/solr4-web/docroot/WEB-INF/releng/screenshots/1.jpg]]></screenshot>
 			<screenshot><![CDATA[webs/solr4-web/docroot/WEB-INF/releng/screenshots/2.jpg]]></screenshot>
-			<screenshot><![CDATA[webs/solr4-web/docroot/WEB-INF/releng/screenshots/3.jpg]]></screenshot>
 			<support-url><![CDATA[]]></support-url>
-			<supported><![CDATA[false]]></supported>
+			<supported><![CDATA[true]]></supported>
 		</releng>
 	</plugin>
 	<plugin>
@@ -3995,6 +4092,30 @@
 			<public><![CDATA[false]]></public>
 			<screenshot><![CDATA[webs/vldap-web/docroot/WEB-INF/releng/screenshots/1.jpg]]></screenshot>
 			<screenshot><![CDATA[webs/vldap-web/docroot/WEB-INF/releng/screenshots/2.jpg]]></screenshot>
+			<support-url><![CDATA[]]></support-url>
+			<supported><![CDATA[true]]></supported>
+		</releng>
+	</plugin>
+	<plugin>
+		<artifact-id><![CDATA[words-web]]></artifact-id>
+		<name><![CDATA[Words EE]]></name>
+		<type><![CDATA[web]]></type>
+		<tags><![CDATA[]]></tags>
+		<short-description><![CDATA[]]></short-description>
+		<long-description><![CDATA[]]></long-description>
+		<change-log><![CDATA[]]></change-log>
+		<page-url><![CDATA[http://www.liferay.com]]></page-url>
+		<author><![CDATA[Liferay, Inc.]]></author>
+		<licenses><![CDATA[EE]]></licenses>
+		<liferay-versions><![CDATA[6.2.0+]]></liferay-versions>
+		<releng>
+			<bundle><![CDATA[false]]></bundle>
+			<category><![CDATA[Utility]]></category>
+			<demo-url><![CDATA[]]></demo-url>
+			<dependent-apps><![CDATA[]]></dependent-apps>
+			<labs><![CDATA[true]]></labs>
+			<marketplace><![CDATA[true]]></marketplace>
+			<public><![CDATA[false]]></public>
 			<support-url><![CDATA[]]></support-url>
 			<supported><![CDATA[true]]></supported>
 		</releng>
