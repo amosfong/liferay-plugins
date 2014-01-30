@@ -15,15 +15,15 @@
 package com.liferay.portal.resiliency.spi.monitor.messaging;
 
 import com.liferay.mail.service.MailServiceUtil;
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.mail.MailMessage;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.resiliency.spi.model.SPIDefinition;
 import com.liferay.portal.resiliency.spi.util.NotificationUtil;
-import com.liferay.portal.resiliency.spi.util.PortletKeys;
 import com.liferay.portal.resiliency.spi.util.SPIAdminConstants;
-import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -43,7 +43,9 @@ public class SPIStatusStoppedNotificationMessageListener
 	}
 
 	@Override
-	protected void processSPIStatus(SPIDefinition spiDefinition, int status)
+	protected void processSPIStatus(
+			PortletPreferences portletPreferences, SPIDefinition spiDefinition,
+			int status)
 		throws Exception {
 
 		if ((spiDefinition.getStatus() == SPIAdminConstants.STATUS_STOPPED) &&
@@ -62,14 +64,19 @@ public class SPIStatusStoppedNotificationMessageListener
 			spiDefinition.getNotificationRecipients();
 
 		if (Validator.isNull(notificationRecipients)) {
-			return;
-		}
+			notificationRecipients = portletPreferences.getValue(
+				"notificationRecipients", null);
 
-		PortletPreferences portletPreferences =
-			PortletPreferencesLocalServiceUtil.getPreferences(
-				spiDefinition.getCompanyId(), spiDefinition.getCompanyId(),
-				PortletKeys.PREFS_OWNER_TYPE_GROUP,
-				PortletKeys.PREFS_PLID_SHARED, PortletKeys.SPI_ADMIN, null);
+			if (Validator.isNull(notificationRecipients)) {
+				if (_log.isInfoEnabled()) {
+					_log.info(
+						"No notification recipients configured for: " +
+							spiDefinition.getSpiDefinitionId());
+				}
+
+				return;
+			}
+		}
 
 		String fromName = NotificationUtil.getNotificationEmailFromName(
 			portletPreferences);
@@ -140,5 +147,8 @@ public class SPIStatusStoppedNotificationMessageListener
 
 		MailServiceUtil.sendEmail(mailMessage);
 	}
+
+	private static Log _log = LogFactoryUtil.getLog(
+		SPIStatusStoppedNotificationMessageListener.class);
 
 }

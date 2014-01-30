@@ -74,7 +74,7 @@ public class SPIDefinitionImpl extends SPIDefinitionBaseImpl {
 	@Override
 	public int getMaxRestartAttempts() {
 		return GetterUtil.getInteger(
-			getTypeSettingsProperty("max-restart-attempts"));
+			getTypeSettingsProperty("max-restart-attempts"), -1);
 	}
 
 	@Override

@@ -19,10 +19,14 @@ import com.liferay.portal.kernel.messaging.Message;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.resiliency.spi.model.SPIDefinition;
 import com.liferay.portal.resiliency.spi.service.SPIDefinitionLocalServiceUtil;
+import com.liferay.portal.resiliency.spi.util.PortletKeys;
+import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
 
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.portlet.PortletPreferences;
 
 /**
  * @author Michael C. Han
@@ -51,11 +55,18 @@ public abstract class BaseSPIStatusMessageListener extends BaseMessageListener {
 		SPIDefinition spiDefinition =
 			SPIDefinitionLocalServiceUtil.getSPIDefinition(spiDefinitionId);
 
-		processSPIStatus(spiDefinition, status);
+		PortletPreferences portletPreferences =
+			PortletPreferencesLocalServiceUtil.getPreferences(
+				spiDefinition.getCompanyId(), spiDefinition.getCompanyId(),
+				PortletKeys.PREFS_OWNER_TYPE_GROUP,
+				PortletKeys.PREFS_PLID_SHARED, PortletKeys.SPI_ADMIN, null);
+
+		processSPIStatus(portletPreferences, spiDefinition, status);
 	}
 
 	protected abstract void processSPIStatus(
-			SPIDefinition spiDefinition, int status)
+			PortletPreferences portletPreferences, SPIDefinition spiDefinition,
+			int status)
 		throws Exception;
 
 	private Set<Integer> _interestedStatuses = new HashSet<Integer>();
