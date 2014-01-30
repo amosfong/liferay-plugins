@@ -1,0 +1,8 @@
+**/.git/**
+**/bin/**
+**/classes/**
+**/sharepoint-ws-shared/**
+**/test-classes/**
+**/test-coverage/**
+**/test-results/**
+**/tmp/**
