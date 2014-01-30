@@ -437,7 +437,7 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 		Attribute attribute = SamlUtil.getAttribute(attributes, attributeName);
 
 		Assert.assertEquals(
-			attributeValue, SamlUtil.getAttributeValueAsString(attribute));
+			attributeValue, SamlUtil.getValueAsString(attribute));
 	}
 
 	protected void assertAttributeValuesEquals(
@@ -453,7 +453,7 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 		Assert.assertEquals(attributeValues.length, values.size());
 
 		for (XMLObject xmlObject : values) {
-			String value = SamlUtil.getStringValueFromXMLObject(xmlObject);
+			String value = SamlUtil.getValueAsString(xmlObject);
 
 			Assert.assertTrue(ArrayUtil.contains(attributeValues, value));
 		}

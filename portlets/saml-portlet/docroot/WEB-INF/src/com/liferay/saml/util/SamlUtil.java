@@ -98,22 +98,12 @@ public class SamlUtil {
 
 			Attribute attribute = getAttribute(attributes, name);
 
-			String value = getAttributeValueAsString(attribute);
+			String value = getValueAsString(attribute);
 
 			attributesMap.put(keyString, value);
 		}
 
 		return attributesMap;
-	}
-
-	public static String getAttributeValueAsString(Attribute attribute) {
-		if ((attribute != null) && !attribute.getAttributeValues().isEmpty()) {
-			List<XMLObject> values = attribute.getAttributeValues();
-
-			return getStringValueFromXMLObject(values.get(0));
-		}
-
-		return null;
 	}
 
 	public static EntityDescriptor getEntityDescriptorById(
@@ -203,12 +193,30 @@ public class SamlUtil {
 			"Binding " + binding + " is not supported");
 	}
 
-	public static String getStringValueFromXMLObject(XMLObject xmlObject) {
-		if (xmlObject instanceof XSString) {
-			return ((XSString)xmlObject).getValue();
+	public static String getValueAsString(Attribute attribute) {
+		if (attribute == null) {
+			return null;
 		}
-		else if (xmlObject instanceof XSAny) {
-			return ((XSAny)xmlObject).getTextContent();
+
+		List<XMLObject> values = attribute.getAttributeValues();
+
+		if (values.isEmpty()) {
+			return null;
+		}
+
+		return getValueAsString(values.get(0));
+	}
+
+	public static String getValueAsString(XMLObject xmlObject) {
+		if (xmlObject instanceof XSAny) {
+			XSAny xsAny = (XSAny)xmlObject;
+
+			return xsAny.getTextContent();
+		}
+		else if (xmlObject instanceof XSString) {
+			XSString xsString = (XSString)xmlObject;
+
+			return xsString.getValue();
 		}
 
 		return null;
