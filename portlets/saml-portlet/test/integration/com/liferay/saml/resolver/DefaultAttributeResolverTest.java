@@ -86,8 +86,6 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 			_expandoBridge
 		);
 
-		_defaultAttributeResolver = new DefaultAttributeResolver();
-
 		_samlMessageContext =
 			new BasicSAMLMessageContext<AuthnRequest, Response, NameID>();
 
@@ -97,21 +95,21 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 	@Test
 	public void testResolveExpandoAttributes() throws Exception {
 		when(
-			_metadataManager.getAttributeNames(Mockito.eq(SP_ENTITY_ID))
-		).thenReturn(
-			new String[] { "expando:customerId" }
-		);
-
-		when(
 			_expandoBridge.getAttribute(Mockito.eq("customerId"))
 		).thenReturn(
 			"12345"
 		);
 
+		when(
+			_metadataManager.getAttributeNames(Mockito.eq(SP_ENTITY_ID))
+		).thenReturn(
+			new String[] {"expando:customerId"}
+		);
+
 		List<Attribute> attributes = _defaultAttributeResolver.resolve(
 			_user, _samlMessageContext);
 
-		assertAttributeEquals(attributes, "customerId", "12345");
+		assertEquals(attributes, "customerId", "12345");
 	}
 
 	@Test
@@ -119,29 +117,30 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 		when(
 			_metadataManager.getAttributeNames(Mockito.eq(SP_ENTITY_ID))
 		).thenReturn(
-			new String[] { "groups" }
+			new String[] {"groups"}
 		);
 
 		List<Group> groups = new ArrayList<Group>();
 
 		Group group1 = mock(Group.class);
 
-		groups.add(group1);
-
-		Group group2 = mock(Group.class);
-
-		groups.add(group2);
-
 		when(
 			group1.getName()
 		).thenReturn(
 			"Test 1"
 		);
+
+		groups.add(group1);
+
+		Group group2 = mock(Group.class);
+
 		when(
 			group2.getName()
 		).thenReturn(
 			"Test 2"
 		);
+
+		groups.add(group2);
 
 		when(
 			_user.getGroups()
@@ -152,8 +151,7 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 		List<Attribute> attributes = _defaultAttributeResolver.resolve(
 			_user, _samlMessageContext);
 
-		assertAttributeValuesEquals(
-			attributes, "groups", new String[] {"Test 1", "Test 2"});
+		assertEquals(attributes, "groups", new String[] {"Test 1", "Test 2"});
 	}
 
 	@Test
@@ -161,29 +159,30 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 		when(
 			_metadataManager.getAttributeNames(Mockito.eq(SP_ENTITY_ID))
 		).thenReturn(
-			new String[] { "organizations" }
+			new String[] {"organizations"}
 		);
 
 		List<Organization> organizations = new ArrayList<Organization>();
 
 		Organization organization1 = mock(Organization.class);
 
-		organizations.add(organization1);
-
-		Organization organization2 = mock(Organization.class);
-
-		organizations.add(organization2);
-
 		when(
 			organization1.getName()
 		).thenReturn(
 			"Test 1"
 		);
+
+		organizations.add(organization1);
+
+		Organization organization2 = mock(Organization.class);
+
 		when(
 			organization2.getName()
 		).thenReturn(
 			"Test 2"
 		);
+
+		organizations.add(organization2);
 
 		when(
 			_user.getOrganizations()
@@ -194,7 +193,7 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 		List<Attribute> attributes = _defaultAttributeResolver.resolve(
 			_user, _samlMessageContext);
 
-		assertAttributeValuesEquals(
+		assertEquals(
 			attributes, "organizations", new String[] {"Test 1", "Test 2"});
 	}
 
@@ -203,29 +202,30 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 		when(
 			_metadataManager.getAttributeNames(Mockito.eq(SP_ENTITY_ID))
 		).thenReturn(
-			new String[] { "roles" }
+			new String[] {"roles"}
 		);
 
 		List<Role> roles = new ArrayList<Role>();
 
 		Role role1 = mock(Role.class);
 
-		roles.add(role1);
-
-		Role role2 = mock(Role.class);
-
-		roles.add(role2);
-
 		when(
 			role1.getName()
 		).thenReturn(
 			"Test 1"
 		);
+
+		roles.add(role1);
+
+		Role role2 = mock(Role.class);
+
 		when(
 			role2.getName()
 		).thenReturn(
 			"Test 2"
 		);
+
+		roles.add(role2);
 
 		when(
 			_user.getRoles()
@@ -236,8 +236,7 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 		List<Attribute> attributes = _defaultAttributeResolver.resolve(
 			_user, _samlMessageContext);
 
-		assertAttributeValuesEquals(
-			attributes, "roles", new String[] {"Test 1", "Test 2"});
+		assertEquals(attributes, "roles", new String[] {"Test 1", "Test 2"});
 	}
 
 	@Test
@@ -247,14 +246,15 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 		).thenReturn(
 			new String[] {
 				"static:emailAddress=test@liferay.com",
-				"static:screenName=test=test2"}
+				"static:screenName=test=test2"
+			}
 		);
 
 		List<Attribute> attributes = _defaultAttributeResolver.resolve(
 			_user, _samlMessageContext);
 
-		assertAttributeEquals(attributes, "emailAddress", "test@liferay.com");
-		assertAttributeEquals(attributes, "screenName", "test=test2");
+		assertEquals(attributes, "emailAddress", "test@liferay.com");
+		assertEquals(attributes, "screenName", "test=test2");
 	}
 
 	@Test
@@ -265,24 +265,28 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 		).thenReturn(
 			"test@liferay.com"
 		);
+
 		when(
 			_beanProperties.getObject(
 				Mockito.any(User.class), Mockito.eq("firstName"))
 		).thenReturn(
 			"Test"
 		);
+
 		when(
 			_beanProperties.getObject(
 				Mockito.any(User.class), Mockito.eq("lastName"))
 		).thenReturn(
 			"Test"
 		);
+
 		when(
 			_beanProperties.getObject(
 				Mockito.any(User.class), Mockito.eq("screenName"))
 		).thenReturn(
 			"test"
 		);
+
 		when(
 			_beanProperties.getObject(
 				Mockito.any(User.class), Mockito.eq("uuid"))
@@ -294,17 +298,18 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 			_metadataManager.getAttributeNames(Mockito.eq(SP_ENTITY_ID))
 		).thenReturn(
 			new String[] {
-				"emailAddress", "firstName", "lastName", "screenName", "uuid"}
+				"emailAddress", "firstName", "lastName", "screenName", "uuid"
+			}
 		);
 
 		List<Attribute> attributes = _defaultAttributeResolver.resolve(
 			_user, _samlMessageContext);
 
-		assertAttributeEquals(attributes, "emailAddress", "test@liferay.com");
-		assertAttributeEquals(attributes, "firstName", "Test");
-		assertAttributeEquals(attributes, "lastName", "Test");
-		assertAttributeEquals(attributes, "screenName", "test");
-		assertAttributeEquals(attributes, "uuid", "xxxx-xxxx-xxx-xxxx");
+		assertEquals(attributes, "emailAddress", "test@liferay.com");
+		assertEquals(attributes, "firstName", "Test");
+		assertEquals(attributes, "lastName", "Test");
+		assertEquals(attributes, "screenName", "test");
+		assertEquals(attributes, "uuid", "xxxx-xxxx-xxx-xxxx");
 	}
 
 	@Test
@@ -312,7 +317,7 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 		when(
 			_metadataManager.getAttributeNames(Mockito.eq(SP_ENTITY_ID))
 		).thenReturn(
-			new String[] { "userGroupRoles" }
+			new String[] {"userGroupRoles"}
 		);
 
 		UserGroupRoleLocalService userGroupRoleLocalService =
@@ -330,13 +335,14 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 ;
 		Role role1 = mock(Role.class);
 
-		Role role2 = mock(Role.class);
-
 		when(
 			role1.getName()
 		).thenReturn(
 			"Role Test 1"
 		);
+
+		Role role2 = mock(Role.class);
+
 		when(
 			role2.getName()
 		).thenReturn(
@@ -347,32 +353,35 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 
 		UserGroupRole userGroupRole1 = mock(UserGroupRole.class);
 
-		userGroupRoles.add(userGroupRole1);
-
-		UserGroupRole userGroupRole2 = mock(UserGroupRole.class);
-
-		userGroupRoles.add(userGroupRole2);
-
 		when(
 			userGroupRole1.getGroup()
 		).thenReturn(
 			group1
 		);
+
 		when(
 			userGroupRole1.getRole()
 		).thenReturn(
 			role1
 		);
+
+		userGroupRoles.add(userGroupRole1);
+
+		UserGroupRole userGroupRole2 = mock(UserGroupRole.class);
+
 		when(
 			userGroupRole2.getGroup()
 		).thenReturn(
 			group1
 		);
+
 		when(
 			userGroupRole2.getRole()
 		).thenReturn(
 			role2
 		);
+
+		userGroupRoles.add(userGroupRole2);
 
 		when(
 			userGroupRoleLocalService.getUserGroupRoles(Mockito.anyLong())
@@ -383,7 +392,7 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 		List<Attribute> attributes = _defaultAttributeResolver.resolve(
 			_user, _samlMessageContext);
 
-		assertAttributeValuesEquals(
+		assertEquals(
 			attributes, "userGroupRole:Group Test 1",
 			new String[] {"Role Test 1", "Role Test 2"});
 	}
@@ -393,29 +402,30 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 		when(
 			_metadataManager.getAttributeNames(Mockito.eq(SP_ENTITY_ID))
 		).thenReturn(
-			new String[] { "userGroups" }
+			new String[] {"userGroups"}
 		);
 
 		List<UserGroup> userGroups = new ArrayList<UserGroup>();
 
 		UserGroup userGroup1 = mock(UserGroup.class);
 
-		userGroups.add(userGroup1);
-
-		UserGroup userGroup2 = mock(UserGroup.class);
-
-		userGroups.add(userGroup2);
-
 		when(
 			userGroup1.getName()
 		).thenReturn(
 			"Test 1"
 		);
+
+		userGroups.add(userGroup1);
+
+		UserGroup userGroup2 = mock(UserGroup.class);
+
 		when(
 			userGroup2.getName()
 		).thenReturn(
 			"Test 2"
 		);
+
+		userGroups.add(userGroup2);
 
 		when(
 			_user.getUserGroups()
@@ -426,11 +436,11 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 		List<Attribute> attributes = _defaultAttributeResolver.resolve(
 			_user, _samlMessageContext);
 
-		assertAttributeValuesEquals(
+		assertEquals(
 			attributes, "userGroups", new String[] {"Test 1", "Test 2"});
 	}
 
-	protected void assertAttributeEquals(
+	protected void assertEquals(
 		List<Attribute> attributes, String attributeName,
 		String attributeValue) {
 
@@ -440,7 +450,7 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 			attributeValue, SamlUtil.getValueAsString(attribute));
 	}
 
-	protected void assertAttributeValuesEquals(
+	protected void assertEquals(
 		List<Attribute> attributes, String attributeName,
 		String[] attributeValues) {
 
@@ -448,19 +458,21 @@ public class DefaultAttributeResolverTest extends BaseSamlTestCase {
 
 		Assert.assertNotNull(attribute);
 
-		List<XMLObject> values = attribute.getAttributeValues();
+		List<XMLObject> xmlObjects = attribute.getAttributeValues();
 
-		Assert.assertEquals(attributeValues.length, values.size());
+		Assert.assertEquals(attributeValues.length, xmlObjects.size());
 
-		for (XMLObject xmlObject : values) {
-			String value = SamlUtil.getValueAsString(xmlObject);
+		for (XMLObject xmlObject : xmlObjects) {
+			String attributeValue = SamlUtil.getValueAsString(xmlObject);
 
-			Assert.assertTrue(ArrayUtil.contains(attributeValues, value));
+			Assert.assertTrue(
+				ArrayUtil.contains(attributeValues, attributeValue));
 		}
 	}
 
 	private BeanProperties _beanProperties;
-	private DefaultAttributeResolver _defaultAttributeResolver;
+	private DefaultAttributeResolver _defaultAttributeResolver =
+		new DefaultAttributeResolver();
 	private ExpandoBridge _expandoBridge;
 	private MetadataManager _metadataManager;
 	private SAMLMessageContext<AuthnRequest, Response, NameID>

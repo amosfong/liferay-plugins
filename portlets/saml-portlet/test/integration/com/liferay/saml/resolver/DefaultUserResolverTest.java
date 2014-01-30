@@ -66,11 +66,11 @@ public class DefaultUserResolverTest extends BaseSamlTestCase {
 
 	@Test
 	public void testImportUserWithEmailAddress() throws Exception {
-		UserLocalService mockUserLocalService = getMockPortalService(
+		UserLocalService userLocalService = getMockPortalService(
 			UserLocalServiceUtil.class, UserLocalService.class);
 
 		when(
-			mockUserLocalService.getUserByEmailAddress(
+			userLocalService.getUserByEmailAddress(
 				1, _SUBJECT_NAME_IDENTIFIER_EMAIL_ADDRESS)
 		).thenReturn(
 			null
@@ -79,10 +79,10 @@ public class DefaultUserResolverTest extends BaseSamlTestCase {
 		User user = mock(User.class);
 
 		when(
-			mockUserLocalService.addUser(
+			userLocalService.addUser(
 				Mockito.anyLong(), Mockito.anyLong(), Mockito.anyBoolean(),
 				Mockito.anyString(), Mockito.anyString(), Mockito.anyBoolean(),
-				Mockito.eq(_SUBJECT_NAME_IDENTIFIER_SCREENNAME),
+				Mockito.eq(_SUBJECT_NAME_IDENTIFIER_SCREEN_NAME),
 				Mockito.eq(_SUBJECT_NAME_IDENTIFIER_EMAIL_ADDRESS),
 				Mockito.anyLong(), Mockito.anyString(),
 				Mockito.any(Locale.class), Mockito.eq("test"),
@@ -111,11 +111,11 @@ public class DefaultUserResolverTest extends BaseSamlTestCase {
 		attributes.add(
 			OpenSamlUtil.buildAttribute(
 				"emailAddress", _SUBJECT_NAME_IDENTIFIER_EMAIL_ADDRESS));
-		attributes.add(
-			OpenSamlUtil.buildAttribute(
-				"screenName", _SUBJECT_NAME_IDENTIFIER_SCREENNAME));
 		attributes.add(OpenSamlUtil.buildAttribute("firstName", "test"));
 		attributes.add(OpenSamlUtil.buildAttribute("lastName", "test"));
+		attributes.add(
+			OpenSamlUtil.buildAttribute(
+				"screenName", _SUBJECT_NAME_IDENTIFIER_SCREEN_NAME));
 
 		SAMLMessageContext<Response, SAMLObject, NameID> samlMessageContext =
 			new BasicSAMLMessageContext<Response, SAMLObject, NameID>();
@@ -132,14 +132,12 @@ public class DefaultUserResolverTest extends BaseSamlTestCase {
 	}
 
 	private static final String _ATTRIBUTE_MAPPINGS =
-		"emailAddress=emailAddress\n" +
-		"screenName=screenName\n" +
-		"firstName=firstName\n" +
-		"lastName=lastName";
+		"emailAddress=emailAddress\nfirstName=firstName\nlastName=lastName\n" +
+			"screenName=screenName";
 
 	private static final String _SUBJECT_NAME_IDENTIFIER_EMAIL_ADDRESS =
 		"test@liferay.com";
 
-	private static final String _SUBJECT_NAME_IDENTIFIER_SCREENNAME = "test";
+	private static final String _SUBJECT_NAME_IDENTIFIER_SCREEN_NAME = "test";
 
 }
