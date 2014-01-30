@@ -75,7 +75,7 @@ AUI.add(
 
 						instance.byId('addEntryLink').on(EVENT_CLICK, instance._getLCSClusterEntryPanel, instance);
 						instance.byId('corpEntryId').on(EVENT_CHANGE, instance._loadData, instance);
-						instance.byId('name').on(EVENT_INPUT, instance._refreshInputControls, instance);
+						instance.byId('name').on(EVENT_INPUT, A.bind('_refreshInputControls', instance));
 
 						instance.all('[name=' + instance.ns('environment') + ']').on(EVENT_CLICK, instance._refreshInputControls, instance);
 
@@ -90,7 +90,7 @@ AUI.add(
 
 						lcsClusterEntryFormAdd.detach(EVENT_SUBMIT);
 
-						name.on(EVENT_INPUT, instance._onLCSClusterEntryNameInput, instance, lcsClusterEntryFormAdd);
+						name.on(EVENT_INPUT, A.bind('_onLCSClusterEntryNameInput', instance));
 
 						lcsClusterEntryFormAdd.on(EVENT_SUBMIT, instance._onLCSClusterEntryFormSubmit, instance, lcsClusterEntryFormAdd);
 
