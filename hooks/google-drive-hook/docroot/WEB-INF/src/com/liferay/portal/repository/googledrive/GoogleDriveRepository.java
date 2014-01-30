@@ -666,19 +666,16 @@ public class GoogleDriveRepository
 			ExtRepositoryQueryMapper extRepositoryQueryMapper)
 		throws PortalException, SystemException {
 
-		String keywords = searchContext.getKeywords();
-
-		long[] folderIds = searchContext.getFolderIds();
-
-		String searchQuery = getSearchQuery(
-			keywords, folderIds, extRepositoryQueryMapper);
-
 		try {
 			Drive drive = getDrive();
 
 			Drive.Files driveFiles = drive.files();
 
 			Drive.Files.List driveFilesList = driveFiles.list();
+
+			String searchQuery = getSearchQuery(
+				searchContext.getKeywords(), searchContext.getFolderIds(),
+				extRepositoryQueryMapper);
 
 			driveFilesList.setQ(searchQuery);
 
@@ -687,16 +684,17 @@ public class GoogleDriveRepository
 			List<File> files = fileList.getItems();
 
 			List<ExtRepositorySearchResult<?>> extRepositorySearchResults =
-				new ArrayList<ExtRepositorySearchResult<?>>();
+				new ArrayList<ExtRepositorySearchResult<?>>(files.size());
 
 			for (File file : files) {
 				if (_FOLDER_MIME_TYPE.equals(file.getMimeType())) {
 					GoogleDriveFolder googleDriveFolder = new GoogleDriveFolder(
 						file, _rootFolderKey);
 
-					ExtRepositorySearchResult extRepositorySearchResult =
-						new ExtRepositorySearchResult(
-							googleDriveFolder, 1.0F, StringPool.BLANK);
+					ExtRepositorySearchResult<GoogleDriveFolder>
+						extRepositorySearchResult =
+							new ExtRepositorySearchResult<GoogleDriveFolder>(
+								googleDriveFolder, 1.0f, StringPool.BLANK);
 
 					extRepositorySearchResults.add(extRepositorySearchResult);
 				}
@@ -704,9 +702,10 @@ public class GoogleDriveRepository
 					GoogleDriveFileEntry googleDriveFileEntry =
 						new GoogleDriveFileEntry(file);
 
-					ExtRepositorySearchResult extRepositorySearchResult =
-						new ExtRepositorySearchResult(
-							googleDriveFileEntry, 1.0F, StringPool.BLANK);
+					ExtRepositorySearchResult<GoogleDriveFileEntry>
+						extRepositorySearchResult =
+							new ExtRepositorySearchResult<GoogleDriveFileEntry>(
+								googleDriveFileEntry, 1.0f, StringPool.BLANK);
 
 					extRepositorySearchResults.add(extRepositorySearchResult);
 				}
@@ -896,11 +895,12 @@ public class GoogleDriveRepository
 
 			long folderId = folderIds[i];
 
-			String folderKey = extRepositoryQueryMapper.formatParameterValue(
-				"folderId", String.valueOf(folderId));
+			String extRepositoryFolderKey =
+				extRepositoryQueryMapper.formatParameterValue(
+					"folderId", String.valueOf(folderId));
 
 			sb.append(StringPool.APOSTROPHE);
-			sb.append(folderKey);
+			sb.append(extRepositoryFolderKey);
 			sb.append(StringPool.APOSTROPHE);
 
 			sb.append(" in parents");
