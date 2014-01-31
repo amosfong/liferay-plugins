@@ -74,6 +74,7 @@ import java.io.InputStream;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -353,6 +354,8 @@ public class GoogleDriveRepository
 						extRepositoryFileEntry.getExtRepositoryModelKey(),
 						i + 1));
 			}
+
+			Collections.reverse(extRepositoryFileVersions);
 
 			return extRepositoryFileVersions;
 		}
