@@ -570,7 +570,11 @@ public class GoogleDriveRepository
 			String extRepositoryFolderKey, boolean recurse)
 		throws PortalException, SystemException {
 
-		return null;
+		List<String> subfolderKeys = new ArrayList<String>();
+
+		getSubfolderKeys(extRepositoryFolderKey, recurse, subfolderKeys);
+
+		return subfolderKeys;
 	}
 
 	@Override
@@ -907,6 +911,28 @@ public class GoogleDriveRepository
 		}
 
 		return sb.toString();
+	}
+
+	protected List<String> getSubfolderKeys(
+			String extRepositoryFolderKey, boolean recurse,
+			List<String> subfolderKeys)
+		throws PortalException, SystemException {
+
+		List<ExtRepositoryFolder> extRepositoryFolders =
+			getExtRepositoryObjects(
+				ExtRepositoryObjectType.FOLDER, extRepositoryFolderKey);
+
+		for (ExtRepositoryFolder extRepositoryFolder : extRepositoryFolders) {
+			subfolderKeys.add(extRepositoryFolder.getExtRepositoryModelKey());
+
+			if (recurse) {
+				getSubfolderKeys(
+					extRepositoryFolder.getExtRepositoryModelKey(), recurse,
+					subfolderKeys);
+			}
+		}
+
+		return subfolderKeys;
 	}
 
 	private static final String _FOLDER_MIME_TYPE =
