@@ -15,9 +15,9 @@ AUI.add(
 
 		var MENU_LIST_CONTAINER = 'menuListContainer';
 
-		var TPL_SPI_DEFINITION_ID = 'spiDefinitionId={id}';
-
 		var TPL_DATA_ID_NODE_SELECTOR = '.spi-status-column .label[data-id="{spiDefinitionId}"]';
+
+		var TPL_SPI_DEFINITION_ID = 'spiDefinitionId={id}';
 
 		var URLS = 'urls';
 
@@ -84,15 +84,9 @@ AUI.add(
 					_getSearchContainerTableData: function() {
 						var instance = this;
 
-						var searchContainerTableData = instance._searchContainerTableData;
+						instance._searchContainerTableData = instance._searchContainerTableData || instance.get('searchContainer').one('.table-data');
 
-						if (!searchContainerTableData) {
-							searchContainerTableData = instance.get('searchContainer').one('.table-data');
-
-							instance._searchContainerTableData = searchContainerTableData;
-						}
-
-						return searchContainerTableData;
+						return instance._searchContainerTableData;
 					},
 
 					_getSPIStatusLabel: function(item) {
