@@ -819,9 +819,9 @@ public class GoogleDriveRepository
 		GoogleCredential.Builder builder = new GoogleCredential.Builder();
 
 		String googleClientId = PrefsPropsUtil.getString(
-			user.getCompanyId(), "google.client.id");
+			user.getCompanyId(), "google-client-id");
 		String googleClientSecret = PrefsPropsUtil.getString(
-			user.getCompanyId(), "google.client.secret");
+			user.getCompanyId(), "google-client-secret");
 
 		builder.setClientSecrets(googleClientId, googleClientSecret);
 
