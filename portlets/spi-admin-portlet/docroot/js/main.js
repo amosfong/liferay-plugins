@@ -84,9 +84,15 @@ AUI.add(
 					_getSearchContainerTableData: function() {
 						var instance = this;
 
-						instance._searchContainerTableData = instance._searchContainerTableData || instance.get('searchContainer').one('.table-data');
+						var searchContainerTableData = instance._searchContainerTableData;
 
-						return instance._searchContainerTableData;
+						if (!searchContainerTableData) {
+							searchContainerTableData = instance.get('searchContainer').one('.table-data');
+
+							instance._searchContainerTableData = searchContainerTableData;
+						}
+
+						return searchContainerTableData;
 					},
 
 					_getSPIStatusLabel: function(item) {
