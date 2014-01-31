@@ -16,6 +16,7 @@ package com.liferay.portal.repository.googledrive.model;
 
 import com.google.api.services.drive.model.Revision;
 
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.repository.external.ExtRepositoryFileVersion;
 
@@ -25,13 +26,18 @@ import com.liferay.repository.external.ExtRepositoryFileVersion;
 public class GoogleDriveFileVersion
 	extends GoogleDriveModel implements ExtRepositoryFileVersion {
 
-	public GoogleDriveFileVersion(Revision revision) {
+	public GoogleDriveFileVersion(
+		Revision revision, String fileId, int version) {
+
 		super(
 			revision.getModifiedDate(), revision.getId(),
 			revision.getFileSize(), revision.getLastModifyingUserName());
 
 		_downloadURL = revision.getDownloadUrl();
+		_fileId = fileId;
 		_mimeType = revision.getMimeType();
+		_revisionId = revision.getId();
+		_version = version + ".0";
 	}
 
 	@Override
@@ -44,16 +50,32 @@ public class GoogleDriveFileVersion
 	}
 
 	@Override
+	public String getExtRepositoryModelKey() {
+		StringBundler sb = new StringBundler();
+
+		sb.append(_fileId);
+		sb.append(StringPool.COLON);
+		sb.append(_revisionId);
+		sb.append(StringPool.COLON);
+		sb.append(_version);
+
+		return sb.toString();
+	}
+
+	@Override
 	public String getMimeType() {
 		return _mimeType;
 	}
 
 	@Override
 	public String getVersion() {
-		return getExtRepositoryModelKey();
+		return _version;
 	}
 
 	private String _downloadURL;
+	private String _fileId;
 	private final String _mimeType;
+	private String _revisionId;
+	private String _version;
 
 }

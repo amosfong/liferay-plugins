@@ -31,6 +31,7 @@ import com.google.api.services.drive.model.ParentReference;
 import com.google.api.services.drive.model.Revision;
 import com.google.api.services.drive.model.RevisionList;
 
+import com.liferay.compat.portal.kernel.util.StringUtil;
 import com.liferay.portal.NoSuchRepositoryEntryException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -286,12 +287,21 @@ public class GoogleDriveRepository
 
 			Drive.Revisions driveRevisions = drive.revisions();
 
-			Drive.Revisions.Get driveRevisionsGet = driveRevisions.get(
-				extRepositoryFileEntry.getExtRepositoryModelKey(), version);
+			Drive.Revisions.List driveRevisionsList = driveRevisions.list(
+				extRepositoryFileEntry.getExtRepositoryModelKey());
 
-			Revision revision = driveRevisionsGet.execute();
+			RevisionList revisionList = driveRevisionsList.execute();
 
-			return new GoogleDriveFileVersion(revision);
+			List<Revision> revisions = revisionList.getItems();
+
+			int[] versionParts = StringUtil.split(
+				version, StringPool.PERIOD, 0);
+
+			Revision revision = revisions.get(versionParts[0]);
+
+			return new GoogleDriveFileVersion(
+				revision, extRepositoryFileEntry.getExtRepositoryModelKey(),
+				versionParts[0]);
 		}
 		catch (IOException ioe) {
 			_log.error(ioe, ioe);
@@ -305,7 +315,13 @@ public class GoogleDriveRepository
 		getExtRepositoryFileVersionDescriptor(
 			String extRepositoryFileVersionKey) {
 
-		return null;
+		String[] extRepositoryFileVersionKeyParts = StringUtil.split(
+			extRepositoryFileVersionKey, StringPool.COLON);
+
+		String fileId = extRepositoryFileVersionKeyParts[0];
+		String version = extRepositoryFileVersionKeyParts[2];
+
+		return new ExtRepositoryFileVersionDescriptor(fileId, version);
 	}
 
 	@Override
@@ -328,9 +344,14 @@ public class GoogleDriveRepository
 			List<ExtRepositoryFileVersion> extRepositoryFileVersions =
 				new ArrayList<ExtRepositoryFileVersion>(revisions.size());
 
-			for (Revision revision : revisions) {
+			for (int i = 0; i < revisions.size(); i++) {
+				Revision revision = revisions.get(i);
+
 				extRepositoryFileVersions.add(
-					new GoogleDriveFileVersion(revision));
+					new GoogleDriveFileVersion(
+						revision,
+						extRepositoryFileEntry.getExtRepositoryModelKey(),
+						i + 1));
 			}
 
 			return extRepositoryFileVersions;
