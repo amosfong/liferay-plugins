@@ -3,8 +3,6 @@ AUI.add(
 	function(A) {
 		var Lang = A.Lang;
 
-		var CACHED_STATUS = 'cachedStatus';
-
 		var CSS_DROPDOWN_MENU = '.dropdown-menu';
 
 		var CSS_LABEL_INFO = 'label-info';
@@ -24,10 +22,6 @@ AUI.add(
 		var SPIDefinition = A.Component.create(
 			{
 				ATTRS: {
-					cachedStatus: {
-						value: {}
-					},
-
 					delay: {
 						value: 5000
 					},
@@ -59,6 +53,8 @@ AUI.add(
 					initializer: function() {
 						var instance = this;
 
+						instance._cachedStatus = {};
+
 						instance._getDefinitionsStatus();
 					},
 
@@ -69,11 +65,9 @@ AUI.add(
 							'/spi-admin-portlet.spidefinition/get-spi-definitions',
 							function(response) {
 								if (response.length) {
-									var updateItemStatus = A.bind(instance._updateItemStatus, instance);
+									A.Array.each(response, instance._updateItemStatus, instance);
 
-									A.Array.each(response, updateItemStatus);
-
-									var getDefinitionsStatus = A.bind(instance._getDefinitionsStatus, instance);
+									var getDefinitionsStatus = A.bind('_getDefinitionsStatus', instance);
 
 									setTimeout(getDefinitionsStatus, instance.get('delay'));
 								}
@@ -128,16 +122,6 @@ AUI.add(
 						}
 
 						return url;
-					},
-
-					_updateCachedStatus: function(key, value) {
-						var instance = this;
-
-						var cachedStatus = instance.get(CACHED_STATUS);
-
-						cachedStatus[key] = value;
-
-						instance.set(CACHED_STATUS, cachedStatus);
 					},
 
 					_updateLabelClass: function(node, status) {
@@ -228,16 +212,16 @@ AUI.add(
 						var status = item.status;
 
 						if (Lang.isNumber(status)) {
-							var cachedStatus = instance.get(CACHED_STATUS);
+							var cachedStatus = instance._cachedStatus;
 
 							var name = item.name;
 
 							var cachedValue = cachedStatus[name];
 
-							if (!cachedValue || (cachedValue != status)) {
+							if (cachedValue !== status) {
 								instance._updateRowNodeLabelStatus(item);
 
-								instance._updateCachedStatus(name, status);
+								cachedStatus[name] = status;
 							}
 						}
 					}
