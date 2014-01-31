@@ -45,8 +45,8 @@ public class LCSClusterNodeImpl implements LCSClusterNode {
 	}
 
 	@Override
-	public List<String> getAvailablePatches() {
-		return _availablePatches;
+	public List<String> getAvailablePatchNames() {
+		return _availablePatchNames;
 	}
 
 	@Override
@@ -115,8 +115,8 @@ public class LCSClusterNodeImpl implements LCSClusterNode {
 	}
 
 	@Override
-	public Map<String, Integer> getPatches() {
-		return _patches;
+	public Map<String, Integer> getPatchIdentifiers() {
+		return _patchIdentifiers;
 	}
 
 	@Override
@@ -197,8 +197,8 @@ public class LCSClusterNodeImpl implements LCSClusterNode {
 	}
 
 	@Override
-	public void setAvailablePatches(List<String> availablePatches) {
-		_availablePatches = availablePatches;
+	public void setAvailablePatchNames(List<String> availablePatchNames) {
+		_availablePatchNames = availablePatchNames;
 	}
 
 	@Override
@@ -277,8 +277,8 @@ public class LCSClusterNodeImpl implements LCSClusterNode {
 	}
 
 	@Override
-	public void setPatches(Map<String, Integer> patches) {
-		_patches = patches;
+	public void setPatchIdentifiers(Map<String, Integer> patchIdentifiers) {
+		_patchIdentifiers = patchIdentifiers;
 	}
 
 	@Override
@@ -326,7 +326,7 @@ public class LCSClusterNodeImpl implements LCSClusterNode {
 		throw new UnsupportedOperationException();
 	}
 
-	private List<String> _availablePatches = new ArrayList<String>();
+	private List<String> _availablePatchNames = new ArrayList<String>();
 	private int _buildNumber;
 	private Date _configurationModifiedDate;
 	private String _description;
@@ -336,7 +336,7 @@ public class LCSClusterNodeImpl implements LCSClusterNode {
 	private String _location;
 	private int _monitoringStatus;
 	private String _name;
-	private Map<String, Integer> _patches = new HashMap<String, Integer>();
+	private Map<String, Integer> _patchIdentifiers = new HashMap<String, Integer>();
 	private int _patchingToolStatus;
 	private String _portalEdition;
 	private int _status;
