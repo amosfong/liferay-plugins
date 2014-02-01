@@ -34,8 +34,8 @@ public class BatchBuilder {
 		return new Field(name, value);
 	}
 
-	public Method method(int id, Method.Command cmd, Field...fields) {
-		return new Method(id, cmd, fields);
+	public Method method(int id, Method.Command command, Field...fields) {
+		return new Method(id, command, fields);
 	}
 
 }
