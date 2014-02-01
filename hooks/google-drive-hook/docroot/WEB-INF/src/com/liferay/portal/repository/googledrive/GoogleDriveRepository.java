@@ -117,25 +117,22 @@ public class GoogleDriveRepository
 
 	@Override
 	public ExtRepositoryFileVersion cancelCheckOut(
-			String extRepositoryFileEntryKey)
-		throws PortalException, SystemException {
+		String extRepositoryFileEntryKey) {
 
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void checkInExtRepositoryFileEntry(
-			String extRepositoryFileEntryKey, boolean createMajorVersion,
-			String changeLog)
-		throws PortalException, SystemException {
+		String extRepositoryFileEntryKey, boolean createMajorVersion,
+		String changeLog) {
 
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public ExtRepositoryFileEntry checkOutExtRepositoryFileEntry(
-			String extRepositoryFileEntryKey)
-		throws PortalException, SystemException {
+		String extRepositoryFileEntryKey) {
 
 		throw new UnsupportedOperationException();
 	}
@@ -145,7 +142,7 @@ public class GoogleDriveRepository
 			ExtRepositoryObjectType<T> extRepositoryObjectType,
 			String extRepositoryFileEntryKey, String newExtRepositoryFolderKey,
 			String newTitle)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		try {
 			Drive drive = getDrive();
