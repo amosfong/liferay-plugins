@@ -21,16 +21,20 @@ import com.liferay.sharepoint.connector.schema.node.BaseNode;
  */
 public class Method extends BaseNode {
 
-	public Method(int id, Cmd cmd, Field...fields) {
+	public Method(int id, Command command, Field... fields) {
 		_id = id;
-		_cmd = cmd;
+		_command = command;
 		_fields = fields;
 	}
 
-	public static enum Cmd {Delete, New, Update}
+	public static enum Command {
+	
+		Delete, New, Update
+	
+	}
 
-	private final Cmd _cmd;
-	private final Field[] _fields;
-	private final int _id;
+	private Command _command;
+	private Field[] _fields;
+	private int _id;
 
 }

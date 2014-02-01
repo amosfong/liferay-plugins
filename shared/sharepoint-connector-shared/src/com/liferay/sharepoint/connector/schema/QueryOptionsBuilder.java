@@ -29,15 +29,15 @@ public class QueryOptionsBuilder {
 		return new Folder(path);
 	}
 
-	public IncludeMandatoryColumns includeMandatoryColumns( boolean value ) {
+	public IncludeMandatoryColumns includeMandatoryColumns(boolean value) {
 		return new IncludeMandatoryColumns(value);
 	}
 
-	public QueryOptions queryOptions( QueryOption...options ) {
-		return new QueryOptions(options);
+	public QueryOptions queryOptions(QueryOption... queryOptions) {
+		return new QueryOptions(queryOptions);
 	}
 
-	public ViewAttributes viewAttributes( boolean recursive ) {
+	public ViewAttributes viewAttributes(boolean recursive) {
 		return new ViewAttributes(recursive);
 	}
 

@@ -32,7 +32,7 @@ public class BatchBuilder {
 		return new Field(name, value);
 	}
 
-	public Method method(int id, Method.Cmd cmd, Field...fields) {
+	public Method method(int id, Method.Command cmd, Field...fields) {
 		return new Method(id, cmd, fields);
 	}
 

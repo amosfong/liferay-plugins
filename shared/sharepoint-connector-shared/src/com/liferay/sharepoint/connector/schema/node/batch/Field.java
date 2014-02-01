@@ -26,7 +26,7 @@ public class Field extends BaseNode {
 		_value = value;
 	}
 
-	private final String _fieldName;
-	private final String _value;
+	private String _fieldName;
+	private String _value;
 
 }

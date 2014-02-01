@@ -27,10 +27,14 @@ public class Batch extends BaseNode {
 		_methods = methods;
 	}
 
-	public static enum OnError {Return, Continue}
+	public static enum OnError {
+	
+		Continue, Return
 
-	private final Method[] _methods;
-	private final OnError _onError;
-	private final String _rootFolder;
+	}
+
+	private Method[] _methods;
+	private OnError _onError;
+	private String _rootFolder;
 
 }

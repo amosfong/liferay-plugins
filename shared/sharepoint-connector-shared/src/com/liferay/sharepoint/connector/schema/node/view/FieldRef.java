@@ -22,9 +22,9 @@ import com.liferay.sharepoint.connector.schema.node.BaseNode;
 public class FieldRef extends BaseNode {
 
 	public FieldRef(String fieldName) {
-		this._fieldName = fieldName;
+		_fieldName = fieldName;
 	}
 
-	private final String _fieldName;
+	private String _fieldName;
 
 }

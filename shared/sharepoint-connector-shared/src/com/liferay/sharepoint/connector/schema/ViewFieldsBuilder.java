@@ -22,12 +22,12 @@ import com.liferay.sharepoint.connector.schema.node.view.ViewFields;
  */
 public class ViewFieldsBuilder {
 
-	public FieldRef fieldRef( String fieldName ) {
+	public FieldRef fieldRef(String fieldName) {
 		return new FieldRef(fieldName);
 	}
 
-	public ViewFields viewFields( FieldRef...fields ) {
-		return new ViewFields(fields);
+	public ViewFields viewFields(FieldRef... fieldRefs) {
+		return new ViewFields(fieldRefs);
 	}
 
 }

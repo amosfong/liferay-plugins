@@ -26,6 +26,6 @@ public class IncludeMandatoryColumns extends BaseNode implements QueryOption {
 		_include = include;
 	}
 
-	private final boolean _include;
+	private boolean _include;
 
 }
