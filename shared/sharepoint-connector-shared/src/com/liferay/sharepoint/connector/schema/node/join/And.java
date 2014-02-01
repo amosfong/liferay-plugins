@@ -19,7 +19,7 @@ import com.liferay.sharepoint.connector.schema.marker.Clause;
 /**
  * @author Iván Zaera
  */
-public class And extends BaseLogicalJoin {
+public class And extends BaseJoin {
 
 	public And(Clause leftClause, Clause rightClause) {
 		super(leftClause, rightClause);

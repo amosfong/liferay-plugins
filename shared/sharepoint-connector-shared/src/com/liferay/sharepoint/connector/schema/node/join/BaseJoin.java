@@ -20,9 +20,9 @@ import com.liferay.sharepoint.connector.schema.node.BaseNode;
 /**
  * @author Iván Zaera
  */
-public abstract class BaseLogicalJoin extends BaseNode implements Clause {
+public abstract class BaseJoin extends BaseNode implements Clause {
 
-	public BaseLogicalJoin(Clause leftClause, Clause rightClause) {
+	public BaseJoin(Clause leftClause, Clause rightClause) {
 		_leftClause = leftClause;
 		_rightClause = rightClause;
 	}
