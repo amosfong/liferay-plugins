@@ -14,17 +14,19 @@
 
 package com.liferay.sharepoint.connector.schema.node.operator;
 
-import com.liferay.sharepoint.connector.schema.node.operator.base.BaseSingleValueOperator;
-import com.liferay.sharepoint.connector.schema.node.value.Value;
+import com.liferay.sharepoint.connector.schema.marker.Clause;
+import com.liferay.sharepoint.connector.schema.node.BaseNode;
 import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
 
 /**
  * @author Iván Zaera
  */
-public class Includes extends BaseSingleValueOperator {
+public abstract class BaseOperator extends BaseNode implements Clause {
 
-	public Includes(FieldRef fieldRef, Value value) {
-		super(fieldRef, value);
+	public BaseOperator(FieldRef fieldRef) {
+		_fieldRef = fieldRef;
 	}
+
+	private FieldRef _fieldRef;
 
 }

@@ -14,17 +14,20 @@
 
 package com.liferay.sharepoint.connector.schema.node.operator;
 
-import com.liferay.sharepoint.connector.schema.node.operator.base.BaseSingleValueOperator;
 import com.liferay.sharepoint.connector.schema.node.value.Value;
 import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
 
 /**
  * @author Iván Zaera
  */
-public class BeginsWith extends BaseSingleValueOperator {
+public abstract class BaseMultiValueOperator extends BaseOperator {
 
-	public BeginsWith(FieldRef fieldRef, Value value) {
-		super(fieldRef, value);
+	public BaseMultiValueOperator(FieldRef fieldRef, Value... values) {
+		super(fieldRef);
+
+		_values = values;
 	}
+
+	private Value[] _values;
 
 }

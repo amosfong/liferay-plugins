@@ -14,17 +14,16 @@
 
 package com.liferay.sharepoint.connector.schema.node.operator;
 
-import com.liferay.sharepoint.connector.schema.node.operator.base.BaseMultiValueOperator;
 import com.liferay.sharepoint.connector.schema.node.value.Value;
 import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
 
 /**
  * @author Iván Zaera
  */
-public class In extends BaseMultiValueOperator {
+public class LtOperator extends BaseSingleValueOperator {
 
-	public In(FieldRef fieldRef, Value...values) {
-		super(fieldRef, values);
+	public LtOperator(FieldRef fieldRef, Value value) {
+		super(fieldRef, value);
 	}
 
 }

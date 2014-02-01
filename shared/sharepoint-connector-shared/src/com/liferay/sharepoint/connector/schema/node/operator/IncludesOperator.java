@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node.operator.base;
+package com.liferay.sharepoint.connector.schema.node.operator;
 
 import com.liferay.sharepoint.connector.schema.node.value.Value;
 import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
@@ -20,14 +20,10 @@ import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
 /**
  * @author Iván Zaera
  */
-public abstract class BaseMultiValueOperator extends BaseOperator {
+public class IncludesOperator extends BaseSingleValueOperator {
 
-	public BaseMultiValueOperator(FieldRef fieldRef, Value... values) {
-		super(fieldRef);
-
-		_values = values;
+	public IncludesOperator(FieldRef fieldRef, Value value) {
+		super(fieldRef, value);
 	}
-
-	private Value[] _values;
 
 }

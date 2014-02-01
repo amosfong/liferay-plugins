@@ -17,19 +17,19 @@ package com.liferay.sharepoint.connector.schema;
 import com.liferay.sharepoint.connector.schema.marker.Clause;
 import com.liferay.sharepoint.connector.schema.node.join.AndJoin;
 import com.liferay.sharepoint.connector.schema.node.join.OrJoin;
-import com.liferay.sharepoint.connector.schema.node.operator.BeginsWith;
-import com.liferay.sharepoint.connector.schema.node.operator.Contains;
-import com.liferay.sharepoint.connector.schema.node.operator.Eq;
-import com.liferay.sharepoint.connector.schema.node.operator.Geq;
-import com.liferay.sharepoint.connector.schema.node.operator.Gt;
-import com.liferay.sharepoint.connector.schema.node.operator.In;
-import com.liferay.sharepoint.connector.schema.node.operator.Includes;
-import com.liferay.sharepoint.connector.schema.node.operator.IsNotNull;
-import com.liferay.sharepoint.connector.schema.node.operator.IsNull;
-import com.liferay.sharepoint.connector.schema.node.operator.Leq;
-import com.liferay.sharepoint.connector.schema.node.operator.Lt;
-import com.liferay.sharepoint.connector.schema.node.operator.Neq;
-import com.liferay.sharepoint.connector.schema.node.operator.NotIncludes;
+import com.liferay.sharepoint.connector.schema.node.operator.BeginsWithOperator;
+import com.liferay.sharepoint.connector.schema.node.operator.ContainsOperator;
+import com.liferay.sharepoint.connector.schema.node.operator.EqOperator;
+import com.liferay.sharepoint.connector.schema.node.operator.GeqOperator;
+import com.liferay.sharepoint.connector.schema.node.operator.GtOperator;
+import com.liferay.sharepoint.connector.schema.node.operator.InOperator;
+import com.liferay.sharepoint.connector.schema.node.operator.IncludesOperator;
+import com.liferay.sharepoint.connector.schema.node.operator.IsNotNullOperator;
+import com.liferay.sharepoint.connector.schema.node.operator.IsNullOperator;
+import com.liferay.sharepoint.connector.schema.node.operator.LeqOperator;
+import com.liferay.sharepoint.connector.schema.node.operator.LtOperator;
+import com.liferay.sharepoint.connector.schema.node.operator.NeqOperator;
+import com.liferay.sharepoint.connector.schema.node.operator.NotIncludesOperator;
 import com.liferay.sharepoint.connector.schema.node.query.Query;
 import com.liferay.sharepoint.connector.schema.node.value.Value;
 import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
@@ -43,60 +43,60 @@ public class QueryBuilder {
 		return new AndJoin(leftClause, rightClause);
 	}
 
-	public BeginsWith beginsWith(FieldRef fieldRef, Value value) {
-		return new BeginsWith(fieldRef, value);
+	public BeginsWithOperator beginsWith(FieldRef fieldRef, Value value) {
+		return new BeginsWithOperator(fieldRef, value);
 	}
 
-	public Contains contains(FieldRef fieldRef, Value value) {
-		return new Contains(fieldRef, value);
+	public ContainsOperator contains(FieldRef fieldRef, Value value) {
+		return new ContainsOperator(fieldRef, value);
 	}
 
-	public Eq eq(FieldRef fieldRef, Value value) {
-		return new Eq(fieldRef, value);
+	public EqOperator eq(FieldRef fieldRef, Value value) {
+		return new EqOperator(fieldRef, value);
 	}
 
 	public FieldRef fieldRef(String fieldName) {
 		return new FieldRef(fieldName);
 	}
 
-	public Geq geq(FieldRef fieldRef, Value value) {
-		return new Geq(fieldRef, value);
+	public GeqOperator geq(FieldRef fieldRef, Value value) {
+		return new GeqOperator(fieldRef, value);
 	}
 
-	public Gt gt(FieldRef fieldRef, Value value) {
-		return new Gt(fieldRef, value);
+	public GtOperator gt(FieldRef fieldRef, Value value) {
+		return new GtOperator(fieldRef, value);
 	}
 
-	public In in(FieldRef fieldRef, Value...values) {
-		return new In(fieldRef, values);
+	public InOperator in(FieldRef fieldRef, Value...values) {
+		return new InOperator(fieldRef, values);
 	}
 
-	public Includes includes(FieldRef fieldRef, Value value) {
-		return new Includes(fieldRef, value);
+	public IncludesOperator includes(FieldRef fieldRef, Value value) {
+		return new IncludesOperator(fieldRef, value);
 	}
 
-	public IsNotNull isNotNull(FieldRef fieldRef) {
-		return new IsNotNull(fieldRef);
+	public IsNotNullOperator isNotNull(FieldRef fieldRef) {
+		return new IsNotNullOperator(fieldRef);
 	}
 
-	public IsNull isNull(FieldRef fieldRef) {
-		return new IsNull(fieldRef);
+	public IsNullOperator isNull(FieldRef fieldRef) {
+		return new IsNullOperator(fieldRef);
 	}
 
-	public Leq leq(FieldRef fieldRef, Value value) {
-		return new Leq(fieldRef, value);
+	public LeqOperator leq(FieldRef fieldRef, Value value) {
+		return new LeqOperator(fieldRef, value);
 	}
 
-	public Lt lt(FieldRef fieldRef, Value value) {
-		return new Lt(fieldRef, value);
+	public LtOperator lt(FieldRef fieldRef, Value value) {
+		return new LtOperator(fieldRef, value);
 	}
 
-	public Neq neq(FieldRef fieldRef, Value value) {
-		return new Neq(fieldRef, value);
+	public NeqOperator neq(FieldRef fieldRef, Value value) {
+		return new NeqOperator(fieldRef, value);
 	}
 
-	public NotIncludes notIncludes(FieldRef fieldRef, Value value) {
-		return new NotIncludes(fieldRef, value);
+	public NotIncludesOperator notIncludes(FieldRef fieldRef, Value value) {
+		return new NotIncludesOperator(fieldRef, value);
 	}
 
 	public OrJoin or(Clause leftClause, Clause righClause) {
