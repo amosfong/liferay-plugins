@@ -27,16 +27,14 @@ public class GoogleDriveFileVersion
 	extends GoogleDriveModel implements ExtRepositoryFileVersion {
 
 	public GoogleDriveFileVersion(
-		Revision revision, String fileId, int version) {
+		Revision revision, String extRepositoryFileEntryKey, int version) {
 
 		super(
 			revision.getModifiedDate(), revision.getId(),
 			revision.getFileSize(), revision.getLastModifyingUserName());
 
-		_downloadURL = revision.getDownloadUrl();
-		_fileId = fileId;
-		_mimeType = revision.getMimeType();
-		_revisionId = revision.getId();
+		_revision = revision;
+		_extRepositoryFileEntryKey = extRepositoryFileEntryKey;
 		_version = version + ".0";
 	}
 
@@ -46,16 +44,16 @@ public class GoogleDriveFileVersion
 	}
 
 	public String getDownloadURL() {
-		return _downloadURL;
+		return _revision.getDownloadUrl();
 	}
 
 	@Override
 	public String getExtRepositoryModelKey() {
-		StringBundler sb = new StringBundler();
+		StringBundler sb = new StringBundler(5);
 
-		sb.append(_fileId);
+		sb.append(_extRepositoryFileEntryKey);
 		sb.append(StringPool.COLON);
-		sb.append(_revisionId);
+		sb.append(_revision.getId());
 		sb.append(StringPool.COLON);
 		sb.append(_version);
 
@@ -64,7 +62,7 @@ public class GoogleDriveFileVersion
 
 	@Override
 	public String getMimeType() {
-		return _mimeType;
+		return _revision.getMimeType();
 	}
 
 	@Override
@@ -72,10 +70,8 @@ public class GoogleDriveFileVersion
 		return _version;
 	}
 
-	private String _downloadURL;
-	private String _fileId;
-	private final String _mimeType;
-	private String _revisionId;
+	private String _extRepositoryFileEntryKey;
+	private Revision _revision;
 	private String _version;
 
 }
