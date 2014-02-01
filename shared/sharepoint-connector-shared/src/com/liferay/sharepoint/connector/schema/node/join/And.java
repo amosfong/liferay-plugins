@@ -15,12 +15,11 @@
 package com.liferay.sharepoint.connector.schema.node.join;
 
 import com.liferay.sharepoint.connector.schema.marker.Clause;
-import com.liferay.sharepoint.connector.schema.node.join.base.LogicalJoin;
 
 /**
  * @author Iván Zaera
  */
-public class And extends LogicalJoin {
+public class And extends BaseLogicalJoin {
 
 	public And(Clause leftClause, Clause rightClause) {
 		super(leftClause, rightClause);
