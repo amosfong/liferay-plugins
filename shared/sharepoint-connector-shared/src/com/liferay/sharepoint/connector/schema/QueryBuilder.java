@@ -39,80 +39,80 @@ import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
  */
 public class QueryBuilder {
 
-	public And and( Clause left, Clause right ) {
-		return new And(left, right);
+	public And and(Clause leftClause, Clause rightClause) {
+		return new And(leftClause, rightClause);
 	}
 
-	public BeginsWith beginsWith( FieldRef fieldRef, Value value ) {
+	public BeginsWith beginsWith(FieldRef fieldRef, Value value) {
 		return new BeginsWith(fieldRef, value);
 	}
 
-	public Contains contains( FieldRef fieldRef, Value value ) {
+	public Contains contains(FieldRef fieldRef, Value value) {
 		return new Contains(fieldRef, value);
 	}
 
-	public Eq eq( FieldRef fieldRef, Value value ) {
+	public Eq eq(FieldRef fieldRef, Value value) {
 		return new Eq(fieldRef, value);
 	}
 
-	public FieldRef fieldRef( String fieldName ) {
+	public FieldRef fieldRef(String fieldName) {
 		return new FieldRef(fieldName);
 	}
 
-	public Geq geq( FieldRef fieldRef, Value value ) {
+	public Geq geq(FieldRef fieldRef, Value value) {
 		return new Geq(fieldRef, value);
 	}
 
-	public Gt gt( FieldRef fieldRef, Value value ) {
+	public Gt gt(FieldRef fieldRef, Value value) {
 		return new Gt(fieldRef, value);
 	}
 
-	public In in( FieldRef fieldRef, Value...values ) {
+	public In in(FieldRef fieldRef, Value...values) {
 		return new In(fieldRef, values);
 	}
 
-	public Includes includes( FieldRef fieldRef, Value value ) {
+	public Includes includes(FieldRef fieldRef, Value value) {
 		return new Includes(fieldRef, value);
 	}
 
-	public IsNotNull isNotNull( FieldRef fieldRef ) {
+	public IsNotNull isNotNull(FieldRef fieldRef) {
 		return new IsNotNull(fieldRef);
 	}
 
-	public IsNull isNull( FieldRef fieldRef ) {
+	public IsNull isNull(FieldRef fieldRef) {
 		return new IsNull(fieldRef);
 	}
 
-	public Leq leq( FieldRef fieldRef, Value value ) {
+	public Leq leq(FieldRef fieldRef, Value value) {
 		return new Leq(fieldRef, value);
 	}
 
-	public Lt lt( FieldRef fieldRef, Value value ) {
+	public Lt lt(FieldRef fieldRef, Value value) {
 		return new Lt(fieldRef, value);
 	}
 
-	public Neq neq( FieldRef fieldRef, Value value ) {
+	public Neq neq(FieldRef fieldRef, Value value) {
 		return new Neq(fieldRef, value);
 	}
 
-	public NotIncludes notIncludes( FieldRef fieldRef, Value value ) {
+	public NotIncludes notIncludes(FieldRef fieldRef, Value value) {
 		return new NotIncludes(fieldRef, value);
 	}
 
-	public Or or( Clause left, Clause right ) {
-		return new Or(left, right);
+	public Or or(Clause leftClause, Clause righClause) {
+		return new Or(leftClause, righClause);
 	}
 
-	public Value value( String value ) {
+	public Value value(String value) {
 		return new Value(value);
 	}
 
-	public Value value( Value.Type type, String value ) {
+	public Value value(Value.Type type, String value) {
 		return new Value(type, value);
 	}
 
-	public Query where( Clause criterion ) {
-		return new Query(criterion);
+	public Query where(Clause clause) {
+		return new Query(clause);
 	}
 
 }

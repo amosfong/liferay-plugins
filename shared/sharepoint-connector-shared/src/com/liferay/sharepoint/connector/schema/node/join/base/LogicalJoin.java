@@ -23,11 +23,11 @@ import com.liferay.sharepoint.connector.schema.node.BaseNode;
 public abstract class LogicalJoin extends BaseNode implements Clause {
 
 	public LogicalJoin(Clause leftClause, Clause rightClause) {
-		this._leftClause = leftClause;
-		this._rightClause = rightClause;
+		_leftClause = leftClause;
+		_rightClause = rightClause;
 	}
 
-	private final Clause _leftClause;
-	private final Clause _rightClause;
+	private Clause _leftClause;
+	private Clause _rightClause;
 
 }
