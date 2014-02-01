@@ -20,7 +20,8 @@ import com.liferay.sharepoint.connector.schema.node.BaseNode;
 /**
  * @author Iván Zaera
  */
-public class IncludeMandatoryColumnsQueryOption extends BaseNode implements QueryOption {
+public class IncludeMandatoryColumnsQueryOption
+	extends BaseNode implements QueryOption {
 
 	public IncludeMandatoryColumnsQueryOption(boolean include) {
 		_include = include;

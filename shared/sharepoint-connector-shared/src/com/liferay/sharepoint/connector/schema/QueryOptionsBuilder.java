@@ -25,19 +25,23 @@ import com.liferay.sharepoint.connector.schema.node.option.ViewAttributesQueryOp
  */
 public class QueryOptionsBuilder {
 
-	public FolderQueryOption folder(String path) {
+	public FolderQueryOption buildFolderQueryOption(String path) {
 		return new FolderQueryOption(path);
 	}
 
-	public IncludeMandatoryColumnsQueryOption includeMandatoryColumns(boolean value) {
+	public IncludeMandatoryColumnsQueryOption
+		buildIncludeMandatoryColumnsQueryOption(boolean value) {
+
 		return new IncludeMandatoryColumnsQueryOption(value);
 	}
 
-	public QueryOptionsNode queryOptions(QueryOption... queryOptions) {
+	public QueryOptionsNode buildQueryOptionsNode(QueryOption... queryOptions) {
 		return new QueryOptionsNode(queryOptions);
 	}
 
-	public ViewAttributesQueryOption viewAttributes(boolean recursive) {
+	public ViewAttributesQueryOption buildViewAttributesQueryOption(
+		boolean recursive) {
+
 		return new ViewAttributesQueryOption(recursive);
 	}
 
