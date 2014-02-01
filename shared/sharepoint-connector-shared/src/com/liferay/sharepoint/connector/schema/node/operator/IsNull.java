@@ -14,13 +14,13 @@
 
 package com.liferay.sharepoint.connector.schema.node.operator;
 
-import com.liferay.sharepoint.connector.schema.node.operator.base.NoValueComparisonOperator;
+import com.liferay.sharepoint.connector.schema.node.operator.base.BaseNoValueOperator;
 import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
 
 /**
  * @author Iván Zaera
  */
-public class IsNull extends NoValueComparisonOperator {
+public class IsNull extends BaseNoValueOperator {
 
 	public IsNull(FieldRef fieldRef) {
 		super(fieldRef);

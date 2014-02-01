@@ -20,14 +20,14 @@ import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
 /**
  * @author Iván Zaera
  */
-public abstract class MultiValueComparisonOperator extends ComparisonOperator {
+public abstract class BaseSingleValueOperator extends BaseOperator {
 
-	public MultiValueComparisonOperator(FieldRef fieldRef, Value... values) {
+	public BaseSingleValueOperator(FieldRef fieldRef, Value value) {
 		super(fieldRef);
 
-		_values = values;
+		_value = value;
 	}
 
-	private Value[] _values;
+	private Value _value;
 
 }

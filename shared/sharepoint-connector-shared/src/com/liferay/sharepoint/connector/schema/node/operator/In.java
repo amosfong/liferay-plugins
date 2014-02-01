@@ -14,14 +14,14 @@
 
 package com.liferay.sharepoint.connector.schema.node.operator;
 
-import com.liferay.sharepoint.connector.schema.node.operator.base.MultiValueComparisonOperator;
+import com.liferay.sharepoint.connector.schema.node.operator.base.BaseMultiValueOperator;
 import com.liferay.sharepoint.connector.schema.node.value.Value;
 import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
 
 /**
  * @author Iván Zaera
  */
-public class In extends MultiValueComparisonOperator {
+public class In extends BaseMultiValueOperator {
 
 	public In(FieldRef fieldRef, Value...values) {
 		super(fieldRef, values);

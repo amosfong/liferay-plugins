@@ -14,15 +14,20 @@
 
 package com.liferay.sharepoint.connector.schema.node.operator.base;
 
+import com.liferay.sharepoint.connector.schema.node.value.Value;
 import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
 
 /**
  * @author Iván Zaera
  */
-public abstract class NoValueComparisonOperator extends ComparisonOperator {
+public abstract class BaseMultiValueOperator extends BaseOperator {
 
-	public NoValueComparisonOperator(FieldRef fieldRef) {
+	public BaseMultiValueOperator(FieldRef fieldRef, Value... values) {
 		super(fieldRef);
+
+		_values = values;
 	}
+
+	private Value[] _values;
 
 }
