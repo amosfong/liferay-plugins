@@ -319,10 +319,11 @@ public class GoogleDriveRepository
 		String[] extRepositoryFileVersionKeyParts = StringUtil.split(
 			extRepositoryFileVersionKey, StringPool.COLON);
 
-		String fileId = extRepositoryFileVersionKeyParts[0];
+		String extRepositoryFileEntryKey = extRepositoryFileVersionKeyParts[0];
 		String version = extRepositoryFileVersionKeyParts[2];
 
-		return new ExtRepositoryFileVersionDescriptor(fileId, version);
+		return new ExtRepositoryFileVersionDescriptor(
+			extRepositoryFileEntryKey, version);
 	}
 
 	@Override
