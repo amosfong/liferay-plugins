@@ -15,8 +15,8 @@
 package com.liferay.sharepoint.connector.schema;
 
 import com.liferay.sharepoint.connector.schema.marker.Clause;
-import com.liferay.sharepoint.connector.schema.node.join.And;
-import com.liferay.sharepoint.connector.schema.node.join.Or;
+import com.liferay.sharepoint.connector.schema.node.join.AndJoin;
+import com.liferay.sharepoint.connector.schema.node.join.OrJoin;
 import com.liferay.sharepoint.connector.schema.node.operator.BeginsWith;
 import com.liferay.sharepoint.connector.schema.node.operator.Contains;
 import com.liferay.sharepoint.connector.schema.node.operator.Eq;
@@ -39,8 +39,8 @@ import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
  */
 public class QueryBuilder {
 
-	public And and(Clause leftClause, Clause rightClause) {
-		return new And(leftClause, rightClause);
+	public AndJoin and(Clause leftClause, Clause rightClause) {
+		return new AndJoin(leftClause, rightClause);
 	}
 
 	public BeginsWith beginsWith(FieldRef fieldRef, Value value) {
@@ -99,8 +99,8 @@ public class QueryBuilder {
 		return new NotIncludes(fieldRef, value);
 	}
 
-	public Or or(Clause leftClause, Clause righClause) {
-		return new Or(leftClause, righClause);
+	public OrJoin or(Clause leftClause, Clause righClause) {
+		return new OrJoin(leftClause, righClause);
 	}
 
 	public Value value(String value) {
