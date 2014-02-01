@@ -15,30 +15,30 @@
 package com.liferay.sharepoint.connector.schema;
 
 import com.liferay.sharepoint.connector.schema.marker.QueryOption;
-import com.liferay.sharepoint.connector.schema.node.option.Folder;
-import com.liferay.sharepoint.connector.schema.node.option.IncludeMandatoryColumns;
-import com.liferay.sharepoint.connector.schema.node.option.QueryOptions;
-import com.liferay.sharepoint.connector.schema.node.option.ViewAttributes;
+import com.liferay.sharepoint.connector.schema.node.option.FolderQueryOption;
+import com.liferay.sharepoint.connector.schema.node.option.IncludeMandatoryColumnsQueryOption;
+import com.liferay.sharepoint.connector.schema.node.option.QueryOptionsNode;
+import com.liferay.sharepoint.connector.schema.node.option.ViewAttributesQueryOption;
 
 /**
  * @author Iván Zaera
  */
 public class QueryOptionsBuilder {
 
-	public Folder folder(String path) {
-		return new Folder(path);
+	public FolderQueryOption folder(String path) {
+		return new FolderQueryOption(path);
 	}
 
-	public IncludeMandatoryColumns includeMandatoryColumns(boolean value) {
-		return new IncludeMandatoryColumns(value);
+	public IncludeMandatoryColumnsQueryOption includeMandatoryColumns(boolean value) {
+		return new IncludeMandatoryColumnsQueryOption(value);
 	}
 
-	public QueryOptions queryOptions(QueryOption... queryOptions) {
-		return new QueryOptions(queryOptions);
+	public QueryOptionsNode queryOptions(QueryOption... queryOptions) {
+		return new QueryOptionsNode(queryOptions);
 	}
 
-	public ViewAttributes viewAttributes(boolean recursive) {
-		return new ViewAttributes(recursive);
+	public ViewAttributesQueryOption viewAttributes(boolean recursive) {
+		return new ViewAttributesQueryOption(recursive);
 	}
 
 }

@@ -20,12 +20,19 @@ import com.liferay.sharepoint.connector.schema.node.BaseNode;
 /**
  * @author Iván Zaera
  */
-public class Folder extends BaseNode implements QueryOption {
+public class QueryOptionsNode extends BaseNode {
 
-	public Folder(String path) {
-		_path = path;
+	public QueryOptionsNode(QueryOption...queryOptions) {
+		if (queryOptions == null) {
+			_queryOptions = _QUERY_OPTIONS;
+		}
+		else {
+			_queryOptions = queryOptions;
+		}
 	}
 
-	private String _path;
+	private static final QueryOption[] _QUERY_OPTIONS = new QueryOption[0];
+
+	private QueryOption[] _queryOptions;
 
 }

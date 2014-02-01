@@ -20,12 +20,12 @@ import com.liferay.sharepoint.connector.schema.node.BaseNode;
 /**
  * @author Iván Zaera
  */
-public class ViewAttributes extends BaseNode implements QueryOption {
+public class IncludeMandatoryColumnsQueryOption extends BaseNode implements QueryOption {
 
-	public ViewAttributes(boolean recursive) {
-		_recursive = recursive;
+	public IncludeMandatoryColumnsQueryOption(boolean include) {
+		_include = include;
 	}
 
-	private boolean _recursive;
+	private boolean _include;
 
 }
