@@ -22,11 +22,12 @@ import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
  */
 public abstract class MultiValueComparisonOperator extends ComparisonOperator {
 
-	public MultiValueComparisonOperator(FieldRef fieldRef, Value...values) {
+	public MultiValueComparisonOperator(FieldRef fieldRef, Value... values) {
 		super(fieldRef);
-		this._values = values;
+
+		_values = values;
 	}
 
-	private final Value[] _values;
+	private Value[] _values;
 
 }

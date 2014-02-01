@@ -26,6 +26,6 @@ public class ViewAttributes extends BaseNode implements QueryOption {
 		_recursive = recursive;
 	}
 
-	private final boolean _recursive;
+	private boolean _recursive;
 
 }

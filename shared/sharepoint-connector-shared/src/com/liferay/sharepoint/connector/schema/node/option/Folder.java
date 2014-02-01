@@ -26,6 +26,6 @@ public class Folder extends BaseNode implements QueryOption {
 		_path = path;
 	}
 
-	private final String _path;
+	private String _path;
 
 }

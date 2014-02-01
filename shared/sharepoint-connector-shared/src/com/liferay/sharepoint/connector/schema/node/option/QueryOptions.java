@@ -24,16 +24,15 @@ public class QueryOptions extends BaseNode {
 
 	public QueryOptions(QueryOption...queryOptions) {
 		if (queryOptions == null) {
-			_queryOptions = _EMPTY_QUERY_OPTIONS;
+			_queryOptions = _QUERY_OPTIONS;
 		}
 		else {
 			_queryOptions = queryOptions;
 		}
 	}
 
-	private static final QueryOption[] _EMPTY_QUERY_OPTIONS =
-		new QueryOption[]{};
+	private static final QueryOption[] _QUERY_OPTIONS = new QueryOption[0];
 
-	private final QueryOption[] _queryOptions;
+	private QueryOption[] _queryOptions;
 
 }

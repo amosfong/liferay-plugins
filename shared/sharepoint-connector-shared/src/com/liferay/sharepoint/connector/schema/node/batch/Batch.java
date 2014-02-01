@@ -28,9 +28,8 @@ public class Batch extends BaseNode {
 	}
 
 	public static enum OnError {
-	
-		Continue, Return
 
+		Continue, Return
 	}
 
 	private Method[] _methods;

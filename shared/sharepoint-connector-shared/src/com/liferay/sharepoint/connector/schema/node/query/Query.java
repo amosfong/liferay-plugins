@@ -23,9 +23,9 @@ import com.liferay.sharepoint.connector.schema.node.BaseNode;
 public class Query extends BaseNode {
 
 	public Query(Clause clause) {
-		this._clause = clause;
+		_clause = clause;
 	}
 
-	private final Clause _clause;
+	private Clause _clause;
 
 }

@@ -24,9 +24,9 @@ import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
 public abstract class ComparisonOperator extends BaseNode implements Clause {
 
 	public ComparisonOperator(FieldRef fieldRef) {
-		this._fieldRef = fieldRef;
+		_fieldRef = fieldRef;
 	}
 
-	private final FieldRef _fieldRef;
+	private FieldRef _fieldRef;
 
 }

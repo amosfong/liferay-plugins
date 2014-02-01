@@ -30,9 +30,13 @@ public class Value extends BaseNode {
 		_value = value;
 	}
 
-	public static enum Type {Text, Lookup, Integer}
+	public static enum Type {
 
-	private final Type _type;
-	private final String _value;
+		Integer, Lookup, Text
+
+	}
+
+	private Type _type;
+	private String _value;
 
 }

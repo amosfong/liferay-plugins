@@ -28,9 +28,9 @@ public class Method extends BaseNode {
 	}
 
 	public static enum Command {
-	
+
 		Delete, New, Update
-	
+
 	}
 
 	private Command _command;

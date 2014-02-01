@@ -25,9 +25,9 @@ public abstract class SingleValueComparisonOperator extends ComparisonOperator {
 	public SingleValueComparisonOperator(FieldRef fieldRef, Value value) {
 		super(fieldRef);
 
-		this._value = value;
+		_value = value;
 	}
 
-	private final Value _value;
+	private Value _value;
 
 }
