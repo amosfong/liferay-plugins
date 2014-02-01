@@ -159,11 +159,23 @@ if (Validator.isNotNull(useDefaultRestartOptionsString)) {
 				<aui:fieldset>
 					<aui:input checked="<%= useDefaultNotificationOptions %>" helpMessage="use-default-notification-options" id="useDefaultNotificationOptions" label="use-default-notification-options" name="useDefaultNotificationOptions" type="checkbox" />
 
-					<aui:input data-defaultvalue="<%= defaultNotificationRecipients %>" disabled="<%= useDefaultNotificationOptions %>" helpMessage="notification-recipients-help" id="notificationRecipients" label="notification-recipients" name="TypeSettingsProperties--notification-recipients--" type="text" value="<%= notificationRecipients %>" />
+					<%
+					Map<String, Object> data = new HashMap<String, Object>();
+
+					data.put("defaultValue", defaultNotificationRecipients);
+					%>
+
+					<aui:input data="<%= data %>" disabled="<%= useDefaultNotificationOptions %>" helpMessage="notification-recipients-help" id="notificationRecipients" label="notification-recipients" name="TypeSettingsProperties--notification-recipients--" type="text" value="<%= notificationRecipients %>" />
 
 					<aui:input checked="<%= useDefaultRestartOptions %>" helpMessage="use-default-restart-options" id="useDefaultRestartOptions" label="use-default-restart-options" name="useDefaultRestartOptions" type="checkbox" />
 
-					<aui:input data-defaultvalue="<%= defaultMaxRestartAttempts %>" disabled="<%= useDefaultRestartOptions %>" helpMessage="maximum-restart-attempts-help" id="maxRestartAttempts" label="maximum-restart-attempts" name="TypeSettingsProperties--max-restart-attempts--" type="text" value="<%= maxRestartAttempts %>" />
+					<%
+					data = new HashMap<String, Object>();
+
+					data.put("defaultValue", defaultMaxRestartAttempts);
+					%>
+
+					<aui:input data="<%= data %>" disabled="<%= useDefaultRestartOptions %>" helpMessage="maximum-restart-attempts-help" id="maxRestartAttempts" label="maximum-restart-attempts" name="TypeSettingsProperties--max-restart-attempts--" type="text" value="<%= maxRestartAttempts %>" />
 				</aui:fieldset>
 			</liferay-ui:panel>
 		</liferay-ui:panel>
@@ -226,7 +238,7 @@ if (Validator.isNotNull(useDefaultRestartOptionsString)) {
 	</aui:button-row>
 </aui:form>
 
-<aui:script use="aui-base">
+<aui:script>
 	Liferay.provide(
 		window,
 		'<portlet:namespace />saveSPIDefinition',
@@ -238,11 +250,13 @@ if (Validator.isNotNull(useDefaultRestartOptionsString)) {
 		},
 		['liferay-util-list-fields']
 	);
+</aui:script>
 
+<aui:script use="aui-base">
 	var onChange = function(event, input) {
 		var checked = event.currentTarget.attr('checked');
 
-		var value = checked ? input.getData('defaultvalue') : '';
+		var value = checked ? input.getData('defaultValue') : '';
 
 		input.attr('disabled', checked);
 
