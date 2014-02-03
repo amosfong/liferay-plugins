@@ -14,12 +14,11 @@
 
 package com.liferay.sharepoint.connector.schema.node.query.option;
 
-import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public class ViewAttributesQueryOption extends BaseNode implements QueryOption {
+public class ViewAttributesQueryOption extends BaseQueryOption {
 
 	public ViewAttributesQueryOption(boolean recursive) {
 		_recursive = recursive;

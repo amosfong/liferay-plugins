@@ -15,14 +15,14 @@
 package com.liferay.sharepoint.connector.schema.node.query;
 
 import com.liferay.sharepoint.connector.schema.node.BaseNode;
-import com.liferay.sharepoint.connector.schema.node.query.option.QueryOption;
+import com.liferay.sharepoint.connector.schema.node.query.option.BaseQueryOption;
 
 /**
  * @author Iván Zaera
  */
 public class QueryOptionsNode extends BaseNode {
 
-	public QueryOptionsNode(QueryOption...queryOptions) {
+	public QueryOptionsNode(BaseQueryOption...queryOptions) {
 		if (queryOptions == null) {
 			_queryOptions = _QUERY_OPTIONS;
 		}
@@ -31,8 +31,8 @@ public class QueryOptionsNode extends BaseNode {
 		}
 	}
 
-	private static final QueryOption[] _QUERY_OPTIONS = new QueryOption[0];
+	private static final BaseQueryOption[] _QUERY_OPTIONS = new BaseQueryOption[0];
 
-	private QueryOption[] _queryOptions;
+	private BaseQueryOption[] _queryOptions;
 
 }

@@ -14,12 +14,11 @@
 
 package com.liferay.sharepoint.connector.schema.node.query.option;
 
-import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public class FolderQueryOption extends BaseNode implements QueryOption {
+public class FolderQueryOption extends BaseQueryOption {
 
 	public FolderQueryOption(String path) {
 		_path = path;

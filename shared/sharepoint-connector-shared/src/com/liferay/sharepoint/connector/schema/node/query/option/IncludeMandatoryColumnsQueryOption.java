@@ -14,13 +14,11 @@
 
 package com.liferay.sharepoint.connector.schema.node.query.option;
 
-import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public class IncludeMandatoryColumnsQueryOption
-	extends BaseNode implements QueryOption {
+public class IncludeMandatoryColumnsQueryOption extends BaseQueryOption {
 
 	public IncludeMandatoryColumnsQueryOption(boolean include) {
 		_include = include;

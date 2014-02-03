@@ -14,10 +14,10 @@
 
 package com.liferay.sharepoint.connector.schema.node.query.option;
 
-import com.liferay.sharepoint.connector.schema.node.Node;
+import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public interface QueryOption extends Node {
+public class BaseQueryOption extends BaseNode {
 }
