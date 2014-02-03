@@ -12,20 +12,18 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node.option;
+package com.liferay.sharepoint.connector.schema.node.query.operator;
 
-import com.liferay.sharepoint.connector.schema.marker.QueryOption;
-import com.liferay.sharepoint.connector.schema.node.BaseNode;
+import com.liferay.sharepoint.connector.schema.node.query.FieldRef;
+import com.liferay.sharepoint.connector.schema.node.query.Value;
 
 /**
  * @author Iván Zaera
  */
-public class FolderQueryOption extends BaseNode implements QueryOption {
+public class GtOperator extends BaseSingleValueOperator {
 
-	public FolderQueryOption(String path) {
-		_path = path;
+	public GtOperator(FieldRef fieldRef, Value value) {
+		super(fieldRef, value);
 	}
-
-	private String _path;
 
 }

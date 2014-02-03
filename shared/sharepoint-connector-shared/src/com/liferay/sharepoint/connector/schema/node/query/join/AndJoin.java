@@ -12,18 +12,17 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node.operator;
+package com.liferay.sharepoint.connector.schema.node.query.join;
 
-import com.liferay.sharepoint.connector.schema.node.value.Value;
-import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
+import com.liferay.sharepoint.connector.schema.marker.Clause;
 
 /**
  * @author Iván Zaera
  */
-public class GtOperator extends BaseSingleValueOperator {
+public class AndJoin extends BaseJoin {
 
-	public GtOperator(FieldRef fieldRef, Value value) {
-		super(fieldRef, value);
+	public AndJoin(Clause leftClause, Clause rightClause) {
+		super(leftClause, rightClause);
 	}
 
 }

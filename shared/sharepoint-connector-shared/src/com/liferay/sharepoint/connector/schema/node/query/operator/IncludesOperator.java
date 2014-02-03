@@ -12,17 +12,18 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node.join;
+package com.liferay.sharepoint.connector.schema.node.query.operator;
 
-import com.liferay.sharepoint.connector.schema.marker.Clause;
+import com.liferay.sharepoint.connector.schema.node.query.FieldRef;
+import com.liferay.sharepoint.connector.schema.node.query.Value;
 
 /**
  * @author Iván Zaera
  */
-public class AndJoin extends BaseJoin {
+public class IncludesOperator extends BaseSingleValueOperator {
 
-	public AndJoin(Clause leftClause, Clause rightClause) {
-		super(leftClause, rightClause);
+	public IncludesOperator(FieldRef fieldRef, Value value) {
+		super(fieldRef, value);
 	}
 
 }

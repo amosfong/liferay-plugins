@@ -12,27 +12,22 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node.option;
+package com.liferay.sharepoint.connector.schema.node.query.join;
 
-import com.liferay.sharepoint.connector.schema.marker.QueryOption;
+import com.liferay.sharepoint.connector.schema.marker.Clause;
 import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public class QueryOptionsNode extends BaseNode {
+public abstract class BaseJoin extends BaseNode implements Clause {
 
-	public QueryOptionsNode(QueryOption...queryOptions) {
-		if (queryOptions == null) {
-			_queryOptions = _QUERY_OPTIONS;
-		}
-		else {
-			_queryOptions = queryOptions;
-		}
+	public BaseJoin(Clause leftClause, Clause rightClause) {
+		_leftClause = leftClause;
+		_rightClause = rightClause;
 	}
 
-	private static final QueryOption[] _QUERY_OPTIONS = new QueryOption[0];
-
-	private QueryOption[] _queryOptions;
+	private Clause _leftClause;
+	private Clause _rightClause;
 
 }

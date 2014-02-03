@@ -14,8 +14,8 @@
 
 package com.liferay.sharepoint.connector.schema;
 
-import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
-import com.liferay.sharepoint.connector.schema.node.view.ViewFields;
+import com.liferay.sharepoint.connector.schema.node.query.FieldRef;
+import com.liferay.sharepoint.connector.schema.node.query.ViewFields;
 
 /**
  * @author Iván Zaera

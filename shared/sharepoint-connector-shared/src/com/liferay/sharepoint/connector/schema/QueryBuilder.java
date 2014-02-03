@@ -15,24 +15,24 @@
 package com.liferay.sharepoint.connector.schema;
 
 import com.liferay.sharepoint.connector.schema.marker.Clause;
-import com.liferay.sharepoint.connector.schema.node.join.AndJoin;
-import com.liferay.sharepoint.connector.schema.node.join.OrJoin;
-import com.liferay.sharepoint.connector.schema.node.operator.BeginsWithOperator;
-import com.liferay.sharepoint.connector.schema.node.operator.ContainsOperator;
-import com.liferay.sharepoint.connector.schema.node.operator.EqOperator;
-import com.liferay.sharepoint.connector.schema.node.operator.GeqOperator;
-import com.liferay.sharepoint.connector.schema.node.operator.GtOperator;
-import com.liferay.sharepoint.connector.schema.node.operator.InOperator;
-import com.liferay.sharepoint.connector.schema.node.operator.IncludesOperator;
-import com.liferay.sharepoint.connector.schema.node.operator.IsNotNullOperator;
-import com.liferay.sharepoint.connector.schema.node.operator.IsNullOperator;
-import com.liferay.sharepoint.connector.schema.node.operator.LeqOperator;
-import com.liferay.sharepoint.connector.schema.node.operator.LtOperator;
-import com.liferay.sharepoint.connector.schema.node.operator.NeqOperator;
-import com.liferay.sharepoint.connector.schema.node.operator.NotIncludesOperator;
+import com.liferay.sharepoint.connector.schema.node.query.FieldRef;
 import com.liferay.sharepoint.connector.schema.node.query.Query;
-import com.liferay.sharepoint.connector.schema.node.value.Value;
-import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
+import com.liferay.sharepoint.connector.schema.node.query.Value;
+import com.liferay.sharepoint.connector.schema.node.query.join.AndJoin;
+import com.liferay.sharepoint.connector.schema.node.query.join.OrJoin;
+import com.liferay.sharepoint.connector.schema.node.query.operator.BeginsWithOperator;
+import com.liferay.sharepoint.connector.schema.node.query.operator.ContainsOperator;
+import com.liferay.sharepoint.connector.schema.node.query.operator.EqOperator;
+import com.liferay.sharepoint.connector.schema.node.query.operator.GeqOperator;
+import com.liferay.sharepoint.connector.schema.node.query.operator.GtOperator;
+import com.liferay.sharepoint.connector.schema.node.query.operator.InOperator;
+import com.liferay.sharepoint.connector.schema.node.query.operator.IncludesOperator;
+import com.liferay.sharepoint.connector.schema.node.query.operator.IsNotNullOperator;
+import com.liferay.sharepoint.connector.schema.node.query.operator.IsNullOperator;
+import com.liferay.sharepoint.connector.schema.node.query.operator.LeqOperator;
+import com.liferay.sharepoint.connector.schema.node.query.operator.LtOperator;
+import com.liferay.sharepoint.connector.schema.node.query.operator.NeqOperator;
+import com.liferay.sharepoint.connector.schema.node.query.operator.NotIncludesOperator;
 
 /**
  * @author Iván Zaera

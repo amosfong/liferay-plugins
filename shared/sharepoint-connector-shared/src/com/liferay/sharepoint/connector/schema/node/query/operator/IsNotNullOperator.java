@@ -12,22 +12,17 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node.join;
+package com.liferay.sharepoint.connector.schema.node.query.operator;
 
-import com.liferay.sharepoint.connector.schema.marker.Clause;
-import com.liferay.sharepoint.connector.schema.node.BaseNode;
+import com.liferay.sharepoint.connector.schema.node.query.FieldRef;
 
 /**
  * @author Iván Zaera
  */
-public abstract class BaseJoin extends BaseNode implements Clause {
+public class IsNotNullOperator extends BaseNoValueOperator {
 
-	public BaseJoin(Clause leftClause, Clause rightClause) {
-		_leftClause = leftClause;
-		_rightClause = rightClause;
+	public IsNotNullOperator(FieldRef fieldRef) {
+		super(fieldRef);
 	}
-
-	private Clause _leftClause;
-	private Clause _rightClause;
 
 }

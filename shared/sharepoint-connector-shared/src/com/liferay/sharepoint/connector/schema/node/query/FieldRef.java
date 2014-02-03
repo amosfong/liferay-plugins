@@ -12,18 +12,19 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node.operator;
+package com.liferay.sharepoint.connector.schema.node.query;
 
-import com.liferay.sharepoint.connector.schema.node.value.Value;
-import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
+import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public class ContainsOperator extends BaseSingleValueOperator {
+public class FieldRef extends BaseNode {
 
-	public ContainsOperator(FieldRef fieldRef, Value value) {
-		super(fieldRef, value);
+	public FieldRef(String fieldName) {
+		_fieldName = fieldName;
 	}
+
+	private String _fieldName;
 
 }

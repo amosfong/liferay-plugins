@@ -12,17 +12,17 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node.operator;
+package com.liferay.sharepoint.connector.schema.node.query.operator;
 
-import com.liferay.sharepoint.connector.schema.node.value.Value;
-import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
+import com.liferay.sharepoint.connector.schema.node.query.FieldRef;
+import com.liferay.sharepoint.connector.schema.node.query.Value;
 
 /**
  * @author Iván Zaera
  */
-public class NotIncludesOperator extends BaseSingleValueOperator {
+public class ContainsOperator extends BaseSingleValueOperator {
 
-	public NotIncludesOperator(FieldRef fieldRef, Value value) {
+	public ContainsOperator(FieldRef fieldRef, Value value) {
 		super(fieldRef, value);
 	}
 

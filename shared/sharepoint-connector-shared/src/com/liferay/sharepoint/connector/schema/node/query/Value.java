@@ -12,17 +12,31 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node.join;
+package com.liferay.sharepoint.connector.schema.node.query;
 
-import com.liferay.sharepoint.connector.schema.marker.Clause;
+import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public class OrJoin extends BaseJoin {
+public class Value extends BaseNode {
 
-	public OrJoin(Clause leftClause, Clause rightClause) {
-		super(leftClause, rightClause);
+	public Value(String value) {
+		this(Type.Text, value);
 	}
+
+	public Value(Type type, String value) {
+		_type = type;
+		_value = value;
+	}
+
+	public static enum Type {
+
+		Integer, Lookup, Text
+
+	}
+
+	private Type _type;
+	private String _value;
 
 }

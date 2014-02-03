@@ -12,18 +12,21 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node.operator;
+package com.liferay.sharepoint.connector.schema.node.query.option;
 
-import com.liferay.sharepoint.connector.schema.node.value.Value;
-import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
+import com.liferay.sharepoint.connector.schema.marker.QueryOption;
+import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public class LeqOperator extends BaseSingleValueOperator {
+public class IncludeMandatoryColumnsQueryOption
+	extends BaseNode implements QueryOption {
 
-	public LeqOperator(FieldRef fieldRef, Value value) {
-		super(fieldRef, value);
+	public IncludeMandatoryColumnsQueryOption(boolean include) {
+		_include = include;
 	}
+
+	private boolean _include;
 
 }

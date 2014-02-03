@@ -12,22 +12,26 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node.operator;
+package com.liferay.sharepoint.connector.schema.node.query;
 
-import com.liferay.sharepoint.connector.schema.node.value.Value;
-import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
+import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public abstract class BaseSingleValueOperator extends BaseOperator {
+public class ViewFields extends BaseNode {
 
-	public BaseSingleValueOperator(FieldRef fieldRef, Value value) {
-		super(fieldRef);
-
-		_value = value;
+	public ViewFields(FieldRef... fieldRefs) {
+		if (fieldRefs == null) {
+			_fieldRefs = _FIELD_REFS;
+		}
+		else {
+			_fieldRefs = fieldRefs;
+		}
 	}
 
-	private Value _value;
+	private static final FieldRef[] _FIELD_REFS = new FieldRef[0];
+
+	private FieldRef[] _fieldRefs;
 
 }

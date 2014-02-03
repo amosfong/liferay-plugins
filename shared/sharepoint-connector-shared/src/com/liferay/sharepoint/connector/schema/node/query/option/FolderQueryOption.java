@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node.option;
+package com.liferay.sharepoint.connector.schema.node.query.option;
 
 import com.liferay.sharepoint.connector.schema.marker.QueryOption;
 import com.liferay.sharepoint.connector.schema.node.BaseNode;
@@ -20,13 +20,12 @@ import com.liferay.sharepoint.connector.schema.node.BaseNode;
 /**
  * @author Iván Zaera
  */
-public class IncludeMandatoryColumnsQueryOption
-	extends BaseNode implements QueryOption {
+public class FolderQueryOption extends BaseNode implements QueryOption {
 
-	public IncludeMandatoryColumnsQueryOption(boolean include) {
-		_include = include;
+	public FolderQueryOption(String path) {
+		_path = path;
 	}
 
-	private boolean _include;
+	private String _path;
 
 }

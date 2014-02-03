@@ -12,19 +12,27 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node.view;
+package com.liferay.sharepoint.connector.schema.node.query.option;
 
+import com.liferay.sharepoint.connector.schema.marker.QueryOption;
 import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public class FieldRef extends BaseNode {
+public class QueryOptionsNode extends BaseNode {
 
-	public FieldRef(String fieldName) {
-		_fieldName = fieldName;
+	public QueryOptionsNode(QueryOption...queryOptions) {
+		if (queryOptions == null) {
+			_queryOptions = _QUERY_OPTIONS;
+		}
+		else {
+			_queryOptions = queryOptions;
+		}
 	}
 
-	private String _fieldName;
+	private static final QueryOption[] _QUERY_OPTIONS = new QueryOption[0];
+
+	private QueryOption[] _queryOptions;
 
 }

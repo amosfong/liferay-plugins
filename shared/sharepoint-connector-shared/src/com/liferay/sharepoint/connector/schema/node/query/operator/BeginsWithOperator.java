@@ -12,17 +12,18 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node.operator;
+package com.liferay.sharepoint.connector.schema.node.query.operator;
 
-import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
+import com.liferay.sharepoint.connector.schema.node.query.FieldRef;
+import com.liferay.sharepoint.connector.schema.node.query.Value;
 
 /**
  * @author Iván Zaera
  */
-public class IsNullOperator extends BaseNoValueOperator {
+public class BeginsWithOperator extends BaseSingleValueOperator {
 
-	public IsNullOperator(FieldRef fieldRef) {
-		super(fieldRef);
+	public BeginsWithOperator(FieldRef fieldRef, Value value) {
+		super(fieldRef, value);
 	}
 
 }

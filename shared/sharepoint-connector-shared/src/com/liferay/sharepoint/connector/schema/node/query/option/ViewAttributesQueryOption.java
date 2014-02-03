@@ -12,17 +12,20 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node.operator;
+package com.liferay.sharepoint.connector.schema.node.query.option;
 
-import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
+import com.liferay.sharepoint.connector.schema.marker.QueryOption;
+import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
  * @author Iván Zaera
  */
-public abstract class BaseNoValueOperator extends BaseOperator {
+public class ViewAttributesQueryOption extends BaseNode implements QueryOption {
 
-	public BaseNoValueOperator(FieldRef fieldRef) {
-		super(fieldRef);
+	public ViewAttributesQueryOption(boolean recursive) {
+		_recursive = recursive;
 	}
+
+	private boolean _recursive;
 
 }

@@ -12,17 +12,17 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node.operator;
+package com.liferay.sharepoint.connector.schema.node.query.operator;
 
-import com.liferay.sharepoint.connector.schema.node.value.Value;
-import com.liferay.sharepoint.connector.schema.node.view.FieldRef;
+import com.liferay.sharepoint.connector.schema.node.query.FieldRef;
+import com.liferay.sharepoint.connector.schema.node.query.Value;
 
 /**
  * @author Iván Zaera
  */
-public class LtOperator extends BaseSingleValueOperator {
+public class GeqOperator extends BaseSingleValueOperator {
 
-	public LtOperator(FieldRef fieldRef, Value value) {
+	public GeqOperator(FieldRef fieldRef, Value value) {
 		super(fieldRef, value);
 	}
 

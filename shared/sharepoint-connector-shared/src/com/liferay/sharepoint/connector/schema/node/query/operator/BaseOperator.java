@@ -12,26 +12,21 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node.view;
+package com.liferay.sharepoint.connector.schema.node.query.operator;
 
+import com.liferay.sharepoint.connector.schema.marker.Clause;
 import com.liferay.sharepoint.connector.schema.node.BaseNode;
+import com.liferay.sharepoint.connector.schema.node.query.FieldRef;
 
 /**
  * @author Iván Zaera
  */
-public class ViewFields extends BaseNode {
+public abstract class BaseOperator extends BaseNode implements Clause {
 
-	public ViewFields(FieldRef... fieldRefs) {
-		if (fieldRefs == null) {
-			_fieldRefs = _FIELD_REFS;
-		}
-		else {
-			_fieldRefs = fieldRefs;
-		}
+	public BaseOperator(FieldRef fieldRef) {
+		_fieldRef = fieldRef;
 	}
 
-	private static final FieldRef[] _FIELD_REFS = new FieldRef[0];
-
-	private FieldRef[] _fieldRefs;
+	private FieldRef _fieldRef;
 
 }
