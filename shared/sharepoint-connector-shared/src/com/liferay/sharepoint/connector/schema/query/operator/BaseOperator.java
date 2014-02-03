@@ -23,10 +23,10 @@ import com.liferay.sharepoint.connector.schema.query.QueryFieldRef;
  */
 public abstract class BaseOperator extends BaseNode implements QueryClause {
 
-	public BaseOperator(QueryFieldRef fieldRef) {
-		_fieldRef = fieldRef;
+	public BaseOperator(QueryFieldRef queryFieldRef) {
+		_queryFieldRef = queryFieldRef;
 	}
 
-	private QueryFieldRef _fieldRef;
+	private QueryFieldRef _queryFieldRef;
 
 }

@@ -22,8 +22,10 @@ import com.liferay.sharepoint.connector.schema.query.QueryValue;
  */
 public class NotIncludesOperator extends BaseSingleValueOperator {
 
-	public NotIncludesOperator(QueryFieldRef fieldRef, QueryValue value) {
-		super(fieldRef, value);
+	public NotIncludesOperator(
+		QueryFieldRef queryFieldRef, QueryValue queryValue) {
+
+		super(queryFieldRef, queryValue);
 	}
 
 }

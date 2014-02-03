@@ -22,8 +22,8 @@ import com.liferay.sharepoint.connector.schema.query.QueryValue;
  */
 public class LtOperator extends BaseSingleValueOperator {
 
-	public LtOperator(QueryFieldRef fieldRef, QueryValue value) {
-		super(fieldRef, value);
+	public LtOperator(QueryFieldRef queryFieldRef, QueryValue queryValue) {
+		super(queryFieldRef, queryValue);
 	}
 
 }

@@ -21,8 +21,8 @@ import com.liferay.sharepoint.connector.schema.query.QueryFieldRef;
  */
 public abstract class BaseNoValueOperator extends BaseOperator {
 
-	public BaseNoValueOperator(QueryFieldRef fieldRef) {
-		super(fieldRef);
+	public BaseNoValueOperator(QueryFieldRef queryFieldRef) {
+		super(queryFieldRef);
 	}
 
 }

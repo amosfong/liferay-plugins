@@ -22,8 +22,8 @@ import com.liferay.sharepoint.connector.schema.query.QueryValue;
  */
 public class GtOperator extends BaseSingleValueOperator {
 
-	public GtOperator(QueryFieldRef fieldRef, QueryValue value) {
-		super(fieldRef, value);
+	public GtOperator(QueryFieldRef queryFieldRef, QueryValue queryValue) {
+		super(queryFieldRef, queryValue);
 	}
 
 }

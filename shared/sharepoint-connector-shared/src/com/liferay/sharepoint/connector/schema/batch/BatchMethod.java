@@ -21,10 +21,10 @@ import com.liferay.sharepoint.connector.schema.BaseNode;
  */
 public class BatchMethod extends BaseNode {
 
-	public BatchMethod(int id, Command command, BatchField... fields) {
+	public BatchMethod(int id, Command command, BatchField... batchFields) {
 		_id = id;
 		_command = command;
-		_fields = fields;
+		_batchFields = batchFields;
 	}
 
 	public static enum Command {
@@ -33,8 +33,8 @@ public class BatchMethod extends BaseNode {
 
 	}
 
+	private BatchField[] _batchFields;
 	private Command _command;
-	private BatchField[] _fields;
 	private int _id;
 
 }

@@ -21,17 +21,18 @@ import com.liferay.sharepoint.connector.schema.BaseNode;
  */
 public class ViewFieldsNode extends BaseNode {
 
-	public ViewFieldsNode(QueryFieldRef... fieldRefs) {
-		if (fieldRefs == null) {
-			_fieldRefs = _FIELD_REFS;
+	public ViewFieldsNode(QueryFieldRef... queryFieldRefs) {
+		if (queryFieldRefs == null) {
+			_queryFieldRefs = _EMPTY_QUERY_FIELD_REFS;
 		}
 		else {
-			_fieldRefs = fieldRefs;
+			_queryFieldRefs = queryFieldRefs;
 		}
 	}
 
-	private static final QueryFieldRef[] _FIELD_REFS = new QueryFieldRef[0];
+	private static final QueryFieldRef[] _EMPTY_QUERY_FIELD_REFS =
+		new QueryFieldRef[0];
 
-	private QueryFieldRef[] _fieldRefs;
+	private QueryFieldRef[] _queryFieldRefs;
 
 }

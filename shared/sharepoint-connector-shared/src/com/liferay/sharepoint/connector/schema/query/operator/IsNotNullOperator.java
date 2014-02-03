@@ -21,8 +21,8 @@ import com.liferay.sharepoint.connector.schema.query.QueryFieldRef;
  */
 public class IsNotNullOperator extends BaseNoValueOperator {
 
-	public IsNotNullOperator(QueryFieldRef fieldRef) {
-		super(fieldRef);
+	public IsNotNullOperator(QueryFieldRef queryFieldRef) {
+		super(queryFieldRef);
 	}
 
 }

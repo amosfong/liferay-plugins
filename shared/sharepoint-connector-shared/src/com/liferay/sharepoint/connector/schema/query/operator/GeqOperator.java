@@ -22,8 +22,8 @@ import com.liferay.sharepoint.connector.schema.query.QueryValue;
  */
 public class GeqOperator extends BaseSingleValueOperator {
 
-	public GeqOperator(QueryFieldRef fieldRef, QueryValue value) {
-		super(fieldRef, value);
+	public GeqOperator(QueryFieldRef queryFieldRef, QueryValue queryValue) {
+		super(queryFieldRef, queryValue);
 	}
 
 }

@@ -22,12 +22,14 @@ import com.liferay.sharepoint.connector.schema.query.QueryValue;
  */
 public abstract class BaseSingleValueOperator extends BaseOperator {
 
-	public BaseSingleValueOperator(QueryFieldRef fieldRef, QueryValue value) {
-		super(fieldRef);
+	public BaseSingleValueOperator(
+		QueryFieldRef queryFieldRef, QueryValue queryValue) {
 
-		_value = value;
+		super(queryFieldRef);
+
+		_queryValue = queryValue;
 	}
 
-	private QueryValue _value;
+	private QueryValue _queryValue;
 
 }

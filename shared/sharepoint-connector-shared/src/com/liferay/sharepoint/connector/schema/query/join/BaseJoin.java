@@ -22,12 +22,12 @@ import com.liferay.sharepoint.connector.schema.query.QueryClause;
  */
 public abstract class BaseJoin extends BaseNode implements QueryClause {
 
-	public BaseJoin(QueryClause leftClause, QueryClause rightClause) {
-		_leftClause = leftClause;
-		_rightClause = rightClause;
+	public BaseJoin(QueryClause leftQueryClause, QueryClause rightQueryClause) {
+		_leftQueryClause = leftQueryClause;
+		_rightQueryClause = rightQueryClause;
 	}
 
-	private QueryClause _leftClause;
-	private QueryClause _rightClause;
+	private QueryClause _leftQueryClause;
+	private QueryClause _rightQueryClause;
 
 }

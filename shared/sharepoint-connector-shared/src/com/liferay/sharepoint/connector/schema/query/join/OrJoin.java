@@ -21,8 +21,8 @@ import com.liferay.sharepoint.connector.schema.query.QueryClause;
  */
 public class OrJoin extends BaseJoin {
 
-	public OrJoin(QueryClause leftClause, QueryClause rightClause) {
-		super(leftClause, rightClause);
+	public OrJoin(QueryClause leftQueryClause, QueryClause rightQueryClause) {
+		super(leftQueryClause, rightQueryClause);
 	}
 
 }

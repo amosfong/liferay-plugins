@@ -21,8 +21,8 @@ import com.liferay.sharepoint.connector.schema.query.QueryClause;
  */
 public class AndJoin extends BaseJoin {
 
-	public AndJoin(QueryClause leftClause, QueryClause rightClause) {
-		super(leftClause, rightClause);
+	public AndJoin(QueryClause leftQueryClause, QueryClause rightQueryClause) {
+		super(leftQueryClause, rightQueryClause);
 	}
 
 }

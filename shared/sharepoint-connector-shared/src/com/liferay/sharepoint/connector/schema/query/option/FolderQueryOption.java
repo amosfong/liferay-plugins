@@ -14,7 +14,6 @@
 
 package com.liferay.sharepoint.connector.schema.query.option;
 
-
 /**
  * @author Iván Zaera
  */

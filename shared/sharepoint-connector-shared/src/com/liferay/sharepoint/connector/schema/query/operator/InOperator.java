@@ -22,8 +22,8 @@ import com.liferay.sharepoint.connector.schema.query.QueryValue;
  */
 public class InOperator extends BaseMultiValueOperator {
 
-	public InOperator(QueryFieldRef fieldRef, QueryValue...values) {
-		super(fieldRef, values);
+	public InOperator(QueryFieldRef queryFieldRef, QueryValue...queryValues) {
+		super(queryFieldRef, queryValues);
 	}
 
 }

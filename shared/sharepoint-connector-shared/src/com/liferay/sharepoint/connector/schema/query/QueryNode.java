@@ -21,10 +21,10 @@ import com.liferay.sharepoint.connector.schema.BaseNode;
  */
 public class QueryNode extends BaseNode {
 
-	public QueryNode(QueryClause clause) {
-		_clause = clause;
+	public QueryNode(QueryClause queryClause) {
+		_queryClause = queryClause;
 	}
 
-	private QueryClause _clause;
+	private QueryClause _queryClause;
 
 }

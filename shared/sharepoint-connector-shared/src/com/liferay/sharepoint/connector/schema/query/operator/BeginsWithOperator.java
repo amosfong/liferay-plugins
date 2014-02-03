@@ -22,8 +22,10 @@ import com.liferay.sharepoint.connector.schema.query.QueryValue;
  */
 public class BeginsWithOperator extends BaseSingleValueOperator {
 
-	public BeginsWithOperator(QueryFieldRef fieldRef, QueryValue value) {
-		super(fieldRef, value);
+	public BeginsWithOperator(
+		QueryFieldRef queryFieldRef, QueryValue queryValue) {
+
+		super(queryFieldRef, queryValue);
 	}
 
 }
