@@ -16,6 +16,7 @@ package com.liferay.portal.repository.googledrive.model;
 
 import com.google.api.services.drive.model.File;
 
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.repository.external.ExtRepositoryFolder;
 
 /**
@@ -27,7 +28,7 @@ public class GoogleDriveFolder
 	public GoogleDriveFolder(File file, String rootFolderKey) {
 		super(file);
 
-		_name = file.getTitle();
+		_name = GetterUtil.getString(file.getTitle());
 		_rootFolderKey = rootFolderKey;
 	}
 

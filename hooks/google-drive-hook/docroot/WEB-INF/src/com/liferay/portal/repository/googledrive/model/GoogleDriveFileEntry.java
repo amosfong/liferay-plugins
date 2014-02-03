@@ -16,6 +16,7 @@ package com.liferay.portal.repository.googledrive.model;
 
 import com.google.api.services.drive.model.File;
 
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.repository.external.ExtRepositoryFileEntry;
 
@@ -28,9 +29,9 @@ public class GoogleDriveFileEntry
 	public GoogleDriveFileEntry(File file) {
 		super(file);
 
-		_downloadURL = file.getDownloadUrl();
-		_mimeType = file.getMimeType();
-		_title = file.getTitle();
+		_downloadURL = GetterUtil.getString(file.getDownloadUrl());
+		_mimeType = GetterUtil.getString(file.getMimeType());
+		_title = GetterUtil.getString(file.getTitle());
 	}
 
 	@Override

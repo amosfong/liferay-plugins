@@ -16,6 +16,7 @@ package com.liferay.portal.repository.googledrive.model;
 
 import com.google.api.services.drive.model.Revision;
 
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.repository.external.ExtRepositoryFileVersion;
@@ -31,7 +32,8 @@ public class GoogleDriveFileVersion
 
 		super(
 			revision.getModifiedDate(), revision.getId(),
-			revision.getFileSize(), revision.getLastModifyingUserName());
+			GetterUtil.getLong(revision.getFileSize()),
+			GetterUtil.getString(revision.getLastModifyingUserName()));
 
 		_revision = revision;
 		_extRepositoryFileEntryKey = extRepositoryFileEntryKey;
@@ -44,7 +46,9 @@ public class GoogleDriveFileVersion
 	}
 
 	public String getDownloadURL() {
-		return _revision.getDownloadUrl();
+		String downloadURL = GetterUtil.getString(_revision.getDownloadUrl());
+
+		return downloadURL;
 	}
 
 	@Override
@@ -62,7 +66,9 @@ public class GoogleDriveFileVersion
 
 	@Override
 	public String getMimeType() {
-		return _revision.getMimeType();
+		String mimeType = GetterUtil.getString(_revision.getMimeType());
+
+		return mimeType;
 	}
 
 	@Override

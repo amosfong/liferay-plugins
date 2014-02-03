@@ -18,6 +18,7 @@ import com.google.api.client.util.DateTime;
 import com.google.api.services.drive.model.File;
 import com.google.api.services.drive.model.Permission;
 
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.repository.external.ExtRepositoryObject;
 
 import java.util.Date;
@@ -31,8 +32,8 @@ public class GoogleDriveObject
 	public GoogleDriveObject(File file) {
 		super(file);
 
-		_description = file.getDescription();
-		_extension = file.getFileExtension();
+		_description = GetterUtil.getString(file.getDescription());
+		_extension = GetterUtil.getString(file.getFileExtension());
 
 		DateTime createDateTime = file.getCreatedDate();
 
