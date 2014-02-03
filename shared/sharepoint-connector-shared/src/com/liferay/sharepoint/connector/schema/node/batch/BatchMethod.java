@@ -19,9 +19,9 @@ import com.liferay.sharepoint.connector.schema.node.BaseNode;
 /**
  * @author Iván Zaera
  */
-public class Method extends BaseNode {
+public class BatchMethod extends BaseNode {
 
-	public Method(int id, Command command, Field... fields) {
+	public BatchMethod(int id, Command command, BatchField... fields) {
 		_id = id;
 		_command = command;
 		_fields = fields;
@@ -34,7 +34,7 @@ public class Method extends BaseNode {
 	}
 
 	private Command _command;
-	private Field[] _fields;
+	private BatchField[] _fields;
 	private int _id;
 
 }

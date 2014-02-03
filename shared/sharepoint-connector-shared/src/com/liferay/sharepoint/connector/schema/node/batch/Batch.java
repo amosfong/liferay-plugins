@@ -21,7 +21,7 @@ import com.liferay.sharepoint.connector.schema.node.BaseNode;
  */
 public class Batch extends BaseNode {
 
-	public Batch(OnError onError, String folderPath, Method...methods) {
+	public Batch(OnError onError, String folderPath, BatchMethod...methods) {
 		_onError = onError;
 		_folderPath = folderPath;
 		_methods = methods;
@@ -32,7 +32,7 @@ public class Batch extends BaseNode {
 		Continue, Return
 	}
 
-	private Method[] _methods;
+	private BatchMethod[] _methods;
 	private OnError _onError;
 	private String _folderPath;
 

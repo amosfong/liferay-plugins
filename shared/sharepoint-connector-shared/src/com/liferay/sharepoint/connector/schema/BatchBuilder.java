@@ -16,24 +16,24 @@ package com.liferay.sharepoint.connector.schema;
 
 import com.liferay.sharepoint.connector.schema.node.batch.Batch;
 import com.liferay.sharepoint.connector.schema.node.batch.Batch.OnError;
-import com.liferay.sharepoint.connector.schema.node.batch.Field;
-import com.liferay.sharepoint.connector.schema.node.batch.Method;
+import com.liferay.sharepoint.connector.schema.node.batch.BatchField;
+import com.liferay.sharepoint.connector.schema.node.batch.BatchMethod;
 
 /**
  * @author Iván Zaera
  */
 public class BatchBuilder {
 
-	public Batch batch(OnError onError, String folderPath, Method...methods) {
+	public Batch batch(OnError onError, String folderPath, BatchMethod...methods) {
 		return new Batch(onError, folderPath, methods);
 	}
 
-	public Field field(String name, String value) {
-		return new Field(name, value);
+	public BatchField field(String name, String value) {
+		return new BatchField(name, value);
 	}
 
-	public Method method(int id, Method.Command command, Field...fields) {
-		return new Method(id, command, fields);
+	public BatchMethod method(int id, BatchMethod.Command command, BatchField...fields) {
+		return new BatchMethod(id, command, fields);
 	}
 
 }
