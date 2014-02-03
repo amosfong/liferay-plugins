@@ -15,9 +15,9 @@
 package com.liferay.sharepoint.connector.schema;
 
 import com.liferay.sharepoint.connector.schema.marker.QueryOption;
+import com.liferay.sharepoint.connector.schema.node.query.QueryOptionsNode;
 import com.liferay.sharepoint.connector.schema.node.query.option.FolderQueryOption;
 import com.liferay.sharepoint.connector.schema.node.query.option.IncludeMandatoryColumnsQueryOption;
-import com.liferay.sharepoint.connector.schema.node.query.option.QueryOptionsNode;
 import com.liferay.sharepoint.connector.schema.node.query.option.ViewAttributesQueryOption;
 
 /**

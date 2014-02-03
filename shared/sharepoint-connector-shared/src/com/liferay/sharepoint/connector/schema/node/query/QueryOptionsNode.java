@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.node.query.option;
+package com.liferay.sharepoint.connector.schema.node.query;
 
 import com.liferay.sharepoint.connector.schema.marker.QueryOption;
 import com.liferay.sharepoint.connector.schema.node.BaseNode;
