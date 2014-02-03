@@ -19,12 +19,19 @@ import com.liferay.sharepoint.connector.schema.node.BaseNode;
 /**
  * @author Iván Zaera
  */
-public class Query extends BaseNode {
+public class ViewFieldsNode extends BaseNode {
 
-	public Query(QueryClause clause) {
-		_clause = clause;
+	public ViewFieldsNode(QueryFieldRef... fieldRefs) {
+		if (fieldRefs == null) {
+			_fieldRefs = _FIELD_REFS;
+		}
+		else {
+			_fieldRefs = fieldRefs;
+		}
 	}
 
-	private QueryClause _clause;
+	private static final QueryFieldRef[] _FIELD_REFS = new QueryFieldRef[0];
+
+	private QueryFieldRef[] _fieldRefs;
 
 }

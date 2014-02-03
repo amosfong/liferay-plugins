@@ -16,7 +16,7 @@ package com.liferay.sharepoint.connector.schema;
 
 import com.liferay.sharepoint.connector.schema.node.query.QueryClause;
 import com.liferay.sharepoint.connector.schema.node.query.QueryFieldRef;
-import com.liferay.sharepoint.connector.schema.node.query.Query;
+import com.liferay.sharepoint.connector.schema.node.query.QueryNode;
 import com.liferay.sharepoint.connector.schema.node.query.QueryValue;
 import com.liferay.sharepoint.connector.schema.node.query.join.AndJoin;
 import com.liferay.sharepoint.connector.schema.node.query.join.OrJoin;
@@ -111,8 +111,8 @@ public class QueryBuilder {
 		return new QueryValue(type, value);
 	}
 
-	public Query where(QueryClause clause) {
-		return new Query(clause);
+	public QueryNode where(QueryClause clause) {
+		return new QueryNode(clause);
 	}
 
 }
