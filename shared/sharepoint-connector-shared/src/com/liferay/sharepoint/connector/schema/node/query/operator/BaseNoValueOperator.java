@@ -14,14 +14,14 @@
 
 package com.liferay.sharepoint.connector.schema.node.query.operator;
 
-import com.liferay.sharepoint.connector.schema.node.query.FieldRef;
+import com.liferay.sharepoint.connector.schema.node.query.QueryFieldRef;
 
 /**
  * @author Iván Zaera
  */
 public abstract class BaseNoValueOperator extends BaseOperator {
 
-	public BaseNoValueOperator(FieldRef fieldRef) {
+	public BaseNoValueOperator(QueryFieldRef fieldRef) {
 		super(fieldRef);
 	}
 

@@ -14,15 +14,15 @@
 
 package com.liferay.sharepoint.connector.schema.node.query.operator;
 
-import com.liferay.sharepoint.connector.schema.node.query.FieldRef;
-import com.liferay.sharepoint.connector.schema.node.query.Value;
+import com.liferay.sharepoint.connector.schema.node.query.QueryFieldRef;
+import com.liferay.sharepoint.connector.schema.node.query.QueryValue;
 
 /**
  * @author Iván Zaera
  */
 public class GtOperator extends BaseSingleValueOperator {
 
-	public GtOperator(FieldRef fieldRef, Value value) {
+	public GtOperator(QueryFieldRef fieldRef, QueryValue value) {
 		super(fieldRef, value);
 	}
 

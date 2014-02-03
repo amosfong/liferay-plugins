@@ -14,7 +14,7 @@
 
 package com.liferay.sharepoint.connector.schema;
 
-import com.liferay.sharepoint.connector.schema.node.query.FieldRef;
+import com.liferay.sharepoint.connector.schema.node.query.QueryFieldRef;
 import com.liferay.sharepoint.connector.schema.node.query.ViewFields;
 
 /**
@@ -22,11 +22,11 @@ import com.liferay.sharepoint.connector.schema.node.query.ViewFields;
  */
 public class ViewFieldsBuilder {
 
-	public FieldRef fieldRef(String fieldName) {
-		return new FieldRef(fieldName);
+	public QueryFieldRef fieldRef(String fieldName) {
+		return new QueryFieldRef(fieldName);
 	}
 
-	public ViewFields viewFields(FieldRef... fieldRefs) {
+	public ViewFields viewFields(QueryFieldRef... fieldRefs) {
 		return new ViewFields(fieldRefs);
 	}
 

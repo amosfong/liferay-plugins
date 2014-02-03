@@ -19,12 +19,24 @@ import com.liferay.sharepoint.connector.schema.node.BaseNode;
 /**
  * @author Iván Zaera
  */
-public class FieldRef extends BaseNode {
+public class QueryValue extends BaseNode {
 
-	public FieldRef(String fieldName) {
-		_fieldName = fieldName;
+	public QueryValue(String value) {
+		this(Type.Text, value);
 	}
 
-	private String _fieldName;
+	public QueryValue(Type type, String value) {
+		_type = type;
+		_value = value;
+	}
+
+	public static enum Type {
+
+		Integer, Lookup, Text
+
+	}
+
+	private Type _type;
+	private String _value;
 
 }

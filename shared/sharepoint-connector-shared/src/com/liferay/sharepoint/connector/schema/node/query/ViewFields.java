@@ -21,7 +21,7 @@ import com.liferay.sharepoint.connector.schema.node.BaseNode;
  */
 public class ViewFields extends BaseNode {
 
-	public ViewFields(FieldRef... fieldRefs) {
+	public ViewFields(QueryFieldRef... fieldRefs) {
 		if (fieldRefs == null) {
 			_fieldRefs = _FIELD_REFS;
 		}
@@ -30,8 +30,8 @@ public class ViewFields extends BaseNode {
 		}
 	}
 
-	private static final FieldRef[] _FIELD_REFS = new FieldRef[0];
+	private static final QueryFieldRef[] _FIELD_REFS = new QueryFieldRef[0];
 
-	private FieldRef[] _fieldRefs;
+	private QueryFieldRef[] _fieldRefs;
 
 }

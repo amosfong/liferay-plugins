@@ -14,14 +14,14 @@
 
 package com.liferay.sharepoint.connector.schema.node.query.operator;
 
-import com.liferay.sharepoint.connector.schema.node.query.FieldRef;
+import com.liferay.sharepoint.connector.schema.node.query.QueryFieldRef;
 
 /**
  * @author Iván Zaera
  */
 public class IsNotNullOperator extends BaseNoValueOperator {
 
-	public IsNotNullOperator(FieldRef fieldRef) {
+	public IsNotNullOperator(QueryFieldRef fieldRef) {
 		super(fieldRef);
 	}
 

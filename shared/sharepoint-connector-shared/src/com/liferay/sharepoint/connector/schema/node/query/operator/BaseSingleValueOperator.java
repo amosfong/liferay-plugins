@@ -14,20 +14,20 @@
 
 package com.liferay.sharepoint.connector.schema.node.query.operator;
 
-import com.liferay.sharepoint.connector.schema.node.query.FieldRef;
-import com.liferay.sharepoint.connector.schema.node.query.Value;
+import com.liferay.sharepoint.connector.schema.node.query.QueryFieldRef;
+import com.liferay.sharepoint.connector.schema.node.query.QueryValue;
 
 /**
  * @author Iván Zaera
  */
 public abstract class BaseSingleValueOperator extends BaseOperator {
 
-	public BaseSingleValueOperator(FieldRef fieldRef, Value value) {
+	public BaseSingleValueOperator(QueryFieldRef fieldRef, QueryValue value) {
 		super(fieldRef);
 
 		_value = value;
 	}
 
-	private Value _value;
+	private QueryValue _value;
 
 }

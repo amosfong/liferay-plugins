@@ -15,9 +15,9 @@
 package com.liferay.sharepoint.connector.schema;
 
 import com.liferay.sharepoint.connector.schema.node.query.QueryClause;
-import com.liferay.sharepoint.connector.schema.node.query.FieldRef;
+import com.liferay.sharepoint.connector.schema.node.query.QueryFieldRef;
 import com.liferay.sharepoint.connector.schema.node.query.Query;
-import com.liferay.sharepoint.connector.schema.node.query.Value;
+import com.liferay.sharepoint.connector.schema.node.query.QueryValue;
 import com.liferay.sharepoint.connector.schema.node.query.join.AndJoin;
 import com.liferay.sharepoint.connector.schema.node.query.join.OrJoin;
 import com.liferay.sharepoint.connector.schema.node.query.operator.BeginsWithOperator;
@@ -43,59 +43,59 @@ public class QueryBuilder {
 		return new AndJoin(leftClause, rightClause);
 	}
 
-	public BeginsWithOperator beginsWith(FieldRef fieldRef, Value value) {
+	public BeginsWithOperator beginsWith(QueryFieldRef fieldRef, QueryValue value) {
 		return new BeginsWithOperator(fieldRef, value);
 	}
 
-	public ContainsOperator contains(FieldRef fieldRef, Value value) {
+	public ContainsOperator contains(QueryFieldRef fieldRef, QueryValue value) {
 		return new ContainsOperator(fieldRef, value);
 	}
 
-	public EqOperator eq(FieldRef fieldRef, Value value) {
+	public EqOperator eq(QueryFieldRef fieldRef, QueryValue value) {
 		return new EqOperator(fieldRef, value);
 	}
 
-	public FieldRef fieldRef(String fieldName) {
-		return new FieldRef(fieldName);
+	public QueryFieldRef fieldRef(String fieldName) {
+		return new QueryFieldRef(fieldName);
 	}
 
-	public GeqOperator geq(FieldRef fieldRef, Value value) {
+	public GeqOperator geq(QueryFieldRef fieldRef, QueryValue value) {
 		return new GeqOperator(fieldRef, value);
 	}
 
-	public GtOperator gt(FieldRef fieldRef, Value value) {
+	public GtOperator gt(QueryFieldRef fieldRef, QueryValue value) {
 		return new GtOperator(fieldRef, value);
 	}
 
-	public InOperator in(FieldRef fieldRef, Value...values) {
+	public InOperator in(QueryFieldRef fieldRef, QueryValue...values) {
 		return new InOperator(fieldRef, values);
 	}
 
-	public IncludesOperator includes(FieldRef fieldRef, Value value) {
+	public IncludesOperator includes(QueryFieldRef fieldRef, QueryValue value) {
 		return new IncludesOperator(fieldRef, value);
 	}
 
-	public IsNotNullOperator isNotNull(FieldRef fieldRef) {
+	public IsNotNullOperator isNotNull(QueryFieldRef fieldRef) {
 		return new IsNotNullOperator(fieldRef);
 	}
 
-	public IsNullOperator isNull(FieldRef fieldRef) {
+	public IsNullOperator isNull(QueryFieldRef fieldRef) {
 		return new IsNullOperator(fieldRef);
 	}
 
-	public LeqOperator leq(FieldRef fieldRef, Value value) {
+	public LeqOperator leq(QueryFieldRef fieldRef, QueryValue value) {
 		return new LeqOperator(fieldRef, value);
 	}
 
-	public LtOperator lt(FieldRef fieldRef, Value value) {
+	public LtOperator lt(QueryFieldRef fieldRef, QueryValue value) {
 		return new LtOperator(fieldRef, value);
 	}
 
-	public NeqOperator neq(FieldRef fieldRef, Value value) {
+	public NeqOperator neq(QueryFieldRef fieldRef, QueryValue value) {
 		return new NeqOperator(fieldRef, value);
 	}
 
-	public NotIncludesOperator notIncludes(FieldRef fieldRef, Value value) {
+	public NotIncludesOperator notIncludes(QueryFieldRef fieldRef, QueryValue value) {
 		return new NotIncludesOperator(fieldRef, value);
 	}
 
@@ -103,12 +103,12 @@ public class QueryBuilder {
 		return new OrJoin(leftClause, righClause);
 	}
 
-	public Value value(String value) {
-		return new Value(value);
+	public QueryValue value(String value) {
+		return new QueryValue(value);
 	}
 
-	public Value value(Value.Type type, String value) {
-		return new Value(type, value);
+	public QueryValue value(QueryValue.Type type, String value) {
+		return new QueryValue(type, value);
 	}
 
 	public Query where(QueryClause clause) {
