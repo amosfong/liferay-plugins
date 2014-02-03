@@ -371,19 +371,10 @@ public class GoogleDriveRepository
 		throws PortalException {
 
 		try {
-			Drive drive = getDrive();
-
-			Drive.Files driveFiles = drive.files();
-
-			Drive.Files.Get driveFilesGet = driveFiles.get(
-				extRepositoryFolderKey);
-
-			File file = driveFilesGet.execute();
-
 			StringBundler sb = new StringBundler();
 
 			sb.append("'");
-			sb.append(file.getId());
+			sb.append(extRepositoryFolderKey);
 			sb.append("' in parents and title contains '");
 			sb.append(title);
 			sb.append(" and mimeType ");
@@ -398,6 +389,10 @@ public class GoogleDriveRepository
 			}
 
 			sb.append(_FOLDER_MIME_TYPE);
+
+			Drive drive = getDrive();
+
+			Drive.Files driveFiles = drive.files();
 
 			Drive.Files.List driveFilesList = driveFiles.list();
 
