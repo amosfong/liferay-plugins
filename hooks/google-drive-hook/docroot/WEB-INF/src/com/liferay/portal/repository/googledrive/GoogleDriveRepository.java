@@ -112,7 +112,7 @@ public class GoogleDriveRepository
 			extRepositoryParentFolderKey, _FOLDER_MIME_TYPE, name, description,
 			null);
 
-		return new GoogleDriveFolder(file, _rootFolderKey);
+		return new GoogleDriveFolder(file, getRootFolderKey());
 	}
 
 	@Override
@@ -168,7 +168,7 @@ public class GoogleDriveRepository
 					ExtRepositoryObjectType.FOLDER)) {
 
 				extRepositoryObject = (T)new GoogleDriveFolder(
-					newFile, _rootFolderKey);
+					newFile, getRootFolderKey());
 			}
 			else {
 				extRepositoryObject = (T)new GoogleDriveFileEntry(newFile);
@@ -235,44 +235,9 @@ public class GoogleDriveRepository
 	}
 
 	public Drive getDrive() throws PortalException {
-		HttpSession httpSession = PortalSessionThreadLocal.getHttpSession();
+		GoogleDriveSession googleDriveSession = getGoogleDriveSession();
 
-		Drive drive = null;
-
-		if (httpSession != null) {
-			TransientValue<Drive> transientValue =
-				(TransientValue<Drive>)httpSession.getAttribute(
-					GoogleDriveRepository.class.getName());
-
-			if (transientValue != null) {
-				drive = transientValue.getValue();
-			}
-		}
-		else {
-			drive = _driveThreadLocal.get();
-		}
-
-		if (drive != null) {
-			return drive;
-		}
-
-		try {
-			drive = buildDrive();
-		}
-		catch (Exception e) {
-			throw new PrincipalException(e);
-		}
-
-		if (httpSession != null) {
-			httpSession.setAttribute(
-				GoogleDriveRepository.class.getName(),
-				new TransientValue<Drive>(drive));
-		}
-		else {
-			_driveThreadLocal.set(drive);
-		}
-
-		return drive;
+		return googleDriveSession.getDrive();
 	}
 
 	@Override
@@ -386,7 +351,7 @@ public class GoogleDriveRepository
 					ExtRepositoryObjectType.FOLDER)) {
 
 				extRepositoryObject = (T)new GoogleDriveFolder(
-					file, _rootFolderKey);
+					file, getRootFolderKey());
 			}
 			else {
 				extRepositoryObject = (T)new GoogleDriveFileEntry(file);
@@ -449,7 +414,8 @@ public class GoogleDriveRepository
 			if (extRepositoryObjectType.equals(
 					ExtRepositoryObjectType.FOLDER)) {
 
-				return (T)new GoogleDriveFolder(files.get(0), _rootFolderKey);
+				return (T)new GoogleDriveFolder(
+					files.get(0), getRootFolderKey());
 			}
 			else {
 				return (T)new GoogleDriveFileEntry(files.get(0));
@@ -514,7 +480,7 @@ public class GoogleDriveRepository
 			for (File file : files) {
 				if (_FOLDER_MIME_TYPE.equals(file.getMimeType())) {
 					extRepositoryObjects.add(
-						(T)new GoogleDriveFolder(file, _rootFolderKey));
+						(T)new GoogleDriveFolder(file, getRootFolderKey()));
 				}
 				else {
 					extRepositoryObjects.add((T)new GoogleDriveFileEntry(file));
@@ -567,7 +533,7 @@ public class GoogleDriveRepository
 
 				File parentFile = driveFilesGet.execute();
 
-				return new GoogleDriveFolder(parentFile, _rootFolderKey);
+				return new GoogleDriveFolder(parentFile, getRootFolderKey());
 			}
 		}
 		catch (IOException ioe) {
@@ -584,7 +550,16 @@ public class GoogleDriveRepository
 
 	@Override
 	public String getRootFolderKey() {
-		return _rootFolderKey;
+		try {
+			GoogleDriveSession googleDriveSession = getGoogleDriveSession();
+
+			return googleDriveSession.getRootFolderKey();
+		}
+		catch (PortalException pe) {
+			_log.error(pe, pe);
+		}
+
+		return StringPool.BLANK;
 	}
 
 	@Override
@@ -615,22 +590,7 @@ public class GoogleDriveRepository
 			CredentialsProvider credentialsProvider)
 		throws PortalException, SystemException {
 
-		try {
-			Drive drive = getDrive();
-
-			Drive.About driveAbout = drive.about();
-
-			Drive.About.Get driveAboutGet = driveAbout.get();
-
-			About about = driveAboutGet.execute();
-
-			_rootFolderKey = about.getRootFolderId();
-		}
-		catch (IOException ioe) {
-			_log.error(ioe, ioe);
-
-			throw new SystemException(ioe);
-		}
+		getDrive();
 	}
 
 	@Override
@@ -676,7 +636,7 @@ public class GoogleDriveRepository
 				return (T)new GoogleDriveFileEntry(file);
 			}
 			else {
-				return (T)new GoogleDriveFolder(file, _rootFolderKey);
+				return (T)new GoogleDriveFolder(file, getRootFolderKey());
 			}
 		}
 		catch (IOException ioe) {
@@ -715,7 +675,7 @@ public class GoogleDriveRepository
 			for (File file : files) {
 				if (_FOLDER_MIME_TYPE.equals(file.getMimeType())) {
 					GoogleDriveFolder googleDriveFolder = new GoogleDriveFolder(
-						file, _rootFolderKey);
+						file, getRootFolderKey());
 
 					ExtRepositorySearchResult<GoogleDriveFolder>
 						extRepositorySearchResult =
@@ -829,7 +789,7 @@ public class GoogleDriveRepository
 		}
 	}
 
-	protected Drive buildDrive() throws Exception {
+	protected GoogleDriveSession buildGoogleDriveSession() throws Exception {
 		long userId = PrincipalThreadLocal.getUserId();
 
 		User user = UserLocalServiceUtil.getUser(userId);
@@ -872,7 +832,18 @@ public class GoogleDriveRepository
 		Drive.Builder driveBuilder = new Drive.Builder(
 			httpTransport, jsonFactory, googleCredential);
 
-		return driveBuilder.build();
+		Drive drive = driveBuilder.build();
+
+		Drive.About driveAbout = drive.about();
+
+		Drive.About.Get driveAboutGet = driveAbout.get();
+
+		About about = driveAboutGet.execute();
+
+		GoogleDriveSession googleDriveSession = new GoogleDriveSession(
+			drive, about.getRootFolderId());
+
+		return googleDriveSession;
 	}
 
 	protected InputStream getContentStream(String downloadURL)
@@ -901,6 +872,49 @@ public class GoogleDriveRepository
 
 			throw new SystemException(ioe);
 		}
+	}
+
+	protected GoogleDriveSession getGoogleDriveSession()
+		throws PortalException {
+
+		HttpSession httpSession = PortalSessionThreadLocal.getHttpSession();
+
+		GoogleDriveSession googleDriveSession = null;
+
+		if (httpSession != null) {
+			TransientValue<GoogleDriveSession> transientValue =
+				(TransientValue<GoogleDriveSession>)httpSession.getAttribute(
+					GoogleDriveRepository.class.getName());
+
+			if (transientValue != null) {
+				googleDriveSession = transientValue.getValue();
+			}
+		}
+		else {
+			googleDriveSession = _driveThreadLocal.get();
+		}
+
+		if (googleDriveSession != null) {
+			return googleDriveSession;
+		}
+
+		try {
+			googleDriveSession = buildGoogleDriveSession();
+		}
+		catch (Exception e) {
+			throw new PrincipalException(e);
+		}
+
+		if (httpSession != null) {
+			httpSession.setAttribute(
+				GoogleDriveRepository.class.getName(),
+				new TransientValue<GoogleDriveSession>(googleDriveSession));
+		}
+		else {
+			_driveThreadLocal.set(googleDriveSession);
+		}
+
+		return googleDriveSession;
 	}
 
 	protected String getSearchQuery(
@@ -963,8 +977,7 @@ public class GoogleDriveRepository
 	private static Log _log = LogFactoryUtil.getLog(
 		GoogleDriveRepository.class);
 
-	private ThreadLocal<Drive> _driveThreadLocal =
-		new AutoResetThreadLocal<Drive>(Drive.class.getName());
-	private String _rootFolderKey;
+	private ThreadLocal<GoogleDriveSession> _driveThreadLocal =
+		new AutoResetThreadLocal<GoogleDriveSession>(Drive.class.getName());
 
 }
