@@ -24,10 +24,8 @@ import com.liferay.sharepoint.connector.schema.node.batch.Method;
  */
 public class BatchBuilder {
 
-	public Batch batch(
-		OnError onError, String rootFolderName, Method...methods) {
-
-		return new Batch(onError, rootFolderName, methods);
+	public Batch batch(OnError onError, String folderPath, Method...methods) {
+		return new Batch(onError, folderPath, methods);
 	}
 
 	public Field field(String name, String value) {
