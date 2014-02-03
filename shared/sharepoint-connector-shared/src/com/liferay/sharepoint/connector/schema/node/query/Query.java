@@ -14,7 +14,6 @@
 
 package com.liferay.sharepoint.connector.schema.node.query;
 
-import com.liferay.sharepoint.connector.schema.marker.Clause;
 import com.liferay.sharepoint.connector.schema.node.BaseNode;
 
 /**
@@ -22,10 +21,10 @@ import com.liferay.sharepoint.connector.schema.node.BaseNode;
  */
 public class Query extends BaseNode {
 
-	public Query(Clause clause) {
+	public Query(QueryClause clause) {
 		_clause = clause;
 	}
 
-	private Clause _clause;
+	private QueryClause _clause;
 
 }

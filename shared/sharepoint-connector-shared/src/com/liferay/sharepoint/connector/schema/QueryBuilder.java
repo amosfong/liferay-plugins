@@ -14,7 +14,7 @@
 
 package com.liferay.sharepoint.connector.schema;
 
-import com.liferay.sharepoint.connector.schema.marker.Clause;
+import com.liferay.sharepoint.connector.schema.node.query.QueryClause;
 import com.liferay.sharepoint.connector.schema.node.query.FieldRef;
 import com.liferay.sharepoint.connector.schema.node.query.Query;
 import com.liferay.sharepoint.connector.schema.node.query.Value;
@@ -39,7 +39,7 @@ import com.liferay.sharepoint.connector.schema.node.query.operator.NotIncludesOp
  */
 public class QueryBuilder {
 
-	public AndJoin and(Clause leftClause, Clause rightClause) {
+	public AndJoin and(QueryClause leftClause, QueryClause rightClause) {
 		return new AndJoin(leftClause, rightClause);
 	}
 
@@ -99,7 +99,7 @@ public class QueryBuilder {
 		return new NotIncludesOperator(fieldRef, value);
 	}
 
-	public OrJoin or(Clause leftClause, Clause righClause) {
+	public OrJoin or(QueryClause leftClause, QueryClause righClause) {
 		return new OrJoin(leftClause, righClause);
 	}
 
@@ -111,7 +111,7 @@ public class QueryBuilder {
 		return new Value(type, value);
 	}
 
-	public Query where(Clause clause) {
+	public Query where(QueryClause clause) {
 		return new Query(clause);
 	}
 

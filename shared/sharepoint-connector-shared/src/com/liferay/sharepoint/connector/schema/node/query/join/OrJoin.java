@@ -14,14 +14,14 @@
 
 package com.liferay.sharepoint.connector.schema.node.query.join;
 
-import com.liferay.sharepoint.connector.schema.marker.Clause;
+import com.liferay.sharepoint.connector.schema.node.query.QueryClause;
 
 /**
  * @author Iván Zaera
  */
 public class OrJoin extends BaseJoin {
 
-	public OrJoin(Clause leftClause, Clause rightClause) {
+	public OrJoin(QueryClause leftClause, QueryClause rightClause) {
 		super(leftClause, rightClause);
 	}
 

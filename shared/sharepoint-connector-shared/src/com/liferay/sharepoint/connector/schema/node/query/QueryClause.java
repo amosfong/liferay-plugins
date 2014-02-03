@@ -12,12 +12,12 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.schema.marker;
+package com.liferay.sharepoint.connector.schema.node.query;
 
 import com.liferay.sharepoint.connector.schema.node.Node;
 
 /**
  * @author Iván Zaera
  */
-public interface Clause extends Node {
+public interface QueryClause extends Node {
 }

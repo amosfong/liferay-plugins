@@ -14,14 +14,14 @@
 
 package com.liferay.sharepoint.connector.schema.node.query.operator;
 
-import com.liferay.sharepoint.connector.schema.marker.Clause;
 import com.liferay.sharepoint.connector.schema.node.BaseNode;
+import com.liferay.sharepoint.connector.schema.node.query.QueryClause;
 import com.liferay.sharepoint.connector.schema.node.query.FieldRef;
 
 /**
  * @author Iván Zaera
  */
-public abstract class BaseOperator extends BaseNode implements Clause {
+public abstract class BaseOperator extends BaseNode implements QueryClause {
 
 	public BaseOperator(FieldRef fieldRef) {
 		_fieldRef = fieldRef;
