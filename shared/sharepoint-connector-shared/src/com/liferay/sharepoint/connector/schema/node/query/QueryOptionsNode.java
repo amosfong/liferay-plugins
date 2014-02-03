@@ -14,8 +14,8 @@
 
 package com.liferay.sharepoint.connector.schema.node.query;
 
-import com.liferay.sharepoint.connector.schema.marker.QueryOption;
 import com.liferay.sharepoint.connector.schema.node.BaseNode;
+import com.liferay.sharepoint.connector.schema.node.query.option.QueryOption;
 
 /**
  * @author Iván Zaera
