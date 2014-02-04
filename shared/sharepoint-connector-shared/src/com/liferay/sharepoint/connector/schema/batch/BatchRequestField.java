@@ -19,9 +19,9 @@ import com.liferay.sharepoint.connector.schema.BaseNode;
 /**
  * @author Iván Zaera
  */
-public class BatchField extends BaseNode {
+public class BatchRequestField extends BaseNode {
 
-	public BatchField(String fieldName, String value) {
+	public BatchRequestField(String fieldName, String value) {
 		_fieldName = fieldName;
 		_value = value;
 	}

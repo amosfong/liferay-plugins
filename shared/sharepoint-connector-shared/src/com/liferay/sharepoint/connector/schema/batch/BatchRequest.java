@@ -19,22 +19,25 @@ import com.liferay.sharepoint.connector.schema.BaseNode;
 /**
  * @author Iván Zaera
  */
-public class BatchMethod extends BaseNode {
+public class BatchRequest extends BaseNode {
 
-	public BatchMethod(int id, Command command, BatchField... batchFields) {
-		_id = id;
-		_command = command;
-		_batchFields = batchFields;
+	public BatchRequest(
+		OnError onError, String folderPath,
+		BatchRequestMethod... batchRequestMethods) {
+
+		_onError = onError;
+		_folderPath = folderPath;
+		_batchRequestMethods = batchRequestMethods;
 	}
 
-	public static enum Command {
+	public static enum OnError {
 
-		DELETE, NEW, UPDATE
+		CONTINUE, RETURN
 
 	}
 
-	private BatchField[] _batchFields;
-	private Command _command;
-	private int _id;
+	private BatchRequestMethod[] _batchRequestMethods;
+	private String _folderPath;
+	private OnError _onError;
 
 }
