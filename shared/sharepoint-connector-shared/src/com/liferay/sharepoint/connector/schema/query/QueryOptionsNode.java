@@ -22,7 +22,7 @@ import com.liferay.sharepoint.connector.schema.query.option.BaseQueryOption;
  */
 public class QueryOptionsNode extends BaseNode {
 
-	public QueryOptionsNode(BaseQueryOption...baseQueryOptions) {
+	public QueryOptionsNode(BaseQueryOption... baseQueryOptions) {
 		if (baseQueryOptions == null) {
 			_baseQueryOptions = _EMPTY_BASE_QUERY_OPTIONS;
 		}
