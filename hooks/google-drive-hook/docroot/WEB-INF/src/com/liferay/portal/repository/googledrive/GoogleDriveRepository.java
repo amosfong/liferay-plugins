@@ -823,10 +823,7 @@ public class GoogleDriveRepository
 
 		About about = driveAboutGet.execute();
 
-		GoogleDriveSession googleDriveSession = new GoogleDriveSession(
-			drive, about.getRootFolderId());
-
-		return googleDriveSession;
+		return new GoogleDriveSession(drive, about.getRootFolderId());
 	}
 
 	protected InputStream getContentStream(String downloadURL)
@@ -888,14 +885,14 @@ public class GoogleDriveRepository
 		if (httpSession != null) {
 			TransientValue<GoogleDriveSession> transientValue =
 				(TransientValue<GoogleDriveSession>)httpSession.getAttribute(
-					GoogleDriveRepository.class.getName());
+					GoogleDriveSession.class.getName());
 
 			if (transientValue != null) {
 				googleDriveSession = transientValue.getValue();
 			}
 		}
 		else {
-			googleDriveSession = _driveThreadLocal.get();
+			googleDriveSession = _googleDriveSessionThreadLocal.get();
 		}
 
 		if (googleDriveSession != null) {
@@ -911,11 +908,11 @@ public class GoogleDriveRepository
 
 		if (httpSession != null) {
 			httpSession.setAttribute(
-				GoogleDriveRepository.class.getName(),
+				GoogleDriveSession.class.getName(),
 				new TransientValue<GoogleDriveSession>(googleDriveSession));
 		}
 		else {
-			_driveThreadLocal.set(googleDriveSession);
+			_googleDriveSessionThreadLocal.set(googleDriveSession);
 		}
 
 		return googleDriveSession;
@@ -981,7 +978,7 @@ public class GoogleDriveRepository
 	private static Log _log = LogFactoryUtil.getLog(
 		GoogleDriveRepository.class);
 
-	private ThreadLocal<GoogleDriveSession> _driveThreadLocal =
+	private ThreadLocal<GoogleDriveSession> _googleDriveSessionThreadLocal =
 		new AutoResetThreadLocal<GoogleDriveSession>(Drive.class.getName());
 
 }

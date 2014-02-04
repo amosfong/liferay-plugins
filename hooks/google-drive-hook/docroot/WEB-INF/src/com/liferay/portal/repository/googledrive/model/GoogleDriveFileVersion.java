@@ -46,9 +46,7 @@ public class GoogleDriveFileVersion
 	}
 
 	public String getDownloadURL() {
-		String downloadURL = GetterUtil.getString(_revision.getDownloadUrl());
-
-		return downloadURL;
+		return GetterUtil.getString(_revision.getDownloadUrl();
 	}
 
 	@Override
@@ -66,9 +64,7 @@ public class GoogleDriveFileVersion
 
 	@Override
 	public String getMimeType() {
-		String mimeType = GetterUtil.getString(_revision.getMimeType());
-
-		return mimeType;
+		return GetterUtil.getString(_revision.getMimeType();
 	}
 
 	@Override
