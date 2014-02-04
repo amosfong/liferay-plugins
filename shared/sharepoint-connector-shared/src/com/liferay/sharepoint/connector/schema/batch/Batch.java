@@ -31,7 +31,7 @@ public class Batch extends BaseNode {
 
 	public static enum OnError {
 
-		Continue, Return
+		CONTINUE, RETURN
 
 	}
 

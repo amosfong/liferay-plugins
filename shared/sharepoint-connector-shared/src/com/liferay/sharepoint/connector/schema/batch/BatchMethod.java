@@ -29,7 +29,7 @@ public class BatchMethod extends BaseNode {
 
 	public static enum Command {
 
-		Delete, New, Update
+		DELETE, NEW, UPDATE
 
 	}
 

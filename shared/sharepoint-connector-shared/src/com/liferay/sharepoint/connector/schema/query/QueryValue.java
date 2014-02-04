@@ -22,7 +22,7 @@ import com.liferay.sharepoint.connector.schema.BaseNode;
 public class QueryValue extends BaseNode {
 
 	public QueryValue(String value) {
-		this(Type.Text, value);
+		this(Type.TEXT, value);
 	}
 
 	public QueryValue(Type type, String value) {
@@ -32,7 +32,7 @@ public class QueryValue extends BaseNode {
 
 	public static enum Type {
 
-		Integer, Lookup, Text
+		INTEGER, LOOKUP, TEXT
 
 	}
 
