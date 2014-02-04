@@ -97,7 +97,7 @@ public interface SharepointConnection {
 			return _protocolValue;
 		}
 
-		private final int _protocolValue;
+		private int _protocolValue;
 	}
 
 	public enum ObjectTypeFilter {

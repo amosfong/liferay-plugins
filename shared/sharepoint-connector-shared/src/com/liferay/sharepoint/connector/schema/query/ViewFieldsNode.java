@@ -45,7 +45,7 @@ public class ViewFieldsNode extends BaseNode {
 		return "ViewFields";
 	}
 
-	private static final QueryFieldRef[] _EMPTY_QUERY_FIELD_REFS =
+	private static QueryFieldRef[] _EMPTY_QUERY_FIELD_REFS =
 		new QueryFieldRef[0];
 
 	private QueryFieldRef[] _queryFieldRefs;
