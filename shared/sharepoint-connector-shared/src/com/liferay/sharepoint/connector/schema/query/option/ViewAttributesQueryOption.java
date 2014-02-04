@@ -14,6 +14,8 @@
 
 package com.liferay.sharepoint.connector.schema.query.option;
 
+import com.liferay.portal.kernel.xml.simple.Element;
+
 /**
  * @author Iván Zaera
  */
@@ -21,6 +23,20 @@ public class ViewAttributesQueryOption extends BaseQueryOption {
 
 	public ViewAttributesQueryOption(boolean recursive) {
 		_recursive = recursive;
+	}
+
+	@Override
+	protected void addAttributesAndChildren(Element element) {
+		super.addAttributesAndChildren(element);
+
+		if (_recursive) {
+			element.addAttribute("Scope", "Recursive");
+		}
+	}
+
+	@Override
+	protected String getNodeName() {
+		return "ViewAttributes";
 	}
 
 	private boolean _recursive;

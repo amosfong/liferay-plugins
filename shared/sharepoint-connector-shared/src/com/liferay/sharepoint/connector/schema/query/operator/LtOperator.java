@@ -26,4 +26,9 @@ public class LtOperator extends BaseSingleValueOperator {
 		super(queryFieldRef, queryValue);
 	}
 
+	@Override
+	protected String getNodeName() {
+		return "Lt";
+	}
+
 }

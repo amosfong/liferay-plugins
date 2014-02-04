@@ -26,4 +26,9 @@ public class InOperator extends BaseMultiValueOperator {
 		super(queryFieldRef, queryValues);
 	}
 
+	@Override
+	protected String getNodeName() {
+		return "In";
+	}
+
 }

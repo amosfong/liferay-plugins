@@ -25,4 +25,9 @@ public class OrJoin extends BaseJoin {
 		super(leftQueryClause, rightQueryClause);
 	}
 
+	@Override
+	protected String getNodeName() {
+		return "Or";
+	}
+
 }

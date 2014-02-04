@@ -14,10 +14,14 @@
 
 package com.liferay.sharepoint.connector.schema;
 
+import com.liferay.portal.kernel.xml.simple.Element;
+
 /**
  * @author Iván Zaera
  */
 public interface Node {
+
+	public void addTo(Element element);
 
 	public String toXmlString();
 

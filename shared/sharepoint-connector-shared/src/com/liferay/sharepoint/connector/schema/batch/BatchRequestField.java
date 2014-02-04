@@ -14,6 +14,7 @@
 
 package com.liferay.sharepoint.connector.schema.batch;
 
+import com.liferay.portal.kernel.xml.simple.Element;
 import com.liferay.sharepoint.connector.schema.BaseNode;
 
 /**
@@ -24,6 +25,21 @@ public class BatchRequestField extends BaseNode {
 	public BatchRequestField(String fieldName, String value) {
 		_fieldName = fieldName;
 		_value = value;
+	}
+
+	@Override
+	protected void addAttributesAndChildren(Element element) {
+		element.addAttribute("Name", _fieldName);
+	}
+
+	@Override
+	protected String getNodeName() {
+		return "Field";
+	}
+
+	@Override
+	protected String getNodeText() {
+		return _value;
 	}
 
 	private String _fieldName;

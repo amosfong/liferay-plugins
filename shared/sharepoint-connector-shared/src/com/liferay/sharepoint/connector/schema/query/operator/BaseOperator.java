@@ -14,6 +14,7 @@
 
 package com.liferay.sharepoint.connector.schema.query.operator;
 
+import com.liferay.portal.kernel.xml.simple.Element;
 import com.liferay.sharepoint.connector.schema.BaseNode;
 import com.liferay.sharepoint.connector.schema.query.QueryClause;
 import com.liferay.sharepoint.connector.schema.query.QueryFieldRef;
@@ -25,6 +26,11 @@ public abstract class BaseOperator extends BaseNode implements QueryClause {
 
 	public BaseOperator(QueryFieldRef queryFieldRef) {
 		_queryFieldRef = queryFieldRef;
+	}
+
+	@Override
+	protected void addAttributesAndChildren(Element element) {
+		_queryFieldRef.addTo(element);
 	}
 
 	private QueryFieldRef _queryFieldRef;

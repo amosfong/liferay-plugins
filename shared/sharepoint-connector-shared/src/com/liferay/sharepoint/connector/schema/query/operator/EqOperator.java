@@ -26,4 +26,9 @@ public class EqOperator extends BaseSingleValueOperator {
 		super(queryFieldRef, queryValue);
 	}
 
+	@Override
+	protected String getNodeName() {
+		return "Eq";
+	}
+
 }

@@ -14,6 +14,7 @@
 
 package com.liferay.sharepoint.connector.schema.query;
 
+import com.liferay.portal.kernel.xml.simple.Element;
 import com.liferay.sharepoint.connector.schema.BaseNode;
 
 /**
@@ -23,6 +24,22 @@ public class QueryNode extends BaseNode {
 
 	public QueryNode(QueryClause queryClause) {
 		_queryClause = queryClause;
+	}
+
+	@Override
+	protected void addAttributesAndChildren(Element element) {
+		super.addAttributesAndChildren(element);
+
+		Element where = element.addElement("Where");
+
+		if (_queryClause != null) {
+			_queryClause.addTo(where);
+		}
+	}
+
+	@Override
+	protected String getNodeName() {
+		return "Query";
 	}
 
 	private QueryClause _queryClause;

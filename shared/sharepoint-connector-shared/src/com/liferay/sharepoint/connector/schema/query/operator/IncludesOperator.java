@@ -28,4 +28,9 @@ public class IncludesOperator extends BaseSingleValueOperator {
 		super(queryFieldRef, queryValue);
 	}
 
+	@Override
+	protected String getNodeName() {
+		return "Includes";
+	}
+
 }

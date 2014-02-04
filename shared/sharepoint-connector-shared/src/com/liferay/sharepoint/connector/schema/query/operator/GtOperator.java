@@ -26,4 +26,9 @@ public class GtOperator extends BaseSingleValueOperator {
 		super(queryFieldRef, queryValue);
 	}
 
+	@Override
+	protected String getNodeName() {
+		return "Gt";
+	}
+
 }

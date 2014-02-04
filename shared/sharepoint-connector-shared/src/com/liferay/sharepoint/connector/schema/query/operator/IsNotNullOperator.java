@@ -25,4 +25,9 @@ public class IsNotNullOperator extends BaseNoValueOperator {
 		super(queryFieldRef);
 	}
 
+	@Override
+	protected String getNodeName() {
+		return "IsNotNull";
+	}
+
 }

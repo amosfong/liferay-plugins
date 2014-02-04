@@ -23,6 +23,16 @@ public class FolderQueryOption extends BaseQueryOption {
 		_folderPath = folderPath;
 	}
 
+	@Override
+	protected String getNodeName() {
+		return "Folder";
+	}
+
+	@Override
+	protected String getNodeText() {
+		return _folderPath;
+	}
+
 	private String _folderPath;
 
 }

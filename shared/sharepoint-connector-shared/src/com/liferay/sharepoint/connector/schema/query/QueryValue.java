@@ -14,6 +14,7 @@
 
 package com.liferay.sharepoint.connector.schema.query;
 
+import com.liferay.portal.kernel.xml.simple.Element;
 import com.liferay.sharepoint.connector.schema.BaseNode;
 
 /**
@@ -34,6 +35,23 @@ public class QueryValue extends BaseNode {
 
 		INTEGER, LOOKUP, TEXT
 
+	}
+
+	@Override
+	protected void addAttributesAndChildren(Element element) {
+		super.addAttributesAndChildren(element);
+
+		element.addAttribute("Type", _type.name());
+	}
+
+	@Override
+	protected String getNodeName() {
+		return "Value";
+	}
+
+	@Override
+	protected String getNodeText() {
+		return _value;
 	}
 
 	private Type _type;

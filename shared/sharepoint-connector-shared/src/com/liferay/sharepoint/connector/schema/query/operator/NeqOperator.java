@@ -26,4 +26,9 @@ public class NeqOperator extends BaseSingleValueOperator {
 		super(queryFieldRef, queryValue);
 	}
 
+	@Override
+	protected String getNodeName() {
+		return "Neq";
+	}
+
 }

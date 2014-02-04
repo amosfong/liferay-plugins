@@ -14,6 +14,7 @@
 
 package com.liferay.sharepoint.connector.schema.query.operator;
 
+import com.liferay.portal.kernel.xml.simple.Element;
 import com.liferay.sharepoint.connector.schema.query.QueryFieldRef;
 import com.liferay.sharepoint.connector.schema.query.QueryValue;
 
@@ -28,6 +29,13 @@ public abstract class BaseSingleValueOperator extends BaseOperator {
 		super(queryFieldRef);
 
 		_queryValue = queryValue;
+	}
+
+	@Override
+	protected void addAttributesAndChildren(Element element) {
+		super.addAttributesAndChildren(element);
+
+		_queryValue.addTo(element);
 	}
 
 	private QueryValue _queryValue;

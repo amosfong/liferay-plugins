@@ -19,5 +19,5 @@ import com.liferay.sharepoint.connector.schema.BaseNode;
 /**
  * @author Iván Zaera
  */
-public class BaseQueryOption extends BaseNode {
+public abstract class BaseQueryOption extends BaseNode {
 }

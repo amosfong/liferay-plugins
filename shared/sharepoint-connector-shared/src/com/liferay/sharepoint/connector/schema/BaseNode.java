@@ -14,14 +14,48 @@
 
 package com.liferay.sharepoint.connector.schema;
 
+import com.liferay.portal.kernel.xml.simple.Element;
+
 /**
  * @author Iván Zaera
  */
 public abstract class BaseNode implements Node {
 
+	public void addTo(Element element) {
+		_toElement(element);
+	}
+
 	@Override
+	public String toString() {
+		return toXmlString();
+	}
+
 	public String toXmlString() {
+		return _toElement(null).toXMLString();
+	}
+
+	protected void addAttributesAndChildren(Element element) {
+	}
+
+	protected abstract String getNodeName();
+
+	protected String getNodeText() {
 		return null;
+	}
+
+	private Element _toElement(Element parent) {
+		Element element;
+
+		if (parent == null) {
+			element = new Element(getNodeName(), getNodeText(), false);
+		}
+		else {
+			element = parent.addElement(getNodeName(), getNodeText());
+		}
+
+		addAttributesAndChildren(element);
+
+		return element;
 	}
 
 }

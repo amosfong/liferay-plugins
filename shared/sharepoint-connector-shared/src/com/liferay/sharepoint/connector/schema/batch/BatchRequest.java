@@ -14,6 +14,7 @@
 
 package com.liferay.sharepoint.connector.schema.batch;
 
+import com.liferay.portal.kernel.xml.simple.Element;
 import com.liferay.sharepoint.connector.schema.BaseNode;
 
 /**
@@ -34,6 +35,24 @@ public class BatchRequest extends BaseNode {
 
 		CONTINUE, RETURN
 
+	}
+
+	@Override
+	protected void addAttributesAndChildren(Element element) {
+		element.addAttribute("OnError", _onError.name());
+
+		if (_folderPath != null) {
+			element.addAttribute("RootFolder", _folderPath);
+		}
+
+		for (BatchRequestMethod batchRequestMethod : _batchRequestMethods) {
+			batchRequestMethod.addTo(element);
+		}
+	}
+
+	@Override
+	protected String getNodeName() {
+		return "Batch";
 	}
 
 	private BatchRequestMethod[] _batchRequestMethods;

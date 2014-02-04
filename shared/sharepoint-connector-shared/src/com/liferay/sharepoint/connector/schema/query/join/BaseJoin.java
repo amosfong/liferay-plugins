@@ -14,6 +14,7 @@
 
 package com.liferay.sharepoint.connector.schema.query.join;
 
+import com.liferay.portal.kernel.xml.simple.Element;
 import com.liferay.sharepoint.connector.schema.BaseNode;
 import com.liferay.sharepoint.connector.schema.query.QueryClause;
 
@@ -25,6 +26,20 @@ public abstract class BaseJoin extends BaseNode implements QueryClause {
 	public BaseJoin(QueryClause leftQueryClause, QueryClause rightQueryClause) {
 		_leftQueryClause = leftQueryClause;
 		_rightQueryClause = rightQueryClause;
+	}
+
+	public QueryClause getLeftClause() {
+		return _leftQueryClause;
+	}
+
+	public QueryClause getRightClause() {
+		return _rightQueryClause;
+	}
+
+	@Override
+	protected void addAttributesAndChildren(Element element) {
+		_leftQueryClause.addTo(element);
+		_rightQueryClause.addTo(element);
 	}
 
 	private QueryClause _leftQueryClause;

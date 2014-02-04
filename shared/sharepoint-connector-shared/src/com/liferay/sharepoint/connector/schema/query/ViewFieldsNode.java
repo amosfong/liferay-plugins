@@ -14,6 +14,7 @@
 
 package com.liferay.sharepoint.connector.schema.query;
 
+import com.liferay.portal.kernel.xml.simple.Element;
 import com.liferay.sharepoint.connector.schema.BaseNode;
 
 /**
@@ -28,6 +29,20 @@ public class ViewFieldsNode extends BaseNode {
 		else {
 			_queryFieldRefs = queryFieldRefs;
 		}
+	}
+
+	@Override
+	protected void addAttributesAndChildren(Element element) {
+		super.addAttributesAndChildren(element);
+
+		for (QueryFieldRef queryFieldRef : _queryFieldRefs) {
+			queryFieldRef.addTo(element);
+		}
+	}
+
+	@Override
+	protected String getNodeName() {
+		return "ViewFields";
 	}
 
 	private static final QueryFieldRef[] _EMPTY_QUERY_FIELD_REFS =

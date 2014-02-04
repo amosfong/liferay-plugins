@@ -14,6 +14,8 @@
 
 package com.liferay.sharepoint.connector.schema.query.option;
 
+import com.liferay.portal.kernel.util.StringUtil;
+
 /**
  * @author Iván Zaera
  */
@@ -21,6 +23,16 @@ public class IncludeMandatoryColumnsQueryOption extends BaseQueryOption {
 
 	public IncludeMandatoryColumnsQueryOption(boolean include) {
 		_include = include;
+	}
+
+	@Override
+	protected String getNodeName() {
+		return "IncludeMandatoryColumns";
+	}
+
+	@Override
+	protected String getNodeText() {
+		return StringUtil.toUpperCase(Boolean.toString(_include));
 	}
 
 	private boolean _include;

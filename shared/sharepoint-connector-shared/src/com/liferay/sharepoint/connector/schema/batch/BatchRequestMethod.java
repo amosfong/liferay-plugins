@@ -14,6 +14,7 @@
 
 package com.liferay.sharepoint.connector.schema.batch;
 
+import com.liferay.portal.kernel.xml.simple.Element;
 import com.liferay.sharepoint.connector.schema.BaseNode;
 
 /**
@@ -34,6 +35,21 @@ public class BatchRequestMethod extends BaseNode {
 
 		DELETE, NEW, UPDATE
 
+	}
+
+	@Override
+	protected void addAttributesAndChildren(Element element) {
+		element.addAttribute("ID", Integer.toString(_batchRequestMethodId));
+		element.addAttribute("Cmd", _command.name());
+
+		for (BatchRequestField batchRequestField : _batchRequestFields) {
+			batchRequestField.addTo(element);
+		}
+	}
+
+	@Override
+	protected String getNodeName() {
+		return "Method";
 	}
 
 	private BatchRequestField[] _batchRequestFields;

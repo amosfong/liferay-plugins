@@ -14,6 +14,7 @@
 
 package com.liferay.sharepoint.connector.schema.query;
 
+import com.liferay.portal.kernel.xml.simple.Element;
 import com.liferay.sharepoint.connector.schema.BaseNode;
 import com.liferay.sharepoint.connector.schema.query.option.BaseQueryOption;
 
@@ -29,6 +30,20 @@ public class QueryOptionsNode extends BaseNode {
 		else {
 			_baseQueryOptions = baseQueryOptions;
 		}
+	}
+
+	@Override
+	protected void addAttributesAndChildren(Element element) {
+		super.addAttributesAndChildren(element);
+
+		for (BaseQueryOption _baseQueryOption : _baseQueryOptions) {
+			_baseQueryOption.addTo(element);
+		}
+	}
+
+	@Override
+	protected String getNodeName() {
+		return "QueryOptions";
 	}
 
 	private static final BaseQueryOption[] _EMPTY_BASE_QUERY_OPTIONS =

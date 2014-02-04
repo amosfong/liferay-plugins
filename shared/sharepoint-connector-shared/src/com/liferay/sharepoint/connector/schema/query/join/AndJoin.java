@@ -25,4 +25,9 @@ public class AndJoin extends BaseJoin {
 		super(leftQueryClause, rightQueryClause);
 	}
 
+	@Override
+	protected String getNodeName() {
+		return "And";
+	}
+
 }
