@@ -19,10 +19,10 @@ package com.liferay.sharepoint.connector.schema.query.option;
  */
 public class FolderQueryOption extends BaseQueryOption {
 
-	public FolderQueryOption(String path) {
-		_path = path;
+	public FolderQueryOption(String folderPath) {
+		_folderPath = folderPath;
 	}
 
-	private String _path;
+	private String _folderPath;
 
 }
