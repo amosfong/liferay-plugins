@@ -43,8 +43,8 @@ public class GoogleDriveCache implements Cloneable {
 		try {
 			return (GoogleDriveCache)super.clone();
 		}
-		catch (CloneNotSupportedException e) {
-			throw new RuntimeException(e);
+		catch (CloneNotSupportedException cnse) {
+			throw new RuntimeException(cnse);
 		}
 	}
 

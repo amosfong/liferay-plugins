@@ -703,12 +703,12 @@ public class GoogleDriveRepository
 		try {
 			Drive drive = getDrive();
 
+			Drive.Files driveFiles = drive.files();
+
 			File file = getFile(drive, extRepositoryFileEntryKey);
 
 			InputStreamContent inputStreamContent = new InputStreamContent(
 				mimeType, inputStream);
-
-			Drive.Files driveFiles = drive.files();
 
 			Drive.Files.Update driveFilesUpdate = driveFiles.update(
 				extRepositoryFileEntryKey, file, inputStreamContent);
