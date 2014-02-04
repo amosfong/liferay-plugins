@@ -31,7 +31,9 @@ public abstract class BaseNode implements Node {
 	}
 
 	public String toXmlString() {
-		return _toElement(null).toXMLString();
+		Element element = _toElement(null);
+
+		return element.toXMLString();
 	}
 
 	protected void addAttributesAndChildren(Element element) {
@@ -44,7 +46,7 @@ public abstract class BaseNode implements Node {
 	}
 
 	private Element _toElement(Element parent) {
-		Element element;
+		Element element = null;
 
 		if (parent == null) {
 			element = new Element(getNodeName(), getNodeText(), false);
