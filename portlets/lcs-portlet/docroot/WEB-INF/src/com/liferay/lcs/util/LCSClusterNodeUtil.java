@@ -53,10 +53,16 @@ public class LCSClusterNodeUtil {
 
 		try {
 			serverInfo.put("key", KeyGeneratorUtil.getKey());
-			serverInfo.put(
-				"registered",
-				LCSClusterNodeServiceUtil.isRegistered(
-					KeyGeneratorUtil.getKey()));
+
+			if (LCSUtil.getCredentialsStatus() == LCSUtil.CREDENTIALS_SET) {
+				serverInfo.put(
+					"registered",
+					LCSClusterNodeServiceUtil.isRegistered(
+						KeyGeneratorUtil.getKey()));
+			}
+			else {
+				serverInfo.put("registered", false);
+			}
 		}
 		catch (Exception e) {
 			_log.error(e, e);
@@ -89,7 +95,13 @@ public class LCSClusterNodeUtil {
 			if (!clusterNodeId.equals(localClusterNodeId)) {
 				Map<String, Object> serverInfo = _getServerInfo(clusterNodeId);
 
-				boolean registered = (Boolean)serverInfo.get("registered");
+				boolean registered = false;
+
+				if ((serverInfo != null) &&
+					serverInfo.containsKey("registered")) {
+
+					registered = (Boolean)serverInfo.get("registered");
+				}
 
 				if (registered) {
 					siblingKey = (String)serverInfo.get("key");
