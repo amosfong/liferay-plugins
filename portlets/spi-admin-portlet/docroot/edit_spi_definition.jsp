@@ -155,7 +155,7 @@ if (Validator.isNotNull(useDefaultRestartOptionsString)) {
 				</aui:fieldset>
 			</liferay-ui:panel>
 
-			<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="spiDefinitionRecoveryOptions" persistState="<%= true %>" title="recovery-options">
+			<liferay-ui:panel collapsible="<%= true %>" extended="<%= false %>" id="spiDefinitionRecoveryOptionsPanel" persistState="<%= true %>" title="recovery-options">
 				<aui:fieldset>
 					<aui:input checked="<%= useDefaultNotificationOptions %>" helpMessage="use-default-notification-options" id="useDefaultNotificationOptions" label="use-default-notification-options" name="useDefaultNotificationOptions" type="checkbox" />
 
@@ -256,20 +256,24 @@ if (Validator.isNotNull(useDefaultRestartOptionsString)) {
 	var onChange = function(event, input) {
 		var checked = event.currentTarget.attr('checked');
 
-		var value = checked ? input.getData('defaultValue') : '';
-
 		input.attr('disabled', checked);
+
+		var value = '';
+
+		if (checked) {
+			value = input.getData('defaultValue');
+		}
 
 		input.val(value);
 	};
 
-	var spiDefinitionRecoveryOptions = A.one('#spiDefinitionRecoveryOptions');
+	var spiDefinitionRecoveryOptionsPanel = A.one('#spiDefinitionRecoveryOptionsPanel');
 
-	var maxRestartAttempts = spiDefinitionRecoveryOptions.one('#<portlet:namespace/>maxRestartAttempts');
-	var notificationRecipients = spiDefinitionRecoveryOptions.one('#<portlet:namespace/>notificationRecipients');
+	var maxRestartAttempts = spiDefinitionRecoveryOptionsPanel.one('#<portlet:namespace/>maxRestartAttempts');
+	var notificationRecipients = spiDefinitionRecoveryOptionsPanel.one('#<portlet:namespace/>notificationRecipients');
 
-	var useDefaultNotificationOptionsCheckbox = spiDefinitionRecoveryOptions.one('#<portlet:namespace/>useDefaultNotificationOptionsCheckbox');
-	var useDefaultRestartOptionsCheckbox = spiDefinitionRecoveryOptions.one('#<portlet:namespace/>useDefaultRestartOptionsCheckbox');
+	var useDefaultNotificationOptionsCheckbox = spiDefinitionRecoveryOptionsPanel.one('#<portlet:namespace/>useDefaultNotificationOptionsCheckbox');
+	var useDefaultRestartOptionsCheckbox = spiDefinitionRecoveryOptionsPanel.one('#<portlet:namespace/>useDefaultRestartOptionsCheckbox');
 
 	useDefaultNotificationOptionsCheckbox.on('change', A.rbind(onChange, null, notificationRecipients));
 	useDefaultRestartOptionsCheckbox.on('change', A.rbind(onChange, null, maxRestartAttempts));
