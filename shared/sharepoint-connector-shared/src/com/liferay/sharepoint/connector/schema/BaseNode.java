@@ -20,7 +20,7 @@ package com.liferay.sharepoint.connector.schema;
 public abstract class BaseNode implements Node {
 
 	@Override
-	public final String toXmlString() {
+	public String toXmlString() {
 		return null;
 	}
 
