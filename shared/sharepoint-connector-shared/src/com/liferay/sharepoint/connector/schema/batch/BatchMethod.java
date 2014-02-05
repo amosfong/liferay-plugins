@@ -20,29 +20,39 @@ import com.liferay.sharepoint.connector.schema.BaseNode;
 /**
  * @author Iván Zaera
  */
-public class BatchRequestField extends BaseNode {
+public class BatchMethod extends BaseNode {
 
-	public BatchRequestField(String fieldName, String value) {
-		_fieldName = fieldName;
-		_value = value;
+	public BatchMethod(
+		int batchMethodId, Command command, BatchField... batchFields) {
+
+		_batchMethodId = batchMethodId;
+		_command = command;
+		_batchFields = batchFields;
+	}
+
+	public static enum Command {
+
+		DELETE, NEW, UPDATE
+
 	}
 
 	@Override
 	protected void addAttributesAndChildren(Element element) {
-		element.addAttribute("Name", _fieldName);
+		element.addAttribute("ID", Integer.toString(_batchMethodId));
+		element.addAttribute("Cmd", _command.name());
+
+		for (BatchField batchField : _batchFields) {
+			batchField.addTo(element);
+		}
 	}
 
 	@Override
 	protected String getNodeName() {
-		return "Field";
+		return "Method";
 	}
 
-	@Override
-	protected String getNodeText() {
-		return _value;
-	}
-
-	private String _fieldName;
-	private String _value;
+	private BatchField[] _batchFields;
+	private int _batchMethodId;
+	private Command _command;
 
 }

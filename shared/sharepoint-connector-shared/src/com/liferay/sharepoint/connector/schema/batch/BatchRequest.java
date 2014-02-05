@@ -23,12 +23,11 @@ import com.liferay.sharepoint.connector.schema.BaseNode;
 public class BatchRequest extends BaseNode {
 
 	public BatchRequest(
-		OnError onError, String folderPath,
-		BatchRequestMethod... batchRequestMethods) {
+		OnError onError, String folderPath, BatchMethod... batchMethods) {
 
 		_onError = onError;
 		_folderPath = folderPath;
-		_batchRequestMethods = batchRequestMethods;
+		_batchMethods = batchMethods;
 	}
 
 	public static enum OnError {
@@ -45,8 +44,8 @@ public class BatchRequest extends BaseNode {
 			element.addAttribute("RootFolder", _folderPath);
 		}
 
-		for (BatchRequestMethod batchRequestMethod : _batchRequestMethods) {
-			batchRequestMethod.addTo(element);
+		for (BatchMethod batchMethod : _batchMethods) {
+			batchMethod.addTo(element);
 		}
 	}
 
@@ -55,7 +54,7 @@ public class BatchRequest extends BaseNode {
 		return "Batch";
 	}
 
-	private BatchRequestMethod[] _batchRequestMethods;
+	private BatchMethod[] _batchMethods;
 	private String _folderPath;
 	private OnError _onError;
 
