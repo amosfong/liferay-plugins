@@ -27,6 +27,11 @@ public class Query extends BaseNode {
 	}
 
 	@Override
+	protected String getNodeName() {
+		return "Query";
+	}
+
+	@Override
 	protected void populate(Element element) {
 		super.populate(element);
 
@@ -35,11 +40,6 @@ public class Query extends BaseNode {
 		if (_queryClause != null) {
 			_queryClause.attach(whereElement);
 		}
-	}
-
-	@Override
-	protected String getNodeName() {
-		return "Query";
 	}
 
 	private QueryClause _queryClause;

@@ -37,6 +37,11 @@ public class Batch extends BaseNode {
 	}
 
 	@Override
+	protected String getNodeName() {
+		return "Batch";
+	}
+
+	@Override
 	protected void populate(Element element) {
 		element.addAttribute("OnError", _onError.name());
 
@@ -47,11 +52,6 @@ public class Batch extends BaseNode {
 		for (BatchMethod batchMethod : _batchMethods) {
 			batchMethod.attach(element);
 		}
-	}
-
-	@Override
-	protected String getNodeName() {
-		return "Batch";
 	}
 
 	private BatchMethod[] _batchMethods;

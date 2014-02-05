@@ -33,17 +33,17 @@ public class QueryOptionsList extends BaseNode {
 	}
 
 	@Override
+	protected String getNodeName() {
+		return "QueryOptions";
+	}
+
+	@Override
 	protected void populate(Element element) {
 		super.populate(element);
 
 		for (BaseQueryOption _baseQueryOption : _baseQueryOptions) {
 			_baseQueryOption.attach(element);
 		}
-	}
-
-	@Override
-	protected String getNodeName() {
-		return "QueryOptions";
 	}
 
 	private static BaseQueryOption[] _EMPTY_BASE_QUERY_OPTIONS =

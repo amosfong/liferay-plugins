@@ -38,13 +38,6 @@ public class QueryValue extends BaseNode {
 	}
 
 	@Override
-	protected void populate(Element element) {
-		super.populate(element);
-
-		element.addAttribute("Type", _type.name());
-	}
-
-	@Override
 	protected String getNodeName() {
 		return "Value";
 	}
@@ -52,6 +45,13 @@ public class QueryValue extends BaseNode {
 	@Override
 	protected String getNodeText() {
 		return _value;
+	}
+
+	@Override
+	protected void populate(Element element) {
+		super.populate(element);
+
+		element.addAttribute("Type", _type.name());
 	}
 
 	private Type _type;

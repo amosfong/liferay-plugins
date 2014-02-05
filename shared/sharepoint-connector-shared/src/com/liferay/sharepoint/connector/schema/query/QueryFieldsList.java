@@ -32,17 +32,17 @@ public class QueryFieldsList extends BaseNode {
 	}
 
 	@Override
+	protected String getNodeName() {
+		return "ViewFields";
+	}
+
+	@Override
 	protected void populate(Element element) {
 		super.populate(element);
 
 		for (QueryField queryField : _queryFields) {
 			queryField.attach(element);
 		}
-	}
-
-	@Override
-	protected String getNodeName() {
-		return "ViewFields";
 	}
 
 	private static QueryField[] _EMPTY_QUERY_FIELDS = new QueryField[0];

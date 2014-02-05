@@ -38,13 +38,13 @@ public abstract class BaseNode implements Node {
 		return element.toXMLString();
 	}
 
-	protected void populate(Element element) {
-	}
-
 	protected abstract String getNodeName();
 
 	protected String getNodeText() {
 		return null;
+	}
+
+	protected void populate(Element element) {
 	}
 
 	private Element _attach(Element parentElement) {

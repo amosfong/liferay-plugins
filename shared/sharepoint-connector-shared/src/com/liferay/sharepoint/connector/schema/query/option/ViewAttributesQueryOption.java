@@ -26,17 +26,17 @@ public class ViewAttributesQueryOption extends BaseQueryOption {
 	}
 
 	@Override
+	protected String getNodeName() {
+		return "ViewAttributes";
+	}
+
+	@Override
 	protected void populate(Element element) {
 		super.populate(element);
 
 		if (_recursive) {
 			element.addAttribute("Scope", "Recursive");
 		}
-	}
-
-	@Override
-	protected String getNodeName() {
-		return "ViewAttributes";
 	}
 
 	private boolean _recursive;

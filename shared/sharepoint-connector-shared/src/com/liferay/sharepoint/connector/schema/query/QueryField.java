@@ -27,15 +27,15 @@ public class QueryField extends BaseNode {
 	}
 
 	@Override
+	protected String getNodeName() {
+		return "FieldRef";
+	}
+
+	@Override
 	protected void populate(Element element) {
 		super.populate(element);
 
 		element.addAttribute("Name", _name);
-	}
-
-	@Override
-	protected String getNodeName() {
-		return "FieldRef";
 	}
 
 	private String _name;

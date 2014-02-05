@@ -28,11 +28,6 @@ public class BatchField extends BaseNode {
 	}
 
 	@Override
-	protected void populate(Element element) {
-		element.addAttribute("Name", _name);
-	}
-
-	@Override
 	protected String getNodeName() {
 		return "Field";
 	}
@@ -40,6 +35,11 @@ public class BatchField extends BaseNode {
 	@Override
 	protected String getNodeText() {
 		return _value;
+	}
+
+	@Override
+	protected void populate(Element element) {
+		element.addAttribute("Name", _name);
 	}
 
 	private String _name;
