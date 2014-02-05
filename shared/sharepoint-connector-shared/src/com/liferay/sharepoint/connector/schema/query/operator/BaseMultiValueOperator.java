@@ -35,10 +35,10 @@ public abstract class BaseMultiValueOperator extends BaseOperator {
 	protected void populate(Element element) {
 		super.populate(element);
 
-		Element values = element.addElement("Values");
+		Element valuesElement = element.addElement("Values");
 
 		for (QueryValue queryValue : _queryValues) {
-			queryValue.attach(values);
+			queryValue.attach(valuesElement);
 		}
 	}
 
