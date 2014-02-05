@@ -14,6 +14,8 @@
 
 package com.liferay.sharepoint.connector;
 
+import com.liferay.sharepoint.connector.impl.SharepointConnectionImpl;
+
 /**
  * @author Iván Zaera
  */
@@ -23,7 +25,9 @@ public class SharepointConnectionFactory {
 		String serverProtocol, String serverAddress, String sitePath,
 		String libraryName, String user, String password) {
 
-		return null;
+		return new SharepointConnectionImpl(
+			serverProtocol, serverAddress, sitePath, libraryName, user,
+			password);
 	}
 
 }
