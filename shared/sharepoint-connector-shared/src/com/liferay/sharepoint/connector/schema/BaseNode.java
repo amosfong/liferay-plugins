@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.xml.simple.Element;
  */
 public abstract class BaseNode implements Node {
 
+	@Override
 	public void addTo(Element element) {
 		_toElement(element);
 	}
@@ -30,6 +31,7 @@ public abstract class BaseNode implements Node {
 		return toXmlString();
 	}
 
+	@Override
 	public String toXmlString() {
 		Element element = _toElement(null);
 
