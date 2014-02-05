@@ -37,12 +37,12 @@ public class BatchMethod extends BaseNode {
 	}
 
 	@Override
-	protected void addAttributesAndChildren(Element element) {
+	protected void populate(Element element) {
 		element.addAttribute("ID", Integer.toString(_batchMethodId));
 		element.addAttribute("Cmd", _command.name());
 
 		for (BatchField batchField : _batchFields) {
-			batchField.addTo(element);
+			batchField.attach(element);
 		}
 	}
 

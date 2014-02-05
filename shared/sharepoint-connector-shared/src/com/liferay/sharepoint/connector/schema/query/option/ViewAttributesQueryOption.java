@@ -26,8 +26,8 @@ public class ViewAttributesQueryOption extends BaseQueryOption {
 	}
 
 	@Override
-	protected void addAttributesAndChildren(Element element) {
-		super.addAttributesAndChildren(element);
+	protected void populate(Element element) {
+		super.populate(element);
 
 		if (_recursive) {
 			element.addAttribute("Scope", "Recursive");

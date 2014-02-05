@@ -29,8 +29,8 @@ public abstract class BaseOperator extends BaseNode implements QueryClause {
 	}
 
 	@Override
-	protected void addAttributesAndChildren(Element element) {
-		_queryFieldRef.addTo(element);
+	protected void populate(Element element) {
+		_queryFieldRef.attach(element);
 	}
 
 	private QueryFieldRef _queryFieldRef;

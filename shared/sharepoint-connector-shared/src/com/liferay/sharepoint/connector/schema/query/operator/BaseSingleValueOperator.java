@@ -32,10 +32,10 @@ public abstract class BaseSingleValueOperator extends BaseOperator {
 	}
 
 	@Override
-	protected void addAttributesAndChildren(Element element) {
-		super.addAttributesAndChildren(element);
+	protected void populate(Element element) {
+		super.populate(element);
 
-		_queryValue.addTo(element);
+		_queryValue.attach(element);
 	}
 
 	private QueryValue _queryValue;

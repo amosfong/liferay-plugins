@@ -21,7 +21,7 @@ import com.liferay.portal.kernel.xml.simple.Element;
  */
 public interface Node {
 
-	public void addTo(Element element);
+	public void attach(Element element);
 
 	public String toXmlString();
 

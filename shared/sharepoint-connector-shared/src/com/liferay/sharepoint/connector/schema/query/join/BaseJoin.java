@@ -37,9 +37,9 @@ public abstract class BaseJoin extends BaseNode implements QueryClause {
 	}
 
 	@Override
-	protected void addAttributesAndChildren(Element element) {
-		_leftQueryClause.addTo(element);
-		_rightQueryClause.addTo(element);
+	protected void populate(Element element) {
+		_leftQueryClause.attach(element);
+		_rightQueryClause.attach(element);
 	}
 
 	private QueryClause _leftQueryClause;

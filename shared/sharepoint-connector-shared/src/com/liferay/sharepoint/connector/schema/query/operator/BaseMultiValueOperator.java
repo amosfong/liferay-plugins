@@ -32,13 +32,13 @@ public abstract class BaseMultiValueOperator extends BaseOperator {
 	}
 
 	@Override
-	protected void addAttributesAndChildren(Element element) {
-		super.addAttributesAndChildren(element);
+	protected void populate(Element element) {
+		super.populate(element);
 
 		Element values = element.addElement("Values");
 
 		for (QueryValue queryValue : _queryValues) {
-			queryValue.addTo(values);
+			queryValue.attach(values);
 		}
 	}
 

@@ -27,13 +27,13 @@ public class QueryNode extends BaseNode {
 	}
 
 	@Override
-	protected void addAttributesAndChildren(Element element) {
-		super.addAttributesAndChildren(element);
+	protected void populate(Element element) {
+		super.populate(element);
 
 		Element where = element.addElement("Where");
 
 		if (_queryClause != null) {
-			_queryClause.addTo(where);
+			_queryClause.attach(where);
 		}
 	}
 

@@ -33,11 +33,11 @@ public class QueryOptionsNode extends BaseNode {
 	}
 
 	@Override
-	protected void addAttributesAndChildren(Element element) {
-		super.addAttributesAndChildren(element);
+	protected void populate(Element element) {
+		super.populate(element);
 
 		for (BaseQueryOption _baseQueryOption : _baseQueryOptions) {
-			_baseQueryOption.addTo(element);
+			_baseQueryOption.attach(element);
 		}
 	}
 

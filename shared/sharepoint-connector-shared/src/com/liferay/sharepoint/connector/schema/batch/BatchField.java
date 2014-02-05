@@ -28,7 +28,7 @@ public class BatchField extends BaseNode {
 	}
 
 	@Override
-	protected void addAttributesAndChildren(Element element) {
+	protected void populate(Element element) {
 		element.addAttribute("Name", _fieldName);
 	}
 

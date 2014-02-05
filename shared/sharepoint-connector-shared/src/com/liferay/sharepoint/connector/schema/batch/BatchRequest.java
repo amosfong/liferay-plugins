@@ -37,7 +37,7 @@ public class BatchRequest extends BaseNode {
 	}
 
 	@Override
-	protected void addAttributesAndChildren(Element element) {
+	protected void populate(Element element) {
 		element.addAttribute("OnError", _onError.name());
 
 		if (_folderPath != null) {
@@ -45,7 +45,7 @@ public class BatchRequest extends BaseNode {
 		}
 
 		for (BatchMethod batchMethod : _batchMethods) {
-			batchMethod.addTo(element);
+			batchMethod.attach(element);
 		}
 	}
 

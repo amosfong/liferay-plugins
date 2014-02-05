@@ -27,8 +27,8 @@ public class QueryFieldRef extends BaseNode {
 	}
 
 	@Override
-	protected void addAttributesAndChildren(Element element) {
-		super.addAttributesAndChildren(element);
+	protected void populate(Element element) {
+		super.populate(element);
 
 		element.addAttribute("Name", _fieldName);
 	}

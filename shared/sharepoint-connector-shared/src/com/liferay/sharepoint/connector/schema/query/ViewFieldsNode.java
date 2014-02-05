@@ -32,11 +32,11 @@ public class ViewFieldsNode extends BaseNode {
 	}
 
 	@Override
-	protected void addAttributesAndChildren(Element element) {
-		super.addAttributesAndChildren(element);
+	protected void populate(Element element) {
+		super.populate(element);
 
 		for (QueryFieldRef queryFieldRef : _queryFieldRefs) {
-			queryFieldRef.addTo(element);
+			queryFieldRef.attach(element);
 		}
 	}
 

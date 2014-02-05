@@ -22,8 +22,8 @@ import com.liferay.portal.kernel.xml.simple.Element;
 public abstract class BaseNode implements Node {
 
 	@Override
-	public void addTo(Element element) {
-		_toElement(element);
+	public void attach(Element parentElement) {
+		_attach(parentElement);
 	}
 
 	@Override
@@ -33,12 +33,12 @@ public abstract class BaseNode implements Node {
 
 	@Override
 	public String toXmlString() {
-		Element element = _toElement(null);
+		Element element = _attach(null);
 
 		return element.toXMLString();
 	}
 
-	protected void addAttributesAndChildren(Element element) {
+	protected void populate(Element element) {
 	}
 
 	protected abstract String getNodeName();
@@ -47,17 +47,17 @@ public abstract class BaseNode implements Node {
 		return null;
 	}
 
-	private Element _toElement(Element parent) {
+	private Element _attach(Element parentElement) {
 		Element element = null;
 
-		if (parent == null) {
+		if (parentElement == null) {
 			element = new Element(getNodeName(), getNodeText(), false);
 		}
 		else {
-			element = parent.addElement(getNodeName(), getNodeText());
+			element = parentElement.addElement(getNodeName(), getNodeText());
 		}
 
-		addAttributesAndChildren(element);
+		populate(element);
 
 		return element;
 	}
