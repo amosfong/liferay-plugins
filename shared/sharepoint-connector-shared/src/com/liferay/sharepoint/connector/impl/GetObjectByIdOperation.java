@@ -14,8 +14,17 @@
 
 package com.liferay.sharepoint.connector.impl;
 
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.sharepoint.connector.SharepointObject;
 import com.liferay.sharepoint.connector.exception.SharepointException;
+import com.liferay.sharepoint.connector.schema.query.Query;
+import com.liferay.sharepoint.connector.schema.query.QueryField;
+import com.liferay.sharepoint.connector.schema.query.QueryOptionsList;
+import com.liferay.sharepoint.connector.schema.query.QueryValue;
+import com.liferay.sharepoint.connector.schema.query.operator.EqOperator;
+import com.liferay.sharepoint.connector.schema.query.option.FolderQueryOption;
+
+import java.util.List;
 
 /**
 * @author Ivan Zaera
@@ -24,12 +33,35 @@ public class GetObjectByIdOperation {
 
 	public GetObjectByIdOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
+
+		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
+			sharepointConnectionImpl);
 	}
 
 	public SharepointObject execute(long sharepointObjectId)
 		throws SharepointException {
 
-		return null;
+		Query query = new Query(
+			new EqOperator(
+				new QueryField("ID"),
+				new QueryValue(String.valueOf(sharepointObjectId))));
+
+		List<SharepointObject> sharepointObjects =
+			_getObjectsByQueryOperation.execute(
+				query, _SEARCH_EVERYWHERE_QUERY_OPTIONS_LIST);
+
+		if (sharepointObjects.isEmpty()) {
+			return null;
+		}
+		else {
+			return sharepointObjects.get(0);
+		}
 	}
+
+	private static final QueryOptionsList
+		_SEARCH_EVERYWHERE_QUERY_OPTIONS_LIST = new QueryOptionsList(
+			new FolderQueryOption(StringPool.BLANK));
+
+	private GetObjectsByQueryOperation _getObjectsByQueryOperation;
 
 }
