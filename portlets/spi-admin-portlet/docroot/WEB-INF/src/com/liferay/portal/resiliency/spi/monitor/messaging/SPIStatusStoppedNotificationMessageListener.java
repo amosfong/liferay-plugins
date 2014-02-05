@@ -70,7 +70,7 @@ public class SPIStatusStoppedNotificationMessageListener
 			if (Validator.isNull(notificationRecipients)) {
 				if (_log.isInfoEnabled()) {
 					_log.info(
-						"No notification recipients configured for: " +
+						"No notification recipients configured for " +
 							spiDefinition.getSpiDefinitionId());
 				}
 

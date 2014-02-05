@@ -19,9 +19,6 @@
 <%
 String redirect = ParamUtil.getString(request, "redirect");
 
-int defaultMaxRestartAttempts = PrefsParamUtil.getInteger(portletPreferences, request, "maxRestartAttempts", 0);
-String defaultNotificationRecipients = PrefsParamUtil.getString(portletPreferences, request, "notificationRecipients", StringPool.BLANK);
-
 long spiDefinitionId = ParamUtil.getLong(renderRequest, "spiDefinitionId");
 
 SPIDefinition spiDefinition = null;
@@ -42,20 +39,27 @@ long registerTimeout = BeanPropertiesUtil.getLong(spiDefinition, "registerTimeou
 String[] servletContextNames = StringUtil.split(BeanPropertiesUtil.getString(spiDefinition, "servletContextNames", StringPool.BLANK));
 long shutdownTimeout = BeanPropertiesUtil.getLong(spiDefinition, "shutdownTimeout", SPIConfigurationTemplate.getSPIShutdownTimeout());
 int status = BeanPropertiesUtil.getInteger(spiDefinition, "status", SPIAdminConstants.STATUS_STOPPED);
+
+String defaultNotificationRecipients = PrefsParamUtil.getString(portletPreferences, request, "notificationRecipients", StringPool.BLANK);
+
 boolean useDefaultNotificationOptions = Validator.isNull(notificationRecipients);
-boolean useDefaultRestartOptions = (maxRestartAttempts <= 0);
 
 UnicodeProperties typeSettingsProperties = PropertiesParamUtil.getProperties(request, "TypeSettingsProperties--");
 
 String useDefaultNotificationOptionsString = typeSettingsProperties.getProperty("use-default-notification-options");
-String useDefaultRestartOptionsString = typeSettingsProperties.getProperty("use-default-restart-options");
 
 if (Validator.isNotNull(useDefaultNotificationOptionsString)) {
-	useDefaultNotificationOptions = Boolean.parseBoolean(useDefaultNotificationOptionsString);
+	useDefaultNotificationOptions = GetterUtil.getBoolean(useDefaultNotificationOptionsString);
 }
 
+int defaultMaxRestartAttempts = PrefsParamUtil.getInteger(portletPreferences, request, "maxRestartAttempts");
+
+boolean useDefaultRestartOptions = (maxRestartAttempts <= 0);
+
+String useDefaultRestartOptionsString = typeSettingsProperties.getProperty("use-default-restart-options");
+
 if (Validator.isNotNull(useDefaultRestartOptionsString)) {
-	useDefaultRestartOptions = Boolean.parseBoolean(useDefaultRestartOptionsString);
+	useDefaultRestartOptions = GetterUtil.getBoolean(useDefaultRestartOptionsString);
 }
 %>
 

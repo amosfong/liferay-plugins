@@ -17,7 +17,7 @@
 <%@ include file="/init.jsp" %>
 
 <%
-int maxRestartAttempts = PrefsParamUtil.getInteger(portletPreferences, request, "maxRestartAttempts", 0);
+int maxRestartAttempts = PrefsParamUtil.getInteger(portletPreferences, request, "maxRestartAttempts");
 
 String notificationEmailBody = PrefsParamUtil.getString(portletPreferences, request, "notificationEmailBody", ContentUtil.get(PortletPropsValues.SPI_NOTIFICATION_EMAIL_BODY));
 String notificationEmailFromAddress = PrefsParamUtil.getString(portletPreferences, request, "notificationEmailFromAddress", PortletPropsValues.SPI_NOTIFICATION_EMAIL_FROM_ADDRESS);

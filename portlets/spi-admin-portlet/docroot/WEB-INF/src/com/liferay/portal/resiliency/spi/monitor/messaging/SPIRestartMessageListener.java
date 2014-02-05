@@ -63,8 +63,9 @@ public class SPIRestartMessageListener extends BaseSPIStatusMessageListener {
 		if (maxRestartAttempts < restartAttempts++) {
 			if (_log.isInfoEnabled()) {
 				_log.info(
-					"Maximum restart limits reached: max = " +
-						maxRestartAttempts + " attempts " + restartAttempts);
+					"Restart attempt " + restartAttempt +
+						" is ignored because it exceeds the limit of " +
+							maxRestartAttempts + " restart attempts");
 			}
 
 			return;

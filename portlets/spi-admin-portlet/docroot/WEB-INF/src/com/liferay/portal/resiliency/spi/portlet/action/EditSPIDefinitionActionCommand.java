@@ -47,18 +47,20 @@ public class EditSPIDefinitionActionCommand extends BaseActionCommand {
 		String portletIds = ParamUtil.getString(portletRequest, "portletIds");
 		String servletContextNames = ParamUtil.getString(
 			portletRequest, "servletContextNames");
-		boolean useDefaultNotificationOptions = ParamUtil.getBoolean(
-			portletRequest, "useDefaultNotificationOptions", true);
-		boolean useDefaultRestartOptions = ParamUtil.getBoolean(
-			portletRequest, "useDefaultRestartOptions", true);
 
 		UnicodeProperties typeSettingsProperties =
 			PropertiesParamUtil.getProperties(
 				portletRequest, "TypeSettingsProperties--");
 
+		boolean useDefaultNotificationOptions = ParamUtil.getBoolean(
+			portletRequest, "useDefaultNotificationOptions", true);
+
 		if (useDefaultNotificationOptions) {
 			typeSettingsProperties.remove("notification-recipients");
 		}
+
+		boolean useDefaultRestartOptions = ParamUtil.getBoolean(
+			portletRequest, "useDefaultRestartOptions", true);
 
 		if (useDefaultRestartOptions) {
 			typeSettingsProperties.remove("max-restart-attempts");
