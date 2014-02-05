@@ -30,10 +30,10 @@ public class QueryNode extends BaseNode {
 	protected void populate(Element element) {
 		super.populate(element);
 
-		Element where = element.addElement("Where");
+		Element whereElement = element.addElement("Where");
 
 		if (_queryClause != null) {
-			_queryClause.attach(where);
+			_queryClause.attach(whereElement);
 		}
 	}
 
