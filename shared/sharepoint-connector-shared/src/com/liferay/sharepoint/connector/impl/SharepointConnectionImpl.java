@@ -27,6 +27,8 @@ import com.microsoft.schemas.sharepoint.soap.ListsSoap;
 
 import java.io.InputStream;
 
+import java.net.URL;
+
 import java.util.List;
 
 /**
@@ -169,6 +171,10 @@ public class SharepointConnectionImpl implements SharepointConnection {
 			folderPath, objectTypeFilter);
 
 		return sharepointObjects.size();
+	}
+
+	public URL getObjectURL(String path) {
+		return null;
 	}
 
 	@Override
