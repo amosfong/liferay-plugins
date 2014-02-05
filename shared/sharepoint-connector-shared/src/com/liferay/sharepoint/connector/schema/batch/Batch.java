@@ -20,9 +20,9 @@ import com.liferay.sharepoint.connector.schema.BaseNode;
 /**
  * @author Iván Zaera
  */
-public class BatchRequest extends BaseNode {
+public class Batch extends BaseNode {
 
-	public BatchRequest(
+	public Batch(
 		OnError onError, String folderPath, BatchMethod... batchMethods) {
 
 		_onError = onError;
