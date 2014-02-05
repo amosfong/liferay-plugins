@@ -14,15 +14,15 @@
 
 package com.liferay.sharepoint.connector.schema.query.operator;
 
-import com.liferay.sharepoint.connector.schema.query.QueryFieldRef;
+import com.liferay.sharepoint.connector.schema.query.QueryField;
 
 /**
  * @author Iván Zaera
  */
 public abstract class BaseNoValueOperator extends BaseOperator {
 
-	public BaseNoValueOperator(QueryFieldRef queryFieldRef) {
-		super(queryFieldRef);
+	public BaseNoValueOperator(QueryField queryField) {
+		super(queryField);
 	}
 
 }

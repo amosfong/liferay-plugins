@@ -16,18 +16,19 @@ package com.liferay.sharepoint.connector.schema.query;
 
 import com.liferay.portal.kernel.xml.simple.Element;
 import com.liferay.sharepoint.connector.schema.BaseNode;
+import com.liferay.sharepoint.connector.schema.query.option.BaseQueryOption;
 
 /**
  * @author Iván Zaera
  */
-public class ViewFieldsNode extends BaseNode {
+public class QueryOptionsList extends BaseNode {
 
-	public ViewFieldsNode(QueryFieldRef... queryFieldRefs) {
-		if (queryFieldRefs == null) {
-			_queryFieldRefs = _EMPTY_QUERY_FIELD_REFS;
+	public QueryOptionsList(BaseQueryOption... baseQueryOptions) {
+		if (baseQueryOptions == null) {
+			_baseQueryOptions = _EMPTY_BASE_QUERY_OPTIONS;
 		}
 		else {
-			_queryFieldRefs = queryFieldRefs;
+			_baseQueryOptions = baseQueryOptions;
 		}
 	}
 
@@ -35,19 +36,19 @@ public class ViewFieldsNode extends BaseNode {
 	protected void populate(Element element) {
 		super.populate(element);
 
-		for (QueryFieldRef queryFieldRef : _queryFieldRefs) {
-			queryFieldRef.attach(element);
+		for (BaseQueryOption _baseQueryOption : _baseQueryOptions) {
+			_baseQueryOption.attach(element);
 		}
 	}
 
 	@Override
 	protected String getNodeName() {
-		return "ViewFields";
+		return "QueryOptions";
 	}
 
-	private static QueryFieldRef[] _EMPTY_QUERY_FIELD_REFS =
-		new QueryFieldRef[0];
+	private static BaseQueryOption[] _EMPTY_BASE_QUERY_OPTIONS =
+		new BaseQueryOption[0];
 
-	private QueryFieldRef[] _queryFieldRefs;
+	private BaseQueryOption[] _baseQueryOptions;
 
 }

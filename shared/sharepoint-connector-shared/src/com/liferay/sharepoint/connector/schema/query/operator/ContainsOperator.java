@@ -14,7 +14,7 @@
 
 package com.liferay.sharepoint.connector.schema.query.operator;
 
-import com.liferay.sharepoint.connector.schema.query.QueryFieldRef;
+import com.liferay.sharepoint.connector.schema.query.QueryField;
 import com.liferay.sharepoint.connector.schema.query.QueryValue;
 
 /**
@@ -22,10 +22,8 @@ import com.liferay.sharepoint.connector.schema.query.QueryValue;
  */
 public class ContainsOperator extends BaseSingleValueOperator {
 
-	public ContainsOperator(
-		QueryFieldRef queryFieldRef, QueryValue queryValue) {
-
-		super(queryFieldRef, queryValue);
+	public ContainsOperator(QueryField queryField, QueryValue queryValue) {
+		super(queryField, queryValue);
 	}
 
 	@Override

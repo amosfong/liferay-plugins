@@ -15,7 +15,7 @@
 package com.liferay.sharepoint.connector.schema.query.operator;
 
 import com.liferay.portal.kernel.xml.simple.Element;
-import com.liferay.sharepoint.connector.schema.query.QueryFieldRef;
+import com.liferay.sharepoint.connector.schema.query.QueryField;
 import com.liferay.sharepoint.connector.schema.query.QueryValue;
 
 /**
@@ -24,9 +24,9 @@ import com.liferay.sharepoint.connector.schema.query.QueryValue;
 public abstract class BaseMultiValueOperator extends BaseOperator {
 
 	public BaseMultiValueOperator(
-		QueryFieldRef queryFieldRef, QueryValue... queryValues) {
+		QueryField queryField, QueryValue... queryValues) {
 
-		super(queryFieldRef);
+		super(queryField);
 
 		_queryValues = queryValues;
 	}

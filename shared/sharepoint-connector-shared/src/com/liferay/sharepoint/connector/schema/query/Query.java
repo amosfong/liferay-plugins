@@ -16,39 +16,32 @@ package com.liferay.sharepoint.connector.schema.query;
 
 import com.liferay.portal.kernel.xml.simple.Element;
 import com.liferay.sharepoint.connector.schema.BaseNode;
-import com.liferay.sharepoint.connector.schema.query.option.BaseQueryOption;
 
 /**
  * @author Iván Zaera
  */
-public class QueryOptionsNode extends BaseNode {
+public class Query extends BaseNode {
 
-	public QueryOptionsNode(BaseQueryOption... baseQueryOptions) {
-		if (baseQueryOptions == null) {
-			_baseQueryOptions = _EMPTY_BASE_QUERY_OPTIONS;
-		}
-		else {
-			_baseQueryOptions = baseQueryOptions;
-		}
+	public Query(QueryClause queryClause) {
+		_queryClause = queryClause;
 	}
 
 	@Override
 	protected void populate(Element element) {
 		super.populate(element);
 
-		for (BaseQueryOption _baseQueryOption : _baseQueryOptions) {
-			_baseQueryOption.attach(element);
+		Element whereElement = element.addElement("Where");
+
+		if (_queryClause != null) {
+			_queryClause.attach(whereElement);
 		}
 	}
 
 	@Override
 	protected String getNodeName() {
-		return "QueryOptions";
+		return "Query";
 	}
 
-	private static BaseQueryOption[] _EMPTY_BASE_QUERY_OPTIONS =
-		new BaseQueryOption[0];
-
-	private BaseQueryOption[] _baseQueryOptions;
+	private QueryClause _queryClause;
 
 }

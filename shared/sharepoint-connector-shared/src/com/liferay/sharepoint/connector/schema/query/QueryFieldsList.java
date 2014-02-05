@@ -20,28 +20,33 @@ import com.liferay.sharepoint.connector.schema.BaseNode;
 /**
  * @author Iván Zaera
  */
-public class QueryNode extends BaseNode {
+public class QueryFieldsList extends BaseNode {
 
-	public QueryNode(QueryClause queryClause) {
-		_queryClause = queryClause;
+	public QueryFieldsList(QueryField... queryFields) {
+		if (queryFields == null) {
+			_queryFields = _EMPTY_QUERY_FIELDS;
+		}
+		else {
+			_queryFields = queryFields;
+		}
 	}
 
 	@Override
 	protected void populate(Element element) {
 		super.populate(element);
 
-		Element whereElement = element.addElement("Where");
-
-		if (_queryClause != null) {
-			_queryClause.attach(whereElement);
+		for (QueryField queryField : _queryFields) {
+			queryField.attach(element);
 		}
 	}
 
 	@Override
 	protected String getNodeName() {
-		return "Query";
+		return "ViewFields";
 	}
 
-	private QueryClause _queryClause;
+	private static QueryField[] _EMPTY_QUERY_FIELDS = new QueryField[0];
+
+	private QueryField[] _queryFields;
 
 }

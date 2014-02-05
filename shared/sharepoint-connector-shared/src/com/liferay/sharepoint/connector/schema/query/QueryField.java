@@ -20,17 +20,17 @@ import com.liferay.sharepoint.connector.schema.BaseNode;
 /**
  * @author Iván Zaera
  */
-public class QueryFieldRef extends BaseNode {
+public class QueryField extends BaseNode {
 
-	public QueryFieldRef(String fieldName) {
-		_fieldName = fieldName;
+	public QueryField(String name) {
+		_name = name;
 	}
 
 	@Override
 	protected void populate(Element element) {
 		super.populate(element);
 
-		element.addAttribute("Name", _fieldName);
+		element.addAttribute("Name", _name);
 	}
 
 	@Override
@@ -38,6 +38,6 @@ public class QueryFieldRef extends BaseNode {
 		return "FieldRef";
 	}
 
-	private String _fieldName;
+	private String _name;
 
 }

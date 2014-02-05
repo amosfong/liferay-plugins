@@ -22,14 +22,14 @@ import com.liferay.sharepoint.connector.schema.BaseNode;
  */
 public class BatchField extends BaseNode {
 
-	public BatchField(String fieldName, String value) {
-		_fieldName = fieldName;
+	public BatchField(String name, String value) {
+		_name = name;
 		_value = value;
 	}
 
 	@Override
 	protected void populate(Element element) {
-		element.addAttribute("Name", _fieldName);
+		element.addAttribute("Name", _name);
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class BatchField extends BaseNode {
 		return _value;
 	}
 
-	private String _fieldName;
+	private String _name;
 	private String _value;
 
 }
