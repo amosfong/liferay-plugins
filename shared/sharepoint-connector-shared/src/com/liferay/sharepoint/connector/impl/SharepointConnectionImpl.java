@@ -23,6 +23,8 @@ import com.liferay.sharepoint.connector.exception.SharepointRuntimeException;
 import com.liferay.sharepoint.connector.schema.query.Query;
 import com.liferay.sharepoint.connector.schema.query.QueryOptionsList;
 
+import com.microsoft.schemas.sharepoint.soap.ListsSoap;
+
 import java.io.InputStream;
 
 import java.util.List;
@@ -111,6 +113,10 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	@Override
 	public String getLibraryName() {
 		return _libraryName;
+	}
+
+	public ListsSoap getListsSoap() {
+		return null;
 	}
 
 	@Override
