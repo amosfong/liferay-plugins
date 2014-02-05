@@ -35,10 +35,7 @@
 	<bean id="messageSender.lcs_commands" class="com.liferay.portal.kernel.messaging.sender.DefaultSingleDestinationMessageSender">
 		<property name="destinationName" value="liferay/lcs_commands" />
 		<property name="messageSender">
-			<bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-				<property name="targetClass" value="com.liferay.portal.kernel.messaging.MessageBusUtil" />
-				<property name="targetMethod"  value="getMessageSender" />
-			</bean>
+			<bean class="com.liferay.portal.kernel.messaging.MessageBusUtil" factory-method="getMessageSender" />
 		</property>
 	</bean>
 
