@@ -4,7 +4,7 @@
 <project name="lcs-portlet" basedir="." default="deploy">
 	<import file="../build-common-portlet.xml" />
 
-	<property name="import.shared" value="lcs-shared,portal-patcher-shared" />
+	<property name="import.shared" value="lcs-json-shared,lcs-shared,portal-patcher-shared" />
 
 	<target name="checkout-dependencies">
 		<exec executable="git">
@@ -26,6 +26,13 @@
 			<arg value="upstream/ee-6.1.x" />
 			<arg value="--" />
 			<arg value="../osb-lcs-portlet/docroot/WEB-INF/src/META-INF" />
+		</exec>
+
+		<exec executable="git">
+			<arg value="checkout" />
+			<arg value="upstream/ee-6.1.x" />
+			<arg value="--" />
+			<arg value="../../shared/lcs-json-shared" />
 		</exec>
 
 		<exec executable="git">
@@ -84,11 +91,23 @@
 		<exec executable="git">
 			<arg value="rm" />
 			<arg value="--cached" />
+			<arg value="../../shared/lcs-json-shared/*" />
+		</exec>
+
+		<exec executable="git">
+			<arg value="rm" />
+			<arg value="--cached" />
 			<arg value="../../shared/lcs-shared/*" />
 		</exec>
 
 		<delete
 			dir="../osb-lcs-portlet"
+			failonerror="false"
+			includeemptydirs="true"
+		/>
+
+		<delete
+			dir="../../shared/lcs-json-shared"
 			failonerror="false"
 			includeemptydirs="true"
 		/>
