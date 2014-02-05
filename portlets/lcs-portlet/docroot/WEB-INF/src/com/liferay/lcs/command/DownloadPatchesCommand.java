@@ -75,11 +75,11 @@ public class DownloadPatchesCommand implements Command {
 
 				File file = new File(PatcherUtil.getPatchDirectory(), fileName);
 
-				if (_log.isDebugEnabled()) {
-					_log.debug("Download URL " + fileName);
-				}
-
 				String urlString = payload.get(fileName);
+
+				if (_log.isDebugEnabled()) {
+					_log.debug("Download URL " + urlString);
+				}
 
 				URL url = new URL(urlString);
 
