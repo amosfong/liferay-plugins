@@ -32,7 +32,7 @@ public class IncludeMandatoryColumnsQueryOption extends BaseQueryOption {
 
 	@Override
 	protected String getNodeText() {
-		return StringUtil.toUpperCase(Boolean.toString(_include));
+		return StringUtil.toUpperCase(String.valueOf(_include));
 	}
 
 	private boolean _include;
