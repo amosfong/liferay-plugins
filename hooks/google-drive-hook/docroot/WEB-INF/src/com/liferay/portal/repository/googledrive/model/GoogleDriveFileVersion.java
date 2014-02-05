@@ -16,6 +16,8 @@ package com.liferay.portal.repository.googledrive.model;
 
 import com.google.api.services.drive.model.Revision;
 
+import com.liferay.portal.kernel.util.Digester;
+import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
@@ -55,7 +57,7 @@ public class GoogleDriveFileVersion
 
 		sb.append(_extRepositoryFileEntryKey);
 		sb.append(StringPool.COLON);
-		sb.append(_revision.getId());
+		sb.append(DigesterUtil.digestHex(Digester.MD5, _revision.getId()));
 		sb.append(StringPool.COLON);
 		sb.append(_version);
 
