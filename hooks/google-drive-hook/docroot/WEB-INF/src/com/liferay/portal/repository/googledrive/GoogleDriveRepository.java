@@ -618,9 +618,7 @@ public class GoogleDriveRepository
 
 			driveParentsInsert.execute();
 
-			if (extRepositoryObjectType.equals(
-					ExtRepositoryObjectType.OBJECT)) {
-
+			if (extRepositoryObjectType.equals(ExtRepositoryObjectType.FILE)) {
 				return (T)new GoogleDriveFileEntry(file);
 			}
 			else {
