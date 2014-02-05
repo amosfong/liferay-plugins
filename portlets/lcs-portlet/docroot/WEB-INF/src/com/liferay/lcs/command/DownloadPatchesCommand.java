@@ -78,7 +78,7 @@ public class DownloadPatchesCommand implements Command {
 				String urlString = payload.get(fileName);
 
 				if (_log.isDebugEnabled()) {
-					_log.debug("Download url: " + fileName);
+					_log.debug("Download URL " + fileName);
 				}
 
 				URL url = new URL(urlString);
