@@ -28,11 +28,11 @@ public abstract class BaseJoin extends BaseNode implements QueryClause {
 		_rightQueryClause = rightQueryClause;
 	}
 
-	public QueryClause getLeftClause() {
+	public QueryClause getLeftQueryClause() {
 		return _leftQueryClause;
 	}
 
-	public QueryClause getRightClause() {
+	public QueryClause getRightQueryClause() {
 		return _rightQueryClause;
 	}
 
