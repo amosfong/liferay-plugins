@@ -48,20 +48,17 @@ public class GetObjectByIdOperation {
 
 		List<SharepointObject> sharepointObjects =
 			_getObjectsByQueryOperation.execute(
-				query, _SEARCH_EVERYWHERE_QUERY_OPTIONS_LIST);
+				query, _queryOptionsList);
 
 		if (sharepointObjects.isEmpty()) {
 			return null;
 		}
-		else {
-			return sharepointObjects.get(0);
-		}
+
+		return sharepointObjects.get(0);
 	}
 
-	private static final QueryOptionsList
-		_SEARCH_EVERYWHERE_QUERY_OPTIONS_LIST = new QueryOptionsList(
-			new FolderQueryOption(StringPool.BLANK));
-
 	private GetObjectsByQueryOperation _getObjectsByQueryOperation;
+	private QueryOptionsList _queryOptionsList = new QueryOptionsList(
+		new FolderQueryOption(StringPool.BLANK));
 
 }
