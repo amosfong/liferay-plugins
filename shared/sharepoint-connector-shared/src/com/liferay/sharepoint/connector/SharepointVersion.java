@@ -14,67 +14,8 @@
 
 package com.liferay.sharepoint.connector;
 
-import java.net.URL;
-
-import java.util.Date;
-
 /**
  * @author Ivan Zaera
  */
 public class SharepointVersion {
-
-	public SharepointVersion(
-		String id, URL url, String version, String comments, long size,
-		Date createdDate, String createdBy) {
-
-		_id = id;
-		_url = url;
-		_version = version;
-		_comments = comments;
-		_size = size;
-		_createdDate = createdDate;
-		_createdBy = createdBy;
-	}
-
-	public String getComments() {
-		return _comments;
-	}
-
-	public String getCreatedBy() {
-		return _createdBy;
-	}
-
-	public Date getCreatedDate() {
-		return _createdDate;
-	}
-
-	public String getId() {
-		return _id;
-	}
-
-	public long getSize() {
-		return _size;
-	}
-
-	public URL getURL() {
-		return _url;
-	}
-
-	public String getVersion() {
-		return _version;
-	}
-
-	@Override
-	public String toString() {
-		return "version:" + _id;
-	}
-
-	private String _comments;
-	private String _createdBy;
-	private Date _createdDate;
-	private String _id;
-	private long _size;
-	private URL _url;
-	private String _version;
-
 }
