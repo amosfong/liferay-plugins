@@ -48,9 +48,24 @@ import javax.portlet.ValidatorException;
  */
 public class FeedbackAdminPortlet extends MVCPortlet {
 
-	public static final String PREFERENCES_PREFIX = "preferences--";
+	@Override
+	public void serveResource(
+			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
+		throws PortletException {
 
-	public void configFeedback(
+		try {
+			String resourceId = resourceRequest.getResourceID();
+
+			if (resourceId.equals("getCategories")) {
+				getCategories(resourceRequest, resourceResponse);
+			}
+		}
+		catch (Exception e) {
+			throw new PortletException(e);
+		}
+	}
+
+	public void updateConfigurations(
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
@@ -58,7 +73,7 @@ public class FeedbackAdminPortlet extends MVCPortlet {
 			WebKeys.THEME_DISPLAY);
 
 		UnicodeProperties properties = PropertiesParamUtil.getProperties(
-			actionRequest, PREFERENCES_PREFIX);
+			actionRequest, "preferences--");
 
 		String portletResource = ParamUtil.getString(
 			actionRequest, "portletResource");
@@ -91,39 +106,7 @@ public class FeedbackAdminPortlet extends MVCPortlet {
 		}
 	}
 
-	@Override
-	public void serveResource(
-			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
-		throws PortletException {
-
-		try {
-			String resourceId = resourceRequest.getResourceID();
-
-			if (resourceId.equals("groupCategory")) {
-				serveGroupCategory(resourceRequest, resourceResponse);
-			}
-		}
-		catch (Exception e) {
-			throw new PortletException(e);
-		}
-	}
-
-	protected JSONArray getJsonArray(List<MBCategory> mbCategories) {
-		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
-
-		for (MBCategory mbCategory : mbCategories) {
-			JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
-
-			jsonObject.put("value", mbCategory.getCategoryId());
-			jsonObject.put("name", mbCategory.getName());
-
-			jsonArray.put(jsonObject);
-		}
-
-		return jsonArray;
-	}
-
-	protected void serveGroupCategory(
+	protected void getCategories(
 			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 		throws Exception {
 
@@ -135,10 +118,24 @@ public class FeedbackAdminPortlet extends MVCPortlet {
 			MBCategoryLocalServiceUtil.getCategories(
 				groupId, WorkflowConstants.STATUS_APPROVED);
 
-		jsonObject.put("CATEGORY", getJsonArray(mbCategories));
-		jsonObject.put("CATEGORY#key", mbCategories.hashCode());
+		jsonObject.put("categories", getJsonArray(mbCategories));
 
 		writeJSON(resourceRequest, resourceResponse, jsonObject);
+	}
+
+	protected JSONArray getJsonArray(List<MBCategory> mbCategories) {
+		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
+
+		for (MBCategory mbCategory : mbCategories) {
+			JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+
+			jsonObject.put("categoryId", mbCategory.getCategoryId());
+			jsonObject.put("categoryName", mbCategory.getName());
+
+			jsonArray.put(jsonObject);
+		}
+
+		return jsonArray;
 	}
 
 }

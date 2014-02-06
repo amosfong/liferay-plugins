@@ -28,11 +28,7 @@ import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextThreadLocal;
 import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portal.theme.ThemeDisplay;
-import com.liferay.portlet.messageboards.model.MBMessage;
-import com.liferay.portlet.messageboards.model.MBThread;
 import com.liferay.portlet.messageboards.service.MBMessageLocalServiceUtil;
-import com.liferay.portlet.messageboards.service.MBThreadFlagLocalServiceUtil;
-import com.liferay.portlet.messageboards.service.MBThreadLocalServiceUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
 import java.io.InputStream;
@@ -69,69 +65,32 @@ public class FeedbackPortlet extends MVCPortlet {
 		}
 	}
 
-	protected void addFeedback(
-			long groupId, long categoryId, User user, String feedback,
-			boolean isAnonymous)
-		throws Exception {
-
-		ServiceContext serviceContext =
-			ServiceContextThreadLocal.getServiceContext();
-
-		serviceContext.setAddGuestPermissions(true);
-
-		MBMessage mbMessage = MBMessageLocalServiceUtil.addMessage(
-			user.getUserId(), user.getFullName(), groupId, categoryId,
-			FeedbackConstants.FEEDBACK_SUBJECT, feedback,
-			FeedbackConstants.FEEDBACK_FORMAT,
-			new ArrayList<ObjectValuePair<String, InputStream>>(), isAnonymous,
-			0, false, serviceContext);
-
-		if (mbMessage == null) {
-			return;
-		}
-
-		MBThread mbThread = MBThreadLocalServiceUtil.fetchMBThread(
-			mbMessage.getThreadId());
-
-		if (mbThread == null) {
-			MBMessageLocalServiceUtil.deleteMBMessage(mbMessage.getMessageId());
-
-			return;
-		}
-
-		MBThreadFlagLocalServiceUtil.addThreadFlag(
-			user.getUserId(), mbThread, serviceContext);
-	}
-
 	protected void updateFeedback(
 			ActionRequest actionRequest, ActionResponse actionResponse)
 		throws Exception {
 
+		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
+			WebKeys.THEME_DISPLAY);
+
+		long userId = themeDisplay.getUserId();
+
+		User user = UserLocalServiceUtil.getUser(userId);
+
+		boolean anonymous = ParamUtil.getBoolean(actionRequest, "anonymous");
+		long groupId = ParamUtil.getLong(actionRequest, "groupId");
+		long categoryId = ParamUtil.getLong(actionRequest, "categoryId");
+		String feedback = ParamUtil.getString(actionRequest, "comments");
+		int questionIds = ParamUtil.getInteger(actionRequest, "questionIds");
+
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
 		try {
-			ThemeDisplay themeDisplay =
-				(ThemeDisplay)actionRequest.getAttribute(WebKeys.THEME_DISPLAY);
-
-			long userId = themeDisplay.getUserId();
-
-			User user = UserLocalServiceUtil.getUser(userId);
-
-			long groupId = ParamUtil.getLong(actionRequest, "groupId");
-
-			long categoryId = ParamUtil.getLong(actionRequest, "categoryId");
-
-			String feedback = ParamUtil.getString(actionRequest, "comments");
-
 			if (Validator.isNull(feedback)) {
-				int questionNum = ParamUtil.getInteger(
-					actionRequest, "questionNum");
-
 				String[] questions = FeedbackUtil.getFeedbackQuestions();
 
-				StringBundler sb = new StringBundler(4 * questionNum);
+				StringBundler sb = new StringBundler(4 * questionIds);
 
-				for (int i = 1; i <= questionNum; i++) {
+				for (int i = 1; i <= questionIds; i++) {
 					String anwser = ParamUtil.getString(
 						actionRequest, "question" + i);
 
@@ -144,10 +103,17 @@ public class FeedbackPortlet extends MVCPortlet {
 				feedback = sb.toString();
 			}
 
-			boolean isAnonymous = ParamUtil.getBoolean(
-				actionRequest, "anonymous");
+			ServiceContext serviceContext =
+				ServiceContextThreadLocal.getServiceContext();
 
-			addFeedback(groupId, categoryId, user, feedback, isAnonymous);
+			serviceContext.setAddGuestPermissions(true);
+
+			MBMessageLocalServiceUtil.addMessage(
+				user.getUserId(), user.getFullName(), groupId, categoryId,
+				FeedbackConstants.FEEDBACK_SUBJECT, feedback,
+				FeedbackConstants.FEEDBACK_FORMAT,
+				new ArrayList<ObjectValuePair<String, InputStream>>(),
+				anonymous, 0, false, serviceContext);
 
 			jsonObject.put("success", Boolean.TRUE.toString());
 		}

@@ -17,13 +17,7 @@ package com.liferay.feedback.util;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.portal.kernel.util.Validator;
-import com.liferay.portal.model.PortletPreferences;
-import com.liferay.portal.model.PortletPreferencesIds;
-import com.liferay.portal.service.PortletPreferencesLocalServiceUtil;
 import com.liferay.util.ContentUtil;
-
-import java.util.List;
 
 /**
  * @author Lin Cui
@@ -45,49 +39,6 @@ public class FeedbackUtil {
 
 			return questions;
 		}
-	}
-
-	public static String[] readPortletConfig() throws Exception {
-		String[] emptyIds = new String[0];
-
-		List<PortletPreferences> portletPreferencesList =
-			PortletPreferencesLocalServiceUtil.getPortletPreferences(
-				PortletKeys.PREFS_OWNER_TYPE_COMPANY, 0, PortletKeys.FEEDBACK);
-
-		if (portletPreferencesList.isEmpty()) {
-			return emptyIds;
-		}
-
-		for (PortletPreferences lfPortletPreferences : portletPreferencesList) {
-			PortletPreferencesIds portletPreferencesIds =
-				new PortletPreferencesIds(
-					lfPortletPreferences.getOwnerId(),
-					lfPortletPreferences.getOwnerId(),
-					lfPortletPreferences.getOwnerType(),
-					lfPortletPreferences.getPlid(), PortletKeys.FEEDBACK);
-
-			javax.portlet.PortletPreferences portletPreferences =
-				PortletPreferencesLocalServiceUtil.getPreferences(
-					portletPreferencesIds);
-
-			if (portletPreferences == null) {
-				continue;
-			}
-
-			String groupId = portletPreferences.getValue(
-				"groupId", StringPool.BLANK);
-
-			String categoryId = portletPreferences.getValue(
-				"categoryId", StringPool.BLANK);
-
-			if (Validator.isNull(groupId) && Validator.isNull(categoryId)) {
-				return emptyIds;
-			}
-
-			return new String[] { groupId, categoryId};
-		}
-
-		return emptyIds;
 	}
 
 }
