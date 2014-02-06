@@ -12,10 +12,11 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.impl;
+package com.liferay.sharepoint.connector.operation;
 
+import com.liferay.sharepoint.connector.SharepointConnectionImpl;
+import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.SharepointObject;
-import com.liferay.sharepoint.connector.exception.SharepointException;
 
 import java.util.List;
 

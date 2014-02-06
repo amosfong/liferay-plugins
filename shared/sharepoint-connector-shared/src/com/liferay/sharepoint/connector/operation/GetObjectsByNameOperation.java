@@ -12,25 +12,27 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.impl;
+package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.SharepointConnection.CheckInType;
-import com.liferay.sharepoint.connector.exception.SharepointException;
+import com.liferay.sharepoint.connector.SharepointConnectionImpl;
+import com.liferay.sharepoint.connector.SharepointException;
+import com.liferay.sharepoint.connector.SharepointObject;
+
+import java.util.List;
 
 /**
  * @author Ivan Zaera
  */
-public class CheckInFileOperation {
+public class GetObjectsByNameOperation {
 
-	public CheckInFileOperation(
+	public GetObjectsByNameOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
 	}
 
-	public boolean execute(
-			String filePath, String comment, CheckInType checkInType)
+	public List<SharepointObject> execute(String name)
 		throws SharepointException {
 
-		return false;
+		return null;
 	}
 
 }

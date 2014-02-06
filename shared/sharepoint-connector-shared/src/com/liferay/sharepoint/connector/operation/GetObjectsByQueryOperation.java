@@ -12,21 +12,31 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.impl;
+package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.exception.SharepointException;
+import com.liferay.sharepoint.connector.SharepointConnectionImpl;
+import com.liferay.sharepoint.connector.SharepointException;
+import com.liferay.sharepoint.connector.SharepointObject;
+import com.liferay.sharepoint.connector.schema.query.Query;
+import com.liferay.sharepoint.connector.schema.query.QueryOptionsList;
+
+import java.util.List;
 
 /**
  * @author Ivan Zaera
  */
-public class MoveObjectOperation {
+public class GetObjectsByQueryOperation {
 
-	public MoveObjectOperation(
+	public GetObjectsByQueryOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
 	}
 
-	public void execute(String path, String newPath)
+	public List<SharepointObject> execute(
+			Query query, QueryOptionsList queryOptionsList,
+			String... queryFieldNames)
 		throws SharepointException {
+
+		return null;
 	}
 
 }

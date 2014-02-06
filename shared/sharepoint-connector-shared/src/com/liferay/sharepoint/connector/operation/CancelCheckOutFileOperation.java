@@ -12,24 +12,22 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.impl;
+package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.exception.SharepointException;
-
-import java.io.InputStream;
+import com.liferay.sharepoint.connector.SharepointConnectionImpl;
+import com.liferay.sharepoint.connector.SharepointException;
 
 /**
  * @author Ivan Zaera
  */
-public class AddOrUpdateFileOperation {
+public class CancelCheckOutFileOperation {
 
-	public AddOrUpdateFileOperation(
+	public CancelCheckOutFileOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
 	}
 
-	public void execute(
-			String filePath, String changeLog, InputStream inputStream)
-		throws SharepointException {
+	public boolean execute(String filePath) throws SharepointException {
+		return false;
 	}
 
 }

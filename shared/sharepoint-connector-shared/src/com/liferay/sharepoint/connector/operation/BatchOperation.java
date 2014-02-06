@@ -12,19 +12,21 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.exception;
+package com.liferay.sharepoint.connector.operation;
+
+import com.liferay.sharepoint.connector.SharepointConnectionImpl;
+import com.liferay.sharepoint.connector.SharepointException;
+import com.liferay.sharepoint.connector.schema.batch.Batch;
 
 /**
- * @author Iván Zaera
+ * @author Ivan Zaera
  */
-public class SharepointRuntimeException extends RuntimeException {
+public class BatchOperation {
 
-	public SharepointRuntimeException(String message) {
-		super(message);
+	public BatchOperation(SharepointConnectionImpl sharepointConnectionImpl) {
 	}
 
-	public SharepointRuntimeException(String message, Throwable cause) {
-		super(message, cause);
+	public void execute(Batch batch) throws SharepointException {
 	}
 
 }

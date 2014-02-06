@@ -12,12 +12,22 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.impl;
+package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.SharepointConnection;
+import com.liferay.sharepoint.connector.SharepointConnectionImpl;
+import com.liferay.sharepoint.connector.SharepointException;
 
 /**
- * @author Iván Zaera
+ * @author Ivan Zaera
  */
-public abstract class SharepointConnectionImpl implements SharepointConnection {
+public class CopyObjectOperation {
+
+	public CopyObjectOperation(
+		SharepointConnectionImpl sharepointConnectionImpl) {
+	}
+
+	public void execute(String path, String newPath)
+		throws SharepointException {
+	}
+
 }

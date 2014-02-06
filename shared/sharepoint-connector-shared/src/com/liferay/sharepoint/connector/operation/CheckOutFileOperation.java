@@ -12,24 +12,22 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.impl;
+package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.SharepointObject;
-import com.liferay.sharepoint.connector.exception.SharepointException;
+import com.liferay.sharepoint.connector.SharepointConnectionImpl;
+import com.liferay.sharepoint.connector.SharepointException;
 
 /**
  * @author Ivan Zaera
  */
-public class GetObjectByPathOperation {
+public class CheckOutFileOperation {
 
-	public GetObjectByPathOperation(
+	public CheckOutFileOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
 	}
 
-	public SharepointObject execute(String filePath)
-		throws SharepointException {
-
-		return null;
+	public boolean execute(String filePath) throws SharepointException {
+		return false;
 	}
 
 }

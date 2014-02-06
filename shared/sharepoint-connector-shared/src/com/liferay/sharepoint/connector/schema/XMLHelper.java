@@ -15,7 +15,7 @@
 package com.liferay.sharepoint.connector.schema;
 
 import com.liferay.portal.kernel.util.StringUtil;
-import com.liferay.sharepoint.connector.exception.SharepointRuntimeException;
+import com.liferay.sharepoint.connector.SharepointRuntimeException;
 
 import java.io.IOException;
 import java.io.StringReader;

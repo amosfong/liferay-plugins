@@ -12,21 +12,19 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.impl;
-
-import com.liferay.sharepoint.connector.exception.SharepointException;
+package com.liferay.sharepoint.connector;
 
 /**
- * @author Ivan Zaera
+ * @author Iván Zaera
  */
-public class CopyObjectOperation {
+public class SharepointException extends Exception {
 
-	public CopyObjectOperation(
-		SharepointConnectionImpl sharepointConnectionImpl) {
+	public SharepointException(String message) {
+		super(message);
 	}
 
-	public void execute(String path, String newPath)
-		throws SharepointException {
+	public SharepointException(String message, Throwable cause) {
+		super(message, cause);
 	}
 
 }

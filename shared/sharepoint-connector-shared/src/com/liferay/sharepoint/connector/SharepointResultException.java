@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.exception;
+package com.liferay.sharepoint.connector;
 
 /**
  * @author Iván Zaera

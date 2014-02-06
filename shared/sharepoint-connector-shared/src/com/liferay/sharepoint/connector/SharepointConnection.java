@@ -14,7 +14,6 @@
 
 package com.liferay.sharepoint.connector;
 
-import com.liferay.sharepoint.connector.exception.SharepointException;
 import com.liferay.sharepoint.connector.schema.query.Query;
 import com.liferay.sharepoint.connector.schema.query.QueryOptionsList;
 

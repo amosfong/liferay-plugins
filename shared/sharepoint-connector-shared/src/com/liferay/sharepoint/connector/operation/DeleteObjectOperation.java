@@ -12,21 +12,21 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.impl;
+package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.exception.SharepointException;
+import com.liferay.sharepoint.connector.SharepointConnectionImpl;
+import com.liferay.sharepoint.connector.SharepointException;
 
 /**
  * @author Ivan Zaera
  */
-public class CancelCheckOutFileOperation {
+public class DeleteObjectOperation {
 
-	public CancelCheckOutFileOperation(
+	public DeleteObjectOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
 	}
 
-	public boolean execute(String filePath) throws SharepointException {
-		return false;
+	public void execute(String path) throws SharepointException {
 	}
 
 }

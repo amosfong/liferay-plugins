@@ -12,20 +12,21 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.impl;
+package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.exception.SharepointException;
+import com.liferay.sharepoint.connector.SharepointConnectionImpl;
+import com.liferay.sharepoint.connector.SharepointException;
 
 /**
  * @author Ivan Zaera
  */
-public class AddFolderOperation {
+public class MoveObjectOperation {
 
-	public AddFolderOperation(
+	public MoveObjectOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
 	}
 
-	public void execute(String folderPath, String folderName)
+	public void execute(String path, String newPath)
 		throws SharepointException {
 	}
 

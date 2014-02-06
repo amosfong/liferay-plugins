@@ -12,19 +12,27 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.exception;
+package com.liferay.sharepoint.connector.operation;
+
+import com.liferay.sharepoint.connector.SharepointConnectionImpl;
+import com.liferay.sharepoint.connector.SharepointException;
+import com.liferay.sharepoint.connector.SharepointVersion;
+
+import java.util.List;
 
 /**
- * @author Iván Zaera
+ * @author Ivan Zaera
  */
-public class SharepointException extends Exception {
+public class GetFileVersionsOperation {
 
-	public SharepointException(String message) {
-		super(message);
+	public GetFileVersionsOperation(
+		SharepointConnectionImpl sharepointConnectionImpl) {
 	}
 
-	public SharepointException(String message, Throwable cause) {
-		super(message, cause);
+	public List<SharepointVersion> execute(String filePath)
+		throws SharepointException {
+
+		return null;
 	}
 
 }

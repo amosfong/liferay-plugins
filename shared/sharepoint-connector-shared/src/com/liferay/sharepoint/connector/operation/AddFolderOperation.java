@@ -12,26 +12,22 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.impl;
+package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.SharepointObject;
-import com.liferay.sharepoint.connector.exception.SharepointException;
-
-import java.util.List;
+import com.liferay.sharepoint.connector.SharepointConnectionImpl;
+import com.liferay.sharepoint.connector.SharepointException;
 
 /**
  * @author Ivan Zaera
  */
-public class GetObjectsByNameOperation {
+public class AddFolderOperation {
 
-	public GetObjectsByNameOperation(
+	public AddFolderOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
 	}
 
-	public List<SharepointObject> execute(String name)
+	public void execute(String folderPath, String folderName)
 		throws SharepointException {
-
-		return null;
 	}
 
 }

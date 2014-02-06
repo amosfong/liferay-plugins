@@ -12,21 +12,10 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.impl;
-
-import com.liferay.sharepoint.connector.exception.SharepointException;
+package com.liferay.sharepoint.connector;
 
 /**
- * @author Ivan Zaera
+ * @author Iván Zaera
  */
-public class CheckOutFileOperation {
-
-	public CheckOutFileOperation(
-		SharepointConnectionImpl sharepointConnectionImpl) {
-	}
-
-	public boolean execute(String filePath) throws SharepointException {
-		return false;
-	}
-
+public abstract class SharepointConnectionImpl implements SharepointConnection {
 }

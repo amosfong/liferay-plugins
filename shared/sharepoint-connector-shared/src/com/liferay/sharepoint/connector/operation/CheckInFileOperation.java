@@ -12,20 +12,26 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.impl;
+package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.exception.SharepointException;
-import com.liferay.sharepoint.connector.schema.batch.Batch;
+import com.liferay.sharepoint.connector.SharepointConnection.CheckInType;
+import com.liferay.sharepoint.connector.SharepointConnectionImpl;
+import com.liferay.sharepoint.connector.SharepointException;
 
 /**
  * @author Ivan Zaera
  */
-public class BatchOperation {
+public class CheckInFileOperation {
 
-	public BatchOperation(SharepointConnectionImpl sharepointConnectionImpl) {
+	public CheckInFileOperation(
+		SharepointConnectionImpl sharepointConnectionImpl) {
 	}
 
-	public void execute(Batch batch) throws SharepointException {
+	public boolean execute(
+			String filePath, String comment, CheckInType checkInType)
+		throws SharepointException {
+
+		return false;
 	}
 
 }
