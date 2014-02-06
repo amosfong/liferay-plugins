@@ -12,11 +12,10 @@
  * details.
  */
 
-package com.liferay.sharepoint.connector.impl;
+package com.liferay.sharepoint.connector.schema;
 
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.sharepoint.connector.exception.SharepointRuntimeException;
-import com.liferay.sharepoint.connector.schema.Node;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -46,35 +45,35 @@ import org.xml.sax.SAXException;
  */
 public class XMLHelper {
 
-	public Element getChild(String tagName, org.w3c.dom.Node parent) {
-		for (org.w3c.dom.Node child = parent.getFirstChild();
-				child != null;
-					child = child.getNextSibling()) {
+	public Element getElement(AnyContentType anyContentType) {
+		try {
+			return anyContentType.get_any()[0].getAsDOM();
+		}
+		catch (Exception e) {
+			throw new SharepointRuntimeException(
+				"Unable to parse response from Sharepoint server", e);
+		}
+	}
 
-			String localName = child.getLocalName();
+	public Element getElement(String nodeName, org.w3c.dom.Node w3CNode) {
+		for (org.w3c.dom.Node childW3CNode = w3CNode.getFirstChild();
+				childW3CNode != null;
+					childW3CNode = childW3CNode.getNextSibling()) {
+
+			String localName = childW3CNode.getLocalName();
 
 			if ((localName != null) &&
-				StringUtil.equalsIgnoreCase(localName, tagName)) {
+				StringUtil.equalsIgnoreCase(localName, nodeName)) {
 
-				return (Element)child;
+				return (Element)childW3CNode;
 			}
 		}
 
 		return null;
 	}
 
-	public Element getElement(AnyContentType container) {
-		try {
-			return container.get_any()[0].getAsDOM();
-		}
-		catch (Exception e) {
-			throw new SharepointRuntimeException(
-				"Cannot parse response from Sharepoint server", e);
-		}
-	}
-
 	public Element toElement(Node node) {
-		return _parseXML(node.toXmlString());
+		return _toElement(node.toXmlString());
 	}
 
 	public String toString(Element element) {
@@ -92,20 +91,22 @@ public class XMLHelper {
 
 		transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, "yes");
 
-		StringWriter writer = new StringWriter();
+		StringWriter stringWriter = new StringWriter();
 
 		try {
 			transformer.transform(
-				new DOMSource(element), new StreamResult(writer));
+				new DOMSource(element), new StreamResult(stringWriter));
 		}
 		catch (TransformerException te) {
 			throw new RuntimeException(te);
 		}
 
-		return writer.getBuffer().toString();
+		StringBuffer stringBuffer = stringWriter.getBuffer();
+
+		return stringBuffer.toString();
 	}
 
-	private Element _parseXML(String xml) {
+	private Element _toElement(String xml) {
 		try {
 			DocumentBuilderFactory documentBuilderFactory =
 				DocumentBuilderFactory.newInstance();
@@ -121,14 +122,14 @@ public class XMLHelper {
 
 			return document.getDocumentElement();
 		}
-		catch (SAXException saxe) {
-			throw new RuntimeException(saxe);
-		}
 		catch (IOException ioe) {
 			throw new RuntimeException(ioe);
 		}
 		catch (ParserConfigurationException pce) {
 			throw new RuntimeException(pce);
+		}
+		catch (SAXException saxe) {
+			throw new RuntimeException(saxe);
 		}
 	}
 
