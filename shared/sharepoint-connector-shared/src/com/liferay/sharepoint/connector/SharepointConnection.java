@@ -66,11 +66,24 @@ public interface SharepointConnection {
 		throws SharepointException;
 
 	public List<SharepointObject> getObjects(
-			String folderPath, ObjectTypeFilter filter)
+			String folderPath, ObjectTypeFilter objectTypeFilter)
 		throws SharepointException;
 
-	public int getObjectsCount(String folderPath, ObjectTypeFilter filter)
+	public int getObjectsCount(
+			String folderPath, ObjectTypeFilter objectTypeFilter)
 		throws SharepointException;
+
+	public String getServerAddress();
+
+	public int getServerPort();
+
+	public String getServerURL();
+
+	public String getServiceURL();
+
+	public String getSitePath();
+
+	public String getUsername();
 
 	public InputStream getVersionContent(SharepointVersion sharepointVersion)
 		throws SharepointException;
@@ -84,20 +97,16 @@ public interface SharepointConnection {
 	public void updateFile(String filePath, InputStream inputStream)
 		throws SharepointException;
 
-	String getServerURL();
-
-	String getSitePath();
-
 	public enum CheckInType {
 
 		MINOR(0), MAJOR(1), OVERWRITE(2);
 
-		CheckInType(int protocolValue) {
-			_protocolValue = protocolValue;
-		}
-
 		public int getProtocolValue() {
 			return _protocolValue;
+		}
+
+		private CheckInType(int protocolValue) {
+			_protocolValue = protocolValue;
 		}
 
 		private final int _protocolValue;
@@ -108,13 +117,5 @@ public interface SharepointConnection {
 		FILES, FOLDERS, ALL
 
 	}
-
-	String getServerAddress();
-
-	int getServerPort();
-
-	String getUser();
-
-	String getServiceURL();
 
 }

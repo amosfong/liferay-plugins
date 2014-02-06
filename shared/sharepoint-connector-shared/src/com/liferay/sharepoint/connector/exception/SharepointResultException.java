@@ -17,7 +17,6 @@ package com.liferay.sharepoint.connector.exception;
 /**
  * @author Iván Zaera
  */
-@SuppressWarnings("serial")
 public class SharepointResultException extends SharepointException {
 
 	public SharepointResultException(String errorCode, String errorText) {

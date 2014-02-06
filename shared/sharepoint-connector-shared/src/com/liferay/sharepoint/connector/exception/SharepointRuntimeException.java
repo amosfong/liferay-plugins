@@ -17,7 +17,6 @@ package com.liferay.sharepoint.connector.exception;
 /**
  * @author Iván Zaera
  */
-@SuppressWarnings("serial")
 public class SharepointRuntimeException extends RuntimeException {
 
 	public SharepointRuntimeException(String message) {
