@@ -20,7 +20,7 @@ import com.liferay.sharepoint.connector.schema.batch.Batch;
 /**
  * @author Ivan Zaera
  */
-class BatchOperation {
+public class BatchOperation {
 
 	public BatchOperation(SharepointConnectionImpl sharepointConnectionImpl) {
 	}
