@@ -1,26 +1,29 @@
 @import "compass";
 
-.lcs-portlet {
-	color: #2D2D2D;
+$text-blue: #009AE5;
+$text-darkgrey: #656565;
+$text-lightgrey: #8D8D8D;
 
-	&:after {
-		clear: both;
-		content: "";
-		display: block;
-		visibility: hidden;
-	}
+.lcs-portlet {
+	color: $text-darkgrey;
 
 	dl {
-		color: #696969;
 		margin: 0;
 
 		dt {
-			font-weight: bold;
+			color: $text-darkgrey;
 		}
 
 		dd {
-			margin: 0 0 4px 10px;
+			margin: 0 0 25px;
+			min-height: 20px;
+			color: $text-lightgrey;
 		}
+	}
+
+	h3 {
+		font-size: 20px;
+		line-height: 20px;
 	}
 
 	.aui-field-select {
@@ -50,61 +53,88 @@
 		margin: 0 0 10px 22px;
 	}
 
-	.lcs-connection-status {
-		background-color: #FFF;
-		float: left;
-		max-width: 300px;
-		position: relative;
+	.lcs-header {
+		color: $text-lightgrey;
+		padding-bottom: 25px;
 
-		& > h4 {
-			line-height: 61px;
-			margin-bottom: 0;
-			padding-left: 10px;
+		&:after {
+			clear: both;
+			content: "";
+			display: block;
+			visibility: hidden;
 		}
 
-		.lcs-msg {
-			border-style: solid;
-			border-width: 1px;
-			margin-bottom: 16px;
-			padding: 10px;
+		.lcs-connection-status {
+			float: left;
+			margin-right: 25px;
 
-			.lcs-msg-icon {
-				background: url(../images/connection_red.png) no-repeat right center;
-				display: block;
-				height: 61px;
-				position: absolute;
-				right: 20px;
-				top: 0;
-				width: 64px;
+			.lcs-connection-icon {
+				height: 29px;
+				margin: 0 auto 2px;
+				position: relative;
+				width: 29px;
+
+				&.lcs-icon-disconnected {
+					background-image: url(../images/connection_red.png);
+				}
+
+				&.lcs-icon-pending {
+					background-image: url(../images/connection_orange.png);
+				}
+
+				&.lcs-icon-connected {
+					background-image: url(../images/connection_green.png);
+				}
+
+				.taglib-icon-help {
+					position: absolute;
+					right: -20px;
+					top: -2px;
+				}
+			}
+
+			.lcs-connection-label {
+				font-size: 12px;
+				line-height: 12px;
+				text-align: center;
 			}
 		}
 
-		.lcs-msg-disconnected .lcs-msg-icon {
-			background-image: url(../images/connection_red.png);
-		}
+		.lcs-header-title {
+			float: left;
 
-		.lcs-msg-pending .lcs-msg-icon {
-			background-image: url(../images/connection_orange.png);
-		}
+			.lcs-account {
+				color: $text-blue;
+				font-size: 20px;
+				line-height: 20px;
+				margin-bottom: 4px;
+			}
 
-		.lcs-msg-registered .lcs-msg-icon {
-			background-image: url(../images/connection_green.png);
-		}
-
-		.lcs-separator {
-			border-color: #EEE;
-			margin: 10px 0;
+			.lcs-portal {
+				font-size: 15px;
+				line-height: 15px;
+			}
 		}
 	}
 
-	.lcs-server-info {
-		float: left;
-		margin: 0 50px 20px 0;
-		max-width: 300px;
-		word-wrap: break-word;
+	.lcs-info {
+		&:after {
+			clear: both;
+			content: "";
+			display: block;
+			visibility: hidden;
+		}
 
-		.lcs-server-details {
-			margin-left: 10px;
+		.lcs-connection-info {
+			float: left;
+			width: 300px;
+			word-wrap: break-word;
+		}
+
+		.lcs-server-info {
+			float: left;
+			width: 300px;
+			word-wrap: break-word;
 		}
 	}
 
