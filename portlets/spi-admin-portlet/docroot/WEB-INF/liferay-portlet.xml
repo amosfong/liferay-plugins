@@ -5,7 +5,7 @@
 	<portlet>
 		<portlet-name>1</portlet-name>
 		<icon>/icon.png</icon>
-		<configuration-action-class>com.liferay.portal.resiliency.spi.portlet.action.ConfigurationActionImpl</configuration-action-class>
+		<configuration-action-class>com.liferay.portal.kernel.portlet.DefaultConfigurationAction</configuration-action-class>
 		<control-panel-entry-category>configuration</control-panel-entry-category>
 		<preferences-unique-per-layout>false</preferences-unique-per-layout>
 		<header-portlet-css>/css/main.css</header-portlet-css>

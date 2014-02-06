@@ -61,6 +61,10 @@ String useDefaultRestartOptionsString = typeSettingsProperties.getProperty("use-
 if (Validator.isNotNull(useDefaultRestartOptionsString)) {
 	useDefaultRestartOptions = GetterUtil.getBoolean(useDefaultRestartOptionsString);
 }
+
+if (useDefaultRestartOptions) {
+	maxRestartAttempts = defaultMaxRestartAttempts;
+}
 %>
 
 <liferay-ui:header
@@ -179,7 +183,9 @@ if (Validator.isNotNull(useDefaultRestartOptionsString)) {
 					data.put("defaultValue", defaultMaxRestartAttempts);
 					%>
 
-					<aui:input data="<%= data %>" disabled="<%= useDefaultRestartOptions %>" helpMessage="maximum-restart-attempts-help" id="maxRestartAttempts" label="maximum-restart-attempts" name="TypeSettingsProperties--max-restart-attempts--" type="text" value="<%= maxRestartAttempts %>" />
+					<aui:input data="<%= data %>" disabled="<%= useDefaultRestartOptions %>" helpMessage="maximum-restart-attempts-help" id="maxRestartAttempts" label="maximum-restart-attempts" name="TypeSettingsProperties--max-restart-attempts--" type="text" value="<%= maxRestartAttempts %>">
+						<aui:validator name="min">"0"</aui:validator>
+					</aui:input>
 				</aui:fieldset>
 			</liferay-ui:panel>
 		</liferay-ui:panel>

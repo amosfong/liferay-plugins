@@ -53,7 +53,9 @@ String notificationRecipients = PrefsParamUtil.getString(portletPreferences, req
 
 	<liferay-ui:panel collapsible="<%= true %>" extended="<%= true %>" persistState="<%= true %>" title="restart-options">
 		<aui:fieldset>
-			<aui:input cssClass="lfr-input-text-container" helpMessage="maximum-restart-attempts-help" label="maximum-restart-attempts" name="preferences--maxRestartAttempts--" value="<%= maxRestartAttempts %>" />
+			<aui:input cssClass="lfr-input-text-container" helpMessage="maximum-restart-attempts-help" label="maximum-restart-attempts" name="preferences--maxRestartAttempts--" value="<%= maxRestartAttempts %>">
+				<aui:validator name="min">"0"</aui:validator>
+			</aui:input>
 		</aui:fieldset>
 	</liferay-ui:panel>
 
