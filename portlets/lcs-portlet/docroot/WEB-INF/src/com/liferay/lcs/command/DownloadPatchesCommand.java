@@ -56,31 +56,31 @@ public class DownloadPatchesCommand implements Command {
 		Map<String, String> payload =
 			(Map<String, String>)requestCommandMessage.getPayload();
 
-		try {
-			for (String fileName : payload.keySet()) {
-				if (_log.isInfoEnabled()) {
-					_log.info("Downloading patch " + fileName);
-				}
+		for (String fileName : payload.keySet()) {
+			if (_log.isInfoEnabled()) {
+				_log.info("Downloading patch " + fileName);
+			}
 
-				Map<String, Integer> responsePayload =
-					new HashMap<String, Integer>();
+			Map<String, Integer> responsePayload =
+				new HashMap<String, Integer>();
 
-				responsePayload.put(fileName, LCSConstants.PATCHES_DOWNLOADING);
+			responsePayload.put(fileName, LCSConstants.PATCHES_DOWNLOADING);
 
-				ResponseCommandMessage responseCommandMessage =
-					ResponseCommandMessageUtil.createResponseCommandMessage(
-						requestCommandMessage, responsePayload);
+			ResponseCommandMessage responseCommandMessage =
+				ResponseCommandMessageUtil.createResponseCommandMessage(
+					requestCommandMessage, responsePayload);
 
-				_lcsGatewayService.sendMessage(responseCommandMessage);
+			_lcsGatewayService.sendMessage(responseCommandMessage);
 
-				File file = new File(PatcherUtil.getPatchDirectory(), fileName);
+			File file = new File(PatcherUtil.getPatchDirectory(), fileName);
 
-				String urlString = payload.get(fileName);
+			String urlString = payload.get(fileName);
 
-				if (_log.isDebugEnabled()) {
-					_log.debug("Download URL " + urlString);
-				}
+			if (_log.isDebugEnabled()) {
+				_log.debug("Download URL " + urlString);
+			}
 
+			try {
 				URL url = new URL(urlString);
 
 				InputStream inputStream = new BufferedInputStream(
@@ -89,24 +89,37 @@ public class DownloadPatchesCommand implements Command {
 				FileUtil.write(file, inputStream);
 
 				inputStream.close();
-
-				if (_log.isInfoEnabled()) {
-					_log.info("Downloaded patch " + fileName);
-				}
+			}
+			catch (IOException ioe) {
+				_log.error(ioe);
 
 				responsePayload.clear();
 
-				responsePayload.put(fileName, LCSConstants.PATCHES_DOWNLOADED);
+				responsePayload.put(fileName, LCSConstants.PATCHES_ERROR);
 
 				responseCommandMessage =
 					ResponseCommandMessageUtil.createResponseCommandMessage(
-						requestCommandMessage, responsePayload);
+						requestCommandMessage, responsePayload,
+						ioe.getMessage());
 
 				_lcsGatewayService.sendMessage(responseCommandMessage);
+
+				return;
 			}
-		}
-		catch (IOException ioe) {
-			throw new SystemException(ioe);
+
+			if (_log.isInfoEnabled()) {
+				_log.info("Downloaded patch " + fileName);
+			}
+
+			responsePayload.clear();
+
+			responsePayload.put(fileName, LCSConstants.PATCHES_DOWNLOADED);
+
+			responseCommandMessage =
+				ResponseCommandMessageUtil.createResponseCommandMessage(
+					requestCommandMessage, responsePayload);
+
+			_lcsGatewayService.sendMessage(responseCommandMessage);
 		}
 	}
 
