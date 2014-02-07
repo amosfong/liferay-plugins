@@ -91,7 +91,7 @@ public class DownloadPatchesCommand implements Command {
 				inputStream.close();
 			}
 			catch (IOException ioe) {
-				_log.error(ioe);
+				_log.error(ioe, ioe);
 
 				responsePayload.clear();
 
