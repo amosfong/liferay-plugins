@@ -56,8 +56,8 @@ public class FeedbackAdminPortlet extends MVCPortlet {
 		try {
 			String resourceId = resourceRequest.getResourceID();
 
-			if (resourceId.equals("getCategories")) {
-				getCategories(resourceRequest, resourceResponse);
+			if (resourceId.equals("getMBCategories")) {
+				getMBCategories(resourceRequest, resourceResponse);
 			}
 		}
 		catch (Exception e) {
@@ -106,7 +106,7 @@ public class FeedbackAdminPortlet extends MVCPortlet {
 		}
 	}
 
-	protected void getCategories(
+	protected void getMBCategories(
 			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 		throws Exception {
 
@@ -115,10 +115,10 @@ public class FeedbackAdminPortlet extends MVCPortlet {
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
 		List<MBCategory> mbCategories =
-			MBCategoryLocalServiceUtil.getCategories(
+			MBCategoryLocalServiceUtil.getMBCategories(
 				groupId, WorkflowConstants.STATUS_APPROVED);
 
-		jsonObject.put("categories", getJsonArray(mbCategories));
+		jsonObject.put("mbCategories", getJsonArray(mbCategories));
 
 		writeJSON(resourceRequest, resourceResponse, jsonObject);
 	}
@@ -129,8 +129,8 @@ public class FeedbackAdminPortlet extends MVCPortlet {
 		for (MBCategory mbCategory : mbCategories) {
 			JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
-			jsonObject.put("categoryId", mbCategory.getCategoryId());
-			jsonObject.put("categoryName", mbCategory.getName());
+			jsonObject.put("mbCategoryId", mbCategory.getCategoryId());
+			jsonObject.put("mbCategoryName", mbCategory.getName());
 
 			jsonArray.put(jsonObject);
 		}

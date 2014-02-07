@@ -23,22 +23,4 @@ import com.liferay.util.ContentUtil;
  * @author Lin Cui
  */
 public class FeedbackUtil {
-
-	public static String[] getFeedbackQuestions() throws SystemException {
-		String feedbackTemplate = ContentUtil.get(
-			FeedbackConstants.FEEDBACK_TEMPLATE);
-
-		if ((feedbackTemplate == null) ||
-			(feedbackTemplate.trim().length() == 0)) {
-
-			return new String[0];
-		}
-		else {
-			String[] questions = StringUtil.split(
-				feedbackTemplate, StringPool.NEW_LINE);
-
-			return questions;
-		}
-	}
-
 }
