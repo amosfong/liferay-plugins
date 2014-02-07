@@ -115,7 +115,7 @@ public class FeedbackAdminPortlet extends MVCPortlet {
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
 		List<MBCategory> mbCategories =
-			MBCategoryLocalServiceUtil.getMBCategories(
+			MBCategoryLocalServiceUtil.getCategories(
 				groupId, WorkflowConstants.STATUS_APPROVED);
 
 		jsonObject.put("mbCategories", getJsonArray(mbCategories));
