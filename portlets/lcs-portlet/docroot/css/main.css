@@ -15,9 +15,9 @@ $text-lightgrey: #8D8D8D;
 		}
 
 		dd {
+			color: $text-lightgrey;
 			margin: 0 0 25px;
 			min-height: 20px;
-			color: $text-lightgrey;
 		}
 	}
 

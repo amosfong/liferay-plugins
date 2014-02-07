@@ -66,6 +66,7 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 		<div class="lcs-account">
 			<%= HtmlUtil.escape(corpEntryIdentifier.getName()) %>
 		</div>
+
 		<div class="lcs-portal">
 			<liferay-ui:message key="visit" />:
 
@@ -92,9 +93,8 @@ for (CorpEntryIdentifier currentCorpEntryIdentifier : CorpEntryServiceUtil.getCo
 	</c:when>
 	<c:otherwise>
 		<div class="lcs-environment">
-			<h3>
-				<liferay-ui:message key="environment" />
-			</h3>
+			<h3><liferay-ui:message key="environment" /></h3>
+
 			<dl>
 				<dd>
 					<%= HtmlUtil.escape(lcsClusterEntry.getName()) %>
