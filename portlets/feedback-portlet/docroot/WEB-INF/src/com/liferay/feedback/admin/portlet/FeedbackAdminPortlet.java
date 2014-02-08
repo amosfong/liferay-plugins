@@ -106,6 +106,21 @@ public class FeedbackAdminPortlet extends MVCPortlet {
 		}
 	}
 
+	protected JSONArray getJsonArray(List<MBCategory> mbCategories) {
+		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
+
+		for (MBCategory mbCategory : mbCategories) {
+			JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
+
+			jsonObject.put("mbCategoryId", mbCategory.getCategoryId());
+			jsonObject.put("mbCategoryName", mbCategory.getName());
+
+			jsonArray.put(jsonObject);
+		}
+
+		return jsonArray;
+	}
+
 	protected void getMBCategories(
 			ResourceRequest resourceRequest, ResourceResponse resourceResponse)
 		throws Exception {
@@ -121,21 +136,6 @@ public class FeedbackAdminPortlet extends MVCPortlet {
 		jsonObject.put("mbCategories", getJsonArray(mbCategories));
 
 		writeJSON(resourceRequest, resourceResponse, jsonObject);
-	}
-
-	protected JSONArray getJsonArray(List<MBCategory> mbCategories) {
-		JSONArray jsonArray = JSONFactoryUtil.createJSONArray();
-
-		for (MBCategory mbCategory : mbCategories) {
-			JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
-
-			jsonObject.put("mbCategoryId", mbCategory.getCategoryId());
-			jsonObject.put("mbCategoryName", mbCategory.getName());
-
-			jsonArray.put(jsonObject);
-		}
-
-		return jsonArray;
 	}
 
 }

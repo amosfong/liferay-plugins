@@ -80,8 +80,7 @@ public class FeedbackPortlet extends MVCPortlet {
 		long groupId = ParamUtil.getLong(actionRequest, "groupId");
 		long categoryId = ParamUtil.getLong(actionRequest, "categoryId");
 		String comments = ParamUtil.getString(actionRequest, "comments");
-		String feedbackType = ParamUtil.getString(
-			actionRequest, "feedbackType");
+		String type = ParamUtil.getString(actionRequest, "type");
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
@@ -89,7 +88,7 @@ public class FeedbackPortlet extends MVCPortlet {
 			String feedbackBody = StringPool.BLANK;
 
 			if (Validator.isNotNull(comments)) {
-				String question = FeedbackUtil.getFeedbackBody(feedbackType);
+				String question = FeedbackUtil.getFeedbackBody(type);
 
 				StringBundler sb = new StringBundler(4);
 
