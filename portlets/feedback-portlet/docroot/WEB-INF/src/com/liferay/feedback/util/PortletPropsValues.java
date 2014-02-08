@@ -14,24 +14,19 @@
 
 package com.liferay.feedback.util;
 
-import com.liferay.portal.kernel.configuration.Filter;
-import com.liferay.portal.kernel.exception.SystemException;
-import com.liferay.util.ContentUtil;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.util.portlet.PortletProps;
 
 /**
- * @author Lin Cui
+ * @author Brian Wing Shun Chan
  */
-public class FeedbackUtil {
+public class PortletPropsValues {
 
-	public static String getFeedbackBody(String type) throws Exception {
-		return ContentUtil.get(
-			PortletProps.get(
-				PortletPropsValues.FEEDBACK_BODY, new Filter(type)));
-	}
+	public static final String FEEDBACK_BODY = GetterUtil.getString(
+		PortletProps.get(PortletPropsKeys.FEEDBACK_BODY));
 
-	public static String getFeedbackSubject() throws SystemException {
-		return ContentUtil.get(PortletPropsValues.FEEDBACK_SUBJECT);
-	}
+	public static final String FEEDBACK_SUBJECT =
+		GetterUtil.getString(
+			PortletProps.get(PortletPropsKeys.FEEDBACK_SUBJECT));
 
 }
