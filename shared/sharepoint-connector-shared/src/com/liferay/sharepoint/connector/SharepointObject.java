@@ -183,36 +183,33 @@ public class SharepointObject {
 	}
 
 	private String _getExtension(String path) {
-		int i = path.lastIndexOf(StringPool.PERIOD);
+		int index = path.lastIndexOf(StringPool.PERIOD);
 
-		if (i == -1) {
+		if (index == -1) {
 			return StringPool.BLANK;
 		}
-		else {
-			return path.substring(i + 1);
-		}
+
+		return path.substring(index + 1);
 	}
 
 	private String _getFolderPath(String path) {
-		int i = path.lastIndexOf(StringPool.SLASH);
+		int index = path.lastIndexOf(StringPool.SLASH);
 
-		if (i == 0) {
+		if (index == 0) {
 			return StringPool.SLASH;
 		}
-		else {
-			return path.substring(0, i);
-		}
+
+		return path.substring(0, index);
 	}
 
 	private String _getName(String path) {
 		if (path.equals(StringPool.SLASH)) {
 			return StringPool.SLASH;
 		}
-		else {
-			int i = path.lastIndexOf(StringPool.SLASH);
 
-			return path.substring(i + 1);
-		}
+		int index = path.lastIndexOf(StringPool.SLASH);
+
+		return path.substring(index + 1);
 	}
 
 	private String _author;
