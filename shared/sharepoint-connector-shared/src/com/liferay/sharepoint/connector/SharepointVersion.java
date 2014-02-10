@@ -14,11 +14,11 @@
 
 package com.liferay.sharepoint.connector;
 
+import com.liferay.portal.kernel.util.StringBundler;
+
 import java.net.URL;
 
 import java.util.Date;
-
-import com.liferay.portal.kernel.util.StringBundler;
 
 /**
  * @author Ivan Zaera
