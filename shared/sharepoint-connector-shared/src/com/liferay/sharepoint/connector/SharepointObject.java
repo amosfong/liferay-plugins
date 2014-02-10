@@ -139,7 +139,7 @@ public class SharepointObject {
 		return sb.toString();
 	}
 
-	public static enum Permission {
+	public enum Permission {
 
 		VIEW_LIST_ITEMS(0x0000000000000001L),
 		ADD_LIST_ITEMS(0x0000000000000002L),
