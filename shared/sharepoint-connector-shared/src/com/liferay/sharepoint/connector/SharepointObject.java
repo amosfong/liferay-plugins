@@ -27,7 +27,7 @@ import java.util.Set;
 public class SharepointObject {
 
 	public SharepointObject(
-		long sharepointObjectId, URL url, String path, boolean isFolder,
+		long sharepointObjectId, URL url, String path, boolean folder,
 		long size, Date createdDate, Date lastModifiedDate, String author,
 		String checkedOutBy, Set<Permission> permissions) {
 
@@ -37,7 +37,7 @@ public class SharepointObject {
 		_folderPath = _getFolderPath(path);
 		_name = _getName(path);
 		_extension = _getExtension(path);
-		_isFolder = isFolder;
+		_folder = folder;
 		_size = size;
 		_createdDate = createdDate;
 		_lastModifiedDate = lastModifiedDate;
@@ -99,7 +99,7 @@ public class SharepointObject {
 	}
 
 	public boolean isFolder() {
-		return _isFolder;
+		return _folder;
 	}
 
 	@Override
@@ -193,7 +193,7 @@ public class SharepointObject {
 	private Date _createdDate;
 	private String _extension;
 	private String _folderPath;
-	private boolean _isFolder;
+	private boolean _folder;
 	private Date _lastModifiedDate;
 	private String _name;
 	private String _path;
