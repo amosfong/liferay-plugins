@@ -69,15 +69,13 @@ public class FeedbackPortlet extends MVCPortlet {
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		long userId = themeDisplay.getUserId();
-
 		User user = UserLocalServiceUtil.getUser(userId);
 
-		boolean anonymous = ParamUtil.getBoolean(actionRequest, "anonymous");
-		String body = ParamUtil.getString(actionRequest, "body");
 		long groupId = ParamUtil.getLong(actionRequest, "groupId");
 		long categoryId = ParamUtil.getLong(actionRequest, "categoryId");
 		String type = ParamUtil.getString(actionRequest, "type");
+		String body = ParamUtil.getString(actionRequest, "body");
+		boolean anonymous = ParamUtil.getBoolean(actionRequest, "anonymous");
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
