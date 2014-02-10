@@ -69,7 +69,7 @@ public class FeedbackPortlet extends MVCPortlet {
 		ThemeDisplay themeDisplay = (ThemeDisplay)actionRequest.getAttribute(
 			WebKeys.THEME_DISPLAY);
 
-		User user = UserLocalServiceUtil.getUser(userId);
+		User user = themeDisplay.getUser();
 
 		long groupId = ParamUtil.getLong(actionRequest, "groupId");
 		long categoryId = ParamUtil.getLong(actionRequest, "categoryId");
@@ -77,14 +77,14 @@ public class FeedbackPortlet extends MVCPortlet {
 		String body = ParamUtil.getString(actionRequest, "body");
 		boolean anonymous = ParamUtil.getBoolean(actionRequest, "anonymous");
 
+		ServiceContext serviceContext =
+			ServiceContextThreadLocal.getServiceContext();
+
+		serviceContext.setAddGuestPermissions(true);
+
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
 		try {
-			ServiceContext serviceContext =
-				ServiceContextThreadLocal.getServiceContext();
-
-			serviceContext.setAddGuestPermissions(true);
-
 			MBMessageLocalServiceUtil.addMessage(
 				user.getUserId(), user.getFullName(), groupId, categoryId,
 				FeedbackUtil.getFeedbackSubject(type), body, "plain",
