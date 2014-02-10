@@ -26,16 +26,16 @@ import com.liferay.portal.kernel.util.StringBundler;
 public class SharepointVersion {
 
 	public SharepointVersion(
-		String sharepointVersionId, URL url, String version, String comments,
-		long size, Date createdDate, String createdBy) {
+		String comments, String createdBy, Date createdDate,
+		String sharepointVersionId, long size, URL url, String version) {
 
+		_comments = comments;
+		_createdBy = createdBy;
+		_createdDate = createdDate;
 		_sharepointVersionId = sharepointVersionId;
+		_size = size;
 		_url = url;
 		_version = version;
-		_comments = comments;
-		_size = size;
-		_createdDate = createdDate;
-		_createdBy = createdBy;
 	}
 
 	public String getComments() {

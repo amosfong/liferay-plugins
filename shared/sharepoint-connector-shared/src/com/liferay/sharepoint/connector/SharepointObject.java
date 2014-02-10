@@ -28,23 +28,24 @@ import java.util.Set;
 public class SharepointObject {
 
 	public SharepointObject(
-		long sharepointObjectId, URL url, String path, boolean folder,
-		long size, Date createdDate, Date lastModifiedDate, String author,
-		String checkedOutBy, Set<Permission> permissions) {
+		String author, String checkedOutBy, Date createdDate, boolean folder,
+		Date lastModifiedDate, String path, Set<Permission> permissions,
+		long sharepointObjectId, long size, URL url) {
 
-		_sharepointObjectId = sharepointObjectId;
-		_url = url;
-		_path = path;
-		_folderPath = _getFolderPath(path);
-		_name = _getName(path);
-		_extension = _getExtension(path);
-		_folder = folder;
-		_size = size;
-		_createdDate = createdDate;
-		_lastModifiedDate = lastModifiedDate;
 		_author = author;
 		_checkedOutBy = checkedOutBy;
+		_createdDate = createdDate;
+		_folder = folder;
+		_lastModifiedDate = lastModifiedDate;
+		_path = path;
 		_permissions = permissions;
+		_sharepointObjectId = sharepointObjectId;
+		_size = size;
+		_url = url;
+
+		_extension = _getExtension(path);
+		_folderPath = _getFolderPath(path);
+		_name = _getName(path);
 	}
 
 	public String getAuthor() {
