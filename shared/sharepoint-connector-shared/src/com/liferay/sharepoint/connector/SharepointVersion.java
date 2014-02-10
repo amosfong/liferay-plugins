@@ -18,6 +18,8 @@ import java.net.URL;
 
 import java.util.Date;
 
+import com.liferay.portal.kernel.util.StringBundler;
+
 /**
  * @author Ivan Zaera
  */
@@ -66,7 +68,25 @@ public class SharepointVersion {
 
 	@Override
 	public String toString() {
-		return "version:" + _sharepointVersionId;
+		StringBundler sb = new StringBundler(15);
+
+		sb.append("{comments=");
+		sb.append(_comments);
+		sb.append(", createdBy=");
+		sb.append(_createdBy);
+		sb.append(", createdDate=");
+		sb.append(_createdDate);
+		sb.append(", sharepointVersionId=");
+		sb.append(_sharepointVersionId);
+		sb.append(", size=");
+		sb.append(_size);
+		sb.append(", url=");
+		sb.append(_url);
+		sb.append(", version=");
+		sb.append(_version);
+		sb.append("}");
+
+		return sb.toString();
 	}
 
 	private String _comments;
