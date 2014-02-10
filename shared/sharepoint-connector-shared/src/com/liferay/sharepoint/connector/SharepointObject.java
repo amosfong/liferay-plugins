@@ -14,6 +14,7 @@
 
 package com.liferay.sharepoint.connector;
 
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 
 import java.net.URL;
@@ -104,12 +105,37 @@ public class SharepointObject {
 
 	@Override
 	public String toString() {
-		if (isFolder()) {
-			return "folder:" + _path;
-		}
-		else {
-			return "file:" + _path;
-		}
+		StringBundler sb = new StringBundler(27);
+
+		sb.append("{_author=");
+		sb.append(_author);
+		sb.append(", checkedOutBy=");
+		sb.append(_checkedOutBy);
+		sb.append(", createdDate=");
+		sb.append(_createdDate);
+		sb.append(", extension=");
+		sb.append(_extension);
+		sb.append(", folderPath=");
+		sb.append(_folderPath);
+		sb.append(", folder=");
+		sb.append(_folder);
+		sb.append(", lastModifiedDate=");
+		sb.append(_lastModifiedDate);
+		sb.append(", name=");
+		sb.append(_name);
+		sb.append(", path=");
+		sb.append(_path);
+		sb.append(", permissions=");
+		sb.append(_permissions);
+		sb.append(", sharepointObjectId=");
+		sb.append(_sharepointObjectId);
+		sb.append(", size=");
+		sb.append(_size);
+		sb.append(", url=");
+		sb.append(_url);
+		sb.append("}");
+
+		return sb.toString();
 	}
 
 	public static enum Permission {
