@@ -19,8 +19,6 @@ package com.liferay.feedback.util;
  */
 public class PortletPropsKeys extends com.liferay.portal.util.PortletKeys {
 
-	public static final String FEEDBACK_BODY = "feedback.body";
-
 	public static final String FEEDBACK_SUBJECT = "feedback.subject";
 
 }

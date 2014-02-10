@@ -15,7 +15,6 @@
 package com.liferay.feedback.util;
 
 import com.liferay.portal.kernel.configuration.Filter;
-import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.util.ContentUtil;
 import com.liferay.util.portlet.PortletProps;
 
@@ -24,14 +23,10 @@ import com.liferay.util.portlet.PortletProps;
  */
 public class FeedbackUtil {
 
-	public static String getFeedbackBody(String type) throws Exception {
+	public static String getFeedbackSubject(String type) throws Exception {
 		return ContentUtil.get(
 			PortletProps.get(
-				PortletPropsValues.FEEDBACK_BODY, new Filter(type)));
-	}
-
-	public static String getFeedbackSubject() throws SystemException {
-		return ContentUtil.get(PortletPropsValues.FEEDBACK_SUBJECT);
+				PortletPropsValues.FEEDBACK_SUBJECT, new Filter(type)));
 	}
 
 }

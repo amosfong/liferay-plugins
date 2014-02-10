@@ -19,9 +19,6 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.util.ObjectValuePair;
 import com.liferay.portal.kernel.util.ParamUtil;
-import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
@@ -77,29 +74,14 @@ public class FeedbackPortlet extends MVCPortlet {
 		User user = UserLocalServiceUtil.getUser(userId);
 
 		boolean anonymous = ParamUtil.getBoolean(actionRequest, "anonymous");
+		String body = ParamUtil.getString(actionRequest, "body");
 		long groupId = ParamUtil.getLong(actionRequest, "groupId");
 		long categoryId = ParamUtil.getLong(actionRequest, "categoryId");
-		String comments = ParamUtil.getString(actionRequest, "comments");
 		String type = ParamUtil.getString(actionRequest, "type");
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
 		try {
-			String feedbackBody = StringPool.BLANK;
-
-			if (Validator.isNotNull(comments)) {
-				String question = FeedbackUtil.getFeedbackBody(type);
-
-				StringBundler sb = new StringBundler(4);
-
-				sb.append(question);
-				sb.append("<br>");
-				sb.append(comments);
-				sb.append("<br><br>");
-
-				feedbackBody = sb.toString();
-			}
-
 			ServiceContext serviceContext =
 				ServiceContextThreadLocal.getServiceContext();
 
@@ -107,7 +89,7 @@ public class FeedbackPortlet extends MVCPortlet {
 
 			MBMessageLocalServiceUtil.addMessage(
 				user.getUserId(), user.getFullName(), groupId, categoryId,
-				FeedbackUtil.getFeedbackSubject(), feedbackBody, "plain",
+				FeedbackUtil.getFeedbackSubject(type), body, "plain",
 				new ArrayList<ObjectValuePair<String, InputStream>>(),
 				anonymous, 0, false, serviceContext);
 

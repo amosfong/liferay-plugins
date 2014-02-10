@@ -22,11 +22,7 @@ import com.liferay.util.portlet.PortletProps;
  */
 public class PortletPropsValues {
 
-	public static final String FEEDBACK_BODY = GetterUtil.getString(
-		PortletProps.get(PortletPropsKeys.FEEDBACK_BODY));
-
-	public static final String FEEDBACK_SUBJECT =
-		GetterUtil.getString(
-			PortletProps.get(PortletPropsKeys.FEEDBACK_SUBJECT));
+	public static final String FEEDBACK_SUBJECT = GetterUtil.getString(
+		PortletProps.get(PortletPropsKeys.FEEDBACK_SUBJECT));
 
 }
