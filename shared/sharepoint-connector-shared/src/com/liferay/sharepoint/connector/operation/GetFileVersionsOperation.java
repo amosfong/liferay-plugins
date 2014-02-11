@@ -23,10 +23,12 @@ import java.util.List;
 /**
  * @author Ivan Zaera
  */
-public class GetFileVersionsOperation {
+public class GetFileVersionsOperation extends BaseOperation {
 
 	public GetFileVersionsOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
+
+		super(sharepointConnectionImpl);
 	}
 
 	public List<SharepointVersion> execute(String filePath)

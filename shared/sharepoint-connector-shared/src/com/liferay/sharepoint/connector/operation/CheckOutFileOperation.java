@@ -20,10 +20,12 @@ import com.liferay.sharepoint.connector.SharepointException;
 /**
  * @author Ivan Zaera
  */
-public class CheckOutFileOperation {
+public class CheckOutFileOperation extends BaseOperation {
 
 	public CheckOutFileOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
+
+		super(sharepointConnectionImpl);
 	}
 
 	public boolean execute(String filePath) throws SharepointException {

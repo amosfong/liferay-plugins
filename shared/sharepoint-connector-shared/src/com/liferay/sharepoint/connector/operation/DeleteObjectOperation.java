@@ -20,10 +20,12 @@ import com.liferay.sharepoint.connector.SharepointException;
 /**
  * @author Ivan Zaera
  */
-public class DeleteObjectOperation {
+public class DeleteObjectOperation extends BaseOperation {
 
 	public DeleteObjectOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
+
+		super(sharepointConnectionImpl);
 	}
 
 	public void execute(String path) throws SharepointException {

@@ -30,10 +30,12 @@ import java.util.List;
 /**
 * @author Ivan Zaera
 */
-public class GetObjectByIdOperation {
+public class GetObjectByIdOperation extends BaseOperation {
 
 	public GetObjectByIdOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
+
+		super(sharepointConnectionImpl);
 
 		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
 			sharepointConnectionImpl);

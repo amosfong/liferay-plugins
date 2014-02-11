@@ -20,10 +20,12 @@ import com.liferay.sharepoint.connector.SharepointException;
 /**
  * @author Ivan Zaera
  */
-public class AddFolderOperation {
+public class AddFolderOperation extends BaseOperation {
 
 	public AddFolderOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
+
+		super(sharepointConnectionImpl);
 	}
 
 	public void execute(String folderPath, String folderName)

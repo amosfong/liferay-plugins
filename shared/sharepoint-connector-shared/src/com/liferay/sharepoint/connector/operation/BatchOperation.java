@@ -21,9 +21,11 @@ import com.liferay.sharepoint.connector.schema.batch.Batch;
 /**
  * @author Ivan Zaera
  */
-public class BatchOperation {
+public class BatchOperation extends BaseOperation {
 
 	public BatchOperation(SharepointConnectionImpl sharepointConnectionImpl) {
+
+		super(sharepointConnectionImpl);
 	}
 
 	public void execute(Batch batch) throws SharepointException {

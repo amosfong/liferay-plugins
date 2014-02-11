@@ -23,10 +23,12 @@ import java.util.List;
 /**
  * @author Ivan Zaera
  */
-public class GetObjectsByNameOperation {
+public class GetObjectsByNameOperation extends BaseOperation {
 
 	public GetObjectsByNameOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
+
+		super(sharepointConnectionImpl);
 	}
 
 	public List<SharepointObject> execute(String name)

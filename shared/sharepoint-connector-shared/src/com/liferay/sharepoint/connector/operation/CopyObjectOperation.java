@@ -20,10 +20,12 @@ import com.liferay.sharepoint.connector.SharepointException;
 /**
  * @author Ivan Zaera
  */
-public class CopyObjectOperation {
+public class CopyObjectOperation extends BaseOperation {
 
 	public CopyObjectOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
+
+		super(sharepointConnectionImpl);
 	}
 
 	public void execute(String path, String newPath)

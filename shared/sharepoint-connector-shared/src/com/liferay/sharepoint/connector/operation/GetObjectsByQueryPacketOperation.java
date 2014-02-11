@@ -23,10 +23,12 @@ import java.util.List;
 /**
  * @author Ivan Zaera
  */
-public class GetObjectsByQueryPacketOperation {
+public class GetObjectsByQueryPacketOperation extends BaseOperation {
 
 	public GetObjectsByQueryPacketOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
+
+		super(sharepointConnectionImpl);
 	}
 
 	public List<SharepointObject> execute(String queryPacket)

@@ -22,10 +22,12 @@ import java.io.InputStream;
 /**
  * @author Ivan Zaera
  */
-public class AddOrUpdateFileOperation {
+public class AddOrUpdateFileOperation extends BaseOperation {
 
 	public AddOrUpdateFileOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
+
+		super(sharepointConnectionImpl);
 	}
 
 	public void execute(

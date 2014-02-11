@@ -21,10 +21,12 @@ import com.liferay.sharepoint.connector.SharepointException;
 /**
  * @author Ivan Zaera
  */
-public class CheckInFileOperation {
+public class CheckInFileOperation extends BaseOperation {
 
 	public CheckInFileOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
+
+		super(sharepointConnectionImpl);
 	}
 
 	public boolean execute(

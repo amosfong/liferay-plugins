@@ -24,10 +24,12 @@ import java.io.InputStream;
 /**
  * @author Ivan Zaera
  */
-public class GetContentOperation {
+public class GetContentOperation extends BaseOperation {
 
 	public GetContentOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
+
+		super(sharepointConnectionImpl);
 	}
 
 	public InputStream execute(SharepointObject sharepointObject)
