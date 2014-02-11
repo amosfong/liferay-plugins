@@ -47,7 +47,10 @@ public class GetObjectsByFolderOperation extends BaseOperation {
 
 		Query query = null;
 
-		if (objectTypeFilter.equals(ObjectTypeFilter.FILES)) {
+		if (objectTypeFilter.equals(ObjectTypeFilter.ALL)) {
+			query = new Query(null);
+		}
+		else if (objectTypeFilter.equals(ObjectTypeFilter.FILES)) {
 			query = new Query(
 				new EqOperator(
 					new QueryField("FSObjType"),
@@ -62,9 +65,6 @@ public class GetObjectsByFolderOperation extends BaseOperation {
 					new QueryValue(
 						QueryValue.Type.LOOKUP,
 						SharepointConstants.FS_OBJ_TYPE_FOLDER)));
-		}
-		else if (objectTypeFilter.equals(ObjectTypeFilter.ALL)) {
-			query = new Query(null);
 		}
 		else {
 			throw new UnsupportedOperationException(
