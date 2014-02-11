@@ -18,6 +18,12 @@ import com.liferay.sharepoint.connector.SharepointConnection.ObjectTypeFilter;
 import com.liferay.sharepoint.connector.SharepointConnectionImpl;
 import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.SharepointObject;
+import com.liferay.sharepoint.connector.schema.query.Query;
+import com.liferay.sharepoint.connector.schema.query.QueryField;
+import com.liferay.sharepoint.connector.schema.query.QueryOptionsList;
+import com.liferay.sharepoint.connector.schema.query.QueryValue;
+import com.liferay.sharepoint.connector.schema.query.operator.EqOperator;
+import com.liferay.sharepoint.connector.schema.query.option.FolderQueryOption;
 
 import java.util.List;
 
@@ -28,13 +34,62 @@ public class GetObjectsByFolderOperation {
 
 	public GetObjectsByFolderOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
+
+		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
+			sharepointConnectionImpl);
+
+		_sharepointConnectionImpl = sharepointConnectionImpl;
 	}
 
 	public List<SharepointObject> execute(
 			String folderPath, ObjectTypeFilter objectTypeFilter)
 		throws SharepointException {
 
-		return null;
+		Query query = null;
+
+		switch (objectTypeFilter) {
+			case FILES:
+				query = new Query(
+					new EqOperator(
+						new QueryField("FSObjType"),
+						new QueryValue(
+							QueryValue.Type.LOOKUP,
+							SharepointConstants.FS_OBJ_TYPE_FILE)));
+
+				break;
+
+			case FOLDERS:
+				query = new Query(
+					new EqOperator(
+						new QueryField("FSObjType"),
+						new QueryValue(
+							QueryValue.Type.LOOKUP,
+							SharepointConstants.FS_OBJ_TYPE_FOLDER)));
+
+				break;
+
+			case ALL: {
+				query = new Query(null);
+
+				break;
+			}
+
+			default: {
+				throw new UnsupportedOperationException(
+					"Unsupported object type filter: " + objectTypeFilter);
+			}
+		}
+
+		String folderFullPath = _sharepointConnectionImpl.toFullPath(
+			folderPath);
+
+		QueryOptionsList queryOptionsList = new QueryOptionsList(
+			new FolderQueryOption(folderFullPath));
+
+		return _getObjectsByQueryOperation.execute(query, queryOptionsList);
 	}
+
+	private GetObjectsByQueryOperation _getObjectsByQueryOperation;
+	private SharepointConnectionImpl _sharepointConnectionImpl;
 
 }
