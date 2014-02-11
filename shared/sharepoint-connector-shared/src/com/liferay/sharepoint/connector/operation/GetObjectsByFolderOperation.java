@@ -80,7 +80,7 @@ public class GetObjectsByFolderOperation extends BaseOperation {
 			}
 		}
 
-		String fullFolderPath = sharepointConnection.toFullPath(folderPath);
+		String fullFolderPath = toFullPath(folderPath);
 
 		QueryOptionsList queryOptionsList = new QueryOptionsList(
 			new FolderQueryOption(fullFolderPath));

@@ -19,8 +19,4 @@ package com.liferay.sharepoint.connector;
  */
 public abstract class SharepointConnectionImpl implements SharepointConnection {
 
-	public String toFullPath(String objectPath) {
-		return null;
-	}
-
 }

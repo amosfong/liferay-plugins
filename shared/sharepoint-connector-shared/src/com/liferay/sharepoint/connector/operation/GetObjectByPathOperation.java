@@ -40,7 +40,7 @@ public class GetObjectByPathOperation extends BaseOperation {
 	public SharepointObject execute(String filePath)
 		throws SharepointException {
 
-		String fullFilePath = sharepointConnection.toFullPath(filePath);
+		String fullFilePath = toFullPath(filePath);
 
 		Query query = new Query(
 			new EqOperator(
