@@ -68,7 +68,7 @@ public class GetObjectsByFolderOperation extends BaseOperation {
 		}
 		else {
 			throw new UnsupportedOperationException(
-				"Unsupported object type filter: " + objectTypeFilter);
+				"Unsupported object type filter " + objectTypeFilter);
 		}
 
 		String fullFolderPath = toFullPath(folderPath);
