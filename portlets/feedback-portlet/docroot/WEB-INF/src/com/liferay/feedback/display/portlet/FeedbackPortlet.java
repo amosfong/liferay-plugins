@@ -19,6 +19,7 @@ import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.util.ObjectValuePair;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
@@ -73,8 +74,10 @@ public class FeedbackPortlet extends MVCPortlet {
 		long groupId = ParamUtil.getLong(actionRequest, "groupId");
 		long categoryId = ParamUtil.getLong(actionRequest, "categoryId");
 		String type = ParamUtil.getString(actionRequest, "type");
-		String body = ParamUtil.getString(actionRequest, "body");
-		boolean anonymous = ParamUtil.getBoolean(actionRequest, "anonymous");
+		String body = ParamUtil.getString(
+			actionRequest, "body" + StringPool.DASH + type);
+		boolean anonymous = ParamUtil.getBoolean(
+			actionRequest, "anonymous" + StringPool.DASH + type);
 
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();

@@ -26,7 +26,7 @@ public class FeedbackUtil {
 	public static String getFeedbackSubject(String type) throws Exception {
 		return ContentUtil.get(
 			PortletProps.get(
-				PortletPropsValues.FEEDBACK_SUBJECT, new Filter(type)));
+				PortletPropsKeys.FEEDBACK_SUBJECT, new Filter(type)));
 	}
 
 }
