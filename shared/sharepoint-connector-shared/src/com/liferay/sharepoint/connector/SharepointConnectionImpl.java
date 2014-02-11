@@ -18,4 +18,12 @@ package com.liferay.sharepoint.connector;
  * @author Iván Zaera
  */
 public abstract class SharepointConnectionImpl implements SharepointConnection {
+
+	public String toFullPath(String objectPath) {
+
+		// TODO Auto-generated method stub
+
+		return null;
+	}
+
 }

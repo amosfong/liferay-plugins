@@ -14,9 +14,18 @@
 
 package com.liferay.sharepoint.connector.operation;
 
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.sharepoint.connector.SharepointConnectionImpl;
 import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.SharepointObject;
+import com.liferay.sharepoint.connector.schema.query.Query;
+import com.liferay.sharepoint.connector.schema.query.QueryField;
+import com.liferay.sharepoint.connector.schema.query.QueryOptionsList;
+import com.liferay.sharepoint.connector.schema.query.QueryValue;
+import com.liferay.sharepoint.connector.schema.query.operator.EqOperator;
+import com.liferay.sharepoint.connector.schema.query.option.FolderQueryOption;
+
+import java.util.List;
 
 /**
  * @author Ivan Zaera
@@ -25,12 +34,36 @@ public class GetObjectByPathOperation {
 
 	public GetObjectByPathOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
+
+		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
+			sharepointConnectionImpl);
+
+		_sharepointConnectionImpl = sharepointConnectionImpl;
 	}
 
 	public SharepointObject execute(String filePath)
 		throws SharepointException {
 
-		return null;
+		String fileFullPath = _sharepointConnectionImpl.toFullPath(filePath);
+
+		Query query = new Query(
+			new EqOperator(
+				new QueryField("FileRef"),
+				new QueryValue(fileFullPath.substring(1))));
+
+		List<SharepointObject> sharepointObjects =
+			_getObjectsByQueryOperation.execute(
+				query,
+				new QueryOptionsList(new FolderQueryOption(StringPool.BLANK)));
+
+		if (sharepointObjects.isEmpty()) {
+			return null;
+		}
+
+		return sharepointObjects.get(0);
 	}
+
+	private GetObjectsByQueryOperation _getObjectsByQueryOperation;
+	private SharepointConnectionImpl _sharepointConnectionImpl;
 
 }
