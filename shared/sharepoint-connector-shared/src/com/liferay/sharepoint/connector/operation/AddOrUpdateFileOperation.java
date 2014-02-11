@@ -14,7 +14,7 @@
 
 package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.SharepointConnectionImpl;
+import com.liferay.sharepoint.connector.SharepointConnection;
 import com.liferay.sharepoint.connector.SharepointException;
 
 import java.io.InputStream;
@@ -24,10 +24,8 @@ import java.io.InputStream;
  */
 public class AddOrUpdateFileOperation extends BaseOperation {
 
-	public AddOrUpdateFileOperation(
-		SharepointConnectionImpl sharepointConnectionImpl) {
-
-		super(sharepointConnectionImpl);
+	public AddOrUpdateFileOperation(SharepointConnection sharepointConnection) {
+		super(sharepointConnection);
 	}
 
 	public void execute(

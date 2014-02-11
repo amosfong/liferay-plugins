@@ -14,7 +14,7 @@
 
 package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.SharepointConnectionImpl;
+import com.liferay.sharepoint.connector.SharepointConnection;
 import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.SharepointObject;
 import com.liferay.sharepoint.connector.schema.query.Query;
@@ -28,9 +28,9 @@ import java.util.List;
 public class GetObjectsByQueryOperation extends BaseOperation {
 
 	public GetObjectsByQueryOperation(
-		SharepointConnectionImpl sharepointConnectionImpl) {
+		SharepointConnection sharepointConnection) {
 
-		super(sharepointConnectionImpl);
+		super(sharepointConnection);
 	}
 
 	public List<SharepointObject> execute(

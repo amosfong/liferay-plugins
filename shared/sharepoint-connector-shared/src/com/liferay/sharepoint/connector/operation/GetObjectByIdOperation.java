@@ -15,7 +15,7 @@
 package com.liferay.sharepoint.connector.operation;
 
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.sharepoint.connector.SharepointConnectionImpl;
+import com.liferay.sharepoint.connector.SharepointConnection;
 import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.SharepointObject;
 import com.liferay.sharepoint.connector.schema.query.Query;
@@ -30,13 +30,11 @@ import com.liferay.sharepoint.connector.schema.query.option.FolderQueryOption;
 */
 public class GetObjectByIdOperation extends BaseOperation {
 
-	public GetObjectByIdOperation(
-		SharepointConnectionImpl sharepointConnectionImpl) {
-
-		super(sharepointConnectionImpl);
+	public GetObjectByIdOperation(SharepointConnection sharepointConnection) {
+		super(sharepointConnection);
 
 		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
-			sharepointConnectionImpl);
+			sharepointConnection);
 	}
 
 	public SharepointObject execute(long sharepointObjectId)

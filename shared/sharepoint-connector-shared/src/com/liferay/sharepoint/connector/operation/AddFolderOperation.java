@@ -14,7 +14,7 @@
 
 package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.SharepointConnectionImpl;
+import com.liferay.sharepoint.connector.SharepointConnection;
 import com.liferay.sharepoint.connector.SharepointException;
 
 /**
@@ -22,10 +22,8 @@ import com.liferay.sharepoint.connector.SharepointException;
  */
 public class AddFolderOperation extends BaseOperation {
 
-	public AddFolderOperation(
-		SharepointConnectionImpl sharepointConnectionImpl) {
-
-		super(sharepointConnectionImpl);
+	public AddFolderOperation(SharepointConnection sharepointConnection) {
+		super(sharepointConnection);
 	}
 
 	public void execute(String folderPath, String folderName)

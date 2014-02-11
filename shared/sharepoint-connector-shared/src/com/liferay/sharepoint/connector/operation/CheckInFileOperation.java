@@ -14,8 +14,8 @@
 
 package com.liferay.sharepoint.connector.operation;
 
+import com.liferay.sharepoint.connector.SharepointConnection;
 import com.liferay.sharepoint.connector.SharepointConnection.CheckInType;
-import com.liferay.sharepoint.connector.SharepointConnectionImpl;
 import com.liferay.sharepoint.connector.SharepointException;
 
 /**
@@ -23,10 +23,8 @@ import com.liferay.sharepoint.connector.SharepointException;
  */
 public class CheckInFileOperation extends BaseOperation {
 
-	public CheckInFileOperation(
-		SharepointConnectionImpl sharepointConnectionImpl) {
-
-		super(sharepointConnectionImpl);
+	public CheckInFileOperation(SharepointConnection sharepointConnection) {
+		super(sharepointConnection);
 	}
 
 	public boolean execute(

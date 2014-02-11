@@ -15,7 +15,7 @@
 package com.liferay.sharepoint.connector.operation;
 
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.sharepoint.connector.SharepointConnectionImpl;
+import com.liferay.sharepoint.connector.SharepointConnection;
 import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.SharepointObject;
 import com.liferay.sharepoint.connector.schema.query.Query;
@@ -30,19 +30,17 @@ import com.liferay.sharepoint.connector.schema.query.option.FolderQueryOption;
  */
 public class GetObjectByPathOperation extends BaseOperation {
 
-	public GetObjectByPathOperation(
-		SharepointConnectionImpl sharepointConnectionImpl) {
-
-		super(sharepointConnectionImpl);
+	public GetObjectByPathOperation(SharepointConnection sharepointConnection) {
+		super(sharepointConnection);
 
 		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
-			sharepointConnectionImpl);
+			sharepointConnection);
 	}
 
 	public SharepointObject execute(String filePath)
 		throws SharepointException {
 
-		String fullFilePath = sharepointConnectionImpl.toFullPath(filePath);
+		String fullFilePath = sharepointConnection.toFullPath(filePath);
 
 		Query query = new Query(
 			new EqOperator(
