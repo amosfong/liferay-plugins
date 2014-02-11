@@ -80,11 +80,11 @@ public class GetObjectsByFolderOperation {
 			}
 		}
 
-		String folderFullPath = _sharepointConnectionImpl.toFullPath(
+		String fullFolderPath = _sharepointConnectionImpl.toFullPath(
 			folderPath);
 
 		QueryOptionsList queryOptionsList = new QueryOptionsList(
-			new FolderQueryOption(folderFullPath));
+			new FolderQueryOption(fullFolderPath));
 
 		return _getObjectsByQueryOperation.execute(query, queryOptionsList);
 	}
