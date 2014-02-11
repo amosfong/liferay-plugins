@@ -30,21 +30,21 @@ import java.util.List;
 /**
  * @author Ivan Zaera
  */
-public class GetObjectByPathOperation {
+public class GetObjectByPathOperation extends BaseOperation {
 
 	public GetObjectByPathOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
 
+		super(sharepointConnectionImpl);
+
 		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
 			sharepointConnectionImpl);
-
-		_sharepointConnectionImpl = sharepointConnectionImpl;
 	}
 
 	public SharepointObject execute(String filePath)
 		throws SharepointException {
 
-		String fullFilePath = _sharepointConnectionImpl.toFullPath(filePath);
+		String fullFilePath = sharepointConnectionImpl.toFullPath(filePath);
 
 		Query query = new Query(
 			new EqOperator(
@@ -64,6 +64,5 @@ public class GetObjectByPathOperation {
 	}
 
 	private GetObjectsByQueryOperation _getObjectsByQueryOperation;
-	private SharepointConnectionImpl _sharepointConnectionImpl;
 
 }

@@ -30,15 +30,15 @@ import java.util.List;
 /**
  * @author Ivan Zaera
  */
-public class GetObjectsByFolderOperation {
+public class GetObjectsByFolderOperation extends BaseOperation {
 
 	public GetObjectsByFolderOperation(
 		SharepointConnectionImpl sharepointConnectionImpl) {
 
+		super(sharepointConnectionImpl);
+
 		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
 			sharepointConnectionImpl);
-
-		_sharepointConnectionImpl = sharepointConnectionImpl;
 	}
 
 	public List<SharepointObject> execute(
@@ -80,8 +80,7 @@ public class GetObjectsByFolderOperation {
 			}
 		}
 
-		String fullFolderPath = _sharepointConnectionImpl.toFullPath(
-			folderPath);
+		String fullFolderPath = sharepointConnectionImpl.toFullPath(folderPath);
 
 		QueryOptionsList queryOptionsList = new QueryOptionsList(
 			new FolderQueryOption(fullFolderPath));
@@ -90,6 +89,5 @@ public class GetObjectsByFolderOperation {
 	}
 
 	private GetObjectsByQueryOperation _getObjectsByQueryOperation;
-	private SharepointConnectionImpl _sharepointConnectionImpl;
 
 }
