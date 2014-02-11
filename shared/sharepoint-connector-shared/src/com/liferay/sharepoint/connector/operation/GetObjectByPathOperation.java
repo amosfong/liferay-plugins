@@ -25,8 +25,6 @@ import com.liferay.sharepoint.connector.schema.query.QueryValue;
 import com.liferay.sharepoint.connector.schema.query.operator.EqOperator;
 import com.liferay.sharepoint.connector.schema.query.option.FolderQueryOption;
 
-import java.util.List;
-
 /**
  * @author Ivan Zaera
  */
@@ -51,16 +49,10 @@ public class GetObjectByPathOperation extends BaseOperation {
 				new QueryField("FileRef"),
 				new QueryValue(fullFilePath.substring(1))));
 
-		List<SharepointObject> sharepointObjects =
+		return getSharepointObject(
 			_getObjectsByQueryOperation.execute(
 				query,
-				new QueryOptionsList(new FolderQueryOption(StringPool.BLANK)));
-
-		if (sharepointObjects.isEmpty()) {
-			return null;
-		}
-
-		return sharepointObjects.get(0);
+				new QueryOptionsList(new FolderQueryOption(StringPool.BLANK))));
 	}
 
 	private GetObjectsByQueryOperation _getObjectsByQueryOperation;
