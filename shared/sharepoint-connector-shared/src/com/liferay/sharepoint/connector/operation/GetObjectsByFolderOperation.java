@@ -47,37 +47,28 @@ public class GetObjectsByFolderOperation extends BaseOperation {
 
 		Query query = null;
 
-		switch (objectTypeFilter) {
-			case FILES:
-				query = new Query(
-					new EqOperator(
-						new QueryField("FSObjType"),
-						new QueryValue(
-							QueryValue.Type.LOOKUP,
-							SharepointConstants.FS_OBJ_TYPE_FILE)));
-
-				break;
-
-			case FOLDERS:
-				query = new Query(
-					new EqOperator(
-						new QueryField("FSObjType"),
-						new QueryValue(
-							QueryValue.Type.LOOKUP,
-							SharepointConstants.FS_OBJ_TYPE_FOLDER)));
-
-				break;
-
-			case ALL: {
-				query = new Query(null);
-
-				break;
-			}
-
-			default: {
-				throw new UnsupportedOperationException(
-					"Unsupported object type filter: " + objectTypeFilter);
-			}
+		if (objectTypeFilter.equals(ObjectTypeFilter.FILES)) {
+			query = new Query(
+				new EqOperator(
+					new QueryField("FSObjType"),
+					new QueryValue(
+						QueryValue.Type.LOOKUP,
+						SharepointConstants.FS_OBJ_TYPE_FILE)));
+		}
+		else if (objectTypeFilter.equals(ObjectTypeFilter.FOLDERS)) {
+			query = new Query(
+				new EqOperator(
+					new QueryField("FSObjType"),
+					new QueryValue(
+						QueryValue.Type.LOOKUP,
+						SharepointConstants.FS_OBJ_TYPE_FOLDER)));
+		}
+		else if (objectTypeFilter.equals(ObjectTypeFilter.ALL)) {
+			query = new Query(null);
+		}
+		else {
+			throw new UnsupportedOperationException(
+				"Unsupported object type filter: " + objectTypeFilter);
 		}
 
 		String fullFolderPath = toFullPath(folderPath);

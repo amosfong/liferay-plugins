@@ -113,7 +113,7 @@ public interface SharepointConnection {
 
 	public enum ObjectTypeFilter {
 
-		FILES, FOLDERS, ALL
+		ALL, FILES, FOLDERS
 
 	}
 
