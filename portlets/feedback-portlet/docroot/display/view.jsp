@@ -17,18 +17,27 @@
 <%@ include file="/init.jsp" %>
 
 <c:if test="<%= themeDisplay.isSignedIn() && !(BrowserSnifferUtil.isIe(request) && (BrowserSnifferUtil.getMajorVersion(request) < 7)) && !BrowserSnifferUtil.isMobile(request) %>">
-	<div class="feedback-bar" id="feedbackBar" onClick='<%= renderResponse.getNamespace() + "addFeedback()" %>'>
-		<i class="icon-bullhorn"></i> <liferay-ui:message key="feedback" />
+	<div class="feedback-bar" id="<portlet:namespace />feedbackBar">
+		<i class="icon-bullhorn"></i>
+
+		<liferay-ui:message key="feedback" />
 	</div>
 
-	<aui:script>
-		function <portlet:namespace />addFeedback() {
-			<portlet:renderURL var="addFeedbackURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
-				<portlet:param name="mvcPath" value="/display/add_feedback.jsp" />
-				<portlet:param name="redirect" value="<%= currentURL %>" />
-			</portlet:renderURL>
+	<aui:script use='aui-base'>
+		var feedbackBar = A.one('#<portlet:namespace />feedbackBar');
 
-			Liferay.Feedbacks.getPopup('<%= addFeedbackURL %>', '<portlet:namespace />Dialog', '<%= UnicodeLanguageUtil.get(pageContext, "add-feedback") %>', true, 800, 600);
+		if (feedbackBar) {
+			feedbackBar.on(
+				'click',
+				function(event) {
+					<portlet:renderURL var="addFeedbackURL" windowState="<%= LiferayWindowState.POP_UP.toString() %>">
+						<portlet:param name="mvcPath" value="/display/add_feedback.jsp" />
+						<portlet:param name="redirect" value="<%= currentURL %>" />
+					</portlet:renderURL>
+
+					Liferay.Feedbacks.getPopup('<%= addFeedbackURL %>', '<portlet:namespace />Dialog', '<%= UnicodeLanguageUtil.get(pageContext, "add-feedback") %>', true, 800, 600);
+				}
+			)
 		}
 	</aui:script>
 </c:if>

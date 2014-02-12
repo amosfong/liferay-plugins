@@ -16,6 +16,10 @@
 
 <%@ include file="/init.jsp" %>
 
+<%
+String redirect = ParamUtil.getString(request, "redirect");
+%>
+
 <div class="portlet-msg-info">
 	<liferay-ui:message key="configure-forum-feedback-category" />
 </div>
@@ -25,116 +29,78 @@
 		<liferay-ui:message key="setup-is-only-available-to-admin-user" />
 	</c:when>
 	<c:otherwise>
-
-		<%
-		String redirect = ParamUtil.getString(request, "redirect");
-
-		List<Group> groups = new ArrayList<Group>();
-
-		for (long companyId : PortalUtil.getCompanyIds()) {
-			List<Group> curGroups = GroupLocalServiceUtil.getGroups(companyId, Group.class.getName(), 0);
-
-			for (Group group : curGroups) {
-				if (SocialOfficeServiceUtil.isSocialOfficeGroup(group.getGroupId()) && group.isRegularSite()) {
-					String groupName = group.getName();
-
-					if (Validator.isNull(groupName)) {
-						continue;
-					}
-
-					if ((group.getType() == GroupConstants.TYPE_SITE_PRIVATE) || (group.getType() == GroupConstants.TYPE_SITE_RESTRICTED) || (group.getType() == GroupConstants.TYPE_SITE_OPEN)) {
-						groups.add(group);
-					}
-				}
-			}
-		}
-		%>
-
 		<liferay-portlet:actionURL name="updateConfigurations" var="updateConfigurationsURL" />
 
 		<aui:form action="<%= updateConfigurationsURL %>" method="post" name="fm">
 			<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
+
+			<%
+			List<Group> groups = GroupLocalServiceUtil.getGroups(themeDisplay.getCompanyId(), Group.class.getName(), 0);
+			%>
 
 			<c:choose>
 				<c:when test="<%= groups.size() == 0 %>">
 					<liferay-ui:message key="no-group-exists" />
 				</c:when>
 				<c:otherwise>
-					<aui:fieldset cssClass="scope-section-holder">
-						<liferay-ui:panel-container extended="<%= true %>" id="groupsPanelContainer" persistState="<%= true %>">
-							<div id="<portlet:namespace />groupErrorMessage"></div>
+					<div id="<portlet:namespace />groupErrorMessage"></div>
 
-							<br />
+					<aui:select id="groupId" label="Group" name="preferences--groupId--">
+						<aui:option label="" value="0" />
 
-							<aui:select id="groupId" label="Group" name="preferences--groupId--" onChange='<%= renderResponse.getNamespace() + "selectGroupCategory(this.value, 0)" %>'>
-								<aui:option label="" value="0" />
+						<%
+						for (Group group: groups) {
+						%>
 
-								<%
-								for (Group group: groups) {
-								%>
+							<aui:option label="<%= group.getName() %>" selected="<%= group.getGroupId() == groupId %>" value="<%= group.getGroupId() %>" />
 
-									<aui:option label="<%= group.getName() %>" selected="<%= group.getGroupId() == groupId %>" value="<%= group.getGroupId() %>" />
+						<%
+						}
+						%>
 
-								<%
-								}
-								%>
+					</aui:select>
 
-							</aui:select>
+					<div id="<portlet:namespace />categoryErrorMessage"></div>
 
-							<div id="<portlet:namespace />categoryErrorMessage"></div>
-
-							<br />
-
-							<aui:select id="categoryId" label="Category" name="preferences--categoryId--">
-								<aui:option label="" value="0" />
-							</aui:select>
-						</liferay-ui:panel-container>
-					</aui:fieldset>
+					<aui:select id="categoryId" label="Category" name="preferences--categoryId--">
+						<aui:option label="" value="0" />
+					</aui:select>
 				</c:otherwise>
 			</c:choose>
 
 			<aui:button-row>
-				<aui:button onClick='<%= renderResponse.getNamespace() + "updateConfigurations()" %>' value="save" />
+				<aui:button cssClass="save-configurations" type="button" value="save" />
 			</aui:button-row>
 		</aui:form>
 
-		<aui:script>
-			AUI().ready(
-				'aui-base',
-				function(A) {
-					<portlet:namespace />selectGroupCategory(<%= groupId %>, <%= categoryId %>);
-				}
-			);
+		<aui:script use="aui-base,aui-io-request-deprecated">
+			var form = A.one('#<portlet:namespace />fm');
 
-			function <portlet:namespace />removeErrorMessage() {
-				var A = AUI();
-
-				var groupErrorMsg = A.one('#<portlet:namespace />groupErrorMessage');
-
-				var categoryErrorMsg = A.one('#<portlet:namespace />categoryErrorMessage');
-
-				if (groupErrorMsg) {
-					groupErrorMsg.html('');
+			var groupId = form.one('#<portlet:namespace />groupId');
+			var groupErrorMessage = form.one('#<portlet:namespace />groupErrorMessage');
+			
+			var categoryId = form.one('#<portlet:namespace />categoryId');
+			var categoryErrorMessage = form.one('#<portlet:namespace />categoryErrorMessage');
+			
+			var removeErrorMessage = function() {
+				if (groupErrorMessage) {
+					groupErrorMessage.setHTML('');
 				}
 
-				if (categoryErrorMsg) {
-					categoryErrorMsg.html('');
+				if (categoryErrorMessage) {
+					categoryErrorMessage.setHTML('');
 				}
-			}
+			};
 
-			function <portlet:namespace />updateDropdownList(selectId, selectData, selectedVal) {
-				var A = AUI();
-
-				var selectElement = A.one('#' + selectId);
-
+			var updateCategories = function(mbCategories, selectedCategoryId) {
 				var selectOptions = [];
 
 				selectOptions.push('<option value="0"></option>');
 
-				if (selectData) {
-					for (var i = 0; i < selectData.length; i++) {
-						var mbCategoryId = selectData[i].mbCategoryId;
-						var mbCategoryName = selectData[i].mbCategoryName;
+				if (mbCategories) {
+					for (var i = 0; i < mbCategories.length; i++) {
+						var mbCategoryId = mbCategories[i].mbCategoryId;
+						var mbCategoryName = mbCategories[i].mbCategoryName;
 
 						selectOptions.push('<option value="' + mbCategoryId + '">' + mbCategoryName + '</option>');
 					}
@@ -142,85 +108,83 @@
 
 				selectOptions = selectOptions.join('');
 
-				selectElement.empty();
-				selectElement.append(selectOptions);
-				selectElement.val(selectedVal);
+				categoryId.empty();
+
+				categoryId.append(selectOptions);
+
+				categoryId.val(selectedCategoryId);
 			}
 
-			Liferay.provide(
-				window,
-				'<portlet:namespace />selectGroupCategory',
-				function(groupId, categoryId) {
-					var A = AUI();
+			var getGroupCategories = function(selectedGroupId, selectedCategoryId) {
+				removeErrorMessage();
 
-					<portlet:namespace />removeErrorMessage();
+				if (selectedGroupId <= 0) {
+					categoryId.empty();
 
-					if (groupId <= 0) {
-						A.one("#<portlet:namespace />categoryId").empty();
+					return;
+				}
 
-						return;
-					}
+				A.io.request(
+					'<liferay-portlet:resourceURL id="getMBCategories" />',
+					{
+						data: {
+							<portlet:namespace />groupId: selectedGroupId
+						},
+						dataType: 'JSON',
+						method: 'POST',
+						on: {
+							success: function(event, id, obj) {
+								var response = this.get('responseData');
 
-					A.io.request(
-						'<liferay-portlet:resourceURL copyCurrentRenderParameters="<%= false %>" id="getMBCategories" />',
-						{
-							data: {
-								<portlet:namespace />groupId: groupId
-							},
-							dataType: 'json',
-							method: 'post',
-							on: {
-								success: function(event, id, obj) {
-									var response = this.get('responseData');
-
-									<portlet:namespace />updateDropdownList("<portlet:namespace />categoryId", response["mbCategories"], categoryId);
-								}
+								updateCategories(response["mbCategories"], selectedCategoryId);
 							}
 						}
-					);
-				},
-				['aui-io']
-			);
+					}
+				);
+			};
 
-			Liferay.provide(
-				window,
-				'<portlet:namespace />updateConfigurations',
+			A.on(
+				'domready',
 				function() {
-					var A = AUI();
-
-					var groupEl = A.one('#<portlet:namespace />groupId');
-
-					var groupErrorMsg = A.one('#<portlet:namespace />groupErrorMessage');
-
-					var categoryEl = A.one('#<portlet:namespace />categoryId');
-
-					var categoryErrorMsg = A.one('#<portlet:namespace />categoryErrorMessage');
-
-					if (groupErrorMsg) {
-						if (groupEl.val() == '0') {
-								groupErrorMsg.html('<span class="alert alert-error"><liferay-ui:message key="please-select-a-valid-group" /></span>');
-
-								return;
-						}
-						else {
-							groupErrorMsg.html('');
-						}
-					}
-
-					if (categoryErrorMsg) {
-						if (categoryEl.val() == '0') {
-							categoryErrorMsg.html('<span class="alert alert-error"><liferay-ui:message key="please-select-a-valid-category" /></span>');
-
-							return;
-						}
-						else {
-							categoryErrorMsg.html('');
-						}
-					}
-
-					submitForm(document.<portlet:namespace />fm);
+					getGroupCategories(<%= groupId %>, <%= categoryId %>);
 				}
 			);
+
+			groupId.on(
+				'change',
+				function(event) {
+					getGroupCategories(groupId.val(), 0);	
+				}
+			)
+
+			var saveConfigurations = form.one('.save-configurations');
+
+			if (saveConfigurations) {
+				saveConfigurations.on(
+					'click',
+					function(event) {
+						if (groupErrorMessage) {
+							if (groupId.val() == '0') {
+								groupErrorMessage.setHTML('<span class="alert alert-error"><liferay-ui:message key="please-select-a-valid-group" /></span>');
+
+								return;
+							}
+						}
+
+						if (categoryErrorMessage) {
+							if (categoryId.val() == '0') {
+								categoryErrorMessage.setHTML('<span class="alert alert-error"><liferay-ui:message key="please-select-a-valid-category" /></span>');
+
+								return;
+							}
+						}
+
+						removeErrorMessage();
+
+						submitForm(document.<portlet:namespace />fm);	
+					}
+				)
+			}
 		</aui:script>
 	</c:otherwise>
 </c:choose>
