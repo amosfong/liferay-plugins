@@ -51,7 +51,7 @@ public class XMLHelper {
 		}
 		catch (Exception e) {
 			throw new SharepointRuntimeException(
-				"Unable to parse response from Sharepoint server", e);
+				"Unable to parse response from the Sharepoint server", e);
 		}
 	}
 
