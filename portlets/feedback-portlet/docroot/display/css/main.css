@@ -5,14 +5,8 @@
 		margin-bottom: 1em;
 	}
 
-	.feedback {
+	.feedback-container {
 		padding: 1em;
-	}
-
-	.feedback-area {
-		height: 500px;
-		margin: 25px;
-		width: 700px;
 	}
 
 	.feedback-bar {
@@ -25,28 +19,24 @@
 		position: fixed;
 		right: -41px;
 		text-shadow: 0px 2px 0px rgba(0,0,0,0.5);
-		transform: rotate(-90deg);
+
+		@include transform(rotate(-90deg));
+
 		z-index: 2000;
-		-moz-transform: rotate(-90deg);
-		-ms-transform: rotate(-90deg);
-		-o-transform: rotate(-90deg);
-		-webkit-transform: rotate(-90deg);
 	}
 
-	.feedback-body {
-		height: 250px;
-		width: 700px;
+	.feedback {
+		.body {
+			height: 250px;
+			width: 700px;
+		}
+
+		button {
+			display: block;
+		}
 	}
 
-	.feedback-confirm, .feedback-negative, .feedback-positive {
-		display: none;
-	}
-
-	.feedback-negative button, .feedback-positve button {
-		display: block;
-	}
-
-	.feedback-start {
+	.start {
 		text-align: center;
 	}
 }

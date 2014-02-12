@@ -74,10 +74,8 @@ public class FeedbackPortlet extends MVCPortlet {
 		long groupId = ParamUtil.getLong(actionRequest, "groupId");
 		long categoryId = ParamUtil.getLong(actionRequest, "categoryId");
 		String type = ParamUtil.getString(actionRequest, "type");
-		String body = ParamUtil.getString(
-			actionRequest, "body" + StringPool.DASH + type);
-		boolean anonymous = ParamUtil.getBoolean(
-			actionRequest, "anonymous" + StringPool.DASH + type);
+		String body = ParamUtil.getString(actionRequest, "body");
+		boolean anonymous = ParamUtil.getBoolean(actionRequest, "anonymous");
 
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
