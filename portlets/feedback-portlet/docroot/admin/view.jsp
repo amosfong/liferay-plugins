@@ -21,12 +21,12 @@ String redirect = ParamUtil.getString(request, "redirect");
 %>
 
 <div class="portlet-msg-info">
-	<liferay-ui:message key="configure-forum-feedback-category" />
+	<liferay-ui:message key="configure-feedback-message-board-category" />
 </div>
 
 <c:choose>
 	<c:when test="<%= !permissionChecker.isOmniadmin() %>">
-		<liferay-ui:message key="setup-is-only-available-to-admin-user" />
+		<liferay-ui:message key="setup-is-only-available-for-administrators" />
 	</c:when>
 	<c:otherwise>
 		<liferay-portlet:actionURL name="updateConfigurations" var="updateConfigurationsURL" />
