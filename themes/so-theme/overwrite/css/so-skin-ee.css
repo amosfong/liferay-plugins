@@ -8,23 +8,11 @@
 		min-height: 30px;
 	}
 
-	.aui-column-content-first {
-		position: relative;
-	}
-
-	.aui-column-last {
-		overflow: visible;
-	}
-
 	.lfr-panel-container {
 		background: transparent;
 	}
 
 	.view {
-		.aui-column-content-last {
-			margin-left: -1px;
-		}
-
 		.document-thumbnail img {
 			max-height: 80px;
 			max-width: 80px;
@@ -48,10 +36,6 @@
 
 		.taglib-search-iterator-page-iterator-top, .taglib-search-iterator-page-iterator-bottom {
 			border-top: 1px solid $defaultBorderColor;
-		}
-
-		.taglib-discussion .aui-column-content {
-			border-width: 0;
 		}
 	}
 
@@ -258,10 +242,6 @@
 				}
 			}
 
-			.aui-field-input-text {
-				width: 100% !important;
-			}
-
 			ul li a .icon {
 				margin: 0 0 0 5px;
 			}
@@ -330,10 +310,6 @@
 			word-break: break-all;
 		}
 	}
-}
-
-.portlet-document-library .aui-column-content-first {
-	border-right: 1px solid $defaultBorderColor;
 }
 
 /* ---------- License dialog ---------- */
