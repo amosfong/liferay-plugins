@@ -41,7 +41,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 
 		<div class="feedback hide" id="<portlet:namespace />feedback">
 			<h3><span class="title"></span></h3>
-			
+
 			<p class="subject"></p>
 
 			<aui:input cssClass="body" id="body" label="" name="body" required="<%= true %>" type="textarea" />
@@ -76,7 +76,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 			title.setHTML('<liferay-ui:message key="what-did-we-break" />');
 			subject.setHTML('<%= FeedbackUtil.getFeedbackSubject(FeedbackConstant.TYPE_BROKEN) %>');
 		}
-		
+
 		var start = form.one('#<portlet:namespace />start');
 
 		if (start) {
@@ -178,7 +178,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 						},
 						method: 'POST'
 					}
-				);	
+				);
 			}
 		);
 	}

@@ -78,10 +78,10 @@ String redirect = ParamUtil.getString(request, "redirect");
 
 			var groupId = form.one('#<portlet:namespace />groupId');
 			var groupErrorMessage = form.one('#<portlet:namespace />groupErrorMessage');
-			
+
 			var mbCategoryId = form.one('#<portlet:namespace />mbCategoryId');
 			var mbCategoryErrorMessage = form.one('#<portlet:namespace />mbCategoryErrorMessage');
-			
+
 			var removeErrorMessage = function() {
 				if (groupErrorMessage) {
 					groupErrorMessage.setHTML('');
@@ -150,7 +150,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 			groupId.on(
 				'change',
 				function(event) {
-					getGroupCategories(groupId.val(), 0);	
+					getGroupCategories(groupId.val(), 0);
 				}
 			)
 
@@ -178,7 +178,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 
 						removeErrorMessage();
 
-						submitForm(document.<portlet:namespace />fm);	
+						submitForm(document.<portlet:namespace />fm);
 					}
 				)
 			}

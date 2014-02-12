@@ -23,7 +23,7 @@
 		<liferay-ui:message key="feedback" />
 	</div>
 
-	<aui:script use='aui-base'>
+	<aui:script use="aui-base">
 		var feedbackBar = A.one('#<portlet:namespace />feedbackBar');
 
 		if (feedbackBar) {

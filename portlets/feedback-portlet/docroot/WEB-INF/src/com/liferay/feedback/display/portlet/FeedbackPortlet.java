@@ -15,7 +15,6 @@
 package com.liferay.feedback.display.portlet;
 
 import com.liferay.compat.portal.kernel.util.StringUtil;
-import com.liferay.feedback.util.FeedbackUtil;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.util.ObjectValuePair;
