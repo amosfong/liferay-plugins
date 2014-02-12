@@ -60,9 +60,9 @@ String redirect = ParamUtil.getString(request, "redirect");
 
 					</aui:select>
 
-					<div id="<portlet:namespace />categoryErrorMessage"></div>
+					<div id="<portlet:namespace />mbCategoryErrorMessage"></div>
 
-					<aui:select id="categoryId" label="Category" name="preferences--categoryId--">
+					<aui:select id="mbCategoryId" label="Category" name="preferences--mbCategoryId--">
 						<aui:option label="" value="0" />
 					</aui:select>
 				</c:otherwise>
@@ -79,47 +79,44 @@ String redirect = ParamUtil.getString(request, "redirect");
 			var groupId = form.one('#<portlet:namespace />groupId');
 			var groupErrorMessage = form.one('#<portlet:namespace />groupErrorMessage');
 			
-			var categoryId = form.one('#<portlet:namespace />categoryId');
-			var categoryErrorMessage = form.one('#<portlet:namespace />categoryErrorMessage');
+			var mbCategoryId = form.one('#<portlet:namespace />mbCategoryId');
+			var mbCategoryErrorMessage = form.one('#<portlet:namespace />mbCategoryErrorMessage');
 			
 			var removeErrorMessage = function() {
 				if (groupErrorMessage) {
 					groupErrorMessage.setHTML('');
 				}
 
-				if (categoryErrorMessage) {
-					categoryErrorMessage.setHTML('');
+				if (mbCategoryErrorMessage) {
+					mbCategoryErrorMessage.setHTML('');
 				}
 			};
 
-			var updateCategories = function(mbCategories, selectedCategoryId) {
+			var updateCategories = function(mbCategories, selectedMBCategoryId) {
 				var selectOptions = [];
 
 				selectOptions.push('<option value="0"></option>');
 
 				if (mbCategories) {
 					for (var i = 0; i < mbCategories.length; i++) {
-						var mbCategoryId = mbCategories[i].mbCategoryId;
-						var mbCategoryName = mbCategories[i].mbCategoryName;
-
-						selectOptions.push('<option value="' + mbCategoryId + '">' + mbCategoryName + '</option>');
+						selectOptions.push('<option value="' + mbCategories[i].mbCategoryId + '">' + mbCategories[i].mbCategoryName + '</option>');
 					}
 				}
 
 				selectOptions = selectOptions.join('');
 
-				categoryId.empty();
+				mbCategoryId.empty();
 
-				categoryId.append(selectOptions);
+				mbCategoryId.append(selectOptions);
 
-				categoryId.val(selectedCategoryId);
+				mbCategoryId.val(selectedMBCategoryId);
 			}
 
-			var getGroupCategories = function(selectedGroupId, selectedCategoryId) {
+			var getGroupCategories = function(selectedGroupId, selectedMBCategoryId) {
 				removeErrorMessage();
 
 				if (selectedGroupId <= 0) {
-					categoryId.empty();
+					mbCategoryId.empty();
 
 					return;
 				}
@@ -136,7 +133,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 							success: function(event, id, obj) {
 								var response = this.get('responseData');
 
-								updateCategories(response["mbCategories"], selectedCategoryId);
+								updateCategories(response["mbCategories"], selectedMBCategoryId);
 							}
 						}
 					}
@@ -146,7 +143,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 			A.on(
 				'domready',
 				function() {
-					getGroupCategories(<%= groupId %>, <%= categoryId %>);
+					getGroupCategories(<%= groupId %>, <%= mbCategoryId %>);
 				}
 			);
 
@@ -171,9 +168,9 @@ String redirect = ParamUtil.getString(request, "redirect");
 							}
 						}
 
-						if (categoryErrorMessage) {
-							if (categoryId.val() == '0') {
-								categoryErrorMessage.setHTML('<span class="alert alert-error"><liferay-ui:message key="please-select-a-valid-category" /></span>');
+						if (mbCategoryErrorMessage) {
+							if (mbCategoryId.val() == '0') {
+								mbCategoryErrorMessage.setHTML('<span class="alert alert-error"><liferay-ui:message key="please-select-a-valid-category" /></span>');
 
 								return;
 							}

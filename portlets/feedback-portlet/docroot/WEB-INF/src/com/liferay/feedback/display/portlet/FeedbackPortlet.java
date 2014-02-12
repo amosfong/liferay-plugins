@@ -72,7 +72,7 @@ public class FeedbackPortlet extends MVCPortlet {
 		User user = themeDisplay.getUser();
 
 		long groupId = ParamUtil.getLong(actionRequest, "groupId");
-		long categoryId = ParamUtil.getLong(actionRequest, "categoryId");
+		long mbCategoryId = ParamUtil.getLong(actionRequest, "mbCategoryId");
 		String type = ParamUtil.getString(actionRequest, "type");
 		String body = ParamUtil.getString(actionRequest, "body");
 		boolean anonymous = ParamUtil.getBoolean(actionRequest, "anonymous");
@@ -86,7 +86,7 @@ public class FeedbackPortlet extends MVCPortlet {
 
 		try {
 			MBMessageLocalServiceUtil.addMessage(
-				user.getUserId(), user.getFullName(), groupId, categoryId,
+				user.getUserId(), user.getFullName(), groupId, mbCategoryId,
 				FeedbackUtil.getFeedbackSubject(type), body, "plain",
 				new ArrayList<ObjectValuePair<String, InputStream>>(),
 				anonymous, 0, false, serviceContext);

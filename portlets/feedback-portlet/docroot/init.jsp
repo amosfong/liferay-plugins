@@ -54,7 +54,7 @@ String currentURL = PortalUtil.getCurrentURL(request);
 portletPreferences = PortletPreferencesLocalServiceUtil.fetchPreferences(themeDisplay.getCompanyId(), themeDisplay.getCompanyId(), PortletKeys.PREFS_OWNER_TYPE_COMPANY, 0, PortletKeys.FEEDBACK);
 
 long groupId = Long.parseLong(portletPreferences.getValue("groupId", "0"));
-long categoryId = Long.parseLong(portletPreferences.getValue("categoryId", "0"));
+long mbCategoryId = Long.parseLong(portletPreferences.getValue("mbCategoryId", "0"));
 
 Format dateFormatDate = FastDateFormatFactoryUtil.getSimpleDateFormat("dd MMM yyyy", locale, timeZone);
 Format timeFormatDate = FastDateFormatFactoryUtil.getTime(locale, timeZone);

@@ -21,7 +21,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 %>
 
 <c:choose>
-	<c:when test="<%= (groupId == 0) || (categoryId == 0) %>">
+	<c:when test="<%= (groupId == 0) || (mbCategoryId == 0) %>">
 		<liferay-ui:message key="please-setup-configuration-first" />
 	</c:when>
 	<c:otherwise>
@@ -32,7 +32,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 		<aui:form action="<%= updateFeedbackURL %>" method="post" name="fm">
 			<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
 			<aui:input name="groupId" type="hidden" value="<%= String.valueOf(groupId) %>" />
-			<aui:input name="categoryId" type="hidden" value="<%= String.valueOf(categoryId) %>" />
+			<aui:input name="mbCategoryId" type="hidden" value="<%= String.valueOf(mbCategoryId) %>" />
 			<aui:input id="type" name="type" type="hidden" value="" />
 
 			<div class="feedback-container">
