@@ -66,24 +66,22 @@ String redirect = ParamUtil.getString(request, "redirect");
 		<aui:script use="aui-base,aui-io-request-deprecated,aui-loading-mask-deprecated">
 			var form = A.one('#<portlet:namespace />fm');
 
-			var displayFeedBack = function(ind) {
+			var displayFeedBack = function(feedbackType) {
 				var title = form.one('.feedback-container .feedback .title');
 				var subject = form.one('.feedback-container .feedback .subject');
 				var type = form.one('#<portlet:namespace />type');
 
-				if (ind == 1) {
+				type.val(feedbackType);
+
+				if (feedbackType == '<%= FeedbackConstant.TYPE_POSITIVE %>') {
 					title.setHTML('<liferay-ui:message key="all-of-our-hard-word-has-paid-off" />');
-					subject.setHTML('<%= FeedbackUtil.getFeedbackSubject("positive") %>');
-
-					type.val('positive');
+					subject.setHTML('<%= FeedbackUtil.getFeedbackSubject(FeedbackConstant.TYPE_POSITIVE) %>');
 				}
-				else if (ind == 2) {
+				else if (feedbackType == '<%= FeedbackConstant.TYPE_NEGATIVE %>') {
 					title.setHTML('<liferay-ui:message key="what-did-we-break" />');
-					subject.setHTML('<%= FeedbackUtil.getFeedbackSubject("negative") %>');
-
-					type.val('negative');
+					subject.setHTML('<%= FeedbackUtil.getFeedbackSubject(FeedbackConstant.TYPE_NEGATIVE) %>');
 				}
-
+				
 				var start = form.one('#<portlet:namespace />start');
 
 				if (start) {
@@ -107,7 +105,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 				feedbackPositive.on(
 					'click',
 					function(event) {
-						displayFeedBack(1);
+						displayFeedBack('<%= FeedbackConstant.TYPE_POSITIVE %>');
 					}
 				);
 			}
@@ -118,12 +116,10 @@ String redirect = ParamUtil.getString(request, "redirect");
 				feedbackNegative.on(
 					'click',
 					function(event) {
-						displayFeedBack(2);
+						displayFeedBack('<%= FeedbackConstant.TYPE_NEGATIVE %>');
 					}
 				);
 			}
-
-			
 
 			var sendFeedback = form.one('.feedback-container .feedback .send-feedback');
 

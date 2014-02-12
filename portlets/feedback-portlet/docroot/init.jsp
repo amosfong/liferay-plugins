@@ -24,6 +24,7 @@
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
 <%@ page import="com.liferay.compat.portal.util.PortalUtil" %><%@
+page import="com.liferay.feedback.util.FeedbackConstant" %><%@
 page import="com.liferay.feedback.util.FeedbackUtil" %><%@
 page import="com.liferay.feedback.util.PortletKeys" %><%@
 page import="com.liferay.portal.kernel.language.LanguageUtil" %><%@
