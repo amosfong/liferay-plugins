@@ -23,7 +23,7 @@ package com.liferay.feedback.util;
  */
 public class FeedbackConstant {
 
-	public static final String TYPE_POSITIVE = "positive";
+	public static final String TYPE_AWESOME = "awesome";
 
-	public static final String TYPE_NEGATIVE = "negative";
+	public static final String TYPE_BROKEN = "broken";
 }

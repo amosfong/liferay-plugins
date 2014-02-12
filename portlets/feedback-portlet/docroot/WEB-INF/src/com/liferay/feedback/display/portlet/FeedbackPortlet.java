@@ -14,11 +14,13 @@
 
 package com.liferay.feedback.display.portlet;
 
+import com.liferay.compat.portal.kernel.util.StringUtil;
 import com.liferay.feedback.util.FeedbackUtil;
 import com.liferay.portal.kernel.json.JSONFactoryUtil;
 import com.liferay.portal.kernel.json.JSONObject;
 import com.liferay.portal.kernel.util.ObjectValuePair;
 import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.WebKeys;
 import com.liferay.portal.model.User;
@@ -77,6 +79,16 @@ public class FeedbackPortlet extends MVCPortlet {
 		String body = ParamUtil.getString(actionRequest, "body");
 		boolean anonymous = ParamUtil.getBoolean(actionRequest, "anonymous");
 
+		StringBundler sb = new StringBundler(5);
+
+		sb.append(themeDisplay.translate(type, themeDisplay.getLocale()));
+		sb.append(StringPool.SPACE);
+		sb.append(StringPool.DASH);
+		sb.append(StringPool.SPACE);
+		sb.append(StringUtil.shorten(body));
+
+		String subject = sb.toString();
+
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
 
@@ -87,9 +99,8 @@ public class FeedbackPortlet extends MVCPortlet {
 		try {
 			MBMessageLocalServiceUtil.addMessage(
 				user.getUserId(), user.getFullName(), groupId, mbCategoryId,
-				FeedbackUtil.getFeedbackSubject(type), body, "plain",
-				new ArrayList<ObjectValuePair<String, InputStream>>(),
-				anonymous, 0, false, serviceContext);
+				subject, body, "plain", new ArrayList<ObjectValuePair<String,
+				InputStream>>(), anonymous, 0, false, serviceContext);
 
 			jsonObject.put("success", Boolean.TRUE.toString());
 		}

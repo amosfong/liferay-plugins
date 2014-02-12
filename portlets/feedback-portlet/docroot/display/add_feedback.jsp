@@ -39,9 +39,9 @@ String redirect = ParamUtil.getString(request, "redirect");
 				<div class="start" id="<portlet:namespace />start">
 					<h2><liferay-ui:message key="social-office-is" /></h2>
 
-					<aui:button cssClass="btn btn-success feedback-positive" icon="icon-thumbs-up" type="button" value='<%= LanguageUtil.get(pageContext, "positive") %>' />
+					<aui:button cssClass="btn btn-success feedback-positive" icon="icon-thumbs-up" type="button" value='<%= LanguageUtil.get(pageContext, "awesome") %>' />
 
-					<aui:button cssClass="btn btn-danger feedback-negative" icon="icon-thumbs-down" type="button" value='<%= LanguageUtil.get(pageContext, "negative") %>' />
+					<aui:button cssClass="btn btn-danger feedback-negative" icon="icon-thumbs-down" type="button" value='<%= LanguageUtil.get(pageContext, "broken") %>' />
 				</div>
 
 				<div class="feedback hide" id="<portlet:namespace />feedback">
@@ -73,13 +73,13 @@ String redirect = ParamUtil.getString(request, "redirect");
 
 				type.val(feedbackType);
 
-				if (feedbackType == '<%= FeedbackConstant.TYPE_POSITIVE %>') {
+				if (feedbackType == '<%= FeedbackConstant.TYPE_AWESOME %>') {
 					title.setHTML('<liferay-ui:message key="all-of-our-hard-word-has-paid-off" />');
-					subject.setHTML('<%= FeedbackUtil.getFeedbackSubject(FeedbackConstant.TYPE_POSITIVE) %>');
+					subject.setHTML('<%= FeedbackUtil.getFeedbackSubject(FeedbackConstant.TYPE_AWESOME) %>');
 				}
-				else if (feedbackType == '<%= FeedbackConstant.TYPE_NEGATIVE %>') {
+				else if (feedbackType == '<%= FeedbackConstant.TYPE_BROKEN %>') {
 					title.setHTML('<liferay-ui:message key="what-did-we-break" />');
-					subject.setHTML('<%= FeedbackUtil.getFeedbackSubject(FeedbackConstant.TYPE_NEGATIVE) %>');
+					subject.setHTML('<%= FeedbackUtil.getFeedbackSubject(FeedbackConstant.TYPE_BROKEN) %>');
 				}
 				
 				var start = form.one('#<portlet:namespace />start');
@@ -105,7 +105,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 				feedbackPositive.on(
 					'click',
 					function(event) {
-						displayFeedBack('<%= FeedbackConstant.TYPE_POSITIVE %>');
+						displayFeedBack('<%= FeedbackConstant.TYPE_AWESOME %>');
 					}
 				);
 			}
@@ -116,7 +116,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 				feedbackNegative.on(
 					'click',
 					function(event) {
-						displayFeedBack('<%= FeedbackConstant.TYPE_NEGATIVE %>');
+						displayFeedBack('<%= FeedbackConstant.TYPE_BROKEN %>');
 					}
 				);
 			}
