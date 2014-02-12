@@ -23,6 +23,7 @@ import org.apache.directory.shared.ldap.codec.actions.bindRequest.StoreName;
 /**
  * @author Minhchau Dang
  */
+@SuppressWarnings("rawtypes")
 public class DnCorrectingGrammar extends AbstractGrammar {
 
 	public static DnCorrectingGrammar getInstance() {
@@ -31,26 +32,29 @@ public class DnCorrectingGrammar extends AbstractGrammar {
 
 	@Override
 	public GrammarTransition getTransition(Enum state, int tag) {
-		GrammarTransition transition = _grammar.getTransition(state, tag);
+		GrammarTransition grammarTransition = _ldapMessageGrammar.getTransition(
+			state, tag);
 
-		if (transition.getAction() instanceof StoreName) {
-			transition = new GrammarTransition(
-				transition.getPreviousState(), transition.getCurrentState(),
-				UniversalTag.OCTET_STRING, _storeNameAction);
+		if (grammarTransition.getAction() instanceof StoreName) {
+			grammarTransition = new GrammarTransition(
+				grammarTransition.getPreviousState(),
+				grammarTransition.getCurrentState(), UniversalTag.OCTET_STRING,
+				_dnCorrectingStoreName);
 		}
 
-		return transition;
+		return grammarTransition;
 	}
 
 	protected DnCorrectingGrammar() {
-		_grammar = (LdapMessageGrammar)LdapMessageGrammar.getInstance();
+		_ldapMessageGrammar =
+			(LdapMessageGrammar)LdapMessageGrammar.getInstance();
 
-		_storeNameAction = new DnCorrectingStoreName();
+		_dnCorrectingStoreName = new DnCorrectingStoreName();
 	}
 
 	private static DnCorrectingGrammar _instance = new DnCorrectingGrammar();
 
-	private LdapMessageGrammar _grammar;
-	private DnCorrectingStoreName _storeNameAction;
+	private DnCorrectingStoreName _dnCorrectingStoreName;
+	private LdapMessageGrammar _ldapMessageGrammar;
 
 }

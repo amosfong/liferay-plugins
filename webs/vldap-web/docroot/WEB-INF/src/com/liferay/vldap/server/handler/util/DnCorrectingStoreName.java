@@ -19,7 +19,6 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 
-import org.apache.directory.shared.asn1.DecoderException;
 import org.apache.directory.shared.asn1.ber.tlv.TLV;
 import org.apache.directory.shared.asn1.ber.tlv.Value;
 import org.apache.directory.shared.ldap.codec.actions.bindRequest.StoreName;
@@ -36,18 +35,22 @@ import org.apache.directory.shared.util.Strings;
 public class DnCorrectingStoreName extends StoreName {
 
 	@Override
-	public void action(LdapMessageContainer<BindRequestDecorator> container)
-		throws DecoderException {
+	public void action(
+		LdapMessageContainer<BindRequestDecorator> ldapMessageContainer) {
 
-		TLV tlv = container.getCurrentTLV();
+		BindRequest bindRequest = ldapMessageContainer.getMessage();
+
+		TLV tlv = ldapMessageContainer.getCurrentTLV();
+
 		Value value = tlv.getValue();
+
 		byte[] dnBytes = value.getData();
+
 		String dnString = Strings.utf8ToString(dnBytes);
 
 		Dn dn = _getDn(dnString);
 
-		BindRequest message = container.getMessage();
-		message.setName(dn);
+		bindRequest.setName(dn);
 	}
 
 	private Dn _getDn(String dnString) {
@@ -70,7 +73,7 @@ public class DnCorrectingStoreName extends StoreName {
 			return new Dn(fixedDnString);
 		}
 		catch (LdapInvalidDnException e) {
-			_log.error(dnString + " could not be converted to a valid DN");
+			_log.error("Unable to convert " + dnString + " to a valid DN");
 
 			return Dn.EMPTY_DN;
 		}
