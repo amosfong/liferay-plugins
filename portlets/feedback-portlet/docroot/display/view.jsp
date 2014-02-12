@@ -16,7 +16,7 @@
 
 <%@ include file="/init.jsp" %>
 
-<c:if test="<%= themeDisplay.isSignedIn() && !(BrowserSnifferUtil.isIe(request) && (BrowserSnifferUtil.getMajorVersion(request) < 7)) && !BrowserSnifferUtil.isMobile(request) %>">
+<c:if test="<%= themeDisplay.isSignedIn() && !(BrowserSnifferUtil.isIe(request) && (BrowserSnifferUtil.getMajorVersion(request) < 7)) && !BrowserSnifferUtil.isMobile(request) && (groupId != 0) && (mbCategoryId != 0) %>">
 	<div class="feedback-bar" id="<portlet:namespace />feedbackBar">
 		<i class="icon-bullhorn"></i>
 

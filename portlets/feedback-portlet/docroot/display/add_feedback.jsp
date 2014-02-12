@@ -20,173 +20,166 @@
 String redirect = ParamUtil.getString(request, "redirect");
 %>
 
-<c:choose>
-	<c:when test="<%= (groupId == 0) || (mbCategoryId == 0) %>">
-		<liferay-ui:message key="please-setup-configuration-first" />
-	</c:when>
-	<c:otherwise>
-		<div id="<portlet:namespace />errorMessage"></div>
+<div id="<portlet:namespace />errorMessage"></div>
 
-		<portlet:actionURL name="updateFeedback" var="updateFeedbackURL" />
+<portlet:actionURL name="updateFeedback" var="updateFeedbackURL" />
 
-		<aui:form action="<%= updateFeedbackURL %>" method="post" name="fm">
-			<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
-			<aui:input name="groupId" type="hidden" value="<%= String.valueOf(groupId) %>" />
-			<aui:input name="mbCategoryId" type="hidden" value="<%= String.valueOf(mbCategoryId) %>" />
-			<aui:input id="type" name="type" type="hidden" value="" />
+<aui:form action="<%= updateFeedbackURL %>" method="post" name="fm">
+	<aui:input name="redirect" type="hidden" value="<%= redirect %>" />
+	<aui:input name="groupId" type="hidden" value="<%= String.valueOf(groupId) %>" />
+	<aui:input name="mbCategoryId" type="hidden" value="<%= String.valueOf(mbCategoryId) %>" />
+	<aui:input id="type" name="type" type="hidden" value="" />
 
-			<div class="feedback-container">
-				<div class="start" id="<portlet:namespace />start">
-					<h2><liferay-ui:message key="social-office-is" /></h2>
+	<div class="feedback-container">
+		<div class="start" id="<portlet:namespace />start">
+			<h2><liferay-ui:message key="social-office-is" /></h2>
 
-					<aui:button cssClass="btn btn-success feedback-positive" icon="icon-thumbs-up" type="button" value='<%= LanguageUtil.get(pageContext, "awesome") %>' />
+			<aui:button cssClass="btn btn-success feedback-positive" icon="icon-thumbs-up" type="button" value='<%= LanguageUtil.get(pageContext, "awesome") %>' />
 
-					<aui:button cssClass="btn btn-danger feedback-negative" icon="icon-thumbs-down" type="button" value='<%= LanguageUtil.get(pageContext, "broken") %>' />
-				</div>
+			<aui:button cssClass="btn btn-danger feedback-negative" icon="icon-thumbs-down" type="button" value='<%= LanguageUtil.get(pageContext, "broken") %>' />
+		</div>
 
-				<div class="feedback hide" id="<portlet:namespace />feedback">
-					<h3><span class="title"></span></h3>
-					
-					<p class="subject"></p>
+		<div class="feedback hide" id="<portlet:namespace />feedback">
+			<h3><span class="title"></span></h3>
+			
+			<p class="subject"></p>
 
-					<aui:input cssClass="body" id="body" label="" name="body" required="<%= true %>" type="textarea" />
+			<aui:input cssClass="body" id="body" label="" name="body" required="<%= true %>" type="textarea" />
 
-					<aui:input id="anonymous" label="Anonymous" name="anonymous" type="checkbox" />
+			<aui:input id="anonymous" label="Anonymous" name="anonymous" type="checkbox" />
 
-					<aui:button cssClass="btn btn-primary send-feedback" type="button" value='<%= LanguageUtil.get(pageContext, "send-feedback") %>' />
-				</div>
+			<aui:button cssClass="btn btn-primary send-feedback" type="button" value='<%= LanguageUtil.get(pageContext, "send-feedback") %>' />
+		</div>
 
-				<div class="confirmation hide" id="<portlet:namespace />confirmation">
-					<h3><liferay-ui:message key="your-feedback-has-been-submitted" /></h3>
-					<p><liferay-ui:message key="we-appreciate-your-time-and-value-your-feedback" /></p>
-				</div>
-			</div>
-		</aui:form>
+		<div class="confirmation hide" id="<portlet:namespace />confirmation">
+			<h3><liferay-ui:message key="your-feedback-has-been-submitted" /></h3>
+			<p><liferay-ui:message key="we-appreciate-your-time-and-value-your-feedback" /></p>
+		</div>
+	</div>
+</aui:form>
 
-		<aui:script use="aui-base,aui-io-request-deprecated,aui-loading-mask-deprecated">
-			var form = A.one('#<portlet:namespace />fm');
+<aui:script use="aui-base,aui-io-request-deprecated,aui-loading-mask-deprecated">
+	var form = A.one('#<portlet:namespace />fm');
 
-			var displayFeedBack = function(feedbackType) {
-				var title = form.one('.feedback-container .feedback .title');
-				var subject = form.one('.feedback-container .feedback .subject');
-				var type = form.one('#<portlet:namespace />type');
+	var displayFeedBack = function(feedbackType) {
+		var title = form.one('.feedback-container .feedback .title');
+		var subject = form.one('.feedback-container .feedback .subject');
+		var type = form.one('#<portlet:namespace />type');
 
-				type.val(feedbackType);
+		type.val(feedbackType);
 
-				if (feedbackType == '<%= FeedbackConstant.TYPE_AWESOME %>') {
-					title.setHTML('<liferay-ui:message key="all-of-our-hard-word-has-paid-off" />');
-					subject.setHTML('<%= FeedbackUtil.getFeedbackSubject(FeedbackConstant.TYPE_AWESOME) %>');
-				}
-				else if (feedbackType == '<%= FeedbackConstant.TYPE_BROKEN %>') {
-					title.setHTML('<liferay-ui:message key="what-did-we-break" />');
-					subject.setHTML('<%= FeedbackUtil.getFeedbackSubject(FeedbackConstant.TYPE_BROKEN) %>');
-				}
-				
-				var start = form.one('#<portlet:namespace />start');
+		if (feedbackType == '<%= FeedbackConstant.TYPE_AWESOME %>') {
+			title.setHTML('<liferay-ui:message key="all-of-our-hard-word-has-paid-off" />');
+			subject.setHTML('<%= FeedbackUtil.getFeedbackSubject(FeedbackConstant.TYPE_AWESOME) %>');
+		}
+		else if (feedbackType == '<%= FeedbackConstant.TYPE_BROKEN %>') {
+			title.setHTML('<liferay-ui:message key="what-did-we-break" />');
+			subject.setHTML('<%= FeedbackUtil.getFeedbackSubject(FeedbackConstant.TYPE_BROKEN) %>');
+		}
+		
+		var start = form.one('#<portlet:namespace />start');
 
-				if (start) {
-					start.hide();
-				}
+		if (start) {
+			start.hide();
+		}
 
-				var feedback = form.one('#<portlet:namespace />feedback');
+		var feedback = form.one('#<portlet:namespace />feedback');
 
-				if (feedback) {
-					feedback.show();
+		if (feedback) {
+			feedback.show();
 
-					var body = form.one('#<portlet:namespace />body');
+			var body = form.one('#<portlet:namespace />body');
 
-					body.focus();
-				}
+			body.focus();
+		}
+	}
+
+	var feedbackPositive = form.one('.feedback-container .start .feedback-positive');
+
+	if (feedbackPositive) {
+		feedbackPositive.on(
+			'click',
+			function(event) {
+				displayFeedBack('<%= FeedbackConstant.TYPE_AWESOME %>');
 			}
+		);
+	}
 
-			var feedbackPositive = form.one('.feedback-container .start .feedback-positive');
+	var feedbackNegative = form.one('.feedback-container .start .feedback-negative');
 
-			if (feedbackPositive) {
-				feedbackPositive.on(
-					'click',
-					function(event) {
-						displayFeedBack('<%= FeedbackConstant.TYPE_AWESOME %>');
+	if (feedbackNegative) {
+		feedbackNegative.on(
+			'click',
+			function(event) {
+				displayFeedBack('<%= FeedbackConstant.TYPE_BROKEN %>');
+			}
+		);
+	}
+
+	var sendFeedback = form.one('.feedback-container .feedback .send-feedback');
+
+	if (sendFeedback) {
+		sendFeedback.on(
+			'click',
+			function(event) {
+				var errorMessage = A.one('#<portlet:namespace />errorMessage');
+				var feedback = A.one('#<portlet:namespace />feedback');
+				var body = A.one('#<portlet:namespace />body');
+
+				if (errorMessage) {
+					if (body.val().trim().length == 0) {
+						body.focus();
+
+						return;
+					}
+
+					errorMessage.setHTML('');
+				}
+
+				var loadingMask = new A.LoadingMask(
+					{
+						'strings.loading': '<%= UnicodeLanguageUtil.get(pageContext, "sending-feedback") %>',
+						target: A.one('.feedback-portlet .feedback-container')
 					}
 				);
-			}
 
-			var feedbackNegative = form.one('.feedback-container .start .feedback-negative');
+				loadingMask.show();
 
-			if (feedbackNegative) {
-				feedbackNegative.on(
-					'click',
-					function(event) {
-						displayFeedBack('<%= FeedbackConstant.TYPE_BROKEN %>');
-					}
-				);
-			}
+				A.io.request(
+					form.getAttribute('action'),
+					{
+						after: {
+							success: function(event, id, obj) {
+								var response = this.get('responseData');
 
-			var sendFeedback = form.one('.feedback-container .feedback .send-feedback');
+								if (response && (response.success == 'true')) {
+									var confirmation = A.one('#<portlet:namespace />confirmation');
 
-			if (sendFeedback) {
-				sendFeedback.on(
-					'click',
-					function(event) {
-						var errorMessage = A.one('#<portlet:namespace />errorMessage');
-						var feedback = A.one('#<portlet:namespace />feedback');
-						var body = A.one('#<portlet:namespace />body');
-
-						if (errorMessage) {
-							if (body.val().trim().length == 0) {
-								body.focus();
-
-								return;
-							}
-
-							errorMessage.setHTML('');
-						}
-
-						var loadingMask = new A.LoadingMask(
-							{
-								'strings.loading': '<%= UnicodeLanguageUtil.get(pageContext, "sending-feedback") %>',
-								target: A.one('.feedback-portlet .feedback-container')
-							}
-						);
-
-						loadingMask.show();
-
-						A.io.request(
-							form.getAttribute('action'),
-							{
-								after: {
-									success: function(event, id, obj) {
-										var response = this.get('responseData');
-
-										if (response && (response.success == 'true')) {
-											var confirmation = A.one('#<portlet:namespace />confirmation');
-
-											if (feedback) {
-												feedback.hide();
-											}
-
-											if (confirmation) {
-												confirmation.show();
-											}
-										}
-										else {
-											if (errorMessage) {
-												errorMessage.setHTML('<span class="alert alert-error"><liferay-ui:message key="feedback-is-not-saved-successfully" /></span>');
-											}
-										}
-
-										loadingMask.hide();
+									if (feedback) {
+										feedback.hide();
 									}
-								},
-								dataType: 'JSON',
-								form: {
-									id: form.getDOM()
-								},
-								method: 'POST'
+
+									if (confirmation) {
+										confirmation.show();
+									}
+								}
+								else {
+									if (errorMessage) {
+										errorMessage.setHTML('<span class="alert alert-error"><liferay-ui:message key="your-feedback-was-not-saved-successfully" /></span>');
+									}
+								}
+
+								loadingMask.hide();
 							}
-						);	
+						},
+						dataType: 'JSON',
+						form: {
+							id: form.getDOM()
+						},
+						method: 'POST'
 					}
-				);
+				);	
 			}
-		</aui:script>
-	</c:otherwise>
-</c:choose>
+		);
+	}
+</aui:script>

@@ -32,18 +32,16 @@ page import="com.liferay.portal.kernel.language.UnicodeLanguageUtil" %><%@
 page import="com.liferay.portal.kernel.portlet.LiferayWindowState" %><%@
 page import="com.liferay.portal.kernel.servlet.BrowserSnifferUtil" %><%@
 page import="com.liferay.portal.kernel.util.FastDateFormatFactoryUtil" %><%@
+page import="com.liferay.portal.kernel.util.GetterUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
-page import="com.liferay.portal.kernel.util.Validator" %><%@
+page import="com.liferay.portal.kernel.util.StringPool" %><%@
 page import="com.liferay.portal.model.Group" %><%@
-page import="com.liferay.portal.model.GroupConstants" %><%@
 page import="com.liferay.portal.service.GroupLocalServiceUtil" %><%@
-page import="com.liferay.portal.service.PortletPreferencesLocalServiceUtil" %><%@
-page import="com.liferay.so.service.SocialOfficeServiceUtil" %>
+page import="com.liferay.portal.service.PortletPreferencesLocalServiceUtil" %>
 
 <%@ page import="java.text.Format" %>
 
-<%@ page import="java.util.ArrayList" %><%@
-page import="java.util.List" %>
+<%@ page import="java.util.List" %>
 
 <portlet:defineObjects />
 
@@ -54,8 +52,13 @@ String currentURL = PortalUtil.getCurrentURL(request);
 
 portletPreferences = PortletPreferencesLocalServiceUtil.fetchPreferences(themeDisplay.getCompanyId(), themeDisplay.getCompanyId(), PortletKeys.PREFS_OWNER_TYPE_COMPANY, 0, PortletKeys.FEEDBACK);
 
-long groupId = Long.parseLong(portletPreferences.getValue("groupId", "0"));
-long mbCategoryId = Long.parseLong(portletPreferences.getValue("mbCategoryId", "0"));
+long groupId = 0;
+long mbCategoryId = 0;
+
+if (portletPreferences != null) {
+	groupId = GetterUtil.getLong(portletPreferences.getValue("groupId", StringPool.BLANK));
+	mbCategoryId = GetterUtil.getLong(portletPreferences.getValue("mbCategoryId", StringPool.BLANK));
+}
 
 Format dateFormatDate = FastDateFormatFactoryUtil.getSimpleDateFormat("dd MMM yyyy", locale, timeZone);
 Format timeFormatDate = FastDateFormatFactoryUtil.getTime(locale, timeZone);
