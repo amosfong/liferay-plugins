@@ -55,6 +55,8 @@ public class DispatchIoHandler implements IoHandler {
 		if (_log.isDebugEnabled()) {
 			_log.debug(cause, cause);
 		}
+
+		ioSession.close(false);
 	}
 
 	@Override
@@ -82,6 +84,9 @@ public class DispatchIoHandler implements IoHandler {
 		}
 		catch (Exception e) {
 			_log.error(e, e);
+		}
+		finally {
+			ioSession.close(false);
 		}
 	}
 
