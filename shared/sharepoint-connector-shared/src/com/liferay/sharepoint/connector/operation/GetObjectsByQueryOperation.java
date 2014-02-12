@@ -14,11 +14,12 @@
 
 package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.SharepointConnection;
 import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.SharepointObject;
 import com.liferay.sharepoint.connector.schema.query.Query;
 import com.liferay.sharepoint.connector.schema.query.QueryOptionsList;
+
+import com.microsoft.schemas.sharepoint.soap.ListsSoap;
 
 import java.util.List;
 
@@ -27,10 +28,8 @@ import java.util.List;
  */
 public class GetObjectsByQueryOperation extends BaseOperation {
 
-	public GetObjectsByQueryOperation(
-		SharepointConnection sharepointConnection) {
-
-		super(sharepointConnection);
+	public GetObjectsByQueryOperation(ListsSoap listsSoap) {
+		_listsSoap = listsSoap;
 	}
 
 	public List<SharepointObject> execute(
@@ -40,5 +39,7 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 
 		return null;
 	}
+
+	private ListsSoap _listsSoap;
 
 }

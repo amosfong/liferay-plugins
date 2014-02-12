@@ -14,7 +14,6 @@
 
 package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.SharepointConnection;
 import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.SharepointVersion;
 
@@ -24,10 +23,6 @@ import java.util.List;
  * @author Ivan Zaera
  */
 public class GetFileVersionsOperation extends BaseOperation {
-
-	public GetFileVersionsOperation(SharepointConnection sharepointConnection) {
-		super(sharepointConnection);
-	}
 
 	public List<SharepointVersion> execute(String filePath)
 		throws SharepointException {

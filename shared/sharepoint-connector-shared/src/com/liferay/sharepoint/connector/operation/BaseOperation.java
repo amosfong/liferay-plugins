@@ -14,7 +14,6 @@
 
 package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.SharepointConnection;
 import com.liferay.sharepoint.connector.SharepointObject;
 
 import java.net.URL;
@@ -25,10 +24,6 @@ import java.util.List;
  * @author Brian Wing Shun Chan
  */
 public abstract class BaseOperation {
-
-	public BaseOperation(SharepointConnection sharepointConnection) {
-		this.sharepointConnection = sharepointConnection;
-	}
 
 	protected SharepointObject getSharepointObject(
 		List<SharepointObject> sharepointObjects) {
@@ -47,7 +42,5 @@ public abstract class BaseOperation {
 	protected URL toURL(String path) {
 		return null;
 	}
-
-	protected SharepointConnection sharepointConnection;
 
 }

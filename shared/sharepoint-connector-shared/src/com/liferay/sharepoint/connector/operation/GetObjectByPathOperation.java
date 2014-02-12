@@ -15,7 +15,6 @@
 package com.liferay.sharepoint.connector.operation;
 
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.sharepoint.connector.SharepointConnection;
 import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.SharepointObject;
 import com.liferay.sharepoint.connector.schema.query.Query;
@@ -25,16 +24,15 @@ import com.liferay.sharepoint.connector.schema.query.QueryValue;
 import com.liferay.sharepoint.connector.schema.query.operator.EqOperator;
 import com.liferay.sharepoint.connector.schema.query.option.FolderQueryOption;
 
+import com.microsoft.schemas.sharepoint.soap.ListsSoap;
+
 /**
  * @author Ivan Zaera
  */
 public class GetObjectByPathOperation extends BaseOperation {
 
-	public GetObjectByPathOperation(SharepointConnection sharepointConnection) {
-		super(sharepointConnection);
-
-		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
-			sharepointConnection);
+	public GetObjectByPathOperation(ListsSoap listsSoap) {
+		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(listsSoap);
 	}
 
 	public SharepointObject execute(String filePath)

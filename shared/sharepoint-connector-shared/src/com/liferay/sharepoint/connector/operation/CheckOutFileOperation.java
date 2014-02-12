@@ -15,7 +15,6 @@
 package com.liferay.sharepoint.connector.operation;
 
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.sharepoint.connector.SharepointConnection;
 import com.liferay.sharepoint.connector.SharepointException;
 
 import com.microsoft.schemas.sharepoint.soap.ListsSoap;
@@ -29,11 +28,7 @@ import java.rmi.RemoteException;
  */
 public class CheckOutFileOperation extends BaseOperation {
 
-	public CheckOutFileOperation(
-		SharepointConnection sharepointConnection, ListsSoap listsSoap) {
-
-		super(sharepointConnection);
-
+	public CheckOutFileOperation(ListsSoap listsSoap) {
 		_listsSoap = listsSoap;
 	}
 

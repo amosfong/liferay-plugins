@@ -14,17 +14,12 @@
 
 package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.SharepointConnection;
 import com.liferay.sharepoint.connector.SharepointException;
 
 /**
  * @author Ivan Zaera
  */
 public class DeleteObjectOperation extends BaseOperation {
-
-	public DeleteObjectOperation(SharepointConnection sharepointConnection) {
-		super(sharepointConnection);
-	}
 
 	public void execute(String path) throws SharepointException {
 	}

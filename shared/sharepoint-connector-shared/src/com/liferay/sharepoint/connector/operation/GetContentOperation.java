@@ -14,7 +14,6 @@
 
 package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.SharepointConnection;
 import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.SharepointObject;
 import com.liferay.sharepoint.connector.SharepointVersion;
@@ -25,10 +24,6 @@ import java.io.InputStream;
  * @author Ivan Zaera
  */
 public class GetContentOperation extends BaseOperation {
-
-	public GetContentOperation(SharepointConnection sharepointConnection) {
-		super(sharepointConnection);
-	}
 
 	public InputStream execute(SharepointObject sharepointObject)
 		throws SharepointException {

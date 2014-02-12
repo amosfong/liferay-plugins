@@ -14,7 +14,6 @@
 
 package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.SharepointConnectionImpl;
 import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.schema.batch.Batch;
 
@@ -22,11 +21,6 @@ import com.liferay.sharepoint.connector.schema.batch.Batch;
  * @author Ivan Zaera
  */
 public class BatchOperation extends BaseOperation {
-
-	public BatchOperation(SharepointConnectionImpl sharepointConnectionImpl) {
-
-		super(sharepointConnectionImpl);
-	}
 
 	public void execute(Batch batch) throws SharepointException {
 	}

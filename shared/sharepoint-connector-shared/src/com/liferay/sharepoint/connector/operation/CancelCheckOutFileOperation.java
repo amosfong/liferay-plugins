@@ -14,19 +14,12 @@
 
 package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.SharepointConnection;
 import com.liferay.sharepoint.connector.SharepointException;
 
 /**
  * @author Ivan Zaera
  */
 public class CancelCheckOutFileOperation extends BaseOperation {
-
-	public CancelCheckOutFileOperation(
-		SharepointConnection sharepointConnection) {
-
-		super(sharepointConnection);
-	}
 
 	public boolean execute(String filePath) throws SharepointException {
 		return false;

@@ -14,7 +14,6 @@
 
 package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.SharepointConnection;
 import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.SharepointObject;
 
@@ -24,12 +23,6 @@ import java.util.List;
  * @author Ivan Zaera
  */
 public class GetObjectsByQueryPacketOperation extends BaseOperation {
-
-	public GetObjectsByQueryPacketOperation(
-		SharepointConnection sharepointConnection) {
-
-		super(sharepointConnection);
-	}
 
 	public List<SharepointObject> execute(String queryPacket)
 		throws SharepointException {
