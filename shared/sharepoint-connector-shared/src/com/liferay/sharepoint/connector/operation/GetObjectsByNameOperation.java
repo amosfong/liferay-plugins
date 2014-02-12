@@ -14,9 +14,16 @@
 
 package com.liferay.sharepoint.connector.operation;
 
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.sharepoint.connector.SharepointConnection;
 import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.SharepointObject;
+import com.liferay.sharepoint.connector.schema.query.Query;
+import com.liferay.sharepoint.connector.schema.query.QueryField;
+import com.liferay.sharepoint.connector.schema.query.QueryOptionsList;
+import com.liferay.sharepoint.connector.schema.query.QueryValue;
+import com.liferay.sharepoint.connector.schema.query.operator.ContainsOperator;
+import com.liferay.sharepoint.connector.schema.query.option.FolderQueryOption;
 
 import java.util.List;
 
@@ -29,12 +36,23 @@ public class GetObjectsByNameOperation extends BaseOperation {
 		SharepointConnection sharepointConnection) {
 
 		super(sharepointConnection);
+
+		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
+				sharepointConnection);
 	}
 
 	public List<SharepointObject> execute(String name)
 		throws SharepointException {
 
-		return null;
+		Query query = new Query(
+			new ContainsOperator(
+				new QueryField("FileRef"), new QueryValue(name)));
+
+		return _getObjectsByQueryOperation.execute(
+			query,
+			new QueryOptionsList(new FolderQueryOption(StringPool.BLANK)));
 	}
+
+	private GetObjectsByQueryOperation _getObjectsByQueryOperation;
 
 }
