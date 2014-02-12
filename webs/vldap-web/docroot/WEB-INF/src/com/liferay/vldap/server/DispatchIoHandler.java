@@ -26,17 +26,14 @@ import com.liferay.vldap.server.handler.UnbindLdapHandler;
 import com.liferay.vldap.server.handler.UnwillingToPerformLdapHandler;
 import com.liferay.vldap.server.handler.util.LdapHandlerContext;
 import com.liferay.vldap.server.handler.util.LdapHandlerThreadLocal;
+import com.liferay.vldap.server.handler.util.LiferayLdapMessageContainer;
 import com.liferay.vldap.util.PortletPropsValues;
 import com.liferay.vldap.util.VLDAPConstants;
 
 import java.util.List;
 import java.util.Map;
 
-import org.apache.directory.shared.ldap.codec.api.LdapApiService;
 import org.apache.directory.shared.ldap.codec.api.LdapMessageContainer;
-import org.apache.directory.shared.ldap.codec.api.MessageDecorator;
-import org.apache.directory.shared.ldap.codec.standalone.StandaloneLdapApiService;
-import org.apache.directory.shared.ldap.model.message.Message;
 import org.apache.directory.shared.ldap.model.message.MessageTypeEnum;
 import org.apache.directory.shared.ldap.model.message.Request;
 import org.apache.directory.shared.ldap.model.message.Response;
@@ -121,12 +118,8 @@ public class DispatchIoHandler implements IoHandler {
 				return;
 			}
 
-			LdapApiService ldapApiService = new StandaloneLdapApiService();
-
-			LdapMessageContainer <MessageDecorator<? extends Message>>
-				ldapMessageContainer =
-					new LdapMessageContainer
-						<MessageDecorator<? extends Message>>(ldapApiService);
+			LdapMessageContainer ldapMessageContainer =
+				new LiferayLdapMessageContainer();
 
 			// Needed by org.apache.directory.shared.ldap.codec.protocol.mina.
 			// LdapProtocolDecoder
