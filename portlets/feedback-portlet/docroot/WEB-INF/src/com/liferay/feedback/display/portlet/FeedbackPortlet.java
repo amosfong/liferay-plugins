@@ -80,7 +80,7 @@ public class FeedbackPortlet extends MVCPortlet {
 
 		StringBundler sb = new StringBundler(5);
 
-		sb.append(themeDisplay.translate(type, themeDisplay.getLocale()));
+		sb.append(themeDisplay.translate(type));
 		sb.append(StringPool.SPACE);
 		sb.append(StringPool.DASH);
 		sb.append(StringPool.SPACE);
