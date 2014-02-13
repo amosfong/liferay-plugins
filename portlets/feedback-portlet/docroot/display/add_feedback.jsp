@@ -34,9 +34,9 @@ String redirect = ParamUtil.getString(request, "redirect");
 		<div class="start" id="<portlet:namespace />start">
 			<h2><liferay-ui:message key="social-office-is" /></h2>
 
-			<aui:button cssClass="btn btn-success feedback-positive" icon="icon-thumbs-up" type="button" value='<%= LanguageUtil.get(pageContext, "awesome") %>' />
+			<aui:button cssClass="btn btn-success feedback-positive" icon="icon-thumbs-up" type="button" value='<%= LanguageUtil.get(pageContext, "positive") %>' />
 
-			<aui:button cssClass="btn btn-danger feedback-negative" icon="icon-thumbs-down" type="button" value='<%= LanguageUtil.get(pageContext, "broken") %>' />
+			<aui:button cssClass="btn btn-danger feedback-negative" icon="icon-thumbs-down" type="button" value='<%= LanguageUtil.get(pageContext, "negative") %>' />
 		</div>
 
 		<div class="feedback hide" id="<portlet:namespace />feedback">
@@ -73,13 +73,13 @@ String redirect = ParamUtil.getString(request, "redirect");
 
 		type.val(feedbackType);
 
-		if (feedbackType == '<%= FeedbackConstant.TYPE_AWESOME %>') {
+		if (feedbackType == '<%= FeedbackConstant.TYPE_POSITIVE %>') {
 			title.setHTML('<liferay-ui:message key="all-of-our-hard-word-has-paid-off" />');
-			subject.setHTML('<%= FeedbackUtil.getFeedbackSubject(FeedbackConstant.TYPE_AWESOME) %>');
+			subject.setHTML('<%= FeedbackUtil.getFeedbackSubject(FeedbackConstant.TYPE_POSITIVE) %>');
 		}
-		else if (feedbackType == '<%= FeedbackConstant.TYPE_BROKEN %>') {
+		else if (feedbackType == '<%= FeedbackConstant.TYPE_NEGATIVE %>') {
 			title.setHTML('<liferay-ui:message key="what-did-we-break" />');
-			subject.setHTML('<%= FeedbackUtil.getFeedbackSubject(FeedbackConstant.TYPE_BROKEN) %>');
+			subject.setHTML('<%= FeedbackUtil.getFeedbackSubject(FeedbackConstant.TYPE_NEGATIVE) %>');
 		}
 
 		var start = form.one('#<portlet:namespace />start');
@@ -99,24 +99,24 @@ String redirect = ParamUtil.getString(request, "redirect");
 		}
 	}
 
-	var feedbackPositive = form.one('.feedback-container .start .feedback-positive');
-
-	if (feedbackPositive) {
-		feedbackPositive.on(
-			'click',
-			function(event) {
-				displayFeedBack('<%= FeedbackConstant.TYPE_AWESOME %>');
-			}
-		);
-	}
-
 	var feedbackNegative = form.one('.feedback-container .start .feedback-negative');
 
 	if (feedbackNegative) {
 		feedbackNegative.on(
 			'click',
 			function(event) {
-				displayFeedBack('<%= FeedbackConstant.TYPE_BROKEN %>');
+				displayFeedBack('<%= FeedbackConstant.TYPE_NEGATIVE %>');
+			}
+		);
+	}
+
+	var feedbackPositive = form.one('.feedback-container .start .feedback-positive');
+
+	if (feedbackPositive) {
+		feedbackPositive.on(
+			'click',
+			function(event) {
+				displayFeedBack('<%= FeedbackConstant.TYPE_POSITIVE %>');
 			}
 		);
 	}
