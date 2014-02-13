@@ -52,8 +52,13 @@ String redirect = ParamUtil.getString(request, "redirect");
 		</div>
 
 		<div class="confirmation hide" id="<portlet:namespace />confirmation">
-			<h3><liferay-ui:message key="your-feedback-has-been-submitted" /></h3>
-			<p><liferay-ui:message key="we-appreciate-your-time-and-value-your-feedback" /></p>
+			<h3>
+				<liferay-ui:message key="your-feedback-has-been-submitted" />
+			</h3>
+
+			<p>
+				<liferay-ui:message key="we-appreciate-your-time-and-value-your-feedback" />
+			</p>
 		</div>
 	</div>
 </aui:form>
