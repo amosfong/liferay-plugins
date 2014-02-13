@@ -57,7 +57,7 @@ public class BatchOperation extends BaseOperation {
 		}
 		catch (RemoteException re) {
 			throw new SharepointException(
-				"Failure communicating with Sharepoint server", re);
+				"Unable to communicate with the Sharepoint server", re);
 		}
 
 		_parseUpdateListItemsResult(updateListItemsResult);
