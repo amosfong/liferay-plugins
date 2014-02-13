@@ -19,6 +19,6 @@ package com.liferay.feedback.util;
  */
 public class PortletKeys extends com.liferay.portal.util.PortletKeys {
 
-	public static final String FEEDBACK = "1_WAR_feedbackportlet";
+	public static final String FEEDBACK_ADMIN = "1_WAR_feedbackportlet";
 
 }
