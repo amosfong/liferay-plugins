@@ -39,11 +39,11 @@ public class CheckInFileOperation extends BaseOperation {
 		try {
 			URL filePathURL = toURL(filePath);
 
-			String checkInTypeValue = Integer.toString(
+			String protocolValue = String.valueOf(
 				checkInType.getProtocolValue());
 
 			return _listsSoap.checkInFile(
-				filePathURL.toString(), comment, checkInTypeValue);
+				filePathURL.toString(), comment, protocolValue);
 		}
 		catch (RemoteException re) {
 			throw new SharepointException(
