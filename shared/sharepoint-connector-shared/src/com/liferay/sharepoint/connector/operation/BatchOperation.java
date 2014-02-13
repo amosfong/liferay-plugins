@@ -71,11 +71,11 @@ public class BatchOperation extends BaseOperation {
 				updateListItemsResponseUpdateListItemsResult)
 		throws SharepointException {
 
-		Element updateListItemsResultElement = _xmlHelper.getElement(
-			updateListItemsResponseUpdateListItemsResult);
+		Element updateListItemsResponseUpdateListItemsResultElement =
+			_xmlHelper.getElement(updateListItemsResponseUpdateListItemsResult);
 
 		Element resultElement = _xmlHelper.getElement(
-			"Result", updateListItemsResultElement);
+			"Result", updateListItemsResponseUpdateListItemsResultElement);
 
 		Element errorCodeElement = _xmlHelper.getElement(
 			"ErrorCode", resultElement);
