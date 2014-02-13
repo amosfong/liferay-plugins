@@ -27,9 +27,9 @@ public class DnCorrectingGrammar<E extends LiferayLdapMessageContainer>
 	extends AbstractGrammar<E> {
 
 	@Override
-	public GrammarTransition<E> getTransition (Enum<?> state, int tag) {
-		GrammarTransition<E> grammarTransition =
-			_ldapMessageGrammar.getTransition(state, tag);
+	public GrammarTransition<E> getTransition(Enum<?> state, int tag) {
+		GrammarTransition<E> grammarTransition = _abstractGrammar.getTransition(
+			state, tag);
 
 		Enum<?> previousState = grammarTransition.getPreviousState();
 		Enum<?> currentState = grammarTransition.getCurrentState();
@@ -44,13 +44,12 @@ public class DnCorrectingGrammar<E extends LiferayLdapMessageContainer>
 	}
 
 	protected DnCorrectingGrammar() {
-		_ldapMessageGrammar =
-			(AbstractGrammar<E>) LdapMessageGrammar.getInstance();
+		_abstractGrammar = (AbstractGrammar<E>)LdapMessageGrammar.getInstance();
 
 		_dnCorrectingStoreName = new DnCorrectingStoreName<E>();
 	}
 
+	private AbstractGrammar<E> _abstractGrammar;
 	private DnCorrectingStoreName<E> _dnCorrectingStoreName;
-	private AbstractGrammar<E> _ldapMessageGrammar;
 
 }

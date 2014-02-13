@@ -117,13 +117,14 @@ public class DispatchIoHandler implements IoHandler {
 				return;
 			}
 
-			LiferayLdapMessageContainer ldapMessageContainer =
+			LiferayLdapMessageContainer liferayLdapMessageContainer =
 				new LiferayLdapMessageContainer();
 
 			// Needed by org.apache.directory.shared.ldap.codec.protocol.mina.
 			// LdapProtocolDecoder
 
-			ioSession.setAttribute("messageContainer", ldapMessageContainer);
+			ioSession.setAttribute(
+				"messageContainer", liferayLdapMessageContainer);
 		}
 		catch (Exception e) {
 			_log.error(e, e);

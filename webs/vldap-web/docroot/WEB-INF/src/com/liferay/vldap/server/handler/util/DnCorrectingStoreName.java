@@ -35,7 +35,7 @@ public class DnCorrectingStoreName<E extends LiferayLdapMessageContainer>
 
 	@Override
 	public void action(E messageContainer) {
-		BindRequest bindRequest = (BindRequest) messageContainer.getMessage();
+		BindRequest bindRequest = (BindRequest)messageContainer.getMessage();
 
 		TLV tlv = messageContainer.getCurrentTLV();
 
