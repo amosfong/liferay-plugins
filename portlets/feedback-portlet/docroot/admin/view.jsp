@@ -76,11 +76,39 @@ String redirect = ParamUtil.getString(request, "redirect");
 		<aui:script use="aui-base,aui-io-request-deprecated">
 			var form = A.one('#<portlet:namespace />fm');
 
-			var groupId = form.one('#<portlet:namespace />groupId');
 			var groupErrorMessage = form.one('#<portlet:namespace />groupErrorMessage');
+			var groupId = form.one('#<portlet:namespace />groupId');
 
-			var mbCategoryId = form.one('#<portlet:namespace />mbCategoryId');
 			var mbCategoryErrorMessage = form.one('#<portlet:namespace />mbCategoryErrorMessage');
+			var mbCategoryId = form.one('#<portlet:namespace />mbCategoryId');
+
+			var getGroupCategories = function(selectedGroupId, selectedMBCategoryId) {
+				removeErrorMessage();
+
+				if (selectedGroupId <= 0) {
+					mbCategoryId.empty();
+
+					return;
+				}
+
+				A.io.request(
+					'<liferay-portlet:resourceURL id="getMBCategories" />',
+					{
+						data: {
+							<portlet:namespace />groupId: selectedGroupId
+						},
+						dataType: 'JSON',
+						method: 'POST',
+						on: {
+							success: function(event, id, obj) {
+								var response = this.get('responseData');
+
+								updateCategories(response["mbCategories"], selectedMBCategoryId);
+							}
+						}
+					}
+				);
+			};
 
 			var removeErrorMessage = function() {
 				if (groupErrorMessage) {
@@ -111,34 +139,6 @@ String redirect = ParamUtil.getString(request, "redirect");
 
 				mbCategoryId.val(selectedMBCategoryId);
 			}
-
-			var getGroupCategories = function(selectedGroupId, selectedMBCategoryId) {
-				removeErrorMessage();
-
-				if (selectedGroupId <= 0) {
-					mbCategoryId.empty();
-
-					return;
-				}
-
-				A.io.request(
-					'<liferay-portlet:resourceURL id="getMBCategories" />',
-					{
-						data: {
-							<portlet:namespace />groupId: selectedGroupId
-						},
-						dataType: 'JSON',
-						method: 'POST',
-						on: {
-							success: function(event, id, obj) {
-								var response = this.get('responseData');
-
-								updateCategories(response["mbCategories"], selectedMBCategoryId);
-							}
-						}
-					}
-				);
-			};
 
 			A.on(
 				'domready',
