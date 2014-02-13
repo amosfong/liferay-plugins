@@ -50,15 +50,8 @@ page import="com.liferay.portal.service.PortletPreferencesLocalServiceUtil" %>
 <%
 String currentURL = PortalUtil.getCurrentURL(request);
 
-portletPreferences = PortletPreferencesLocalServiceUtil.fetchPreferences(themeDisplay.getCompanyId(), themeDisplay.getCompanyId(), PortletKeys.PREFS_OWNER_TYPE_COMPANY, 0, PortletKeys.FEEDBACK);
-
-long groupId = 0;
-long mbCategoryId = 0;
-
-if (portletPreferences != null) {
-	groupId = GetterUtil.getLong(portletPreferences.getValue("groupId", StringPool.BLANK));
-	mbCategoryId = GetterUtil.getLong(portletPreferences.getValue("mbCategoryId", StringPool.BLANK));
-}
+long groupId = GetterUtil.getLong(portletPreferences.getValue("groupId", null));
+long mbCategoryId = GetterUtil.getLong(portletPreferences.getValue("mbCategoryId", null));
 
 Format dateFormatDate = FastDateFormatFactoryUtil.getSimpleDateFormat("dd MMM yyyy", locale, timeZone);
 Format timeFormatDate = FastDateFormatFactoryUtil.getTime(locale, timeZone);

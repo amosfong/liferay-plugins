@@ -39,7 +39,7 @@ String redirect = ParamUtil.getString(request, "redirect");
 			%>
 
 			<c:choose>
-				<c:when test="<%= groups.size() == 0 %>">
+				<c:when test="<%= groups.isEmpty() %>">
 					<liferay-ui:message key="no-group-exists" />
 				</c:when>
 				<c:otherwise>

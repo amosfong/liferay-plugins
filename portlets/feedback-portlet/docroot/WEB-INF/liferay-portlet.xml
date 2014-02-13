@@ -11,6 +11,7 @@
 	</portlet>
 	<portlet>
 		<portlet-name>2</portlet-name>
+		<preferences-company-wide>true</preferences-company-wide>
 		<use-default-template>false</use-default-template>
 		<header-portlet-css>/display/css/main.css</header-portlet-css>
 		<footer-portlet-javascript>/display/js/main.js</footer-portlet-javascript>
