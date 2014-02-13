@@ -19,6 +19,8 @@ package com.liferay.sharepoint.connector.operation;
  */
 public class SharepointConstants {
 
+	public static final String ERROR_CODE_SUCCESS = "0x00000000";
+
 	public static final String FS_OBJ_TYPE_FILE = "0";
 
 	public static final String FS_OBJ_TYPE_FOLDER = "1";

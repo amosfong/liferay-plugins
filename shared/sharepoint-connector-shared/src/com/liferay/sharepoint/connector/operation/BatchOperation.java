@@ -14,15 +14,86 @@
 
 package com.liferay.sharepoint.connector.operation;
 
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.sharepoint.connector.SharepointException;
+import com.liferay.sharepoint.connector.SharepointResultException;
+import com.liferay.sharepoint.connector.schema.XMLHelper;
 import com.liferay.sharepoint.connector.schema.batch.Batch;
+
+import com.microsoft.schemas.sharepoint.soap.ListsSoap;
+import com.microsoft.schemas.sharepoint.soap.UpdateListItemsResponseUpdateListItemsResult;
+import com.microsoft.schemas.sharepoint.soap.UpdateListItemsUpdates;
+
+import java.rmi.RemoteException;
+
+import org.apache.axis.message.MessageElement;
+
+import org.w3c.dom.Element;
 
 /**
  * @author Ivan Zaera
  */
 public class BatchOperation extends BaseOperation {
 
-	public void execute(Batch batch) throws SharepointException {
+	public BatchOperation(ListsSoap listsSoap, String libraryName) {
+		_listsSoap = listsSoap;
+		_libraryName = libraryName;
 	}
+
+	public void execute(Batch batch) throws SharepointException {
+		UpdateListItemsUpdates updates = new UpdateListItemsUpdates();
+
+		Element batchElement = _xmlHelper.toElement(batch);
+
+		MessageElement batchMessageElement = new MessageElement(batchElement);
+
+		updates.set_any(new MessageElement[] {batchMessageElement});
+
+		UpdateListItemsResponseUpdateListItemsResult updateListItemsResult;
+
+		try {
+			updateListItemsResult = _listsSoap.updateListItems(
+				_libraryName, updates);
+		}
+		catch (RemoteException re) {
+			throw new SharepointException(
+				"Failure communicating with Sharepoint server", re);
+		}
+
+		_parseUpdateListItemsResult(updateListItemsResult);
+	}
+
+	private void _parseUpdateListItemsResult(
+			UpdateListItemsResponseUpdateListItemsResult updateListItemsResult)
+		throws SharepointException {
+
+		Element updateListItemsResultElement = _xmlHelper.getElement(
+			updateListItemsResult);
+
+		Element resultElement = _xmlHelper.getElement(
+			"Result", updateListItemsResultElement);
+
+		Element errorCodeElement = _xmlHelper.getElement(
+			"ErrorCode", resultElement);
+
+		String errorCode = errorCodeElement.getTextContent();
+
+		if (!errorCode.equals(SharepointConstants.ERROR_CODE_SUCCESS)) {
+			Element errorTextElement = _xmlHelper.getElement(
+				"ErrorText", resultElement);
+
+			String errorText = errorTextElement.getTextContent();
+
+			errorText = errorText.replaceAll(
+				StringPool.NEW_LINE, StringPool.PIPE);
+
+			throw new SharepointResultException(errorCode, errorText);
+		}
+	}
+
+	private static final XMLHelper _xmlHelper = new XMLHelper();
+
+	private String _libraryName;
+	private ListsSoap _listsSoap;
 
 }
