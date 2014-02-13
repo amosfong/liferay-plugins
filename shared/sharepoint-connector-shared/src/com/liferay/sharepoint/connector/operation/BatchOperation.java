@@ -41,34 +41,38 @@ public class BatchOperation extends BaseOperation {
 	}
 
 	public void execute(Batch batch) throws SharepointException {
-		UpdateListItemsUpdates updates = new UpdateListItemsUpdates();
+		UpdateListItemsUpdates updateListItemsUpdates = new UpdateListItemsUpdates();
 
-		Element batchElement = _xmlHelper.toElement(batch);
+		Element element = _xmlHelper.toElement(batch);
 
-		MessageElement batchMessageElement = new MessageElement(batchElement);
+		MessageElement messageElement = new MessageElement(element);
 
-		updates.set_any(new MessageElement[] {batchMessageElement});
+		updateListItemsUpdates.set_any(new MessageElement[] {messageElement});
 
-		UpdateListItemsResponseUpdateListItemsResult updateListItemsResult;
+		UpdateListItemsResponseUpdateListItemsResult
+			updateListItemsResponseUpdateListItemsResult = null;
 
 		try {
-			updateListItemsResult = _listsSoap.updateListItems(
-				_libraryName, updates);
+			updateListItemsResponseUpdateListItemsResult =
+				_listsSoap.updateListItems(
+					_libraryName, updateListItemsUpdates);
 		}
 		catch (RemoteException re) {
 			throw new SharepointException(
 				"Unable to communicate with the Sharepoint server", re);
 		}
 
-		_parseUpdateListItemsResult(updateListItemsResult);
+		_parseUpdateListItemsResponseUpdateListItemsResult(
+			updateListItemsResponseUpdateListItemsResult);
 	}
 
-	private void _parseUpdateListItemsResult(
-			UpdateListItemsResponseUpdateListItemsResult updateListItemsResult)
+	private void _parseUpdateListItemsResponseUpdateListItemsResult(
+			UpdateListItemsResponseUpdateListItemsResult
+				updateListItemsResponseUpdateListItemsResult)
 		throws SharepointException {
 
 		Element updateListItemsResultElement = _xmlHelper.getElement(
-			updateListItemsResult);
+			updateListItemsResponseUpdateListItemsResult);
 
 		Element resultElement = _xmlHelper.getElement(
 			"Result", updateListItemsResultElement);
