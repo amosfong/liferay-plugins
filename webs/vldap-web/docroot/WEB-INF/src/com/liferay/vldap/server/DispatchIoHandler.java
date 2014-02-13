@@ -33,7 +33,6 @@ import com.liferay.vldap.util.VLDAPConstants;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.directory.shared.ldap.codec.api.LdapMessageContainer;
 import org.apache.directory.shared.ldap.model.message.MessageTypeEnum;
 import org.apache.directory.shared.ldap.model.message.Request;
 import org.apache.directory.shared.ldap.model.message.Response;
@@ -118,7 +117,7 @@ public class DispatchIoHandler implements IoHandler {
 				return;
 			}
 
-			LdapMessageContainer ldapMessageContainer =
+			LiferayLdapMessageContainer ldapMessageContainer =
 				new LiferayLdapMessageContainer();
 
 			// Needed by org.apache.directory.shared.ldap.codec.protocol.mina.

@@ -18,27 +18,25 @@ import org.apache.directory.shared.asn1.ber.grammar.AbstractGrammar;
 import org.apache.directory.shared.asn1.ber.grammar.GrammarTransition;
 import org.apache.directory.shared.asn1.ber.tlv.UniversalTag;
 import org.apache.directory.shared.ldap.codec.LdapMessageGrammar;
-import org.apache.directory.shared.ldap.codec.actions.bindRequest.StoreName;
+import org.apache.directory.shared.ldap.codec.LdapStatesEnum;
 
 /**
  * @author Minhchau Dang
  */
-@SuppressWarnings("rawtypes")
-public class DnCorrectingGrammar extends AbstractGrammar {
-
-	public static DnCorrectingGrammar getInstance() {
-		return _instance;
-	}
+public class DnCorrectingGrammar<E extends LiferayLdapMessageContainer>
+	extends AbstractGrammar<E> {
 
 	@Override
-	public GrammarTransition getTransition(Enum state, int tag) {
-		GrammarTransition grammarTransition = _ldapMessageGrammar.getTransition(
-			state, tag);
+	public GrammarTransition<E> getTransition (Enum<?> state, int tag) {
+		GrammarTransition<E> grammarTransition =
+			_ldapMessageGrammar.getTransition(state, tag);
 
-		if (grammarTransition.getAction() instanceof StoreName) {
-			grammarTransition = new GrammarTransition(
-				grammarTransition.getPreviousState(),
-				grammarTransition.getCurrentState(), UniversalTag.OCTET_STRING,
+		Enum<?> previousState = grammarTransition.getPreviousState();
+		Enum<?> currentState = grammarTransition.getCurrentState();
+
+		if (currentState == LdapStatesEnum.NAME_STATE) {
+			grammarTransition = new GrammarTransition<E>(
+				previousState, currentState, UniversalTag.OCTET_STRING,
 				_dnCorrectingStoreName);
 		}
 
@@ -47,14 +45,12 @@ public class DnCorrectingGrammar extends AbstractGrammar {
 
 	protected DnCorrectingGrammar() {
 		_ldapMessageGrammar =
-			(LdapMessageGrammar)LdapMessageGrammar.getInstance();
+			(AbstractGrammar<E>) LdapMessageGrammar.getInstance();
 
-		_dnCorrectingStoreName = new DnCorrectingStoreName();
+		_dnCorrectingStoreName = new DnCorrectingStoreName<E>();
 	}
 
-	private static DnCorrectingGrammar _instance = new DnCorrectingGrammar();
-
-	private DnCorrectingStoreName _dnCorrectingStoreName;
-	private LdapMessageGrammar _ldapMessageGrammar;
+	private DnCorrectingStoreName<E> _dnCorrectingStoreName;
+	private AbstractGrammar<E> _ldapMessageGrammar;
 
 }

@@ -19,11 +19,9 @@ import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 
+import org.apache.directory.shared.asn1.ber.grammar.GrammarAction;
 import org.apache.directory.shared.asn1.ber.tlv.TLV;
 import org.apache.directory.shared.asn1.ber.tlv.Value;
-import org.apache.directory.shared.ldap.codec.actions.bindRequest.StoreName;
-import org.apache.directory.shared.ldap.codec.api.LdapMessageContainer;
-import org.apache.directory.shared.ldap.codec.decorators.BindRequestDecorator;
 import org.apache.directory.shared.ldap.model.exception.LdapInvalidDnException;
 import org.apache.directory.shared.ldap.model.message.BindRequest;
 import org.apache.directory.shared.ldap.model.name.Dn;
@@ -32,15 +30,14 @@ import org.apache.directory.shared.util.Strings;
 /**
  * @author Minhchau Dang
  */
-public class DnCorrectingStoreName extends StoreName {
+public class DnCorrectingStoreName<E extends LiferayLdapMessageContainer>
+	extends GrammarAction<E> {
 
 	@Override
-	public void action(
-		LdapMessageContainer<BindRequestDecorator> ldapMessageContainer) {
+	public void action(E messageContainer) {
+		BindRequest bindRequest = (BindRequest) messageContainer.getMessage();
 
-		BindRequest bindRequest = ldapMessageContainer.getMessage();
-
-		TLV tlv = ldapMessageContainer.getCurrentTLV();
+		TLV tlv = messageContainer.getCurrentTLV();
 
 		Value value = tlv.getValue();
 

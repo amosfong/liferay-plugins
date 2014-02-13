@@ -28,7 +28,7 @@ public class LiferayLdapMessageContainer
 	public LiferayLdapMessageContainer() throws Exception {
 		super(new StandaloneLdapApiService());
 
-		this.grammar = DnCorrectingGrammar.getInstance();
+		this.grammar = new DnCorrectingGrammar<LiferayLdapMessageContainer>();
 	}
 
 }
