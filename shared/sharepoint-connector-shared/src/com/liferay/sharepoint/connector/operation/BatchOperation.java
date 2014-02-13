@@ -41,7 +41,8 @@ public class BatchOperation extends BaseOperation {
 	}
 
 	public void execute(Batch batch) throws SharepointException {
-		UpdateListItemsUpdates updateListItemsUpdates = new UpdateListItemsUpdates();
+		UpdateListItemsUpdates updateListItemsUpdates =
+			new UpdateListItemsUpdates();
 
 		Element element = _xmlHelper.toElement(batch);
 
