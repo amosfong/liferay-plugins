@@ -78,7 +78,6 @@ String redirect = ParamUtil.getString(request, "redirect");
 
 			var groupErrorMessage = form.one('#<portlet:namespace />groupErrorMessage');
 			var groupId = form.one('#<portlet:namespace />groupId');
-
 			var mbCategoryErrorMessage = form.one('#<portlet:namespace />mbCategoryErrorMessage');
 			var mbCategoryId = form.one('#<portlet:namespace />mbCategoryId');
 
