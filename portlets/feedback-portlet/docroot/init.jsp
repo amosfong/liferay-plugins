@@ -23,7 +23,8 @@
 <%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
 <%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
 
-<%@ page import="com.liferay.compat.portal.util.PortalUtil" %><%@
+<%@ page import="com.liferay.compat.portal.kernel.util.StringUtil" %><%@
+page import="com.liferay.compat.portal.util.PortalUtil" %><%@
 page import="com.liferay.feedback.util.FeedbackConstant" %><%@
 page import="com.liferay.feedback.util.FeedbackUtil" %><%@
 page import="com.liferay.feedback.util.PortletKeys" %><%@
@@ -34,7 +35,6 @@ page import="com.liferay.portal.kernel.servlet.BrowserSnifferUtil" %><%@
 page import="com.liferay.portal.kernel.util.FastDateFormatFactoryUtil" %><%@
 page import="com.liferay.portal.kernel.util.GetterUtil" %><%@
 page import="com.liferay.portal.kernel.util.ParamUtil" %><%@
-page import="com.liferay.portal.kernel.util.StringPool" %><%@
 page import="com.liferay.portal.model.Group" %><%@
 page import="com.liferay.portal.service.GroupLocalServiceUtil" %><%@
 page import="com.liferay.portal.service.PortletPreferencesLocalServiceUtil" %>

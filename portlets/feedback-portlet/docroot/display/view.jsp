@@ -20,7 +20,7 @@
 	<div class="feedback-bar" id="<portlet:namespace />feedbackBar">
 		<i class="icon-bullhorn"></i>
 
-		<liferay-ui:message key="feedback" />
+		<%= StringUtil.toUpperCase(LanguageUtil.get(pageContext, "feedback")) %>
 	</div>
 
 	<aui:script use="aui-base">
