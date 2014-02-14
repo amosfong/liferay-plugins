@@ -15,14 +15,39 @@
 package com.liferay.sharepoint.connector.operation;
 
 import com.liferay.sharepoint.connector.SharepointException;
+import com.liferay.sharepoint.connector.schema.batch.Batch;
+import com.liferay.sharepoint.connector.schema.batch.BatchField;
+import com.liferay.sharepoint.connector.schema.batch.BatchMethod;
+
+import com.microsoft.schemas.sharepoint.soap.ListsSoap;
 
 /**
  * @author Ivan Zaera
  */
 public class AddFolderOperation extends BaseOperation {
 
+	public AddFolderOperation(ListsSoap listsSoap, String libraryName) {
+		_batchOperation = new BatchOperation(listsSoap, libraryName);
+	}
+
 	public void execute(String folderPath, String folderName)
 		throws SharepointException {
+
+		String folderFullPath = toFullPath(folderPath);
+
+		_batchOperation.execute(
+			new Batch(
+				Batch.OnError.CONTINUE, folderFullPath,
+				new BatchMethod(
+						_DEFAULT_BATCH_METHOD_ID, BatchMethod.Command.NEW,
+					new BatchField("ID", "New"),
+					new BatchField(
+						"FSObjType", SharepointConstants.FS_OBJ_TYPE_FOLDER),
+					new BatchField("BaseName", folderName))));
 	}
+
+	private static final int _DEFAULT_BATCH_METHOD_ID = 0;
+
+	private BatchOperation _batchOperation;
 
 }

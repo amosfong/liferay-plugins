@@ -15,13 +15,50 @@
 package com.liferay.sharepoint.connector.operation;
 
 import com.liferay.sharepoint.connector.SharepointException;
+import com.liferay.sharepoint.connector.SharepointObject;
+import com.liferay.sharepoint.connector.schema.batch.Batch;
+import com.liferay.sharepoint.connector.schema.batch.BatchField;
+import com.liferay.sharepoint.connector.schema.batch.BatchMethod;
+
+import com.microsoft.schemas.sharepoint.soap.ListsSoap;
 
 /**
  * @author Ivan Zaera
  */
 public class DeleteObjectOperation extends BaseOperation {
 
-	public void execute(String path) throws SharepointException {
+	public DeleteObjectOperation(ListsSoap listsSoap, String libraryName) {
+		_batchOperation = new BatchOperation(listsSoap, libraryName);
+
+		_getObjectByPathOperation = new GetObjectByPathOperation(listsSoap);
 	}
+
+	public void execute(String path) throws SharepointException {
+		SharepointObject sharepointObject = _getObjectByPathOperation.execute(
+			path);
+
+		if (sharepointObject == null) {
+			throw new SharepointException(
+				"Sharepoint object with path '" + path + "' not found");
+		}
+
+		String sharepointObjectFullPath = toFullPath(
+			sharepointObject.getPath());
+
+		String sharepointObjectId = String.valueOf(sharepointObject.getId());
+
+		_batchOperation.execute(
+			new Batch(
+				Batch.OnError.CONTINUE, null,
+				new BatchMethod(
+					_DEFAULT_BATCH_METHOD_ID, BatchMethod.Command.DELETE,
+					new BatchField("ID", sharepointObjectId),
+					new BatchField("FileRef", sharepointObjectFullPath))));
+	}
+
+	private static final int _DEFAULT_BATCH_METHOD_ID = 0;
+
+	private BatchOperation _batchOperation;
+	private GetObjectByPathOperation _getObjectByPathOperation;
 
 }
