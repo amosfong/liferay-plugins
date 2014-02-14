@@ -25,4 +25,6 @@ public class SharepointConstants {
 
 	public static final String FS_OBJ_TYPE_FOLDER = "1";
 
+	public static final String URL_SOURCE_NONE = " ";
+
 }
