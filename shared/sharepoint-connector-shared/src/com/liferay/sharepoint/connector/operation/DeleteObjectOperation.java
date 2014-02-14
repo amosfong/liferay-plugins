@@ -39,7 +39,7 @@ public class DeleteObjectOperation extends BaseOperation {
 
 		if (sharepointObject == null) {
 			throw new SharepointException(
-				"Unable to find Sharepoint with path " + path);
+				"Unable to find Sharepoint object with path " + path);
 		}
 
 		String fullPath = toFullPath(sharepointObject.getPath());
