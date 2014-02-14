@@ -19,6 +19,8 @@ package com.liferay.sharepoint.connector.operation;
  */
 public class SharepointConstants {
 
+	public static final int _DEFAULT_BATCH_METHOD_ID = 0;
+
 	public static final String ERROR_CODE_SUCCESS = "0x00000000";
 
 	public static final String FS_OBJ_TYPE_FILE = "0";

@@ -51,12 +51,11 @@ public class DeleteObjectOperation extends BaseOperation {
 			new Batch(
 				Batch.OnError.CONTINUE, null,
 				new BatchMethod(
-					_DEFAULT_BATCH_METHOD_ID, BatchMethod.Command.DELETE,
+					SharepointConstants._DEFAULT_BATCH_METHOD_ID,
+					BatchMethod.Command.DELETE,
 					new BatchField("ID", sharepointObjectId),
 					new BatchField("FileRef", sharepointObjectFullPath))));
 	}
-
-	private static final int _DEFAULT_BATCH_METHOD_ID = 0;
 
 	private BatchOperation _batchOperation;
 	private GetObjectByPathOperation _getObjectByPathOperation;

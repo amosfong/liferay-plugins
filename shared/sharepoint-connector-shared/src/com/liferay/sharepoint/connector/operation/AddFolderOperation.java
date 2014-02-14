@@ -39,14 +39,13 @@ public class AddFolderOperation extends BaseOperation {
 			new Batch(
 				Batch.OnError.CONTINUE, folderFullPath,
 				new BatchMethod(
-						_DEFAULT_BATCH_METHOD_ID, BatchMethod.Command.NEW,
+						SharepointConstants._DEFAULT_BATCH_METHOD_ID,
+						BatchMethod.Command.NEW,
 					new BatchField("ID", "New"),
 					new BatchField(
 						"FSObjType", SharepointConstants.FS_OBJ_TYPE_FOLDER),
 					new BatchField("BaseName", folderName))));
 	}
-
-	private static final int _DEFAULT_BATCH_METHOD_ID = 0;
 
 	private BatchOperation _batchOperation;
 
