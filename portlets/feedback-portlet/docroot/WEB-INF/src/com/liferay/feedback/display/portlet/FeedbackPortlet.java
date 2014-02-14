@@ -26,6 +26,8 @@ import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextThreadLocal;
 import com.liferay.portal.theme.ThemeDisplay;
+import com.liferay.portal.util.PortalUtil;
+import com.liferay.portal.util.PortletKeys;
 import com.liferay.portlet.messageboards.service.MBMessageLocalServiceUtil;
 import com.liferay.util.bridges.mvc.MVCPortlet;
 
@@ -91,7 +93,12 @@ public class FeedbackPortlet extends MVCPortlet {
 		ServiceContext serviceContext =
 			ServiceContextThreadLocal.getServiceContext();
 
-		serviceContext.setAddGuestPermissions(true);
+		serviceContext.setAddGroupPermissions(true);
+
+		long portletPlid = PortalUtil.getPlidFromPortletId(
+			groupId, false, PortletKeys.MESSAGE_BOARDS);
+
+		serviceContext.setPlid(portletPlid);
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
