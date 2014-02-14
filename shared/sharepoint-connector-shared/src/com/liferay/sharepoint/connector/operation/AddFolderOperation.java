@@ -33,11 +33,11 @@ public class AddFolderOperation extends BaseOperation {
 	public void execute(String folderPath, String folderName)
 		throws SharepointException {
 
-		String fullFolderPath = toFullPath(folderPath);
+		String folderFullPath = toFullPath(folderPath);
 
 		_batchOperation.execute(
 			new Batch(
-				Batch.OnError.CONTINUE, fullFolderPath,
+				Batch.OnError.CONTINUE, folderFullPath,
 				new BatchMethod(
 						SharepointConstants._DEFAULT_BATCH_METHOD_ID,
 						BatchMethod.Command.NEW,
