@@ -22,6 +22,10 @@ import com.liferay.sharepoint.connector.schema.BaseNode;
  */
 public class BatchField extends BaseNode {
 
+	public BatchField(String name, long value) {
+		this(name, String.valueOf(value));
+	}
+
 	public BatchField(String name, String value) {
 		_name = name;
 		_value = value;

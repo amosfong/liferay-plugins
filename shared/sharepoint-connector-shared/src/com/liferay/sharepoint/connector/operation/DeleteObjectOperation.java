@@ -39,13 +39,10 @@ public class DeleteObjectOperation extends BaseOperation {
 
 		if (sharepointObject == null) {
 			throw new SharepointException(
-				"Sharepoint object with path '" + path + "' not found");
+				"Unable to find Sharepoint with path " + path);
 		}
 
-		String sharepointObjectFullPath = toFullPath(
-			sharepointObject.getPath());
-
-		String sharepointObjectId = String.valueOf(sharepointObject.getId());
+		String fullPath = toFullPath(sharepointObject.getPath());
 
 		_batchOperation.execute(
 			new Batch(
@@ -53,8 +50,8 @@ public class DeleteObjectOperation extends BaseOperation {
 				new BatchMethod(
 					SharepointConstants._DEFAULT_BATCH_METHOD_ID,
 					BatchMethod.Command.DELETE,
-					new BatchField("ID", sharepointObjectId),
-					new BatchField("FileRef", sharepointObjectFullPath))));
+					new BatchField("ID", sharepointObject.getId()),
+					new BatchField("FileRef", fullPath))));
 	}
 
 	private BatchOperation _batchOperation;
