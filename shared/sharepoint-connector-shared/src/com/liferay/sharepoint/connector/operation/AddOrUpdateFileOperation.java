@@ -14,7 +14,7 @@
 
 package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.portal.kernel.util.StreamUtil;
+import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.sharepoint.connector.SharepointConnection;
 import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.SharepointResultException;
@@ -26,7 +26,6 @@ import com.microsoft.schemas.sharepoint.soap.FieldInformation;
 import com.microsoft.schemas.sharepoint.soap.ListsSoap;
 import com.microsoft.schemas.sharepoint.soap.holders.CopyResultCollectionHolder;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -55,7 +54,14 @@ public class AddOrUpdateFileOperation extends BaseOperation {
 
 		String[] filePathURLs = new String[] {filePathURL.toString()};
 
-		byte[] inputStreamBytes = _readAndCloseStream(inputStream);
+		byte[] bytes = null;
+
+		try {
+			bytes = FileUtil.getBytes(inputStream);
+		}
+		catch (IOException ioe) {
+			throw new SharepointException("Unable to read stream", ioe);
+		}
 
 		CopyResultCollectionHolder copyResultCollectionHolder =
 			new CopyResultCollectionHolder();
@@ -63,8 +69,8 @@ public class AddOrUpdateFileOperation extends BaseOperation {
 		try {
 			_copySoap.copyIntoItems(
 				SharepointConstants.URL_SOURCE_NONE, filePathURLs,
-				_EMPTY_FIELD_INFORMATIONS, inputStreamBytes,
-				new UnsignedIntHolder(), copyResultCollectionHolder);
+				_EMPTY_FIELD_INFORMATIONS, bytes, new UnsignedIntHolder(),
+				copyResultCollectionHolder);
 		}
 		catch (RemoteException re) {
 			throw new SharepointException(
@@ -84,22 +90,6 @@ public class AddOrUpdateFileOperation extends BaseOperation {
 			_checkInFileOperation.execute(
 				filePath, changeLog, SharepointConnection.CheckInType.MAJOR);
 		}
-	}
-
-	private byte[] _readAndCloseStream(InputStream inputStream)
-		throws SharepointException {
-
-		ByteArrayOutputStream byteArrayOutputStream =
-			new ByteArrayOutputStream();
-
-		try {
-			StreamUtil.transfer(inputStream, byteArrayOutputStream);
-		}
-		catch (IOException e) {
-			throw new SharepointException("Unable to read stream", e);
-		}
-
-		return byteArrayOutputStream.toByteArray();
 	}
 
 	private static final FieldInformation[] _EMPTY_FIELD_INFORMATIONS =
