@@ -74,11 +74,11 @@ String redirect = ParamUtil.getString(request, "redirect");
 		type.val(feedbackType);
 
 		if (feedbackType == '<%= FeedbackConstant.TYPE_POSITIVE %>') {
-			title.setHTML('<liferay-ui:message key="all-of-our-hard-word-has-paid-off" />');
+			title.setHTML('<liferay-ui:message key="we-are-glad-you-like-it" />');
 			subject.setHTML('<%= FeedbackUtil.getFeedbackSubject(FeedbackConstant.TYPE_POSITIVE) %>');
 		}
 		else if (feedbackType == '<%= FeedbackConstant.TYPE_NEGATIVE %>') {
-			title.setHTML('<liferay-ui:message key="what-did-we-break" />');
+			title.setHTML('<liferay-ui:message key="help-us-fix-it" />');
 			subject.setHTML('<%= FeedbackUtil.getFeedbackSubject(FeedbackConstant.TYPE_NEGATIVE) %>');
 		}
 
