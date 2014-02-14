@@ -52,15 +52,13 @@ public class AddOrUpdateFileOperation extends BaseOperation {
 
 		URL filePathURL = toURL(filePath);
 
-		String[] filePathURLs = new String[] {filePathURL.toString()};
-
 		byte[] bytes = null;
 
 		try {
 			bytes = FileUtil.getBytes(inputStream);
 		}
 		catch (IOException ioe) {
-			throw new SharepointException("Unable to read stream", ioe);
+			throw new SharepointException("Unable to read input stream", ioe);
 		}
 
 		CopyResultCollectionHolder copyResultCollectionHolder =
@@ -68,7 +66,8 @@ public class AddOrUpdateFileOperation extends BaseOperation {
 
 		try {
 			_copySoap.copyIntoItems(
-				SharepointConstants.URL_SOURCE_NONE, filePathURLs,
+				SharepointConstants.URL_SOURCE_NONE,
+				new String[] {filePathURL.toString()},
 				_EMPTY_FIELD_INFORMATIONS, bytes, new UnsignedIntHolder(),
 				copyResultCollectionHolder);
 		}
@@ -93,7 +92,7 @@ public class AddOrUpdateFileOperation extends BaseOperation {
 	}
 
 	private static final FieldInformation[] _EMPTY_FIELD_INFORMATIONS =
-		new FieldInformation[] {};
+		new FieldInformation[0];
 
 	private CheckInFileOperation _checkInFileOperation;
 	private CopySoap _copySoap;
