@@ -67,10 +67,10 @@ public class GetObjectsByFolderOperation extends BaseOperation {
 				"Unsupported object type filter " + objectTypeFilter);
 		}
 
-		String fullFolderPath = toFullPath(folderPath);
+		String folderFullPath = toFullPath(folderPath);
 
 		QueryOptionsList queryOptionsList = new QueryOptionsList(
-			new FolderQueryOption(fullFolderPath));
+			new FolderQueryOption(folderFullPath));
 
 		return _getObjectsByQueryOperation.execute(query, queryOptionsList);
 	}
