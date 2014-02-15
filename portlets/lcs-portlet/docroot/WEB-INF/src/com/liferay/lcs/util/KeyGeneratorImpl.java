@@ -14,13 +14,13 @@
 
 package com.liferay.lcs.util;
 
+import com.liferay.compat.portal.kernel.util.PortalClassInvoker;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.log.Log;
 import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.portal.kernel.util.Digester;
 import com.liferay.portal.kernel.util.DigesterUtil;
 import com.liferay.portal.kernel.util.MethodKey;
-import com.liferay.portal.kernel.util.PortalClassInvoker;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.PropertiesUtil;
 import com.liferay.portal.kernel.util.StreamUtil;
@@ -194,7 +194,7 @@ public class KeyGeneratorImpl implements KeyGenerator {
 		MethodKey methodKey = new MethodKey(
 			portalClass, method, parameterTypesClasses);
 
-		return PortalClassInvoker.invoke(true, methodKey, parameterTypes);
+		return PortalClassInvoker.invoke(methodKey, parameterTypes);
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(KeyGeneratorImpl.class);
