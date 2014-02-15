@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.StringBundler;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.WebKeys;
+import com.liferay.portal.model.PortletPreferencesIds;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portal.service.ServiceContextThreadLocal;
@@ -96,9 +97,22 @@ public class FeedbackPortlet extends MVCPortlet {
 		serviceContext.setAddGroupPermissions(true);
 
 		long portletPlid = PortalUtil.getPlidFromPortletId(
-			groupId, false, PortletKeys.MESSAGE_BOARDS);
+			groupId, true, PortletKeys.MESSAGE_BOARDS);
+
+		if (portletPlid == 0) {
+			portletPlid = PortalUtil.getPlidFromPortletId(
+				groupId, false, PortletKeys.MESSAGE_BOARDS);
+		}
 
 		serviceContext.setPlid(portletPlid);
+
+		PortletPreferencesIds portletPreferencesIds =
+			new PortletPreferencesIds(
+				themeDisplay.getCompanyId(), groupId,
+				PortletKeys.PREFS_OWNER_TYPE_GROUP, 0,
+				PortletKeys.MESSAGE_BOARDS);
+
+		serviceContext.setPortletPreferencesIds(portletPreferencesIds);
 
 		JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
