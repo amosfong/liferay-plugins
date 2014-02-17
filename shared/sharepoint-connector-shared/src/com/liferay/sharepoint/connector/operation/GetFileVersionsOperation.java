@@ -123,12 +123,12 @@ public class GetFileVersionsOperation extends BaseOperation {
 
 				NamedNodeMap nodeAttributes = node.getAttributes();
 
-				Node urlNode = nodeAttributes.getNamedItem("url");
-				Node versionNode = nodeAttributes.getNamedItem("version");
 				Node commentsNode = nodeAttributes.getNamedItem("comments");
-				Node sizeNode = nodeAttributes.getNamedItem("size");
-				Node createdRawNode = nodeAttributes.getNamedItem("createdRaw");
 				Node createdByNode = nodeAttributes.getNamedItem("createdBy");
+				Node createdRawNode = nodeAttributes.getNamedItem("createdRaw");
+				Node versionNode = nodeAttributes.getNamedItem("version");
+				Node urlNode = nodeAttributes.getNamedItem("url");
+				Node sizeNode = nodeAttributes.getNamedItem("size");
 
 				SharepointVersion sharepointVersion = new SharepointVersion(
 					commentsNode.getNodeValue(), createdByNode.getNodeValue(),
