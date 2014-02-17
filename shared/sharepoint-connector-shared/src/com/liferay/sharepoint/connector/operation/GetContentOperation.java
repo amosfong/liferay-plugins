@@ -54,9 +54,9 @@ public class GetContentOperation extends BaseOperation {
 	public InputStream execute(SharepointVersion sharepointVersion)
 		throws SharepointException {
 
-		URL sharepointVersionURL = sharepointVersion.getURL();
+		URL url = sharepointVersion.getURL();
 
-		return execute(sharepointVersionURL);
+		return execute(url);
 	}
 
 	protected void authenticate(HttpClient httpClient, URL url) {
@@ -75,14 +75,14 @@ public class GetContentOperation extends BaseOperation {
 		httpClientState.setCredentials(authScope, usernamePasswordCredentials);
 	}
 
-	protected InputStream execute(URL sharepointURL) throws SharepointException {
-		sharepointURL = _urlHelper.escapeSharepointURL(sharepointURL);
+	protected InputStream execute(URL url) throws SharepointException {
+		url = _urlHelper.escapeURL(url);
 
 		HttpClient httpClient = new HttpClient();
 
-		authenticate(httpClient, sharepointURL);
+		authenticate(httpClient, url);
 
-		GetMethod getMethod = new GetMethod(sharepointURL.toString());
+		GetMethod getMethod = new GetMethod(url.toString());
 
 		getMethod.setDoAuthentication(true);
 
@@ -106,7 +106,7 @@ public class GetContentOperation extends BaseOperation {
 			}
 			else {
 				throw new SharepointException(
-					"Unable to download " + sharepointURL + " (HTTP " +
+					"Unable to download " + url + " (HTTP " +
 						httpStatus + ")");
 			}
 		}

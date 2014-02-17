@@ -26,19 +26,17 @@ import java.net.URL;
  */
 public class URLHelper {
 
-	public URL escapeSharepointURL(URL sharepointURL) {
-		String sharepointURLString = sharepointURL.toString();
+	public URL escapeURL(URL url) {
+		String urlString = url.toString();
 
-		String escapedSharepointURLString = sharepointURLString.replaceAll(
-			StringPool.SPACE, "%20");
+		String escapedURLString = urlString.replaceAll(StringPool.SPACE, "%20");
 
 		try {
-			return new URL(escapedSharepointURLString);
+			return new URL(escapedURLString);
 		}
 		catch (MalformedURLException mue) {
 			throw new SharepointRuntimeException(
-				"Unable to reparse URL '" + escapedSharepointURLString +
-					"' after escaping", mue);
+				"Unable to reparse escpaed URL " + escapedURLString, mue);
 		}
 	}
 
