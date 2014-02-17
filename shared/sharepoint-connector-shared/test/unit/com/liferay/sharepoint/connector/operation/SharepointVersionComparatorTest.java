@@ -17,7 +17,6 @@ package com.liferay.sharepoint.connector.operation;
 import com.liferay.sharepoint.connector.SharepointVersion;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -25,16 +24,10 @@ import org.junit.Test;
  */
 public class SharepointVersionComparatorTest {
 
-	@Before
-	public void setUp() {
-		_sharepointVersionComparator = new SharepointVersionComparator();
-	}
-
 	@Test
 	public void testEquals() {
-		SharepointVersion sharepointVersion1 = _createSharepointVersion("1.1");
-
-		SharepointVersion sharepointVersion2 = _createSharepointVersion("1.1");
+		SharepointVersion sharepointVersion1 = createSharepointVersion("1.1");
+		SharepointVersion sharepointVersion2 = createSharepointVersion("1.1");
 
 		Assert.assertEquals(
 			0,
@@ -43,22 +36,9 @@ public class SharepointVersionComparatorTest {
 	}
 
 	@Test
-	public void testGreaterThanMajor() {
-		SharepointVersion sharepointVersion1 = _createSharepointVersion("8.1");
-
-		SharepointVersion sharepointVersion2 = _createSharepointVersion("9.0");
-
-		Assert.assertEquals(
-			1,
-			_sharepointVersionComparator.compare(
-				sharepointVersion1, sharepointVersion2));
-	}
-
-	@Test
-	public void testGreaterThanMinor() {
-		SharepointVersion sharepointVersion1 = _createSharepointVersion("9.0");
-
-		SharepointVersion sharepointVersion2 = _createSharepointVersion("9.1");
+	public void testCompareGreaterThanMajor() {
+		SharepointVersion sharepointVersion1 = createSharepointVersion("8.1");
+		SharepointVersion sharepointVersion2 = createSharepointVersion("9.0");
 
 		Assert.assertEquals(
 			1,
@@ -67,10 +47,20 @@ public class SharepointVersionComparatorTest {
 	}
 
 	@Test
-	public void testLessThanMajor() {
-		SharepointVersion sharepointVersion1 = _createSharepointVersion("9.0");
+	public void testCompareGreaterThanMinor() {
+		SharepointVersion sharepointVersion1 = createSharepointVersion("9.0");
+		SharepointVersion sharepointVersion2 = createSharepointVersion("9.1");
 
-		SharepointVersion sharepointVersion2 = _createSharepointVersion("8.1");
+		Assert.assertEquals(
+			1,
+			_sharepointVersionComparator.compare(
+				sharepointVersion1, sharepointVersion2));
+	}
+
+	@Test
+	public void testCompareLessThanMajor() {
+		SharepointVersion sharepointVersion1 = createSharepointVersion("9.0");
+		SharepointVersion sharepointVersion2 = createSharepointVersion("8.1");
 
 		Assert.assertEquals(
 			-1,
@@ -79,10 +69,9 @@ public class SharepointVersionComparatorTest {
 	}
 
 	@Test
-	public void testLessThanMinor() {
-		SharepointVersion sharepointVersion1 = _createSharepointVersion("9.1");
-
-		SharepointVersion sharepointVersion2 = _createSharepointVersion("9.0");
+	public void testCompareLessThanMinor() {
+		SharepointVersion sharepointVersion1 = createSharepointVersion("9.1");
+		SharepointVersion sharepointVersion2 = createSharepointVersion("9.0");
 
 		Assert.assertEquals(
 			-1,
@@ -90,10 +79,11 @@ public class SharepointVersionComparatorTest {
 				sharepointVersion1, sharepointVersion2));
 	}
 
-	private SharepointVersion _createSharepointVersion(String version) {
+	protected SharepointVersion createSharepointVersion(String version) {
 		return new SharepointVersion(null, null, null, null, 0, null, version);
 	}
 
-	private SharepointVersionComparator _sharepointVersionComparator;
+	private SharepointVersionComparator _sharepointVersionComparator =
+		new SharepointVersionComparator();
 
 }
