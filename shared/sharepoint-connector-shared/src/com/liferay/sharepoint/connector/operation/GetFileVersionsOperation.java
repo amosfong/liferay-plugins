@@ -48,7 +48,7 @@ import org.w3c.dom.NodeList;
 public class GetFileVersionsOperation extends BaseOperation {
 
 	public GetFileVersionsOperation(
-		VersionsSoap versionsSoap, ListsSoap listsSoap) {
+		ListsSoap listsSoap, VersionsSoap versionsSoap) {
 
 		_versionsSoap = versionsSoap;
 
