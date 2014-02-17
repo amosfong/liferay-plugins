@@ -36,7 +36,7 @@ public class URLHelper {
 		}
 		catch (MalformedURLException mue) {
 			throw new SharepointRuntimeException(
-				"Unable to reparse escpaed URL " + escapedURLString, mue);
+				"Unable to parse escpaed URL " + escapedURLString, mue);
 		}
 	}
 
