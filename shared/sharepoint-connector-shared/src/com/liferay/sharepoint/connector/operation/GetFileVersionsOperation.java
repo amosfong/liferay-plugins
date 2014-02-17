@@ -78,7 +78,7 @@ public class GetFileVersionsOperation extends BaseOperation {
 			Element getVersionsResponseGetVersionsResultElement =
 				_xmlHelper.getElement(getVersionsResponseGetVersionsResult);
 
-			return _parseGetVersionsResponseGetVersionsResultElement(
+			return getSharepointVersions(
 				sharepointObjectId,
 				getVersionsResponseGetVersionsResultElement);
 		}
@@ -88,7 +88,7 @@ public class GetFileVersionsOperation extends BaseOperation {
 		}
 	}
 
-	private String _normalizeIfLatestVersion(String version) {
+	private String getVersion(String version) {
 		if (version.startsWith(StringPool.AT)) {
 			version = version.substring(1);
 		}
@@ -96,8 +96,7 @@ public class GetFileVersionsOperation extends BaseOperation {
 		return version;
 	}
 
-	private List<SharepointVersion>
-		_parseGetVersionsResponseGetVersionsResultElement(
+	private List<SharepointVersion> getSharepointVersions(
 			long sharepointObjectId,
 			Element getVersionsResponseGetVersionsResultElement)
 		throws SharepointException {
@@ -142,16 +141,16 @@ public class GetFileVersionsOperation extends BaseOperation {
 
 				String createdByNodeValue = createdByNode.getNodeValue();
 
-				Date createdDate = _toDate(createdRawNodeValue);
+				Date createdDate = getDate(createdRawNodeValue);
 
-				String sharepointVersionId = _toVersionId(
+				String sharepointVersionId = getSharepointVersionId(
 					sharepointObjectId, versionNodeValue);
 
 				long size = Long.valueOf(sizeNodeValue);
 
 				URL url = _urlHelper.toURL(urlNodeValue);
 
-				String version = _normalizeIfLatestVersion(versionNodeValue);
+				String version = getVersion(versionNodeValue);
 
 				SharepointVersion sharepointVersion = new SharepointVersion(
 					commentsNodeValue, createdByNodeValue, createdDate,
@@ -166,11 +165,13 @@ public class GetFileVersionsOperation extends BaseOperation {
 		return sharepointVersions;
 	}
 
-	private Date _toDate(String createdRawNodeValue) {
+	private Date getDate(String createdRawNodeValue) {
 		return DatatypeConverter.parseDateTime(createdRawNodeValue).getTime();
 	}
 
-	private String _toVersionId(long sharepointObjectId, String version) {
+	private String getSharepointVersionId(
+		long sharepointObjectId, String version) {
+
 		return sharepointObjectId + StringPool.AT + version;
 	}
 
