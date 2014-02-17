@@ -14,6 +14,7 @@
 
 package com.liferay.sharepoint.connector.operation;
 
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.sharepoint.connector.SharepointException;
@@ -123,39 +124,20 @@ public class GetFileVersionsOperation extends BaseOperation {
 				NamedNodeMap nodeAttributes = node.getAttributes();
 
 				Node urlNode = nodeAttributes.getNamedItem("url");
-
-				String urlNodeValue = urlNode.getNodeValue();
-
 				Node versionNode = nodeAttributes.getNamedItem("version");
-
-				String versionNodeValue = versionNode.getNodeValue();
-
 				Node commentsNode = nodeAttributes.getNamedItem("comments");
-
-				String commentsNodeValue = commentsNode.getNodeValue();
-
 				Node sizeNode = nodeAttributes.getNamedItem("size");
-
-				String sizeNodeValue = sizeNode.getNodeValue();
-
 				Node createdRawNode = nodeAttributes.getNamedItem("createdRaw");
-
 				Node createdByNode = nodeAttributes.getNamedItem("createdBy");
 
-				Date createdDate = getDate(createdRawNode.getNodeValue());
-
-				String sharepointVersionId = getSharepointVersionId(
-					sharepointObjectId, versionNodeValue);
-
-				long size = Long.valueOf(sizeNodeValue);
-
-				URL url = _urlHelper.toURL(urlNodeValue);
-
-				String version = getVersion(versionNodeValue);
-
 				SharepointVersion sharepointVersion = new SharepointVersion(
-					commentsNodeValue, createdByNode.getNodeValue(),
-					createdDate, sharepointVersionId, size, url, version);
+					commentsNode.getNodeValue(), createdByNode.getNodeValue(),
+					getDate(createdRawNode.getNodeValue()),
+					getSharepointVersionId(
+						sharepointObjectId, versionNode.getNodeValue()),
+					GetterUtil.getLong(sizeNode.getNodeValue()),
+					_urlHelper.toURL(urlNode.getNodeValue()),
+					getVersion(versionNode.getNodeValue()));
 
 				sharepointVersions.add(sharepointVersion);
 			}
