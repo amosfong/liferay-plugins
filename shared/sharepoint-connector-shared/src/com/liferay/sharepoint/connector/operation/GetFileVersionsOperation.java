@@ -30,6 +30,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -88,8 +89,10 @@ public class GetFileVersionsOperation extends BaseOperation {
 		}
 	}
 
-	private Date getDate(String createdRawNodeValue) {
-		return DatatypeConverter.parseDateTime(createdRawNodeValue).getTime();
+	private Date getDate(String dateString) {
+		Calendar calendar = DatatypeConverter.parseDateTime(dateString);
+		
+		return calendar.getTime();
 	}
 
 	private String getSharepointVersionId(
@@ -137,13 +140,9 @@ public class GetFileVersionsOperation extends BaseOperation {
 
 				Node createdRawNode = nodeAttributes.getNamedItem("createdRaw");
 
-				String createdRawNodeValue = createdRawNode.getNodeValue();
-
 				Node createdByNode = nodeAttributes.getNamedItem("createdBy");
 
-				String createdByNodeValue = createdByNode.getNodeValue();
-
-				Date createdDate = getDate(createdRawNodeValue);
+				Date createdDate = getDate(createdRawNode.getNodeValue());
 
 				String sharepointVersionId = getSharepointVersionId(
 					sharepointObjectId, versionNodeValue);
@@ -155,8 +154,8 @@ public class GetFileVersionsOperation extends BaseOperation {
 				String version = getVersion(versionNodeValue);
 
 				SharepointVersion sharepointVersion = new SharepointVersion(
-					commentsNodeValue, createdByNodeValue, createdDate,
-					sharepointVersionId, size, url, version );
+					commentsNodeValue, createdByNode.getNodeValue(),
+					createdDate, sharepointVersionId, size, url, version);
 
 				sharepointVersions.add(sharepointVersion);
 			}
