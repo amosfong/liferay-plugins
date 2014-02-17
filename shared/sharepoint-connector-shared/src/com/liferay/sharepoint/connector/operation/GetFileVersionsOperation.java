@@ -142,10 +142,6 @@ public class GetFileVersionsOperation extends BaseOperation {
 
 				String createdByNodeValue = createdByNode.getNodeValue();
 
-				String comments = commentsNodeValue;
-
-				String createdBy = createdByNodeValue;
-
 				Date createdDate = _toDate(createdRawNodeValue);
 
 				String sharepointVersionId = _toVersionId(
@@ -158,8 +154,8 @@ public class GetFileVersionsOperation extends BaseOperation {
 				String version = _normalizeIfLatestVersion(versionNodeValue);
 
 				SharepointVersion sharepointVersion = new SharepointVersion(
-					comments, createdBy, createdDate, sharepointVersionId, size,
-					url, version );
+					commentsNodeValue, createdByNodeValue, createdDate,
+					sharepointVersionId, size, url, version );
 
 				sharepointVersions.add(sharepointVersion);
 			}

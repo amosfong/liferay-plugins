@@ -46,9 +46,9 @@ public class URLHelper {
 		try {
 			return new URL(spec);
 		}
-		catch (MalformedURLException mue) {
+		catch (MalformedURLException murle) {
 			throw new SharepointException(
-				"Unable to parse URL '" + spec + "'", mue);
+				"Unable to parse URL '" + spec + "'", murle);
 		}
 	}
 
