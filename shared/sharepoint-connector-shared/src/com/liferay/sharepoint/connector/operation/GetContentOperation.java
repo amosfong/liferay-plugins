@@ -87,9 +87,9 @@ public class GetContentOperation extends BaseOperation {
 		getMethod.setDoAuthentication(true);
 
 		try {
-			int httpStatus = httpClient.executeMethod(getMethod);
+			int status = httpClient.executeMethod(getMethod);
 
-			if (httpStatus == HttpStatus.SC_OK) {
+			if (status == HttpStatus.SC_OK) {
 				InputStream inputStream = getMethod.getResponseBodyAsStream();
 
 				byte[] bytes = null;
@@ -106,7 +106,7 @@ public class GetContentOperation extends BaseOperation {
 			}
 			else {
 				throw new SharepointException(
-					"Downloading " + url + " failed with status " + httpStatus);
+					"Downloading " + url + " failed with status " + status);
 			}
 		}
 		catch (IOException ioe) {
