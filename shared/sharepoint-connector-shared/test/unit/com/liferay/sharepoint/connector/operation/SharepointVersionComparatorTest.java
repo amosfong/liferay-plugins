@@ -25,17 +25,6 @@ import org.junit.Test;
 public class SharepointVersionComparatorTest {
 
 	@Test
-	public void testEquals() {
-		SharepointVersion sharepointVersion1 = createSharepointVersion("1.1");
-		SharepointVersion sharepointVersion2 = createSharepointVersion("1.1");
-
-		Assert.assertEquals(
-			0,
-			_sharepointVersionComparator.compare(
-				sharepointVersion1, sharepointVersion2));
-	}
-
-	@Test
 	public void testCompareGreaterThanMajor() {
 		SharepointVersion sharepointVersion1 = createSharepointVersion("8.1");
 		SharepointVersion sharepointVersion2 = createSharepointVersion("9.0");
@@ -75,6 +64,17 @@ public class SharepointVersionComparatorTest {
 
 		Assert.assertEquals(
 			-1,
+			_sharepointVersionComparator.compare(
+				sharepointVersion1, sharepointVersion2));
+	}
+
+	@Test
+	public void testEquals() {
+		SharepointVersion sharepointVersion1 = createSharepointVersion("1.1");
+		SharepointVersion sharepointVersion2 = createSharepointVersion("1.1");
+
+		Assert.assertEquals(
+			0,
 			_sharepointVersionComparator.compare(
 				sharepointVersion1, sharepointVersion2));
 	}

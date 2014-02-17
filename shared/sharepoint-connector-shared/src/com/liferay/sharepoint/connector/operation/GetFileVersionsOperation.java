@@ -26,8 +26,6 @@ import com.microsoft.schemas.sharepoint.soap.GetVersionsResponseGetVersionsResul
 import com.microsoft.schemas.sharepoint.soap.ListsSoap;
 import com.microsoft.schemas.sharepoint.soap.VersionsSoap;
 
-import java.net.URL;
-
 import java.rmi.RemoteException;
 
 import java.util.ArrayList;
@@ -92,7 +90,7 @@ public class GetFileVersionsOperation extends BaseOperation {
 
 	private Date getDate(String dateString) {
 		Calendar calendar = DatatypeConverter.parseDateTime(dateString);
-		
+
 		return calendar.getTime();
 	}
 
@@ -120,7 +118,7 @@ public class GetFileVersionsOperation extends BaseOperation {
 
 			if ((localName == null) ||
 				!StringUtil.equalsIgnoreCase(localName, "result")) {
-				
+
 				continue;
 			}
 
