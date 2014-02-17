@@ -106,8 +106,7 @@ public class GetContentOperation extends BaseOperation {
 			}
 			else {
 				throw new SharepointException(
-					"Unable to download " + url + " (HTTP " +
-						httpStatus + ")");
+					"Downloading " + url + " failed with status " + httpStatus);
 			}
 		}
 		catch (IOException ioe) {
@@ -119,7 +118,7 @@ public class GetContentOperation extends BaseOperation {
 		}
 	}
 
-	private static final URLHelper _urlHelper = new URLHelper();
+	private static URLHelper _urlHelper = new URLHelper();
 
 	private String _password;
 	private String _username;
