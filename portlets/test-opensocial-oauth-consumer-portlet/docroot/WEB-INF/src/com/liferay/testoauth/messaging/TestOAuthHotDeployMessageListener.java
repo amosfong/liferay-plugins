@@ -38,7 +38,6 @@ import com.liferay.portal.service.UserLocalServiceUtil;
 import com.liferay.portlet.documentlibrary.NoSuchFileEntryException;
 import com.liferay.portlet.documentlibrary.model.DLFolderConstants;
 import com.liferay.portlet.documentlibrary.service.DLAppLocalServiceUtil;
-import com.liferay.testoauth.util.PortletPropsValues;
 
 import java.io.InputStream;
 
@@ -117,7 +116,7 @@ public class TestOAuthHotDeployMessageListener
 	protected String getFileEntryURL(FileEntry fileEntry) {
 		StringBundler sb = new StringBundler(10);
 
-		sb.append(PortletPropsValues.PORTAL_URL);
+		sb.append("http://localhost:8080");
 		sb.append(PortalUtil.getPathContext());
 		sb.append("/documents/");
 		sb.append(fileEntry.getRepositoryId());
@@ -172,12 +171,10 @@ public class TestOAuthHotDeployMessageListener
 					"[$PORTAL_URL$]", "[$REPOSITORY_ID$]", "[$REQUEST_URL$]"
 				},
 				new String[] {
-					PortletPropsValues.OAUTH_ACCESS_TOKEN_URI,
-					PortletPropsValues.OAUTH_AUTHORIZE_URI,
+					"/c/portal/oauth/access_token", "/c/portal/oauth/authorize",
 					String.valueOf(gadgetEditorRootFolder.getFolderId()),
-					PortletPropsValues.PORTAL_URL,
-					String.valueOf(group.getGroupId()),
-					PortletPropsValues.OAUTH_REQUEST_TOKEN_URI
+					"http://localhost:8080", String.valueOf(group.getGroupId()),
+					"/c/portal/oauth/request_token"
 				}
 			);
 
