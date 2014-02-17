@@ -118,29 +118,31 @@ public class GetFileVersionsOperation extends BaseOperation {
 
 			String nodeLocalName = node.getLocalName();
 
-			if ((nodeLocalName != null) &&
-				StringUtil.equalsIgnoreCase(nodeLocalName, "result")) {
-
-				NamedNodeMap nodeAttributes = node.getAttributes();
-
-				Node commentsNode = nodeAttributes.getNamedItem("comments");
-				Node createdByNode = nodeAttributes.getNamedItem("createdBy");
-				Node createdRawNode = nodeAttributes.getNamedItem("createdRaw");
-				Node versionNode = nodeAttributes.getNamedItem("version");
-				Node urlNode = nodeAttributes.getNamedItem("url");
-				Node sizeNode = nodeAttributes.getNamedItem("size");
-
-				SharepointVersion sharepointVersion = new SharepointVersion(
-					commentsNode.getNodeValue(), createdByNode.getNodeValue(),
-					getDate(createdRawNode.getNodeValue()),
-					getSharepointVersionId(
-						sharepointObjectId, versionNode.getNodeValue()),
-					GetterUtil.getLong(sizeNode.getNodeValue()),
-					_urlHelper.toURL(urlNode.getNodeValue()),
-					getVersion(versionNode.getNodeValue()));
-
-				sharepointVersions.add(sharepointVersion);
+			if ((nodeLocalName == null) ||
+				!StringUtil.equalsIgnoreCase(nodeLocalName, "result")) {
+				
+				continue;
 			}
+
+			NamedNodeMap nodeAttributes = node.getAttributes();
+
+			Node commentsNode = nodeAttributes.getNamedItem("comments");
+			Node createdByNode = nodeAttributes.getNamedItem("createdBy");
+			Node createdRawNode = nodeAttributes.getNamedItem("createdRaw");
+			Node versionNode = nodeAttributes.getNamedItem("version");
+			Node urlNode = nodeAttributes.getNamedItem("url");
+			Node sizeNode = nodeAttributes.getNamedItem("size");
+
+			SharepointVersion sharepointVersion = new SharepointVersion(
+				commentsNode.getNodeValue(), createdByNode.getNodeValue(),
+				getDate(createdRawNode.getNodeValue()),
+				getSharepointVersionId(
+					sharepointObjectId, versionNode.getNodeValue()),
+				GetterUtil.getLong(sizeNode.getNodeValue()),
+				_urlHelper.toURL(urlNode.getNodeValue()),
+				getVersion(versionNode.getNodeValue()));
+
+			sharepointVersions.add(sharepointVersion);
 		}
 
 		Collections.sort(sharepointVersions, _sharepointVersionComparator);
