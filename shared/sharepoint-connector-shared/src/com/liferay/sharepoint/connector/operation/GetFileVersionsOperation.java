@@ -66,8 +66,6 @@ public class GetFileVersionsOperation extends BaseOperation {
 					"Unable to find Sharepoint object at " + filePath);
 			}
 
-			long sharepointObjectId = sharepointObject.getId();
-
 			String fileFullPath = toFullPath(filePath);
 
 			GetVersionsResponseGetVersionsResult
@@ -78,7 +76,7 @@ public class GetFileVersionsOperation extends BaseOperation {
 				xmlHelper.getElement(getVersionsResponseGetVersionsResult);
 
 			return getSharepointVersions(
-				sharepointObjectId,
+				sharepointObject.getId(),
 				getVersionsResponseGetVersionsResultElement);
 		}
 		catch (RemoteException re) {
