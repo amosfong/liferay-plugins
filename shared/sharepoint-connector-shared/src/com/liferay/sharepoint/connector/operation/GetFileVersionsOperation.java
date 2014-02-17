@@ -116,10 +116,10 @@ public class GetFileVersionsOperation extends BaseOperation {
 		for (int i = 0; i < nodeList.getLength(); i++) {
 			Node node = nodeList.item(i);
 
-			String nodeLocalName = node.getLocalName();
+			String localName = node.getLocalName();
 
-			if ((nodeLocalName == null) ||
-				!StringUtil.equalsIgnoreCase(nodeLocalName, "result")) {
+			if ((localName == null) ||
+				!StringUtil.equalsIgnoreCase(localName, "result")) {
 				
 				continue;
 			}
