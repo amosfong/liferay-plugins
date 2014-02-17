@@ -40,13 +40,13 @@ public class URLHelper {
 		}
 	}
 
-	public URL toURL(String spec) throws SharepointException {
+	public URL toURL(String urlString) throws SharepointException {
 		try {
-			return new URL(spec);
+			return new URL(urlString);
 		}
 		catch (MalformedURLException murle) {
 			throw new SharepointException(
-				"Unable to parse URL '" + spec + "'", murle);
+				"Unable to parse URL '" + urlString + "'", murle);
 		}
 	}
 
