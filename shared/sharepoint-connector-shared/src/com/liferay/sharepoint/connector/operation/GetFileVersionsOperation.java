@@ -64,7 +64,7 @@ public class GetFileVersionsOperation extends BaseOperation {
 
 			if (sharepointObject == null) {
 				throw new SharepointException(
-					"Sharepoint object with path '" + filePath + "' not found");
+					"Unable to find Sharepoint object at " + filePath);
 			}
 
 			long sharepointObjectId = sharepointObject.getId();
