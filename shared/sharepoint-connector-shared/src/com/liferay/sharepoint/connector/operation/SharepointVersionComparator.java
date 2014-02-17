@@ -31,27 +31,25 @@ public class SharepointVersionComparator
 		SharepointVersion sharepointVersion1,
 		SharepointVersion sharepointVersion2) {
 
-		int value = 0;
-
 		int[] versionParts1 = StringUtil.split(
 			sharepointVersion1.getVersion(), StringPool.PERIOD, 0);
 		int[] versionParts2 = StringUtil.split(
 			sharepointVersion2.getVersion(), StringPool.PERIOD, 0);
 
 		if (versionParts1[0] > versionParts2[0]) {
-			value = -1;
+			return -1;
 		}
 		else if (versionParts1[0] < versionParts2[0]) {
-			value = 1;
+			return 1;
 		}
 		else if (versionParts1[1] > versionParts2[1]) {
-			value = -1;
+			return -1;
 		}
 		else if (versionParts1[1] < versionParts2[1]) {
-			value = 1;
+			return 1;
 		}
 
-		return value;
+		return 0;
 	}
 
 }

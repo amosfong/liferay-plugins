@@ -145,7 +145,7 @@ public class GetFileVersionsOperation extends BaseOperation {
 			sharepointVersions.add(sharepointVersion);
 		}
 
-		Collections.sort(sharepointVersions, _sharepointVersionComparator);
+		Collections.sort(sharepointVersions, _comparator);
 
 		return sharepointVersions;
 	}
@@ -158,10 +158,10 @@ public class GetFileVersionsOperation extends BaseOperation {
 		return version;
 	}
 
-	private static final Comparator<SharepointVersion>
-		_sharepointVersionComparator = new SharepointVersionComparator();
-	private static final URLHelper _urlHelper = new URLHelper();
-	private static final XMLHelper _xmlHelper = new XMLHelper();
+	private static Comparator<SharepointVersion> _comparator =
+		new SharepointVersionComparator();
+	private static URLHelper _urlHelper = new URLHelper();
+	private static XMLHelper _xmlHelper = new XMLHelper();
 
 	private GetObjectByPathOperation _getObjectByPathOperation;
 	private VersionsSoap _versionsSoap;
