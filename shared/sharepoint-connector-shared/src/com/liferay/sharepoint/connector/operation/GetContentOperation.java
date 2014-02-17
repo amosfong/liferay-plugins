@@ -48,7 +48,7 @@ public class GetContentOperation extends BaseOperation {
 
 		URL sharepointObjectURL = sharepointObject.getURL();
 
-		return _execute(sharepointObjectURL);
+		return execute(sharepointObjectURL);
 	}
 
 	public InputStream execute(SharepointVersion sharepointVersion)
@@ -56,10 +56,10 @@ public class GetContentOperation extends BaseOperation {
 
 		URL sharepointVersionURL = sharepointVersion.getURL();
 
-		return _execute(sharepointVersionURL);
+		return execute(sharepointVersionURL);
 	}
 
-	private void _authenticate(HttpClient httpClient, URL url) {
+	protected void authenticate(HttpClient httpClient, URL url) {
 		HttpClientParams httpClientParams = httpClient.getParams();
 
 		httpClientParams.setAuthenticationPreemptive(true);
@@ -75,12 +75,12 @@ public class GetContentOperation extends BaseOperation {
 		httpClientState.setCredentials(authScope, usernamePasswordCredentials);
 	}
 
-	private InputStream _execute(URL sharepointURL) throws SharepointException {
+	protected InputStream execute(URL sharepointURL) throws SharepointException {
 		sharepointURL = _urlHelper.escapeSharepointURL(sharepointURL);
 
 		HttpClient httpClient = new HttpClient();
 
-		_authenticate(httpClient, sharepointURL);
+		authenticate(httpClient, sharepointURL);
 
 		GetMethod getMethod = new GetMethod(sharepointURL.toString());
 
