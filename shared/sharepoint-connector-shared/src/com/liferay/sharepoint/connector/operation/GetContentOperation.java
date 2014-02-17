@@ -76,7 +76,7 @@ public class GetContentOperation extends BaseOperation {
 	}
 
 	protected InputStream execute(URL url) throws SharepointException {
-		url = _urlHelper.escapeURL(url);
+		url = urlHelper.escapeURL(url);
 
 		HttpClient httpClient = new HttpClient();
 
@@ -117,8 +117,6 @@ public class GetContentOperation extends BaseOperation {
 			getMethod.releaseConnection();
 		}
 	}
-
-	private static URLHelper _urlHelper = new URLHelper();
 
 	private String _password;
 	private String _username;

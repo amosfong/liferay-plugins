@@ -17,7 +17,6 @@ package com.liferay.sharepoint.connector.operation;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.SharepointResultException;
-import com.liferay.sharepoint.connector.schema.XMLHelper;
 import com.liferay.sharepoint.connector.schema.batch.Batch;
 
 import com.microsoft.schemas.sharepoint.soap.ListsSoap;
@@ -44,7 +43,7 @@ public class BatchOperation extends BaseOperation {
 		UpdateListItemsUpdates updateListItemsUpdates =
 			new UpdateListItemsUpdates();
 
-		Element element = _xmlHelper.toElement(batch);
+		Element element = xmlHelper.toElement(batch);
 
 		MessageElement messageElement = new MessageElement(element);
 
@@ -73,18 +72,18 @@ public class BatchOperation extends BaseOperation {
 		throws SharepointException {
 
 		Element updateListItemsResponseUpdateListItemsResultElement =
-			_xmlHelper.getElement(updateListItemsResponseUpdateListItemsResult);
+			xmlHelper.getElement(updateListItemsResponseUpdateListItemsResult);
 
-		Element resultElement = _xmlHelper.getElement(
+		Element resultElement = xmlHelper.getElement(
 			"Result", updateListItemsResponseUpdateListItemsResultElement);
 
-		Element errorCodeElement = _xmlHelper.getElement(
+		Element errorCodeElement = xmlHelper.getElement(
 			"ErrorCode", resultElement);
 
 		String errorCode = errorCodeElement.getTextContent();
 
 		if (!errorCode.equals(SharepointConstants.ERROR_CODE_SUCCESS)) {
-			Element errorTextElement = _xmlHelper.getElement(
+			Element errorTextElement = xmlHelper.getElement(
 				"ErrorText", resultElement);
 
 			String errorText = errorTextElement.getTextContent();
@@ -95,8 +94,6 @@ public class BatchOperation extends BaseOperation {
 			throw new SharepointResultException(errorCode, errorText);
 		}
 	}
-
-	private static final XMLHelper _xmlHelper = new XMLHelper();
 
 	private String _libraryName;
 	private ListsSoap _listsSoap;

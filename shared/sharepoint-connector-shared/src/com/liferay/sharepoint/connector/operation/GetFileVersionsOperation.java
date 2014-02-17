@@ -20,7 +20,6 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.SharepointObject;
 import com.liferay.sharepoint.connector.SharepointVersion;
-import com.liferay.sharepoint.connector.schema.XMLHelper;
 
 import com.microsoft.schemas.sharepoint.soap.GetVersionsResponseGetVersionsResult;
 import com.microsoft.schemas.sharepoint.soap.ListsSoap;
@@ -76,7 +75,7 @@ public class GetFileVersionsOperation extends BaseOperation {
 					_versionsSoap.getVersions(fileFullPath);
 
 			Element getVersionsResponseGetVersionsResultElement =
-				_xmlHelper.getElement(getVersionsResponseGetVersionsResult);
+				xmlHelper.getElement(getVersionsResponseGetVersionsResult);
 
 			return getSharepointVersions(
 				sharepointObjectId,
@@ -137,7 +136,7 @@ public class GetFileVersionsOperation extends BaseOperation {
 				getSharepointVersionId(
 					sharepointObjectId, versionNode.getNodeValue()),
 				GetterUtil.getLong(sizeNode.getNodeValue()),
-				_urlHelper.toURL(urlNode.getNodeValue()),
+				urlHelper.toURL(urlNode.getNodeValue()),
 				getVersion(versionNode.getNodeValue()));
 
 			sharepointVersions.add(sharepointVersion);
@@ -158,8 +157,6 @@ public class GetFileVersionsOperation extends BaseOperation {
 
 	private static Comparator<SharepointVersion> _comparator =
 		new SharepointVersionComparator();
-	private static URLHelper _urlHelper = new URLHelper();
-	private static XMLHelper _xmlHelper = new XMLHelper();
 
 	private GetObjectByPathOperation _getObjectByPathOperation;
 	private VersionsSoap _versionsSoap;
