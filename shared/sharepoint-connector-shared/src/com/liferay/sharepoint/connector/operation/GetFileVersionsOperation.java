@@ -88,12 +88,14 @@ public class GetFileVersionsOperation extends BaseOperation {
 		}
 	}
 
-	private String getVersion(String version) {
-		if (version.startsWith(StringPool.AT)) {
-			version = version.substring(1);
-		}
+	private Date getDate(String createdRawNodeValue) {
+		return DatatypeConverter.parseDateTime(createdRawNodeValue).getTime();
+	}
 
-		return version;
+	private String getSharepointVersionId(
+		long sharepointObjectId, String version) {
+
+		return sharepointObjectId + StringPool.AT + version;
 	}
 
 	private List<SharepointVersion> getSharepointVersions(
@@ -165,14 +167,12 @@ public class GetFileVersionsOperation extends BaseOperation {
 		return sharepointVersions;
 	}
 
-	private Date getDate(String createdRawNodeValue) {
-		return DatatypeConverter.parseDateTime(createdRawNodeValue).getTime();
-	}
+	private String getVersion(String version) {
+		if (version.startsWith(StringPool.AT)) {
+			version = version.substring(1);
+		}
 
-	private String getSharepointVersionId(
-		long sharepointObjectId, String version) {
-
-		return sharepointObjectId + StringPool.AT + version;
+		return version;
 	}
 
 	private static final Comparator<SharepointVersion>
