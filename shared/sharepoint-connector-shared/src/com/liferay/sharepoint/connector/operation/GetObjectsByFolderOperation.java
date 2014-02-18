@@ -33,8 +33,11 @@ import java.util.List;
  */
 public class GetObjectsByFolderOperation extends BaseOperation {
 
-	public GetObjectsByFolderOperation(ListsSoap listsSoap) {
-		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(listsSoap);
+	public GetObjectsByFolderOperation(
+		ListsSoap listsSoap, String libraryName, String sitePath) {
+
+		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
+			listsSoap, libraryName, sitePath);
 	}
 
 	public List<SharepointObject> execute(

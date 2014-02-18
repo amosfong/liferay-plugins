@@ -42,15 +42,20 @@ import org.apache.axis.holders.UnsignedIntHolder;
 public class CopyObjectOperation extends BaseOperation {
 
 	public CopyObjectOperation(
-		CopySoap copySoap, ListsSoap listsSoap, String libraryName) {
+		CopySoap copySoap, ListsSoap listsSoap, String libraryName,
+		String sitePath) {
 
 		_copySoap = copySoap;
 
 		_addFolderOperation = new AddFolderOperation(listsSoap, libraryName);
+
 		_checkInFileOperation = new CheckInFileOperation(listsSoap);
-		_getObjectByPathOperation = new GetObjectByPathOperation(listsSoap);
+
+		_getObjectByPathOperation = new GetObjectByPathOperation(
+			listsSoap, libraryName, sitePath);
+
 		_getObjectsByFolderOperation = new GetObjectsByFolderOperation(
-			listsSoap);
+			listsSoap, libraryName, sitePath);
 	}
 
 	public void execute(String path, String newPath)

@@ -31,8 +31,11 @@ import com.microsoft.schemas.sharepoint.soap.ListsSoap;
  */
 public class GetObjectByPathOperation extends BaseOperation {
 
-	public GetObjectByPathOperation(ListsSoap listsSoap) {
-		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(listsSoap);
+	public GetObjectByPathOperation(
+		ListsSoap listsSoap, String libraryName, String sitePath) {
+
+		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
+			listsSoap, libraryName, sitePath);
 	}
 
 	public SharepointObject execute(String filePath)

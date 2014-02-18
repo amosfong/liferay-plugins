@@ -27,10 +27,13 @@ import com.microsoft.schemas.sharepoint.soap.ListsSoap;
  */
 public class DeleteObjectOperation extends BaseOperation {
 
-	public DeleteObjectOperation(ListsSoap listsSoap, String libraryName) {
+	public DeleteObjectOperation(
+		ListsSoap listsSoap, String libraryName, String sitePath) {
+
 		_batchOperation = new BatchOperation(listsSoap, libraryName);
 
-		_getObjectByPathOperation = new GetObjectByPathOperation(listsSoap);
+		_getObjectByPathOperation = new GetObjectByPathOperation(
+			listsSoap, libraryName, sitePath);
 	}
 
 	public void execute(String path) throws SharepointException {

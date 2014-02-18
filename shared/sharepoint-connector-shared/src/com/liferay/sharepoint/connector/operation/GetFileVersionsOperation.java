@@ -47,11 +47,13 @@ import org.w3c.dom.NodeList;
 public class GetFileVersionsOperation extends BaseOperation {
 
 	public GetFileVersionsOperation(
-		ListsSoap listsSoap, VersionsSoap versionsSoap) {
+		ListsSoap listsSoap, VersionsSoap versionsSoap, String libraryName,
+		String sitePath) {
 
 		_versionsSoap = versionsSoap;
 
-		_getObjectByPathOperation = new GetObjectByPathOperation(listsSoap);
+		_getObjectByPathOperation = new GetObjectByPathOperation(
+			listsSoap, libraryName, sitePath);
 	}
 
 	public List<SharepointVersion> execute(String filePath)

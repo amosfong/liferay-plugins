@@ -33,8 +33,11 @@ import java.util.List;
  */
 public class GetObjectsByNameOperation extends BaseOperation {
 
-	public GetObjectsByNameOperation(ListsSoap listsSoap) {
-		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(listsSoap);
+	public GetObjectsByNameOperation(
+		ListsSoap listsSoap, String libraryName, String sitePath) {
+
+		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
+			listsSoap, libraryName, sitePath);
 	}
 
 	public List<SharepointObject> execute(String name)
