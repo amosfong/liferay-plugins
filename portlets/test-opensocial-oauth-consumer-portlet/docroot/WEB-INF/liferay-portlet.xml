@@ -3,8 +3,7 @@
 
 <liferay-portlet-app>
 	<portlet>
-		<portlet-name>test-opensocial-oauth-consumer</portlet-name>
-		<css-class-wrapper>test-opensocial-oauth-consumer-portlet</css-class-wrapper>
+		<portlet-name>1</portlet-name>
 	</portlet>
 	<role-mapper>
 		<role-name>administrator</role-name>

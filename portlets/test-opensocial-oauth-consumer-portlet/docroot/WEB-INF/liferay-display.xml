@@ -3,6 +3,6 @@
 
 <display>
 	<category name="category.test">
-		<portlet id="test-opensocial-oauth-consumer" />
+		<portlet id="1" />
 	</category>
 </display>
