@@ -21,7 +21,9 @@ import com.liferay.portal.kernel.util.Validator;
 
 import org.scribe.builder.api.Api;
 import org.scribe.builder.api.DefaultApi10a;
+import org.scribe.model.OAuthConfig;
 import org.scribe.model.OAuthConstants;
+import org.scribe.model.SignatureType;
 import org.scribe.model.Token;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
@@ -75,14 +77,23 @@ public class OAuthServiceHandlerImpl implements OAuthServiceHandler {
 				}
 
 				@Override
+				public String getAuthorizationUrl(Token token) {
+					return HttpUtil.addParameter(
+						_authorizeURL, OAuthConstants.TOKEN, token.getToken());
+				}
+
+				@Override
 				public String getRequestTokenEndpoint() {
 					return _requestURL;
 				}
 
 			};
 
-			_oAuthService = api.createService(
-				_consumerKey, _consumerSecret, null, null);
+			OAuthConfig oAuthConfig = new OAuthConfig(
+				_consumerKey, _consumerSecret, "http://localhost:8080",
+				SignatureType.Header, null, null);
+
+			_oAuthService = api.createService(oAuthConfig);
 		}
 
 		return _oAuthService;
