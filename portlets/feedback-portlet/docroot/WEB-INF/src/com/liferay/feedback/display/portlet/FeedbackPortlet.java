@@ -106,11 +106,9 @@ public class FeedbackPortlet extends MVCPortlet {
 
 		serviceContext.setPlid(plid);
 
-		PortletPreferencesIds portletPreferencesIds =
-			new PortletPreferencesIds(
-				themeDisplay.getCompanyId(), groupId,
-				PortletKeys.PREFS_OWNER_TYPE_GROUP, 0,
-				PortletKeys.MESSAGE_BOARDS);
+		PortletPreferencesIds portletPreferencesIds = new PortletPreferencesIds(
+			themeDisplay.getCompanyId(), groupId,
+			PortletKeys.PREFS_OWNER_TYPE_GROUP, 0, PortletKeys.MESSAGE_BOARDS);
 
 		serviceContext.setPortletPreferencesIds(portletPreferencesIds);
 
