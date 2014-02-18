@@ -14,6 +14,11 @@
 
 package com.liferay.sharepoint.connector.operation;
 
+import com.liferay.portal.kernel.util.StringPool;
+
+import java.util.TimeZone;
+import java.util.regex.Pattern;
+
 /**
  * @author Iván Zaera
  */
@@ -27,6 +32,21 @@ public class SharepointConstants {
 
 	public static final String FS_OBJ_TYPE_FOLDER = "1";
 
+	public static final String PATTERN_MULTI_VALUE_SEPARATOR = Pattern.quote(
+		";#");
+
+	public static final String ROW_LIMIT_DEFAULT = StringPool.BLANK;
+
+	public static final String SHAREPOINT_OBJECT_DATE_FORMAT =
+		"yyyy-MM-dd HH:mm:ss";
+
+	public static final TimeZone SHAREPOINT_OBJECT_TIME_ZONE =
+		TimeZone.getTimeZone("UTC");
+
 	public static final String URL_SOURCE_NONE = " ";
+
+	public static final String VIEW_DEFAULT = StringPool.BLANK;
+
+	public static final String WEB_ID_DEFAULT = StringPool.BLANK;
 
 }
