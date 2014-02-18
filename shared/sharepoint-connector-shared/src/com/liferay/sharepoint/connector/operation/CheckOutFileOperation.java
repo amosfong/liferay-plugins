@@ -34,7 +34,7 @@ public class CheckOutFileOperation extends BaseOperation {
 
 	public boolean execute(String filePath) throws SharepointException {
 		try {
-			URL filePathURL = toURL(filePath);
+			URL filePathURL = urlHelper.toURL(filePath);
 
 			return _listsSoap.checkOutFile(
 				filePathURL.toString(), Boolean.FALSE.toString(),

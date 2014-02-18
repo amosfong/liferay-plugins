@@ -17,8 +17,6 @@ package com.liferay.sharepoint.connector.operation;
 import com.liferay.sharepoint.connector.SharepointObject;
 import com.liferay.sharepoint.connector.schema.XMLHelper;
 
-import java.net.URL;
-
 import java.util.List;
 
 /**
@@ -37,10 +35,6 @@ public abstract class BaseOperation {
 	}
 
 	protected String toFullPath(String path) {
-		return null;
-	}
-
-	protected URL toURL(String path) {
 		return null;
 	}
 
