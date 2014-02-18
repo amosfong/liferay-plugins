@@ -10,7 +10,7 @@
 
 	<!-- Listeners -->
 
-	<bean id="messageListener.hot_deploy" class="com.liferay.testoauth.messaging.TestOAuthHotDeployMessageListener">
+	<bean id="messageListener.hot_deploy" class="com.liferay.testopensocialoauthconsumer.messaging.TestOpenSocialOAuthConsumerHotDeployMessageListener">
 		<constructor-arg name="servletContextNames">
 			<value>test-opensocial-oauth-consumer-portlet</value>
 		</constructor-arg>

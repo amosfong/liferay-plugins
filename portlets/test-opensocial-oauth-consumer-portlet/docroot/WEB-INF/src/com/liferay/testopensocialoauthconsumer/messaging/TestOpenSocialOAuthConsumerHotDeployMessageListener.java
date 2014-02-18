@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.testoauth.messaging;
+package com.liferay.testopensocialoauthconsumer.messaging;
 
 import com.liferay.compat.portal.kernel.util.HttpUtil;
 import com.liferay.compat.portal.kernel.util.StringUtil;
@@ -44,10 +44,12 @@ import java.io.InputStream;
 /**
  * @author Ivica Cardic
  */
-public class TestOAuthHotDeployMessageListener
+public class TestOpenSocialOAuthConsumerHotDeployMessageListener
 	extends HotDeployMessageListener {
 
-	public TestOAuthHotDeployMessageListener(String... servletContextNames) {
+	public TestOpenSocialOAuthConsumerHotDeployMessageListener(
+		String... servletContextNames) {
+
 		super(servletContextNames);
 	}
 
