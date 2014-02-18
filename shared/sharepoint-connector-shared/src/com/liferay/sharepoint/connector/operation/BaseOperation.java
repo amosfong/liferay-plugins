@@ -14,7 +14,6 @@
 
 package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.sharepoint.connector.SharepointObject;
 import com.liferay.sharepoint.connector.schema.XMLHelper;
 
@@ -25,18 +24,6 @@ import java.util.List;
  */
 public abstract class BaseOperation {
 
-	protected String buildPath(String path, String name) {
-		return path + StringPool.SLASH + name;
-	}
-
-	protected String getPathFolder(String path) {
-		return null;
-	}
-
-	protected String getPathName(String path) {
-		return null;
-	}
-
 	protected SharepointObject getSharepointObject(
 		List<SharepointObject> sharepointObjects) {
 
@@ -45,10 +32,6 @@ public abstract class BaseOperation {
 		}
 
 		return sharepointObjects.get(0);
-	}
-
-	protected String toFullPath(String path) {
-		return null;
 	}
 
 	protected static URLHelper urlHelper = new URLHelper();

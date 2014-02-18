@@ -27,13 +27,14 @@ import com.microsoft.schemas.sharepoint.soap.ListsSoap;
  */
 public class DeleteObjectOperation extends BaseOperation {
 
-	public DeleteObjectOperation(
-		ListsSoap listsSoap, String libraryName, String sitePath) {
+	public DeleteObjectOperation(ListsSoap listsSoap, PathHelper pathHelper) {
+		_pathHelper = pathHelper;
 
-		_batchOperation = new BatchOperation(listsSoap, libraryName);
+		_batchOperation = new BatchOperation(
+			listsSoap, _pathHelper.getLibraryName());
 
 		_getObjectByPathOperation = new GetObjectByPathOperation(
-			listsSoap, libraryName, sitePath);
+			listsSoap, _pathHelper);
 	}
 
 	public void execute(String path) throws SharepointException {
@@ -45,7 +46,7 @@ public class DeleteObjectOperation extends BaseOperation {
 				"Unable to find Sharepoint object with path " + path);
 		}
 
-		String fullPath = toFullPath(sharepointObject.getPath());
+		String fullPath = _pathHelper.toFullPath(sharepointObject.getPath());
 
 		_batchOperation.execute(
 			new Batch(
@@ -59,5 +60,6 @@ public class DeleteObjectOperation extends BaseOperation {
 
 	private BatchOperation _batchOperation;
 	private GetObjectByPathOperation _getObjectByPathOperation;
+	private PathHelper _pathHelper;
 
 }

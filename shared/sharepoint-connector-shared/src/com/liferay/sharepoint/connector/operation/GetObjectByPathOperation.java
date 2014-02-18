@@ -32,16 +32,18 @@ import com.microsoft.schemas.sharepoint.soap.ListsSoap;
 public class GetObjectByPathOperation extends BaseOperation {
 
 	public GetObjectByPathOperation(
-		ListsSoap listsSoap, String libraryName, String sitePath) {
+		ListsSoap listsSoap, PathHelper pathHelper) {
+
+		_pathHelper = pathHelper;
 
 		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
-			listsSoap, libraryName, sitePath);
+			listsSoap, _pathHelper.getLibraryName(), _pathHelper.getSitePath());
 	}
 
 	public SharepointObject execute(String filePath)
 		throws SharepointException {
 
-		String fileFullPath = toFullPath(filePath);
+		String fileFullPath = _pathHelper.toFullPath(filePath);
 
 		Query query = new Query(
 			new EqOperator(
@@ -55,5 +57,6 @@ public class GetObjectByPathOperation extends BaseOperation {
 	}
 
 	private GetObjectsByQueryOperation _getObjectsByQueryOperation;
+	private PathHelper _pathHelper;
 
 }

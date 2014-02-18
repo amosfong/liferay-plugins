@@ -47,13 +47,13 @@ import org.w3c.dom.NodeList;
 public class GetFileVersionsOperation extends BaseOperation {
 
 	public GetFileVersionsOperation(
-		ListsSoap listsSoap, VersionsSoap versionsSoap, String libraryName,
-		String sitePath) {
+		ListsSoap listsSoap, VersionsSoap versionsSoap, PathHelper pathHelper) {
 
+		_pathHelper = pathHelper;
 		_versionsSoap = versionsSoap;
 
 		_getObjectByPathOperation = new GetObjectByPathOperation(
-			listsSoap, libraryName, sitePath);
+			listsSoap, _pathHelper);
 	}
 
 	public List<SharepointVersion> execute(String filePath)
@@ -68,7 +68,7 @@ public class GetFileVersionsOperation extends BaseOperation {
 					"Unable to find Sharepoint object at " + filePath);
 			}
 
-			String fileFullPath = toFullPath(filePath);
+			String fileFullPath = _pathHelper.toFullPath(filePath);
 
 			GetVersionsResponseGetVersionsResult
 				getVersionsResponseGetVersionsResult =
@@ -159,6 +159,7 @@ public class GetFileVersionsOperation extends BaseOperation {
 		new SharepointVersionComparator();
 
 	private GetObjectByPathOperation _getObjectByPathOperation;
+	private PathHelper _pathHelper;
 	private VersionsSoap _versionsSoap;
 
 }

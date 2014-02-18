@@ -42,20 +42,20 @@ import org.apache.axis.holders.UnsignedIntHolder;
 public class CopyObjectOperation extends BaseOperation {
 
 	public CopyObjectOperation(
-		CopySoap copySoap, ListsSoap listsSoap, String libraryName,
-		String sitePath) {
+		CopySoap copySoap, ListsSoap listsSoap, PathHelper pathHelper) {
 
 		_copySoap = copySoap;
+		_pathHelper = pathHelper;
 
-		_addFolderOperation = new AddFolderOperation(listsSoap, libraryName);
+		_addFolderOperation = new AddFolderOperation(listsSoap, pathHelper);
 
 		_checkInFileOperation = new CheckInFileOperation(listsSoap);
 
 		_getObjectByPathOperation = new GetObjectByPathOperation(
-			listsSoap, libraryName, sitePath);
+			listsSoap, _pathHelper);
 
 		_getObjectsByFolderOperation = new GetObjectsByFolderOperation(
-			listsSoap, libraryName, sitePath);
+			listsSoap, pathHelper);
 	}
 
 	public void execute(String path, String newPath)
@@ -120,8 +120,10 @@ public class CopyObjectOperation extends BaseOperation {
 				path, SharepointConnection.ObjectTypeFilter.ALL);
 
 		for (SharepointObject sharepointObject : sharepointObjects) {
-			String objectPath = buildPath(path, sharepointObject.getName());
-			String newObjectPath = buildPath(
+			String objectPath = _pathHelper.buildPath(
+				path, sharepointObject.getName());
+
+			String newObjectPath = _pathHelper.buildPath(
 				newPath, sharepointObject.getName());
 
 			if (sharepointObject.isFile()) {
@@ -135,9 +137,9 @@ public class CopyObjectOperation extends BaseOperation {
 
 	private void _createFolder(String folderPath) {
 		try {
-			String folderPathFolder = getPathFolder(folderPath);
+			String folderPathFolder = _pathHelper.getPathFolder(folderPath);
 
-			String folderPathName = getPathName(folderPath);
+			String folderPathName = _pathHelper.getPathName(folderPath);
 
 			_addFolderOperation.execute(folderPathFolder, folderPathName);
 		}
@@ -155,5 +157,6 @@ public class CopyObjectOperation extends BaseOperation {
 	private CopySoap _copySoap;
 	private GetObjectByPathOperation _getObjectByPathOperation;
 	private GetObjectsByFolderOperation _getObjectsByFolderOperation;
+	private PathHelper _pathHelper;
 
 }

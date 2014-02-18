@@ -26,14 +26,17 @@ import com.microsoft.schemas.sharepoint.soap.ListsSoap;
  */
 public class AddFolderOperation extends BaseOperation {
 
-	public AddFolderOperation(ListsSoap listsSoap, String libraryName) {
-		_batchOperation = new BatchOperation(listsSoap, libraryName);
+	public AddFolderOperation(ListsSoap listsSoap, PathHelper pathHelper) {
+		_pathHelper = pathHelper;
+
+		_batchOperation = new BatchOperation(
+			listsSoap, _pathHelper.getLibraryName());
 	}
 
 	public void execute(String folderPath, String folderName)
 		throws SharepointException {
 
-		String folderFullPath = toFullPath(folderPath);
+		String folderFullPath = _pathHelper.toFullPath(folderPath);
 
 		_batchOperation.execute(
 			new Batch(
@@ -48,5 +51,6 @@ public class AddFolderOperation extends BaseOperation {
 	}
 
 	private BatchOperation _batchOperation;
+	private PathHelper _pathHelper;
 
 }
