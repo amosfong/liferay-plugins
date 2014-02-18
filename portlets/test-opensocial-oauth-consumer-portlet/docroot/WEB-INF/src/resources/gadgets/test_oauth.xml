@@ -5,7 +5,7 @@
 		author="Ivica Cardic, Igor Beslic"
 		author_email="igor.beslic@liferay.com, ivica.cardic@liferay.com"
 		description="A simple example of an OpenSocial Liferay Gadget using OAuth."
-		title="Test OAuth Gadget"
+		title="Test OpenSocial OAuth Consumer Gadget"
 	>
 		<Require feature="dynamic-height" />
 		<Require feature="oauthpopup" />
