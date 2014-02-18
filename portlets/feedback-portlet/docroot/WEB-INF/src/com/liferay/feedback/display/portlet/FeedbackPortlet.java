@@ -96,15 +96,15 @@ public class FeedbackPortlet extends MVCPortlet {
 
 		serviceContext.setAddGroupPermissions(true);
 
-		long portletPlid = PortalUtil.getPlidFromPortletId(
+		long plid = PortalUtil.getPlidFromPortletId(
 			groupId, true, PortletKeys.MESSAGE_BOARDS);
 
-		if (portletPlid == 0) {
-			portletPlid = PortalUtil.getPlidFromPortletId(
+		if (plid == 0) {
+			plid = PortalUtil.getPlidFromPortletId(
 				groupId, false, PortletKeys.MESSAGE_BOARDS);
 		}
 
-		serviceContext.setPlid(portletPlid);
+		serviceContext.setPlid(plid);
 
 		PortletPreferencesIds portletPreferencesIds =
 			new PortletPreferencesIds(
