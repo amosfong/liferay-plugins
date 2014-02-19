@@ -62,11 +62,11 @@ public class BatchOperation extends BaseOperation {
 				"Unable to communicate with the Sharepoint server", re);
 		}
 
-		_parseUpdateListItemsResponseUpdateListItemsResult(
+		parseUpdateListItemsResponseUpdateListItemsResult(
 			updateListItemsResponseUpdateListItemsResult);
 	}
 
-	private void _parseUpdateListItemsResponseUpdateListItemsResult(
+	protected void parseUpdateListItemsResponseUpdateListItemsResult(
 			UpdateListItemsResponseUpdateListItemsResult
 				updateListItemsResponseUpdateListItemsResult)
 		throws SharepointException {

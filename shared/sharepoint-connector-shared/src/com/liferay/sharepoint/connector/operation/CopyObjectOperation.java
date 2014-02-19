@@ -70,14 +70,14 @@ public class CopyObjectOperation extends BaseOperation {
 		}
 
 		if (sharepointObject.isFile()) {
-			_copyFile(path, newPath);
+			copyFile(path, newPath);
 		}
 		else {
-			_copyFolder(path, newPath);
+			copyFolder(path, newPath);
 		}
 	}
 
-	private void _copyFile(String path, String newPath)
+	protected void copyFile(String path, String newPath)
 		throws SharepointException {
 
 		URL pathURL = urlHelper.toURL(path);
@@ -110,10 +110,10 @@ public class CopyObjectOperation extends BaseOperation {
 			newPath, StringPool.BLANK, SharepointConnection.CheckInType.MAJOR);
 	}
 
-	private void _copyFolder(String path, String newPath)
+	protected void copyFolder(String path, String newPath)
 		throws SharepointException {
 
-		_createFolder(newPath);
+		createFolder(newPath);
 
 		List<SharepointObject> sharepointObjects =
 			_getObjectsByFolderOperation.execute(
@@ -127,15 +127,15 @@ public class CopyObjectOperation extends BaseOperation {
 				newPath, sharepointObject.getName());
 
 			if (sharepointObject.isFile()) {
-				_copyFile(objectPath, newObjectPath);
+				copyFile(objectPath, newObjectPath);
 			}
 			else {
-				_copyFolder(objectPath, newObjectPath);
+				copyFolder(objectPath, newObjectPath);
 			}
 		}
 	}
 
-	private void _createFolder(String folderPath) {
+	protected void createFolder(String folderPath) {
 		try {
 			String folderPathFolder = _pathHelper.getPathFolder(folderPath);
 

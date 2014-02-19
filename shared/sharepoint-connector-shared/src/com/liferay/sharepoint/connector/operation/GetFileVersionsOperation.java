@@ -87,19 +87,19 @@ public class GetFileVersionsOperation extends BaseOperation {
 		}
 	}
 
-	private Date getDate(String dateString) {
+	protected Date getDate(String dateString) {
 		Calendar calendar = DatatypeConverter.parseDateTime(dateString);
 
 		return calendar.getTime();
 	}
 
-	private String getSharepointVersionId(
+	protected String getSharepointVersionId(
 		long sharepointObjectId, String version) {
 
 		return sharepointObjectId + StringPool.AT + version;
 	}
 
-	private List<SharepointVersion> getSharepointVersions(
+	protected List<SharepointVersion> getSharepointVersions(
 			long sharepointObjectId,
 			Element getVersionsResponseGetVersionsResultElement)
 		throws SharepointException {
@@ -147,7 +147,7 @@ public class GetFileVersionsOperation extends BaseOperation {
 		return sharepointVersions;
 	}
 
-	private String getVersion(String version) {
+	protected String getVersion(String version) {
 		if (version.startsWith(StringPool.AT)) {
 			version = version.substring(1);
 		}

@@ -71,13 +71,13 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 			String... queryFieldNames)
 		throws SharepointException {
 
-		GetListItemsQuery getListItemsQuery = _getGetListItemsQuery(query);
+		GetListItemsQuery getListItemsQuery = getGetListItemsQuery(query);
 
 		GetListItemsViewFields getListItemsViewFields =
-			_getGetListItemsViewFields(queryFieldNames);
+			getGetListItemsViewFields(queryFieldNames);
 
 		GetListItemsQueryOptions getListItemsQueryOptions =
-			_getGetListItemsQueryOptions(queryOptionsList);
+			getGetListItemsQueryOptions(queryOptionsList);
 
 		GetListItemsResponseGetListItemsResult
 			getListItemsResponseGetListItemsResult = null;
@@ -95,35 +95,15 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 		}
 
 		if (_log.isDebugEnabled()) {
-			_logDebug(
+			logDebug(
 				query, queryOptionsList,
 				getListItemsResponseGetListItemsResult);
 		}
 
-		return _getSharepointObjects(getListItemsResponseGetListItemsResult);
+		return getSharepointObjects(getListItemsResponseGetListItemsResult);
 	}
 
-	private Date _getDate(String sharepointObjectDate) {
-		try {
-			DateFormat format = new SimpleDateFormat(
-				SharepointConstants.SHAREPOINT_OBJECT_DATE_FORMAT);
-
-			format.setTimeZone(SharepointConstants.SHAREPOINT_OBJECT_TIME_ZONE);
-
-			return format.parse(sharepointObjectDate);
-		}
-		catch (ParseException pe) {
-			if (_log.isWarnEnabled()) {
-				_log.warn(
-					"Unable to parse Sharepoint object date '" +
-					sharepointObjectDate + "'", pe);
-			}
-
-			return new Date(0);
-		}
-	}
-
-	private GetListItemsQuery _getGetListItemsQuery(Query query) {
+	protected GetListItemsQuery getGetListItemsQuery(Query query) {
 		GetListItemsQuery getListItemsQuery = new GetListItemsQuery();
 
 		Element queryElement = xmlHelper.toElement(query);
@@ -135,7 +115,7 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 		return getListItemsQuery;
 	}
 
-	private GetListItemsQueryOptions _getGetListItemsQueryOptions(
+	protected GetListItemsQueryOptions getGetListItemsQueryOptions(
 		QueryOptionsList queryOptionsList) {
 
 		Element queryOptionsListElement = xmlHelper.toElement(queryOptionsList);
@@ -152,11 +132,11 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 		return getListItemsQueryOptions;
 	}
 
-	private GetListItemsViewFields _getGetListItemsViewFields(
+	protected GetListItemsViewFields getGetListItemsViewFields(
 		String... queryFieldNames) {
 
 		QueryFieldsList queryFieldsList = new QueryFieldsList(
-			_toQueryFields(queryFieldNames));
+			toQueryFields(queryFieldNames));
 
 		Element queryFieldsListElement = xmlHelper.toElement(queryFieldsList);
 
@@ -172,7 +152,7 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 		return getListItemsViewFields;
 	}
 
-	private String _getNodeValue(Node node, int index) {
+	protected String getNodeValue(Node node, int index) {
 		String nodeValue = node.getNodeValue();
 
 		String[] parts = nodeValue.split(
@@ -186,7 +166,7 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 		}
 	}
 
-	private Set<Permission> _getPermissions(String permissionsHexMask) {
+	protected Set<Permission> getPermissions(String permissionsHexMask) {
 		long permisssionsMask = Long.valueOf(
 			permissionsHexMask.substring(2), 16);
 
@@ -203,7 +183,7 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 		return permissions;
 	}
 
-	private List<SharepointObject> _getSharepointObjects(
+	protected List<SharepointObject> getSharepointObjects(
 			GetListItemsResponseGetListItemsResult
 				getListItemsResponseGetListItemsResult)
 		throws SharepointException {
@@ -245,19 +225,19 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 			Node ows_PermMaskNode = namedNodeMap.getNamedItem("ows_PermMask");
 			Node ows_FSObjTypeNode = namedNodeMap.getNamedItem("ows_FSObjType");
 
-			String path = _getNodeValue(ows_FileRefNode, 1).substring(
+			String path = getNodeValue(ows_FileRefNode, 1).substring(
 				_pathPrefixToRemoveLength);
 
 			SharepointObject sharepointObject = new SharepointObject(
-				_getNodeValue(ows_AuthorNode, 1),
-				_getNodeValue(ows_CheckedOutUserIdNode, 1),
-				_getDate(_getNodeValue(ows_Created_x0020_DateNode, 1)),
-				_getNodeValue(ows_FSObjTypeNode, 1).equals(
+				getNodeValue(ows_AuthorNode, 1),
+				getNodeValue(ows_CheckedOutUserIdNode, 1),
+				_getDate(getNodeValue(ows_Created_x0020_DateNode, 1)),
+				getNodeValue(ows_FSObjTypeNode, 1).equals(
 					SharepointConstants.FS_OBJ_TYPE_FOLDER),
-				_getDate(_getNodeValue(ows_Last_x0020_ModifiedNode, 1)), path,
-				_getPermissions(ows_PermMaskNode.getNodeValue()),
-				GetterUtil.getLong(_getNodeValue(ows_FileRefNode, 0)),
-				GetterUtil.getLong(_getNodeValue(ows_File_x0020_SizeNode, 1)),
+				_getDate(getNodeValue(ows_Last_x0020_ModifiedNode, 1)), path,
+				getPermissions(ows_PermMaskNode.getNodeValue()),
+				GetterUtil.getLong(getNodeValue(ows_FileRefNode, 0)),
+				GetterUtil.getLong(getNodeValue(ows_File_x0020_SizeNode, 1)),
 				urlHelper.toURL(path));
 
 			sharepointObjects.add(sharepointObject);
@@ -266,7 +246,7 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 		return sharepointObjects;
 	}
 
-	private void _logDebug(
+	protected void logDebug(
 		Query query, QueryOptionsList queryOptionsList,
 		GetListItemsResponseGetListItemsResult result) {
 
@@ -281,7 +261,7 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 		}
 	}
 
-	private QueryField[] _toQueryFields(String[] queryFieldNames) {
+	protected QueryField[] toQueryFields(String[] queryFieldNames) {
 		QueryField[] queryFields = new QueryField[queryFieldNames.length];
 
 		int i = 0;
@@ -291,6 +271,26 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 		}
 
 		return queryFields;
+	}
+
+	private Date _getDate(String sharepointObjectDate) {
+		try {
+			DateFormat format = new SimpleDateFormat(
+				SharepointConstants.SHAREPOINT_OBJECT_DATE_FORMAT);
+
+			format.setTimeZone(SharepointConstants.SHAREPOINT_OBJECT_TIME_ZONE);
+
+			return format.parse(sharepointObjectDate);
+		}
+		catch (ParseException pe) {
+			if (_log.isWarnEnabled()) {
+				_log.warn(
+					"Unable to parse Sharepoint object date '" +
+					sharepointObjectDate + "'", pe);
+			}
+
+			return new Date(0);
+		}
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(
