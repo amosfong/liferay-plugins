@@ -92,7 +92,7 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 				"Unable to communicate with the Sharepoint server", re);
 		}
 
-		logDebug(
+		log(
 			query, queryOptionsList,
 			getListItemsResponseGetListItemsResult);
 
@@ -243,29 +243,29 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 		return sharepointObjects;
 	}
 
-	protected void logDebug(
+	protected void log(
 		Query query, QueryOptionsList queryOptionsList,
-		GetListItemsResponseGetListItemsResult result) {
+		GetListItemsResponseGetListItemsResult
+			getListItemsResponseGetListItemsResult) {
 
 		if (!_log.isDebugEnabled()) {
 			return;
 		}
 
-		Element resultElement = xmlHelper.getElement(result);
-
-		String resultElementString = xmlHelper.toString(resultElement);
+		Element element = xmlHelper.getElement(
+			getListItemsResponseGetListItemsResult);
 
 		_log.debug(
-			"Query: " + query + "\nQueryOptions: " + queryOptionsList +
-			"\nResult: " + resultElementString);
+			"Query: " + query + "\nQuery options: " + queryOptionsList +
+				"\nResult: " + xmlHelper.toString(element));
 	}
 
 	protected QueryField[] toQueryFields(String[] queryFieldNames) {
 		QueryField[] queryFields = new QueryField[queryFieldNames.length];
 
-		int i = 0;
+		for (int i = 0; i < queryFieldNames.length; i++) {
+			String queryFieldName = queryFieldNames[i];
 
-		for (String queryFieldName : queryFieldNames) {
 			queryFields[i++] = new QueryField(queryFieldName);
 		}
 
