@@ -210,24 +210,25 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 			NamedNodeMap namedNodeMap = node.getAttributes();
 
 			Node owsFileRefNode = namedNodeMap.getNamedItem("ows_FileRef");
-			Node ows_AuthorNode = namedNodeMap.getNamedItem("ows_Author");
-			Node owsFileX0020SizeNode = namedNodeMap.getNamedItem(
-				"ows_File_x0020_Size");
-			Node owsCreatedX0020DateNode = namedNodeMap.getNamedItem(
-				"ows_Created_x0020_Date");
-			Node owsLastX0020ModifiedNode = namedNodeMap.getNamedItem(
-				"ows_Last_x0020_Modified");
-			Node owsCheckedOutUserIdNode = namedNodeMap.getNamedItem(
-				"ows_CheckedOutUserId");
-			Node owsPermMaskNode = namedNodeMap.getNamedItem("ows_PermMask");
-			Node owsFSObjTypeNode = namedNodeMap.getNamedItem("ows_FSObjType");
 
 			String path = getNodeValue(owsFileRefNode, 1);
 
 			path = path.substring(_pathPrefixToRemoveLength);
 
+			Node owsAuthorNode = namedNodeMap.getNamedItem("ows_Author");
+			Node owsCheckedOutUserIdNode = namedNodeMap.getNamedItem(
+				"ows_CheckedOutUserId");
+			Node owsCreatedX0020DateNode = namedNodeMap.getNamedItem(
+				"ows_Created_x0020_Date");
+			Node owsFSObjTypeNode = namedNodeMap.getNamedItem("ows_FSObjType");
+			Node owsLastX0020ModifiedNode = namedNodeMap.getNamedItem(
+				"ows_Last_x0020_Modified");
+			Node owsPermMaskNode = namedNodeMap.getNamedItem("ows_PermMask");
+			Node owsFileX0020SizeNode = namedNodeMap.getNamedItem(
+				"ows_File_x0020_Size");
+
 			SharepointObject sharepointObject = new SharepointObject(
-				getNodeValue(ows_AuthorNode, 1),
+				getNodeValue(owsAuthorNode, 1),
 				getNodeValue(owsCheckedOutUserIdNode, 1),
 				_getDate(getNodeValue(owsCreatedX0020DateNode, 1)),
 				getNodeValue(owsFSObjTypeNode, 1).equals(
