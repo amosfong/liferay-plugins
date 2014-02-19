@@ -228,10 +228,10 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 			SharepointObject sharepointObject = new SharepointObject(
 				getNodeValue(owsAuthorNode, 1),
 				getNodeValue(owsCheckedOutUserIdNode, 1),
-				_getDate(getNodeValue(owsCreatedX0020DateNode, 1)),
+				parseDate(getNodeValue(owsCreatedX0020DateNode, 1)),
 				getNodeValue(owsFSObjTypeNode, 1).equals(
 					SharepointConstants.FS_OBJ_TYPE_FOLDER),
-				_getDate(getNodeValue(owsLastX0020ModifiedNode, 1)), path,
+				parseDate(getNodeValue(owsLastX0020ModifiedNode, 1)), path,
 				getPermissions(owsPermMaskNode.getNodeValue()),
 				GetterUtil.getLong(getNodeValue(owsFileRefNode, 0)),
 				GetterUtil.getLong(getNodeValue(owsFileX0020SizeNode, 1)),
@@ -272,20 +272,22 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 		return queryFields;
 	}
 
-	private Date _getDate(String sharepointObjectDate) {
+	protected Date parseDate(String dateString) {
 		try {
-			DateFormat format = new SimpleDateFormat(
-				SharepointConstants.SHAREPOINT_OBJECT_DATE_FORMAT);
+			DateFormat dateFormat = new SimpleDateFormat(
+				SharepointConstants.SHAREPOINT_OBJECT_DATE_FORMAT_PATTERN);
 
-			format.setTimeZone(SharepointConstants.SHAREPOINT_OBJECT_TIME_ZONE);
+			dateFormat.setTimeZone(
+				SharepointConstants.SHAREPOINT_OBJECT_TIME_ZONE);
 
-			return format.parse(sharepointObjectDate);
+			return dateFormat.parse(dateString);
 		}
 		catch (ParseException pe) {
 			if (_log.isWarnEnabled()) {
 				_log.warn(
-					"Unable to parse Sharepoint object date '" +
-					sharepointObjectDate + "'", pe);
+					"Unable to parse " + dateString +
+						" to a Sharepoint object date",
+					pe);
 			}
 
 			return new Date(0);

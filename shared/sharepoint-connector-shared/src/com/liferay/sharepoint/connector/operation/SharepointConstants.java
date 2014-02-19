@@ -37,7 +37,7 @@ public class SharepointConstants {
 
 	public static final String ROW_LIMIT_DEFAULT = StringPool.BLANK;
 
-	public static final String SHAREPOINT_OBJECT_DATE_FORMAT =
+	public static final String SHAREPOINT_OBJECT_DATE_FORMAT_PATTERN =
 		"yyyy-MM-dd HH:mm:ss";
 
 	public static final TimeZone SHAREPOINT_OBJECT_TIME_ZONE =
