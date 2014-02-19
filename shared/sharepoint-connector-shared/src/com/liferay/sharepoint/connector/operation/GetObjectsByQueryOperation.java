@@ -222,8 +222,9 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 			Node owsPermMaskNode = namedNodeMap.getNamedItem("ows_PermMask");
 			Node owsFSObjTypeNode = namedNodeMap.getNamedItem("ows_FSObjType");
 
-			String path = getNodeValue(owsFileRefNode, 1).substring(
-				_pathPrefixToRemoveLength);
+			String path = getNodeValue(owsFileRefNode, 1);
+
+			path = path.substring(_pathPrefixToRemoveLength);
 
 			SharepointObject sharepointObject = new SharepointObject(
 				getNodeValue(ows_AuthorNode, 1),
