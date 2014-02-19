@@ -34,9 +34,8 @@ public class PathHelper {
 		if (folderPath.equals(StringPool.SLASH)) {
 			return StringPool.SLASH + name;
 		}
-		else {
-			return folderPath + StringPool.SLASH + name;
-		}
+
+		return folderPath + StringPool.SLASH + name;
 	}
 
 	public String getLibraryName() {
@@ -49,11 +48,10 @@ public class PathHelper {
 		if (path.equals(StringPool.SLASH)) {
 			return StringPool.SLASH;
 		}
-		else {
-			int pos = path.lastIndexOf(StringPool.SLASH);
 
-			return path.substring(pos + 1);
-		}
+		int pos = path.lastIndexOf(StringPool.SLASH);
+
+		return path.substring(pos + 1);
 	}
 
 	public String getParentFolderPath(String path) {
@@ -64,9 +62,8 @@ public class PathHelper {
 		if (pos == 0) {
 			return StringPool.SLASH;
 		}
-		else {
-			return path.substring(0, pos);
-		}
+
+		return path.substring(0, pos);
 	}
 
 	public String getSitePath() {
@@ -79,9 +76,8 @@ public class PathHelper {
 		if (path.equals(StringPool.SLASH)) {
 			return _sitePath + StringPool.SLASH + _libraryName;
 		}
-		else {
-			return _sitePath + StringPool.SLASH + _libraryName + path;
-		}
+
+		return _sitePath + StringPool.SLASH + _libraryName + path;
 	}
 
 	protected void validateName(String name) {
