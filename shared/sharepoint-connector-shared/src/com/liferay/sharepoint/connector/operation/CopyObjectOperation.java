@@ -48,12 +48,9 @@ public class CopyObjectOperation extends BaseOperation {
 		_pathHelper = pathHelper;
 
 		_addFolderOperation = new AddFolderOperation(listsSoap, pathHelper);
-
 		_checkInFileOperation = new CheckInFileOperation(listsSoap);
-
 		_getObjectByPathOperation = new GetObjectByPathOperation(
 			listsSoap, _pathHelper);
-
 		_getObjectsByFolderOperation = new GetObjectsByFolderOperation(
 			listsSoap, pathHelper);
 	}
@@ -81,7 +78,6 @@ public class CopyObjectOperation extends BaseOperation {
 		throws SharepointException {
 
 		URL pathURL = urlHelper.toURL(path);
-
 		URL newPathURL = urlHelper.toURL(newPath);
 
 		CopyResultCollectionHolder copyResultCollectionHolder =
@@ -103,7 +99,7 @@ public class CopyObjectOperation extends BaseOperation {
 
 		if (copyErrorCode != CopyErrorCode.Success) {
 			throw new SharepointResultException(
-					copyErrorCode.toString(), copyResult.getErrorMessage());
+				copyErrorCode.toString(), copyResult.getErrorMessage());
 		}
 
 		_checkInFileOperation.execute(
@@ -120,17 +116,17 @@ public class CopyObjectOperation extends BaseOperation {
 				path, SharepointConnection.ObjectTypeFilter.ALL);
 
 		for (SharepointObject sharepointObject : sharepointObjects) {
-			String objectPath = _pathHelper.buildPath(
+			String sharepointObjectPath = _pathHelper.buildPath(
 				path, sharepointObject.getName());
 
-			String newObjectPath = _pathHelper.buildPath(
+			String newSharepointObjectPath = _pathHelper.buildPath(
 				newPath, sharepointObject.getName());
 
 			if (sharepointObject.isFile()) {
-				copyFile(objectPath, newObjectPath);
+				copyFile(sharepointObjectPath, newSharepointObjectPath);
 			}
 			else {
-				copyFolder(objectPath, newObjectPath);
+				copyFolder(sharepointObjectPath, newSharepointObjectPath);
 			}
 		}
 	}

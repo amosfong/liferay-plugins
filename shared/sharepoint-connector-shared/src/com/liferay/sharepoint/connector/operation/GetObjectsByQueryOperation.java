@@ -71,16 +71,14 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 			String... queryFieldNames)
 		throws SharepointException {
 
-		GetListItemsQuery getListItemsQuery = getGetListItemsQuery(query);
-
-		GetListItemsViewFields getListItemsViewFields =
-			getGetListItemsViewFields(queryFieldNames);
-
-		GetListItemsQueryOptions getListItemsQueryOptions =
-			getGetListItemsQueryOptions(queryOptionsList);
-
 		GetListItemsResponseGetListItemsResult
 			getListItemsResponseGetListItemsResult = null;
+
+		GetListItemsQuery getListItemsQuery = getGetListItemsQuery(query);
+		GetListItemsViewFields getListItemsViewFields =
+			getGetListItemsViewFields(queryFieldNames);
+		GetListItemsQueryOptions getListItemsQueryOptions =
+			getGetListItemsQueryOptions(queryOptionsList);
 
 		try {
 			getListItemsResponseGetListItemsResult = _listsSoap.getListItems(
@@ -124,7 +122,7 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 			queryOptionsListElement);
 
 		GetListItemsQueryOptions getListItemsQueryOptions =
-				new GetListItemsQueryOptions();
+			new GetListItemsQueryOptions();
 
 		getListItemsQueryOptions.set_any(
 			new MessageElement[] {queryOptionsListMessageElement});
@@ -144,7 +142,7 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 			queryFieldsListElement);
 
 		GetListItemsViewFields getListItemsViewFields =
-				new GetListItemsViewFields();
+			new GetListItemsViewFields();
 
 		getListItemsViewFields.set_any(
 			new MessageElement[] {queryFieldsListMessageElement});
@@ -161,16 +159,15 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 		if (index < parts.length) {
 			return parts[index];
 		}
-		else {
-			return null;
-		}
+
+		return null;
 	}
 
 	protected Set<Permission> getPermissions(String permissionsHexMask) {
+		Set<Permission> permissions = EnumSet.noneOf(Permission.class);
+
 		long permisssionsMask = Long.valueOf(
 			permissionsHexMask.substring(2), 16);
-
-		Set<Permission> permissions = EnumSet.noneOf(Permission.class);
 
 		for (Permission permission : Permission.values()) {
 			long permissionBit = (permisssionsMask & permission.getMask());
@@ -212,32 +209,32 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 
 			NamedNodeMap namedNodeMap = node.getAttributes();
 
-			Node ows_FileRefNode = namedNodeMap.getNamedItem("ows_FileRef");
+			Node owsFileRefNode = namedNodeMap.getNamedItem("ows_FileRef");
 			Node ows_AuthorNode = namedNodeMap.getNamedItem("ows_Author");
-			Node ows_File_x0020_SizeNode = namedNodeMap.getNamedItem(
+			Node owsFileX0020SizeNode = namedNodeMap.getNamedItem(
 				"ows_File_x0020_Size");
-			Node ows_Created_x0020_DateNode = namedNodeMap.getNamedItem(
+			Node owsCreatedX0020DateNode = namedNodeMap.getNamedItem(
 				"ows_Created_x0020_Date");
-			Node ows_Last_x0020_ModifiedNode = namedNodeMap.getNamedItem(
+			Node owsLastX0020ModifiedNode = namedNodeMap.getNamedItem(
 				"ows_Last_x0020_Modified");
-			Node ows_CheckedOutUserIdNode = namedNodeMap.getNamedItem(
+			Node owsCheckedOutUserIdNode = namedNodeMap.getNamedItem(
 				"ows_CheckedOutUserId");
-			Node ows_PermMaskNode = namedNodeMap.getNamedItem("ows_PermMask");
-			Node ows_FSObjTypeNode = namedNodeMap.getNamedItem("ows_FSObjType");
+			Node owsPermMaskNode = namedNodeMap.getNamedItem("ows_PermMask");
+			Node owsFSObjTypeNode = namedNodeMap.getNamedItem("ows_FSObjType");
 
-			String path = getNodeValue(ows_FileRefNode, 1).substring(
+			String path = getNodeValue(owsFileRefNode, 1).substring(
 				_pathPrefixToRemoveLength);
 
 			SharepointObject sharepointObject = new SharepointObject(
 				getNodeValue(ows_AuthorNode, 1),
-				getNodeValue(ows_CheckedOutUserIdNode, 1),
-				_getDate(getNodeValue(ows_Created_x0020_DateNode, 1)),
-				getNodeValue(ows_FSObjTypeNode, 1).equals(
+				getNodeValue(owsCheckedOutUserIdNode, 1),
+				_getDate(getNodeValue(owsCreatedX0020DateNode, 1)),
+				getNodeValue(owsFSObjTypeNode, 1).equals(
 					SharepointConstants.FS_OBJ_TYPE_FOLDER),
-				_getDate(getNodeValue(ows_Last_x0020_ModifiedNode, 1)), path,
-				getPermissions(ows_PermMaskNode.getNodeValue()),
-				GetterUtil.getLong(getNodeValue(ows_FileRefNode, 0)),
-				GetterUtil.getLong(getNodeValue(ows_File_x0020_SizeNode, 1)),
+				_getDate(getNodeValue(owsLastX0020ModifiedNode, 1)), path,
+				getPermissions(owsPermMaskNode.getNodeValue()),
+				GetterUtil.getLong(getNodeValue(owsFileRefNode, 0)),
+				GetterUtil.getLong(getNodeValue(owsFileX0020SizeNode, 1)),
 				urlHelper.toURL(path));
 
 			sharepointObjects.add(sharepointObject);
