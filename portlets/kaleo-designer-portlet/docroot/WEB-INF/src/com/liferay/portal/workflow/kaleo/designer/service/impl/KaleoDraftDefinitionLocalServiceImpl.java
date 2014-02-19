@@ -282,13 +282,6 @@ public class KaleoDraftDefinitionLocalServiceImpl
 		DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 			KaleoDraftDefinition.class, getClassLoader());
 
-		ProjectionList projectionList = ProjectionFactoryUtil.projectionList();
-
-		projectionList.add(ProjectionFactoryUtil.max("kaleoDraftDefinitionId"));
-		projectionList.add(ProjectionFactoryUtil.groupProperty("name"));
-
-		dynamicQuery.setProjection(projectionList);
-
 		dynamicQuery.add(
 			PropertyFactoryUtil.forName("companyId").eq(companyId));
 
@@ -296,6 +289,13 @@ public class KaleoDraftDefinitionLocalServiceImpl
 			dynamicQuery.add(
 				PropertyFactoryUtil.forName("version").eq(version));
 		}
+
+		ProjectionList projectionList = ProjectionFactoryUtil.projectionList();
+
+		projectionList.add(ProjectionFactoryUtil.max("kaleoDraftDefinitionId"));
+		projectionList.add(ProjectionFactoryUtil.groupProperty("name"));
+
+		dynamicQuery.setProjection(projectionList);
 
 		List<Object[]> results = dynamicQuery(dynamicQuery);
 

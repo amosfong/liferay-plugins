@@ -427,15 +427,15 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 			DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 				Definition.class, getClassLoader());
 
-			dynamicQuery.setProjection(
-				ProjectionFactoryUtil.property("definitionId"));
-
 			Property nameProperty = PropertyFactoryUtil.forName("name");
 
 			String value =
 				StringPool.PERCENT + definitionName + StringPool.PERCENT;
 
 			dynamicQuery.add(nameProperty.like(value));
+
+			dynamicQuery.setProjection(
+				ProjectionFactoryUtil.property("definitionId"));
 
 			Property definitionIdProperty = PropertyFactoryUtil.forName(
 				"definitionId");
@@ -447,14 +447,14 @@ public class EntryLocalServiceImpl extends EntryLocalServiceBaseImpl {
 			DynamicQuery dynamicQuery = DynamicQueryFactoryUtil.forClass(
 				User.class, getClassLoader());
 
-			dynamicQuery.setProjection(
-				ProjectionFactoryUtil.property("userId"));
-
 			Property nameProperty = PropertyFactoryUtil.forName("screenName");
 
 			String value = StringPool.PERCENT + userName + StringPool.PERCENT;
 
 			dynamicQuery.add(nameProperty.like(value));
+
+			dynamicQuery.setProjection(
+				ProjectionFactoryUtil.property("userId"));
 
 			Property definitionIdProperty = PropertyFactoryUtil.forName(
 				"userId");
