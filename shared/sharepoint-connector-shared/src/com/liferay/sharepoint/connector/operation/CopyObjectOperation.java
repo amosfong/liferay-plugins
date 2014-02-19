@@ -137,11 +137,11 @@ public class CopyObjectOperation extends BaseOperation {
 
 	protected void createFolder(String folderPath) {
 		try {
-			String folderPathFolder = _pathHelper.getPathFolder(folderPath);
+			String parentFolderPath = _pathHelper.getFolderPath(folderPath);
 
-			String folderPathName = _pathHelper.getPathName(folderPath);
+			String folderName = _pathHelper.getName(folderPath);
 
-			_addFolderOperation.execute(folderPathFolder, folderPathName);
+			_addFolderOperation.execute(parentFolderPath, folderName);
 		}
 		catch (SharepointException se) {
 			if (_log.isWarnEnabled()) {

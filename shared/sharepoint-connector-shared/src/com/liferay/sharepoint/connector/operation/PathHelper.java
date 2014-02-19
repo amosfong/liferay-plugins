@@ -43,7 +43,7 @@ public class PathHelper {
 		return _libraryName;
 	}
 
-	public String getPathFolder(String path) {
+	public String getFolderPath(String path) {
 		_checkPath(path);
 
 		int pos = path.lastIndexOf(StringPool.SLASH);
@@ -56,7 +56,7 @@ public class PathHelper {
 		}
 	}
 
-	public String getPathName(String path) {
+	public String getName(String path) {
 		_checkPath(path);
 
 		if (path.equals(StringPool.SLASH)) {
