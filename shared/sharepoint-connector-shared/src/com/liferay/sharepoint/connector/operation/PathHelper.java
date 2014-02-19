@@ -27,9 +27,9 @@ public class PathHelper {
 	}
 
 	public String buildPath(String folderPath, String name) {
-		_checkPath(folderPath);
+		validatePath(folderPath);
 
-		_checkName(name);
+		validateName(name);
 
 		if (folderPath.equals(StringPool.SLASH)) {
 			return StringPool.SLASH + name;
@@ -44,7 +44,7 @@ public class PathHelper {
 	}
 
 	public String getName(String path) {
-		_checkPath(path);
+		validatePath(path);
 
 		if (path.equals(StringPool.SLASH)) {
 			return StringPool.SLASH;
@@ -57,7 +57,7 @@ public class PathHelper {
 	}
 
 	public String getParentFolderPath(String path) {
-		_checkPath(path);
+		validatePath(path);
 
 		int pos = path.lastIndexOf(StringPool.SLASH);
 
@@ -74,7 +74,7 @@ public class PathHelper {
 	}
 
 	public String toFullPath(String path) {
-		_checkPath(path);
+		validatePath(path);
 
 		if (path.equals(StringPool.SLASH)) {
 			return _sitePath + StringPool.SLASH + _libraryName;
@@ -84,14 +84,14 @@ public class PathHelper {
 		}
 	}
 
-	private void _checkName(String name) {
+	protected void validateName(String name) {
 		if ((name == null) || name.contains(StringPool.SLASH)) {
 			throw new IllegalArgumentException(
 				"Invalid file or folder name " + name);
 		}
 	}
 
-	private void _checkPath(String path) {
+	protected void validatePath(String path) {
 		if ((path == null) || (!path.equals(StringPool.SLASH) &&
 			 (!path.startsWith(StringPool.SLASH) ||
 			  path.endsWith(StringPool.SLASH)))) {
