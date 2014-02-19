@@ -92,11 +92,9 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 				"Unable to communicate with the Sharepoint server", re);
 		}
 
-		if (_log.isDebugEnabled()) {
-			logDebug(
-				query, queryOptionsList,
-				getListItemsResponseGetListItemsResult);
-		}
+		logDebug(
+			query, queryOptionsList,
+			getListItemsResponseGetListItemsResult);
 
 		return getSharepointObjects(getListItemsResponseGetListItemsResult);
 	}
@@ -249,15 +247,17 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 		Query query, QueryOptionsList queryOptionsList,
 		GetListItemsResponseGetListItemsResult result) {
 
+		if (!_log.isDebugEnabled()) {
+			return;
+		}
+
 		Element resultElement = xmlHelper.getElement(result);
 
 		String resultElementString = xmlHelper.toString(resultElement);
 
-		if (_log.isDebugEnabled()) {
-			_log.debug(
-				"Query: " + query + "\nQueryOptions: " + queryOptionsList +
-				"\nResult: " + resultElementString);
-		}
+		_log.debug(
+			"Query: " + query + "\nQueryOptions: " + queryOptionsList +
+			"\nResult: " + resultElementString);
 	}
 
 	protected QueryField[] toQueryFields(String[] queryFieldNames) {
