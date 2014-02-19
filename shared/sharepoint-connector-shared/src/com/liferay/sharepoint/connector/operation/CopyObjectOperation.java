@@ -137,7 +137,8 @@ public class CopyObjectOperation extends BaseOperation {
 
 	protected void createFolder(String folderPath) {
 		try {
-			String parentFolderPath = _pathHelper.getFolderPath(folderPath);
+			String parentFolderPath = _pathHelper.getParentFolderPath(
+				folderPath);
 
 			String folderName = _pathHelper.getName(folderPath);
 

@@ -43,19 +43,6 @@ public class PathHelper {
 		return _libraryName;
 	}
 
-	public String getFolderPath(String path) {
-		_checkPath(path);
-
-		int pos = path.lastIndexOf(StringPool.SLASH);
-
-		if (pos == 0) {
-			return StringPool.SLASH;
-		}
-		else {
-			return path.substring(0, pos);
-		}
-	}
-
 	public String getName(String path) {
 		_checkPath(path);
 
@@ -66,6 +53,19 @@ public class PathHelper {
 			int pos = path.lastIndexOf(StringPool.SLASH);
 
 			return path.substring(pos + 1);
+		}
+	}
+
+	public String getParentFolderPath(String path) {
+		_checkPath(path);
+
+		int pos = path.lastIndexOf(StringPool.SLASH);
+
+		if (pos == 0) {
+			return StringPool.SLASH;
+		}
+		else {
+			return path.substring(0, pos);
 		}
 	}
 
