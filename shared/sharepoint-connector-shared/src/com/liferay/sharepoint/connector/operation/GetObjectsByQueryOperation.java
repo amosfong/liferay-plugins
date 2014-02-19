@@ -92,9 +92,7 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 				"Unable to communicate with the Sharepoint server", re);
 		}
 
-		log(
-			query, queryOptionsList,
-			getListItemsResponseGetListItemsResult);
+		log(query, queryOptionsList, getListItemsResponseGetListItemsResult);
 
 		return getSharepointObjects(getListItemsResponseGetListItemsResult);
 	}
@@ -260,18 +258,6 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 				"\nResult: " + xmlHelper.toString(element));
 	}
 
-	protected QueryField[] toQueryFields(String[] queryFieldNames) {
-		QueryField[] queryFields = new QueryField[queryFieldNames.length];
-
-		for (int i = 0; i < queryFieldNames.length; i++) {
-			String queryFieldName = queryFieldNames[i];
-
-			queryFields[i++] = new QueryField(queryFieldName);
-		}
-
-		return queryFields;
-	}
-
 	protected Date parseDate(String dateString) {
 		try {
 			DateFormat dateFormat = new SimpleDateFormat(
@@ -292,6 +278,18 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 
 			return new Date(0);
 		}
+	}
+
+	protected QueryField[] toQueryFields(String[] queryFieldNames) {
+		QueryField[] queryFields = new QueryField[queryFieldNames.length];
+
+		for (int i = 0; i < queryFieldNames.length; i++) {
+			String queryFieldName = queryFieldNames[i];
+
+			queryFields[i++] = new QueryField(queryFieldName);
+		}
+
+		return queryFields;
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(
