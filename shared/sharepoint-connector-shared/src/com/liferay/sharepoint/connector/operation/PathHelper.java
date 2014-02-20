@@ -38,6 +38,16 @@ public class PathHelper {
 		return folderPath + StringPool.SLASH + name;
 	}
 
+	public String getExtension(String path) {
+		int pos = path.lastIndexOf(StringPool.PERIOD);
+
+		if (pos == -1) {
+			return StringPool.BLANK;
+		}
+
+		return path.substring(pos + 1);
+	}
+
 	public String getLibraryName() {
 		return _libraryName;
 	}
@@ -52,6 +62,19 @@ public class PathHelper {
 		int pos = path.lastIndexOf(StringPool.SLASH);
 
 		return path.substring(pos + 1);
+	}
+
+	public String getNameWithoutExtension(String path) {
+		String name = getName(path);
+
+		int pos = path.lastIndexOf(StringPool.PERIOD);
+
+		if (pos == -1) {
+			return name;
+		}
+		else {
+			return name.substring(0, pos - 1);
+		}
 	}
 
 	public String getParentFolderPath(String path) {

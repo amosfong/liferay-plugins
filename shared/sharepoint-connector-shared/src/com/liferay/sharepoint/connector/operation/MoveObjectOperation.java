@@ -15,14 +15,87 @@
 package com.liferay.sharepoint.connector.operation;
 
 import com.liferay.sharepoint.connector.SharepointException;
+import com.liferay.sharepoint.connector.SharepointObject;
+import com.liferay.sharepoint.connector.schema.batch.Batch;
+import com.liferay.sharepoint.connector.schema.batch.BatchField;
+import com.liferay.sharepoint.connector.schema.batch.BatchMethod;
+
+import com.microsoft.schemas.sharepoint.soap.CopySoap;
+import com.microsoft.schemas.sharepoint.soap.ListsSoap;
+
+import java.net.URL;
 
 /**
  * @author Ivan Zaera
  */
 public class MoveObjectOperation extends BaseOperation {
 
+	public MoveObjectOperation(
+		CopySoap copySoap, ListsSoap listsSoap, PathHelper pathHelper) {
+
+		_pathHelper = pathHelper;
+
+		_batchOperation = new BatchOperation(
+			listsSoap, pathHelper.getLibraryName());
+
+		_copyObjectOperation = new CopyObjectOperation(
+			copySoap, listsSoap, pathHelper);
+
+		_deleteObjectOperation = new DeleteObjectOperation(
+			listsSoap, pathHelper);
+
+		_getObjectByPathOperation = new GetObjectByPathOperation(
+			listsSoap, pathHelper);
+	}
+
 	public void execute(String path, String newPath)
 		throws SharepointException {
+
+		if (_isRename(path, newPath)) {
+			SharepointObject sharepointObject =
+				_getObjectByPathOperation.execute(path);
+
+			URL sharepointObjectURL = sharepointObject.getURL();
+
+			String newName = _pathHelper.getNameWithoutExtension(newPath);
+
+			String newExtension = _pathHelper.getExtension(newPath);
+
+			_batchOperation.execute(
+				new Batch(
+					Batch.OnError.RETURN, null,
+					new BatchMethod(
+						SharepointConstants.BATCH_METHOD_ID_DEFAULT,
+						BatchMethod.Command.UPDATE,
+						new BatchField(
+							"ID", Long.toString(sharepointObject.getId())),
+						new BatchField(
+							"FileRef", sharepointObjectURL.toString()),
+						new BatchField("BaseName", newName),
+						new BatchField("File_x0020_Type", newExtension))));
+		}
+		else {
+			_copyObjectOperation.execute(path, newPath);
+			_deleteObjectOperation.execute(path);
+		}
 	}
+
+	private boolean _isRename(String path, String newPath) {
+		String parentFolderPath = _pathHelper.getParentFolderPath(newPath);
+		String newParentFolderPath = _pathHelper.getParentFolderPath(newPath);
+
+		if (parentFolderPath.equals(newParentFolderPath)) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
+	private BatchOperation _batchOperation;
+	private CopyObjectOperation _copyObjectOperation;
+	private DeleteObjectOperation _deleteObjectOperation;
+	private GetObjectByPathOperation _getObjectByPathOperation;
+	private PathHelper _pathHelper;
 
 }
