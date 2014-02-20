@@ -102,16 +102,12 @@ public class QueryServiceSoapResult {
 	private DefaultHandler _defaultHandler = new DefaultHandler() {
 
 		@Override
-		public void characters(char[] ch, int start, int length)
-			throws SAXException {
-
+		public void characters(char[] ch, int start, int length) {
 			_nodeContent.append(ch, start, length);
 		}
 
 		@Override
-		public void endElement(String uri, String localName, String qName)
-			throws SAXException {
-
+		public void endElement(String uri, String localName, String qName) {
 			if (localName.equals("Status")) {
 				_status = _nodeContent.toString();
 			}
@@ -125,9 +121,7 @@ public class QueryServiceSoapResult {
 
 		@Override
 		public void startElement(
-				String uri, String localName, String qName,
-				Attributes attributes)
-			throws SAXException {
+			String uri, String localName, String qName, Attributes attributes) {
 
 			_nodeContent.setLength(0);
 		}
