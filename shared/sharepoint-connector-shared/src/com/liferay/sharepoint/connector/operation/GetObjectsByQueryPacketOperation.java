@@ -77,26 +77,28 @@ public class GetObjectsByQueryPacketOperation extends BaseOperation {
 			for (String queryServiceSoapResultLinkURL :
 					queryServiceSoapResultLinkURLs) {
 
-				if (queryServiceSoapResultLinkURL.startsWith(_searchPrefix)) {
-					String sharepointObjectPath =
-						queryServiceSoapResultLinkURL.substring(
-							_searchPrefixLength);
+				if (!queryServiceSoapResultLinkURL.startsWith(_searchPrefix)) {
+					continue;
+				}
 
-					SharepointObject sharepointObject =
-						_getObjectByPathOperation.execute(sharepointObjectPath);
+				String sharepointObjectPath =
+					queryServiceSoapResultLinkURL.substring(
+						_searchPrefixLength);
 
-					if (sharepointObject == null) {
-						if (_log.isWarnEnabled()) {
-							_log.warn(
-								"Sharepoint object with path " +
-									sharepointObjectPath + " ignored");
-						}
+				SharepointObject sharepointObject =
+					_getObjectByPathOperation.execute(sharepointObjectPath);
 
-						continue;
+				if (sharepointObject == null) {
+					if (_log.isWarnEnabled()) {
+						_log.warn(
+							"Sharepoint object with path " +
+								sharepointObjectPath + " ignored");
 					}
 
-					sharepointObjects.add(sharepointObject);
+					continue;
 				}
+
+				sharepointObjects.add(sharepointObject);
 			}
 
 			return sharepointObjects;
