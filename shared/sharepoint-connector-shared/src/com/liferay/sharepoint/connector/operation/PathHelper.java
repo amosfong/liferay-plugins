@@ -24,6 +24,8 @@ public class PathHelper {
 	public PathHelper(String libraryName, String sitePath) {
 		_libraryName = libraryName;
 		_sitePath = sitePath;
+
+		validateSitePath(sitePath);
 	}
 
 	public String buildPath(String folderPath, String name) {
@@ -116,6 +118,27 @@ public class PathHelper {
 			  path.endsWith(StringPool.SLASH)))) {
 
 			throw new IllegalArgumentException("Invalid path " + path);
+		}
+	}
+
+	protected void validateSitePath(String sitePath) {
+		if (!_sitePath.equals(StringPool.BLANK)) {
+			if (_sitePath.equals(StringPool.SLASH)) {
+				throw new IllegalArgumentException(
+					"Use an empty string for root site path (instead of '/')");
+			}
+
+			if (!_sitePath.startsWith(StringPool.SLASH)) {
+				throw new IllegalArgumentException(
+					"Site path must start with /");
+			}
+
+			if (!_sitePath.equals(StringPool.SLASH) &&
+				_sitePath.endsWith(StringPool.SLASH)) {
+
+				throw new IllegalArgumentException(
+					"Site path must not end with /");
+			}
 		}
 	}
 
