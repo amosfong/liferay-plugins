@@ -28,6 +28,11 @@ public class SharepointConstants {
 
 	public static final String ERROR_CODE_SUCCESS = "0x00000000";
 
+	public static final String ERROR_STRING_NO_RESULTS_FOUND =
+		"ERROR_NO_RESULTS_FOUND";
+
+	public static final String ERROR_STRING_SUCCESS = "SUCCESS";
+
 	public static final String FS_OBJ_TYPE_FILE = "0";
 
 	public static final String FS_OBJ_TYPE_FOLDER = "1";

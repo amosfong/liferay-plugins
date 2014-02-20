@@ -14,9 +14,19 @@
 
 package com.liferay.sharepoint.connector.operation;
 
+import com.liferay.portal.kernel.log.Log;
+import com.liferay.portal.kernel.log.LogFactoryUtil;
 import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.SharepointObject;
+import com.liferay.sharepoint.connector.SharepointResultException;
 
+import com.microsoft.schemas.sharepoint.soap.ListsSoap;
+import com.microsoft.webservices.SharePoint.QueryService.QueryServiceSoap;
+
+import java.rmi.RemoteException;
+
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -24,10 +34,85 @@ import java.util.List;
  */
 public class GetObjectsByQueryPacketOperation extends BaseOperation {
 
+	public GetObjectsByQueryPacketOperation(
+		ListsSoap listSoap, QueryServiceSoap queryServiceSoap,
+		PathHelper pathHelper, String serviceURL) {
+
+		_queryServiceSoap = queryServiceSoap;
+
+		_getObjectByPathOperation = new GetObjectByPathOperation(
+				listSoap, pathHelper);
+
+		_searchPrefix = serviceURL + pathHelper.getLibraryName();
+
+		_searchPrefixLength = _searchPrefix.length();
+	}
+
 	public List<SharepointObject> execute(String queryPacket)
 		throws SharepointException {
 
-		return null;
+		try {
+			String queryServiceSoapResultString = _queryServiceSoap.query(
+				queryPacket);
+
+			QueryServiceSoapResult queryServiceSoapResult =
+				new QueryServiceSoapResult(queryServiceSoapResultString);
+
+			if (!queryServiceSoapResult.isSuccess()) {
+				throw new SharepointResultException(
+					queryServiceSoapResult.getStatus(),
+					queryServiceSoapResult.getDebugErrorMessage());
+			}
+
+			if (queryServiceSoapResult.isEmpty()) {
+				return Collections.emptyList();
+			}
+
+			List<String> queryServiceSoapResultLinkUrls =
+				queryServiceSoapResult.getLinkUrls();
+
+			List<SharepointObject> sharepointObjects =
+				new ArrayList<SharepointObject>();
+
+			for (String queryServiceSoapResultLinkUrl :
+					queryServiceSoapResultLinkUrls) {
+
+				if (queryServiceSoapResultLinkUrl.startsWith(_searchPrefix)) {
+					String sharepointObjectPath =
+						queryServiceSoapResultLinkUrl.substring(
+							_searchPrefixLength);
+
+					SharepointObject sharepointObject =
+						_getObjectByPathOperation.execute(sharepointObjectPath);
+
+					if (sharepointObject == null) {
+						if (_log.isWarnEnabled()) {
+							_log.warn(
+								"Sharepoint object with path " +
+								sharepointObjectPath + " ignored");
+						}
+
+						continue;
+					}
+
+					sharepointObjects.add(sharepointObject);
+				}
+			}
+
+			return sharepointObjects;
+		}
+		catch (RemoteException re) {
+			throw new SharepointException(
+				"Unable to communicate with the Sharepoint server", re);
+		}
 	}
+
+	private static Log _log = LogFactoryUtil.getLog(
+		GetObjectsByQueryPacketOperation.class);
+
+	private GetObjectByPathOperation _getObjectByPathOperation;
+	private QueryServiceSoap _queryServiceSoap;
+	private String _searchPrefix;
+	private int _searchPrefixLength;
 
 }
