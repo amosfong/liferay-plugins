@@ -41,7 +41,7 @@ public class GetObjectsByQueryPacketOperation extends BaseOperation {
 		_queryServiceSoap = queryServiceSoap;
 
 		_getObjectByPathOperation = new GetObjectByPathOperation(
-				listSoap, pathHelper);
+			listSoap, pathHelper);
 
 		_searchPrefix = serviceURL + pathHelper.getLibraryName();
 
@@ -89,7 +89,7 @@ public class GetObjectsByQueryPacketOperation extends BaseOperation {
 						if (_log.isWarnEnabled()) {
 							_log.warn(
 								"Sharepoint object with path " +
-								sharepointObjectPath + " ignored");
+									sharepointObjectPath + " ignored");
 						}
 
 						continue;

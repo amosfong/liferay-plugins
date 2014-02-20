@@ -32,32 +32,38 @@ public class PathHelperTest {
 
 	@Test
 	public void testBuildPathWhenRootFolder() {
-		Assert.assertEquals("/name", pathHelper.buildPath("/", "name"));
+		Assert.assertEquals(
+			"/name", pathHelper.buildPath(StringPool.SLASH, "name"));
 	}
 
 	@Test
 	public void testConstructorFailsWhenInvalidSitePaths() {
 		try {
-			pathHelper = new PathHelper("", "/");
+			pathHelper = new PathHelper(StringPool.BLANK, StringPool.SLASH);
+
 			Assert.fail("IllegalArgumentException not thrown for site path /");
 		}
 		catch (IllegalArgumentException iae) {
 		}
 
 		try {
-			pathHelper = new PathHelper("", "sitePathWithoutLeadingSlash");
+			pathHelper = new PathHelper(
+				StringPool.BLANK, "sitePathWithoutLeadingSlash");
+
 			Assert.fail(
 				"IllegalArgumentException not thrown for site path without " +
-			"leading /");
+					"leading /");
 		}
 		catch (IllegalArgumentException iae) {
 		}
 
 		try {
-			pathHelper = new PathHelper("", "/sitePathWithTrailingSlash/");
+			pathHelper = new PathHelper(
+				StringPool.BLANK, "/sitePathWithTrailingSlash/");
+
 			Assert.fail(
 				"IllegalArgumentException not thrown for site path with " +
-			"trailing /");
+					"trailing /");
 		}
 		catch (IllegalArgumentException iae) {
 		}
@@ -65,8 +71,9 @@ public class PathHelperTest {
 
 	@Test
 	public void testGetExtensionWhenExtensionNotPresent() {
-		Assert.assertEquals("", pathHelper.getExtension("/name."));
-		Assert.assertEquals("", pathHelper.getExtension("/name"));
+		Assert.assertEquals(
+			StringPool.BLANK, pathHelper.getExtension("/name."));
+		Assert.assertEquals(StringPool.BLANK, pathHelper.getExtension("/name"));
 	}
 
 	@Test

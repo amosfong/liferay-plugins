@@ -70,7 +70,7 @@ public class QueryServiceSoapResult {
 
 	public boolean isEmpty() {
 		if (isSuccess() &&
-			_status.equals(SharepointConstants.ERROR_STRING_NO_RESULTS_FOUND)) {
+			_status.equals(SharepointConstants.ERROR_NO_RESULTS_FOUND)) {
 
 			return true;
 		}
@@ -80,9 +80,8 @@ public class QueryServiceSoapResult {
 	}
 
 	public boolean isSuccess() {
-		if (!_status.equals(SharepointConstants.ERROR_STRING_SUCCESS) &&
-			!_status.equals(
-				SharepointConstants.ERROR_STRING_NO_RESULTS_FOUND)) {
+		if (!_status.equals(SharepointConstants.SUCCESS) &&
+			!_status.equals(SharepointConstants.ERROR_NO_RESULTS_FOUND)) {
 
 			return true;
 		}
@@ -101,17 +100,6 @@ public class QueryServiceSoapResult {
 	private String _debugErrorMessage;
 
 	private DefaultHandler _defaultHandler = new DefaultHandler() {
-
-		private StringBuilder _nodeContent = new StringBuilder();
-
-		@Override
-		public void startElement(
-				String uri, String localName, String qName,
-				Attributes attributes)
-			throws SAXException {
-
-			_nodeContent.setLength(0);
-		}
 
 		@Override
 		public void characters(char[] ch, int start, int length)
@@ -134,6 +122,17 @@ public class QueryServiceSoapResult {
 				_linkUrls.add(_nodeContent.toString());
 			}
 		}
+
+		@Override
+		public void startElement(
+				String uri, String localName, String qName,
+				Attributes attributes)
+			throws SAXException {
+
+			_nodeContent.setLength(0);
+		}
+
+		private StringBuilder _nodeContent = new StringBuilder();
 
 	};
 

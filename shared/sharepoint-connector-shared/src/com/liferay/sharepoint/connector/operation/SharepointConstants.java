@@ -28,10 +28,8 @@ public class SharepointConstants {
 
 	public static final String ERROR_CODE_SUCCESS = "0x00000000";
 
-	public static final String ERROR_STRING_NO_RESULTS_FOUND =
+	public static final String ERROR_NO_RESULTS_FOUND =
 		"ERROR_NO_RESULTS_FOUND";
-
-	public static final String ERROR_STRING_SUCCESS = "SUCCESS";
 
 	public static final String FS_OBJ_TYPE_FILE = "0";
 
@@ -47,6 +45,8 @@ public class SharepointConstants {
 
 	public static final TimeZone SHAREPOINT_OBJECT_TIME_ZONE =
 		TimeZone.getTimeZone("UTC");
+
+	public static final String SUCCESS = "SUCCESS";
 
 	public static final String URL_SOURCE_NONE = " ";
 

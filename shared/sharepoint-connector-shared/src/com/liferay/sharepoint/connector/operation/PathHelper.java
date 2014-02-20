@@ -22,10 +22,10 @@ import com.liferay.portal.kernel.util.StringPool;
 public class PathHelper {
 
 	public PathHelper(String libraryName, String sitePath) {
+		validateSitePath(sitePath);
+
 		_libraryName = libraryName;
 		_sitePath = sitePath;
-
-		validateSitePath(sitePath);
 	}
 
 	public String buildPath(String folderPath, String name) {
