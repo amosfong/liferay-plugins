@@ -68,18 +68,18 @@ public class GetObjectsByQueryPacketOperation extends BaseOperation {
 				return Collections.emptyList();
 			}
 
-			List<String> queryServiceSoapResultLinkUrls =
+			List<String> queryServiceSoapResultLinkURLs =
 				queryServiceSoapResult.getLinkUrls();
 
 			List<SharepointObject> sharepointObjects =
 				new ArrayList<SharepointObject>();
 
-			for (String queryServiceSoapResultLinkUrl :
-					queryServiceSoapResultLinkUrls) {
+			for (String queryServiceSoapResultLinkURL :
+					queryServiceSoapResultLinkURLs) {
 
-				if (queryServiceSoapResultLinkUrl.startsWith(_searchPrefix)) {
+				if (queryServiceSoapResultLinkURL.startsWith(_searchPrefix)) {
 					String sharepointObjectPath =
-						queryServiceSoapResultLinkUrl.substring(
+						queryServiceSoapResultLinkURL.substring(
 							_searchPrefixLength);
 
 					SharepointObject sharepointObject =
