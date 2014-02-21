@@ -40,15 +40,13 @@ public class GetObjectByPathOperation extends BaseOperation {
 			listsSoap, _pathHelper.getLibraryName(), _pathHelper.getSitePath());
 	}
 
-	public SharepointObject execute(String filePath)
-		throws SharepointException {
-
-		String fileFullPath = _pathHelper.toFullPath(filePath);
+	public SharepointObject execute(String path) throws SharepointException {
+		String fullPath = _pathHelper.toFullPath(path);
 
 		Query query = new Query(
 			new EqOperator(
 				new QueryField("FileRef"),
-				new QueryValue(fileFullPath.substring(1))));
+				new QueryValue(fullPath.substring(1))));
 
 		return getSharepointObject(
 			_getObjectsByQueryOperation.execute(
