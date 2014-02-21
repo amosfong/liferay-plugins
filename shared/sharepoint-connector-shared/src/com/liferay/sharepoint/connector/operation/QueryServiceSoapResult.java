@@ -70,7 +70,8 @@ public class QueryServiceSoapResult {
 
 	public boolean isEmpty() {
 		if (isSuccess() &&
-			_status.equals(SharepointConstants.ERROR_NO_RESULTS_FOUND)) {
+			_status.equals(
+				SharepointConstants.SYMBOLIC_STATUS_NO_RESULTS_FOUND)) {
 
 			return true;
 		}
@@ -80,8 +81,9 @@ public class QueryServiceSoapResult {
 	}
 
 	public boolean isSuccess() {
-		if (!_status.equals(SharepointConstants.SUCCESS) &&
-			!_status.equals(SharepointConstants.ERROR_NO_RESULTS_FOUND)) {
+		if (!_status.equals(SharepointConstants.SYMBOLIC_STATUS_SUCCESS) &&
+			!_status.equals(
+				SharepointConstants.SYMBOLIC_STATUS_NO_RESULTS_FOUND)) {
 
 			return true;
 		}

@@ -82,7 +82,7 @@ public class BatchOperation extends BaseOperation {
 
 		String errorCode = errorCodeElement.getTextContent();
 
-		if (!errorCode.equals(SharepointConstants.ERROR_CODE_SUCCESS)) {
+		if (!errorCode.equals(SharepointConstants.NUMERIC_STATUS_SUCCESS)) {
 			Element errorTextElement = xmlHelper.getElement(
 				"ErrorText", resultElement);
 
