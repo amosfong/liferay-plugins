@@ -14,9 +14,315 @@
 
 package com.liferay.sharepoint.connector;
 
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.kernel.util.Validator;
+import com.liferay.sharepoint.connector.operation.AddOrUpdateFileOperation;
+import com.liferay.sharepoint.connector.operation.PathHelper;
+import com.liferay.sharepoint.connector.schema.query.Query;
+import com.liferay.sharepoint.connector.schema.query.QueryOptionsList;
+
+import com.microsoft.schemas.sharepoint.soap.CopyLocator;
+import com.microsoft.schemas.sharepoint.soap.CopySoap;
+import com.microsoft.schemas.sharepoint.soap.ListsLocator;
+import com.microsoft.schemas.sharepoint.soap.ListsSoap;
+
+import java.io.InputStream;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import java.util.List;
+
+import javax.xml.rpc.ServiceException;
+
+import org.apache.axis.client.Call;
+import org.apache.axis.client.Stub;
+
 /**
  * @author Iván Zaera
  */
-public abstract class SharepointConnectionImpl implements SharepointConnection {
+public class SharepointConnectionImpl implements SharepointConnection {
+
+	public static final long ROOT_FOLDER_SHAREPOINT_ID = -1;
+
+	public SharepointConnectionImpl(
+		String serverProtocol, String serverAddress, int serverPort,
+		String sitePath, String libraryName, String username, String password) {
+
+		_serverProtocol = serverProtocol;
+		_serverAddress = serverAddress;
+		_serverPort = serverPort;
+		_sitePath = sitePath;
+		_libraryName = libraryName;
+		_username = username;
+		_password = password;
+
+		_pathHelper = new PathHelper(libraryName, sitePath);
+
+		_validateConnectionConfiguration();
+
+		_initCopySoap();
+		_initListsSoap();
+
+		_initOperations();
+	}
+
+	@Override
+	public void addFile(
+			String folderPath, String fileName, String changeLog,
+			InputStream inputStream)
+		throws SharepointException {
+
+		String filePath = _pathHelper.buildPath(folderPath, fileName);
+
+		if (changeLog == null) {
+			changeLog = StringPool.BLANK;
+		}
+
+		_addOrUpdateFileOperation.execute(filePath, changeLog, inputStream);
+	}
+
+	@Override
+	public void addFolder(String folderPath, String folderName)
+		throws SharepointException {
+	}
+
+	@Override
+	public boolean cancelCheckOutFile(String filePath)
+		throws SharepointException {
+
+		return false;
+	}
+
+	@Override
+	public boolean checkInFile(
+			String filePath, String comment, CheckInType checkInType)
+		throws SharepointException {
+
+		return false;
+	}
+
+	@Override
+	public boolean checkOutFile(String filePath) throws SharepointException {
+
+		return false;
+	}
+
+	@Override
+	public void copyObject(String path, String newPath)
+		throws SharepointException {
+	}
+
+	@Override
+	public void deleteObject(String path) throws SharepointException {
+	}
+
+	@Override
+	public String getLibraryName() {
+		return _libraryName;
+	}
+
+	@Override
+	public SharepointObject getObject(long id) throws SharepointException {
+
+		return null;
+	}
+
+	@Override
+	public SharepointObject getObject(String path) throws SharepointException {
+
+		return null;
+	}
+
+	@Override
+	public InputStream getObjectContent(SharepointObject sharepointObject)
+		throws SharepointException {
+
+		return null;
+	}
+
+	@Override
+	public List<SharepointObject> getObjects(
+			Query query, QueryOptionsList queryOptionsList)
+		throws SharepointException {
+
+		return null;
+	}
+
+	@Override
+	public List<SharepointObject> getObjects(String name)
+		throws SharepointException {
+
+		return null;
+	}
+
+	@Override
+	public List<SharepointObject> getObjects(
+			String folderPath, ObjectTypeFilter objectTypeFilter)
+		throws SharepointException {
+
+		return null;
+	}
+
+	@Override
+	public int getObjectsCount(
+			String folderPath, ObjectTypeFilter objectTypeFilter)
+		throws SharepointException {
+
+		return 0;
+	}
+
+	@Override
+	public String getServerAddress() {
+		return _serverAddress;
+	}
+
+	@Override
+	public int getServerPort() {
+		return _serverPort;
+	}
+
+	@Override
+	public String getServerProtocol() {
+		return _serverProtocol;
+	}
+
+	@Override
+	public String getSitePath() {
+		return _sitePath;
+	}
+
+	@Override
+	public String getUsername() {
+		return _username;
+	}
+
+	@Override
+	public InputStream getVersionContent(SharepointVersion sharepointVersion)
+		throws SharepointException {
+
+		return null;
+	}
+
+	@Override
+	public List<SharepointVersion> getVersions(String filePath)
+		throws SharepointException {
+
+		return null;
+	}
+
+	@Override
+	public void moveObject(String path, String newPath)
+		throws SharepointException {
+	}
+
+	@Override
+	public void updateFile(String filePath, InputStream inputStream)
+		throws SharepointException {
+	}
+
+	private void _configureStub(Stub stub, URL wsdlURL) {
+		stub._setProperty(Stub.ENDPOINT_ADDRESS_PROPERTY, wsdlURL.toString());
+		stub._setProperty(Call.USERNAME_PROPERTY, _username);
+		stub._setProperty(Call.PASSWORD_PROPERTY, _password);
+	}
+
+	private URL _getWsdlURL(String serviceName) {
+		String wsdlResource = "/wsdl/" + serviceName + ".wsdl";
+
+		try {
+			URL wsdlResourceURL = getClass().getResource(wsdlResource);
+
+			return new URL(wsdlResourceURL.toExternalForm());
+		}
+		catch (MalformedURLException murle) {
+			throw new SharepointRuntimeException(
+				"Unable to load WSDL resource " + wsdlResource, murle);
+		}
+	}
+
+	private void _initCopySoap() {
+		try {
+			URL wsdlURL = _getWsdlURL(WSDL_FILE_NAME_COPY);
+
+			CopyLocator copyLocator = new CopyLocator();
+
+			_copySoap = copyLocator.getCopySoap(wsdlURL);
+
+			_configureStub((Stub)_copySoap, wsdlURL);
+		}
+		catch (ServiceException se) {
+			throw new SharepointRuntimeException(
+				"Unable to configure SOAP endpoint: " + WSDL_FILE_NAME_COPY,
+				se);
+		}
+	}
+
+	private void _initListsSoap() {
+		try {
+			URL wsdlURL = _getWsdlURL(WSDL_FILE_NAME_LISTS);
+
+			ListsLocator listsLocator = new ListsLocator();
+
+			_listsSoap = listsLocator.getListsSoap(wsdlURL);
+
+			_configureStub((Stub)_listsSoap, wsdlURL);
+		}
+		catch (ServiceException se) {
+			throw new SharepointRuntimeException(
+				"Unable to configure SOAP endpoint: " + WSDL_FILE_NAME_LISTS,
+				se);
+		}
+	}
+
+	private void _initOperations() {
+		_addOrUpdateFileOperation = new AddOrUpdateFileOperation(
+			_copySoap, _listsSoap);
+	}
+
+	private void _validateConnectionConfiguration() {
+		if (Validator.isNull(_username)) {
+			throw new SharepointRuntimeException("Username cannot be null");
+		}
+
+		if (Validator.isNull(_password)) {
+			throw new SharepointRuntimeException("Password cannot be null");
+		}
+
+		if (!_sitePath.equals(StringPool.BLANK)) {
+			if (_sitePath.equals(StringPool.SLASH)) {
+				throw new IllegalArgumentException(
+					"Use an empty string for root site path (instead of '/')");
+			}
+
+			if (!_sitePath.startsWith(StringPool.SLASH)) {
+				throw new IllegalArgumentException(
+					"Site path must start with /");
+			}
+
+			if (!_sitePath.equals(StringPool.SLASH) &&
+				_sitePath.endsWith(StringPool.SLASH)) {
+
+				throw new IllegalArgumentException(
+					"Site path must not end with /");
+			}
+		}
+	}
+
+	private static final String WSDL_FILE_NAME_COPY = "copy";
+
+	private static final String WSDL_FILE_NAME_LISTS = "lists";
+
+	private AddOrUpdateFileOperation _addOrUpdateFileOperation;
+	private CopySoap _copySoap;
+	private String _libraryName;
+	private ListsSoap _listsSoap;
+	private String _password;
+	private PathHelper _pathHelper;
+	private String _serverAddress;
+	private int _serverPort;
+	private String _serverProtocol;
+	private String _sitePath;
+	private String _username;
 
 }
