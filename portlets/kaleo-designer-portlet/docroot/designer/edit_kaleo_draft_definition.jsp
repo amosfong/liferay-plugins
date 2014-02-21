@@ -338,7 +338,7 @@
 									on: {
 										click: <portlet:namespace />getLatestKaleoDraftDefinition
 									}
-								},
+								}
 							]
 						}
 					).render();

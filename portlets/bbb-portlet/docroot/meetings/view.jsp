@@ -158,7 +158,7 @@ else {
 							},
 							dataType: 'json',
 							form: {
-								id: form,
+								id: form
 							}
 						}
 					);

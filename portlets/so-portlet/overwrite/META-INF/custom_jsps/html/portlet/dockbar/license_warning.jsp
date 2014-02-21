@@ -194,7 +194,7 @@ catch (Exception e) {
 						toolbars: {},
 						width: 650
 					},
-					title: '<%= UnicodeLanguageUtil.get(pageContext, "your-social-office-license-has-expired") %>',
+					title: '<%= UnicodeLanguageUtil.get(pageContext, "your-social-office-license-has-expired") %>'
 				}
 			).render();
 
