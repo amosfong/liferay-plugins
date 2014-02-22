@@ -76,7 +76,7 @@ public class MoveObjectOperation extends BaseOperation {
 	}
 
 	private boolean _isRename(String path, String newPath) {
-		String parentFolderPath = _pathHelper.getParentFolderPath(newPath);
+		String parentFolderPath = _pathHelper.getParentFolderPath(path);
 		String newParentFolderPath = _pathHelper.getParentFolderPath(newPath);
 
 		return parentFolderPath.equals(newParentFolderPath);
