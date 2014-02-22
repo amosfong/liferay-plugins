@@ -121,23 +121,25 @@ public class PathHelper {
 	}
 
 	protected void validateSitePath(String sitePath) {
-		if (!_sitePath.equals(StringPool.BLANK)) {
-			if (_sitePath.equals(StringPool.SLASH)) {
-				throw new IllegalArgumentException(
-					"Use an empty string for root site path (instead of '/')");
-			}
+		if (_sitePath.equals(StringPool.BLANK)) {
+			return;
+		}
 
-			if (!_sitePath.startsWith(StringPool.SLASH)) {
-				throw new IllegalArgumentException(
-					"Site path must start with /");
-			}
+		if (_sitePath.equals(StringPool.SLASH)) {
+			throw new IllegalArgumentException(
+				"Use an empty string for root site path (instead of '/')");
+		}
 
-			if (!_sitePath.equals(StringPool.SLASH) &&
-				_sitePath.endsWith(StringPool.SLASH)) {
+		if (!_sitePath.startsWith(StringPool.SLASH)) {
+			throw new IllegalArgumentException(
+				"Site path must start with /");
+		}
 
-				throw new IllegalArgumentException(
-					"Site path must not end with /");
-			}
+		if (!_sitePath.equals(StringPool.SLASH) &&
+			_sitePath.endsWith(StringPool.SLASH)) {
+
+			throw new IllegalArgumentException(
+				"Site path must not end with /");
 		}
 	}
 
