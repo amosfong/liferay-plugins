@@ -37,6 +37,13 @@ public class SourceStagedModelDataHandler
 	public void deleteStagedModel(
 			String uuid, long groupId, String className, String extraData)
 		throws PortalException, SystemException {
+
+		Source source = SourceLocalServiceUtil.fetchSourceByUuidAndGroupId(
+			uuid, groupId);
+
+		if (source != null) {
+			SourceLocalServiceUtil.deleteSource(source);
+		}
 	}
 
 	@Override

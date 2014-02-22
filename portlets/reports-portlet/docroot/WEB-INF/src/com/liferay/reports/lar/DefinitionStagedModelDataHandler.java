@@ -49,6 +49,14 @@ public class DefinitionStagedModelDataHandler
 	public void deleteStagedModel(
 			String uuid, long groupId, String className, String extraData)
 		throws PortalException, SystemException {
+
+		Definition definition =
+			DefinitionLocalServiceUtil.fetchDefinitionByUuidAndGroupId(
+				uuid, groupId);
+
+		if (definition != null) {
+			DefinitionLocalServiceUtil.deleteDefinition(definition);
+		}
 	}
 
 	@Override

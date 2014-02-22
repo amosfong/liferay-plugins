@@ -22,6 +22,7 @@ import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -30,6 +31,7 @@ import com.liferay.portal.kernel.util.StringUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.CompanyConstants;
 import com.liferay.portal.model.ResourceConstants;
+import com.liferay.portal.model.SystemEventConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.portlet.documentlibrary.DuplicateDirectoryException;
@@ -100,6 +102,7 @@ public class DefinitionLocalServiceImpl extends DefinitionLocalServiceBaseImpl {
 	}
 
 	@Override
+	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
 	public Definition deleteDefinition(Definition definition)
 		throws PortalException, SystemException {
 
@@ -128,7 +131,19 @@ public class DefinitionLocalServiceImpl extends DefinitionLocalServiceBaseImpl {
 		Definition definition = definitionPersistence.findByPrimaryKey(
 			definitionId);
 
-		return deleteDefinition(definition);
+		return definitionLocalService.deleteDefinition(definition);
+	}
+
+	@Override
+	public void deleteDefinitions(long groupId)
+		throws PortalException, SystemException {
+
+		List<Definition> definitions = definitionPersistence.findByGroupId(
+			groupId);
+
+		for (Definition definition : definitions) {
+			definitionLocalService.deleteDefinition(definition);
+		}
 	}
 
 	public void deleteDefinitionTemplates(

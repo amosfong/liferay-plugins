@@ -21,13 +21,14 @@ import com.liferay.portal.kernel.lar.PortletDataContext;
 import com.liferay.portal.kernel.lar.PortletDataHandlerBoolean;
 import com.liferay.portal.kernel.lar.PortletDataHandlerControl;
 import com.liferay.portal.kernel.lar.StagedModelDataHandlerUtil;
+import com.liferay.portal.kernel.lar.StagedModelType;
 import com.liferay.portal.kernel.xml.Element;
 import com.liferay.reports.model.Definition;
 import com.liferay.reports.model.Source;
+import com.liferay.reports.service.DefinitionLocalServiceUtil;
+import com.liferay.reports.service.SourceLocalServiceUtil;
 import com.liferay.reports.service.persistence.DefinitionExportActionableDynamicQuery;
-import com.liferay.reports.service.persistence.DefinitionUtil;
 import com.liferay.reports.service.persistence.SourceExportActionableDynamicQuery;
-import com.liferay.reports.service.persistence.SourceUtil;
 
 import java.util.List;
 
@@ -43,6 +44,9 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 
 	public AdminPortletDataHandler() {
 		setDataLevel(DataLevel.SITE);
+		setDeletionSystemEventStagedModelTypes(
+			new StagedModelType(Definition.class),
+			new StagedModelType(Source.class));
 		setExportControls(
 			new PortletDataHandlerBoolean(
 				NAMESPACE, "definitions", true, false,
@@ -67,9 +71,11 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 			return portletPreferences;
 		}
 
-		DefinitionUtil.removeByGroupId(portletDataContext.getScopeGroupId());
+		DefinitionLocalServiceUtil.deleteDefinitions(
+			portletDataContext.getScopeGroupId());
 
-		SourceUtil.removeByGroupId(portletDataContext.getScopeGroupId());
+		SourceLocalServiceUtil.deleteSources(
+			portletDataContext.getScopeGroupId());
 
 		return portletPreferences;
 	}

@@ -22,12 +22,14 @@ import com.liferay.portal.kernel.dao.orm.PropertyFactoryUtil;
 import com.liferay.portal.kernel.dao.orm.RestrictionsFactoryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.systemevent.SystemEvent;
 import com.liferay.portal.kernel.util.LocaleUtil;
 import com.liferay.portal.kernel.util.OrderByComparator;
 import com.liferay.portal.kernel.util.PortalClassLoaderUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.ResourceConstants;
+import com.liferay.portal.model.SystemEventConstants;
 import com.liferay.portal.model.User;
 import com.liferay.portal.service.ServiceContext;
 import com.liferay.reports.SourceDriverClassNameException;
@@ -96,10 +98,11 @@ public class SourceLocalServiceImpl extends SourceLocalServiceBaseImpl {
 
 		Source source = sourcePersistence.findByPrimaryKey(sourceId);
 
-		return deleteSource(source);
+		return sourceLocalService.deleteSource(source);
 	}
 
 	@Override
+	@SystemEvent(type = SystemEventConstants.TYPE_DELETE)
 	public Source deleteSource(Source source)
 		throws PortalException, SystemException {
 
@@ -114,6 +117,17 @@ public class SourceLocalServiceImpl extends SourceLocalServiceBaseImpl {
 			ResourceConstants.SCOPE_INDIVIDUAL, source.getSourceId());
 
 		return source;
+	}
+
+	@Override
+	public void deleteSources(long groupId)
+		throws PortalException, SystemException {
+
+		List<Source> sources = sourcePersistence.findByGroupId(groupId);
+
+		for (Source source : sources) {
+			sourceLocalService.deleteSource(source);
+		}
 	}
 
 	@Override
