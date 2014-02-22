@@ -14,39 +14,28 @@
 
 package com.liferay.reports.lar;
 
+import com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery;
 import com.liferay.portal.kernel.lar.BasePortletDataHandler;
 import com.liferay.portal.kernel.lar.DataLevel;
 import com.liferay.portal.kernel.lar.PortletDataContext;
 import com.liferay.portal.kernel.lar.PortletDataHandlerBoolean;
 import com.liferay.portal.kernel.lar.PortletDataHandlerControl;
-import com.liferay.portal.kernel.util.FileUtil;
-import com.liferay.portal.kernel.util.MapUtil;
-import com.liferay.portal.kernel.util.StreamUtil;
-import com.liferay.portal.kernel.util.StringBundler;
-import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.portal.kernel.uuid.PortalUUIDUtil;
+import com.liferay.portal.kernel.lar.StagedModelDataHandlerUtil;
 import com.liferay.portal.kernel.xml.Element;
-import com.liferay.portal.model.CompanyConstants;
-import com.liferay.portal.service.ServiceContext;
-import com.liferay.portlet.documentlibrary.store.DLStoreUtil;
 import com.liferay.reports.model.Definition;
 import com.liferay.reports.model.Source;
-import com.liferay.reports.service.DefinitionLocalServiceUtil;
-import com.liferay.reports.service.SourceLocalServiceUtil;
+import com.liferay.reports.service.persistence.DefinitionExportActionableDynamicQuery;
 import com.liferay.reports.service.persistence.DefinitionUtil;
+import com.liferay.reports.service.persistence.SourceExportActionableDynamicQuery;
 import com.liferay.reports.service.persistence.SourceUtil;
-import com.liferay.reports.util.PortletKeys;
 
-import java.io.InputStream;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.portlet.PortletPreferences;
 
 /**
  * @author Michael C. Han
+ * @author Mate Thurzo
  */
 public class AdminPortletDataHandler extends BasePortletDataHandler {
 
@@ -56,10 +45,13 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 		setDataLevel(DataLevel.SITE);
 		setExportControls(
 			new PortletDataHandlerBoolean(
-				NAMESPACE, "definitions", true,
+				NAMESPACE, "definitions", true, false,
 				new PortletDataHandlerControl[] {
-					new PortletDataHandlerBoolean(NAMESPACE, "sources")
-				}));
+					new PortletDataHandlerBoolean(
+						NAMESPACE, "sources", true, false, null,
+						Source.class.getName())
+				},
+				Definition.class.getName()));
 		setPublishToLiveByDefault(true);
 	}
 
@@ -96,21 +88,17 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 			"group-id", String.valueOf(portletDataContext.getScopeGroupId()));
 
 		if (portletDataContext.getBooleanParameter(NAMESPACE, "sources")) {
-			List<Source> sources = SourceUtil.findByGroupId(
-				portletDataContext.getScopeGroupId());
+			ActionableDynamicQuery sourceActionableDynamicQuery =
+				new SourceExportActionableDynamicQuery(portletDataContext);
 
-			for (Source source : sources) {
-				exportSource(portletDataContext, rootElement, source);
-			}
+			sourceActionableDynamicQuery.performActions();
 		}
 
 		if (portletDataContext.getBooleanParameter(NAMESPACE, "definitions")) {
-			List<Definition> definitions = DefinitionUtil.findByGroupId(
-				portletDataContext.getScopeGroupId());
+			ActionableDynamicQuery definitionActionableDynamicQuery =
+				new DefinitionExportActionableDynamicQuery(portletDataContext);
 
-			for (Definition definition : definitions) {
-				exportDefinition(portletDataContext, rootElement, definition);
-			}
+			definitionActionableDynamicQuery.performActions();
 		}
 
 		return getExportDataRootElementString(rootElement);
@@ -124,86 +112,48 @@ public class AdminPortletDataHandler extends BasePortletDataHandler {
 
 		portletDataContext.importPortletPermissions(RESOURCE_NAME);
 
-		Element rootElement = portletDataContext.getImportDataRootElement();
-
-		Map<Long, Long> sourceIds = new HashMap<Long, Long>();
-
 		if (portletDataContext.getBooleanParameter(NAMESPACE, "sources")) {
-			for (Element sourceElement : rootElement.elements("source")) {
-				String path = sourceElement.attributeValue("path");
+			Element sourcesElement =
+				portletDataContext.getImportDataGroupElement(Source.class);
 
-				if (!portletDataContext.isPathNotProcessed(path)) {
-					continue;
-				}
+			List<Element> sourceElements = sourcesElement.elements();
 
-				Source source = (Source)portletDataContext.getZipEntryAsObject(
-					path);
-
-				importSource(
-					portletDataContext, sourceIds, sourceElement, source);
+			for (Element sourceElement : sourceElements) {
+				StagedModelDataHandlerUtil.importStagedModel(
+					portletDataContext, sourceElement);
 			}
 		}
 
 		if (portletDataContext.getBooleanParameter(NAMESPACE, "definitions")) {
-			for (Element definitionElement :
-					rootElement.elements("definition")) {
+			Element definitionsElement =
+				portletDataContext.getImportDataGroupElement(Definition.class);
 
-				String path = definitionElement.attributeValue("path");
+			List<Element> definitionElements = definitionsElement.elements();
 
-				if (!portletDataContext.isPathNotProcessed(path)) {
-					continue;
-				}
-
-				Definition definition =
-					(Definition)portletDataContext.getZipEntryAsObject(path);
-
-				importDefinition(
-					portletDataContext, sourceIds, definitionElement,
-					definition);
+			for (Element definitionElement : definitionElements) {
+				StagedModelDataHandlerUtil.importStagedModel(
+					portletDataContext, definitionElement);
 			}
 		}
 
 		return null;
 	}
 
-	protected String getDefinitionAttachmentBinPath(
-		PortletDataContext portletDataContext, Definition definition) {
+	@Override
+	protected void doPrepareManifestSummary(
+			PortletDataContext portletDataContext,
+			PortletPreferences portletPreferences)
+		throws Exception {
 
-		StringBundler sb = new StringBundler(5);
+		ActionableDynamicQuery sourceActionableDynamicQuery =
+			new SourceExportActionableDynamicQuery(portletDataContext);
 
-		sb.append(portletDataContext.getPortletPath(PortletKeys.REPORTS_ADMIN));
-		sb.append("/bin/");
-		sb.append(definition.getDefinitionId());
-		sb.append(StringPool.SLASH);
-		sb.append(PortalUUIDUtil.generate());
+		sourceActionableDynamicQuery.performCount();
 
-		return sb.toString();
-	}
+		ActionableDynamicQuery definitionActionableDynamicQuery =
+			new DefinitionExportActionableDynamicQuery(portletDataContext);
 
-	protected String getDefinitionPath(
-		PortletDataContext portletDataContext, Definition definition) {
-
-		StringBundler sb = new StringBundler(4);
-
-		sb.append(portletDataContext.getPortletPath(PortletKeys.REPORTS_ADMIN));
-		sb.append("/definitions/");
-		sb.append(definition.getDefinitionId());
-		sb.append(".xml");
-
-		return sb.toString();
-	}
-
-	protected String getSourcePath(
-		PortletDataContext portletDataContext, Source source) {
-
-		StringBundler sb = new StringBundler(4);
-
-		sb.append(portletDataContext.getPortletPath(PortletKeys.REPORTS_ADMIN));
-		sb.append("/sources/");
-		sb.append(source.getSourceId());
-		sb.append(".xml");
-
-		return sb.toString();
+		definitionActionableDynamicQuery.performCount();
 	}
 
 	protected static final String RESOURCE_NAME = "com.liferay.reports.admin";
