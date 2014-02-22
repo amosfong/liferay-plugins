@@ -43,12 +43,107 @@ public class DefinitionStagedModelDataHandler
 	protected void doExportStagedModel(
 			PortletDataContext portletDataContext, Definition definition)
 		throws Exception {
+
+		if (!portletDataContext.isWithinDateRange(
+				definition.getModifiedDate())) {
+
+			return;
+		}
+
+		String path = getDefinitionPath(portletDataContext, definition);
+
+		if (!portletDataContext.isPathNotProcessed(path)) {
+			return;
+		}
+
+		Element definitionElement = rootElement.addElement("definition");
+
+		portletDataContext.addClassedModel(definitionElement, path, definition);
+
+		for (String fullFileName : definition.getAttachmentsFiles()) {
+			String binPath = getDefinitionAttachmentBinPath(
+				portletDataContext, definition);
+			byte[] bytes = DLStoreUtil.getFileAsBytes(
+				definition.getCompanyId(), CompanyConstants.SYSTEM,
+				fullFileName);
+
+			Element attachmentElement = definitionElement.addElement(
+				"attachment");
+
+			attachmentElement.addAttribute("bin-path", binPath);
+			attachmentElement.addAttribute("full-file-name", fullFileName);
+
+			portletDataContext.addZipEntry(binPath, bytes);
+		}
 	}
 
 	@Override
 	protected void doImportStagedModel(
 			PortletDataContext portletDataContext, Definition definition)
 		throws Exception {
+
+		long userId = portletDataContext.getUserId(definition.getUserUuid());
+		long sourceId = MapUtil.getLong(sourceIds, definition.getSourceId());
+		String fileName = null;
+		InputStream inputStream = null;
+
+		ServiceContext serviceContext = portletDataContext.createServiceContext(
+			definitionElement, definition);
+
+		Element attachmentElement = definitionElement.element("attachment");
+
+		try {
+			if (attachmentElement != null) {
+				String binPath = attachmentElement.attributeValue("bin-path");
+				String fullFileName = attachmentElement.attributeValue(
+					"full-file-name");
+
+				fileName = FileUtil.getShortFileName(fullFileName);
+				inputStream = portletDataContext.getZipEntryAsInputStream(
+					binPath);
+			}
+
+			Definition importedDefinition = null;
+
+			if (portletDataContext.isDataStrategyMirror()) {
+				Definition existingDefinition = DefinitionUtil.fetchByUUID_G(
+					definition.getUuid(), portletDataContext.getScopeGroupId());
+
+				if (existingDefinition == null) {
+					serviceContext.setUuid(definition.getUuid());
+
+					importedDefinition =
+						DefinitionLocalServiceUtil.addDefinition(
+							userId, portletDataContext.getScopeGroupId(),
+							definition.getNameMap(),
+							definition.getDescriptionMap(), sourceId,
+							definition.getReportParameters(), fileName,
+							inputStream, serviceContext);
+				}
+				else {
+					importedDefinition =
+						DefinitionLocalServiceUtil.updateDefinition(
+							existingDefinition.getDefinitionId(),
+							definition.getNameMap(),
+							definition.getDescriptionMap(), sourceId,
+							definition.getReportParameters(), fileName,
+							inputStream, serviceContext);
+				}
+			}
+			else {
+				importedDefinition = DefinitionLocalServiceUtil.addDefinition(
+					userId, portletDataContext.getScopeGroupId(),
+					definition.getNameMap(), definition.getDescriptionMap(),
+					sourceId, definition.getReportParameters(), fileName,
+					inputStream, serviceContext);
+			}
+
+			portletDataContext.importClassedModel(
+				definition, importedDefinition);
+		}
+		finally {
+			StreamUtil.cleanUp(inputStream);
+		}
 	}
 
 }

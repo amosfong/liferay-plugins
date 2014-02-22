@@ -43,12 +43,66 @@ public class SourceStagedModelDataHandler
 	protected void doExportStagedModel(
 			PortletDataContext portletDataContext, Source source)
 		throws Exception {
+
+		if (!portletDataContext.isWithinDateRange(source.getModifiedDate())) {
+			return;
+		}
+
+		String path = getSourcePath(portletDataContext, source);
+
+		if (!portletDataContext.isPathNotProcessed(path)) {
+			return;
+		}
+
+		Element sourceElement = rootElement.addElement("source");
+
+		portletDataContext.addClassedModel(sourceElement, path, source);
 	}
 
 	@Override
 	protected void doImportStagedModel(
 			PortletDataContext portletDataContext, Source source)
 		throws Exception {
+
+		long userId = portletDataContext.getUserId(source.getUserUuid());
+
+		ServiceContext serviceContext = portletDataContext.createServiceContext(
+			sourceElement, source);
+
+		Source importedSource = null;
+
+		if (portletDataContext.isDataStrategyMirror()) {
+			Source existingSource = SourceUtil.fetchByUUID_G(
+				source.getUuid(), portletDataContext.getScopeGroupId());
+
+			if (existingSource == null) {
+				serviceContext.setUuid(source.getUuid());
+
+				importedSource = SourceLocalServiceUtil.addSource(
+					userId, portletDataContext.getScopeGroupId(),
+					source.getNameMap(), source.getDriverClassName(),
+					source.getDriverUrl(), source.getDriverUserName(),
+					source.getDriverPassword(), serviceContext);
+			}
+			else {
+				importedSource = SourceLocalServiceUtil.updateSource(
+					existingSource.getSourceId(), source.getNameMap(),
+					source.getDriverClassName(), source.getDriverUrl(),
+					source.getDriverUserName(), source.getDriverPassword(),
+					serviceContext);
+			}
+		}
+		else {
+			importedSource = SourceLocalServiceUtil.addSource(
+				userId, portletDataContext.getScopeGroupId(),
+				source.getNameMap(), source.getDriverClassName(),
+				source.getDriverUrl(), source.getDriverUserName(),
+				source.getDriverPassword(), serviceContext);
+		}
+
+		sourceIds.put(source.getSourceId(), importedSource.getSourceId());
+
+		portletDataContext.importClassedModel(source, importedSource);
 	}
 
 }
