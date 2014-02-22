@@ -74,9 +74,8 @@ public class PathHelper {
 		if (pos == -1) {
 			return name;
 		}
-		else {
-			return name.substring(0, pos - 1);
-		}
+
+		return name.substring(0, pos - 1);
 	}
 
 	public String getParentFolderPath(String path) {
