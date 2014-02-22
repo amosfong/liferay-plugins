@@ -37,13 +37,10 @@ public class MoveObjectOperation extends BaseOperation {
 
 		_batchOperation = new BatchOperation(
 			listsSoap, pathHelper.getLibraryName());
-
 		_copyObjectOperation = new CopyObjectOperation(
 			copySoap, listsSoap, pathHelper);
-
 		_deleteObjectOperation = new DeleteObjectOperation(
 			listsSoap, pathHelper);
-
 		_getObjectByPathOperation = new GetObjectByPathOperation(
 			listsSoap, pathHelper);
 	}
@@ -55,10 +52,8 @@ public class MoveObjectOperation extends BaseOperation {
 			SharepointObject sharepointObject =
 				_getObjectByPathOperation.execute(path);
 
-			URL sharepointObjectURL = sharepointObject.getURL();
-
+			URL url = sharepointObject.getURL();
 			String newName = _pathHelper.getNameWithoutExtension(newPath);
-
 			String newExtension = _pathHelper.getExtension(newPath);
 
 			_batchOperation.execute(
@@ -70,7 +65,7 @@ public class MoveObjectOperation extends BaseOperation {
 						new BatchField(
 							"ID", Long.toString(sharepointObject.getId())),
 						new BatchField(
-							"FileRef", sharepointObjectURL.toString()),
+							"FileRef", url.toString()),
 						new BatchField("BaseName", newName),
 						new BatchField("File_x0020_Type", newExtension))));
 		}
