@@ -61,7 +61,7 @@ public class QueryServiceSoapResult {
 	}
 
 	public List<String> getLinkURLs() {
-		return _linkUrls;
+		return _linkURLs;
 	}
 
 	public String getStatus() {
@@ -105,19 +105,19 @@ public class QueryServiceSoapResult {
 
 		@Override
 		public void characters(char[] chars, int start, int length) {
-			_nodeContent.append(chars, start, length);
+			_sb.append(chars, start, length);
 		}
 
 		@Override
 		public void endElement(String uri, String localName, String qName) {
 			if (localName.equals("DebugErrorMessage")) {
-				_debugErrorMessage = _nodeContent.toString();
+				_debugErrorMessage = _sb.toString();
 			}
 			else if (localName.equals("LinkUrl")) {
-				_linkUrls.add(_nodeContent.toString());
+				_linkURLs.add(_sb.toString());
 			}
 			else if (localName.equals("Status")) {
-				_status = _nodeContent.toString();
+				_status = _sb.toString();
 			}
 		}
 
@@ -125,14 +125,14 @@ public class QueryServiceSoapResult {
 		public void startElement(
 			String uri, String localName, String qName, Attributes attributes) {
 
-			_nodeContent.setLength(0);
+			_sb.setLength(0);
 		}
 
-		private StringBuilder _nodeContent = new StringBuilder();
+		private StringBuilder _sb = new StringBuilder();
 
 	};
 
-	private final List<String> _linkUrls = new ArrayList<String>();
+	private List<String> _linkURLs = new ArrayList<String>();
 	private String _status;
 
 }
