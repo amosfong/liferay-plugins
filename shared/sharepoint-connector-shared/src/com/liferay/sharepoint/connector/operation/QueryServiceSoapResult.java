@@ -104,8 +104,8 @@ public class QueryServiceSoapResult {
 	private DefaultHandler _defaultHandler = new DefaultHandler() {
 
 		@Override
-		public void characters(char[] c, int start, int length) {
-			_nodeContent.append(c, start, length);
+		public void characters(char[] chars, int start, int length) {
+			_nodeContent.append(chars, start, length);
 		}
 
 		@Override
