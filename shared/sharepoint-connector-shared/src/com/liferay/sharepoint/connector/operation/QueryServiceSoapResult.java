@@ -110,14 +110,14 @@ public class QueryServiceSoapResult {
 
 		@Override
 		public void endElement(String uri, String localName, String qName) {
-			if (localName.equals("Status")) {
-				_status = _nodeContent.toString();
-			}
-			else if (localName.equals("DebugErrorMessage")) {
+			if (localName.equals("DebugErrorMessage")) {
 				_debugErrorMessage = _nodeContent.toString();
 			}
 			else if (localName.equals("LinkUrl")) {
 				_linkUrls.add(_nodeContent.toString());
+			}
+			else if (localName.equals("Status")) {
+				_status = _nodeContent.toString();
 			}
 		}
 
