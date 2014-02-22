@@ -69,7 +69,7 @@ public class GetObjectsByQueryPacketOperation extends BaseOperation {
 			}
 
 			List<String> queryServiceSoapResultLinkURLs =
-				queryServiceSoapResult.getLinkUrls();
+				queryServiceSoapResult.getLinkURLs();
 
 			List<SharepointObject> sharepointObjects =
 				new ArrayList<SharepointObject>();

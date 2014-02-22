@@ -14,6 +14,7 @@
 
 package com.liferay.sharepoint.connector.operation;
 
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.sharepoint.connector.SharepointException;
 
 import java.io.ByteArrayInputStream;
@@ -41,18 +42,17 @@ public class QueryServiceSoapResult {
 			XMLReader xmlReader = XMLReaderFactory.createXMLReader();
 
 			xmlReader.setContentHandler(_defaultHandler);
-
 			xmlReader.setErrorHandler(_defaultHandler);
 
 			parse(xmlReader, queryServiceSoapResultString);
 		}
-		catch (SAXException saxe) {
-			throw new SharepointException(
-				"Unable to parse response from the Sharepoint server", saxe);
-		}
 		catch (IOException ioe) {
 			throw new SharepointException(
 				"Unable to parse response from the Sharepoint server", ioe);
+		}
+		catch (SAXException saxe) {
+			throw new SharepointException(
+				"Unable to parse response from the Sharepoint server", saxe);
 		}
 	}
 
@@ -60,7 +60,7 @@ public class QueryServiceSoapResult {
 		return _debugErrorMessage;
 	}
 
-	public List<String> getLinkUrls() {
+	public List<String> getLinkURLs() {
 		return _linkUrls;
 	}
 
@@ -75,9 +75,8 @@ public class QueryServiceSoapResult {
 
 			return true;
 		}
-		else {
-			return false;
-		}
+
+		return false;
 	}
 
 	public boolean isSuccess() {
@@ -91,12 +90,13 @@ public class QueryServiceSoapResult {
 		return false;
 	}
 
-	protected void parse(XMLReader reader, String queryServiceSoapResultString)
+	protected void parse(
+			XMLReader xmlReader, String queryServiceSoapResultString)
 		throws IOException, SAXException {
 
-		byte[] bytes = queryServiceSoapResultString.getBytes("UTF-8");
+		byte[] bytes = queryServiceSoapResultString.getBytes(StringPool.UTF8);
 
-		reader.parse(new InputSource(new ByteArrayInputStream(bytes)));
+		xmlReader.parse(new InputSource(new ByteArrayInputStream(bytes)));
 	}
 
 	private String _debugErrorMessage;
@@ -104,8 +104,8 @@ public class QueryServiceSoapResult {
 	private DefaultHandler _defaultHandler = new DefaultHandler() {
 
 		@Override
-		public void characters(char[] ch, int start, int length) {
-			_nodeContent.append(ch, start, length);
+		public void characters(char[] c, int start, int length) {
+			_nodeContent.append(c, start, length);
 		}
 
 		@Override
