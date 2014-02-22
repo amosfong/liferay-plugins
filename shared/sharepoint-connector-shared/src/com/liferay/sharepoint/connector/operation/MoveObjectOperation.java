@@ -79,12 +79,7 @@ public class MoveObjectOperation extends BaseOperation {
 		String parentFolderPath = _pathHelper.getParentFolderPath(newPath);
 		String newParentFolderPath = _pathHelper.getParentFolderPath(newPath);
 
-		if (parentFolderPath.equals(newParentFolderPath)) {
-			return true;
-		}
-		else {
-			return false;
-		}
+		return parentFolderPath.equals(newParentFolderPath);
 	}
 
 	private BatchOperation _batchOperation;
