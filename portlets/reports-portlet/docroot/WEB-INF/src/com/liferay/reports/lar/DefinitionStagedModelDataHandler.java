@@ -17,8 +17,25 @@ package com.liferay.reports.lar;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.BaseStagedModelDataHandler;
+import com.liferay.portal.kernel.lar.ExportImportPathUtil;
 import com.liferay.portal.kernel.lar.PortletDataContext;
+import com.liferay.portal.kernel.lar.StagedModelDataHandlerUtil;
+import com.liferay.portal.kernel.util.FileUtil;
+import com.liferay.portal.kernel.util.MapUtil;
+import com.liferay.portal.kernel.util.StreamUtil;
+import com.liferay.portal.kernel.xml.Element;
+import com.liferay.portal.model.CompanyConstants;
+import com.liferay.portal.service.ServiceContext;
+import com.liferay.portlet.documentlibrary.store.DLStoreUtil;
 import com.liferay.reports.model.Definition;
+import com.liferay.reports.model.Source;
+import com.liferay.reports.service.DefinitionLocalServiceUtil;
+import com.liferay.reports.service.SourceLocalServiceUtil;
+import com.liferay.reports.service.persistence.DefinitionUtil;
+
+import java.io.InputStream;
+
+import java.util.Map;
 
 /**
  * @author Mate Thurzo
@@ -40,29 +57,31 @@ public class DefinitionStagedModelDataHandler
 	}
 
 	@Override
+	public String getDisplayName(Definition definition) {
+		return definition.getName();
+	}
+
+	@Override
 	protected void doExportStagedModel(
 			PortletDataContext portletDataContext, Definition definition)
 		throws Exception {
 
-		if (!portletDataContext.isWithinDateRange(
-				definition.getModifiedDate())) {
+		Source source = SourceLocalServiceUtil.fetchSource(
+			definition.getSourceId());
 
-			return;
+		if (source != null) {
+			StagedModelDataHandlerUtil.exportReferenceStagedModel(
+				portletDataContext, definition, source,
+				PortletDataContext.REFERENCE_TYPE_PARENT);
 		}
 
-		String path = getDefinitionPath(portletDataContext, definition);
-
-		if (!portletDataContext.isPathNotProcessed(path)) {
-			return;
-		}
-
-		Element definitionElement = rootElement.addElement("definition");
-
-		portletDataContext.addClassedModel(definitionElement, path, definition);
+		Element definitionElement = portletDataContext.getExportDataElement(
+			definition);
 
 		for (String fullFileName : definition.getAttachmentsFiles()) {
-			String binPath = getDefinitionAttachmentBinPath(
-				portletDataContext, definition);
+			String binPath = ExportImportPathUtil.getModelPath(
+				definition, fullFileName);
+
 			byte[] bytes = DLStoreUtil.getFileAsBytes(
 				definition.getCompanyId(), CompanyConstants.SYSTEM,
 				fullFileName);
@@ -75,6 +94,10 @@ public class DefinitionStagedModelDataHandler
 
 			portletDataContext.addZipEntry(binPath, bytes);
 		}
+
+		portletDataContext.addClassedModel(
+			definitionElement, ExportImportPathUtil.getModelPath(definition),
+			definition);
 	}
 
 	@Override
@@ -83,14 +106,28 @@ public class DefinitionStagedModelDataHandler
 		throws Exception {
 
 		long userId = portletDataContext.getUserId(definition.getUserUuid());
-		long sourceId = MapUtil.getLong(sourceIds, definition.getSourceId());
-		String fileName = null;
-		InputStream inputStream = null;
+
+		StagedModelDataHandlerUtil.importReferenceStagedModel(
+			portletDataContext, definition, Source.class,
+			definition.getSourceId());
+
+		Map<Long, Long> sourceIds =
+			(Map<Long, Long>)portletDataContext.getNewPrimaryKeysMap(
+				Source.class);
+
+		long sourceId = MapUtil.getLong(
+			sourceIds, definition.getSourceId(), definition.getSourceId());
 
 		ServiceContext serviceContext = portletDataContext.createServiceContext(
-			definitionElement, definition);
+			definition);
+
+		Element definitionElement =
+			portletDataContext.getImportDataStagedModelElement(definition);
 
 		Element attachmentElement = definitionElement.element("attachment");
+
+		String fileName = null;
+		InputStream inputStream = null;
 
 		try {
 			if (attachmentElement != null) {

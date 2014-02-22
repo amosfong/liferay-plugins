@@ -17,8 +17,13 @@ package com.liferay.reports.lar;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.lar.BaseStagedModelDataHandler;
+import com.liferay.portal.kernel.lar.ExportImportPathUtil;
 import com.liferay.portal.kernel.lar.PortletDataContext;
+import com.liferay.portal.kernel.xml.Element;
+import com.liferay.portal.service.ServiceContext;
 import com.liferay.reports.model.Source;
+import com.liferay.reports.service.SourceLocalServiceUtil;
+import com.liferay.reports.service.persistence.SourceUtil;
 
 /**
  * @author Mate Thurzo
@@ -40,23 +45,19 @@ public class SourceStagedModelDataHandler
 	}
 
 	@Override
+	public String getDisplayName(Source source) {
+		return source.getName();
+	}
+
+	@Override
 	protected void doExportStagedModel(
 			PortletDataContext portletDataContext, Source source)
 		throws Exception {
 
-		if (!portletDataContext.isWithinDateRange(source.getModifiedDate())) {
-			return;
-		}
+		Element sourceElement = portletDataContext.getExportDataElement(source);
 
-		String path = getSourcePath(portletDataContext, source);
-
-		if (!portletDataContext.isPathNotProcessed(path)) {
-			return;
-		}
-
-		Element sourceElement = rootElement.addElement("source");
-
-		portletDataContext.addClassedModel(sourceElement, path, source);
+		portletDataContext.addClassedModel(
+			sourceElement, ExportImportPathUtil.getModelPath(source), source);
 	}
 
 	@Override
@@ -67,7 +68,7 @@ public class SourceStagedModelDataHandler
 		long userId = portletDataContext.getUserId(source.getUserUuid());
 
 		ServiceContext serviceContext = portletDataContext.createServiceContext(
-			sourceElement, source);
+			source);
 
 		Source importedSource = null;
 
@@ -99,8 +100,6 @@ public class SourceStagedModelDataHandler
 				source.getDriverUrl(), source.getDriverUserName(),
 				source.getDriverPassword(), serviceContext);
 		}
-
-		sourceIds.put(source.getSourceId(), importedSource.getSourceId());
 
 		portletDataContext.importClassedModel(source, importedSource);
 	}
