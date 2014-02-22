@@ -139,36 +139,40 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName24 = "deleteDefinitionTemplates";
+		_methodName24 = "deleteDefinitions";
 
-		_methodParameterTypes24 = new String[] { "long", "java.lang.String" };
+		_methodParameterTypes24 = new String[] { "long" };
 
-		_methodName25 = "getDefinitions";
+		_methodName25 = "deleteDefinitionTemplates";
 
-		_methodParameterTypes25 = new String[] {
+		_methodParameterTypes25 = new String[] { "long", "java.lang.String" };
+
+		_methodName26 = "getDefinitions";
+
+		_methodParameterTypes26 = new String[] {
 				"long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "boolean", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName26 = "getDefinitionsCount";
+		_methodName27 = "getDefinitionsCount";
 
-		_methodParameterTypes26 = new String[] {
+		_methodParameterTypes27 = new String[] {
 				"long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "boolean"
 			};
 
-		_methodName27 = "updateDefinition";
+		_methodName28 = "updateDefinition";
 
-		_methodParameterTypes27 = new String[] {
+		_methodParameterTypes28 = new String[] {
 				"long", "java.util.Map", "java.util.Map", "long",
 				"java.lang.String", "java.lang.String", "java.io.InputStream",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName28 = "updateDefinitionResources";
+		_methodName29 = "updateDefinitionResources";
 
-		_methodParameterTypes28 = new String[] {
+		_methodParameterTypes29 = new String[] {
 				"com.liferay.reports.model.Definition", "java.lang.String[][]",
 				"java.lang.String[][]"
 			};
@@ -917,13 +921,42 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 	}
 
 	@Override
+	public void deleteDefinitions(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		try {
+			_invokableLocalService.invokeMethod(_methodName24,
+				_methodParameterTypes24, new Object[] { groupId });
+		}
+		catch (Throwable t) {
+			t = ClpSerializer.translateThrowable(t);
+
+			if (t instanceof com.liferay.portal.kernel.exception.PortalException) {
+				throw (com.liferay.portal.kernel.exception.PortalException)t;
+			}
+
+			if (t instanceof com.liferay.portal.kernel.exception.SystemException) {
+				throw (com.liferay.portal.kernel.exception.SystemException)t;
+			}
+
+			if (t instanceof RuntimeException) {
+				throw (RuntimeException)t;
+			}
+			else {
+				throw new RuntimeException(t.getClass().getName() +
+					" is not a valid exception");
+			}
+		}
+	}
+
+	@Override
 	public void deleteDefinitionTemplates(long companyId,
 		java.lang.String attachmentsDirectory)
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		try {
-			_invokableLocalService.invokeMethod(_methodName24,
-				_methodParameterTypes24,
+			_invokableLocalService.invokeMethod(_methodName25,
+				_methodParameterTypes25,
 				new Object[] {
 					companyId,
 					
@@ -961,8 +994,8 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName25,
-					_methodParameterTypes25,
+			returnObj = _invokableLocalService.invokeMethod(_methodName26,
+					_methodParameterTypes26,
 					new Object[] {
 						groupId,
 						
@@ -1011,8 +1044,8 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName26,
-					_methodParameterTypes26,
+			returnObj = _invokableLocalService.invokeMethod(_methodName27,
+					_methodParameterTypes27,
 					new Object[] {
 						groupId,
 						
@@ -1059,8 +1092,8 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		Object returnObj = null;
 
 		try {
-			returnObj = _invokableLocalService.invokeMethod(_methodName27,
-					_methodParameterTypes27,
+			returnObj = _invokableLocalService.invokeMethod(_methodName28,
+					_methodParameterTypes28,
 					new Object[] {
 						definitionId,
 						
@@ -1110,8 +1143,8 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 		throws com.liferay.portal.kernel.exception.PortalException,
 			com.liferay.portal.kernel.exception.SystemException {
 		try {
-			_invokableLocalService.invokeMethod(_methodName28,
-				_methodParameterTypes28,
+			_invokableLocalService.invokeMethod(_methodName29,
+				_methodParameterTypes29,
 				new Object[] {
 					ClpSerializer.translateInput(definition),
 					
@@ -1198,4 +1231,6 @@ public class DefinitionLocalServiceClp implements DefinitionLocalService {
 	private String[] _methodParameterTypes27;
 	private String _methodName28;
 	private String[] _methodParameterTypes28;
+	private String _methodName29;
+	private String[] _methodParameterTypes29;
 }

@@ -148,36 +148,40 @@ public class DefinitionLocalServiceClpInvoker {
 
 		_methodParameterTypes64 = new String[] { "long" };
 
-		_methodName65 = "deleteDefinitionTemplates";
+		_methodName65 = "deleteDefinitions";
 
-		_methodParameterTypes65 = new String[] { "long", "java.lang.String" };
+		_methodParameterTypes65 = new String[] { "long" };
 
-		_methodName66 = "getDefinitions";
+		_methodName66 = "deleteDefinitionTemplates";
 
-		_methodParameterTypes66 = new String[] {
+		_methodParameterTypes66 = new String[] { "long", "java.lang.String" };
+
+		_methodName67 = "getDefinitions";
+
+		_methodParameterTypes67 = new String[] {
 				"long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "boolean", "int", "int",
 				"com.liferay.portal.kernel.util.OrderByComparator"
 			};
 
-		_methodName67 = "getDefinitionsCount";
+		_methodName68 = "getDefinitionsCount";
 
-		_methodParameterTypes67 = new String[] {
+		_methodParameterTypes68 = new String[] {
 				"long", "java.lang.String", "java.lang.String",
 				"java.lang.String", "java.lang.String", "boolean"
 			};
 
-		_methodName68 = "updateDefinition";
+		_methodName69 = "updateDefinition";
 
-		_methodParameterTypes68 = new String[] {
+		_methodParameterTypes69 = new String[] {
 				"long", "java.util.Map", "java.util.Map", "long",
 				"java.lang.String", "java.lang.String", "java.io.InputStream",
 				"com.liferay.portal.service.ServiceContext"
 			};
 
-		_methodName69 = "updateDefinitionResources";
+		_methodName70 = "updateDefinitionResources";
 
-		_methodParameterTypes69 = new String[] {
+		_methodParameterTypes70 = new String[] {
 				"com.liferay.reports.model.Definition", "java.lang.String[][]",
 				"java.lang.String[][]"
 			};
@@ -332,14 +336,21 @@ public class DefinitionLocalServiceClpInvoker {
 
 		if (_methodName65.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes65, parameterTypes)) {
-			DefinitionLocalServiceUtil.deleteDefinitionTemplates(((Long)arguments[0]).longValue(),
-				(java.lang.String)arguments[1]);
+			DefinitionLocalServiceUtil.deleteDefinitions(((Long)arguments[0]).longValue());
 
 			return null;
 		}
 
 		if (_methodName66.equals(name) &&
 				Arrays.deepEquals(_methodParameterTypes66, parameterTypes)) {
+			DefinitionLocalServiceUtil.deleteDefinitionTemplates(((Long)arguments[0]).longValue(),
+				(java.lang.String)arguments[1]);
+
+			return null;
+		}
+
+		if (_methodName67.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
 			return DefinitionLocalServiceUtil.getDefinitions(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
 				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
@@ -349,16 +360,16 @@ public class DefinitionLocalServiceClpInvoker {
 				(com.liferay.portal.kernel.util.OrderByComparator)arguments[8]);
 		}
 
-		if (_methodName67.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes67, parameterTypes)) {
+		if (_methodName68.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
 			return DefinitionLocalServiceUtil.getDefinitionsCount(((Long)arguments[0]).longValue(),
 				(java.lang.String)arguments[1], (java.lang.String)arguments[2],
 				(java.lang.String)arguments[3], (java.lang.String)arguments[4],
 				((Boolean)arguments[5]).booleanValue());
 		}
 
-		if (_methodName68.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes68, parameterTypes)) {
+		if (_methodName69.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
 			return DefinitionLocalServiceUtil.updateDefinition(((Long)arguments[0]).longValue(),
 				(java.util.Map<java.util.Locale, java.lang.String>)arguments[1],
 				(java.util.Map<java.util.Locale, java.lang.String>)arguments[2],
@@ -368,8 +379,8 @@ public class DefinitionLocalServiceClpInvoker {
 				(com.liferay.portal.service.ServiceContext)arguments[7]);
 		}
 
-		if (_methodName69.equals(name) &&
-				Arrays.deepEquals(_methodParameterTypes69, parameterTypes)) {
+		if (_methodName70.equals(name) &&
+				Arrays.deepEquals(_methodParameterTypes70, parameterTypes)) {
 			DefinitionLocalServiceUtil.updateDefinitionResources((com.liferay.reports.model.Definition)arguments[0],
 				(java.lang.String[])arguments[1],
 				(java.lang.String[])arguments[2]);
@@ -440,4 +451,6 @@ public class DefinitionLocalServiceClpInvoker {
 	private String[] _methodParameterTypes68;
 	private String _methodName69;
 	private String[] _methodParameterTypes69;
+	private String _methodName70;
+	private String[] _methodParameterTypes70;
 }

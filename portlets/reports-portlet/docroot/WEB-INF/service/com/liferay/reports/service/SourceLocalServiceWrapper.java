@@ -361,6 +361,13 @@ public class SourceLocalServiceWrapper implements SourceLocalService,
 	}
 
 	@Override
+	public void deleteSources(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		_sourceLocalService.deleteSources(groupId);
+	}
+
+	@Override
 	public java.util.List<com.liferay.reports.model.Source> getSources(
 		long groupId, java.lang.String name, java.lang.String driverUrl,
 		boolean andSearch, int start, int end,

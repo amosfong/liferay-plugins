@@ -346,6 +346,12 @@ public class SourceLocalServiceUtil {
 			driverUrl, driverUserName, driverPassword, serviceContext);
 	}
 
+	public static void deleteSources(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteSources(groupId);
+	}
+
 	public static java.util.List<com.liferay.reports.model.Source> getSources(
 		long groupId, java.lang.String name, java.lang.String driverUrl,
 		boolean andSearch, int start, int end,

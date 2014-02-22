@@ -351,6 +351,12 @@ public class DefinitionLocalServiceUtil {
 			sourceId, reportParameters, fileName, inputStream, serviceContext);
 	}
 
+	public static void deleteDefinitions(long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException,
+			com.liferay.portal.kernel.exception.SystemException {
+		getService().deleteDefinitions(groupId);
+	}
+
 	public static void deleteDefinitionTemplates(long companyId,
 		java.lang.String attachmentsDirectory)
 		throws com.liferay.portal.kernel.exception.PortalException,
