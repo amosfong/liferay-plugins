@@ -127,19 +127,20 @@ public class PathHelper {
 
 		if (_sitePath.equals(StringPool.SLASH)) {
 			throw new IllegalArgumentException(
-				"Use an empty string for root site path (instead of '/')");
+				"Use an empty string instead of a forward slash for the root " +
+					"site path");
 		}
 
 		if (!_sitePath.startsWith(StringPool.SLASH)) {
 			throw new IllegalArgumentException(
-				"Site path must start with /");
+				"Site path must start with a forward slash");
 		}
 
 		if (!_sitePath.equals(StringPool.SLASH) &&
 			_sitePath.endsWith(StringPool.SLASH)) {
 
 			throw new IllegalArgumentException(
-				"Site path must not end with /");
+				"Site path must not end with a forward slash");
 		}
 	}
 
