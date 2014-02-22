@@ -81,18 +81,15 @@ public class GetObjectsByQueryPacketOperation extends BaseOperation {
 					continue;
 				}
 
-				String sharepointObjectPath =
-					queryServiceSoapResultLinkURL.substring(
-						_searchPrefixLength);
+				String path = queryServiceSoapResultLinkURL.substring(
+					_searchPrefixLength);
 
 				SharepointObject sharepointObject =
-					_getObjectByPathOperation.execute(sharepointObjectPath);
+					_getObjectByPathOperation.execute(path);
 
 				if (sharepointObject == null) {
 					if (_log.isWarnEnabled()) {
-						_log.warn(
-							"Sharepoint object with path " +
-								sharepointObjectPath + " ignored");
+						_log.warn("Ignored Sharepoint object at path " + path);
 					}
 
 					continue;
