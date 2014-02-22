@@ -25,19 +25,19 @@ import org.junit.Test;
 public class PathHelperTest {
 
 	@Test
-	public void testBuildPathWhenNonRootFolder() {
+	public void testBuildPathWithNonrootFolder() {
 		Assert.assertEquals(
 			"/folderPath/name", pathHelper.buildPath("/folderPath", "name"));
 	}
 
 	@Test
-	public void testBuildPathWhenRootFolder() {
+	public void testBuildPathWithRootFolder() {
 		Assert.assertEquals(
 			"/name", pathHelper.buildPath(StringPool.SLASH, "name"));
 	}
 
 	@Test
-	public void testConstructorFailsWhenInvalidSitePaths() {
+	public void testConstructorFailsWithInvalidSitePaths() {
 		try {
 			pathHelper = new PathHelper(StringPool.BLANK, StringPool.SLASH);
 
@@ -70,14 +70,14 @@ public class PathHelperTest {
 	}
 
 	@Test
-	public void testGetExtensionWhenExtensionNotPresent() {
+	public void testGetExtensionWhithMissingExtension() {
 		Assert.assertEquals(
 			StringPool.BLANK, pathHelper.getExtension("/name."));
 		Assert.assertEquals(StringPool.BLANK, pathHelper.getExtension("/name"));
 	}
 
 	@Test
-	public void testGetExtensionWhenExtensionPresent() {
+	public void testGetExtensionWithExtension() {
 		Assert.assertEquals("ext", pathHelper.getExtension("/name.ext"));
 	}
 
@@ -92,7 +92,7 @@ public class PathHelperTest {
 	}
 
 	@Test
-	public void testGetNameWithoutExtensionWhenExtensionNotPresent() {
+	public void testGetNameWithoutExtensionWithMissingExtension() {
 		Assert.assertEquals(
 			"name", pathHelper.getNameWithoutExtension("/name."));
 		Assert.assertEquals(
@@ -100,19 +100,19 @@ public class PathHelperTest {
 	}
 
 	@Test
-	public void testGetNameWithoutExtensionWhenExtensionPresent() {
+	public void testGetNameWithoutExtensionWithExtension() {
 		Assert.assertEquals(
 			"name", pathHelper.getNameWithoutExtension("/name.ext"));
 	}
 
 	@Test
-	public void testGetParentFolderPathWhenNonRootFolder() {
+	public void testGetParentFolderPathWithNonrootFolder() {
 		Assert.assertEquals(
 			"/folder", pathHelper.getParentFolderPath("/folder/name"));
 	}
 
 	@Test
-	public void testGetParentFolderPathWhenRootFolder() {
+	public void testGetParentFolderPathWithRootFolder() {
 		Assert.assertEquals("/", pathHelper.getParentFolderPath("/name"));
 	}
 
@@ -122,14 +122,14 @@ public class PathHelperTest {
 	}
 
 	@Test
-	public void testToFullPathWhenNonRootPath() {
+	public void testToFullPathWithNonrootPath() {
 		Assert.assertEquals(
 			_SITE_PATH + StringPool.SLASH + _LIBRARY_NAME + "/folder/name",
 			pathHelper.toFullPath("/folder/name"));
 	}
 
 	@Test
-	public void testToFullPathWhenRootPath() {
+	public void testToFullPathWithRootPath() {
 		Assert.assertEquals(
 			_SITE_PATH + StringPool.SLASH + _LIBRARY_NAME,
 			pathHelper.toFullPath("/"));
