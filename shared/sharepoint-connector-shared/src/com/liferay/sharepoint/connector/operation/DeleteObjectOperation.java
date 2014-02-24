@@ -32,7 +32,6 @@ public class DeleteObjectOperation extends BaseOperation {
 
 		_batchOperation = new BatchOperation(
 			listsSoap, _pathHelper.getLibraryName());
-
 		_getObjectByPathOperation = new GetObjectByPathOperation(
 			listsSoap, _pathHelper);
 	}

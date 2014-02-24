@@ -46,9 +46,9 @@ public class GetContentOperation extends BaseOperation {
 	public InputStream execute(SharepointObject sharepointObject)
 		throws SharepointException {
 
-		URL sharepointObjectURL = sharepointObject.getURL();
+		URL url = sharepointObject.getURL();
 
-		return execute(sharepointObjectURL);
+		return execute(url);
 	}
 
 	public InputStream execute(SharepointVersion sharepointVersion)
