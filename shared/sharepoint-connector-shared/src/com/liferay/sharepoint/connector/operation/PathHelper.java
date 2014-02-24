@@ -121,23 +121,23 @@ public class PathHelper {
 	}
 
 	protected void validateSitePath(String sitePath) {
-		if (_sitePath.equals(StringPool.BLANK)) {
+		if (sitePath.equals(StringPool.BLANK)) {
 			return;
 		}
 
-		if (_sitePath.equals(StringPool.SLASH)) {
+		if (sitePath.equals(StringPool.SLASH)) {
 			throw new IllegalArgumentException(
 				"Use an empty string instead of a forward slash for the root " +
 					"site path");
 		}
 
-		if (!_sitePath.startsWith(StringPool.SLASH)) {
+		if (!sitePath.startsWith(StringPool.SLASH)) {
 			throw new IllegalArgumentException(
 				"Site path must start with a forward slash");
 		}
 
-		if (!_sitePath.equals(StringPool.SLASH) &&
-			_sitePath.endsWith(StringPool.SLASH)) {
+		if (!sitePath.equals(StringPool.SLASH) &&
+			sitePath.endsWith(StringPool.SLASH)) {
 
 			throw new IllegalArgumentException(
 				"Site path must not end with a forward slash");
