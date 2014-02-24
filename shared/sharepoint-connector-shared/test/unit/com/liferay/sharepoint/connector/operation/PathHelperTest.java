@@ -92,17 +92,17 @@ public class PathHelperTest {
 	}
 
 	@Test
+	public void testGetNameWithoutExtensionWithExtension() {
+		Assert.assertEquals(
+			"name", pathHelper.getNameWithoutExtension("/name.ext"));
+	}
+
+	@Test
 	public void testGetNameWithoutExtensionWithMissingExtension() {
 		Assert.assertEquals(
 			"name", pathHelper.getNameWithoutExtension("/name."));
 		Assert.assertEquals(
 			"name", pathHelper.getNameWithoutExtension("/name"));
-	}
-
-	@Test
-	public void testGetNameWithoutExtensionWithExtension() {
-		Assert.assertEquals(
-			"name", pathHelper.getNameWithoutExtension("/name.ext"));
 	}
 
 	@Test
