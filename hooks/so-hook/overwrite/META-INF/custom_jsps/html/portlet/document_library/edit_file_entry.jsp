@@ -337,93 +337,98 @@ editFileEntryURL.setParameter("workflowAction", String.valueOf(WorkflowConstants
 			</aui:validator>
 		</aui:input>
 
-		<c:if test='<%= ((folder == null) || folder.isSupportsMetadata()) && !displaySection.equals("checkin") %>'>
-			<aui:input name="description" />
+		<c:choose >
+			<c:when test='<%= ((folder == null) || folder.isSupportsMetadata()) && !displaySection.equals("checkin") %>' >
+				<aui:input name="description" />
 
-			<c:if test="<%= (folder == null) || (folder.getModel() instanceof DLFolder) %>">
+				<c:if test="<%= (folder == null) || (folder.getModel() instanceof DLFolder) %>">
 
-				<%
-				boolean inherited = false;
+					<%
+					boolean inherited = false;
 
-				if (folder != null) {
-					DLFolder dlFolder = (DLFolder)folder.getModel();
+					if (folder != null) {
+						DLFolder dlFolder = (DLFolder)folder.getModel();
 
-					inherited = !dlFolder.isOverrideFileEntryTypes();
-				}
+						inherited = !dlFolder.isOverrideFileEntryTypes();
+					}
 
-				List<DLFileEntryType> dlFileEntryTypes = DLFileEntryTypeLocalServiceUtil.getFolderFileEntryTypes(PortalUtil.getSiteAndCompanyGroupIds(themeDisplay), folderId, inherited);
-				%>
+					List<DLFileEntryType> dlFileEntryTypes = DLFileEntryTypeLocalServiceUtil.getFolderFileEntryTypes(PortalUtil.getSiteAndCompanyGroupIds(themeDisplay), folderId, inherited);
+					%>
 
-				<c:choose>
-					<c:when test="<%= !cmd.equals(Constants.ADD) && (dlFileEntryTypes.size() > 1) %>">
-						<aui:select changesContext="<%= true %>" label="document-type" name="fileEntryTypeId" onChange='<%= renderResponse.getNamespace() + "changeFileEntryType();" %>'>
+					<c:choose>
+						<c:when test="<%= !cmd.equals(Constants.ADD) && (dlFileEntryTypes.size() > 1) %>">
+							<aui:select changesContext="<%= true %>" label="document-type" name="fileEntryTypeId" onChange='<%= renderResponse.getNamespace() + "changeFileEntryType();" %>'>
 
-							<%
-							for (DLFileEntryType curDLFileEntryType : dlFileEntryTypes) {
-								if ((curDLFileEntryType.getFileEntryTypeId() == DLFileEntryTypeConstants.FILE_ENTRY_TYPE_ID_BASIC_DOCUMENT) || (fileEntryTypeId == curDLFileEntryType.getFileEntryTypeId()) || DLFileEntryTypePermission.contains(permissionChecker, curDLFileEntryType, ActionKeys.VIEW)) {
-							%>
+								<%
+								for (DLFileEntryType curDLFileEntryType : dlFileEntryTypes) {
+									if ((curDLFileEntryType.getFileEntryTypeId() == DLFileEntryTypeConstants.FILE_ENTRY_TYPE_ID_BASIC_DOCUMENT) || (fileEntryTypeId == curDLFileEntryType.getFileEntryTypeId()) || DLFileEntryTypePermission.contains(permissionChecker, curDLFileEntryType, ActionKeys.VIEW)) {
+								%>
 
-								<aui:option label="<%= HtmlUtil.escape(curDLFileEntryType.getName(locale)) %>" selected="<%= (fileEntryTypeId == curDLFileEntryType.getPrimaryKey()) %>" value="<%= curDLFileEntryType.getPrimaryKey() %>" />
+									<aui:option label="<%= HtmlUtil.escape(curDLFileEntryType.getName(locale)) %>" selected="<%= (fileEntryTypeId == curDLFileEntryType.getPrimaryKey()) %>" value="<%= curDLFileEntryType.getPrimaryKey() %>" />
 
-							<%
+								<%
+									}
 								}
+								%>
+
+							</aui:select>
+						</c:when>
+						<c:otherwise>
+							<aui:input name="fileEntryTypeId" type="hidden" value="<%= fileEntryTypeId %>" />
+						</c:otherwise>
+					</c:choose>
+
+					<aui:input name="defaultLanguageId" type="hidden" value="<%= themeDisplay.getLanguageId() %>" />
+
+					<%
+					if (fileEntryTypeId > 0) {
+						try {
+							List<DDMStructure> ddmStructures = dlFileEntryType.getDDMStructures();
+
+							for (DDMStructure ddmStructure : ddmStructures) {
+								Fields fields = null;
+
+								try {
+									DLFileEntryMetadata fileEntryMetadata = DLFileEntryMetadataLocalServiceUtil.getFileEntryMetadata(ddmStructure.getStructureId(), fileVersionId);
+
+									fields = StorageEngineUtil.getFields(fileEntryMetadata.getDDMStorageId());
+								}
+								catch (Exception e) {
+								}
+					%>
+
+								<liferay-ddm:html
+									classNameId="<%= PortalUtil.getClassNameId(DDMStructure.class) %>"
+									classPK="<%= ddmStructure.getPrimaryKey() %>"
+									fields="<%= fields %>"
+									fieldsNamespace="<%= String.valueOf(ddmStructure.getPrimaryKey()) %>"
+									requestedLocale="<%= locale %>"
+								/>
+
+					<%
 							}
-							%>
-
-						</aui:select>
-					</c:when>
-					<c:otherwise>
-						<aui:input name="fileEntryTypeId" type="hidden" value="<%= fileEntryTypeId %>" />
-					</c:otherwise>
-				</c:choose>
-
-				<aui:input name="defaultLanguageId" type="hidden" value="<%= themeDisplay.getLanguageId() %>" />
-
-				<%
-				if (fileEntryTypeId > 0) {
-					try {
-						List<DDMStructure> ddmStructures = dlFileEntryType.getDDMStructures();
-
-						for (DDMStructure ddmStructure : ddmStructures) {
-							Fields fields = null;
-
-							try {
-								DLFileEntryMetadata fileEntryMetadata = DLFileEntryMetadataLocalServiceUtil.getFileEntryMetadata(ddmStructure.getStructureId(), fileVersionId);
-
-								fields = StorageEngineUtil.getFields(fileEntryMetadata.getDDMStorageId());
-							}
-							catch (Exception e) {
-							}
-				%>
-
-							<liferay-ddm:html
-								classNameId="<%= PortalUtil.getClassNameId(DDMStructure.class) %>"
-								classPK="<%= ddmStructure.getPrimaryKey() %>"
-								fields="<%= fields %>"
-								fieldsNamespace="<%= String.valueOf(ddmStructure.getPrimaryKey()) %>"
-								requestedLocale="<%= locale %>"
-							/>
-
-				<%
+						}
+						catch (Exception e) {
+							_log.error(e, e);
 						}
 					}
-					catch (Exception e) {
-						_log.error(e, e);
-					}
-				}
-				%>
+					%>
 
-			</c:if>
+				</c:if>
 
-			<liferay-ui:custom-attributes-available className="<%= DLFileEntryConstants.getClassName() %>">
-				<liferay-ui:custom-attribute-list
-					className="<%= DLFileEntryConstants.getClassName() %>"
-					classPK="<%= fileVersionId %>"
-					editable="<%= true %>"
-					label="<%= true %>"
-				/>
-			</liferay-ui:custom-attributes-available>
-		</c:if>
+				<liferay-ui:custom-attributes-available className="<%= DLFileEntryConstants.getClassName() %>">
+					<liferay-ui:custom-attribute-list
+						className="<%= DLFileEntryConstants.getClassName() %>"
+						classPK="<%= fileVersionId %>"
+						editable="<%= true %>"
+						label="<%= true %>"
+					/>
+				</liferay-ui:custom-attributes-available>
+			</c:when>
+			<c:otherwise>
+				<aui:input name="description" type="hidden" />
+			</c:otherwise>
+		</c:choose>
 
 		<c:if test="<%= fileEntry != null %>">
 			<aui:field-wrapper cssClass="revision" label="revision">
