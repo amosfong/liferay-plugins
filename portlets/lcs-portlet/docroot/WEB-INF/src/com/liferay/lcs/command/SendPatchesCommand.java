@@ -69,6 +69,11 @@ public class SendPatchesCommand implements Command {
 				DigesterUtil.digestHex(
 					Digester.MD5, String.valueOf(PatcherUtil.isConfigured())));
 
+			sb.append(
+				DigesterUtil.digestHex(
+					Digester.MD5,
+					String.valueOf(PatcherUtil.getPatchingToolVersion())));
+
 			String installedHashCode = DigesterUtil.digestHex(
 				Digester.MD5, sb.toString());
 
@@ -83,7 +88,9 @@ public class SendPatchesCommand implements Command {
 				}
 
 				payload.put("patches", patches);
-
+				payload.put(
+					"patchingToolVersion",
+					PatcherUtil.getPatchingToolVersion());
 				payload.put("patchLevels", ListUtil.fromArray(patchLevels));
 
 				ResponseCommandMessage responseCommandMessage =
