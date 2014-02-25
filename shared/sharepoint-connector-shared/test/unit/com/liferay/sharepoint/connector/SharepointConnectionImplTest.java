@@ -59,20 +59,20 @@ public class SharepointConnectionImplTest {
 
 		String filePath = folderPath + fileName;
 
-		_sharepointConnectionImpl.addFile(
+		_sharepointConnection.addFile(
 			folderPath, fileName, StringPool.BLANK,
 			_getHelloWorldInputStream());
 
-		Assert.assertNotNull(_sharepointConnectionImpl.getObject(filePath));
+		Assert.assertNotNull(_sharepointConnection.getObject(filePath));
 	}
 
 	private void _deleteAllSharepointObjects() throws SharepointException {
 		List<SharepointObject> sharepointObjects =
-			_sharepointConnectionImpl.getObjects(
+			_sharepointConnection.getObjects(
 				StringPool.FORWARD_SLASH, ObjectTypeFilter.ALL);
 
 		for (SharepointObject sharepointObject : sharepointObjects) {
-			_sharepointConnectionImpl.deleteObject(sharepointObject.getPath());
+			_sharepointConnection.deleteObject(sharepointObject.getPath());
 		}
 	}
 
@@ -100,7 +100,7 @@ public class SharepointConnectionImplTest {
 
 	private static final String _USERNAME = "Administrator";
 
-	private SharepointConnectionImpl _sharepointConnectionImpl =
+	private SharepointConnection _sharepointConnection =
 		new SharepointConnectionImpl(
 			_SERVER_PROTOCOL, _SERVER_ADDRESS, _SERVER_PORT, _SITE_PATH,
 			_LIBRARY_NAME, _USERNAME, _PASSWORD);
