@@ -53,14 +53,13 @@ public class SharepointConnectionImplTest {
 
 	@Test
 	public void testAddFile() throws Exception {
-		String fileName = "CreatedFile " + _testId + ".txt";
-
 		String folderPath = StringPool.FORWARD_SLASH;
-
-		String filePath = folderPath + fileName;
+		String fileName = "CreatedFile " + _testId + ".txt";
 
 		_sharepointConnection.addFile(
 			folderPath, fileName, StringPool.BLANK, getInputStream());
+
+		String filePath = folderPath + fileName;
 
 		Assert.assertNotNull(_sharepointConnection.getObject(filePath));
 	}
