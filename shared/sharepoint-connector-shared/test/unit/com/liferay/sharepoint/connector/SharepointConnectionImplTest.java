@@ -60,8 +60,7 @@ public class SharepointConnectionImplTest {
 		String filePath = folderPath + fileName;
 
 		_sharepointConnection.addFile(
-			folderPath, fileName, StringPool.BLANK,
-			getHelloWorldInputStream());
+			folderPath, fileName, StringPool.BLANK, getInputStream());
 
 		Assert.assertNotNull(_sharepointConnection.getObject(filePath));
 	}
@@ -76,7 +75,7 @@ public class SharepointConnectionImplTest {
 		}
 	}
 
-	protected InputStream getHelloWorldInputStream() throws IOException {
+	protected InputStream getInputStream() throws IOException {
 		return new ByteArrayInputStream(_HELLO_WORLD.getBytes("UTF-8"));
 	}
 
