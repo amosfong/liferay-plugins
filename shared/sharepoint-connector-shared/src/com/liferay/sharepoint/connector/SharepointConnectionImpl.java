@@ -288,22 +288,10 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		}
 
 		if (!sitePath.equals(StringPool.BLANK)) {
-			if (sitePath.equals(StringPool.SLASH)) {
-				throw new IllegalArgumentException(
-					"Use an empty string for root site path (instead of '/')");
-			}
 
-			if (!sitePath.startsWith(StringPool.SLASH)) {
-				throw new IllegalArgumentException(
-					"Site path must start with /");
-			}
+		 	// Validate site path with
 
-			if (!sitePath.equals(StringPool.SLASH) &&
-				sitePath.endsWith(StringPool.SLASH)) {
-
-				throw new IllegalArgumentException(
-					"Site path must not end with /");
-			}
+			new PathHelper(null, sitePath);
 		}
 	}
 
