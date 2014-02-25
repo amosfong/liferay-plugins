@@ -241,9 +241,9 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 	protected void initCopySoap() {
 		try {
-			URL wsdlURL = getWSDLURL(_WSDL_FILE_NAME_COPY);
-
 			CopyLocator copyLocator = new CopyLocator();
+
+			URL wsdlURL = getWSDLURL(_WSDL_FILE_NAME_COPY);
 
 			_copySoap = copyLocator.getCopySoap(wsdlURL);
 
@@ -258,9 +258,9 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 	protected void initListsSoap() {
 		try {
-			URL wsdlURL = getWSDLURL(_WSDL_FILE_NAME_LISTS);
-
 			ListsLocator listsLocator = new ListsLocator();
+
+			URL wsdlURL = getWSDLURL(_WSDL_FILE_NAME_LISTS);
 
 			_listsSoap = listsLocator.getListsSoap(wsdlURL);
 
