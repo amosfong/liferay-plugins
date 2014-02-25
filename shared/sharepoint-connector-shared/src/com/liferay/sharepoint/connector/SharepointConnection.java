@@ -76,6 +76,8 @@ public interface SharepointConnection {
 
 	public int getServerPort();
 
+	public String getServerProtocol();
+
 	public String getSitePath();
 
 	public String getUsername();
@@ -112,7 +114,5 @@ public interface SharepointConnection {
 		ALL, FILES, FOLDERS
 
 	}
-
-	String getServerProtocol();
 
 }

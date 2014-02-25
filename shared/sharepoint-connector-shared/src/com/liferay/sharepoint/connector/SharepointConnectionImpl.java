@@ -43,11 +43,13 @@ import org.apache.axis.client.Stub;
  */
 public class SharepointConnectionImpl implements SharepointConnection {
 
-	public static final long ROOT_FOLDER_SHAREPOINT_ID = -1;
+	public static final long SHAREPOINT_ROOT_FOLDER_ID = -1;
 
 	public SharepointConnectionImpl(
 		String serverProtocol, String serverAddress, int serverPort,
 		String sitePath, String libraryName, String username, String password) {
+
+		_validateConnectionConfiguration(sitePath, username, password);
 
 		_serverProtocol = serverProtocol;
 		_serverAddress = serverAddress;
@@ -58,8 +60,6 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		_password = password;
 
 		_pathHelper = new PathHelper(libraryName, sitePath);
-
-		_validateConnectionConfiguration();
 
 		_initCopySoap();
 		_initListsSoap();
@@ -104,7 +104,6 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 	@Override
 	public boolean checkOutFile(String filePath) throws SharepointException {
-
 		return false;
 	}
 
@@ -124,13 +123,11 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 	@Override
 	public SharepointObject getObject(long id) throws SharepointException {
-
 		return null;
 	}
 
 	@Override
 	public SharepointObject getObject(String path) throws SharepointException {
-
 		return null;
 	}
 
@@ -280,28 +277,30 @@ public class SharepointConnectionImpl implements SharepointConnection {
 			_copySoap, _listsSoap);
 	}
 
-	private void _validateConnectionConfiguration() {
-		if (Validator.isNull(_username)) {
+	private void _validateConnectionConfiguration(
+		String sitePath, String username, String password) {
+
+		if (Validator.isNull(username)) {
 			throw new SharepointRuntimeException("Username cannot be null");
 		}
 
-		if (Validator.isNull(_password)) {
+		if (Validator.isNull(password)) {
 			throw new SharepointRuntimeException("Password cannot be null");
 		}
 
-		if (!_sitePath.equals(StringPool.BLANK)) {
-			if (_sitePath.equals(StringPool.SLASH)) {
+		if (!sitePath.equals(StringPool.BLANK)) {
+			if (sitePath.equals(StringPool.SLASH)) {
 				throw new IllegalArgumentException(
 					"Use an empty string for root site path (instead of '/')");
 			}
 
-			if (!_sitePath.startsWith(StringPool.SLASH)) {
+			if (!sitePath.startsWith(StringPool.SLASH)) {
 				throw new IllegalArgumentException(
 					"Site path must start with /");
 			}
 
-			if (!_sitePath.equals(StringPool.SLASH) &&
-				_sitePath.endsWith(StringPool.SLASH)) {
+			if (!sitePath.equals(StringPool.SLASH) &&
+				sitePath.endsWith(StringPool.SLASH)) {
 
 				throw new IllegalArgumentException(
 					"Site path must not end with /");
