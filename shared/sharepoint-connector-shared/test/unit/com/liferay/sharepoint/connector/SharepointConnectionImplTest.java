@@ -41,14 +41,14 @@ public class SharepointConnectionImplTest {
 	public void setUp() throws Exception {
 		_testId = System.currentTimeMillis();
 
-		_setUpMocks();
+		setUpMocks();
 
-		_deleteAllSharepointObjects();
+		deleteAllSharepointObjects();
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		_deleteAllSharepointObjects();
+		deleteAllSharepointObjects();
 	}
 
 	@Test
@@ -61,12 +61,12 @@ public class SharepointConnectionImplTest {
 
 		_sharepointConnection.addFile(
 			folderPath, fileName, StringPool.BLANK,
-			_getHelloWorldInputStream());
+			getHelloWorldInputStream());
 
 		Assert.assertNotNull(_sharepointConnection.getObject(filePath));
 	}
 
-	private void _deleteAllSharepointObjects() throws SharepointException {
+	protected void deleteAllSharepointObjects() throws SharepointException {
 		List<SharepointObject> sharepointObjects =
 			_sharepointConnection.getObjects(
 				StringPool.FORWARD_SLASH, ObjectTypeFilter.ALL);
@@ -76,11 +76,11 @@ public class SharepointConnectionImplTest {
 		}
 	}
 
-	private InputStream _getHelloWorldInputStream() throws IOException {
+	protected InputStream getHelloWorldInputStream() throws IOException {
 		return new ByteArrayInputStream(_HELLO_WORLD.getBytes("UTF-8"));
 	}
 
-	private void _setUpMocks() {
+	protected void setUpMocks() {
 		HtmlUtil htmlUtil = new HtmlUtil();
 		
 		htmlUtil.setHtml(new HtmlImpl());
