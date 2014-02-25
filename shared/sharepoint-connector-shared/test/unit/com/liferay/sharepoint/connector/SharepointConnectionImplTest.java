@@ -81,7 +81,9 @@ public class SharepointConnectionImplTest {
 	}
 
 	private void _setUpMocks() {
-		new HtmlUtil().setHtml(new HtmlImpl());
+		HtmlUtil htmlUtil = new HtmlUtil();
+		
+		htmlUtil.setHtml(new HtmlImpl());
 	}
 
 	private static final String _HELLO_WORLD = "Hello world!";
