@@ -223,7 +223,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		stub._setProperty(Call.PASSWORD_PROPERTY, _password);
 	}
 
-	protected URL getWsdlURL(String serviceName) {
+	protected URL getWSDLURL(String serviceName) {
 		String wsdlResource = "/wsdl/" + serviceName + ".wsdl";
 
 		try {
@@ -239,7 +239,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 	protected void initCopySoap() {
 		try {
-			URL wsdlURL = getWsdlURL(_WSDL_FILE_NAME_COPY);
+			URL wsdlURL = getWSDLURL(_WSDL_FILE_NAME_COPY);
 
 			CopyLocator copyLocator = new CopyLocator();
 
@@ -256,7 +256,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 	protected void initListsSoap() {
 		try {
-			URL wsdlURL = getWsdlURL(_WSDL_FILE_NAME_LISTS);
+			URL wsdlURL = getWSDLURL(_WSDL_FILE_NAME_LISTS);
 
 			ListsLocator listsLocator = new ListsLocator();
 
