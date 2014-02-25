@@ -14,6 +14,7 @@
 
 package com.liferay.sharepoint.connector;
 
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.sharepoint.connector.operation.AddOrUpdateFileOperation;
@@ -72,12 +73,10 @@ public class SharepointConnectionImpl implements SharepointConnection {
 			String folderPath, String fileName, String changeLog,
 			InputStream inputStream)
 		throws SharepointException {
-
+		
 		String filePath = _pathHelper.buildPath(folderPath, fileName);
 
-		if (changeLog == null) {
-			changeLog = StringPool.BLANK;
-		}
+		changeLog = GetterUtil.getString(changeLog);
 
 		_addOrUpdateFileOperation.execute(filePath, changeLog, inputStream);
 	}
