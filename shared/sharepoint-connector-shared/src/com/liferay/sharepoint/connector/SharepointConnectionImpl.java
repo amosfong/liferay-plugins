@@ -227,7 +227,9 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		String wsdlResource = "/wsdl/" + serviceName + ".wsdl";
 
 		try {
-			URL wsdlResourceURL = getClass().getResource(wsdlResource);
+			Class<?> clazz = getClass();
+
+			URL wsdlResourceURL = clazz.getResource(wsdlResource);
 
 			return new URL(wsdlResourceURL.toExternalForm());
 		}
