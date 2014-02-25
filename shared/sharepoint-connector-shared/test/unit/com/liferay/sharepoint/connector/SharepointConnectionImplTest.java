@@ -32,19 +32,6 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * <p>
- * WARNING: This test is intended to be run manually from the IDE with a valid
- * Sharepoint server available.
- * </p>
- * <p>
- * WARNING: This test will completely ** ZAP ** the contents of the Sharepoint
- * server to which it connects.
- * </p>
- * <p>
- * This test must be configured to use a valid Sharepoint server. It tests all
- * the functionality of the connector by creating and deleting files and
- * folders in that repository.
- * </p>
  * @author Iván Zaera
  */
 @Ignore
