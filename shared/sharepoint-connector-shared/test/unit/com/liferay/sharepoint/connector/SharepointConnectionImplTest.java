@@ -80,7 +80,7 @@ public class SharepointConnectionImplTest {
 
 	protected void setUpMocks() {
 		HtmlUtil htmlUtil = new HtmlUtil();
-		
+
 		htmlUtil.setHtml(new HtmlImpl());
 	}
 

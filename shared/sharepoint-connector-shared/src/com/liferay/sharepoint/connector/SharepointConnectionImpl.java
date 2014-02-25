@@ -73,7 +73,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 			String folderPath, String fileName, String changeLog,
 			InputStream inputStream)
 		throws SharepointException {
-		
+
 		String filePath = _pathHelper.buildPath(folderPath, fileName);
 
 		changeLog = GetterUtil.getString(changeLog);
@@ -280,11 +280,11 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		String sitePath, String username, String password) {
 
 		if (Validator.isNull(username)) {
-			throw new SharepointRuntimeException("Username cannot be null");
+			throw new SharepointRuntimeException("Username is null");
 		}
 
 		if (Validator.isNull(password)) {
-			throw new SharepointRuntimeException("Password cannot be null");
+			throw new SharepointRuntimeException("Password is null");
 		}
 
 		if (!sitePath.equals(StringPool.BLANK)) {
