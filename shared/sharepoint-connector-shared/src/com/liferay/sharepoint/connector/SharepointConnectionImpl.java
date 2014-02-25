@@ -240,10 +240,10 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	}
 
 	protected void initCopySoap() {
+		URL wsdlURL = getWSDLURL("copy");
+
 		try {
 			CopyLocator copyLocator = new CopyLocator();
-
-			URL wsdlURL = getWSDLURL(_WSDL_FILE_NAME_COPY);
 
 			_copySoap = copyLocator.getCopySoap(wsdlURL);
 
@@ -251,16 +251,15 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		}
 		catch (ServiceException se) {
 			throw new SharepointRuntimeException(
-				"Unable to configure SOAP endpoint: " + _WSDL_FILE_NAME_COPY,
-				se);
+				"Unable to configure SOAP endpoint " + wsdlURL, se);
 		}
 	}
 
 	protected void initListsSoap() {
+		URL wsdlURL = getWSDLURL("lists");
+
 		try {
 			ListsLocator listsLocator = new ListsLocator();
-
-			URL wsdlURL = getWSDLURL(_WSDL_FILE_NAME_LISTS);
 
 			_listsSoap = listsLocator.getListsSoap(wsdlURL);
 
@@ -268,8 +267,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		}
 		catch (ServiceException se) {
 			throw new SharepointRuntimeException(
-				"Unable to configure SOAP endpoint: " + _WSDL_FILE_NAME_LISTS,
-				se);
+				"Unable to configure SOAP endpoint " + wsdlURL, se);
 		}
 	}
 
@@ -308,10 +306,6 @@ public class SharepointConnectionImpl implements SharepointConnection {
 			}
 		}
 	}
-
-	private static final String _WSDL_FILE_NAME_COPY = "copy";
-
-	private static final String _WSDL_FILE_NAME_LISTS = "lists";
 
 	private AddOrUpdateFileOperation _addOrUpdateFileOperation;
 	private CopySoap _copySoap;
