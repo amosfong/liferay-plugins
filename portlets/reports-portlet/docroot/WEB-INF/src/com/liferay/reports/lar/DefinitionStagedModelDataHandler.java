@@ -87,18 +87,19 @@ public class DefinitionStagedModelDataHandler
 			definition);
 
 		for (String fullFileName : definition.getAttachmentsFiles()) {
+			Element attachmentElement = definitionElement.addElement(
+				"attachment");
+
 			String binPath = ExportImportPathUtil.getModelPath(
 				definition, fullFileName);
+
+			attachmentElement.addAttribute("bin-path", binPath);
+
+			attachmentElement.addAttribute("full-file-name", fullFileName);
 
 			byte[] bytes = DLStoreUtil.getFileAsBytes(
 				definition.getCompanyId(), CompanyConstants.SYSTEM,
 				fullFileName);
-
-			Element attachmentElement = definitionElement.addElement(
-				"attachment");
-
-			attachmentElement.addAttribute("bin-path", binPath);
-			attachmentElement.addAttribute("full-file-name", fullFileName);
 
 			portletDataContext.addZipEntry(binPath, bytes);
 		}
