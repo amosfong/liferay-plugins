@@ -68,7 +68,6 @@ public class SendPatchesCommand implements Command {
 			sb.append(
 				DigesterUtil.digestHex(
 					Digester.MD5, String.valueOf(PatcherUtil.isConfigured())));
-
 			sb.append(
 				DigesterUtil.digestHex(
 					Digester.MD5,
