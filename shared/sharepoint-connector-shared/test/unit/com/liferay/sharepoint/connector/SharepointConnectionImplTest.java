@@ -43,12 +43,12 @@ public class SharepointConnectionImplTest {
 
 		setUpMocks();
 
-		deleteAllSharepointObjects();
+		deleteSharepointObjects();
 	}
 
 	@After
 	public void tearDown() throws Exception {
-		deleteAllSharepointObjects();
+		deleteSharepointObjects();
 	}
 
 	@Test
@@ -65,7 +65,7 @@ public class SharepointConnectionImplTest {
 		Assert.assertNotNull(_sharepointConnection.getObject(filePath));
 	}
 
-	protected void deleteAllSharepointObjects() throws SharepointException {
+	protected void deleteSharepointObjects() throws SharepointException {
 		List<SharepointObject> sharepointObjects =
 			_sharepointConnection.getObjects(
 				StringPool.FORWARD_SLASH, ObjectTypeFilter.ALL);
