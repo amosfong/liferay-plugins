@@ -235,7 +235,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		}
 		catch (MalformedURLException murle) {
 			throw new SharepointRuntimeException(
-				"Unable to load WSDL resource " + name, murle);
+				"Unable to load WSDL " + name, murle);
 		}
 	}
 
