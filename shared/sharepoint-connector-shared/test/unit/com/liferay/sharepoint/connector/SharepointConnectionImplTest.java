@@ -37,22 +37,6 @@ import org.junit.Test;
 @Ignore
 public class SharepointConnectionImplTest {
 
-	public static final String HELLO_WORLD = "Hello world!";
-
-	public static final String LIBRARY_NAME = "Documents";
-
-	public static final String PASSWORD = "password";
-
-	public static final String SERVER_ADDRESS = "liferay-20jf4ic";
-
-	public static final int SERVER_PORT = 80;
-
-	public static final String SERVER_PROTOCOL = "http";
-
-	public static final String SITE_PATH = StringPool.BLANK;
-
-	public static final String USERNAME = "Administrator";
-
 	@Before
 	public void setUp() throws Exception {
 		_testId = System.currentTimeMillis();
@@ -93,17 +77,33 @@ public class SharepointConnectionImplTest {
 	}
 
 	private InputStream _getHelloWorldInputStream() throws IOException {
-		return new ByteArrayInputStream(HELLO_WORLD.getBytes("UTF-8"));
+		return new ByteArrayInputStream(_HELLO_WORLD.getBytes("UTF-8"));
 	}
 
 	private void _setUpMocks() {
 		new HtmlUtil().setHtml(new HtmlImpl());
 	}
 
+	private static final String _HELLO_WORLD = "Hello world!";
+
+	private static final String _LIBRARY_NAME = "Documents";
+
+	private static final String _PASSWORD = "password";
+
+	private static final String _SERVER_ADDRESS = "liferay-20jf4ic";
+
+	private static final int _SERVER_PORT = 80;
+
+	private static final String _SERVER_PROTOCOL = "http";
+
+	private static final String _SITE_PATH = StringPool.BLANK;
+
+	private static final String _USERNAME = "Administrator";
+
 	private SharepointConnectionImpl _sharepointConnectionImpl =
 		new SharepointConnectionImpl(
-			SERVER_PROTOCOL, SERVER_ADDRESS, SERVER_PORT, SITE_PATH,
-			LIBRARY_NAME, USERNAME, PASSWORD);
+			_SERVER_PROTOCOL, _SERVER_ADDRESS, _SERVER_PORT, _SITE_PATH,
+			_LIBRARY_NAME, _USERNAME, _PASSWORD);
 	private long _testId;
 
 }
