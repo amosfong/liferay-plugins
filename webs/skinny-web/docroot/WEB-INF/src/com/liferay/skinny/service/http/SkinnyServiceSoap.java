@@ -22,13 +22,11 @@ import com.liferay.skinny.service.SkinnyServiceUtil;
 import java.rmi.RemoteException;
 
 /**
- * <p>
- * This class provides a SOAP utility for the
+ * Provides the SOAP utility for the
  * {@link com.liferay.skinny.service.SkinnyServiceUtil} service utility. The
  * static methods of this class calls the same methods of the service utility.
  * However, the signatures are different because it is difficult for SOAP to
  * support certain types.
- * </p>
  *
  * <p>
  * The benefits of using the SOAP utility is that it is cross platform
@@ -38,9 +36,8 @@ import java.rmi.RemoteException;
  * </p>
  *
  * <p>
- * You can see a list of services at
- * http://localhost:8080/api/secure/axis. Set the property
- * <b>axis.servlet.hosts.allowed</b> in portal.properties to configure
+ * You can see a list of services at http://localhost:8080/api/axis. Set the
+ * property <b>axis.servlet.hosts.allowed</b> in portal.properties to configure
  * security.
  * </p>
  *
@@ -48,9 +45,9 @@ import java.rmi.RemoteException;
  * The SOAP utility is only generated for remote services.
  * </p>
  *
- * @author    Brian Wing Shun Chan
- * @see       SkinnyServiceHttp
- * @see       com.liferay.skinny.service.SkinnyServiceUtil
+ * @author Brian Wing Shun Chan
+ * @see SkinnyServiceHttp
+ * @see com.liferay.skinny.service.SkinnyServiceUtil
  * @generated
  */
 public class SkinnyServiceSoap {

@@ -18,6 +18,7 @@ import com.liferay.portal.service.InvokableService;
 
 /**
  * @author Brian Wing Shun Chan
+ * @generated
  */
 public class SkinnyServiceClp implements SkinnyService {
 	public SkinnyServiceClp(InvokableService invokableService) {
@@ -43,6 +44,7 @@ public class SkinnyServiceClp implements SkinnyService {
 			};
 	}
 
+	@Override
 	public java.lang.String getBeanIdentifier() {
 		Object returnObj = null;
 
@@ -65,6 +67,7 @@ public class SkinnyServiceClp implements SkinnyService {
 		return (java.lang.String)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public void setBeanIdentifier(java.lang.String beanIdentifier) {
 		try {
 			_invokableService.invokeMethod(_methodName1,
@@ -84,12 +87,14 @@ public class SkinnyServiceClp implements SkinnyService {
 		}
 	}
 
+	@Override
 	public java.lang.Object invokeMethod(java.lang.String name,
 		java.lang.String[] parameterTypes, java.lang.Object[] arguments)
 		throws java.lang.Throwable {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
 	public java.util.List<com.liferay.skinny.model.SkinnyDDLRecord> getSkinnyDDLRecords(
 		long ddlRecordSetId) throws java.lang.Exception {
 		Object returnObj = null;
@@ -117,6 +122,7 @@ public class SkinnyServiceClp implements SkinnyService {
 		return (java.util.List<com.liferay.skinny.model.SkinnyDDLRecord>)ClpSerializer.translateOutput(returnObj);
 	}
 
+	@Override
 	public java.util.List<com.liferay.skinny.model.SkinnyJournalArticle> getSkinnyJournalArticles(
 		long companyId, java.lang.String groupName,
 		java.lang.String journalStructureId, java.lang.String locale)
