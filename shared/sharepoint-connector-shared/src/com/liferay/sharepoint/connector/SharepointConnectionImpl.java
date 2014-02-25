@@ -224,18 +224,18 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	}
 
 	protected URL getWSDLURL(String serviceName) {
-		String wsdlResource = "/wsdl/" + serviceName + ".wsdl";
+		String name = "/wsdl/" + serviceName + ".wsdl";
 
 		try {
 			Class<?> clazz = getClass();
 
-			URL wsdlResourceURL = clazz.getResource(wsdlResource);
+			URL wsdlResourceURL = clazz.getResource(name);
 
 			return new URL(wsdlResourceURL.toExternalForm());
 		}
 		catch (MalformedURLException murle) {
 			throw new SharepointRuntimeException(
-				"Unable to load WSDL resource " + wsdlResource, murle);
+				"Unable to load WSDL resource " + name, murle);
 		}
 	}
 
