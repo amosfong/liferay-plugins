@@ -49,7 +49,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		String serverProtocol, String serverAddress, int serverPort,
 		String sitePath, String libraryName, String username, String password) {
 
-		_validateConnectionConfiguration(sitePath, username, password);
+		validateConnectionConfiguration(sitePath, username, password);
 
 		_serverProtocol = serverProtocol;
 		_serverAddress = serverAddress;
@@ -61,10 +61,10 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 		_pathHelper = new PathHelper(libraryName, sitePath);
 
-		_initCopySoap();
-		_initListsSoap();
+		initCopySoap();
+		initListsSoap();
 
-		_initOperations();
+		initOperations();
 	}
 
 	@Override
@@ -218,13 +218,13 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		throws SharepointException {
 	}
 
-	private void _configureStub(Stub stub, URL wsdlURL) {
+	protected void configureStub(Stub stub, URL wsdlURL) {
 		stub._setProperty(Stub.ENDPOINT_ADDRESS_PROPERTY, wsdlURL.toString());
 		stub._setProperty(Call.USERNAME_PROPERTY, _username);
 		stub._setProperty(Call.PASSWORD_PROPERTY, _password);
 	}
 
-	private URL _getWsdlURL(String serviceName) {
+	protected URL getWsdlURL(String serviceName) {
 		String wsdlResource = "/wsdl/" + serviceName + ".wsdl";
 
 		try {
@@ -238,15 +238,15 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		}
 	}
 
-	private void _initCopySoap() {
+	protected void initCopySoap() {
 		try {
-			URL wsdlURL = _getWsdlURL(WSDL_FILE_NAME_COPY);
+			URL wsdlURL = getWsdlURL(WSDL_FILE_NAME_COPY);
 
 			CopyLocator copyLocator = new CopyLocator();
 
 			_copySoap = copyLocator.getCopySoap(wsdlURL);
 
-			_configureStub((Stub)_copySoap, wsdlURL);
+			configureStub((Stub)_copySoap, wsdlURL);
 		}
 		catch (ServiceException se) {
 			throw new SharepointRuntimeException(
@@ -255,15 +255,15 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		}
 	}
 
-	private void _initListsSoap() {
+	protected void initListsSoap() {
 		try {
-			URL wsdlURL = _getWsdlURL(WSDL_FILE_NAME_LISTS);
+			URL wsdlURL = getWsdlURL(WSDL_FILE_NAME_LISTS);
 
 			ListsLocator listsLocator = new ListsLocator();
 
 			_listsSoap = listsLocator.getListsSoap(wsdlURL);
 
-			_configureStub((Stub)_listsSoap, wsdlURL);
+			configureStub((Stub)_listsSoap, wsdlURL);
 		}
 		catch (ServiceException se) {
 			throw new SharepointRuntimeException(
@@ -272,12 +272,12 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		}
 	}
 
-	private void _initOperations() {
+	protected void initOperations() {
 		_addOrUpdateFileOperation = new AddOrUpdateFileOperation(
 			_copySoap, _listsSoap);
 	}
 
-	private void _validateConnectionConfiguration(
+	protected void validateConnectionConfiguration(
 		String sitePath, String username, String password) {
 
 		if (Validator.isNull(username)) {
