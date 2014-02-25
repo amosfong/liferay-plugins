@@ -279,19 +279,19 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	protected void validateConnectionConfiguration(
 		String sitePath, String username, String password) {
 
+		if (!sitePath.equals(StringPool.BLANK)) {
+
+		 	// Validate site path with
+
+			new PathHelper(null, sitePath);
+		}
+
 		if (Validator.isNull(username)) {
 			throw new SharepointRuntimeException("Username is null");
 		}
 
 		if (Validator.isNull(password)) {
 			throw new SharepointRuntimeException("Password is null");
-		}
-
-		if (!sitePath.equals(StringPool.BLANK)) {
-
-		 	// Validate site path with
-
-			new PathHelper(null, sitePath);
 		}
 	}
 
