@@ -23,7 +23,6 @@ import com.microsoft.schemas.sharepoint.soap.CopyErrorCode;
 import com.microsoft.schemas.sharepoint.soap.CopyResult;
 import com.microsoft.schemas.sharepoint.soap.CopySoap;
 import com.microsoft.schemas.sharepoint.soap.FieldInformation;
-import com.microsoft.schemas.sharepoint.soap.ListsSoap;
 import com.microsoft.schemas.sharepoint.soap.holders.CopyResultCollectionHolder;
 
 import java.io.IOException;
@@ -40,10 +39,11 @@ import org.apache.axis.holders.UnsignedIntHolder;
  */
 public class AddOrUpdateFileOperation extends BaseOperation {
 
-	public AddOrUpdateFileOperation(CopySoap copySoap, ListsSoap listsSoap) {
-		_copySoap = copySoap;
+	public AddOrUpdateFileOperation(
+		CopySoap copySoap, CheckInFileOperation checkInFileOperation) {
 
-		_checkInFileOperation = new CheckInFileOperation(listsSoap);
+		_copySoap = copySoap;
+		_checkInFileOperation = checkInFileOperation;
 	}
 
 	public void execute(

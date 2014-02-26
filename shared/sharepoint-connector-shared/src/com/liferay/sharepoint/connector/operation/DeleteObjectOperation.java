@@ -20,20 +20,18 @@ import com.liferay.sharepoint.connector.schema.batch.Batch;
 import com.liferay.sharepoint.connector.schema.batch.BatchField;
 import com.liferay.sharepoint.connector.schema.batch.BatchMethod;
 
-import com.microsoft.schemas.sharepoint.soap.ListsSoap;
-
 /**
  * @author Ivan Zaera
  */
 public class DeleteObjectOperation extends BaseOperation {
 
-	public DeleteObjectOperation(ListsSoap listsSoap, PathHelper pathHelper) {
-		_pathHelper = pathHelper;
+	public DeleteObjectOperation(
+		PathHelper pathHelper, BatchOperation batchOperation,
+		GetObjectByPathOperation getObjectByPathOperation) {
 
-		_batchOperation = new BatchOperation(
-			listsSoap, _pathHelper.getLibraryName());
-		_getObjectByPathOperation = new GetObjectByPathOperation(
-			listsSoap, _pathHelper);
+		_pathHelper = pathHelper;
+		_batchOperation = batchOperation;
+		_getObjectByPathOperation = getObjectByPathOperation;
 	}
 
 	public void execute(String path) throws SharepointException {

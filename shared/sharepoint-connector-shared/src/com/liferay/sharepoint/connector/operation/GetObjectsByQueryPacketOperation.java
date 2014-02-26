@@ -20,7 +20,6 @@ import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.SharepointObject;
 import com.liferay.sharepoint.connector.SharepointResultException;
 
-import com.microsoft.schemas.sharepoint.soap.ListsSoap;
 import com.microsoft.webservices.SharePoint.QueryService.QueryServiceSoap;
 
 import java.rmi.RemoteException;
@@ -35,15 +34,14 @@ import java.util.List;
 public class GetObjectsByQueryPacketOperation extends BaseOperation {
 
 	public GetObjectsByQueryPacketOperation(
-		ListsSoap listSoap, QueryServiceSoap queryServiceSoap,
-		PathHelper pathHelper, String serviceURL) {
+		QueryServiceSoap queryServiceSoap, PathHelper pathHelper,
+		GetObjectByPathOperation getObjectByPathOperation, String serviceURL) {
 
 		_queryServiceSoap = queryServiceSoap;
+		_pathHelper = pathHelper;
+		_getObjectByPathOperation = getObjectByPathOperation;
 
-		_getObjectByPathOperation = new GetObjectByPathOperation(
-			listSoap, pathHelper);
-
-		_searchPrefix = serviceURL + pathHelper.getLibraryName();
+		_searchPrefix = serviceURL + _pathHelper.getLibraryName();
 
 		_searchPrefixLength = _searchPrefix.length();
 	}
@@ -110,6 +108,7 @@ public class GetObjectsByQueryPacketOperation extends BaseOperation {
 		GetObjectsByQueryPacketOperation.class);
 
 	private GetObjectByPathOperation _getObjectByPathOperation;
+	private PathHelper _pathHelper;
 	private QueryServiceSoap _queryServiceSoap;
 	private String _searchPrefix;
 	private int _searchPrefixLength;

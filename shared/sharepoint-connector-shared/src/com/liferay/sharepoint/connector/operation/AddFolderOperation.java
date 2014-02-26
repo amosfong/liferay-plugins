@@ -19,18 +19,16 @@ import com.liferay.sharepoint.connector.schema.batch.Batch;
 import com.liferay.sharepoint.connector.schema.batch.BatchField;
 import com.liferay.sharepoint.connector.schema.batch.BatchMethod;
 
-import com.microsoft.schemas.sharepoint.soap.ListsSoap;
-
 /**
  * @author Ivan Zaera
  */
 public class AddFolderOperation extends BaseOperation {
 
-	public AddFolderOperation(ListsSoap listsSoap, PathHelper pathHelper) {
-		_pathHelper = pathHelper;
+	public AddFolderOperation(
+		PathHelper pathHelper, BatchOperation batchOperation) {
 
-		_batchOperation = new BatchOperation(
-			listsSoap, _pathHelper.getLibraryName());
+		_pathHelper = pathHelper;
+		_batchOperation = batchOperation;
 	}
 
 	public void execute(String folderPath, String folderName)

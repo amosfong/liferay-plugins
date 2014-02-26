@@ -25,7 +25,6 @@ import com.liferay.sharepoint.connector.SharepointResultException;
 import com.microsoft.schemas.sharepoint.soap.CopyErrorCode;
 import com.microsoft.schemas.sharepoint.soap.CopyResult;
 import com.microsoft.schemas.sharepoint.soap.CopySoap;
-import com.microsoft.schemas.sharepoint.soap.ListsSoap;
 import com.microsoft.schemas.sharepoint.soap.holders.CopyResultCollectionHolder;
 
 import java.net.URL;
@@ -42,17 +41,18 @@ import org.apache.axis.holders.UnsignedIntHolder;
 public class CopyObjectOperation extends BaseOperation {
 
 	public CopyObjectOperation(
-		CopySoap copySoap, ListsSoap listsSoap, PathHelper pathHelper) {
+		CopySoap copySoap, PathHelper pathHelper,
+		AddFolderOperation addFolderOperation,
+		CheckInFileOperation checkInFileOperation,
+		GetObjectByPathOperation getObjectByPathOperation,
+		GetObjectsByFolderOperation getObjectsByFolderOperation) {
 
 		_copySoap = copySoap;
 		_pathHelper = pathHelper;
-
-		_addFolderOperation = new AddFolderOperation(listsSoap, pathHelper);
-		_checkInFileOperation = new CheckInFileOperation(listsSoap);
-		_getObjectByPathOperation = new GetObjectByPathOperation(
-			listsSoap, _pathHelper);
-		_getObjectsByFolderOperation = new GetObjectsByFolderOperation(
-			listsSoap, pathHelper);
+		_addFolderOperation = addFolderOperation;
+		_checkInFileOperation = checkInFileOperation;
+		_getObjectByPathOperation = getObjectByPathOperation;
+		_getObjectsByFolderOperation = getObjectsByFolderOperation;
 	}
 
 	public void execute(String path, String newPath)

@@ -18,12 +18,14 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.sharepoint.connector.operation.AddFolderOperation;
 import com.liferay.sharepoint.connector.operation.AddOrUpdateFileOperation;
+import com.liferay.sharepoint.connector.operation.BatchOperation;
 import com.liferay.sharepoint.connector.operation.CancelCheckOutFileOperation;
 import com.liferay.sharepoint.connector.operation.CheckInFileOperation;
 import com.liferay.sharepoint.connector.operation.CheckOutFileOperation;
 import com.liferay.sharepoint.connector.operation.CopyObjectOperation;
 import com.liferay.sharepoint.connector.operation.DeleteObjectOperation;
 import com.liferay.sharepoint.connector.operation.GetContentOperation;
+import com.liferay.sharepoint.connector.operation.GetObjectByPathOperation;
 import com.liferay.sharepoint.connector.operation.GetObjectsByFolderOperation;
 import com.liferay.sharepoint.connector.operation.GetObjectsByNameOperation;
 import com.liferay.sharepoint.connector.operation.GetObjectsByQueryOperation;
@@ -317,10 +319,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	}
 
 	protected void initOperations() {
-		_addFolderOperation = new AddFolderOperation(_listsSoap, _pathHelper);
-
-		_addOrUpdateFileOperation = new AddOrUpdateFileOperation(
-			_copySoap, _listsSoap);
+		_batchOperation = new BatchOperation(_listsSoap, _pathHelper);
 
 		_cancelCheckOutFileOperation = new CancelCheckOutFileOperation(
 			_listsSoap);
@@ -329,25 +328,36 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 		_checkOutFileOperation = new CheckOutFileOperation(_listsSoap);
 
-		_copyObjectOperation = new CopyObjectOperation(
-			_copySoap, _listsSoap, _pathHelper);
-
-		_deleteObjectOperation = new DeleteObjectOperation(
-			_listsSoap, _pathHelper);
-
 		_getContentOperation = new GetContentOperation(_username, _password);
-
-		_getObjectsByFolderOperation = new GetObjectsByFolderOperation(
-			_listsSoap, _pathHelper);
-
-		_getObjectsByNameOperation = new GetObjectsByNameOperation(
-			_listsSoap, _pathHelper);
 
 		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
 			_listsSoap, _pathHelper);
 
+		_addFolderOperation = new AddFolderOperation(
+			_pathHelper, _batchOperation);
+
+		_addOrUpdateFileOperation = new AddOrUpdateFileOperation(
+			_copySoap, _checkInFileOperation);
+
+		_getObjectsByFolderOperation = new GetObjectsByFolderOperation(
+			_pathHelper, _getObjectsByQueryOperation);
+
+		_getObjectsByNameOperation = new GetObjectsByNameOperation(
+			_getObjectsByQueryOperation);
+
+		_getObjectByPathOperation = new GetObjectByPathOperation(
+			_pathHelper, _getObjectsByQueryOperation);
+
+		_copyObjectOperation = new CopyObjectOperation(
+			_copySoap, _pathHelper, _addFolderOperation, _checkInFileOperation,
+			_getObjectByPathOperation, _getObjectsByFolderOperation);
+
+		_deleteObjectOperation = new DeleteObjectOperation(
+			_pathHelper, _batchOperation, _getObjectByPathOperation);
+
 		_moveObjectOperation = new MoveObjectOperation(
-			_copySoap, _listsSoap, _pathHelper);
+			_pathHelper, _batchOperation, _copyObjectOperation,
+			_deleteObjectOperation, _getObjectByPathOperation);
 	}
 
 	protected void validateCredentials(String username, String password) {
@@ -362,6 +372,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 	private AddFolderOperation _addFolderOperation;
 	private AddOrUpdateFileOperation _addOrUpdateFileOperation;
+	private BatchOperation _batchOperation;
 	private CancelCheckOutFileOperation _cancelCheckOutFileOperation;
 	private CheckInFileOperation _checkInFileOperation;
 	private CheckOutFileOperation _checkOutFileOperation;
@@ -369,6 +380,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	private CopySoap _copySoap;
 	private DeleteObjectOperation _deleteObjectOperation;
 	private GetContentOperation _getContentOperation;
+	private GetObjectByPathOperation _getObjectByPathOperation;
 	private GetObjectsByFolderOperation _getObjectsByFolderOperation;
 	private GetObjectsByNameOperation _getObjectsByNameOperation;
 	private GetObjectsByQueryOperation _getObjectsByQueryOperation;

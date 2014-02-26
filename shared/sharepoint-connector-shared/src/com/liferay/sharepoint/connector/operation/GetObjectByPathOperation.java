@@ -24,20 +24,17 @@ import com.liferay.sharepoint.connector.schema.query.QueryValue;
 import com.liferay.sharepoint.connector.schema.query.operator.EqOperator;
 import com.liferay.sharepoint.connector.schema.query.option.FolderQueryOption;
 
-import com.microsoft.schemas.sharepoint.soap.ListsSoap;
-
 /**
  * @author Ivan Zaera
  */
 public class GetObjectByPathOperation extends BaseOperation {
 
 	public GetObjectByPathOperation(
-		ListsSoap listsSoap, PathHelper pathHelper) {
+		PathHelper pathHelper,
+		GetObjectsByQueryOperation getObjectsByQueryOperation) {
 
+		_getObjectsByQueryOperation = getObjectsByQueryOperation;
 		_pathHelper = pathHelper;
-
-		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
-			listsSoap, _pathHelper);
 	}
 
 	public SharepointObject execute(String path) throws SharepointException {

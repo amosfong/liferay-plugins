@@ -20,9 +20,6 @@ import com.liferay.sharepoint.connector.schema.batch.Batch;
 import com.liferay.sharepoint.connector.schema.batch.BatchField;
 import com.liferay.sharepoint.connector.schema.batch.BatchMethod;
 
-import com.microsoft.schemas.sharepoint.soap.CopySoap;
-import com.microsoft.schemas.sharepoint.soap.ListsSoap;
-
 import java.net.URL;
 
 /**
@@ -31,18 +28,17 @@ import java.net.URL;
 public class MoveObjectOperation extends BaseOperation {
 
 	public MoveObjectOperation(
-		CopySoap copySoap, ListsSoap listsSoap, PathHelper pathHelper) {
+		PathHelper pathHelper, BatchOperation batchOperation,
+		CopyObjectOperation copyObjectOperation,
+		DeleteObjectOperation deleteObjectOperation,
+		GetObjectByPathOperation getObjectByPathOperation) {
 
 		_pathHelper = pathHelper;
 
-		_batchOperation = new BatchOperation(
-			listsSoap, pathHelper.getLibraryName());
-		_copyObjectOperation = new CopyObjectOperation(
-			copySoap, listsSoap, pathHelper);
-		_deleteObjectOperation = new DeleteObjectOperation(
-			listsSoap, pathHelper);
-		_getObjectByPathOperation = new GetObjectByPathOperation(
-			listsSoap, pathHelper);
+		_batchOperation = batchOperation;
+		_copyObjectOperation = copyObjectOperation;
+		_deleteObjectOperation = deleteObjectOperation;
+		_getObjectByPathOperation = getObjectByPathOperation;
 	}
 
 	public void execute(String path, String newPath)

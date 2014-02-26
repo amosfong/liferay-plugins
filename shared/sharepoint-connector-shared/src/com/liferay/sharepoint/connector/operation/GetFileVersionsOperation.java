@@ -22,7 +22,6 @@ import com.liferay.sharepoint.connector.SharepointObject;
 import com.liferay.sharepoint.connector.SharepointVersion;
 
 import com.microsoft.schemas.sharepoint.soap.GetVersionsResponseGetVersionsResult;
-import com.microsoft.schemas.sharepoint.soap.ListsSoap;
 import com.microsoft.schemas.sharepoint.soap.VersionsSoap;
 
 import java.rmi.RemoteException;
@@ -47,13 +46,13 @@ import org.w3c.dom.NodeList;
 public class GetFileVersionsOperation extends BaseOperation {
 
 	public GetFileVersionsOperation(
-		ListsSoap listsSoap, VersionsSoap versionsSoap, PathHelper pathHelper) {
+		VersionsSoap versionsSoap, PathHelper pathHelper,
+		GetObjectByPathOperation getObjectByPathOperation) {
 
 		_pathHelper = pathHelper;
 		_versionsSoap = versionsSoap;
 
-		_getObjectByPathOperation = new GetObjectByPathOperation(
-			listsSoap, _pathHelper);
+		_getObjectByPathOperation = getObjectByPathOperation;
 	}
 
 	public List<SharepointVersion> execute(String filePath)

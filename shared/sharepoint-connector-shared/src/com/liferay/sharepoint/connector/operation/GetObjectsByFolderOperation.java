@@ -24,8 +24,6 @@ import com.liferay.sharepoint.connector.schema.query.QueryValue;
 import com.liferay.sharepoint.connector.schema.query.operator.EqOperator;
 import com.liferay.sharepoint.connector.schema.query.option.FolderQueryOption;
 
-import com.microsoft.schemas.sharepoint.soap.ListsSoap;
-
 import java.util.List;
 
 /**
@@ -34,12 +32,11 @@ import java.util.List;
 public class GetObjectsByFolderOperation extends BaseOperation {
 
 	public GetObjectsByFolderOperation(
-		ListsSoap listsSoap, PathHelper pathHelper) {
+		PathHelper pathHelper,
+		GetObjectsByQueryOperation getObjectsByQueryOperation) {
 
 		_pathHelper = pathHelper;
-
-		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
-			listsSoap, _pathHelper);
+		_getObjectsByQueryOperation = getObjectsByQueryOperation;
 	}
 
 	public List<SharepointObject> execute(

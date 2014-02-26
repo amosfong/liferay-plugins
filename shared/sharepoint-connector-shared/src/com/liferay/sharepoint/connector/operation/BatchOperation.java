@@ -34,9 +34,9 @@ import org.w3c.dom.Element;
  */
 public class BatchOperation extends BaseOperation {
 
-	public BatchOperation(ListsSoap listsSoap, String libraryName) {
+	public BatchOperation(ListsSoap listsSoap, PathHelper pathHelper) {
 		_listsSoap = listsSoap;
-		_libraryName = libraryName;
+		_pathHelper = pathHelper;
 	}
 
 	public void execute(Batch batch) throws SharepointException {
@@ -55,7 +55,7 @@ public class BatchOperation extends BaseOperation {
 		try {
 			updateListItemsResponseUpdateListItemsResult =
 				_listsSoap.updateListItems(
-					_libraryName, updateListItemsUpdates);
+					_pathHelper.getLibraryName(), updateListItemsUpdates);
 		}
 		catch (RemoteException re) {
 			throw new SharepointException(
@@ -95,7 +95,7 @@ public class BatchOperation extends BaseOperation {
 		}
 	}
 
-	private String _libraryName;
 	private ListsSoap _listsSoap;
+	private PathHelper _pathHelper;
 
 }
