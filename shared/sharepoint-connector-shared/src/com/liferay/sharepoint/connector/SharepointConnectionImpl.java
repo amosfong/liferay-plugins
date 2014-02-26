@@ -15,7 +15,6 @@
 package com.liferay.sharepoint.connector;
 
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.sharepoint.connector.operation.AddOrUpdateFileOperation;
 import com.liferay.sharepoint.connector.operation.PathHelper;
@@ -50,12 +49,11 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		String serverProtocol, String serverAddress, int serverPort,
 		String sitePath, String libraryName, String username, String password) {
 
-		validateConnectionConfiguration(sitePath, username, password);
+		validateCredentials(username, password);
 
 		_serverProtocol = serverProtocol;
 		_serverAddress = serverAddress;
 		_serverPort = serverPort;
-		_sitePath = sitePath;
 		_libraryName = libraryName;
 		_username = username;
 		_password = password;
@@ -185,7 +183,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 	@Override
 	public String getSitePath() {
-		return _sitePath;
+		return _pathHelper.getSitePath();
 	}
 
 	@Override
@@ -276,16 +274,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 			_copySoap, _listsSoap);
 	}
 
-	protected void validateConnectionConfiguration(
-		String sitePath, String username, String password) {
-
-		if (!sitePath.equals(StringPool.BLANK)) {
-
-		 	// Validate site path with
-
-			new PathHelper(null, sitePath);
-		}
-
+	protected void validateCredentials(String username, String password) {
 		if (Validator.isNull(username)) {
 			throw new SharepointRuntimeException("Username is null");
 		}
@@ -304,7 +293,6 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	private String _serverAddress;
 	private int _serverPort;
 	private String _serverProtocol;
-	private String _sitePath;
 	private String _username;
 
 }
