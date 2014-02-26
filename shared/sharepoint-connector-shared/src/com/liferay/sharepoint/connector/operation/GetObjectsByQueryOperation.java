@@ -62,9 +62,10 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 		_listsSoap = listsSoap;
 		_pathHelper = pathHelper;
 
-		_pathPrefixToRemoveLength =
-			_pathHelper.getSitePath().length() +
-			_pathHelper.getLibraryName().length();
+		String libraryName = _pathHelper.getLibraryName();
+		String sitePath = _pathHelper.getSitePath();
+
+		_pathPrefixToRemoveLength = libraryName.length() + sitePath.length();
 	}
 
 	public List<SharepointObject> execute(
