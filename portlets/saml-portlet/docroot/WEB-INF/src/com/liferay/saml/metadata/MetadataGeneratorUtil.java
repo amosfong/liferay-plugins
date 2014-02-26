@@ -102,17 +102,19 @@ public class MetadataGeneratorUtil {
 
 		String portalURL = PortalUtil.getPortalURL(request, requireSSL);
 
+		String pathMain = PortalUtil.getPathMain();
+
 		SingleSignOnService singleSignOnService =
 			OpenSamlUtil.buildSingleSignOnService(
 				SAMLConstants.SAML2_REDIRECT_BINDING_URI,
-				portalURL.concat("/c/portal/saml/sso"));
+				portalURL.concat(pathMain).concat("/portal/saml/sso"));
 
 		singleSignOnServices.add(singleSignOnService);
 
 		singleSignOnService =
 			OpenSamlUtil.buildSingleSignOnService(
 				SAMLConstants.SAML2_POST_BINDING_URI,
-				portalURL.concat("/c/portal/saml/sso"));
+				portalURL.concat(pathMain).concat("/portal/saml/sso"));
 
 		singleSignOnServices.add(singleSignOnService);
 
@@ -122,7 +124,7 @@ public class MetadataGeneratorUtil {
 		SingleLogoutService singleLogoutService =
 			OpenSamlUtil.buildSingleLogoutService(
 				SAMLConstants.SAML2_REDIRECT_BINDING_URI,
-				portalURL.concat("/c/portal/saml/slo_redirect"));
+				portalURL.concat(pathMain).concat("/portal/saml/slo_redirect"));
 
 		singleLogoutServices.add(singleLogoutService);
 
@@ -175,10 +177,12 @@ public class MetadataGeneratorUtil {
 
 		String portalURL = PortalUtil.getPortalURL(request, requireSSL);
 
+		String pathMain = PortalUtil.getPathMain();
+
 		AssertionConsumerService assertionConsumerService =
 			OpenSamlUtil.buildAssertionConsumerService(
 				SAMLConstants.SAML2_POST_BINDING_URI, 1, true,
-				portalURL.concat("/c/portal/saml/acs"));
+				portalURL.concat(pathMain).concat("/portal/saml/acs"));
 
 		assertionConsumerServices.add(assertionConsumerService);
 
@@ -196,14 +200,14 @@ public class MetadataGeneratorUtil {
 		SingleLogoutService redirectSingleLogoutService =
 			OpenSamlUtil.buildSingleLogoutService(
 				SAMLConstants.SAML2_REDIRECT_BINDING_URI,
-				portalURL.concat("/c/portal/saml/slo_redirect"));
+				portalURL.concat(pathMain).concat("/portal/saml/slo_redirect"));
 
 		singleLogoutServices.add(redirectSingleLogoutService);
 
 		SingleLogoutService soapSingleLogoutService =
 			OpenSamlUtil.buildSingleLogoutService(
 				SAMLConstants.SAML2_SOAP11_BINDING_URI,
-				portalURL.concat("/c/portal/saml/slo_soap"));
+				portalURL.concat(pathMain).concat("/portal/saml/slo_soap"));
 
 		singleLogoutServices.add(soapSingleLogoutService);
 
