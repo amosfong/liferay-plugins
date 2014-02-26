@@ -20,10 +20,12 @@ package com.liferay.sharepoint.connector;
 public class SharepointConnectionFactory {
 
 	public static SharepointConnection getInstance(
-		String serverProtocol, String serverAddress, String sitePath,
-		String libraryName, String username, String password) {
+		String serverProtocol, String serverAddress, int serverPort,
+		String sitePath, String libraryName, String username, String password) {
 
-		return null;
+		return new SharepointConnectionImpl(
+			serverProtocol, serverAddress, serverPort, sitePath, libraryName,
+			username, password);
 	}
 
 }

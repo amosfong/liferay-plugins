@@ -35,7 +35,7 @@ import org.junit.Test;
  * @author Iván Zaera
  */
 @Ignore
-public class SharepointConnectionImplTest {
+public class SharepointConnectionTest {
 
 	@Before
 	public void setUp() throws Exception {
@@ -101,7 +101,7 @@ public class SharepointConnectionImplTest {
 	private static final String _USERNAME = "Administrator";
 
 	private SharepointConnection _sharepointConnection =
-		new SharepointConnectionImpl(
+		SharepointConnectionFactory.getInstance(
 			_SERVER_PROTOCOL, _SERVER_ADDRESS, _SERVER_PORT, _SITE_PATH,
 			_LIBRARY_NAME, _USERNAME, _PASSWORD);
 	private long _testId;
