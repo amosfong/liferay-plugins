@@ -14,27 +14,8 @@
 
 package com.liferay.sharepoint.connector.operation;
 
-import com.liferay.sharepoint.connector.SharepointObject;
-import com.liferay.sharepoint.connector.schema.XMLHelper;
-
-import java.util.List;
-
 /**
  * @author Brian Wing Shun Chan
  */
-public abstract class BaseOperation implements Operation {
-
-	protected SharepointObject getSharepointObject(
-		List<SharepointObject> sharepointObjects) {
-
-		if (sharepointObjects.isEmpty()) {
-			return null;
-		}
-
-		return sharepointObjects.get(0);
-	}
-
-	protected static URLHelper urlHelper = new URLHelper();
-	protected static XMLHelper xmlHelper = new XMLHelper();
-
+public interface Operation {
 }
