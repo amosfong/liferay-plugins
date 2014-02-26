@@ -32,10 +32,10 @@ import com.microsoft.schemas.sharepoint.soap.ListsSoap;
 public class GetObjectByIdOperation extends BaseOperation {
 
 	public GetObjectByIdOperation(
-		ListsSoap listsSoap, String libraryName, String sitePath) {
+		ListsSoap listsSoap, String libraryName, PathHelper pathHelper) {
 
 		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
-			listsSoap, libraryName, sitePath);
+			listsSoap, libraryName, pathHelper);
 	}
 
 	public SharepointObject execute(long sharepointObjectId)

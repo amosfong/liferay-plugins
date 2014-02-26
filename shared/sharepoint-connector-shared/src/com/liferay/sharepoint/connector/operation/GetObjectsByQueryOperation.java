@@ -57,13 +57,14 @@ import org.w3c.dom.NodeList;
 public class GetObjectsByQueryOperation extends BaseOperation {
 
 	public GetObjectsByQueryOperation(
-		ListsSoap listsSoap, String libraryName, String sitePath) {
+		ListsSoap listsSoap, String libraryName, PathHelper pathHelper) {
 
 		_listsSoap = listsSoap;
 		_libraryName = libraryName;
-		_sitePath = sitePath;
+		_pathHelper = pathHelper;
 
-		_pathPrefixToRemoveLength = _sitePath.length() + _libraryName.length();
+		_pathPrefixToRemoveLength =
+			_pathHelper.getSitePath().length() + _libraryName.length();
 	}
 
 	public List<SharepointObject> execute(
@@ -297,7 +298,7 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 
 	private String _libraryName;
 	private ListsSoap _listsSoap;
+	private PathHelper _pathHelper;
 	private int _pathPrefixToRemoveLength;
-	private String _sitePath;
 
 }
