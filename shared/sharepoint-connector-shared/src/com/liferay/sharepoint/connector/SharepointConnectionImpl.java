@@ -197,7 +197,10 @@ public class SharepointConnectionImpl implements SharepointConnection {
 			String folderPath, ObjectTypeFilter objectTypeFilter)
 		throws SharepointException {
 
-		return 0;
+		List<SharepointObject> sharepointObjects = getObjects(
+			folderPath, objectTypeFilter);
+
+		return sharepointObjects.size();
 	}
 
 	@Override
