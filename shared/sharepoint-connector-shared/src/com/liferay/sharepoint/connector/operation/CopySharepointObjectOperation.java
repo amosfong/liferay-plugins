@@ -147,7 +147,8 @@ public class CopySharepointObjectOperation extends BaseOperation {
 		}
 	}
 
-	private static Log _log = LogFactoryUtil.getLog(CopySharepointObjectOperation.class);
+	private static Log _log = LogFactoryUtil.getLog(
+		CopySharepointObjectOperation.class);
 
 	private AddFolderOperation _addFolderOperation;
 	private CheckInFileOperation _checkInFileOperation;

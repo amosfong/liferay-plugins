@@ -35,7 +35,8 @@ public class GetObjectsByQueryPacketOperation extends BaseOperation {
 
 	public GetObjectsByQueryPacketOperation(
 		QueryServiceSoap queryServiceSoap, PathHelper pathHelper,
-		GetSharepointObjectByPathOperation getObjectByPathOperation, String serviceURL) {
+		GetSharepointObjectByPathOperation getObjectByPathOperation,
+		String serviceURL) {
 
 		_queryServiceSoap = queryServiceSoap;
 		_pathHelper = pathHelper;
