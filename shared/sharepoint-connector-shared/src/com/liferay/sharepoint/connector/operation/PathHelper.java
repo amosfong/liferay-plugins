@@ -104,14 +104,14 @@ public class PathHelper {
 		return _sitePath + StringPool.SLASH + _libraryName + path;
 	}
 
-	protected void validateName(String name) {
+	public void validateName(String name) {
 		if ((name == null) || name.contains(StringPool.SLASH)) {
 			throw new IllegalArgumentException(
 				"Invalid file or folder name " + name);
 		}
 	}
 
-	protected void validatePath(String path) {
+	public void validatePath(String path) {
 		if ((path == null) || (!path.equals(StringPool.SLASH) &&
 			 (!path.startsWith(StringPool.SLASH) ||
 			  path.endsWith(StringPool.SLASH)))) {
@@ -120,7 +120,7 @@ public class PathHelper {
 		}
 	}
 
-	protected void validateSitePath(String sitePath) {
+	public void validateSitePath(String sitePath) {
 		if (sitePath.equals(StringPool.BLANK)) {
 			return;
 		}

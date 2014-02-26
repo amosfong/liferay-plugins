@@ -16,6 +16,7 @@ package com.liferay.sharepoint.connector;
 
 import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.sharepoint.connector.operation.AddFolderOperation;
 import com.liferay.sharepoint.connector.operation.AddOrUpdateFileOperation;
 import com.liferay.sharepoint.connector.operation.PathHelper;
 import com.liferay.sharepoint.connector.schema.query.Query;
@@ -82,6 +83,12 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	@Override
 	public void addFolder(String folderPath, String folderName)
 		throws SharepointException {
+
+		_pathHelper.validatePath(folderPath);
+
+		_pathHelper.validateName(folderName);
+
+		_addFolderOperation.execute(folderPath, folderName);
 	}
 
 	@Override
@@ -270,6 +277,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	}
 
 	protected void initOperations() {
+		_addFolderOperation = new AddFolderOperation(_listsSoap, _pathHelper);
 		_addOrUpdateFileOperation = new AddOrUpdateFileOperation(
 			_copySoap, _listsSoap);
 	}
@@ -284,6 +292,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		}
 	}
 
+	private AddFolderOperation _addFolderOperation;
 	private AddOrUpdateFileOperation _addOrUpdateFileOperation;
 	private CopySoap _copySoap;
 	private String _libraryName;
