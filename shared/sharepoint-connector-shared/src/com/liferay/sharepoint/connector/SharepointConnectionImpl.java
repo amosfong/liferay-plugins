@@ -232,7 +232,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	public InputStream getVersionContent(SharepointVersion sharepointVersion)
 		throws SharepointException {
 
-		return null;
+		return _getContentOperation.execute(sharepointVersion);
 	}
 
 	@Override
