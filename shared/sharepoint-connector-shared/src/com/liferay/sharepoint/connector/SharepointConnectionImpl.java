@@ -147,8 +147,48 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	}
 
 	@Override
+	public int getgetSharepointObjectsCount(
+			String folderPath, ObjectTypeFilter objectTypeFilter)
+		throws SharepointException {
+
+		List<SharepointObject> sharepointObjects = getSharepointObjects(
+			folderPath, objectTypeFilter);
+
+		return sharepointObjects.size();
+	}
+
+	@Override
+	public InputStream getInputStream(SharepointObject sharepointObject)
+		throws SharepointException {
+
+		return _getContentOperation.execute(sharepointObject);
+	}
+
+	@Override
+	public InputStream getInputStream(SharepointVersion sharepointVersion)
+		throws SharepointException {
+
+		return _getContentOperation.execute(sharepointVersion);
+	}
+
+	@Override
 	public String getLibraryName() {
 		return _pathHelper.getLibraryName();
+	}
+
+	@Override
+	public String getServerAddress() {
+		return _serverAddress;
+	}
+
+	@Override
+	public int getServerPort() {
+		return _serverPort;
+	}
+
+	@Override
+	public String getServerProtocol() {
+		return _serverProtocol;
 	}
 
 	@Override
@@ -163,13 +203,6 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		throws SharepointException {
 
 		return null;
-	}
-
-	@Override
-	public InputStream getInputStream(SharepointObject sharepointObject)
-		throws SharepointException {
-
-		return _getContentOperation.execute(sharepointObject);
 	}
 
 	@Override
@@ -199,29 +232,10 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	}
 
 	@Override
-	public int getgetSharepointObjectsCount(
-			String folderPath, ObjectTypeFilter objectTypeFilter)
+	public List<SharepointVersion> getSharepointVersions(String filePath)
 		throws SharepointException {
 
-		List<SharepointObject> sharepointObjects = getSharepointObjects(
-			folderPath, objectTypeFilter);
-
-		return sharepointObjects.size();
-	}
-
-	@Override
-	public String getServerAddress() {
-		return _serverAddress;
-	}
-
-	@Override
-	public int getServerPort() {
-		return _serverPort;
-	}
-
-	@Override
-	public String getServerProtocol() {
-		return _serverProtocol;
+		return null;
 	}
 
 	@Override
@@ -232,20 +246,6 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	@Override
 	public String getUsername() {
 		return _username;
-	}
-
-	@Override
-	public InputStream getInputStream(SharepointVersion sharepointVersion)
-		throws SharepointException {
-
-		return _getContentOperation.execute(sharepointVersion);
-	}
-
-	@Override
-	public List<SharepointVersion> getSharepointVersions(String filePath)
-		throws SharepointException {
-
-		return null;
 	}
 
 	@Override

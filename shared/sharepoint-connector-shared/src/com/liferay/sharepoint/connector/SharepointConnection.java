@@ -48,13 +48,28 @@ public interface SharepointConnection {
 
 	public void deleteSharepointObject(String path) throws SharepointException;
 
-	public String getLibraryName();
-
-	public SharepointObject getSharepointObject(long id) throws SharepointException;
-
-	public SharepointObject getSharepointObject(String path) throws SharepointException;
+	public int getgetSharepointObjectsCount(
+			String folderPath, ObjectTypeFilter objectTypeFilter)
+		throws SharepointException;
 
 	public InputStream getInputStream(SharepointObject sharepointObject)
+		throws SharepointException;
+
+	public InputStream getInputStream(SharepointVersion sharepointVersion)
+		throws SharepointException;
+
+	public String getLibraryName();
+
+	public String getServerAddress();
+
+	public int getServerPort();
+
+	public String getServerProtocol();
+
+	public SharepointObject getSharepointObject(long id)
+		throws SharepointException;
+
+	public SharepointObject getSharepointObject(String path)
 		throws SharepointException;
 
 	public List<SharepointObject> getSharepointObjects(
@@ -68,25 +83,12 @@ public interface SharepointConnection {
 			String folderPath, ObjectTypeFilter objectTypeFilter)
 		throws SharepointException;
 
-	public int getgetSharepointObjectsCount(
-			String folderPath, ObjectTypeFilter objectTypeFilter)
+	public List<SharepointVersion> getSharepointVersions(String filePath)
 		throws SharepointException;
-
-	public String getServerAddress();
-
-	public int getServerPort();
-
-	public String getServerProtocol();
 
 	public String getSitePath();
 
 	public String getUsername();
-
-	public InputStream getInputStream(SharepointVersion sharepointVersion)
-		throws SharepointException;
-
-	public List<SharepointVersion> getSharepointVersions(String filePath)
-		throws SharepointException;
 
 	public void moveSharepointObject(String path, String newPath)
 		throws SharepointException;
