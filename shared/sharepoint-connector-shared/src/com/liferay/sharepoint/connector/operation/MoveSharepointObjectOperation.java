@@ -25,13 +25,13 @@ import java.net.URL;
 /**
  * @author Ivan Zaera
  */
-public class MoveObjectOperation extends BaseOperation {
+public class MoveSharepointObjectOperation extends BaseOperation {
 
-	public MoveObjectOperation(
+	public MoveSharepointObjectOperation(
 		PathHelper pathHelper, BatchOperation batchOperation,
-		CopyObjectOperation copyObjectOperation,
-		DeleteObjectOperation deleteObjectOperation,
-		GetObjectByPathOperation getObjectByPathOperation) {
+		CopySharepointObjectOperation copyObjectOperation,
+		DeleteSharepointObjectOperation deleteObjectOperation,
+		GetSharepointObjectByPathOperation getObjectByPathOperation) {
 
 		_pathHelper = pathHelper;
 
@@ -79,9 +79,9 @@ public class MoveObjectOperation extends BaseOperation {
 	}
 
 	private BatchOperation _batchOperation;
-	private CopyObjectOperation _copyObjectOperation;
-	private DeleteObjectOperation _deleteObjectOperation;
-	private GetObjectByPathOperation _getObjectByPathOperation;
+	private CopySharepointObjectOperation _copyObjectOperation;
+	private DeleteSharepointObjectOperation _deleteObjectOperation;
+	private GetSharepointObjectByPathOperation _getObjectByPathOperation;
 	private PathHelper _pathHelper;
 
 }

@@ -22,14 +22,14 @@ import com.liferay.sharepoint.connector.operation.BatchOperation;
 import com.liferay.sharepoint.connector.operation.CancelCheckOutFileOperation;
 import com.liferay.sharepoint.connector.operation.CheckInFileOperation;
 import com.liferay.sharepoint.connector.operation.CheckOutFileOperation;
-import com.liferay.sharepoint.connector.operation.CopyObjectOperation;
-import com.liferay.sharepoint.connector.operation.DeleteObjectOperation;
-import com.liferay.sharepoint.connector.operation.GetContentOperation;
-import com.liferay.sharepoint.connector.operation.GetObjectByPathOperation;
-import com.liferay.sharepoint.connector.operation.GetObjectsByFolderOperation;
-import com.liferay.sharepoint.connector.operation.GetObjectsByNameOperation;
-import com.liferay.sharepoint.connector.operation.GetObjectsByQueryOperation;
-import com.liferay.sharepoint.connector.operation.MoveObjectOperation;
+import com.liferay.sharepoint.connector.operation.CopySharepointObjectOperation;
+import com.liferay.sharepoint.connector.operation.DeleteSharepointObjectOperation;
+import com.liferay.sharepoint.connector.operation.GetInputStreamOperation;
+import com.liferay.sharepoint.connector.operation.GetSharepointObjectByPathOperation;
+import com.liferay.sharepoint.connector.operation.GetSharepointObjectsByFolderOperation;
+import com.liferay.sharepoint.connector.operation.GetSharepointObjectsByNameOperation;
+import com.liferay.sharepoint.connector.operation.GetSharepointObjectsByQueryOperation;
+import com.liferay.sharepoint.connector.operation.MoveSharepointObjectOperation;
 import com.liferay.sharepoint.connector.operation.PathHelper;
 import com.liferay.sharepoint.connector.schema.query.Query;
 import com.liferay.sharepoint.connector.schema.query.QueryOptionsList;
@@ -136,14 +136,14 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 		_pathHelper.validatePath(newPath);
 
-		_copyObjectOperation.execute(path, newPath);
+		_copySharepointObjectOperation.execute(path, newPath);
 	}
 
 	@Override
 	public void deleteSharepointObject(String path) throws SharepointException {
 		_pathHelper.validatePath(path);
 
-		_deleteObjectOperation.execute(path);
+		_deleteSharepointObjectOperation.execute(path);
 	}
 
 	@Override
@@ -161,14 +161,14 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	public InputStream getInputStream(SharepointObject sharepointObject)
 		throws SharepointException {
 
-		return _getContentOperation.execute(sharepointObject);
+		return _getInputStreamOperation.execute(sharepointObject);
 	}
 
 	@Override
 	public InputStream getInputStream(SharepointVersion sharepointVersion)
 		throws SharepointException {
 
-		return _getContentOperation.execute(sharepointVersion);
+		return _getInputStreamOperation.execute(sharepointVersion);
 	}
 
 	@Override
@@ -210,14 +210,15 @@ public class SharepointConnectionImpl implements SharepointConnection {
 			Query query, QueryOptionsList queryOptionsList)
 		throws SharepointException {
 
-		return _getObjectsByQueryOperation.execute(query, queryOptionsList);
+		return _getSharepointObjectsByQueryOperation.execute(
+			query, queryOptionsList);
 	}
 
 	@Override
 	public List<SharepointObject> getSharepointObjects(String name)
 		throws SharepointException {
 
-		return _getObjectsByNameOperation.execute(name);
+		return _getSharepointObjectsByNameOperation.execute(name);
 	}
 
 	@Override
@@ -227,7 +228,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 		_pathHelper.validatePath(folderPath);
 
-		return _getObjectsByFolderOperation.execute(
+		return _getSharepointObjectsByFolderOperation.execute(
 			folderPath, objectTypeFilter);
 	}
 
@@ -256,7 +257,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 		_pathHelper.validatePath(newPath);
 
-		_moveObjectOperation.execute(path, newPath);
+		_moveSharepointObjectOperation.execute(path, newPath);
 	}
 
 	@Override
@@ -332,10 +333,11 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 		_checkOutFileOperation = new CheckOutFileOperation(_listsSoap);
 
-		_getContentOperation = new GetContentOperation(_username, _password);
+		_getInputStreamOperation = new GetInputStreamOperation(
+			_username, _password);
 
-		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
-			_listsSoap, _pathHelper);
+		_getSharepointObjectsByQueryOperation =
+			new GetSharepointObjectsByQueryOperation(_listsSoap, _pathHelper);
 
 		_addFolderOperation = new AddFolderOperation(
 			_pathHelper, _batchOperation);
@@ -343,25 +345,30 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		_addOrUpdateFileOperation = new AddOrUpdateFileOperation(
 			_copySoap, _checkInFileOperation);
 
-		_getObjectsByFolderOperation = new GetObjectsByFolderOperation(
-			_pathHelper, _getObjectsByQueryOperation);
+		_getSharepointObjectsByFolderOperation =
+			new GetSharepointObjectsByFolderOperation(
+				_pathHelper, _getSharepointObjectsByQueryOperation);
 
-		_getObjectsByNameOperation = new GetObjectsByNameOperation(
-			_getObjectsByQueryOperation);
+		_getSharepointObjectsByNameOperation =
+			new GetSharepointObjectsByNameOperation(
+				_getSharepointObjectsByQueryOperation);
 
-		_getObjectByPathOperation = new GetObjectByPathOperation(
-			_pathHelper, _getObjectsByQueryOperation);
+		_getSharepointObjectByPathOperation =
+			new GetSharepointObjectByPathOperation(
+				_pathHelper, _getSharepointObjectsByQueryOperation);
 
-		_copyObjectOperation = new CopyObjectOperation(
+		_copySharepointObjectOperation = new CopySharepointObjectOperation(
 			_copySoap, _pathHelper, _addFolderOperation, _checkInFileOperation,
-			_getObjectByPathOperation, _getObjectsByFolderOperation);
+			_getSharepointObjectByPathOperation,
+			_getSharepointObjectsByFolderOperation);
 
-		_deleteObjectOperation = new DeleteObjectOperation(
-			_pathHelper, _batchOperation, _getObjectByPathOperation);
+		_deleteSharepointObjectOperation = new DeleteSharepointObjectOperation(
+			_pathHelper, _batchOperation, _getSharepointObjectByPathOperation);
 
-		_moveObjectOperation = new MoveObjectOperation(
-			_pathHelper, _batchOperation, _copyObjectOperation,
-			_deleteObjectOperation, _getObjectByPathOperation);
+		_moveSharepointObjectOperation = new MoveSharepointObjectOperation(
+			_pathHelper, _batchOperation, _copySharepointObjectOperation,
+			_deleteSharepointObjectOperation,
+			_getSharepointObjectByPathOperation);
 	}
 
 	protected void validateCredentials(String username, String password) {
@@ -380,16 +387,20 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	private CancelCheckOutFileOperation _cancelCheckOutFileOperation;
 	private CheckInFileOperation _checkInFileOperation;
 	private CheckOutFileOperation _checkOutFileOperation;
-	private CopyObjectOperation _copyObjectOperation;
+	private CopySharepointObjectOperation _copySharepointObjectOperation;
 	private CopySoap _copySoap;
-	private DeleteObjectOperation _deleteObjectOperation;
-	private GetContentOperation _getContentOperation;
-	private GetObjectByPathOperation _getObjectByPathOperation;
-	private GetObjectsByFolderOperation _getObjectsByFolderOperation;
-	private GetObjectsByNameOperation _getObjectsByNameOperation;
-	private GetObjectsByQueryOperation _getObjectsByQueryOperation;
+	private DeleteSharepointObjectOperation _deleteSharepointObjectOperation;
+	private GetInputStreamOperation _getInputStreamOperation;
+	private GetSharepointObjectByPathOperation
+		_getSharepointObjectByPathOperation;
+	private GetSharepointObjectsByFolderOperation
+		_getSharepointObjectsByFolderOperation;
+	private GetSharepointObjectsByNameOperation
+		_getSharepointObjectsByNameOperation;
+	private GetSharepointObjectsByQueryOperation
+		_getSharepointObjectsByQueryOperation;
 	private ListsSoap _listsSoap;
-	private MoveObjectOperation _moveObjectOperation;
+	private MoveSharepointObjectOperation _moveSharepointObjectOperation;
 	private String _password;
 	private PathHelper _pathHelper;
 	private String _serverAddress;

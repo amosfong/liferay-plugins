@@ -29,11 +29,11 @@ import java.util.List;
 /**
  * @author Ivan Zaera
  */
-public class GetObjectsByFolderOperation extends BaseOperation {
+public class GetSharepointObjectsByFolderOperation extends BaseOperation {
 
-	public GetObjectsByFolderOperation(
+	public GetSharepointObjectsByFolderOperation(
 		PathHelper pathHelper,
-		GetObjectsByQueryOperation getObjectsByQueryOperation) {
+		GetSharepointObjectsByQueryOperation getObjectsByQueryOperation) {
 
 		_pathHelper = pathHelper;
 		_getObjectsByQueryOperation = getObjectsByQueryOperation;
@@ -77,7 +77,7 @@ public class GetObjectsByFolderOperation extends BaseOperation {
 		return _getObjectsByQueryOperation.execute(query, queryOptionsList);
 	}
 
-	private GetObjectsByQueryOperation _getObjectsByQueryOperation;
+	private GetSharepointObjectsByQueryOperation _getObjectsByQueryOperation;
 	private PathHelper _pathHelper;
 
 }

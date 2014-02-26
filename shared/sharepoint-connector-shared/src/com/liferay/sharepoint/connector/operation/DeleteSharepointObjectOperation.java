@@ -23,11 +23,11 @@ import com.liferay.sharepoint.connector.schema.batch.BatchMethod;
 /**
  * @author Ivan Zaera
  */
-public class DeleteObjectOperation extends BaseOperation {
+public class DeleteSharepointObjectOperation extends BaseOperation {
 
-	public DeleteObjectOperation(
+	public DeleteSharepointObjectOperation(
 		PathHelper pathHelper, BatchOperation batchOperation,
-		GetObjectByPathOperation getObjectByPathOperation) {
+		GetSharepointObjectByPathOperation getObjectByPathOperation) {
 
 		_pathHelper = pathHelper;
 		_batchOperation = batchOperation;
@@ -56,7 +56,7 @@ public class DeleteObjectOperation extends BaseOperation {
 	}
 
 	private BatchOperation _batchOperation;
-	private GetObjectByPathOperation _getObjectByPathOperation;
+	private GetSharepointObjectByPathOperation _getObjectByPathOperation;
 	private PathHelper _pathHelper;
 
 }

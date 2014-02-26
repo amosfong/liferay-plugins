@@ -54,9 +54,9 @@ import org.w3c.dom.NodeList;
 /**
  * @author Ivan Zaera
  */
-public class GetObjectsByQueryOperation extends BaseOperation {
+public class GetSharepointObjectsByQueryOperation extends BaseOperation {
 
-	public GetObjectsByQueryOperation(
+	public GetSharepointObjectsByQueryOperation(
 		ListsSoap listsSoap, PathHelper pathHelper) {
 
 		_listsSoap = listsSoap;
@@ -295,7 +295,7 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 	}
 
 	private static Log _log = LogFactoryUtil.getLog(
-		GetObjectsByQueryOperation.class);
+		GetSharepointObjectsByQueryOperation.class);
 
 	private ListsSoap _listsSoap;
 	private PathHelper _pathHelper;

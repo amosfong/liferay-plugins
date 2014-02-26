@@ -30,7 +30,7 @@ import com.liferay.sharepoint.connector.schema.query.option.FolderQueryOption;
 public class GetObjectByIdOperation extends BaseOperation {
 
 	public GetObjectByIdOperation(
-		GetObjectsByQueryOperation getObjectsByQueryOperation) {
+		GetSharepointObjectsByQueryOperation getObjectsByQueryOperation) {
 
 		_getObjectsByQueryOperation = getObjectsByQueryOperation;
 	}
@@ -49,6 +49,6 @@ public class GetObjectByIdOperation extends BaseOperation {
 				new QueryOptionsList(new FolderQueryOption(StringPool.BLANK))));
 	}
 
-	private GetObjectsByQueryOperation _getObjectsByQueryOperation;
+	private GetSharepointObjectsByQueryOperation _getObjectsByQueryOperation;
 
 }

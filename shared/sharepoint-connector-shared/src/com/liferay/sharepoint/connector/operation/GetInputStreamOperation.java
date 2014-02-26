@@ -36,9 +36,9 @@ import org.apache.commons.httpclient.params.HttpClientParams;
 /**
  * @author Ivan Zaera
  */
-public class GetContentOperation extends BaseOperation {
+public class GetInputStreamOperation extends BaseOperation {
 
-	public GetContentOperation(String username, String password) {
+	public GetInputStreamOperation(String username, String password) {
 		_username = username;
 		_password = password;
 	}

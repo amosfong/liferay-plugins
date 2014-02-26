@@ -21,37 +21,34 @@ import com.liferay.sharepoint.connector.schema.query.Query;
 import com.liferay.sharepoint.connector.schema.query.QueryField;
 import com.liferay.sharepoint.connector.schema.query.QueryOptionsList;
 import com.liferay.sharepoint.connector.schema.query.QueryValue;
-import com.liferay.sharepoint.connector.schema.query.operator.EqOperator;
+import com.liferay.sharepoint.connector.schema.query.operator.ContainsOperator;
 import com.liferay.sharepoint.connector.schema.query.option.FolderQueryOption;
+
+import java.util.List;
 
 /**
  * @author Ivan Zaera
  */
-public class GetObjectByPathOperation extends BaseOperation {
+public class GetSharepointObjectsByNameOperation extends BaseOperation {
 
-	public GetObjectByPathOperation(
-		PathHelper pathHelper,
-		GetObjectsByQueryOperation getObjectsByQueryOperation) {
+	public GetSharepointObjectsByNameOperation(
+		GetSharepointObjectsByQueryOperation getObjectsByQueryOperation) {
 
 		_getObjectsByQueryOperation = getObjectsByQueryOperation;
-		_pathHelper = pathHelper;
 	}
 
-	public SharepointObject execute(String path) throws SharepointException {
-		String fullPath = _pathHelper.toFullPath(path);
+	public List<SharepointObject> execute(String name)
+		throws SharepointException {
 
 		Query query = new Query(
-			new EqOperator(
-				new QueryField("FileRef"),
-				new QueryValue(fullPath.substring(1))));
+			new ContainsOperator(
+				new QueryField("FileRef"), new QueryValue(name)));
 
-		return getSharepointObject(
-			_getObjectsByQueryOperation.execute(
-				query,
-				new QueryOptionsList(new FolderQueryOption(StringPool.BLANK))));
+		return _getObjectsByQueryOperation.execute(
+			query,
+			new QueryOptionsList(new FolderQueryOption(StringPool.BLANK)));
 	}
 
-	private GetObjectsByQueryOperation _getObjectsByQueryOperation;
-	private PathHelper _pathHelper;
+	private GetSharepointObjectsByQueryOperation _getObjectsByQueryOperation;
 
 }

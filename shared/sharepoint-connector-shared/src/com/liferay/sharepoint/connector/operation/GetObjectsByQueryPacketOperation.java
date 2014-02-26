@@ -35,7 +35,7 @@ public class GetObjectsByQueryPacketOperation extends BaseOperation {
 
 	public GetObjectsByQueryPacketOperation(
 		QueryServiceSoap queryServiceSoap, PathHelper pathHelper,
-		GetObjectByPathOperation getObjectByPathOperation, String serviceURL) {
+		GetSharepointObjectByPathOperation getObjectByPathOperation, String serviceURL) {
 
 		_queryServiceSoap = queryServiceSoap;
 		_pathHelper = pathHelper;
@@ -107,7 +107,7 @@ public class GetObjectsByQueryPacketOperation extends BaseOperation {
 	private static Log _log = LogFactoryUtil.getLog(
 		GetObjectsByQueryPacketOperation.class);
 
-	private GetObjectByPathOperation _getObjectByPathOperation;
+	private GetSharepointObjectByPathOperation _getObjectByPathOperation;
 	private PathHelper _pathHelper;
 	private QueryServiceSoap _queryServiceSoap;
 	private String _searchPrefix;

@@ -38,14 +38,14 @@ import org.apache.axis.holders.UnsignedIntHolder;
 /**
  * @author Ivan Zaera
  */
-public class CopyObjectOperation extends BaseOperation {
+public class CopySharepointObjectOperation extends BaseOperation {
 
-	public CopyObjectOperation(
+	public CopySharepointObjectOperation(
 		CopySoap copySoap, PathHelper pathHelper,
 		AddFolderOperation addFolderOperation,
 		CheckInFileOperation checkInFileOperation,
-		GetObjectByPathOperation getObjectByPathOperation,
-		GetObjectsByFolderOperation getObjectsByFolderOperation) {
+		GetSharepointObjectByPathOperation getObjectByPathOperation,
+		GetSharepointObjectsByFolderOperation getObjectsByFolderOperation) {
 
 		_copySoap = copySoap;
 		_pathHelper = pathHelper;
@@ -147,13 +147,13 @@ public class CopyObjectOperation extends BaseOperation {
 		}
 	}
 
-	private static Log _log = LogFactoryUtil.getLog(CopyObjectOperation.class);
+	private static Log _log = LogFactoryUtil.getLog(CopySharepointObjectOperation.class);
 
 	private AddFolderOperation _addFolderOperation;
 	private CheckInFileOperation _checkInFileOperation;
 	private CopySoap _copySoap;
-	private GetObjectByPathOperation _getObjectByPathOperation;
-	private GetObjectsByFolderOperation _getObjectsByFolderOperation;
+	private GetSharepointObjectByPathOperation _getObjectByPathOperation;
+	private GetSharepointObjectsByFolderOperation _getObjectsByFolderOperation;
 	private PathHelper _pathHelper;
 
 }

@@ -47,7 +47,7 @@ public class GetFileVersionsOperation extends BaseOperation {
 
 	public GetFileVersionsOperation(
 		VersionsSoap versionsSoap, PathHelper pathHelper,
-		GetObjectByPathOperation getObjectByPathOperation) {
+		GetSharepointObjectByPathOperation getObjectByPathOperation) {
 
 		_pathHelper = pathHelper;
 		_versionsSoap = versionsSoap;
@@ -157,7 +157,7 @@ public class GetFileVersionsOperation extends BaseOperation {
 	private static Comparator<SharepointVersion> _comparator =
 		new SharepointVersionComparator();
 
-	private GetObjectByPathOperation _getObjectByPathOperation;
+	private GetSharepointObjectByPathOperation _getObjectByPathOperation;
 	private PathHelper _pathHelper;
 	private VersionsSoap _versionsSoap;
 
