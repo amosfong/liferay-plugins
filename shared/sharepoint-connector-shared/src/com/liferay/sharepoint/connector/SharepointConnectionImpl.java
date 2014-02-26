@@ -22,6 +22,7 @@ import com.liferay.sharepoint.connector.operation.CancelCheckOutFileOperation;
 import com.liferay.sharepoint.connector.operation.CheckInFileOperation;
 import com.liferay.sharepoint.connector.operation.CheckOutFileOperation;
 import com.liferay.sharepoint.connector.operation.CopyObjectOperation;
+import com.liferay.sharepoint.connector.operation.DeleteObjectOperation;
 import com.liferay.sharepoint.connector.operation.PathHelper;
 import com.liferay.sharepoint.connector.schema.query.Query;
 import com.liferay.sharepoint.connector.schema.query.QueryOptionsList;
@@ -134,6 +135,9 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 	@Override
 	public void deleteObject(String path) throws SharepointException {
+		_pathHelper.validatePath(path);
+
+		_deleteObjectOperation.execute(path);
 	}
 
 	@Override
@@ -307,6 +311,9 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 		_copyObjectOperation = new CopyObjectOperation(
 			_copySoap, _listsSoap, _pathHelper);
+
+		_deleteObjectOperation = new DeleteObjectOperation(
+			_listsSoap, _pathHelper);
 	}
 
 	protected void validateCredentials(String username, String password) {
@@ -326,6 +333,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	private CheckOutFileOperation _checkOutFileOperation;
 	private CopyObjectOperation _copyObjectOperation;
 	private CopySoap _copySoap;
+	private DeleteObjectOperation _deleteObjectOperation;
 	private String _libraryName;
 	private ListsSoap _listsSoap;
 	private String _password;
