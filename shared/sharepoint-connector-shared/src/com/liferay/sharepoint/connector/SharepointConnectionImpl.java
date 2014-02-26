@@ -18,6 +18,7 @@ import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.sharepoint.connector.operation.AddFolderOperation;
 import com.liferay.sharepoint.connector.operation.AddOrUpdateFileOperation;
+import com.liferay.sharepoint.connector.operation.CancelCheckOutFileOperation;
 import com.liferay.sharepoint.connector.operation.PathHelper;
 import com.liferay.sharepoint.connector.schema.query.Query;
 import com.liferay.sharepoint.connector.schema.query.QueryOptionsList;
@@ -95,7 +96,9 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	public boolean cancelCheckOutFile(String filePath)
 		throws SharepointException {
 
-		return false;
+		_pathHelper.validatePath(filePath);
+
+		return _cancelCheckOutFileOperation.execute(filePath);
 	}
 
 	@Override
@@ -278,8 +281,12 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 	protected void initOperations() {
 		_addFolderOperation = new AddFolderOperation(_listsSoap, _pathHelper);
+
 		_addOrUpdateFileOperation = new AddOrUpdateFileOperation(
 			_copySoap, _listsSoap);
+
+		_cancelCheckOutFileOperation = new CancelCheckOutFileOperation(
+			_listsSoap);
 	}
 
 	protected void validateCredentials(String username, String password) {
@@ -294,6 +301,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 	private AddFolderOperation _addFolderOperation;
 	private AddOrUpdateFileOperation _addOrUpdateFileOperation;
+	private CancelCheckOutFileOperation _cancelCheckOutFileOperation;
 	private CopySoap _copySoap;
 	private String _libraryName;
 	private ListsSoap _listsSoap;
