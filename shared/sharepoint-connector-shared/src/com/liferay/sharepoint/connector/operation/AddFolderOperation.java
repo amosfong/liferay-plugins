@@ -24,17 +24,15 @@ import com.liferay.sharepoint.connector.schema.batch.BatchMethod;
  */
 public class AddFolderOperation extends BaseOperation {
 
-	public AddFolderOperation(
-		PathHelper pathHelper, BatchOperation batchOperation) {
-
-		_pathHelper = pathHelper;
-		_batchOperation = batchOperation;
+	@Override
+	public void afterPropertiesSet() {
+		_batchOperation = getOperation(BatchOperation.class);
 	}
 
 	public void execute(String folderPath, String folderName)
 		throws SharepointException {
 
-		String folderFullPath = _pathHelper.toFullPath(folderPath);
+		String folderFullPath = pathHelper.toFullPath(folderPath);
 
 		_batchOperation.execute(
 			new Batch(
@@ -48,6 +46,5 @@ public class AddFolderOperation extends BaseOperation {
 	}
 
 	private BatchOperation _batchOperation;
-	private PathHelper _pathHelper;
 
 }

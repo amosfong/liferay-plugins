@@ -17,8 +17,6 @@ package com.liferay.sharepoint.connector.operation;
 import com.liferay.sharepoint.connector.SharepointConnection.CheckInType;
 import com.liferay.sharepoint.connector.SharepointException;
 
-import com.microsoft.schemas.sharepoint.soap.ListsSoap;
-
 import java.net.URL;
 
 import java.rmi.RemoteException;
@@ -27,10 +25,6 @@ import java.rmi.RemoteException;
  * @author Ivan Zaera
  */
 public class CheckInFileOperation extends BaseOperation {
-
-	public CheckInFileOperation(ListsSoap listsSoap) {
-		_listsSoap = listsSoap;
-	}
 
 	public boolean execute(
 			String filePath, String comment, CheckInType checkInType)
@@ -42,7 +36,7 @@ public class CheckInFileOperation extends BaseOperation {
 			String protocolValue = String.valueOf(
 				checkInType.getProtocolValue());
 
-			return _listsSoap.checkInFile(
+			return listsSoap.checkInFile(
 				filePathURL.toString(), comment, protocolValue);
 		}
 		catch (RemoteException re) {
@@ -50,7 +44,5 @@ public class CheckInFileOperation extends BaseOperation {
 				"Unable to communicate with the Sharepoint server", re);
 		}
 	}
-
-	private ListsSoap _listsSoap;
 
 }

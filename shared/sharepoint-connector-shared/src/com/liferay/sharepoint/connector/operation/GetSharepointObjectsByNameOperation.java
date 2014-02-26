@@ -31,10 +31,10 @@ import java.util.List;
  */
 public class GetSharepointObjectsByNameOperation extends BaseOperation {
 
-	public GetSharepointObjectsByNameOperation(
-		GetSharepointObjectsByQueryOperation getObjectsByQueryOperation) {
-
-		_getObjectsByQueryOperation = getObjectsByQueryOperation;
+	@Override
+	public void afterPropertiesSet() {
+		_getSharepointObjectsByQueryOperation = getOperation(
+			GetSharepointObjectsByQueryOperation.class);
 	}
 
 	public List<SharepointObject> execute(String name)
@@ -44,11 +44,12 @@ public class GetSharepointObjectsByNameOperation extends BaseOperation {
 			new ContainsOperator(
 				new QueryField("FileRef"), new QueryValue(name)));
 
-		return _getObjectsByQueryOperation.execute(
+		return _getSharepointObjectsByQueryOperation.execute(
 			query,
 			new QueryOptionsList(new FolderQueryOption(StringPool.BLANK)));
 	}
 
-	private GetSharepointObjectsByQueryOperation _getObjectsByQueryOperation;
+	private GetSharepointObjectsByQueryOperation
+		_getSharepointObjectsByQueryOperation;
 
 }

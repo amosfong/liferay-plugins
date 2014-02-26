@@ -30,7 +30,6 @@ import com.microsoft.schemas.sharepoint.soap.GetListItemsQuery;
 import com.microsoft.schemas.sharepoint.soap.GetListItemsQueryOptions;
 import com.microsoft.schemas.sharepoint.soap.GetListItemsResponseGetListItemsResult;
 import com.microsoft.schemas.sharepoint.soap.GetListItemsViewFields;
-import com.microsoft.schemas.sharepoint.soap.ListsSoap;
 
 import java.rmi.RemoteException;
 
@@ -56,14 +55,10 @@ import org.w3c.dom.NodeList;
  */
 public class GetSharepointObjectsByQueryOperation extends BaseOperation {
 
-	public GetSharepointObjectsByQueryOperation(
-		ListsSoap listsSoap, PathHelper pathHelper) {
-
-		_listsSoap = listsSoap;
-		_pathHelper = pathHelper;
-
-		String libraryName = _pathHelper.getLibraryName();
-		String sitePath = _pathHelper.getSitePath();
+	@Override
+	public void afterPropertiesSet() {
+		String libraryName = pathHelper.getLibraryName();
+		String sitePath = pathHelper.getSitePath();
 
 		_pathPrefixToRemoveLength = libraryName.length() + sitePath.length();
 	}
@@ -83,8 +78,8 @@ public class GetSharepointObjectsByQueryOperation extends BaseOperation {
 			getGetListItemsQueryOptions(queryOptionsList);
 
 		try {
-			getListItemsResponseGetListItemsResult = _listsSoap.getListItems(
-				_pathHelper.getLibraryName(), SharepointConstants.VIEW_DEFAULT,
+			getListItemsResponseGetListItemsResult = listsSoap.getListItems(
+				pathHelper.getLibraryName(), SharepointConstants.VIEW_DEFAULT,
 				getListItemsQuery, getListItemsViewFields,
 				SharepointConstants.ROW_LIMIT_DEFAULT, getListItemsQueryOptions,
 				SharepointConstants.WEB_ID_DEFAULT);
@@ -297,8 +292,6 @@ public class GetSharepointObjectsByQueryOperation extends BaseOperation {
 	private static Log _log = LogFactoryUtil.getLog(
 		GetSharepointObjectsByQueryOperation.class);
 
-	private ListsSoap _listsSoap;
-	private PathHelper _pathHelper;
 	private int _pathPrefixToRemoveLength;
 
 }

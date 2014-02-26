@@ -14,8 +14,31 @@
 
 package com.liferay.sharepoint.connector.operation;
 
+import com.microsoft.schemas.sharepoint.soap.CopySoap;
+import com.microsoft.schemas.sharepoint.soap.ListsSoap;
+import com.microsoft.schemas.sharepoint.soap.VersionsSoap;
+
+import java.util.Map;
+
 /**
  * @author Brian Wing Shun Chan
  */
 public interface Operation {
+
+	public void afterPropertiesSet();
+
+	public void setCopySoap(CopySoap copySoap);
+
+	public void setListsSoap(ListsSoap listsSoap);
+
+	public void setOperations(Map<Class<?>, Operation> operations);
+
+	public void setPassword(String password);
+
+	public void setPathHelper(PathHelper pathHelper);
+
+	public void setUsername(String username);
+
+	public void setVersionsSoap(VersionsSoap versionsSoap);
+
 }

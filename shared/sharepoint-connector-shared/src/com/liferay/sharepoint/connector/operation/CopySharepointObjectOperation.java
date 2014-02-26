@@ -24,7 +24,6 @@ import com.liferay.sharepoint.connector.SharepointResultException;
 
 import com.microsoft.schemas.sharepoint.soap.CopyErrorCode;
 import com.microsoft.schemas.sharepoint.soap.CopyResult;
-import com.microsoft.schemas.sharepoint.soap.CopySoap;
 import com.microsoft.schemas.sharepoint.soap.holders.CopyResultCollectionHolder;
 
 import java.net.URL;
@@ -40,26 +39,21 @@ import org.apache.axis.holders.UnsignedIntHolder;
  */
 public class CopySharepointObjectOperation extends BaseOperation {
 
-	public CopySharepointObjectOperation(
-		CopySoap copySoap, PathHelper pathHelper,
-		AddFolderOperation addFolderOperation,
-		CheckInFileOperation checkInFileOperation,
-		GetSharepointObjectByPathOperation getObjectByPathOperation,
-		GetSharepointObjectsByFolderOperation getObjectsByFolderOperation) {
-
-		_copySoap = copySoap;
-		_pathHelper = pathHelper;
-		_addFolderOperation = addFolderOperation;
-		_checkInFileOperation = checkInFileOperation;
-		_getObjectByPathOperation = getObjectByPathOperation;
-		_getObjectsByFolderOperation = getObjectsByFolderOperation;
+	@Override
+	public void afterPropertiesSet() {
+		_addFolderOperation = getOperation(AddFolderOperation.class);
+		_checkInFileOperation = getOperation(CheckInFileOperation.class);
+		_getSharepointObjectByPathOperation = getOperation(
+			GetSharepointObjectByPathOperation.class);
+		_getSharepointObjectsByFolderOperation = getOperation(
+			GetSharepointObjectsByFolderOperation.class);
 	}
 
 	public void execute(String path, String newPath)
 		throws SharepointException {
 
-		SharepointObject sharepointObject = _getObjectByPathOperation.execute(
-			path);
+		SharepointObject sharepointObject =
+			_getSharepointObjectByPathOperation.execute(path);
 
 		if (sharepointObject == null) {
 			throw new SharepointException(
@@ -84,7 +78,7 @@ public class CopySharepointObjectOperation extends BaseOperation {
 			new CopyResultCollectionHolder();
 
 		try {
-			_copySoap.copyIntoItemsLocal(
+			copySoap.copyIntoItemsLocal(
 				pathURL.toString(), new String[] {newPathURL.toString()},
 				new UnsignedIntHolder(), copyResultCollectionHolder);
 		}
@@ -112,14 +106,14 @@ public class CopySharepointObjectOperation extends BaseOperation {
 		createFolder(newPath);
 
 		List<SharepointObject> sharepointObjects =
-			_getObjectsByFolderOperation.execute(
+			_getSharepointObjectsByFolderOperation.execute(
 				path, SharepointConnection.ObjectTypeFilter.ALL);
 
 		for (SharepointObject sharepointObject : sharepointObjects) {
-			String sharepointObjectPath = _pathHelper.buildPath(
+			String sharepointObjectPath = pathHelper.buildPath(
 				path, sharepointObject.getName());
 
-			String newSharepointObjectPath = _pathHelper.buildPath(
+			String newSharepointObjectPath = pathHelper.buildPath(
 				newPath, sharepointObject.getName());
 
 			if (sharepointObject.isFile()) {
@@ -133,10 +127,10 @@ public class CopySharepointObjectOperation extends BaseOperation {
 
 	protected void createFolder(String folderPath) {
 		try {
-			String parentFolderPath = _pathHelper.getParentFolderPath(
+			String parentFolderPath = pathHelper.getParentFolderPath(
 				folderPath);
 
-			String folderName = _pathHelper.getName(folderPath);
+			String folderName = pathHelper.getName(folderPath);
 
 			_addFolderOperation.execute(parentFolderPath, folderName);
 		}
@@ -152,9 +146,9 @@ public class CopySharepointObjectOperation extends BaseOperation {
 
 	private AddFolderOperation _addFolderOperation;
 	private CheckInFileOperation _checkInFileOperation;
-	private CopySoap _copySoap;
-	private GetSharepointObjectByPathOperation _getObjectByPathOperation;
-	private GetSharepointObjectsByFolderOperation _getObjectsByFolderOperation;
-	private PathHelper _pathHelper;
+	private GetSharepointObjectByPathOperation
+		_getSharepointObjectByPathOperation;
+	private GetSharepointObjectsByFolderOperation
+		_getSharepointObjectsByFolderOperation;
 
 }

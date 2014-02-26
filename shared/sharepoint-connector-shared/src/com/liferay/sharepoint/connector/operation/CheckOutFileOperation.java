@@ -17,8 +17,6 @@ package com.liferay.sharepoint.connector.operation;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.sharepoint.connector.SharepointException;
 
-import com.microsoft.schemas.sharepoint.soap.ListsSoap;
-
 import java.net.URL;
 
 import java.rmi.RemoteException;
@@ -28,15 +26,11 @@ import java.rmi.RemoteException;
  */
 public class CheckOutFileOperation extends BaseOperation {
 
-	public CheckOutFileOperation(ListsSoap listsSoap) {
-		_listsSoap = listsSoap;
-	}
-
 	public boolean execute(String filePath) throws SharepointException {
 		try {
 			URL filePathURL = urlHelper.toURL(filePath);
 
-			return _listsSoap.checkOutFile(
+			return listsSoap.checkOutFile(
 				filePathURL.toString(), Boolean.FALSE.toString(),
 				StringPool.BLANK);
 		}
@@ -45,7 +39,5 @@ public class CheckOutFileOperation extends BaseOperation {
 				"Unable to communicate with the Sharepoint server", re);
 		}
 	}
-
-	private ListsSoap _listsSoap;
 
 }

@@ -30,6 +30,7 @@ import com.liferay.sharepoint.connector.operation.GetSharepointObjectsByFolderOp
 import com.liferay.sharepoint.connector.operation.GetSharepointObjectsByNameOperation;
 import com.liferay.sharepoint.connector.operation.GetSharepointObjectsByQueryOperation;
 import com.liferay.sharepoint.connector.operation.MoveSharepointObjectOperation;
+import com.liferay.sharepoint.connector.operation.Operation;
 import com.liferay.sharepoint.connector.operation.PathHelper;
 import com.liferay.sharepoint.connector.schema.query.Query;
 import com.liferay.sharepoint.connector.schema.query.QueryOptionsList;
@@ -38,13 +39,19 @@ import com.microsoft.schemas.sharepoint.soap.CopyLocator;
 import com.microsoft.schemas.sharepoint.soap.CopySoap;
 import com.microsoft.schemas.sharepoint.soap.ListsLocator;
 import com.microsoft.schemas.sharepoint.soap.ListsSoap;
+import com.microsoft.schemas.sharepoint.soap.VersionsLocator;
+import com.microsoft.schemas.sharepoint.soap.VersionsSoap;
 
 import java.io.InputStream;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.xml.rpc.ServiceException;
 
@@ -74,8 +81,9 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 		initCopySoap();
 		initListsSoap();
+		initVersionsSoap();
 
-		initOperations();
+		buildOperations();
 	}
 
 	@Override
@@ -269,6 +277,67 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		_addOrUpdateFileOperation.execute(filePath, null, inputStream);
 	}
 
+	protected <O extends Operation> O buildOperation(Class<O> clazz) {
+		try {
+			O operation = clazz.newInstance();
+
+			operation.setCopySoap(_copySoap);
+			operation.setListsSoap(_listsSoap);
+			operation.setOperations(_operations);
+			operation.setPassword(_password);
+			operation.setPathHelper( _pathHelper);
+			operation.setUsername(_username);
+			operation.setVersionsSoap(_versionsSoap);
+
+			_operations.put(clazz, operation);
+
+			return operation;
+		}
+		catch (Exception e) {
+			throw new SharepointRuntimeException(
+				"Unable to initialize operation " + clazz.getName(), e);
+		}
+	}
+
+	protected void buildOperations() {
+		_addFolderOperation = buildOperation(AddFolderOperation.class);
+		_addOrUpdateFileOperation = buildOperation(
+			AddOrUpdateFileOperation.class);
+		_batchOperation = buildOperation(BatchOperation.class);
+		_cancelCheckOutFileOperation = buildOperation(
+			CancelCheckOutFileOperation.class);
+		_checkInFileOperation = buildOperation(CheckInFileOperation.class);
+		_checkOutFileOperation = buildOperation(CheckOutFileOperation.class);
+		_copySharepointObjectOperation = buildOperation(
+			CopySharepointObjectOperation.class);
+		_deleteSharepointObjectOperation = buildOperation(
+			DeleteSharepointObjectOperation.class);
+		_getInputStreamOperation = buildOperation(
+			GetInputStreamOperation.class);
+		_getSharepointObjectByPathOperation = buildOperation(
+			GetSharepointObjectByPathOperation.class);
+		_getSharepointObjectsByFolderOperation = buildOperation(
+			GetSharepointObjectsByFolderOperation.class);
+		_getSharepointObjectsByNameOperation = buildOperation(
+			GetSharepointObjectsByNameOperation.class);
+		_getSharepointObjectsByQueryOperation = buildOperation(
+			GetSharepointObjectsByQueryOperation.class);
+		_moveSharepointObjectOperation = buildOperation(
+			MoveSharepointObjectOperation.class);
+
+		Set<Map.Entry<Class<?>, Operation>> set = _operations.entrySet();
+
+		Iterator<Map.Entry<Class<?>, Operation>> iterator = set.iterator();
+
+		while (iterator.hasNext()) {
+			Map.Entry<Class<?>, Operation> entry = iterator.next();
+
+			Operation operation = entry.getValue();
+
+			operation.afterPropertiesSet();
+		}
+	}
+
 	protected void configureStub(Stub stub, URL wsdlURL) {
 		stub._setProperty(Stub.ENDPOINT_ADDRESS_PROPERTY, wsdlURL.toString());
 		stub._setProperty(Call.PASSWORD_PROPERTY, _password);
@@ -323,52 +392,20 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		}
 	}
 
-	protected void initOperations() {
-		_batchOperation = new BatchOperation(_listsSoap, _pathHelper);
+	protected void initVersionsSoap() {
+		URL wsdlURL = getWSDLURL("versions");
 
-		_cancelCheckOutFileOperation = new CancelCheckOutFileOperation(
-			_listsSoap);
+		try {
+			VersionsLocator versionsLocator = new VersionsLocator();
 
-		_checkInFileOperation = new CheckInFileOperation(_listsSoap);
+			_versionsSoap = versionsLocator.getVersionsSoap(wsdlURL);
 
-		_checkOutFileOperation = new CheckOutFileOperation(_listsSoap);
-
-		_getInputStreamOperation = new GetInputStreamOperation(
-			_username, _password);
-
-		_getSharepointObjectsByQueryOperation =
-			new GetSharepointObjectsByQueryOperation(_listsSoap, _pathHelper);
-
-		_addFolderOperation = new AddFolderOperation(
-			_pathHelper, _batchOperation);
-
-		_addOrUpdateFileOperation = new AddOrUpdateFileOperation(
-			_copySoap, _checkInFileOperation);
-
-		_getSharepointObjectsByFolderOperation =
-			new GetSharepointObjectsByFolderOperation(
-				_pathHelper, _getSharepointObjectsByQueryOperation);
-
-		_getSharepointObjectsByNameOperation =
-			new GetSharepointObjectsByNameOperation(
-				_getSharepointObjectsByQueryOperation);
-
-		_getSharepointObjectByPathOperation =
-			new GetSharepointObjectByPathOperation(
-				_pathHelper, _getSharepointObjectsByQueryOperation);
-
-		_copySharepointObjectOperation = new CopySharepointObjectOperation(
-			_copySoap, _pathHelper, _addFolderOperation, _checkInFileOperation,
-			_getSharepointObjectByPathOperation,
-			_getSharepointObjectsByFolderOperation);
-
-		_deleteSharepointObjectOperation = new DeleteSharepointObjectOperation(
-			_pathHelper, _batchOperation, _getSharepointObjectByPathOperation);
-
-		_moveSharepointObjectOperation = new MoveSharepointObjectOperation(
-			_pathHelper, _batchOperation, _copySharepointObjectOperation,
-			_deleteSharepointObjectOperation,
-			_getSharepointObjectByPathOperation);
+			configureStub((Stub)_versionsSoap, wsdlURL);
+		}
+		catch (ServiceException se) {
+			throw new SharepointRuntimeException(
+				"Unable to configure SOAP endpoint " + wsdlURL, se);
+		}
 	}
 
 	protected void validateCredentials(String username, String password) {
@@ -401,11 +438,14 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		_getSharepointObjectsByQueryOperation;
 	private ListsSoap _listsSoap;
 	private MoveSharepointObjectOperation _moveSharepointObjectOperation;
+	private Map<Class<?>, Operation> _operations =
+		new HashMap<Class<?>, Operation>();
 	private String _password;
 	private PathHelper _pathHelper;
 	private String _serverAddress;
 	private int _serverPort;
 	private String _serverProtocol;
 	private String _username;
+	private VersionsSoap _versionsSoap;
 
 }

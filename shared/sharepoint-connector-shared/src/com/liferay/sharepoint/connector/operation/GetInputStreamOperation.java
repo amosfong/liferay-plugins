@@ -38,11 +38,6 @@ import org.apache.commons.httpclient.params.HttpClientParams;
  */
 public class GetInputStreamOperation extends BaseOperation {
 
-	public GetInputStreamOperation(String username, String password) {
-		_username = username;
-		_password = password;
-	}
-
 	public InputStream execute(SharepointObject sharepointObject)
 		throws SharepointException {
 
@@ -68,7 +63,7 @@ public class GetInputStreamOperation extends BaseOperation {
 			url.getHost(), url.getPort(), url.getHost(), "BASIC");
 
 		UsernamePasswordCredentials usernamePasswordCredentials =
-			new UsernamePasswordCredentials(_username, _password);
+			new UsernamePasswordCredentials(username, password);
 
 		HttpState httpClientState = httpClient.getState();
 
@@ -117,8 +112,5 @@ public class GetInputStreamOperation extends BaseOperation {
 			getMethod.releaseConnection();
 		}
 	}
-
-	private String _password;
-	private String _username;
 
 }

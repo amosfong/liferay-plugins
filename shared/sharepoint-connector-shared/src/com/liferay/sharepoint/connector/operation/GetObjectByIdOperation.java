@@ -29,10 +29,10 @@ import com.liferay.sharepoint.connector.schema.query.option.FolderQueryOption;
 */
 public class GetObjectByIdOperation extends BaseOperation {
 
-	public GetObjectByIdOperation(
-		GetSharepointObjectsByQueryOperation getObjectsByQueryOperation) {
-
-		_getObjectsByQueryOperation = getObjectsByQueryOperation;
+	@Override
+	public void afterPropertiesSet() {
+		_getSharepointObjectsByQueryOperation = getOperation(
+			GetSharepointObjectsByQueryOperation.class);
 	}
 
 	public SharepointObject execute(long sharepointObjectId)
@@ -44,11 +44,12 @@ public class GetObjectByIdOperation extends BaseOperation {
 				new QueryValue(String.valueOf(sharepointObjectId))));
 
 		return getSharepointObject(
-			_getObjectsByQueryOperation.execute(
+			_getSharepointObjectsByQueryOperation.execute(
 				query,
 				new QueryOptionsList(new FolderQueryOption(StringPool.BLANK))));
 	}
 
-	private GetSharepointObjectsByQueryOperation _getObjectsByQueryOperation;
+	private GetSharepointObjectsByQueryOperation
+		_getSharepointObjectsByQueryOperation;
 
 }

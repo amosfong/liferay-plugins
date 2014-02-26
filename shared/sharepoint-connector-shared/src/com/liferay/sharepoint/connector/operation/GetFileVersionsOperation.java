@@ -22,7 +22,6 @@ import com.liferay.sharepoint.connector.SharepointObject;
 import com.liferay.sharepoint.connector.SharepointVersion;
 
 import com.microsoft.schemas.sharepoint.soap.GetVersionsResponseGetVersionsResult;
-import com.microsoft.schemas.sharepoint.soap.VersionsSoap;
 
 import java.rmi.RemoteException;
 
@@ -45,14 +44,10 @@ import org.w3c.dom.NodeList;
  */
 public class GetFileVersionsOperation extends BaseOperation {
 
-	public GetFileVersionsOperation(
-		VersionsSoap versionsSoap, PathHelper pathHelper,
-		GetSharepointObjectByPathOperation getObjectByPathOperation) {
-
-		_pathHelper = pathHelper;
-		_versionsSoap = versionsSoap;
-
-		_getObjectByPathOperation = getObjectByPathOperation;
+	@Override
+	public void afterPropertiesSet() {
+		_getSharepointObjectByPathOperation = getOperation(
+			GetSharepointObjectByPathOperation.class);
 	}
 
 	public List<SharepointVersion> execute(String filePath)
@@ -60,18 +55,18 @@ public class GetFileVersionsOperation extends BaseOperation {
 
 		try {
 			SharepointObject sharepointObject =
-				_getObjectByPathOperation.execute(filePath);
+				_getSharepointObjectByPathOperation.execute(filePath);
 
 			if (sharepointObject == null) {
 				throw new SharepointException(
 					"Unable to find Sharepoint object at " + filePath);
 			}
 
-			String fileFullPath = _pathHelper.toFullPath(filePath);
+			String fileFullPath = pathHelper.toFullPath(filePath);
 
 			GetVersionsResponseGetVersionsResult
-				getVersionsResponseGetVersionsResult =
-					_versionsSoap.getVersions(fileFullPath);
+				getVersionsResponseGetVersionsResult = versionsSoap.getVersions(
+					fileFullPath);
 
 			Element getVersionsResponseGetVersionsResultElement =
 				xmlHelper.getElement(getVersionsResponseGetVersionsResult);
@@ -157,8 +152,7 @@ public class GetFileVersionsOperation extends BaseOperation {
 	private static Comparator<SharepointVersion> _comparator =
 		new SharepointVersionComparator();
 
-	private GetSharepointObjectByPathOperation _getObjectByPathOperation;
-	private PathHelper _pathHelper;
-	private VersionsSoap _versionsSoap;
+	private GetSharepointObjectByPathOperation
+		_getSharepointObjectByPathOperation;
 
 }

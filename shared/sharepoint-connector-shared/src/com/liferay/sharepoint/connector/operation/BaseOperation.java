@@ -17,12 +17,60 @@ package com.liferay.sharepoint.connector.operation;
 import com.liferay.sharepoint.connector.SharepointObject;
 import com.liferay.sharepoint.connector.schema.XMLHelper;
 
+import com.microsoft.schemas.sharepoint.soap.CopySoap;
+import com.microsoft.schemas.sharepoint.soap.ListsSoap;
+import com.microsoft.schemas.sharepoint.soap.VersionsSoap;
+
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Brian Wing Shun Chan
  */
 public abstract class BaseOperation implements Operation {
+
+	@Override
+	public void afterPropertiesSet() {
+	}
+
+	@Override
+	public void setCopySoap(CopySoap copySoap) {
+		this.copySoap = copySoap;
+	}
+
+	@Override
+	public void setListsSoap(ListsSoap listsSoap) {
+		this.listsSoap = listsSoap;
+	}
+
+	@Override
+	public void setOperations(Map<Class<?>, Operation> operations) {
+		_operations = operations;
+	}
+
+	@Override
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Override
+	public void setPathHelper(PathHelper pathHelper) {
+		this.pathHelper = pathHelper;
+	}
+
+	@Override
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	@Override
+	public void setVersionsSoap(VersionsSoap versionsSoap) {
+		this.versionsSoap = versionsSoap;
+	}
+
+	protected <O extends Operation> O getOperation(Class<O> clazz) {
+		return (O)_operations.get(clazz);
+	}
 
 	protected SharepointObject getSharepointObject(
 		List<SharepointObject> sharepointObjects) {
@@ -36,5 +84,14 @@ public abstract class BaseOperation implements Operation {
 
 	protected static URLHelper urlHelper = new URLHelper();
 	protected static XMLHelper xmlHelper = new XMLHelper();
+
+	protected CopySoap copySoap;
+	protected ListsSoap listsSoap;
+	protected String password;
+	protected PathHelper pathHelper;
+	protected String username;
+	protected VersionsSoap versionsSoap;
+
+	private Map<Class<?>, Operation> _operations;
 
 }

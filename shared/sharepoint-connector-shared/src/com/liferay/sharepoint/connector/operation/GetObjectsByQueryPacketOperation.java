@@ -33,18 +33,10 @@ import java.util.List;
  */
 public class GetObjectsByQueryPacketOperation extends BaseOperation {
 
-	public GetObjectsByQueryPacketOperation(
-		QueryServiceSoap queryServiceSoap, PathHelper pathHelper,
-		GetSharepointObjectByPathOperation getObjectByPathOperation,
-		String serviceURL) {
-
-		_queryServiceSoap = queryServiceSoap;
-		_pathHelper = pathHelper;
-		_getObjectByPathOperation = getObjectByPathOperation;
-
-		_searchPrefix = serviceURL + _pathHelper.getLibraryName();
-
-		_searchPrefixLength = _searchPrefix.length();
+	@Override
+	public void afterPropertiesSet() {
+		_getSharepointObjectByPathOperation = getOperation(
+			GetSharepointObjectByPathOperation.class);
 	}
 
 	public List<SharepointObject> execute(String queryPacket)
@@ -84,7 +76,7 @@ public class GetObjectsByQueryPacketOperation extends BaseOperation {
 					_searchPrefixLength);
 
 				SharepointObject sharepointObject =
-					_getObjectByPathOperation.execute(path);
+					_getSharepointObjectByPathOperation.execute(path);
 
 				if (sharepointObject == null) {
 					if (_log.isWarnEnabled()) {
@@ -108,8 +100,8 @@ public class GetObjectsByQueryPacketOperation extends BaseOperation {
 	private static Log _log = LogFactoryUtil.getLog(
 		GetObjectsByQueryPacketOperation.class);
 
-	private GetSharepointObjectByPathOperation _getObjectByPathOperation;
-	private PathHelper _pathHelper;
+	private GetSharepointObjectByPathOperation
+		_getSharepointObjectByPathOperation;
 	private QueryServiceSoap _queryServiceSoap;
 	private String _searchPrefix;
 	private int _searchPrefixLength;

@@ -31,12 +31,10 @@ import java.util.List;
  */
 public class GetSharepointObjectsByFolderOperation extends BaseOperation {
 
-	public GetSharepointObjectsByFolderOperation(
-		PathHelper pathHelper,
-		GetSharepointObjectsByQueryOperation getObjectsByQueryOperation) {
-
-		_pathHelper = pathHelper;
-		_getObjectsByQueryOperation = getObjectsByQueryOperation;
+	@Override
+	public void afterPropertiesSet() {
+		_getSharepointObjectsByQueryOperation = getOperation(
+			GetSharepointObjectsByQueryOperation.class);
 	}
 
 	public List<SharepointObject> execute(
@@ -69,15 +67,16 @@ public class GetSharepointObjectsByFolderOperation extends BaseOperation {
 				"Unsupported object type filter " + objectTypeFilter);
 		}
 
-		String folderFullPath = _pathHelper.toFullPath(folderPath);
+		String folderFullPath = pathHelper.toFullPath(folderPath);
 
 		QueryOptionsList queryOptionsList = new QueryOptionsList(
 			new FolderQueryOption(folderFullPath));
 
-		return _getObjectsByQueryOperation.execute(query, queryOptionsList);
+		return _getSharepointObjectsByQueryOperation.execute(
+			query, queryOptionsList);
 	}
 
-	private GetSharepointObjectsByQueryOperation _getObjectsByQueryOperation;
-	private PathHelper _pathHelper;
+	private GetSharepointObjectsByQueryOperation
+		_getSharepointObjectsByQueryOperation;
 
 }

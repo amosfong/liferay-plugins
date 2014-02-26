@@ -21,7 +21,6 @@ import com.liferay.sharepoint.connector.SharepointResultException;
 
 import com.microsoft.schemas.sharepoint.soap.CopyErrorCode;
 import com.microsoft.schemas.sharepoint.soap.CopyResult;
-import com.microsoft.schemas.sharepoint.soap.CopySoap;
 import com.microsoft.schemas.sharepoint.soap.FieldInformation;
 import com.microsoft.schemas.sharepoint.soap.holders.CopyResultCollectionHolder;
 
@@ -39,11 +38,9 @@ import org.apache.axis.holders.UnsignedIntHolder;
  */
 public class AddOrUpdateFileOperation extends BaseOperation {
 
-	public AddOrUpdateFileOperation(
-		CopySoap copySoap, CheckInFileOperation checkInFileOperation) {
-
-		_copySoap = copySoap;
-		_checkInFileOperation = checkInFileOperation;
+	@Override
+	public void afterPropertiesSet() {
+		_checkInFileOperation = getOperation(CheckInFileOperation.class);
 	}
 
 	public void execute(
@@ -65,7 +62,7 @@ public class AddOrUpdateFileOperation extends BaseOperation {
 			new CopyResultCollectionHolder();
 
 		try {
-			_copySoap.copyIntoItems(
+			copySoap.copyIntoItems(
 				SharepointConstants.URL_SOURCE_NONE,
 				new String[] {filePathURL.toString()},
 				_EMPTY_FIELD_INFORMATIONS, bytes, new UnsignedIntHolder(),
@@ -95,6 +92,5 @@ public class AddOrUpdateFileOperation extends BaseOperation {
 		new FieldInformation[0];
 
 	private CheckInFileOperation _checkInFileOperation;
-	private CopySoap _copySoap;
 
 }

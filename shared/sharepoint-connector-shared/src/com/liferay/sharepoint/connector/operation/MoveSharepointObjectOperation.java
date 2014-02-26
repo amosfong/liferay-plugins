@@ -27,30 +27,27 @@ import java.net.URL;
  */
 public class MoveSharepointObjectOperation extends BaseOperation {
 
-	public MoveSharepointObjectOperation(
-		PathHelper pathHelper, BatchOperation batchOperation,
-		CopySharepointObjectOperation copyObjectOperation,
-		DeleteSharepointObjectOperation deleteObjectOperation,
-		GetSharepointObjectByPathOperation getObjectByPathOperation) {
-
-		_pathHelper = pathHelper;
-
-		_batchOperation = batchOperation;
-		_copyObjectOperation = copyObjectOperation;
-		_deleteObjectOperation = deleteObjectOperation;
-		_getObjectByPathOperation = getObjectByPathOperation;
+	@Override
+	public void afterPropertiesSet() {
+		_batchOperation = getOperation(BatchOperation.class);
+		_copySharepointObjectOperation = getOperation(
+			CopySharepointObjectOperation.class);
+		_deleteSharepointObjectOperation = getOperation(
+			DeleteSharepointObjectOperation.class);
+		_getSharepointObjectByPathOperation = getOperation(
+			GetSharepointObjectByPathOperation.class);
 	}
 
 	public void execute(String path, String newPath)
 		throws SharepointException {
 
-		if (_isRename(path, newPath)) {
+		if (isRename(path, newPath)) {
 			SharepointObject sharepointObject =
-				_getObjectByPathOperation.execute(path);
+				_getSharepointObjectByPathOperation.execute(path);
 
 			URL url = sharepointObject.getURL();
-			String newName = _pathHelper.getNameWithoutExtension(newPath);
-			String newExtension = _pathHelper.getExtension(newPath);
+			String newName = pathHelper.getNameWithoutExtension(newPath);
+			String newExtension = pathHelper.getExtension(newPath);
 
 			_batchOperation.execute(
 				new Batch(
@@ -66,22 +63,22 @@ public class MoveSharepointObjectOperation extends BaseOperation {
 						new BatchField("File_x0020_Type", newExtension))));
 		}
 		else {
-			_copyObjectOperation.execute(path, newPath);
-			_deleteObjectOperation.execute(path);
+			_copySharepointObjectOperation.execute(path, newPath);
+			_deleteSharepointObjectOperation.execute(path);
 		}
 	}
 
-	private boolean _isRename(String path, String newPath) {
-		String parentFolderPath = _pathHelper.getParentFolderPath(path);
-		String newParentFolderPath = _pathHelper.getParentFolderPath(newPath);
+	protected boolean isRename(String path, String newPath) {
+		String parentFolderPath = pathHelper.getParentFolderPath(path);
+		String newParentFolderPath = pathHelper.getParentFolderPath(newPath);
 
 		return parentFolderPath.equals(newParentFolderPath);
 	}
 
 	private BatchOperation _batchOperation;
-	private CopySharepointObjectOperation _copyObjectOperation;
-	private DeleteSharepointObjectOperation _deleteObjectOperation;
-	private GetSharepointObjectByPathOperation _getObjectByPathOperation;
-	private PathHelper _pathHelper;
+	private CopySharepointObjectOperation _copySharepointObjectOperation;
+	private DeleteSharepointObjectOperation _deleteSharepointObjectOperation;
+	private GetSharepointObjectByPathOperation
+		_getSharepointObjectByPathOperation;
 
 }

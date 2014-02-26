@@ -19,7 +19,6 @@ import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.SharepointResultException;
 import com.liferay.sharepoint.connector.schema.batch.Batch;
 
-import com.microsoft.schemas.sharepoint.soap.ListsSoap;
 import com.microsoft.schemas.sharepoint.soap.UpdateListItemsResponseUpdateListItemsResult;
 import com.microsoft.schemas.sharepoint.soap.UpdateListItemsUpdates;
 
@@ -33,11 +32,6 @@ import org.w3c.dom.Element;
  * @author Ivan Zaera
  */
 public class BatchOperation extends BaseOperation {
-
-	public BatchOperation(ListsSoap listsSoap, PathHelper pathHelper) {
-		_listsSoap = listsSoap;
-		_pathHelper = pathHelper;
-	}
 
 	public void execute(Batch batch) throws SharepointException {
 		UpdateListItemsUpdates updateListItemsUpdates =
@@ -54,8 +48,8 @@ public class BatchOperation extends BaseOperation {
 
 		try {
 			updateListItemsResponseUpdateListItemsResult =
-				_listsSoap.updateListItems(
-					_pathHelper.getLibraryName(), updateListItemsUpdates);
+				listsSoap.updateListItems(
+					pathHelper.getLibraryName(), updateListItemsUpdates);
 		}
 		catch (RemoteException re) {
 			throw new SharepointException(
@@ -94,8 +88,5 @@ public class BatchOperation extends BaseOperation {
 			throw new SharepointResultException(errorCode, errorText);
 		}
 	}
-
-	private ListsSoap _listsSoap;
-	private PathHelper _pathHelper;
 
 }

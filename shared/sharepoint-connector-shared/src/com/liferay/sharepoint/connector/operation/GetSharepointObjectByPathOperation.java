@@ -29,16 +29,14 @@ import com.liferay.sharepoint.connector.schema.query.option.FolderQueryOption;
  */
 public class GetSharepointObjectByPathOperation extends BaseOperation {
 
-	public GetSharepointObjectByPathOperation(
-		PathHelper pathHelper,
-		GetSharepointObjectsByQueryOperation getObjectsByQueryOperation) {
-
-		_getObjectsByQueryOperation = getObjectsByQueryOperation;
-		_pathHelper = pathHelper;
+	@Override
+	public void afterPropertiesSet() {
+		_getSharepointObjectsByQueryOperation = getOperation(
+			GetSharepointObjectsByQueryOperation.class);
 	}
 
 	public SharepointObject execute(String path) throws SharepointException {
-		String fullPath = _pathHelper.toFullPath(path);
+		String fullPath = pathHelper.toFullPath(path);
 
 		Query query = new Query(
 			new EqOperator(
@@ -46,12 +44,12 @@ public class GetSharepointObjectByPathOperation extends BaseOperation {
 				new QueryValue(fullPath.substring(1))));
 
 		return getSharepointObject(
-			_getObjectsByQueryOperation.execute(
+			_getSharepointObjectsByQueryOperation.execute(
 				query,
 				new QueryOptionsList(new FolderQueryOption(StringPool.BLANK))));
 	}
 
-	private GetSharepointObjectsByQueryOperation _getObjectsByQueryOperation;
-	private PathHelper _pathHelper;
+	private GetSharepointObjectsByQueryOperation
+		_getSharepointObjectsByQueryOperation;
 
 }

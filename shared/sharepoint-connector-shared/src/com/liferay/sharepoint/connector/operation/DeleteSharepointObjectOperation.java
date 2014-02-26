@@ -25,25 +25,23 @@ import com.liferay.sharepoint.connector.schema.batch.BatchMethod;
  */
 public class DeleteSharepointObjectOperation extends BaseOperation {
 
-	public DeleteSharepointObjectOperation(
-		PathHelper pathHelper, BatchOperation batchOperation,
-		GetSharepointObjectByPathOperation getObjectByPathOperation) {
-
-		_pathHelper = pathHelper;
-		_batchOperation = batchOperation;
-		_getObjectByPathOperation = getObjectByPathOperation;
+	@Override
+	public void afterPropertiesSet() {
+		_batchOperation = getOperation(BatchOperation.class);
+		_getSharepointObjectByPathOperation = getOperation(
+			GetSharepointObjectByPathOperation.class);
 	}
 
 	public void execute(String path) throws SharepointException {
-		SharepointObject sharepointObject = _getObjectByPathOperation.execute(
-			path);
+		SharepointObject sharepointObject =
+			_getSharepointObjectByPathOperation.execute(path);
 
 		if (sharepointObject == null) {
 			throw new SharepointException(
 				"Unable to find Sharepoint object with path " + path);
 		}
 
-		String fullPath = _pathHelper.toFullPath(sharepointObject.getPath());
+		String fullPath = pathHelper.toFullPath(sharepointObject.getPath());
 
 		_batchOperation.execute(
 			new Batch(
@@ -56,7 +54,7 @@ public class DeleteSharepointObjectOperation extends BaseOperation {
 	}
 
 	private BatchOperation _batchOperation;
-	private GetSharepointObjectByPathOperation _getObjectByPathOperation;
-	private PathHelper _pathHelper;
+	private GetSharepointObjectByPathOperation
+		_getSharepointObjectByPathOperation;
 
 }
