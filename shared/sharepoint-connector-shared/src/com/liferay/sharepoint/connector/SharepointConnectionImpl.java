@@ -257,6 +257,10 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	@Override
 	public void updateFile(String filePath, InputStream inputStream)
 		throws SharepointException {
+
+		_pathHelper.validatePath(filePath);
+
+		_addOrUpdateFileOperation.execute(filePath, null, inputStream);
 	}
 
 	protected void configureStub(Stub stub, URL wsdlURL) {
