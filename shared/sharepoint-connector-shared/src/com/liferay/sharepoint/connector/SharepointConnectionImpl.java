@@ -192,7 +192,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	}
 
 	@Override
-	public SharepointObject getSharepointObject(long id)
+	public SharepointObject getSharepointObject(long sharepointObjectId)
 		throws SharepointException {
 
 		return null;

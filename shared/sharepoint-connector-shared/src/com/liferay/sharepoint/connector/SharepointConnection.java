@@ -66,7 +66,7 @@ public interface SharepointConnection {
 
 	public String getServerProtocol();
 
-	public SharepointObject getSharepointObject(long id)
+	public SharepointObject getSharepointObject(long sharepointObjectId)
 		throws SharepointException;
 
 	public SharepointObject getSharepointObject(String path)
