@@ -101,7 +101,6 @@ public class MetadataGeneratorUtil {
 			idpSsoDescriptor.getSingleSignOnServices();
 
 		String portalURL = PortalUtil.getPortalURL(request, requireSSL);
-
 		String pathMain = PortalUtil.getPathMain();
 
 		SingleSignOnService singleSignOnService =
@@ -176,7 +175,6 @@ public class MetadataGeneratorUtil {
 			spSsoDescriptor.getAssertionConsumerServices();
 
 		String portalURL = PortalUtil.getPortalURL(request, requireSSL);
-
 		String pathMain = PortalUtil.getPathMain();
 
 		AssertionConsumerService assertionConsumerService =
