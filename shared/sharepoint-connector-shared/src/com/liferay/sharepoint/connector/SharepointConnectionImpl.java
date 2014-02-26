@@ -24,6 +24,7 @@ import com.liferay.sharepoint.connector.operation.CheckOutFileOperation;
 import com.liferay.sharepoint.connector.operation.CopyObjectOperation;
 import com.liferay.sharepoint.connector.operation.DeleteObjectOperation;
 import com.liferay.sharepoint.connector.operation.GetContentOperation;
+import com.liferay.sharepoint.connector.operation.GetObjectsByFolderOperation;
 import com.liferay.sharepoint.connector.operation.GetObjectsByNameOperation;
 import com.liferay.sharepoint.connector.operation.GetObjectsByQueryOperation;
 import com.liferay.sharepoint.connector.operation.PathHelper;
@@ -185,7 +186,10 @@ public class SharepointConnectionImpl implements SharepointConnection {
 			String folderPath, ObjectTypeFilter objectTypeFilter)
 		throws SharepointException {
 
-		return null;
+		_pathHelper.validatePath(folderPath);
+
+		return _getObjectsByFolderOperation.execute(
+			folderPath, objectTypeFilter);
 	}
 
 	@Override
@@ -320,11 +324,14 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 		_getContentOperation = new GetContentOperation(_username, _password);
 
-		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
-			_listsSoap, _libraryName, _pathHelper);
+		_getObjectsByFolderOperation = new GetObjectsByFolderOperation(
+			_listsSoap, _pathHelper);
 
 		_getObjectsByNameOperation = new GetObjectsByNameOperation(
 			_listsSoap, _libraryName, _pathHelper);
+
+		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
+				_listsSoap, _libraryName, _pathHelper);
 	}
 
 	protected void validateCredentials(String username, String password) {
@@ -346,6 +353,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	private CopySoap _copySoap;
 	private DeleteObjectOperation _deleteObjectOperation;
 	private GetContentOperation _getContentOperation;
+	private GetObjectsByFolderOperation _getObjectsByFolderOperation;
 	private GetObjectsByNameOperation _getObjectsByNameOperation;
 	private GetObjectsByQueryOperation _getObjectsByQueryOperation;
 	private String _libraryName;
