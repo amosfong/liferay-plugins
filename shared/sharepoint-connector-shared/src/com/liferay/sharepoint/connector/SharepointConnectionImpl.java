@@ -27,6 +27,7 @@ import com.liferay.sharepoint.connector.operation.GetContentOperation;
 import com.liferay.sharepoint.connector.operation.GetObjectsByFolderOperation;
 import com.liferay.sharepoint.connector.operation.GetObjectsByNameOperation;
 import com.liferay.sharepoint.connector.operation.GetObjectsByQueryOperation;
+import com.liferay.sharepoint.connector.operation.MoveObjectOperation;
 import com.liferay.sharepoint.connector.operation.PathHelper;
 import com.liferay.sharepoint.connector.schema.query.Query;
 import com.liferay.sharepoint.connector.schema.query.QueryOptionsList;
@@ -245,6 +246,12 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	@Override
 	public void moveObject(String path, String newPath)
 		throws SharepointException {
+
+		_pathHelper.validatePath(path);
+
+		_pathHelper.validatePath(newPath);
+
+		_moveObjectOperation.execute(path, newPath);
 	}
 
 	@Override
@@ -334,7 +341,10 @@ public class SharepointConnectionImpl implements SharepointConnection {
 			_listsSoap, _libraryName, _pathHelper);
 
 		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
-				_listsSoap, _libraryName, _pathHelper);
+			_listsSoap, _libraryName, _pathHelper);
+
+		_moveObjectOperation = new MoveObjectOperation(
+			_copySoap, _listsSoap, _pathHelper);
 	}
 
 	protected void validateCredentials(String username, String password) {
@@ -361,6 +371,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	private GetObjectsByQueryOperation _getObjectsByQueryOperation;
 	private String _libraryName;
 	private ListsSoap _listsSoap;
+	private MoveObjectOperation _moveObjectOperation;
 	private String _password;
 	private PathHelper _pathHelper;
 	private String _serverAddress;
