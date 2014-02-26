@@ -37,7 +37,7 @@ public class GetObjectByPathOperation extends BaseOperation {
 		_pathHelper = pathHelper;
 
 		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
-			listsSoap, _pathHelper.getLibraryName(), _pathHelper);
+			listsSoap, _pathHelper);
 	}
 
 	public SharepointObject execute(String path) throws SharepointException {

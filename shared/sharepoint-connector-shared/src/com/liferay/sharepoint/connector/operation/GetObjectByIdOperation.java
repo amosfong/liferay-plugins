@@ -35,7 +35,7 @@ public class GetObjectByIdOperation extends BaseOperation {
 		ListsSoap listsSoap, String libraryName, PathHelper pathHelper) {
 
 		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
-			listsSoap, libraryName, pathHelper);
+			listsSoap, pathHelper);
 	}
 
 	public SharepointObject execute(long sharepointObjectId)

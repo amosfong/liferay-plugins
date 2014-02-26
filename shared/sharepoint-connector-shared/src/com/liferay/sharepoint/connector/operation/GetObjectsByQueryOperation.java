@@ -57,14 +57,14 @@ import org.w3c.dom.NodeList;
 public class GetObjectsByQueryOperation extends BaseOperation {
 
 	public GetObjectsByQueryOperation(
-		ListsSoap listsSoap, String libraryName, PathHelper pathHelper) {
+		ListsSoap listsSoap, PathHelper pathHelper) {
 
 		_listsSoap = listsSoap;
-		_libraryName = libraryName;
 		_pathHelper = pathHelper;
 
 		_pathPrefixToRemoveLength =
-			_pathHelper.getSitePath().length() + _libraryName.length();
+			_pathHelper.getSitePath().length() +
+			_pathHelper.getLibraryName().length();
 	}
 
 	public List<SharepointObject> execute(
@@ -83,7 +83,7 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 
 		try {
 			getListItemsResponseGetListItemsResult = _listsSoap.getListItems(
-				_libraryName, SharepointConstants.VIEW_DEFAULT,
+				_pathHelper.getLibraryName(), SharepointConstants.VIEW_DEFAULT,
 				getListItemsQuery, getListItemsViewFields,
 				SharepointConstants.ROW_LIMIT_DEFAULT, getListItemsQueryOptions,
 				SharepointConstants.WEB_ID_DEFAULT);
@@ -296,7 +296,6 @@ public class GetObjectsByQueryOperation extends BaseOperation {
 	private static Log _log = LogFactoryUtil.getLog(
 		GetObjectsByQueryOperation.class);
 
-	private String _libraryName;
 	private ListsSoap _listsSoap;
 	private PathHelper _pathHelper;
 	private int _pathPrefixToRemoveLength;

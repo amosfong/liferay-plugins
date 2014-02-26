@@ -39,7 +39,7 @@ public class GetObjectsByFolderOperation extends BaseOperation {
 		_pathHelper = pathHelper;
 
 		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
-			listsSoap, _pathHelper.getLibraryName(), _pathHelper);
+			listsSoap, _pathHelper);
 	}
 
 	public List<SharepointObject> execute(

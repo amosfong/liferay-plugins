@@ -65,7 +65,6 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		_serverProtocol = serverProtocol;
 		_serverAddress = serverAddress;
 		_serverPort = serverPort;
-		_libraryName = libraryName;
 		_username = username;
 		_password = password;
 
@@ -147,7 +146,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 	@Override
 	public String getLibraryName() {
-		return _libraryName;
+		return _pathHelper.getLibraryName();
 	}
 
 	@Override
@@ -342,10 +341,10 @@ public class SharepointConnectionImpl implements SharepointConnection {
 			_listsSoap, _pathHelper);
 
 		_getObjectsByNameOperation = new GetObjectsByNameOperation(
-			_listsSoap, _libraryName, _pathHelper);
+			_listsSoap, _pathHelper);
 
 		_getObjectsByQueryOperation = new GetObjectsByQueryOperation(
-			_listsSoap, _libraryName, _pathHelper);
+			_listsSoap, _pathHelper);
 
 		_moveObjectOperation = new MoveObjectOperation(
 			_copySoap, _listsSoap, _pathHelper);
@@ -373,7 +372,6 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	private GetObjectsByFolderOperation _getObjectsByFolderOperation;
 	private GetObjectsByNameOperation _getObjectsByNameOperation;
 	private GetObjectsByQueryOperation _getObjectsByQueryOperation;
-	private String _libraryName;
 	private ListsSoap _listsSoap;
 	private MoveObjectOperation _moveObjectOperation;
 	private String _password;
