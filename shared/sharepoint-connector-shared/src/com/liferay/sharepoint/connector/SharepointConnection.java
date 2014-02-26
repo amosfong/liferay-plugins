@@ -43,32 +43,32 @@ public interface SharepointConnection {
 
 	public boolean checkOutFile(String filePath) throws SharepointException;
 
-	public void copyObject(String path, String newPath)
+	public void copySharepointObject(String path, String newPath)
 		throws SharepointException;
 
-	public void deleteObject(String path) throws SharepointException;
+	public void deleteSharepointObject(String path) throws SharepointException;
 
 	public String getLibraryName();
 
-	public SharepointObject getObject(long id) throws SharepointException;
+	public SharepointObject getSharepointObject(long id) throws SharepointException;
 
-	public SharepointObject getObject(String path) throws SharepointException;
+	public SharepointObject getSharepointObject(String path) throws SharepointException;
 
-	public InputStream getObjectContent(SharepointObject sharepointObject)
+	public InputStream getInputStream(SharepointObject sharepointObject)
 		throws SharepointException;
 
-	public List<SharepointObject> getObjects(
+	public List<SharepointObject> getSharepointObjects(
 			Query query, QueryOptionsList queryOptionsList)
 		throws SharepointException;
 
-	public List<SharepointObject> getObjects(String name)
+	public List<SharepointObject> getSharepointObjects(String name)
 		throws SharepointException;
 
-	public List<SharepointObject> getObjects(
+	public List<SharepointObject> getSharepointObjects(
 			String folderPath, ObjectTypeFilter objectTypeFilter)
 		throws SharepointException;
 
-	public int getObjectsCount(
+	public int getgetSharepointObjectsCount(
 			String folderPath, ObjectTypeFilter objectTypeFilter)
 		throws SharepointException;
 
@@ -82,13 +82,13 @@ public interface SharepointConnection {
 
 	public String getUsername();
 
-	public InputStream getVersionContent(SharepointVersion sharepointVersion)
+	public InputStream getInputStream(SharepointVersion sharepointVersion)
 		throws SharepointException;
 
-	public List<SharepointVersion> getVersions(String filePath)
+	public List<SharepointVersion> getSharepointVersions(String filePath)
 		throws SharepointException;
 
-	public void moveObject(String path, String newPath)
+	public void moveSharepointObject(String path, String newPath)
 		throws SharepointException;
 
 	public void updateFile(String filePath, InputStream inputStream)

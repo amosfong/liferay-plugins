@@ -61,16 +61,18 @@ public class SharepointConnectionTest {
 
 		String filePath = folderPath + fileName;
 
-		Assert.assertNotNull(_sharepointConnection.getObject(filePath));
+		Assert.assertNotNull(
+			_sharepointConnection.getSharepointObject(filePath));
 	}
 
 	protected void deleteSharepointObjects() throws SharepointException {
 		List<SharepointObject> sharepointObjects =
-			_sharepointConnection.getObjects(
+			_sharepointConnection.getSharepointObjects(
 				StringPool.FORWARD_SLASH, ObjectTypeFilter.ALL);
 
 		for (SharepointObject sharepointObject : sharepointObjects) {
-			_sharepointConnection.deleteObject(sharepointObject.getPath());
+			_sharepointConnection.deleteSharepointObject(
+				sharepointObject.getPath());
 		}
 	}
 
