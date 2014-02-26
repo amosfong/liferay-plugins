@@ -372,6 +372,12 @@ public class BaseSamlTestCase extends PowerMockito {
 		portalUtil.setPortal(portal);
 
 		when(
+			portal.getPathMain()
+		).thenReturn(
+			Portal.PATH_MAIN
+		);
+
+		when(
 			portal.getPortalURL(
 				Mockito.any(MockHttpServletRequest.class))
 		).thenReturn(
