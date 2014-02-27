@@ -57,8 +57,8 @@ public class GetSharepointObjectsByQueryOperation extends BaseOperation {
 
 	@Override
 	public void afterPropertiesSet() {
-		String libraryName = pathHelper.getLibraryName();
-		String sitePath = pathHelper.getSitePath();
+		String libraryName = sharepointConnectionInfo.getLibraryName();
+		String sitePath = sharepointConnectionInfo.getSitePath();
 
 		_pathPrefixToRemoveLength = libraryName.length() + sitePath.length();
 	}
@@ -79,10 +79,10 @@ public class GetSharepointObjectsByQueryOperation extends BaseOperation {
 
 		try {
 			getListItemsResponseGetListItemsResult = listsSoap.getListItems(
-				pathHelper.getLibraryName(), SharepointConstants.VIEW_DEFAULT,
-				getListItemsQuery, getListItemsViewFields,
-				SharepointConstants.ROW_LIMIT_DEFAULT, getListItemsQueryOptions,
-				SharepointConstants.WEB_ID_DEFAULT);
+				sharepointConnectionInfo.getLibraryName(),
+				SharepointConstants.VIEW_DEFAULT, getListItemsQuery,
+				getListItemsViewFields, SharepointConstants.ROW_LIMIT_DEFAULT,
+				getListItemsQueryOptions, SharepointConstants.WEB_ID_DEFAULT);
 		}
 		catch (RemoteException re) {
 			throw new SharepointException(

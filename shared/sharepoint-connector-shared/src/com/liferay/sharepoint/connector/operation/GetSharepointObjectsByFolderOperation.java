@@ -67,7 +67,7 @@ public class GetSharepointObjectsByFolderOperation extends BaseOperation {
 				"Unsupported object type filter " + objectTypeFilter);
 		}
 
-		String folderFullPath = pathHelper.toFullPath(folderPath);
+		String folderFullPath = toFullPath(folderPath);
 
 		QueryOptionsList queryOptionsList = new QueryOptionsList(
 			new FolderQueryOption(folderFullPath));

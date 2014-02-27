@@ -70,8 +70,6 @@ public class SharepointConnectionImpl implements SharepointConnection {
 			String password)
 		throws SharepointRuntimeException {
 
-
-		_pathHelper = new PathHelper(libraryName, sitePath);
 		_sharepointConnectionInfo = new SharepointConnectionInfo(
 			serverProtocol, serverAddress, serverPort, sitePath, libraryName,
 			username, password);
@@ -256,7 +254,6 @@ public class SharepointConnectionImpl implements SharepointConnection {
 			operation.setCopySoap(_copySoap);
 			operation.setListsSoap(_listsSoap);
 			operation.setOperations(_operations);
-			operation.setPathHelper( _pathHelper);
 			operation.setSharepointConnectionInfo(_sharepointConnectionInfo);
 			operation.setVersionsSoap(_versionsSoap);
 
@@ -383,6 +380,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		}
 	}
 
+	protected static PathHelper _pathHelper = new PathHelper();
 
 	private AddFolderOperation _addFolderOperation;
 	private AddOrUpdateFileOperation _addOrUpdateFileOperation;
@@ -406,7 +404,6 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	private MoveSharepointObjectOperation _moveSharepointObjectOperation;
 	private Map<Class<?>, Operation> _operations =
 		new HashMap<Class<?>, Operation>();
-	private PathHelper _pathHelper;
 	private SharepointConnectionInfo _sharepointConnectionInfo;
 	private VersionsSoap _versionsSoap;
 

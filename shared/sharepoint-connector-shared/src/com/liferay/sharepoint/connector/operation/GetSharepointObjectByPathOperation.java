@@ -36,7 +36,7 @@ public class GetSharepointObjectByPathOperation extends BaseOperation {
 	}
 
 	public SharepointObject execute(String path) throws SharepointException {
-		String fullPath = pathHelper.toFullPath(path);
+		String fullPath = toFullPath(path);
 
 		Query query = new Query(
 			new EqOperator(

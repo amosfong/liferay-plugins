@@ -41,7 +41,7 @@ public class DeleteSharepointObjectOperation extends BaseOperation {
 				"Unable to find Sharepoint object with path " + path);
 		}
 
-		String fullPath = pathHelper.toFullPath(sharepointObject.getPath());
+		String fullPath = toFullPath(sharepointObject.getPath());
 
 		_batchOperation.execute(
 			new Batch(

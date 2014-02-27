@@ -62,7 +62,7 @@ public class GetFileVersionsOperation extends BaseOperation {
 					"Unable to find Sharepoint object at " + filePath);
 			}
 
-			String fileFullPath = pathHelper.toFullPath(filePath);
+			String fileFullPath = toFullPath(filePath);
 
 			GetVersionsResponseGetVersionsResult
 				getVersionsResponseGetVersionsResult = versionsSoap.getVersions(

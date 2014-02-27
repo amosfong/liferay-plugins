@@ -32,7 +32,7 @@ public class AddFolderOperation extends BaseOperation {
 	public void execute(String folderPath, String folderName)
 		throws SharepointException {
 
-		String folderFullPath = pathHelper.toFullPath(folderPath);
+		String folderFullPath = toFullPath(folderPath);
 
 		_batchOperation.execute(
 			new Batch(

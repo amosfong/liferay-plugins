@@ -21,13 +21,6 @@ import com.liferay.portal.kernel.util.StringPool;
  */
 public class PathHelper {
 
-	public PathHelper(String libraryName, String sitePath) {
-		validateSitePath(sitePath);
-
-		_libraryName = libraryName;
-		_sitePath = sitePath;
-	}
-
 	public String buildPath(String folderPath, String name) {
 		validatePath(folderPath);
 
@@ -48,10 +41,6 @@ public class PathHelper {
 		}
 
 		return path.substring(pos + 1);
-	}
-
-	public String getLibraryName() {
-		return _libraryName;
 	}
 
 	public String getName(String path) {
@@ -90,20 +79,6 @@ public class PathHelper {
 		return path.substring(0, pos);
 	}
 
-	public String getSitePath() {
-		return _sitePath;
-	}
-
-	public String toFullPath(String path) {
-		validatePath(path);
-
-		if (path.equals(StringPool.SLASH)) {
-			return _sitePath + StringPool.SLASH + _libraryName;
-		}
-
-		return _sitePath + StringPool.SLASH + _libraryName + path;
-	}
-
 	public void validateName(String name) {
 		if ((name == null) || name.contains(StringPool.SLASH)) {
 			throw new IllegalArgumentException(
@@ -119,32 +94,5 @@ public class PathHelper {
 			throw new IllegalArgumentException("Invalid path " + path);
 		}
 	}
-
-	public void validateSitePath(String sitePath) {
-		if (sitePath.equals(StringPool.BLANK)) {
-			return;
-		}
-
-		if (sitePath.equals(StringPool.SLASH)) {
-			throw new IllegalArgumentException(
-				"Use an empty string instead of a forward slash for the root " +
-					"site path");
-		}
-
-		if (!sitePath.startsWith(StringPool.SLASH)) {
-			throw new IllegalArgumentException(
-				"Site path must start with a forward slash");
-		}
-
-		if (!sitePath.equals(StringPool.SLASH) &&
-			sitePath.endsWith(StringPool.SLASH)) {
-
-			throw new IllegalArgumentException(
-				"Site path must not end with a forward slash");
-		}
-	}
-
-	private String _libraryName;
-	private String _sitePath;
 
 }

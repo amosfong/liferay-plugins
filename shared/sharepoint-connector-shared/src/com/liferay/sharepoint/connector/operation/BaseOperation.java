@@ -14,6 +14,7 @@
 
 package com.liferay.sharepoint.connector.operation;
 
+import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.sharepoint.connector.SharepointConnectionInfo;
 import com.liferay.sharepoint.connector.SharepointObject;
 import com.liferay.sharepoint.connector.schema.XMLHelper;
@@ -50,10 +51,6 @@ public abstract class BaseOperation implements Operation {
 	}
 
 	@Override
-	@Override
-	public void setPathHelper(PathHelper pathHelper) {
-		this.pathHelper = pathHelper;
-	}
 	public void setSharepointConnectionInfo(
 		SharepointConnectionInfo sharepointConnectionInfo) {
 
@@ -80,12 +77,26 @@ public abstract class BaseOperation implements Operation {
 		return sharepointObjects.get(0);
 	}
 
+	protected String toFullPath(String path) {
+		pathHelper.validatePath(path);
+
+		String sitePath = sharepointConnectionInfo.getSitePath();
+
+		String libraryName = sharepointConnectionInfo.getLibraryName();
+
+		if (path.equals(StringPool.SLASH)) {
+			return sitePath + StringPool.SLASH + libraryName;
+		}
+
+		return sitePath + StringPool.SLASH + libraryName + path;
+	}
+
+	protected static PathHelper pathHelper = new PathHelper();
 	protected static URLHelper urlHelper = new URLHelper();
 	protected static XMLHelper xmlHelper = new XMLHelper();
 
 	protected CopySoap copySoap;
 	protected ListsSoap listsSoap;
-	protected PathHelper pathHelper;
 	protected SharepointConnectionInfo sharepointConnectionInfo;
 	protected VersionsSoap versionsSoap;
 

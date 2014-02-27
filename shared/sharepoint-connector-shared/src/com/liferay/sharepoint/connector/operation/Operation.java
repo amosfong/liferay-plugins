@@ -35,8 +35,6 @@ public interface Operation {
 
 	public void setOperations(Map<Class<?>, Operation> operations);
 
-	public void setPathHelper(PathHelper pathHelper);
-
 	public void setSharepointConnectionInfo(
 		SharepointConnectionInfo sharepointConnectionInfo);
 
