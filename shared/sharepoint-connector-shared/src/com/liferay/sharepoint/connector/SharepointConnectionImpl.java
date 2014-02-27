@@ -15,6 +15,8 @@
 package com.liferay.sharepoint.connector;
 
 import com.liferay.portal.kernel.util.GetterUtil;
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.sharepoint.connector.SharepointObject.Permission;
 import com.liferay.sharepoint.connector.operation.AddFolderOperation;
 import com.liferay.sharepoint.connector.operation.AddOrUpdateFileOperation;
 import com.liferay.sharepoint.connector.operation.BatchOperation;
@@ -24,6 +26,7 @@ import com.liferay.sharepoint.connector.operation.CheckOutFileOperation;
 import com.liferay.sharepoint.connector.operation.CopySharepointObjectOperation;
 import com.liferay.sharepoint.connector.operation.DeleteSharepointObjectOperation;
 import com.liferay.sharepoint.connector.operation.GetInputStreamOperation;
+import com.liferay.sharepoint.connector.operation.GetSharepointObjectByIdOperation;
 import com.liferay.sharepoint.connector.operation.GetSharepointObjectByPathOperation;
 import com.liferay.sharepoint.connector.operation.GetSharepointObjectsByFolderOperation;
 import com.liferay.sharepoint.connector.operation.GetSharepointObjectsByNameOperation;
@@ -46,6 +49,8 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import java.util.Date;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -76,6 +81,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 		initCopySoap();
 		initListsSoap();
+		initSharepointRootFolder();
 		initVersionsSoap();
 
 		buildOperations();
@@ -183,7 +189,13 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	public SharepointObject getSharepointObject(long sharepointObjectId)
 		throws SharepointException {
 
-		return null;
+		if (sharepointObjectId == SHAREPOINT_ROOT_FOLDER_ID) {
+			return _sharepointRootFolder;
+		}
+		else {
+			return _getSharepointObjectByIdOperation.execute(
+				sharepointObjectId);
+		}
 	}
 
 	@Override
@@ -225,6 +237,25 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		throws SharepointException {
 
 		return null;
+	}
+
+	public void initSharepointRootFolder() {
+		URL serviceURL = _sharepointConnectionInfo.getServiceURL();
+
+		String libraryName = _sharepointConnectionInfo.getLibraryName();
+
+		try {
+			URL libraryURL = new URL(serviceURL, libraryName);
+
+			_sharepointRootFolder = new SharepointObject(
+				StringPool.BLANK, null, new Date(0), true, new Date(0),
+				StringPool.SLASH, EnumSet.allOf(Permission.class),
+				SHAREPOINT_ROOT_FOLDER_ID, 0, libraryURL );
+		}
+		catch (MalformedURLException mfurle) {
+			throw new SharepointRuntimeException(
+				"Cannot compose root folder URL", mfurle);
+		}
 	}
 
 	@Override
@@ -282,6 +313,8 @@ public class SharepointConnectionImpl implements SharepointConnection {
 			DeleteSharepointObjectOperation.class);
 		_getInputStreamOperation = buildOperation(
 			GetInputStreamOperation.class);
+		_getSharepointObjectByIdOperation = buildOperation(
+			GetSharepointObjectByIdOperation.class);
 		_getSharepointObjectByPathOperation = buildOperation(
 			GetSharepointObjectByPathOperation.class);
 		_getSharepointObjectsByFolderOperation = buildOperation(
@@ -392,6 +425,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	private CopySoap _copySoap;
 	private DeleteSharepointObjectOperation _deleteSharepointObjectOperation;
 	private GetInputStreamOperation _getInputStreamOperation;
+	private GetSharepointObjectByIdOperation _getSharepointObjectByIdOperation;
 	private GetSharepointObjectByPathOperation
 		_getSharepointObjectByPathOperation;
 	private GetSharepointObjectsByFolderOperation
@@ -405,6 +439,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	private Map<Class<?>, Operation> _operations =
 		new HashMap<Class<?>, Operation>();
 	private SharepointConnectionInfo _sharepointConnectionInfo;
+	private SharepointObject _sharepointRootFolder;
 	private VersionsSoap _versionsSoap;
 
 }

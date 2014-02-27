@@ -27,7 +27,7 @@ import com.liferay.sharepoint.connector.schema.query.option.FolderQueryOption;
 /**
 * @author Ivan Zaera
 */
-public class GetObjectByIdOperation extends BaseOperation {
+public class GetSharepointObjectByIdOperation extends BaseOperation {
 
 	@Override
 	public void afterPropertiesSet() {
