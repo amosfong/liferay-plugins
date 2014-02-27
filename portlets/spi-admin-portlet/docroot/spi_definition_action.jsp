@@ -56,6 +56,7 @@ else {
 
 				<liferay-ui:icon
 					image="restart"
+					src='<%= PortalUtil.getPathContext(request) + "/images/restart.png" %>'
 					url="<%= restartURL %>"
 				/>
 
@@ -66,6 +67,7 @@ else {
 
 				<liferay-ui:icon
 					image="stop"
+					src='<%= PortalUtil.getPathContext(request) + "/images/stop.png" %>'
 					url="<%= stopURL %>"
 				/>
 			</c:when>
@@ -77,6 +79,7 @@ else {
 
 				<liferay-ui:icon
 					image="start"
+					src='<%= PortalUtil.getPathContext(request) + "/images/start.png" %>'
 					url="<%= startURL %>"
 				/>
 			</c:when>
