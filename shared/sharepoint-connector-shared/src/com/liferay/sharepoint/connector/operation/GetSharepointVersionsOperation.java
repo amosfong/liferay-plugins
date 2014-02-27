@@ -42,7 +42,7 @@ import org.w3c.dom.NodeList;
 /**
  * @author Ivan Zaera
  */
-public class GetFileVersionsOperation extends BaseOperation {
+public class GetSharepointVersionsOperation extends BaseOperation {
 
 	@Override
 	public void afterPropertiesSet() {

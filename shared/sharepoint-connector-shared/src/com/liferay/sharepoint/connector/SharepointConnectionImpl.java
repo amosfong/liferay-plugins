@@ -31,6 +31,7 @@ import com.liferay.sharepoint.connector.operation.GetSharepointObjectByPathOpera
 import com.liferay.sharepoint.connector.operation.GetSharepointObjectsByFolderOperation;
 import com.liferay.sharepoint.connector.operation.GetSharepointObjectsByNameOperation;
 import com.liferay.sharepoint.connector.operation.GetSharepointObjectsByQueryOperation;
+import com.liferay.sharepoint.connector.operation.GetSharepointVersionsOperation;
 import com.liferay.sharepoint.connector.operation.MoveSharepointObjectOperation;
 import com.liferay.sharepoint.connector.operation.Operation;
 import com.liferay.sharepoint.connector.operation.PathHelper;
@@ -243,7 +244,9 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	public List<SharepointVersion> getSharepointVersions(String filePath)
 		throws SharepointException {
 
-		return null;
+		_pathHelper.validatePath(filePath);
+
+		return _getSharepointVersionsOperation.execute(filePath);
 	}
 
 	public void initSharepointRootFolder() {
@@ -330,6 +333,8 @@ public class SharepointConnectionImpl implements SharepointConnection {
 			GetSharepointObjectsByNameOperation.class);
 		_getSharepointObjectsByQueryOperation = buildOperation(
 			GetSharepointObjectsByQueryOperation.class);
+		_getSharepointVersionsOperation = buildOperation(
+			GetSharepointVersionsOperation.class);
 		_moveSharepointObjectOperation = buildOperation(
 			MoveSharepointObjectOperation.class);
 
@@ -441,6 +446,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		_getSharepointObjectsByNameOperation;
 	private GetSharepointObjectsByQueryOperation
 		_getSharepointObjectsByQueryOperation;
+	private GetSharepointVersionsOperation _getSharepointVersionsOperation;
 	private ListsSoap _listsSoap;
 	private MoveSharepointObjectOperation _moveSharepointObjectOperation;
 	private Map<Class<?>, Operation> _operations =
