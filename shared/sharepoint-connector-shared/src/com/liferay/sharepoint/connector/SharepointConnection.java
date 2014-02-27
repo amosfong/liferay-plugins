@@ -58,13 +58,7 @@ public interface SharepointConnection {
 	public InputStream getInputStream(SharepointVersion sharepointVersion)
 		throws SharepointException;
 
-	public String getLibraryName();
-
-	public String getServerAddress();
-
-	public int getServerPort();
-
-	public String getServerProtocol();
+	public SharepointConnectionInfo getSharepointConnectionInfo();
 
 	public SharepointObject getSharepointObject(long sharepointObjectId)
 		throws SharepointException;
@@ -85,10 +79,6 @@ public interface SharepointConnection {
 
 	public List<SharepointVersion> getSharepointVersions(String filePath)
 		throws SharepointException;
-
-	public String getSitePath();
-
-	public String getUsername();
 
 	public void moveSharepointObject(String path, String newPath)
 		throws SharepointException;

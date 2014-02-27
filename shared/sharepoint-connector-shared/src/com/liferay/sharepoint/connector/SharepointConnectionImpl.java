@@ -15,7 +15,6 @@
 package com.liferay.sharepoint.connector;
 
 import com.liferay.portal.kernel.util.GetterUtil;
-import com.liferay.portal.kernel.util.Validator;
 import com.liferay.sharepoint.connector.operation.AddFolderOperation;
 import com.liferay.sharepoint.connector.operation.AddOrUpdateFileOperation;
 import com.liferay.sharepoint.connector.operation.BatchOperation;
@@ -66,18 +65,16 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	public static final long SHAREPOINT_ROOT_FOLDER_ID = -1;
 
 	public SharepointConnectionImpl(
-		String serverProtocol, String serverAddress, int serverPort,
-		String sitePath, String libraryName, String username, String password) {
+			String serverProtocol, String serverAddress, int serverPort,
+			String sitePath, String libraryName, String username,
+			String password)
+		throws SharepointRuntimeException {
 
-		validateCredentials(username, password);
-
-		_serverProtocol = serverProtocol;
-		_serverAddress = serverAddress;
-		_serverPort = serverPort;
-		_username = username;
-		_password = password;
 
 		_pathHelper = new PathHelper(libraryName, sitePath);
+		_sharepointConnectionInfo = new SharepointConnectionInfo(
+			serverProtocol, serverAddress, serverPort, sitePath, libraryName,
+			username, password);
 
 		initCopySoap();
 		initListsSoap();
@@ -180,23 +177,8 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	}
 
 	@Override
-	public String getLibraryName() {
-		return _pathHelper.getLibraryName();
-	}
-
-	@Override
-	public String getServerAddress() {
-		return _serverAddress;
-	}
-
-	@Override
-	public int getServerPort() {
-		return _serverPort;
-	}
-
-	@Override
-	public String getServerProtocol() {
-		return _serverProtocol;
+	public SharepointConnectionInfo getSharepointConnectionInfo() {
+		return _sharepointConnectionInfo;
 	}
 
 	@Override
@@ -245,16 +227,6 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		throws SharepointException {
 
 		return null;
-	}
-
-	@Override
-	public String getSitePath() {
-		return _pathHelper.getSitePath();
-	}
-
-	@Override
-	public String getUsername() {
-		return _username;
 	}
 
 	@Override
@@ -340,8 +312,12 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 	protected void configureStub(Stub stub, URL wsdlURL) {
 		stub._setProperty(Stub.ENDPOINT_ADDRESS_PROPERTY, wsdlURL.toString());
-		stub._setProperty(Call.PASSWORD_PROPERTY, _password);
-		stub._setProperty(Call.USERNAME_PROPERTY, _username);
+		stub._setProperty(
+				Call.PASSWORD_PROPERTY,
+				_sharepointConnectionInfo.getPassword());
+		stub._setProperty(
+				Call.USERNAME_PROPERTY,
+				_sharepointConnectionInfo.getUsername());
 	}
 
 	protected URL getWSDLURL(String serviceName) {
@@ -408,15 +384,6 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		}
 	}
 
-	protected void validateCredentials(String username, String password) {
-		if (Validator.isNull(username)) {
-			throw new SharepointRuntimeException("Username is null");
-		}
-
-		if (Validator.isNull(password)) {
-			throw new SharepointRuntimeException("Password is null");
-		}
-	}
 
 	private AddFolderOperation _addFolderOperation;
 	private AddOrUpdateFileOperation _addOrUpdateFileOperation;
@@ -440,12 +407,8 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	private MoveSharepointObjectOperation _moveSharepointObjectOperation;
 	private Map<Class<?>, Operation> _operations =
 		new HashMap<Class<?>, Operation>();
-	private String _password;
 	private PathHelper _pathHelper;
-	private String _serverAddress;
-	private int _serverPort;
-	private String _serverProtocol;
-	private String _username;
+	private SharepointConnectionInfo _sharepointConnectionInfo;
 	private VersionsSoap _versionsSoap;
 
 }

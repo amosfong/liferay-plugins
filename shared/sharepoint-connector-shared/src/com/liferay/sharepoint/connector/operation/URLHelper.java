@@ -15,7 +15,6 @@
 package com.liferay.sharepoint.connector.operation;
 
 import com.liferay.portal.kernel.util.StringPool;
-import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.SharepointRuntimeException;
 
 import java.net.MalformedURLException;
@@ -40,12 +39,12 @@ public class URLHelper {
 		}
 	}
 
-	public URL toURL(String urlString) throws SharepointException {
+	public URL toURL(String urlString) throws SharepointRuntimeException {
 		try {
 			return new URL(urlString);
 		}
 		catch (MalformedURLException murle) {
-			throw new SharepointException(
+			throw new SharepointRuntimeException(
 				"Unable to parse URL '" + urlString + "'", murle);
 		}
 	}
