@@ -25,8 +25,8 @@ import com.liferay.sharepoint.connector.schema.query.operator.EqOperator;
 import com.liferay.sharepoint.connector.schema.query.option.FolderQueryOption;
 
 /**
-* @author Ivan Zaera
-*/
+ * @author Ivan Zaera
+ */
 public class GetSharepointObjectByIdOperation extends BaseOperation {
 
 	@Override
