@@ -37,39 +37,6 @@ public class PathHelperTest {
 	}
 
 	@Test
-	public void testConstructorFailsWithInvalidSitePaths() {
-		try {
-			pathHelper = new PathHelper(StringPool.BLANK, StringPool.SLASH);
-
-			Assert.fail("IllegalArgumentException not thrown for site path /");
-		}
-		catch (IllegalArgumentException iae) {
-		}
-
-		try {
-			pathHelper = new PathHelper(
-				StringPool.BLANK, "sitePathWithoutLeadingSlash");
-
-			Assert.fail(
-				"IllegalArgumentException not thrown for site path without " +
-					"leading /");
-		}
-		catch (IllegalArgumentException iae) {
-		}
-
-		try {
-			pathHelper = new PathHelper(
-				StringPool.BLANK, "/sitePathWithTrailingSlash/");
-
-			Assert.fail(
-				"IllegalArgumentException not thrown for site path with " +
-					"trailing /");
-		}
-		catch (IllegalArgumentException iae) {
-		}
-	}
-
-	@Test
 	public void testGetExtensionWhithMissingExtension() {
 		Assert.assertEquals(
 			StringPool.BLANK, pathHelper.getExtension("/name."));
@@ -79,11 +46,6 @@ public class PathHelperTest {
 	@Test
 	public void testGetExtensionWithExtension() {
 		Assert.assertEquals("ext", pathHelper.getExtension("/name.ext"));
-	}
-
-	@Test
-	public void testGetLibraryName() {
-		Assert.assertEquals(_LIBRARY_NAME, pathHelper.getLibraryName());
 	}
 
 	@Test
@@ -116,29 +78,6 @@ public class PathHelperTest {
 		Assert.assertEquals("/", pathHelper.getParentFolderPath("/name"));
 	}
 
-	@Test
-	public void testGetSitePath() {
-		Assert.assertEquals(_SITE_PATH, pathHelper.getSitePath());
-	}
-
-	@Test
-	public void testToFullPathWithNonrootPath() {
-		Assert.assertEquals(
-			_SITE_PATH + StringPool.SLASH + _LIBRARY_NAME + "/folder/name",
-			pathHelper.toFullPath("/folder/name"));
-	}
-
-	@Test
-	public void testToFullPathWithRootPath() {
-		Assert.assertEquals(
-			_SITE_PATH + StringPool.SLASH + _LIBRARY_NAME,
-			pathHelper.toFullPath("/"));
-	}
-
-	private static final String _LIBRARY_NAME = "libraryName";
-
-	private static final String _SITE_PATH = "/sitePath";
-
-	private PathHelper pathHelper = new PathHelper(_LIBRARY_NAME, _SITE_PATH);
+	private PathHelper pathHelper = new PathHelper();
 
 }
