@@ -14,6 +14,7 @@
 
 package com.liferay.sharepoint.connector.operation;
 
+import com.liferay.sharepoint.connector.SharepointConnectionInfo;
 import com.liferay.sharepoint.connector.SharepointObject;
 import com.liferay.sharepoint.connector.schema.XMLHelper;
 
@@ -49,18 +50,14 @@ public abstract class BaseOperation implements Operation {
 	}
 
 	@Override
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	@Override
 	public void setPathHelper(PathHelper pathHelper) {
 		this.pathHelper = pathHelper;
 	}
+	public void setSharepointConnectionInfo(
+		SharepointConnectionInfo sharepointConnectionInfo) {
 
-	@Override
-	public void setUsername(String username) {
-		this.username = username;
+		this.sharepointConnectionInfo = sharepointConnectionInfo;
 	}
 
 	@Override
@@ -68,6 +65,7 @@ public abstract class BaseOperation implements Operation {
 		this.versionsSoap = versionsSoap;
 	}
 
+	@SuppressWarnings("unchecked")
 	protected <O extends Operation> O getOperation(Class<O> clazz) {
 		return (O)_operations.get(clazz);
 	}
@@ -87,9 +85,8 @@ public abstract class BaseOperation implements Operation {
 
 	protected CopySoap copySoap;
 	protected ListsSoap listsSoap;
-	protected String password;
 	protected PathHelper pathHelper;
-	protected String username;
+	protected SharepointConnectionInfo sharepointConnectionInfo;
 	protected VersionsSoap versionsSoap;
 
 	private Map<Class<?>, Operation> _operations;

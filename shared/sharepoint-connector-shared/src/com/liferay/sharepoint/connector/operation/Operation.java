@@ -14,6 +14,8 @@
 
 package com.liferay.sharepoint.connector.operation;
 
+import com.liferay.sharepoint.connector.SharepointConnectionInfo;
+
 import com.microsoft.schemas.sharepoint.soap.CopySoap;
 import com.microsoft.schemas.sharepoint.soap.ListsSoap;
 import com.microsoft.schemas.sharepoint.soap.VersionsSoap;
@@ -33,11 +35,10 @@ public interface Operation {
 
 	public void setOperations(Map<Class<?>, Operation> operations);
 
-	public void setPassword(String password);
-
 	public void setPathHelper(PathHelper pathHelper);
 
-	public void setUsername(String username);
+	public void setSharepointConnectionInfo(
+		SharepointConnectionInfo sharepointConnectionInfo);
 
 	public void setVersionsSoap(VersionsSoap versionsSoap);
 

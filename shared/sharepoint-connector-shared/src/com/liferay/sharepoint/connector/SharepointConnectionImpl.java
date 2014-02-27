@@ -256,9 +256,8 @@ public class SharepointConnectionImpl implements SharepointConnection {
 			operation.setCopySoap(_copySoap);
 			operation.setListsSoap(_listsSoap);
 			operation.setOperations(_operations);
-			operation.setPassword(_password);
 			operation.setPathHelper( _pathHelper);
-			operation.setUsername(_username);
+			operation.setSharepointConnectionInfo(_sharepointConnectionInfo);
 			operation.setVersionsSoap(_versionsSoap);
 
 			_operations.put(clazz, operation);
