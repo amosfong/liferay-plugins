@@ -202,7 +202,14 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	public SharepointObject getSharepointObject(String path)
 		throws SharepointException {
 
-		return null;
+		_pathHelper.validatePath(path);
+
+		if (path.equals(StringPool.SLASH)) {
+			return _sharepointRootFolder;
+		}
+		else {
+			return _getSharepointObjectByPathOperation.execute(path);
+		}
 	}
 
 	@Override
