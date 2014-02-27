@@ -49,7 +49,8 @@ public class BatchOperation extends BaseOperation {
 		try {
 			updateListItemsResponseUpdateListItemsResult =
 				listsSoap.updateListItems(
-					pathHelper.getLibraryName(), updateListItemsUpdates);
+					sharepointConnectionInfo.getLibraryName(),
+					updateListItemsUpdates);
 		}
 		catch (RemoteException re) {
 			throw new SharepointException(

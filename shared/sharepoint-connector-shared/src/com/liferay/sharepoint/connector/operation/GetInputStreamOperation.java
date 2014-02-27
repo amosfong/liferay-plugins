@@ -63,7 +63,9 @@ public class GetInputStreamOperation extends BaseOperation {
 			url.getHost(), url.getPort(), url.getHost(), "BASIC");
 
 		UsernamePasswordCredentials usernamePasswordCredentials =
-			new UsernamePasswordCredentials(username, password);
+			new UsernamePasswordCredentials(
+				sharepointConnectionInfo.getUsername(),
+				sharepointConnectionInfo.getPassword());
 
 		HttpState httpClientState = httpClient.getState();
 
