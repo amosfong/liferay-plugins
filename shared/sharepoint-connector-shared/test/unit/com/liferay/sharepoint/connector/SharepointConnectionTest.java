@@ -19,12 +19,14 @@ import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.StringPool;
 import com.liferay.portal.util.FileImpl;
 import com.liferay.portal.util.HtmlImpl;
+import com.liferay.sharepoint.connector.SharepointConnection.CheckInType;
 import com.liferay.sharepoint.connector.SharepointConnection.ObjectTypeFilter;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.After;
@@ -59,12 +61,96 @@ public class SharepointConnectionTest {
 		String fileName = "CreatedFile " + _testId + ".txt";
 
 		_sharepointConnection.addFile(
-			folderPath, fileName, StringPool.BLANK, getInputStream());
+			folderPath, fileName, StringPool.BLANK,
+			getInputStream(_HELLO_WORLD));
 
 		String filePath = folderPath + fileName;
 
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(filePath));
+	}
+
+	@Test
+	public void testAddFolder() throws Exception {
+		String folderName = "CreatedFolder " + System.currentTimeMillis();
+
+		String folderPath = StringPool.FORWARD_SLASH + folderName;
+
+		_sharepointConnection.addFolder(StringPool.FORWARD_SLASH, folderName);
+
+		Assert.assertNotNull(
+			_sharepointConnection.getSharepointObject(folderPath));
+	}
+
+	@Test
+	public void testCheckOutFileThenUpdateFileThenCheckInFile()
+		throws Exception {
+
+		addTestSharepointObjects();
+
+		String filePath = "/File " + _testId + ".txt";
+
+		_sharepointConnection.checkOutFile(filePath);
+
+		SharepointObject sharepointObject = null;
+
+		sharepointObject = _sharepointConnection.getSharepointObject(filePath);
+
+		Assert.assertNotNull(sharepointObject.getCheckedOutBy());
+
+		_sharepointConnection.updateFile(filePath, getInputStream(_BYE_WORLD));
+
+		_sharepointConnection.checkInFile(
+			filePath, new Date().toString(), CheckInType.MAJOR);
+
+		sharepointObject = _sharepointConnection.getSharepointObject(filePath);
+
+		Assert.assertNull(sharepointObject.getCheckedOutBy());
+
+		InputStream inputStream = _sharepointConnection.getInputStream(
+			sharepointObject);
+
+		String inputStreamString = toString(inputStream);
+
+		Assert.assertEquals(_BYE_WORLD, inputStreamString);
+	}
+
+	protected void addTestSharepointObjects()
+		throws IOException, SharepointException {
+
+		String fileName = "File " + _testId + ".txt";
+
+		String fileName2 = "File2 " + _testId + ".txt";
+
+		String folderName = "Folder " + _testId;
+
+		String folderName2 = "Folder2 " + _testId;
+
+		_sharepointConnection.addFile(
+			StringPool.FORWARD_SLASH, fileName, StringPool.BLANK,
+			getInputStream(_HELLO_WORLD));
+
+		_sharepointConnection.addFile(
+			StringPool.FORWARD_SLASH, fileName2, StringPool.BLANK,
+			getInputStream(_HELLO_WORLD));
+
+		_sharepointConnection.addFolder(StringPool.FORWARD_SLASH, folderName);
+
+		_sharepointConnection.addFile(
+			StringPool.FORWARD_SLASH + folderName, "Sub" + fileName,
+			StringPool.BLANK, getInputStream(_HELLO_WORLD));
+
+		_sharepointConnection.addFile(
+			StringPool.FORWARD_SLASH + folderName, "Sub" + fileName2,
+			StringPool.BLANK, getInputStream(_HELLO_WORLD));
+
+		_sharepointConnection.addFolder(
+			StringPool.FORWARD_SLASH + folderName, "Sub" + folderName);
+
+		_sharepointConnection.addFolder(
+			StringPool.FORWARD_SLASH + folderName, "Sub" + folderName2);
+
+		_sharepointConnection.addFolder(StringPool.FORWARD_SLASH, folderName2);
 	}
 
 	protected void deleteSharepointObjects() throws SharepointException {
@@ -78,8 +164,8 @@ public class SharepointConnectionTest {
 		}
 	}
 
-	protected InputStream getInputStream() throws IOException {
-		return new ByteArrayInputStream(_HELLO_WORLD.getBytes("UTF-8"));
+	protected InputStream getInputStream(String content) throws IOException {
+		return new ByteArrayInputStream(content.getBytes("UTF-8"));
 	}
 
 	protected void setUpMocks() {
@@ -91,6 +177,14 @@ public class SharepointConnectionTest {
 
 		fileUtil.setFile(new FileImpl());
 	}
+
+	protected String toString(InputStream inputStream) throws IOException {
+		byte[] bytes = FileUtil.getBytes(inputStream);
+
+		return new String(bytes, "UTF-8");
+	}
+
+	private static final String _BYE_WORLD = "Bye world!";
 
 	private static final String _HELLO_WORLD = "Hello world!";
 
