@@ -354,6 +354,23 @@ public class SharepointConnectionTest {
 	}
 
 	@Test
+	public void testGetRootFolderById() throws Exception {
+		SharepointObject rootFolder =
+			_sharepointConnection.getSharepointObject(
+				SharepointConnectionImpl.SHAREPOINT_ROOT_FOLDER_ID);
+
+		assertValidRootFolder(rootFolder);
+	}
+
+	@Test
+	public void testGetRootFolderByPath() throws Exception {
+		SharepointObject rootFolder = _sharepointConnection.getSharepointObject(
+			"/");
+
+		assertValidRootFolder(rootFolder);
+	}
+
+	@Test
 	public void testGetSharepointObjectInputStream() throws Exception {
 		addTestSharepointObjects();
 
@@ -407,6 +424,30 @@ public class SharepointConnectionTest {
 			StringPool.FORWARD_SLASH + folderName, "Sub" + folderName2);
 
 		_sharepointConnection.addFolder(StringPool.FORWARD_SLASH, folderName2);
+	}
+
+	protected void assertValidRootFolder(SharepointObject rootFolder) {
+		Assert.assertNotNull(rootFolder);
+
+		Assert.assertTrue(rootFolder.isFolder());
+
+		String expectedRootFolderURL = _SERVER_PROTOCOL + "://" +
+			_SERVER_ADDRESS + _SITE_PATH + "/" + _LIBRARY_NAME;
+
+		Assert.assertEquals(
+			expectedRootFolderURL, rootFolder.getURL().toString());
+
+		Assert.assertEquals("/", rootFolder.getPath());
+
+		Assert.assertEquals("/", rootFolder.getFolderPath());
+
+		Assert.assertEquals("/", rootFolder.getName());
+
+		Assert.assertEquals("", rootFolder.getExtension());
+
+		Assert.assertEquals(
+			SharepointConnectionImpl.SHAREPOINT_ROOT_FOLDER_ID,
+			rootFolder.getId());
 	}
 
 	protected void deleteSharepointObjects() throws SharepointException {
