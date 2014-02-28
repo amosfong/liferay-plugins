@@ -62,7 +62,6 @@ public abstract class BaseOperation implements Operation {
 		this.versionsSoap = versionsSoap;
 	}
 
-	@SuppressWarnings("unchecked")
 	protected <O extends Operation> O getOperation(Class<O> clazz) {
 		return (O)_operations.get(clazz);
 	}
