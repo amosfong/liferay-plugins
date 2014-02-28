@@ -193,10 +193,8 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		if (sharepointObjectId == SHAREPOINT_ROOT_FOLDER_ID) {
 			return _sharepointRootFolder;
 		}
-		else {
-			return _getSharepointObjectByIdOperation.execute(
-				sharepointObjectId);
-		}
+
+		return _getSharepointObjectByIdOperation.execute(sharepointObjectId);
 	}
 
 	@Override
@@ -208,9 +206,8 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		if (path.equals(StringPool.SLASH)) {
 			return _sharepointRootFolder;
 		}
-		else {
-			return _getSharepointObjectByPathOperation.execute(path);
-		}
+
+		return _getSharepointObjectByPathOperation.execute(path);
 	}
 
 	@Override
