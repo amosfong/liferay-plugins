@@ -158,6 +158,72 @@ public class SharepointConnectionTest {
 		Assert.assertNull(sharepointObject.getCheckedOutBy());
 	}
 
+	@Test
+	public void testCopyFile() throws Exception {
+		addTestSharepointObjects();
+
+		String filePath = "/File " + _testId + ".txt";
+
+		String copiedFilePath =
+			"/Folder " + _testId + "/CopiedFile " + _testId + ".txt";
+
+		Assert.assertNull(
+			_sharepointConnection.getSharepointObject(copiedFilePath));
+
+		_sharepointConnection.copySharepointObject(filePath, copiedFilePath);
+
+		Assert.assertNotNull(
+			_sharepointConnection.getSharepointObject(copiedFilePath));
+
+		Assert.assertNotNull(
+			_sharepointConnection.getSharepointObject(filePath));
+	}
+
+	@Test
+	public void testCopyFolder() throws Exception {
+		addTestSharepointObjects();
+
+		String folderPath = "/Folder " + _testId;
+
+		String copiedFolderPath =
+			"/Folder2 " + _testId + "/CopiedFolder " + _testId;
+
+		_sharepointConnection.copySharepointObject(
+			folderPath, copiedFolderPath);
+
+		Assert.assertNotNull(
+			_sharepointConnection.getSharepointObject(
+				folderPath + "/SubFile " + _testId + ".txt"));
+
+		Assert.assertNotNull(
+			_sharepointConnection.getSharepointObject(
+				folderPath + "/SubFile2 " + _testId + ".txt"));
+
+		Assert.assertNotNull(
+			_sharepointConnection.getSharepointObject(
+				folderPath + "/SubFolder " + _testId));
+
+		Assert.assertNotNull(
+			_sharepointConnection.getSharepointObject(
+				folderPath + "/SubFolder2 " + _testId));
+
+		Assert.assertNotNull(
+			_sharepointConnection.getSharepointObject(
+				copiedFolderPath + "/SubFile " + _testId + ".txt"));
+
+		Assert.assertNotNull(
+			_sharepointConnection.getSharepointObject(
+				copiedFolderPath + "/SubFile2 " + _testId + ".txt"));
+
+		Assert.assertNotNull(
+			_sharepointConnection.getSharepointObject(
+				copiedFolderPath + "/SubFolder " + _testId));
+
+		Assert.assertNotNull(
+			_sharepointConnection.getSharepointObject(
+				copiedFolderPath + "/SubFolder2 " + _testId));
+	}
+
 	protected void addTestSharepointObjects()
 		throws IOException, SharepointException {
 

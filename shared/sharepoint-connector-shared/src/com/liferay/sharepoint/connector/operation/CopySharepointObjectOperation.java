@@ -71,8 +71,8 @@ public class CopySharepointObjectOperation extends BaseOperation {
 	protected void copyFile(String path, String newPath)
 		throws SharepointException {
 
-		URL pathURL = urlHelper.toURL(path);
-		URL newPathURL = urlHelper.toURL(newPath);
+		URL pathURL = toURL(path);
+		URL newPathURL = toURL(newPath);
 
 		CopyResultCollectionHolder copyResultCollectionHolder =
 			new CopyResultCollectionHolder();
