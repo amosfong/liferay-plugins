@@ -31,7 +31,7 @@ public class SharepointConnectionInfo {
 			String password)
 		throws SharepointRuntimeException {
 
-		validateConfiguration(sitePath, username, password);
+		validate(sitePath, username, password);
 
 		_serverProtocol = serverProtocol;
 		_serverAddress = serverAddress;
@@ -43,7 +43,7 @@ public class SharepointConnectionInfo {
 
 		_serviceURL = _urlHelper.toURL(
 			_serverProtocol + "://" + _serverAddress + _sitePath +
-			StringPool.SLASH);
+				StringPool.SLASH);
 	}
 
 	public String getLibraryName() {
@@ -74,9 +74,7 @@ public class SharepointConnectionInfo {
 		return _username;
 	}
 
-	protected void validateConfiguration(
-		String sitePath, String username, String password) {
-
+	protected void validate(String sitePath, String username, String password) {
 		if (sitePath.equals(StringPool.BLANK)) {
 			return;
 		}
