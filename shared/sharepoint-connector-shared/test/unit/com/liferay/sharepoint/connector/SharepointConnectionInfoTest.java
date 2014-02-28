@@ -39,7 +39,7 @@ public class SharepointConnectionInfoTest {
 				"sitePathWithoutLeadingSlash");
 
 			Assert.fail(
-				"IllegalArgumentException not thrown for site path without " +
+				"IllegalArgumentException not thrown for site path without a " +
 					"leading /");
 		}
 		catch (IllegalArgumentException iae) {
@@ -50,7 +50,7 @@ public class SharepointConnectionInfoTest {
 				"/sitePathWithTrailingSlash/");
 
 			Assert.fail(
-				"IllegalArgumentException not thrown for site path with " +
+				"IllegalArgumentException not thrown for site path with a " +
 					"trailing /");
 		}
 		catch (IllegalArgumentException iae) {
