@@ -27,7 +27,7 @@ public class CancelCheckOutFileOperation extends BaseOperation {
 
 	public boolean execute(String filePath) throws SharepointException {
 		try {
-			URL filePathURL = urlHelper.toURL(filePath);
+			URL filePathURL = toURL(filePath);
 
 			return listsSoap.undoCheckOut(filePathURL.toString());
 		}

@@ -115,6 +115,49 @@ public class SharepointConnectionTest {
 		Assert.assertEquals(_BYE_WORLD, inputStreamString);
 	}
 
+	@Test
+	public void testCheckOutThenCancelCheckOut() throws Exception {
+		addTestSharepointObjects();
+
+		String filePath =  "/File " + _testId + ".txt";
+
+		_sharepointConnection.checkOutFile(filePath);
+
+		SharepointObject sharepointObject = null;
+
+		sharepointObject = _sharepointConnection.getSharepointObject(filePath);
+
+		Assert.assertNotNull(sharepointObject.getCheckedOutBy());
+
+		_sharepointConnection.cancelCheckOutFile(filePath);
+
+		sharepointObject = _sharepointConnection.getSharepointObject(filePath);
+
+		Assert.assertNull(sharepointObject.getCheckedOutBy());
+	}
+
+	@Test
+	public void testCheckOutThenCheckIn() throws Exception {
+		addTestSharepointObjects();
+
+		String filePath =  "/File " + _testId + ".txt";
+
+		_sharepointConnection.checkOutFile(filePath);
+
+		SharepointObject sharepointObject = null;
+
+		sharepointObject = _sharepointConnection.getSharepointObject(filePath);
+
+		Assert.assertNotNull(sharepointObject.getCheckedOutBy());
+
+		_sharepointConnection.checkInFile(
+			filePath, new Date().toString(), CheckInType.MAJOR);
+
+		sharepointObject = _sharepointConnection.getSharepointObject(filePath);
+
+		Assert.assertNull(sharepointObject.getCheckedOutBy());
+	}
+
 	protected void addTestSharepointObjects()
 		throws IOException, SharepointException {
 
