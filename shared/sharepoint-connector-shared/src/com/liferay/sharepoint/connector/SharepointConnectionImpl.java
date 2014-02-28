@@ -158,17 +158,6 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	}
 
 	@Override
-	public int getgetSharepointObjectsCount(
-			String folderPath, ObjectTypeFilter objectTypeFilter)
-		throws SharepointException {
-
-		List<SharepointObject> sharepointObjects = getSharepointObjects(
-			folderPath, objectTypeFilter);
-
-		return sharepointObjects.size();
-	}
-
-	@Override
 	public InputStream getInputStream(SharepointObject sharepointObject)
 		throws SharepointException {
 
@@ -236,6 +225,17 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 		return _getSharepointObjectsByFolderOperation.execute(
 			folderPath, objectTypeFilter);
+	}
+
+	@Override
+	public int getSharepointObjectsCount(
+			String folderPath, ObjectTypeFilter objectTypeFilter)
+		throws SharepointException {
+
+		List<SharepointObject> sharepointObjects = getSharepointObjects(
+			folderPath, objectTypeFilter);
+
+		return sharepointObjects.size();
 	}
 
 	@Override

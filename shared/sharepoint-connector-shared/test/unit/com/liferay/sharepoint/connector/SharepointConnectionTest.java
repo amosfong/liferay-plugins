@@ -248,6 +248,55 @@ public class SharepointConnectionTest {
 	}
 
 	@Test
+	public void testGetFileByPath() throws Exception {
+		addTestSharepointObjects();
+
+		String fileExtension = "txt";
+
+		String fileName = "File " + _testId + "." + fileExtension;
+
+		String filePath = "/" + fileName;
+
+		SharepointObject sharepointObject =
+			_sharepointConnection.getSharepointObject(filePath);
+
+		Assert.assertNotNull(sharepointObject);
+
+		Assert.assertTrue(sharepointObject.isFile());
+
+		String expectedSharepointObjectURL = _SERVER_PROTOCOL + "://" +
+			_SERVER_ADDRESS + _SITE_PATH + "/" + _LIBRARY_NAME + filePath;
+
+		Assert.assertEquals(
+			expectedSharepointObjectURL, sharepointObject.getURL().toString());
+
+		Assert.assertEquals(filePath, sharepointObject.getPath());
+
+		Assert.assertEquals("/", sharepointObject.getFolderPath());
+
+		Assert.assertEquals(fileName, sharepointObject.getName());
+
+		Assert.assertEquals(fileExtension, sharepointObject.getExtension());
+	}
+
+	@Test
+	public void testGetFileByPathAndId() throws Exception {
+		addTestSharepointObjects();
+
+		String filePath = "/File " + _testId + ".txt";
+
+		SharepointObject sharepointObject0 =
+			_sharepointConnection.getSharepointObject(filePath);
+
+		SharepointObject sharepointObject1 =
+			_sharepointConnection.getSharepointObject(
+				sharepointObject0.getId());
+
+		Assert.assertEquals(
+			sharepointObject0.getId(), sharepointObject1.getId());
+	}
+
+	@Test
 	public void testGetFolderByPath() throws Exception {
 		addTestSharepointObjects();
 
@@ -275,6 +324,33 @@ public class SharepointConnectionTest {
 		Assert.assertEquals(folderName, sharepointFolder.getName());
 
 		Assert.assertEquals("", sharepointFolder.getExtension());
+	}
+
+	@Test
+	public void testGetObjectsCount() throws Exception {
+		addTestSharepointObjects();
+
+		String folderPath = "/Folder " + _testId;
+
+		Assert.assertEquals(
+			4,
+			_sharepointConnection.getSharepointObjectsCount(
+				folderPath, ObjectTypeFilter.ALL));
+
+		Assert.assertEquals(
+			2,
+			_sharepointConnection.getSharepointObjectsCount(
+				folderPath, ObjectTypeFilter.FILES));
+
+		Assert.assertEquals(
+			2,
+			_sharepointConnection.getSharepointObjectsCount(
+				folderPath, ObjectTypeFilter.FOLDERS));
+
+		Assert.assertEquals(
+			4,
+			_sharepointConnection.getSharepointObjectsCount(
+				StringPool.FORWARD_SLASH, ObjectTypeFilter.ALL));
 	}
 
 	@Test

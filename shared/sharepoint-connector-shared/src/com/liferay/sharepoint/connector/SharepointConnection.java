@@ -48,10 +48,6 @@ public interface SharepointConnection {
 
 	public void deleteSharepointObject(String path) throws SharepointException;
 
-	public int getgetSharepointObjectsCount(
-			String folderPath, ObjectTypeFilter objectTypeFilter)
-		throws SharepointException;
-
 	public InputStream getInputStream(SharepointObject sharepointObject)
 		throws SharepointException;
 
@@ -74,6 +70,10 @@ public interface SharepointConnection {
 		throws SharepointException;
 
 	public List<SharepointObject> getSharepointObjects(
+			String folderPath, ObjectTypeFilter objectTypeFilter)
+		throws SharepointException;
+
+	public int getSharepointObjectsCount(
 			String folderPath, ObjectTypeFilter objectTypeFilter)
 		throws SharepointException;
 
