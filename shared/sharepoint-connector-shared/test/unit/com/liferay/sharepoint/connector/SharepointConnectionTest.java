@@ -247,6 +247,54 @@ public class SharepointConnectionTest {
 			_sharepointConnection.getSharepointObject(folderPath));
 	}
 
+	@Test
+	public void testGetFolderByPath() throws Exception {
+		addTestSharepointObjects();
+
+		String folderName = "Folder " + _testId;
+
+		String folderPath = "/" + folderName;
+
+		SharepointObject sharepointFolder =
+			_sharepointConnection.getSharepointObject(folderPath);
+
+		Assert.assertNotNull(sharepointFolder);
+
+		Assert.assertTrue(sharepointFolder.isFolder());
+
+		String expectedSharepointFolderURL = _SERVER_PROTOCOL + "://" +
+			_SERVER_ADDRESS + _SITE_PATH + "/" + _LIBRARY_NAME + folderPath;
+
+		Assert.assertEquals(
+			expectedSharepointFolderURL, sharepointFolder.getURL().toString());
+
+		Assert.assertEquals(folderPath, sharepointFolder.getPath());
+
+		Assert.assertEquals("/", sharepointFolder.getFolderPath());
+
+		Assert.assertEquals(folderName, sharepointFolder.getName());
+
+		Assert.assertEquals("", sharepointFolder.getExtension());
+	}
+
+	@Test
+	public void testGetSharepointObjectInputStream() throws Exception {
+		addTestSharepointObjects();
+
+		String filePath = "/File " + _testId + ".txt";
+
+		SharepointObject sharepointObject =
+			_sharepointConnection.getSharepointObject(filePath);
+
+		InputStream sharepointObjectContent =
+			_sharepointConnection.getInputStream(sharepointObject);
+
+		String sharepointObjectContentString = toString(
+			sharepointObjectContent);
+
+		Assert.assertEquals(_HELLO_WORLD, sharepointObjectContentString);
+	}
+
 	protected void addTestSharepointObjects()
 		throws IOException, SharepointException {
 
