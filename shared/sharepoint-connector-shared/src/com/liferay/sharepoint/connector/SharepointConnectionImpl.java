@@ -261,7 +261,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		}
 		catch (MalformedURLException mfurle) {
 			throw new SharepointRuntimeException(
-				"Cannot compose root folder URL", mfurle);
+				"Unable to initialize root folder", mfurle);
 		}
 	}
 
