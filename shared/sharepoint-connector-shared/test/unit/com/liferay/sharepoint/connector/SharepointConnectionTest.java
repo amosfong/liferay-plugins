@@ -224,6 +224,29 @@ public class SharepointConnectionTest {
 				copiedFolderPath + "/SubFolder2 " + _testId));
 	}
 
+	@Test
+	public void testDeleteFile() throws Exception {
+		addTestSharepointObjects();
+
+		String filePath = "/File " + _testId + ".txt";
+
+		_sharepointConnection.deleteSharepointObject(filePath);
+
+		Assert.assertNull(_sharepointConnection.getSharepointObject(filePath));
+	}
+
+	@Test
+	public void testDeleteFolder() throws Exception {
+		addTestSharepointObjects();
+
+		String folderPath = "/Folder " + _testId;
+
+		_sharepointConnection.deleteSharepointObject(folderPath);
+
+		Assert.assertNull(
+			_sharepointConnection.getSharepointObject(folderPath));
+	}
+
 	protected void addTestSharepointObjects()
 		throws IOException, SharepointException {
 
