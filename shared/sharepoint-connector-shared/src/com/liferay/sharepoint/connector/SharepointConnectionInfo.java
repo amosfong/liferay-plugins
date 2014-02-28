@@ -108,7 +108,7 @@ public class SharepointConnectionInfo {
 		}
 	}
 
-	protected static URLHelper _urlHelper = new URLHelper();
+	private static URLHelper _urlHelper = new URLHelper();
 
 	private String _libraryName;
 	private String _password;

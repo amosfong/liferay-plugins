@@ -420,7 +420,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		}
 	}
 
-	protected static PathHelper _pathHelper = new PathHelper();
+	private static PathHelper _pathHelper = new PathHelper();
 
 	private AddFolderOperation _addFolderOperation;
 	private AddOrUpdateFileOperation _addOrUpdateFileOperation;
