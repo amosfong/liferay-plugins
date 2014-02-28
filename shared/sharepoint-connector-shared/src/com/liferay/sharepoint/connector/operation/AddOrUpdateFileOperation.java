@@ -47,7 +47,7 @@ public class AddOrUpdateFileOperation extends BaseOperation {
 			String filePath, String changeLog, InputStream inputStream)
 		throws SharepointException {
 
-		URL filePathURL = urlHelper.toURL(filePath);
+		URL filePathURL = toURL(filePath);
 
 		byte[] bytes = null;
 

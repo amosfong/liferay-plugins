@@ -23,6 +23,8 @@ import com.microsoft.schemas.sharepoint.soap.CopySoap;
 import com.microsoft.schemas.sharepoint.soap.ListsSoap;
 import com.microsoft.schemas.sharepoint.soap.VersionsSoap;
 
+import java.net.URL;
+
 import java.util.List;
 import java.util.Map;
 
@@ -60,6 +62,16 @@ public abstract class BaseOperation implements Operation {
 	@Override
 	public void setVersionsSoap(VersionsSoap versionsSoap) {
 		this.versionsSoap = versionsSoap;
+	}
+
+	public URL toURL(String path) {
+		pathHelper.validatePath(path);
+
+		URL serviceURL = sharepointConnectionInfo.getServiceURL();
+
+		return urlHelper.toURL(
+			serviceURL.toString() + sharepointConnectionInfo.getLibraryName() +
+			path);
 	}
 
 	protected <O extends Operation> O getOperation(Class<O> clazz) {

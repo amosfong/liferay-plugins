@@ -35,6 +35,7 @@ import com.liferay.sharepoint.connector.operation.GetSharepointVersionsOperation
 import com.liferay.sharepoint.connector.operation.MoveSharepointObjectOperation;
 import com.liferay.sharepoint.connector.operation.Operation;
 import com.liferay.sharepoint.connector.operation.PathHelper;
+import com.liferay.sharepoint.connector.operation.URLHelper;
 import com.liferay.sharepoint.connector.schema.query.Query;
 import com.liferay.sharepoint.connector.schema.query.QueryOptionsList;
 
@@ -251,18 +252,12 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 		String libraryName = _sharepointConnectionInfo.getLibraryName();
 
-		try {
-			URL libraryURL = new URL(serviceURL, libraryName);
+		URL libraryURL = _urlHelper.toURL(serviceURL.toString() + libraryName);
 
-			_sharepointRootFolder = new SharepointObject(
-				StringPool.BLANK, null, new Date(0), true, new Date(0),
-				StringPool.SLASH, EnumSet.allOf(Permission.class),
-				SHAREPOINT_ROOT_FOLDER_ID, 0, libraryURL );
-		}
-		catch (MalformedURLException mfurle) {
-			throw new SharepointRuntimeException(
-				"Unable to initialize root folder", mfurle);
-		}
+		_sharepointRootFolder = new SharepointObject(
+			StringPool.BLANK, null, new Date(0), true, new Date(0),
+			StringPool.SLASH, EnumSet.allOf(Permission.class),
+			SHAREPOINT_ROOT_FOLDER_ID, 0, libraryURL);
 	}
 
 	@Override
@@ -283,6 +278,13 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		_pathHelper.validatePath(filePath);
 
 		_addOrUpdateFileOperation.execute(filePath, null, inputStream);
+	}
+
+	protected URL _getWebServiceURL(String serviceName) {
+		URL serviceURL = _sharepointConnectionInfo.getServiceURL();
+
+		return _urlHelper.toURL(
+			serviceURL.toString() + "_vti_bin/" + serviceName + ".asmx");
 	}
 
 	protected <O extends Operation> O buildOperation(Class<O> clazz) {
@@ -348,8 +350,9 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		}
 	}
 
-	protected void configureStub(Stub stub, URL wsdlURL) {
-		stub._setProperty(Stub.ENDPOINT_ADDRESS_PROPERTY, wsdlURL.toString());
+	protected void configureStub(Stub stub, URL webServiceURL) {
+		stub._setProperty(
+			Stub.ENDPOINT_ADDRESS_PROPERTY, webServiceURL.toString());
 		stub._setProperty(
 			Call.PASSWORD_PROPERTY, _sharepointConnectionInfo.getPassword());
 		stub._setProperty(
@@ -375,12 +378,14 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	protected void initCopySoap() {
 		URL wsdlURL = getWSDLURL("copy");
 
+		URL webServiceURL = _getWebServiceURL("copy");
+
 		try {
 			CopyLocator copyLocator = new CopyLocator();
 
 			_copySoap = copyLocator.getCopySoap(wsdlURL);
 
-			configureStub((Stub)_copySoap, wsdlURL);
+			configureStub((Stub)_copySoap, webServiceURL);
 		}
 		catch (ServiceException se) {
 			throw new SharepointRuntimeException(
@@ -391,12 +396,14 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	protected void initListsSoap() {
 		URL wsdlURL = getWSDLURL("lists");
 
+		URL webServiceURL = _getWebServiceURL("lists");
+
 		try {
 			ListsLocator listsLocator = new ListsLocator();
 
 			_listsSoap = listsLocator.getListsSoap(wsdlURL);
 
-			configureStub((Stub)_listsSoap, wsdlURL);
+			configureStub((Stub)_listsSoap, webServiceURL);
 		}
 		catch (ServiceException se) {
 			throw new SharepointRuntimeException(
@@ -407,12 +414,14 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	protected void initVersionsSoap() {
 		URL wsdlURL = getWSDLURL("versions");
 
+		URL webServiceURL = _getWebServiceURL("versions");
+
 		try {
 			VersionsLocator versionsLocator = new VersionsLocator();
 
 			_versionsSoap = versionsLocator.getVersionsSoap(wsdlURL);
 
-			configureStub((Stub)_versionsSoap, wsdlURL);
+			configureStub((Stub)_versionsSoap, webServiceURL);
 		}
 		catch (ServiceException se) {
 			throw new SharepointRuntimeException(
@@ -421,6 +430,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	}
 
 	private static PathHelper _pathHelper = new PathHelper();
+	private static URLHelper _urlHelper = new URLHelper();
 
 	private AddFolderOperation _addFolderOperation;
 	private AddOrUpdateFileOperation _addOrUpdateFileOperation;

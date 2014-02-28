@@ -31,7 +31,7 @@ public class CheckInFileOperation extends BaseOperation {
 		throws SharepointException {
 
 		try {
-			URL filePathURL = urlHelper.toURL(filePath);
+			URL filePathURL = toURL(filePath);
 
 			String protocolValue = String.valueOf(
 				checkInType.getProtocolValue());

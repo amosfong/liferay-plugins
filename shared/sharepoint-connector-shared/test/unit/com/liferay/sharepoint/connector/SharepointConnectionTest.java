@@ -14,8 +14,10 @@
 
 package com.liferay.sharepoint.connector;
 
+import com.liferay.portal.kernel.util.FileUtil;
 import com.liferay.portal.kernel.util.HtmlUtil;
 import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.portal.util.FileImpl;
 import com.liferay.portal.util.HtmlImpl;
 import com.liferay.sharepoint.connector.SharepointConnection.ObjectTypeFilter;
 
@@ -84,6 +86,10 @@ public class SharepointConnectionTest {
 		HtmlUtil htmlUtil = new HtmlUtil();
 
 		htmlUtil.setHtml(new HtmlImpl());
+
+		FileUtil fileUtil = new FileUtil();
+
+		fileUtil.setFile(new FileImpl());
 	}
 
 	private static final String _HELLO_WORLD = "Hello world!";

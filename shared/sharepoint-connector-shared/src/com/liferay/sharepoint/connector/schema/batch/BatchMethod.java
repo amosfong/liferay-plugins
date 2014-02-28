@@ -32,7 +32,17 @@ public class BatchMethod extends BaseNode {
 
 	public static enum Command {
 
-		DELETE, NEW, UPDATE
+		DELETE("Delete"), NEW("New"), UPDATE("Update");
+
+		private Command(String protocolValue) {
+			_protocolValue = protocolValue;
+		}
+
+		public String getProtocolValue() {
+			return _protocolValue;
+		}
+
+		private String _protocolValue;
 
 	}
 
@@ -43,7 +53,7 @@ public class BatchMethod extends BaseNode {
 
 	@Override
 	protected void populate(Element element) {
-		element.addAttribute("Cmd", _command.name());
+		element.addAttribute("Cmd", _command.getProtocolValue());
 		element.addAttribute("ID", String.valueOf(_batchMethodId));
 
 		for (BatchField batchField : _batchFields) {

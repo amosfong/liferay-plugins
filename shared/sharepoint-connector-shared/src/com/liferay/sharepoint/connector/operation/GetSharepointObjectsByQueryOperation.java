@@ -195,7 +195,7 @@ public class GetSharepointObjectsByQueryOperation extends BaseOperation {
 			String localName = node.getLocalName();
 
 			if ((localName == null) ||
-				!StringUtil.equalsIgnoreCase(localName, "result")) {
+				!StringUtil.equalsIgnoreCase(localName, "row")) {
 
 				continue;
 			}
@@ -230,7 +230,7 @@ public class GetSharepointObjectsByQueryOperation extends BaseOperation {
 				getPermissions(owsPermMaskNode.getNodeValue()),
 				GetterUtil.getLong(getNodeValue(owsFileRefNode, 0)),
 				GetterUtil.getLong(getNodeValue(owsFileX0020SizeNode, 1)),
-				urlHelper.toURL(path));
+				toURL(path));
 
 			sharepointObjects.add(sharepointObject);
 		}
