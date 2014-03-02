@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.repository.external.CredentialsProvider;
 import com.liferay.repository.external.ExtRepository;
+import com.liferay.repository.external.ExtRepositoryAdapter;
 import com.liferay.repository.external.ExtRepositoryFileEntry;
 import com.liferay.repository.external.ExtRepositoryFileVersion;
 import com.liferay.repository.external.ExtRepositoryFileVersionDescriptor;
@@ -37,7 +38,12 @@ import java.util.List;
 /**
  * @author Ivan Zaera
  */
-public class SharepointWSExtRepository implements ExtRepository {
+public class SharepointWSExtRepository
+	extends ExtRepositoryAdapter implements ExtRepository {
+
+	public SharepointWSExtRepository() {
+		super(null);
+	}
 
 	@Override
 	public ExtRepositoryFileEntry addExtRepositoryFileEntry(
