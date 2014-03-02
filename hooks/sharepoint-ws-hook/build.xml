@@ -5,5 +5,4 @@
 	<import file="../build-common-hook.xml" />
 
 	<property name="import.shared" value="dl-repository-shared,sharepoint-connector-shared" />
-
 </project>
