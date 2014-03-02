@@ -19,10 +19,10 @@ import com.liferay.repository.external.ExtRepositoryAdapter;
 /**
  * @author Ivan Zaera
  */
-public class SharepointWsExtRepositoryAdapter extends ExtRepositoryAdapter {
+public class SharepointWSExtRepositoryAdapter extends ExtRepositoryAdapter {
 
-	public SharepointWsExtRepositoryAdapter() {
-		super(new SharepointWsExtRepository());
+	public SharepointWSExtRepositoryAdapter() {
+		super(new SharepointWSExtRepository());
 	}
 
 }
