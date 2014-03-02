@@ -38,10 +38,10 @@ import java.util.List;
 /**
  * @author Ivan Zaera
  */
-public class SharepointWSExtRepository
+public class SharepointWSRepository
 	extends ExtRepositoryAdapter implements ExtRepository {
 
-	public SharepointWSExtRepository() {
+	public SharepointWSRepository() {
 		super(null);
 	}
 
