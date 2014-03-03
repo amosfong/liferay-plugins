@@ -80,10 +80,9 @@ public class SharepointConnectionTest {
 
 		_sharepointConnection.addFolder(StringPool.SLASH, folderName);
 
-		String folderPath = StringPool.SLASH + folderName;
-
 		Assert.assertNotNull(
-			_sharepointConnection.getSharepointObject(folderPath));
+			_sharepointConnection.getSharepointObject(
+				StringPool.SLASH + folderName));
 	}
 
 	@Test
