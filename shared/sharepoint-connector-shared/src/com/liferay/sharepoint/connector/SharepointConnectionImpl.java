@@ -356,7 +356,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		URL serviceURL = _sharepointConnectionInfo.getServiceURL();
 	
 		return _urlHelper.toURL(
-			serviceURL.toString() + "_vti_bin/" + serviceName + ".asmx");
+			serviceURL + "_vti_bin/" + serviceName + ".asmx");
 	}
 
 	protected URL getWSDLURL(String serviceName) {
