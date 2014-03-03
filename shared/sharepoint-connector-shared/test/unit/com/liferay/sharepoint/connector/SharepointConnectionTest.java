@@ -289,22 +289,15 @@ public class SharepointConnectionTest {
 			_sharepointConnection.getSharepointObject(folderPath);
 
 		Assert.assertNotNull(sharepointObject);
-
-		Assert.assertTrue(sharepointObject.isFolder());
-
-		String expectedSharepointFolderURL = _SERVER_PROTOCOL + "://" +
-			_SERVER_ADDRESS + _SITE_PATH + StringPool.SLASH + _LIBRARY_NAME + folderPath;
-
-		Assert.assertEquals(
-			expectedSharepointFolderURL, sharepointObject.getURL().toString());
-
-		Assert.assertEquals(folderPath, sharepointObject.getPath());
-
-		Assert.assertEquals(StringPool.SLASH, sharepointObject.getFolderPath());
-
-		Assert.assertEquals(folderName, sharepointObject.getName());
-
 		Assert.assertEquals("", sharepointObject.getExtension());
+		Assert.assertEquals(StringPool.SLASH, sharepointObject.getFolderPath());
+		Assert.assertEquals(folderName, sharepointObject.getName());
+		Assert.assertEquals(folderPath, sharepointObject.getPath());
+		Assert.assertEquals(
+			_SERVER_PROTOCOL + "://" + _SERVER_ADDRESS + _SITE_PATH +
+				StringPool.SLASH + _LIBRARY_NAME + folderPath,
+			String.valueOf(sharepointObject.getURL()));
+		Assert.assertTrue(sharepointObject.isFolder());
 	}
 
 	@Test
