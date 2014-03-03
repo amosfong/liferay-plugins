@@ -338,6 +338,18 @@ public class SharepointConnectionTest {
 	}
 
 	@Test
+	public void testGetSharepointObjectsByFileName() throws Exception {
+		addSharepointObjects(true, true, true, true);
+
+		List<SharepointObject> sharepointObjects =
+			_sharepointConnection.getSharepointObjects(_fileName1);
+
+		Assert.assertEquals(2, sharepointObjects.size());
+
+		assertContainsName(sharepointObjects, _fileName1);
+	}
+
+	@Test
 	public void testGetSharepointObjectsByFolderPath() throws Exception {
 		addSharepointObjects(true, true, true, true);
 
@@ -360,18 +372,6 @@ public class SharepointConnectionTest {
 		Assert.assertEquals(2, sharepointObjects.size());
 
 		assertIsFolder(sharepointObjects);
-	}
-
-	@Test
-	public void testGetSharepointObjectsByFileName() throws Exception {
-		addSharepointObjects(true, true, true, true);
-
-		List<SharepointObject> sharepointObjects =
-			_sharepointConnection.getSharepointObjects(_fileName1);
-
-		Assert.assertEquals(2, sharepointObjects.size());
-
-		assertContainsName(sharepointObjects, _fileName1);
 	}
 
 	@Test
@@ -480,9 +480,9 @@ public class SharepointConnectionTest {
 		Assert.assertEquals(9, sharepointVersions.size());
 
 		SharepointVersion sharepointVersion = sharepointVersions.get(8);
-		
+
 		Assert.assertEquals("1.0", sharepointVersion.getVersion());
-		
+
 		sharepointVersion = sharepointVersions.get(1);
 
 		Assert.assertEquals("8.0", sharepointVersion.getVersion());
