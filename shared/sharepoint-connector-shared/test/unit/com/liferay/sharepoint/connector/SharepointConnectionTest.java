@@ -267,15 +267,14 @@ public class SharepointConnectionTest {
 
 		String filePath = "/File " + _testId + ".txt";
 
-		SharepointObject sharepointObject0 =
-			_sharepointConnection.getSharepointObject(filePath);
-
 		SharepointObject sharepointObject1 =
+			_sharepointConnection.getSharepointObject(filePath);
+		SharepointObject sharepointObject2 =
 			_sharepointConnection.getSharepointObject(
-				sharepointObject0.getId());
+				sharepointObject1.getId());
 
 		Assert.assertEquals(
-			sharepointObject0.getId(), sharepointObject1.getId());
+			sharepointObject1.getId(), sharepointObject2.getId());
 	}
 
 	@Test
