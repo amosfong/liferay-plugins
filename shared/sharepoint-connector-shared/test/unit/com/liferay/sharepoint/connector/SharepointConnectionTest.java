@@ -352,14 +352,14 @@ public class SharepointConnectionTest {
 
 		Assert.assertEquals(2, sharepointObjects.size());
 
-		assertAllSharepointObjectsAreFiles(sharepointObjects);
+		assertIsFile(sharepointObjects);
 
 		sharepointObjects = _sharepointConnection.getSharepointObjects(
 			_folderPath1, ObjectTypeFilter.FOLDERS);
 
 		Assert.assertEquals(2, sharepointObjects.size());
 
-		assertAllSharepointObjectsAreFolders(sharepointObjects);
+		assertIsFolder(sharepointObjects);
 	}
 
 	@Test
@@ -371,7 +371,7 @@ public class SharepointConnectionTest {
 
 		Assert.assertEquals(2, sharepointObjects.size());
 
-		assertAllSharepointObjectNamesContain(sharepointObjects, _fileName1);
+		assertContainsName(sharepointObjects, _fileName1);
 	}
 
 	@Test
@@ -390,7 +390,7 @@ public class SharepointConnectionTest {
 
 		Assert.assertEquals(2, sharepointObjects.size());
 
-		assertAllSharepointObjectNamesContain(sharepointObjects, "SubFile");
+		assertContainsName(sharepointObjects, "SubFile");
 	}
 
 	@Test
@@ -648,7 +648,7 @@ public class SharepointConnectionTest {
 		}
 	}
 
-	protected void assertAllSharepointObjectNamesContain(
+	protected void assertContainsName(
 		List<SharepointObject> sharepointObjects, String name) {
 
 		for (SharepointObject sharepointObject : sharepointObjects) {
@@ -656,17 +656,13 @@ public class SharepointConnectionTest {
 		}
 	}
 
-	protected void assertAllSharepointObjectsAreFiles(
-		List<SharepointObject> sharepointObjects) {
-
+	protected void assertIsFile(List<SharepointObject> sharepointObjects) {
 		for (SharepointObject sharepointObject : sharepointObjects) {
 			Assert.assertTrue(sharepointObject.isFile());
 		}
 	}
 
-	protected void assertAllSharepointObjectsAreFolders(
-		List<SharepointObject> sharepointObjects) {
-
+	protected void assertIsFolder(List<SharepointObject> sharepointObjects) {
 		for (SharepointObject sharepointObject : sharepointObjects) {
 			Assert.assertTrue(sharepointObject.isFolder());
 		}
