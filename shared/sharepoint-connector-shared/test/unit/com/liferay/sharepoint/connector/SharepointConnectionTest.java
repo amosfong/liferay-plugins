@@ -591,7 +591,6 @@ public class SharepointConnectionTest {
 
 		Assert.assertNull(
 			_sharepointConnection.getSharepointObject(_folderPath1));
-
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(renamedFolderPath));
 	}
