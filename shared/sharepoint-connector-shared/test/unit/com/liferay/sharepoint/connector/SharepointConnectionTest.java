@@ -149,7 +149,7 @@ public class SharepointConnectionTest {
 		Assert.assertNotNull(sharepointObject.getCheckedOutBy());
 
 		_sharepointConnection.checkInFile(
-			filePath, new Date().toString(), CheckInType.MAJOR);
+			filePath, String.valueOf(new Date()), CheckInType.MAJOR);
 
 		sharepointObject = _sharepointConnection.getSharepointObject(filePath);
 
