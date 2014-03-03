@@ -479,11 +479,17 @@ public class SharepointConnectionTest {
 
 		Assert.assertEquals(9, sharepointVersions.size());
 
-		Assert.assertEquals("1.0", sharepointVersions.get(8).getVersion());
+		SharepointVersion sharepointVersion = sharepointVersions.get(8);
+		
+		Assert.assertEquals("1.0", sharepointVersion.getVersion());
+		
+		sharepointVersion = sharepointVersions.get(1);
 
-		Assert.assertEquals("8.0", sharepointVersions.get(1).getVersion());
+		Assert.assertEquals("8.0", sharepointVersion.getVersion());
 
-		Assert.assertEquals("8.1", sharepointVersions.get(0).getVersion());
+		sharepointVersion = sharepointVersions.get(0);
+
+		Assert.assertEquals("8.1", sharepointVersion.getVersion());
 	}
 
 	@Test
