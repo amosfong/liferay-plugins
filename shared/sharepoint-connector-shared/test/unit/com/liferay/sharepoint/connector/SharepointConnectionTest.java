@@ -21,6 +21,12 @@ import com.liferay.portal.util.FileImpl;
 import com.liferay.portal.util.HtmlImpl;
 import com.liferay.sharepoint.connector.SharepointConnection.CheckInType;
 import com.liferay.sharepoint.connector.SharepointConnection.ObjectTypeFilter;
+import com.liferay.sharepoint.connector.schema.query.Query;
+import com.liferay.sharepoint.connector.schema.query.QueryField;
+import com.liferay.sharepoint.connector.schema.query.QueryOptionsList;
+import com.liferay.sharepoint.connector.schema.query.QueryValue;
+import com.liferay.sharepoint.connector.schema.query.operator.ContainsOperator;
+import com.liferay.sharepoint.connector.schema.query.option.FolderQueryOption;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -333,6 +339,62 @@ public class SharepointConnectionTest {
 	}
 
 	@Test
+	public void testGetSharepointObjectsByFolderPath() throws Exception {
+		addSharepointObjects(true, true, true, true);
+
+		List<SharepointObject> sharepointObjects =
+			_sharepointConnection.getSharepointObjects(
+				_folderPath1, ObjectTypeFilter.ALL);
+
+		Assert.assertEquals(4, sharepointObjects.size());
+
+		sharepointObjects = _sharepointConnection.getSharepointObjects(
+			_folderPath1, ObjectTypeFilter.FILES);
+
+		Assert.assertEquals(2, sharepointObjects.size());
+
+		assertAllSharepointObjectsAreFiles(sharepointObjects);
+
+		sharepointObjects = _sharepointConnection.getSharepointObjects(
+			_folderPath1, ObjectTypeFilter.FOLDERS);
+
+		Assert.assertEquals(2, sharepointObjects.size());
+
+		assertAllSharepointObjectsAreFolders(sharepointObjects);
+	}
+
+	@Test
+	public void testGetSharepointObjectsByName() throws Exception {
+		addSharepointObjects(true, true, true, true);
+
+		List<SharepointObject> sharepointObjects =
+			_sharepointConnection.getSharepointObjects(_fileName1);
+
+		Assert.assertEquals(2, sharepointObjects.size());
+
+		assertAllSharepointObjectNamesContain(sharepointObjects, _fileName1);
+	}
+
+	@Test
+	public void testGetSharepointObjectsByQuery() throws Exception {
+		addSharepointObjects(true, true, true, true);
+
+		Query query = new Query(
+			new ContainsOperator(
+				new QueryField("BaseName"), new QueryValue("SubFile")));
+
+		QueryOptionsList queryOptionsList = new QueryOptionsList(
+			new FolderQueryOption(StringPool.BLANK));
+
+		List<SharepointObject> sharepointObjects =
+			_sharepointConnection.getSharepointObjects(query, queryOptionsList);
+
+		Assert.assertEquals(2, sharepointObjects.size());
+
+		assertAllSharepointObjectNamesContain(sharepointObjects, "SubFile");
+	}
+
+	@Test
 	public void testGetSharepointObjectsCount() throws Exception {
 		addSharepointObjects(true, true, true, true);
 
@@ -584,6 +646,30 @@ public class SharepointConnectionTest {
 				StringPool.SLASH + _folderName1, "Sub" + _folderName2);
 
 			_sharepointConnection.addFolder(StringPool.SLASH, _folderName2);
+		}
+	}
+
+	protected void assertAllSharepointObjectNamesContain(
+		List<SharepointObject> sharepointObjects, String name) {
+
+		for (SharepointObject sharepointObject : sharepointObjects) {
+			Assert.assertTrue(sharepointObject.getName().contains(name));
+		}
+	}
+
+	protected void assertAllSharepointObjectsAreFiles(
+		List<SharepointObject> sharepointObjects) {
+
+		for (SharepointObject sharepointObject : sharepointObjects) {
+			Assert.assertTrue(sharepointObject.isFile());
+		}
+	}
+
+	protected void assertAllSharepointObjectsAreFolders(
+		List<SharepointObject> sharepointObjects) {
+
+		for (SharepointObject sharepointObject : sharepointObjects) {
+			Assert.assertTrue(sharepointObject.isFolder());
 		}
 	}
 
