@@ -356,6 +356,76 @@ public class SharepointConnectionTest {
 				folderPath, ObjectTypeFilter.FOLDERS));
 	}
 
+	@Test
+	public void testGetSharepointVersionInputStream() throws Exception {
+		addSharepointObjects(true, false, false, false);
+
+		_sharepointConnection.checkOutFile(_filePath1);
+
+		SharepointObject sharepointObject =
+			_sharepointConnection.getSharepointObject(_filePath1);
+
+		Assert.assertNotNull(sharepointObject.getCheckedOutBy());
+
+		_sharepointConnection.updateFile(
+			_filePath1, getInputStream(_CONTENT_BYE_WORLD));
+
+		_sharepointConnection.checkInFile(
+			_filePath1, new Date().toString(), CheckInType.MAJOR);
+
+		sharepointObject = _sharepointConnection.getSharepointObject(
+			_filePath1);
+
+		Assert.assertNull(sharepointObject.getCheckedOutBy());
+
+		List<SharepointVersion> sharepointVersions =
+			_sharepointConnection.getSharepointVersions(_filePath1);
+
+		InputStream inputStream = _sharepointConnection.getInputStream(
+			sharepointVersions.get(0));
+
+		Assert.assertEquals(_CONTENT_BYE_WORLD, getString(inputStream));
+
+		inputStream = _sharepointConnection.getInputStream(
+			sharepointVersions.get(1));
+
+		Assert.assertEquals(_CONTENT_HELLO_WORLD, getString(inputStream));
+	}
+
+	@Test
+	public void testGetVersions() throws Exception {
+		addSharepointObjects(true, false, false, false);
+
+		String filePath = "/File1 " + _timestamp + ".txt";
+
+		addFileVersion(filePath, _CONTENT_BYE_WORLD, CheckInType.MAJOR);
+
+		addFileVersion(filePath, _CONTENT_HELLO_WORLD, CheckInType.MAJOR);
+
+		addFileVersion(filePath, _CONTENT_BYE_WORLD, CheckInType.MAJOR);
+
+		addFileVersion(filePath, _CONTENT_HELLO_WORLD, CheckInType.MAJOR);
+
+		addFileVersion(filePath, _CONTENT_BYE_WORLD, CheckInType.MAJOR);
+
+		addFileVersion(filePath, _CONTENT_HELLO_WORLD, CheckInType.MAJOR);
+
+		addFileVersion(filePath, _CONTENT_BYE_WORLD, CheckInType.MAJOR);
+
+		addFileVersion(filePath, _CONTENT_HELLO_WORLD, CheckInType.MINOR);
+
+		List<SharepointVersion> sharepointVersions =
+			_sharepointConnection.getSharepointVersions(filePath);
+
+		Assert.assertEquals(9, sharepointVersions.size());
+
+		Assert.assertEquals("1.0", sharepointVersions.get(8).getVersion());
+
+		Assert.assertEquals("8.0", sharepointVersions.get(1).getVersion());
+
+		Assert.assertEquals("8.1", sharepointVersions.get(0).getVersion());
+	}
+
 	protected void addFileVersion(
 			String filePath, String content, CheckInType checkInType)
 		throws IOException, SharepointException {
