@@ -466,13 +466,13 @@ public class SharepointConnectionTest {
 	}
 
 	protected void setUpMocks() {
-		HtmlUtil htmlUtil = new HtmlUtil();
-
-		htmlUtil.setHtml(new HtmlImpl());
-
 		FileUtil fileUtil = new FileUtil();
 
 		fileUtil.setFile(new FileImpl());
+
+		HtmlUtil htmlUtil = new HtmlUtil();
+
+		htmlUtil.setHtml(new HtmlImpl());
 	}
 
 	protected String toString(InputStream inputStream) throws IOException {
