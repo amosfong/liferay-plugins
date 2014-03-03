@@ -74,9 +74,9 @@ public class SharepointConnectionTest {
 	public void testAddFolder() throws Exception {
 		String folderName = "CreatedFolder " + System.currentTimeMillis();
 
-		String folderPath = StringPool.SLASH + folderName;
-
 		_sharepointConnection.addFolder(StringPool.SLASH, folderName);
+
+		String folderPath = StringPool.SLASH + folderName;
 
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(folderPath));
@@ -279,7 +279,8 @@ public class SharepointConnectionTest {
 				sharepointObject1.getSharepointObjectId());
 
 		Assert.assertEquals(
-			sharepointObject1.getSharepointObjectId(), sharepointObject2.getSharepointObjectId());
+			sharepointObject1.getSharepointObjectId(),
+			sharepointObject2.getSharepointObjectId());
 	}
 
 	@Test
