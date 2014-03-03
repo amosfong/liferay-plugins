@@ -506,7 +506,6 @@ public class SharepointConnectionTest {
 
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(movedFilePath));
-
 		Assert.assertNull(
 			_sharepointConnection.getSharepointObject(_filePath1));
 	}
@@ -523,15 +522,12 @@ public class SharepointConnectionTest {
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
 				movedFolderPath + "/Subfile1 " + _timestamp + ".txt"));
-
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
 				movedFolderPath + "/Subfile2 " + _timestamp + ".txt"));
-
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
 				movedFolderPath + "/Subfolder1 " + _timestamp));
-
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
 				movedFolderPath + "/Subfolder2 " + _timestamp));
