@@ -357,14 +357,10 @@ public class SharepointConnectionTest {
 		SharepointObject sharepointObject =
 			_sharepointConnection.getSharepointObject(filePath);
 
-		InputStream sharepointObjectContent =
+		InputStream inputStream =
 			_sharepointConnection.getInputStream(sharepointObject);
 
-		String sharepointObjectContentString = toString(
-			sharepointObjectContent);
-
-		Assert.assertEquals(
-			_CONTENT_HELLO_WORLD, sharepointObjectContentString);
+		Assert.assertEquals(_CONTENT_HELLO_WORLD, toString(inputStream));
 	}
 
 	protected void addSharepointObjects()
