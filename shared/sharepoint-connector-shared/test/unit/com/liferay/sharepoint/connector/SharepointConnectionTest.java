@@ -62,7 +62,7 @@ public class SharepointConnectionTest {
 
 		_sharepointConnection.addFile(
 			folderPath, fileName, StringPool.BLANK,
-			getInputStream(_HELLO_WORLD));
+			getInputStream(_CONTENT_HELLO_WORLD));
 
 		String filePath = folderPath + fileName;
 
@@ -98,7 +98,7 @@ public class SharepointConnectionTest {
 
 		Assert.assertNotNull(sharepointObject.getCheckedOutBy());
 
-		_sharepointConnection.updateFile(filePath, getInputStream(_BYE_WORLD));
+		_sharepointConnection.updateFile(filePath, getInputStream(_CONTENT_BYE_WORLD));
 
 		_sharepointConnection.checkInFile(
 			filePath, new Date().toString(), CheckInType.MAJOR);
@@ -112,7 +112,7 @@ public class SharepointConnectionTest {
 
 		String inputStreamString = toString(inputStream);
 
-		Assert.assertEquals(_BYE_WORLD, inputStreamString);
+		Assert.assertEquals(_CONTENT_BYE_WORLD, inputStreamString);
 	}
 
 	@Test
@@ -385,7 +385,7 @@ public class SharepointConnectionTest {
 		String sharepointObjectContentString = toString(
 			sharepointObjectContent);
 
-		Assert.assertEquals(_HELLO_WORLD, sharepointObjectContentString);
+		Assert.assertEquals(_CONTENT_HELLO_WORLD, sharepointObjectContentString);
 	}
 
 	protected void addTestSharepointObjects()
@@ -401,21 +401,21 @@ public class SharepointConnectionTest {
 
 		_sharepointConnection.addFile(
 			StringPool.FORWARD_SLASH, fileName, StringPool.BLANK,
-			getInputStream(_HELLO_WORLD));
+			getInputStream(_CONTENT_HELLO_WORLD));
 
 		_sharepointConnection.addFile(
 			StringPool.FORWARD_SLASH, fileName2, StringPool.BLANK,
-			getInputStream(_HELLO_WORLD));
+			getInputStream(_CONTENT_HELLO_WORLD));
 
 		_sharepointConnection.addFolder(StringPool.FORWARD_SLASH, folderName);
 
 		_sharepointConnection.addFile(
 			StringPool.FORWARD_SLASH + folderName, "Sub" + fileName,
-			StringPool.BLANK, getInputStream(_HELLO_WORLD));
+			StringPool.BLANK, getInputStream(_CONTENT_HELLO_WORLD));
 
 		_sharepointConnection.addFile(
 			StringPool.FORWARD_SLASH + folderName, "Sub" + fileName2,
-			StringPool.BLANK, getInputStream(_HELLO_WORLD));
+			StringPool.BLANK, getInputStream(_CONTENT_HELLO_WORLD));
 
 		_sharepointConnection.addFolder(
 			StringPool.FORWARD_SLASH + folderName, "Sub" + folderName);
@@ -481,9 +481,9 @@ public class SharepointConnectionTest {
 		return new String(bytes, StringPool.UTF8);
 	}
 
-	private static final String _BYE_WORLD = "Bye world!";
+	private static final String _CONTENT_BYE_WORLD = "Bye world!";
 
-	private static final String _HELLO_WORLD = "Hello world!";
+	private static final String _CONTENT_HELLO_WORLD = "Hello world!";
 
 	private static final String _LIBRARY_NAME = "Documents";
 
