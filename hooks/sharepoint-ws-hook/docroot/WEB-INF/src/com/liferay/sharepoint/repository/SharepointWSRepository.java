@@ -16,9 +16,14 @@ package com.liferay.sharepoint.repository;
 
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.repository.RepositoryException;
 import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.SearchContext;
+import com.liferay.portal.kernel.servlet.PortalSessionThreadLocal;
+import com.liferay.portal.kernel.util.AutoResetThreadLocal;
+import com.liferay.portal.kernel.util.TransientValue;
 import com.liferay.portal.kernel.util.UnicodeProperties;
+import com.liferay.portal.model.CompanyConstants;
 import com.liferay.repository.external.CredentialsProvider;
 import com.liferay.repository.external.ExtRepository;
 import com.liferay.repository.external.ExtRepositoryAdapter;
@@ -30,10 +35,19 @@ import com.liferay.repository.external.ExtRepositoryObject;
 import com.liferay.repository.external.ExtRepositoryObjectType;
 import com.liferay.repository.external.ExtRepositorySearchResult;
 import com.liferay.repository.external.search.ExtRepositoryQueryMapper;
+import com.liferay.sharepoint.connector.SharepointConnection;
+import com.liferay.sharepoint.connector.SharepointConnectionFactory;
+import com.liferay.sharepoint.connector.SharepointException;
+import com.liferay.sharepoint.connector.SharepointObject;
+import com.liferay.sharepoint.connector.SharepointRuntimeException;
+import com.liferay.sharepoint.connector.operation.PathHelper;
+import com.liferay.sharepoint.repository.model.SharepointExtRepositoryFileEntry;
 
 import java.io.InputStream;
 
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @author Ivan Zaera
@@ -51,7 +65,32 @@ public class SharepointWSRepository
 			String description, String changeLog, InputStream inputStream)
 		throws PortalException, SystemException {
 
-		return null;
+		try {
+			SharepointConnection sharepointConnection =
+				getSharepointConnection();
+
+			SharepointObject folderSharepointObject =
+				sharepointConnection.getSharepointObject(
+					toSharepointObjectId(extRepositoryParentFolderKey));
+
+			String folderPath = folderSharepointObject.getPath();
+
+			sharepointConnection.addFile(
+				folderPath, title, changeLog, inputStream);
+
+			String filePath = _pathHelper.buildPath(folderPath, title);
+
+			SharepointObject fileSharepointObject =
+				sharepointConnection.getSharepointObject(filePath);
+
+			return new SharepointExtRepositoryFileEntry(fileSharepointObject);
+		}
+		catch (SharepointRuntimeException sre) {
+			throw new SystemException(sre);
+		}
+		catch (SharepointException se) {
+			throw new PortalException(se);
+		}
 	}
 
 	@Override
@@ -106,7 +145,7 @@ public class SharepointWSRepository
 
 	@Override
 	public String getAuthType() {
-		return null;
+		return CompanyConstants.AUTH_TYPE_SN;
 	}
 
 	@Override
@@ -214,12 +253,12 @@ public class SharepointWSRepository
 
 	@Override
 	public String[] getSupportedConfigurations() {
-		return null;
+		return _SUPPORTED_CONFIGURATIONS;
 	}
 
 	@Override
 	public String[][] getSupportedParameters() {
-		return null;
+		return _SUPPORTED_PARAMETERS;
 	}
 
 	@Override
@@ -256,5 +295,99 @@ public class SharepointWSRepository
 
 		return null;
 	}
+
+	protected SharepointConnection buildSharepointConnection()
+		throws RepositoryException {
+
+		try {
+			int serverPort = 80;
+
+			if (_protocol.equals("https")) {
+				serverPort = 443;
+			}
+
+			return SharepointConnectionFactory.getInstance(
+				_protocol, _host, serverPort, _sitePath, _libraryName,
+				_credentialsProvider.getLogin(),
+				_credentialsProvider.getPassword());
+		}
+		catch (SharepointRuntimeException sre) {
+			throw new RepositoryException(
+				"Unable to connect to repository", sre);
+		}
+	}
+
+	@SuppressWarnings("unchecked")
+	protected SharepointConnection getSharepointConnection()
+		throws RepositoryException {
+
+		SharepointConnection sharepointConnection =
+			_sharepointConnectionThreadLocal.get();
+
+		if (sharepointConnection != null) {
+			return sharepointConnection;
+		}
+
+		HttpSession httpSession = PortalSessionThreadLocal.getHttpSession();
+
+		if (httpSession != null) {
+			TransientValue<SharepointConnection> transientValue =
+				(TransientValue<SharepointConnection>)
+					httpSession.getAttribute(_SESSION_KEY);
+
+			if (transientValue != null) {
+				sharepointConnection = transientValue.getValue();
+			}
+		}
+
+		if (sharepointConnection == null) {
+			sharepointConnection = buildSharepointConnection();
+
+			if (httpSession != null) {
+				TransientValue<SharepointConnection> transientValue =
+					new TransientValue<SharepointConnection>(
+						sharepointConnection);
+
+				httpSession.setAttribute(_SESSION_KEY, transientValue);
+			}
+		}
+
+		_sharepointConnectionThreadLocal.set(sharepointConnection);
+
+		return sharepointConnection;
+	}
+
+	protected long toSharepointObjectId(String key) {
+		return Long.valueOf(key);
+	}
+
+	protected static PathHelper _pathHelper = new PathHelper();
+
+	private static final String _CONFIGURATION_WS = "SHAREPOINT_WS";
+
+	private static final String _LIBRARY_NAME = "LIBRARY_NAME";
+
+	private static final String _SESSION_KEY =
+		SharepointWSRepository.class.getName() + ".connection";
+
+	private static final String _SITE_URL = "SITE_URL";
+
+	private static final String[] _SUPPORTED_CONFIGURATIONS = {
+		_CONFIGURATION_WS
+	};
+
+	private static final String[][] _SUPPORTED_PARAMETERS = {
+		{_SITE_URL, _LIBRARY_NAME}
+	};
+
+	private CredentialsProvider _credentialsProvider;
+	private String _host;
+	private String _libraryName;
+	private String _protocol;
+	private AutoResetThreadLocal<SharepointConnection>
+		_sharepointConnectionThreadLocal =
+			new AutoResetThreadLocal<SharepointConnection>(
+				SharepointConnection.class.getName());
+	private String _sitePath;
 
 }

@@ -1,0 +1,135 @@
+/**
+ * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
+ *
+ * This library is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Lesser General Public License as published by the Free
+ * Software Foundation; either version 2.1 of the License, or (at your option)
+ * any later version.
+ *
+ * This library is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License for more
+ * details.
+ */
+
+package com.liferay.sharepoint.repository.model;
+
+import com.liferay.portal.kernel.util.StringPool;
+import com.liferay.repository.external.ExtRepositoryModel;
+import com.liferay.repository.external.ExtRepositoryObject;
+import com.liferay.sharepoint.connector.SharepointObject;
+import com.liferay.sharepoint.connector.SharepointObject.Permission;
+
+import java.util.Date;
+import java.util.EnumMap;
+import java.util.EnumSet;
+import java.util.Map;
+import java.util.Set;
+
+/**
+ * @author Ivan Zaera
+ */
+public abstract class SharepointExtRepositoryObject
+	implements ExtRepositoryObject, ExtRepositoryModel {
+
+	public SharepointExtRepositoryObject(SharepointObject sharepointObject) {
+		this.sharepointObject = sharepointObject;
+	}
+
+	@Override
+	public boolean containsPermission(
+		ExtRepositoryPermission extRepositoryPermission) {
+
+		if (_unsupportedExtRepositoryPermissions.contains(
+				extRepositoryPermission)) {
+
+			return false;
+		}
+
+		Permission sharepointPermission = _extRepositoryPermissionMap.get(
+			extRepositoryPermission);
+
+		if (sharepointPermission == null) {
+			throw new UnsupportedOperationException(
+				"Unsupported permission " + extRepositoryPermission);
+		}
+
+		Set<Permission> sharepointObjectPermissions =
+			sharepointObject.getPermissions();
+
+		return sharepointObjectPermissions.contains(sharepointPermission);
+	}
+
+	@Override
+	public Date getCreateDate() {
+		return sharepointObject.getCreatedDate();
+	}
+
+	@Override
+	public String getDescription() {
+		return StringPool.BLANK;
+	}
+
+	@Override
+	public String getExtension() {
+		return sharepointObject.getExtension();
+	}
+
+	@Override
+	public String getExtRepositoryModelKey() {
+		return String.valueOf(sharepointObject.getSharepointObjectId());
+	}
+
+	@Override
+	public Date getModifiedDate() {
+		return sharepointObject.getLastModifiedDate();
+	}
+
+	@Override
+	public String getOwner() {
+		return sharepointObject.getAuthor();
+	}
+
+	public SharepointObject getSharepointObject() {
+		return sharepointObject;
+	}
+
+	@Override
+	public long getSize() {
+		return sharepointObject.getSize();
+	}
+
+	protected SharepointObject sharepointObject;
+
+	private static final Map<ExtRepositoryPermission, Permission>
+		_extRepositoryPermissionMap =
+			new EnumMap<ExtRepositoryPermission, Permission>(
+				ExtRepositoryPermission.class);
+
+	static {
+		_extRepositoryPermissionMap.put(
+			ExtRepositoryPermission.ACCESS, Permission.VIEW_LIST_ITEMS);
+		_extRepositoryPermissionMap.put(
+			ExtRepositoryPermission.ADD_DOCUMENT, Permission.ADD_LIST_ITEMS);
+		_extRepositoryPermissionMap.put(
+			ExtRepositoryPermission.ADD_FOLDER, Permission.ADD_LIST_ITEMS);
+		_extRepositoryPermissionMap.put(
+			ExtRepositoryPermission.ADD_SUBFOLDER, Permission.ADD_LIST_ITEMS);
+		_extRepositoryPermissionMap.put(
+			ExtRepositoryPermission.DELETE, Permission.DELETE_LIST_ITEMS);
+		_extRepositoryPermissionMap.put(
+			ExtRepositoryPermission.UPDATE, Permission.EDIT_LIST_ITEMS);
+		_extRepositoryPermissionMap.put(
+			ExtRepositoryPermission.VIEW, Permission.VIEW_LIST_ITEMS);
+	}
+
+	private static Set<ExtRepositoryPermission>
+		_unsupportedExtRepositoryPermissions =
+			EnumSet.of(
+				ExtRepositoryPermission.ADD_DISCUSSION,
+				ExtRepositoryPermission.UPDATE_DISCUSSION,
+				ExtRepositoryPermission.DELETE_DISCUSSION,
+				ExtRepositoryPermission.ADD_SHORTCUT,
+				ExtRepositoryPermission.PERMISSIONS);
+
+}
