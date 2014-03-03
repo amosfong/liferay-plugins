@@ -462,7 +462,7 @@ public class SharepointConnectionTest {
 	}
 
 	protected InputStream getInputStream(String content) throws IOException {
-		return new ByteArrayInputStream(content.getBytes("UTF-8"));
+		return new ByteArrayInputStream(content.getBytes(StringPool.UTF8));
 	}
 
 	protected void setUpMocks() {
@@ -478,7 +478,7 @@ public class SharepointConnectionTest {
 	protected String toString(InputStream inputStream) throws IOException {
 		byte[] bytes = FileUtil.getBytes(inputStream);
 
-		return new String(bytes, "UTF-8");
+		return new String(bytes, StringPool.UTF8);
 	}
 
 	private static final String _BYE_WORLD = "Bye world!";
