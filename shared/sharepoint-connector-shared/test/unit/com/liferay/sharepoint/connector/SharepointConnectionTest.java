@@ -472,6 +472,70 @@ public class SharepointConnectionTest {
 				movedFolderPath + "/Subfolder2 " + _timestamp));
 	}
 
+	@Test
+	public void testRenameFile() throws Exception {
+		addSharepointObjects(true, false, false, false);
+
+		SharepointObject sharepointObject =
+			_sharepointConnection.getSharepointObject(_filePath1);
+
+		long sharepointObjectId = sharepointObject.getSharepointObjectId();
+
+		addFileVersion(_filePath1, _CONTENT_HELLO_WORLD, CheckInType.MAJOR);
+		addFileVersion(_filePath1, _CONTENT_HELLO_WORLD, CheckInType.MAJOR);
+		addFileVersion(_filePath1, _CONTENT_HELLO_WORLD, CheckInType.MAJOR);
+
+		String renamedFilePath = "/RenamedFile " + _timestamp + ".txt";
+
+		Assert.assertNull(
+			_sharepointConnection.getSharepointObject(renamedFilePath));
+
+		_sharepointConnection.checkOutFile(_filePath1);
+
+		_sharepointConnection.moveSharepointObject(_filePath1, renamedFilePath);
+
+		_sharepointConnection.checkInFile(
+			renamedFilePath, StringPool.BLANK, CheckInType.MAJOR);
+
+		Assert.assertNull(
+			_sharepointConnection.getSharepointObject(_filePath1));
+
+		SharepointObject renamedSharepointObject =
+			_sharepointConnection.getSharepointObject(renamedFilePath);
+
+		Assert.assertNotNull(renamedSharepointObject);
+
+		Assert.assertEquals(
+			sharepointObjectId,
+			renamedSharepointObject.getSharepointObjectId());
+
+		Assert.assertEquals(renamedFilePath, renamedSharepointObject.getPath());
+
+		List<SharepointVersion> renamedFileSharepointVersions =
+			_sharepointConnection.getSharepointVersions(renamedFilePath);
+
+		Assert.assertEquals(5, renamedFileSharepointVersions.size());
+	}
+
+	@Test
+	public void testRenameFolder() throws Exception {
+		addSharepointObjects(false, false, true, false);
+
+		String renamedFolderPath = "/RenamedFolder " + _timestamp;
+
+		Assert.assertNull(
+			_sharepointConnection.getSharepointObject(renamedFolderPath));
+
+		_sharepointConnection.moveSharepointObject(
+			_folderPath1, renamedFolderPath);
+
+		Assert.assertNull(
+			_sharepointConnection.getSharepointObject(_folderPath1));
+
+		Assert.assertNotNull(
+			_sharepointConnection.getSharepointObject(renamedFolderPath));
+	}
+
 	protected void addFileVersion(
 			String filePath, String content, CheckInType checkInType)
 		throws IOException, SharepointException {
