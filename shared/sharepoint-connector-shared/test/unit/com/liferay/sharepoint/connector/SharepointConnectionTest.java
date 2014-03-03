@@ -434,7 +434,7 @@ public class SharepointConnectionTest {
 			_filePath1, getInputStream(_CONTENT_BYE_WORLD));
 
 		_sharepointConnection.checkInFile(
-			_filePath1, new Date().toString(), CheckInType.MAJOR);
+			_filePath1, String.valueOf(new Date()), CheckInType.MAJOR);
 
 		sharepointObject = _sharepointConnection.getSharepointObject(
 			_filePath1);
@@ -605,7 +605,7 @@ public class SharepointConnectionTest {
 		_sharepointConnection.updateFile(filePath, getInputStream(content));
 
 		_sharepointConnection.checkInFile(
-			filePath, new Date().toString(), checkInType);
+			filePath, String.valueOf(new Date()), checkInType);
 	}
 
 	protected void addSharepointObjects(
