@@ -252,7 +252,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 
 		String libraryName = _sharepointConnectionInfo.getLibraryName();
 
-		URL libraryURL = _urlHelper.toURL(serviceURL.toString() + libraryName);
+		URL libraryURL = _urlHelper.toURL(serviceURL + libraryName);
 
 		_sharepointRootFolder = new SharepointObject(
 			StringPool.BLANK, null, new Date(0), true, new Date(0),
