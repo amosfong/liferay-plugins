@@ -189,28 +189,28 @@ public class SharepointConnectionTest {
 
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
-				folderPath + "/SubFile " + _testId + ".txt"));
+				folderPath + "/Subfile " + _testId + ".txt"));
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
-				folderPath + "/SubFile2 " + _testId + ".txt"));
+				folderPath + "/Subfile2 " + _testId + ".txt"));
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
-				folderPath + "/SubFolder " + _testId));
+				folderPath + "/Subfolder " + _testId));
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
-				folderPath + "/SubFolder2 " + _testId));
+				folderPath + "/Subfolder2 " + _testId));
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
-				copiedFolderPath + "/SubFile " + _testId + ".txt"));
+				copiedFolderPath + "/Subfile " + _testId + ".txt"));
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
-				copiedFolderPath + "/SubFile2 " + _testId + ".txt"));
+				copiedFolderPath + "/Subfile2 " + _testId + ".txt"));
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
-				copiedFolderPath + "/SubFolder " + _testId));
+				copiedFolderPath + "/Subfolder " + _testId));
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
-				copiedFolderPath + "/SubFolder2 " + _testId));
+				copiedFolderPath + "/Subfolder2 " + _testId));
 	}
 
 	@Test
