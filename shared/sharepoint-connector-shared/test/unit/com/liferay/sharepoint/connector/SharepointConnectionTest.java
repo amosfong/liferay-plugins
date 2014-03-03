@@ -405,26 +405,21 @@ public class SharepointConnectionTest {
 		SharepointObject rootFolderSharepointObject) {
 
 		Assert.assertNotNull(rootFolderSharepointObject);
-
-		Assert.assertTrue(rootFolderSharepointObject.isFolder());
-
-		String expectedRootFolderURL = _SERVER_PROTOCOL + "://" +
-			_SERVER_ADDRESS + _SITE_PATH + StringPool.SLASH + _LIBRARY_NAME;
-
-		Assert.assertEquals(
-			expectedRootFolderURL, rootFolderSharepointObject.getURL().toString());
-
-		Assert.assertEquals(StringPool.SLASH, rootFolderSharepointObject.getPath());
-
-		Assert.assertEquals(StringPool.SLASH, rootFolderSharepointObject.getFolderPath());
-
-		Assert.assertEquals(StringPool.SLASH, rootFolderSharepointObject.getName());
-
 		Assert.assertEquals("", rootFolderSharepointObject.getExtension());
-
+		Assert.assertEquals(
+			StringPool.SLASH, rootFolderSharepointObject.getFolderPath());
+		Assert.assertEquals(
+			StringPool.SLASH, rootFolderSharepointObject.getName());
+		Assert.assertEquals(
+			StringPool.SLASH, rootFolderSharepointObject.getPath());
 		Assert.assertEquals(
 			SharepointConnectionImpl.SHAREPOINT_ROOT_FOLDER_SHAREPOINT_OBJECT_ID,
 			rootFolderSharepointObject.getId());
+		Assert.assertEquals(
+			_SERVER_PROTOCOL + "://" + _SERVER_ADDRESS + _SITE_PATH +
+				StringPool.SLASH + _LIBRARY_NAME,
+			String.valueOf(rootFolderSharepointObject.getURL()));
+		Assert.assertTrue(rootFolderSharepointObject.isFolder());
 	}
 
 	protected void deleteSharepointObjects() throws SharepointException {
