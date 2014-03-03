@@ -179,8 +179,7 @@ public class SharepointConnectionTest {
 		addSharepointObjects(true, false, true, false);
 
 		String copiedFilePath =
-			"/Folder1 " + _timestamp + "/CopiedFile " +
-				_timestamp + ".txt";
+			"/Folder1 " + _timestamp + "/CopiedFile " + _timestamp + ".txt";
 
 		Assert.assertNull(
 			_sharepointConnection.getSharepointObject(copiedFilePath));
