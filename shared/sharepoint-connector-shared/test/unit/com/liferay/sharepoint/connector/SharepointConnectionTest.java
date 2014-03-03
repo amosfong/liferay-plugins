@@ -210,12 +210,10 @@ public class SharepointConnectionTest {
 				folderPath + "/Subfolder2 " + _timestamp));
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
-				copiedFolderPath + "/Subfile1 " + _timestamp +
-					".txt"));
+				copiedFolderPath + "/Subfile1 " + _timestamp + ".txt"));
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
-				copiedFolderPath + "/Subfile2 " + _timestamp +
-					".txt"));
+				copiedFolderPath + "/Subfile2 " + _timestamp + ".txt"));
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
 				copiedFolderPath + "/Subfolder1 " + _timestamp));
@@ -253,8 +251,7 @@ public class SharepointConnectionTest {
 
 		String fileExtension = "txt";
 
-		String fileName =
-			"File " + _timestamp + "." + fileExtension;
+		String fileName = "File " + _timestamp + "." + fileExtension;
 
 		String filePath = StringPool.SLASH + fileName;
 
@@ -277,10 +274,10 @@ public class SharepointConnectionTest {
 	public void testGetFileByPathAndSharepointObjectId() throws Exception {
 		addSharepointObjects();
 
-		String filePath = "/File " + _timestamp + ".txt";
-
 		SharepointObject sharepointObject1 =
-			_sharepointConnection.getSharepointObject(filePath);
+			_sharepointConnection.getSharepointObject(
+				"/File " + _timestamp + ".txt");
+
 		SharepointObject sharepointObject2 =
 			_sharepointConnection.getSharepointObject(
 				sharepointObject1.getSharepointObjectId());
