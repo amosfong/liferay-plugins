@@ -351,13 +351,12 @@ public class SharepointConnectionTest {
 	public void testGetSharepointObjectInputStream() throws Exception {
 		addSharepointObjects();
 
-		String filePath = "/File " + _timestamp + ".txt";
-
 		SharepointObject sharepointObject =
-			_sharepointConnection.getSharepointObject(filePath);
+			_sharepointConnection.getSharepointObject(
+				"/File " + _timestamp + ".txt");
 
-		InputStream inputStream =
-			_sharepointConnection.getInputStream(sharepointObject);
+		InputStream inputStream = _sharepointConnection.getInputStream(
+			sharepointObject);
 
 		Assert.assertEquals(_CONTENT_HELLO_WORLD, toString(inputStream));
 	}
