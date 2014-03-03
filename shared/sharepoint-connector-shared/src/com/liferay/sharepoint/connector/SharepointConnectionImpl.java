@@ -352,7 +352,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 			Call.USERNAME_PROPERTY, _sharepointConnectionInfo.getUsername());
 	}
 
-	protected URL getWebServiceURL(String serviceName) {
+	protected URL getServiceURL(String serviceName) {
 		URL serviceURL = _sharepointConnectionInfo.getServiceURL();
 	
 		return _urlHelper.toURL(
@@ -378,7 +378,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	protected void initCopySoap() {
 		URL wsdlURL = getWSDLURL("copy");
 
-		URL webServiceURL = getWebServiceURL("copy");
+		URL webServiceURL = getServiceURL("copy");
 
 		try {
 			CopyLocator copyLocator = new CopyLocator();
@@ -396,7 +396,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	protected void initListsSoap() {
 		URL wsdlURL = getWSDLURL("lists");
 
-		URL webServiceURL = getWebServiceURL("lists");
+		URL webServiceURL = getServiceURL("lists");
 
 		try {
 			ListsLocator listsLocator = new ListsLocator();
@@ -414,7 +414,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	protected void initVersionsSoap() {
 		URL wsdlURL = getWSDLURL("versions");
 
-		URL webServiceURL = getWebServiceURL("versions");
+		URL webServiceURL = getServiceURL("versions");
 
 		try {
 			VersionsLocator versionsLocator = new VersionsLocator();
