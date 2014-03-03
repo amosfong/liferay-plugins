@@ -94,9 +94,8 @@ public class GetSharepointVersionsOperation extends BaseOperation {
 	}
 
 	protected List<SharepointVersion> getSharepointVersions(
-			long sharepointObjectId,
-			Element getVersionsResponseGetVersionsResultElement)
-		throws SharepointException {
+		long sharepointObjectId,
+		Element getVersionsResponseGetVersionsResultElement) {
 
 		List<SharepointVersion> sharepointVersions =
 			new ArrayList<SharepointVersion>();

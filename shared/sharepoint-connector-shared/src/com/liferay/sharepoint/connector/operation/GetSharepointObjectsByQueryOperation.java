@@ -174,9 +174,8 @@ public class GetSharepointObjectsByQueryOperation extends BaseOperation {
 	}
 
 	protected List<SharepointObject> getSharepointObjects(
-			GetListItemsResponseGetListItemsResult
-				getListItemsResponseGetListItemsResult)
-		throws SharepointException {
+		GetListItemsResponseGetListItemsResult
+			getListItemsResponseGetListItemsResult) {
 
 		List<SharepointObject> sharepointObjects =
 			new ArrayList<SharepointObject>();
