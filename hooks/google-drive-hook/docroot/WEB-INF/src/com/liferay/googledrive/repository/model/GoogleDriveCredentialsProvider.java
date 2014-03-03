@@ -12,37 +12,23 @@
  * details.
  */
 
-package com.liferay.portal.repository.googledrive;
+package com.liferay.googledrive.repository.model;
 
-import com.google.api.services.drive.Drive;
+import com.liferay.repository.external.CredentialsProvider;
 
 /**
  * @author Sergio González
  */
-public class GoogleDriveSession {
+public class GoogleDriveCredentialsProvider implements CredentialsProvider {
 
-	public GoogleDriveSession(Drive drive, String rootFolderKey) {
-		_drive = drive;
-		_rootFolderKey = rootFolderKey;
+	@Override
+	public String getLogin() {
+		return null;
 	}
 
-	public Drive getDrive() {
-		return _drive;
+	@Override
+	public String getPassword() {
+		return null;
 	}
-
-	public String getRootFolderKey() {
-		return _rootFolderKey;
-	}
-
-	public void setDrive(Drive drive) {
-		_drive = drive;
-	}
-
-	public void setRootFolderKey(String rootFolderKey) {
-		_rootFolderKey = rootFolderKey;
-	}
-
-	private Drive _drive;
-	private String _rootFolderKey;
 
 }

@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.portal.repository.googledrive.model;
+package com.liferay.googledrive.repository.model;
 
 import com.google.api.services.drive.model.Revision;
 

@@ -12,7 +12,7 @@
  * details.
  */
 
-package com.liferay.portal.repository.googledrive;
+package com.liferay.googledrive.repository;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.GenericUrl;
@@ -32,6 +32,9 @@ import com.google.api.services.drive.model.Revision;
 import com.google.api.services.drive.model.RevisionList;
 
 import com.liferay.compat.portal.kernel.util.StringUtil;
+import com.liferay.googledrive.repository.model.GoogleDriveFileEntry;
+import com.liferay.googledrive.repository.model.GoogleDriveFileVersion;
+import com.liferay.googledrive.repository.model.GoogleDriveFolder;
 import com.liferay.portal.NoSuchRepositoryEntryException;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
@@ -50,9 +53,6 @@ import com.liferay.portal.kernel.util.TransientValue;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.model.User;
-import com.liferay.portal.repository.googledrive.model.GoogleDriveFileEntry;
-import com.liferay.portal.repository.googledrive.model.GoogleDriveFileVersion;
-import com.liferay.portal.repository.googledrive.model.GoogleDriveFolder;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portal.security.auth.PrincipalThreadLocal;
 import com.liferay.portal.service.UserLocalServiceUtil;
