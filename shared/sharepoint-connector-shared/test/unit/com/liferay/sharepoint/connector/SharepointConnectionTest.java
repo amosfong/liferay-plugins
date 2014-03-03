@@ -43,8 +43,6 @@ public class SharepointConnectionTest {
 
 	@Before
 	public void setUp() throws Exception {
-		_timestamp = System.currentTimeMillis();
-
 		setUpMocks();
 
 		deleteSharepointObjects();
@@ -476,6 +474,6 @@ public class SharepointConnectionTest {
 		SharepointConnectionFactory.getInstance(
 			_SERVER_PROTOCOL, _SERVER_ADDRESS, _SERVER_PORT, _SITE_PATH,
 			_LIBRARY_NAME, _USERNAME, _PASSWORD);
-	private long _timestamp;
+	private long _timestamp = System.currentTimeMillis();
 
 }
