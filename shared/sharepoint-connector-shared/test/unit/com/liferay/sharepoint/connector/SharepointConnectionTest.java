@@ -181,7 +181,7 @@ public class SharepointConnectionTest {
 	public void testCopyFolder() throws Exception {
 		addSharepointObjects();
 
-		String folderPath = "/Folder " + _testSharepointObjectId;
+		String folderPath = "/Folder1 " + _testSharepointObjectId;
 		String copiedFolderPath =
 			"/Folder2 " + _testSharepointObjectId + "/CopiedFolder " +
 				_testSharepointObjectId;
