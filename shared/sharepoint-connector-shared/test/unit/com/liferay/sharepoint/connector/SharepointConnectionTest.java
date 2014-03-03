@@ -45,11 +45,12 @@ public class SharepointConnectionTest {
 		_fileExtension1 = "txt";
 		_fileName1 =
 			"File1 " + _timestamp + StringPool.PERIOD + _fileExtension1;
-		_filePath1 = StringPool.SLASH + _fileName1;
 		_fileName2 = "File2 " + _timestamp + ".txt";
+		_filePath1 = StringPool.SLASH + _fileName1;
 		_folderName1 = "Folder1 " + _timestamp;
-		_folderPath1 = StringPool.SLASH + _folderName1;
 		_folderName2 = "Folder2 " + _timestamp;
+		_folderPath1 = StringPool.SLASH + _folderName1;
+		_folderPath2 = StringPool.SLASH + _folderName2;
 	}
 
 	@Before
@@ -426,6 +427,51 @@ public class SharepointConnectionTest {
 		Assert.assertEquals("8.1", sharepointVersions.get(0).getVersion());
 	}
 
+	@Test
+	public void testMoveFile() throws Exception {
+		addSharepointObjects(true, false, true, false);
+
+		String movedFilePath =
+			_folderPath1 + "/MovedFile " + _timestamp + ".txt";
+
+		Assert.assertNull(
+			_sharepointConnection.getSharepointObject(movedFilePath));
+
+		_sharepointConnection.moveSharepointObject(_filePath1, movedFilePath);
+
+		Assert.assertNotNull(
+			_sharepointConnection.getSharepointObject(movedFilePath));
+
+		Assert.assertNull(
+			_sharepointConnection.getSharepointObject(_filePath1));
+	}
+
+	@Test
+	public void testMoveFolder() throws Exception {
+		addSharepointObjects(false, false, true, true);
+
+		String movedFolderPath = _folderPath2 + "/MovedFolder " + _timestamp;
+
+		_sharepointConnection.moveSharepointObject(
+			_folderPath1, movedFolderPath);
+
+		Assert.assertNotNull(
+			_sharepointConnection.getSharepointObject(
+				movedFolderPath + "/Subfile1 " + _timestamp + ".txt"));
+
+		Assert.assertNotNull(
+			_sharepointConnection.getSharepointObject(
+				movedFolderPath + "/Subfile2 " + _timestamp + ".txt"));
+
+		Assert.assertNotNull(
+			_sharepointConnection.getSharepointObject(
+				movedFolderPath + "/Subfolder1 " + _timestamp));
+
+		Assert.assertNotNull(
+			_sharepointConnection.getSharepointObject(
+				movedFolderPath + "/Subfolder2 " + _timestamp));
+	}
+
 	protected void addFileVersion(
 			String filePath, String content, CheckInType checkInType)
 		throws IOException, SharepointException {
@@ -546,6 +592,7 @@ public class SharepointConnectionTest {
 	private String _folderName1;
 	private String _folderName2;
 	private String _folderPath1;
+	private String _folderPath2;
 	private SharepointConnection _sharepointConnection =
 		SharepointConnectionFactory.getInstance(
 			_SERVER_PROTOCOL, _SERVER_ADDRESS, _SERVER_PORT, _SITE_PATH,
