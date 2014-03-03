@@ -57,7 +57,7 @@ public class SharepointConnectionTest {
 
 	@Test
 	public void testAddFile() throws Exception {
-		String folderPath = StringPool.FORWARD_SLASH;
+		String folderPath = StringPool.SLASH;
 		String fileName = "CreatedFile " + _testId + ".txt";
 
 		_sharepointConnection.addFile(
@@ -74,9 +74,9 @@ public class SharepointConnectionTest {
 	public void testAddFolder() throws Exception {
 		String folderName = "CreatedFolder " + System.currentTimeMillis();
 
-		String folderPath = StringPool.FORWARD_SLASH + folderName;
+		String folderPath = StringPool.SLASH + folderName;
 
-		_sharepointConnection.addFolder(StringPool.FORWARD_SLASH, folderName);
+		_sharepointConnection.addFolder(StringPool.SLASH, folderName);
 
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(folderPath));
@@ -350,7 +350,7 @@ public class SharepointConnectionTest {
 		Assert.assertEquals(
 			4,
 			_sharepointConnection.getSharepointObjectsCount(
-				StringPool.FORWARD_SLASH, ObjectTypeFilter.ALL));
+				StringPool.SLASH, ObjectTypeFilter.ALL));
 	}
 
 	@Test
@@ -400,30 +400,30 @@ public class SharepointConnectionTest {
 		String folderName2 = "Folder2 " + _testId;
 
 		_sharepointConnection.addFile(
-			StringPool.FORWARD_SLASH, fileName, StringPool.BLANK,
+			StringPool.SLASH, fileName, StringPool.BLANK,
 			getInputStream(_CONTENT_HELLO_WORLD));
 
 		_sharepointConnection.addFile(
-			StringPool.FORWARD_SLASH, fileName2, StringPool.BLANK,
+			StringPool.SLASH, fileName2, StringPool.BLANK,
 			getInputStream(_CONTENT_HELLO_WORLD));
 
-		_sharepointConnection.addFolder(StringPool.FORWARD_SLASH, folderName);
+		_sharepointConnection.addFolder(StringPool.SLASH, folderName);
 
 		_sharepointConnection.addFile(
-			StringPool.FORWARD_SLASH + folderName, "Sub" + fileName,
+			StringPool.SLASH + folderName, "Sub" + fileName,
 			StringPool.BLANK, getInputStream(_CONTENT_HELLO_WORLD));
 
 		_sharepointConnection.addFile(
-			StringPool.FORWARD_SLASH + folderName, "Sub" + fileName2,
+			StringPool.SLASH + folderName, "Sub" + fileName2,
 			StringPool.BLANK, getInputStream(_CONTENT_HELLO_WORLD));
 
 		_sharepointConnection.addFolder(
-			StringPool.FORWARD_SLASH + folderName, "Sub" + folderName);
+			StringPool.SLASH + folderName, "Sub" + folderName);
 
 		_sharepointConnection.addFolder(
-			StringPool.FORWARD_SLASH + folderName, "Sub" + folderName2);
+			StringPool.SLASH + folderName, "Sub" + folderName2);
 
-		_sharepointConnection.addFolder(StringPool.FORWARD_SLASH, folderName2);
+		_sharepointConnection.addFolder(StringPool.SLASH, folderName2);
 	}
 
 	protected void assertRootFolderSharepointObject(
@@ -455,7 +455,7 @@ public class SharepointConnectionTest {
 	protected void deleteSharepointObjects() throws SharepointException {
 		List<SharepointObject> sharepointObjects =
 			_sharepointConnection.getSharepointObjects(
-				StringPool.FORWARD_SLASH, ObjectTypeFilter.ALL);
+				StringPool.SLASH, ObjectTypeFilter.ALL);
 
 		for (SharepointObject sharepointObject : sharepointObjects) {
 			_sharepointConnection.deleteSharepointObject(
