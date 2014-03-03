@@ -68,7 +68,7 @@ public class SharepointObject {
 		return _folderPath;
 	}
 
-	public long getId() {
+	public long getSharepointObjectId() {
 		return _sharepointObjectId;
 	}
 

@@ -72,7 +72,7 @@ public class GetSharepointVersionsOperation extends BaseOperation {
 				xmlHelper.getElement(getVersionsResponseGetVersionsResult);
 
 			return getSharepointVersions(
-				sharepointObject.getId(),
+				sharepointObject.getSharepointObjectId(),
 				getVersionsResponseGetVersionsResultElement);
 		}
 		catch (RemoteException re) {

@@ -49,7 +49,7 @@ public class DeleteSharepointObjectOperation extends BaseOperation {
 				new BatchMethod(
 					SharepointConstants.BATCH_METHOD_ID_DEFAULT,
 					BatchMethod.Command.DELETE,
-					new BatchField("ID", sharepointObject.getId()),
+					new BatchField("ID", sharepointObject.getSharepointObjectId()),
 					new BatchField("FileRef", fullPath))));
 	}
 

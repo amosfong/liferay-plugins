@@ -276,10 +276,10 @@ public class SharepointConnectionTest {
 			_sharepointConnection.getSharepointObject(filePath);
 		SharepointObject sharepointObject2 =
 			_sharepointConnection.getSharepointObject(
-				sharepointObject1.getId());
+				sharepointObject1.getSharepointObjectId());
 
 		Assert.assertEquals(
-			sharepointObject1.getId(), sharepointObject2.getId());
+			sharepointObject1.getSharepointObjectId(), sharepointObject2.getSharepointObjectId());
 	}
 
 	@Test
@@ -414,7 +414,7 @@ public class SharepointConnectionTest {
 			StringPool.SLASH, rootFolderSharepointObject.getPath());
 		Assert.assertEquals(
 			SharepointConnectionImpl.SHAREPOINT_ROOT_FOLDER_SHAREPOINT_OBJECT_ID,
-			rootFolderSharepointObject.getId());
+			rootFolderSharepointObject.getSharepointObjectId());
 		Assert.assertEquals(
 			_SERVER_PROTOCOL + "://" + _SERVER_ADDRESS + _SITE_PATH +
 				StringPool.SLASH + _LIBRARY_NAME,
