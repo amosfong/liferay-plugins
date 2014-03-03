@@ -68,10 +68,6 @@ public class SharepointObject {
 		return _folderPath;
 	}
 
-	public long getSharepointObjectId() {
-		return _sharepointObjectId;
-	}
-
 	public Date getLastModifiedDate() {
 		return _lastModifiedDate;
 	}
@@ -86,6 +82,10 @@ public class SharepointObject {
 
 	public Set<Permission> getPermissions() {
 		return _permissions;
+	}
+
+	public long getSharepointObjectId() {
+		return _sharepointObjectId;
 	}
 
 	public long getSize() {

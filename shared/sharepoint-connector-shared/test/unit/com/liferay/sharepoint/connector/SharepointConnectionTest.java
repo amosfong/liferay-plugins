@@ -311,7 +311,39 @@ public class SharepointConnectionTest {
 	}
 
 	@Test
-	public void testGetObjectsCount() throws Exception {
+	public void testGetRootFolderByPath() throws Exception {
+		SharepointObject rootFolderSharepointObject =
+			_sharepointConnection.getSharepointObject(StringPool.SLASH);
+
+		assertRootFolderSharepointObject(rootFolderSharepointObject);
+	}
+
+	@Test
+	public void testGetRootFolderBySharepointObjectId() throws Exception {
+		SharepointObject rootFolderSharepointObject =
+			_sharepointConnection.getSharepointObject(
+				SharepointConnectionImpl.
+					SHAREPOINT_ROOT_FOLDER_SHAREPOINT_OBJECT_ID);
+
+		assertRootFolderSharepointObject(rootFolderSharepointObject);
+	}
+
+	@Test
+	public void testGetSharepointObjectInputStream() throws Exception {
+		addSharepointObjects();
+
+		SharepointObject sharepointObject =
+			_sharepointConnection.getSharepointObject(
+				"/File " + _timestamp + ".txt");
+
+		InputStream inputStream = _sharepointConnection.getInputStream(
+			sharepointObject);
+
+		Assert.assertEquals(_CONTENT_HELLO_WORLD, toString(inputStream));
+	}
+
+	@Test
+	public void testGetSharepointObjectsCount() throws Exception {
 		addSharepointObjects();
 
 		Assert.assertEquals(
@@ -335,38 +367,6 @@ public class SharepointConnectionTest {
 				folderPath, ObjectTypeFilter.FOLDERS));
 	}
 
-	@Test
-	public void testGetRootFolderBySharepointObjectId() throws Exception {
-		SharepointObject rootFolderSharepointObject =
-			_sharepointConnection.getSharepointObject(
-				SharepointConnectionImpl.
-					SHAREPOINT_ROOT_FOLDER_SHAREPOINT_OBJECT_ID);
-
-		assertRootFolderSharepointObject(rootFolderSharepointObject);
-	}
-
-	@Test
-	public void testGetRootFolderByPath() throws Exception {
-		SharepointObject rootFolderSharepointObject =
-			_sharepointConnection.getSharepointObject(StringPool.SLASH);
-
-		assertRootFolderSharepointObject(rootFolderSharepointObject);
-	}
-
-	@Test
-	public void testGetSharepointObjectInputStream() throws Exception {
-		addSharepointObjects();
-
-		SharepointObject sharepointObject =
-			_sharepointConnection.getSharepointObject(
-				"/File " + _timestamp + ".txt");
-
-		InputStream inputStream = _sharepointConnection.getInputStream(
-			sharepointObject);
-
-		Assert.assertEquals(_CONTENT_HELLO_WORLD, toString(inputStream));
-	}
-
 	protected void addSharepointObjects()
 		throws IOException, SharepointException {
 
@@ -387,12 +387,12 @@ public class SharepointConnectionTest {
 		_sharepointConnection.addFolder(StringPool.SLASH, folderName1);
 
 		_sharepointConnection.addFile(
-			StringPool.SLASH + folderName1, "Sub" + fileName1,
-			StringPool.BLANK, getInputStream(_CONTENT_HELLO_WORLD));
+			StringPool.SLASH + folderName1, "Sub" + fileName1, StringPool.BLANK,
+			getInputStream(_CONTENT_HELLO_WORLD));
 
 		_sharepointConnection.addFile(
-			StringPool.SLASH + folderName1, "Sub" + fileName2,
-			StringPool.BLANK, getInputStream(_CONTENT_HELLO_WORLD));
+			StringPool.SLASH + folderName1, "Sub" + fileName2, StringPool.BLANK,
+			getInputStream(_CONTENT_HELLO_WORLD));
 
 		_sharepointConnection.addFolder(
 			StringPool.SLASH + folderName1, "Sub" + folderName1);
