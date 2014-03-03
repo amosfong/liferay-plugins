@@ -363,7 +363,7 @@ public class SharepointConnectionTest {
 	}
 
 	@Test
-	public void testGetSharepointObjectsByName() throws Exception {
+	public void testGetSharepointObjectsByFileName() throws Exception {
 		addSharepointObjects(true, true, true, true);
 
 		List<SharepointObject> sharepointObjects =
