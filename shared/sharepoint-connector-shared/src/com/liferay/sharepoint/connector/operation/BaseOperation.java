@@ -71,7 +71,7 @@ public abstract class BaseOperation implements Operation {
 
 		return urlHelper.toURL(
 			serviceURL.toString() + sharepointConnectionInfo.getLibraryName() +
-			path);
+				path);
 	}
 
 	protected <O extends Operation> O getOperation(Class<O> clazz) {
