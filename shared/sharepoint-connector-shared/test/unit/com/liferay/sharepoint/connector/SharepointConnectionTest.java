@@ -160,19 +160,18 @@ public class SharepointConnectionTest {
 	public void testCopyFile() throws Exception {
 		addSharepointObjects();
 
-		String filePath = "/File " + _testId + ".txt";
-
 		String copiedFilePath =
 			"/Folder " + _testId + "/CopiedFile " + _testId + ".txt";
 
 		Assert.assertNull(
 			_sharepointConnection.getSharepointObject(copiedFilePath));
 
+		String filePath = "/File " + _testId + ".txt";
+
 		_sharepointConnection.copySharepointObject(filePath, copiedFilePath);
 
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(copiedFilePath));
-
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(filePath));
 	}
