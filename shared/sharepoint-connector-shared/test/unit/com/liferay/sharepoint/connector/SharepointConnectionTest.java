@@ -403,7 +403,8 @@ public class SharepointConnectionTest {
 		SharepointObject rootFolderSharepointObject) {
 
 		Assert.assertNotNull(rootFolderSharepointObject);
-		Assert.assertEquals(StringPool.BLANK, rootFolderSharepointObject.getExtension());
+		Assert.assertEquals(
+			StringPool.BLANK, rootFolderSharepointObject.getExtension());
 		Assert.assertEquals(
 			StringPool.SLASH, rootFolderSharepointObject.getFolderPath());
 		Assert.assertEquals(
@@ -411,7 +412,8 @@ public class SharepointConnectionTest {
 		Assert.assertEquals(
 			StringPool.SLASH, rootFolderSharepointObject.getPath());
 		Assert.assertEquals(
-			SharepointConnectionImpl.SHAREPOINT_ROOT_FOLDER_SHAREPOINT_OBJECT_ID,
+			SharepointConnectionImpl.
+				SHAREPOINT_ROOT_FOLDER_SHAREPOINT_OBJECT_ID,
 			rootFolderSharepointObject.getSharepointObjectId());
 		Assert.assertEquals(
 			_SERVER_PROTOCOL + "://" + _SERVER_ADDRESS + _SITE_PATH +
