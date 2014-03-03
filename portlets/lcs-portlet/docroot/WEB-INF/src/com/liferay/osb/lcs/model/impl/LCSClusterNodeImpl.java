@@ -125,6 +125,11 @@ public class LCSClusterNodeImpl implements LCSClusterNode {
 	}
 
 	@Override
+	public int getPatchingToolVersion() {
+		return _patchingToolVersion;
+	}
+
+	@Override
 	public String getPortalEdition() {
 		return _portalEdition;
 	}
@@ -287,6 +292,11 @@ public class LCSClusterNodeImpl implements LCSClusterNode {
 	}
 
 	@Override
+	public void setPatchingToolVersion(int patchingToolVersion) {
+		_patchingToolVersion = patchingToolVersion;
+	}
+
+	@Override
 	public void setPortalEdition(String portalEdition) {
 		_portalEdition = portalEdition;
 	}
@@ -338,6 +348,7 @@ public class LCSClusterNodeImpl implements LCSClusterNode {
 	private String _name;
 	private Map<String, Integer> _patchIdentifiers = new HashMap<String, Integer>();
 	private int _patchingToolStatus;
+	private int _patchingToolVersion;
 	private String _portalEdition;
 	private int _status;
 
