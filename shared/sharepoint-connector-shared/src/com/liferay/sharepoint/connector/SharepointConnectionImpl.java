@@ -343,9 +343,9 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		}
 	}
 
-	protected void configureStub(Stub stub, URL webServiceURL) {
+	protected void configureStub(Stub stub, URL serviceURL) {
 		stub._setProperty(
-			Stub.ENDPOINT_ADDRESS_PROPERTY, webServiceURL.toString());
+			Stub.ENDPOINT_ADDRESS_PROPERTY, serviceURL.toString());
 		stub._setProperty(
 			Call.PASSWORD_PROPERTY, _sharepointConnectionInfo.getPassword());
 		stub._setProperty(
