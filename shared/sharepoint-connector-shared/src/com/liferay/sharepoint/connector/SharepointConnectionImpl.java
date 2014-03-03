@@ -69,7 +69,7 @@ import org.apache.axis.client.Stub;
  */
 public class SharepointConnectionImpl implements SharepointConnection {
 
-	public static final long SHAREPOINT_ROOT_FOLDER_ID = -1;
+	public static final long SHAREPOINT_ROOT_FOLDER_SHAREPOINT_OBJECT_ID = -1;
 
 	public SharepointConnectionImpl(
 			String serverProtocol, String serverAddress, int serverPort,
@@ -180,7 +180,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	public SharepointObject getSharepointObject(long sharepointObjectId)
 		throws SharepointException {
 
-		if (sharepointObjectId == SHAREPOINT_ROOT_FOLDER_ID) {
+		if (sharepointObjectId == SHAREPOINT_ROOT_FOLDER_SHAREPOINT_OBJECT_ID) {
 			return _sharepointRootFolder;
 		}
 
@@ -257,7 +257,7 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		_sharepointRootFolder = new SharepointObject(
 			StringPool.BLANK, null, new Date(0), true, new Date(0),
 			StringPool.SLASH, EnumSet.allOf(Permission.class),
-			SHAREPOINT_ROOT_FOLDER_ID, 0, libraryURL);
+			SHAREPOINT_ROOT_FOLDER_SHAREPOINT_OBJECT_ID, 0, libraryURL);
 	}
 
 	@Override
