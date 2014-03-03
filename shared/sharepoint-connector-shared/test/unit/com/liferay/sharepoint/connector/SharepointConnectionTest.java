@@ -455,7 +455,7 @@ public class SharepointConnectionTest {
 	}
 
 	@Test
-	public void testGetVersions() throws Exception {
+	public void testGetSharepointVersions() throws Exception {
 		addSharepointObjects(true, false, false, false);
 
 		addFileVersion(_filePath1, _CONTENT_BYE_WORLD, CheckInType.MAJOR);
