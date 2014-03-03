@@ -143,9 +143,8 @@ public class SharepointConnectionTest {
 
 		_sharepointConnection.checkOutFile(filePath);
 
-		SharepointObject sharepointObject = null;
-
-		sharepointObject = _sharepointConnection.getSharepointObject(filePath);
+		SharepointObject sharepointObject =
+			_sharepointConnection.getSharepointObject(filePath);
 
 		Assert.assertNotNull(sharepointObject.getCheckedOutBy());
 
