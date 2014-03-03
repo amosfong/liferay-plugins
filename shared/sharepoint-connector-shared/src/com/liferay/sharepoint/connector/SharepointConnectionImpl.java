@@ -280,13 +280,6 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		_addOrUpdateFileOperation.execute(filePath, null, inputStream);
 	}
 
-	protected URL getWebServiceURL(String serviceName) {
-		URL serviceURL = _sharepointConnectionInfo.getServiceURL();
-
-		return _urlHelper.toURL(
-			serviceURL.toString() + "_vti_bin/" + serviceName + ".asmx");
-	}
-
 	protected <O extends Operation> O buildOperation(Class<O> clazz) {
 		try {
 			O operation = clazz.newInstance();
@@ -357,6 +350,13 @@ public class SharepointConnectionImpl implements SharepointConnection {
 			Call.PASSWORD_PROPERTY, _sharepointConnectionInfo.getPassword());
 		stub._setProperty(
 			Call.USERNAME_PROPERTY, _sharepointConnectionInfo.getUsername());
+	}
+
+	protected URL getWebServiceURL(String serviceName) {
+		URL serviceURL = _sharepointConnectionInfo.getServiceURL();
+	
+		return _urlHelper.toURL(
+			serviceURL.toString() + "_vti_bin/" + serviceName + ".asmx");
 	}
 
 	protected URL getWSDLURL(String serviceName) {
