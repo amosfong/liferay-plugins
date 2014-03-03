@@ -91,7 +91,7 @@ public class SharepointConnectionTest {
 
 		addSharepointObjects();
 
-		String filePath = "/File " + _timestamp + ".txt";
+		String filePath = "/File1 " + _timestamp + ".txt";
 
 		_sharepointConnection.checkOutFile(filePath);
 
@@ -122,7 +122,7 @@ public class SharepointConnectionTest {
 	public void testCheckOutThenCancelCheckOut() throws Exception {
 		addSharepointObjects();
 
-		String filePath =  "/File " + _timestamp + ".txt";
+		String filePath =  "/File1 " + _timestamp + ".txt";
 
 		_sharepointConnection.checkOutFile(filePath);
 
@@ -142,7 +142,7 @@ public class SharepointConnectionTest {
 	public void testCheckOutThenCheckIn() throws Exception {
 		addSharepointObjects();
 
-		String filePath =  "/File " + _timestamp + ".txt";
+		String filePath =  "/File1 " + _timestamp + ".txt";
 
 		_sharepointConnection.checkOutFile(filePath);
 
@@ -164,13 +164,13 @@ public class SharepointConnectionTest {
 		addSharepointObjects();
 
 		String copiedFilePath =
-			"/Folder " + _timestamp + "/CopiedFile " +
+			"/Folder1 " + _timestamp + "/CopiedFile " +
 				_timestamp + ".txt";
 
 		Assert.assertNull(
 			_sharepointConnection.getSharepointObject(copiedFilePath));
 
-		String filePath = "/File " + _timestamp + ".txt";
+		String filePath = "/File1 " + _timestamp + ".txt";
 
 		_sharepointConnection.copySharepointObject(filePath, copiedFilePath);
 
@@ -226,7 +226,7 @@ public class SharepointConnectionTest {
 	public void testDeleteFile() throws Exception {
 		addSharepointObjects();
 
-		String filePath = "/File " + _timestamp + ".txt";
+		String filePath = "/File1 " + _timestamp + ".txt";
 
 		_sharepointConnection.deleteSharepointObject(filePath);
 
@@ -237,7 +237,7 @@ public class SharepointConnectionTest {
 	public void testDeleteFolder() throws Exception {
 		addSharepointObjects();
 
-		String folderPath = "/Folder " + _timestamp;
+		String folderPath = "/Folder1 " + _timestamp;
 
 		_sharepointConnection.deleteSharepointObject(folderPath);
 
@@ -251,7 +251,7 @@ public class SharepointConnectionTest {
 
 		String fileExtension = "txt";
 
-		String fileName = "File " + _timestamp + "." + fileExtension;
+		String fileName = "File1 " + _timestamp + "." + fileExtension;
 
 		String filePath = StringPool.SLASH + fileName;
 
@@ -276,7 +276,7 @@ public class SharepointConnectionTest {
 
 		SharepointObject sharepointObject1 =
 			_sharepointConnection.getSharepointObject(
-				"/File " + _timestamp + ".txt");
+				"/File1 " + _timestamp + ".txt");
 
 		SharepointObject sharepointObject2 =
 			_sharepointConnection.getSharepointObject(
@@ -291,7 +291,7 @@ public class SharepointConnectionTest {
 	public void testGetFolderByPath() throws Exception {
 		addSharepointObjects();
 
-		String folderName = "Folder " + _timestamp;
+		String folderName = "Folder1 " + _timestamp;
 
 		String folderPath = StringPool.SLASH + folderName;
 
@@ -334,7 +334,7 @@ public class SharepointConnectionTest {
 
 		SharepointObject sharepointObject =
 			_sharepointConnection.getSharepointObject(
-				"/File " + _timestamp + ".txt");
+				"/File1 " + _timestamp + ".txt");
 
 		InputStream inputStream = _sharepointConnection.getInputStream(
 			sharepointObject);
@@ -351,7 +351,7 @@ public class SharepointConnectionTest {
 			_sharepointConnection.getSharepointObjectsCount(
 				StringPool.SLASH, ObjectTypeFilter.ALL));
 
-		String folderPath = "/Folder " + _timestamp;
+		String folderPath = "/Folder1 " + _timestamp;
 
 		Assert.assertEquals(
 			4,
