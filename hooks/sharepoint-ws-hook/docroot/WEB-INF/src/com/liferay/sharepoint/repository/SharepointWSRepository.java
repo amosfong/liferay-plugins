@@ -42,6 +42,7 @@ import com.liferay.sharepoint.connector.SharepointObject;
 import com.liferay.sharepoint.connector.SharepointRuntimeException;
 import com.liferay.sharepoint.connector.operation.PathHelper;
 import com.liferay.sharepoint.repository.model.SharepointExtRepositoryFileEntry;
+import com.liferay.sharepoint.repository.model.SharepointExtRepositoryFolder;
 
 import java.io.InputStream;
 
@@ -69,16 +70,16 @@ public class SharepointWSRepository
 			SharepointConnection sharepointConnection =
 				getSharepointConnection();
 
-			SharepointObject folderSharepointObject =
+			SharepointObject parentFolderSharepointObject =
 				sharepointConnection.getSharepointObject(
 					toSharepointObjectId(extRepositoryParentFolderKey));
 
-			String folderPath = folderSharepointObject.getPath();
+			String parentfolderPath = parentFolderSharepointObject.getPath();
 
 			sharepointConnection.addFile(
-				folderPath, title, changeLog, inputStream);
+				parentfolderPath, title, changeLog, inputStream);
 
-			String filePath = _pathHelper.buildPath(folderPath, title);
+			String filePath = _pathHelper.buildPath(parentfolderPath, title);
 
 			SharepointObject fileSharepointObject =
 				sharepointConnection.getSharepointObject(filePath);
@@ -99,7 +100,31 @@ public class SharepointWSRepository
 			String description)
 		throws PortalException, SystemException {
 
-		return null;
+		try {
+			SharepointConnection sharepointConnection =
+				getSharepointConnection();
+
+			SharepointObject parentFolderSharepointObject =
+				sharepointConnection.getSharepointObject(
+					toSharepointObjectId(extRepositoryParentFolderKey));
+
+			String parentfolderPath = parentFolderSharepointObject.getPath();
+
+			sharepointConnection.addFolder(parentfolderPath, name);
+
+			String folderPath = _pathHelper.buildPath(parentfolderPath, name);
+
+			SharepointObject folderSharepointObject =
+				sharepointConnection.getSharepointObject(folderPath);
+
+			return new SharepointExtRepositoryFolder(folderSharepointObject);
+		}
+		catch (SharepointRuntimeException sre) {
+			throw new SystemException(sre);
+		}
+		catch (SharepointException se) {
+			throw new PortalException(se);
+		}
 	}
 
 	@Override
