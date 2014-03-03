@@ -43,7 +43,13 @@ public class SharepointConnectionTest {
 
 	@Before
 	public void setUp() throws Exception {
-		setUpMocks();
+		FileUtil fileUtil = new FileUtil();
+
+		fileUtil.setFile(new FileImpl());
+
+		HtmlUtil htmlUtil = new HtmlUtil();
+
+		htmlUtil.setHtml(new HtmlImpl());
 
 		deleteSharepointObjects();
 	}
@@ -435,16 +441,6 @@ public class SharepointConnectionTest {
 
 	protected InputStream getInputStream(String content) throws IOException {
 		return new ByteArrayInputStream(content.getBytes(StringPool.UTF8));
-	}
-
-	protected void setUpMocks() {
-		FileUtil fileUtil = new FileUtil();
-
-		fileUtil.setFile(new FileImpl());
-
-		HtmlUtil htmlUtil = new HtmlUtil();
-
-		htmlUtil.setHtml(new HtmlImpl());
 	}
 
 	protected String toString(InputStream inputStream) throws IOException {
