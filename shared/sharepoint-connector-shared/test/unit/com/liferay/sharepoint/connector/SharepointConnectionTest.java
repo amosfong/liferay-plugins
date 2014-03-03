@@ -304,27 +304,25 @@ public class SharepointConnectionTest {
 	public void testGetObjectsCount() throws Exception {
 		addSharepointObjects();
 
+		Assert.assertEquals(
+			4,
+			_sharepointConnection.getSharepointObjectsCount(
+				StringPool.SLASH, ObjectTypeFilter.ALL));
+
 		String folderPath = "/Folder " + _testId;
 
 		Assert.assertEquals(
 			4,
 			_sharepointConnection.getSharepointObjectsCount(
 				folderPath, ObjectTypeFilter.ALL));
-
 		Assert.assertEquals(
 			2,
 			_sharepointConnection.getSharepointObjectsCount(
 				folderPath, ObjectTypeFilter.FILES));
-
 		Assert.assertEquals(
 			2,
 			_sharepointConnection.getSharepointObjectsCount(
 				folderPath, ObjectTypeFilter.FOLDERS));
-
-		Assert.assertEquals(
-			4,
-			_sharepointConnection.getSharepointObjectsCount(
-				StringPool.SLASH, ObjectTypeFilter.ALL));
 	}
 
 	@Test
