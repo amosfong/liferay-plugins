@@ -41,8 +41,8 @@ import com.liferay.sharepoint.connector.SharepointException;
 import com.liferay.sharepoint.connector.SharepointObject;
 import com.liferay.sharepoint.connector.SharepointRuntimeException;
 import com.liferay.sharepoint.connector.operation.PathHelper;
-import com.liferay.sharepoint.repository.model.SharepointExtRepositoryFileEntry;
-import com.liferay.sharepoint.repository.model.SharepointExtRepositoryFolder;
+import com.liferay.sharepoint.repository.model.SharepointWSFileEntry;
+import com.liferay.sharepoint.repository.model.SharepointWSFolder;
 
 import java.io.InputStream;
 
@@ -84,7 +84,7 @@ public class SharepointWSRepository
 			SharepointObject fileSharepointObject =
 				sharepointConnection.getSharepointObject(filePath);
 
-			return new SharepointExtRepositoryFileEntry(fileSharepointObject);
+			return new SharepointWSFileEntry(fileSharepointObject);
 		}
 		catch (SharepointRuntimeException sre) {
 			throw new SystemException(sre);
@@ -117,7 +117,7 @@ public class SharepointWSRepository
 			SharepointObject folderSharepointObject =
 				sharepointConnection.getSharepointObject(folderPath);
 
-			return new SharepointExtRepositoryFolder(folderSharepointObject);
+			return new SharepointWSFolder(folderSharepointObject);
 		}
 		catch (SharepointRuntimeException sre) {
 			throw new SystemException(sre);

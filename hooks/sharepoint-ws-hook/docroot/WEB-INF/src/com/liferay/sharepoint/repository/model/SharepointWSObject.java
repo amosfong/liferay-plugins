@@ -29,10 +29,10 @@ import java.util.Set;
 /**
  * @author Ivan Zaera
  */
-public abstract class SharepointExtRepositoryObject
+public abstract class SharepointWSObject
 	implements ExtRepositoryObject, ExtRepositoryModel {
 
-	public SharepointExtRepositoryObject(SharepointObject sharepointObject) {
+	public SharepointWSObject(SharepointObject sharepointObject) {
 		this.sharepointObject = sharepointObject;
 	}
 
