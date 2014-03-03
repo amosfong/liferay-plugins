@@ -459,26 +459,24 @@ public class SharepointConnectionTest {
 	public void testGetVersions() throws Exception {
 		addSharepointObjects(true, false, false, false);
 
-		String filePath = "/File1 " + _timestamp + ".txt";
+		addFileVersion(_filePath1, _CONTENT_BYE_WORLD, CheckInType.MAJOR);
 
-		addFileVersion(filePath, _CONTENT_BYE_WORLD, CheckInType.MAJOR);
+		addFileVersion(_filePath1, _CONTENT_HELLO_WORLD, CheckInType.MAJOR);
 
-		addFileVersion(filePath, _CONTENT_HELLO_WORLD, CheckInType.MAJOR);
+		addFileVersion(_filePath1, _CONTENT_BYE_WORLD, CheckInType.MAJOR);
 
-		addFileVersion(filePath, _CONTENT_BYE_WORLD, CheckInType.MAJOR);
+		addFileVersion(_filePath1, _CONTENT_HELLO_WORLD, CheckInType.MAJOR);
 
-		addFileVersion(filePath, _CONTENT_HELLO_WORLD, CheckInType.MAJOR);
+		addFileVersion(_filePath1, _CONTENT_BYE_WORLD, CheckInType.MAJOR);
 
-		addFileVersion(filePath, _CONTENT_BYE_WORLD, CheckInType.MAJOR);
+		addFileVersion(_filePath1, _CONTENT_HELLO_WORLD, CheckInType.MAJOR);
 
-		addFileVersion(filePath, _CONTENT_HELLO_WORLD, CheckInType.MAJOR);
+		addFileVersion(_filePath1, _CONTENT_BYE_WORLD, CheckInType.MAJOR);
 
-		addFileVersion(filePath, _CONTENT_BYE_WORLD, CheckInType.MAJOR);
-
-		addFileVersion(filePath, _CONTENT_HELLO_WORLD, CheckInType.MINOR);
+		addFileVersion(_filePath1, _CONTENT_HELLO_WORLD, CheckInType.MINOR);
 
 		List<SharepointVersion> sharepointVersions =
-			_sharepointConnection.getSharepointVersions(filePath);
+			_sharepointConnection.getSharepointVersions(_filePath1);
 
 		Assert.assertEquals(9, sharepointVersions.size());
 
