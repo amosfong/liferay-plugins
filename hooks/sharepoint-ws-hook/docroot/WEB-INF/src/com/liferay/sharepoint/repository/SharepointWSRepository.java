@@ -79,7 +79,7 @@ public class SharepointWSRepository
 			sharepointConnection.addFile(
 				parentfolderPath, title, changeLog, inputStream);
 
-			String filePath = _pathHelper.buildPath(parentfolderPath, title);
+			String filePath = pathHelper.buildPath(parentfolderPath, title);
 
 			SharepointObject fileSharepointObject =
 				sharepointConnection.getSharepointObject(filePath);
@@ -112,7 +112,7 @@ public class SharepointWSRepository
 
 			sharepointConnection.addFolder(parentfolderPath, name);
 
-			String folderPath = _pathHelper.buildPath(parentfolderPath, name);
+			String folderPath = pathHelper.buildPath(parentfolderPath, name);
 
 			SharepointObject folderSharepointObject =
 				sharepointConnection.getSharepointObject(folderPath);
@@ -371,8 +371,7 @@ public class SharepointWSRepository
 
 		if (httpSession != null) {
 			TransientValue<SharepointConnection> transientValue =
-				new TransientValue<SharepointConnection>(
-					sharepointConnection);
+				new TransientValue<SharepointConnection>(sharepointConnection);
 
 			httpSession.setAttribute(_SESSION_KEY, transientValue);
 		}
@@ -386,7 +385,7 @@ public class SharepointWSRepository
 		return Long.valueOf(key);
 	}
 
-	protected static PathHelper _pathHelper = new PathHelper();
+	protected static PathHelper pathHelper = new PathHelper();
 
 	private static final String _CONFIGURATION_WS = "SHAREPOINT_WS";
 
