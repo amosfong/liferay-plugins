@@ -86,7 +86,7 @@ public class SharepointConnectionTest {
 	public void testCheckOutFileThenUpdateFileThenCheckInFile()
 		throws Exception {
 
-		addTestSharepointObjects();
+		addSharepointObjects();
 
 		String filePath = "/File " + _testId + ".txt";
 
@@ -117,7 +117,7 @@ public class SharepointConnectionTest {
 
 	@Test
 	public void testCheckOutThenCancelCheckOut() throws Exception {
-		addTestSharepointObjects();
+		addSharepointObjects();
 
 		String filePath =  "/File " + _testId + ".txt";
 
@@ -138,7 +138,7 @@ public class SharepointConnectionTest {
 
 	@Test
 	public void testCheckOutThenCheckIn() throws Exception {
-		addTestSharepointObjects();
+		addSharepointObjects();
 
 		String filePath =  "/File " + _testId + ".txt";
 
@@ -160,7 +160,7 @@ public class SharepointConnectionTest {
 
 	@Test
 	public void testCopyFile() throws Exception {
-		addTestSharepointObjects();
+		addSharepointObjects();
 
 		String filePath = "/File " + _testId + ".txt";
 
@@ -181,7 +181,7 @@ public class SharepointConnectionTest {
 
 	@Test
 	public void testCopyFolder() throws Exception {
-		addTestSharepointObjects();
+		addSharepointObjects();
 
 		String folderPath = "/Folder " + _testId;
 
@@ -226,7 +226,7 @@ public class SharepointConnectionTest {
 
 	@Test
 	public void testDeleteFile() throws Exception {
-		addTestSharepointObjects();
+		addSharepointObjects();
 
 		String filePath = "/File " + _testId + ".txt";
 
@@ -237,7 +237,7 @@ public class SharepointConnectionTest {
 
 	@Test
 	public void testDeleteFolder() throws Exception {
-		addTestSharepointObjects();
+		addSharepointObjects();
 
 		String folderPath = "/Folder " + _testId;
 
@@ -249,7 +249,7 @@ public class SharepointConnectionTest {
 
 	@Test
 	public void testGetFileByPath() throws Exception {
-		addTestSharepointObjects();
+		addSharepointObjects();
 
 		String fileExtension = "txt";
 
@@ -281,7 +281,7 @@ public class SharepointConnectionTest {
 
 	@Test
 	public void testGetFileByPathAndId() throws Exception {
-		addTestSharepointObjects();
+		addSharepointObjects();
 
 		String filePath = "/File " + _testId + ".txt";
 
@@ -298,7 +298,7 @@ public class SharepointConnectionTest {
 
 	@Test
 	public void testGetFolderByPath() throws Exception {
-		addTestSharepointObjects();
+		addSharepointObjects();
 
 		String folderName = "Folder " + _testId;
 
@@ -328,7 +328,7 @@ public class SharepointConnectionTest {
 
 	@Test
 	public void testGetObjectsCount() throws Exception {
-		addTestSharepointObjects();
+		addSharepointObjects();
 
 		String folderPath = "/Folder " + _testId;
 
@@ -359,7 +359,7 @@ public class SharepointConnectionTest {
 			_sharepointConnection.getSharepointObject(
 				SharepointConnectionImpl.SHAREPOINT_ROOT_FOLDER_ID);
 
-		assertValidRootFolder(rootFolder);
+		assertRootFolder(rootFolder);
 	}
 
 	@Test
@@ -367,12 +367,12 @@ public class SharepointConnectionTest {
 		SharepointObject rootFolder = _sharepointConnection.getSharepointObject(
 			"/");
 
-		assertValidRootFolder(rootFolder);
+		assertRootFolder(rootFolder);
 	}
 
 	@Test
 	public void testGetSharepointObjectInputStream() throws Exception {
-		addTestSharepointObjects();
+		addSharepointObjects();
 
 		String filePath = "/File " + _testId + ".txt";
 
@@ -388,7 +388,7 @@ public class SharepointConnectionTest {
 		Assert.assertEquals(_CONTENT_HELLO_WORLD, sharepointObjectContentString);
 	}
 
-	protected void addTestSharepointObjects()
+	protected void addSharepointObjects()
 		throws IOException, SharepointException {
 
 		String fileName = "File " + _testId + ".txt";
@@ -426,7 +426,7 @@ public class SharepointConnectionTest {
 		_sharepointConnection.addFolder(StringPool.FORWARD_SLASH, folderName2);
 	}
 
-	protected void assertValidRootFolder(SharepointObject rootFolder) {
+	protected void assertRootFolder(SharepointObject rootFolder) {
 		Assert.assertNotNull(rootFolder);
 
 		Assert.assertTrue(rootFolder.isFolder());
