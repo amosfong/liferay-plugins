@@ -346,14 +346,9 @@ public class SharepointWSRepository
 	protected SharepointConnection getSharepointConnection()
 		throws RepositoryException {
 
-		SharepointConnection sharepointConnection =
-			_sharepointConnectionThreadLocal.get();
-
-		if (sharepointConnection != null) {
-			return sharepointConnection;
-		}
-
 		HttpSession httpSession = PortalSessionThreadLocal.getHttpSession();
+
+		SharepointConnection sharepointConnection = null;
 
 		if (httpSession != null) {
 			TransientValue<SharepointConnection> transientValue =
@@ -364,17 +359,22 @@ public class SharepointWSRepository
 				sharepointConnection = transientValue.getValue();
 			}
 		}
+		else {
+			sharepointConnection = _sharepointConnectionThreadLocal.get();
+		}
 
-		if (sharepointConnection == null) {
-			sharepointConnection = buildSharepointConnection();
+		if (sharepointConnection != null) {
+			return sharepointConnection;
+		}
 
-			if (httpSession != null) {
-				TransientValue<SharepointConnection> transientValue =
-					new TransientValue<SharepointConnection>(
-						sharepointConnection);
+		sharepointConnection = buildSharepointConnection();
 
-				httpSession.setAttribute(_SESSION_KEY, transientValue);
-			}
+		if (httpSession != null) {
+			TransientValue<SharepointConnection> transientValue =
+				new TransientValue<SharepointConnection>(
+					sharepointConnection);
+
+			httpSession.setAttribute(_SESSION_KEY, transientValue);
 		}
 
 		_sharepointConnectionThreadLocal.set(sharepointConnection);
