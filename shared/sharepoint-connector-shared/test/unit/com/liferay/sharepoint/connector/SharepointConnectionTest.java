@@ -113,7 +113,7 @@ public class SharepointConnectionTest {
 		InputStream inputStream = _sharepointConnection.getInputStream(
 			sharepointObject);
 
-		String inputStreamString = toString(inputStream);
+		String inputStreamString = getString(inputStream);
 
 		Assert.assertEquals(_CONTENT_BYE_WORLD, inputStreamString);
 	}
@@ -339,7 +339,7 @@ public class SharepointConnectionTest {
 		InputStream inputStream = _sharepointConnection.getInputStream(
 			sharepointObject);
 
-		Assert.assertEquals(_CONTENT_HELLO_WORLD, toString(inputStream));
+		Assert.assertEquals(_CONTENT_HELLO_WORLD, getString(inputStream));
 	}
 
 	@Test
@@ -443,7 +443,7 @@ public class SharepointConnectionTest {
 		return new ByteArrayInputStream(content.getBytes(StringPool.UTF8));
 	}
 
-	protected String toString(InputStream inputStream) throws IOException {
+	protected String getString(InputStream inputStream) throws IOException {
 		byte[] bytes = FileUtil.getBytes(inputStream);
 
 		return new String(bytes, StringPool.UTF8);
