@@ -561,16 +561,15 @@ public class SharepointConnectionTest {
 		Assert.assertNull(
 			_sharepointConnection.getSharepointObject(_filePath1));
 
-		SharepointObject renamedSharepointObject =
+		SharepointObject renamedFileSharepointObject =
 			_sharepointConnection.getSharepointObject(renamedFilePath);
 
-		Assert.assertNotNull(renamedSharepointObject);
-
+		Assert.assertNotNull(renamedFileSharepointObject);
 		Assert.assertEquals(
 			sharepointObjectId,
-			renamedSharepointObject.getSharepointObjectId());
-
-		Assert.assertEquals(renamedFilePath, renamedSharepointObject.getPath());
+			renamedFileSharepointObject.getSharepointObjectId());
+		Assert.assertEquals(
+			renamedFilePath, renamedFileSharepointObject.getPath());
 
 		List<SharepointVersion> renamedFileSharepointVersions =
 			_sharepointConnection.getSharepointVersions(renamedFilePath);
