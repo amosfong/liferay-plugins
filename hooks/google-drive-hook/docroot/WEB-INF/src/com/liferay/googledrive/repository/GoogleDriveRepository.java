@@ -581,7 +581,7 @@ public class GoogleDriveRepository
 	public void initRepository(
 			UnicodeProperties typeSettingsProperties,
 			CredentialsProvider credentialsProvider)
-		throws PortalException, SystemException {
+		throws PortalException {
 
 		getDrive();
 	}
