@@ -377,14 +377,14 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	protected void initCopySoap() {
 		URL wsdlURL = getWSDLURL("copy");
 
-		URL webServiceURL = getServiceURL("copy");
+		URL serviceURL = getServiceURL("copy");
 
 		try {
 			CopyLocator copyLocator = new CopyLocator();
 
 			_copySoap = copyLocator.getCopySoap(wsdlURL);
 
-			configureStub((Stub)_copySoap, webServiceURL);
+			configureStub((Stub)_copySoap, serviceURL);
 		}
 		catch (ServiceException se) {
 			throw new SharepointRuntimeException(
@@ -395,14 +395,14 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	protected void initListsSoap() {
 		URL wsdlURL = getWSDLURL("lists");
 
-		URL webServiceURL = getServiceURL("lists");
+		URL serviceURL = getServiceURL("lists");
 
 		try {
 			ListsLocator listsLocator = new ListsLocator();
 
 			_listsSoap = listsLocator.getListsSoap(wsdlURL);
 
-			configureStub((Stub)_listsSoap, webServiceURL);
+			configureStub((Stub)_listsSoap, serviceURL);
 		}
 		catch (ServiceException se) {
 			throw new SharepointRuntimeException(
@@ -413,14 +413,14 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	protected void initVersionsSoap() {
 		URL wsdlURL = getWSDLURL("versions");
 
-		URL webServiceURL = getServiceURL("versions");
+		URL serviceURL = getServiceURL("versions");
 
 		try {
 			VersionsLocator versionsLocator = new VersionsLocator();
 
 			_versionsSoap = versionsLocator.getVersionsSoap(wsdlURL);
 
-			configureStub((Stub)_versionsSoap, webServiceURL);
+			configureStub((Stub)_versionsSoap, serviceURL);
 		}
 		catch (ServiceException se) {
 			throw new SharepointRuntimeException(
