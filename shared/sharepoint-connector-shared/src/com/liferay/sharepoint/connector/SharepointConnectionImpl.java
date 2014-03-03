@@ -353,10 +353,9 @@ public class SharepointConnectionImpl implements SharepointConnection {
 	}
 
 	protected URL getServiceURL(String serviceName) {
-		URL serviceURL = _sharepointConnectionInfo.getServiceURL();
+		URL url = _sharepointConnectionInfo.getServiceURL();
 	
-		return _urlHelper.toURL(
-			serviceURL + "_vti_bin/" + serviceName + ".asmx");
+		return _urlHelper.toURL(url + "_vti_bin/" + serviceName + ".asmx");
 	}
 
 	protected URL getWSDLURL(String serviceName) {
@@ -365,9 +364,9 @@ public class SharepointConnectionImpl implements SharepointConnection {
 		try {
 			Class<?> clazz = getClass();
 
-			URL wsdlResourceURL = clazz.getResource(name);
+			URL url = clazz.getResource(name);
 
-			return new URL(wsdlResourceURL.toExternalForm());
+			return new URL(url.toExternalForm());
 		}
 		catch (MalformedURLException murle) {
 			throw new SharepointRuntimeException(
