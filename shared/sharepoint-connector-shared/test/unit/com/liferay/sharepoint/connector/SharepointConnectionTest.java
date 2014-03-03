@@ -186,12 +186,12 @@ public class SharepointConnectionTest {
 
 		String folderPath = "/Folder1 " + _timestamp;
 
-		Assert.assertNull(
-			_sharepointConnection.getSharepointObject(folderPath));
-
 		String copiedFolderPath =
 			"/Folder2 " + _timestamp + "/CopiedFolder " +
 				_timestamp;
+
+		Assert.assertNull(
+			_sharepointConnection.getSharepointObject(copiedFolderPath));
 
 		_sharepointConnection.copySharepointObject(
 			folderPath, copiedFolderPath);
