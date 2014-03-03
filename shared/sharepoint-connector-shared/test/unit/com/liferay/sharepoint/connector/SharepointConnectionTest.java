@@ -181,7 +181,6 @@ public class SharepointConnectionTest {
 		addSharepointObjects();
 
 		String folderPath = "/Folder " + _testId;
-
 		String copiedFolderPath =
 			"/Folder2 " + _testId + "/CopiedFolder " + _testId;
 
@@ -191,31 +190,24 @@ public class SharepointConnectionTest {
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
 				folderPath + "/SubFile " + _testId + ".txt"));
-
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
 				folderPath + "/SubFile2 " + _testId + ".txt"));
-
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
 				folderPath + "/SubFolder " + _testId));
-
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
 				folderPath + "/SubFolder2 " + _testId));
-
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
 				copiedFolderPath + "/SubFile " + _testId + ".txt"));
-
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
 				copiedFolderPath + "/SubFile2 " + _testId + ".txt"));
-
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
 				copiedFolderPath + "/SubFolder " + _testId));
-
 		Assert.assertNotNull(
 			_sharepointConnection.getSharepointObject(
 				copiedFolderPath + "/SubFolder2 " + _testId));
