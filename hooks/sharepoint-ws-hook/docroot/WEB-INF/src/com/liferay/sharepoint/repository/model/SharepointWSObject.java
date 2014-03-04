@@ -99,10 +99,9 @@ public abstract class SharepointWSObject
 
 	protected SharepointObject sharepointObject;
 
-	private static final Map<ExtRepositoryPermission, Permission>
-		_permissions =
-			new EnumMap<ExtRepositoryPermission, Permission>(
-				ExtRepositoryPermission.class);
+	private static Map<ExtRepositoryPermission, Permission> _permissions =
+		new EnumMap<ExtRepositoryPermission, Permission>(
+			ExtRepositoryPermission.class);
 
 	static {
 		_permissions.put(
@@ -122,12 +121,11 @@ public abstract class SharepointWSObject
 	}
 
 	private static Set<ExtRepositoryPermission>
-		_unsupportedExtRepositoryPermissions =
-			EnumSet.of(
-				ExtRepositoryPermission.ADD_DISCUSSION,
-				ExtRepositoryPermission.UPDATE_DISCUSSION,
-				ExtRepositoryPermission.DELETE_DISCUSSION,
-				ExtRepositoryPermission.ADD_SHORTCUT,
-				ExtRepositoryPermission.PERMISSIONS);
+		_unsupportedExtRepositoryPermissions = EnumSet.of(
+			ExtRepositoryPermission.ADD_DISCUSSION,
+			ExtRepositoryPermission.UPDATE_DISCUSSION,
+			ExtRepositoryPermission.DELETE_DISCUSSION,
+			ExtRepositoryPermission.ADD_SHORTCUT,
+			ExtRepositoryPermission.PERMISSIONS);
 
 }
