@@ -123,9 +123,9 @@ public abstract class SharepointWSObject
 	private static Set<ExtRepositoryPermission>
 		_unsupportedExtRepositoryPermissions = EnumSet.of(
 			ExtRepositoryPermission.ADD_DISCUSSION,
-			ExtRepositoryPermission.UPDATE_DISCUSSION,
-			ExtRepositoryPermission.DELETE_DISCUSSION,
 			ExtRepositoryPermission.ADD_SHORTCUT,
-			ExtRepositoryPermission.PERMISSIONS);
+			ExtRepositoryPermission.DELETE_DISCUSSION,
+			ExtRepositoryPermission.PERMISSIONS,
+			ExtRepositoryPermission.UPDATE_DISCUSSION);
 
 }
