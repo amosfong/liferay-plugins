@@ -220,7 +220,7 @@ if (useDefaultRestartOptions) {
 					Arrays.sort(portletIds);
 
 					for (Portlet corePortlet : SPIAdminUtil.getCorePortlets()) {
-						if ((Arrays.binarySearch(portletIds, corePortlet.getPortletId()) < 0) && !allUsedPortletIds.contains(corePortlet)) {
+						if ((Arrays.binarySearch(portletIds, corePortlet.getPortletId()) < 0) && !allUsedPortletIds.contains(corePortlet.getPortletId())) {
 							rightList.add(new KeyValuePair(corePortlet.getPortletId(), PortalUtil.getPortletTitle(corePortlet, ServletContextPool.get(PortalUtil.getPathContext()), locale)));
 						}
 					}
