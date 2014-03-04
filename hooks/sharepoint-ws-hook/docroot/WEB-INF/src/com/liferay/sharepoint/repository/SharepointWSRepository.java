@@ -21,6 +21,7 @@ import com.liferay.portal.kernel.search.Query;
 import com.liferay.portal.kernel.search.SearchContext;
 import com.liferay.portal.kernel.servlet.PortalSessionThreadLocal;
 import com.liferay.portal.kernel.util.AutoResetThreadLocal;
+import com.liferay.portal.kernel.util.GetterUtil;
 import com.liferay.portal.kernel.util.TransientValue;
 import com.liferay.portal.kernel.util.UnicodeProperties;
 import com.liferay.portal.model.CompanyConstants;
@@ -352,7 +353,8 @@ public class SharepointWSRepository
 		if (httpSession != null) {
 			TransientValue<SharepointConnection> transientValue =
 				(TransientValue<SharepointConnection>)
-					httpSession.getAttribute(_SESSION_KEY);
+					httpSession.getAttribute(
+						SharepointWSRepository.class.getName());
 
 			if (transientValue != null) {
 				sharepointConnection = transientValue.getValue();
@@ -372,7 +374,8 @@ public class SharepointWSRepository
 			TransientValue<SharepointConnection> transientValue =
 				new TransientValue<SharepointConnection>(sharepointConnection);
 
-			httpSession.setAttribute(_SESSION_KEY, transientValue);
+			httpSession.setAttribute(
+				SharepointWSRepository.class.getName(), transientValue);
 		}
 
 		_sharepointConnectionThreadLocal.set(sharepointConnection);
@@ -381,7 +384,7 @@ public class SharepointWSRepository
 	}
 
 	protected long toSharepointObjectId(String key) {
-		return Long.valueOf(key);
+		return GetterUtil.getLong(key);
 	}
 
 	protected static PathHelper pathHelper = new PathHelper();
@@ -389,9 +392,6 @@ public class SharepointWSRepository
 	private static final String _CONFIGURATION_WS = "SHAREPOINT_WS";
 
 	private static final String _LIBRARY_NAME = "LIBRARY_NAME";
-
-	private static final String _SESSION_KEY =
-		SharepointWSRepository.class.getName() + ".connection";
 
 	private static final String _SITE_URL = "SITE_URL";
 
