@@ -46,10 +46,9 @@ public abstract class SharepointWSObject
 			return false;
 		}
 
-		Permission sharepointPermission = _extRepositoryPermissionMap.get(
-			extRepositoryPermission);
+		Permission permission = _permissions.get(extRepositoryPermission);
 
-		if (sharepointPermission == null) {
+		if (permission == null) {
 			throw new UnsupportedOperationException(
 				"Unsupported permission " + extRepositoryPermission);
 		}
@@ -57,7 +56,7 @@ public abstract class SharepointWSObject
 		Set<Permission> sharepointObjectPermissions =
 			sharepointObject.getPermissions();
 
-		return sharepointObjectPermissions.contains(sharepointPermission);
+		return sharepointObjectPermissions.contains(permission);
 	}
 
 	@Override
@@ -102,24 +101,24 @@ public abstract class SharepointWSObject
 	protected SharepointObject sharepointObject;
 
 	private static final Map<ExtRepositoryPermission, Permission>
-		_extRepositoryPermissionMap =
+		_permissions =
 			new EnumMap<ExtRepositoryPermission, Permission>(
 				ExtRepositoryPermission.class);
 
 	static {
-		_extRepositoryPermissionMap.put(
+		_permissions.put(
 			ExtRepositoryPermission.ACCESS, Permission.VIEW_LIST_ITEMS);
-		_extRepositoryPermissionMap.put(
+		_permissions.put(
 			ExtRepositoryPermission.ADD_DOCUMENT, Permission.ADD_LIST_ITEMS);
-		_extRepositoryPermissionMap.put(
+		_permissions.put(
 			ExtRepositoryPermission.ADD_FOLDER, Permission.ADD_LIST_ITEMS);
-		_extRepositoryPermissionMap.put(
+		_permissions.put(
 			ExtRepositoryPermission.ADD_SUBFOLDER, Permission.ADD_LIST_ITEMS);
-		_extRepositoryPermissionMap.put(
+		_permissions.put(
 			ExtRepositoryPermission.DELETE, Permission.DELETE_LIST_ITEMS);
-		_extRepositoryPermissionMap.put(
+		_permissions.put(
 			ExtRepositoryPermission.UPDATE, Permission.EDIT_LIST_ITEMS);
-		_extRepositoryPermissionMap.put(
+		_permissions.put(
 			ExtRepositoryPermission.VIEW, Permission.VIEW_LIST_ITEMS);
 	}
 
