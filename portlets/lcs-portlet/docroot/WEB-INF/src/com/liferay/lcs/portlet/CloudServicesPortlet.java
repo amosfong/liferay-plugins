@@ -20,6 +20,7 @@ import com.liferay.lcs.util.HandshakeManagerUtil;
 import com.liferay.lcs.util.LCSClusterNodeUtil;
 import com.liferay.lcs.util.LCSConstants;
 import com.liferay.lcs.util.LCSUtil;
+import com.liferay.osb.lcs.LCSClusterEntryNameException;
 import com.liferay.osb.lcs.model.CorpEntryIdentifier;
 import com.liferay.osb.lcs.model.LCSClusterEntry;
 import com.liferay.osb.lcs.service.CorpEntryServiceUtil;
@@ -104,11 +105,18 @@ public class CloudServicesPortlet extends MVCPortlet {
 			}
 		}
 		catch (Exception e) {
-			_log.error(e, e);
-
 			JSONObject jsonObject = JSONFactoryUtil.createJSONObject();
 
 			jsonObject.put("result", "failure");
+
+			if (e instanceof LCSClusterEntryNameException) {
+				jsonObject.put("message", e.getMessage());
+
+				_log.error(e.getMessage());
+			}
+			else {
+				_log.error(e, e);
+			}
 
 			writeJSON(resourceRequest, resourceResponse, jsonObject);
 		}
