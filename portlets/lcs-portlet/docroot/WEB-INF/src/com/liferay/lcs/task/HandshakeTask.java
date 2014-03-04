@@ -189,7 +189,10 @@ public class HandshakeTask implements Runnable {
 				_cacheMetricsTask, 60000, 60000, TimeUnit.MILLISECONDS));
 		scheduledFutures.add(
 			_scheduledExecutorService.scheduleAtFixedRate(
-				_commandMessageTask, 10000, 10000, TimeUnit.MILLISECONDS));
+				_commandMessageTask,
+				LCSConstants.COMMAND_MESSAGE_TASK_SCHEDULE_PERIOD,
+				LCSConstants.COMMAND_MESSAGE_TASK_SCHEDULE_PERIOD,
+				TimeUnit.SECONDS));
 		scheduledFutures.add(
 			_scheduledExecutorService.scheduleAtFixedRate(
 				_heartbeatTask, _heartbeatInterval, _heartbeatInterval,
