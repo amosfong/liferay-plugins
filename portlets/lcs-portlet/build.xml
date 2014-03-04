@@ -45,6 +45,7 @@
 
 	<target name="clean">
 		<delete failonerror="false" includeemptydirs="true">
+			<fileset dir="docroot/WEB-INF/src/com/liferay/osb/lcs" includes="*Exception.java" />
 			<fileset dir="docroot/WEB-INF/src/com/liferay/osb/lcs/model" includes="*.java" />
 			<fileset dir="docroot/WEB-INF/src/com/liferay/osb/lcs/service" includes="*Service.java" />
 			<fileset dir="docroot/WEB-INF/src/META-INF" includes="portlet-model-hints*.xml" />
@@ -63,6 +64,7 @@
 				<include name="**/*CorpEntryIdentifier.java" />
 				<include name="**/*CorpEntryService.java" />
 				<include name="**/*LCSClusterEntry.java" />
+				<include name="**/*LCSClusterEntryNameException.java" />
 				<include name="**/*LCSClusterEntryModel.java" />
 				<include name="**/*LCSClusterEntryService.java" />
 				<include name="**/*LCSClusterNode.java" />
