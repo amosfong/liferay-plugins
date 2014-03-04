@@ -22,15 +22,19 @@ import com.liferay.portal.kernel.xml.Document;
 import com.liferay.portal.kernel.xml.Element;
 import com.liferay.portal.kernel.xml.SAXReaderUtil;
 import com.liferay.portal.model.Group;
+import com.liferay.portal.security.ac.AccessControlled;
 import com.liferay.portal.security.auth.PrincipalException;
 import com.liferay.portlet.dynamicdatalists.model.DDLRecord;
 import com.liferay.portlet.dynamicdatalists.model.DDLRecordSet;
+import com.liferay.portlet.dynamicdatalists.service.DDLRecordSetLocalServiceUtil;
 import com.liferay.portlet.dynamicdatamapping.storage.Fields;
 import com.liferay.portlet.journal.NoSuchArticleException;
 import com.liferay.portlet.journal.model.JournalArticle;
 import com.liferay.skinny.model.SkinnyDDLRecord;
 import com.liferay.skinny.model.SkinnyJournalArticle;
 import com.liferay.skinny.service.base.SkinnyServiceBaseImpl;
+
+import java.io.Serializable;
 
 import java.text.Format;
 
@@ -46,15 +50,19 @@ import java.util.Set;
 public class SkinnyServiceImpl extends SkinnyServiceBaseImpl {
 
 	@Override
+	@AccessControlled(guestAccessEnabled = true)
 	public List<SkinnyDDLRecord> getSkinnyDDLRecords(long ddlRecordSetId)
 		throws Exception {
 
 		List<SkinnyDDLRecord> skinnyDDLRecords =
 			new ArrayList<SkinnyDDLRecord>();
 
-		try {
-			DDLRecordSet ddlRecordSet = ddlRecordSetService.getRecordSet(
-				ddlRecordSetId);
+		DDLRecordSet ddlRecordSet = ddlRecordSetLocalService.getRecordSet(
+			ddlRecordSetId);
+
+		if (getPermissionChecker().hasPermission(
+				ddlRecordSet.getGroupId(), DDLRecordSet.class.getName(),
+				ddlRecordSet.getRecordSetId(), "VIEW")) {
 
 			for (DDLRecord ddlRecord : ddlRecordSet.getRecords()) {
 				SkinnyDDLRecord skinnyDDLRecord = getSkinnyDDLRecord(ddlRecord);
@@ -62,13 +70,12 @@ public class SkinnyServiceImpl extends SkinnyServiceBaseImpl {
 				skinnyDDLRecords.add(skinnyDDLRecord);
 			}
 		}
-		catch (PrincipalException pe) {
-		}
 
 		return skinnyDDLRecords;
 	}
 
 	@Override
+	@AccessControlled(guestAccessEnabled = true)
 	public List<SkinnyJournalArticle> getSkinnyJournalArticles(
 			long companyId, String groupName, String journalStructureId,
 			String locale)
@@ -93,19 +100,22 @@ public class SkinnyServiceImpl extends SkinnyServiceBaseImpl {
 			journalArticleIds.add(journalArticle.getArticleId());
 
 			try {
-				JournalArticle latestJournalArticle =
-					journalArticleService.getLatestArticle(
-						group.getGroupId(), journalArticle.getArticleId(),
-						WorkflowConstants.STATUS_APPROVED);
+				if (getPermissionChecker().hasPermission(
+						group.getGroupId(), JournalArticle.class.getName(),
+						journalArticle.getResourcePrimKey(), "VIEW")) {
 
-				SkinnyJournalArticle skinnyJournalArticle =
-					getSkinnyJournalArticle(latestJournalArticle, locale);
+							JournalArticle latestJournalArticle =
+								journalArticleLocalService.getLatestArticle(
+									group.getGroupId(), journalArticle.getArticleId(),
+									WorkflowConstants.STATUS_APPROVED);
 
-				skinnyJournalArticles.add(skinnyJournalArticle);
+							SkinnyJournalArticle skinnyJournalArticle =
+								getSkinnyJournalArticle(latestJournalArticle, locale);
+
+							skinnyJournalArticles.add(skinnyJournalArticle);
+				}
 			}
 			catch (NoSuchArticleException nsae) {
-			}
-			catch (PrincipalException pe) {
 			}
 		}
 
@@ -120,14 +130,18 @@ public class SkinnyServiceImpl extends SkinnyServiceBaseImpl {
 		Fields fields = ddlRecord.getFields();
 
 		for (String fieldName : fields.getNames()) {
-			String fieldValue = GetterUtil.getString(
-				ddlRecord.getFieldValue(fieldName));
+
+			Serializable rawFieldValue = ddlRecord.getFieldValue(fieldName);
+
+			String fieldValue = GetterUtil.getString(rawFieldValue);
 
 			String fieldDataType = GetterUtil.getString(
 				ddlRecord.getFieldDataType(fieldName));
 
 			if (fieldDataType.equals("date")) {
-				fieldValue = _format.format(fieldValue);
+				fieldValue = _format.format(rawFieldValue);
+			} else if (fieldDataType.equals("boolean")) {
+				fieldValue = Boolean.toString(GetterUtil.getBoolean(rawFieldValue));
 			}
 
 			skinnyDDLRecord.addDynamicElement(fieldName, fieldValue);
