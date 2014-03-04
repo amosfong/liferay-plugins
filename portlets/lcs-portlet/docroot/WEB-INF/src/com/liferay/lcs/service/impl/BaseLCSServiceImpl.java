@@ -16,6 +16,7 @@ package com.liferay.lcs.service.impl;
 
 import com.liferay.lcs.json.BaseJSONWebServiceClientHandler;
 import com.liferay.lcs.json.JSONWebServiceClient;
+import com.liferay.lcs.json.jabsorb.serializer.MessageSerializer;
 import com.liferay.portal.kernel.json.JSONException;
 
 import org.jabsorb.JSONSerializer;
@@ -31,6 +32,8 @@ public class BaseLCSServiceImpl extends BaseJSONWebServiceClientHandler {
 	public BaseLCSServiceImpl() {
 		try {
 			_jsonSerializer.registerDefaultSerializers();
+
+			_jsonSerializer.registerSerializer(new MessageSerializer());
 		}
 		catch (Exception e) {
 			throw new RuntimeException(e);
