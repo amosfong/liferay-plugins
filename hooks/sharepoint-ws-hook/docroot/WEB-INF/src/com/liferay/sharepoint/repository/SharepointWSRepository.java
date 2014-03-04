@@ -119,11 +119,11 @@ public class SharepointWSRepository
 
 			return new SharepointWSFolder(folderSharepointObject);
 		}
-		catch (SharepointRuntimeException sre) {
-			throw new SystemException(sre);
-		}
 		catch (SharepointException se) {
 			throw new PortalException(se);
+		}
+		catch (SharepointRuntimeException sre) {
+			throw new SystemException(sre);
 		}
 	}
 
