@@ -15,9 +15,11 @@
 package com.liferay.osb.lcs.service.impl;
 
 import com.liferay.lcs.service.impl.BaseLCSServiceImpl;
+import com.liferay.osb.lcs.LCSClusterEntryNameException;
 import com.liferay.osb.lcs.model.LCSClusterEntry;
 import com.liferay.osb.lcs.model.impl.LCSClusterEntryImpl;
 import com.liferay.osb.lcs.service.LCSClusterEntryService;
+import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.util.Validator;
 import com.liferay.portal.service.ServiceContext;
@@ -36,7 +38,9 @@ public class LCSClusterEntryServiceImpl
 	public LCSClusterEntry addLCSClusterEntry(
 			long corpEntryId, String name, String description, String location,
 			int type, ServiceContext serviceContext)
-		throws SystemException {
+		throws PortalException, SystemException {
+
+		_validate(corpEntryId, name);
 
 		if (Validator.isNull(description)) {
 			description = null;
@@ -167,6 +171,25 @@ public class LCSClusterEntryServiceImpl
 		String location) {
 
 		throw new UnsupportedOperationException();
+	}
+
+	private void _validate(long corpEntryId, String lcsClusterEntryName)
+		throws PortalException, SystemException {
+
+		if (Validator.isNull(lcsClusterEntryName)) {
+			throw new LCSClusterEntryNameException(
+				"Environment must have valid name.");
+		}
+
+		List<LCSClusterEntry> lcsClusterEntries = getCorpEntryLCSClusterEntries(
+			corpEntryId);
+
+		for (LCSClusterEntry lcsClusterEntry : lcsClusterEntries) {
+			if (lcsClusterEntryName.equals(lcsClusterEntry.getName())) {
+				throw new LCSClusterEntryNameException(
+					"Environment with given name exists.");
+			}
+		}
 	}
 
 	private static final String _URL_LCS_CLUSTER_ENTRY =
