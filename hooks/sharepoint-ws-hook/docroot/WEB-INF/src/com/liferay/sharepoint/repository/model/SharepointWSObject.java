@@ -53,10 +53,9 @@ public abstract class SharepointWSObject
 				"Unsupported permission " + extRepositoryPermission);
 		}
 
-		Set<Permission> sharepointObjectPermissions =
-			sharepointObject.getPermissions();
+		Set<Permission> permissions = sharepointObject.getPermissions();
 
-		return sharepointObjectPermissions.contains(permission);
+		return permissions.contains(permission);
 	}
 
 	@Override
