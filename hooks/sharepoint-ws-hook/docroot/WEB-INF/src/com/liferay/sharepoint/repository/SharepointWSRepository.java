@@ -345,9 +345,9 @@ public class SharepointWSRepository
 	protected SharepointConnection getSharepointConnection()
 		throws RepositoryException {
 
-		HttpSession httpSession = PortalSessionThreadLocal.getHttpSession();
-
 		SharepointConnection sharepointConnection = null;
+
+		HttpSession httpSession = PortalSessionThreadLocal.getHttpSession();
 
 		if (httpSession != null) {
 			TransientValue<SharepointConnection> transientValue =

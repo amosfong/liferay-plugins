@@ -876,9 +876,9 @@ public class GoogleDriveRepository
 	protected GoogleDriveSession getGoogleDriveSession()
 		throws PortalException {
 
-		HttpSession httpSession = PortalSessionThreadLocal.getHttpSession();
-
 		GoogleDriveSession googleDriveSession = null;
+
+		HttpSession httpSession = PortalSessionThreadLocal.getHttpSession();
 
 		if (httpSession != null) {
 			TransientValue<GoogleDriveSession> transientValue =
