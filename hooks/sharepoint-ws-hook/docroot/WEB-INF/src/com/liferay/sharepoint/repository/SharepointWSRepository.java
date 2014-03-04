@@ -338,7 +338,7 @@ public class SharepointWSRepository
 		}
 		catch (SharepointRuntimeException sre) {
 			throw new RepositoryException(
-				"Unable to connect to repository", sre);
+				"Unable to communicate with the Sharepoint server", sre);
 		}
 	}
 
