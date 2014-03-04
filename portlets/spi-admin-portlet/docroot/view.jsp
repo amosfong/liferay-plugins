@@ -1,3 +1,4 @@
+<%@ page import="com.liferay.portal.kernel.util.StringBundler" %>
 <%--
 /**
  * Copyright (c) 2000-2013 Liferay, Inc. All rights reserved.
@@ -71,11 +72,29 @@ List<SPIDefinition> spiDefinitions = SPIDefinitionServiceUtil.getSPIDefinitions(
 			name="description"
 		/>
 
+		<%
+
+		StringBundler applicationNamesSB = new StringBundler();
+		applicationNamesSB.append(spiDefinition.getServletContextNames());
+
+		String portletIds = spiDefinition.getPortletIds();
+
+		for (String portletId : StringUtil.split(portletIds)) {
+			applicationNamesSB.append(StringPool.COMMA);
+
+			applicationNamesSB.append(StringPool.SPACE);
+
+			applicationNamesSB.append(
+				PortalUtil.getPortletTitle(portletId, locale));
+		}
+
+		%>
+
 		<liferay-ui:search-container-column-text
 			cssClass="spi-applications-column"
 			href="<%= rowURL %>"
 			name="applications"
-			value="<%= spiDefinition.getServletContextNames() %>"
+			value="<%= applicationNamesSB.toString() %>"
 		/>
 
 		<liferay-ui:search-container-column-text
