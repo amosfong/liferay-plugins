@@ -74,12 +74,12 @@ public class SharepointWSRepository
 				sharepointConnection.getSharepointObject(
 					toSharepointObjectId(extRepositoryParentFolderKey));
 
-			String parentfolderPath = parentFolderSharepointObject.getPath();
+			String parentFolderPath = parentFolderSharepointObject.getPath();
 
 			sharepointConnection.addFile(
-				parentfolderPath, title, changeLog, inputStream);
+				parentFolderPath, title, changeLog, inputStream);
 
-			String filePath = pathHelper.buildPath(parentfolderPath, title);
+			String filePath = pathHelper.buildPath(parentFolderPath, title);
 
 			SharepointObject fileSharepointObject =
 				sharepointConnection.getSharepointObject(filePath);
