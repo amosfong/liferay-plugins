@@ -64,8 +64,8 @@
 				<include name="**/*CorpEntryIdentifier.java" />
 				<include name="**/*CorpEntryService.java" />
 				<include name="**/*LCSClusterEntry.java" />
-				<include name="**/*LCSClusterEntryNameException.java" />
 				<include name="**/*LCSClusterEntryModel.java" />
+				<include name="**/*LCSClusterEntryNameException.java" />
 				<include name="**/*LCSClusterEntryService.java" />
 				<include name="**/*LCSClusterNode.java" />
 				<include name="**/*LCSClusterNodeModel.java" />

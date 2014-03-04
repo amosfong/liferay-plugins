@@ -40,7 +40,7 @@ public class LCSClusterEntryServiceImpl
 			int type, ServiceContext serviceContext)
 		throws PortalException, SystemException {
 
-		_validate(corpEntryId, name);
+		validate(corpEntryId, name);
 
 		if (Validator.isNull(description)) {
 			description = null;
@@ -173,12 +173,11 @@ public class LCSClusterEntryServiceImpl
 		throw new UnsupportedOperationException();
 	}
 
-	private void _validate(long corpEntryId, String lcsClusterEntryName)
+	protected void validate(long corpEntryId, String lcsClusterEntryName)
 		throws PortalException, SystemException {
 
 		if (Validator.isNull(lcsClusterEntryName)) {
-			throw new LCSClusterEntryNameException(
-				"Environment must have valid name.");
+			throw new LCSClusterEntryNameException();
 		}
 
 		List<LCSClusterEntry> lcsClusterEntries = getCorpEntryLCSClusterEntries(
@@ -186,8 +185,7 @@ public class LCSClusterEntryServiceImpl
 
 		for (LCSClusterEntry lcsClusterEntry : lcsClusterEntries) {
 			if (lcsClusterEntryName.equals(lcsClusterEntry.getName())) {
-				throw new LCSClusterEntryNameException(
-					"Environment with given name exists.");
+				throw new LCSClusterEntryNameException();
 			}
 		}
 	}
