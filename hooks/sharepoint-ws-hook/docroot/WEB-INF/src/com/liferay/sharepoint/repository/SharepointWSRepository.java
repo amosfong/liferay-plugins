@@ -395,13 +395,11 @@ public class SharepointWSRepository
 
 	private static final String _SITE_URL = "SITE_URL";
 
-	private static final String[] _SUPPORTED_CONFIGURATIONS = {
-		_CONFIGURATION_WS
-	};
+	private static final String[] _SUPPORTED_CONFIGURATIONS =
+		{_CONFIGURATION_WS};
 
-	private static final String[][] _SUPPORTED_PARAMETERS = {
-		{_SITE_URL, _LIBRARY_NAME}
-	};
+	private static final String[][] _SUPPORTED_PARAMETERS =
+		{{_SITE_URL, _LIBRARY_NAME}};
 
 	private CredentialsProvider _credentialsProvider;
 	private String _host;
