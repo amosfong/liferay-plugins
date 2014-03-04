@@ -342,7 +342,6 @@ public class SharepointWSRepository
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	protected SharepointConnection getSharepointConnection()
 		throws RepositoryException {
 
