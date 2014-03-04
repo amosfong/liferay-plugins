@@ -72,21 +72,16 @@ List<SPIDefinition> spiDefinitions = SPIDefinitionServiceUtil.getSPIDefinitions(
 		/>
 
 		<%
-
 		StringBundler applicationNamesSB = new StringBundler();
+
 		applicationNamesSB.append(spiDefinition.getServletContextNames());
 
 		String portletIds = spiDefinition.getPortletIds();
 
 		for (String portletId : StringUtil.split(portletIds)) {
-			applicationNamesSB.append(StringPool.COMMA);
-
-			applicationNamesSB.append(StringPool.SPACE);
-
-			applicationNamesSB.append(
-				PortalUtil.getPortletTitle(portletId, locale));
+			applicationNamesSB.append(StringPool.COMMA_AND_SPACE);
+			applicationNamesSB.append(PortalUtil.getPortletTitle(portletId, locale));
 		}
-
 		%>
 
 		<liferay-ui:search-container-column-text
