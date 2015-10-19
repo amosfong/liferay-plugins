@@ -1,0 +1,6 @@
+Bundle-Name: Example API
+Bundle-SymbolicName: com.liferay.docs.exampleapi
+Bundle-Version: 1.0.0
+Import-Package: com.liferay.portal.kernel.app,*
+Export-Package: com.liferay.docs.exampleapi
+Private-Package: com.liferay.portal.kernel.apptest,com.liferay.portal.kernel.apptest.servlet.filters
